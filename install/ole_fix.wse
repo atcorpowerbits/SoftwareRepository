@@ -1,0 +1,43 @@
+Document Type: WSE
+item: Global
+  Version=9.0
+  Flags=00000100
+  Languages=65 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+  Japanese Font Name=MS Gothic
+  Japanese Font Size=9
+  Progress Bar DLL=%_WISE_%\Progress\WizWin32a.DLL
+  Start Gradient=0 0 255
+  End Gradient=0 0 0
+  Windows Flags=00000100000000010010110000001000
+  Message Font=MS Sans Serif
+  Font Size=8
+  Pages Modified=00100000000000000000000000000000
+  Disk Label=Default
+  Disk Filename=SETUP
+  Patch Flags=0000000000000001
+  Patch Threshold=85
+  Patch Memory=4000
+  MIF PDF Version=1.0
+  MIF SMS Version=2.0
+  FTP Cluster Size=20
+  Dialogs Version=7
+  Crystal Format=10111100101100000010001001001001
+  Step View=Properties
+  Variable Name1=_SYS_
+  Variable Default1=C:\WINDOWS\system32
+  Variable Flags1=00001000
+  Variable Name2=_WIN_
+  Variable Default2=C:\WINDOWS
+  Variable Flags2=00001000
+  Variable Name3=_WISE_
+  Variable Default3=C:\Program Files\Wise Installation System
+  Variable Flags3=00001000
+end
+item: Edit Registry
+  Total Keys=1
+  Key=CLSID\{dee35070-506b-11cf-b1aa-00aa00b8de95}
+  New Value=4294967295
+  New Value=
+  Value Name=OLEDB_SERVICES
+  Data Type=3
+end

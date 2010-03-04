@@ -1,0 +1,185 @@
+***  Installation Started 02/16/2010 14:59  ***
+Title: 
+Source: K:\projects\016-S2000V9\install\setup.exe | 02-16-2010 | 13:53:24 | 20093790
+RegDB Key: SOFTWARE\Microsoft\Shared Tools\DAO
+RegDB Val: C:\Program Files\Common Files\Microsoft Shared\DAO
+RegDB Name: Path
+RegDB Root: 2
+RegDB Old: C:\Program Files\Common Files\Microsoft Shared\DAO
+File Overwrite: C:\Windows\System32\MSJTER35.DLL | 08-09-2001 | 23:50:18 | 3.51.623.0 | 24848 | 588917f7
+File Overwrite: C:\Windows\System32\MSJINT35.DLL | 08-09-2001 | 23:50:16 | 3.51.623.0 | 123664 | d380be84
+File Overwrite: C:\Windows\System32\Vb5db.dll | 06-18-1998 | 01:00:00 | 6.0.81.69 | 89360 | f8ab61a8
+File Overwrite: C:\Windows\System32\vbar332.dll | 11-08-1996 | 02:48:12 | 3.0.0.6908 | 368912 | eb50c13f
+File Overwrite: C:\Program Files\Common Files\microsoft shared\DAO\Dao35.cnt | 08-09-2001 | 23:49:28 | | 6117 | 8183506
+File Overwrite: C:\Program Files\Common Files\microsoft shared\DAO\Dao35.hlp | 08-09-2001 | 23:49:52 | | 649868 | 6a3c164b
+File Overwrite: C:\Program Files\Common Files\microsoft shared\DAO\DAO350.DLL | 08-09-2001 | 23:50:12 | 3.51.1608.0 | 570128 | c77c46f4
+Date/Time: Following file not copied.
+File Overwrite: C:\Program Files\Common Files\microsoft shared\DAO\DAO2535.TLB | 08-09-2001 | 23:49:26 | | 73184 | 7ffc4f9d
+File Overwrite: C:\Windows\System32\msjet35.dll | 08-09-2001 | 23:53:22 | 3.51.2723.0 | 1046288 | 49d9d1fa
+File Copy: C:\AtCor\SphygmoCor CvMS V9\UNWISE.EXE | 09-28-2001 | 18:00:28 | | 164864 | acd7a536
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SphygmoCor Cardiovascular Management Suite
+RegDB Val: SphygmoCor Cardiovascular Management Suite
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Old: SphygmoCor Cardiovascular Management Suite
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SphygmoCor Cardiovascular Management Suite
+RegDB Val: C:\AtCor\SPHYGM~1\UNWISE.EXE C:\AtCor\SPHYGM~1\INSTALL.LOG
+RegDB Name: UninstallString
+RegDB Root: 2
+RegDB Old: C:\AtCor\SPHYGM~2\UNWISE.EXE C:\AtCor\SPHYGM~2\INSTALL.LOG
+Made Dir: C:\AtCor\SphygmoCor CvMS V9\EMROutput
+File Copy: C:\AtCor\SphygmoCor CvMS V9\scor.exe | 02-11-2010 | 15:45:00 | 9.0.1.1 | 12040704 | ee5cbc58
+File Copy: C:\AtCor\SphygmoCor CvMS V9\borlndmm6.dll | 02-02-2002 | 01:00:00 | 6.0.10.157 | 22016 | 66d1c1d9
+File Copy: C:\AtCor\SphygmoCor CvMS V9\cc3260mt.dll | 02-02-2002 | 01:00:00 | 6.0.0.0 | 1497088 | 3bb5296d
+File Copy: C:\AtCor\SphygmoCor CvMS V9\fftw3.dll | 11-13-2003 | 11:02:36 | | 1921024 | 6b5e63b8
+File Copy: C:\AtCor\SphygmoCor CvMS V9\pwa.dat | 10-20-2009 | 12:02:58 | | 3101 | fbcbeb6e
+File Copy: C:\AtCor\SphygmoCor CvMS V9\pwvsitea.dat | 05-24-2006 | 14:55:34 | | 17679 | ab8e5c58
+File Copy: C:\AtCor\SphygmoCor CvMS V9\pwvsiteb.dat | 05-24-2006 | 14:55:42 | | 17521 | 8bbf95cc
+File Copy: C:\AtCor\SphygmoCor CvMS V9\pwm.dat | 04-17-2001 | 11:35:28 | | 212445 | 907a8ab2
+File Copy: C:\AtCor\SphygmoCor CvMS V9\hrv.dat | 09-10-2003 | 06:52:00 | | 3741588 | 81cabd3d
+File Copy: C:\AtCor\SphygmoCor CvMS V9\ScorPrivacyImg.jpg | 10-21-2009 | 03:47:28 | | 87869 | 53cd55f7
+Made Dir: C:\AtCor\SphygmoCor CvMS V9\export
+Made Dir: C:\AtCor\SphygmoCor CvMS V9\online_manuals
+File Copy: C:\AtCor\SphygmoCor CvMS V9\system\scor.ini
+File Copy: C:\AtCor\SphygmoCor CvMS V9\online_manuals\ClinicalGuide.pdf
+Shell Link: C:\Users\rnd.ATCORAU\Desktop\SphygmoCor CvMS V9.lnk
+Link Info: C:\AtCor\SphygmoCor CvMS V9\scor.exe | C:\AtCor\SphygmoCor CvMS V9 | C:\AtCor\SphygmoCor CvMS V9\scor.exe | 0 | 1 | 0 | 
+Made Dir: C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\AtCor\SphygmoCor CvMS V9
+Shell Link: C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\AtCor\SphygmoCor CvMS V9\Manuals.lnk
+Link Info: C:\AtCor\SphygmoCor CvMS V9\online_manuals |  |  | 0 | 1 | 0 | 
+Shell Link: C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\AtCor\SphygmoCor CvMS V9\SphygmoCor CvMS V9.lnk
+Link Info: C:\AtCor\SphygmoCor CvMS V9\scor.exe | C:\AtCor\SphygmoCor CvMS V9 | C:\AtCor\SphygmoCor CvMS V9\scor.exe | 0 | 1 | 0 | 
+RegDB Key: SOFTWARE\AtCor\SphygmoCor
+RegDB Val: 9
+RegDB Name: Version
+RegDB Root: 2
+RegDB Old: 9
+RegDB Key: SOFTWARE\AtCor\SphygmoCor
+RegDB Val: C:\AtCor\SphygmoCor CvMS V9
+RegDB Name: InstallPath
+RegDB Root: 2
+RegDB Old: C:\AtCor\SphygmoCor CvMS Clinical
+RegDB Key: SOFTWARE\AtCor\SphygmoCor
+RegDB Val: 00050
+RegDB Name: SystemID
+RegDB Root: 2
+RegDB Old: 00050
+RegDB Key: Licenses\F4FC596D-DFFE-11CF-9551-00AA00A3DC45
+RegDB Val: mbmabptebkjcdlgtjmskjwtsdhjbmkmwtrak
+RegDB Old: mbmabptebkjcdlgtjmskjwtsdhjbmkmwtrak
+Delete in-use files: On
+INI New: Created INI
+INI File: C:\AtCor\SphygmoCor CvMS V9\UNWISE.INI
+INI Sect: Settings
+INI Item: No Background
+INI Val: 0
+Self-Register: C:\Program Files\Common Files\microsoft shared\DAO\DAO350.DLL
+Self-Register: C:\Windows\System32\msjet35.dll
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SphygmoCor Cardiovascular Management Suite
+RegDB Val: www.atcormedical.com
+RegDB Name: URLInfoAbout
+RegDB Root: 2
+RegDB Old: www.atcormedical.com
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SphygmoCor Cardiovascular Management Suite
+RegDB Val: 612-98748761
+RegDB Name: HelpTelephone
+RegDB Root: 2
+RegDB Old: 612-98748761
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SphygmoCor Cardiovascular Management Suite
+RegDB Val: 9
+RegDB Name: DisplayVersion
+RegDB Root: 2
+User Rights: Admin
+***  Installation Started 02/16/2010 15:11  ***
+Title: 
+Source: K:\projects\016-S2000V9\install\setup.exe | 02-16-2010 | 13:53:24 | 20093790
+User Rights: Admin
+***  Installation Started 02/16/2010 15:20  ***
+Title: 
+Source: K:\projects\016-S2000V9\install\setup.exe | 02-16-2010 | 13:53:24 | 20093790
+RegDB Key: SOFTWARE\Microsoft\Shared Tools\DAO
+RegDB Val: C:\Program Files\Common Files\Microsoft Shared\DAO
+RegDB Name: Path
+RegDB Root: 2
+RegDB Old: C:\Program Files\Common Files\Microsoft Shared\DAO
+File Overwrite: C:\Windows\System32\MSJTER35.DLL | 08-09-2001 | 23:50:18 | 3.51.623.0 | 24848 | 588917f7
+File Overwrite: C:\Windows\System32\MSJINT35.DLL | 08-09-2001 | 23:50:16 | 3.51.623.0 | 123664 | d380be84
+File Overwrite: C:\Windows\System32\Vb5db.dll | 06-18-1998 | 01:00:00 | 6.0.81.69 | 89360 | f8ab61a8
+File Overwrite: C:\Windows\System32\vbar332.dll | 11-08-1996 | 02:48:12 | 3.0.0.6908 | 368912 | eb50c13f
+File Overwrite: C:\Program Files\Common Files\microsoft shared\DAO\Dao35.cnt | 08-09-2001 | 23:49:28 | | 6117 | 8183506
+File Overwrite: C:\Program Files\Common Files\microsoft shared\DAO\Dao35.hlp | 08-09-2001 | 23:49:52 | | 649868 | 6a3c164b
+File Overwrite: C:\Program Files\Common Files\microsoft shared\DAO\DAO350.DLL | 08-09-2001 | 23:50:12 | 3.51.1608.0 | 570128 | c77c46f4
+Date/Time: Following file not copied.
+File Overwrite: C:\Program Files\Common Files\microsoft shared\DAO\DAO2535.TLB | 08-09-2001 | 23:49:26 | | 73184 | 7ffc4f9d
+File Overwrite: C:\Windows\System32\msjet35.dll | 08-09-2001 | 23:53:22 | 3.51.2723.0 | 1046288 | 49d9d1fa
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\UNWISE.EXE | 09-28-2001 | 18:00:28 | | 164864 | acd7a536
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SphygmoCor Cardiovascular Management Suite
+RegDB Val: SphygmoCor Cardiovascular Management Suite
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Old: SphygmoCor Cardiovascular Management Suite
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SphygmoCor Cardiovascular Management Suite
+RegDB Val: C:\AtCor\SPHYGM~1\UNWISE.EXE C:\AtCor\SPHYGM~1\INSTALL.LOG
+RegDB Name: UninstallString
+RegDB Root: 2
+RegDB Old: C:\AtCor\SPHYGM~2\UNWISE.EXE C:\AtCor\SPHYGM~2\INSTALL.LOG
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\scor.exe | 02-11-2010 | 15:45:00 | 9.0.1.1 | 12040704 | ee5cbc58
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\borlndmm6.dll | 02-02-2002 | 01:00:00 | 6.0.10.157 | 22016 | 66d1c1d9
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\cc3260mt.dll | 02-02-2002 | 01:00:00 | 6.0.0.0 | 1497088 | 3bb5296d
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\fftw3.dll | 11-13-2003 | 11:02:36 | | 1921024 | 6b5e63b8
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\pwa.dat | 10-20-2009 | 12:02:58 | | 3101 | fbcbeb6e
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\pwvsitea.dat | 05-24-2006 | 14:55:34 | | 17679 | ab8e5c58
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\pwvsiteb.dat | 05-24-2006 | 14:55:42 | | 17521 | 8bbf95cc
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\pwm.dat | 04-17-2001 | 11:35:28 | | 212445 | 907a8ab2
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\hrv.dat | 09-10-2003 | 06:52:00 | | 3741588 | 81cabd3d
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\ScorPrivacyImg.jpg | 10-21-2009 | 03:47:28 | | 87869 | 53cd55f7
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\system\scor.ini
+File Overwrite: C:\AtCor\SphygmoCor CvMS V9\online_manuals\ClinicalGuide.pdf
+Shell Link: C:\Users\rnd.ATCORAU\Desktop\SphygmoCor CvMS V9.lnk
+Link Info: C:\AtCor\SphygmoCor CvMS V9\scor.exe | C:\AtCor\SphygmoCor CvMS V9 | C:\AtCor\SphygmoCor CvMS V9\scor.exe | 0 | 1 | 0 | 
+Shell Link: C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\AtCor\SphygmoCor CvMS V9\Manuals.lnk
+Link Info: C:\AtCor\SphygmoCor CvMS V9\online_manuals |  |  | 0 | 1 | 0 | 
+Shell Link: C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\AtCor\SphygmoCor CvMS V9\SphygmoCor CvMS V9.lnk
+Link Info: C:\AtCor\SphygmoCor CvMS V9\scor.exe | C:\AtCor\SphygmoCor CvMS V9 | C:\AtCor\SphygmoCor CvMS V9\scor.exe | 0 | 1 | 0 | 
+RegDB Key: SOFTWARE\AtCor\SphygmoCor
+RegDB Val: 9
+RegDB Name: Version
+RegDB Root: 2
+RegDB Old: 9
+RegDB Key: SOFTWARE\AtCor\SphygmoCor
+RegDB Val: C:\AtCor\SphygmoCor CvMS V9
+RegDB Name: InstallPath
+RegDB Root: 2
+RegDB Old: C:\AtCor\SphygmoCor CvMS Clinical
+RegDB Key: SOFTWARE\AtCor\SphygmoCor
+RegDB Val: 00050
+RegDB Name: SystemID
+RegDB Root: 2
+RegDB Old: 00050
+RegDB Key: Licenses\F4FC596D-DFFE-11CF-9551-00AA00A3DC45
+RegDB Val: mbmabptebkjcdlgtjmskjwtsdhjbmkmwtrak
+RegDB Old: mbmabptebkjcdlgtjmskjwtsdhjbmkmwtrak
+Delete in-use files: On
+INI File: C:\AtCor\SphygmoCor CvMS V9\UNWISE.INI
+INI Sect: Settings
+INI Item: No Background
+INI Val: 0
+INI Old: 0
+Self-Register: C:\Program Files\Common Files\microsoft shared\DAO\DAO350.DLL
+Self-Register: C:\Windows\System32\msjet35.dll
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SphygmoCor Cardiovascular Management Suite
+RegDB Val: www.atcormedical.com
+RegDB Name: URLInfoAbout
+RegDB Root: 2
+RegDB Old: www.atcormedical.com
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SphygmoCor Cardiovascular Management Suite
+RegDB Val: 612-98748761
+RegDB Name: HelpTelephone
+RegDB Root: 2
+RegDB Old: 612-98748761
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SphygmoCor Cardiovascular Management Suite
+RegDB Val: 9
+RegDB Name: DisplayVersion
+RegDB Root: 2
+RegDB Old: 9
+User Rights: Admin
