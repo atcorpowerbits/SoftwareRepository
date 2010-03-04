@@ -1,0 +1,347 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="scor.exe"/>
+    <OBJFILES value="scor.obj form_splash.obj form_main.obj ..\dbmgr\source\Dbmgr.obj 
+      ..\patient\source\form_patient.obj Child.obj 
+      ..\report\source\form_report_pwv.obj ..\meas\source\PWA.obj 
+      ..\meas\source\Mathem.obj ..\meas\source\Measure.obj 
+      ..\meas\source\Pressure.obj ..\meas\source\Pulse.obj 
+      ..\meas\source\GetSeries.obj ..\capture\source\form_cappwa.obj 
+      ..\capture\source\capture.obj ..\comms\source\Event.obj 
+      ..\comms\source\Comms.obj ..\analysis\source\form_analysis_pwv.obj 
+      ..\analysis\source\form_trend_pwv.obj ..\analysis\source\analysis.obj 
+      ..\meas\source\form_pwa.obj ..\config\source\form_config.obj 
+      ..\print\source\Print.obj ..\log\source\log.obj ..\meas\source\Common.obj 
+      ..\meas\source\form_recalculate_pwa.obj ..\msg\source\MsgBox.obj 
+      form_about.obj ..\capture\source\form_cappwv.obj 
+      ..\meas\source\form_pwv.obj ..\meas\source\TSignal.obj 
+      ..\meas\source\PWASignals.obj ..\export\source\form_export.obj 
+      ..\meas\source\PWAPulse.obj form_selectdir.obj utils.obj 
+      ..\analysis\source\form_select.obj ..\meas\source\PWV.obj 
+      ..\meas\source\PWVSignals.obj ..\meas\source\PWVSite.obj 
+      ..\report\source\form_report_pwa.obj 
+      ..\meas\source\form_recalculate_pwv.obj 
+      ..\analysis\source\form_trend_pwa.obj 
+      ..\analysis\source\form_analysis_pwa.obj ..\meas\source\TBuffer.obj 
+      ..\patient\source\form_patlist.obj ..\capture\source\form_cappwm.obj 
+      ..\report\source\form_report_pwm.obj ..\meas\source\form_pwm.obj 
+      ..\meas\source\PWM.obj ..\meas\source\TStack.obj 
+      ..\multdb\source\form_merge.obj ..\comms\source\usbDriver.obj 
+      ..\comms\source\usbComms.obj ..\print\source\form_batchprint.obj 
+      ..\report\source\report.obj ..\export\source\form_export_database.obj 
+      ..\multdb\source\form_multdb.obj ..\capture\source\form_caphrv.obj 
+      ..\meas\source\hrvclass.obj ..\meas\source\form_hrv.obj 
+      ..\meas\source\hrvtime.obj ..\report\source\form_report_hrv.obj 
+      ..\meas\source\HRVfrequency.obj ..\meas\source\form_recalculate_hrv.obj 
+      ..\meas\source\AVI.obj ..\interview\source\interview.obj 
+      ..\cfr11\source\form_security.obj ..\cfr11\source\audit.obj 
+      ..\emr\source\emr.obj ..\rtof\source\rtof.obj"/>
+    <RESFILES value="scor.res ..\msg\source\MsgDef.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) form_splash.dfm form_main.dfm ..\dbmgr\source\Dbmgr.dfm 
+      ..\patient\source\form_patient.dfm ..\report\source\form_report_pwv.dfm 
+      ..\capture\source\form_cappwa.dfm ..\analysis\source\form_analysis_pwv.dfm 
+      ..\analysis\source\form_trend_pwv.dfm ..\meas\source\form_pwa.dfm 
+      ..\config\source\form_config.dfm ..\meas\source\form_recalculate_pwa.dfm 
+      form_about.dfm ..\capture\source\form_cappwv.dfm 
+      ..\meas\source\form_pwv.dfm ..\export\source\form_export.dfm 
+      form_selectdir.dfm ..\analysis\source\form_select.dfm 
+      ..\report\source\form_report_pwa.dfm 
+      ..\meas\source\form_recalculate_pwv.dfm 
+      ..\analysis\source\form_trend_pwa.dfm 
+      ..\analysis\source\form_analysis_pwa.dfm 
+      ..\patient\source\form_patlist.dfm ..\capture\source\form_cappwm.dfm 
+      ..\report\source\form_report_pwm.dfm ..\meas\source\form_pwm.dfm 
+      ..\multdb\source\form_merge.dfm ..\print\source\form_batchprint.dfm 
+      ..\export\source\form_export_database.dfm ..\multdb\source\form_multdb.dfm 
+      ..\capture\source\form_caphrv.dfm ..\meas\source\form_hrv.dfm 
+      ..\report\source\form_report_hrv.dfm 
+      ..\meas\source\form_recalculate_hrv.dfm ..\cfr11\source\form_security.dfm"/>
+    <LIBFILES value="&quot;C:\Program Files\Borland\CBuilder6\Lib\Release\adortl.lib&quot; 
+      &quot;C:\Program Files\Borland\CBuilder6\Lib\qrpt.lib&quot; 
+      ..\..\..\LIBRARY\Builder6\asyncpro\source\A406_R61.lib 
+      ..\..\..\LIBRARY\Builder6\fftw\fftw3.lib 
+      ..\..\..\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbasepack_82C6.lib 
+      ..\..\..\LIBRARY\Builder6\SDLSuite82\mathpack\C6\sdlmathpack_82C6.lib"/>
+    <LIBRARIES value="TeeGL.lib sdlbasepack_82C6.lib sdlmathpack_82C6.lib TeeImage.lib qrpt.lib 
+      visualclx.lib adortl.lib TeeUI.lib TeePro.lib Tee.lib bdertl.lib vclx.lib 
+      vcldbx.lib vcldb.lib dbrtl.lib vcl.lib rtl.lib"/>
+    <SPARELIBS value="rtl.lib vcl.lib dbrtl.lib vcldb.lib vcldbx.lib vclx.lib bdertl.lib Tee.lib 
+      TeePro.lib TeeUI.lib adortl.lib visualclx.lib qrpt.lib TeeImage.lib 
+      sdlmathpack_82C6.lib sdlbasepack_82C6.lib TeeGL.lib"/>
+    <PACKAGES value="vclx.bpi rtl.bpi vcl.bpi dbrtl.bpi vcldb.bpi bdertl.bpi vcldbx.bpi 
+      bcbsmp.bpi dclocx.bpi A406_R61.bpi dclado6.bpi DCLTeP.bpi"/>
+    <PATHCPP value=".;..\dbmgr\source;..\patient\source;..\report\source;..\meas\source;..\capture\source;..\comms\source;..\analysis\source;..\config\source;..\print\source;..\log\source;..\msg\source;..\export\source;..\multdb\source;..\interview\source;..\cfr11\source;..\emr\source;..\rtof\source"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;..\msg\source"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="__cplusplus"/>
+    <SYSDEFINES value="NO_STRICT"/>
+    <MAINSOURCE value="scor.cpp"/>
+    <INCLUDEPATH value="K:\projects\016-S2000V9\source;..\rtof\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw"/>
+    <LIBPATH value="&quot;K:\projects\016-S2000V9\source&quot;;..\rtof\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6"/>
+    <WARNINGS value="-w-par -w-8027 -w-8026"/>
+    <WARNOPTSTR value=""/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-IK:\projects\016-S2000V9\source -I..\rtof\source -I..\emr\source 
+      -I..\cfr11\source -I..\interview\source -I..\report -I..\multdb\source 
+      -I..\export\source -I..\import\source -I..\msg\source -I..\log\source 
+      -I..\print\source -I..\config\source -I..\analysis\source 
+      -I..\comms\source -I..\capture\source -I..\meas\source -I..\report\source 
+      -I..\patient\source -I..\dbmgr\source -I$(BCB)\include 
+      -I$(BCB)\include\vcl -IK:\projects\LIBRARY\BUILDER\ezusb 
+      -IK:\projects\LIBRARY\Builder6\asyncpro\source 
+      -IK:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6 
+      -IK:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6 
+      -IK:\projects\LIBRARY\Builder6\fftw -src_suffix cpp -D__cplusplus -boa"/>
+    <CFLAG1 value="-O2 -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -Tkh30000 -fp -X- -a8 -6 -b- -k- 
+      -vi -c -tW -tWM"/>
+    <CFLAG2 value=""/>
+    <CFLAG3 value=""/>
+    <PFLAGS value="-$Y- -$L- -$D- -$A8 -v -M -JPHNE"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zn"/>
+    <LFLAGS value="-D&quot;&quot; -H:0x400000 -Hc:0x6000 -S:0x500000 -Sc:0xD0000 -aa -Tpe -GD -s -Gn -w"/>
+    <IFLAGS value=""/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="scor.cpp" FORMNAME="" UNITNAME="scor" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="scor.res" FORMNAME="" UNITNAME="scor" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="form_splash.cpp" FORMNAME="frm_splash" UNITNAME="form_splash" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="form_main.cpp" FORMNAME="frm_main" UNITNAME="form_main" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\dbmgr\source\Dbmgr.cpp" FORMNAME="dbmgr_dmod" UNITNAME="Dbmgr" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\patient\source\form_patient.cpp" FORMNAME="frm_patient" UNITNAME="form_patient" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Child.cpp" FORMNAME="" UNITNAME="Child" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\report\source\form_report_pwv.cpp" FORMNAME="frm_report_pwv" UNITNAME="form_report_pwv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\PWA.cpp" FORMNAME="" UNITNAME="PWA" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\Mathem.cpp" FORMNAME="" UNITNAME="Mathem" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\Measure.cpp" FORMNAME="" UNITNAME="Measure" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\Pressure.cpp" FORMNAME="" UNITNAME="Pressure" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\Pulse.cpp" FORMNAME="" UNITNAME="Pulse" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\GetSeries.cpp" FORMNAME="" UNITNAME="GetSeries" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\capture\source\form_cappwa.cpp" FORMNAME="frm_capture_pwa" UNITNAME="form_cappwa" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\capture\source\capture.cpp" FORMNAME="" UNITNAME="capture" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\comms\source\Event.cpp" FORMNAME="" UNITNAME="Event" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\comms\source\Comms.cpp" FORMNAME="" UNITNAME="Comms" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\analysis\source\form_analysis_pwv.cpp" FORMNAME="frm_analysis_pwv" UNITNAME="form_analysis_pwv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\analysis\source\form_trend_pwv.cpp" FORMNAME="frm_trend_pwv" UNITNAME="form_trend_pwv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\analysis\source\analysis.cpp" FORMNAME="" UNITNAME="analysis" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\form_pwa.cpp" FORMNAME="frm_measure_pwa" UNITNAME="form_pwa" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\config\source\form_config.cpp" FORMNAME="frm_config" UNITNAME="form_config" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\print\source\Print.cpp" FORMNAME="" UNITNAME="Print" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\log\source\log.cpp" FORMNAME="" UNITNAME="log" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\Common.cpp" FORMNAME="" UNITNAME="Common" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\form_recalculate_pwa.cpp" FORMNAME="frm_recalculate_pwa" UNITNAME="form_recalculate_pwa" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\msg\source\MsgDef.rc" FORMNAME="" UNITNAME="MsgDef" CONTAINERID="RCCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\msg\source\MsgBox.cpp" FORMNAME="" UNITNAME="MsgBox" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="form_about.cpp" FORMNAME="frm_aboutbox" UNITNAME="form_about" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\capture\source\form_cappwv.cpp" FORMNAME="frm_capture_pwv" UNITNAME="form_cappwv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\form_pwv.cpp" FORMNAME="frm_measure_pwv" UNITNAME="form_pwv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\TSignal.cpp" FORMNAME="" UNITNAME="TSignal" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\PWASignals.cpp" FORMNAME="" UNITNAME="PWASignals" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\export\source\form_export.cpp" FORMNAME="frm_export" UNITNAME="form_export" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\PWAPulse.cpp" FORMNAME="" UNITNAME="PWAPulse" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="form_selectdir.cpp" FORMNAME="frm_select_dir" UNITNAME="form_selectdir" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="utils.cpp" FORMNAME="" UNITNAME="utils" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\analysis\source\form_select.cpp" FORMNAME="frm_select" UNITNAME="form_select" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\PWV.cpp" FORMNAME="" UNITNAME="PWV" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\PWVSignals.cpp" FORMNAME="" UNITNAME="PWVSignals" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\PWVSite.cpp" FORMNAME="" UNITNAME="PWVSite" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\report\source\form_report_pwa.cpp" FORMNAME="frm_report_pwa" UNITNAME="form_report_pwa" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\form_recalculate_pwv.cpp" FORMNAME="frm_recalculate_pwv" UNITNAME="form_recalculate_pwv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\analysis\source\form_trend_pwa.cpp" FORMNAME="frm_trend_pwa" UNITNAME="form_trend_pwa" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\analysis\source\form_analysis_pwa.cpp" FORMNAME="frm_analysis_pwa" UNITNAME="form_analysis_pwa" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\TBuffer.cpp" FORMNAME="" UNITNAME="TBuffer" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\patient\source\form_patlist.cpp" FORMNAME="frm_patlist" UNITNAME="form_patlist" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\capture\source\form_cappwm.cpp" FORMNAME="frm_capture_pwm" UNITNAME="form_cappwm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\report\source\form_report_pwm.cpp" FORMNAME="frm_report_pwm" UNITNAME="form_report_pwm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\form_pwm.cpp" FORMNAME="frm_measure_pwm" UNITNAME="form_pwm" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\PWM.cpp" FORMNAME="" UNITNAME="PWM" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\TStack.cpp" FORMNAME="" UNITNAME="TStack" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\multdb\source\form_merge.cpp" FORMNAME="frm_merge" UNITNAME="form_merge" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\comms\source\usbDriver.cpp" FORMNAME="" UNITNAME="usbDriver" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\comms\source\usbComms.cpp" FORMNAME="" UNITNAME="usbComms" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\print\source\form_batchprint.cpp" FORMNAME="frm_batchprint" UNITNAME="form_batchprint" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\report\source\report.cpp" FORMNAME="" UNITNAME="report" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\export\source\form_export_database.cpp" FORMNAME="frm_export_database" UNITNAME="form_export_database" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\multdb\source\form_multdb.cpp" FORMNAME="frm_multdb" UNITNAME="form_multdb" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="C:\Program Files\Borland\CBuilder6\Lib\Release\adortl.lib" FORMNAME="" UNITNAME="adortl.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="C:\Program Files\Borland\CBuilder6\Lib\qrpt.lib" FORMNAME="" UNITNAME="qrpt.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\..\LIBRARY\Builder6\asyncpro\source\A406_R61.lib" FORMNAME="" UNITNAME="A406_R61.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\capture\source\form_caphrv.cpp" FORMNAME="frm_capture_hrv" UNITNAME="form_caphrv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\hrvclass.cpp" FORMNAME="" UNITNAME="hrvclass" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\form_hrv.cpp" FORMNAME="frm_measure_hrv" UNITNAME="form_hrv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\hrvtime.cpp" FORMNAME="" UNITNAME="hrvtime" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\report\source\form_report_hrv.cpp" FORMNAME="frm_report_hrv" UNITNAME="form_report_hrv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\HRVfrequency.cpp" FORMNAME="" UNITNAME="HRVfrequency" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\form_recalculate_hrv.cpp" FORMNAME="frm_recalculate_hrv" UNITNAME="form_recalculate_hrv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\..\LIBRARY\Builder6\fftw\fftw3.lib" FORMNAME="" UNITNAME="fftw3.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\..\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbasepack_82C6.lib" FORMNAME="" UNITNAME="sdlbasepack_82C6.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\..\LIBRARY\Builder6\SDLSuite82\mathpack\C6\sdlmathpack_82C6.lib" FORMNAME="" UNITNAME="sdlmathpack_82C6.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\meas\source\AVI.cpp" FORMNAME="" UNITNAME="AVI" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\interview\source\interview.cpp" FORMNAME="" UNITNAME="interview" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\cfr11\source\form_security.cpp" FORMNAME="frm_security" UNITNAME="form_security" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\cfr11\source\audit.cpp" FORMNAME="" UNITNAME="audit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\emr\source\emr.cpp" FORMNAME="" UNITNAME="emr" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\rtof\source\rtof.cpp" FORMNAME="" UNITNAME="rtof" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=0
+MajorVer=9
+MinorVer=0
+Release=2
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1033
+CodePage=1252
+
+[Version Info Keys]
+CompanyName=AtCor Medical
+FileDescription=SphygmoCor Executable
+FileVersion=9.0.2.0
+InternalName=SphygmoCorClinical
+LegalCopyright=(c)  Copyright AtCor Medical 2010
+LegalTrademarks=SphygmoCor (R)
+OriginalFilename=scor.exe
+ProductName=SphygmoCor CvMS
+ProductVersion=9.0
+Comments=Clinical
+
+[HistoryLists\hlIncludePath]
+Count=30
+Item0=K:\projects\016-S2000V9\source;..\rtof\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item1=C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000V9\source;..\rtof\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item2=..\rtof\source;C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000V9\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item3=K:\projects\016-S2000V9\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item4=N:\Projects\ElectronicMedicalRecords\Testing;C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000V9\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item5=C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000V9\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item6=..\emr\source;C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000V9\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item7=K:\projects\016-S2000V9\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item8=K:\projects\016-S2000V82\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item9=..\cfr11\source;C:\Program Files\Borland\CBuilder6\Projects;C:\projects\016-S2000V81\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;C:\projects\LIBRARY\BUILDER\ezusb;C:\projects\LIBRARY\Builder6\asyncpro\source;C:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;C:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;C:\projects\LIBRARY\Builder6\fftw
+Item10=C:\Program Files\Borland\CBuilder6\Projects;C:\projects\016-S2000V81\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;C:\projects\LIBRARY\BUILDER\ezusb;C:\projects\LIBRARY\Builder6\asyncpro\source;C:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;C:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;C:\projects\LIBRARY\Builder6\fftw
+Item11=C:\projects\016-S2000V81\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;C:\projects\LIBRARY\BUILDER\ezusb;C:\projects\LIBRARY\Builder6\asyncpro\source;C:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;C:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;C:\projects\LIBRARY\Builder6\fftw
+Item12=C:\projects\016-S2000V81\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;C:\projects\LIBRARY\BUILDER\ezusb;C:\projects\LIBRARY\Builder6\asyncpro\source;C:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;C:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item13=C:\projects\016-S2000V81\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item14=..\interview\source;K:\projects\016-S2000V81\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item15=..\interview\source;..\..\..\scorclinic\source\interview\source;K:\projects\016-S2000V81\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item16=K:\projects\016-S2000V81\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item17=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item18=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item19=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item20=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6
+Item21=..\report;C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item22=K:\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item23=C:\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item24=C:\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source
+Item25=C:\Almediadev\lib.cb6;C:\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;K:\projects\LIBRARY\BUILDER\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source
+Item26=C:\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;..\..\..\library\builder\ezusb;K:\projects\LIBRARY\Builder6\asyncpro\source
+Item27=C:\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;C:\APRO;..\..\..\library\builder\ezusb
+Item28=C:\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;C:\APRO\;..\..\..\library\builder\ezusb
+Item29=\\PWV1\SOFTWARE$\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\include;$(BCB)\include\vcl;C:\APRO\;..\..\..\library\builder\ezusb
+
+[HistoryLists\hlLibraryPath]
+Count=30
+Item0=K:\projects\016-S2000V9\source;..\rtof\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item1=C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000V9\source;..\rtof\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item2=..\rtof\source;C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000V9\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item3=K:\projects\016-S2000V9\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item4=N:\Projects\ElectronicMedicalRecords\Testing;C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000V9\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item5=C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000V9\source;..\emr\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item6=..\emr\source;C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000V9\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item7=K:\projects\016-S2000V9\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item8=K:\projects\016-S2000V82\source;..\cfr11\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item9=..\cfr11\source;C:\Program Files\Borland\CBuilder6\Projects;C:\projects\016-S2000V81\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;C:\projects\LIBRARY\Builder6\asyncpro\source;C:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;C:\projects\LIBRARY\Builder6\fftw;C:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;C:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item10=C:\Program Files\Borland\CBuilder6\Projects;C:\projects\016-S2000V81\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;C:\projects\LIBRARY\Builder6\asyncpro\source;C:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;C:\projects\LIBRARY\Builder6\fftw;C:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;C:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item11=C:\projects\016-S2000V81\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;C:\projects\LIBRARY\Builder6\asyncpro\source;C:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;C:\projects\LIBRARY\Builder6\fftw;C:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;C:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item12=C:\projects\016-S2000V81\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;C:\projects\LIBRARY\Builder6\asyncpro\source;C:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;C:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;C:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item13=C:\projects\016-S2000V81\source;..\interview\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item14=..\interview\source;K:\projects\016-S2000V81\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item15=..\interview\source;..\..\..\scorclinic\source\interview\source;K:\projects\016-S2000V81\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item16=K:\projects\016-S2000V81\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item17=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item18=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6
+Item19=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6
+Item20=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item21=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6
+Item22=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item23=..\..\..\LIBRARY\Builder6\SDLSUI~2\basepack\C6;..\..\..\LIBRARY\Builder6\SDLSUI~2\mathpack\C6;K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6;K:\projects\LIBRARY\Builder6\fftw
+Item24=..\..\..\LIBRARY\Builder6\SDLSUI~2\basepack\C6;..\..\..\LIBRARY\Builder6\SDLSUI~2\mathpack\C6;K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item25=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item26=..\..\..\LIBRARY\Builder6\SDLSuite\basepack\C6;..\..\..\LIBRARY\Builder6\SDLSuite\mathpack\C6;K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6
+Item27=K:\projects\016-S2000\source;..\report;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6
+Item28=..\..\..\LIBRARY\Builder6\SDLSUI~2\basepack\C6;..\..\..\LIBRARY\Builder6\SDLSUI~2\mathpack\C6;..\report;C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+Item29=..\report;C:\Program Files\Borland\CBuilder6\Projects;K:\projects\016-S2000\source;..\multdb\source;..\export\source;..\import\source;..\msg\source;..\log\source;..\print\source;..\config\source;..\analysis\source;..\comms\source;..\capture\source;..\meas\source;..\report\source;..\patient\source;..\dbmgr\source;$(BCB)\lib;$(BCB)\lib\obj;K:\projects\LIBRARY\Builder6\asyncpro\source;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=8
+Item0=__cplusplus
+Item1=__cplusplus;_DEBUG
+Item2=_DEBUG;__cplusplus
+Item3=_DEBUG;__MINMAX_DEFINED
+Item4=_DEBUG
+Item5=_RTLDLL;USEPACKAGES
+Item6=_RTLDLL;USEPACKAGES;SPHYGMOCOR_USA
+Item7=_RTLDLL
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=1
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+  </IDEOPTIONS>
+</PROJECT>
