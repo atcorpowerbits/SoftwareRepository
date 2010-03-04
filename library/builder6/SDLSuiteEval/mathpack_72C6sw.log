@@ -1,0 +1,122 @@
+***  Installation Started 07/17/2003 15:07  ***
+Title: SDL MathPack 7.2 for C++Builder 6
+Source: N:\Projects\BaroReceptors\TechnologyDevelopment\FFTLibraries\Builder6\SDLSuite\setup_SDLmathpack_72C6sw.exe
+File Overwrite: K:\projects\LIBRARY\Builder6\SDLSuite\UNWISE.EXE
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SDL MathPack 7.2 for C++Builder 6
+RegDB Val: SDL MathPack 7.2 for C++Builder 6
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SDL MathPack 7.2 for C++Builder 6
+RegDB Val: K:\projects\LIBRARY\Builder6\SDLSuite\UNWISE.EXE K:\projects\LIBRARY\Builder6\SDLSuite\mathpack_72C6sw.log
+RegDB Name: UninstallString
+RegDB Root: 2
+File Overwrite: K:\projects\LIBRARY\Builder6\SDLSuite\help\sdlhelp.hlp
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\readme!.txt
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-1
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-1\fft.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-1\fft.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-1\fft.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-1\frmfft.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-1\frmfft.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-1\frmfft.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-2
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-2\Foursynt.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-2\Foursynt.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-2\FOURSYNT.RES
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-2\mainfrm.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-2\mainfrm.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-fourier-2\mainfrm.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-1
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-1\findcent.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-1\findcent.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-1\findcent.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-1\frmcent.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-1\frmcent.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-1\frmcent.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-2
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-2\covar.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-2\covar.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-2\covar.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-2\covarmn.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-2\covarmn.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-2\covarmn.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-3
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-3\Curvefit.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-3\Curvefit.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-3\CURVEFIT.RES
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-3\frmcfit.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-3\frmcfit.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-math2-3\frmcfit.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-matrix-1
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-matrix-1\FMatrix.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-matrix-1\FMatrix.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-matrix-1\FMatrix.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-matrix-1\Invmat.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-matrix-1\Invmat.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-matrix-1\Invmat.res
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-statis-1
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-statis-1\fdistri.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-statis-1\fdistri.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-statis-1\fdistri.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-statis-1\udistri.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-statis-1\udistri.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-statis-1\udistri.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-vector-1
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-vector-1\testvec.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-vector-1\testvec.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-vector-1\testvec.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-vector-1\vector1.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-vector-1\vector1.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\examples-C6\exmpl-vector-1\vector1.h
+File Overwrite: K:\projects\LIBRARY\Builder6\SDLSuite\help\bg-losoft.gif
+File Overwrite: K:\projects\LIBRARY\Builder6\SDLSuite\help\sdl_support.css
+File Overwrite: K:\projects\LIBRARY\Builder6\SDLSuite\help\sdl_banner2.jpg
+File Overwrite: K:\projects\LIBRARY\Builder6\SDLSuite\help\sdl_customer_support.html
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\fourier.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\fourier.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\fourier.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\fourier.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\kohonen.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\kohonen.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\kohonen.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\kohonen.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\math1.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\math1.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\math1.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\math2.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\math2.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\math2.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\math2.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\matrix.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\matrix.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\matrix.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\matrix.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\sdlmathpack_72C6.bpi
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\sdlmathpack_72C6.bpl
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\sdlmathpack_72C6.dcp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\sdlmathpack_72C6.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\sdlmathpack_72C6.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\sdlmathpack_72C6.lib
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\statis.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\statis.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\statis.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\vector.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\vector.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\vector.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\vector.obj
+Shell Link: C:\Documents and Settings\Peterh\Start Menu\Programs\SDL Component Suite\SDL Suite Help.lnk
+Shell Link: C:\Documents and Settings\Peterh\Desktop\SDL Suite Help.lnk
+Shell Link: C:\Documents and Settings\Peterh\Desktop\SDL Customer Support.lnk
+Shell Link: C:\Documents and Settings\Peterh\Start Menu\Programs\SDL Component Suite\SDL Customer Support.lnk
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL MathPack 7.2
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6\sdlmathpack_72C6.bpl
+RegDB Root: 1
+RegDB Key: Software\Borland\C++Builder\6.0\Library
+RegDB Val: $(BCB)\Lib;$(BCB)\Bin;$(BCB)\Imports;$(BCB)\Projects\Bpl;$(BCB)\Projects\Lib;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSuite\mathpack\C6
+RegDB Name: Search Path
+RegDB Root: 1
+RegDB Old: $(BCB)\Lib;$(BCB)\Bin;$(BCB)\Imports;$(BCB)\Projects\Bpl;$(BCB)\Projects\Lib;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6

@@ -1,0 +1,79 @@
+***  Installation Started 11/07/2005 15:44  ***
+Title: SDL BasePack 8.2 for C++Builder 6
+Source: K:\projects\LIBRARY\Builder6\SDLSuite82full\setup_aqasem_1052957_basepack82_C6.exe
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\UNWISE.EXE
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SDL BasePack 8.2 for C++Builder 6
+RegDB Val: SDL BasePack 8.2 for C++Builder 6
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SDL BasePack 8.2 for C++Builder 6
+RegDB Val: K:\projects\LIBRARY\Builder6\SDLSUI~3\SDLSuite\UNWISE.EXE K:\projects\LIBRARY\Builder6\SDLSUI~3\SDLSuite\basepack_82C6fu.log
+RegDB Name: UninstallString
+RegDB Root: 2
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\help
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\help\sdlsuite82.hlp
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\readme!.txt
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\examples-C6
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\examples-C6\readme_example.txt
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\help\bg-losoft.gif
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\help\sdl_support.css
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\help\sdl_banner2.jpg
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\help\sdl_customer_support.html
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\cpuid.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\cpuid.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\cpuid.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\dstruct.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\dstruct.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\dstruct.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\dstruct.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\filesys.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\filesys.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\filesys.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\filesys.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlbase.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlbase.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlbase.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlbasepack_82C6.bpi
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlbasepack_82C6.bpl
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlbasepack_82C6.dcp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlbasepack_82C6.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlbasepack_82C6.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlbasepack_82C6.lib
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlcolors.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlcolors.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\sdlcolors.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\streams.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\streams.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\streams.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\stringl.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\stringl.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\stringl.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\stringl.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\univconst.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\univconst.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82full\SDLSuite\basepack\C6\univconst.obj
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\SDL Suite Help.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Desktop\SDL Suite Help.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Desktop\SDL Customer Support.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\SDL Customer Support.lnk
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL BasePack 8.2
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~3\SDLSuite\basepack\C6\sdlbasepack_82C6.bpl
+RegDB Root: 1
+RegDB Key: Software\Borland\C++Builder\6.0\#WINREGPACKID#
+RegDB Val: SDL BasePack 8.2
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~3\SDLSuite\basepack\C6\sdlbasepack_82C6.#WINREGPACKEXT#
+RegDB Root: 1
+RegDB Key: Software\Borland\C++Builder\6.0\Library
+RegDB Val: $(BCB)\Lib;$(BCB)\Bin;$(BCB)\Imports;$(BCB)\Projects\Bpl;$(BCB)\Projects\Lib;K:\projects\LIBRARY\Builder6\SDLSUI~2\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\mathpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chempack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\guipack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chartpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\geopack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~3\SDLSuite\basepack\C6
+RegDB Name: Search Path
+RegDB Root: 1
+RegDB Old: $(BCB)\Lib;$(BCB)\Bin;$(BCB)\Imports;$(BCB)\Projects\Bpl;$(BCB)\Projects\Lib;K:\projects\LIBRARY\Builder6\SDLSUI~2\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\mathpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chempack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\guipack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chartpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\geopack\C6
+RegDB Key: Software\Borland\C++Builder\6.0\Library .NET
+RegDB Val: ;K:\projects\LIBRARY\Builder6\SDLSUI~2\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\mathpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chempack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\guipack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chartpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\geopack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~3\SDLSuite\basepack\C6
+RegDB Name: Search Path
+RegDB Root: 1
+RegDB Old: ;K:\projects\LIBRARY\Builder6\SDLSUI~2\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\mathpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chempack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\guipack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chartpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\geopack\C6
