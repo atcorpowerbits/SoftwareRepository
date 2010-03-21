@@ -1,0 +1,53 @@
+:Base scorcvms.hlp
+1 Introduction
+2 Introduction=Introduction
+1 Starting the Software
+2 Starting the Software=Starting_the_Software
+1 PWA (Pulse Wave Analysis)
+2 PWA Introduction=PWA_Introduction
+2 Taking a PWA Measurement=Taking_a_PWA_Measurement
+2 Working with the PWA Patient Screen=Working_with_the_PWA_Patient_Screen
+2 Working with the PWA Study Screen=Working_with_the_PWA_Study_Screen
+2 Working with the PWA Clinical Report Screen=Working_with_the_PWA_Clinical_Report_Screen
+2 Working with the PWA Detailed Report Screen=Working_with_the_PWA_Detailed_Report_Screen
+2 Working with the PWA Analysis Screen=Working_with_the_PWA_Analysis_Screen
+2 Advanced PWA Topics
+3 Recalculate All=RECALCULATE_ALL
+3 Exported Fields=EXPORTED_FIELDS
+3 Adjusting End of Systole=ADJUSTING_END_OF_SYSTOLE
+1 PWV (Pulse Wave Velocity)
+2 PWV Introduction=PWV_Introduction
+2 Taking a PWV Measurement=Taking_a_PWV_Measurement
+2 Working with the PWV Patient Screen=Working_with_the_PWV_Patient_Screen
+2 Working with the PWV Study Screen=Working_with_the_PWV_Study_Screen
+2 Working with the PWV Report Screen=Working_with_the_PWV_Report_Screen
+2 Working with the PWV Analysis Screen=Working_with_the_PWV_Analysis_Screen
+2 Explanation of PWV Algorithms=Explanation_of_PWV_Algorithms
+2 Advanced PWV Topics
+3 Exported Fields=EXPORTED_FIELDS_1
+1 HRV (Heart Rate Variability)
+2 HRV Introduction=HRV_Introduction
+2 Taking A HRV Measurement=Taking_A_HRV_Measurement
+2 Working with the HRV Patient Screen=Working_with_the_HRV_Patient_Screen
+2 Working with the HRV Study Screen=Working_with_the_HRV_Study_Screen
+2 Working with the HRV Report Screen=Working_with_the_HRV_Report_Screen
+2 Advanced HRV Topics
+3 Exported Fields=EXPORTED_FIELDS_2
+3 Viewing the ECG Signal=VIEWING_THE_ECG_SIGNAL
+1 Advanced Topics
+2 Configuration Settings=CONFIGURATION_SETTINGS
+2 Privacy Screen=PRIVACY_SCREEN
+2 Packing a Database=PACKING_A_DATABASE_DATABASE_OPTIMISATION_
+2 The Database Manager=THE_DATABASE_MANAGER
+2 Exporting Data=EXPORTING_DATA
+2 Batch Printing=BATCH_PRINTING_PWA_AND_PWV_ONLY_
+2 Patient Listing=PATIENT_LISTING
+1 Printing
+2 Printing=PRINTING
+1 Explanation of Parameters/Indices
+2 Explanation of Parameters/Indices=EXPLANATION_OF_PARAMETERS_INDICES_PWA_AND_PWM_ONLY_
+1 Product Support
+2 Product Support=PRODUCT_SUPPORT
+1 Appendix
+2 References=REFERENCES
+2 Caveats and Limitations=CAVEATS_AND_LIMITATIONS

@@ -1,0 +1,107 @@
+Comparing files scor.cpp and K:SCOR.CPP
+***** scor.cpp
+
+USEFORM("form_splash.cpp", frm_splash);
+***** K:SCOR.CPP
+
+USERES("scor.res");
+USEFORM("form_splash.cpp", frm_splash);
+*****
+
+***** scor.cpp
+USEFORM("..\patient\source\form_patient.cpp", frm_patient);
+USEFORM("..\report\source\form_report_pwv.cpp", frm_report_pwv);
+USEFORM("..\capture\source\form_cappwa.cpp", frm_capture_pwa);
+USEFORM("..\analysis\source\form_analysis_pwv.cpp", frm_analysis_pwv);
+***** K:SCOR.CPP
+USEFORM("..\patient\source\form_patient.cpp", frm_patient);
+USEUNIT("Child.cpp");
+USEFORM("..\report\source\form_report_pwv.cpp", frm_report_pwv);
+USEUNIT("..\meas\source\PWA.cpp");
+USEUNIT("..\meas\source\Mathem.cpp");
+USEUNIT("..\meas\source\Measure.cpp");
+USEUNIT("..\meas\source\Pressure.cpp");
+USEUNIT("..\meas\source\Pulse.cpp");
+USEUNIT("..\meas\source\GetSeries.cpp");
+USEFORM("..\capture\source\form_cappwa.cpp", frm_capture_pwa);
+USEUNIT("..\capture\source\capture.cpp");
+USEUNIT("..\comms\source\Event.cpp");
+USEUNIT("..\comms\source\Comms.cpp");
+USEFORM("..\analysis\source\form_analysis_pwv.cpp", frm_analysis_pwv);
+*****
+
+***** scor.cpp
+USEFORM("..\analysis\source\form_trend_pwv.cpp", frm_trend_pwv);
+USEFORM("..\meas\source\form_pwa.cpp", frm_measure_pwa);
+***** K:SCOR.CPP
+USEFORM("..\analysis\source\form_trend_pwv.cpp", frm_trend_pwv);
+USEUNIT("..\analysis\source\analysis.cpp");
+USEFORM("..\meas\source\form_pwa.cpp", frm_measure_pwa);
+*****
+
+***** scor.cpp
+USEFORM("..\config\source\form_config.cpp", frm_config);
+USEFORM("..\meas\source\form_recalculate_pwa.cpp", frm_recalculate_pwa);
+USEFORM("form_about.cpp", frm_aboutbox);
+***** K:SCOR.CPP
+USEFORM("..\config\source\form_config.cpp", frm_config);
+USEUNIT("..\print\source\Print.cpp");
+USEUNIT("..\log\source\log.cpp");
+USEUNIT("..\meas\source\Common.cpp");
+USEFORM("..\meas\source\form_recalculate_pwa.cpp", frm_recalculate_pwa);
+USERC("..\msg\source\MsgDef.rc");
+USEUNIT("..\msg\source\MsgBox.cpp");
+USEFORM("form_about.cpp", frm_aboutbox);
+*****
+
+***** scor.cpp
+USEFORM("..\meas\source\form_pwv.cpp", frm_measure_pwv);
+USEFORM("..\export\source\form_export.cpp", frm_export);
+USEFORM("form_selectdir.cpp", frm_select_dir);
+USEFORM("..\analysis\source\form_select.cpp", frm_select);
+USEFORM("..\report\source\form_report_pwa.cpp", frm_report_pwa);
+***** K:SCOR.CPP
+USEFORM("..\meas\source\form_pwv.cpp", frm_measure_pwv);
+USEUNIT("..\meas\source\TSignal.cpp");
+USEUNIT("..\meas\source\PWASignals.cpp");
+USEFORM("..\export\source\form_export.cpp", frm_export);
+USEUNIT("..\meas\source\PWAPulse.cpp");
+USEFORM("form_selectdir.cpp", frm_select_dir);
+USEUNIT("utils.cpp");
+USEFORM("..\analysis\source\form_select.cpp", frm_select);
+USEUNIT("..\meas\source\PWV.cpp");
+USEUNIT("..\meas\source\PWVSignals.cpp");
+USEUNIT("..\meas\source\PWVSite.cpp");
+USEFORM("..\report\source\form_report_pwa.cpp", frm_report_pwa);
+*****
+
+***** scor.cpp
+USEFORM("..\analysis\source\form_analysis_pwa.cpp", frm_analysis_pwa);
+USEFORM("..\patient\source\form_patlist.cpp", frm_patlist);
+***** K:SCOR.CPP
+USEFORM("..\analysis\source\form_analysis_pwa.cpp", frm_analysis_pwa);
+USEUNIT("..\meas\source\TBuffer.cpp");
+USEFORM("..\patient\source\form_patlist.cpp", frm_patlist);
+*****
+
+***** scor.cpp
+USEFORM("..\meas\source\form_pwm.cpp", frm_measure_pwm);
+USEFORM("..\multdb\source\form_merge.cpp", frm_merge);
+USEFORM("..\print\source\form_batchprint.cpp", frm_batchprint);
+USEFORM("..\export\source\form_export_database.cpp", frm_export_database);
+USEFORM("..\multdb\source\form_multdb.cpp", frm_multdb);
+***** K:SCOR.CPP
+USEFORM("..\meas\source\form_pwm.cpp", frm_measure_pwm);
+USEUNIT("..\meas\source\PWM.cpp");
+USEUNIT("..\meas\source\TStack.cpp");
+USEFORM("..\multdb\source\form_merge.cpp", frm_merge);
+USEUNIT("..\comms\source\usbDriver.cpp");
+USEUNIT("..\comms\source\usbComms.cpp");
+USEFORM("..\print\source\form_batchprint.cpp", frm_batchprint);
+USEUNIT("..\report\source\report.cpp");
+USEFORM("..\export\source\form_export_database.cpp", frm_export_database);
+USELIB("C:\APRO\A304_R51.lib");
+USELIB("C:\APRO\A304_D51.lib");
+USEFORM("..\multdb\source\form_multdb.cpp", frm_multdb);
+*****
+

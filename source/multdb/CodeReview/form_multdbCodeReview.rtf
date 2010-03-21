@@ -1,0 +1,1592 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang3081\deflangfe3081{\fonttbl{\f0\fmodern\fprq1\fcharset0 Courier New;}}
+{\colortbl ;\red0\green128\blue0;\red255\green0\blue0;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.15.1507;}\viewkind4\uc1\pard\nowidctlpar\lang1033\f0\fs20 //---------------------------------------------------------------------------\par
+#include <vcl.h>\par
+#include <sysutils.hpp>\par
+#include <FileCtrl.hpp>\par
+#include <ComObj.hpp>\par
+#include <stdio.h>\par
+\par
+#include <inc/std.h>\par
+#include <dbmgr/pubserv.h>\par
+#include <msg/pubserv.h>\par
+#include <log/pubserv.h>\par
+#include <patient/pubserv.h>\par
+#include <config/pubserv.h>\par
+#include <cfr11/pubserv.h>\par
+#include <scor/form_main.h>\par
+#include <scor/form_selectdir.h>\par
+#include <scor/utils.h>\par
+\par
+#include "form_multdb.h"\par
+#pragma hdrstop\par
+//---------------------------------------------------------------------------\par
+#pragma package(smart_init)\par
+#pragma resource "*.dfm"\par
+\par
+VAR_EXPORT  Tfrm_multdb *frm_multdb;\par
+VAR_EXPORT  AnsiString  multdb_selected_dir;\par
+\par
+const int MULTDB_MAX = 21;\par
+const int MULTDB_DEFAULT_ID = 0;\par
+const int MULTDB_NAME_LEN = 17;\par
+const int MULTDB_DESC_LEN = 41;\par
+const int MULTDB_DATE_LEN = 12;\par
+const int MULTDB_PATH_LEN = 121;\par
+const int MULTDB_INVALID_ID = -1;\par
+\par
+const String MULTDB_BIN = "\\\\MULTDB.BIN";\par
+const String MULTDB_DEFAULT_NAME = "DATA";\par
+const String MULTDB_CONFIG_FNAME = CONFIG_SYSTEM_SUBDIR + MULTDB_BIN;\par
+const String MULTDB_DEFAULT_DB = "The Default Database";\par
+const String MULTDB_LDB = "\\\\scor.ldb";\par
+const String MULTDB_ACTIVE_DB = "Active Database - ";\par
+const String MULTDB_DATEFORMAT = "dd mm yyyy";\par
+const String MULTDB_UNKNOWN = "Unknown";\par
+const String MULTDB_FAILED = "MULTDB_FAILED";\par
+const String MULTDB_NEW = "New";\par
+\par
+typedef struct\par
+\{\par
+   char  name[MULTDB_NAME_LEN];\par
+   char  desc[MULTDB_DESC_LEN];\par
+   char  created[MULTDB_DATE_LEN];\par
+   char  last_copied[MULTDB_DATE_LEN];\par
+   char  last_updated[MULTDB_DATE_LEN];\par
+   char  copied_to[MULTDB_PATH_LEN];\par
+   char  updated_from[MULTDB_PATH_LEN];\par
+   bool  can_delete;\par
+\} MULTDB_CONFIG_TYPE;\par
+\par
+MULTDB_CONFIG_TYPE multdb[MULTDB_MAX];\par
+int                multdb_active_id;\par
+UTINY              multdb_num_defined;\par
+AnsiString         multdb_previous_active_name;\par
+bool               multdb_initialised;\par
+\par
+TTreeNode *root_node;\par
+\par
+bool multdb_write_setup(void);\par
+void multdb_load_setup(void);\par
+void multdb_recover_configuration(void);\par
+void multdb_rearrange_config(UTINY id_deleted);\par
+\par
+bool multdb_verify_name(char *name);\par
+bool multdb_create_data_set(char *dbname);\par
+bool multdb_set_active_name(char *dbname);\par
+void multdb_set_active_id(int new_id);\par
+\par
+bool multdb_perform_update(void);\par
+bool multdb_perform_copy(void);\par
+bool multdb_perform_merge(void);\par
+bool multdb_check_directory(AnsiString dir_name);\par
+\par
+bool multdb_initialise(void)\par
+\{\par
+   UTINY  i;\par
+\par
+   multdb_initialised = false;\par
+\par
+   multdb_active_id = MULTDB_DEFAULT_ID;\par
+   multdb_previous_active_name = MULTDB_DEFAULT_NAME;\par
+   multdb_num_defined = 0;\par
+   multdb_selected_dir = "";\par
+\par
+   for (i = 0; i < MULTDB_MAX; i++)\par
+   \{\par
+      multdb[i].name[0] = '\\0';\par
+      multdb[i].desc[0] = '\\0';\par
+      multdb[i].created[0] = '\\0';\par
+      multdb[i].last_copied[0] = '\\0';\par
+      multdb[i].last_updated[0] = '\\0';\par
+      multdb[i].copied_to[0] = '\\0';\par
+      multdb[i].updated_from[0] = '\\0';\par
+      multdb[i].can_delete = false;\par
+   \}\par
+   strcpy(multdb[MULTDB_DEFAULT_ID].name, MULTDB_DEFAULT_NAME.c_str());\par
+   strcpy(multdb[MULTDB_DEFAULT_ID].desc, MULTDB_DEFAULT_DB.c_str());\par
+\par
+   multdb_load_setup();\par
+   multdb_initialised = true;\par
+   return (multdb_initialised);\par
+\}\par
+\par
+void multdb_destroy(void)\par
+\{\par
+   if (multdb_initialised)\par
+   \{\par
+      (void)multdb_write_setup();\par
+      multdb_initialised = false;\par
+   \}\par
+\}\par
+\cf1 OK [PH]\cf0\par
+void multdb_show_form(void)\par
+\{\par
+  frm_multdb = new Tfrm_multdb(Application->MainForm);\par
+  frm_multdb->ShowModal();\par
+  delete frm_multdb;\par
+\}\par
+\par
+bool multdb_write_setup(void)\par
+\{\par
+   int         file_handle;\par
+   int         ret_val;\par
+   bool        success = false;\par
+   UTINY       i = 0;\par
+   AnsiString  multdb_cfg_file;\par
+\par
+   multdb_cfg_file = ExtractFilePath(ParamStr(0)) + MULTDB_CONFIG_FNAME;\par
+   if (FileExists(multdb_cfg_file))\par
+   \{\par
+      file_handle = FileOpen(multdb_cfg_file, fmOpenWrite);\par
+   \}\par
+   else\par
+   \{\par
+      file_handle = FileCreate(multdb_cfg_file);\par
+   \}\par
+\par
+   if (file_handle != -1)\par
+   \{\par
+      i = MULTDB_MAX;\par
+      FileWrite(file_handle,\par
+                &i,\par
+                sizeof(unsigned char));\par
+\par
+      i = multdb_num_defined;\par
+      FileWrite(file_handle,\par
+                &i,\par
+                sizeof(unsigned char));\par
+\par
+      success = true;\par
+      i = 0;\par
+      while (i < MULTDB_MAX && success)\par
+      \{\par
+         success = false;\par
+         ret_val = FileWrite(file_handle,\par
+                             &multdb[i],\par
+                             sizeof(MULTDB_CONFIG_TYPE));\par
+         if (ret_val == sizeof(MULTDB_CONFIG_TYPE))\par
+         \{\par
+            success = true;\par
+         \}\par
+         ++i;\par
+      \}\par
+      FileClose(file_handle);\par
+   \}\par
+   return (success);\par
+\}\par
+\cf1 OK [PH]\cf0\par
+void multdb_load_setup(void)\par
+\{\par
+   UTINY        total_records = 0;\par
+   UTINY        num_defined = 0;\par
+   UTINY        i;\par
+   bool         valid = false;\par
+   int          record_read;\par
+   int          file_handle;\par
+   AnsiString   multdb_cfg_file;\par
+\par
+   multdb_cfg_file = ExtractFilePath(ParamStr(0)) + MULTDB_CONFIG_FNAME;\par
+   if (FileExists(multdb_cfg_file))\par
+   \{\par
+      if ((file_handle = FileOpen(multdb_cfg_file, fmOpenRead)) != -1)\par
+      \{\par
+         record_read = FileRead(file_handle,\par
+                                &total_records,\par
+                                sizeof(unsigned char));\par
+\par
+         if ((record_read == 1) && (total_records <= MULTDB_MAX))\par
+         \{\par
+            record_read = FileRead(file_handle,\par
+                                  &num_defined,\par
+                                   sizeof(unsigned char));\par
+            if ((record_read == 1) && (num_defined < MULTDB_MAX))\par
+            \{\par
+               i = 0;\par
+               valid = true;\par
+               while (i < total_records && valid)\par
+               \{\par
+                  valid = false;\par
+                  record_read = FileRead(file_handle,\par
+                                         &multdb[i],\par
+                                         sizeof(MULTDB_CONFIG_TYPE));\par
+\par
+                  if (record_read == sizeof(MULTDB_CONFIG_TYPE))\par
+                  \{\par
+                     valid = true;\par
+                     if (i == 0)\par
+                     \{\par
+                        if ((strcmpi(multdb[i].name, MULTDB_DEFAULT_NAME.c_str()) != 0))\par
+                        \{\par
+                           valid = false;\par
+                           log_write(MSG_MULTDB_INCORRECT_DATASET);\par
+                        \}\par
+                     \}\par
+                  \}\par
+                  ++i;\par
+               \}\par
+            \}\par
+            else\par
+            \{\par
+               log_write(MSG_MULTDB_TOO_MANY);\par
+            \}\par
+         \}\par
+         else\par
+         \{\par
+            log_write(MSG_MULTDB_INCORRECT_HEADER);\par
+         \}\par
+         FileClose(file_handle);\par
+      \}\par
+      else\par
+      \{\par
+         log_write(MSG_MULTDB_FILEOPENERROR);\par
+      \}\par
+      if (valid)\par
+      \{\par
+         multdb_num_defined = num_defined;\par
+      \}\par
+   \}\par
+   else\par
+   \{\par
+      multdb_recover_configuration();\par
+      log_write(MSG_MULTDB_RECOVERED);\par
+      if (multdb_write_setup())\par
+      \{\par
+         valid = true;\par
+      \}\par
+   \}\par
+\par
+   if (!valid)\par
+   \{\par
+      multdb_recover_configuration();\par
+      log_write(MSG_MULTDB_RECOVERED);\par
+      multdb_write_setup();\par
+   \}\par
+\}\par
+\cf1 OK [PH]\cf0\par
+void multdb_set_active_id(int new_id)\par
+\{\par
+   if (new_id != multdb_active_id)\par
+   \{\par
+      multdb_active_id = new_id;\par
+   \}\par
+\}\par
+\cf1 OK [PH]\cf0\par
+UTINY multdb_get_active_id(void)\par
+\{\par
+   return ((UTINY)multdb_active_id);\par
+\}\par
+\cf1 OK [PH]\cf0\par
+bool multdb_is_default(void)\par
+\{\par
+   if (multdb_active_id == MULTDB_DEFAULT_ID)\par
+   \{\par
+      return true;\par
+   \}\par
+   else\par
+   \{\par
+      return false;\par
+   \}\par
+\}\par
+\cf1 OK [PH]\cf0\par
+void multdb_set_delete_status(bool status)\par
+\{\par
+   multdb[multdb_active_id].can_delete = status;\par
+   multdb[MULTDB_DEFAULT_ID].can_delete = FALSE;\par
+\}\par
+\cf1 OK [PH]\cf0\par
+AnsiString multdb_get_active_name(void)\par
+\{\par
+   AnsiString sactive;\par
+\par
+   if (multdb_active_id == MULTDB_INVALID_ID)\par
+   \{\par
+      sactive = MULTDB_DEFAULT_NAME;\par
+   \}\par
+   else\par
+   \{\par
+      sactive = (AnsiString)multdb[multdb_active_id].name;\par
+   \}\par
+   return sactive;\par
+\}\par
+\cf1 OK [PH]\cf0\par
+bool multdb_set_active_name(char *dbname)\par
+\{\par
+   bool   found = false;\par
+   UTINY  i;\par
+\par
+   i = 0;\par
+   while (i < MULTDB_MAX && (i < multdb_num_defined + 1) && !found)\par
+   \{\par
+      if (strcmpi(dbname, multdb[i].name) == 0)\par
+      \{\par
+         found = true;\par
+         multdb_set_active_id(i);\par
+      \}\par
+      ++i;\par
+   \}\par
+   return (found);\par
+\}\par
+\cf1 OK [PH]\cf0\par
+bool multdb_pack(void)\par
+\{\par
+   Variant V;\par
+   AnsiString  db_path;\par
+   AnsiString  data_dir;\par
+   AnsiString  source_db;\par
+   AnsiString  dest_db;\par
+   AnsiString  log_msg;\par
+   bool        success = false;\par
+\par
+   if (MsgBox_confirmation("Packing optimises and repairs the current active database.\\nThis operation can take several minutes depending on the size of the database and the level of optimisation required.\\n\\nBefore you proceed with packing you should have a recent backup or copy of your database.\\n\\nDo you want to continue ?",\par
+                           SWARNING) != IDYES)\par
+   \{\par
+      return success;\par
+   \}\par
+\par
+   try\par
+   \{\par
+      Screen->Cursor = crHourGlass;\par
+      data_dir = MULTDB_DEFAULT_NAME + "\\\\";\par
+      if (!multdb_is_default())\par
+      \{\par
+         data_dir = data_dir + multdb_get_active_name() +"\\\\";\par
+      \}\par
+      db_path = ExtractFilePath(ParamStr(0)) +data_dir;\par
+      source_db = db_path +DBMGR_DATABASE_NAME;\par
+      dest_db = db_path +"scor_pack.mdb";\par
+\par
+      if (emma_is_space_available(source_db[1], source_db))\par
+      \{\par
+         if (dbmgr_disconnect_database_set(false))\par
+         \{\par
+            log_msg = "Packing Database " +source_db;\par
+            log_write(log_msg);\par
+            emma_display_statusbar_message("Please wait... Packing Database");\par
+\cf2 Please check to see whether this is the appropraite engine to use and is consistent with that in the Database Manager Object [PH]\par
+\cf3 We should be using DAO 3.6. It uses Jet 4.0 which is consistent with the Database Manager. The RepairDatabase procedure is no longer supported as CompactDatabase now repairs the database if needed.\par
+Changed and Tested. [PM]\par
+\cf1 OK [PH]\cf3\par
+\cf0             V = CreateOleObject("DAO.DBEngine.35");\par
+            if (FileExists(source_db))\par
+            \{\par
+               if (FileExists(dest_db))\par
+               \{\par
+                  DeleteFile(dest_db);\par
+               \}\par
+\par
+               // Repair and then compact the database\par
+               V.Exec(Procedure("RepairDatabase") << source_db);\par
+               V.Exec(Procedure("CompactDatabase") << source_db << dest_db);\par
+               if (FileExists(dest_db))\par
+               \{\par
+                  if (DeleteFile(source_db))\par
+                  \{\par
+                     RenameFile(dest_db, source_db);\par
+                     emma_display_statusbar_message("Packing Database Successful");\par
+                     success = true;\par
+                  \}\par
+                  else\par
+                  \{\par
+                     emma_display_statusbar_message("Packing Database Failed");\par
+                     log_msg = "Packing Failed, Could not delete source database.";\par
+                     log_write(log_msg);\par
+                  \}\par
+               \}\par
+            \}\par
+            dbmgr_activate_database_set(data_dir, false);\par
+         \}\par
+      \}\par
+      else\par
+      \{\par
+         log_msg = LoadStr(MSG_MULTDB_NO_SPACE) +" Packing Failed. " +source_db;\par
+         MsgBox(TERROR, MSG_DBMGR_ERROR, MSG_MULTDB_NO_SPACE, log_msg);\par
+      \}\par
+   \}\par
+   catch (Exception &exception)\par
+   \{\par
+       emma_display_statusbar_message("Packing Database Failed");\par
+       log_msg = "Packing Failed " +exception.Message;\par
+       log_write(log_msg);\par
+   \}\par
+   Screen->Cursor = crDefault;\par
+   if (success)\par
+   \{\par
+      if (multdb_is_default())\par
+      \{\par
+         config_update_database_pack_date();\par
+      \}\par
+   \}\par
+   return (success);\par
+\}\par
+\cf2 Please double check the logic to ensure that a database cannot be lost if the packing fails [PH] \cf3 Checked \endash  OK [PM]\par
+\cf1 OK [PH]\cf3\par
+\cf0 bool multdb_create_data_set(char *dbname,\par
+                            char *description,\par
+                            char *date_created)\par
+\{\par
+   AnsiString  dir_name;\par
+   AnsiString  source_path;\par
+   AnsiString  dest_path;\par
+   AnsiString  msgbox_string;\par
+   bool        status = false;\par
+\par
+   if (multdb_num_defined < MULTDB_MAX - 1)\par
+   \{\par
+      if (multdb_verify_name(dbname))\par
+      \{\par
+         dir_name = ExtractFilePath(ParamStr(0)) + MULTDB_DEFAULT_NAME + "\\\\" +(AnsiString)dbname;\par
+         if (!DirectoryExists(dir_name))\par
+         \{\par
+            source_path = ExtractFilePath(ParamStr(0)) + CONFIG_SYSTEM_SUBDIR + "\\\\" + DBMGR_DATABASE_NAME;\par
+            if (!FileExists(source_path))\par
+            \{\par
+               status = false;\par
+               msgbox_string = LoadStr(MSG_MULTDB_CANT_CREATE) +(AnsiString)dbname +".\\n\\n" +LoadStr(MSG_MULTDB_MISSING_DB);\par
+               MsgBox(TERROR, MSG_MULTDB_ERROR, MSG_MULTDB_MISSING_DB, msgbox_string);\par
+               return (status);\par
+            \}\par
+\par
+            if (emma_is_space_available(source_path[1], source_path))\par
+            \{\par
+               if (CreateDir(dir_name))\par
+               \{\par
+                  if (FileExists(source_path))\par
+                  \{\par
+                     dest_path = ExtractFilePath(ParamStr(0)) + MULTDB_DEFAULT_NAME + "\\\\" + (AnsiString)dbname + "\\\\" + DBMGR_DATABASE_NAME;\par
+                     if (CopyFile(source_path.c_str(),\par
+                                  dest_path.c_str(),\par
+                                  true) != 0)\par
+                     \{\par
+                        multdb_set_active_id(multdb_num_defined + 1);\par
+                        strcpy(multdb[multdb_active_id].name, dbname);\par
+                        strcpy(multdb[multdb_active_id].desc, description);\par
+                        strcpy(multdb[multdb_active_id].created, date_created);\par
+                        strcpy(multdb[multdb_active_id].copied_to, MULTDB_NEW.c_str());\par
+                        strcpy(multdb[multdb_active_id].updated_from, MULTDB_NEW.c_str());\par
+                        multdb[multdb_active_id].can_delete = true;\par
+                        ++multdb_num_defined;\par
+                        status = true;\par
+                        multdb_write_setup();\par
+                     \}\par
+                  \}\par
+               \}\par
+               else\par
+               \{\par
+                 msgbox_string = LoadStr(MSG_MULTDB_CANT_CREATE) + (AnsiString)dbname +\par
+                    ".\\n\\nFailed to create directory. " +dir_name;\par
+                 MsgBox_show(TERROR,\par
+                             MSG_MULTDB_ERROR,\par
+                             msgbox_string,\par
+                             MSG_MULTDB_CANT_CREATE, "");\par
+               \}\par
+            \}\par
+            else\par
+            \{\par
+               msgbox_string = LoadStr(MSG_MULTDB_CANT_CREATE) + (AnsiString)dbname +".\\n\\n" +LoadStr(MSG_MULTDB_NO_SPACE);\par
+               MsgBox(TERROR, MSG_MULTDB_ERROR, MSG_MULTDB_NO_SPACE, msgbox_string);\par
+            \}\par
+         \}\par
+         else\par
+         \{\par
+            msgbox_string = LoadStr(MSG_MULTDB_CANT_CREATE) + (AnsiString)dbname +\par
+                    ".\\n\\nDirectory Already Exists. " +dir_name;\par
+            MsgBox(TERROR, MSG_MULTDB_ERROR, MSG_MULTDB_CANT_CREATE, msgbox_string);\par
+         \}\par
+      \}\par
+      else\par
+      \{\par
+         msgbox_string = LoadStr(MSG_MULTDB_CANT_CREATE) + (AnsiString)dbname +".\\n\\n" +LoadStr(MSG_MULTDB_ALREADY_EXIST);\par
+         MsgBox_show(TWARNING,\par
+                     MSG_MULTDB_ERROR,\par
+                     msgbox_string,\par
+                     MSG_MULTDB_ALREADY_EXIST, "");\par
+      \}\par
+   \}\par
+   else\par
+   \{\par
+      msgbox_string = LoadStr(MSG_MULTDB_CANT_CREATE) + (AnsiString)dbname +".\\n\\n" +LoadStr(MSG_MULTDB_MAX_EXCEEDED);\par
+      MsgBox_show(TWARNING,\par
+                  MSG_MULTDB_ERROR,\par
+                  msgbox_string,\par
+                  MSG_MULTDB_MAX_EXCEEDED, "");\par
+   \}\par
+   return (status);\par
+\}\par
+\cf1 OK [PH]\cf0\par
+bool multdb_verify_name(char *name)\par
+\{\par
+   UTINY i = 0;\par
+   bool  valid = true;\par
+\par
+   while (i < MULTDB_NAME_LEN && name[i] != '\\0' && valid)\par
+   \{\par
+      if (!isalnum(name[i]))\par
+      \{\par
+         valid = false;\par
+      \}\par
+      ++i;\par
+   \}\par
+\par
+   i = 0;\par
+   while (i < MULTDB_MAX && valid)\par
+   \{\par
+      if (strcmpi(name, multdb[i].name) == 0)\par
+      \{\par
+         valid = false;\par
+      \}\par
+      ++i;\par
+   \}\par
+   return (valid);\par
+\}\par
+\cf1 OK [PH]\cf0\par
+bool multdb_exists(char *name)\par
+\{\par
+   UTINY i = 0;\par
+   bool  exists = false;\par
+\par
+   while (i < MULTDB_MAX && !exists)\par
+   \{\par
+      if (strcmpi(name, multdb[i].name) == 0)\par
+      \{\par
+         exists = true;\par
+      \}\par
+      ++i;\par
+   \}\par
+   return (exists);\par
+\}\par
+\cf1 OK [PH]\cf0\par
+void multdb_rearrange_config(UTINY id_deleted)\par
+\{\par
+   UTINY i;\par
+\par
+   if (id_deleted == multdb_num_defined)\par
+   \{\par
+      for (i = 0; i < MULTDB_NAME_LEN; i++)\par
+      \{\par
+         multdb[id_deleted].name[i] = '\\0';\par
+      \}\par
+      for (i = 0; i < MULTDB_DESC_LEN; i++)\par
+      \{\par
+         multdb[id_deleted].desc[i] = '\\0';\par
+      \}\par
+      multdb[id_deleted].created[0] = '\\0';\par
+      multdb[id_deleted].last_copied[0] = '\\0';\par
+      multdb[id_deleted].copied_to[0] = '\\0';\par
+      multdb[id_deleted].last_updated[0] = '\\0';\par
+      multdb[id_deleted].updated_from[0] = '\\0';\par
+      multdb[id_deleted].can_delete = false;\par
+   \}\par
+   else\par
+   \{\par
+      for (i = id_deleted; i < multdb_num_defined; i++)\par
+      \{\par
+         strcpy(multdb[i].name, multdb[i + 1].name);\par
+         strcpy(multdb[i].desc, multdb[i + 1].desc);\par
+         strcpy(multdb[i].created, multdb[i + 1].created);\par
+         strcpy(multdb[i].last_copied, multdb[i + 1].last_copied);\par
+         strcpy(multdb[i].copied_to, multdb[i + 1].copied_to);\par
+         strcpy(multdb[i].last_updated, multdb[i + 1].last_updated);\par
+         strcpy(multdb[i].updated_from, multdb[i + 1].updated_from);\par
+         multdb[i].can_delete = multdb[i + 1].can_delete;\par
+      \}\par
+      for (i = 0; i < MULTDB_NAME_LEN; i++)\par
+      \{\par
+         multdb[multdb_num_defined].name[i] = '\\0';\par
+      \}\par
+      for (i = 0; i < MULTDB_DESC_LEN; i++)\par
+      \{\par
+         multdb[multdb_num_defined].desc[i] = '\\0';\par
+      \}\par
+      multdb[multdb_num_defined].created[0] = '\\0';\par
+      multdb[multdb_num_defined].last_copied[0] = '\\0';\par
+      multdb[multdb_num_defined].copied_to[0] = '\\0';\par
+      multdb[multdb_num_defined].last_updated[0] = '\\0';\par
+      multdb[multdb_num_defined].updated_from[0] = '\\0';\par
+      multdb[multdb_num_defined].can_delete = false;\par
+   \}\par
+   --multdb_num_defined;\par
+   multdb_set_active_id(MULTDB_DEFAULT_ID);\par
+   multdb_write_setup();\par
+   frm_multdb->multdb_update_grid();\par
+   frm_multdb->tv_multdb->Selected = frm_multdb->tv_multdb->Items[0].Item[multdb_active_id + 1];\par
+   frm_multdb->lbl_active_db->Caption = multdb[multdb_active_id].name;\par
+\}\par
+\cf1 OK [PH]\cf0\par
+bool multdb_delete(void)\par
+\{\par
+   AnsiString   dir_path;\par
+   AnsiString   file_path;\par
+   AnsiString   msgbox_string;\par
+   bool         status = false;\par
+   bool         delete_error = false;\par
+\par
+   if (multdb_num_defined)\par
+   \{\par
+      if (multdb_active_id != MULTDB_DEFAULT_ID)\par
+      \{\par
+         if (!multdb[multdb_active_id].can_delete)\par
+         \{\par
+            msgbox_string = LoadStr(MSG_MULTDB_CANT_DELETE) + (AnsiString)multdb[multdb_active_id].name +".\\n\\n" +LoadStr(MSG_MULTDB_OPERATION_PERFORMED);\par
+            MsgBox_show(TWARNING,\par
+                        MSG_MULTDB_ERROR,\par
+                        msgbox_string,\par
+                        MSG_MULTDB_OPERATION_PERFORMED, "");\par
+            return false;\par
+         \}\par
+\par
+         if (strcmpi(multdb_previous_active_name.c_str(),\par
+                     multdb[multdb_active_id].name) == 0)\par
+         \{\par
+            msgbox_string = LoadStr(MSG_MULTDB_CANT_DELETE) + (AnsiString)multdb[multdb_active_id].name +".\\n\\n" +LoadStr(MSG_MULTDB_WAS_ACTIVE);\par
+            MsgBox_show(TWARNING,\par
+                        MSG_MULTDB_ERROR,\par
+                        msgbox_string,\par
+                        MSG_MULTDB_WAS_ACTIVE, "");\par
+            return false;\par
+         \}\par
+\par
+         msgbox_string = LoadStr(MSG_MULTDB_WILL_DELETE) + (AnsiString)multdb[multdb_active_id].name;\par
+         if (MsgBox(msgbox_string  + ".\\r\\n" + LoadStr(MSG_MULTDB_SURE), SCONFIRMATION,\par
+                    MB_ICONQUESTION | MB_YESNO) != ID_YES)\par
+         \{\par
+            return false;\par
+         \}\par
+\par
+         if (MsgBox(msgbox_string + ".\\r\\n" + LoadStr(MSG_MULTDB_ABSOLUTELY_SURE), SCONFIRMATION,\par
+                    MB_ICONQUESTION | MB_YESNO) != ID_YES)\par
+         \{\par
+            return false;\par
+         \}\par
+         frm_multdb->pnl_buttons->Enabled = false;\par
+         frm_multdb->anmt_multdb->CommonAVI = aviDeleteFile;\par
+         frm_multdb->anmt_multdb->Visible = true;\par
+         frm_multdb->anmt_multdb->Active = true;\par
+\par
+         file_path = ExtractFilePath(ParamStr(0)) + MULTDB_DEFAULT_NAME + "\\\\" +\par
+            (AnsiString)multdb[multdb_active_id].name + "\\\\" + DBMGR_DATABASE_NAME;\par
+\par
+         if (FileExists(file_path))\par
+         \{\par
+            if (DeleteFile(file_path))\par
+            \{\par
+               file_path = ExtractFilePath(ParamStr(0)) + MULTDB_DEFAULT_NAME + "\\\\" +\par
+                  (AnsiString)multdb[multdb_active_id].name + MULTDB_LDB;\par
+               if (FileExists(file_path))\par
+               \{\par
+                  DeleteFile(file_path);\par
+               \}\par
+               dir_path = ExtractFilePath(ParamStr(0)) + MULTDB_DEFAULT_NAME + "\\\\" + (AnsiString)multdb[multdb_active_id].name;\par
+               if (RemoveDir(dir_path))\par
+               \{\par
+                  status = true;\par
+               \}\par
+               else\par
+               \{\par
+                  delete_error = true;\par
+                  msgbox_string =  LoadStr(MSG_MULTDB_CANT_DELETE_DIR) + file_path;\par
+                  log_write(msgbox_string);\par
+               \}\par
+            \}\par
+            else\par
+            \{\par
+               delete_error = true;\par
+               msgbox_string = LoadStr(MSG_MULTDB_COULDNOT_DELETE) + file_path;\par
+               log_write(msgbox_string);\par
+            \}\par
+         \}\par
+         else\par
+         \{\par
+            delete_error = true;\par
+            msgbox_string = LoadStr(MSG_MULTDB_COULDNOT_DELETE) + file_path + LoadStr(MSG_MULTDB_NOT_EXIST);\par
+            log_write(msgbox_string);\par
+         \}\par
+\par
+         if (delete_error)\par
+         \{\par
+            multdb_rearrange_config((UTINY)multdb_active_id);\par
+            status = false;\par
+         \}\par
+         frm_multdb->anmt_multdb->Active = false;\par
+         frm_multdb->anmt_multdb->Visible = false;\par
+         frm_multdb->pnl_buttons->Enabled = true;\par
+      \}\par
+      else\par
+      \{\par
+         MsgBox_show(TWARNING,\par
+                     MSG_MULTDB_ERROR,\par
+                     LoadStr(MSG_MULTDB_NO_DELETE_DEFAULT),\par
+                     MSG_MULTDB_NO_DELETE_DEFAULT, "");\par
+      \}\par
+      if (status)\par
+      \{\par
+         msgbox_string = LoadStr(MSG_MULTDB_REMOVED) + dir_path;\par
+         MsgBox(TNOTIFICATION, MSG_MULTDB_ERROR, MSG_MULTDB_REMOVED, msgbox_string);\par
+         frm_multdb->tv_multdb->Items->Delete(frm_multdb->tv_multdb->Items[0].Item[multdb_active_id + 1]);\par
+      \}\par
+      else\par
+      \{\par
+         msgbox_string = LoadStr(MSG_MULTDB_FAIL_TO_DELETE) +dir_path;\par
+         MsgBox_show(TWARNING,\par
+                     MSG_MULTDB_ERROR,\par
+                     msgbox_string,\par
+                     MSG_MULTDB_FAIL_TO_DELETE, "");\par
+      \}\par
+   \}\par
+   return (status);\par
+\}\par
+\cf1 OK [PH]\cf0\par
+//---------------------------------------------------------------------------\par
+__fastcall Tfrm_multdb::Tfrm_multdb(TComponent* Owner)\par
+  : TForm(Owner)\par
+\{\par
+\}\par
+\par
+//---------------------------------------------------------------------------\par
+void __fastcall Tfrm_multdb::FormShow(TObject *Sender)\par
+\{\par
+   AnsiString   multdb_path;\par
+   AnsiString   dataset_path;\par
+   AnsiString   old_dataset_path;\par
+\par
+   // Add the defined databases to the tree view\par
+   root_node = tv_multdb->Items[0].Item[0];\par
+   for (int j = 0; j <= multdb_num_defined; j++)\par
+   \{\par
+      if (multdb[j].name[0] != '\\0')\par
+      \{\par
+         tv_multdb->Items->AddChild(root_node, multdb[j].name);\par
+\par
+         // Check each database for the new database name. If it's not there,\par
+         // rename the old database so that update, copy, delete and select can locate it\par
+         multdb_path = MULTDB_DEFAULT_NAME + "\\\\";\par
+         if ((j != MULTDB_DEFAULT_ID) &&\par
+          (j != MULTDB_INVALID_ID))\par
+         \{\par
+            multdb_path = multdb_path + multdb[j].name + "\\\\";\par
+         \}\par
+         dataset_path = ExtractFilePath(ParamStr(0)) +multdb_path +DBMGR_DATABASE_NAME;\par
+         old_dataset_path = ExtractFilePath(ParamStr(0)) +multdb_path +DBMGR_OLD_DATABASE_NAME;\par
+\par
+         if (!FileExists(dataset_path))\par
+         \{\par
+            if (FileExists(old_dataset_path))\par
+            \{\par
+               if (RenameFile(old_dataset_path, dataset_path) == false)\par
+               \{\par
+                  MsgBox(MSG_MULTDB_RENAME_FAILED,\par
+                        SWARNING,\par
+                        MB_ICONEXCLAMATION | MB_OK);\par
+                        Close();\par
+               \}\par
+            \}\par
+         \}\par
+      \}\par
+   \}\par
+\par
+   // Select the currently acitve database\par
+   tv_multdb->Selected = tv_multdb->Items[0].Item[multdb_active_id + 1];\par
+   multdb_update_grid();\par
+   edt_name->Text = "";\par
+   edt_desc->Text = "";\par
+   pnl_animate->Visible = false;\par
+   bbtn_new->Enabled = false;\par
+   bbtn_multdb_abort->Enabled = true;\par
+\par
+   if (multdb_active_id != MULTDB_INVALID_ID)\par
+   \{\par
+      multdb_previous_active_name = (AnsiString)multdb[multdb_active_id].name;\par
+      lbl_active_db->Caption = multdb[multdb_active_id].name;\par
+   \}\par
+   if (multdb_num_defined == 0)\par
+   \{\par
+      edt_name->SetFocus();\par
+   \}\par
+   else\par
+   \{\par
+      tv_multdb->SetFocus();\par
+   \}\par
+   lbl_defined->Caption = IntToStr(multdb_num_defined);\par
+\}\par
+\par
+void __fastcall Tfrm_multdb::multdb_update_grid(void)\par
+\{\par
+   //Initialise the labels\par
+   Label1->Caption = "Description:";\par
+   Label2->Caption = "Date Created:";\par
+   Label3->Caption = "Last Copied:";\par
+   Label4->Caption = "Copied To:";\par
+   Label5->Caption = "Last Updated:";\par
+   Label6->Caption = "Updated From:";\par
+\par
+   // Display the selected database's details\par
+   if (tv_multdb->Selected)\{\par
+   Label7->Caption = multdb[tv_multdb->Selected->Index].desc;\par
+   Label8->Caption = multdb[tv_multdb->Selected->Index].created;\par
+   Label9->Caption = multdb[tv_multdb->Selected->Index].last_copied;\par
+   Label10->Caption = multdb[tv_multdb->Selected->Index].copied_to;\par
+   Label11->Caption = multdb[tv_multdb->Selected->Index].last_updated;\par
+   Label12->Caption = multdb[tv_multdb->Selected->Index].updated_from;\par
+   \}\par
+   else\par
+   \{\par
+   Label7->Caption = "";\par
+   Label8->Caption = "";\par
+   Label9->Caption = "";\par
+   Label10->Caption = "";\par
+   Label11->Caption = "";\par
+   Label12->Caption = "";\par
+   \}\par
+\par
+   if (multdb_num_defined >= MULTDB_MAX)\par
+   \{\par
+      bbtn_new->Enabled = false;\par
+   \}\par
+   else\par
+   \{\par
+      if (edt_desc->GetTextLen() && edt_name->GetTextLen())\par
+      \{\par
+         bbtn_new->Enabled = true;\par
+      \}\par
+   \}\par
+\par
+   if (multdb_is_default())\par
+   \{\par
+      bbtn_delete->Enabled = false;\par
+      bbtn_update->Enabled = false;\par
+      spbtn_update_desc->Enabled = false;\par
+   \}\par
+   else\par
+   \{\par
+      bbtn_delete->Enabled = true;\par
+      bbtn_update->Enabled = true;\par
+      spbtn_update_desc->Enabled = true;\par
+   \}\par
+   edt_name->Text = "";\par
+   edt_desc->Text = "";\par
+\}\par
+\cf1 OK [PH]\cf0\par
+//---------------------------------------------------------------------------\par
+void __fastcall Tfrm_multdb::edt_nameEnter(TObject *Sender)\par
+\{\par
+   edt_name->SelStart = 0;\par
+\}\par
+//---------------------------------------------------------------------------\par
+void __fastcall Tfrm_multdb::FormClose(TObject *Sender,\par
+      TCloseAction &Action)\par
+\{\par
+   AnsiString S;\par
+\par
+   multdb_write_setup();\par
+   S = MULTDB_ACTIVE_DB + multdb_get_active_name();\par
+   frm_main->sbr_main->Panels->Items[2]->Text = S;\par
+   pnl_animate->Visible = false;\par
+\}\par
+\cf1 OK [PH]\cf0\par
+//---------------------------------------------------------------------------\par
+void __fastcall Tfrm_multdb::bbtn_multdb_okClick(TObject *Sender)\par
+\{\par
+   TDataSet     *table_pat;\par
+   AnsiString   multdb_path;\par
+   AnsiString   dataset_path;\par
+   AnsiString   log_msg;\par
+   static bool  select_failed = false;\par
+\par
+   if ((strcmpi(multdb_previous_active_name.c_str(),\par
+               multdb[multdb_active_id].name) != 0) || select_failed)\par
+   \{\par
+      multdb_path = MULTDB_DEFAULT_NAME + "\\\\";\par
+      if ((multdb_active_id != MULTDB_DEFAULT_ID) &&\par
+          (multdb_active_id != MULTDB_INVALID_ID))\par
+      \{\par
+         multdb_path = multdb_path + multdb[multdb_active_id].name + "\\\\";\par
+      \}\par
+      dataset_path = ExtractFilePath(ParamStr(0)) +multdb_path +DBMGR_DATABASE_NAME;\par
+\par
+      if (FileExists(dataset_path))\par
+      \{\par
+         Screen->Cursor = crHourGlass;\par
+         dbmgr_close(DBMGR_PATIENT_TABLE, false);\par
+         dbmgr_close(DBMGR_MEASURE_PWA_TABLE, false);\par
+         if (dbmgr_activate_database_set(multdb_path, false))\par
+         \{\par
+            // Check if the selected database needs to be converted\par
+            // Display conversion status on the animation panel\par
+            pnl_buttons->Enabled = false;\par
+            anmt_multdb->CommonAVI = aviCopyFiles;\par
+            pnl_animate->Visible = true;\par
+            lbl_wait->Visible = true;\par
+            anmt_multdb->Visible = true;\par
+            anmt_multdb->Active = true;\par
+            if (dbmgr_conversion(frm_multdb->lbl_wait, multdb_path))\par
+            \{\par
+               lbl_wait->Caption = "";\par
+               anmt_multdb->Active = false;\par
+               anmt_multdb->Visible = false;\par
+               lbl_wait->Visible = false;\par
+               pnl_animate->Visible = false;\par
+               pnl_buttons->Enabled = true;\par
+\par
+               select_failed = false;\par
+               dbmgr_open(DBMGR_PATIENT_TABLE, false);\par
+               Screen->Cursor = crDefault;\par
+               table_pat = dbmgr_get_dataset(DBMGR_PATIENT_TABLE, false);\par
+               if (table_pat != NULL && dbmgr_is_open(DBMGR_PATIENT_TABLE, false))\par
+               \{\par
+                  log_msg = "Database Manager - Selected " +multdb_get_active_name() +" Patients = " +IntToStr(table_pat->RecordCount);\par
+                  log_write(log_msg);\par
+                  patient_update_count();\par
+                  if (table_pat->RecordCount == 0)\par
+                  \{\par
+                     Close();\par
+                     Hide();\par
+                  \}\par
+               \}\par
+               ModalResult = mrOk;\par
+\par
+               // This ensures the audit tables are open for the new database\par
+\cf2 Please explain why we are reinitialising the audit object here, Initialise should only be done once..Perhaps need a function called audit setup if calling more than once [PH]\cf0\par
+\cf3 Created an audit_setup function and tested [PM]\par
+\cf1 OK [PH]\cf3\par
+\cf0                audit_initialise();\par
+            \}\par
+            else\par
+            \{\par
+               lbl_wait->Caption = "";\par
+               anmt_multdb->Active = false;\par
+               anmt_multdb->Visible = false;\par
+               lbl_wait->Visible = false;\par
+               pnl_animate->Visible = false;\par
+               pnl_buttons->Enabled = true;\par
+               Screen->Cursor = crDefault;\par
+               bbtn_multdb_abort->Enabled = false;\par
+               select_failed = true;\par
+               MsgBox(MSG_MULTDB_CONVERSION_FAILED,\par
+                    SWARNING,\par
+                    MB_ICONEXCLAMATION | MB_OK);\par
+                    return;\par
+            \}\par
+         \}\par
+         else\par
+         \{\par
+            Screen->Cursor = crDefault;\par
+            bbtn_multdb_abort->Enabled = false;\par
+            select_failed = true;\par
+            log_msg = LoadStr(MSG_MULTDB_SELECT_FAILED) +multdb_path;\par
+            MsgBox(TERROR, MSG_MULTDB_ERROR, MSG_MULTDB_SELECT_FAILED, log_msg);\par
+            return;\par
+         \}\par
+      \}\par
+      else\par
+      \{\par
+         select_failed = true;\par
+         bbtn_multdb_abort->Enabled = false;\par
+         //log_msg = LoadStr(MSG_MULTDB_SELECT_FAILED) +dataset_path +LoadStr(MSG_MULTDB_NOT_EXIST);\par
+         //MsgBox(TERROR, MSG_MULTDB_ERROR, MSG_MULTDB_SELECT_FAILED, log_msg);\par
+         log_write("MSG_MULTDB_SELECT_FAILED");\par
+         return;\par
+      \}\par
+   \}\par
+   else\par
+   \{\par
+      ModalResult = mrOk;\par
+   \}\par
+\}\par
+\cf2\par
+\cf1 OK [PH]\cf0\par
+//---------------------------------------------------------------------------\par
+void __fastcall Tfrm_multdb::bbtn_multdb_abortClick(TObject *Sender)\par
+\{\par
+   if (multdb_exists(multdb_previous_active_name.c_str()))\par
+   \{\par
+      multdb_set_active_name(multdb_previous_active_name.c_str());\par
+   \}\par
+\}\par
+//---------------------------------------------------------------------------\par
+void __fastcall Tfrm_multdb::bbtn_newClick(TObject *Sender)\par
+\{\par
+   TDateTime   dt;\par
+   AnsiString  date_str;\par
+   AnsiString  multdb_name;\par
+\par
+   if (edt_name->GetTextLen() > 0 && edt_name->GetTextLen() < MULTDB_NAME_LEN)\par
+   \{\par
+      if (edt_desc->GetTextLen() > 0 && edt_desc->GetTextLen() < MULTDB_DESC_LEN)\par
+      \{\par
+         multdb_name = edt_name->Text.UpperCase();\par
+         date_str = dt.CurrentDate().FormatString(MULTDB_DATEFORMAT);\par
+         if (multdb_create_data_set(multdb_name.c_str(),\par
+                                    edt_desc->Text.c_str(),\par
+                                    date_str.c_str()))\par
+         \{\par
+            tv_multdb->Items->AddChild(root_node, multdb[multdb_active_id].name);\par
+            tv_multdb->Selected = tv_multdb->Items[0].Item[multdb_active_id + 1];\par
+            multdb_update_grid();\par
+            lbl_active_db->Caption = multdb[multdb_active_id].name;\par
+            lbl_defined->Caption = IntToStr(multdb_num_defined);\par
+            tv_multdb->SetFocus();\par
+         \}\par
+         else\par
+         \{\par
+            if (multdb_num_defined == (MULTDB_MAX - 1))\par
+            \{\par
+               bbtn_new->Enabled = false;\par
+               edt_desc->Text = "";\par
+               edt_name->Text = "";\par
+            \}\par
+         \}\par
+      \}\par
+      else\par
+      \{\par
+         MsgBox(MSG_MULTDB_DESCRIPTION, MSG_MULTDB_CANT_CREATE);\par
+         edt_desc->SetFocus();\par
+      \}\par
+   \}\par
+   else\par
+   \{\par
+      MsgBox(MSG_MULTDB_ALREADY_EXIST, MSG_MULTDB_CANT_CREATE);\par
+      edt_name->SetFocus();\par
+   \}\par
+\}\par
+\cf1 OK [PH]\cf0\par
+//---------------------------------------------------------------------------\par
+void __fastcall Tfrm_multdb::bbtn_activateClick(TObject *Sender)\par
+\{\par
+   multdb_set_active_name(tv_multdb->Selected->Text.c_str());\par
+   lbl_active_db->Caption = multdb[multdb_active_id].name;\par
+   multdb_update_grid();\par
+   bbtn_multdb_ok->Default = true;\par
+   tv_multdb->SetFocus();\par
+\}\par
+//---------------------------------------------------------------------------\par
+void __fastcall Tfrm_multdb::bbtn_copyClick(TObject *Sender)\par
+\{\par
+   if (emma_select_dir(this, "Copy To ", multdb_selected_dir))\par
+   \{\par
+      //this->SetFocus();\par
+      if (multdb_perform_copy())\par
+      \{\par
+         multdb_set_delete_status(true);\par
+      \}\par
+      multdb_update_grid();\par
+   \}\par
+\}\par
+\par
+void __fastcall Tfrm_multdb::bbtn_deleteClick(TObject *Sender)\par
+\{\par
+   if (multdb_delete())\par
+   \{\par
+      multdb_rearrange_config((UTINY)multdb_active_id);\par
+      lbl_defined->Caption = IntToStr(multdb_num_defined);\par
+   \}\par
+\}\par
+\cf1 OK [PH]\cf0\par
+void __fastcall Tfrm_multdb::bbtn_updateClick(TObject *Sender)\par
+\{\par
+   AnsiString msgbox_string;\par
+\par
+   if (multdb_num_defined)\par
+   \{\par
+   \tab   if (multdb_active_id != MULTDB_DEFAULT_ID)\par
+   \tab   \{\par
+   \tab\tab  if (!multdb[multdb_active_id].can_delete)\par
+   \tab\tab  \{\par
+            msgbox_string = LoadStr(MSG_MULTDB_CANT_UPDATE) + (AnsiString)multdb[multdb_active_id].name +".\\n\\n" +LoadStr(MSG_MULTDB_OPERATION_PERFORMED);\par
+            MsgBox_show(TWARNING,\par
+                        MSG_MULTDB_ERROR,\par
+                        msgbox_string,\par
+                        MSG_MULTDB_CANT_UPDATE, "");\par
+            return;\par
+\tab\tab    \}\par
+         if (strcmpi(multdb_previous_active_name.c_str(),\par
+                     multdb[multdb_active_id].name) == 0)\par
+         \{\par
+            msgbox_string = LoadStr(MSG_MULTDB_CANT_UPDATE) + (AnsiString)multdb[multdb_active_id].name +".\\n\\n" +LoadStr(MSG_MULTDB_UPDATE_WAS_ACTIVE);\par
+            MsgBox_show(TWARNING,\par
+                        MSG_MULTDB_ERROR,\par
+                        msgbox_string,\par
+                        MSG_MULTDB_UPDATE_WAS_ACTIVE, "");\par
+            return;\par
+         \}\par
+         \par
+         if (emma_select_dir(this, "Update From ", multdb_selected_dir))\par
+       \tab  \{\par
+            //this->SetFocus();\par
+            if (multdb_perform_update())\par
+            \{\par
+               multdb_set_delete_status(true);\par
+            \}\par
+            multdb_update_grid();\par
+         \}\par
+\tab   \}\par
+   \}\par
+\}\par
+\cf1 OK [PH]\cf0\par
+void __fastcall Tfrm_multdb::spbtn_update_descClick(TObject *Sender)\par
+\{\par
+   if (!multdb_is_default())\par
+   \{\par
+      if (edt_desc->GetTextLen() > 0)\par
+      \{\par
+         strcpy(multdb[tv_multdb->Selected->Index].desc, edt_desc->Text.c_str());\par
+         multdb_update_grid();\par
+         edt_desc->Text = "";\par
+      \}\par
+   \}\par
+\}\par
+\cf1 OK [PH]\cf0\par
+bool multdb_perform_update(void)\par
+\{\par
+   AnsiString  dest_path;\par
+   AnsiString  source_path;\par
+   AnsiString  old_path;\par
+   AnsiString  source_path_dir;\par
+   AnsiString  date_str;\par
+   AnsiString  msgbox_string;\par
+   TDateTime   dt;\par
+   bool        updated = false;\par
+\par
+   dest_path = ExtractFilePath(ParamStr(0));\par
+   dest_path = dest_path + MULTDB_DEFAULT_NAME + "\\\\" + multdb_get_active_name() + "\\\\" +DBMGR_DATABASE_NAME;\par
+   source_path = multdb_selected_dir + "\\\\" + DBMGR_DATABASE_NAME;\par
+   old_path = multdb_selected_dir + "\\\\" + DBMGR_OLD_DATABASE_NAME;\par
+\par
+   if (source_path == dest_path)\par
+   \{\par
+      MsgBox_show(TWARNING,\par
+                  MSG_MULTDB_ERROR,\par
+                  LoadStr(MSG_MULTDB_CANT_COPY_TO_ITSELF),\par
+                  MSG_MULTDB_CANT_COPY_TO_ITSELF, "");\par
+      return (updated);\par
+   \}\par
+\par
+   // Check for the new database name, if it's not there, rename the old database\par
+   if (!FileExists(source_path))\par
+   \{\par
+      if (FileExists(old_path))\par
+      \{\par
+         if (RenameFile(old_path, source_path) == false)\par
+         \{\par
+            MsgBox(MSG_MULTDB_RENAME_FAILED,\par
+                        SWARNING,\par
+                        MB_ICONEXCLAMATION | MB_OK);\par
+                        return (updated);\par
+         \}\par
+      \}\par
+   \}\par
+\par
+   if (multdb_check_directory(multdb_selected_dir))\par
+   \{\par
+      if (emma_is_space_available(dest_path[1], source_path))\par
+      \{\par
+         frm_multdb->pnl_buttons->Enabled = false;\par
+         frm_multdb->anmt_multdb->CommonAVI = aviCopyFiles;\par
+         frm_multdb->pnl_animate->Visible = true;\par
+         frm_multdb->lbl_wait->Visible = true;\par
+         frm_multdb->lbl_wait->Caption = "Please Wait...Copying Database";\par
+         frm_multdb->anmt_multdb->Visible = true;\par
+         frm_multdb->anmt_multdb->Active = true;\par
+\par
+         if (CopyFile(source_path.c_str(),\par
+                      dest_path.c_str(),\par
+                      false) == 0)\par
+         \{\par
+             multdb[multdb_active_id].last_updated[0] = '\\0';\par
+             strcpy(multdb[multdb_active_id].updated_from,\par
+                   MULTDB_FAILED.c_str());\par
+             msgbox_string = LoadStr(MSG_MULTDB_UPDATE_FAILED) + source_path + " ," + dest_path;\par
+             log_write(msgbox_string);\par
+         \}\par
+         else\par
+         \{\par
+            updated = true;\par
+            date_str = dt.CurrentDate().FormatString(MULTDB_DATEFORMAT);\par
+            strcpy(multdb[multdb_active_id].last_updated,\par
+                   date_str.c_str());\par
+\par
+            source_path_dir = ExtractFileDir(source_path);\par
+            strncpy(multdb[multdb_active_id].updated_from,\par
+                    source_path_dir.c_str(),\par
+                    MULTDB_PATH_LEN);\par
+            multdb[multdb_active_id].updated_from[MULTDB_PATH_LEN - 1] = '\\0';\par
+         \}\par
+         frm_multdb->lbl_wait->Caption = "";\par
+         frm_multdb->anmt_multdb->Active = false;\par
+         frm_multdb->anmt_multdb->Visible = false;\par
+         frm_multdb->lbl_wait->Visible = false;\par
+         frm_multdb->pnl_animate->Visible = false;\par
+         frm_multdb->pnl_buttons->Enabled = true;\par
+      \}\par
+      else\par
+      \{\par
+         msgbox_string = LoadStr(MSG_MULTDB_UPDATE_FAILED) +source_path + ".\\nTo " + dest_path +".\\n\\n" +LoadStr(MSG_MULTDB_UPDATE_NO_SPACE);\par
+         MsgBox(TERROR, MSG_MULTDB_ERROR, MSG_MULTDB_UPDATE_NO_SPACE, msgbox_string);\par
+      \}\par
+   \}\par
+   else\par
+   \{\par
+      msgbox_string = LoadStr(MSG_MULTDB_UPDATE_WRONG) + multdb_get_active_name();\par
+      MsgBox(TERROR, MSG_MULTDB_ERROR, MSG_MULTDB_UPDATE_WRONG, msgbox_string);\par
+   \}\par
+\par
+   if (updated)\par
+   \{\par
+      msgbox_string = LoadStr(MSG_MULTDB_UPDATE_SUCCESS) + source_path_dir + " to " + dest_path;\par
+      MsgBox(TNOTIFICATION, MSG_MULTDB_ERROR, MSG_MULTDB_UPDATE_SUCCESS, msgbox_string);\par
+      log_write(msgbox_string);\par
+   \}\par
+\par
+   return (updated);\par
+\}\par
+\cf2 Please double check operating system requirements for file comparisons so that a database cannot be corrupted by copying over itself [PH]\par
+\cf3 I\rquote ve located a function called AnsiCompareFileName that compares two filenames without case sensitivity according to the current locale. It seems like a more robust solution. Implemented and tested [PM]\par
+\cf1 OK [PH]\cf3\par
+\cf0 bool multdb_perform_copy(void)\par
+\{\par
+   bool        can_copy;\par
+   AnsiString  dest_path;\par
+   AnsiString  source_path;\par
+   AnsiString  exe_path;\par
+   AnsiString  EXE_path;\par
+   AnsiString  short_path;\par
+   AnsiString  SHORT_path;\par
+   AnsiString  date_str;\par
+   AnsiString  msgbox_string;\par
+   TDateTime   dt;\par
+   \par
+   can_copy = true;\par
+   exe_path = ExtractFilePath(ParamStr(0));\par
+\par
+   // This is a fix for Windows XP because it translates paths to upper case\par
+   EXE_path = exe_path.UpperCase();\par
+\par
+   // This is a fix for Operating Systems that convert paths to their short path names\par
+   short_path = ExtractShortPathName(exe_path);\par
+   SHORT_path = ExtractShortPathName(EXE_path);\par
+\par
+   if (multdb_check_directory(multdb_selected_dir))\par
+   \{\par
+      dest_path = multdb_selected_dir;\par
+      if (dest_path.AnsiPos(exe_path) != 0 || dest_path.AnsiPos(EXE_path) != 0)\par
+      \{\par
+         can_copy = false;\par
+      \}\par
+      if (dest_path.AnsiPos(short_path) != 0 || dest_path.AnsiPos(SHORT_path) != 0)\par
+      \{\par
+         can_copy = false;\par
+      \}\par
+   \}\par
+   else\par
+   \{\par
+      // only a drive name selected\par
+      if (multdb_selected_dir.Length() == 3)\par
+      \{\par
+         dest_path = multdb_selected_dir +multdb_get_active_name();\par
+      \}\par
+      else\par
+      \{\par
+         dest_path = multdb_selected_dir + "\\\\" + multdb_get_active_name();\par
+      \}\par
+\par
+      if (dest_path.AnsiPos(exe_path) != 0 || dest_path.AnsiPos(EXE_path) != 0)\par
+      \{\par
+         can_copy = false;\par
+         msgbox_string = LoadStr(MSG_MULTDB_CANT_COPY) + dest_path;\par
+         log_write(msgbox_string);\par
+      \}\par
+      if (dest_path.AnsiPos(short_path) != 0 || dest_path.AnsiPos(SHORT_path) != 0)\par
+      \{\par
+         can_copy = false;\par
+         msgbox_string = LoadStr(MSG_MULTDB_CANT_COPY) + dest_path;\par
+         log_write(msgbox_string);\par
+      \}\par
+\par
+      if (can_copy)\par
+      \{\par
+         if (!DirectoryExists(dest_path))\par
+         \{\par
+            if (!CreateDir(dest_path))\par
+            \{\par
+               can_copy = false;\par
+               msgbox_string = LoadStr(MSG_MULTDB_CANT_CREATE_DEST) + dest_path;\par
+               log_write(msgbox_string);\par
+            \}\par
+         \}\par
+      \}\par
+   \}\par
+\par
+   if (can_copy)\par
+   \{\par
+      dest_path = dest_path + "\\\\" + DBMGR_DATABASE_NAME;\par
+      \cf3 if (FileExists(dest_path))\par
+      \{\par
+         int user = MsgBox(LoadStr(MSG_MULTDB_DATABASE_EXISTS), SCONFIRMATION, MB_YESNO | MB_ICONQUESTION);\par
+         switch(user)\par
+         \{\par
+            case IDNO:\par
+               can_copy = false;\par
+               break;\par
+         \}\par
+      \}\par
+      if (can_copy)\par
+      \{\par
+\cf1 OK [PH]\cf3\par
+\pard\nowidctlpar\fi720\cf0 source_path = ExtractFilePath(ParamStr(0));\par
+\pard\nowidctlpar       if (multdb_is_default())\par
+      \{\par
+         source_path = source_path + MULTDB_DEFAULT_NAME + "\\\\" + DBMGR_DATABASE_NAME;\par
+      \}\par
+      else\par
+      \{\par
+         source_path = source_path + MULTDB_DEFAULT_NAME + "\\\\" + multdb_get_active_name() + "\\\\" +DBMGR_DATABASE_NAME;\par
+      \}\par
+\par
+      if (emma_is_space_available(dest_path[1], source_path))\par
+      \{\par
+         frm_multdb->pnl_buttons->Enabled = false;\par
+         frm_multdb->anmt_multdb->CommonAVI = aviCopyFiles;\par
+         frm_multdb->pnl_animate->Visible = true;\par
+         frm_multdb->lbl_wait->Visible = true;\par
+         frm_multdb->lbl_wait->Caption = "Please Wait...Copying Database";\par
+         frm_multdb->anmt_multdb->Visible = true;\par
+         frm_multdb->anmt_multdb->Active = true;\par
+         Application->ProcessMessages();\par
+\par
+         if (CopyFile(source_path.c_str(),\par
+                      dest_path.c_str(),\par
+                      false) == 0)\par
+         \{\par
+            can_copy = false;\par
+            multdb[multdb_active_id].last_copied[0] = '\\0';\par
+            strcpy(multdb[multdb_active_id].copied_to, MULTDB_FAILED.c_str());\par
+            msgbox_string = LoadStr(MSG_MULTDB_COPY_FAILED) +source_path + "\\nTo " +dest_path;\par
+            MsgBox(TERROR, MSG_MULTDB_ERROR, MSG_MULTDB_COPY_FAILED, msgbox_string);\par
+         \}\par
+         else\par
+         \{\par
+            date_str = dt.CurrentDate().FormatString(MULTDB_DATEFORMAT);\par
+            strcpy(multdb[multdb_active_id].last_copied,\par
+                   date_str.c_str());\par
+\par
+            exe_path = ExtractFileDir(dest_path);\par
+            strncpy(multdb[multdb_active_id].copied_to,\par
+                    exe_path.c_str(),\par
+                    MULTDB_PATH_LEN);\par
+            multdb[multdb_active_id].copied_to[MULTDB_PATH_LEN - 1] = '\\0';\par
+         \}\par
+\par
+         frm_multdb->lbl_wait->Caption = "";\par
+         frm_multdb->anmt_multdb->Active = false;\par
+         frm_multdb->anmt_multdb->Visible = false;\par
+         frm_multdb->lbl_wait->Visible = false;\par
+         frm_multdb->pnl_animate->Visible = false;\par
+         frm_multdb->pnl_buttons->Enabled = true;\par
+      \}\par
+      else\par
+      \{\par
+         msgbox_string = LoadStr(MSG_MULTDB_COPY_FAILED) + source_path + "\\nTo " +dest_path +".\\n\\n" +LoadStr(MSG_MULTDB_COPY_NO_SPACE);\par
+         MsgBox(TERROR, MSG_MULTDB_ERROR, MSG_MULTDB_COPY_NO_SPACE, msgbox_string);\par
+         can_copy = false;\par
+      \}\par
+\tab\cf3\}\par
+\cf0    \}\par
+   else\par
+   \{\par
+      msgbox_string = LoadStr(MSG_MULTDB_COPY_FAILED) +multdb_get_active_name() +"\\nTo " + dest_path +".\\n\\n" +LoadStr(MSG_MULTDB_CHECK_COPY);\par
+      MsgBox(TERROR, MSG_MULTDB_ERROR, MSG_MULTDB_CHECK_COPY, msgbox_string);\par
+      can_copy = false;\par
+   \}\par
+\par
+   if (can_copy)\par
+   \{\par
+      msgbox_string = LoadStr(MSG_MULTDB_COPY_SUCCESS) +source_path +"\\nto " + dest_path;\par
+      MsgBox(TNOTIFICATION, MSG_MULTDB_ERROR, MSG_MULTDB_COPY_SUCCESS, msgbox_string);\par
+      log_write(msgbox_string);\par
+   \}\par
+   return (can_copy);\par
+\}\par
+\cf2 Please double check operating system requirements for file comparisons so that a database cannot be corrupted by copying over itself [PH]\cf0\par
+\cf3 As far as I can tell, Upper Case, Lower Case, Long Path and Short Path names and their permutations are the only way Operating Systems store path names. There isn\rquote t very much literature on this topic though and it\rquote s hard to test for. I\rquote ve added a message to the user informing them when they are overwriting a database. This should add another layer of protection [PM]\par
+\cf1 OK [PH]\cf3\par
+\cf0\par
+bool multdb_check_directory(AnsiString dir_name)\par
+\{\par
+   AnsiString  multdb_dir;\par
+   int         i;\par
+   int         length;\par
+   bool        found = false;\par
+\par
+   length = dir_name.Length();\par
+   i = length;\par
+\par
+   while (!found && i > 0)\par
+   \{\par
+      if (dir_name.IsPathDelimiter(i))\par
+      \{\par
+         found = true;\par
+      \}\par
+      else\par
+      \{\par
+         --i;\par
+      \}\par
+   \}\par
+\par
+   if (found)\par
+   \{\par
+      multdb_dir = dir_name.SubString(i + 1, length - i);\par
+      found = false;\par
+      if (multdb_dir.AnsiCompareIC(multdb_get_active_name()) == 0)\par
+      \{\par
+         found = true;\par
+      \}\par
+   \}\par
+   return (found);\par
+\}\par
+\cf2\par
+\cf1 OK [PH]\cf0\par
+void multdb_recover_configuration(void)\par
+\{\par
+   AnsiString     path_name;\par
+   AnsiString     filepath_name;\par
+   AnsiString     date_str;\par
+   TDateTime      dt;\par
+   TSearchRec     sr;\par
+\par
+   multdb_num_defined = 0;\par
+\par
+   strcpy(multdb[MULTDB_DEFAULT_ID].name, MULTDB_DEFAULT_NAME.c_str());\par
+   strcpy(multdb[MULTDB_DEFAULT_ID].desc, MULTDB_DEFAULT_DB.c_str());\par
+   strcpy(multdb[MULTDB_DEFAULT_ID].created, MULTDB_UNKNOWN.c_str());\par
+   multdb[MULTDB_DEFAULT_ID].can_delete = false;\par
+\par
+   multdb[MULTDB_DEFAULT_ID].last_copied[0] = '\\0';\par
+   strcpy(multdb[MULTDB_DEFAULT_ID].copied_to, MULTDB_UNKNOWN.c_str());\par
+   multdb[MULTDB_DEFAULT_ID].last_updated[0] = '\\0';\par
+   multdb[MULTDB_DEFAULT_ID].updated_from[0] = '\\0';\par
+\par
+   path_name =  ExtractFilePath(ParamStr(0)) + MULTDB_DEFAULT_NAME +"\\\\*.";\par
+\par
+   if (FindFirst(path_name, faDirectory, sr) == 0)\par
+   \{\par
+      if (sr.Name[1] != '.')\par
+      \{\par
+         if (sr.Name.Length() <= MULTDB_NAME_LEN)\par
+         \{\par
+            filepath_name = ExtractFilePath(ParamStr(0)) + MULTDB_DEFAULT_NAME +\par
+                            sr.Name + "\\\\" +DBMGR_DATABASE_NAME;\par
+            if (FileExists(filepath_name))\par
+            \{\par
+               strcpy(multdb[multdb_num_defined + 1].name, sr.Name.c_str());\par
+\par
+               dt = FileDateToDateTime(sr.Time);\par
+               date_str = dt.FormatString(MULTDB_DATEFORMAT);\par
+               strcpy(multdb[multdb_num_defined + 1].created, date_str.c_str());\par
+\par
+               multdb[multdb_num_defined + 1].can_delete = false;\par
+               multdb[multdb_num_defined + 1].last_copied[0] = '\\0';\par
+               strcpy(multdb[multdb_num_defined + 1].copied_to, MULTDB_UNKNOWN.c_str());\par
+               multdb[multdb_num_defined + 1].last_updated[0] = '\\0';\par
+               strcpy(multdb[multdb_num_defined + 1].updated_from, MULTDB_UNKNOWN.c_str());\par
+               ++multdb_num_defined;;\par
+            \}\par
+         \}\par
+      \}\par
+      while (FindNext(sr) == 0)\par
+      \{\par
+         if (sr.Name[1] != '.')\par
+         \{\par
+            if (sr.Name.Length() <= MULTDB_NAME_LEN)\par
+            \{\par
+               filepath_name = ExtractFilePath(ParamStr(0)) + MULTDB_DEFAULT_NAME +\par
+                               "\\\\" + sr.Name + "\\\\" +DBMGR_DATABASE_NAME;\par
+               if (FileExists(filepath_name))\par
+               \{\par
+                  strcpy(multdb[multdb_num_defined + 1].name, sr.Name.c_str());\par
+\par
+                  dt = FileDateToDateTime(sr.Time);\par
+                  date_str = dt.FormatString(MULTDB_DATEFORMAT);\par
+                  strcpy(multdb[multdb_num_defined + 1].created, date_str.c_str());\par
+\par
+                  multdb[multdb_num_defined + 1].can_delete = false;\par
+                  multdb[multdb_num_defined + 1].last_copied[0] = '\\0';\par
+                  strcpy(multdb[multdb_num_defined + 1].copied_to, MULTDB_UNKNOWN.c_str());\par
+                  multdb[multdb_num_defined + 1].last_updated[0] = '\\0';\par
+                  strcpy(multdb[multdb_num_defined + 1].updated_from, MULTDB_UNKNOWN.c_str());\par
+                  ++multdb_num_defined;;\par
+               \}\par
+            \}\par
+         \}\par
+      \}\par
+      FindClose(sr);\par
+   \}\par
+\}\par
+\cf1 OK [PH]\cf0\par
+\par
+void __fastcall Tfrm_multdb::sgrd_multdb_listKeyPress(TObject *Sender,\par
+      char &Key)\par
+\{\par
+  if (Key == VK_RETURN)\par
+  \{\par
+    bbtn_activateClick(Sender);\par
+  \}\par
+\}\par
+//---------------------------------------------------------------------------\par
+\par
+void __fastcall Tfrm_multdb::sgrd_multdb_listSelectCell(TObject *Sender,\par
+      int Col, int Row, bool &CanSelect)\par
+\{\par
+    bbtn_multdb_ok->Default = false;\par
+\}\par
+//---------------------------------------------------------------------------\par
+\par
+void __fastcall Tfrm_multdb::edt_nameChange(TObject *Sender)\par
+\{\par
+   bbtn_new->Enabled = false;\par
+   if (edt_name->GetTextLen())\par
+   \{\par
+      if (edt_desc->GetTextLen())\par
+      \{\par
+         bbtn_new->Enabled = true;\par
+      \}\par
+   \}\par
+\}\par
+//---------------------------------------------------------------------------\par
+\par
+void __fastcall Tfrm_multdb::edt_descChange(TObject *Sender)\par
+\{\par
+   bbtn_new->Enabled = false;\par
+   if (edt_desc->GetTextLen())\par
+   \{\par
+      if (edt_name->GetTextLen())\par
+      \{\par
+         bbtn_new->Enabled = true;\par
+      \}\par
+   \}\par
+\}\par
+//---------------------------------------------------------------------------\par
+\par
+\par
+\par
+void __fastcall Tfrm_multdb::tv_multdbClick(TObject *Sender)\par
+\{\par
+   multdb_update_grid();\par
+\}\par
+//---------------------------------------------------------------------------\par
+\par
+void __fastcall Tfrm_multdb::tv_multdbDblClick(TObject *Sender)\par
+\{\par
+   bbtn_activateClick(Sender);\par
+\}\par
+//---------------------------------------------------------------------------\par
+\par
+void __fastcall Tfrm_multdb::edt_descClick(TObject *Sender)\par
+\{\par
+   // Display the active database's description\par
+   edt_desc->Text = multdb[tv_multdb->Selected->Index].desc;\par
+\}\par
+//---------------------------------------------------------------------------\par
+\par
+\par
+\par
+}
+ 

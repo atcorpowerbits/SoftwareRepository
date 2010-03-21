@@ -1,0 +1,124 @@
+Error 00036. 0x130C00 (Thread 0x0078):
+Method called on illegally casted object: Attempt to access 4 byte(s) at
+ 0x008831BC. The 'this' pointer points to block
+ 0x008831BC(=scor.exe:0x02:0BC1BC) which is only 1 bytes long.
+Call Tree:
+   0x004050EF(=scor.exe:0x01:0040EF) c:\program files\borland\cbuilder6\include\vcl\dstring.h#68
+   0x005DFCF2(=scor.exe:0x01:1DECF2) K:\projects\016-S2000\source\capture\source\form_caphrv.cpp#0
+   0x005E34A8(=scor.exe:0x01:1E24A8)
+   0x007AB415(=scor.exe:0x01:3AA415)
+   0x007AB5EB(=scor.exe:0x01:3AA5EB)
+
+------------------------------------------
+Error 00037. 0x130400 (Thread 0x0078):
+Access overrun: Attempt to access 4 byte(s) at 0x008831BC, that is at block
+ 0x008831BC(=scor.exe:0x02:0BC1BC) which is only 1 bytes long.
+Call Tree:
+   0x0040510C(=scor.exe:0x01:00410C) c:\program files\borland\cbuilder6\include\vcl\dstring.h#68
+   0x005DFCF2(=scor.exe:0x01:1DECF2) K:\projects\016-S2000\source\capture\source\form_caphrv.cpp#0
+   0x005E34A8(=scor.exe:0x01:1E24A8)
+   0x007AB415(=scor.exe:0x01:3AA415)
+   0x007AB5EB(=scor.exe:0x01:3AA5EB)
+
+------------------------------------------
+Error 00102. 0x350010 (Thread 0x0078):
+Resource type mismatch: a(n) object was expected.
+delete(0x01FD8004) 
+
+Call Tree:
+   0x005E8214(=scor.exe:0x01:1E7214) K:\projects\016-S2000\source\meas\source\hrvclass.cpp#425
+   0x005E6EEC(=scor.exe:0x01:1E5EEC) K:\projects\016-S2000\source\meas\source\hrvclass.cpp#93
+   0x00456935(=scor.exe:0x01:055935) K:\projects\016-S2000\source\meas\source\Measure.cpp#37
+   0x0040B6C4(=scor.exe:0x01:00A6C4) K:\projects\016-S2000\source\scor\form_main.cpp#645
+   0x0072D309(=scor.exe:0x01:32C309)
+   0x00747418(=scor.exe:0x01:346418)
+
+The object array (0x01FD8004) [size: 49152 bytes] was created with new[]
+Call Tree:
+   0x005E811A(=scor.exe:0x01:1E711A) K:\projects\016-S2000\source\meas\source\hrvclass.cpp#415
+   0x005E6D4C(=scor.exe:0x01:1E5D4C) K:\projects\016-S2000\source\meas\source\hrvclass.cpp#65
+   0x004568EE(=scor.exe:0x01:0558EE) K:\projects\016-S2000\source\meas\source\Measure.cpp#27
+   0x00409E45(=scor.exe:0x01:008E45) K:\projects\016-S2000\source\scor\form_main.cpp#170
+   0x00733FF0(=scor.exe:0x01:332FF0)
+   0x00405302(=scor.exe:0x01:004302) K:\projects\016-S2000\source\scor\scor.cpp#115
+
+------------------------------------------
+Error 00103. 0x350010 (Thread 0x0078):
+Resource type mismatch: a(n) object was expected.
+delete(0x01FE4008) 
+
+Call Tree:
+   0x005E8249(=scor.exe:0x01:1E7249) K:\projects\016-S2000\source\meas\source\hrvclass.cpp#429
+   0x005E6EEC(=scor.exe:0x01:1E5EEC) K:\projects\016-S2000\source\meas\source\hrvclass.cpp#93
+   0x00456935(=scor.exe:0x01:055935) K:\projects\016-S2000\source\meas\source\Measure.cpp#37
+   0x0040B6C4(=scor.exe:0x01:00A6C4) K:\projects\016-S2000\source\scor\form_main.cpp#645
+   0x0072D309(=scor.exe:0x01:32C309)
+   0x00747418(=scor.exe:0x01:346418)
+
+The object array (0x01FE4008) [size: 46080 bytes] was created with new[]
+Call Tree:
+   0x005E813B(=scor.exe:0x01:1E713B) K:\projects\016-S2000\source\meas\source\hrvclass.cpp#416
+   0x005E6D4C(=scor.exe:0x01:1E5D4C) K:\projects\016-S2000\source\meas\source\hrvclass.cpp#65
+   0x004568EE(=scor.exe:0x01:0558EE) K:\projects\016-S2000\source\meas\source\Measure.cpp#27
+   0x00409E45(=scor.exe:0x01:008E45) K:\projects\016-S2000\source\scor\form_main.cpp#170
+   0x00733FF0(=scor.exe:0x01:332FF0)
+   0x00405302(=scor.exe:0x01:004302) K:\projects\016-S2000\source\scor\scor.cpp#115
+
+------------------------------------------
+Error 00112. 0x350010 (Thread 0x0078):
+Resource type mismatch: a(n) object was expected.
+delete(0x01E49098) 
+
+Call Tree:
+   0x005AB158(=scor.exe:0x01:1AA158) K:\projects\016-S2000\source\meas\source\PWM.cpp#98
+   0x005A870C(=scor.exe:0x01:1A770C) K:\projects\016-S2000\source\meas\source\PWM.cpp#0
+   0x005B538B(=scor.exe:0x01:1B438B)
+   0x007AB433(=scor.exe:0x01:3AA433)
+   0x007AB482(=scor.exe:0x01:3AA482)
+   0x007AA718(=scor.exe:0x01:3A9718)
+
+The object array (0x01E49098) [size: 1232 bytes] was created with new[]
+Call Tree:
+   0x005AAE9D(=scor.exe:0x01:1A9E9D) K:\projects\016-S2000\source\meas\source\PWM.cpp#83
+   0x005A86AA(=scor.exe:0x01:1A76AA) K:\projects\016-S2000\source\meas\source\PWM.cpp#0
+   0x005B5374(=scor.exe:0x01:1B4374)
+   0x007AB415(=scor.exe:0x01:3AA415)
+   0x007AB5EB(=scor.exe:0x01:3AA5EB)
+
+------------------------------------------
+Functions called:
+ fflush (4 times)
+ delete (18 times)
+ stricmp (1 times)
+ strcpy (2 times)
+ delete[] (57 times)
+ free (10 times)
+ fclose (1 times)
+ atoi (1 times)
+ strstr (1 times)
+ fgets (1 times)
+ fopen (1 times)
+ vsnprintf (12 times)
+ memset (22 times)
+ new (15 times)
+ new[] (60 times)
+ SysReallocMem (479 times)
+ SysFreeMem (55183 times)
+ SysGetMem (55188 times)
+ lstrlenA (1 times)
+ lstrcpynA (4 times)
+ calloc (1 times)
+ strlen (65 times)
+ realloc (1 times)
+ strdup (1 times)
+ malloc (7 times)
+ memcpy (2 times)
+Resource types used:
+ object (15 allocs, 15 max)
+ object array (60 allocs, 59 max)
+ memory block (55198 allocs, 26458 max)
+ file stream (1 allocs, 1 max)
+ file handle (1 allocs, 1 max)
+Modules used:
+ 00400000 03/25/2004 17:38:20 K:\projects\016-S2000\source\scor\scor.exe
+==========================================
