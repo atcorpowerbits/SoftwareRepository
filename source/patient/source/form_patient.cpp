@@ -1833,10 +1833,10 @@ bool patient_emr_mode(TDataSet *patient_table)
             if (patient_table->RecordCount)
             {
                TLocateOptions Opts;
-               Variant locvalues[6];
+               Variant locvalues[7];
 
                Opts.Clear();
-               Opts << loPartialKey;
+               Opts << loCaseInsensitive;
 
                locvalues[0] = Variant(emr.system_id);
                locvalues[1] = Variant(study_id);
@@ -1845,18 +1845,151 @@ bool patient_emr_mode(TDataSet *patient_table)
                locvalues[4] = Variant(emr.dob);
                locvalues[5] = Variant(emr.sex);
 
-               index = PATIENT_SYSTEM_ID +  ";" + PATIENT_STUDY_ID + ";" +
-                       PATIENT_SURNAME +  ";" + PATIENT_FIRST_NAME + ";" +
-                       PATIENT_DOB +  ";" + PATIENT_SEX;
-
-               if (patient_table->Locate(index,
-                                         VarArrayOf(locvalues, 5),
-                                         Opts))
+               // If the patient id is not in the emr record
+               // then search for the required fields only
+               if (emr.patient_id == "")
                {
-                  success = true;
+                  index = PATIENT_SYSTEM_ID +  ";" + PATIENT_STUDY_ID + ";" +
+                          PATIENT_SURNAME +  ";" + PATIENT_FIRST_NAME + ";" +
+                          PATIENT_DOB +  ";" + PATIENT_SEX;
+
+                  if (patient_table->Locate(index,
+                                            VarArrayOf(locvalues, 5),
+                                            Opts))
+                  {
+                     success = true;
+                  }
+               }
+               else
+               {
+                  // If the patient id is available, then add it to the search fields
+                  locvalues[6] = Variant(emr.patient_id);
+
+                  index = PATIENT_SYSTEM_ID +  ";" + PATIENT_STUDY_ID + ";" +
+                          PATIENT_SURNAME +  ";" + PATIENT_FIRST_NAME + ";" +
+                          PATIENT_DOB +  ";" + PATIENT_SEX + ";" + PATIENT_ID;
+
+                  if (patient_table->Locate(index,
+                                            VarArrayOf(locvalues, 6),
+                                            Opts))
+                  {
+                     success = true;
+                  }
+                  // If a match is not found, check for an existing patient
+                  // with the same patient id
+                  else if (patient_table->Locate(PATIENT_ID,
+                                            locvalues[6],
+                                            Opts))
+                  {
+                     // If located ask the user what to do next
+                     int user = MsgBox(LoadStr(MSG_EMR_PATIENT_ID_ERROR), SCONFIRMATION, MB_YESNOCANCEL | MB_ICONQUESTION);
+                     switch(user)
+                     {
+                        // Exit EMR mode
+                        case IDCANCEL:
+                           // This will reset all the emr values and disable EMR mode
+                           emr_initialise();
+                           // Remove the EMR label
+                           frm_main->lbl_data_mode->Caption = "";
+                           // Enable options that may have been disabled by the
+                           // EMR editing option
+                           frm_main->mnu_pack->Enabled = true;
+                           // If a patient has been selected, enable the Analysis button
+                           if (frm_patient->pnl_data->Visible)
+                           {
+                              frm_main->spdbtn_analysis->Enabled = true;
+                              frm_main->Analysis1->Enabled = true;
+                           }
+                           return true;
+
+                        // Create a new patient
+                        case IDYES:
+                           break;
+
+                        // Update the existing patient
+                        case IDNO:
+                           success = true;
+                           break;
+                     }
+                  }
+
                }
             }
-            if (!success)
+            if (success)
+            {
+               try
+               {
+                  // If the patient was located, update the fields contained in
+                  // the EMR record including required fields as the user may
+                  // choose to update an existing patient
+                  patient_table->Edit();
+                  patient_table->FieldByName(PATIENT_SYSTEM_ID)->Value = emr.system_id;
+                  patient_table->FieldByName(PATIENT_STUDY_ID)->Value = study_id;
+                  patient_table->FieldByName(PATIENT_SURNAME)->AsString = emr.surname;
+                  patient_table->FieldByName(PATIENT_FIRST_NAME)->AsString = emr.first_name;
+                  patient_table->FieldByName(PATIENT_SEX)->AsString = emr.sex;
+                  patient_table->FieldByName(PATIENT_DOB)->AsDateTime = emr.dob;
+                  if (emr.patient_id != "")
+                  {
+                     patient_table->FieldByName(PATIENT_ID)->AsString = emr.patient_id;
+                  }
+                  if (emr.other_name != "")
+                  {
+                     patient_table->FieldByName(PATIENT_OTHER_NAME)->AsString = emr.other_name;
+                  }
+                  if (emr.street != "")
+                  {
+                     patient_table->FieldByName(PATIENT_STREET)->AsString = emr.street;
+                  }
+                  if (emr.suburb != "")
+                  {
+                     patient_table->FieldByName(PATIENT_SUBURB)->AsString = emr.suburb;
+                  }
+                  if (emr.state != "")
+                  {
+                     patient_table->FieldByName(PATIENT_STATE)->AsString = emr.state;
+                  }
+                  if (emr.pcode != "")
+                  {
+                     patient_table->FieldByName(PATIENT_PCODE)->AsString = emr.pcode;
+                  }
+                  if (emr.country != "")
+                  {
+                     patient_table->FieldByName(PATIENT_COUNTRY)->AsString = emr.country;
+                  }
+                  if (emr.phone != "")
+                  {
+                     patient_table->FieldByName(PATIENT_PHONE)->AsString = emr.phone;
+                  }
+                  if (emr.code != "")
+                  {
+                     patient_table->FieldByName(PATIENT_CODE)->AsString = emr.code;
+                  }
+                  if (emr.patient_notes != "")
+                  {
+                     patient_table->FieldByName(PATIENT_NOTES)->AsString = emr.patient_notes;
+                  }
+                  patient_table->Post();
+
+                  // Check age and show warning if patient is too young
+                  UCOUNT lAge = patient_get_age_at_date(Now());
+                  if (lAge <= PATIENT_YOUNG_AGE)
+                  {
+                     MsgBox(MSG_YOUNG_PATIENT, SWARNING, MB_ICONEXCLAMATION);
+                  }
+                  success = true;
+               }
+               catch (Exception &exception)
+               {
+                  MsgBox_show(TERROR,
+                              MSG_DBREADWRITE_ERROR,
+                              LoadStr(MSG_POST_ERROR),
+                              MSG_POST_ERROR,
+                              LoadStr(MSG_POST_ERROR) +patient_get_error_str() +exception.Message);
+                  patient_table->Cancel();
+               }
+            }
+            else
             {
                // If not located, create the patient
                patient_number = patient_assign_new_number();

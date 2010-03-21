@@ -11,7 +11,7 @@
 #include <Menus.hpp>
 #include <Dialogs.hpp>
 #include <Graphics.hpp>
-//VA:Builder6 header needed? #include "GIFImage.hpp"
+#include "GIFImage.hpp"
 #include "TeeDraw3D.hpp"
 #include <TeeProcs.hpp>
 #include <jpeg.hpp>

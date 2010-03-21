@@ -1,6 +1,6 @@
 object frm_export_database: Tfrm_export_database
-  Left = 466
-  Top = 232
+  Left = 445
+  Top = 200
   Width = 636
   Height = 485
   Caption = 'SphygmoCor Export To Database'

@@ -382,4 +382,5 @@ STRINGTABLE
   MSG_EMR_OUTBOUND_DEFAULT, "The Default Outbound Directory could not be found or created.\n\nNo results will be exported"
   MSG_EMR_PDF_ERROR, " could not be found.\nEnsure a PDF Printer is installed and configured.\n\nPlease notify your IT Administrator of this error."
   MSG_EMR_CFR11, "SphygmoCor cannot operate in EMR mode while Data Audit Trail mode is enabled.\nThis would violate the security features of Data Audit Trail mode.\n\nSphygmoCor will operate in Data Audit Trail mode only."
+  MSG_EMR_PATIENT_ID_ERROR, "The Patient ID already exists in the SphygmoCor patient list.\n\nClick Yes to create a new patient.\n\nClick No to continue with the existing SphygmoCor patient.\n\nClick Cancel to exit."
 }

@@ -382,5 +382,6 @@ const String SOBJECTINIT = "Failed Initialisation. ";
 #define MSG_EMR_OUTBOUND_DEFAULT         1424
 #define MSG_EMR_PDF_ERROR                1425
 #define MSG_EMR_CFR11                    1426
+#define MSG_EMR_PATIENT_ID_ERROR         1427
 //---------------------------------------------------------------------------
 #endif
