@@ -1,0 +1,37 @@
+I have a mother,sister,or daughter who had a heart attack, stroke, or coronary bypass before age 65.
+I have a father, brother, or son who had a heart attack, stroke, or coronary bypass before age 55.
+I have had a Heart Attack.
+I have had Angina.  (that is, chest pain or discomfort due to a heart problem) 
+I have had Heart Bypass Surgery.
+I have had a Stroke or Mini Stroke.
+I am taking medication for high blood pressure.
+I am taking medication to control my cholesterol.
+I am taking medication for chest pain (e.g Angina)
+I am taking medication for heart failure.
+I am taking insulin for diabetes.
+I smoke.
+I have a high alcohol intake.
+I have diabetes.
+I have high cholesterol.
+I am under stress or get angry and frustrated easily.
+I am physically inactive.
+I eat a high-fat diet and red meat regulary.
+CODES
+FHF
+FHM
+HHA
+HAG
+HHB
+HSK
+MBP
+MCH
+MCP
+MHF
+MIN
+SMK
+ALC
+DBT
+CHL
+STS
+PIN
+DIT
