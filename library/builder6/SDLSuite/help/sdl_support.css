@@ -1,0 +1,32 @@
+body { font-size: 15px; color: #252535; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+h1, h2, h3, h4, ul, ol, li, td, th, div, address, blockquote, nobr, b, i, dd, p, dt, li { font-size: 15px; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+.h1 { font-weight: bold; font-size: 24px; color:#56537F}
+.h2 { font-weight: bold; font-size: 16px; color:#252535}
+.menu td { text-decoration: none; font-size: 16px; color:#FFFFFF}
+.menu a { text-decoration: none; color:#56537F}
+.menu a:visited { text-decoration: none; color:#56537F}
+.menu a:active { text-decoration: none; color:#56537F}
+.menu a:link { text-decoration: none; color:#56537F}
+.menu a:focus { text-decoration: none; color:#56537F}
+.menu a:hover { text-decoration: none; color:#ffe040}
+.content { font-size: 15px; color: #252535; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+.content h1, h2, h3, h4, ul, ol, li, div, address, blockquote, nobr, b, i, dd, p, dt { font-size: 15px; color: #252535; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+.content h1 { font-size:22px; font-weight:bold }
+.content h2 { font-size:19px; font-weight:bold }
+.content h3 { font-size:17px; font-weight:bold }
+.content table { cellspacing:1px }
+.content th { background-color:#d6dde5; font-size:15px; font-weight:bold }
+.content td { background-color:#bac9d2; font-size:15px; font-weight:normal }
+.content tt { font-family:Courier New,Courier; font-size:15px; color:#252535; }
+.content pre { font-family:Courier New,Courier; font-size:15px; color:#252535; }
+.content a { text-decoration: none; color:#56537F; font-weight:bold }
+.content a:visited { text-decoration: none; color:#56537F; font-weight:bold }
+.content a:active { text-decoration: none; color:#56537F; font-weight:bold }
+.content a:link { text-decoration: none; color:#56537F; font-weight:bold }
+.content a:focus { text-decoration: none; color:#56537F; font-weight:bold }
+.content a:hover { text-decoration: underline; color:#56537F; font-weight:bold }
+.clear th { font-size:15px; font-weight:bold }
+.clear td { background-color:#E8ECF4; font-size:15px; font-weight:normal }
+.clear table { font-size:15px; font-weight:normal }
+h1 { font-size:18px; }
+h2 { font-size:16px; }

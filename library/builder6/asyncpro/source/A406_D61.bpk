@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="A406_D61.bpl"/>
+    <OBJFILES value="A406_D61.obj AdAbout.obj AdPEdit0.obj AdPEditT.obj AdPropEd.obj 
+      AdStatE0.obj AdStatEd.obj AproReg.obj"/>
+    <RESFILES value="A406_D61.res AproReg.dcr"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) AdAbout.dfm AdPEdit0.dfm AdStatE0.dfm AdStatEd.dfm"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value=""/>
+    <SPARELIBS value="rtl.lib"/>
+    <PACKAGES value="rtl.bpi vcl.bpi vclx.bpi designide.bpi A406_R61.bpi"/>
+    <PATHCPP value=".;"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="_RTLDLL;NO_STRICT;USEPACKAGES"/>
+    <MAINSOURCE value="A406_D61.cpp"/>
+    <INCLUDEPATH value="$(BCB);$(BCB)\Include;$(BCB)\Include\vcl;K:\projects\LIBRARY\Builder6\asyncpro\source"/>
+    <LIBPATH value="$(BCB)\Projects\Lib;$(BCB)\Lib;K:\projects\LIBRARY\Builder6\asyncpro\source"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-I$(BCB) -I$(BCB)\Include -I$(BCB)\Include\vcl 
+      -IK:\projects\LIBRARY\Builder6\asyncpro\source -src_suffix cpp -D_DEBUG -boa"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -c 
+      -tWM"/>
+    <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -LUDesignIDE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-D&quot;TurboPower Async Professional 4.05 Designtime Package - VCL61&quot; -aa -Tpp 
+      -Gpd -x -Gl -Gi -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0pkg32.obj $(PACKAGES) Memmgr.Lib sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mti.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="A406_D61.res" FORMNAME="" UNITNAME="A402_D61.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="A406_D61.cpp" FORMNAME="" UNITNAME="A402_D61" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="rtl.bpi" FORMNAME="" UNITNAME="rtl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="vcl.bpi" FORMNAME="" UNITNAME="vcl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="vclx.bpi" FORMNAME="" UNITNAME="vclx" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="AdAbout.pas" FORMNAME="ApdAboutForm" UNITNAME="AdAbout" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="AdPEdit0.pas" FORMNAME="AdPEdit" UNITNAME="AdPEdit0" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="AdPEditT.pas" FORMNAME="" UNITNAME="AdPEditT" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="AdPropEd.pas" FORMNAME="" UNITNAME="Adproped" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="AdStatE0.pas" FORMNAME="frmConditionEdit" UNITNAME="AdStatE0" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="AdStatEd.pas" FORMNAME="frmStateEdit" UNITNAME="AdStatEd" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="AproReg.pas" FORMNAME="" UNITNAME="APROReg" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="AproReg.dcr" FORMNAME="" UNITNAME="" CONTAINERID="DcrTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="designide.bpi" FORMNAME="" UNITNAME="designide" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="A406_R61.bpi" FORMNAME="" UNITNAME="A406_R61" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=0
+MajorVer=4
+MinorVer=6
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1033
+CodePage=1252
+
+[Version Info Keys]
+CompanyName=TurboPower Software Company
+FileDescription=Async Professional Designtime Package - VCL61
+FileVersion=4.06
+InternalName=A406_D61
+LegalCopyright=Copyright (c) 1996-2002 TurboPower Software Co.
+LegalTrademarks=
+OriginalFilename=A406_D61
+ProductName=Async Professional
+ProductVersion=4.06
+Comments=
+
+[HistoryLists\hlIncludePath]
+Count=6
+Item0=$(BCB);$(BCB)\Include;$(BCB)\Include\vcl;K:\projects\LIBRARY\Builder6\asyncpro\source
+Item1=$(BCB);$(BCB)\Include;$(BCB)\Include\vcl;z:\projects\library\builder6\asyncpro\source
+Item2=$(BCB);$(BCB)\Include;z:\projects\library\builder6\asyncpro\source
+Item3=$(BCB);$(BCB)\Include
+Item4=D:\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl;D:\Borland\CBuilder6\Source\Toolsapi
+Item5=D:\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=7
+Item0=$(BCB)\Projects\Lib;$(BCB)\Lib;K:\projects\LIBRARY\Builder6\asyncpro\source
+Item1=$(BCB)\Projects\Lib;$(BCB)\Lib
+Item2=$(BCB)\Lib
+Item3=$(BCB)\Lib;
+Item4=$(BCB)\Projects\Lib;D:\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib;D:\Borland\CBuilder6\Source\Toolsapi
+Item5=D:\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib;D:\Borland\CBuilder6\Source\Toolsapi
+Item6=D:\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=1
+Item0=_DEBUG
+
+[HistoryLists\hIBPIOutputDir]
+Count=1
+Item0=e:\ap4
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+
+[Linker]
+LibPrefix=
+LibSuffix=
+LibVersion=
+  </IDEOPTIONS>
+</PROJECT>

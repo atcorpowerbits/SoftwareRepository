@@ -1,0 +1,475 @@
+***  Installation Started 11/15/2004 12:03  ***
+Title: SDL Comp. Suite 8.2/LE for C++Builder 6
+Source: K:\projects\LIBRARY\Builder6\setup_SDLsuite_82C6le.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\UNWISE.EXE
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SDL Comp. Suite 8.2/LE for C++Builder 6
+RegDB Val: SDL Comp. Suite 8.2/LE for C++Builder 6
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SDL Comp. Suite 8.2/LE for C++Builder 6
+RegDB Val: K:\projects\LIBRARY\Builder6\SDLSUI~2\UNWISE.EXE K:\projects\LIBRARY\Builder6\SDLSUI~2\sdlsuite_82C6le.log
+RegDB Name: UninstallString
+RegDB Root: 2
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\help
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\help\bg-losoft.gif
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\help\sdl_support.css
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\help\sdl_banner2.jpg
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\help\sdl_customer_support.html
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\cpuid.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\cpuid.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\cpuid.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\dstruct.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\dstruct.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\dstruct.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\dstruct.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\filesys.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\filesys.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\filesys.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\filesys.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbase.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbase.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbase.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbasepack_82C6.bpi
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbasepack_82C6.bpl
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbasepack_82C6.dcp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbasepack_82C6.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbasepack_82C6.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlbasepack_82C6.lib
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlcolors.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlcolors.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\sdlcolors.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\streams.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\streams.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\streams.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\stringl.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\stringl.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\stringl.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\stringl.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\univconst.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\univconst.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\basepack\C6\univconst.obj
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\datatable.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\datatable.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\datatable.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\datatable.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\fourier.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\fourier.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\fourier.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\fourier.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\kohonen.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\kohonen.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\kohonen.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\kohonen.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\math1.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\math1.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\math1.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\math2.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\math2.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\math2.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\math2.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\matrix.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\matrix.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\matrix.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\matrix.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\randgen.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\sdlmathpack_82C6.BAK
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\sdlmathpack_82C6.bpi
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\sdlmathpack_82C6.bpl
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\sdlmathpack_82C6.dcp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\sdlmathpack_82C6.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\sdlmathpack_82C6.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\sdlmathpack_82C6.lib
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\statis.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\statis.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\statis.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\vector.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\vector.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\vector.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\mathpack\C6\vector.obj
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\cdata.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\cdata.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\cdata.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\cform.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\cform.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\cform.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\cform.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\chemgrph.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\chemgrph.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\chemgrph.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\chemgrph.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\cstruct.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\cstruct.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\cstruct.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\sdlchempack_82C6.bpi
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\sdlchempack_82C6.bpl
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\sdlchempack_82C6.dcp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\sdlchempack_82C6.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\sdlchempack_82C6.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chempack\C6\sdlchempack_82C6.lib
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\colsel.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\colsel.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\colsel.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\colsel.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\gradfl.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\gradfl.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\gradfl.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\gradfl.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\htmllab.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\meter.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\meter.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\meter.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\meter.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\mtproped.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\mtproped.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\mtproped.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\mtproped.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\ntabed.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\ntabed.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\ntabed.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\ntabed.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\ntabed.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\numio.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\numio.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\numio.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\numio.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\numlab.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\numlab.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\numlab.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\numlab.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\progbar.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\progbar.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\progbar.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\progbar.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\qmtproped.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\rasterlab.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\rasterlab.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\rasterlab.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\rasterlab.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\replist.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\replist.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\replist.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\replist.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\sdlguipack_82C6.BAK
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\sdlguipack_82C6.bpi
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\sdlguipack_82C6.bpl
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\sdlguipack_82C6.dcp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\sdlguipack_82C6.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\sdlguipack_82C6.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\sdlguipack_82C6.lib
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\thumbnails.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\thumbnails.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\thumbnails.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\thumbnails.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\guipack\C6\urllab.dcr
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\dendrogram.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\plot3d.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\plot3d.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\plot3d.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\plot3d.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\polchart.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\polchart.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\qrcproped.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rchart.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rchart.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rchart.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rchart.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rchart.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rcproped.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rcproped.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rcproped.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rcproped.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rot3d.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rot3d.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rot3d.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\rot3d.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\scale.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\scale.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\scale.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\scale.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\sdlchartpack_82C6.bpi
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\sdlchartpack_82C6.bpl
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\sdlchartpack_82C6.dcp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\sdlchartpack_82C6.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\sdlchartpack_82C6.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\chartpack\C6\sdlchartpack_82C6.lib
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Desktop\SDL Customer Support.lnk
+Made Dir: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\SDL Customer Support.lnk
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\chartpolygons
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\chartpolygons\chartpolygons.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\chartpolygons\chartpolygons.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\chartpolygons\chartpolygons.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\chartpolygons\chartpolygons.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\chartpolygons\mainfrm.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\chartpolygons\mainfrm.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\chartpolygons\mainfrm.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\colorcalc
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\colorcalc\colorcalc.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\colorcalc\colorcalc.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\colorcalc\colorcalc.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\colorcalc\colorcalc.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\colorcalc\frmmain.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\colorcalc\frmmain.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\colorcalc\frmmain.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\convexhull
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\convexhull\convexhull.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\convexhull\convexhull.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\convexhull\convexhull.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\convexhull\convexhull.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\convexhull\frmmain.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\convexhull\frmmain.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\convexhull\frmmain.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\curvefit
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\curvefit\cfit.asc
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\curvefit\Curvefit.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\curvefit\Curvefit.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\curvefit\curvefit.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\curvefit\CURVEFIT.RES
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\curvefit\frmcfit.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\curvefit\frmcfit.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\curvefit\frmcfit.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\dendro
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\dendro\dendro.exe
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\duallayer
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\duallayer\duallayer.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\duallayer\duallayer.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\duallayer\duallayer.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\duallayer\duallayer.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\duallayer\mainfrm.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\duallayer\mainfrm.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\duallayer\mainfrm.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\exrot3d
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\exrot3d\exrot3d.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\exrot3d\exrot3d.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\exrot3d\exrot3d.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\exrot3d\exrot3d.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\exrot3d\rot3data.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\exrot3d\rot3data.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\exrot3d\rot3data.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\fft
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\fft\fft.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\fft\fft.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\fft\fft.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\fft\fft.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\fft\frmfft.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\fft\frmfft.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\fft\frmfft.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\foursynt
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\foursynt\Foursynt.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\foursynt\Foursynt.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\foursynt\foursynt.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\foursynt\FOURSYNT.RES
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\foursynt\mainfrm.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\foursynt\mainfrm.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\foursynt\mainfrm.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\gradfill
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\gradfill\gradfill.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\gradfill\gradfill.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\gradfill\gradfill.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\gradfill\gradfill.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\gradfill\maingf.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\gradfill\maingf.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\gradfill\maingf.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\interpol3d
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\interpol3d\interpol3d.exe
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\kohmap
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\kohmap\kohmap.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\kohmap\kohmap.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\kohmap\kohmap.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\kohmap\kohmap.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\kohmap\ukohonen.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\kohmap\ukohonen.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\kohmap\ukohonen.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\kohmap\uprogres.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\kohmap\uprogres.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\kohmap\uprogres.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\ntabedit
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\ntabedit\BOILPTS.ASC
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\ntabedit\neditfrm.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\ntabedit\neditfrm.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\ntabedit\neditfrm.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\ntabedit\ntabedit.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\ntabedit\ntabedit.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\ntabedit\ntabedit.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\ntabedit\ntabedit.res
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\numlabel
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\numlabel\FrmNLab.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\numlabel\FrmNLab.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\numlabel\FrmNLab.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\numlabel\numlabel.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\numlabel\numlabel.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\numlabel\numlabel.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\numlabel\numlabel.res
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\plot3dhole
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plot3dhole\mainfrm.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plot3dhole\mainfrm.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plot3dhole\mainfrm.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plot3dhole\plot3dhole.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plot3dhole\plot3dhole.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plot3dhole\plot3dhole.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plot3dhole\plot3dhole.res
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\plotit3d
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plotit3d\plotit3d.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plotit3d\plotit3d.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plotit3d\plotit3d.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plotit3d\plotit3d.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plotit3d\uplot3d.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plotit3d\uplot3d.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\plotit3d\uplot3d.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\prjmeter
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\prjmeter\frmmeter.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\prjmeter\frmmeter.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\prjmeter\frmmeter.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\prjmeter\frmneedl.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\prjmeter\frmneedl.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\prjmeter\frmneedl.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\prjmeter\prjMeter.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\prjmeter\prjMeter.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\prjmeter\prjmeter.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\prjmeter\prjMeter.res
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\rasterlabel
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rasterlabel\control.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rasterlabel\control.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rasterlabel\control.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rasterlabel\mainfrm.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rasterlabel\mainfrm.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rasterlabel\mainfrm.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rasterlabel\rasterlabel.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rasterlabel\rasterlabel.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rasterlabel\rasterlabel.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rasterlabel\rasterlabel.res
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\rcshared
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rcshared\rcshared.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rcshared\rcshared.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rcshared\rcshared.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rcshared\rcshared.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rcshared\ushared.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rcshared\ushared.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\rcshared\ushared.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\replistv
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\replistv\replistv.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\replistv\replistv.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\replistv\replistv.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\replistv\replistv.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\replistv\ureplist.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\replistv\ureplist.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\replistv\ureplist.h
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\sdlprogbar
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\sdlprogbar\mainfrm.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\sdlprogbar\mainfrm.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\sdlprogbar\mainfrm.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\sdlprogbar\sdlprogbar.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\sdlprogbar\sdlprogbar.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\sdlprogbar\sdlprogbar.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\sdlprogbar\sdlprogbar.res
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\shcstruk
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\shcstruk\shcstruk.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\shcstruk\test1.mol
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\shcstruk\test2.mol
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\shcstruk\test3.mol
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\simplegeomap
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\simplegeomap\austria2.xml
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\simplegeomap\austria_rel99.jpg
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\simplegeomap\simplegeomap.exe
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSUI~2\examples-C6\spline
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\spline\spline.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\spline\spline.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\spline\spline.exe
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\spline\spline.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\spline\uspline.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\spline\uspline.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\examples-C6\spline\uspline.h
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Desktop\SDL Suite Examples.lnk
+Made Dir: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Chart Polygons.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Color Calculation.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Convex Hull.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Curve Fitting.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Dendrogram.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Dual Layer Chart.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\3D Rotation of Data.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\FFT.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Fourier Synthesis.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Gradient Fill.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\3D Interpolation.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Kohonen Map.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Table Editor.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Numeric Label.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Hole in 3D Surface.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Plot 3D Surface.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\VU Meter.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Raster Label.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Shared Charts.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Report List.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Progress Bar.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Chemical Structure.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Geographic Map.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\Examples\Spline Approximation.lnk
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL BasePack 8.2/LE
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~2\basepack\C6\sdlbasepack_82C6.bpl
+RegDB Root: 1
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL BasePack 8.2/LE
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~2\basepack\C6\sdlbasepack_82C6.bpl
+RegDB Root: 1
+RegDB Old: SDL BasePack 8.2/LE
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL MathPack 8.2/LE
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~2\mathpack\C6\sdlmathpack_82C6.bpl
+RegDB Root: 1
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL MathPack 8.2/LE
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~2\mathpack\C6\sdlmathpack_82C6.bpl
+RegDB Root: 1
+RegDB Old: SDL MathPack 8.2/LE
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL ChemPack 8.2/LE
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~2\chempack\C6\sdlchempack_82C6.bpl
+RegDB Root: 1
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL ChemPack 8.2/LE
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~2\chempack\C6\sdlchempack_82C6.bpl
+RegDB Root: 1
+RegDB Old: SDL ChemPack 8.2/LE
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL GuiPack 8.2/LE
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~2\guipack\C6\sdlguipack_82C6.bpl
+RegDB Root: 1
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL GuiPack 8.2/LE
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~2\guipack\C6\sdlguipack_82C6.bpl
+RegDB Root: 1
+RegDB Old: SDL GuiPack 8.2/LE
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL ChartPack 8.2/LE
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~2\chartpack\C6\sdlchartpack_82C6.bpl
+RegDB Root: 1
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL ChartPack 8.2/LE
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSUI~2\chartpack\C6\sdlchartpack_82C6.bpl
+RegDB Root: 1
+RegDB Old: SDL ChartPack 8.2/LE
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite82\help\sdlsuite82.chm
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Start Menu\Programs\SDL Component Suite\SDL Suite Help.lnk
+Shell Link: C:\Documents and Settings\paul.ATCORAU\Desktop\SDL Suite Help.lnk
+RegDB Key: Software\Borland\C++Builder\6.0\Library
+RegDB Val: $(BCB)\Lib;$(BCB)\Bin;$(BCB)\Imports;$(BCB)\Projects\Bpl;$(BCB)\Projects\Lib;K:\projects\LIBRARY\Builder6\SDLSUI~2\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\mathpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chempack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\guipack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chartpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\geopack\C6
+RegDB Name: Search Path
+RegDB Root: 1
+RegDB Old: $(BCB)\Lib;$(BCB)\Bin;$(BCB)\Imports;$(BCB)\Projects\Bpl;$(BCB)\Projects\Lib
+RegDB Key: Software\Borland\C++Builder\6.0\Library .NET
+RegDB Val: ;K:\projects\LIBRARY\Builder6\SDLSUI~2\basepack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\mathpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chempack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\guipack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\chartpack\C6;K:\projects\LIBRARY\Builder6\SDLSUI~2\geopack\C6
+RegDB Name: Search Path
+RegDB Root: 1
