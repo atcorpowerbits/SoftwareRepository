@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestLists xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestList name="Lists of Tests" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <RunConfiguration id="c74d9c15-705c-4840-9d86-d3aad6609adf" name="Local Test Run" storage="localtestrun.testrunconfig" type="Microsoft.VisualStudio.TestTools.Common.TestRunConfiguration, Microsoft.VisualStudio.QualityTools.Common,   PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestList>
+  <TestList name="BizMath" id="f478a8eb-4087-4019-8f38-fcb371df0cc2" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <Description>Testing all the methods of the BizMath class</Description>
+    <TestLinks>
+      <TestLink id="fd80901c-1a49-5527-4fe9-d552f08f118e" name="MaxInArrayIndexTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="e28dd569-50e4-9f8e-23bb-2b71da05cff7" name="FunctionValueTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="9b5ac021-871a-ff1b-a751-0500118f99e8" name="SplineTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="bcc1e447-2900-1168-938b-dd6541d2819e" name="IndexOfExtremumTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="2f28b207-8670-e79c-94d1-7a27cec28f8b" name="RoundNearest20Test" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="fce7e08c-65a5-0029-62ce-3097e7d2f6d8" name="IndexToTimeTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="4c47b2fa-8c4c-9768-8c44-eb563177de77" name="TimeToIndexTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="99dc0859-7671-b0c6-7536-cdf797f8b7b3" name="MinMaxInArrayTest1" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="40d8abd5-9dd6-39a7-f6c9-4d01be5d1ece" name="GetSplineIndexTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="8bf7487d-65dc-99b9-f208-34083c93270c" name="RoundTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="e03d2922-ee00-2d06-c584-0099530fff18" name="SmoothDerivative1Test" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="6a6efe9c-ce41-6858-052d-160bda5471b5" name="MaxInArrayTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="d8e6be30-d625-5f22-edda-2cd409a999c9" name="MinMaxInArrayTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="aac6b5d6-2b92-6143-b051-b0fdfe807a5a" name="SmoothArrayTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="d5d7e8eb-9a3b-7bb2-821e-2410a4c5a0c7" name="MinInArrayTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+</TestLists>

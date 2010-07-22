@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="4c8581fe-d041-448e-bf63-65e5ceb1ef5e" name="paul@PC49 2010-07-21 15:41:06" runUser="ATCORAU\paul" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Local Test Run" id="c74d9c15-705c-4840-9d86-d3aad6609adf">
+    <Description>This is a default test run configuration for a local test run.</Description>
+    <Deployment runDeploymentRoot="C:\Users\paul\Documents\Visual Studio 2008\Projects\biz\TestResults\paul_PC49 2010-07-21 15_41_06">
+      <DeploymentItem filename="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\biz.dll" />
+    </Deployment>
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Completed">
+    <Counters total="47" executed="47" passed="47" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2010-07-21T15:41:06.9082106+10:00" queuing="2010-07-21T15:41:07.2023870+10:00" start="2010-07-21T15:41:07.2213984+10:00" finish="2010-07-21T15:41:08.3150542+10:00" />
+  <TestDefinitions>
+    <UnitTest name="MaxInArrayIndexTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="fd80901c-1a49-5527-4fe9-d552f08f118e">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="57a719eb-7262-470f-8e38-6f100ae39bd3" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="MaxInArrayIndexTest" />
+    </UnitTest>
+    <UnitTest name="FunctionValueTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="e28dd569-50e4-9f8e-23bb-2b71da05cff7">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="41c78c1f-05bc-4e52-aacc-d196d23b6fff" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="FunctionValueTest" />
+    </UnitTest>
+    <UnitTest name="SplineTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="9b5ac021-871a-ff1b-a751-0500118f99e8">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="eabee580-4331-4b20-898e-7a19e415358e" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="SplineTest" />
+    </UnitTest>
+    <UnitTest name="IndexOfExtremumTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="bcc1e447-2900-1168-938b-dd6541d2819e">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="77307d8f-ef43-42de-a331-17d0299c8406" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="IndexOfExtremumTest" />
+    </UnitTest>
+    <UnitTest name="RoundNearest20Test" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="2f28b207-8670-e79c-94d1-7a27cec28f8b">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="TestBiz\RoundNearest20.csv" />
+      </DeploymentItems>
+      <Execution id="723db42c-7892-4bd1-a5a4-f531ffc60beb" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="RoundNearest20Test" />
+      <DataSource connectionString="|DataDirectory|\RoundNearest20.csv" providerInvariantName="Microsoft.VisualStudio.TestTools.DataSource.CSV" tableName="RoundNearest20#csv" />
+    </UnitTest>
+    <UnitTest name="IndexToTimeTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="fce7e08c-65a5-0029-62ce-3097e7d2f6d8">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="TestBiz\IndexToTime.csv" />
+      </DeploymentItems>
+      <Execution id="dbed7d1e-7bcb-4515-85a2-385da6e1d129" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="IndexToTimeTest" />
+      <DataSource connectionString="|DataDirectory|\IndexToTime.csv" providerInvariantName="Microsoft.VisualStudio.TestTools.DataSource.CSV" tableName="IndexToTime#csv" />
+    </UnitTest>
+    <UnitTest name="TimeToIndexTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="4c47b2fa-8c4c-9768-8c44-eb563177de77">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="TestBiz\TimeToIndex.csv" />
+      </DeploymentItems>
+      <Execution id="1d378f90-5915-4b82-8427-69cae6263b9f" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="TimeToIndexTest" />
+      <DataSource connectionString="|DataDirectory|\TimeToIndex.csv" providerInvariantName="Microsoft.VisualStudio.TestTools.DataSource.CSV" tableName="TimeToIndex#csv" />
+    </UnitTest>
+    <UnitTest name="MinMaxInArrayTest1" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="99dc0859-7671-b0c6-7536-cdf797f8b7b3">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="540fc3aa-a714-4afd-bf7a-f79d8e0ac4c7" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="MinMaxInArrayTest1" />
+    </UnitTest>
+    <UnitTest name="GetSplineIndexTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="40d8abd5-9dd6-39a7-f6c9-4d01be5d1ece">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="TestBiz\GetSplineIndex.csv" />
+      </DeploymentItems>
+      <Execution id="75f4d718-263f-480c-9c1e-dd25854ed2cb" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="GetSplineIndexTest" />
+      <DataSource connectionString="|DataDirectory|\GetSplineIndex.csv" providerInvariantName="Microsoft.VisualStudio.TestTools.DataSource.CSV" tableName="GetSplineIndex#csv" />
+    </UnitTest>
+    <UnitTest name="RoundTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="8bf7487d-65dc-99b9-f208-34083c93270c">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="TestBiz\Round.csv" />
+      </DeploymentItems>
+      <Execution id="7b50606a-24ca-4b83-a580-92b204ed8d2f" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="RoundTest" />
+      <DataSource connectionString="|DataDirectory|\Round.csv" providerInvariantName="Microsoft.VisualStudio.TestTools.DataSource.CSV" tableName="Round#csv" />
+    </UnitTest>
+    <UnitTest name="SmoothDerivative1Test" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="e03d2922-ee00-2d06-c584-0099530fff18">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="34dd87fa-af06-4682-8165-1afb49d97f85" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="SmoothDerivative1Test" />
+    </UnitTest>
+    <UnitTest name="MaxInArrayTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="6a6efe9c-ce41-6858-052d-160bda5471b5">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="TestBiz\MaxInArray.csv" />
+      </DeploymentItems>
+      <Execution id="9e8e7bd6-0cd1-4817-8c8b-4b3da8559230" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="MaxInArrayTest" />
+    </UnitTest>
+    <UnitTest name="MinMaxInArrayTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="d8e6be30-d625-5f22-edda-2cd409a999c9">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="fb0e46e3-d2b2-4d61-a2e0-8837f96191ba" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="MinMaxInArrayTest" />
+    </UnitTest>
+    <UnitTest name="SmoothArrayTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="aac6b5d6-2b92-6143-b051-b0fdfe807a5a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="dad91743-e515-498e-960c-67141817fc6e" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="SmoothArrayTest" />
+    </UnitTest>
+    <UnitTest name="MinInArrayTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="d5d7e8eb-9a3b-7bb2-821e-2410a4c5a0c7">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="f93bf804-c4fa-4e97-83e8-a23c7e3ac782" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="MinInArrayTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="2f28b207-8670-e79c-94d1-7a27cec28f8b" executionId="723db42c-7892-4bd1-a5a4-f531ffc60beb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="40d8abd5-9dd6-39a7-f6c9-4d01be5d1ece" executionId="75f4d718-263f-480c-9c1e-dd25854ed2cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c47b2fa-8c4c-9768-8c44-eb563177de77" executionId="1d378f90-5915-4b82-8427-69cae6263b9f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a6efe9c-ce41-6858-052d-160bda5471b5" executionId="9e8e7bd6-0cd1-4817-8c8b-4b3da8559230" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8bf7487d-65dc-99b9-f208-34083c93270c" executionId="7b50606a-24ca-4b83-a580-92b204ed8d2f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="99dc0859-7671-b0c6-7536-cdf797f8b7b3" executionId="540fc3aa-a714-4afd-bf7a-f79d8e0ac4c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9b5ac021-871a-ff1b-a751-0500118f99e8" executionId="eabee580-4331-4b20-898e-7a19e415358e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aac6b5d6-2b92-6143-b051-b0fdfe807a5a" executionId="dad91743-e515-498e-960c-67141817fc6e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bcc1e447-2900-1168-938b-dd6541d2819e" executionId="77307d8f-ef43-42de-a331-17d0299c8406" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d5d7e8eb-9a3b-7bb2-821e-2410a4c5a0c7" executionId="f93bf804-c4fa-4e97-83e8-a23c7e3ac782" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8e6be30-d625-5f22-edda-2cd409a999c9" executionId="fb0e46e3-d2b2-4d61-a2e0-8837f96191ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e03d2922-ee00-2d06-c584-0099530fff18" executionId="34dd87fa-af06-4682-8165-1afb49d97f85" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e28dd569-50e4-9f8e-23bb-2b71da05cff7" executionId="41c78c1f-05bc-4e52-aacc-d196d23b6fff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fce7e08c-65a5-0029-62ce-3097e7d2f6d8" executionId="dbed7d1e-7bcb-4515-85a2-385da6e1d129" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd80901c-1a49-5527-4fe9-d552f08f118e" executionId="57a719eb-7262-470f-8e38-6f100ae39bd3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="723db42c-7892-4bd1-a5a4-f531ffc60beb" testId="2f28b207-8670-e79c-94d1-7a27cec28f8b" testName="RoundNearest20Test" computerName="PC49" duration="00:00:00.2109136" startTime="2010-07-21T15:41:07.2474140+10:00" endTime="2010-07-21T15:41:07.7116924+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" resultType="DataDrivenTest">
+      <Output>
+      </Output>
+      <Counters error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="7" completed="0" inProgress="0" pending="0" />
+      <InnerResults>
+        <UnitTestResult executionId="dc7d7dac-8ae6-43f6-af6d-8cb149c51a4c" parentExecutionId="723db42c-7892-4bd1-a5a4-f531ffc60beb" testId="2f28b207-8670-e79c-94d1-7a27cec28f8b" testName="RoundNearest20Test" computerName="PC49" duration="00:00:00.0904579" startTime="2010-07-21T15:41:07.6076300+10:00" endTime="2010-07-21T15:41:07.7026870+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="0" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="3d091b70-9282-4ed5-bb90-e6423fe4de0f" parentExecutionId="723db42c-7892-4bd1-a5a4-f531ffc60beb" testId="2f28b207-8670-e79c-94d1-7a27cec28f8b" testName="RoundNearest20Test" computerName="PC49" duration="00:00:00.0000366" startTime="2010-07-21T15:41:07.7026870+10:00" endTime="2010-07-21T15:41:07.7026870+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="1" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="cafa9938-77ab-4bae-b69c-dee0fd3151fd" parentExecutionId="723db42c-7892-4bd1-a5a4-f531ffc60beb" testId="2f28b207-8670-e79c-94d1-7a27cec28f8b" testName="RoundNearest20Test" computerName="PC49" duration="00:00:00.0000115" startTime="2010-07-21T15:41:07.7026870+10:00" endTime="2010-07-21T15:41:07.7026870+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="2" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="df409f99-fb15-4cda-bc4b-8da55aa7ac47" parentExecutionId="723db42c-7892-4bd1-a5a4-f531ffc60beb" testId="2f28b207-8670-e79c-94d1-7a27cec28f8b" testName="RoundNearest20Test" computerName="PC49" duration="00:00:00.0000108" startTime="2010-07-21T15:41:07.7026870+10:00" endTime="2010-07-21T15:41:07.7026870+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="3" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="c028c279-7fd5-4eb4-8e81-2757d832c8bf" parentExecutionId="723db42c-7892-4bd1-a5a4-f531ffc60beb" testId="2f28b207-8670-e79c-94d1-7a27cec28f8b" testName="RoundNearest20Test" computerName="PC49" duration="00:00:00.0000104" startTime="2010-07-21T15:41:07.7026870+10:00" endTime="2010-07-21T15:41:07.7026870+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="4" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="204bed94-8d88-4905-9c17-0e049e62a069" parentExecutionId="723db42c-7892-4bd1-a5a4-f531ffc60beb" testId="2f28b207-8670-e79c-94d1-7a27cec28f8b" testName="RoundNearest20Test" computerName="PC49" duration="00:00:00.0000104" startTime="2010-07-21T15:41:07.7026870+10:00" endTime="2010-07-21T15:41:07.7026870+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="5" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="2247f6a5-3762-4d56-b810-87dda1b30627" parentExecutionId="723db42c-7892-4bd1-a5a4-f531ffc60beb" testId="2f28b207-8670-e79c-94d1-7a27cec28f8b" testName="RoundNearest20Test" computerName="PC49" duration="00:00:00.0000108" startTime="2010-07-21T15:41:07.7026870+10:00" endTime="2010-07-21T15:41:07.7026870+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="6" resultType="DataDrivenDataRow" />
+      </InnerResults>
+    </UnitTestResult>
+    <UnitTestResult executionId="75f4d718-263f-480c-9c1e-dd25854ed2cb" testId="40d8abd5-9dd6-39a7-f6c9-4d01be5d1ece" testName="GetSplineIndexTest" computerName="PC49" duration="00:00:00.1074677" startTime="2010-07-21T15:41:07.7206978+10:00" endTime="2010-07-21T15:41:07.8307638+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" resultType="DataDrivenTest">
+      <Output>
+      </Output>
+      <Counters error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="5" completed="0" inProgress="0" pending="0" />
+      <InnerResults>
+        <UnitTestResult executionId="969b64ee-cba4-4d0c-b1a1-c10dd4e82511" parentExecutionId="75f4d718-263f-480c-9c1e-dd25854ed2cb" testId="40d8abd5-9dd6-39a7-f6c9-4d01be5d1ece" testName="GetSplineIndexTest" computerName="PC49" duration="00:00:00.0006569" startTime="2010-07-21T15:41:07.8297632+10:00" endTime="2010-07-21T15:41:07.8297632+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="0" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="5938976c-e619-4a70-ada6-bee8f54cfa1c" parentExecutionId="75f4d718-263f-480c-9c1e-dd25854ed2cb" testId="40d8abd5-9dd6-39a7-f6c9-4d01be5d1ece" testName="GetSplineIndexTest" computerName="PC49" duration="00:00:00.0000171" startTime="2010-07-21T15:41:07.8297632+10:00" endTime="2010-07-21T15:41:07.8297632+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="1" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="5e0c0d10-8623-4d2e-8435-17c6b3f307ef" parentExecutionId="75f4d718-263f-480c-9c1e-dd25854ed2cb" testId="40d8abd5-9dd6-39a7-f6c9-4d01be5d1ece" testName="GetSplineIndexTest" computerName="PC49" duration="00:00:00.0000122" startTime="2010-07-21T15:41:07.8297632+10:00" endTime="2010-07-21T15:41:07.8297632+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="2" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="ee7f8bee-40de-42ba-b2ec-52ab3f7d6ee0" parentExecutionId="75f4d718-263f-480c-9c1e-dd25854ed2cb" testId="40d8abd5-9dd6-39a7-f6c9-4d01be5d1ece" testName="GetSplineIndexTest" computerName="PC49" duration="00:00:00.0000111" startTime="2010-07-21T15:41:07.8297632+10:00" endTime="2010-07-21T15:41:07.8297632+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="3" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="124cba3f-f190-4b97-9175-29613bd34334" parentExecutionId="75f4d718-263f-480c-9c1e-dd25854ed2cb" testId="40d8abd5-9dd6-39a7-f6c9-4d01be5d1ece" testName="GetSplineIndexTest" computerName="PC49" duration="00:00:00.0000111" startTime="2010-07-21T15:41:07.8297632+10:00" endTime="2010-07-21T15:41:07.8297632+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="4" resultType="DataDrivenDataRow" />
+      </InnerResults>
+    </UnitTestResult>
+    <UnitTestResult executionId="1d378f90-5915-4b82-8427-69cae6263b9f" testId="4c47b2fa-8c4c-9768-8c44-eb563177de77" testName="TimeToIndexTest" computerName="PC49" duration="00:00:00.1154675" startTime="2010-07-21T15:41:07.8317644+10:00" endTime="2010-07-21T15:41:07.9548382+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" resultType="DataDrivenTest">
+      <Output>
+      </Output>
+      <Counters error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="7" completed="0" inProgress="0" pending="0" />
+      <InnerResults>
+        <UnitTestResult executionId="cb3f1d16-04e3-462c-88ba-b84fd8b900f8" parentExecutionId="1d378f90-5915-4b82-8427-69cae6263b9f" testId="4c47b2fa-8c4c-9768-8c44-eb563177de77" testName="TimeToIndexTest" computerName="PC49" duration="00:00:00.0009401" startTime="2010-07-21T15:41:07.9528370+10:00" endTime="2010-07-21T15:41:07.9538376+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="0" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="4b18d30f-3a13-4a92-8d41-326dfe228696" parentExecutionId="1d378f90-5915-4b82-8427-69cae6263b9f" testId="4c47b2fa-8c4c-9768-8c44-eb563177de77" testName="TimeToIndexTest" computerName="PC49" duration="00:00:00.0000223" startTime="2010-07-21T15:41:07.9538376+10:00" endTime="2010-07-21T15:41:07.9538376+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="1" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="cc74d842-267c-4ea2-8f61-0033ae29a8cd" parentExecutionId="1d378f90-5915-4b82-8427-69cae6263b9f" testId="4c47b2fa-8c4c-9768-8c44-eb563177de77" testName="TimeToIndexTest" computerName="PC49" duration="00:00:00.0000118" startTime="2010-07-21T15:41:07.9538376+10:00" endTime="2010-07-21T15:41:07.9538376+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="2" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="45e08547-00f9-4d17-8c6a-684ea297a235" parentExecutionId="1d378f90-5915-4b82-8427-69cae6263b9f" testId="4c47b2fa-8c4c-9768-8c44-eb563177de77" testName="TimeToIndexTest" computerName="PC49" duration="00:00:00.0000118" startTime="2010-07-21T15:41:07.9538376+10:00" endTime="2010-07-21T15:41:07.9538376+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="3" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="4cdc298e-4612-414e-a889-261d6ef2edd0" parentExecutionId="1d378f90-5915-4b82-8427-69cae6263b9f" testId="4c47b2fa-8c4c-9768-8c44-eb563177de77" testName="TimeToIndexTest" computerName="PC49" duration="00:00:00.0000111" startTime="2010-07-21T15:41:07.9538376+10:00" endTime="2010-07-21T15:41:07.9538376+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="4" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="93c4564a-59e6-499f-bf3a-385981776d34" parentExecutionId="1d378f90-5915-4b82-8427-69cae6263b9f" testId="4c47b2fa-8c4c-9768-8c44-eb563177de77" testName="TimeToIndexTest" computerName="PC49" duration="00:00:00.0000111" startTime="2010-07-21T15:41:07.9538376+10:00" endTime="2010-07-21T15:41:07.9538376+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="5" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="fc214aa9-789c-420d-8780-9b5e0a881df6" parentExecutionId="1d378f90-5915-4b82-8427-69cae6263b9f" testId="4c47b2fa-8c4c-9768-8c44-eb563177de77" testName="TimeToIndexTest" computerName="PC49" duration="00:00:00.0000115" startTime="2010-07-21T15:41:07.9538376+10:00" endTime="2010-07-21T15:41:07.9538376+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="6" resultType="DataDrivenDataRow" />
+      </InnerResults>
+    </UnitTestResult>
+    <UnitTestResult executionId="9e8e7bd6-0cd1-4817-8c8b-4b3da8559230" testId="6a6efe9c-ce41-6858-052d-160bda5471b5" testName="MaxInArrayTest" computerName="PC49" duration="00:00:00.0004897" startTime="2010-07-21T15:41:07.9668454+10:00" endTime="2010-07-21T15:41:07.9828550+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7b50606a-24ca-4b83-a580-92b204ed8d2f" testId="8bf7487d-65dc-99b9-f208-34083c93270c" testName="RoundTest" computerName="PC49" duration="00:00:00.1291337" startTime="2010-07-21T15:41:07.9848562+10:00" endTime="2010-07-21T15:41:08.1309438+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" resultType="DataDrivenTest">
+      <Output>
+      </Output>
+      <Counters error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="7" completed="0" inProgress="0" pending="0" />
+      <InnerResults>
+        <UnitTestResult executionId="d7c6ede1-608b-457d-957e-7e2e0861d7e2" parentExecutionId="7b50606a-24ca-4b83-a580-92b204ed8d2f" testId="8bf7487d-65dc-99b9-f208-34083c93270c" testName="RoundTest" computerName="PC49" duration="00:00:00.0004614" startTime="2010-07-21T15:41:08.1289426+10:00" endTime="2010-07-21T15:41:08.1289426+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="0" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="5af6193f-b70b-425f-9fa4-a4304024987a" parentExecutionId="7b50606a-24ca-4b83-a580-92b204ed8d2f" testId="8bf7487d-65dc-99b9-f208-34083c93270c" testName="RoundTest" computerName="PC49" duration="00:00:00.0000205" startTime="2010-07-21T15:41:08.1289426+10:00" endTime="2010-07-21T15:41:08.1289426+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="1" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="0df08e24-5565-4e5e-91f8-039789a3f5ca" parentExecutionId="7b50606a-24ca-4b83-a580-92b204ed8d2f" testId="8bf7487d-65dc-99b9-f208-34083c93270c" testName="RoundTest" computerName="PC49" duration="00:00:00.0000164" startTime="2010-07-21T15:41:08.1289426+10:00" endTime="2010-07-21T15:41:08.1299432+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="2" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="ee115951-a333-4517-9718-b61e40285c95" parentExecutionId="7b50606a-24ca-4b83-a580-92b204ed8d2f" testId="8bf7487d-65dc-99b9-f208-34083c93270c" testName="RoundTest" computerName="PC49" duration="00:00:00.0000115" startTime="2010-07-21T15:41:08.1299432+10:00" endTime="2010-07-21T15:41:08.1299432+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="3" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="c1d2d6b8-0170-4af5-a4d8-024bf69ecd01" parentExecutionId="7b50606a-24ca-4b83-a580-92b204ed8d2f" testId="8bf7487d-65dc-99b9-f208-34083c93270c" testName="RoundTest" computerName="PC49" duration="00:00:00.0000111" startTime="2010-07-21T15:41:08.1299432+10:00" endTime="2010-07-21T15:41:08.1299432+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="4" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="5b09259f-c8a2-45ae-84d0-07c1eaacf2bc" parentExecutionId="7b50606a-24ca-4b83-a580-92b204ed8d2f" testId="8bf7487d-65dc-99b9-f208-34083c93270c" testName="RoundTest" computerName="PC49" duration="00:00:00.0000108" startTime="2010-07-21T15:41:08.1299432+10:00" endTime="2010-07-21T15:41:08.1299432+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="5" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="b0647827-1184-492b-bad6-3cd1add42cad" parentExecutionId="7b50606a-24ca-4b83-a580-92b204ed8d2f" testId="8bf7487d-65dc-99b9-f208-34083c93270c" testName="RoundTest" computerName="PC49" duration="00:00:00.0000108" startTime="2010-07-21T15:41:08.1299432+10:00" endTime="2010-07-21T15:41:08.1299432+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="6" resultType="DataDrivenDataRow" />
+      </InnerResults>
+    </UnitTestResult>
+    <UnitTestResult executionId="540fc3aa-a714-4afd-bf7a-f79d8e0ac4c7" testId="99dc0859-7671-b0c6-7536-cdf797f8b7b3" testName="MinMaxInArrayTest1" computerName="PC49" duration="00:00:00.0005875" startTime="2010-07-21T15:41:08.1309438+10:00" endTime="2010-07-21T15:41:08.1389486+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="eabee580-4331-4b20-898e-7a19e415358e" testId="9b5ac021-871a-ff1b-a751-0500118f99e8" testName="SplineTest" computerName="PC49" duration="00:00:00.0010214" startTime="2010-07-21T15:41:08.1389486+10:00" endTime="2010-07-21T15:41:08.1449522+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dad91743-e515-498e-960c-67141817fc6e" testId="aac6b5d6-2b92-6143-b051-b0fdfe807a5a" testName="SmoothArrayTest" computerName="PC49" duration="00:00:00.0007603" startTime="2010-07-21T15:41:08.1459528+10:00" endTime="2010-07-21T15:41:08.1509558+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="77307d8f-ef43-42de-a331-17d0299c8406" testId="bcc1e447-2900-1168-938b-dd6541d2819e" testName="IndexOfExtremumTest" computerName="PC49" duration="00:00:00.0006901" startTime="2010-07-21T15:41:08.1509558+10:00" endTime="2010-07-21T15:41:08.1569594+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f93bf804-c4fa-4e97-83e8-a23c7e3ac782" testId="d5d7e8eb-9a3b-7bb2-821e-2410a4c5a0c7" testName="MinInArrayTest" computerName="PC49" duration="00:00:00.0004108" startTime="2010-07-21T15:41:08.1589606+10:00" endTime="2010-07-21T15:41:08.1619624+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fb0e46e3-d2b2-4d61-a2e0-8837f96191ba" testId="d8e6be30-d625-5f22-edda-2cd409a999c9" testName="MinMaxInArrayTest" computerName="PC49" duration="00:00:00.0005540" startTime="2010-07-21T15:41:08.1619624+10:00" endTime="2010-07-21T15:41:08.1679660+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="34dd87fa-af06-4682-8165-1afb49d97f85" testId="e03d2922-ee00-2d06-c584-0099530fff18" testName="SmoothDerivative1Test" computerName="PC49" duration="00:00:00.0008510" startTime="2010-07-21T15:41:08.1679660+10:00" endTime="2010-07-21T15:41:08.1729690+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="41c78c1f-05bc-4e52-aacc-d196d23b6fff" testId="e28dd569-50e4-9f8e-23bb-2b71da05cff7" testName="FunctionValueTest" computerName="PC49" duration="00:00:00.0004904" startTime="2010-07-21T15:41:08.1739696+10:00" endTime="2010-07-21T15:41:08.1789726+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dbed7d1e-7bcb-4515-85a2-385da6e1d129" testId="fce7e08c-65a5-0029-62ce-3097e7d2f6d8" testName="IndexToTimeTest" computerName="PC49" duration="00:00:00.1118401" startTime="2010-07-21T15:41:08.1789726+10:00" endTime="2010-07-21T15:41:08.2960428+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" resultType="DataDrivenTest">
+      <Output>
+      </Output>
+      <Counters error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="6" completed="0" inProgress="0" pending="0" />
+      <InnerResults>
+        <UnitTestResult executionId="98b84796-d1a9-4baa-ac0e-8f7733d4a6b1" parentExecutionId="dbed7d1e-7bcb-4515-85a2-385da6e1d129" testId="fce7e08c-65a5-0029-62ce-3097e7d2f6d8" testName="IndexToTimeTest" computerName="PC49" duration="00:00:00.0005606" startTime="2010-07-21T15:41:08.2950422+10:00" endTime="2010-07-21T15:41:08.2950422+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="0" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="d983406a-5ce3-44e3-a4eb-6950319f9c8b" parentExecutionId="dbed7d1e-7bcb-4515-85a2-385da6e1d129" testId="fce7e08c-65a5-0029-62ce-3097e7d2f6d8" testName="IndexToTimeTest" computerName="PC49" duration="00:00:00.0000181" startTime="2010-07-21T15:41:08.2950422+10:00" endTime="2010-07-21T15:41:08.2950422+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="1" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="c0cc6bda-74b6-4068-998b-be2e7ebed5e4" parentExecutionId="dbed7d1e-7bcb-4515-85a2-385da6e1d129" testId="fce7e08c-65a5-0029-62ce-3097e7d2f6d8" testName="IndexToTimeTest" computerName="PC49" duration="00:00:00.0000118" startTime="2010-07-21T15:41:08.2950422+10:00" endTime="2010-07-21T15:41:08.2950422+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="2" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="5b01accc-bd7a-40cd-baef-f227944bba3a" parentExecutionId="dbed7d1e-7bcb-4515-85a2-385da6e1d129" testId="fce7e08c-65a5-0029-62ce-3097e7d2f6d8" testName="IndexToTimeTest" computerName="PC49" duration="00:00:00.0000111" startTime="2010-07-21T15:41:08.2950422+10:00" endTime="2010-07-21T15:41:08.2950422+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="3" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="6fc82c4e-4837-4aaa-a42d-e29c5feca084" parentExecutionId="dbed7d1e-7bcb-4515-85a2-385da6e1d129" testId="fce7e08c-65a5-0029-62ce-3097e7d2f6d8" testName="IndexToTimeTest" computerName="PC49" duration="00:00:00.0000136" startTime="2010-07-21T15:41:08.2950422+10:00" endTime="2010-07-21T15:41:08.2950422+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="4" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="4b042222-d21b-4a3d-b05e-ba64c04b4aa3" parentExecutionId="dbed7d1e-7bcb-4515-85a2-385da6e1d129" testId="fce7e08c-65a5-0029-62ce-3097e7d2f6d8" testName="IndexToTimeTest" computerName="PC49" duration="00:00:00.0000111" startTime="2010-07-21T15:41:08.2950422+10:00" endTime="2010-07-21T15:41:08.2950422+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="5" resultType="DataDrivenDataRow" />
+      </InnerResults>
+    </UnitTestResult>
+    <UnitTestResult executionId="57a719eb-7262-470f-8e38-6f100ae39bd3" testId="fd80901c-1a49-5527-4fe9-d552f08f118e" testName="MaxInArrayIndexTest" computerName="PC49" duration="00:00:00.0008636" startTime="2010-07-21T15:41:08.2970434+10:00" endTime="2010-07-21T15:41:08.3010458+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

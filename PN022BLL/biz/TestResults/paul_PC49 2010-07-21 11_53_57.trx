@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="1ddf1f07-7d95-47a9-9f08-ec7143de4cca" name="paul@PC49 2010-07-21 11:53:57" runUser="ATCORAU\paul" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Local Test Run" id="c74d9c15-705c-4840-9d86-d3aad6609adf">
+    <Description>This is a default test run configuration for a local test run.</Description>
+    <Deployment runDeploymentRoot="C:\Users\paul\Documents\Visual Studio 2008\Projects\biz\TestResults\paul_PC49 2010-07-21 11_53_57">
+      <DeploymentItem filename="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\biz.dll" />
+    </Deployment>
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2010-07-21T11:53:57.4290419+10:00" queuing="2010-07-21T11:53:57.6071309+10:00" start="2010-07-21T11:53:57.6721634+10:00" finish="2010-07-21T11:53:58.0383464+10:00" />
+  <TestDefinitions>
+    <UnitTest name="SmoothDerivative1Test" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="e03d2922-ee00-2d06-c584-0099530fff18">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="64b9c2f2-a86e-461f-bc7e-fb1dc9dd5bf9" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="SmoothDerivative1Test" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="e03d2922-ee00-2d06-c584-0099530fff18" executionId="64b9c2f2-a86e-461f-bc7e-fb1dc9dd5bf9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="64b9c2f2-a86e-461f-bc7e-fb1dc9dd5bf9" testId="e03d2922-ee00-2d06-c584-0099530fff18" testName="SmoothDerivative1Test" computerName="PC49" duration="00:00:00.1007655" startTime="2010-07-21T11:53:57.6921734+10:00" endTime="2010-07-21T11:53:58.0183364+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method TestBiz.BizMathTest.SmoothDerivative1Test threw exception:  System.NullReferenceException: Object reference not set to an instance of an object..</Message>
+          <StackTrace>    at Biz.BizMath.SmoothDerivative1(Single[] F, Int32 NofPoints, Int32 SmoothOrder, Single pDt, Single[] pDer1, Single&amp; pMax) in c:\users\paul\documents\visual studio 2008\projects\biz\math\math.cpp:line 209
+   at TestBiz.BizMathTest.SmoothDerivative1Test() in c:\users\paul\documents\visual studio 2008\projects\biz\testbiz\bizmathtest.cpp:line 263
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

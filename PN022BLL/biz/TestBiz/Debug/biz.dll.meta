@@ -1,0 +1,30 @@
+Assembly biz, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.VisualC, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Class Biz.BizMath: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    TimeToIndex(Single IsConst, Int32 IsConst, Int32 IsConst): PrivateScope, Public, Static, HideBySig
+    IndexToTime(Int32 IsConst, Int32 IsConst, Int32 IsConst): PrivateScope, Public, Static, HideBySig
+    Round(Double): PrivateScope, Public, Static, HideBySig
+    RoundNearest20(Int32): PrivateScope, Public, Static, HideBySig
+    SmoothDerivative1(Single[] IsConst, Int32 IsConst, Int32 IsConst, Single IsConst, Single[], Single&): PrivateScope, Public, Static, HideBySig
+    MaxInArray(Single[] IsConst, Int32): PrivateScope, Public, Static, HideBySig
+    MinInArray(Single[] IsConst, Int32): PrivateScope, Public, Static, HideBySig
+    MinMaxInArray(Int16[] IsConst, Int32, Int16&, Int16&): PrivateScope, Public, Static, HideBySig
+    MinMaxInArray(Single[] IsConst, Int32, Single&, Single&): PrivateScope, Public, Static, HideBySig
+    MaxInArrayIndex(Single[] IsConst, Int32): PrivateScope, Public, Static, HideBySig
+    GetSplineIndex(Single IsConst, Int32 IsConst, Int32 IsConst, Int32 IsConst): PrivateScope, Public, Static, HideBySig
+    Spline(Single IsConst, Single[] IsConst, Int32 IsConst, Single&): PrivateScope, Public, Static, HideBySig
+    SmoothArray(Single[], Int32 IsConst, Int32 IsConst): PrivateScope, Public, Static, HideBySig
+    IndexOfExtremum(Single[] IsConst, Boolean(HasFieldMarshal) IsConst, Boolean(HasFieldMarshal) IsConst, Int32 IsConst, Int32 IsConst, Boolean(HasFieldMarshal) IsConst, Single IsConst): PrivateScope, Public, Static, HideBySig
+    FunctionValue(Single[] IsConst, Int32 IsConst, Single IsConst): PrivateScope, Public, Static, HideBySig

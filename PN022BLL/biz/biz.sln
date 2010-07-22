@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "biz", "biz\biz.vcproj", "{AE380201-F1EE-4E26-9445-4631613B824B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestBiz", "TestBiz\TestBiz.vcproj", "{710D128E-0D18-4C1E-A371-B338B0308779}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A824D712-AC43-47EC-BA71-DD1BF6BDCFAE}"
+	ProjectSection(SolutionItems) = preProject
+		biz.vsmdi = biz.vsmdi
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+	EndProjectSection
+EndProject
+Project("{4CAA2610-1955-4629-BDC1-8133FE0B2087}") = "AQtimeBiz", "AQtimeBiz\AQtimeBiz.aqt", "{176A90FD-25C1-472E-9D58-3B24D757B892}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = biz.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE380201-F1EE-4E26-9445-4631613B824B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AE380201-F1EE-4E26-9445-4631613B824B}.Debug|Win32.Build.0 = Debug|Win32
+		{AE380201-F1EE-4E26-9445-4631613B824B}.Release|Win32.ActiveCfg = Release|Win32
+		{AE380201-F1EE-4E26-9445-4631613B824B}.Release|Win32.Build.0 = Release|Win32
+		{710D128E-0D18-4C1E-A371-B338B0308779}.Debug|Win32.ActiveCfg = Debug|Win32
+		{710D128E-0D18-4C1E-A371-B338B0308779}.Debug|Win32.Build.0 = Debug|Win32
+		{710D128E-0D18-4C1E-A371-B338B0308779}.Release|Win32.ActiveCfg = Release|Win32
+		{710D128E-0D18-4C1E-A371-B338B0308779}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

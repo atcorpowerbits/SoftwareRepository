@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="36485649-25e1-4f7c-9cd5-f2c2b3ff4176" name="paul@PC49 2010-07-21 10:56:48" runUser="ATCORAU\paul" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Local Test Run" id="c74d9c15-705c-4840-9d86-d3aad6609adf">
+    <Description>This is a default test run configuration for a local test run.</Description>
+    <Deployment runDeploymentRoot="C:\Users\paul\Documents\Visual Studio 2008\Projects\biz\TestResults\paul_PC49 2010-07-21 10_56_48">
+      <DeploymentItem filename="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\biz.dll" />
+    </Deployment>
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2010-07-21T10:56:48.9555740+10:00" queuing="2010-07-21T10:56:49.1235740+10:00" start="2010-07-21T10:56:49.1735740+10:00" finish="2010-07-21T10:56:49.5495740+10:00" />
+  <TestDefinitions>
+    <UnitTest name="SmoothArrayTest" storage="c:\users\paul\documents\visual studio 2008\projects\biz\debug\testbiz.dll" id="aac6b5d6-2b92-6143-b051-b0fdfe807a5a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="986478bf-ccc4-46cb-b989-26259420ff7e" />
+      <TestMethod codeBase="c:\Users\paul\Documents\Visual Studio 2008\Projects\biz\Debug\TestBiz.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestBiz.BizMathTest, TestBiz" name="SmoothArrayTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="aac6b5d6-2b92-6143-b051-b0fdfe807a5a" executionId="986478bf-ccc4-46cb-b989-26259420ff7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="986478bf-ccc4-46cb-b989-26259420ff7e" testId="aac6b5d6-2b92-6143-b051-b0fdfe807a5a" testName="SmoothArrayTest" computerName="PC49" duration="00:00:00.0921098" startTime="2010-07-21T10:56:49.1975740+10:00" endTime="2010-07-21T10:56:49.5215740+10:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>
