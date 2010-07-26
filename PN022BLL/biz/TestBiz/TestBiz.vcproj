@@ -186,6 +186,11 @@
 			ReferencedProjectIdentifier="{AE380201-F1EE-4E26-9445-4631613B824B}"
 			RelativePathToProject=".\biz\biz.vcproj"
 		/>
+		<AssemblyReference
+			RelativePath=".\biz_Accessor.dll"
+			AssemblyName="biz_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
+			MinFrameworkVersion="0"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -195,6 +200,14 @@
 			>
 			<File
 				RelativePath=".\AssemblyInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizFacadeTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizInfoTest.cpp"
 				>
 			</File>
 			<File
@@ -247,6 +260,14 @@
 			</File>
 			<File
 				RelativePath=".\app.rc"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Test References"
+			>
+			<File
+				RelativePath=".\biz_Accessor.dll"
 				>
 			</File>
 		</Filter>

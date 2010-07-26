@@ -1,0 +1,594 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="1.35" Name="My FxCop Project">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">http://www.gotdotnet.com/team/fxcop//xsl/1.35/FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-us" />
+  <VersionAware>False</VersionAware>
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>False</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+ </ProjectOptions>
+ <Targets>
+  <Target Name="$(ProjectDir)/Debug/biz.dll" Analyze="True" AnalyzeAllChildren="True" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="True" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="1.35">
+  <Namespaces>
+   <Namespace Name="Biz">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2010-07-26 01:10:16Z">
+      <Issue>
+       <Item>Biz</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+  </Namespaces>
+  <Targets>
+   <Target Name="$(ProjectDir)/Debug/biz.dll">
+    <Modules>
+     <Module Name="biz.dll">
+      <Namespaces>
+       <Namespace Name="Biz">
+        <Types>
+         <Type Name="BizFacade">
+          <Messages>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2010-07-26 01:10:16Z">
+            <Issue>
+             <Item>BizFacade</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="GetBizInfo():Biz.BizInfo">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-07-26 01:10:16Z">
+              <Issue Certainty="50">
+               <Item>GetBizInfo</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizMath">
+          <Messages>
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2010-07-26 01:10:16Z">
+            <Issue>
+             <Item>BizMath</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="FunctionValue(System.Single[],System.Int32,System.Single):System.Single">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.FunctionValue(Single[], Int32, Single):Single</Item>
+               <Item>p</Item>
+               <Item>pF</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.FunctionValue(Single[], Int32, Single):Single</Item>
+               <Item>p</Item>
+               <Item>pNofPoints</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.FunctionValue(Single[], Int32, Single):Single</Item>
+               <Item>p</Item>
+               <Item>pX</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-07-26 01:10:16Z">
+              <Issue>
+               <Item>'pF'</Item>
+               <Item>BizMath.FunctionValue(Single[], Int32, Single):Single</Item>
+              </Issue>
+              <Issue>
+               <Item>'pF'</Item>
+               <Item>BizMath.FunctionValue(Single[], Int32, Single):Single</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetSplineIndex(System.Single,System.Int32,System.Int32,System.Int32):System.Int32">
+            <Messages>
+             <Message Id="1#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>SplineIndex</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>SplineOrder</Item>
+              </Issue>
+             </Message>
+             <Message Id="0#x" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>BizMath.GetSplineIndex(Single, Int32, Int32, Int32):Int32</Item>
+               <Item>x</Item>
+              </Issue>
+             </Message>
+             <Message Id="3#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.GetSplineIndex(Single, Int32, Int32, Int32):Int32</Item>
+               <Item>p</Item>
+               <Item>pPulseLength</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="IndexOfExtremum(System.Single[],System.Boolean,System.Boolean,System.Int32,System.Int32,System.Boolean,System.Single):System.Int32">
+            <Messages>
+             <Message Id="MinOr" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2010-07-26 01:10:16Z">
+              <Issue Name="ShouldBeDiscreteTerm">
+               <Item>MinOr</Item>
+               <Item>parameter</Item>
+               <Item>pMinOrMax</Item>
+               <Item>Minor</Item>
+              </Issue>
+             </Message>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.IndexOfExtremum(Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
+               <Item>p</Item>
+               <Item>pProfile</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.IndexOfExtremum(Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
+               <Item>p</Item>
+               <Item>pMinOrMax</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.IndexOfExtremum(Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
+               <Item>p</Item>
+               <Item>pOnlyFirst</Item>
+              </Issue>
+             </Message>
+             <Message Id="5#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.IndexOfExtremum(Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
+               <Item>p</Item>
+               <Item>pLessOrMore</Item>
+              </Issue>
+             </Message>
+             <Message Id="6#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.IndexOfExtremum(Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
+               <Item>p</Item>
+               <Item>pLessOrMoreThan</Item>
+              </Issue>
+             </Message>
+             <Message Id="Extremum" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Member">
+               <Item>Extremum</Item>
+               <Item>BizMath.IndexOfExtremum(Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-07-26 01:10:16Z">
+              <Issue>
+               <Item>'pProfile'</Item>
+               <Item>BizMath.IndexOfExtremum(Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
+              </Issue>
+              <Issue>
+               <Item>'pProfile'</Item>
+               <Item>BizMath.IndexOfExtremum(Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="IndexToTime(System.Int32,System.Int32,System.Int32):System.Single">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.IndexToTime(Int32, Int32, Int32):Single</Item>
+               <Item>p</Item>
+               <Item>pIndex</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.IndexToTime(Int32, Int32, Int32):Single</Item>
+               <Item>p</Item>
+               <Item>pExpandRate</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.IndexToTime(Int32, Int32, Int32):Single</Item>
+               <Item>p</Item>
+               <Item>pSampleRate</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="MaxInArray(System.Single[],System.Int32):System.Single">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MaxInArray(Single[], Int32):Single</Item>
+               <Item>p</Item>
+               <Item>pA</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MaxInArray(Single[], Int32):Single</Item>
+               <Item>p</Item>
+               <Item>pSize</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-07-26 01:10:16Z">
+              <Issue>
+               <Item>'pA'</Item>
+               <Item>BizMath.MaxInArray(Single[], Int32):Single</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="MaxInArrayIndex(System.Single[],System.Int32):System.Int32">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MaxInArrayIndex(Single[], Int32):Int32</Item>
+               <Item>p</Item>
+               <Item>pA</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MaxInArrayIndex(Single[], Int32):Int32</Item>
+               <Item>p</Item>
+               <Item>pSize</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-07-26 01:10:16Z">
+              <Issue>
+               <Item>'pA'</Item>
+               <Item>BizMath.MaxInArrayIndex(Single[], Int32):Int32</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="MinInArray(System.Single[],System.Int32):System.Single">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MinInArray(Single[], Int32):Single</Item>
+               <Item>p</Item>
+               <Item>pA</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MinInArray(Single[], Int32):Single</Item>
+               <Item>p</Item>
+               <Item>pSize</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-07-26 01:10:16Z">
+              <Issue>
+               <Item>'pA'</Item>
+               <Item>BizMath.MinInArray(Single[], Int32):Single</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="MinMaxInArray(System.Int16[],System.Int32,System.Int16&amp;,System.Int16&amp;):System.Boolean">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MinMaxInArray(Int16[], Int32, Int16&amp;, Int16&amp;):Boolean</Item>
+               <Item>p</Item>
+               <Item>pA</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MinMaxInArray(Int16[], Int32, Int16&amp;, Int16&amp;):Boolean</Item>
+               <Item>p</Item>
+               <Item>pSize</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MinMaxInArray(Int16[], Int32, Int16&amp;, Int16&amp;):Boolean</Item>
+               <Item>p</Item>
+               <Item>pMin</Item>
+              </Issue>
+             </Message>
+             <Message Id="3#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MinMaxInArray(Int16[], Int32, Int16&amp;, Int16&amp;):Boolean</Item>
+               <Item>p</Item>
+               <Item>pMax</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-07-26 01:10:16Z">
+              <Issue>
+               <Item>'pA'</Item>
+               <Item>BizMath.MinMaxInArray(Int16[], Int32, Int16&amp;, Int16&amp;):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="MinMaxInArray(System.Single[],System.Int32,System.Single&amp;,System.Single&amp;):System.Boolean">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MinMaxInArray(Single[], Int32, Single&amp;, Single&amp;):Boolean</Item>
+               <Item>p</Item>
+               <Item>pA</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MinMaxInArray(Single[], Int32, Single&amp;, Single&amp;):Boolean</Item>
+               <Item>p</Item>
+               <Item>pSize</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MinMaxInArray(Single[], Int32, Single&amp;, Single&amp;):Boolean</Item>
+               <Item>p</Item>
+               <Item>pMin</Item>
+              </Issue>
+             </Message>
+             <Message Id="3#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.MinMaxInArray(Single[], Int32, Single&amp;, Single&amp;):Boolean</Item>
+               <Item>p</Item>
+               <Item>pMax</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-07-26 01:10:16Z">
+              <Issue>
+               <Item>'pA'</Item>
+               <Item>BizMath.MinMaxInArray(Single[], Int32, Single&amp;, Single&amp;):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Round(System.Double):System.Int32">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.Round(Double):Int32</Item>
+               <Item>p</Item>
+               <Item>pValue</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="RoundNearest20(System.Int32):System.Int32">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.RoundNearest20(Int32):Int32</Item>
+               <Item>p</Item>
+               <Item>pValue</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="SmoothArray(System.Single[],System.Int32,System.Int32):System.Boolean">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.SmoothArray(Single[], Int32, Int32):Boolean</Item>
+               <Item>p</Item>
+               <Item>pArray</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.SmoothArray(Single[], Int32, Int32):Boolean</Item>
+               <Item>p</Item>
+               <Item>pSize</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.SmoothArray(Single[], Int32, Int32):Boolean</Item>
+               <Item>p</Item>
+               <Item>pSmoothOrder</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="SmoothDerivative1(System.Single[],System.Int32,System.Int32,System.Single,System.Single[],System.Single&amp;):System.Void">
+            <Messages>
+             <Message Id="0#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>F</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>NofPoints</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>SmoothOrder</Item>
+              </Issue>
+             </Message>
+             <Message Id="0#F" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>BizMath.SmoothDerivative1(Single[], Int32, Int32, Single, Single[], Single&amp;):Void</Item>
+               <Item>F</Item>
+              </Issue>
+             </Message>
+             <Message Id="3#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.SmoothDerivative1(Single[], Int32, Int32, Single, Single[], Single&amp;):Void</Item>
+               <Item>p</Item>
+               <Item>pDt</Item>
+              </Issue>
+             </Message>
+             <Message Id="4#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.SmoothDerivative1(Single[], Int32, Int32, Single, Single[], Single&amp;):Void</Item>
+               <Item>p</Item>
+               <Item>pDer1</Item>
+              </Issue>
+             </Message>
+             <Message Id="5#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.SmoothDerivative1(Single[], Int32, Int32, Single, Single[], Single&amp;):Void</Item>
+               <Item>p</Item>
+               <Item>pMax</Item>
+              </Issue>
+             </Message>
+             <Message Id="3#" TypeName="ShortAcronymsShouldBeUppercase" Category="Microsoft.Naming" CheckId="CA1706" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>Dt</Item>
+               <Item>pDt</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-07-26 01:10:16Z">
+              <Issue>
+               <Item>'F'</Item>
+               <Item>BizMath.SmoothDerivative1(Single[], Int32, Int32, Single, Single[], Single&amp;):Void</Item>
+              </Issue>
+              <Issue>
+               <Item>'pDer1'</Item>
+               <Item>BizMath.SmoothDerivative1(Single[], Int32, Int32, Single, Single[], Single&amp;):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Spline(System.Single,System.Single[],System.Int32,System.Single&amp;):System.Boolean">
+            <Messages>
+             <Message Id="1#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>Profile</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>SplineOrder</Item>
+              </Issue>
+             </Message>
+             <Message Id="3#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>Value</Item>
+              </Issue>
+             </Message>
+             <Message Id="0#x" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="ParameterOneLetter">
+               <Item>BizMath.Spline(Single, Single[], Int32, Single&amp;):Boolean</Item>
+               <Item>x</Item>
+              </Issue>
+             </Message>
+             <Message Id="NofDer" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-07-26 01:10:16Z">
+              <Issue>
+               <Item>BizMath.Spline(Single, Single[], Int32, Single&amp;):Boolean</Item>
+               <Item>NofDer</Item>
+               <Item>System.Int32</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="TimeToIndex(System.Single,System.Int32,System.Int32):System.Int32">
+            <Messages>
+             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.TimeToIndex(Single, Int32, Int32):Int32</Item>
+               <Item>p</Item>
+               <Item>pTime</Item>
+              </Issue>
+             </Message>
+             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.TimeToIndex(Single, Int32, Int32):Int32</Item>
+               <Item>p</Item>
+               <Item>pExpandRate</Item>
+              </Issue>
+             </Message>
+             <Message Id="2#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-07-26 01:10:16Z">
+              <Issue Name="Parameter">
+               <Item>BizMath.TimeToIndex(Single, Int32, Int32):Int32</Item>
+               <Item>p</Item>
+               <Item>pSampleRate</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Rules>
+   <Rule TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020">
+    <Resolution Name="Default">Consider merging the types defined in '{0}' with another namespace.</Resolution>
+   </Rule>
+   <Rule TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702">
+    <Resolution Name="ShouldBeDiscreteTerm">The compound word '{0}' in {1} '{2}' exists as a discrete term. If your usage is intended to be single word, case it as '{3}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
+    <Resolution Name="Parameter">Correct the casing of parameter name '{0}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
+    <Resolution Name="Member">Correct the spelling of the unrecognized token '{0}' in member name '{1}'.</Resolution>
+    <Resolution Name="Parameter">In method {0}, correct the spelling of the unrecognized token '{1}' in parameter name '{2}' or strip it entirely if it represents any sort of hungarian notation.</Resolution>
+    <Resolution Name="ParameterOneLetter">In method {0}, consider providing a more meaningful name than the one-letter parameter name '{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
+    <Resolution Name="Default">{0} declares a local, '{1}', of type {2}, which is never used or is only assigned to. Use this local or remove it.</Resolution>
+   </Rule>
+   <Rule TypeName="ShortAcronymsShouldBeUppercase" Category="Microsoft.Naming" CheckId="CA1706">
+    <Resolution Name="Parameter">Correct the capitalization of '{0}' in parameter name '{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053">
+    <Resolution Name="Default">Remove the public constructors from '{0}'.</Resolution>
+   </Rule>
+   <Rule TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024">
+    <Resolution Name="Default">Change '{0}' to a property if appropriate.</Resolution>
+   </Rule>
+   <Rule TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062">
+    <Resolution Name="Default">Validate parameter {0} passed to externally visible method {1}.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>

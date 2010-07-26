@@ -1,4 +1,4 @@
-Assembly biz, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+Assembly biz, Version=1.0.3859.22222, Culture=neutral, PublicKeyToken=3abc55289af2db05: 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=SHA1, flags=None
@@ -10,6 +10,15 @@ Assembly System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c5619
 	hash=SHA1, flags=None
 Assembly Microsoft.VisualC, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
 	hash=SHA1, flags=None
+Class Biz.BizInfo: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Methods:
+    Instance(): PrivateScope, Public, Static, HideBySig
+    GetCompanyName(String*): PrivateScope, Public, HideBySig
+    GetVersion(String*): PrivateScope, Public, HideBySig
+Class Biz.BizFacade: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Methods:
+    Instance(): PrivateScope, Public, Static, HideBySig
+    GetBizInfo(): PrivateScope, Public, Static, HideBySig
 Class Biz.BizMath: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:

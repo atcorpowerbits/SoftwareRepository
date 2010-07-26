@@ -64,6 +64,7 @@
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
+				KeyFile="biz_key.snk"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -190,6 +191,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\facade\facade.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\manager\info.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\math\math.cpp"
 				>
 			</File>
@@ -221,6 +230,14 @@
 			>
 			<File
 				RelativePath=".\biz.h"
+				>
+			</File>
+			<File
+				RelativePath="..\facade\facade.h"
+				>
+			</File>
+			<File
+				RelativePath="..\manager\info.h"
 				>
 			</File>
 			<File

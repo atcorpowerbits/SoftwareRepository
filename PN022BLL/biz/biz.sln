@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 	EndProjectSection
 EndProject
-Project("{4CAA2610-1955-4629-BDC1-8133FE0B2087}") = "AQtimeBiz", "AQtimeBiz\AQtimeBiz.aqt", "{176A90FD-25C1-472E-9D58-3B24D757B892}"
+Project("{4CAA2610-1955-4629-BDC1-8133FE0B2087}") = "AQtimeBiz", "AQtimeBiz\AQtimeBiz.aqt", "{A02B79CC-41CB-437E-AFBF-801515452AD7}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution

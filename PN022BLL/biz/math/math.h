@@ -9,7 +9,7 @@
 */
 
 #pragma once
-#include <biz.h>
+#include "..\biz\biz.h"
 
 namespace Biz {
 
