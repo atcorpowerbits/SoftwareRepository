@@ -20,14 +20,26 @@ namespace Biz {
 		}
 		return _instance;
 	}
-	void BizInfo::GetCompanyName(String ^* coName)
+	void BizInfo::GetCompanyName(String^ %coName, int len)
 	{
-		*coName = company;
+		if (company->Length > len) 
+		{
+			coName = company->Substring(0,len);
+		} else 
+		{
+			coName = company;
+		}
 	}
 
-	void BizInfo::GetVersion(String^* appVersion)
+	void BizInfo::GetVersion(String^ %appVersion, int len)
 	{
-		*appVersion = version;
+		if (company->Length > len) 
+		{
+			appVersion = version->Substring(0,len);
+		} else 
+		{
+			appVersion = version;
+		}
 	}
 
 	BizInfo::BizInfo(void)

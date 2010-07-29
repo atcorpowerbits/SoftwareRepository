@@ -20,8 +20,8 @@ namespace Biz {
 	public ref class BizInfo {
 	public:
 		static BizInfo^ BizInfo::Instance();
-		void GetCompanyName(String^* coName);
-		void GetVersion(String^* appVersion);
+		void GetCompanyName(String^ %coName, int len);
+		void GetVersion(String^ %appVersion, int len);
 	protected:
 		BizInfo(void);
 	private:
