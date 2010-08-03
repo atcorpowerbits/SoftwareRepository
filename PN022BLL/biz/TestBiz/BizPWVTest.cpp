@@ -119,8 +119,7 @@ namespace TestBiz {
 			/// <summary>
 			///A test for ValidatePWVDistance
 			///</summary>
-	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\victora\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\Validat" 
-L"ePWVDistance.csv", L"ValidatePWVDistance#csv", DataAccessMethod::Sequential),
+	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"..\\Debug\\ValidatePWVDistance.csv", L"ValidatePWVDistance#csv", DataAccessMethod::Sequential),
 				TestMethod]
 			void ValidatePWVDistanceTest()
 			{

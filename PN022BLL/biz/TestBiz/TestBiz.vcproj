@@ -23,7 +23,7 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
-			ManagedExtensions="3"
+			ManagedExtensions="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -193,7 +193,7 @@
 		/>
 		<ProjectReference
 			ReferencedProjectIdentifier="{35458E54-8C4A-4819-8BF3-F7B9113FEBA0}"
-			RelativePathToProject="..\crx_stub\crx_stub.vcproj"
+			RelativePathToProject="..\crx\crx_stub.vcproj"
 		/>
 	</References>
 	<Files>
@@ -284,27 +284,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\GetSplineIndex.csv"
-			>
-		</File>
-		<File
-			RelativePath=".\IndexToTime.csv"
-			>
-		</File>
-		<File
-			RelativePath=".\MaxInArray.csv"
-			>
-		</File>
-		<File
 			RelativePath=".\Round.csv"
-			>
-		</File>
-		<File
-			RelativePath=".\RoundNearest20.csv"
-			>
-		</File>
-		<File
-			RelativePath=".\TimeToIndex.csv"
 			>
 		</File>
 		<File

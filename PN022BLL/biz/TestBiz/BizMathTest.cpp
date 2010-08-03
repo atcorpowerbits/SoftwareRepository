@@ -1,27 +1,6 @@
 ﻿
 #include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
+#include <biz.h>
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 namespace TestBiz {
     using namespace System;
@@ -86,72 +65,90 @@ namespace TestBiz {
 			/// <summary>
 			///A test for TimeToIndex
 			///</summary>
-	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"|DataDirectory|\\TimeToIndex.csv", L"TimeToIndex#csv", DataAccessMethod::Sequential),
-				DeploymentItem(L"TestBiz\\TimeToIndex.csv"),
+	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\TimeToInde" 
+L"x.csv", L"TimeToIndex#csv", DataAccessMethod::Sequential),
+
 				TestMethod]
 			void TimeToIndexTest()
 			{
-				float pTime = Convert::ToDouble(testContextInstance->DataRow[L"Time"]); 
-				int pExpandRate = Convert::ToInt32(testContextInstance->DataRow[L"ExpandRate"]); 
-				int pSampleRate = Convert::ToInt32(testContextInstance->DataRow[L"SampleRate"]); 
-				int expected = Convert::ToInt32(testContextInstance->DataRow[L"Expected"]); 
-				int actual;
-				actual = BizMath::TimeToIndex(pTime, pExpandRate, pSampleRate);
+				float time = Convert::ToSingle(testContextInstance->DataRow[L"Time"]); 
+				int expandRate = Convert::ToInt32(testContextInstance->DataRow[L"ExpandRate"]); 
+				int sampleRate = Convert::ToInt32(testContextInstance->DataRow[L"SampleRate"]); 
+				int indexExpected = Convert::ToInt32(testContextInstance->DataRow[L"Index"]); 
+				int index = 0;
+				bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+				bool actual;
+				actual = BizMath::TimeToIndex(time, expandRate, sampleRate, index);
+				Assert::AreEqual(indexExpected, index);
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
 			///A test for RoundNearest20
 			///</summary>
-	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"|DataDirectory|\\RoundNearest20.csv", L"RoundNearest20#csv", DataAccessMethod::Sequential),
-				DeploymentItem(L"TestBiz\\RoundNearest20.csv"),
+	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\RoundNeare" 
+L"st20.csv", L"RoundNearest20#csv", DataAccessMethod::Sequential),
+
 				TestMethod]
 			void RoundNearest20Test()
 			{
-				int pValue = Convert::ToDouble(testContextInstance->DataRow[L"Value"]); 
-				int expected = Convert::ToInt32(testContextInstance->DataRow[L"Expected"]); 
-				int actual;
-				actual = BizMath::RoundNearest20(pValue);
+				int input = Convert::ToInt32(testContextInstance->DataRow[L"Input"]); 
+				int outputExpected = Convert::ToInt32(testContextInstance->DataRow[L"Output"]); 
+				int output = 0;
+				bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+				bool actual;
+				actual = BizMath::RoundNearest20(input, output);
+				Assert::AreEqual(outputExpected, output);
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
 			///A test for Round
 			///</summary>
-	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"|DataDirectory|\\Round.csv", L"Round#csv", DataAccessMethod::Sequential),
-				DeploymentItem(L"TestBiz\\Round.csv"),
+	public: [DeploymentItem(L"TestBiz\\Round.csv"),
+				DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"|SolutionDirectory|\\Debug\\Round.csv", L"Round#csv", DataAccessMethod::Sequential),
+
 				TestMethod]
 			void RoundTest()
 			{
-				double pValue = Convert::ToDouble(testContextInstance->DataRow[L"Value"]); 
-				int expected = Convert::ToInt32(testContextInstance->DataRow[L"Expected"]);
-				int actual;
-				actual = BizMath::Round(pValue);
+				double input = Convert::ToDouble(testContextInstance->DataRow[L"Input"]); 
+				int outputExpected = Convert::ToInt32(testContextInstance->DataRow[L"Output"]); 
+				int output = 0;
+				bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
+				bool actual;
+				actual = BizMath::Round(input, output);
+				Assert::AreEqual(outputExpected, output);
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
 			///A test for IndexToTime
 			///</summary>
-	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"|DataDirectory|\\IndexToTime.csv", L"IndexToTime#csv", DataAccessMethod::Sequential),
-				DeploymentItem(L"TestBiz\\IndexToTime.csv"),
-				TestMethod]
+	public: [
+
+				DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\IndexToTim" 
+L"e.csv", L"IndexToTime#csv", DataAccessMethod::Sequential),
+					TestMethod]
 			void IndexToTimeTest()
 			{
-				int pIndex = Convert::ToInt32(testContextInstance->DataRow[L"Index"]); 
-				int pExpandRate = Convert::ToInt32(testContextInstance->DataRow[L"ExpandRate"]); 
-				int pSampleRate = Convert::ToInt32(testContextInstance->DataRow[L"SampleRate"]); 
-				float expected = Convert::ToDouble(testContextInstance->DataRow[L"Expected"]); 
-				float actual;
-				actual = BizMath::IndexToTime(pIndex, pExpandRate, pSampleRate);
+				int index = Convert::ToInt32(testContextInstance->DataRow[L"Index"]); 
+				int expandRate = Convert::ToInt32(testContextInstance->DataRow[L"ExpandRate"]); 
+				int sampleRate = Convert::ToInt32(testContextInstance->DataRow[L"SampleRate"]); 
+				float timeExpected = Convert::ToSingle(testContextInstance->DataRow[L"Time"]); 
+				float time = 0;
+				bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+				bool actual;
+				actual = BizMath::IndexToTime(index, expandRate, sampleRate, time);
+				Assert::AreEqual(timeExpected, time);
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
 			///A test for GetSplineIndex
 			///</summary>
-	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"|DataDirectory|\\GetSplineIndex.csv", L"GetSplineIndex#csv", DataAccessMethod::Sequential),
-				DeploymentItem(L"TestBiz\\GetSplineIndex.csv"),
+	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\GetSplineI" 
+L"ndex.csv", L"GetSplineIndex#csv", DataAccessMethod::Sequential),
+
 				TestMethod]
 			void GetSplineIndexTest()
 			{
-				float x = Convert::ToDouble(testContextInstance->DataRow[L"X"]);
+				float x = Convert::ToSingle(testContextInstance->DataRow[L"X"]);
 				int SplineIndex = Convert::ToInt32(testContextInstance->DataRow[L"SplineIndex"]);
 				int SplineOrder = Convert::ToInt32(testContextInstance->DataRow[L"SplineOrder"]);
 				int pPulseLength = Convert::ToInt32(testContextInstance->DataRow[L"PulseLength"]);
@@ -164,15 +161,23 @@ namespace TestBiz {
 			///A test for MaxInArray
 			///</summary>
 public: [
-			DeploymentItem(L"TestBiz\\MaxInArray.csv"),
-			TestMethod]
+
+			DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\MaxInArray" 
+L".csv", L"MaxInArray#csv", DataAccessMethod::Sequential),
+
+				TestMethod]
 		void MaxInArrayTest()
 		{
-			cli::array< float >^  pA = {0,1,2,3,4,5};
-			int pSize = 6;
-			float expected = 5; 
-			float actual;
-			actual = BizMath::MaxInArray(pA, pSize);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^  input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);;
+			float maximumExpected = Convert::ToSingle(testContextInstance->DataRow[L"Maximum"]);; 
+			float maximum = 0;
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
+			bool actual;
+			actual = BizMath::MaxInArray(input, size, maximum);
+			Assert::AreEqual(maximumExpected, maximum);
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
@@ -192,27 +197,43 @@ public: [TestMethod]
 		/// <summary>
 		///A test for MinInArray
 		///</summary>
-public: [TestMethod]
+public: [
+
+			DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\MinInArray" 
+L".csv", L"MinInArray#csv", DataAccessMethod::Sequential),
+				TestMethod]
 		void MinInArrayTest()
 		{
-			cli::array< float >^  pA = {0,1,2,3,4,5};
-			int pSize = 6;
-			float expected = 0;
-			float actual;
-			actual = BizMath::MinInArray(pA, pSize);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^  input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);;
+			float minimumExpected = Convert::ToSingle(testContextInstance->DataRow[L"Minimum"]);; 
+			float minimum = 0;
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
+			bool actual;
+			actual = BizMath::MinInArray(input, size, minimum);
+			Assert::AreEqual(minimumExpected, minimum);
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
 		///A test for MaxInArrayIndex
 		///</summary>
-public: [TestMethod]
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\MaxInArray" 
+L"Index.csv", L"MaxInArrayIndex#csv", DataAccessMethod::Sequential),
+			TestMethod]
 		void MaxInArrayIndexTest()
 		{
-			cli::array< float >^  pA = {0,1,2,3,4,5};
-			int pSize = 6;
-			int expected = 5;
-			int actual;
-			actual = BizMath::MaxInArrayIndex(pA, pSize);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^  input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);;
+			int maximumIndexExpected = Convert::ToInt32(testContextInstance->DataRow[L"MaximumIndex"]);; 
+			int maximumIndex = 0;
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
+			bool actual;
+			actual = BizMath::MaxInArrayIndex(input, size, maximumIndex);
+			Assert::AreEqual(maximumIndexExpected, maximumIndex);
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
@@ -226,7 +247,7 @@ public: [TestMethod]
 			bool pOnlyFirst = true; 
 			int i1 = 1; 
 			int i2 = 11; 
-			bool pLessOrMore = true; 
+			bool pLessOrMore = MORE; 
 			float pLessOrMoreThan = 0; 
 			int expected = 5;
 			int actual;
@@ -250,18 +271,29 @@ public: [TestMethod]
 		/// <summary>
 		///A test for SmoothDerivative1
 		///</summary>
-public: [TestMethod]
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\SmoothDeri" 
+L"vative1.csv", L"SmoothDerivative1#csv", DataAccessMethod::Sequential),
+			TestMethod]
 		void SmoothDerivative1Test()
 		{
-			cli::array< float >^  F = {0,1,2,3,4,5,4,3,2,1,0};
-			int NofPoints = 11;
-			int SmoothOrder = 3;
-			float pDt = 1; 
-			cli::array< float >^  pDer1 = gcnew array< float >(11);
-			float pMax = 0;
-			float pMaxExpected = 1;
-			BizMath::SmoothDerivative1(F, NofPoints, SmoothOrder, pDt, pDer1, pMax);
-			Assert::AreEqual(pMaxExpected, pMax);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^  input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);;
+			int smoothOrder = Convert::ToInt32(testContextInstance->DataRow[L"SmoothOrder"]);;
+			float step = Convert::ToSingle(testContextInstance->DataRow[L"Step"]);;
+			String^ derivatives = Convert::ToString(testContextInstance->DataRow[L"FirstDerivative"]);
+			array<String^>^ derivativesArray = derivatives->Split(',');
+			cli::array< float >^  firstDerivativeExpected = Array::ConvertAll(derivativesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			cli::array< float >^  firstDerivative = gcnew array< float >(firstDerivativeExpected->Length);
+			float maximumExpected = Convert::ToSingle(testContextInstance->DataRow[L"Maximum"]);; 
+			float maximum = 0;
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
+			bool actual;
+			actual = BizMath::SmoothDerivative1(input, size, smoothOrder, step, firstDerivative, maximum);
+			CollectionAssert::AreEqual(firstDerivativeExpected, firstDerivative);
+			Assert::AreEqual(maximumExpected, maximum);
+			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
 		///A test for Spline
@@ -280,18 +312,22 @@ public: [TestMethod]
 		/// <summary>
 		///A test for MinMaxInArray
 		///</summary>
-public: [TestMethod]
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\MinMaxInAr" 
+L"ray1.csv", L"MinMaxInArray1#csv", DataAccessMethod::Sequential),
+			TestMethod]
 		void MinMaxInArrayTest1()
 		{
-			cli::array< short >^  pA = {0,1,2,3,4,5,4,3,2,1,0};
-			int pSize = 11;
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< short >^  input = Array::ConvertAll(valuesArray, gcnew Converter<String^, short>(Convert::ToInt16));
+			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
 			short pMin = 0; 
-			short pMinExpected = 0; 
-			short pMax = 0; 
-			short pMaxExpected = 5; 
-			bool expected = true;
+			short pMinExpected = Convert::ToInt16(testContextInstance->DataRow[L"Minimum"]);
+			short pMax = 0;
+			short pMaxExpected = Convert::ToInt16(testContextInstance->DataRow[L"Maximum"]); 
 			bool actual;
-			actual = BizMath::MinMaxInArray(pA, pSize, pMin, pMax);
+			actual = BizMath::MinMaxInArray(input, size, pMin, pMax);
 			Assert::AreEqual(pMinExpected, pMin);
 			Assert::AreEqual(pMaxExpected, pMax);
 			Assert::AreEqual(expected, actual);
@@ -299,18 +335,22 @@ public: [TestMethod]
 		/// <summary>
 		///A test for MinMaxInArray
 		///</summary>
-public: [TestMethod]
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\MinMaxInAr" 
+L"ray.csv", L"MinMaxInArray#csv", DataAccessMethod::Sequential),
+			TestMethod]
 		void MinMaxInArrayTest()
 		{
-			cli::array< float >^  pA = {0,1,2,3,4,5,4,3,2,1,0};
-			int pSize = 11; 
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^  input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
 			float pMin = 0; 
-			float pMinExpected = 0; 
+			float pMinExpected = Convert::ToSingle(testContextInstance->DataRow[L"Minimum"]);
 			float pMax = 0;
-			float pMaxExpected = 5; 
-			bool expected = true; 
+			float pMaxExpected = Convert::ToSingle(testContextInstance->DataRow[L"Maximum"]); 
 			bool actual;
-			actual = BizMath::MinMaxInArray(pA, pSize, pMin, pMax);
+			actual = BizMath::MinMaxInArray(input, size, pMin, pMax);
 			Assert::AreEqual(pMinExpected, pMin);
 			Assert::AreEqual(pMaxExpected, pMax);
 			Assert::AreEqual(expected, actual);

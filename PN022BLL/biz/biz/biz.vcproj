@@ -177,7 +177,7 @@
 		/>
 		<ProjectReference
 			ReferencedProjectIdentifier="{35458E54-8C4A-4819-8BF3-F7B9113FEBA0}"
-			RelativePathToProject="..\crx_stub\crx_stub.vcproj"
+			RelativePathToProject="..\crx\crx_stub.vcproj"
 		/>
 	</References>
 	<Files>

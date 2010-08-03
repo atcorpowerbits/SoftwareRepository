@@ -1,8 +1,8 @@
-Expected,Value
-0,0
-1,1.49
-2,1.5
--1,-1.5
--2,-1.51
-9999,-9999
-9999,9999
+Expected,Input,Output
+true,0,0
+true,1.49,1
+true,1.5,2
+true,-1.5,-1
+true,-1.51,-2
+false,-1.7E308,0
+false,1.7E308,0  

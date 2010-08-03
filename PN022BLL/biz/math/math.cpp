@@ -16,346 +16,457 @@ using namespace System;
 
 #pragma hdrstop
 
-/* ###########################################################################
- ** TimeToIndex(double fvalue)
+/**
+ ** TimeToIndex
  **
  ** DESCRIPTION
  **  Convert time in msec into index
+
  ** INPUT
- **  pTime - time
- **  pExpandRate - rate of upsampling
- **  pSampleRate (usually 128) - rate of signal sampling
+ **  time
+ **  expandRate - rate of upsampling
+ **  sampleRate (usually 256) - rate of signal sampling
+
  ** OUTPUT (RETURN)
- **  none
- ** RETURN
  **  index
+
+ ** RETURN
+ **  bool success or not
 */
-//---------------------------------------------------------------------------
-int BizMath::TimeToIndex(const float pTime, const int pExpandRate,
-                     const int pSampleRate)
+
+bool BizMath::TimeToIndex(const float time, const int expandRate,
+                     const int sampleRate, int% index)
 {
-  if (pExpandRate < 1 || pTime <= 0. || pTime > 9998 || pSampleRate < 1)
-    return -1;
-  int ind = BizMath::Round(pTime*pSampleRate*pExpandRate/1000.);
-	return ind;
+	// Validation
+	if (expandRate < 1 || expandRate >= DEFAULT_VALUE)
+	{
+		return false;  
+	}
+	if (time <= 0. || time >= DEFAULT_VALUE)
+	{
+		return false;  
+
+	}
+	if (sampleRate < 1 || sampleRate >= DEFAULT_VALUE)
+	{
+		return false;
+	}
+
+	// Calculate index
+	BizMath::Round(time * sampleRate * expandRate / 1000., index);
+	return true;
 }
 
-/* ###########################################################################
+/** 
  ** IndexToTime
  **
  ** DESCRIPTION
  **  Convert index into time in msec
+
  ** INPUT
- **  ind - index
- **  pExpandRate - rate of upsampling
- **  pSampleRate (usually 128) - rate of signal sampling
+ **  index
+ **  expandRate - rate of upsampling
+ **  sampleRate (usually 256) - rate of signal sampling
+
  ** OUTPUT (RETURN)
- **  none
- ** RETURN
  **  time
+
+ ** RETURN
+ **  bool success or not
 */
-//---------------------------------------------------------------------------
-float BizMath::IndexToTime(const int pIndex, const int pExpandRate,
-                       const int pSampleRate)
+
+bool BizMath::IndexToTime(const int index, const int expandRate,
+                       const int sampleRate, float% time)
 {
-  if (pExpandRate < 1 || pIndex < 0 || pSampleRate < 1)
-    return -1;
-  float lTime = pIndex*(float)1000./(pSampleRate*pExpandRate);
-	return lTime;
+	// Validation
+	if (expandRate < 1 || expandRate >= DEFAULT_VALUE)
+	{
+		return false;  
+	}
+	if (index < 0 || index >= DEFAULT_VALUE)
+	{
+		return false;  
+	}
+	if (sampleRate < 1 || sampleRate >= DEFAULT_VALUE)
+	{
+		return false;
+	}
+
+	// Calculate time
+	time = index * (float)1000. / (sampleRate * expandRate);
+	return true;
 }
 
-/* ###########################################################################
- ** Round (double fvalue)
+/**
+ ** Round (double input)
  **
  ** DESCRIPTION
  **  Round real numbers to nearest integer
  **		Example :
  **		3.78 -> 4, -3.78 -> -4
  **		3.27 -> 3, -3.27 -> -3
+ **
  ** INPUT
- **  pValue - double value to round
+ **  input - double value to round
+ **
  ** OUTPUT (RETURN)
- **  pCentral[NofPoints] - central pressure signal
+ **  output - rounded integer
+ **
  ** RETURN
- **  boolean success or not
+ **  bool success or not
 */
-//---------------------------------------------------------------------------
-int BizMath::Round (double pValue)
-{
-  int iValue;
 
-	if (pValue >= DEFAULT_VALUE || pValue <= -DEFAULT_VALUE)
+bool BizMath::Round(double input, int% output)
+{
+	// Validation
+	if (input >= DEFAULT_VALUE || input <= -DEFAULT_VALUE)
 	{
-		return DEFAULT_VALUE;
+		return false;
 	}
 	  
-	// round positive number
-		if( pValue >= 0.0 )
+	// Round positive number
+	if( input >= 0.0 )
+	{
+		// Round down
+		if ((input - ((long long int) input)) < 0.5)
 		{
-			if ((pValue - ((long long int)pValue)) < 0.5)
-		   {
-			   iValue = Convert::ToInt32(Math::Floor(pValue));		// round down
-		   }
-		   else
-		   {
-			   iValue = Convert::ToInt32(Math::Ceiling(pValue));		// round up
-		   }
+			output = Convert::ToInt32(Math::Floor(input));		
 		}
-		// round negative number
+		// Round up
 		else
 		{
-		   if ((pValue - ((long long int)pValue)) < -0.5 )
-		   {
-			  iValue = Convert::ToInt32(Math::Floor(pValue));	// round down
-		   }
-		   else
-		   {
-			  iValue = Convert::ToInt32(Math::Ceiling(pValue)); 	// round up
-		   }
+			output = Convert::ToInt32(Math::Ceiling(input));	
 		}
+	}
+	// Round negative number
+	else
+	{
+		// Round down
+		if ((input - ((long long int)input)) < -0.5 )
+		{
+			output = Convert::ToInt32(Math::Floor(input));		
+		}
+		// Round up
+		else
+		{
+			output = Convert::ToInt32(Math::Ceiling(input));	
+		}
+	}
 
-	return(iValue );
+	return true;
 }
 
-/* ###########################################################################
- ** Round_nearest_20 (int pValue)
+/**
+ ** RoundNearest20 (int input)
  **
  ** DESCRIPTION
  **  Round integers to nearest multiple of 20
  **		Example :
- **		110 -> 120, -110 -> -120
- **      109 -> 100, -109 -> -100
+ **		110 -> 120, -110 -> -100
+ **     109 -> 100, -111 -> -120
+
  ** INPUT
- **  pValue - integer value to round
+ **  input - integer value to round
+
  ** OUTPUT (RETURN)
- **  none
+ **  output - rounded integer
+
  ** RETURN
- **  ivalue - rounded integer
+ **  bool success or not
 */
-//---------------------------------------------------------------------------
-int BizMath::RoundNearest20 (int pValue)
+
+bool BizMath::RoundNearest20(int input, int% output)
 {
-  int iValue;
-  int multiple;
-  int remainder;
+	int multiple;
+	int remainder;
 
-  if (pValue >= DEFAULT_VALUE || pValue <= -DEFAULT_VALUE)
+	// Validation
+	if (input >= DEFAULT_VALUE || input <= -DEFAULT_VALUE)
 	{
-		return DEFAULT_VALUE;
+		return false;
 	}
 
-	// round positive number
-	if( pValue >= 0.0 )
+	// Round positive number
+	if( input >= 0.0 )
 	{
-      multiple = pValue / 20;
-      remainder = pValue % 20;
+		multiple = input / 20;
+		remainder = input % 20;
+		// Round down
 		if (remainder < 10)
-      {
-         iValue = 20 * multiple;		      // round down
-      }
-	   else
-      {
-         iValue = 20 * (multiple + 1);		// round up
-      }
+		{
+			output = 20 * multiple;		   
+		}
+		// Round up
+		else
+		{
+			output = 20 * (multiple + 1);	
+		}
 	}
-   // round negative number
+	// Round negative number
 	else
 	{
-      multiple = pValue / 20;
-      remainder = pValue % 20;
+		multiple = input / 20;
+		remainder = input % 20;
+		// Round down
 		if (remainder < -10)
-      {
-         iValue = 20 * (multiple - 1);		      // round down
-      }
-	   else
-      {
-         iValue = 20 * multiple;		// round up
-      }
+		{
+			output = 20 * (multiple - 1);	
+		}
+		// Round up
+		else
+		{
+			output = 20 * multiple;			
+		}
 	}
 
-	return(iValue);
+	return true;
 }
 
-/* ###########################################################################
+/**
  ** SmoothDerivative1(...)
  **
  ** DESCRIPTION
  **  Calculate first derivative of a function
  **  using formula after smoothing
- **  f[k]' = 3/[n*(n+1)*(2n+1)] * Sum (j*f[k+j]) , j = -n...n
+ **  input[k]' = 3/[n*(n+1)*(2n+1)] * Sum (j*input[k+j]) , j = -n...n
+
  ** INPUT
- **  F[NofPoints] - function values
- **  pDt - step of abscissa
- **  n = SmoothOrder - Smoothing order
+ **  input[size] - function values
+ **  step - step of abscissa
+ **  n - smoothOrder - Smoothing order
+
  ** OUTPUT
- **  NofDer1Points = NofPoints - 1 - number of Derivative points
- **  pDer1[NofDer1Points] - first derivative
- **  pMax - maximum value of a derivative
+ **  firstDerivative[size] - first derivative
+ **  maximum - maximum value of a derivative (cannot be the first or last 2 points)
+
  ** RETURN
- **  none
+ **  bool success or not
 */
-//-------------------------------------------------------------------------------------
-void BizMath::SmoothDerivative1(const array<float>^ F, const int NofPoints, const int SmoothOrder,
-                            const float pDt, array<float>^ pDer1, float% pMax)
+
+bool BizMath::SmoothDerivative1(array<const float>^ input, const int size, const int smoothOrder,
+                            const float step, array<float>^ firstDerivative, float% maximum)
 {
-  // Validation
-  if ((SmoothOrder < 1) || (NofPoints < 2*SmoothOrder)) return;
-  if (pDt == 0.) return;
 
-  float dt2 = pDt*2;
+	// Validation
+	if (smoothOrder < 1 || smoothOrder >= DEFAULT_VALUE)
+	{
+		return false;
+	}
+	if (size < 2*smoothOrder || size > input->Length)
+	{
+		return false;
+	}
+	if (step == 0. || step <= -DEFAULT_VALUE || step >= DEFAULT_VALUE) 
+	{
+		return false;
+	}
 
-  // Start points (ForwardStep formula)
-  // pDer1[0] = (-3*F[0] + 4*F[1] - F[2]) /dt2;
-  pDer1[0] = (-F[0] + F[1]) /pDt;
-  // pMax = pDer1[0];
-  for (int i = 1; i < SmoothOrder; i++)
-  {
-    // pDer1[i] = (F[i+3] - 6*F[i+2] + 18*F[i+1] -10*F[i] - 3*F[i-1]) /12. /pDt;
-    if (i==1)
-    {
-      pDer1[i] = (F[i+1] - F[i-1]) /dt2;
-      pMax = pDer1[1];
-    }
-    else
-      pDer1[i] = (-2*F[i-2] - F[i-1] + F[i+1] + 2*F[i+2]) /(float)10. /pDt;
-    // pDer1[i] = (-3*F[i] +4*F[i+1] - F[i+2]) /dt2;
-    if (pDer1[i] > pMax)
-      pMax = pDer1[i];
-  }
+	float doubleStep = step*2;
 
-  // Middle points
-  double c = double(3)/SmoothOrder/(SmoothOrder + 1)/(2*SmoothOrder + 1)/pDt;
-  for (int i = SmoothOrder; i < NofPoints - SmoothOrder; i++)
-  {
-    double sum = 0.;
-    for (int j = -SmoothOrder; j <= SmoothOrder; j++)
-    {
-      if (j!=0) sum += j*F[i+j];
-    }
-    pDer1[i] = sum * c;
-    if (pDer1[i] > pMax)
-      pMax = pDer1[i];
-  }
+	// First point
+	firstDerivative[0] = (-input[0] + input[1]) /step;
+	
+	// Start points (ForwardStep formula)
+	for (int i = 1; i < smoothOrder; i++)
+	{
+		if (i == 1)
+		{
+			firstDerivative[i] = (input[i+1] - input[i-1]) /doubleStep;
+		}
+		else
+		{
+			firstDerivative[i] = (-2*input[i-2] - input[i-1] + input[i+1] + 2*input[i+2]) / ((float)10. * step);
+		}
+	}
 
-  // End points (BackStep formula)
-  for (int i = NofPoints - SmoothOrder; i < NofPoints - 1; i++)
-  {
-    // pDer1[i] = (3*F[i+1] + 10*F[i] - 18*F[i-1] + 6*F[i-2] - F[i-3]) /12. /pDt;
-    if (i==NofPoints - 2)
-      pDer1[i] = (F[i+1] - F[i-1]) /dt2;
-    else
-      pDer1[i] = (-2*F[i-2] - F[i-1] + F[i+1] + 2*F[i+2]) /10. /pDt;
-    if (pDer1[i] > pMax)
-      pMax = pDer1[i];
-  }
-  // pDer1[NofPoints - 1] = (F[NofPoints - 3] - 4*F[NofPoints - 2] + 3*F[NofPoints - 1]) /dt2;
-  pDer1[NofPoints - 1] = (F[NofPoints - 1] - F[NofPoints - 2]) /pDt;
-  // if (pDer1[NofPoints - 1] > pMax)
-  //  pMax = pDer1[NofPoints - 1];
+	// Middle points
+	float smoothingCoefficient = float(3)/(smoothOrder * (smoothOrder + 1) * (2*smoothOrder + 1)* step);
+	for (int i = smoothOrder; i < size - smoothOrder; i++)
+	{
+		float sum = 0.;
+		for (int j = -smoothOrder; j <= smoothOrder; j++)
+		{
+			if (j != 0) 
+			{
+				sum += j * input[i + j];
+			}
+		}
+		firstDerivative[i] = sum * smoothingCoefficient;
+	}
+
+	// End points (BackStep formula)
+	for (int i = size - smoothOrder; i < size - 1; i++)
+	{
+		if (i == size - 2)
+		{
+			firstDerivative[i] = (input[i+1] - input[i-1]) /doubleStep;
+		}
+		else
+		{
+			firstDerivative[i] = (-2*input[i-2] - input[i-1] + input[i+1] + 2*input[i+2]) / ((float)10. * step);
+		}
+	}
+  
+	// Last point
+	firstDerivative[size - 1] = (input[size - 1] - input[size - 2]) /step;
+
+	// Find the maximum, not including the first or last 2 points
+	array<const float>^ subset = gcnew array<const float>(size - 3);
+	Array::Copy(firstDerivative, 1, subset, 0, size - 3);
+	if (MaxInArray(subset, size - 3, maximum) == false)
+	{
+		return false;
+	}
+	return true;
 }
-/* ###########################################################################
+/**
  ** MaxInArray(...),  MinInArray(...),  MinMaxInArray(...)
  **
  ** DESCRIPTION
  **  find maximum/minimum value in array
+
  ** INPUT
- **  pA[pSize] - array
+ **  input[pSize] - array
+
  ** OUTPUT (RETURN)
  **  maximum/minimum value
+
+ ** RETURN
+ ** bool success or not
 */
-//---------------------------------------------------------------------------
-float BizMath::MaxInArray (const array<float>^ pA, int pSize)
+
+bool BizMath::MaxInArray (array<const float>^ input, int size, float% maximum)
 {
-  float lMax = pA[0];
-  for (int i = 0; i < pSize; i++)
-  {
-    if (pA[i] > lMax)
-    {
-      lMax = pA[i];
-    }
-  }
-  return lMax;
+	// Validation
+	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+		return false;
+
+	maximum = input[0];
+	// Find the maximum in the array
+	for (int i = 0; i < size; i++)
+	{
+		// Validation
+		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
+		{
+			return false;
+		}
+		else if (input[i] > maximum)
+		{
+			maximum = input[i];
+		}
+	}
+	return true;
+}
+
+bool BizMath::MinInArray (array<const float>^ input, int size, float% minimum)
+{
+	// Validation
+	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+		return false;
+
+	minimum = input[0];
+	// Find the minimum in the array
+	for (int i = 0; i < size; i++)
+	{
+		// Validation
+		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
+		{
+			return false;
+		}
+		else if (input[i] < minimum)
+		{
+			minimum = input[i];
+		}
+	}
+	return true;
+}
+//---------------------------------------------------------------------------
+bool BizMath::MinMaxInArray (array<const float>^ input, int size, float% minimum, float% maximum)
+{
+	// Validation
+	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+		return false;
+
+	maximum = input[0];
+	minimum = input[0];
+	// Find the minimum and maximum in the array
+	for (int i = 0; i < size; i++)
+	{
+		// Validation
+		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
+		{
+			return false;
+		}
+		if (input[i] > maximum)
+		{
+			maximum = input[i];
+		}
+		if (input[i] < minimum)
+		{
+			minimum = input[i];
+		}
+	}
+	return true;
+}
+
+//---------------------------------------------------------------------------
+bool BizMath::MinMaxInArray (array<const short int>^ input, int size, short int% minimum, short int% maximum)
+{
+	// Validation
+	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+		return false;
+
+	maximum = input[0];
+	minimum = input[0];
+	// Find the minimum and maximum in the array
+	for (int i = 0; i < size; i++)
+	{
+		// Validation
+		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
+		{
+			return false;
+		}
+		if (input[i] > maximum)
+		{
+			maximum = input[i];
+		}
+		if (input[i] < minimum)
+		{
+			minimum = input[i];
+		}
+	}
+	return true;
 }
 
 /*
 ** Find the index of where the maximum resides within an array.
 */
-int BizMath::MaxInArrayIndex(const array<float>^ pA, int pSize)
+bool BizMath::MaxInArrayIndex(array<const float>^ input, int size, int% maximumIndex)
 {
-  float lMax = pA[0];
-  int MaxIndex = 0;
-  for (int i = 0; i < pSize; i++)
-  {
-    if (pA[i] > lMax)
-    {
-      lMax = pA[i];
-      MaxIndex=i;
-    }
-  }
-  return MaxIndex;
+	// Validation
+	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+		return false;
+	
+	float maximum = input[0];
+	maximumIndex = 0;
+	// Find the index of the maximum in the array
+	for (int i = 0; i < size; i++)
+	{
+		// Validation
+		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
+		{
+			return false;
+		}
+		else if (input[i] > maximum)
+		{
+			maximum = input[i];
+			maximumIndex = i;
+		}
+	}
+	return true;
 }
 
 //---------------------------------------------------------------------------
-float BizMath::MinInArray (const array<float>^ pA, int pSize)
-{
-  float lMax = pA[0];
-  for (int i = 0; i < pSize; i++)
-  {
-    if (pA[i] < lMax)
-    {
-      lMax = pA[i];
-    }
-  }
-  return lMax;
-}
-//---------------------------------------------------------------------------
-bool BizMath::MinMaxInArray (const array<float>^ pA, int pSize, float% pMin, float% pMax)
-{
-  // Validation
-  if (pSize <= 0)
-    return false;
-  // Main routine
-  pMax = pA[0];
-  pMin = pA[0];
-  for (int i = 0; i < pSize; i++)
-  {
-    if (pA[i] > pMax)
-    {
-      pMax = pA[i];
-    }
-    if (pA[i] < pMin)
-    {
-      pMin = pA[i];
-    }
-  }
-  // Return
-  return true;
-}
-
-//---------------------------------------------------------------------------
-bool BizMath::MinMaxInArray (const array<short int>^ pA, int pSize, short int% pMin, short int% pMax)
-{
-  // Validation
-  if (pSize <= 0)
-    return false;
-  // Main routine
-  pMax = pA[0];
-  pMin = pA[0];
-  for (int i = 0; i < pSize; i++)
-  {
-    if (pA[i] > pMax)
-    {
-      pMax = pA[i];
-    }
-    if (pA[i] < pMin)
-    {
-      pMin = pA[i];
-    }
-  }
-  // Return
-  return true;
-}
-
 /* ###########################################################################
  ** GetSplineIndex(x, SplineIndex, SplineOrder, pPulse.Length);
  **
@@ -438,7 +549,7 @@ int BizMath::GetSplineIndex(const float x, const int SplineIndex,
  **  bool success or not
 */
 //-------------------------------------------------------------------------------------------
-bool BizMath::Spline(const float x, const array<float>^ Profile, const int SplineOrder,
+bool BizMath::Spline(const float x, array<const float>^ Profile, const int SplineOrder,
                  float% Value)
 {
 	// Initialise
@@ -629,7 +740,7 @@ bool BizMath::SmoothArray(array<float>^ pArray, const int pSize, const int pSmoo
  **  Index or -1 if wrong pulse
 */
 //--------------------------------------------------------------------------------------
-int BizMath::IndexOfExtremum(const array<float>^ pProfile, const bool pMinOrMax, const bool pOnlyFirst, const int i1, const int i2,
+int BizMath::IndexOfExtremum(array<const float>^ pProfile, const bool pMinOrMax, const bool pOnlyFirst, const int i1, const int i2,
                          const bool pLessOrMore, const float pLessOrMoreThan)
 {
   int ind = -1;
@@ -710,7 +821,7 @@ int BizMath::IndexOfExtremum(const array<float>^ pProfile, const bool pMinOrMax,
  **  Value at point pX
 */
 //---------------------------------------------------------------------------
-float BizMath::FunctionValue(const array<float>^ pF, const int pNofPoints, const float pX)
+float BizMath::FunctionValue(array<const float>^ pF, const int pNofPoints, const float pX)
 {
   float lValue = -9999;
   // Catch start point
