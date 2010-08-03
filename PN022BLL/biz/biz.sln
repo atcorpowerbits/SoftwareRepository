@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "biz", "biz\biz.vcproj", "{AE380201-F1EE-4E26-9445-4631613B824B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{35458E54-8C4A-4819-8BF3-F7B9113FEBA0} = {35458E54-8C4A-4819-8BF3-F7B9113FEBA0}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestBiz", "TestBiz\TestBiz.vcproj", "{710D128E-0D18-4C1E-A371-B338B0308779}"
 EndProject
@@ -11,7 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 	EndProjectSection
 EndProject
-Project("{4CAA2610-1955-4629-BDC1-8133FE0B2087}") = "AQtimeBiz", "AQtimeBiz\AQtimeBiz.aqt", "{A02B79CC-41CB-437E-AFBF-801515452AD7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "crx_stub", "..\crx\crx_stub.vcproj", "{35458E54-8C4A-4819-8BF3-F7B9113FEBA0}"
+EndProject
+Project("{4CAA2610-1955-4629-BDC1-8133FE0B2087}") = "AQtimeBiz", "AQtimeBiz\AQtimeBiz.aqt", "{3783E529-72E1-4796-9A98-91C541D09CE0}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -30,6 +35,10 @@ Global
 		{710D128E-0D18-4C1E-A371-B338B0308779}.Debug|Win32.Build.0 = Debug|Win32
 		{710D128E-0D18-4C1E-A371-B338B0308779}.Release|Win32.ActiveCfg = Release|Win32
 		{710D128E-0D18-4C1E-A371-B338B0308779}.Release|Win32.Build.0 = Release|Win32
+		{35458E54-8C4A-4819-8BF3-F7B9113FEBA0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{35458E54-8C4A-4819-8BF3-F7B9113FEBA0}.Debug|Win32.Build.0 = Debug|Win32
+		{35458E54-8C4A-4819-8BF3-F7B9113FEBA0}.Release|Win32.ActiveCfg = Release|Win32
+		{35458E54-8C4A-4819-8BF3-F7B9113FEBA0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

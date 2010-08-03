@@ -175,6 +175,10 @@
 			AssemblyName="System.Xml, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{35458E54-8C4A-4819-8BF3-F7B9113FEBA0}"
+			RelativePathToProject="..\crx_stub\crx_stub.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -200,6 +204,14 @@
 			</File>
 			<File
 				RelativePath="..\math\math.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\measure\measure.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\measure\measure_pwv.cpp"
 				>
 			</File>
 			<File
@@ -242,6 +254,14 @@
 			</File>
 			<File
 				RelativePath="..\math\math.h"
+				>
+			</File>
+			<File
+				RelativePath="..\measure\measure.h"
+				>
+			</File>
+			<File
+				RelativePath="..\measure\measure_pwv.h"
 				>
 			</File>
 			<File
