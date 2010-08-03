@@ -65,8 +65,7 @@ namespace TestBiz {
 			/// <summary>
 			///A test for TimeToIndex
 			///</summary>
-	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\TimeToInde" 
-L"x.csv", L"TimeToIndex#csv", DataAccessMethod::Sequential),
+	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\TimeToIndex.csv", L"TimeToIndex#csv", DataAccessMethod::Sequential),
 
 				TestMethod]
 			void TimeToIndexTest()
@@ -85,8 +84,7 @@ L"x.csv", L"TimeToIndex#csv", DataAccessMethod::Sequential),
 			/// <summary>
 			///A test for RoundNearest20
 			///</summary>
-	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\RoundNeare" 
-L"st20.csv", L"RoundNearest20#csv", DataAccessMethod::Sequential),
+	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\RoundNearest20.csv", L"RoundNearest20#csv", DataAccessMethod::Sequential),
 
 				TestMethod]
 			void RoundNearest20Test()
@@ -103,8 +101,8 @@ L"st20.csv", L"RoundNearest20#csv", DataAccessMethod::Sequential),
 			/// <summary>
 			///A test for Round
 			///</summary>
-	public: [DeploymentItem(L"TestBiz\\Round.csv"),
-				DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"|SolutionDirectory|\\Debug\\Round.csv", L"Round#csv", DataAccessMethod::Sequential),
+	public: [
+				DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\Round.csv", L"Round#csv", DataAccessMethod::Sequential),
 
 				TestMethod]
 			void RoundTest()
@@ -123,8 +121,7 @@ L"st20.csv", L"RoundNearest20#csv", DataAccessMethod::Sequential),
 			///</summary>
 	public: [
 
-				DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\IndexToTim" 
-L"e.csv", L"IndexToTime#csv", DataAccessMethod::Sequential),
+				DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\IndexToTime.csv", L"IndexToTime#csv", DataAccessMethod::Sequential),
 					TestMethod]
 			void IndexToTimeTest()
 			{
@@ -142,8 +139,7 @@ L"e.csv", L"IndexToTime#csv", DataAccessMethod::Sequential),
 			/// <summary>
 			///A test for GetSplineIndex
 			///</summary>
-	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\GetSplineI" 
-L"ndex.csv", L"GetSplineIndex#csv", DataAccessMethod::Sequential),
+	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\GetSplineIndex.csv", L"GetSplineIndex#csv", DataAccessMethod::Sequential),
 
 				TestMethod]
 			void GetSplineIndexTest()
@@ -162,8 +158,7 @@ L"ndex.csv", L"GetSplineIndex#csv", DataAccessMethod::Sequential),
 			///</summary>
 public: [
 
-			DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\MaxInArray" 
-L".csv", L"MaxInArray#csv", DataAccessMethod::Sequential),
+			DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\MaxInArray.csv", L"MaxInArray#csv", DataAccessMethod::Sequential),
 
 				TestMethod]
 		void MaxInArrayTest()
@@ -199,8 +194,7 @@ public: [TestMethod]
 		///</summary>
 public: [
 
-			DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\MinInArray" 
-L".csv", L"MinInArray#csv", DataAccessMethod::Sequential),
+			DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\MinInArray.csv", L"MinInArray#csv", DataAccessMethod::Sequential),
 				TestMethod]
 		void MinInArrayTest()
 		{
@@ -219,8 +213,7 @@ L".csv", L"MinInArray#csv", DataAccessMethod::Sequential),
 		/// <summary>
 		///A test for MaxInArrayIndex
 		///</summary>
-public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\MaxInArray" 
-L"Index.csv", L"MaxInArrayIndex#csv", DataAccessMethod::Sequential),
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\MaxInArrayIndex.csv", L"MaxInArrayIndex#csv", DataAccessMethod::Sequential),
 			TestMethod]
 		void MaxInArrayIndexTest()
 		{
@@ -271,8 +264,7 @@ public: [TestMethod]
 		/// <summary>
 		///A test for SmoothDerivative1
 		///</summary>
-public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\SmoothDeri" 
-L"vative1.csv", L"SmoothDerivative1#csv", DataAccessMethod::Sequential),
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\SmoothDerivative1.csv", L"SmoothDerivative1#csv", DataAccessMethod::Sequential),
 			TestMethod]
 		void SmoothDerivative1Test()
 		{
@@ -312,8 +304,7 @@ public: [TestMethod]
 		/// <summary>
 		///A test for MinMaxInArray
 		///</summary>
-public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\MinMaxInAr" 
-L"ray1.csv", L"MinMaxInArray1#csv", DataAccessMethod::Sequential),
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\MinMaxInArray1.csv", L"MinMaxInArray1#csv", DataAccessMethod::Sequential),
 			TestMethod]
 		void MinMaxInArrayTest1()
 		{
@@ -335,8 +326,7 @@ L"ray1.csv", L"MinMaxInArray1#csv", DataAccessMethod::Sequential),
 		/// <summary>
 		///A test for MinMaxInArray
 		///</summary>
-public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\Users\\paul\\Documents\\Visual Studio 2008\\Projects\\PN022BLL\\biz\\Debug\\MinMaxInAr" 
-L"ray.csv", L"MinMaxInArray#csv", DataAccessMethod::Sequential),
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\MinMaxInArray.csv", L"MinMaxInArray#csv", DataAccessMethod::Sequential),
 			TestMethod]
 		void MinMaxInArrayTest()
 		{

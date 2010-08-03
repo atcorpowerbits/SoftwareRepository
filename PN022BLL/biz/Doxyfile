@@ -38,7 +38,7 @@ PROJECT_NUMBER         = PN022
 # If a relative path is entered, it will be relative to the location 
 # where doxygen was started. If left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = "C:/Users/paul/Documents/Visual Studio 2008/Projects/PN022BLL/biz/DoxyGen"
+OUTPUT_DIRECTORY       = C:/Projects/PN022BLL/biz/DoxyGen
 
 # If the CREATE_SUBDIRS tag is set to YES, then doxygen will create 
 # 4096 sub-directories (in 2 levels) under the output directory of each output 
@@ -590,7 +590,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-INPUT                  = "C:/Users/paul/Documents/Visual Studio 2008/Projects/PN022BLL/biz"
+INPUT                  = "C:/Projects/PN022BLL/biz"
 
 # This tag can be used to specify the character encoding of the source files 
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is 
