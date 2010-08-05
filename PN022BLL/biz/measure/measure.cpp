@@ -15,6 +15,13 @@ namespace Biz {
 	BizMeasure::BizMeasure(void)
 	{
 	}
+	void BizMeasure::Initialise()
+	{
+	}
+	bool BizMeasure::ValidateBeforeStore()
+	{
+		return true;
+	}
 	bool BizHeightCm::Validate()
 	{
 		bool isValid;

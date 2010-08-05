@@ -28,6 +28,15 @@ namespace Biz {
 	const unsigned int MEA_MP2DP_DIFF_MIN = 5;
 	const unsigned int MEA_SP2MP_DIFF_MIN = 5;
 
+	// Audit flag types
+	typedef enum
+	{
+	  AUDIT_ORIGINAL,
+	  AUDIT_MODIFIED,
+	  AUDIT_DELETED,
+	  AUDIT_NOF_FLAGS
+	} auditChangeType;
+
 	public ref class BizHeight abstract
 	{
 	public:
@@ -127,28 +136,39 @@ namespace Biz {
 	public:
 		property String^        SystemId;
 		property String^        GroupStudyId;
-
+		property unsigned short PatientNo;				// patient number
+    
 		property DateTime       MeasurementDateTime;    // date and time of measurement
-		property unsigned short DataRev;     // data revision number
+		property unsigned short DataRev;				// data revision number
 
-		BizBloodPressure^		myBP;        // patient blood pressure
-		BizHeight^				myHeight;    // patient height 
-		BizWeight^				myWeight;    // patient weight
-		property float          Bmi;         // body mass index
+		BizBloodPressure^		myBP;					// patient blood pressure
+		BizHeight^				myHeight;				// patient height 
+		BizWeight^				myWeight;				// patient weight
+		property float          Bmi;					// body mass index
 
-		property String^        Medication;  // notes regarding medication for this patient
-		property String^        Notes;       // miscellaneous notes for this measurement
-		property String^    	OperatorId;  // Operator Id
-		property String^        Interpretation;  // notes regarding clinical interpretation for this patient
+		property String^        Medication;				// notes regarding medication for this patient
+		property String^        Notes;					// miscellaneous notes for this measurement
+		property String^    	OperatorId;				// Operator Id
+		property String^        Interpretation;			// notes regarding clinical interpretation for this patient
 
 		property unsigned short CaptureTime;
-		property unsigned short SampleRate;    // Rate of measurement in Htz.
-		property bool           Simulation; // Indicates a Simulated report
-		property unsigned short DefSampleRate; // Default sample rate
+		property unsigned short SampleRate;				// Rate of measurement in Htz.
+		property bool           Simulation;				// Indicates a Simulated report
+		property unsigned short DefSampleRate;			// Default sample rate
+
+		// CFR11 data members
+		property String^        reasonForChange;		// Notes for changing this measurement
+		property auditChangeType  auditChange;			// The type of change to this measurement
+		property DateTime       auditDateTime;			// The date and time of the change to this measurement
 
 		virtual bool Validate() = 0;
 
-	public:
+	protected:
+		// Constructors
 		BizMeasure(void);
+		void Initialise();
+		
+		// Validate measure class properties before storing in database
+		bool ValidateBeforeStore();
 	};
 }

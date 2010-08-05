@@ -1,6 +1,6 @@
 ﻿
 #include "StdAfx.h"
-#include <biz.h>
+
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 namespace TestBiz {
     using namespace System;
@@ -240,7 +240,7 @@ public: [TestMethod]
 			bool pOnlyFirst = true; 
 			int i1 = 1; 
 			int i2 = 11; 
-			bool pLessOrMore = MORE; 
+			bool pLessOrMore = true; 
 			float pLessOrMoreThan = 0; 
 			int expected = 5;
 			int actual;
