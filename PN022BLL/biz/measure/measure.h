@@ -11,6 +11,7 @@
 #pragma once
 
 using namespace System;
+using namespace DataAccess;
 
 namespace Biz {
 
@@ -43,12 +44,11 @@ namespace Biz {
 		property unsigned int Height;
 	public:
 		virtual bool Validate() = 0;
-		BizHeight(void) {};
 	};
-	public ref class BizHeightCm : BizHeight
+	public ref class BizHeightCM : BizHeight
 	{
 	public:
-		BizHeightCm(void) {};
+		BizHeightCM(void) {};
 		virtual bool Validate() override;
 	};
 	public ref class BizHeightInch : BizHeight
@@ -63,12 +63,11 @@ namespace Biz {
 		property unsigned int Weight;
 	public:
 		virtual bool Validate() = 0;
-		BizWeight(void) {};
 	};
-	public ref class BizWeightKg : BizWeight
+	public ref class BizWeightKG : BizWeight
 	{
 	public:
-		BizWeightKg(void) {};
+		BizWeightKG(void) {};
 		virtual bool Validate() override;
 	};
 	public ref class BizWeightLB : BizWeight
@@ -83,7 +82,6 @@ namespace Biz {
 		property unsigned int Reading;
 	public:
 		virtual bool Validate();
-		BizPressureReading(void) {};
 	};
 	public ref class BizSP : BizPressureReading
 	{
@@ -106,12 +104,11 @@ namespace Biz {
 	public ref class BizBloodPressure abstract
 	{
 	protected:
-		BizSP^ SP;
-		BizDP^ DP;
-		BizMP^ MP;
+		property BizSP^ SP;
+		property BizDP^ DP;
+		property BizMP^ MP;
 	public:
 		virtual bool Validate() = 0;
-		BizBloodPressure(void) {};
 	};
 	public ref class BizSPAndDP : BizBloodPressure
 	{
@@ -134,6 +131,9 @@ namespace Biz {
 	public ref class BizMeasure abstract
 	{
 	public:
+		virtual bool StartCapture();
+
+	protected:
 		property String^        SystemId;
 		property String^        GroupStudyId;
 		property unsigned short PatientNo;				// patient number
@@ -141,9 +141,9 @@ namespace Biz {
 		property DateTime       MeasurementDateTime;    // date and time of measurement
 		property unsigned short DataRev;				// data revision number
 
-		BizBloodPressure^		myBP;					// patient blood pressure
-		BizHeight^				myHeight;				// patient height 
-		BizWeight^				myWeight;				// patient weight
+		property BizBloodPressure^	myBP;				// patient blood pressure
+		property BizHeight^		myHeight;				// patient height 
+		property BizWeight^		myWeight;				// patient weight
 		property float          Bmi;					// body mass index
 
 		property String^        Medication;				// notes regarding medication for this patient
@@ -163,9 +163,8 @@ namespace Biz {
 
 		virtual bool Validate() = 0;
 
-	protected:
 		// Constructors
-		BizMeasure(void);
+		BizMeasure(void) {};
 		void Initialise();
 		
 		// Validate measure class properties before storing in database

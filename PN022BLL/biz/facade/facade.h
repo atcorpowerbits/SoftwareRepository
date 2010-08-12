@@ -11,12 +11,18 @@
 #pragma once
 #include <string.h>
 #include "..\manager\info.h"
+#include "..\measure\measure_pwv.h" // temp for UT
 
 namespace Biz {
 	public ref class BizFacade {
 	public:
 		static BizFacade^ BizFacade::Instance();
-		static BizInfo^ GetBizInfo(void);
+		BizInfo^ GetBizInfo(void);
+		bool StartCapture();
+		bool StopCapture();
+		void SimulateCaptureData();
+		bool CalculateReport();
+
 	protected:
 		BizFacade(void);
 	private:

@@ -9,8 +9,16 @@
 */
 #include "stdafx.h"
 #include "facade.h"
+//?#include "..\measure\measure.h"
+#include "..\measure\session.h"
+
+using namespace DataAccess;
 
 namespace Biz {
+	BizFacade::BizFacade(void)
+	{
+//		rm = new ResourceManager("app", Assembly.GetExecutingAssembly());
+	}
 	BizFacade^ BizFacade::Instance()
 	{
 		if (_instance == nullptr) 
@@ -23,9 +31,20 @@ namespace Biz {
 	{
 		return BizInfo::Instance();
 	}
-
-	BizFacade::BizFacade(void)
+	bool BizFacade::StartCapture(void)
 	{
-	//	rm = new ResourceManager("app", Assembly.GetExecutingAssembly());
+		return BizSession::Instance()->StartCapture();
+	}
+	bool BizFacade::StopCapture(void)
+	{
+		return false; // temp UT stub
+	}
+	bool BizFacade::CalculateReport(void)
+	{
+		return false; // temp UT stub
+	}
+	void BizFacade::SimulateCaptureData()
+	{
+		DalFacade::Instance()->DispatchCaptureData();
 	}
 }

@@ -12,6 +12,7 @@
 #include "measure_pwv.h"
 
 using namespace CrossCutting;
+using namespace DataAccess;
 
 namespace Biz {
 	/**
@@ -40,8 +41,8 @@ namespace Biz {
 		// then instantiate the right object, i.e. metric or imperial
 		if (CrxConfigFacade::Instance()->isMetricsUnit())
 		{
-			myHeight = gcnew BizHeightCm;
-			myWeight = gcnew BizWeightKg;
+			myHeight = gcnew BizHeightCM;
+			myWeight = gcnew BizWeightKG;
 		} else 
 		{
 			myHeight = gcnew BizHeightInch;
@@ -49,6 +50,36 @@ namespace Biz {
 		}
 		// Instantiate BP object - default SP+DP
 		myBP = gcnew BizSPAndDP;
+
+		// Find the tonometer data subject to attach as an observer to Tonometer data update
+		tonoDataRaw = DalFacade::Instance()->FindTonoData();
+		tonoDataRaw->TonoDataEvent += gcnew DalTonoData::TonoDataEventHandler( this, &BizPWV::UpdateTonometerData );
+	}
+	/**
+	UpdateTonoData
+
+	DESCRIPTION
+
+		Update for this observer when a raw tonometer data is available.
+	
+	INPUT
+	
+		sender - Subject which is sending the update event.
+	
+		e - Event arguments where a tonometer data is passed.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
+	void BizPWV::UpdateTonometerData( Object^ sender, DalTonoDataEventArgs^ e )
+	{
+		// TBD: Now, act in response to the update event.
 	}
 	/**
 	ValidateFemoral2CuffDistance
@@ -199,5 +230,31 @@ namespace Biz {
 			isValid = true;
 		}
 		return isValid;
+	}
+	/**
+	StartCapture
+
+	DESCRIPTION
+
+		Start capturing PWV measurement data.
+	
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		true  - PWV capture started successful.
+	
+		false - PWV capture failed to start.
+	
+	*/		
+	bool BizPWV::StartCapture()
+	{
+		return DalFacade::Instance()->StartPWV();
 	}
 }

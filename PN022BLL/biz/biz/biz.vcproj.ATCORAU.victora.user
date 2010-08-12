@@ -9,7 +9,7 @@
 			Name="Debug|Win32"
 			>
 			<DebugSettings
-				Command=""
+				Command="C:\Projects\PN022BLL\gui\gui_stub\bin\Debug\gui.exe"
 				WorkingDirectory=""
 				CommandArguments=""
 				Attach="false"

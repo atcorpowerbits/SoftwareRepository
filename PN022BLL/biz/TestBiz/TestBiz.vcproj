@@ -43,6 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="C:\Projects\PN022BLL\biz\biz"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -191,10 +192,6 @@
 			AssemblyName="biz_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
 			MinFrameworkVersion="0"
 		/>
-		<ProjectReference
-			ReferencedProjectIdentifier="{35458E54-8C4A-4819-8BF3-F7B9113FEBA0}"
-			RelativePathToProject="..\crx\crx_stub.vcproj"
-		/>
 	</References>
 	<Files>
 		<Filter
@@ -220,6 +217,10 @@
 			</File>
 			<File
 				RelativePath=".\BizPWVTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizSessionTest.cpp"
 				>
 			</File>
 			<File

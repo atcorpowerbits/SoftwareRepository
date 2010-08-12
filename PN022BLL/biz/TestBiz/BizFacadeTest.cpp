@@ -79,11 +79,10 @@ namespace TestBiz {
 	public: [TestMethod]
 			void GetBizInfoTest()
 			{
-				BizInfo^  expected; // TODO: Initialize to an appropriate value
+				BizFacade^  target = BizFacade::Instance();
 				BizInfo^  actual;
-				expected = BizFacade::GetBizInfo();
-				actual = BizFacade::GetBizInfo();
-				Assert::AreEqual(expected, actual);
+				actual = target->GetBizInfo();
+				Assert::AreNotEqual(nullptr, actual);
 			}
 	};
 }

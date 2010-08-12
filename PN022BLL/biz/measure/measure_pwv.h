@@ -14,6 +14,7 @@
 #include "measure.h"
 
 using namespace System;
+using namespace DataAccess;
 
 namespace Biz {
 
@@ -44,12 +45,16 @@ namespace Biz {
 		property unsigned short CuffDistance;
 		property unsigned short Femoral2CuffDistance;
 		property unsigned short PWVDistance;
+
 		bool ValidatePWVDistance();
 		bool ValidateFemoral2CuffDistance();
 		virtual bool Validate() override;
-	public:
-		BizPWV(void);
 
+		BizPWV(void);
+		virtual bool StartCapture() override;
+	private:
+		DalTonoData^ tonoDataRaw; // to observe Tonometer raw data
+		void UpdateTonometerData(Object^ sender, DalTonoDataEventArgs^ e);
 
 	public:
 		property float meanDeltaTime;				// Mean pulse onset time difference (in ms) between pulse traces

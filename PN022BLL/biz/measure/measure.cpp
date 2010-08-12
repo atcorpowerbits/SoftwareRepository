@@ -12,9 +12,6 @@
 #include "Measure.h"
 
 namespace Biz {
-	BizMeasure::BizMeasure(void)
-	{
-	}
 	void BizMeasure::Initialise()
 	{
 	}
@@ -22,7 +19,11 @@ namespace Biz {
 	{
 		return true;
 	}
-	bool BizHeightCm::Validate()
+	bool BizMeasure::StartCapture()
+	{
+		return false;
+	}
+	bool BizHeightCM::Validate()
 	{
 		bool isValid;
 		if (Height >= MEA_HEIGHT_CM_MIN && Height <= MEA_HEIGHT_CM_MAX)
@@ -49,7 +50,7 @@ namespace Biz {
 		}
 		return isValid;
 	}
-	bool BizWeightKg::Validate()
+	bool BizWeightKG::Validate()
 	{
 		bool isValid;
 		if (Weight >= MEA_WEIGHT_KG_MIN && Weight <= MEA_WEIGHT_KG_MAX)
