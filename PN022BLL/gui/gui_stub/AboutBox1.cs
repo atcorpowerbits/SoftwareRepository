@@ -29,6 +29,14 @@ namespace gui
 //eg            this.labelCompanyName.Text = AssemblyCompany;
             this.labelCompanyName.Text = coInfoStr;
             this.textBoxDescription.Text = AssemblyDescription;
+            Biz.BizFacade.Instance().GetBizInfo().GetModuleType(ref coInfoStr, coInfoSize); ;
+            this.labelModuleType.Text = coInfoStr;
+            Biz.BizFacade.Instance().GetBizInfo().GetModuleCapability(ref coInfoStr, coInfoSize); ;
+            this.labelModuleCapability.Text = coInfoStr;
+            Biz.BizFacade.Instance().GetBizInfo().GetModuleSN(ref coInfoStr, coInfoSize); ;
+            this.labelModuleSN.Text = coInfoStr;
+            Biz.BizFacade.Instance().GetBizInfo().GetModuleVersion(ref coInfoStr, coInfoSize); ;
+            this.labelModuleFMVersion.Text = coInfoStr;
         }
 
         #region Assembly Attribute Accessors
@@ -115,5 +123,6 @@ namespace gui
         {
             Close();
         }
+
     }
 }
