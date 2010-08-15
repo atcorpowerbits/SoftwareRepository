@@ -51,35 +51,9 @@ namespace Biz {
 		// Instantiate BP object - default SP+DP
 		myBP = gcnew BizSPAndDP;
 
-		// Find the tonometer data subject to attach as an observer to Tonometer data update
-		tonoDataRaw = DalFacade::Instance()->FindTonoData();
-		tonoDataRaw->TonoDataEvent += gcnew DalTonoData::TonoDataEventHandler( this, &BizPWV::UpdateTonometerData );
-	}
-	/**
-	UpdateTonoData
-
-	DESCRIPTION
-
-		Update for this observer when a raw tonometer data is available.
-	
-	INPUT
-	
-		sender - Subject which is sending the update event.
-	
-		e - Event arguments where a tonometer data is passed.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		None.
-	
-	*/		
-	void BizPWV::UpdateTonometerData( Object^ sender, DalTonoDataEventArgs^ e )
-	{
-		// TBD: Now, act in response to the update event.
+		// TBD: remove after proof of concept
+		// Find the tonometer data in DAL to observe
+		myTonoDataObserver = gcnew TonoDataObserver(DalFacade::Instance()->FindTonoData());
 	}
 	/**
 	ValidateFemoral2CuffDistance
@@ -255,6 +229,6 @@ namespace Biz {
 	*/		
 	bool BizPWV::StartCapture()
 	{
-		return DalFacade::Instance()->StartPWV();
+		return DalFacade::Instance()->StartCapture(DalFacade::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
 	}
 }
