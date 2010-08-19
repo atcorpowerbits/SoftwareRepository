@@ -1,0 +1,44 @@
+# Purpose: This is a test input file for msrw.py.
+# Description: msrw.py reads data bytes in this file and send them over the serial port
+# Commands available:
+#   #   - denotes comments. Characters on that line are not processed.
+#   p X - pause for X number of seconds.
+#   m X - measurement data, pause for X number of seconds before sending the next packet (line).
+#   r   - toggle crc calculation. By default crc is auto-calculated and sent over the serial port.
+#   w   - wait for receive packet.
+#   l   - last packet, no need to wait for response.
+#
+#   Commands are case insensitive. For instance, 'w' or 'W' can be used.
+#   Commands must start at the beginning of each line.
+#   For each packet, second byte is the length field. Length includes command, length and data bytes, and excludes CRC.
+#
+# Usage: python msrw.py -c comport -i infilename -o outfilename
+#   -b  COM port baud rate, eg. 57600. Default is 115200bps.
+#   -c  COM port string, eg. com1. Default is com1
+#   -h  show this help
+#   -i  input file name. Default is z
+#   -o  output file name. Will overwrite existing file. Default is a
+#
+
+w
+
+40 03 01
+05 05 07 08 09
+0A 06 0C 0D 0E 0F
+# measurement data, don't wait for response, 1 second delay between packets.
+m 1
+10 03 10
+
+0a 05 0c 0d 0e
+0f 05 01 02 03
+04 06 06 07 08 09
+
+# finish measurement data, wait for response again.
+m 0
+
+00 07 02 03 04 05 06
+00 07 02 03 04 05 06
+40 03 01
+
+l
+40 03 01
