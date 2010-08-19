@@ -358,8 +358,8 @@ def main():
     sys.stdout.write("main started ...\n")
 
     parser = argparse.ArgumentParser(description='Send EM4 commands & record transactions')
-    parser.add_argument('-i', dest='inStr', default=r"c:\pythoncodes\z", help='inputFile')
-    parser.add_argument('-o', dest='outStr', default=r"c:\pythoncodes\a", help='outputFile')
+    parser.add_argument('-i', dest='inStr', default=r"z", help='inputFile')
+    parser.add_argument('-o', dest='outStr', default=r"a", help='outputFile')
     parser.add_argument('-t', dest='testMode', action='store_true', help='enable test mode')
     parser.add_argument('-c', dest='comport', default='COM1', help='com port')
     parser.add_argument('-b', dest='baud', type=int, default=115200, help='baud rate')
