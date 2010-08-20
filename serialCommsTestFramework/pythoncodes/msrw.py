@@ -355,6 +355,7 @@ def Send(file, se):          # send data to serial port
 
 # Description: main function
 def main():
+    sys.stdout.write("msrw.py version 0.1\n")
     sys.stdout.write("main started ...\n")
 
     parser = argparse.ArgumentParser(description='Send EM4 commands & record transactions')
