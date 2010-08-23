@@ -79,7 +79,7 @@ namespace TestBiz {
 	public: [TestMethod]
 			void GetVersionTest()
 			{
-				BizInfo^  target = BizFacade::Instance()->GetBizInfo(); // TODO: Initialize to an appropriate value
+				BizInfo^  target = BizFacade::Instance()->FindBizInfo(); // TODO: Initialize to an appropriate value
 				String^ appVersion = L"blankVersion1234567890"; // TODO: Initialize to an appropriate value
 				int len = appVersion->Length;
 				target->GetVersion(appVersion, len);
@@ -91,7 +91,7 @@ namespace TestBiz {
 	public: [TestMethod]
 			void GetVersionTestZeroLen()
 			{
-				BizInfo^  target = BizFacade::Instance()->GetBizInfo(); // TODO: Initialize to an appropriate value
+				BizInfo^  target = BizFacade::Instance()->FindBizInfo(); // TODO: Initialize to an appropriate value
 				String^ appVersion = L"blankVersion1234567890"; // TODO: Initialize to an appropriate value
 				target->GetVersion(appVersion, 0);
 				Assert::AreEqual(L"", appVersion);
@@ -102,7 +102,7 @@ namespace TestBiz {
 	public: [TestMethod]
 			void GetVersionTestTruncated()
 			{
-				BizInfo^  target = BizFacade::Instance()->GetBizInfo(); // TODO: Initialize to an appropriate value
+				BizInfo^  target = BizFacade::Instance()->FindBizInfo(); // TODO: Initialize to an appropriate value
 				String^ appVersion = L"1234567890"; // TODO: Initialize to an appropriate value
 				int len = appVersion->Length;
 				target->GetVersion(appVersion, len);
@@ -114,7 +114,7 @@ namespace TestBiz {
 	public: [TestMethod]
 			void GetCoNameTest()
 			{
-				BizInfo^  target = BizFacade::Instance()->GetBizInfo(); // TODO: Initialize to an appropriate value
+				BizInfo^  target = BizFacade::Instance()->FindBizInfo(); // TODO: Initialize to an appropriate value
 				String^ coName = L"blankCoName1234567890"; // TODO: Initialize to an appropriate value
 				int len = coName->Length;
 				target->GetCompanyName(coName, len);
@@ -126,7 +126,7 @@ namespace TestBiz {
 	public: [TestMethod]
 			void GetCoNameTestZeroLen()
 			{
-				BizInfo^  target = BizFacade::Instance()->GetBizInfo(); // TODO: Initialize to an appropriate value
+				BizInfo^  target = BizFacade::Instance()->FindBizInfo(); // TODO: Initialize to an appropriate value
 				String^ coName = L"blankCoName1234567890"; // TODO: Initialize to an appropriate value
 				target->GetCompanyName(coName, 0);
 				Assert::AreEqual(L"", coName);
@@ -137,7 +137,7 @@ namespace TestBiz {
 	public: [TestMethod]
 			void GetCoNameTestTruncated()
 			{
-				BizInfo^  target = BizFacade::Instance()->GetBizInfo(); // TODO: Initialize to an appropriate value
+				BizInfo^  target = BizFacade::Instance()->FindBizInfo(); // TODO: Initialize to an appropriate value
 				String^ coName = L"1234567890"; // TODO: Initialize to an appropriate value
 				int len = coName->Length;
 				target->GetCompanyName(coName, len);
@@ -148,7 +148,7 @@ namespace TestBiz {
 	public: [TestMethod]
 			void BizInfoConstructorTest()
 			{
-				BizInfo^  target = BizFacade::Instance()->GetBizInfo();
+				BizInfo^  target = BizFacade::Instance()->FindBizInfo();
 				Assert::AreNotEqual(nullptr, target);
 			}
 	};

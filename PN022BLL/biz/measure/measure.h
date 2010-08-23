@@ -132,6 +132,7 @@ namespace Biz {
 	{
 	public:
 		virtual bool StartCapture();
+		virtual void DisplayCaptureData() {};
 
 	protected:
 		property String^        SystemId;

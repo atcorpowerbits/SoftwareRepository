@@ -14,17 +14,22 @@
 #include "..\measure\measure_pwv.h" // temp for UT
 
 namespace Biz {
+	// A singleton to interface Business Logic Layer
 	public ref class BizFacade {
 	public:
 		static BizFacade^ BizFacade::Instance();
-		BizInfo^ GetBizInfo(void);
+		BizInfo^ FindBizInfo();
 		bool StartCapture();
 		bool StopCapture();
 		void SimulateCaptureData();
+		void SimulateCaptureOneShot();
+		void DisplayCaptureData();
 		bool CalculateReport();
+		BizTonoDataEvent^ FindTonoData();
 
 	protected:
 		BizFacade(void);
+
 	private:
 		static BizFacade^ _instance;
 	};

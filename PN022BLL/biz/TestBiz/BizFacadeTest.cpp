@@ -81,7 +81,7 @@ namespace TestBiz {
 			{
 				BizFacade^  target = BizFacade::Instance();
 				BizInfo^  actual;
-				actual = target->GetBizInfo();
+				actual = target->FindBizInfo();
 				Assert::AreNotEqual(nullptr, actual);
 			}
 	};

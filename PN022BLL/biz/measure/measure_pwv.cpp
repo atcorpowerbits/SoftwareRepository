@@ -53,7 +53,8 @@ namespace Biz {
 
 		// TBD: remove after proof of concept
 		// Find the tonometer data in DAL to observe
-		myTonoDataObserver = gcnew TonoDataObserver(DalFacade::Instance()->FindTonoData());
+		myTonoDataObserver = gcnew TonoDataObserverStub(DalFacade::Instance()->FindTonoData());
+
 	}
 	/**
 	ValidateFemoral2CuffDistance
@@ -229,6 +230,10 @@ namespace Biz {
 	*/		
 	bool BizPWV::StartCapture()
 	{
-		return DalFacade::Instance()->StartCapture(DalFacade::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
+		return DalFacade::Instance()->StartCapture(DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
+	}
+	void BizPWV::DisplayCaptureData()
+	{
+		myTonoDataObserver->Display();
 	}
 }

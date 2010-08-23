@@ -1,22 +1,32 @@
 
 #include "StdAfx.h"
 #include "tonodata_observer.h"
-#include <iostream> // for cout???
+//?#include <iostream> // for cout???
 
-using namespace System;  // for cout???
+//?using namespace System;  // for cout???
+
+using namespace System::Threading;
 
 namespace Biz {
-	TonoDataObserver::TonoDataObserver( DalTonoDataEvent^ tonoDataRaw )
+	TonoDataObserverStub::TonoDataObserverStub( DalTonoDataEvent^ tonoDataRaw )
 	{
-		// Attach as an observer to Tonometer data event update
-		tonoDataRaw->TonoDataEvent += gcnew DalTonoDataEvent::TonoDataEventHandler( this, &TonoDataObserver::UpdateTonometerData );
+		// Attach as an observer to tonometer raw data event for an update
+		tonoDataRaw->TonoDataEvent += gcnew DalTonoDataEvent::DalTonoDataEventHandler( this, &TonoDataObserverStub::Update );
+
+		// Create a tonometer business data subject
+		tonoDataBiz = gcnew BizTonoDataEvent;
+
+		gotData = false;
+//?		lockData = gcnew Mutex();
 	}
 	/**
-	UpdateTonoData
+	Update
 
 	DESCRIPTION
 
-		Update for this observer when a raw tonometer data is available.
+		Update this observer when a raw tonometer data is available.
+		Note that it cannot display the data since it's not called on GUI thread.
+		Must decouple the data from the caller, i.e. interrutpt thread from DAL. 
 	
 	INPUT
 	
@@ -33,9 +43,28 @@ namespace Biz {
 		None.
 	
 	*/		
-	void TonoDataObserver::UpdateTonometerData( Object^ sender, DalTonoDataArgs^ e )
+	void TonoDataObserverStub::Update( Object^ sender, DalTonoDataArgs^ e )
 	{
 		// TBD: Now, act in response to the update event.
-		Console::WriteLine( "This tonometer data is {0}", e->data );
+//		Console::WriteLine( "This tonometer data is {0}", e->data );
+
+		// proces on tonometer raw data.
+		lockData.WaitOne();
+		// Just copy the data for demo and flag its arrival.
+		dataCaptured = e->data;
+		gotData = true;
+		lockData.ReleaseMutex();
+	}
+	void TonoDataObserverStub::Display()
+	{
+		// display tonometer data if it's arrived.
+		lockData.WaitOne();
+		if (gotData)
+		{
+			// forward the processed tonometer data to the observers
+			tonoDataBiz->Notify(dataCaptured);
+			gotData = false;
+		}
+		lockData.ReleaseMutex();
 	}
 }

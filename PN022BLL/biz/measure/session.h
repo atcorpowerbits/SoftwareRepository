@@ -19,10 +19,11 @@ namespace Biz {
 	public:
 		static BizSession^ BizSession::Instance();
 		bool StartCapture();
+		void DisplayCaptureData();
+		property BizMeasure^ measurement;
 	protected:
 		BizSession(void);
 	private:
 		static BizSession^ _instance;
-		BizMeasure^ _measurement;
 	};
 }

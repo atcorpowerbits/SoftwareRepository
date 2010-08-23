@@ -16,7 +16,7 @@ namespace Biz {
 	BizSession::BizSession(void)
 	{
 		// TBD: create a measurement object wrt current mode
-		_measurement = gcnew BizPWV;
+		measurement = gcnew BizPWV;
 	}
 	BizSession^ BizSession::Instance()
 	{
@@ -29,6 +29,10 @@ namespace Biz {
 	bool BizSession::StartCapture(void)
 	{
 		//TBD: check if a measurement can start
-		return _measurement->StartCapture();
+		return measurement->StartCapture();
+	}
+	void BizSession::DisplayCaptureData(void)
+	{
+		return measurement->DisplayCaptureData();
 	}
 }

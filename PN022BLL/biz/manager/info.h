@@ -26,9 +26,9 @@ namespace Biz {
 		static BizInfo^ BizInfo::Instance();
 		void GetCompanyName(String^ %coName, int len);
 		void GetVersion(String^ %appVersion, int len);
-		void GetModuleType(String^ %moduleVersion, int len);
-		void GetModuleCapability(String^ %moduleVersion, int len);
-		void GetModuleSN(String^ %moduleVersion, int len);
+		void GetModuleType(String^ %moduleType, int len);
+		void GetModuleCapability(String^ %moduleCapability, int len);
+		void GetModuleSN(String^ %moduleSN, int len);
 		void GetModuleVersion(String^ %moduleVersion, int len);
 	protected:
 		BizInfo(void);

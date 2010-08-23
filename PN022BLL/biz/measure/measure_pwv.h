@@ -54,7 +54,8 @@ namespace Biz {
 
 		BizPWV(void);
 		virtual bool StartCapture() override;
-		TonoDataObserver^ myTonoDataObserver; // TBD: remove after proof of concept
+		virtual void DisplayCaptureData() override;
+		property TonoDataObserverStub^ myTonoDataObserver; // TBD: remove after proof of concept
 
 	public:
 		property float meanDeltaTime;				// Mean pulse onset time difference (in ms) between pulse traces

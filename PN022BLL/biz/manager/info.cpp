@@ -14,6 +14,26 @@
 using namespace DataAccess;
 
 namespace Biz {
+	/**
+	Instance
+
+	DESCRIPTION
+
+		Get the BizInfo singleton instance.
+	
+	INPUT
+	
+		none.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		BizInfo^ - Handle to BizInfo object
+	
+	*/
 	BizInfo^ BizInfo::Instance()
 	{
 		if (_instance == nullptr) 
@@ -22,6 +42,26 @@ namespace Biz {
 		}
 		return _instance;
 	}
+	/**
+	GetCompanyName
+
+	DESCRIPTION
+
+		Get the company name.
+	
+	INPUT
+	
+		len - Company name string buffer limit.
+	
+	OUTPUT
+	
+		coName - Company name string.
+	
+	RETURN
+	
+		None.
+	
+	*/
 	void BizInfo::GetCompanyName(String^ %coName, int len)
 	{
 		if (company->Length > len) 
@@ -33,6 +73,26 @@ namespace Biz {
 		}
 	}
 
+	/**
+	GetVersion
+
+	DESCRIPTION
+
+		Get the application version.
+	
+	INPUT
+	
+		len - Application version string buffer limit.
+	
+	OUTPUT
+	
+		appVersion - Application version string.
+	
+	RETURN
+	
+		None.
+	
+	*/
 	void BizInfo::GetVersion(String^ %appVersion, int len)
 	{
 		if (this->appVersion->Length > len) 
@@ -44,9 +104,29 @@ namespace Biz {
 		}
 	}
 
+	/**
+	GetModuleType
+
+	DESCRIPTION
+
+		Get the electronic module type.
+	
+	INPUT
+	
+		len - Module type string buffer limit.
+	
+	OUTPUT
+	
+		moduleType - Module type string.
+	
+	RETURN
+	
+		None.
+	
+	*/
 	void BizInfo::GetModuleType(String^ %moduleType, int len)
 	{
-		this->moduleType = DalFacade::Instance()->GetFWConfig(DalFacade::CONFIG_MODULE_TYPE);
+		this->moduleType = DalFacade::Instance()->GetFWConfig(DalConstants::CONFIG_MODULE_TYPE);
 
 		if (this->moduleType->Length > len) 
 		{
@@ -57,9 +137,29 @@ namespace Biz {
 		}
 	}
 
+	/**
+	GetModuleType
+
+	DESCRIPTION
+
+		Get the electronic module type.
+	
+	INPUT
+	
+		len - Module type string buffer limit.
+	
+	OUTPUT
+	
+		moduleType - Module type string.
+	
+	RETURN
+	
+		None.
+	
+	*/
 	void BizInfo::GetModuleCapability(String^ %moduleCapability, int len)
 	{
-		this->moduleCapability = DalFacade::Instance()->GetFWConfig(DalFacade::CONFIG_MODULE_CAPABILITY);
+		this->moduleCapability = DalFacade::Instance()->GetFWConfig(DalConstants::CONFIG_MODULE_CAPABILITY);
 
 		if (this->moduleCapability->Length > len) 
 		{
@@ -72,7 +172,7 @@ namespace Biz {
 
 	void BizInfo::GetModuleSN(String^ %moduleSN, int len)
 	{
-		this->moduleSN = DalFacade::Instance()->GetFWConfig(DalFacade::CONFIG_MODULE_SN);
+		this->moduleSN = DalFacade::Instance()->GetFWConfig(DalConstants::CONFIG_MODULE_SN);
 
 		if (this->moduleSN->Length > len) 
 		{
@@ -85,7 +185,7 @@ namespace Biz {
 
 	void BizInfo::GetModuleVersion(String^ %moduleVersion, int len)
 	{
-		this->moduleVersion = DalFacade::Instance()->GetFWConfig(DalFacade::CONFIG_MAIN_FW_VERSION);
+		this->moduleVersion = DalFacade::Instance()->GetFWConfig(DalConstants::CONFIG_MAIN_FW_VERSION);
 
 		if (this->moduleVersion->Length > len) 
 		{
