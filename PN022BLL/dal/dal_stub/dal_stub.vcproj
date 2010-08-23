@@ -194,11 +194,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\dal_meter_cmd_stub.cpp"
+				RelativePath=".\dal_meter_stub.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\dal_meter_data_stub.cpp"
+				RelativePath=".\dal_module_cmd_stub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dal_simulation_file.cpp"
 				>
 			</File>
 			<File
@@ -228,15 +232,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\dal.h"
+				>
+			</File>
+			<File
 				RelativePath=".\dal_facade_stub.h"
 				>
 			</File>
 			<File
-				RelativePath=".\dal_meter_cmd_stub.h"
+				RelativePath=".\dal_meter_stub.h"
 				>
 			</File>
 			<File
-				RelativePath=".\dal_meter_data_stub.h"
+				RelativePath=".\dal_module_cmd_stub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\dal_simulation_file.h"
 				>
 			</File>
 			<File
