@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Text;
-using Biz;
+//?using Biz;
 
 namespace gui
 {
@@ -22,20 +22,20 @@ namespace gui
             this.Text = String.Format("About {0} {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
 //eg            this.labelVersion.Text = String.Format("Version {0} {0}", AssemblyVersion);
-            Biz.BizFacade.Instance().GetBizInfo().GetVersion(ref coInfoStr, coInfoSize); ;
+            Biz.BizFacade.Instance().FindBizInfo().GetVersion(ref coInfoStr, coInfoSize); ;
             this.labelVersion.Text = coInfoStr;
             this.labelCopyright.Text = AssemblyCopyright;
-            Biz.BizFacade.Instance().GetBizInfo().GetCompanyName(ref coInfoStr, coInfoSize); ;
+            Biz.BizFacade.Instance().FindBizInfo().GetCompanyName(ref coInfoStr, coInfoSize); ;
 //eg            this.labelCompanyName.Text = AssemblyCompany;
             this.labelCompanyName.Text = coInfoStr;
             this.textBoxDescription.Text = AssemblyDescription;
-            Biz.BizFacade.Instance().GetBizInfo().GetModuleType(ref coInfoStr, coInfoSize); ;
+            Biz.BizFacade.Instance().FindBizInfo().GetModuleType(ref coInfoStr, coInfoSize); ;
             this.labelModuleType.Text = coInfoStr;
-            Biz.BizFacade.Instance().GetBizInfo().GetModuleCapability(ref coInfoStr, coInfoSize); ;
+            Biz.BizFacade.Instance().FindBizInfo().GetModuleCapability(ref coInfoStr, coInfoSize); ;
             this.labelModuleCapability.Text = coInfoStr;
-            Biz.BizFacade.Instance().GetBizInfo().GetModuleSN(ref coInfoStr, coInfoSize); ;
+            Biz.BizFacade.Instance().FindBizInfo().GetModuleSN(ref coInfoStr, coInfoSize); ;
             this.labelModuleSN.Text = coInfoStr;
-            Biz.BizFacade.Instance().GetBizInfo().GetModuleVersion(ref coInfoStr, coInfoSize); ;
+            Biz.BizFacade.Instance().FindBizInfo().GetModuleVersion(ref coInfoStr, coInfoSize); ;
             this.labelModuleFMVersion.Text = coInfoStr;
         }
 

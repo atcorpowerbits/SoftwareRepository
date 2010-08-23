@@ -23,13 +23,22 @@ namespace gui
             ab1.Show();
         }
 
+        private void fibonaciToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FiboCalc frmFibonacci = new FiboCalc();
+
+            frmFibonacci.Show();
+        }
+
         private void startCaptureToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool rc = Biz.BizFacade.Instance().StartCapture();
 
             if (rc)
             {
-                MessageBox.Show("Capture started successfully!!!");
+                form_capture_stub frmCapture = new form_capture_stub();
+
+                frmCapture.Show();
             }
             else
             {
@@ -65,7 +74,8 @@ namespace gui
 
         private void simulateCaptureDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Biz.BizFacade.Instance().SimulateCaptureData();
+            Biz.BizFacade.Instance().SimulateCaptureOneShot();
         }
+
     }
 }

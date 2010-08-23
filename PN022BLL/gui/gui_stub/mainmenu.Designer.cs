@@ -32,10 +32,11 @@
             this.pwvCommandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startCaptureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopCaptureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.simulateCaptureDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculateReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.simulateCaptureDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fibonaciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +44,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pwvCommandToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.fibonaciToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(284, 24);
@@ -64,21 +66,28 @@
             // startCaptureToolStripMenuItem
             // 
             this.startCaptureToolStripMenuItem.Name = "startCaptureToolStripMenuItem";
-            this.startCaptureToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.startCaptureToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.startCaptureToolStripMenuItem.Text = "Start Capture";
             this.startCaptureToolStripMenuItem.Click += new System.EventHandler(this.startCaptureToolStripMenuItem_Click);
             // 
             // stopCaptureToolStripMenuItem
             // 
             this.stopCaptureToolStripMenuItem.Name = "stopCaptureToolStripMenuItem";
-            this.stopCaptureToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.stopCaptureToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.stopCaptureToolStripMenuItem.Text = "Stop Capture";
             this.stopCaptureToolStripMenuItem.Click += new System.EventHandler(this.stopCaptureToolStripMenuItem_Click);
+            // 
+            // simulateCaptureDataToolStripMenuItem
+            // 
+            this.simulateCaptureDataToolStripMenuItem.Name = "simulateCaptureDataToolStripMenuItem";
+            this.simulateCaptureDataToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.simulateCaptureDataToolStripMenuItem.Text = "Simulate Capture One Shot";
+            this.simulateCaptureDataToolStripMenuItem.Click += new System.EventHandler(this.simulateCaptureDataToolStripMenuItem_Click);
             // 
             // calculateReportToolStripMenuItem
             // 
             this.calculateReportToolStripMenuItem.Name = "calculateReportToolStripMenuItem";
-            this.calculateReportToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.calculateReportToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.calculateReportToolStripMenuItem.Text = "Calculate Report";
             this.calculateReportToolStripMenuItem.Click += new System.EventHandler(this.calculateReportToolStripMenuItem_Click);
             // 
@@ -97,12 +106,12 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // simulateCaptureDataToolStripMenuItem
+            // fibonaciToolStripMenuItem
             // 
-            this.simulateCaptureDataToolStripMenuItem.Name = "simulateCaptureDataToolStripMenuItem";
-            this.simulateCaptureDataToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.simulateCaptureDataToolStripMenuItem.Text = "Simulate Capture Data";
-            this.simulateCaptureDataToolStripMenuItem.Click += new System.EventHandler(this.simulateCaptureDataToolStripMenuItem_Click);
+            this.fibonaciToolStripMenuItem.Name = "fibonaciToolStripMenuItem";
+            this.fibonaciToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.fibonaciToolStripMenuItem.Text = "Fibonaci";
+            this.fibonaciToolStripMenuItem.Click += new System.EventHandler(this.fibonaciToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
@@ -130,6 +139,7 @@
         private System.Windows.Forms.ToolStripMenuItem stopCaptureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculateReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simulateCaptureDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fibonaciToolStripMenuItem;
     }
 }
 
