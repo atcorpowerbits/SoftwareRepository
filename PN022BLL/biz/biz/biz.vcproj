@@ -231,6 +231,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\measure\signal.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Stdafx.cpp"
 				>
 				<FileConfiguration
@@ -294,6 +298,10 @@
 			</File>
 			<File
 				RelativePath="..\measure\session.h"
+				>
+			</File>
+			<File
+				RelativePath="..\measure\signal.h"
 				>
 			</File>
 			<File

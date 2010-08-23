@@ -9,11 +9,11 @@
 */
 
 #pragma once
-#include "..\biz\biz.h"
+#include <biz.h>
 
 namespace Biz {
 
-	public ref class BizMath
+	public ref class BizMath sealed
 	{
 	
 	public:
@@ -42,21 +42,24 @@ namespace Biz {
 		static bool	MaxInArrayIndex(array<const float>^ input, int size, int% maximumIndex);
 		
 		// Find SplineIndex (beginning of a spline) for pulse
-		static int GetSplineIndex(const float x, const int SplineIndex,
-								const int SplineOrder, const int pPulseLength);
+		static bool GetSplineIndex(const float abscissa, const int splineIndex, const int size, int% newSplineIndex);
 
-		// Find a value of spline approximation of order SplineOrder in point x of
-		// pulse profile together with different number of derivatives
-		static bool Spline(const float x, array<const float>^ Profile, const int SplineOrder, float% Value);
+		// Find a value of spline approximation in point abscissa of pulse profile
+		static bool Spline(const float abscissa, array<const float>^ input, float% output);
 
 		// Smooth array using Running average algorithm
-		static bool SmoothArray(array<float>^ pArray, const int pSize, const int pSmoothOrder);
+		static bool SmoothArray(array<float>^ input, const int size);
 
-		// Smooth array using Savitsky - Golay smoothing filter
-		static int IndexOfExtremum(array<const float>^ pProfile, const bool pMinOrMax, const bool pOnlyFirst, const int i1, const int i2,
-								 const bool pLessOrMore, const float pLessOrMoreThan);
+		// Find index of the first Extremal Maximal value for pulse between indexes start and end, greater than the threshold
+		static bool IndexOfExtremum(array<const float>^ input, const int start, const int end,
+								 const float threshold, int% index);
 		
 		// Find Value of function f at x-point
-		static float FunctionValue(array<const float>^ pF, const int pNofPoints, const float pX);
+		static bool FunctionValue(array<const float>^ function, const int size, const float argument, float% value);
+
+		// Validate the array boundaries
+		static bool ValidateArray(array<const float>^ input, int size);
+		static bool ValidateArray(array<const short int>^ input, int size);
+
 	};
 }

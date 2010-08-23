@@ -207,6 +207,7 @@ namespace Biz {
 		return isValid;
 	}
 	/**
+
 	StartCapture
 
 	DESCRIPTION
@@ -235,5 +236,73 @@ namespace Biz {
 	void BizPWV::DisplayCaptureData()
 	{
 		myTonoDataObserver->Display();
+	}
+	// Initialise properties
+	void BizPWV::Initialise(const int signalSampleRate)
+	{
+	}
+
+	// Do all mathematics for this measurement
+	bool BizPWV::Calculate()
+	{
+		return true;
+	}
+
+	// Prepare PWV class to store signals
+	void BizPWV::PrepareToCaptureSignal()
+	{
+	}
+    
+	// Validate PWV class properties before Store in database
+	bool BizPWV::ValidateBeforeStore()
+	{
+		return true;
+	}
+
+	// Validate PWV class properties before Calculation routine
+	bool BizPWV::ValidateBeforeCalculate()
+	{
+		return true;
+	}
+    
+	// Save arrays if an error occurs while calculating
+	bool BizPWV::SaveToFile()
+	{
+		return true;
+	}
+    
+	// Set default values for calculated variables
+	void BizPWV::SetDefaults()
+	{
+	}
+
+	// Calculate distances
+	bool BizPWV::CalculateDistance()
+	{
+		return true;
+	}
+
+	// Calculate PWV, MeanDt, Deviation for this measurement
+	bool BizPWV::CalcMainFeatures()
+	{
+		return true;
+	}
+
+	// Calculate time difference between Tonom and ECG Onsets
+	bool BizPWV::CalcDeltaT(const int sampleRate)
+	{
+		return true;
+	}
+
+	// Calculate Heart rate on the base of ECG Onsets
+	bool BizPWV::CalcHeartRate(const int sampleRate)
+	{
+		return true;
+	}
+
+	// Calculate DeltaT average (MeanDt) and its standard deviation
+	bool BizPWV::MeanDeviation()
+	{
+		return true;
 	}
 }

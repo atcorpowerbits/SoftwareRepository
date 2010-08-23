@@ -1,4 +1,4 @@
-/*
+/**
     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
 
     Filename	 :	math.cpp
@@ -16,6 +16,61 @@ using namespace System;
 
 #pragma hdrstop
 
+/**
+ ** ValidateArray
+ **
+ ** DESCRIPTION
+ **  Validate the array boundaries
+
+ ** INPUT
+ **  input[size] - array
+ 
+ ** OUTPUT (RETURN)
+ **  none
+
+ ** RETURN
+ **  bool success or not
+*/
+
+bool BizMath::ValidateArray(array<const float>^ input, int size)
+{
+	if (input == nullptr)
+	{
+		return false; 
+	}
+	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+	{
+		return false;
+	}
+	for (int i = 0; i < size; i++)
+	{
+		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool BizMath::ValidateArray(array<const short int>^ input, int size)
+{
+	if (input == nullptr)
+	{
+		return false;
+	}
+	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+	{
+		return false;
+	}
+	for (int i = 0; i < size; i++)
+	{
+		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
+		{
+			return false;
+		}
+	}
+	return true;
+}
 /**
  ** TimeToIndex
  **
@@ -57,7 +112,7 @@ bool BizMath::TimeToIndex(const float time, const int expandRate,
 	return true;
 }
 
-/** 
+/**
  ** IndexToTime
  **
  ** DESCRIPTION
@@ -248,22 +303,26 @@ bool BizMath::SmoothDerivative1(array<const float>^ input, const int size, const
 {
 
 	// Validation
+	if (!ValidateArray(input, size))
+	{
+		return false;
+	}
 	if (smoothOrder < 1 || smoothOrder >= DEFAULT_VALUE)
 	{
 		return false;
 	}
-	if (size < 2*smoothOrder || size > input->Length)
+	if (size < 2*smoothOrder)
 	{
 		return false;
 	}
-	if (step == 0. || step <= -DEFAULT_VALUE || step >= DEFAULT_VALUE) 
+	if (step == 0 || step <= -DEFAULT_VALUE || step >= DEFAULT_VALUE) 
 	{
 		return false;
 	}
 
 	float doubleStep = step*2;
 
-	// First point
+	// First points
 	firstDerivative[0] = (-input[0] + input[1]) /step;
 	
 	// Start points (ForwardStep formula)
@@ -313,10 +372,8 @@ bool BizMath::SmoothDerivative1(array<const float>^ input, const int size, const
 	// Find the maximum, not including the first or last 2 points
 	array<const float>^ subset = gcnew array<const float>(size - 3);
 	Array::Copy(firstDerivative, 1, subset, 0, size - 3);
-	if (MaxInArray(subset, size - 3, maximum) == false)
-	{
-		return false;
-	}
+	// MaxInArray cannot return false because we've already validated the array
+	MaxInArray(subset, size - 3, maximum);
 	return true;
 }
 /**
@@ -326,7 +383,7 @@ bool BizMath::SmoothDerivative1(array<const float>^ input, const int size, const
  **  find maximum/minimum value in array
 
  ** INPUT
- **  input[pSize] - array
+ **  input[size] - array
 
  ** OUTPUT (RETURN)
  **  maximum/minimum value
@@ -338,19 +395,16 @@ bool BizMath::SmoothDerivative1(array<const float>^ input, const int size, const
 bool BizMath::MaxInArray (array<const float>^ input, int size, float% maximum)
 {
 	// Validation
-	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+	if (!ValidateArray(input, size))
+	{
 		return false;
-
+	}
+	
 	maximum = input[0];
 	// Find the maximum in the array
 	for (int i = 0; i < size; i++)
 	{
-		// Validation
-		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
-		{
-			return false;
-		}
-		else if (input[i] > maximum)
+		if (input[i] > maximum)
 		{
 			maximum = input[i];
 		}
@@ -361,42 +415,36 @@ bool BizMath::MaxInArray (array<const float>^ input, int size, float% maximum)
 bool BizMath::MinInArray (array<const float>^ input, int size, float% minimum)
 {
 	// Validation
-	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+	if (!ValidateArray(input, size))
+	{
 		return false;
+	}
 
 	minimum = input[0];
 	// Find the minimum in the array
 	for (int i = 0; i < size; i++)
 	{
-		// Validation
-		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
-		{
-			return false;
-		}
-		else if (input[i] < minimum)
+		if (input[i] < minimum)
 		{
 			minimum = input[i];
 		}
 	}
 	return true;
 }
-//---------------------------------------------------------------------------
+
 bool BizMath::MinMaxInArray (array<const float>^ input, int size, float% minimum, float% maximum)
 {
 	// Validation
-	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+	if (!ValidateArray(input, size))
+	{
 		return false;
+	}
 
 	maximum = input[0];
 	minimum = input[0];
 	// Find the minimum and maximum in the array
 	for (int i = 0; i < size; i++)
 	{
-		// Validation
-		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
-		{
-			return false;
-		}
 		if (input[i] > maximum)
 		{
 			maximum = input[i];
@@ -409,23 +457,19 @@ bool BizMath::MinMaxInArray (array<const float>^ input, int size, float% minimum
 	return true;
 }
 
-//---------------------------------------------------------------------------
 bool BizMath::MinMaxInArray (array<const short int>^ input, int size, short int% minimum, short int% maximum)
 {
 	// Validation
-	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+	if (!ValidateArray(input, size))
+	{
 		return false;
-
+	}
+	
 	maximum = input[0];
 	minimum = input[0];
 	// Find the minimum and maximum in the array
 	for (int i = 0; i < size; i++)
 	{
-		// Validation
-		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
-		{
-			return false;
-		}
 		if (input[i] > maximum)
 		{
 			maximum = input[i];
@@ -438,26 +482,23 @@ bool BizMath::MinMaxInArray (array<const short int>^ input, int size, short int%
 	return true;
 }
 
-/*
+/**
 ** Find the index of where the maximum resides within an array.
 */
 bool BizMath::MaxInArrayIndex(array<const float>^ input, int size, int% maximumIndex)
 {
 	// Validation
-	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+	if (!ValidateArray(input, size))
+	{
 		return false;
+	}
 	
 	float maximum = input[0];
 	maximumIndex = 0;
 	// Find the index of the maximum in the array
 	for (int i = 0; i < size; i++)
 	{
-		// Validation
-		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
-		{
-			return false;
-		}
-		else if (input[i] > maximum)
+		if (input[i] > maximum)
 		{
 			maximum = input[i];
 			maximumIndex = i;
@@ -466,380 +507,289 @@ bool BizMath::MaxInArrayIndex(array<const float>^ input, int size, int% maximumI
 	return true;
 }
 
-//---------------------------------------------------------------------------
-/* ###########################################################################
- ** GetSplineIndex(x, SplineIndex, SplineOrder, pPulse.Length);
+/**
+ ** GetSplineIndex(abscissa, size);
  **
  ** DESCRIPTION
  **  Find SplineIndex (beginning of a spline) for pulse
+
  ** INPUT
- **  x - abscissa of a point on a Pulse
- **  SplineIndex - old SplineIndex
- **  SplineOrder - order of spline
- **  pPulseLength - length of a pulse
+ **  abscissa - abscissa of a point on a Pulse
+ **  size - length of a pulse
+
  ** OUTPUT
- ** RETURN
- **  NewSplineIndex - new spline index
-*/
-//---------------------------------------------------------------------------
-int BizMath::GetSplineIndex(const float x, const int SplineIndex,
-                        const int SplineOrder, const int pPulseLength)
-{
-  int NewSplineIndex = SplineIndex;
-  int SO1 = SplineOrder + 1;
+ **  newSplineIndex - new spline index
 
-  int Limit; // Limit point in spline to switch on next spline
-  int Step;  // Step to increment spline initial point
-  switch (SplineOrder)
-  {
-    case 1:
-         Limit = 1;
-         Step = 1;
-         break;
-    case 2:
-         Limit = 1;
-         Step = 1;
-         break;
-    case 3:
-         Limit = 2;
-         Step = 1;
-         break;
-    case 4:
-         Limit = 3;
-         Step = 2;
-         break;
-    case 5:
-         Limit = 3;
-         Step = 1;
-         break;
-    default:
-         // MsgBox(TERROR, MSG_MATH_ERROR, MSG_WRONG_SPLINE,
-         //       LoadStr(MSG_WRONG_SPLINE) + IntToStr(SplineOrder));
-         return NewSplineIndex;
-  }
-
-  // Special case of pulse end
-  if (x >= pPulseLength - SO1)
-  {
-    NewSplineIndex = pPulseLength - SO1;
-  }
-  // Check point overcome limit
-  else if (x > SplineIndex + Limit)
-  {
-    NewSplineIndex += Step;
-  }
-  return NewSplineIndex;
-}
-
-/* ###########################################################################
- ** Spline(...)
- **
- ** DESCRIPTION
- **  Find a value of polinomial spline approximation of order SplineOrder in point x of
- **  Pulse profile together with derivatives, if their initial values != C999
- ** INPUT
- **  x - abscissa of a point on a Pulse
- **  Profile[SplineOrder + 1] - Pulse section
- **  SplineOrder - order of spline
- **  // Dx - sample rate
- ** OUTPUT
- **  Der[NofDer] - derivatives
- **  Value - pulse value
  ** RETURN
  **  bool success or not
 */
-//-------------------------------------------------------------------------------------------
-bool BizMath::Spline(const float x, array<const float>^ Profile, const int SplineOrder,
-                 float% Value)
+bool BizMath::GetSplineIndex(const float abscissa, const int splineIndex, const int size, int% newSplineIndex)
 {
-	// Initialise
-	float *Der = NULL; 
-	const int NofDer = 0;
-  
-	// Spline length
-  double l = SplineOrder; // * Dx;
-  double l2 = l*l;
-  double l3 = l2*l;
+	// Validation
+	if (abscissa < 0 || abscissa >= DEFAULT_VALUE)
+	{
+		return false;
+	}
+	if (splineIndex < 0 || splineIndex >= DEFAULT_VALUE)
+	{
+		return false;
+	}
+	if (size < 1 || size >= DEFAULT_VALUE)
+	{
+		return false;
+	}
+	
+	newSplineIndex = splineIndex;
+	
+	// Limit point in spline to switch on next spline
+	int limit = 2; 
 
-  // Number of Derivatives
-  int lNofDer = ((Der == NULL || NofDer <= 0) ? 0 : NofDer);
+	// Step to increment spline initial point
+	int step = 1;  
 
-  // L-coordinates of spline
-  double L2 = x/l;
-  double L1 = 1 - L2;
-
-  // Calculate spline basic functions and derivatives
-  static double N[5], N1[5], N2[5], N3[5];
-  switch (SplineOrder)
-  {
-    case 1:
-         N[0] = L1;
-         N[1] = L2;
-         if (lNofDer >= 1)
-         {
-           N1[0] = -1./l;
-           N1[1] =  1./l;
-         }
-         break;
-    case 2:
-         N[0] = L1*(2*L1-1);
-         N[1] = 4*L1*L2;
-         N[2] = L2*(2*L2-1);
-         if (lNofDer >= 1)
-         {
-           N1[0] = (1 - 4*L1)/l;
-           N1[1] = 4* (L1 - L2)/l;
-           N1[2] = (4*L2 - 1)/l;
-         }
-         if (lNofDer >= 2)
-         {
-           N2[0] = 4./l2;
-           N2[1] = -8./l2;
-           N2[2] = 4./l2;
-         }
-         break;
-    case 3:
-         N[0] = L1*(3*L1-1)*(3*L1-2)/2;
-         N[1] = 9*L1*L2*(3*L1-1)/2;
-         N[2] = 9*L1*L2*(3*L2-1)/2;
-         N[3] = L2*(3*L2-1)*(3*L2-2)/2;
-         if (lNofDer >= 1)
-         {
-           N1[0] = (-27*L1*L1 + 18*L1 - 2)/(2*l);
-           N1[1] = (-54*L1*L2 + 9*L2 + 27*L1*L1 - 9*L1)/(2*l);
-           N1[2] = (-27*L2*L2 + 9*L2 + 54*L1*L2 - 9*L1)/(2*l);
-           N1[3] = (27*L2*L2 - 18*L2 + 2)/(2*l);
-         }
-         if (lNofDer >= 2)
-         {
-           N2[0] = (54*L1 - 18)/(2*l2);
-           N2[1] = (54*L2 - 108*L1 + 18)/(2*l2);
-           N2[2] = (54*L1 - 108*L2 + 18)/(2*l2);
-           N2[3] = (54*L2 - 18)/(2*l2);
-         }
-         if (lNofDer >= 3)
-         {
-           N3[0] = (-54)/(2*l3);
-           N3[1] = (3*54)/(2*l3);
-           N3[2] = (-3*54)/(2*l3);
-           N3[3] = 54/(2*l3);
-         }
-         break;
-    default:
-         // MsgBox(TERROR, MSG_VALIDATION_ERROR, "Wrong spline order " + IntToStr(SplineOrder));
-         return false;
-  }
-  /*
-  // Check formula correctness (only for testing)
-  float Sum = 0., Sum1 = 0., Sum2 = 0., Sum3 = 0.;
-  for (int i = 0; i <= SplineOrder; i++)
-  {
-    Sum  +=  N[i];
-    Sum1 += N1[i];
-    Sum2 += N2[i];
-    Sum3 += N3[i];
-  }
-  if (fabs(Sum -1) > 1e-4 || fabs(Sum1) > 1e-3 || fabs(Sum2) > 1e-3 || fabs(Sum3) > 1e-3)
-  {
-     MsgBox(TERROR, MSG_VALIDATION_ERROR, "Wrong spline basic functions. Order = " + IntToStr(SplineOrder));
-     return false;
-  }
-  */
-  // Calculate value and derivatives
-  double dValue = 0.;  double dDer1  = 0.;  double dDer2  = 0.;  double dDer3  = 0.;
-  for (int i = 0; i <= SplineOrder; i++)
-  {
-    dValue += N[i]*Profile[i];
-    if (lNofDer >= 1) dDer1  += N1[i]*Profile[i];
-    if (lNofDer >= 2) dDer2  += N2[i]*Profile[i];
-    if (lNofDer >= 3) dDer3  += N3[i]*Profile[i];
-  }
-  // Return
-  Value = dValue;
-  if (lNofDer >= 1) Der[0] = dDer1;
-  if (lNofDer >= 2) Der[1] = dDer2;
-  if (lNofDer >= 3) Der[2] = dDer3;
-  return true;
+	// Special case for the pulse end
+	if (abscissa >= size - (DEFAULT_SPLINE_ORDER + 1))
+	{
+		newSplineIndex = size - (DEFAULT_SPLINE_ORDER + 1);
+	}
+	// Check if the limit has been overcome
+	else if (abscissa > splineIndex + limit)
+	{
+		newSplineIndex += step;
+	}
+	return true;
 }
 
-/* ###########################################################################
+/**
+ ** Spline(...)
+ **
+ ** DESCRIPTION
+ **  Find a value of polinomial spline approximation in point abscissa of Pulse profile
+
+ ** INPUT
+ **  abscissa - abscissa of a point on a Pulse
+ **  input[splineOrder + 1] - Pulse section
+
+ ** OUTPUT
+ **  output - pulse value
+
+ ** RETURN
+ **  bool success or not
+*/
+
+bool BizMath::Spline(const float abscissa, array<const float>^ input, float% output)
+{
+	// Validation
+	if (abscissa < 0 || abscissa >= DEFAULT_VALUE)
+	{
+		return false;
+	}
+	
+	if (!ValidateArray(input, DEFAULT_SPLINE_ORDER + 1))
+	{
+		return false;
+	} 
+
+	// L-coordinates of spline
+	float L2 = abscissa/DEFAULT_SPLINE_ORDER;
+	float L1 = 1 - L2;
+
+	// Calculate spline basic function
+	static float function[4];
+	function[0] = L1*(3*L1-1)*(3*L1-2)/2;
+	function[1] = 9*L1*L2*(3*L1-1)/2;
+	function[2] = 9*L1*L2*(3*L2-1)/2;
+	function[3] = L2*(3*L2-1)*(3*L2-2)/2;
+         
+	// Calculate output
+	output = 0.;
+	for (int i = 0; i <= DEFAULT_SPLINE_ORDER; i++)
+	{
+		output += function[i]*input[i];
+	}
+	return true;
+}
+
+/**
  ** SmoothArray()
  **
  ** DESCRIPTION
  **  Smooth array using Running average algorithm
+
  ** INPUT
- **  pArray[pSize] - float array
- **  pNofFilterPoints - Number of Filter points (usually 5, must be odd)
+ **  input[size] - float array
+ 
  ** OUTPUT
- **  pArray rewritten
+ **  input rewritten
+
  ** RETURN
  **  true if success, false otherwise
 */
-//-------------------------------------------------------------------------------------
-bool BizMath::SmoothArray(array<float>^ pArray, const int pSize, const int pSmoothOrder)
+bool BizMath::SmoothArray(array<float>^ input, const int size)
 {
-  // Validation
-	if ((pSmoothOrder <= 0) || (pSmoothOrder >= pSize - pSmoothOrder))
-  {
+	// Validation
+	if (!ValidateArray(input, size))
+	{
 		return false;
-  }
-  // Allocate memory for new array and copy old into
-	float *lSt = new float[pSize];
-  for (int i=0; i<pSize; i++)
-    lSt[i] = pArray[i];
+	} 
 
-  // Perform running average
-  double lSum;
-	// smooth (0 to (order-1)) samples
-	pArray[0] = (lSt[0] + lSt[1]) / 2.0;
-	for(int i = 1; i < pSmoothOrder; i++ )
-	{
-    lSum = 0;
-    int lim = i*2 + 1;
-		for(int j = 0; j < lim; j++)
-			lSum += lSt[j];
-		pArray[i] = lSum / lim;
-	}
-  // Smooth middle of a signal
-  int lNofFilterPoints = pSmoothOrder*2 + 1;
-	for (int i = pSmoothOrder; i < pSize-pSmoothOrder; i++)
-	{
-    lSum = 0.;
-		for (int j = -pSmoothOrder; j <= pSmoothOrder; j++)
-			lSum += lSt[i+j];
-		pArray[i] = lSum / lNofFilterPoints;
-	}
-	// smooth tail
-	pArray[pSize - 1] = (lSt[pSize - 1] + lSt[pSize - 2]) / 2.0;
-	for(int i = pSize - pSmoothOrder; i < pSize - 1; i++)
-	{
-    lSum = 0;
-    int lim = (pSize - 1 - i)*2 + 1;
-		for(int j = 0; j < lim; j++)
-			lSum += lSt[pSize - 1 - j];
-		pArray[i] = lSum / lim;
-	}
+	// Copy the input array
+	array<float>^ copy = gcnew array<float>(size);
+	Array::Copy(input, copy, size);
 
-  // free memory
-	delete [] lSt;
-
-  // Success
+	// Smooth the first point
+	float sum;
+	input[0] = (copy[0] + copy[1]) / (float)2;
+	
+	// Smooth starting points
+	for(int i = 1; i < DEFAULT_SMOOTH_ORDER; i++ )
+	{
+		sum = 0;
+		int limit = i * 2 + 1;
+		for(int j = 0; j < limit; j++)
+		{
+			sum += copy[j];
+		}
+		input[i] = sum / limit;
+	}
+  
+	// Smooth middle points
+	int nofFilterPoints = DEFAULT_SMOOTH_ORDER * 2 + 1;
+	for (int i = DEFAULT_SMOOTH_ORDER; i < size - DEFAULT_SMOOTH_ORDER; i++)
+	{
+		sum = 0.;
+		for (int j = -DEFAULT_SMOOTH_ORDER; j <= DEFAULT_SMOOTH_ORDER; j++)
+		{
+			sum += copy[i+j];
+		}
+		input[i] = sum / nofFilterPoints;
+	}
+	
+	// Smooth end points
+	for(int i = size - DEFAULT_SMOOTH_ORDER; i < size - 1; i++)
+	{
+		sum = 0;
+		int limit = (size - 1 - i) * 2 + 1;
+		for(int j = 0; j < limit; j++)
+		{
+			sum += copy[size - 1 - j];
+		}
+		input[i] = sum / limit;
+	}
+	
+	// Smooth last point
+	input[size - 1] = (copy[size - 1] + copy[size - 2]) / (float)2;
+	
+	// Success
 	return true;
 }
 
-/* ###########################################################################
+/**
  ** IndexOfExtremum()
  **
  ** DESCRIPTION
- **  Find index of Extremal Maximal (or Minimal) value for pulse
- **  between indexes i1, i2
+ **  Find index of the first Extremal Maximal value for pulse
+ **  between indexes start and end, greater than the threshold
+
  ** INPUT
- **   i1, i2 - indexes
- **  Pulse class
+ **  start, end - indexes
+ **  input - float array
+ **	 threshold
+
  ** OUTPUT
- **  Index or -1 if wrong pulse
+ **  Index
+
+ ** RETURN
+ **  true if success, false otherwise
 */
-//--------------------------------------------------------------------------------------
-int BizMath::IndexOfExtremum(array<const float>^ pProfile, const bool pMinOrMax, const bool pOnlyFirst, const int i1, const int i2,
-                         const bool pLessOrMore, const float pLessOrMoreThan)
+
+bool BizMath::IndexOfExtremum(array<const float>^ input, const int start, const int end, 
+							  const float threshold, int% index)
 {
-  int ind = -1;
-  // Validate interval
-  if (i1 >= i2 - 2)
-    return ind;
-  // Find Extremum for Pulse.
-  // For maximum extremum is where Current > Last, Current >= Next
-  // For minimum extremum is where Current < Last, Current <= Next
-  float lCurrent, lLast, lNext;
-  for (int i = i1 + 1; i < i2 - 1; i++)
-  {
-    lCurrent = pProfile[i];
-    // Check limit
-	if (pLessOrMoreThan != DEFAULT_VALUE)
-    {
-      if (pLessOrMore == LESS)
-      {
-        if (lCurrent >= pLessOrMoreThan)
-          continue;
-      }
-      else // if (pLessOrMore == MORE)
-      {
-        if (lCurrent <= pLessOrMoreThan)
-          continue;
-      }
-    }
-    lLast = pProfile[i-1];
-    lNext = pProfile[i+1];
-    // Check conditions for Max or Min
-    if (pMinOrMax == MAX)
-    {
-       if (lCurrent <= lLast || lCurrent < lNext)
-          continue;
-    }
-    else // if (pMinOrMax == MINIMUM)
-    {
-       if (lCurrent >= lLast || lCurrent > lNext)
-          continue;
-    }
-    // Now lCurrent is extremum.
-    // Analise first extremum or not, if necessary
-    if (ind < 0)
-    {
-      ind = i;
-      if (pOnlyFirst == FIRST)
-        break;
-    }
-    else
-    {
-      if (pMinOrMax == MAX)
-      {
-         if (lCurrent > pProfile[ind])
-            ind = i;
-      }
-      else // if (pMinOrMax == MINIMUM)
-      {
-         if (lCurrent < pProfile[ind])
-            ind = i;
-      }
-    }
-  }
-  // return
-  return ind;
+	// Validation
+	if (!ValidateArray(input, end + 1))
+	{
+		return false;
+	} 
+	if (start < 0 || start > end - 2)
+	{
+		return false;
+	}
+	if (threshold <= -DEFAULT_VALUE || threshold > DEFAULT_VALUE)
+	{
+		return false;
+	}
+	
+	// Find Extremum for Pulse where current > last, current >= next
+	float current, last, next;
+	for (int i = start + 1; i < end; i++)
+	{
+		current = input[i];
+		// If threshold is the DEFAULT VALUE, then find the first extremum
+		if (threshold == DEFAULT_VALUE || current > threshold)
+		{
+			last = input[i-1];
+			next = input[i+1];
+
+			// Check conditions for maximum
+			if (current > last && current >= next)
+			{
+				index = i;
+				return true;
+			}
+		}
+	}
+	// No extremum was found
+	return false;
 }
 
-/* ###########################################################################
+/**
  ** FunctionValue
  **
  ** DESCRIPTION
- **  Find Value of function f at x-point
+ **  Find value of function at argument
+
  ** INPUT
- **  pF[pNofPoints] - function
- **  pX - point to find value at
+ **  function[size] - function
+ **  argument - point to find value at
+
  ** OUTPUT
- **  None
+ **  value at point argument
+
  ** RETURN
- **  Value at point pX
+ **  true if success, false otherwise
 */
-//---------------------------------------------------------------------------
-float BizMath::FunctionValue(array<const float>^ pF, const int pNofPoints, const float pX)
+bool BizMath::FunctionValue(array<const float>^ function, const int size, const float argument, float% value)
 {
-  float lValue = -9999;
-  // Catch start point
-  if (pX == 0) return pF[0];
+  // Validation
+	if (!ValidateArray(function, size))
+	{
+		return false;
+	} 
+	if (argument < 0 || argument > size - 1)
+	{
+		return false;
+	}
 
-  // Finding Value
-  for (int i = 1; i < pNofPoints; i++)
-  {
-    float moment = i;
-    if (moment >= pX)
-    {
-      // Linear interpolation
-      double N1 = moment - pX;
-      double N2 = 1. - N1;
-      lValue = N1*pF[i-1] + N2*pF[i];
-      return lValue;
-    }
-  }
+	// Catch start point
+	if (argument == 0) 
+	{
+		value = function[0];
+		return true;
+	}
 
-  return lValue;
+	// Finding Value
+	for (int i = 1; i < size; i++)
+	{
+		float moment = (float)i;
+		if (moment >= argument)
+		{
+			// Linear interpolation
+			float N1 = moment - argument;
+			float N2 = (float)1 - N1;
+			value = N1*function[i-1] + N2*function[i];
+			break;
+		}
+	}
+	return true;
 }

@@ -25,14 +25,14 @@ namespace Biz {
 	const unsigned short PWV_FEM2CUFF_MAX = 700;
 	const unsigned short PWV_MAX_ONSETS = 30 * 3;
 
-	//---------------------------------------------------------------------------
+	/*---------------------------------------------------------------------------
 	// Pulse Wave Velocity data structure
 	//---------------------------------------------------------------------------
 	typedef struct
 	{
 		float value;	// Pulse wave velocity (in m/s)
 		bool isValid;	// Pulse wave velocity is valid/invalid
-	} BizDelta;
+	} BizDelta;*/
 
 	public ref class BizDistance abstract
 	{
@@ -50,14 +50,11 @@ namespace Biz {
 
 		bool ValidatePWVDistance();
 		bool ValidateFemoral2CuffDistance();
-		virtual bool Validate() override;
 
-		BizPWV(void);
 		virtual bool StartCapture() override;
 		virtual void DisplayCaptureData() override;
 		property TonoDataObserverStub^ myTonoDataObserver; // TBD: remove after proof of concept
 
-	public:
 		property float meanDeltaTime;				// Mean pulse onset time difference (in ms) between pulse traces
 		property array<float>^ deltaTime;			// Pulse onset time difference (in ms) between pulse traces of each pulse
 		property float correctionTime;				// Correction factor to convert Carotid-Cuff time to Carotid-Femoral time
@@ -72,105 +69,54 @@ namespace Biz {
 
 		//BizDelta pulseWaveVelocity[PWV_MAX_ONSETS];  // Time difference
 
-		//BizSignal^ signalA; // (PWVSITE_MAX_PPOINTS, PWVSITE_MAX_ONSETS);
-		//BizSignal^ signalB;   // (PWVSITE_MAX_PPOINTS, PWVSITE_MAX_ONSETS);
-/*
-    // Member functions:
+		//BizSignal^ signalA; // Site A signal
+		//BizSignal^ signalB;   // Site B signal
 
-    // Initialise properties
-    void Initialise();
+	public:
+		// Member functions:
 
-    // Populate class properties from current record in pDataSet
-    bool Populate(TDataSet* pDataSet);
-    bool PopulateDBase(TDataSet* pDataSet);
-    bool PopulateAccess(TDataSet* pDataSet);
-
-    // Store class properties to current record in pDataSet
-    bool Store(TDataSet* pDataSet, const bool pRewriteKeyFields = true, const bool pRewriteDate = true);
-    bool StoreDBase(TDataSet* pDataSet, const bool pRewriteKeyFields = true, const bool pRewriteDate = true);
-    bool StoreAccess(TDataSet* pDataSet, const bool pRewriteKeyFields = true, const bool pRewriteDate = true);
-
-    // Export (print) measurement to string
-    bool ExportPrintTitle(TDataSet* pDataSet, String &pOut);
-    bool Export(String &pOut);
-    bool ExportArrays(int pFileHandle);
-
-    // Do all mathematics for this measurement
-    bool Calculate();
-
-    // Set ReadyToCapture property to true
-    void PrepareToCaptureSignal();
+		virtual bool Validate() override;
+		BizPWV(void);	
     
-    // Validate TPWV class properties before Calculation routine
-    bool ValidateBeforeCalculate();
-    
-    // Save arrays if an error occurs while calculating
-    bool SaveToFile();
-    
-private:
-    // bool ReadyToCapture; // Is ready to store signal?
-    // Set default values for calculated variables
-    void SetDefaults();
-    // Calculate distances
-    bool CalculateDistance();
-    // Validate TPWV class properties before Store in database
-    bool ValidateBeforeStore();
-    // Calculate PWV, MeanDt, Deviation for this measurement
-    bool CalcMainFeatures();
-	};
+		// Initialise properties
+		void Initialise(const int signalSampleRate);
 
-	
+		// Do all mathematics for this measurement
+		bool Calculate();
 
-  protected:
+		// Prepare PWV class to store signals
+		void PrepareToCaptureSignal();
+	    
+		// Validate PWV class properties before Store in database
+		bool ValidateBeforeStore();
 
-    // Constructors, destructors
-    TPWVSite();
-    ~TPWVSite();
+		// Validate PWV class properties before Calculation routine
+		bool ValidateBeforeCalculate();
+	    
+		// Save arrays if an error occurs while calculating
+		bool SaveToFile();
+	    
+	private:
+		// Work array to mark rejected Onsets
+		array<short int>^ rejectedOnsets; // = gcnew array<short int>(PWV_MAX_ONSETS);
+		
+		// Set default values for calculated variables
+		void SetDefaults();
 
-    // Member functions:
+		// Calculate distances
+		bool CalculateDistance();
 
-    // Initialise properties
-    void Initialise(const int pSignalSampleRate);
+		// Calculate PWV, MeanDt, Deviation for this measurement
+		bool CalcMainFeatures();
 
-    // populate TPWVSite class properties from current record in pDataSet
-    bool PopulateDBase(TDataSet* pDataSet, const String pPrefix, const int pSampleRate);
-    bool PopulateAccess(TDataSet* pDataSet, const String pPrefix);
+		// Calculate time difference between Tonom and ECG Onsets
+		bool CalcDeltaT(const int sampleRate);
 
-    // Validate pressure record before storing in Database
-    bool ValidateBeforeStore();
+		// Calculate Heart rate on the base of ECG Onsets
+		bool CalcHeartRate(const int sampleRate);
 
-    // Store TPWVSite class properties to pDataSet
-    bool StoreDBase(TDataSet* pDataSet, const String pPrefix);
-    bool StoreAccess(TDataSet* pDataSet, const String pPrefix);
+		// Calculate DeltaT average (MeanDt) and its standard deviation
+		bool MeanDeviation();
 
-    // Export (print) measurement to string
-    bool ExportPrintTitle(TDataSet* pDataSet, const String pPrefix, String &pOut);
-    bool Export(String &pOut);
-
-  public:
-  // protected:
-    // Set default values for calculated variables
-    void SetDefaults(const int pSignalSampleRate);
-
-    // Do all mathematics for this measurement
-    bool Calculate(const int pAlgorithm,
-                   const float pHeightPercent,
-                   const int pSampleRate,
-                   const int p_qc_scalefactor);
-
-  private:
-
-    // Work array to mark rejected Onsets
-    short int RejectedOnsets[PWVSITE_MAX_ONSETS];
-    // Validate pressure class properties record
-    //bool ValidateBeforeRestorePulses();
-    // Calculate time difference between Tonom and ECG Onsets
-    bool CalcDeltaT(const int pSampleRate);
-    // Calculate Heart rate on the base of ECG Onsets
-    bool CalcHeartRate(const int pSampleRate);
-    // Calculate DeltaT average (MeanDt) and its standard deviation
-    bool MeanDeviation();
-    // Validate pressure class properties record
-    bool ValidateBeforeCalculate();*/
-	};
+		};
 }

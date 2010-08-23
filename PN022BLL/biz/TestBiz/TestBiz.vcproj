@@ -192,6 +192,16 @@
 			AssemblyName="biz_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
 			MinFrameworkVersion="0"
 		/>
+		<AssemblyReference
+			RelativePath="..\..\crx\Debug\crx.dll"
+			AssemblyName="crx, Version=1.0.3887.27006, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			MinFrameworkVersion="131072"
+		/>
+		<AssemblyReference
+			RelativePath="..\..\dal\Debug\dal.dll"
+			AssemblyName="dal, Version=1.0.3887.26957, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			MinFrameworkVersion="131072"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -221,6 +231,10 @@
 			</File>
 			<File
 				RelativePath=".\BizSessionTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizSignalTest.cpp"
 				>
 			</File>
 			<File
@@ -282,14 +296,6 @@
 		</Filter>
 		<File
 			RelativePath=".\AuthoringTests.txt"
-			>
-		</File>
-		<File
-			RelativePath=".\Round.csv"
-			>
-		</File>
-		<File
-			RelativePath=".\ValidatePWVDistance.csv"
 			>
 		</File>
 	</Files>
