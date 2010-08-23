@@ -36,7 +36,6 @@
             this.calculateReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fibonaciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,8 +43,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pwvCommandToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.fibonaciToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(284, 24);
@@ -106,13 +104,6 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // fibonaciToolStripMenuItem
-            // 
-            this.fibonaciToolStripMenuItem.Name = "fibonaciToolStripMenuItem";
-            this.fibonaciToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.fibonaciToolStripMenuItem.Text = "Fibonaci";
-            this.fibonaciToolStripMenuItem.Click += new System.EventHandler(this.fibonaciToolStripMenuItem_Click);
-            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -139,7 +130,6 @@
         private System.Windows.Forms.ToolStripMenuItem stopCaptureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculateReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simulateCaptureDataToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fibonaciToolStripMenuItem;
     }
 }
 

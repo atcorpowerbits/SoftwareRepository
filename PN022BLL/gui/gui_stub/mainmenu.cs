@@ -23,13 +23,6 @@ namespace gui
             ab1.Show();
         }
 
-        private void fibonaciToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FiboCalc frmFibonacci = new FiboCalc();
-
-            frmFibonacci.Show();
-        }
-
         private void startCaptureToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool rc = Biz.BizFacade.Instance().StartCapture();
