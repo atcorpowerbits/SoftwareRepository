@@ -62,7 +62,7 @@
 				AdditionalDependencies="$(NoInherit)"
 				ShowProgress="1"
 				OutputFile="..\$(ConfigurationName)\crx.dll"
-				LinkIncremental="2"
+				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
@@ -193,6 +193,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crx_message_stub.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Stdafx.cpp"
 				>
 				<FileConfiguration
@@ -231,6 +235,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crx_message_stub.h"
+				>
+			</File>
+			<File
 				RelativePath=".\resource.h"
 				>
 			</File>
@@ -250,6 +258,10 @@
 			</File>
 			<File
 				RelativePath=".\app.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\messages.resx"
 				>
 			</File>
 		</Filter>
