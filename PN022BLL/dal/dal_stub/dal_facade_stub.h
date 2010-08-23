@@ -5,23 +5,32 @@
 using namespace System;
 
 namespace DataAccess {
-	ref class DalMeter; // needed for forward declaration
-	ref class DalTonoData; // needed for forward declaration
+	// Some forward declaration
+	ref class DalMeter; 
+	ref class DalModule; 
+	ref class DalTonoDataEvent;
+	ref class DalCuffPulseEvent;
 
 	public ref class DalFacade
 	{
 	public:
 		static DalFacade^ DalFacade::Instance();
-		bool StartPWV();
+		bool StartCapture(unsigned int dataType);
+		bool StopCapture();
+		String^ GetFWConfig(unsigned int configType);
 		void DispatchCaptureData();
+		void DispatchCaptureOneShot();
 
 //?		DalMeter^ GetMeter() { return meter; };
-		DalTonoData^ FindTonoData();
+		DalTonoDataEvent^ FindTonoData();
+		DalCuffPulseEvent^ FindCuffPulse();
 
 	protected:
 		DalFacade(void);
 	private:
 		static DalFacade^ _instance;
-		DalMeter^ meter;
+//?		DalMeter^ _meter;
+		DalModule^ _module;
+		unsigned int captureDataType;
 	};
 }

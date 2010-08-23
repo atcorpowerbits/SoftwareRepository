@@ -2,8 +2,10 @@
 
 #include "stdafx.h"
 
+#include "dal.h"
 #include "dal_facade_stub.h"
-#include "dal_meter_cmd_stub.h"
+#include "dal_meter_stub.h"
+#include "dal_module_cmd_stub.h"
 
 namespace DataAccess {
 	DalFacade^ DalFacade::Instance()
@@ -16,18 +18,52 @@ namespace DataAccess {
 	}
 	DalFacade::DalFacade(void)
 	{
-		meter = gcnew DalMeter;
+//?		meter = (DalTonometerStub^)gcnew DalTonometerStub;
 	}
-	DalTonoData^ DalFacade::FindTonoData() 
+	DalTonoDataEvent^ DalFacade::FindTonoData() 
 	{ 
-		return meter->tonoDataRaw; 
+		return DalTonometerStub::Instance()->tonoDataRaw; 
 	}
-	bool DalFacade::StartPWV(void)
+	DalCuffPulseEvent^ DalFacade::FindCuffPulse() 
+	{ 
+		return DalCuffStub::Instance()->cuffPulseRaw; 
+	}
+	bool DalFacade::StartCapture(unsigned int captureDataType)
 	{
+		this->captureDataType = captureDataType;
+
 		return true; //stub
 	}
-	void DalFacade::DispatchCaptureData()
+	bool DalFacade::StopCapture()
 	{
-		meter->tonoDataRaw->Notify(1234);
+		_module->StopCapture();
+		return true; //stub
+	}
+	String^ DalFacade::GetFWConfig(unsigned int configType)
+	{
+		switch (configType)
+		{
+		case DalConstants::CONFIG_MODULE_TYPE:
+				return "EM4 (stub)"; //stub
+			case DalConstants::CONFIG_MODULE_CAPABILITY:
+				return "xxx (stub)"; //stub
+			case DalConstants::CONFIG_MODULE_SN:
+				return "1234567890 (stub)"; //stub
+			case DalConstants::CONFIG_MAIN_FW_VERSION:
+				return "0.1 (stub)"; //stub
+			default:
+				return "cannot get undefined config"; //stub
+		}
+	}
+	void DalFacade::DispatchCaptureOneShot() // stub?
+	{
+		DalTonometerStub::Instance()->tonoDataRaw->Notify(1234); // stub
+	}
+	void DalFacade::DispatchCaptureData() // stub?
+	{
+//?		DalTonometerStub::Instance()->tonoDataRaw->Notify(1234); // stub
+//?		_meter->mainFWVersion->Notify("0.1");; //stub
+//?		DalTonometerStub::Instance()->Simulate();
+		_module->Simulate(captureDataType);
 	}
 }
