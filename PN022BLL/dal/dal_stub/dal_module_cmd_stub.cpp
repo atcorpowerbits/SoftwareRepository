@@ -139,7 +139,7 @@ namespace DataAccess {
 		// Hook up the Elapsed event for the timer.
 		aTimer->Elapsed += gcnew ElapsedEventHandler( &DalModule::OnTimedEvent );
 
-		dataFile = gcnew DalSimulationFile("c:\\projects\\pn022bll\\pwv.dat");
+		dataFile = gcnew DalSimulationFile("c:\\projects\\pn022bll\\dal\\dal_stub\\pwv.dat");
 		dataFile->OpenFile();
 
 		// Set the Interval in milliseconds.
