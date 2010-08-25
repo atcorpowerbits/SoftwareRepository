@@ -19,7 +19,8 @@ namespace Biz {
 	public:
 		static BizSession^ BizSession::Instance();
 		bool StartCapture();
-		void DisplayCaptureData();
+		bool StopCapture();
+		void DispatchCaptureData();
 		property BizMeasure^ measurement;
 	protected:
 		BizSession(void);

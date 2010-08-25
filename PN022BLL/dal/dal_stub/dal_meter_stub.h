@@ -46,24 +46,24 @@ namespace DataAccess {
 	public ref class DalCuffPulseArgs: public EventArgs
 	{
 	public:
-	   DalCuffPulseArgs( String^ data )
+	   DalCuffPulseArgs( unsigned short data )
 	   {
 		  this->data = data;
 	   }
-	   String^ data;
+	   unsigned short data;
 	};
 	// Class with a function that creates the eventargs and initiates the event
 	public ref class DalCuffPulseEvent
 	{
 	public:
-	   delegate void CuffPulseEventHandler(Object^ sender, DalCuffPulseArgs^ args );
+	   delegate void DalCuffPulseEventHandler(Object^ sender, DalCuffPulseArgs^ args );
 
 	   // Now, create a public event "DalTonoDataEvent" whose type is our DalTonoDataEventHandler delegate. 
-	   event CuffPulseEventHandler^ CuffPulseEvent;
+	   event DalCuffPulseEventHandler^ CuffPulseEvent;
 
 	   // This will be the starting point of our event-- it will create DalTonoDataEventArgs,
 	   // and then raise the event, passing DalTonoDataEventArgs. 
-	   void Notify( String^ data );
+	   void Notify( unsigned short data );
 	};
 
 	// PayloadDataEventArgs: a custom event inherited from EventArgs.
@@ -100,7 +100,6 @@ namespace DataAccess {
 	public ref class DalMeter abstract
 	{
 	public:
-//?		DalMeter(void);
 		virtual void Simulate() {};
 		property DalCuffPulseEvent^ cuffPulse;
 	};
@@ -114,7 +113,6 @@ namespace DataAccess {
 	public:
 		static DalTonometerStub^ Instance();
 		property DalTonoDataEvent^ tonoDataRaw;
-//?		static unsigned tonoDataValue;
 	};
 
 	public ref class DalCuffStub : DalMeter

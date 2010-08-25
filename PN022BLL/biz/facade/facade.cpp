@@ -8,9 +8,9 @@
     Description  :	Business Logic Layer Facade Class
 */
 #include "stdafx.h"
-#include "facade.h"
-//?#include "..\measure\measure.h"
-#include "..\measure\session.h"
+#include <facade.h>
+#include <session.h>
+#include <measure_pwv.h>
 
 using namespace DataAccess;
 
@@ -37,8 +37,6 @@ namespace Biz {
 	*/
 	BizFacade::BizFacade(void)
 	{
-//		rm = new ResourceManager("app", Assembly.GetExecutingAssembly());
-
 	}
 	/**
 	Instance
@@ -142,8 +140,7 @@ namespace Biz {
 	*/
 	bool BizFacade::StopCapture(void)
 	{
-		DalFacade::Instance();
-		return false; // temp UT stub
+		return BizSession::Instance()->StopCapture();
 	}
 	/**
 	CalculateReport
@@ -176,7 +173,7 @@ namespace Biz {
 
 	DESCRIPTION
 
-		Simulate data capturing for unit  testing
+		Simulate data capturing for testing.
 	
 	INPUT
 	
@@ -193,7 +190,31 @@ namespace Biz {
 	*/
 	void BizFacade::SimulateCaptureData()
 	{
-		DalFacade::Instance()->DispatchCaptureData();
+		DalFacade::Instance()->SimulateCaptureData();
+	}
+	/**
+	StopSimulation
+
+	DESCRIPTION
+
+		Stop simulation of data capturing.
+	
+	INPUT
+	
+		none.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizFacade::StopSimulation(void)
+	{
+		return DalFacade::Instance()->StopSimulation();
 	}
 	/**
 	FindTonoData
@@ -221,12 +242,78 @@ namespace Biz {
 
 		return measurePWV->myTonoDataObserver->tonoDataBiz; 
 	}
+	/**
+	FindCuffPulse
+
+	DESCRIPTION
+
+		Find a cuff pulse data event in business logic context.
+	
+	INPUT
+	
+		none.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		BizCuffPulseEvent^ - Handle to cuff pulse data event in the business logic.
+	
+	*/
+	BizCuffPulseEvent^ BizFacade::FindCuffPulse() 
+	{ 
+		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
+
+		return measurePWV->myCuffPulseObserver->cuffPulseBiz; 
+	}
+	/**
+	SimulateCaptureOneShot
+
+	DESCRIPTION
+
+		Trigger one capture data event for testing.
+	
+	INPUT
+	
+		none.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/
 	void BizFacade::SimulateCaptureOneShot()
 	{
-		DalFacade::Instance()->DispatchCaptureOneShot();
+		DalFacade::Instance()->SimulateCaptureOneShot();
 	}
-	void BizFacade::DisplayCaptureData() 
+	/**
+	DispatchCaptureData
+
+	DESCRIPTION
+
+		Dispatch data captured in business logic for current measurement mode.
+	
+	INPUT
+	
+		none.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizFacade::DispatchCaptureData() 
 	{ 
-		BizSession::Instance()->DisplayCaptureData(); 
+		BizSession::Instance()->DispatchCaptureData(); 
 	}
 }

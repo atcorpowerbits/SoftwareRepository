@@ -11,8 +11,8 @@
 #pragma once
 
 //#include <string>
-#include "measure.h"
-#include "tonodata_observer.h"
+#include <measure.h>
+#include <data_capture.h>
 
 using namespace System;
 using namespace DataAccess;
@@ -52,8 +52,11 @@ namespace Biz {
 		bool ValidateFemoral2CuffDistance();
 
 		virtual bool StartCapture() override;
-		virtual void DisplayCaptureData() override;
-		property TonoDataObserverStub^ myTonoDataObserver; // TBD: remove after proof of concept
+		virtual bool StopCapture() override;
+		virtual void DispatchCaptureData() override;
+
+		property BizTonoDataCapture^ myTonoDataObserver;
+		property BizCuffPulseCapture^ myCuffPulseObserver;
 
 		property float meanDeltaTime;				// Mean pulse onset time difference (in ms) between pulse traces
 		property array<float>^ deltaTime;			// Pulse onset time difference (in ms) between pulse traces of each pulse

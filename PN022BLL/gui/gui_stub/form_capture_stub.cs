@@ -13,22 +13,19 @@ namespace gui
     public partial class form_capture_stub : Form
     {
         Biz.BizTonoDataEvent tonoData;
+        Biz.BizCuffPulseEvent cuffPulse;
 
         public form_capture_stub()
         {
             InitializeComponent();
             InitializeBackgoundWorker();
-
-            tonoData = Biz.BizFacade.Instance().FindTonoData(); // to observe Tonometer data from BLL
         }
 
         private void InitializeTimer()
         {
             //' Run this procedure in an appropriate event.
-            // Set to 1 second.
+            // Set interval in milliseconds.
             timer1.Interval = 20;
-            // Enable timer.
-            timer1.Enabled = true;
         }
 
         // Set up the BackgroundWorker object by 
@@ -47,21 +44,39 @@ namespace gui
 
         private void form_capture_stub_Load(object sender, EventArgs e)
         {
-    		// Attach as an observer to Tonometer data event update
-	    	tonoData.TonoDataEvent += new BizTonoDataEvent.BizTonoDataEventHandler( Update );
+            tonoData = Biz.BizFacade.Instance().FindTonoData(); // to observe Tonometer data from BLL
+            cuffPulse = Biz.BizFacade.Instance().FindCuffPulse(); // to observe cuff pulse data from BLL
+
+            // Attach the handler to observe tonometer data event from Biz
+	    	tonoData.TonoDataEvent += new BizTonoDataEvent.BizTonoDataEventHandler( UpdateTonoData );
+
+            // Attach the handler to observe cuff pulse event from Biz
+            cuffPulse.CuffPulseEvent += new BizCuffPulseEvent.BizCuffPulseEventHandler(UpdateCuffPulse);
+
             buttonCancel.Enabled = false;
+
+            // Initialize the timer to dispatch captured data
+            InitializeTimer();
+
+            // Start the dispatch timer.
+            timer1.Enabled = true;
         }
 
-        private void Update( Object sender, BizTonoDataArgs e )
+        private void UpdateTonoData( Object sender, BizTonoDataArgs e )
         {
             int data = e.data;
             listBoxTonoData.Items.Add(data.ToString());
         }
 
+        private void UpdateCuffPulse(Object sender, BizCuffPulseArgs e)
+        {
+            int data = e.data;
+            listBoxCuffPulse.Items.Add(data.ToString());
+        }
+
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-
 /*
             while (!worker.CancellationPending)
             {
@@ -77,22 +92,15 @@ namespace gui
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Biz.BizFacade.Instance().DisplayCaptureData();
-//?            MessageBox.Show("background worker progess", "caption", MessageBoxButtons.OK);
+            Biz.BizFacade.Instance().DispatchCaptureData();
         }
 
         private void buttonCapture_Click(object sender, EventArgs e)
         {
-            Biz.BizFacade.Instance().SimulateCaptureData();
-
-/*
-            // Start the asynchronous operation.
-            backgroundWorker1.RunWorkerAsync();
-*/
-
             listBoxTonoData.Items.Clear();
+            listBoxCuffPulse.Items.Clear();
 
-            InitializeTimer();
+            Biz.BizFacade.Instance().SimulateCaptureData();
 
             // Enable the Cancel button.
             buttonCancel.Enabled = true;
@@ -103,19 +111,15 @@ namespace gui
             // Cancel the asynchronous operation.
             this.backgroundWorker1.CancelAsync();
 
-            Biz.BizFacade.Instance().StopCapture();
+            Biz.BizFacade.Instance().StopSimulation();
             
             // Disable the Cancel button.
             buttonCancel.Enabled = false;
-
-            // Disable timer.
-            timer1.Enabled = false;
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Biz.BizFacade.Instance().DisplayCaptureData();
+            Biz.BizFacade.Instance().DispatchCaptureData();
         }
     }
 }

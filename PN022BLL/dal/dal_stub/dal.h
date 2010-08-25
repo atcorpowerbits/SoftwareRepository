@@ -17,6 +17,8 @@ namespace DataAccess {
 		static const unsigned int CONFIG_MODULE_CAPABILITY = 2;
 		static const unsigned int CONFIG_MODULE_SN = 3;
 		static const unsigned int CONFIG_MAIN_FW_VERSION = 4;
+
+		static const unsigned int DATA_SAMPLING_INTERVAL = 4; // in msec
 	};
 }
 

@@ -30,8 +30,9 @@ namespace DataAccess {
 //???		friend class DalModuleCommandState;
 		void ChangeState(DalModuleCommandState^ s);
 //?		DalModuleCommand^ command;
-		static System::Timers::Timer^ aTimer;
+		static System::Timers::Timer^ simulateTimer;
 		void Simulate(unsigned int captureDataType);
+		void StopSimulation();
 		static DalModule^ Instance();
 		static DalSimulationFile^ dataFile;
 	private:
@@ -42,7 +43,7 @@ namespace DataAccess {
 
 		// Specify what you want to happen when the Elapsed event is 
 		// raised.
-		static void OnTimedEvent( Object^ source, ElapsedEventArgs^ e );
+		static void OnPWVTimedEvent( Object^ source, ElapsedEventArgs^ e );
 	};
 
 	public ref class DalModuleCommand abstract

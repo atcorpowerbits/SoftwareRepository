@@ -9,7 +9,8 @@
 */
 
 #include "StdAfx.h"
-#include "dal_module_cmd_stub.h"
+#include <dal.h>
+#include <dal_module_cmd_stub.h>
 
 namespace DataAccess {
 	void DalModuleCommandState::ChangeState(DalModule^ const m, DalModuleCommandState^ %s)
@@ -81,7 +82,6 @@ namespace DataAccess {
 
 	DalModule::DalModule(void) 
 	{
-		captureQueue = gcnew Queue<int>();
 		_state = DalMeterIdle::Instance();
 	}
 	DalModule^ DalModule::Instance()
@@ -119,7 +119,6 @@ namespace DataAccess {
 			stopOK = true;
 		}
 */
-		aTimer->Enabled = false; // stop simulation
 		stopOK = true; // stub
 		return stopOK;
 	}
@@ -131,33 +130,43 @@ namespace DataAccess {
 		// KeepAlive must be used to prevent the JIT compiler 
 		// from allowing aggressive garbage collection to occur 
 		// before the method ends. (See end of method.)
-		//System::Timers::Timer^ aTimer;
+		//System::Timers::Timer^ simulateTimer;
 
 		// Create a new Timer with Interval set in milliseconds.
-		aTimer = gcnew Timer ( 10000 );
+		// e.g. ~4 ms for 256 samples/sec
+		simulateTimer = gcnew Timer (4);
 
 		// Hook up the Elapsed event for the timer.
-		aTimer->Elapsed += gcnew ElapsedEventHandler( &DalModule::OnTimedEvent );
-
-		dataFile = gcnew DalSimulationFile("c:\\projects\\pn022bll\\dal\\dal_stub\\pwv.dat");
+		switch (captureDataType)
+		{
+		case DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO:
+			simulateTimer->Elapsed += gcnew ElapsedEventHandler( &DalModule::OnPWVTimedEvent );
+			dataFile = gcnew DalSimulationFile("c:\\projects\\pn022bll\\dal\\dal_stub\\pwv.dat");
+			break;
+		default:
+			return; // nothing to simulate
+		}
 		dataFile->OpenFile();
 
-		// Set the Interval in milliseconds.
-		aTimer->Interval = 1000;
-		aTimer->Enabled = true;
+		simulateTimer->Enabled = true;
 
 		// If the timer is declared in a long-running method, use
 		// KeepAlive to prevent garbage collection from occurring
 		// before the method ends.
-		//GC::KeepAlive(aTimer);
+		//GC::KeepAlive(simulateTimer);
 	}
-	void DalModule::OnTimedEvent( Object^ source, ElapsedEventArgs^ e )
+	void DalModule::OnPWVTimedEvent( Object^ source, ElapsedEventArgs^ e )
 	{
 		short tonoData;
 		short cuffData;
 
-//		Console::WriteLine( "The Elapsed event was raised at {0}", e->SignalTime );
 		DalModule::Instance()->dataFile->GetNextValueFromFile(&tonoData, &cuffData);
 		DalTonometerStub::Instance()->tonoDataRaw->Notify(tonoData);
+		DalCuffStub::Instance()->cuffPulseRaw->Notify(cuffData);
+	}
+	void DalModule::StopSimulation()
+	{
+		simulateTimer->Enabled = false; // stop simulation
+		dataFile->CloseFile();
 	}
 }

@@ -29,15 +29,44 @@ namespace Biz {
 	public ref class BizTonoDataEvent
 	{
 	public:
-	   // Events are handled with delegates, so we must establish a DalTonoDataHandler
+	   // Events are handled with delegates, so we must establish a handler
 	   // as a delegate:
 	   delegate void BizTonoDataEventHandler(Object^ sender, BizTonoDataArgs^ args );
 
-	   // Now, create a public event whose type is our TonoDataEventHandler delegate. 
+	   // Now, create a public event whose type is our handler delegate. 
 	   event BizTonoDataEventHandler^ TonoDataEvent;
 
-	   // This will be the starting point of our event-- it will create BizTonoDataArgs,
-	   // and then raise the event, passing BizTonoDataArgs. 
+	   // This will be the starting point of our event-- it will create data args,
+	   // and then raise the event, passing the args. 
 	   void Notify( unsigned int data );
+
+	};
+
+	// BizCuffPulseArgs: a custom event inherited from EventArgs.
+	public ref class BizCuffPulseArgs: public EventArgs
+	{
+	public:
+	   BizCuffPulseArgs( unsigned short data )
+	   {
+		  this->data = data;
+	   }
+	   unsigned short data;
+	};
+
+	// Class with a function that creates the eventargs and initiates the event
+	public ref class BizCuffPulseEvent
+	{
+	public:
+	   // Events are handled with delegates, so we must establish a handler
+	   // as a delegate:
+	   delegate void BizCuffPulseEventHandler(Object^ sender, BizCuffPulseArgs^ args );
+
+	   // Now, create a public event whose type is our handler delegate. 
+	   event BizCuffPulseEventHandler^ CuffPulseEvent;
+
+	   // This will be the starting point of our event-- it will create data args,
+	   // and then raise the event, passing the args. 
+	   void Notify( unsigned int data );
+
 	};
 }

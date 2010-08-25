@@ -31,8 +31,13 @@ namespace Biz {
 		//TBD: check if a measurement can start
 		return measurement->StartCapture();
 	}
-	void BizSession::DisplayCaptureData(void)
+	bool BizSession::StopCapture(void)
 	{
-		return measurement->DisplayCaptureData();
+		//TBD: check if a measurement can stop
+		return measurement->StopCapture();
+	}
+	void BizSession::DispatchCaptureData(void)
+	{
+		return measurement->DispatchCaptureData();
 	}
 }

@@ -132,7 +132,8 @@ namespace Biz {
 	{
 	public:
 		virtual bool StartCapture();
-		virtual void DisplayCaptureData() {};
+		virtual bool StopCapture() { return false; };
+		virtual void DispatchCaptureData() {};
 
 	protected:
 		property String^        SystemId;

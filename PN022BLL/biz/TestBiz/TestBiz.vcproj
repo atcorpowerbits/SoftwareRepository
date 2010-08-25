@@ -194,12 +194,12 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\..\crx\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3887.27006, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="crx, Version=1.0.3889.28325, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\..\dal\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.3887.26957, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="dal, Version=1.0.3889.29074, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 	</References>
@@ -211,6 +211,10 @@
 			>
 			<File
 				RelativePath=".\AssemblyInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizCircularBufferTest.cpp"
 				>
 			</File>
 			<File
@@ -296,6 +300,10 @@
 		</Filter>
 		<File
 			RelativePath=".\AuthoringTests.txt"
+			>
+		</File>
+		<File
+			RelativePath=".\BizCircularBufferRead.csv"
 			>
 		</File>
 	</Files>

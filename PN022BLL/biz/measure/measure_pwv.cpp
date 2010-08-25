@@ -9,7 +9,7 @@
 */
 
 #include "StdAfx.h"
-#include "measure_pwv.h"
+#include <measure_pwv.h>
 
 using namespace CrossCutting;
 using namespace DataAccess;
@@ -51,9 +51,12 @@ namespace Biz {
 		// Instantiate BP object - default SP+DP
 		myBP = gcnew BizSPAndDP;
 
-		// TBD: remove after proof of concept
-		// Find the tonometer data in DAL to observe
-		myTonoDataObserver = gcnew TonoDataObserverStub(DalFacade::Instance()->FindTonoData());
+		// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
+		// TBD: Replace magic numbers: 20 sec capture time, 2 sec extra
+		myTonoDataObserver = gcnew BizTonoDataCapture(
+			gcnew BizCircularBuffer(1000 * (20 + 2) / DalConstants::DATA_SAMPLING_INTERVAL));
+		myCuffPulseObserver = gcnew BizCuffPulseCapture(
+			gcnew BizCircularBuffer(1000 * (20 + 2) / DalConstants::DATA_SAMPLING_INTERVAL));
 
 	}
 	/**
@@ -233,9 +236,14 @@ namespace Biz {
 	{
 		return DalFacade::Instance()->StartCapture(DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
 	}
-	void BizPWV::DisplayCaptureData()
+	bool BizPWV::StopCapture()
 	{
-		myTonoDataObserver->Display();
+		return DalFacade::Instance()->StopCapture();
+	}
+	void BizPWV::DispatchCaptureData()
+	{
+		myTonoDataObserver->Dispatch();
+		myCuffPulseObserver->Dispatch();
 	}
 	// Initialise properties
 	void BizPWV::Initialise(const int signalSampleRate)

@@ -39,19 +39,6 @@ namespace gui
             }
         }
 
-        private void stopCaptureToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            bool rc = Biz.BizFacade.Instance().StopCapture();
-            if (rc)
-            {
-                MessageBox.Show("Capture stopped successfully!!!");
-            }
-            else
-            {
-                MessageBox.Show("Capture stop failed???");
-            }
-        }
-
         private void calculateReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool rc = Biz.BizFacade.Instance().CalculateReport();

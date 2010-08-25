@@ -18,7 +18,6 @@ namespace DataAccess {
 	}
 	DalFacade::DalFacade(void)
 	{
-//?		meter = (DalTonometerStub^)gcnew DalTonometerStub;
 	}
 	DalTonoDataEvent^ DalFacade::FindTonoData() 
 	{ 
@@ -32,38 +31,40 @@ namespace DataAccess {
 	{
 		this->captureDataType = captureDataType;
 
-		return true; //stub
+		return true; 
 	}
 	bool DalFacade::StopCapture()
 	{
 		_module->StopCapture();
-		return true; //stub
+		return true; 
 	}
 	String^ DalFacade::GetFWConfig(unsigned int configType)
 	{
 		switch (configType)
 		{
 		case DalConstants::CONFIG_MODULE_TYPE:
-				return "EM4 (stub)"; //stub
+				return "EM4 (stub)"; 
 			case DalConstants::CONFIG_MODULE_CAPABILITY:
-				return "xxx (stub)"; //stub
+				return "xxx (stub)"; 
 			case DalConstants::CONFIG_MODULE_SN:
-				return "1234567890 (stub)"; //stub
+				return "1234567890 (stub)"; 
 			case DalConstants::CONFIG_MAIN_FW_VERSION:
-				return "0.1 (stub)"; //stub
+				return "0.1 (stub)"; 
 			default:
-				return "cannot get undefined config"; //stub
+				return "cannot get undefined config"; 
 		}
 	}
-	void DalFacade::DispatchCaptureOneShot() // stub?
+	void DalFacade::SimulateCaptureOneShot() 
 	{
-		DalTonometerStub::Instance()->tonoDataRaw->Notify(1234); // stub
+		DalTonometerStub::Instance()->tonoDataRaw->Notify(1234); 
+		DalCuffStub::Instance()->cuffPulseRaw->Notify(5678); 
 	}
-	void DalFacade::DispatchCaptureData() // stub?
+	void DalFacade::SimulateCaptureData() 
 	{
-//?		DalTonometerStub::Instance()->tonoDataRaw->Notify(1234); // stub
-//?		_meter->mainFWVersion->Notify("0.1");; //stub
-//?		DalTonometerStub::Instance()->Simulate();
 		_module->Simulate(captureDataType);
+	}
+	void DalFacade::StopSimulation() 
+	{
+		_module->StopSimulation();
 	}
 }

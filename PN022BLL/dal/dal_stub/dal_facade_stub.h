@@ -5,7 +5,7 @@
 using namespace System;
 
 namespace DataAccess {
-	// Some forward declaration
+	// Some forward declarations
 	ref class DalMeter; 
 	ref class DalModule; 
 	ref class DalTonoDataEvent;
@@ -18,10 +18,10 @@ namespace DataAccess {
 		bool StartCapture(unsigned int dataType);
 		bool StopCapture();
 		String^ GetFWConfig(unsigned int configType);
-		void DispatchCaptureData();
-		void DispatchCaptureOneShot();
+		void SimulateCaptureData();
+		void StopSimulation();
+		void SimulateCaptureOneShot();
 
-//?		DalMeter^ GetMeter() { return meter; };
 		DalTonoDataEvent^ FindTonoData();
 		DalCuffPulseEvent^ FindCuffPulse();
 
@@ -29,7 +29,6 @@ namespace DataAccess {
 		DalFacade(void);
 	private:
 		static DalFacade^ _instance;
-//?		DalMeter^ _meter;
 		DalModule^ _module;
 		unsigned int captureDataType;
 	};

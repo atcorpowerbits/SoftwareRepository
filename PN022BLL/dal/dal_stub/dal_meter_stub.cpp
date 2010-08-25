@@ -25,7 +25,7 @@ namespace DataAccess {
 		// The call must match the signature of FireEventHandler.
 		TonoDataEvent( this, tonoArgs );
 	}
-	void DalCuffPulseEvent::Notify( String^ data )
+	void DalCuffPulseEvent::Notify( unsigned short data )
 	{
 		DalCuffPulseArgs^ cuffPulseArgs = gcnew DalCuffPulseArgs( data );
 
@@ -58,7 +58,7 @@ namespace DataAccess {
 		}
 		return _instance;
 	}
-
+	   
 	DalCuffStub::DalCuffStub()
 	{
 		cuffPulseRaw = gcnew DalCuffPulseEvent;

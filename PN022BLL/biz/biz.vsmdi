@@ -33,6 +33,18 @@
       <TestLink id="5a190a28-1140-4e4a-f978-6399b992b706" name="PWVDistanceTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
     </TestLinks>
   </TestList>
+  <TestList name="BizCircularBuffer" id="e4b52e2b-8a34-4e3c-a36f-ae00a7caa6ed" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <TestLinks>
+      <TestLink id="e781d187-3b76-2b67-0227-6d95809c2307" name="BizCircularBufferConstructorTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="215eb3a3-26dd-ed84-810f-6b58f3d9fa88" name="StartCaptureTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="6426f0d2-2219-b632-8a5d-e24a0e4e2401" name="InstanceTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="f9415c66-7277-27e7-7062-59cf557369c4" name="~BizCircularBufferTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="ec13ea70-177f-3979-2cc3-281334687831" name="AppendTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="d2ae6251-64e2-9b94-156f-d8a4ebd4db55" name="ReadNextTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="0aabff9a-2511-907d-1514-720f321d6028" name="ResetTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="55469f24-15d9-b12a-ed29-680fa2ff530f" name="DisposeTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
   <TestList name="BizMath" id="f478a8eb-4087-4019-8f38-fcb371df0cc2" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
     <Description>Testing all the methods of the BizMath class</Description>
     <TestLinks>

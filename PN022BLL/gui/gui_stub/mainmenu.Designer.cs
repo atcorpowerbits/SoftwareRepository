@@ -31,7 +31,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.pwvCommandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startCaptureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopCaptureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulateCaptureDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculateReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +53,6 @@
             // 
             this.pwvCommandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startCaptureToolStripMenuItem,
-            this.stopCaptureToolStripMenuItem,
             this.simulateCaptureDataToolStripMenuItem,
             this.calculateReportToolStripMenuItem});
             this.pwvCommandToolStripMenuItem.Name = "pwvCommandToolStripMenuItem";
@@ -68,13 +66,6 @@
             this.startCaptureToolStripMenuItem.Text = "Start Capture";
             this.startCaptureToolStripMenuItem.Click += new System.EventHandler(this.startCaptureToolStripMenuItem_Click);
             // 
-            // stopCaptureToolStripMenuItem
-            // 
-            this.stopCaptureToolStripMenuItem.Name = "stopCaptureToolStripMenuItem";
-            this.stopCaptureToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.stopCaptureToolStripMenuItem.Text = "Stop Capture";
-            this.stopCaptureToolStripMenuItem.Click += new System.EventHandler(this.stopCaptureToolStripMenuItem_Click);
-            // 
             // simulateCaptureDataToolStripMenuItem
             // 
             this.simulateCaptureDataToolStripMenuItem.Name = "simulateCaptureDataToolStripMenuItem";
@@ -84,6 +75,7 @@
             // 
             // calculateReportToolStripMenuItem
             // 
+            this.calculateReportToolStripMenuItem.Enabled = false;
             this.calculateReportToolStripMenuItem.Name = "calculateReportToolStripMenuItem";
             this.calculateReportToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
             this.calculateReportToolStripMenuItem.Text = "Calculate Report";
@@ -100,7 +92,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -127,7 +119,6 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pwvCommandToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startCaptureToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopCaptureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculateReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simulateCaptureDataToolStripMenuItem;
     }

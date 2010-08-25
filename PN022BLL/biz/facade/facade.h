@@ -10,8 +10,8 @@
 
 #pragma once
 #include <string.h>
-#include "..\manager\info.h"
-#include "..\measure\measure_pwv.h" // temp for UT
+#include <info.h>
+#include <data_events.h>
 
 namespace Biz {
 	// A singleton to interface Business Logic Layer
@@ -22,10 +22,12 @@ namespace Biz {
 		bool StartCapture();
 		bool StopCapture();
 		void SimulateCaptureData();
-		void SimulateCaptureOneShot();
-		void DisplayCaptureData();
+		void StopSimulation();
+		void SimulateCaptureOneShot(); // simulate a single data capture
+		void DispatchCaptureData();
 		bool CalculateReport();
 		BizTonoDataEvent^ FindTonoData();
+		BizCuffPulseEvent^ FindCuffPulse();
 
 	protected:
 		BizFacade(void);

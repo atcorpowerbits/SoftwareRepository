@@ -37,8 +37,38 @@ namespace Biz {
 		BizTonoDataArgs^ tonoArgs = gcnew BizTonoDataArgs( data );
 
 		// Now, raise the event by invoking the delegate. Pass in 
-		// the object that initated the event (this) as well as BizTonoDataArgs. 
-		// The call must match the signature of BizTonoDataEventHandler.
+		// the object that initated the event (this) as well as data args. 
+		// The call must match the signature of the handler.
 		TonoDataEvent( this, tonoArgs );
+	}
+
+	/**
+	BizCuffPulseEvent::Notify
+
+	DESCRIPTION
+
+		Creates a tonometer data arguments and notifies the changes as an event to all observers.
+	
+	INPUT
+	
+		data - Tonometer data in business context
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizCuffPulseEvent::Notify( unsigned int data )
+	{
+		BizCuffPulseArgs^ cuffArgs = gcnew BizCuffPulseArgs( data );
+
+		// Now, raise the event by invoking the delegate. Pass in 
+		// the object that initated the event (this) as well as data args. 
+		// The call must match the signature of the handler.
+		CuffPulseEvent( this, cuffArgs );
 	}
 }
