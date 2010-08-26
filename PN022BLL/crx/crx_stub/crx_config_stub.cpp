@@ -52,6 +52,7 @@ namespace CrossCutting {
 	*/	
 	CrxConfigFacade::CrxConfigFacade(void)
 	{
+		PWVCaptureTime = 20; // stub to 20 sec
 	}
 	/** 
 	isPWVSubtractingMethod

@@ -23,6 +23,7 @@ namespace CrossCutting {
 	public:
 		static CrxConfigFacade^ CrxConfigFacade::Instance();
 		property bool PWVSubtractingMethod;
+		property unsigned short PWVCaptureTime;
 		bool isMetricsUnit();
 	protected:
 		CrxConfigFacade(void);

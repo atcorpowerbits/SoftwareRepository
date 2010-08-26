@@ -38,25 +38,29 @@ namespace Biz {
 	  AUDIT_NOF_FLAGS
 	} auditChangeType;
 
+	// Abstract height with validation
 	public ref class BizHeight abstract
 	{
 	public:
-		property unsigned int Height;
+		property unsigned short Height;
 	public:
 		virtual bool Validate() = 0;
 	};
+	// Height in cm with validation
 	public ref class BizHeightCM : BizHeight
 	{
 	public:
 		BizHeightCM(void) {};
 		virtual bool Validate() override;
 	};
+	// Height in inches with validation
 	public ref class BizHeightInch : BizHeight
 	{
 	public:
 		BizHeightInch(void) {};
 		virtual bool Validate() override;
 	};
+	// Abstract weight with validation
 	public ref class BizWeight abstract
 	{
 	public:
@@ -64,18 +68,21 @@ namespace Biz {
 	public:
 		virtual bool Validate() = 0;
 	};
+	// Weight in kilograms with validation
 	public ref class BizWeightKG : BizWeight
 	{
 	public:
 		BizWeightKG(void) {};
 		virtual bool Validate() override;
 	};
+	// Weight in pounds with validation
 	public ref class BizWeightLB : BizWeight
 	{
 	public:
 		BizWeightLB(void) {};
 		virtual bool Validate() override;
 	};
+	// Abstract blood pressure reading with validation
 	public ref class BizPressureReading abstract
 	{
 	public:
@@ -83,24 +90,28 @@ namespace Biz {
 	public:
 		virtual bool Validate();
 	};
+	// Systolic blood pressure reading with validation
 	public ref class BizSP : BizPressureReading
 	{
 	public:
 		virtual bool Validate() override;
 		BizSP(void){};
 	};
+	// Diastolic blood pressure reading with validation
 	public ref class BizDP : BizPressureReading
 	{
 	public:
 		virtual bool Validate() override;
 		BizDP(void){};
 	};
+	// Mean blood pressure reading with validation
 	public ref class BizMP : BizPressureReading
 	{
 	public:
 		virtual bool Validate() override;
 		BizMP(void){};
 	};
+	// Abstract blood pressure measurement with validation
 	public ref class BizBloodPressure abstract
 	{
 	protected:
@@ -110,28 +121,32 @@ namespace Biz {
 	public:
 		virtual bool Validate() = 0;
 	};
+	// Blood pressure measurement in SP & DP with validation
 	public ref class BizSPAndDP : BizBloodPressure
 	{
 	public:
 		BizSPAndDP(void) {};
 		virtual bool Validate() override;
 	};
+	// Blood pressure measurement in MP & DP with validation
 	public ref class BizMPAndDP : BizBloodPressure
 	{
 	public:
 		BizMPAndDP(void) {};
 		virtual bool Validate() override;
 	};
+	// Blood pressure measurement in SP & MP with validation
 	public ref class BizSPAndMP : BizBloodPressure
 	{
 	public:
 		BizSPAndMP(void) {};
 		virtual bool Validate() override;
 	};
+	// Abstract measurement
 	public ref class BizMeasure abstract
 	{
 	public:
-		virtual bool StartCapture();
+		virtual bool StartCapture() { return false; };
 		virtual bool StopCapture() { return false; };
 		virtual void DispatchCaptureData() {};
 

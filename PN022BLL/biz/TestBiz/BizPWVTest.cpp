@@ -73,8 +73,8 @@ namespace TestBiz {
 				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
 				unsigned short expected = USHRT_MAX; // TODO: Initialize to an appropriate value
 				unsigned short actual;
-				target->PWVDistance = expected;
-				actual = target->PWVDistance;
+				target->myPWVDirectDistance->distance = expected;
+				actual = target->myPWVDirectDistance->distance;
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
@@ -86,8 +86,8 @@ namespace TestBiz {
 				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
 				unsigned short expected = USHRT_MAX; // TODO: Initialize to an appropriate value
 				unsigned short actual;
-				target->Femoral2CuffDistance = expected;
-				actual = target->Femoral2CuffDistance;
+				target->myFemoral2CuffDistance->distance = expected;
+				actual = target->myFemoral2CuffDistance->distance;
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
@@ -99,8 +99,8 @@ namespace TestBiz {
 				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
 				unsigned short expected = USHRT_MAX; // TODO: Initialize to an appropriate value
 				unsigned short actual;
-				target->CuffDistance = expected;
-				actual = target->CuffDistance;
+				target->myCuffDistance->distance = expected;
+				actual = target->myCuffDistance->distance;
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
@@ -112,8 +112,8 @@ namespace TestBiz {
 				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
 				unsigned short expected = USHRT_MAX; // TODO: Initialize to an appropriate value
 				unsigned short actual;
-				target->CarotidDistance = expected;
-				actual = target->CarotidDistance;
+				target->myCarotidDistance->distance = expected;
+				actual = target->myCarotidDistance->distance;
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
@@ -127,9 +127,9 @@ namespace TestBiz {
 				bool expected = Convert::ToBoolean(testContextInstance->DataRow["Expected"]); // TODO: Initialize to an appropriate value
 				bool actual;
 				CrxConfigFacade::Instance()->PWVSubtractingMethod = Convert::ToBoolean(testContextInstance->DataRow["Method"]);
-				target->CarotidDistance = Convert::ToUInt16(testContextInstance->DataRow["Carotid"]);
-				target->CuffDistance = Convert::ToUInt16(testContextInstance->DataRow["Cuff"]);
-				target->PWVDistance = Convert::ToUInt16(testContextInstance->DataRow["PWVDist"]);
+				target->myCarotidDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Carotid"]);
+				target->myCuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Cuff"]);
+				target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["PWVDist"]);
 				actual = target->ValidatePWVDistance();
 				Assert::AreEqual(expected, actual);
 			}
@@ -142,7 +142,7 @@ namespace TestBiz {
 				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
 				bool expected = false; // TODO: Initialize to an appropriate value
 				bool actual;
-				actual = target->ValidateFemoral2CuffDistance();
+				actual = target->myFemoral2CuffDistance->Validate();
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>

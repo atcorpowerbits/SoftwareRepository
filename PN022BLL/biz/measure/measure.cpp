@@ -12,17 +12,75 @@
 #include "Measure.h"
 
 namespace Biz {
+	/**
+	Initialise
+
+	DESCRIPTION
+
+		Initialise for ???
+	
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	void BizMeasure::Initialise()
 	{
 	}
+	/**
+	ValidateBeforeStore
+
+	DESCRIPTION
+
+		Validate before store ???
+	
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizMeasure::ValidateBeforeStore()
 	{
 		return true;
 	}
-	bool BizMeasure::StartCapture()
-	{
-		return false;
-	}
+	/**
+	Validate
+
+	DESCRIPTION
+
+		Validate the height object is within the valid range in centimeters.
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		true - Height is valid.
+	
+		false - Height is not valid.
+	
+	*/		
 	bool BizHeightCM::Validate()
 	{
 		bool isValid;
@@ -36,6 +94,26 @@ namespace Biz {
 		}
 		return isValid;
 	}
+	/**
+	xyz
+
+	DESCRIPTION
+
+		xyz
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizHeightInch::Validate()
 	{
 		bool isValid;
@@ -50,6 +128,26 @@ namespace Biz {
 		}
 		return isValid;
 	}
+	/**
+	xyz
+
+	DESCRIPTION
+
+		xyz
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizWeightKG::Validate()
 	{
 		bool isValid;
@@ -63,6 +161,26 @@ namespace Biz {
 		}
 		return isValid;
 	}
+	/**
+	xyz
+
+	DESCRIPTION
+
+		xyz
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizWeightLB::Validate()
 	{
 		bool isValid;
@@ -76,6 +194,26 @@ namespace Biz {
 		}
 		return isValid;
 	}
+	/**
+	xyz
+
+	DESCRIPTION
+
+		xyz
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizPressureReading::Validate()
 	{
 		bool isValid;
@@ -88,6 +226,26 @@ namespace Biz {
 		}
 		return isValid;
 	}
+	/**
+	xyz
+
+	DESCRIPTION
+
+		xyz
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizSP::Validate()
 	{
 		bool isValid;
@@ -100,6 +258,26 @@ namespace Biz {
 		}
 		return isValid;
 	}
+	/**
+	xyz
+
+	DESCRIPTION
+
+		xyz
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizDP::Validate()
 	{
 		bool isValid;
@@ -112,6 +290,26 @@ namespace Biz {
 		}
 		return isValid;
 	}
+	/**
+	xyz
+
+	DESCRIPTION
+
+		xyz
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizMP::Validate()
 	{
 		bool isValid;
@@ -124,6 +322,26 @@ namespace Biz {
 		}
 		return isValid;
 	}
+	/**
+	xyz
+
+	DESCRIPTION
+
+		xyz
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizSPAndDP::Validate()
 	{
 		bool isValid;
@@ -143,6 +361,26 @@ namespace Biz {
 		}
 		return isValid;
 	}
+	/**
+	xyz
+
+	DESCRIPTION
+
+		xyz
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizMPAndDP::Validate()
 	{
 		bool isValid;
@@ -162,6 +400,26 @@ namespace Biz {
 		}
 		return isValid;
 	}
+	/**
+	xyz
+
+	DESCRIPTION
+
+		xyz
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	bool BizSPAndMP::Validate()
 	{
 		bool isValid;

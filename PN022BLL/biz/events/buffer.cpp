@@ -9,7 +9,7 @@
 */
 
 #include "StdAfx.h"
-#include "buffer.h"
+#include <buffer.h>
 
 namespace Biz {
 	/**
@@ -17,7 +17,7 @@ namespace Biz {
 
 	DESCRIPTION
 
-		Constructor for Buffer abstract strategy
+		Constructor for circular buffer strategy
 	
 	INPUT
 	
@@ -34,69 +34,120 @@ namespace Biz {
 	*/
 	BizCircularBuffer::BizCircularBuffer(unsigned int bufferSize)
 	{
-		this->bufferSize = bufferSize;
+		this->_bufferSize = bufferSize;
 		_buffer = gcnew array<unsigned short>(bufferSize);
 	}
 
+	/**
+	Append
+
+	DESCRIPTION
+
+		Append data at the end of the circular buffer.
+	
+	INPUT
+	
+		data - Data to be appended.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		true - Data is appended successfully.
+
+		false - Data is not appended.
+
+	*/
 	bool BizCircularBuffer::Append(unsigned short data)
 	{
 		// Should be thread safe
-		lockData.WaitOne();
-		if (endBuffer == bufferSize) 
+		_lockData.WaitOne();
+		if (_endBuffer == _bufferSize) 
 		{
-			endBuffer = 0;
+			// Wrap the end pointer
+			_endBuffer = 0;
 		}
-		_buffer[endBuffer++] = data;
-		if (endBuffer == startBuffer) 
+		_buffer[_endBuffer++] = data;
+		if (_endBuffer == _startBuffer) 
 		{
+			// Circular buffer is full.
 			// Rotate the buffer 
 			// and wrap if necessary
-			startBuffer++;
-			if (startBuffer == bufferSize)
+			_startBuffer++;
+			if (_startBuffer == _bufferSize)
 			{
-				startBuffer = 0;
+				// Wrap the start pointer
+				_startBuffer = 0;
 			}
 		}
-		lockData.ReleaseMutex();
+		_lockData.ReleaseMutex();
 
 		// Always successful to append to a circular buffer
 		return true;
 	}
 
+	/**
+	ReadNext
+
+	DESCRIPTION
+
+		Read one data from the circular buffer and
+		advance the read pointer for next read.
+	
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		data - Data handle where one data is copied into.
+	
+	RETURN
+	
+		true - One data is read.
+
+		false - There's no new data to read.
+
+	*/
 	bool BizCircularBuffer::ReadNext(unsigned short^ data)
 	{
+		bool isRead = false;
 		int unreadData;
 
 		// Should be thread safe
-		lockData.WaitOne();
-		unreadData = endBuffer - nextToRead;
+		_lockData.WaitOne();
+		unreadData = _endBuffer - _nextToRead;
+
 		// Adjust the unreadData when the end point has wrapped, 
 		// i.e. negative unreadData
 		if (unreadData < 0)
 		{
-			unreadData += bufferSize;
+			unreadData += _bufferSize;
 		}
 		if (unreadData > 0)
 		{
-			*data = _buffer[nextToRead++];
+			*data = _buffer[_nextToRead++];
+			isRead = true;
 			// Wrap the next read point if necessary
-			if (nextToRead == bufferSize)
+			if (_nextToRead == _bufferSize)
 			{
-				nextToRead = 0;
+				_nextToRead = 0;
 			}
 		}
-		lockData.ReleaseMutex();
-		return (unreadData > 0);
+		_lockData.ReleaseMutex();
+		return isRead;
 	}
 
 	void BizCircularBuffer::Reset()
 	{
 		// Should be thread safe
-		lockData.WaitOne();
-		startBuffer = 0;
-		endBuffer = 0;
-		nextToRead = 0;
-		lockData.ReleaseMutex();
+		_lockData.WaitOne();
+		_startBuffer = 0;
+		_endBuffer = 0;
+		_nextToRead = 0;
+		_lockData.ReleaseMutex();
 	}
 }
 

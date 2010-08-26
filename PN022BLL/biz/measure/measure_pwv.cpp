@@ -16,6 +16,146 @@ using namespace DataAccess;
 
 namespace Biz {
 	/**
+	ValidateFemoral2CuffDistance
+
+	DESCRIPTION
+
+		Validate Femoral to Cuff Distance which should be between min and max.
+	
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		true  - Femoral to Cuff Distanceis valid.
+	
+		false - Femoral to Cuff Distance not valid.
+	
+	*/		
+	bool BizFemoral2CuffDistance::Validate()
+	{
+		bool isValid = false;
+
+		if (distance >= PWV_FEM2CUFF_MIN && distance <= PWV_FEM2CUFF_MAX)
+		{
+			isValid = true;
+		} else
+		{
+			//TBD: Inform user "Femoral to Cuff distance not within the valid range between ... cm and ... cm"
+		}
+		return isValid;
+	}
+	/**
+	Validate
+
+	DESCRIPTION
+
+		Validate PWV Carotid Distance.
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		true  - PWV Carotid Distance is valid.
+	
+		false - PWV Carotid Distance is not valid.
+	
+	*/
+	bool BizCarotidDistance::Validate()
+	{
+		bool isValid = false;
+
+		if (distance >= PWV_DISTANCE_MIN && distance <= PWV_DISTANCE_MAX)
+		{
+			isValid = true;
+		} else
+		{
+			//TBD: Inform user "Carotid distance is not within the valid range between ... cm and ... cm"
+		}
+		return isValid;
+	}
+	/**
+	Validate
+
+	DESCRIPTION
+
+		Validate PWV Cuff Distance.
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		true  - PWV Cuff Distance is valid.
+	
+		false - PWV Cuff Distance is not valid.
+	
+	*/
+	bool BizCuffDistance::Validate()
+	{
+		bool isValid = false;
+
+		if (distance >= PWV_DISTANCE_MIN && distance <= PWV_DISTANCE_MAX)
+		{
+			isValid = true;
+		} else
+		{
+			//TBD: Inform user "Cuff distance is not within the valid range between ... cm and ... cm"
+		}
+		return isValid;
+	}
+	/**
+	Validate
+
+	DESCRIPTION
+
+		Validate PWV Direct Distance.
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		true  - PWV Direct Distance is valid.
+	
+		false - PWV Direct Distance is not valid.
+	
+	*/
+	bool BizPWVDirectDistance::Validate()
+	{
+		bool isValid = false;
+
+		if (distance >= PWV_DISTANCE_MIN && distance <= PWV_DISTANCE_MAX)
+		{
+			isValid = true;
+		} else
+		{
+			//TBD: Inform user "PWV direct distance is not within the valid range between ... cm and ... cm"
+		}
+		return isValid;
+	}
+	/**
 	BizPWV
 
 	DESCRIPTION
@@ -51,66 +191,30 @@ namespace Biz {
 		// Instantiate BP object - default SP+DP
 		myBP = gcnew BizSPAndDP;
 
+		// Instantiate some PWV distance objects
+		myCarotidDistance = gcnew BizCarotidDistance;
+		myCuffDistance = gcnew BizCuffDistance;
+		myPWVDirectDistance = gcnew BizPWVDirectDistance;
+		myFemoral2CuffDistance = gcnew BizFemoral2CuffDistance;
+
 		// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
 		// TBD: Replace magic numbers: 20 sec capture time, 2 sec extra
 		myTonoDataObserver = gcnew BizTonoDataCapture(
-			gcnew BizCircularBuffer(1000 * (20 + 2) / DalConstants::DATA_SAMPLING_INTERVAL));
+			gcnew BizCircularBuffer(1000 * 
+			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 2) / 
+									DalConstants::DATA_SAMPLING_INTERVAL));
 		myCuffPulseObserver = gcnew BizCuffPulseCapture(
-			gcnew BizCircularBuffer(1000 * (20 + 2) / DalConstants::DATA_SAMPLING_INTERVAL));
+			gcnew BizCircularBuffer(1000 * 
+			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 2) / 
+									DalConstants::DATA_SAMPLING_INTERVAL));
 
-	}
-	/**
-	ValidateFemoral2CuffDistance
-
-	DESCRIPTION
-
-		Validate Femoral to Cuff Distance which should be between min and max.
-	
-	INPUT
-	
-		None.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		true  - Femoral to Cuff Distanceis valid.
-	
-		false - Femoral to Cuff Distance not valid.
-	
-	*/		
-	bool BizPWV::ValidateFemoral2CuffDistance()
-	{
-		bool isValid;
-
-		if (Femoral2CuffDistance >= PWV_FEM2CUFF_MIN && Femoral2CuffDistance <= PWV_FEM2CUFF_MAX)
-		{
-			isValid = true;
-		} else
-		{
-			//TBD: Inform user "Femoral to Cuff distance not within the valid range between ... cm and ... cm"
-			isValid = false;
-		}
-		return isValid;
 	}
 	/**
 	ValidatePWVDistance
 
 	DESCRIPTION
 
-		Validate PWV Distance with respect to the Distance Method used.
-
-		For subtracting distance method, validate:
-
-			Carotid Distance
-
-			Cuff Distance
-
-		For direct distance method, validate:
-
-			PWV Distance
+		Validate PWV distance with respect to calculation method used.
 	
 	INPUT
 	
@@ -122,11 +226,11 @@ namespace Biz {
 	
 	RETURN
 	
-		true  - PWV Distance is valid.
+		true  - PWV distance is valid for the selected method.
 	
-		false - PWV Distance is not valid.
-	
-	*/
+		false - PWV distance is not valid for the selected method.
+		
+	*/	
 	bool BizPWV::ValidatePWVDistance()
 	{
 		bool isValid = false;
@@ -134,26 +238,10 @@ namespace Biz {
 		// TBD: check PWV distance method
 		if (CrxConfigFacade::Instance()->PWVSubtractingMethod)
 		{
-			if (!(CarotidDistance >= PWV_DISTANCE_MIN && CarotidDistance <= PWV_DISTANCE_MAX))
-			{
-				//TBD: Inform user "Carotid distance is not within the valid range between ... cm and ... cm"
-				isValid = false;
-			} else if (!(CuffDistance >= PWV_DISTANCE_MIN && CuffDistance <= PWV_DISTANCE_MAX))
-			{
-				//TBD: Inform user "Cuff distance is not within the valid range between ... cm and ... cm"
-				isValid = false;
-
-			} else
-			{
-				isValid = true;
-			}
-		} else if (!(PWVDistance >= PWV_DISTANCE_MIN && PWVDistance <= PWV_DISTANCE_MAX))
-		{
-				//TBD: Inform user "PWV distance is not within the valid range between ... cm and ... cm"
-				isValid = false;
+			isValid = myCarotidDistance->Validate() && myCuffDistance->Validate();
 		} else
 		{
-				isValid = true;
+			isValid = myPWVDirectDistance->Validate();
 		}
 		return isValid;
 	}
@@ -200,7 +288,7 @@ namespace Biz {
 		} else if (!ValidatePWVDistance())
 		{
 			isValid = false;
-		} else if (!ValidateFemoral2CuffDistance())
+		} else if (!myFemoral2CuffDistance->Validate())
 		{
 			isValid = false;
 		} else 
@@ -210,12 +298,12 @@ namespace Biz {
 		return isValid;
 	}
 	/**
-
 	StartCapture
 
 	DESCRIPTION
 
 		Start capturing PWV measurement data.
+		Data buffers are reset before capturing starts.
 	
 	INPUT
 	
@@ -227,19 +315,68 @@ namespace Biz {
 	
 	RETURN
 	
-		true  - PWV capture started successful.
+		true  - PWV capture started successfully.
 	
 		false - PWV capture failed to start.
 	
 	*/		
 	bool BizPWV::StartCapture()
 	{
+		myTonoDataObserver->Reset();
+		myCuffPulseObserver->Reset();
 		return DalFacade::Instance()->StartCapture(DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
 	}
+	/**
+	StopCapture
+
+	DESCRIPTION
+
+		Stop capturing PWV measurement data.
+	
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		true  - PWV capture stopped successfully.
+	
+		false - PWV capture failed to stop.
+	
+	*/		
 	bool BizPWV::StopCapture()
 	{
 		return DalFacade::Instance()->StopCapture();
 	}
+	/**
+	DispatchCaptureData
+
+	DESCRIPTION
+
+		Dispatch PWV measurement data which may have been observed (captured).
+		PWV measurement data inclucde:
+		-Tonometer data
+		-Cuff pulse data
+		-Cuff pressure data
+		-Count down timer
+
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/		
 	void BizPWV::DispatchCaptureData()
 	{
 		myTonoDataObserver->Dispatch();

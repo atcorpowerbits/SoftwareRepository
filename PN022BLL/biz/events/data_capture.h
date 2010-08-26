@@ -11,17 +11,18 @@ namespace Biz {
 	public ref class BizCapture abstract
 	{
 	public:
+		virtual void Reset() { _buffer->Reset(); };
 		virtual void Dispatch() {};
 
 	protected:
-		bool gotData;
+/*		bool gotData;
 		Mutex lockData;
 		unsigned short dataCaptured;
 		unsigned short bufferLength;
 		unsigned short startBuffer;
 		unsigned short endBuffer;
 		unsigned short nextToDispatch;
-
+*/
 		BizBuffer^ _buffer;
 	};
 

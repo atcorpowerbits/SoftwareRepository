@@ -10,7 +10,6 @@
 
 #pragma once
 
-//#include <string>
 #include <measure.h>
 #include <data_capture.h>
 
@@ -34,22 +33,49 @@ namespace Biz {
 		bool isValid;	// Pulse wave velocity is valid/invalid
 	} BizDelta;*/
 
+	// Abstract distance with validation
 	public ref class BizDistance abstract
 	{
 	public:
-		property unsigned short Distance;
+		virtual bool Validate() = 0;
+		property unsigned short distance;
 	};
+	// Carotid distance with validation
+	public ref class BizCarotidDistance : BizDistance
+	{
+	public:
+		virtual bool Validate() override;
+	};
+	// Cuff distance with validation
+	public ref class BizCuffDistance : BizDistance
+	{
+	public:
+		virtual bool Validate() override;
+	};
+	// Femoral to cuff distance with validation
+	public ref class BizFemoral2CuffDistance : BizDistance
+	{
+	public:
+		virtual bool Validate() override;
+	};
+	// PWV direct distance with validation
+	public ref class BizPWVDirectDistance : BizDistance
+	{
+	public:
+		virtual bool Validate() override;
+	};
+	// PWV Measurement
 	public ref class BizPWV : BizMeasure
 	{
 	public:
 
-		property unsigned short CarotidDistance;
-		property unsigned short CuffDistance;
-		property unsigned short Femoral2CuffDistance;
-		property unsigned short PWVDistance;
+		property BizCarotidDistance^ myCarotidDistance;
+		property BizCuffDistance^ myCuffDistance;
+		property BizFemoral2CuffDistance^ myFemoral2CuffDistance;
+		property BizPWVDirectDistance^ myPWVDirectDistance;
 
+		// Validate PWV distance with respect to calculation method used
 		bool ValidatePWVDistance();
-		bool ValidateFemoral2CuffDistance();
 
 		virtual bool StartCapture() override;
 		virtual bool StopCapture() override;

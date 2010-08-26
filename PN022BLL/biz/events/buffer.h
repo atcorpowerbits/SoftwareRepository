@@ -23,7 +23,7 @@ namespace Biz {
 		virtual bool ReadNext(unsigned short^ data) { return false; };
 		virtual void Reset() {};
 	protected:
-		property unsigned int bufferSize;
+		property unsigned int _bufferSize;
 	};
 
 	public ref class BizCircularBuffer : BizBuffer
@@ -35,10 +35,10 @@ namespace Biz {
 		virtual void Reset() override;
 	private:
 		array<unsigned short>^ _buffer;
-		Mutex lockData;
-		unsigned short startBuffer;
-		unsigned short endBuffer;
-		unsigned short nextToRead;
+		Mutex _lockData;
+		unsigned short _startBuffer;
+		unsigned short _endBuffer;
+		unsigned short _nextToRead;
 	};
 }
 
