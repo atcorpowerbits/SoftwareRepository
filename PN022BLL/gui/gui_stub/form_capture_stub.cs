@@ -14,6 +14,7 @@ namespace gui
     {
         Biz.BizTonoDataEvent tonoData;
         Biz.BizCuffPulseEvent cuffPulse;
+        Biz.BizCountdownEvent countdownData;
 
         public form_capture_stub()
         {
@@ -44,14 +45,18 @@ namespace gui
 
         private void form_capture_stub_Load(object sender, EventArgs e)
         {
-            tonoData = Biz.BizFacade.Instance().FindTonoData(); // to observe Tonometer data from BLL
-            cuffPulse = Biz.BizFacade.Instance().FindCuffPulse(); // to observe cuff pulse data from BLL
+            tonoData = Biz.BizFacade.Instance().FindTonoDataEvent(); // to observe tonometer data from BLL
+            cuffPulse = Biz.BizFacade.Instance().FindCuffPulseEvent(); // to observe cuff pulse data from BLL
+            countdownData = Biz.BizFacade.Instance().FindCountdownEvent(); // to observe countdown data from BLL
 
             // Attach the handler to observe tonometer data event from Biz
 	    	tonoData.TonoDataEvent += new BizTonoDataEvent.BizTonoDataEventHandler( UpdateTonoData );
 
             // Attach the handler to observe cuff pulse event from Biz
             cuffPulse.CuffPulseEvent += new BizCuffPulseEvent.BizCuffPulseEventHandler(UpdateCuffPulse);
+
+            // Attach the handler to observe cuff pulse event from Biz
+            countdownData.CountdownEvent += new BizCountdownEvent.BizCountdownEventHandler(UpdateCountdown);
 
             buttonCancel.Enabled = false;
 
@@ -72,6 +77,12 @@ namespace gui
         {
             int data = e.data;
             listBoxCuffPulse.Items.Add(data.ToString());
+        }
+
+        private void UpdateCountdown(Object sender, BizCountdownArgs e)
+        {
+            int data = e.data;
+            labelTimeCountDown.Text = data.ToString();
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -104,6 +115,8 @@ namespace gui
 
             // Enable the Cancel button.
             buttonCancel.Enabled = true;
+            // Disable the Capture button.
+            buttonCapture.Enabled = false;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -111,15 +124,35 @@ namespace gui
             // Cancel the asynchronous operation.
             this.backgroundWorker1.CancelAsync();
 
-            Biz.BizFacade.Instance().StopSimulation();
+            Biz.BizFacade.Instance().StopCaptureSimulation();
             
             // Disable the Cancel button.
             buttonCancel.Enabled = false;
+            // Enable the Capture button.
+            buttonCapture.Enabled = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             Biz.BizFacade.Instance().DispatchCaptureData();
+        }
+
+        private void buttonCountDown_Click(object sender, EventArgs e)
+        {
+            Biz.BizFacade.Instance().SimulateDeflationTimer();
+            // Disable the Stop button.
+            buttonStopCountDown.Enabled = true;
+            // Enable the Countdown button.
+            buttonCountDown.Enabled = false;
+        }
+
+        private void buttonStopCountDown_Click(object sender, EventArgs e)
+        {
+            Biz.BizFacade.Instance().StopDeflationTimerSimulation();
+            // Disable the Stop button.
+            buttonStopCountDown.Enabled = false;
+            // Enable the Countdown button.
+            buttonCountDown.Enabled = true;
         }
     }
 }

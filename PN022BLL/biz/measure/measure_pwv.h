@@ -11,7 +11,7 @@
 #pragma once
 
 #include <measure.h>
-#include <data_capture.h>
+#include <capture.h>
 
 using namespace System;
 using namespace DataAccess;
@@ -83,6 +83,7 @@ namespace Biz {
 
 		property BizTonoDataCapture^ myTonoDataObserver;
 		property BizCuffPulseCapture^ myCuffPulseObserver;
+		property BizCountdownCapture^ myCountdownObserver;
 
 		property float meanDeltaTime;				// Mean pulse onset time difference (in ms) between pulse traces
 		property array<float>^ deltaTime;			// Pulse onset time difference (in ms) between pulse traces of each pulse

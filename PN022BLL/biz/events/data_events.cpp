@@ -71,4 +71,34 @@ namespace Biz {
 		// The call must match the signature of the handler.
 		CuffPulseEvent( this, cuffArgs );
 	}
+
+	/**
+	BizCountdownEvent::Notify
+
+	DESCRIPTION
+
+		Creates a tonometer data arguments and notifies the changes as an event to all observers.
+	
+	INPUT
+	
+		data - Tonometer data in business context
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizCountdownEvent::Notify( unsigned int data )
+	{
+		BizCountdownArgs^ countdownArgs = gcnew BizCountdownArgs( data );
+
+		// Now, raise the event by invoking the delegate. Pass in 
+		// the object that initated the event (this) as well as data args. 
+		// The call must match the signature of the handler.
+		CountdownEvent( this, countdownArgs );
+	}
 }

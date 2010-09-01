@@ -22,12 +22,15 @@ namespace Biz {
 		bool StartCapture();
 		bool StopCapture();
 		void SimulateCaptureData();
-		void StopSimulation();
+		void StopCaptureSimulation();
 		void SimulateCaptureOneShot(); // simulate a single data capture
 		void DispatchCaptureData();
+		void SimulateDeflationTimer();
+		void StopDeflationTimerSimulation();
 		bool CalculateReport();
-		BizTonoDataEvent^ FindTonoData();
-		BizCuffPulseEvent^ FindCuffPulse();
+		BizTonoDataEvent^ FindTonoDataEvent();
+		BizCuffPulseEvent^ FindCuffPulseEvent();
+		BizCountdownEvent^ FindCountdownEvent();
 
 	protected:
 		BizFacade(void);

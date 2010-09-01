@@ -122,7 +122,7 @@ namespace DataAccess {
 		stopOK = true; // stub
 		return stopOK;
 	}
-	void DalModule::Simulate(unsigned int captureDataType)
+	void DalModule::SimulateCaptureData(unsigned int captureDataType)
 	{
 		// Normally, the timer is declared at the class level,
 		// so that it stays in scope as long as it is needed.
@@ -130,17 +130,17 @@ namespace DataAccess {
 		// KeepAlive must be used to prevent the JIT compiler 
 		// from allowing aggressive garbage collection to occur 
 		// before the method ends. (See end of method.)
-		//System::Timers::Timer^ simulateTimer;
+		//System::Timers::Timer^ captureTimer;
 
 		// Create a new Timer with Interval set in milliseconds.
 		// e.g. ~4 ms for 256 samples/sec
-		simulateTimer = gcnew Timer (4);
+		captureTimer = gcnew Timer (4);
 
 		// Hook up the Elapsed event for the timer.
 		switch (captureDataType)
 		{
 		case DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO:
-			simulateTimer->Elapsed += gcnew ElapsedEventHandler( &DalModule::OnPWVTimedEvent );
+			captureTimer->Elapsed += gcnew ElapsedEventHandler( &DalModule::OnCaptureTimedEvent );
 			dataFile = gcnew DalSimulationFile("c:\\projects\\pn022bll\\dal\\dal_stub\\pwv.dat");
 			break;
 		default:
@@ -148,14 +148,14 @@ namespace DataAccess {
 		}
 		dataFile->OpenFile();
 
-		simulateTimer->Enabled = true;
+		captureTimer->Enabled = true;
 
 		// If the timer is declared in a long-running method, use
 		// KeepAlive to prevent garbage collection from occurring
 		// before the method ends.
-		//GC::KeepAlive(simulateTimer);
+		//GC::KeepAlive(captureTimer);
 	}
-	void DalModule::OnPWVTimedEvent( Object^ source, ElapsedEventArgs^ e )
+	void DalModule::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 	{
 		short tonoData;
 		short cuffData;
@@ -164,9 +164,45 @@ namespace DataAccess {
 		DalTonometerStub::Instance()->tonoDataRaw->Notify(tonoData);
 		DalCuffStub::Instance()->cuffPulseRaw->Notify(cuffData);
 	}
-	void DalModule::StopSimulation()
+	void DalModule::StopCaptureSimulation()
 	{
-		simulateTimer->Enabled = false; // stop simulation
+		captureTimer->Enabled = false; // stop simulation
 		dataFile->CloseFile();
+	}
+	void DalModule::SimulateDeflationTimer()
+	{
+		// Start to count down for deflation
+		countdownSecLeft = DAL_SIM_COUNTDOWN_DEFLATION;
+		countdownState = DAL_SIM_COUNTDOWN_STATE_DEFLATION;
+
+		// Create a new Timer with Interval set in milliseconds.
+		countdownTimer = gcnew Timer (1000);
+		countdownTimer->Elapsed += gcnew ElapsedEventHandler( &DalModule::OnCountdownTimedEvent );
+		countdownTimer->Enabled = true;
+	}
+	void DalModule::StopDeflationTimerSimulation()
+	{
+		countdownTimer->Enabled = false; // stop simulation
+	}
+	void DalModule::OnCountdownTimedEvent( Object^ source, ElapsedEventArgs^ e )
+	{
+		countdownSecLeft--;
+		DalCountdownStub::Instance()->countdownRaw->Notify(countdownSecLeft);
+		if (countdownSecLeft == 0) 
+		{
+			switch (countdownState)
+			{
+			case DAL_SIM_COUNTDOWN_STATE_DEFLATION:
+				countdownSecLeft = DAL_SIM_COUNTDOWN_REST;
+				countdownState = DAL_SIM_COUNTDOWN_STATE_REST;
+				break;
+			case DAL_SIM_COUNTDOWN_STATE_REST:
+				countdownSecLeft = DAL_SIM_COUNTDOWN_DEFLATION;
+				countdownState = DAL_SIM_COUNTDOWN_STATE_DEFLATION;
+				break;
+			default:
+				break;
+			}
+		}
 	}
 }

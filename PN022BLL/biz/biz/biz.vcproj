@@ -22,7 +22,7 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
-			ManagedExtensions="2"
+			ManagedExtensions="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Projects\PN022BLL\biz\manager;C:\Projects\PN022BLL\biz\math;C:\Projects\PN022BLL\biz\biz;C:\Projects\PN022BLL\biz\events;C:\Projects\PN022BLL\biz\measure;C:\Projects\PN022BLL\biz\facade"
+				AdditionalIncludeDirectories="C:\Projects\PN022BLL\biz\capture;C:\Projects\PN022BLL\biz\manager;C:\Projects\PN022BLL\biz\math;C:\Projects\PN022BLL\biz\biz;C:\Projects\PN022BLL\biz\events;C:\Projects\PN022BLL\biz\measure;C:\Projects\PN022BLL\biz\facade"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -179,12 +179,12 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\..\crx\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3888.42027, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName=""
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\..\dal\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.3888.42028, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName=""
 			MinFrameworkVersion="131072"
 		/>
 	</References>
@@ -203,11 +203,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\events\buffer.cpp"
+				RelativePath="..\capture\buffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\events\data_capture.cpp"
+				RelativePath="..\capture\capture.cpp"
 				>
 			</File>
 			<File
@@ -273,11 +273,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\events\buffer.h"
+				RelativePath="..\capture\buffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\events\data_capture.h"
+				RelativePath="..\capture\capture.h"
 				>
 			</File>
 			<File

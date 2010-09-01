@@ -30,20 +30,34 @@ namespace DataAccess {
 //???		friend class DalModuleCommandState;
 		void ChangeState(DalModuleCommandState^ s);
 //?		DalModuleCommand^ command;
-		static System::Timers::Timer^ simulateTimer;
-		void Simulate(unsigned int captureDataType);
-		void StopSimulation();
+
+		static System::Timers::Timer^ captureTimer;
+		static System::Timers::Timer^ countdownTimer;
+
+		void SimulateCaptureData(unsigned int captureDataType);
+		void StopCaptureSimulation();
+		void SimulateDeflationTimer();
+		void StopDeflationTimerSimulation();
+
 		static DalModule^ Instance();
 		static DalSimulationFile^ dataFile;
+
+		static const unsigned short DAL_SIM_COUNTDOWN_DEFLATION = 180; // 3 min in sec
+		static const unsigned short DAL_SIM_COUNTDOWN_REST = 30; // in sec
+		static const unsigned short DAL_SIM_COUNTDOWN_STATE_DEFLATION = 1;
+		static const unsigned short DAL_SIM_COUNTDOWN_STATE_REST = 2;
 	private:
 		static DalModule^ _instance;
 		DalModuleCommandState^ _state;
 //?		DalModuleCommand^ _command;
 		Queue<int>^ captureQueue;
+		static unsigned int countdownSecLeft;
+		static unsigned int countdownState;
 
 		// Specify what you want to happen when the Elapsed event is 
 		// raised.
-		static void OnPWVTimedEvent( Object^ source, ElapsedEventArgs^ e );
+		static void OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e );
+		static void OnCountdownTimedEvent( Object^ source, ElapsedEventArgs^ e );
 	};
 
 	public ref class DalModuleCommand abstract

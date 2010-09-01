@@ -34,7 +34,7 @@ namespace DataAccess {
 	   // as a delegate:
 	   delegate void DalTonoDataEventHandler(Object^ sender, DalTonoDataArgs^ args );
 
-	   // Now, create a public event "DalTonoDataEvent" whose type is our DalTonoDataEventHandler delegate. 
+	   // Now, create a public event "TonoDataEvent" whose type is our DalTonoDataEventHandler delegate. 
 	   event DalTonoDataEventHandler^ TonoDataEvent;
 
 	   // This will be the starting point of our event-- it will create DalTonoDataEventArgs,
@@ -42,7 +42,7 @@ namespace DataAccess {
 	   void Notify( unsigned int data );
 	};
 
-	// DalTonoDataEventArgs: a custom event inherited from EventArgs.
+	// DalCuffPulseArgs: a custom event inherited from EventArgs.
 	public ref class DalCuffPulseArgs: public EventArgs
 	{
 	public:
@@ -58,11 +58,35 @@ namespace DataAccess {
 	public:
 	   delegate void DalCuffPulseEventHandler(Object^ sender, DalCuffPulseArgs^ args );
 
-	   // Now, create a public event "DalTonoDataEvent" whose type is our DalTonoDataEventHandler delegate. 
+	   // Now, create a public event "CuffPulseEvent" whose type is our DalCuffPulseEventHandler delegate. 
 	   event DalCuffPulseEventHandler^ CuffPulseEvent;
 
-	   // This will be the starting point of our event-- it will create DalTonoDataEventArgs,
-	   // and then raise the event, passing DalTonoDataEventArgs. 
+	   // This will be the starting point of our event-- it will create DalCuffPulseArgs,
+	   // and then raise the event, passing DalCuffPulseArgs. 
+	   void Notify( unsigned short data );
+	};
+
+	// DalCountdownArgs: a custom event inherited from EventArgs.
+	public ref class DalCountdownArgs: public EventArgs
+	{
+	public:
+	   DalCountdownArgs( unsigned short data )
+	   {
+		  this->data = data;
+	   }
+	   unsigned short data;
+	};
+	// Class with a function that creates the eventargs and initiates the event
+	public ref class DalCountdownEvent
+	{
+	public:
+	   delegate void DalCountdownEventHandler(Object^ sender, DalCountdownArgs^ args );
+
+	   // Now, create a public event "CountdownEvent" whose type is our DalCountdownEventHandler delegate. 
+	   event DalCountdownEventHandler^ CountdownEvent;
+
+	   // This will be the starting point of our event-- it will create DalCountdownArgs,
+	   // and then raise the event, passing DalCountdownArgs. 
 	   void Notify( unsigned short data );
 	};
 
@@ -124,6 +148,17 @@ namespace DataAccess {
 	public:
 		static DalCuffStub^ Instance();
 		property DalCuffPulseEvent^ cuffPulseRaw;
+	};
+
+	public ref class DalCountdownStub : DalMeter
+	{
+	private: 
+		static DalCountdownStub^ _instance;
+	protected:
+		DalCountdownStub();
+	public:
+		static DalCountdownStub^ Instance();
+		property DalCountdownEvent^ countdownRaw;
 	};
 
 }

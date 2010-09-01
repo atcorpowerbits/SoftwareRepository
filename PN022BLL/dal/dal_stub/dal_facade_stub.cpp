@@ -19,13 +19,17 @@ namespace DataAccess {
 	DalFacade::DalFacade(void)
 	{
 	}
-	DalTonoDataEvent^ DalFacade::FindTonoData() 
+	DalTonoDataEvent^ DalFacade::FindTonoDataEvent() 
 	{ 
 		return DalTonometerStub::Instance()->tonoDataRaw; 
 	}
-	DalCuffPulseEvent^ DalFacade::FindCuffPulse() 
+	DalCuffPulseEvent^ DalFacade::FindCuffPulseEvent() 
 	{ 
 		return DalCuffStub::Instance()->cuffPulseRaw; 
+	}
+	DalCountdownEvent^ DalFacade::FindCountdownEvent() 
+	{ 
+		return DalCountdownStub::Instance()->countdownRaw; 
 	}
 	bool DalFacade::StartCapture(unsigned int captureDataType)
 	{
@@ -61,10 +65,18 @@ namespace DataAccess {
 	}
 	void DalFacade::SimulateCaptureData() 
 	{
-		_module->Simulate(captureDataType);
+		_module->SimulateCaptureData(captureDataType);
 	}
-	void DalFacade::StopSimulation() 
+	void DalFacade::StopCaptureSimulation() 
 	{
-		_module->StopSimulation();
+		_module->StopCaptureSimulation();
+	}
+	void DalFacade::SimulateDeflationTimer() 
+	{
+		_module->SimulateDeflationTimer();
+	}
+	void DalFacade::StopDeflationTimerSimulation() 
+	{
+		_module->StopDeflationTimerSimulation();
 	}
 }

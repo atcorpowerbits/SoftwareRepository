@@ -1,3 +1,13 @@
+/*
+    Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+
+    Filename	 :	capture.h
+	
+	Author       :  Victor Aung
+
+    Description  :	DECLARATION of Business Logic Layer Capture classes.
+*/
+
 #pragma once
 
 #include <data_events.h>
@@ -12,7 +22,7 @@ namespace Biz {
 	{
 	public:
 		virtual void Reset() { _buffer->Reset(); };
-		virtual void Dispatch() {};
+		virtual void Dispatch() = 0;
 
 	protected:
 /*		bool gotData;
@@ -50,6 +60,19 @@ namespace Biz {
 	private:
 		DalCuffPulseEvent^ cuffPulseRaw; // to observe cuff pulse raw data from DAL
 		void Update(Object^ sender, DalCuffPulseArgs^ e);
+	};
+
+	public ref class BizCountdownCapture : BizCapture
+	{
+	public:
+		BizCountdownCapture(BizBuffer^ buffer);
+
+		property BizCountdownEvent^ countdownBiz; //countdown data to be dispatched
+		virtual void Dispatch() override;
+
+	private:
+		DalCountdownEvent^ countdownRaw; // to observe countdown raw data from DAL
+		void Update(Object^ sender, DalCountdownArgs^ e);
 	};
 }
 

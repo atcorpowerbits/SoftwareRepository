@@ -69,4 +69,31 @@ namespace Biz {
 	   void Notify( unsigned int data );
 
 	};
+	// BizCountdownArgs: a custom event inherited from EventArgs.
+	public ref class BizCountdownArgs: public EventArgs
+	{
+	public:
+	   BizCountdownArgs( unsigned short data )
+	   {
+		  this->data = data;
+	   }
+	   unsigned short data;
+	};
+
+	// Class with a function that creates the eventargs and initiates the event
+	public ref class BizCountdownEvent
+	{
+	public:
+	   // Events are handled with delegates, so we must establish a handler
+	   // as a delegate:
+	   delegate void BizCountdownEventHandler(Object^ sender, BizCountdownArgs^ args );
+
+	   // Now, create a public event whose type is our handler delegate. 
+	   event BizCountdownEventHandler^ CountdownEvent;
+
+	   // This will be the starting point of our event-- it will create data args,
+	   // and then raise the event, passing the args. 
+	   void Notify( unsigned int data );
+
+	};
 }

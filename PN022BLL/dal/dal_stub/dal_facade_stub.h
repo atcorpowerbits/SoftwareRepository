@@ -10,6 +10,7 @@ namespace DataAccess {
 	ref class DalModule; 
 	ref class DalTonoDataEvent;
 	ref class DalCuffPulseEvent;
+	ref class DalCountdownEvent;
 
 	public ref class DalFacade
 	{
@@ -19,11 +20,14 @@ namespace DataAccess {
 		bool StopCapture();
 		String^ GetFWConfig(unsigned int configType);
 		void SimulateCaptureData();
-		void StopSimulation();
+		void StopCaptureSimulation();
 		void SimulateCaptureOneShot();
+		void SimulateDeflationTimer();
+		void StopDeflationTimerSimulation();
 
-		DalTonoDataEvent^ FindTonoData();
-		DalCuffPulseEvent^ FindCuffPulse();
+		DalTonoDataEvent^ FindTonoDataEvent();
+		DalCuffPulseEvent^ FindCuffPulseEvent();
+		DalCountdownEvent^ FindCountdownEvent();
 
 	protected:
 		DalFacade(void);

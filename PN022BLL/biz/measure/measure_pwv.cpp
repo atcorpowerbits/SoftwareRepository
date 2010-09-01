@@ -198,7 +198,7 @@ namespace Biz {
 		myFemoral2CuffDistance = gcnew BizFemoral2CuffDistance;
 
 		// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
-		// TBD: Replace magic numbers: 20 sec capture time, 2 sec extra
+		// TBD: Replace magic numbers: 2 sec extra
 		myTonoDataObserver = gcnew BizTonoDataCapture(
 			gcnew BizCircularBuffer(1000 * 
 			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 2) / 
@@ -207,6 +207,10 @@ namespace Biz {
 			gcnew BizCircularBuffer(1000 * 
 			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 2) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
+
+		// Countdown data from DAL are captured here for PWV measurement.
+		// Only one last countdown data is needed to be captured.
+		myCountdownObserver = gcnew BizCountdownCapture(gcnew BizCircularBuffer(1));
 
 	}
 	/**
@@ -381,6 +385,7 @@ namespace Biz {
 	{
 		myTonoDataObserver->Dispatch();
 		myCuffPulseObserver->Dispatch();
+		myCountdownObserver->Dispatch();
 	}
 	// Initialise properties
 	void BizPWV::Initialise(const int signalSampleRate)

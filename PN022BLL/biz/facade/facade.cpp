@@ -212,9 +212,9 @@ namespace Biz {
 		None.
 	
 	*/
-	void BizFacade::StopSimulation(void)
+	void BizFacade::StopCaptureSimulation(void)
 	{
-		return DalFacade::Instance()->StopSimulation();
+		return DalFacade::Instance()->StopCaptureSimulation();
 	}
 	/**
 	FindTonoData
@@ -236,7 +236,7 @@ namespace Biz {
 		BizTonoDataEvent^ - Handle to tonometer data event in the business logic.
 	
 	*/
-	BizTonoDataEvent^ BizFacade::FindTonoData() 
+	BizTonoDataEvent^ BizFacade::FindTonoDataEvent() 
 	{ 
 		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
 
@@ -262,11 +262,37 @@ namespace Biz {
 		BizCuffPulseEvent^ - Handle to cuff pulse data event in the business logic.
 	
 	*/
-	BizCuffPulseEvent^ BizFacade::FindCuffPulse() 
+	BizCuffPulseEvent^ BizFacade::FindCuffPulseEvent() 
 	{ 
 		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
 
 		return measurePWV->myCuffPulseObserver->cuffPulseBiz; 
+	}
+	/**
+	FindCountdown
+
+	DESCRIPTION
+
+		Find a countdown data event in business logic context.
+	
+	INPUT
+	
+		none.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		BizCountdownEvent^ - Handle to countdown data event in the business logic.
+	
+	*/
+	BizCountdownEvent^ BizFacade::FindCountdownEvent() 
+	{ 
+		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
+
+		return measurePWV->myCountdownObserver->countdownBiz; 
 	}
 	/**
 	SimulateCaptureOneShot
@@ -315,5 +341,53 @@ namespace Biz {
 	void BizFacade::DispatchCaptureData() 
 	{ 
 		BizSession::Instance()->DispatchCaptureData(); 
+	}
+	/**
+	SimulateDeflationTimer
+
+	DESCRIPTION
+
+		Simulate cuff deflation count down timer.
+	
+	INPUT
+	
+		none.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizFacade::SimulateDeflationTimer()
+	{
+		DalFacade::Instance()->SimulateDeflationTimer();
+	}
+	/**
+	StopDeflationTimerSimulation
+
+	DESCRIPTION
+
+		Stop simulation of cuff deflation count down timer.
+	
+	INPUT
+	
+		none.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizFacade::StopDeflationTimerSimulation(void)
+	{
+		return DalFacade::Instance()->StopDeflationTimerSimulation();
 	}
 }
