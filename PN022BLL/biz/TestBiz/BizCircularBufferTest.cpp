@@ -140,7 +140,7 @@ namespace TestBiz {
 			/// <summary>
 			///A test for ReadNext
 			///</summary>
-	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizCircularBuffer.csv", L"BizCircularBuffer#csv", DataAccessMethod::Sequential),
+	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizCircularBufferRead.csv", L"BizCircularBufferRead#csv", DataAccessMethod::Sequential),
 				TestMethod]
 			void ReadNextTest()
 			{

@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Projects\PN022BLL\biz\capture;C:\Projects\PN022BLL\biz\manager;C:\Projects\PN022BLL\biz\math;C:\Projects\PN022BLL\biz\biz;C:\Projects\PN022BLL\biz\events;C:\Projects\PN022BLL\biz\measure;C:\Projects\PN022BLL\biz\facade"
+				AdditionalIncludeDirectories="C:\Projects\PN022BLL\bizcor;C:\Projects\PN022BLL\biz\capture;C:\Projects\PN022BLL\biz\manager;C:\Projects\PN022BLL\biz\math;C:\Projects\PN022BLL\biz\biz;C:\Projects\PN022BLL\biz\events;C:\Projects\PN022BLL\biz\measure;C:\Projects\PN022BLL\biz\facade"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
