@@ -120,6 +120,7 @@
             // 
             // buttonStopCountDown
             // 
+            this.buttonStopCountDown.Enabled = false;
             this.buttonStopCountDown.Location = new System.Drawing.Point(440, 259);
             this.buttonStopCountDown.Name = "buttonStopCountDown";
             this.buttonStopCountDown.Size = new System.Drawing.Size(75, 23);

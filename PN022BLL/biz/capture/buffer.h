@@ -36,9 +36,12 @@ namespace Biz {
 	private:
 		array<unsigned short>^ _buffer;
 		Mutex _lockData;
-		unsigned short _startBuffer;
-		unsigned short _endBuffer;
-		unsigned short _nextToRead;
+		unsigned short _startIndex;
+		unsigned short _endIndex;
+		unsigned short _nextReadIndex;
+		bool _unreadData;
+		bool _firstAppend;
+		bool _bringAlongNextRead;
 	};
 }
 

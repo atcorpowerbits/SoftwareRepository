@@ -4,4 +4,8 @@
 
 #pragma once
 
+// Windows header files:
+#include <windows.h>
+
+#include "bizcor.h"
 

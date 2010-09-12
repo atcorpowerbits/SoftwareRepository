@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TestRunConfiguration name="Local Test Run" id="c74d9c15-705c-4840-9d86-d3aad6609adf" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
   <Description>This is a default test run configuration for a local test run.</Description>
+  <Deployment>
+    <DeploymentItem filename="C:\Projects\PN022BLL\gui\gui_stub\bin\Debug\bizcor.dll" />
+  </Deployment>
   <TestTypeSpecific />
 </TestRunConfiguration>

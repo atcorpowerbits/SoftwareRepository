@@ -36,6 +36,7 @@ namespace Biz {
 	{
 		this->_bufferSize = bufferSize;
 		_buffer = gcnew array<unsigned short>(bufferSize);
+		Reset();
 	}
 
 	/**
@@ -64,24 +65,49 @@ namespace Biz {
 	{
 		// Should be thread safe
 		_lockData.WaitOne();
-		if (_endBuffer == _bufferSize) 
+
+		_buffer[_endIndex] = data;
+		_unreadData = true;
+
+		// Check if circular buffer is full.
+		if (!_firstAppend && (_endIndex == _startIndex))
 		{
-			// Wrap the end pointer
-			_endBuffer = 0;
-		}
-		_buffer[_endBuffer++] = data;
-		if (_endBuffer == _startBuffer) 
-		{
-			// Circular buffer is full.
-			// Rotate the buffer 
-			// and wrap if necessary
-			_startBuffer++;
-			if (_startBuffer == _bufferSize)
+
+			// Rotate the start buffer.
+			// If start and next to read were together then
+			// bring along the next to read position.
+			if (_bringAlongNextRead)
 			{
-				// Wrap the start pointer
-				_startBuffer = 0;
+				_nextReadIndex++;
+			}
+			_startIndex++;
+			// If start buffer and next to read were not together and
+			// now there are toghter then bring along the next read from now on.
+			if (!_bringAlongNextRead && (_startIndex == _nextReadIndex))
+			{
+				_bringAlongNextRead = true;
+			}
+			// Wrap the start buffer position if necessary
+			if (_startIndex == _bufferSize)
+			{
+				_startIndex = 0;
+			}
+			// Wrap the next to read position if necessary
+			if (_nextReadIndex == _bufferSize)
+			{
+				_nextReadIndex = 0;
 			}
 		}
+		_firstAppend = false;
+
+		// Inc for next append and 
+		// wrap the end buffer if necessary
+		_endIndex++;
+		if (_endIndex == _bufferSize) 
+		{
+			_endIndex = 0;
+		}
+
 		_lockData.ReleaseMutex();
 
 		// Always successful to append to a circular buffer
@@ -114,27 +140,28 @@ namespace Biz {
 	bool BizCircularBuffer::ReadNext(unsigned short^ data)
 	{
 		bool isRead = false;
-		int unreadData;
 
 		// Should be thread safe
 		_lockData.WaitOne();
-		unreadData = _endBuffer - _nextToRead;
 
-		// Adjust the unreadData when the end point has wrapped, 
-		// i.e. negative unreadData
-		if (unreadData < 0)
+		// See if there's any data to read
+		if (_unreadData)
 		{
-			unreadData += _bufferSize;
-		}
-		if (unreadData > 0)
-		{
-			*data = _buffer[_nextToRead++];
+			*data = _buffer[_nextReadIndex++];
 			isRead = true;
-			// Wrap the next read point if necessary
-			if (_nextToRead == _bufferSize)
+			// Wrap the next read position if necessary
+			if (_nextReadIndex == _bufferSize)
 			{
-				_nextToRead = 0;
+				_nextReadIndex = 0;
 			}
+			// See if all data has been read
+			if (_nextReadIndex == _endIndex)
+			{
+				_unreadData = false;
+			}
+			// Data is now read so no need to keep the next to read position 
+			// with the start buffer position
+			_bringAlongNextRead = false;
 		}
 		_lockData.ReleaseMutex();
 		return isRead;
@@ -144,9 +171,12 @@ namespace Biz {
 	{
 		// Should be thread safe
 		_lockData.WaitOne();
-		_startBuffer = 0;
-		_endBuffer = 0;
-		_nextToRead = 0;
+		_startIndex = 0;
+		_endIndex = 0;
+		_nextReadIndex = 0;
+		_unreadData = false;
+		_firstAppend = true;
+		_bringAlongNextRead = true;
 		_lockData.ReleaseMutex();
 	}
 }

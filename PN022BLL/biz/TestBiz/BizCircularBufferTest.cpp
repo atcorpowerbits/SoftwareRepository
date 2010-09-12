@@ -153,9 +153,32 @@ namespace TestBiz {
 				unsigned short dataRead = Convert::ToUInt16(testContextInstance->DataRow["ReadData"]); // TODO: Initialize to an appropriate value
 				actual = target->Append(dataSource);
 				Assert::AreEqual(expected, actual);
+
 				actual = target->ReadNext(data);
 				Assert::AreEqual(expected, actual);
 				Assert::AreEqual(dataRead, *data);
+
+				actual = target->Append(dataSource);
+				Assert::AreEqual(expected, actual);
+
+				actual = target->Append(dataSource);
+				Assert::AreEqual(expected, actual);
+
+				actual = target->Append(dataSource);
+				Assert::AreEqual(expected, actual);
+
+				actual = target->ReadNext(data);
+				Assert::AreEqual(expected, actual);
+				Assert::AreEqual(dataRead, *data);
+
+				actual = target->ReadNext(data);
+				Assert::AreEqual(expected, actual);
+				Assert::AreEqual(dataRead, *data);
+
+				actual = target->ReadNext(data);
+				Assert::AreEqual(expected, actual);
+				Assert::AreEqual(dataRead, *data);
+
 				actual = target->ReadNext(data);
 				Assert::AreNotEqual(expected, actual);
 			}

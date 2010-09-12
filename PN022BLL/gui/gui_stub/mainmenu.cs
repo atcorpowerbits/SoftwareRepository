@@ -57,5 +57,11 @@ namespace gui
             Biz.BizFacade.Instance().SimulateCaptureOneShot();
         }
 
+        private void mixToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            form_bizmix_stub frmBizMix = new form_bizmix_stub();
+            frmBizMix.Show();
+        }
+
     }
 }

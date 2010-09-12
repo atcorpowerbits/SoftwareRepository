@@ -179,13 +179,17 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\..\crx\Debug\crx.dll"
-			AssemblyName=""
+			AssemblyName="crx, Version=1.0.3904.23501, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\..\dal\Debug\dal.dll"
-			AssemblyName=""
+			AssemblyName="dal, Version=1.0.3904.23501, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{A51C8984-745A-423B-9284-8B734702F12E}"
+			RelativePathToProject="..\bizcor\bizcor.vcproj"
 		/>
 	</References>
 	<Files>
@@ -200,6 +204,10 @@
 			</File>
 			<File
 				RelativePath=".\biz.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\bizmix\bizmix.cpp"
 				>
 			</File>
 			<File
@@ -270,6 +278,10 @@
 			>
 			<File
 				RelativePath=".\biz.h"
+				>
+			</File>
+			<File
+				RelativePath="..\bizmix\bizmix.h"
 				>
 			</File>
 			<File
