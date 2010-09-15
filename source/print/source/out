@@ -1,0 +1,58 @@
+Comparing files form_batchprint.cpp and k:\projects\010\source\print\source\form_b~1.cpp
+****** form_batchprint.cpp
+         break;
+      case MEAS_PWM_ID:
+         pwm_data = meas_get_current_pwm();
+         table_id = DBMGR_MEASURE_PWM_TABLE;
+         break;
+      default:
+****** k:\projects\010\source\print\source\form_b~1.cpp
+         break;
+      default:
+******
+
+****** form_batchprint.cpp
+            break;
+         case MEAS_PWM_ID:
+            pwm_data->Populate(qry_date);
+            user_str = pwm_data->DateTime.FormatString(BATCH_DATETIMEFORMAT);
+            system_id = pwm_data->System_ID;
+            study_id =  pwm_data->Study_ID;
+            patient_num = IntToStr(pwm_data->Patient_No);
+            meas_date = pwm_data->DateTime;
+            break;
+         default:
+****** k:\projects\010\source\print\source\form_b~1.cpp
+            break;
+         default:
+******
+
+****** form_batchprint.cpp
+            break;
+         case MEAS_PWM_ID:
+            pwm_data->Populate(qry_date);
+            user_str = pwm_data->DateTime.FormatString(BATCH_DATETIMEFORMAT);
+            system_id = pwm_data->System_ID;
+            study_id =  pwm_data->Study_ID;
+            patient_num = IntToStr(pwm_data->Patient_No);
+            meas_date = pwm_data->DateTime;
+            break;
+         default:
+****** k:\projects\010\source\print\source\form_b~1.cpp
+            break;
+         default:
+******
+
+****** form_batchprint.cpp
+               break;
+            case MEAS_PWM_ID:
+               pwa_data = dynamic_cast<TPWA *>(pwm_data);
+               report_pwa_batch_print(pwa_data, pat);
+               break;
+            default:
+****** k:\projects\010\source\print\source\form_b~1.cpp
+               break;
+            default:
+******
+
+

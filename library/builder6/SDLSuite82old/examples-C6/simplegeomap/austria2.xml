@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- TGeoMap Calibration / SDL Component Suite -->
+<geomap sig="SDLCSuite" vers="1.0" id="myDataID" map="austria_rel99.jpg" caption="">
+<corners>
+[49.76367,8.54242] [45.45765,8.93723] [45.44643,17.74517] [49.74600,18.13294] 
+</corners>
+<resolution>456.611</resolution>
+<calline type="parallel" value="49" npoints="4">
+[1414,189] [1126,201] [828,208] [521,206] 
+</calline>
+<calline type="parallel" value="48" npoints="5">
+[194,440] [413,448] [630,452] [937,450] [1229,443] 
+</calline>
+<calline type="parallel" value="47" npoints="6">
+[1364,679] [1085,691] [832,695] [687,695] [296,689] [578,694] 
+</calline>
+<calline type="parallel" value="46" npoints="5">
+[317,933] [494,937] [701,939] [1086,934] [1304,927] 
+</calline>
+<calline type="meridian" value="16" npoints="4">
+[1173,68] [1182,333] [1189,544] [1176,176] 
+</calline>
+<calline type="meridian" value="14" npoints="6">
+[856,142] [858,378] [859,521] [861,852] [864,861] [864,985] 
+</calline>
+<calline type="meridian" value="12" npoints="6">
+[524,974] [527,780] [530,604] [535,266] [540,70] [537,96] 
+</calline>
+<calline type="meridian" value="10" npoints="3">
+[209,393] [197,667] [187,911] 
+</calline>
+<calquads npoints="11">
+[48.00000,10.00000,206,442] [48.00000,12.00000,532,451] [48.00000,14.00000,857,452] [46.00000,14.00000,863,939] [46.00000,12.00000,525,938] [46.00000,10.00000,186,929] [49.00000,14.00000,857,207] [49.00000,12.00000,535,206] [48.00000,16.00000,1185,444] [47.00000,16.00000,1194,687] [46.00000,16.00000,1202,931] 
+</calquads>
+</geomap>

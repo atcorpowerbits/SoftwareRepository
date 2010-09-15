@@ -1,0 +1,404 @@
+Line (049) SphygmoCor Log File 6.0 ~ 26/03/1999 ~ 11:46:03                                                                                                     
+1 01/04/1999 ~ 11:13:18 ~ Multiple Database Manager : Cannot copy to program path K:\PROJECTS\008\SOURCE\TITAN\VIAGRA                                          
+2 01/04/1999 ~ 11:13:36 ~ Error (#826): Multiple database manager: Copy failed.   From VIAGRA To K:\PROJECTS\008\SOURCE\TITAN\VIAGRA.  Ensure you are not copyi
+3 01/04/1999 ~ 11:13:54 ~ Copy succeeded from K:\PROJECTS\008\SOURCE\TITAN\DATA\VIAGRA\TITAN.MDB
+to J:\PETERH\VIAGRA\TITAN.MDB                                 
+4 01/04/1999 ~ 11:14:06 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                          
+5 01/04/1999 ~ 11:17:32 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                        
+6 01/04/1999 ~ 11:19:31 ~ Multiple Database Manager - Successfully removed Database Set K:\PROJECTS\008\SOURCE\TITAN\DATA\TESTIMPORT2                          
+7 01/04/1999 ~ 11:20:52 ~ Error (#403): Import Error: Import failed - this file does not exist in SphygmoCor directory: J:\SERGEI\8\PHARPAS\mtonom.DBF         
+8 01/04/1999 ~ 11:21:26 ~ Error (#135): Patient :5, Measurement :03/06/98 14:19:48, DataRevision :7. Validation error: Invalid measurement type               
+9 01/04/1999 ~ 11:21:27 ~ Error (#135): Patient :5, Measurement :03/06/98 14:21:13, DataRevision :7. Validation error: Invalid measurement type               
+10 01/04/1999 ~ 11:21:53 ~ Error (#135): Patient :117, Measurement :22/06/95 3:50:48, DataRevision :3. Validation error: Invalid measurement type             
+11 01/04/1999 ~ 11:35:16 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+12 01/04/1999 ~ 11:59:30 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+13 01/04/1999 ~ 12:01:27 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+14 01/04/1999 ~ 12:06:28 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+15 01/04/1999 ~ 12:12:33 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+16 01/04/1999 ~ 12:16:18 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+17 01/04/1999 ~ 12:17:42 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+18 01/04/1999 ~ 12:18:13 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+19 01/04/1999 ~ 12:19:16 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+20 01/04/1999 ~ 12:27:28 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+21 01/04/1999 ~ 12:30:47 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+22 01/04/1999 ~ 12:31:32 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+23 01/04/1999 ~ 12:32:33 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+24 01/04/1999 ~ 12:34:34 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+25 01/04/1999 ~ 12:36:43 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+26 01/04/1999 ~ 12:37:55 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+27 01/04/1999 ~ 12:39:46 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+28 01/04/1999 ~ 12:42:24 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+29 01/04/1999 ~ 12:51:28 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+30 01/04/1999 ~ 12:54:19 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+31 01/04/1999 ~ 12:54:57 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+32 01/04/1999 ~ 13:51:16 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+33 01/04/1999 ~ 13:51:36 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+34 01/04/1999 ~ 14:22:55 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+35 01/04/1999 ~ 14:32:43 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+36 01/04/1999 ~ 14:34:17 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+37 01/04/1999 ~ 14:36:09 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+38 01/04/1999 ~ 14:49:17 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+39 01/04/1999 ~ 15:11:56 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+40 01/04/1999 ~ 15:56:20 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+41 01/04/1999 ~ 16:00:06 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+42 01/04/1999 ~ 16:47:29 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+43 01/04/1999 ~ 16:48:50 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+44 01/04/1999 ~ 16:51:17 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+45 01/04/1999 ~ 16:52:12 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+46 01/04/1999 ~ 16:59:59 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+47 01/04/1999 ~ 17:09:22 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                       
+48 01/04/1999 ~ 17:09:50 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                         
+49 26/03/1999 ~ 15:04:52 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+50 26/03/1999 ~ 15:04:52 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+51 26/03/1999 ~ 15:04:52 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+52 26/03/1999 ~ 15:04:52 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+53 26/03/1999 ~ 15:04:52 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+54 26/03/1999 ~ 15:04:52 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+55 26/03/1999 ~ 15:04:52 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+56 26/03/1999 ~ 15:04:53 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+57 26/03/1999 ~ 15:04:53 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+58 26/03/1999 ~ 15:04:53 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+59 26/03/1999 ~ 15:04:53 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+60 26/03/1999 ~ 15:04:53 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+61 26/03/1999 ~ 15:04:53 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+62 26/03/1999 ~ 15:04:53 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+63 26/03/1999 ~ 15:04:54 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+64 26/03/1999 ~ 15:04:54 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+65 26/03/1999 ~ 15:04:54 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+66 26/03/1999 ~ 15:04:54 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+67 26/03/1999 ~ 15:04:54 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+68 26/03/1999 ~ 15:04:54 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+69 26/03/1999 ~ 15:04:54 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+70 26/03/1999 ~ 15:04:55 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+71 26/03/1999 ~ 15:04:55 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+72 26/03/1999 ~ 15:04:55 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+73 26/03/1999 ~ 15:04:55 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+74 26/03/1999 ~ 15:04:55 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+75 26/03/1999 ~ 15:04:55 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+76 26/03/1999 ~ 15:04:55 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+77 26/03/1999 ~ 15:04:55 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+78 26/03/1999 ~ 15:04:56 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+79 26/03/1999 ~ 15:04:56 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+80 26/03/1999 ~ 15:04:56 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+81 26/03/1999 ~ 15:04:56 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+82 26/03/1999 ~ 15:04:56 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+83 26/03/1999 ~ 15:04:56 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+84 26/03/1999 ~ 15:04:56 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+85 26/03/1999 ~ 15:04:56 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+86 26/03/1999 ~ 15:04:57 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+87 26/03/1999 ~ 15:04:57 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+88 26/03/1999 ~ 15:04:57 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+89 26/03/1999 ~ 15:04:57 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+90 26/03/1999 ~ 15:04:57 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+91 26/03/1999 ~ 15:04:57 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+92 26/03/1999 ~ 15:04:57 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+93 26/03/1999 ~ 15:04:57 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+94 26/03/1999 ~ 15:04:58 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+95 26/03/1999 ~ 15:04:58 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+96 26/03/1999 ~ 15:04:58 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+97 26/03/1999 ~ 15:04:58 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+98 26/03/1999 ~ 15:04:58 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+99 26/03/1999 ~ 15:04:58 ~ Error (#104): Database input-output error: Wrong record in database                                                                 
+100 26/03/1999 ~ 15:04:59 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+101 26/03/1999 ~ 15:04:59 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+102 26/03/1999 ~ 15:04:59 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+103 26/03/1999 ~ 15:04:59 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+104 26/03/1999 ~ 15:04:59 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+105 26/03/1999 ~ 15:04:59 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+106 26/03/1999 ~ 15:04:59 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+107 26/03/1999 ~ 15:04:59 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+108 26/03/1999 ~ 15:05:00 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+109 26/03/1999 ~ 15:05:00 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+110 26/03/1999 ~ 15:05:00 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+111 26/03/1999 ~ 15:05:00 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+112 26/03/1999 ~ 15:05:00 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+113 26/03/1999 ~ 15:05:00 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+114 26/03/1999 ~ 15:05:00 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+115 26/03/1999 ~ 15:05:00 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+116 26/03/1999 ~ 15:05:19 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+117 26/03/1999 ~ 15:53:56 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+118 26/03/1999 ~ 15:56:26 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+119 26/03/1999 ~ 15:56:58 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+120 29/03/1999 ~ 08:30:56 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+121 29/03/1999 ~ 08:31:52 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+122 29/03/1999 ~ 08:33:10 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+123 29/03/1999 ~ 08:42:06 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+124 29/03/1999 ~ 08:42:45 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+125 29/03/1999 ~ 08:54:42 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+126 29/03/1999 ~ 09:11:43 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+127 29/03/1999 ~ 09:47:40 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+128 29/03/1999 ~ 09:50:59 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+129 29/03/1999 ~ 09:51:53 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+130 29/03/1999 ~ 09:56:57 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+131 29/03/1999 ~ 10:02:53 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+132 29/03/1999 ~ 10:10:43 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+133 29/03/1999 ~ 10:23:00 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+134 29/03/1999 ~ 10:54:38 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+135 29/03/1999 ~ 10:56:04 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+136 29/03/1999 ~ 11:08:48 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+137 29/03/1999 ~ 11:10:39 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+138 29/03/1999 ~ 11:11:53 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+139 29/03/1999 ~ 11:13:54 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+140 29/03/1999 ~ 11:51:51 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+141 29/03/1999 ~ 11:55:21 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+142 29/03/1999 ~ 12:13:00 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+143 29/03/1999 ~ 12:14:34 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+144 29/03/1999 ~ 13:14:55 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+145 29/03/1999 ~ 14:07:15 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+146 29/03/1999 ~ 14:06:23 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+147 29/03/1999 ~ 14:21:37 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+148 29/03/1999 ~ 14:23:12 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+149 29/03/1999 ~ 14:23:30 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1426                                                                                        
+150 29/03/1999 ~ 14:22:46 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1426                                                                                      
+151 29/03/1999 ~ 14:25:11 ~ Added Patient 1                                                                                                                    
+152 29/03/1999 ~ 14:36:44 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+153 29/03/1999 ~ 16:34:32 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+154 29/03/1999 ~ 16:40:52 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+155 29/03/1999 ~ 16:48:20 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+156 29/03/1999 ~ 16:50:57 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+157 29/03/1999 ~ 16:52:55 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+158 29/03/1999 ~ 16:59:56 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+159 30/03/1999 ~ 09:07:57 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+160 30/03/1999 ~ 09:11:30 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+161 30/03/1999 ~ 09:58:02 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+162 30/03/1999 ~ 10:02:20 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+163 30/03/1999 ~ 10:03:02 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+164 30/03/1999 ~ 10:04:51 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+165 30/03/1999 ~ 10:05:21 ~ Could Not Connect To Database - Database file may be missing. Fatal ErrorCannot load an IDAPI service library.
+File: C:\WINDOWS\MS
+166 30/03/1999 ~ 10:23:29 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+167 30/03/1999 ~ 10:25:45 ~ Multiple Database Manager - Successfully removed Database Set K:\PROJECTS\008\SOURCE\TITAN\DATA\FRED                               
+168 30/03/1999 ~ 10:27:10 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+169 30/03/1999 ~ 10:27:25 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+170 30/03/1999 ~ 10:28:06 ~ Multiple Database Manager - Successfully removed Database Set K:\PROJECTS\008\SOURCE\TITAN\DATA\TESTIMPORT                         
+171 30/03/1999 ~ 10:29:23 ~ Error (#403): Import Error: Import failed - next file does not exist in SphygmoCor directory: K:\PROJECTS\mtonom.DBF               
+172 30/03/1999 ~ 10:30:08 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+173 30/03/1999 ~ 10:30:08 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+174 30/03/1999 ~ 10:30:22 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+175 30/03/1999 ~ 10:33:04 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+176 30/03/1999 ~ 11:08:32 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+177 30/03/1999 ~ 11:10:51 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+178 30/03/1999 ~ 11:54:10 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+179 30/03/1999 ~ 11:54:23 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+180 30/03/1999 ~ 12:18:27 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+181 30/03/1999 ~ 12:19:17 ~ Error (#704): Configuration Error: Quality control value is out of range [80,160]                                                  
+182 30/03/1999 ~ 12:19:28 ~ Error (#704): Configuration Error: Quality control value is out of range [80,160]                                                  
+183 30/03/1999 ~ 12:19:33 ~ Error (#704): Configuration Error: Quality control value is out of range [80,160]                                                  
+184 30/03/1999 ~ 12:20:54 ~ Error (#704): Configuration Error: Quality control value is out of range [1,15]                                                    
+185 30/03/1999 ~ 12:21:19 ~ Error (#704): Configuration Error: Quality control value is out of range [1,15]                                                    
+186 30/03/1999 ~ 12:23:47 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+187 30/03/1999 ~ 12:27:49 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+188 30/03/1999 ~ 12:28:26 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+189 30/03/1999 ~ 12:31:45 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+190 30/03/1999 ~ 12:32:23 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+191 30/03/1999 ~ 12:48:26 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+192 30/03/1999 ~ 12:49:13 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+193 30/03/1999 ~ 12:50:52 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+194 30/03/1999 ~ 12:55:09 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+195 30/03/1999 ~ 12:55:35 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+196 30/03/1999 ~ 12:56:53 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+197 30/03/1999 ~ 12:57:07 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+198 30/03/1999 ~ 13:07:08 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+199 30/03/1999 ~ 13:07:46 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+200 30/03/1999 ~ 13:11:41 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+201 30/03/1999 ~ 13:12:36 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+202 30/03/1999 ~ 13:15:04 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1428                                                                                        
+203 30/03/1999 ~ 14:01:06 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1428                                                                                      
+204 30/03/1999 ~ 14:03:29 ~ Added Patient 2                                                                                                                    
+205 30/03/1999 ~ 14:29:52 ~ Added Patient 3                                                                                                                    
+206 30/03/1999 ~ 14:34:45 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1434                                                                                        
+207 30/03/1999 ~ 14:37:25 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1434                                                                                      
+208 30/03/1999 ~ 14:51:22 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1490                                                                                      
+209 30/03/1999 ~ 15:09:33 ~ Multiple Database Manager : Cannot copy to program path K:\PROJECTS\008\SOURCE\TITAN\NEWONE                                        
+210 30/03/1999 ~ 15:09:48 ~ Error (#826): Multiple database manager: Copy failed. Source, Destination =  ,K:\PROJECTS\008\SOURCE\TITAN\NEWONEEnsure you are not
+211 30/03/1999 ~ 15:10:02 ~ Multiple Database Manager : Cannot copy to program path K:\PROJECTS\008\SOURCE\TITAN\NEWONE                                        
+212 30/03/1999 ~ 15:10:04 ~ Error (#826): Multiple database manager: Copy failed. Source, Destination =  ,K:\PROJECTS\008\SOURCE\TITAN\NEWONEEnsure you are not
+213 30/03/1999 ~ 15:10:15 ~ Multiple Database Manager : Cannot copy to program path K:\PROJECTS\008\SOURCE\TITAN\NEWONE                                        
+214 30/03/1999 ~ 15:10:20 ~ Error (#826): Multiple database manager: Copy failed. Source, Destination =  ,K:\PROJECTS\008\SOURCE\TITAN\NEWONEEnsure you are not
+215 30/03/1999 ~ 15:10:47 ~ Copy succeeded from K:\PROJECTS\008\SOURCE\TITAN\DATA\NEWONE\TITAN.MDB to J:\PETERH\NEWONE\TITAN.MDB                               
+216 30/03/1999 ~ 15:11:47 ~ Error (#132): Mathematical error: Ejection duration not found                                                                      
+217 30/03/1999 ~ 15:11:47 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+218 30/03/1999 ~ 15:11:47 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+219 30/03/1999 ~ 15:11:47 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+220 30/03/1999 ~ 15:11:47 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+221 30/03/1999 ~ 15:11:47 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+222 30/03/1999 ~ 15:11:47 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+223 30/03/1999 ~ 15:11:47 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+224 30/03/1999 ~ 15:11:47 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+225 30/03/1999 ~ 15:11:47 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+226 30/03/1999 ~ 15:11:47 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+227 30/03/1999 ~ 15:11:47 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+228 30/03/1999 ~ 15:11:47 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+229 30/03/1999 ~ 15:31:21 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+230 30/03/1999 ~ 15:34:24 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+231 30/03/1999 ~ 15:40:16 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+232 30/03/1999 ~ 15:51:39 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+233 30/03/1999 ~ 15:57:48 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+234 30/03/1999 ~ 16:20:06 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+235 30/03/1999 ~ 16:24:00 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+236 30/03/1999 ~ 16:27:45 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+237 30/03/1999 ~ 16:28:28 ~ Copy succeeded from K:\PROJECTS\008\SOURCE\TITAN\DATA\TITAN.MDB to J:\PETERH\DATA\TITAN.MDB                                        
+238 30/03/1999 ~ 16:29:45 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+239 30/03/1999 ~ 16:30:39 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+240 30/03/1999 ~ 16:30:49 ~ Multiple Database Manager Recovered Configuration                                                                                  
+241 30/03/1999 ~ 16:31:17 ~ Copy succeeded from K:\PROJECTS\008\SOURCE\TITAN\DATA\TITAN.MDB to J:\PETERH\DATA\TITAN.MDB                                        
+242 30/03/1999 ~ 16:32:40 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+243 30/03/1999 ~ 16:34:06 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+244 30/03/1999 ~ 16:38:34 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+245 30/03/1999 ~ 16:49:27 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+246 30/03/1999 ~ 16:52:41 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+247 30/03/1999 ~ 16:56:43 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+248 30/03/1999 ~ 17:04:05 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+249 30/03/1999 ~ 17:07:11 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+250 30/03/1999 ~ 17:09:17 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+251 30/03/1999 ~ 17:34:02 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+252 30/03/1999 ~ 17:36:12 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+253 30/03/1999 ~ 17:38:18 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+254 30/03/1999 ~ 17:41:40 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+255 30/03/1999 ~ 17:49:29 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+256 30/03/1999 ~ 17:50:17 ~ Deleted Patient 5                                                                                                                  
+257 30/03/1999 ~ 17:50:37 ~ Deleted Patient 4                                                                                                                  
+258 30/03/1999 ~ 17:50:39 ~ Deleted Patient 1                                                                                                                  
+259 30/03/1999 ~ 17:50:42 ~ Deleted Patient 2                                                                                                                  
+260 30/03/1999 ~ 17:50:44 ~ Deleted Patient 3                                                                                                                  
+261 30/03/1999 ~ 17:51:13 ~ Error (#132): Mathematical error: Ejection duration not found                                                                      
+262 30/03/1999 ~ 17:51:13 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+263 30/03/1999 ~ 17:51:13 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+264 30/03/1999 ~ 17:51:14 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+265 30/03/1999 ~ 17:51:14 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+266 30/03/1999 ~ 17:51:14 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+267 30/03/1999 ~ 17:51:14 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+268 30/03/1999 ~ 17:51:14 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+269 30/03/1999 ~ 17:51:15 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+270 30/03/1999 ~ 17:51:15 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+271 30/03/1999 ~ 17:51:16 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+272 30/03/1999 ~ 17:51:16 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+273 30/03/1999 ~ 17:51:17 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+274 30/03/1999 ~ 17:52:16 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+275 30/03/1999 ~ 18:04:00 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+276 30/03/1999 ~ 18:05:32 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+277 31/03/1999 ~ 09:24:42 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+278 31/03/1999 ~ 09:26:37 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+279 31/03/1999 ~ 09:41:33 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+280 31/03/1999 ~ 09:42:57 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+281 31/03/1999 ~ 09:44:47 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+282 31/03/1999 ~ 09:45:55 ~ Error (#129): Validation error: Entered Systolic pressure is less than Diastolic. Sp = 70                                          
+283 31/03/1999 ~ 09:48:22 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+284 31/03/1999 ~ 09:49:06 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+285 31/03/1999 ~ 09:54:38 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+286 31/03/1999 ~ 09:54:52 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+287 31/03/1999 ~ 09:55:58 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+288 31/03/1999 ~ 09:56:00 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+289 31/03/1999 ~ 09:58:20 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+290 31/03/1999 ~ 10:03:45 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+291 31/03/1999 ~ 10:07:31 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+292 31/03/1999 ~ 10:11:53 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+293 31/03/1999 ~ 10:23:20 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+294 31/03/1999 ~ 10:25:36 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+295 31/03/1999 ~ 10:28:32 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+296 31/03/1999 ~ 10:30:16 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+297 31/03/1999 ~ 10:32:10 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+298 31/03/1999 ~ 10:33:05 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+299 31/03/1999 ~ 10:34:31 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+300 31/03/1999 ~ 10:36:07 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+301 31/03/1999 ~ 10:39:03 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+302 31/03/1999 ~ 10:49:04 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+303 31/03/1999 ~ 10:49:40 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+304 31/03/1999 ~ 11:04:00 ~ Error (#132): Mathematical error: Ejection duration not found                                                                      
+305 31/03/1999 ~ 11:08:13 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+306 31/03/1999 ~ 11:04:00 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+307 31/03/1999 ~ 11:04:01 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+308 31/03/1999 ~ 11:04:01 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+309 31/03/1999 ~ 11:04:01 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+310 31/03/1999 ~ 11:04:01 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+311 31/03/1999 ~ 11:04:01 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+312 31/03/1999 ~ 11:04:01 ~ Error (#104): Database input-output error: Wrong record in database                                                                
+313 31/03/1999 ~ 11:04:01 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+314 31/03/1999 ~ 11:04:01 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+315 31/03/1999 ~ 11:04:01 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+316 31/03/1999 ~ 11:04:01 ~ Error (#135): Validation error: Invalid measurement type                                                                           
+317 31/03/1999 ~ 11:04:19 ~ Deleted Patient 6                                                                                                                  
+318 31/03/1999 ~ 11:04:22 ~ Deleted Patient 5                                                                                                                  
+319 31/03/1999 ~ 11:04:23 ~ Deleted Patient 4                                                                                                                  
+320 31/03/1999 ~ 11:04:25 ~ Deleted Patient 1                                                                                                                  
+321 31/03/1999 ~ 11:04:27 ~ Deleted Patient 2                                                                                                                  
+322 31/03/1999 ~ 11:04:29 ~ Deleted Patient 3                                                                                                                  
+323 31/03/1999 ~ 11:14:13 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+324 31/03/1999 ~ 11:14:49 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+325 31/03/1999 ~ 11:34:34 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+326 31/03/1999 ~ 12:22:50 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+327 31/03/1999 ~ 12:27:49 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+328 31/03/1999 ~ 12:31:18 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+329 31/03/1999 ~ 12:36:46 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+330 31/03/1999 ~ 12:39:17 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+331 31/03/1999 ~ 12:44:15 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+332 31/03/1999 ~ 12:45:29 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+333 31/03/1999 ~ 12:48:21 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+334 31/03/1999 ~ 13:47:22 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+335 31/03/1999 ~ 13:53:07 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+336 31/03/1999 ~ 13:55:43 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+337 31/03/1999 ~ 14:02:06 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+338 31/03/1999 ~ 14:18:58 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+339 31/03/1999 ~ 14:22:37 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+340 31/03/1999 ~ 14:24:48 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+341 31/03/1999 ~ 14:35:10 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+342 31/03/1999 ~ 14:35:55 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+343 31/03/1999 ~ 14:41:00 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+344 31/03/1999 ~ 14:45:05 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+345 31/03/1999 ~ 14:47:02 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+346 31/03/1999 ~ 14:48:52 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+347 31/03/1999 ~ 15:08:07 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+348 31/03/1999 ~ 15:11:28 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+349 31/03/1999 ~ 15:13:10 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+350 31/03/1999 ~ 15:15:49 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+351 31/03/1999 ~ 15:22:40 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+352 31/03/1999 ~ 15:33:31 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+353 31/03/1999 ~ 15:48:44 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+354 31/03/1999 ~ 15:50:10 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+355 31/03/1999 ~ 16:46:28 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+356 31/03/1999 ~ 16:47:50 ~ Multiple Database Manager : Cannot copy to program path K:\PROJECTS\008\SOURCE\TITAN\AGAIN                                         
+357 31/03/1999 ~ 16:48:28 ~ Error (#826): Multiple database manager: Copy failed.   From ,K:\PROJECTS\008\SOURCE\TITAN\AGAIN.  Ensure you are not copying to th
+358 31/03/1999 ~ 16:48:37 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+359 31/03/1999 ~ 16:52:53 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+360 31/03/1999 ~ 16:53:17 ~ Multiple Database Manager : Cannot copy to program path K:\PROJECTS\008\SOURCE\TITAN\AGAIN                                         
+361 31/03/1999 ~ 16:54:05 ~ Error (#826): Multiple database manager: Copy failed.   From To K:\PROJECTS\008\SOURCE\TITAN\AGAIN.  Ensure you are not copying to 
+362 31/03/1999 ~ 16:54:16 ~ Multiple Database Manager : Cannot copy to program path K:\PROJECTS\008\SOURCE\TITAN\AGAIN                                         
+363 31/03/1999 ~ 16:54:31 ~ Error (#826): Multiple database manager: Copy failed.   From To K:\PROJECTS\008\SOURCE\TITAN\AGAIN.  Ensure you are not copying to 
+364 31/03/1999 ~ 16:54:38 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+365 31/03/1999 ~ 17:00:59 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+366 31/03/1999 ~ 17:01:50 ~ Multiple Database Manager : Cannot copy to program path K:\PROJECTS\008\SOURCE\TITAN\AGAIN                                         
+367 31/03/1999 ~ 17:02:08 ~ Error (#826): Multiple database manager: Copy failed.   FromAGAIN To K:\PROJECTS\008\SOURCE\TITAN\AGAIN.  Ensure you are not copyin
+368 31/03/1999 ~ 17:02:24 ~ Multiple Database Manager : Could not create destination directory N:\\AGAIN                                                       
+369 31/03/1999 ~ 17:02:42 ~ Error (#826): Multiple database manager: Copy failed.   FromAGAIN To N:\\AGAIN.  Ensure you are not copying to the same location as
+370 31/03/1999 ~ 17:03:23 ~ Copy succeeded from K:\PROJECTS\008\SOURCE\TITAN\DATA\AGAIN\TITAN.MDB
+to J:\PETERH\AGAIN\TITAN.MDB                                 
+371 31/03/1999 ~ 17:04:17 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+372 31/03/1999 ~ 17:07:01 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+373 31/03/1999 ~ 17:08:50 ~ Error (#827): Multiple database manager: The updated Database Set must come from a directory of the same name as the Database Set y
+374 31/03/1999 ~ 17:09:12 ~ Error (#827): Multiple database manager: The updated Database Set must come from a directory of the same name as the Database Set y
+375 31/03/1999 ~ 17:09:22 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+376 31/03/1999 ~ 17:11:01 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+377 31/03/1999 ~ 17:11:28 ~ Error (#827): Multiple database manager:  The updated Database Set must come from a directory of the same name as the Database Set 
+378 31/03/1999 ~ 17:11:31 ~ Multiple Database Manager : Cannot copy to program path K:\PROJECTS\008\SOURCE\TITAN\AGAIN                                         
+379 31/03/1999 ~ 17:11:44 ~ Error (#826): Multiple database manager: Copy failed.   FromAGAIN To K:\PROJECTS\008\SOURCE\TITAN\AGAIN.  Ensure you are not copyin
+380 31/03/1999 ~ 17:12:01 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+381 31/03/1999 ~ 17:13:35 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+382 31/03/1999 ~ 17:14:15 ~ Multiple Database Manager : Cannot copy to program path K:\PROJECTS\008\SOURCE\TITAN\AGAIN                                         
+383 31/03/1999 ~ 17:14:18 ~ Error (#826): Multiple database manager: Copy failed.   From AGAIN To K:\PROJECTS\008\SOURCE\TITAN\AGAIN.  Ensure you are not copyi
+384 31/03/1999 ~ 17:14:44 ~ Error (#827): Multiple database manager:  The updated Database Set must come from a directory of the same name as the Database Set 
+385 31/03/1999 ~ 17:14:50 ~ Update succeeded from J:\PETERH\AGAIN to K:\PROJECTS\008\SOURCE\TITAN\DATA\AGAIN\TITAN.MDB                                         
+386 31/03/1999 ~ 17:15:51 ~ Copy succeeded from K:\PROJECTS\008\SOURCE\TITAN\DATA\NEWONE\TITAN.MDB
+to J:\PETERH\NEWONE\TITAN.MDB                               
+387 31/03/1999 ~ 17:16:07 ~ Error (#827): Multiple database manager:  The updated Database Set must come from a directory of the same name as the Database Set 
+388 31/03/1999 ~ 17:16:23 ~ Update succeeded from J:\PETERH\NEWONE to K:\PROJECTS\008\SOURCE\TITAN\DATA\NEWONE\TITAN.MDB                                       
+389 31/03/1999 ~ 17:16:38 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+390 01/04/1999 ~ 09:34:26 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+391 01/04/1999 ~ 09:35:49 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+392 01/04/1999 ~ 10:44:24 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+393 01/04/1999 ~ 10:48:18 ~ Error (#135): Patient :5, Measurement :03/06/98 14:19:48, DataRevision :7. Validation error: Invalid measurement type             
+394 01/04/1999 ~ 10:48:18 ~ Error (#135): Patient :5, Measurement :03/06/98 14:21:13, DataRevision :7. Validation error: Invalid measurement type             
+395 01/04/1999 ~ 10:48:32 ~ Error (#135): Patient :117, Measurement :22/06/95 3:50:48, DataRevision :3. Validation error: Invalid measurement type            
+396 01/04/1999 ~ 10:51:46 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+397 01/04/1999 ~ 10:55:00 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      
+398 01/04/1999 ~ 10:57:05 ~ SphygmoCor 6.0 End FDS - 2097120 DBS - 1528                                                                                        
+399 01/04/1999 ~ 11:11:40 ~ SphygmoCor 6.0 Start FDS - 2097120 DBS - 1528                                                                                      

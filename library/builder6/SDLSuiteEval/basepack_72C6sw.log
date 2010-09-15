@@ -1,0 +1,69 @@
+***  Installation Started 07/17/2003 15:06  ***
+Title: SDL BasePack 7.2 for C++Builder 6
+Source: N:\Projects\BaroReceptors\TechnologyDevelopment\FFTLibraries\Builder6\SDLSuite\setup_SDLbasepack_72C6sw.exe
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\UNWISE.EXE
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SDL BasePack 7.2 for C++Builder 6
+RegDB Val: SDL BasePack 7.2 for C++Builder 6
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\SDL BasePack 7.2 for C++Builder 6
+RegDB Val: K:\projects\LIBRARY\Builder6\SDLSuite\UNWISE.EXE K:\projects\LIBRARY\Builder6\SDLSuite\basepack_72C6sw.log
+RegDB Name: UninstallString
+RegDB Root: 2
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\help
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\help\sdlhelp.hlp
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\basepack
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\readme!.txt
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\examples-C6
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\examples-C6\exmpl-stringl-1
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\examples-C6\exmpl-stringl-1\grep.bpr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\examples-C6\exmpl-stringl-1\grep.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\examples-C6\exmpl-stringl-1\grep.res
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\examples-C6\exmpl-stringl-1\ugrep.cpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\examples-C6\exmpl-stringl-1\ugrep.dfm
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\examples-C6\exmpl-stringl-1\ugrep.h
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\help\bg-losoft.gif
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\help\sdl_support.css
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\help\sdl_banner2.jpg
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\help\sdl_customer_support.html
+Made Dir: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\dstruct.dcr
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\dstruct.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\dstruct.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\dstruct.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\filesys.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\filesys.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\filesys.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\sdlbase.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\sdlbase.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\sdlbase.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\sdlbasepack_72C6.bpi
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\sdlbasepack_72C6.bpl
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\sdlbasepack_72C6.dcp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\sdlbasepack_72C6.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\sdlbasepack_72C6.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\sdlbasepack_72C6.lib
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\streams.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\streams.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\streams.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\stringl.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\stringl.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\stringl.obj
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\univconst.dcu
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\univconst.hpp
+File Copy: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\univconst.obj
+Made Dir: C:\Documents and Settings\Peterh\Start Menu\Programs\SDL Component Suite
+Shell Link: C:\Documents and Settings\Peterh\Start Menu\Programs\SDL Component Suite\SDL Suite Help.lnk
+Shell Link: C:\Documents and Settings\Peterh\Desktop\SDL Suite Help.lnk
+Shell Link: C:\Documents and Settings\Peterh\Desktop\SDL Customer Support.lnk
+Shell Link: C:\Documents and Settings\Peterh\Start Menu\Programs\SDL Component Suite\SDL Customer Support.lnk
+RegDB Key: Software\Borland\C++Builder\6.0\Known Packages
+RegDB Val: SDL BasePack 7.2
+RegDB Name: K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6\sdlbasepack_72C6.bpl
+RegDB Root: 1
+RegDB Key: Software\Borland\C++Builder\6.0\Library
+RegDB Val: $(BCB)\Lib;$(BCB)\Bin;$(BCB)\Imports;$(BCB)\Projects\Bpl;$(BCB)\Projects\Lib;K:\projects\LIBRARY\Builder6\SDLSuite\basepack\C6
+RegDB Name: Search Path
+RegDB Root: 1
+RegDB Old: $(BCB)\Lib;$(BCB)\Bin;$(BCB)\Imports;$(BCB)\Projects\Bpl;$(BCB)\Projects\Lib

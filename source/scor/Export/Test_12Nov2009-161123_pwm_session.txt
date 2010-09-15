@@ -1,0 +1,20 @@
+Radial Sp	120	120	120
+Radial Dp	80	80	80
+Aortic Sp	115	116	116
+Aortic Dp	81	81	81
+Mean P	94	94	95
+Heart rate	61	61	62
+Ejection duration	349	353	357
+Aortic T1	103	102	103
+Aortic T2	247	251	254
+AI1	168	173	176
+Aortic AP	14	15	15
+Mean pressure systolic	105	105	105
+Mean pressure diastolic	88	89	89
+End systolic pressure	105	106	106
+SEVR	151	149	144
+Period	977	977	969
+Aortic PP	35	35	36
+Augmentation index	41	42	43
+Event Marker	9999	9999	9999
+Aortic Tr	132	131	132

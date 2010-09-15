@@ -1,0 +1,88 @@
+*****  Installation Start Time 02/16/10 14:59:46 Version 5.1 (S)  *****
+
+SphygmoCor Cardiovascular Management Suite
+Version 9
+Install System ID 00050
+OLD System ID 00050
+New Version
+
+Found Existing SphygmoCor CvMS Version
+00050
+Version Checks Passed
+Previous Revision Database Copied : C:\Program Files\AtCor\SphygmoCor CvMS\data\SCOR.MDB
+
+Program Files Dir = C:\Program Files
+Common Dir = C:\Program Files\Common Files
+Start Up Dir = C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+DeskTop Dir = C:\Users\rnd.ATCORAU\Desktop
+Start Menu Dir = C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu
+Group Dir = C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu\Programs
+
+System Printer  
+Default Port 
+Printer DataType  
+
+COM1 
+COM2 
+
+Windows Logon Name  RnD
+First Network Drive  H:
+Windows Version  6.1.7600
+Service Pack  0
+Regional Date Time  Tuesday, 16 February 2010 3:01:39 PM
+Company Name  
+DOS Version 29.176
+KB Available Memory 2097151
+
+*****  Installation Complete  *****
+
+*****  Installation Start Time 02/16/10 15:11:55 Version 5.1 (S)  *****
+
+SphygmoCor Cardiovascular Management Suite
+Version 9
+Install System ID 00050
+OLD System ID 00051
+New Version
+
+Found Existing SphygmoCor CvMS V9
+00051
+Failed Correspondance Checks  00050
+
+*****  Installation Start Time 02/16/10 15:21:06 Version 5.1 (S)  *****
+
+SphygmoCor Cardiovascular Management Suite
+Version 9
+Install System ID 00050
+OLD System ID 00050
+New Version
+
+Found Existing SphygmoCor CvMS V9
+00050
+Version Checks Passed
+Previous Revision Database Not Copied : scor.*
+
+Program Files Dir = C:\Program Files
+Common Dir = C:\Program Files\Common Files
+Start Up Dir = C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+DeskTop Dir = C:\Users\rnd.ATCORAU\Desktop
+Start Menu Dir = C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu
+Group Dir = C:\Users\rnd.ATCORAU\AppData\Roaming\Microsoft\Windows\Start Menu\Programs
+
+System Printer  
+Default Port 
+Printer DataType  
+
+COM1 
+COM2 
+
+Windows Logon Name  RnD
+First Network Drive  H:
+Windows Version  6.1.7600
+Service Pack  0
+Regional Date Time  Tuesday, 16 February 2010 3:21:42 PM
+Company Name  
+DOS Version 29.176
+KB Available Memory 2097151
+
+*****  Installation Complete  *****
+
