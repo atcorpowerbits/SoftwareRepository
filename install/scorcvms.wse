@@ -158,7 +158,7 @@ item: Set Variable
 end
 item: Set Variable
   Variable=INST_VERSION
-  Value=5.1 (S
+  Value=5.2 (S
 end
 item: Set Variable
   Variable=SCOR_LONG_PATH
@@ -923,6 +923,243 @@ item: If/While Statement
   Value=Y
   Flags=00110000
 end
+item: Compiler Variable If
+  Variable=OPT_NETWORK
+  Value=YES
+end
+item: Custom Dialog Set
+  Name=Select Network Directory
+  Display Variable=DISPLAY
+  item: Dialog
+    Title=Select Network Directory
+    Title French=Commencer l'installation
+    Title German=Installation beginnen
+    Title Portuguese=Iniciar Instalação
+    Title Spanish=Comenzar la Instalación
+    Title Italian=Avvia Installazione
+    Title Danish=Start installationen
+    Title Dutch=Start de installatie
+    Title Norwegian=Start installeringen
+    Title Swedish=Starta installationen
+    Width=280
+    Height=224
+    Font Name=Helv
+    Font Size=8
+    item: Push Button
+      Rectangle=172 185 214 199
+      Variable=DIRECTION
+      Value=N
+      Create Flags=01010000000000010000000000000001
+      Text=&Next >
+      Text French=&Suivant>
+      Text German=&Weiter>
+      Text Portuguese=&Próximo>
+      Text Spanish=&Siguiente >
+      Text Italian=&Avanti >
+      Text Danish=&Næste>
+      Text Dutch=&Volgende>
+      Text Norwegian=&Neste>
+      Text Swedish=&Nästa >
+    end
+    item: Push Button
+      Rectangle=130 185 172 199
+      Variable=DIRECTION
+      Value=B
+      Create Flags=01010000000000010000000000000000
+      Text=< &Back
+      Text French=<&Retour
+      Text German=<&Zurück
+      Text Portuguese=<&Retornar
+      Text Spanish=<&Retroceder
+      Text Italian=< &Indietro
+      Text Danish=<&Tilbage
+      Text Dutch=<&Terug
+      Text Norwegian=<&Tilbake
+      Text Swedish=< &Tillbaka
+    end
+    item: Push Button
+      Rectangle=222 185 264 199
+      Action=3
+      Create Flags=01010000000000010000000000000000
+      Text=Cancel
+      Text French=Annuler
+      Text German=Abbrechen
+      Text Portuguese=Cancelar
+      Text Spanish=Cancelar
+      Text Italian=Annulla
+      Text Danish=Annuller
+      Text Dutch=Annuleren
+      Text Norwegian=Avbryt
+      Text Swedish=Avbryt
+    end
+    item: Static
+      Rectangle=9 177 263 178
+      Action=3
+      Create Flags=01010000000000000000000000000111
+    end
+    item: Static
+      Rectangle=90 10 260 122
+      Create Flags=01010000000000000000000000000000
+      Text=Setup will install %APPTITLE% in the following folder.
+      Text=
+      Text=To install into a different folder, click Browse, and select another folder. 
+      Text=
+      Text=You can choose not to install %APPTITLE% by clicking Cancel to exit Setup.
+      Text=
+      Text=%CFR11WARNING%
+      Text French=%APPTITLE% va être installé dans le répertoire ci-dessous
+      Text French=
+      Text French=Pour l'installer dans un répertoire différent, cliquez sur Parcourir et sélectionnez un autre répertoire
+      Text French=
+      Text French=Vous pouvez choisir de ne pas installer %APPTITLE% en cliquant sur Annuler pour quitter l'Installation
+      Text German=Installation speichert %APPTITLE% im unten angegebenen Ordner:
+      Text German=
+      Text German=Zur Installation in einem anderen Ordner auf Blättern klicken und einen anderen Ordner wählen.
+      Text German=
+      Text German=Wenn Sie %APPTITLE% nicht installieren möchten, können Sie durch Klicken auf Abbrechen die Installation beenden.
+      Text Portuguese=Configuração instalará %APPTITLE% na seguinte pasta
+      Text Portuguese=
+      Text Portuguese=Para instalar numa pasta diferente, faça um clique sobre Procurar, e seleccione uma outra pasta.
+      Text Portuguese=
+      Text Portuguese=Pode escolher não instalar %APPTITLE% clicando no botão Cancelar para sair da Configuração
+      Text Spanish=El programa de Configuración instalará %APPTITLE% en la siguiente carpeta.
+      Text Spanish=
+      Text Spanish=Para instalar en una carpeta diferente, haga un clic en Visualizar, y seleccione otra carpeta.
+      Text Spanish=
+      Text Spanish=Puede elegir no instalar %APPTITLE% haciendo un clic en Cancelar para salir de Configuración.
+      Text Italian=Il programma di installazione installerà %APPTITLE% nella seguente cartella.
+      Text Italian=
+      Text Italian=Per effettuare l’installazione in una cartella diversa, fai clic su Sfoglia, e scegli un’altra cartella.
+      Text Italian=
+      Text Italian=Puoi scegliere di non installare %APPTITLE% facendo clic su Annulla per uscire dal programma di installazione
+      Text Danish=Installationsprogrammet installerer %APPTITLE% i denne mappe.
+      Text Danish=
+      Text Danish=Man installerer i en anden mappe ved at klikke på Browse og vælge en anden mappe.
+      Text Danish=
+      Text Danish=Man kan vælge ikke at installere %APPTITLE% ved at klikke på Slet og forlade installationsprogrammet.
+      Text Dutch=Het installatieprogramma installeert %APPTITLE% in de volgende directory.
+      Text Dutch=
+      Text Dutch=Als u het in een andere directory wilt installeren, klik dan op Bladeren en kies een andere locatie.
+      Text Dutch=
+      Text Dutch=U kunt ervoor kiezen om %APPTITLE% niet te installeren: klik op Annuleren om het installatieprogramma te verlaten.
+      Text Norwegian=Oppsett vil installere %APPTITLE% i følgende mappe.
+      Text Norwegian=
+      Text Norwegian=For å installere i en annen mappe, klikk Bla igjennom og velg en annen mappe.
+      Text Norwegian=
+      Text Norwegian=Du kan velge å ikke installere %APPTITLE% ved å velge Avbryt for å gå ut av Oppsett.
+      Text Swedish=Installationsprogrammet installerar %APPTITLE% i följande mapp.
+      Text Swedish=
+      Text Swedish=Om du vill att installationen ska göras i en annan mapp, klickar du på Bläddra och väljer en annan mapp.
+      Text Swedish=
+      Text Swedish=Du kan välja att inte installera %APPTITLE% genom att klicka på Avbryt för att lämna installationsprogrammet.
+    end
+    item: Static
+      Rectangle=90 134 260 162
+      Action=1
+      Create Flags=01010000000000000000000000000111
+      Text=Destination Folder
+      Text French=Répertoire de destination
+      Text German=Zielordner
+      Text Portuguese=Pasta de Destino
+      Text Spanish=Carpeta de Destino
+      Text Italian=Cartella di destinazione
+      Text Danish=Destinationsmappe
+      Text Dutch=Doeldirectory
+      Text Norwegian=Målmappe
+      Text Swedish=Destinationsmapp
+    end
+    item: Push Button
+      Rectangle=213 145 255 159
+      Variable=MAINDIR_SAVE
+      Value=%MAINDIR%
+      Destination Dialog=1
+      Action=2
+      Create Flags=01010000000000010000000000000000
+      Text=B&rowse...
+      Text French=P&arcourir
+      Text German=B&lättern...
+      Text Portuguese=P&rocurar
+      Text Spanish=V&isualizar...
+      Text Italian=Sfoglia...
+      Text Danish=&Gennemse...
+      Text Dutch=B&laderen...
+      Text Norwegian=Bla igjennom
+      Text Swedish=&Bläddra
+    end
+    item: Static
+      Rectangle=95 148 211 159
+      Destination Dialog=2
+      Create Flags=01010000000000000000000000000000
+      Text=%MAINDIR%
+      Text French=%MAINDIR%
+      Text German=%MAINDIR%
+      Text Portuguese=%MAINDIR%
+      Text Spanish=%MAINDIR%
+      Text Italian=%MAINDIR%
+      Text Danish=%MAINDIR%
+      Text Dutch=%MAINDIR%
+      Text Norwegian=%MAINDIR%
+      Text Swedish=%MAINDIR%
+    end
+  end
+  item: Dialog
+    Title=Select Destination Directory
+    Width=221
+    Height=173
+    Font Name=Helv
+    Font Size=8
+    item: Listbox
+      Rectangle=5 5 160 152
+      Variable=MAINDIR
+      Create Flags=01010000100000010000000101000001
+      Flags=0000110000000010
+      Text=%MAINDIR%
+      Text=
+      Text French=%MAINDIR%
+      Text German=%MAINDIR%
+      Text Portuguese=%MAINDIR%
+      Text Spanish=%MAINDIR%
+      Text Italian=%MAINDIR%
+      Text Danish=%MAINDIR%
+      Text Dutch=%MAINDIR%
+      Text Norwegian=%MAINDIR%
+      Text Swedish=%MAINDIR%
+    end
+    item: Push Button
+      Rectangle=166 10 211 25
+      Create Flags=01010000000000010000000000000001
+      Text=OK
+      Text French=OK
+      Text German=OK
+      Text Portuguese=OK
+      Text Spanish=ACEPTAR
+      Text Italian=OK
+      Text Danish=OK
+      Text Dutch=OK
+      Text Norwegian=OK
+      Text Swedish=OK
+    end
+    item: Push Button
+      Rectangle=166 29 211 44
+      Variable=MAINDIR
+      Value=%MAINDIR_SAVE%
+      Create Flags=01010000000000010000000000000000
+      Flags=0000000000000001
+      Text=Cancel
+      Text French=Annuler
+      Text German=Abbrechen 
+      Text Portuguese=Cancelar
+      Text Spanish=Cancelar
+      Text Italian=Annulla
+      Text Danish=Slet
+      Text Dutch=Annuleren
+      Text Norwegian=Avbryt
+      Text Swedish=Avbryt
+    end
+  end
+end
+item: Compiler Variable Else
+end
 item: Custom Dialog Set
   Name=Select Destination Directory
   Display Variable=DISPLAY
@@ -1094,6 +1331,8 @@ item: Set Variable
   Variable=MAINDIR
   Value=%ROOTDIR%\%SUBDIR%
 end
+item: Compiler Variable End
+end
 item: Set Variable
   Variable=DIR_EXISTS
   Value=N
@@ -1101,6 +1340,36 @@ end
 item: If/While Statement
   Variable=DISPLAY
   Value=Select Destination Directory
+end
+item: If/While Statement
+  Variable=OPT_CFR11
+  Value=Y
+end
+item: Check if File/Dir Exists
+  Pathname=%MAINDIR%\
+  Title=Checking for new folder
+  Flags=00000100
+end
+item: Display Message
+  Title=Cannot Install DAT
+  Text=It is a requirement of this Data Audit Trail software to start with a new database.
+  Text=
+  Text=Please select a directory that does not exist.
+  Flags=00100000
+end
+item: Set Variable
+  Variable=DIR_EXISTS
+  Value=Y
+end
+item: End Block
+end
+item: End Block
+end
+item: End Block
+end
+item: If/While Statement
+  Variable=DISPLAY
+  Value=Select Network Directory
 end
 item: If/While Statement
   Variable=OPT_CFR11
