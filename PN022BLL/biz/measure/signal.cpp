@@ -14,53 +14,83 @@ using namespace Biz;
 using namespace System;
 using namespace CrossCutting;
 using namespace System::Diagnostics;
+using namespace System::Globalization;
 
 #pragma hdrstop
 
 /**
-	Constructor for Signal Class
+ ** Constructor()
+ **
+ ** DESCRIPTION:
+ **  Constructor for signal class.
+
+ ** INPUT:
+ **	 none.
+
+ ** OUTPUT:
+ **  none.
+
+ ** RETURN:
+ **  none.
 */
 BizSignal::BizSignal()
 {
 	signalLength = 0;
 	onsetsLength = 0;
-	maxSignalLength = 0;
-	maxOnsetsLength = 0;
+	maximumSignalLength = 0;
+	maximumOnsetsLength = 0;
 	signal = nullptr;
 	floatOnsets = nullptr;
+	firstDerivative = nullptr;
 
-	readyToCapture = false;
+	_readyToCapture = false;
 
 	pulseHeight = (float) DEFAULT_VALUE; 
 	pulseHeightVariation = (float) DEFAULT_VALUE;
 	pulseLengthVariation = (float) DEFAULT_VALUE;
-	baseLineVariation = (float) DEFAULT_VALUE;
+	pulseBaselineVariation = (float) DEFAULT_VALUE;
 }
 
-bool BizSignal::Allocate(const short inputMaxSignalLength, 
-						 const short inputMaxOnsetsLength)
+/**
+ ** Allocate()
+ **
+ ** DESCRIPTION:
+ **  Allocate memory for array memebers.
+
+ ** INPUT:
+ **	 inputMaximumSignalLength	- Maximum signal length,
+ **	 inputMaximumOnsetsLength	- Maximum number of onsets.
+
+ ** OUTPUT:
+ **  maximumSignalLength		- Maximum signal length,
+ **  maximumOnsetsLength		- Maximum number of onsets.
+
+ ** RETURN:
+ **  boolean success or not.
+*/
+bool BizSignal::Allocate(const short inputMaximumSignalLength, 
+						 const short inputMaximumOnsetsLength)
 {
-	if (inputMaxSignalLength < MIN_SIGNAL_LENGTH 
-		|| inputMaxSignalLength > MAX_SIGNAL_LENGTH)
+	if (inputMaximumSignalLength < MIN_SIGNAL_LENGTH 
+		|| inputMaximumSignalLength > MAX_SIGNAL_LENGTH)
 	{
 		return false;
 	}
-	if (inputMaxOnsetsLength < MIN_ONSETS 
-		|| inputMaxOnsetsLength > MAX_ONSETS)
+	if (inputMaximumOnsetsLength < MIN_ONSETS 
+		|| inputMaximumOnsetsLength > MAX_ONSETS)
 	{
 		return false;
 	}
 
-	maxSignalLength = inputMaxSignalLength;
-	maxOnsetsLength = inputMaxOnsetsLength;
+	maximumSignalLength = inputMaximumSignalLength;
+	maximumOnsetsLength = inputMaximumOnsetsLength;
 
 	// Allocate
-	signal = gcnew array<float>(maxSignalLength);
-	floatOnsets = gcnew array<float>(maxOnsetsLength);
+	signal = gcnew array<float>(maximumSignalLength);
+	floatOnsets = gcnew array<float>(maximumOnsetsLength);
 
 	// Allocate Derivatives
-	derivative1 = gcnew array<float>(maxSignalLength);
-	derivative2 = gcnew array<float>(maxSignalLength);
+	firstDerivative = gcnew array<float>(maximumSignalLength);
 	
 	// Initialise cannot return false
 	Initialise(0);
@@ -69,7 +99,20 @@ bool BizSignal::Allocate(const short inputMaxSignalLength,
 }
 
 /**
-	Class initialisator
+ ** Initialise()
+ **
+ ** DESCRIPTION:
+ **  Initialse the signal array and sample rate.
+
+ ** INPUT:
+ **	 inputSampleRate				- Signal sample rate,
+ **  BizSignal::maximumSignalLength - Maximum accounted points in signal.
+
+ ** OUTPUT:
+ **  sampleRate.
+
+ ** RETURN:
+ **  boolean success or not.
 */
 bool BizSignal::Initialise(const short inputSampleRate)
 {
@@ -83,7 +126,7 @@ bool BizSignal::Initialise(const short inputSampleRate)
 	sampleRate = inputSampleRate;
 
 	// Signal initialisation
-	for (int i = 0; i < maxSignalLength; i++)
+	for (int i = 0; i < maximumSignalLength; i++)
 	{
 		signal[i] = 0;
 	}
@@ -94,21 +137,33 @@ bool BizSignal::Initialise(const short inputSampleRate)
 	return true;
 }
 /**
-	Set default values for onsets not touching Signal
+ ** SetDefaults()
+ **
+ ** DESCRIPTION:
+ **  Initialse the onsets array and quality control members.
+
+ ** INPUT:
+ **  BizSignal::maximumOnsetsLength - Maximum number of onsets.
+
+ ** OUTPUT:
+ **  none.
+
+ ** RETURN:
+ **  none.
 */
 void BizSignal::SetDefaults()
 {
 	// Initialisation
-	readyToCapture = false;
+	_readyToCapture = false;
 
 	pulseHeight = (float) DEFAULT_VALUE;
 	pulseHeightVariation = (float) DEFAULT_VALUE;
 	pulseLengthVariation = (float) DEFAULT_VALUE;
-	baseLineVariation = (float) DEFAULT_VALUE;
+	pulseBaselineVariation = (float) DEFAULT_VALUE;
 
 	// Onsets initialisation
 	onsetsLength = 0;
-	for (int i = 0; i < maxOnsetsLength; i++)
+	for (int i = 0; i < maximumOnsetsLength; i++)
 	{
 		floatOnsets[i] = -1;
 	}
@@ -117,62 +172,76 @@ void BizSignal::SetDefaults()
 /**
  ** ValidateBeforeStore()
  **
- ** DESCRIPTION
- **  Validate class properties before storing in database
+ ** DESCRIPTION:
+ **  Validate class properties before storing in database.
 
- ** INPUT
- **	 minSignalLength - minimum signal length
- **	 minSignalHeight - minimum signal amplitude
- **  minOnsetsLength - minimum number of onsets
+ ** INPUT:
+ **	 minimumSignalLength			- Minimum signal length,
+ **	 minimumSignalHeight			- Minimum signal amplitude,
+ **  minimumOnsetsLength			- Minimum number of onsets,
+ **  BizSignal::signal				- Signal array,
+ **  BizSignal::signalLength		- Number of accounted points in signal,
+ **  BizSignal::sampleRate			- Signal Sample rate,
+ **  BizSignal::onsetsLength		- Number of onsets,
+ **  BizSignal::maximumSignalLength - Maximum accounted points in signal,
+ **  BizSignal::maximumOnsetsLength - Maximum number of onsets.
 
- ** OUTPUT
- **  none
+ ** OUTPUT:
+ **  onsetsLength (if greater than maximumOnsetsLength).
 
- ** RETURN
- **  boolean success or not
+ ** RETURN:
+ **  boolean success or not.
 */
-bool BizSignal::ValidateBeforeStore(const short minSignalLength, 
-									const short minOnsetsLength, 
-									const short minSignalHeight)
+bool BizSignal::ValidateBeforeStore(const short minimumSignalLength, 
+									const short minimumOnsetsLength, 
+									const short minimumSignalHeight)
 {
 	// Validate input
-	if (minOnsetsLength < MIN_ONSETS 
-		|| minOnsetsLength > MAX_ONSETS)
+	if (minimumOnsetsLength < MIN_ONSETS 
+		|| minimumOnsetsLength > MAX_ONSETS)
 	{
 		return false;
 	}
 	
-	// Validate signal
-	if (!ValidateSignalLength(minSignalLength))
+	// Validate signal and inputs
+	if (!ValidateSignalLength(minimumSignalLength))
 	{
 		return false;
 	}
-	if (!ValidateSignalHeight(minSignalHeight))
+	if (!ValidateSignalHeight(minimumSignalHeight))
 	{
 		return false;
 	}
 
 	// Validate onsets
 	bool success = true;
-	if (onsetsLength < minOnsetsLength)
+	if (onsetsLength < minimumOnsetsLength)
 	{
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
-			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR"), 
+			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails()\n\n +*/
-			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_NOT_ENOUGH_ONSETS") 
-			+ Convert::ToString(onsetsLength) + ", " + Convert::ToString(minOnsetsLength), 
-			"");
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_NOT_ENOUGH_ONSETS", CultureInfo::CurrentUICulture) 
+			+ Convert::ToString(onsetsLength, CultureInfo::CurrentUICulture) 
+			+ ", " + Convert::ToString(minimumOnsetsLength, CultureInfo::CurrentUICulture), 
+			/*GetCurrentMeasureDetails()\n\n +*/
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_NOT_ENOUGH_ONSETS", CultureInfo::InvariantCulture) 
+			+ Convert::ToString(onsetsLength, CultureInfo::InvariantCulture) 
+			+ ", " + Convert::ToString(minimumOnsetsLength, CultureInfo::InvariantCulture));
 		success = false;
 	}
-	if (onsetsLength > maxOnsetsLength)
+	if (onsetsLength > maximumOnsetsLength)
 	{
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
-			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR"), 
+			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails()\n\n +*/
-			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_MANY_ONSETS") 
-			+ Convert::ToString(onsetsLength) + ", " + Convert::ToString(maxOnsetsLength), 
-			"");
-		onsetsLength = maxOnsetsLength;
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_MANY_ONSETS", CultureInfo::CurrentUICulture) 
+			+ Convert::ToString(onsetsLength, CultureInfo::CurrentUICulture) 
+			+ ", " + Convert::ToString(maximumOnsetsLength, CultureInfo::CurrentUICulture), 
+			/*GetCurrentMeasureDetails()\n\n +*/
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_MANY_ONSETS", CultureInfo::InvariantCulture) 
+			+ Convert::ToString(onsetsLength, CultureInfo::InvariantCulture) 
+			+ ", " + Convert::ToString(maximumOnsetsLength, CultureInfo::InvariantCulture));
+		onsetsLength = maximumOnsetsLength;
 	}
 	return success;
 }
@@ -180,37 +249,40 @@ bool BizSignal::ValidateBeforeStore(const short minSignalLength,
 /**
  ** PrepareToCapture()
  **
- ** DESCRIPTION
- **  Allow signal capture
+ ** DESCRIPTION:
+ **  Allow signal capture.
 
- ** INPUT
- **  none
+ ** INPUT:
+ **  none.
 
- ** OUTPUT
- **	 readyToCapture - true
+ ** OUTPUT:
+ **	 _readyToCapture - true.
 
- ** RETURN
- **  none
+ ** RETURN:
+ **  none.
 */
 void BizSignal::PrepareToCapture()
 {
-	readyToCapture = true;
+	_readyToCapture = true;
 }
 /**
  ** CaptureSignal()
  **
- ** DESCRIPTION
- **  Store whole signal in Signal array
+ ** DESCRIPTION:
+ **  Store whole signal in Signal array.
 
- ** INPUT
- **  short int * input  - integer signal
- **  int size
+ ** INPUT:
+ **  input							- integer signal,
+ **  size							- length of input,
+ **  BizSignal::maximumSignalLength - Maximum accounted points in signal,
+ **  BizSignal::_readyToCapture.
 
- ** OUTPUT
- **	 none
+ ** OUTPUT:
+ **	 signalLength					- Number of accounted points in signal,
+ **  signal							- Signal array.
 
- ** RETURN
- **  boolean success or not
+ ** RETURN:
+ **  boolean success or not.
 */
 bool BizSignal::CaptureSignal(array<const short>^ input, 
 							  const short size)
@@ -220,13 +292,13 @@ bool BizSignal::CaptureSignal(array<const short>^ input,
 	{
 		return false;
 	}
-	if (!readyToCapture)
+	if (!_readyToCapture)
 	{
 		return false;
 	}
 
 	// Store the input signal
-	signalLength = Math::Min(size, maxSignalLength);
+	signalLength = Math::Min(size, maximumSignalLength);
 	for (int i = 0; i < signalLength; i++)
 	{
 		signal[i] = input[i];
@@ -237,58 +309,72 @@ bool BizSignal::CaptureSignal(array<const short>^ input,
 /**
  ** ValidateSignalLength()
  **
- ** DESCRIPTION
- **  Validate Signal length
+ ** DESCRIPTION:
+ **  Validate Signal length.
 
- ** INPUT
- **  minSignalLength - minimum signal length
+ ** INPUT:
+ **  minimumSignalLength			- Minimum signal length,
+ **  BizSignal::signalLength		- Number of accounted points in signal,
+ **  BizSignal::sampleRate			- Signal Sample rate,
+ **  BizSignal::maximumSignalLength - Maximum accounted points in signal.
 
- ** OUTPUT
- **   None
+ ** OUTPUT:
+ **   signalLength (if greater than maximumSignalLength).
 
- ** RETURN
- **  boolean appropriate signal or not
+ ** RETURN:
+ **  boolean appropriate signal or not.
 */
-bool BizSignal::ValidateSignalLength(const short minSignalLength)
+bool BizSignal::ValidateSignalLength(const short minimumSignalLength)
 {
 	// Validate input
-	if (minSignalLength < MIN_SIGNAL_LENGTH 
-		|| minSignalLength > MAX_SIGNAL_LENGTH)
+	if (minimumSignalLength < MIN_SIGNAL_LENGTH 
+		|| minimumSignalLength > MAX_SIGNAL_LENGTH)
 	{
 		return false;
 	}
 	bool success = true;
 
 	// Validate signal
-	if (signalLength < minSignalLength)
+	if (signalLength < minimumSignalLength)
 	{
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
-			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR"), 
+			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
-			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_SHORT") 
-			+ Convert::ToString(signalLength) + ", " + Convert::ToString(minSignalLength), 
-			"");
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_SHORT", CultureInfo::CurrentUICulture) 
+			+ Convert::ToString(signalLength, CultureInfo::CurrentUICulture) 
+			+ ", " + Convert::ToString(minimumSignalLength, CultureInfo::CurrentUICulture), 
+			/*GetCurrentMeasureDetails() +*/
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_SHORT", CultureInfo::InvariantCulture) 
+			+ Convert::ToString(signalLength, CultureInfo::InvariantCulture) 
+			+ ", " + Convert::ToString(minimumSignalLength, CultureInfo::InvariantCulture));
 		success = false;
 	}
-	if (signalLength > maxSignalLength)
+	if (signalLength > maximumSignalLength)
 	{
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
-			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR"), 
+			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
-			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_LONG") 
-			+ Convert::ToString(signalLength) + ", " + Convert::ToString(maxSignalLength), 
-			"");
-		signalLength = maxSignalLength;
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_LONG", CultureInfo::CurrentUICulture) 
+			+ Convert::ToString(signalLength, CultureInfo::CurrentUICulture) 
+			+ ", " + Convert::ToString(maximumSignalLength, CultureInfo::CurrentUICulture), 
+			/*GetCurrentMeasureDetails() +*/
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_LONG", CultureInfo::InvariantCulture) 
+			+ Convert::ToString(signalLength, CultureInfo::InvariantCulture) 
+			+ ", " + Convert::ToString(maximumSignalLength, CultureInfo::InvariantCulture));
+		signalLength = maximumSignalLength;
 	}
 	
 	// Validate sample rate
 	if (sampleRate <= 0 || sampleRate >= DEFAULT_VALUE)
 	{
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
-			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR"), 
+			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
-			CrxMessageFacade::Instance()->messageResources->GetString(L"INVALID_SAMPLE_RATE")
-			+ Convert::ToString(sampleRate), "");
+			CrxMessageFacade::Instance()->messageResources->GetString(L"INVALID_SAMPLE_RATE", CultureInfo::CurrentUICulture)
+			+ Convert::ToString(sampleRate, CultureInfo::CurrentUICulture), 
+			/*GetCurrentMeasureDetails() +*/
+			CrxMessageFacade::Instance()->messageResources->GetString(L"INVALID_SAMPLE_RATE", CultureInfo::InvariantCulture)
+			+ Convert::ToString(sampleRate, CultureInfo::InvariantCulture));
 		success = false;
 	}
 	
@@ -298,27 +384,29 @@ bool BizSignal::ValidateSignalLength(const short minSignalLength)
 /**
  ** ValidateSignalHeight()
  **
- ** DESCRIPTION
- **  Validate Signal amplitude
+ ** DESCRIPTION:
+ **  Validate Signal amplitude.
 
- ** INPUT
- **  minSignalHeight - minimal signal amplitude
+ ** INPUT:
+ **  minimumSignalHeight		- Minimum signal amplitude,
+ **  BizSignal::signalLength	- Number of accounted points in signal,
+ **  BizSignal::signal			- Signal array.
 
- ** OUTPUT
- **   None
+ ** OUTPUT:
+ **   None.
 
- ** RETURN
- **  boolean appropriate signal or not
+ ** RETURN:
+ **  boolean appropriate signal or not.
 */
-bool BizSignal::ValidateSignalHeight(const short minSignalHeight)
+bool BizSignal::ValidateSignalHeight(const short minimumSignalHeight)
 {
 	// Validate input
-	if (minSignalHeight < TONOMETER_MIN_SIGNAL_HEIGHT 
-		&& minSignalHeight < CUFF_MIN_SIGNAL_HEIGHT)
+	if (minimumSignalHeight < TONOMETER_MIN_SIGNAL_HEIGHT 
+		&& minimumSignalHeight < CUFF_MIN_SIGNAL_HEIGHT)
 	{
 		return false;
 	}
-	if (minSignalHeight >= DEFAULT_VALUE)
+	if (minimumSignalHeight >= DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -327,350 +415,421 @@ bool BizSignal::ValidateSignalHeight(const short minSignalHeight)
 	// Validate signal height
 	float signalMinimum, signalMaximum;
 
-	// MinMaxInArray cannot return false because only valid signals can be
+	// MinimumMaximumInArray cannot return false because only valid signals can be
 	// available in this class - see CaptureSignal
-	BizMath::MinMaxInArray(signal, signalLength, signalMinimum, signalMaximum);
+	BizMath::MinimumMaximumInArray(signal, signalLength, signalMinimum, signalMaximum);
 	float signalHeight = signalMaximum - signalMinimum;
-	if (signalHeight < minSignalHeight)
+	if (signalHeight < minimumSignalHeight)
 	{
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
-			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR"), 
+			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
-			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_SMALL")
-			+ Convert::ToString(signalHeight) + ", " + Convert::ToString(minSignalHeight), 
-			"");
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_SMALL", CultureInfo::CurrentUICulture)
+			+ Convert::ToString(signalHeight, CultureInfo::CurrentUICulture) 
+			+ ", " + Convert::ToString(minimumSignalHeight, CultureInfo::CurrentUICulture), 
+			/*GetCurrentMeasureDetails() +*/
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_SMALL", CultureInfo::InvariantCulture)
+			+ Convert::ToString(signalHeight, CultureInfo::InvariantCulture) 
+			+ ", " + Convert::ToString(minimumSignalHeight, CultureInfo::InvariantCulture));
 		success = false;
 	}
 
 	return success;
 }
 
-/* ###########################################################################
- ** QualityControl()
+/**
+ ** CalculateQualityControls()
  **
- ** DESCRIPTION
- **  Calculate Quality Control parameters for a Signal
- ** INPUT
- **  TSignal class properties
- ** OUTPUT
- **  Quality Controls properties
- ** RETURN
- **  boolean success or not
+ ** DESCRIPTION:
+ **  Calculate Quality Control parameters for a Signal.
+
+ ** INPUT:
+ **  BizSignal::signalLength	- Number of accounted points in signal,
+ **  BizSignal::onsetsLength	- Actual number of onsets,
+ **  BizSignal::signal			- Signal array,
+ **  BizSignal::floatOnsets		- Index of onsets in the signal.
+
+ ** OUTPUT:
+ **  pulseHeight				- Quality Control - pulse height,
+ **  pulseHeightVariation		- Quality Control - pulse height variation,
+ **  pulseLengthVariation		- Quality Control - pulse length variation,
+ **  pulseBaselineVariation		- Quality Control - baseline variation.
+
+ ** RETURN:
+ **  boolean success or not.
 */
-//---------------------------------------------------------------------------
 bool BizSignal::CalculateQualityControls()
 {
-  /* Initialisation
-  QC_PulseHeightVariation = DEFAULT_VALUE;
-  QC_PulseLengthVariation = DEFAULT_VALUE;
-  QC_PulseHeight = DEFAULT_VALUE;
-  QC_BaseLineVariation = DEFAULT_VALUE;
+	float minimum; 
+	float maximum;
+	float baseline;
+	float height;
+	float pulseLength;
+	float currentOnset;
+	float nextOnset;	
+	short index;
+	
+	// Initialisation
+	pulseHeight = DEFAULT_VALUE;
+	pulseHeightVariation = DEFAULT_VALUE;
+	pulseLengthVariation = DEFAULT_VALUE;
+	pulseBaselineVariation = DEFAULT_VALUE;
+	array<const float>^ subset = gcnew array<const float>((short) signalLength);
 
-  if (NofOnsets <= 1)
-  {
-     return false;
-  }
+	// Additional Validation, onsetsLength should never be less than 2
+	if (onsetsLength <= 1)
+	{
+		return false;
+	}
 
-  // Average of all pulse Heights, Lengths, BaseLines
-  float lAvPH = 0.;
-  float lAvPulseLength = 0.;
-  float lAvBase = 0.;
-  for (int np = 0; np < NofOnsets-1; np++)
-  {
-    float on1 = fabs(FloatOnsets[np]);
-    float on2 = fabs(FloatOnsets[np+1]);
-    // Calculate pulse height
-    float lMin, lMax;
-    math_MinMaxInArray(&Signal[(int)on1], (int)on2 - (int)on1, lMin, lMax);
-    float lHeight = lMax - lMin;
-    lAvPH += lHeight;
-    float lPulseLength = on2 - on1;
-    lAvPulseLength += lPulseLength;
-    float lBase = math_FunctionValue(Signal, NofPoints, on1);
-    lAvBase += lBase;
-  }
-  lAvPH /= (NofOnsets - 1);
-  lAvPulseLength /= (NofOnsets - 1);
-  lAvBase /= (NofOnsets - 1);
+	// Sum the Heights, Lengths and Baselines of each pulse
+	float averagePulseHeight = 0;
+	float averagePulseLength = 0;
+	float averageBaseline = 0;
+	for (index = 0; index < onsetsLength - 1; index++)
+	{
+		currentOnset = Math::Abs(floatOnsets[index]);
+		nextOnset = Math::Abs(floatOnsets[index + 1]);
 
-  QC_PulseHeight = (lAvPH > 0 ? lAvPH : DEFAULT_VALUE);
-  if (QC_PulseHeight == DEFAULT_VALUE)
-    return false;
+		pulseLength = nextOnset - currentOnset;
+		averagePulseLength += pulseLength;
 
-  // Variations
-  float lPHV = 0.;
-  float lPLV = 0.;
-  float lBLV = 0.;
-  for (int np = 0; np < NofOnsets-1; np++)
-  {
-    float on1 = fabs(FloatOnsets[np]);
-    float on2 = fabs(FloatOnsets[np+1]);
-    // Calculate pulse height
-    float lMin, lMax;
-    math_MinMaxInArray(&Signal[(int)on1], (int)on2 - (int)on1, lMin, lMax);
-    float lHeight = lMax - lMin;
-    lPHV += fabs(lHeight - lAvPH);
-    float lPulseLength = on2 - on1;
-    lPLV += fabs(lPulseLength - lAvPulseLength);
-    float lBase = math_FunctionValue(Signal, NofPoints, on1);
-    lBLV += pow(lBase - lAvBase, 2);
-  }
-  lPHV /= (NofOnsets - 1);
-  QC_PulseHeightVariation = (lPHV >= 0 ? lPHV/lAvPH * 100 : DEFAULT_VALUE);
-  lPLV /= (NofOnsets - 1);
-  QC_PulseLengthVariation = (lPLV >= 0 ? lPLV/lAvPulseLength * 100 : DEFAULT_VALUE);
-  lBLV = sqrt(lBLV/(NofOnsets - 1));
-  lBLV = (lBLV / QC_PulseHeight) * 100;
-  QC_BaseLineVariation = lBLV;
-  return true;*/
+		BizMath::FunctionValue(signal, signalLength, currentOnset, baseline);
+		averageBaseline += baseline;
+
+		Array::Copy(signal, (short) currentOnset, subset, 0, (short) pulseLength);
+		BizMath::MinimumMaximumInArray(subset, (short) pulseLength, minimum, maximum);
+		height = maximum - minimum;
+		averagePulseHeight += height;
+	}
+	
+	// Average the Heights, Lengths and Baselines of each pulse
+	averagePulseHeight /= (onsetsLength - 1);
+	averagePulseLength /= (onsetsLength - 1);
+	averageBaseline /= (onsetsLength - 1);
+
+	// Average Pulse Height
+	if (averagePulseHeight > 0)
+	{
+		pulseHeight = averagePulseHeight;
+	}
+	else
+	{
+		return false;
+	}
+	
+	// Sum the variations in Height, Length and Baseline of -
+	// each pulse from the average
+	float heightVariation = 0;
+	float lengthVariation = 0;
+	float baselineVariation = 0;
+	for (index = 0; index < onsetsLength - 1; index++)
+	{
+		currentOnset = Math::Abs(floatOnsets[index]);
+		nextOnset = Math::Abs(floatOnsets[index + 1]);
+
+		pulseLength = nextOnset - currentOnset;
+		lengthVariation += Math::Abs(pulseLength - averagePulseLength);
+
+		BizMath::FunctionValue(signal, signalLength, currentOnset, baseline);
+		baselineVariation += (float) Math::Pow(baseline - averageBaseline, 2);
+
+		Array::Copy(signal, (short) currentOnset, subset, 0, (short) pulseLength);
+		BizMath::MinimumMaximumInArray(subset, (short) pulseLength, minimum, maximum);
+		height = maximum - minimum;
+		heightVariation += Math::Abs(height - averagePulseHeight);
+	}
+
+	// Average the variations in Height, Length and Baseline of -
+	// each pulse from the average
+	heightVariation /= (onsetsLength - 1);
+	pulseHeightVariation = heightVariation/averagePulseHeight * 100;
+
+	lengthVariation /= (onsetsLength - 1);
+	pulseLengthVariation = lengthVariation/averagePulseHeight * 100;
+
+	baselineVariation = (float) Math::Sqrt(baselineVariation/(onsetsLength - 1));
+	pulseBaselineVariation = baselineVariation/averagePulseHeight * 100;
+
 	return true;
 }
 
-/* ###########################################################################
+/**
  ** ValidateSignal()
  **
- ** DESCRIPTION
- **  Validate Signal
- ** INPUT
- ** OUTPUT
- **   Class properties
- ** RETURN
- **  boolean success or not
+ ** DESCRIPTION:
+ **  Validate Signal.
+
+ ** INPUT:
+ **  minimumSignalLength			- Minimum signal length,
+ **  minimumSignalHeight			- Minimum signal amplitude,
+ **  BizSignal::signalLength		- Number of accounted points in signal,
+ **  BizSignal::sampleRate			- Signal Sample rate,
+ **  BizSignal::signal				- Signal array,
+ **  BizSignal::maximumSignalLength - Maximum accounted points in signal.
+
+ ** OUTPUT:
+ **   none.
+
+ ** RETURN:
+ **  boolean success or not.
 */
-//---------------------------------------------------------------------------
-bool BizSignal::ValidateSignal(const int pMinNofPoints)
+bool BizSignal::ValidateSignal(const short minimumSignalLength, const short minimumSignalHeight)
 {
-  /* Validate length
-  if (ValidateSignalLength(pMinNofPoints)==false)
-  {
-    return false;
-  }
-  // Validate Height
-  if (ValidateSignalHeight(PWV_TON_MIN_PULSEHEIGHT)==false)
-  {
-    return false;
-  }*/
-  return true;
+	// Validate length and input
+	if (!ValidateSignalLength(minimumSignalLength))
+	{
+		return false;
+	}
+	
+	// Validate Height and input
+	if (!ValidateSignalHeight(minimumSignalHeight))
+	{
+		return false;
+	}
+	return true;
 }
 
-/* ###########################################################################
+/**
  ** FindOnsets()
  **
- ** DESCRIPTION
- **  Find trigger points (onsets) for a signal
- ** INPUT
- **  Class properties(source)
- ** OUTPUT
- **  boolean success or not
+ ** DESCRIPTION:
+ **  Find trigger points (onsets) for a signal.
+
+ ** INPUT:
+ **  BizSignal::signalLength		- Number of accounted points in signal,
+ **  BizSignal::sampleRate			- Signal Sample rate,
+ **  BizSignal::signal				- Signal array,
+ **  BizSignal::maximumOnsetsLength - Maximum number of onsets.
+
+ ** OUTPUT:
+ **  firstDerivative - Signal 1st Derivative.
+
+ ** RETURN:
+ **  boolean success or not.
 */
-//---------------------------------------------------------------------------
-bool BizSignal::FindOnsets(const int algorithm)
+bool BizSignal::FindOnsets()
 {
-  /*bool ret = false;
-  // Initialise Onsets
-	for(int i = 0; i < MaxNofOnsets; i++)
-  {
-    FloatOnsets[i] = -1;
-  }
-  NofOnsets = 0;
-  try
-  {
-    // Find Derivative 1 and its max
-    float lAbsMaxDer1, lAvMaxDer1;
-    math_SmoothDerivative1(Signal, NofPoints, 3, 1., Der1, lAbsMaxDer1);
-    float lAbsMaxDer2;
-    math_SmoothDerivative1(Der1, NofPoints, 3, 1., Der2, lAbsMaxDer2);
+	bool success = false;
+	
+	// Initialise Onsets
+	for (short i = 0; i < maximumOnsetsLength; i++)
+	{
+		floatOnsets[i] = -1;
+	}
+	onsetsLength = 0;
+	
+	// Find the 1st derivative and its maximum
+	// SmoothFirstDerivative cannot return false because only -
+	// valid signals can be available in this class (see CaptureSignal) -
+	// and smoothOrder and step are static
+	float maximumFirstDerivative;
+	BizMath::SmoothFirstDerivative(signal, signalLength, 
+		SIGNAL_SMOOTH_ORDER, SIGNAL_STEP, firstDerivative, maximumFirstDerivative);
+	
+	// Find the average of the extremums of the 1st derivative which are higher
+	// than 40% (FIRST_DERIVATIVE_THRESHOLD3) of the maximum of 1st derivative
+	float averageMaximumFirstDerivative = 0;
+	short extremums = 0;
+	short loops = 0;
+	do
+	{
+		int extremumFirstDerivative = 0;
 
-    // Try to find Average of the peaks of Der1 which is higher
-    // then 55% of absolute max of Der1
-    lAvMaxDer1 = 0;
-    int lNofPeaks = 0;
-    int lNofLoops = 0;
-    do
-    {
-      int lPeakOfDer1 = 0;
-      while (lPeakOfDer1 >= 0)
-      {
-        lPeakOfDer1 = math_IndexOfExtremum(Der1, MAX, FIRST, lPeakOfDer1, NofPoints,
-                                           MORE, PWV_DER1_THRESHOLD3*lAbsMaxDer1);
-        if (lPeakOfDer1 >= 0)
-        {
-          if (Der1[lPeakOfDer1] < lAbsMaxDer1) // Avoid largest maximum
-          {
-             lAvMaxDer1 += Der1[lPeakOfDer1];
-             lNofPeaks++;
-          }
-          lPeakOfDer1++;
-        }
-      }
-      // Validate
-      if (lNofPeaks > 3)
-      {
-        lAvMaxDer1 /= lNofPeaks;
-        break;
-      }
-      else
-      {
-        if (lNofLoops++ < 5)
-        {
-          lAbsMaxDer1 *= 0.9;
-        }
-        else // To prevent infinite loop
-        {
-          lAvMaxDer1 = lAbsMaxDer1;
-          break;
-        }
-      }
-    } while (lNofPeaks <= 3);
+		// Find the first extremum above the threshold starting at -
+		// extremumFirstDerivative until there are no more extremums
+		while (BizMath::IndexOfExtremum(firstDerivative, extremumFirstDerivative, signalLength, 
+			FIRST_DERIVATIVE_THRESHOLD3 * maximumFirstDerivative, extremumFirstDerivative))
+		{
+			// Ignore the maximum of 1st derivative
+			if (firstDerivative[extremumFirstDerivative] < maximumFirstDerivative)
+			{
+				averageMaximumFirstDerivative += firstDerivative[extremumFirstDerivative];
+				extremums++;
+			}
+			// Find the next extremum
+			extremumFirstDerivative++;
+		}
+	  
+		// Calculate the average if enough extremums were found
+		if (extremums > 3)
+		{
+			averageMaximumFirstDerivative /= extremums;
+			break;
+		}
+		else
+		{
+			// Otherwise, lower the threshold and try again
+			if (loops++ < 5)
+			{
+				maximumFirstDerivative *= (float) 0.9;
+			}
+			// After 5 attempts, set the average to the maximum and give up
+			else
+			{
+				averageMaximumFirstDerivative = maximumFirstDerivative;
+				break;
+			}
+		}
+	} while (extremums <= 3);
 
-    // Minimal pulse length
-    int lMinPulseLength = 60. * SampleRate / MAX_HR;
-
-    // Algorithm switch. Algorithm2 must have been executed before other algorithms
-    switch (pAlgorithm)
-    {
-      case 1:
-        // Standard percentage of pulse height algorithm
-        // ret = TSignal::FindOnsets(pHeightPercent, PWV_TON_MIN_PULSEHEIGHT);
-        // break;
-        ret = Algorithm1(lAvMaxDer1, lMinPulseLength, pHeightPercent);
-        break;
-      case 2:
-        // Find Onsets using Algorithm2
-        ret = Algorithm2(lAvMaxDer1, lMinPulseLength);
-        break;
-      case 3:
-        // Find Onsets using Algorithm3
-        ret = Algorithm3(lAvMaxDer1, lMinPulseLength);
-        break;
-      case 4:
-        // Find Derivative 1 and its max
-        float lAbsMaxDer2;
-        math_SmoothDerivative1(Der1, NofPoints, 3, 1., Der2, lAbsMaxDer2);
-        // Find Onsets using Algorithm4
-        ret = Algorithm4(lAvMaxDer1, lMinPulseLength, Der2);
-        break;
-    }
-  }
-  catch (Exception &e)
-  {
-    Application->ShowException(&e);
-    ret = false;
-  }
-  if (ret == false || NofOnsets < PWV_MIN_NOF_ONSETS)
-  {
-    MsgBox(TERROR, GetCurrentPwvMeasureDetails(), MSG_MATH_ERROR, MSG_PWV_TRIGGER_ERR);
-    return false;
-  }*/
-  return true;
+	// Find Onsets using the Tangent Algorithm
+	success = TangentAlgorithm(averageMaximumFirstDerivative);
+	
+	if (!success)
+	{
+		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
+			CrxMessageFacade::Instance()->messageResources->GetString(L"MATH_ERROR", CultureInfo::CurrentUICulture), 
+			/*GetCurrentMeasureDetails() +*/
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_ONSETS_ERROR", CultureInfo::CurrentUICulture), 
+			/*GetCurrentMeasureDetails() +*/
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_ONSETS_ERROR", CultureInfo::InvariantCulture));
+	}
+	return success;
 }
 
 /**
  ** TangentAlgorithm()
  **
- ** DESCRIPTION
+ ** DESCRIPTION:
  **  Find onsets using tangent algorithm - crossing of
- **  pulse foot line by tangent at point of max dP/dt
+ **  pulse foot line by tangent at point of maximum dP/dt
 
- ** INPUT
- ** 
- ** OUTPUT
- **  Class properties(source)
- ** RETURN
- **  boolean success or not
+ ** INPUT:
+ **  maximumFirstDerivative			- Average of the 1st derivative maximums,
+ **  minimumPulseLength				- Minimum pulse length,
+ **  BizSignal::signalLength		- Number of accounted points in signal,
+ **  BizSignal::sampleRate			- Signal Sample rate,
+ **  BizSignal::signal				- Signal array,
+ **  BizSignal::maximumOnsetsLength - Maximum number of onsets,
+ **  BizSignal::firstDerivative		- Signal 1st Derivative.
+
+ ** OUTPUT:
+ **  floatOnsets - Index of onsets in the signal,
+ **  onsetsLength - Actual number of onsets.
+
+ ** RETURN:
+ **  boolean success or not.
 */
-//---------------------------------------------------------------------------
-bool BizSignal::TangentAlgorithm(const float pMaxDer1,
-                                 const int pMinPulseLength)
+bool BizSignal::TangentAlgorithm(const float maximumFirstDerivative)
 {
-  /* ThresHold values
-  float lThresHold1 = PWV_DER1_THRESHOLD1 * pMaxDer1;
-  float lThresHold2 = PWV_DER1_THRESHOLD2 * pMaxDer1;
+	// Validate Input
+	if (maximumFirstDerivative <= -DEFAULT_VALUE || maximumFirstDerivative >= DEFAULT_VALUE)
+	{
+		return false;
+	}
+	
+	// Minimum pulse length
+	short minimumPulseLength = 60 * sampleRate / MAX_HR;
+	
+	// Threshold values are 70% (threshold1) and 65% (threshold2) -
+	// of the maximum 1st derivative
+	float threshold1 = FIRST_DERIVATIVE_THRESHOLD1 * maximumFirstDerivative;
+	float threshold2 = FIRST_DERIVATIVE_THRESHOLD2 * maximumFirstDerivative;
 
-  // Find Trigger Points
-  bool  WeAreInPeak = false;
-  bool Beginning = true;
-  int   lPeakIndex = -1, lFootIndex;
-  // Main loop
-  for (int i = 0; i < NofPoints; i++)
-  {
-    // Avoid signal beginning where values already above threashold
-    if (Beginning == true)
-    {
-      if (Der1[i] >= lThresHold1)
-        continue;
-      Beginning = false;
-    }
-    // Avoid MinPulseLength zone after last onset being found
-    if (NofOnsets > 0 && (i - FloatOnsets[NofOnsets - 1] < pMinPulseLength))
-      continue;
+	bool weAreInPeak = false;
+	bool thisIsBeginning = true;
+	short peakIndex = -1;
+	short footIndex;
+	short previousOnsetIndex = 0;
 
-    // Find Peak
-    // avoid beginning of a wave
-    if ((WeAreInPeak == false) && (Der1[i] < lThresHold1))
-      continue;
+	// Find All Trigger Points in the signal
+	for (short index = 0; index < signalLength; index++)
+	{	
+		// Avoid onsets within the minimum pulse length of the previous onset
+		if (onsetsLength > 0)
+		{
+			previousOnsetIndex = (short) floatOnsets[onsetsLength - 1];
+			if (index - previousOnsetIndex < minimumPulseLength)
+			{
+				continue;
+			}
 
-    // Begin of peak
-    if (WeAreInPeak==false)
-      WeAreInPeak = true;
+			// When searching for the minimum, we do not want to -
+			// search all the way back to the previous onset
+			previousOnsetIndex++;
+		}
+		
+		// Wait for the derivative to drop below the threshold -
+		// because we need to find a peak first
+		if (firstDerivative[index] >= threshold1)
+		{
+			if (thisIsBeginning)
+			{	
+				continue;
+			}
+			weAreInPeak = true;
+		}
+		thisIsBeginning = false;
 
-    if (Der1[i] > lThresHold2)
-    {
-      // We are in Peak first point
-      if (lPeakIndex < 0)
-      {
-        lPeakIndex = i;
-        continue;
-      }
-      // Find max in peak
-      if (Der1[i] > Der1[lPeakIndex])
-      {
-        lPeakIndex = i;
-      }
-    }
-    else
-    {
-      WeAreInPeak = false;
-      if (lPeakIndex < 0)
-        continue;
-      // End of Peak. Go back to find point where Signal has minimum;
-      int lInitPeakIndex = ((NofOnsets > 0) ? FloatOnsets[NofOnsets-1] + 1: 0);
-      lFootIndex = -1;
+		if (!weAreInPeak)
+		{
+			continue;
+		}
 
-      // Find foot points where Der1 has a positive zero crossing
-      for (int j = lPeakIndex; j > lInitPeakIndex; j--)
-      {
-        // if (Der1[j] <= 0.)
-        if (Signal[j] <= Signal[j-1])
-        {
-          lFootIndex = j;
-          break;
-        }
-      }
-      float lTangent = Der1[lPeakIndex]; // tangent is a Der1 value in point maxDpDt
-      // Validate
-      if (lFootIndex < 0 || lTangent <= 0.)
-      {
-        lPeakIndex = -1;
-        continue;
-      }
-      // After foot has been found
-      // Solve triangle to get time-shift
-      float lVertShoulder = Signal[lPeakIndex] - Signal[lFootIndex];
-      float lHorizShoulder = lVertShoulder/lTangent;
-      // Find onset
-      if (float(lPeakIndex) - lHorizShoulder > lInitPeakIndex)
-      {
-        FloatOnsets[NofOnsets] = (float(lPeakIndex) - lHorizShoulder);
-        NofOnsets++;
-      }
-      lPeakIndex = -1;
-      // Check NofOnsets limit. If more, stop process
-      if (NofOnsets == MaxNofOnsets) break;
-    }
-  } // End of Main loop
+		if (firstDerivative[index] > threshold2)
+		{
+			// This is the first point in the peak
+			if (peakIndex < 0)
+			{
+				peakIndex = index;
+				continue;
+			}
+			
+			// Find the maximum of the 1st derivative (maximum dp/dt)
+			if (firstDerivative[index] > firstDerivative[peakIndex])
+			{
+				peakIndex = index;
+			}
+		}
+		else
+		{
+			// The end of the peak. Now find the previous minimum
+			weAreInPeak = false;			
+			footIndex = -1;
 
-  // return
-  return (NofOnsets >= PWV_MIN_NOF_ONSETS);*/
-	return true;
+			// Find the foot index at the first minimum before this peak
+			for (short i = peakIndex; i > previousOnsetIndex; i--)
+			{
+				if (signal[i] <= signal[i-1])
+				{
+					footIndex = i;
+					break;
+				}
+			}
+			
+			// tangent is the maximum slope (maximum dp/dt)
+			float tangent = firstDerivative[peakIndex]; 
+
+			// Validate
+			if (footIndex < 0 || tangent <= 0)
+			{
+				peakIndex = -1;
+				continue;
+			}
+			
+			// Find where the tangent intersects the foot
+			float signalChange = signal[peakIndex] - signal[footIndex];
+			float indexChange = signalChange/tangent;
+			
+			// Find onset checking that it is not before the previous onset
+			if (float(peakIndex) - indexChange > previousOnsetIndex)
+			{
+				floatOnsets[onsetsLength] = (float(peakIndex) - indexChange);
+				onsetsLength++;
+			}
+
+			// Find the next onset
+			peakIndex = -1;
+
+			// Check onsetsLength limit. If more, stop process
+			if (onsetsLength == maximumOnsetsLength) 
+			{
+				break;
+			}
+		}
+	}
+
+	// return success if the minimum onsets were found
+	return (onsetsLength >= MIN_ONSETS);
 }

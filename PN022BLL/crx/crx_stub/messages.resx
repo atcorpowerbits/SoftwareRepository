@@ -117,11 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MATH_ERROR" xml:space="preserve">
+    <value>Mathematical Error</value>
+    <comment>Title</comment>
+  </data>
   <data name="SIGNAL_INVALID_SAMPLE_RATE" xml:space="preserve">
     <value>#103 Invalid sample rate. Sample rate = </value>
   </data>
   <data name="SIGNAL_NOT_ENOUGH_ONSETS" xml:space="preserve">
     <value>#105 Not enough onsets (trigger points). Calculated and minimum number = </value>
+  </data>
+  <data name="SIGNAL_ONSETS_ERROR" xml:space="preserve">
+    <value>#107 Error calculating Onsets. Check data quality.</value>
   </data>
   <data name="SIGNAL_TOO_LONG" xml:space="preserve">
     <value>#102 The signal length is too long and has been truncated. Signal length and maximum =</value>

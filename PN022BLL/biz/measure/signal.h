@@ -19,26 +19,58 @@ namespace Biz {
 	
 	public:
 
-		property short			signalLength;	// Number of accounted points in signal=SIGNAL_MAX_PPOINTS
-		property short			onsetsLength;   // Actual number of onsets
-    	property array<float>^	signal;			// Signal array
-    	property array<float>^	floatOnsets;	// Float onsets for PWV
-    	property short			sampleRate;     // Signal Sample rate
-    
-		property float pulseHeight;				// Quality Control - pulse height
-		property float pulseHeightVariation;	// Quality Control - pulse height variation
-		property float pulseLengthVariation;	// Quality Control - pulse length variation
-		property float baseLineVariation;		// Quality Control - baseline variation
+		property short	signalLength;			// Number of accounted points in signal
+		property short	onsetsLength;			// Actual number of onsets
+		property short	sampleRate;				// Signal Sample rate
+		property float	pulseHeight;			// Quality Control - pulse height
+		property float	pulseHeightVariation;	// Quality Control - pulse height variation
+		property float	pulseLengthVariation;	// Quality Control - pulse length variation
+		property float	pulseBaselineVariation;	// Quality Control - baseline variation
 
-		property array<float>^ derivative1;		// Signal derivative1
-		property array<float>^ derivative2;		// Signal derivative2
-    
+		property array<float>^ signal			// Signal array
+		{
+			array<float>^ get() 
+			{
+				return _signal;
+			}
+		private: void set(array<float>^ input) 
+			{
+				_signal = input;
+			}
+		}
+
+		property array<float>^ floatOnsets		// Index of onsets in the signal
+		{
+			array<float>^ get() 
+			{
+				return _floatOnsets;
+			}
+		private: void set(array<float>^ input) 
+			{
+				_floatOnsets = input;
+			}
+		}
+
+		property array<float>^ firstDerivative	// Signal 1st Derivative
+		{
+			array<float>^ get() 
+			{
+				return _firstDerivative;
+			}
+		private: void set(array<float>^ input) 
+			{
+				_firstDerivative = input;
+			}
+		}
 	private:
-		property bool  readyToCapture;
-	
+		property bool	_readyToCapture;		
+    	array<float>^	_signal;
+		array<float>^	_floatOnsets;	
+		array<float>^	_firstDerivative;
+
 	protected:
-		property short   maxSignalLength;		// Maximal NofPoints
-		property short   maxOnsetsLength;		// Maximal NofOnsets
+		property short   maximumSignalLength;		// Maximum accounted points in signal
+		property short   maximumOnsetsLength;		// Maximum number of onsets
 		
 	public:
 		// Member functions:
@@ -48,7 +80,7 @@ namespace Biz {
 		
 		// Initialise properties
 		bool Initialise(const short inputSampleRate);
-		bool Allocate(const short inputMaxSignalLength, const short inputMaxOnsetsLength);
+		bool Allocate(const short inputMaximumSignalLength, const short inputMaximumOnsetsLength);
 
 		// Set default values for onsets not touching Signal
 		void SetDefaults();
@@ -60,27 +92,27 @@ namespace Biz {
 		void PrepareToCapture();
 		
 		// Validate Signal length
-		bool ValidateSignalLength(const short minSignalLength);
+		bool ValidateSignalLength(const short minimumSignalLength);
 
 		// Validate Signal amplitude
-		bool ValidateSignalHeight(const short minSignalHeight);
+		bool ValidateSignalHeight(const short minimumSignalHeight);
 
 		// Validate signal record before storing in Database
-		bool ValidateBeforeStore(const short minSignalLength, const short minOnsetsLength,
-								 const short minSignalHeight);
+		bool ValidateBeforeStore(const short minimumSignalLength, const short minimumOnsetsLength,
+								 const short minimumSignalHeight);
 
 		// Calculate Quality Control parameters for a Signal
 		bool CalculateQualityControls();
 
 		// Validate Signal
-		bool ValidateSignal(const int minSignalLength);
+		bool ValidateSignal(const short minimumSignalLength, const short minimumSignalHeight);
     
 		// Find Trigger points for TSignal signal
-		bool FindOnsets(const int algorithm);
+		bool FindOnsets();
 		
 		// Find onsets using tangent algorithm (crossing of
-		// pulse foot line by tangent at point of max dP/dt
-		bool TangentAlgorithm(const float maxDerivative1, const int minPulseLength);
+		// pulse foot line by tangent at point of maximum dP/dt
+		bool TangentAlgorithm(const float maximumFirstDerivative);
 		
 	};
 }

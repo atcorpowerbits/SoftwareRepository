@@ -55,6 +55,125 @@
            </Message>
           </Messages>
          </Type>
+         <Type Name="BizBuffer">
+          <Messages>
+           <Message TypeName="AbstractTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1012" Created="2010-09-02 03:44:52Z">
+            <Issue>
+             <Item>BizBuffer</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="_bufferSize">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>_bufferSize</Item>
+              </Issue>
+             </Message>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>_bufferSize</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCapture">
+          <Messages>
+           <Message TypeName="AbstractTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1012" Created="2010-09-02 03:44:52Z">
+            <Issue>
+             <Item>BizCapture</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="_buffer">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>_buffer</Item>
+              </Issue>
+             </Message>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>_buffer</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCircularBuffer">
+          <Members>
+           <Member Name="~BizCircularBuffer():System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>~BizCircularBuffer</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCuffPulseArgs">
+          <Messages>
+           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2010-09-02 03:44:52Z">
+            <Issue>
+             <Item>Biz.BizCuffPulseArgs</Item>
+             <Item>EventArgs</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="data">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>data</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCuffPulseCapture">
+          <Members>
+           <Member Name="cuffPulseBiz">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>cuffPulseBiz</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCuffPulseEvent">
+          <Members>
+           <Member Name="CuffPulseEvent" Kind="Event">
+            <Messages>
+             <Message TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Second">
+               <Item>BizCuffPulseEventHandler</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCuffPulseEvent+BizCuffPulseEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-09-02 03:44:52Z">
+            <Issue>
+             <Item>Biz.BizCuffPulseEvent+BizCuffPulseEventHandler</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
          <Type Name="BizDistance">
           <Messages>
            <Message TypeName="AbstractTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1012" Created="2010-08-12 07:21:54Z">
@@ -63,6 +182,17 @@
             </Issue>
            </Message>
           </Messages>
+          <Members>
+           <Member Name="distance">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>distance</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
          </Type>
          <Type Name="BizFacade">
           <Members>
@@ -75,16 +205,44 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="GetBizInfo():Biz.BizInfo">
+           <Member Name="DispatchCaptureData():System.Void">
             <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-08-12 07:21:54Z" FixCategory="Breaking">
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
               <Issue>
-               <Item>BizFacade.GetBizInfo():BizInfo</Item>
+               <Item>BizFacade.DispatchCaptureData():Void</Item>
               </Issue>
              </Message>
-             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-08-12 07:21:54Z">
-              <Issue Certainty="50">
-               <Item>GetBizInfo</Item>
+            </Messages>
+           </Member>
+           <Member Name="FindBizInfo():Biz.BizInfo">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizFacade.FindBizInfo():BizInfo</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="FindCuffPulse():Biz.BizCuffPulseEvent">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizFacade.FindCuffPulse():BizCuffPulseEvent</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="FindTonoData():Biz.BizTonoDataEvent">
+            <Messages>
+             <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>Tono</Item>
+               <Item>BizFacade.FindTonoData():BizTonoDataEvent</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizFacade.FindTonoData():BizTonoDataEvent</Item>
               </Issue>
              </Message>
             </Messages>
@@ -94,6 +252,15 @@
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-08-12 07:21:54Z" FixCategory="Breaking">
               <Issue>
                <Item>BizFacade.SimulateCaptureData():Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="SimulateCaptureOneShot():System.Void">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizFacade.SimulateCaptureOneShot():Void</Item>
               </Issue>
              </Message>
             </Messages>
@@ -112,6 +279,15 @@
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-08-12 07:21:54Z" FixCategory="Breaking">
               <Issue>
                <Item>BizFacade.StopCapture():Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="StopSimulation():System.Void">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizFacade.StopSimulation():Void</Item>
               </Issue>
              </Message>
             </Messages>
@@ -138,6 +314,42 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="GetModuleCapability(System.String&amp;,System.Int32):System.Void">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2010-09-02 03:44:52Z">
+              <Issue Level="CriticalWarning">
+               <Item>moduleCapability</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetModuleSN(System.String&amp;,System.Int32):System.Void">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2010-09-02 03:44:52Z">
+              <Issue Level="CriticalWarning">
+               <Item>moduleSN</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetModuleType(System.String&amp;,System.Int32):System.Void">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2010-09-02 03:44:52Z">
+              <Issue Level="CriticalWarning">
+               <Item>moduleType</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetModuleVersion(System.String&amp;,System.Int32):System.Void">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2010-09-02 03:44:52Z">
+              <Issue Level="CriticalWarning">
+               <Item>moduleVersion</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="GetVersion(System.String&amp;,System.Int32):System.Void">
             <Messages>
              <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2010-08-12 07:21:54Z">
@@ -151,256 +363,188 @@
          </Type>
          <Type Name="BizMath">
           <Messages>
-           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2010-08-12 07:21:54Z">
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Excluded" Created="2010-08-12 07:21:54Z">
             <Issue>
              <Item>BizMath</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="0" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
           <Members>
-           <Member Name="FunctionValue(System.optional(IsConst) Single[],System.Int32,System.Single):System.Single">
+           <Member Name="FunctionValue(System.optional(IsConst) Single[],System.Int32,System.Single,System.Single&amp;):System.Boolean">
             <Messages>
-             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.FunctionValue(optional(IsConst) Single[], Int32, Single):Single</Item>
-               <Item>p</Item>
-               <Item>pF</Item>
-              </Issue>
-             </Message>
-             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.FunctionValue(optional(IsConst) Single[], Int32, Single):Single</Item>
-               <Item>p</Item>
-               <Item>pNofPoints</Item>
-              </Issue>
-             </Message>
-             <Message Id="2#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.FunctionValue(optional(IsConst) Single[], Int32, Single):Single</Item>
-               <Item>p</Item>
-               <Item>pX</Item>
-              </Issue>
-             </Message>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-08-12 07:21:54Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-02 03:44:52Z">
               <Issue>
-               <Item>'pF'</Item>
-               <Item>BizMath.FunctionValue(optional(IsConst) Single[], Int32, Single):Single</Item>
+               <Item>'function'</Item>
+               <Item>BizMath.FunctionValue(optional(IsConst) Single[], Int32, Single, Single&amp;):Boolean</Item>
               </Issue>
               <Issue>
-               <Item>'pF'</Item>
-               <Item>BizMath.FunctionValue(optional(IsConst) Single[], Int32, Single):Single</Item>
+               <Item>'function'</Item>
+               <Item>BizMath.FunctionValue(optional(IsConst) Single[], Int32, Single, Single&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="13" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
-           <Member Name="GetSplineIndex(System.Single,System.Int32,System.Int32,System.Int32):System.Int32">
+           <Member Name="IndexOfExtremum(System.optional(IsConst) Single[],System.Int32,System.Int32,System.Single,System.Int32&amp;):System.Boolean">
             <Messages>
-             <Message Id="1#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>SplineIndex</Item>
-              </Issue>
-             </Message>
-             <Message Id="2#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>SplineOrder</Item>
-              </Issue>
-             </Message>
-             <Message Id="0#x" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="ParameterOneLetter">
-               <Item>BizMath.GetSplineIndex(Single, Int32, Int32, Int32):Int32</Item>
-               <Item>x</Item>
-              </Issue>
-             </Message>
-             <Message Id="3#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.GetSplineIndex(Single, Int32, Int32, Int32):Int32</Item>
-               <Item>p</Item>
-               <Item>pPulseLength</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="IndexOfExtremum(System.optional(IsConst) Single[],System.Boolean,System.Boolean,System.Int32,System.Int32,System.Boolean,System.Single):System.Int32">
-            <Messages>
-             <Message Id="MinOr" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2010-08-12 07:21:54Z">
-              <Issue Name="ShouldBeDiscreteTerm">
-               <Item>MinOr</Item>
-               <Item>parameter</Item>
-               <Item>pMinOrMax</Item>
-               <Item>Minor</Item>
-              </Issue>
-             </Message>
-             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
-               <Item>p</Item>
-               <Item>pProfile</Item>
-              </Issue>
-             </Message>
-             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
-               <Item>p</Item>
-               <Item>pMinOrMax</Item>
-              </Issue>
-             </Message>
-             <Message Id="2#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
-               <Item>p</Item>
-               <Item>pOnlyFirst</Item>
-              </Issue>
-             </Message>
-             <Message Id="5#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
-               <Item>p</Item>
-               <Item>pLessOrMore</Item>
-              </Issue>
-             </Message>
-             <Message Id="6#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
-               <Item>p</Item>
-               <Item>pLessOrMoreThan</Item>
-              </Issue>
-             </Message>
-             <Message Id="Extremum" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
+             <Message Id="Extremum" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-09-02 03:44:52Z">
               <Issue Name="Member">
                <Item>Extremum</Item>
-               <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
+               <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], Int32, Int32, Single, Int32&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="9" />
+               </User>
+              </Notes>
              </Message>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-08-12 07:21:54Z">
-              <Issue>
-               <Item>'pProfile'</Item>
-               <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
-              </Issue>
-              <Issue>
-               <Item>'pProfile'</Item>
-               <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], Boolean, Boolean, Int32, Int32, Boolean, Single):Int32</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="MaxInArray(System.optional(IsConst) Single[],System.Int32,System.Single&amp;):System.Boolean">
-            <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-08-12 07:21:54Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-02 03:44:52Z">
               <Issue>
                <Item>'input'</Item>
-               <Item>BizMath.MaxInArray(optional(IsConst) Single[], Int32, Single&amp;):Boolean</Item>
+               <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], Int32, Int32, Single, Int32&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
-           <Member Name="MaxInArrayIndex(System.optional(IsConst) Single[],System.Int32,System.Int32&amp;):System.Boolean">
+           <Member Name="MaximumInArray(System.optional(IsConst) Single[],System.Int32,System.Single&amp;):System.Boolean">
             <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-08-12 07:21:54Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-09 03:12:38Z">
               <Issue>
                <Item>'input'</Item>
-               <Item>BizMath.MaxInArrayIndex(optional(IsConst) Single[], Int32, Int32&amp;):Boolean</Item>
+               <Item>BizMath.MaximumInArray(optional(IsConst) Single[], Int32, Single&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="32" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
-           <Member Name="MinInArray(System.optional(IsConst) Single[],System.Int32,System.Single&amp;):System.Boolean">
+           <Member Name="MaximumInArrayIndex(System.optional(IsConst) Single[],System.Int32,System.Int32&amp;):System.Boolean">
             <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-08-12 07:21:54Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-09 03:12:38Z">
               <Issue>
                <Item>'input'</Item>
-               <Item>BizMath.MinInArray(optional(IsConst) Single[], Int32, Single&amp;):Boolean</Item>
+               <Item>BizMath.MaximumInArrayIndex(optional(IsConst) Single[], Int32, Int32&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="31" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
-           <Member Name="MinMaxInArray(System.optional(IsConst) Int16[],System.Int32,System.Int16&amp;,System.Int16&amp;):System.Boolean">
+           <Member Name="MinimumInArray(System.optional(IsConst) Single[],System.Int32,System.Single&amp;):System.Boolean">
             <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-08-12 07:21:54Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-09 03:12:38Z">
               <Issue>
                <Item>'input'</Item>
-               <Item>BizMath.MinMaxInArray(optional(IsConst) Int16[], Int32, Int16&amp;, Int16&amp;):Boolean</Item>
+               <Item>BizMath.MinimumInArray(optional(IsConst) Single[], Int32, Single&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="7" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
-           <Member Name="MinMaxInArray(System.optional(IsConst) Single[],System.Int32,System.Single&amp;,System.Single&amp;):System.Boolean">
+           <Member Name="MinimumMaximumInArray(System.optional(IsConst) Int16[],System.Int32,System.Int16&amp;,System.Int16&amp;):System.Boolean">
             <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-08-12 07:21:54Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-09 03:12:38Z">
               <Issue>
                <Item>'input'</Item>
-               <Item>BizMath.MinMaxInArray(optional(IsConst) Single[], Int32, Single&amp;, Single&amp;):Boolean</Item>
+               <Item>BizMath.MinimumMaximumInArray(optional(IsConst) Int16[], Int32, Int16&amp;, Int16&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="29" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
-           <Member Name="SmoothArray(System.Single[],System.Int32,System.Int32):System.Boolean">
+           <Member Name="MinimumMaximumInArray(System.optional(IsConst) Single[],System.Int32,System.Single&amp;,System.Single&amp;):System.Boolean">
             <Messages>
-             <Message Id="0#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.SmoothArray(Single[], Int32, Int32):Boolean</Item>
-               <Item>p</Item>
-               <Item>pArray</Item>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-09 03:12:38Z">
+              <Issue>
+               <Item>'input'</Item>
+               <Item>BizMath.MinimumMaximumInArray(optional(IsConst) Single[], Int32, Single&amp;, Single&amp;):Boolean</Item>
               </Issue>
-             </Message>
-             <Message Id="1#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.SmoothArray(Single[], Int32, Int32):Boolean</Item>
-               <Item>p</Item>
-               <Item>pSize</Item>
-              </Issue>
-             </Message>
-             <Message Id="2#p" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>BizMath.SmoothArray(Single[], Int32, Int32):Boolean</Item>
-               <Item>p</Item>
-               <Item>pSmoothOrder</Item>
-              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="30" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
-           <Member Name="SmoothDerivative1(System.optional(IsConst) Single[],System.Int32,System.Int32,System.Single,System.Single[],System.Single&amp;):System.Boolean">
+           <Member Name="SmoothArray(System.Single[],System.Int32):System.Boolean">
             <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-08-12 07:21:54Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>'input'</Item>
+               <Item>BizMath.SmoothArray(Single[], Int32):Boolean</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="SmoothFirstDerivative(System.optional(IsConst) Single[],System.Int32,System.Int32,System.Single,System.Single[],System.Single&amp;):System.Boolean">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-02 03:44:52Z">
               <Issue>
                <Item>'firstDerivative'</Item>
-               <Item>BizMath.SmoothDerivative1(optional(IsConst) Single[], Int32, Int32, Single, Single[], Single&amp;):Boolean</Item>
+               <Item>BizMath.SmoothFirstDerivative(optional(IsConst) Single[], Int32, Int32, Single, Single[], Single&amp;):Boolean</Item>
               </Issue>
               <Issue>
                <Item>'input'</Item>
-               <Item>BizMath.SmoothDerivative1(optional(IsConst) Single[], Int32, Int32, Single, Single[], Single&amp;):Boolean</Item>
+               <Item>BizMath.SmoothFirstDerivative(optional(IsConst) Single[], Int32, Int32, Single, Single[], Single&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="11" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
-           <Member Name="Spline(System.Single,System.optional(IsConst) Single[],System.Int32,System.Single&amp;):System.Boolean">
+           <Member Name="Spline(System.Single,System.optional(IsConst) Single[],System.Single&amp;):System.Boolean">
             <Messages>
-             <Message Id="1#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>Profile</Item>
-              </Issue>
-             </Message>
-             <Message Id="2#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>SplineOrder</Item>
-              </Issue>
-             </Message>
-             <Message Id="3#" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Parameter">
-               <Item>Value</Item>
-              </Issue>
-             </Message>
-             <Message Id="0#x" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-08-12 07:21:54Z">
-              <Issue Name="ParameterOneLetter">
-               <Item>BizMath.Spline(Single, optional(IsConst) Single[], Int32, Single&amp;):Boolean</Item>
-               <Item>x</Item>
-              </Issue>
-             </Message>
-             <Message Id="NofDer" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-08-12 07:21:54Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-02 03:44:52Z">
               <Issue>
-               <Item>BizMath.Spline(Single, optional(IsConst) Single[], Int32, Single&amp;):Boolean</Item>
-               <Item>NofDer</Item>
-               <Item>System.Int32</Item>
+               <Item>'input'</Item>
+               <Item>BizMath.Spline(Single, optional(IsConst) Single[], Single&amp;):Boolean</Item>
               </Issue>
+              <Issue>
+               <Item>'input'</Item>
+               <Item>BizMath.Spline(Single, optional(IsConst) Single[], Single&amp;):Boolean</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="1" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -500,6 +644,83 @@
            </Message>
           </Messages>
           <Members>
+           <Member Name="CalcDeltaT(System.Int32):System.Boolean">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>BizPWV.CalcDeltaT(Int32):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>BizPWV.CalcDeltaT(Int32):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="sampleRate" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2010-09-02 03:44:52Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>sampleRate</Item>
+               <Item>BizPWV.CalcDeltaT(Int32):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="CalcHeartRate(System.Int32):System.Boolean">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>BizPWV.CalcHeartRate(Int32):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>BizPWV.CalcHeartRate(Int32):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="sampleRate" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2010-09-02 03:44:52Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>sampleRate</Item>
+               <Item>BizPWV.CalcHeartRate(Int32):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="CalcMainFeatures():System.Boolean">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>BizPWV.CalcMainFeatures():Boolean</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>BizPWV.CalcMainFeatures():Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Calculate():System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizPWV.Calculate():Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="CalculateDistance():System.Boolean">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>BizPWV.CalculateDistance():Boolean</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>BizPWV.CalculateDistance():Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="correctionTime">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
@@ -523,6 +744,21 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="Initialise(System.Int32):System.Void">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizPWV.Initialise(Int32):Void</Item>
+              </Issue>
+             </Message>
+             <Message Id="signalSampleRate" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>signalSampleRate</Item>
+               <Item>BizPWV.Initialise(Int32):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="isStandardDeviationValid">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
@@ -541,11 +777,90 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="MeanDeviation():System.Boolean">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>BizPWV.MeanDeviation():Boolean</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>BizPWV.MeanDeviation():Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="meanPulseWaveVelocity">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
               <Issue Name="Member">
                <Item>meanPulseWaveVelocity</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="myCarotidDistance">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>myCarotidDistance</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="myCuffDistance">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>myCuffDistance</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="myCuffPulseObserver">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>myCuffPulseObserver</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="myFemoral2CuffDistance">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>myFemoral2CuffDistance</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="myPWVDirectDistance">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>myPWVDirectDistance</Item>
+              </Issue>
+             </Message>
+             <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>BizPWV.myPWVDirectDistance:BizPWVDirectDistance</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="myTonoDataObserver">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>myTonoDataObserver</Item>
+              </Issue>
+             </Message>
+             <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>Tono</Item>
+               <Item>BizPWV.myTonoDataObserver:BizTonoDataCapture</Item>
               </Issue>
              </Message>
             </Messages>
@@ -568,11 +883,34 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="PWVDistance">
+           <Member Name="PrepareToCaptureSignal():System.Void">
             <Messages>
-             <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Created="2010-08-12 07:21:54Z">
-              <Issue Name="Member">
-               <Item>BizPWV.PWVDistance:UInt16</Item>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizPWV.PrepareToCaptureSignal():Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="SaveToFile():System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizPWV.SaveToFile():Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="SetDefaults():System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>BizPWV.SetDefaults():Void</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>BizPWV.SetDefaults():Void</Item>
               </Issue>
              </Message>
             </Messages>
@@ -582,6 +920,24 @@
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
               <Issue Name="Member">
                <Item>standardDeviation</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="ValidateBeforeCalculate():System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizPWV.ValidateBeforeCalculate():Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="ValidateBeforeStore():System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizPWV.ValidateBeforeStore():Boolean</Item>
               </Issue>
              </Message>
             </Messages>
@@ -596,6 +952,339 @@
             </Messages>
            </Member>
           </Members>
+         </Type>
+         <Type Name="BizPWVDirectDistance">
+          <Messages>
+           <Message TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Created="2010-09-02 03:44:52Z">
+            <Issue Name="Type">
+             <Item>BizPWVDirectDistance</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="BizSession">
+          <Members>
+           <Member Name="measurement">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>measurement</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizSignal">
+          <Members>
+           <Member Name="CaptureSignal(System.optional(IsConst) Int16[],System.Int16):System.Boolean">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>'input'</Item>
+               <Item>BizSignal.CaptureSignal(optional(IsConst) Int16[], Int16):Boolean</Item>
+              </Issue>
+              <Issue>
+               <Item>'input'</Item>
+               <Item>BizSignal.CaptureSignal(optional(IsConst) Int16[], Int16):Boolean</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="12" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="firstDerivative">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>firstDerivative</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="21" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>BizSignal.firstDerivative:Single[]</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="17" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="floatOnsets">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>floatOnsets</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="24" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>BizSignal.floatOnsets:Single[]</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="18" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="maximumOnsetsLength">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-09 03:12:38Z">
+              <Issue Name="Member">
+               <Item>maximumOnsetsLength</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="maximumSignalLength">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-09 03:12:38Z">
+              <Issue Name="Member">
+               <Item>maximumSignalLength</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="35" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="onsetsLength">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>onsetsLength</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="pulseBaselineVariation">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-09 03:12:38Z">
+              <Issue Name="Member">
+               <Item>pulseBaselineVariation</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="34" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="pulseHeight">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>pulseHeight</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="pulseHeightVariation">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>pulseHeightVariation</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="26" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="pulseLengthVariation">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>pulseLengthVariation</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="27" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="sampleRate">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>sampleRate</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="22" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="signal">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>signal</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="20" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>BizSignal.signal:Single[]</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="signalLength">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>signalLength</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="19" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizTonoDataArgs">
+          <Messages>
+           <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
+            <Issue Name="Type">
+             <Item>Tono</Item>
+             <Item>Biz.BizTonoDataArgs</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2010-09-02 03:44:52Z">
+            <Issue>
+             <Item>Biz.BizTonoDataArgs</Item>
+             <Item>EventArgs</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="data">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-09-02 03:44:52Z">
+              <Issue>
+               <Item>data</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizTonoDataCapture">
+          <Messages>
+           <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
+            <Issue Name="Type">
+             <Item>Tono</Item>
+             <Item>Biz.BizTonoDataCapture</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="tonoDataBiz">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>tonoDataBiz</Item>
+              </Issue>
+             </Message>
+             <Message Id="tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Member">
+               <Item>tono</Item>
+               <Item>BizTonoDataCapture.tonoDataBiz:BizTonoDataEvent</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizTonoDataEvent">
+          <Messages>
+           <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
+            <Issue Name="Type">
+             <Item>Tono</Item>
+             <Item>Biz.BizTonoDataEvent</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="TonoDataEvent" Kind="Event">
+            <Messages>
+             <Message TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009" Created="2010-09-02 03:44:52Z">
+              <Issue Name="Second">
+               <Item>BizTonoDataEventHandler</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizTonoDataEvent+BizTonoDataEventHandler">
+          <Messages>
+           <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
+            <Issue Name="Type">
+             <Item>Tono</Item>
+             <Item>Biz.BizTonoDataEvent+BizTonoDataEventHandler</Item>
+            </Issue>
+           </Message>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-09-02 03:44:52Z">
+            <Issue>
+             <Item>Biz.BizTonoDataEvent+BizTonoDataEventHandler</Item>
+            </Issue>
+           </Message>
+          </Messages>
          </Type>
          <Type Name="BizWeight">
           <Messages>
@@ -613,24 +1302,66 @@
     </Modules>
    </Target>
   </Targets>
+  <Notes>
+   <User Name="paul">
+    <Note Id="0" Modified="2010-09-02 03:45:43Z">Not necessary to create an empty private constructor</Note>
+    <Note Id="1" Modified="2010-09-02 03:46:00Z">input is validated in the ValidateArray function</Note>
+    <Note Id="7" Modified="2010-09-09 03:13:14Z">input is validated in the ValidateArray function</Note>
+    <Note Id="8" Modified="2010-09-02 03:46:39Z">input is validated in the ValidateArray function</Note>
+    <Note Id="9" Modified="2010-09-02 03:47:08Z">Extremum is correctly spelled</Note>
+    <Note Id="10" Modified="2010-09-02 03:47:14Z">input is validated in the ValidateArray function</Note>
+    <Note Id="11" Modified="2010-09-02 03:47:19Z">input is validated in the ValidateArray function</Note>
+    <Note Id="12" Modified="2010-09-02 03:47:46Z">input is validated in the ValidateArray function</Note>
+    <Note Id="13" Modified="2010-09-09 03:13:07Z">input is validated in the ValidateArray function</Note>
+    <Note Id="14" Modified="2010-09-03 00:00:30Z">this is a property, not a member</Note>
+    <Note Id="16" Modified="2010-09-03 04:07:57Z">The get method is overriden to ensure the array is not copied</Note>
+    <Note Id="17" Modified="2010-09-03 04:08:06Z">The get method is overriden to ensure the array is not copied</Note>
+    <Note Id="18" Modified="2010-09-03 04:08:13Z">The get method is overriden to ensure the array is not copied</Note>
+    <Note Id="19" Modified="2010-09-03 04:08:34Z">this is a property, not a member</Note>
+    <Note Id="20" Modified="2010-09-03 04:08:50Z">this is a property, not a member</Note>
+    <Note Id="21" Modified="2010-09-03 04:08:54Z">this is a property, not a member</Note>
+    <Note Id="22" Modified="2010-09-03 04:08:57Z">this is a property, not a member</Note>
+    <Note Id="23" Modified="2010-09-09 03:14:31Z">this is a property, not a member</Note>
+    <Note Id="24" Modified="2010-09-03 04:09:07Z">this is a property, not a member</Note>
+    <Note Id="26" Modified="2010-09-03 04:09:19Z">this is a property, not a member</Note>
+    <Note Id="27" Modified="2010-09-03 04:09:23Z">this is a property, not a member</Note>
+    <Note Id="29" Modified="2010-09-09 03:13:22Z">input is validated in the ValidateArray function</Note>
+    <Note Id="30" Modified="2010-09-09 03:13:27Z">input is validated in the ValidateArray function</Note>
+    <Note Id="31" Modified="2010-09-09 03:13:32Z">input is validated in the ValidateArray function</Note>
+    <Note Id="32" Modified="2010-09-09 03:13:39Z">input is validated in the ValidateArray function</Note>
+    <Note Id="33" Modified="2010-09-09 03:14:23Z">this is a property, not a member</Note>
+    <Note Id="34" Modified="2010-09-09 03:14:36Z">this is a property, not a member</Note>
+    <Note Id="35" Modified="2010-09-09 03:14:41Z">this is a property, not a member</Note>
+   </User>
+  </Notes>
   <Rules>
    <Rule TypeName="AbstractTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1012">
     <Resolution Name="Default">Change the accessibility of all public constructors in '{0}' to protected.</Resolution>
    </Rule>
-   <Rule TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702">
-    <Resolution Name="ShouldBeDiscreteTerm">The compound word '{0}' in {1} '{2}' exists as a discrete term. If your usage is intended to be single word, case it as '{3}'.</Resolution>
+   <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+    <Resolution Name="Default">'{0}' appears to have no upstream public or protected callers.</Resolution>
+   </Rule>
+   <Rule TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009">
+    <Resolution Name="Second">Declare the second parameter of '{0}' as an EventArgs, or an instance of a type that extends EventArgs, named 'e'.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051">
+    <Resolution Name="Default">Make '{0}' private or internal (Friend in VB, public private in C++) and provide a public or protected property to access it.</Resolution>
    </Rule>
    <Rule TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045">
     <Resolution Name="Default">Consider a design that does not require that '{0}' be a reference parameter.</Resolution>
    </Rule>
    <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
     <Resolution Name="Member">Correct the casing of member name '{0}'.</Resolution>
-    <Resolution Name="Parameter">Correct the casing of parameter name '{0}'.</Resolution>
    </Rule>
    <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
     <Resolution Name="Member">Correct the spelling of the unrecognized token '{0}' in member name '{1}'.</Resolution>
-    <Resolution Name="Parameter">In method {0}, correct the spelling of the unrecognized token '{1}' in parameter name '{2}' or strip it entirely if it represents any sort of hungarian notation.</Resolution>
-    <Resolution Name="ParameterOneLetter">In method {0}, consider providing a more meaningful name than the one-letter parameter name '{1}'.</Resolution>
+    <Resolution Name="Type">Correct the spelling of the unrecognized token '{0}' in type name '{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710">
+    <Resolution Name="Default">Rename '{0}' to end in '{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707">
+    <Resolution Name="Member">Remove all underscores from member '{0}'.</Resolution>
    </Rule>
    <Rule TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705">
     <Resolution Name="Member">Correct the capitalization of member name '{0}'.</Resolution>
@@ -642,14 +1373,14 @@
    <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
     <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>
    </Rule>
-   <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
-    <Resolution Name="Default">{0} declares a local, '{1}', of type {2}, which is never used or is only assigned to. Use this local or remove it.</Resolution>
+   <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
+    <Resolution Name="Default">Parameter '{0}' of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
    </Rule>
    <Rule TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053">
     <Resolution Name="Default">Remove the public constructors from '{0}'.</Resolution>
    </Rule>
-   <Rule TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024">
-    <Resolution Name="Default">Change '{0}' to a property if appropriate.</Resolution>
+   <Rule TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003">
+    <Resolution Name="Default">Remove '{0}' and replace its usage with EventHandler&lt;T&gt;</Resolution>
    </Rule>
    <Rule TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062">
     <Resolution Name="Default">Validate parameter {0} passed to externally visible method {1}.</Resolution>

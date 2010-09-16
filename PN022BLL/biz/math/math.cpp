@@ -17,19 +17,19 @@ using namespace System;
 #pragma hdrstop
 
 /**
- ** ValidateArray
+ ** ValidateArray()
  **
- ** DESCRIPTION
- **  Validate the array boundaries
+ ** DESCRIPTION:
+ **  Validate the array boundaries.
 
- ** INPUT
- **  input[size] - array
+ ** INPUT:
+ **  input[size] - array.
  
- ** OUTPUT (RETURN)
- **  none
+ ** OUTPUT:
+ **  none.
 
- ** RETURN
- **  bool success or not
+ ** RETURN:
+ **  bool success or not.
 */
 
 bool BizMath::ValidateArray(array<const float>^ input, int size)
@@ -72,21 +72,21 @@ bool BizMath::ValidateArray(array<const short int>^ input, int size)
 	return true;
 }
 /**
- ** TimeToIndex
+ ** TimeToIndex()
  **
- ** DESCRIPTION
- **  Convert time in msec into index
+ ** DESCRIPTION:
+ **  Convert time in msec into index.
 
- ** INPUT
- **  time
- **  expandRate - rate of upsampling
- **  sampleRate (usually 256) - rate of signal sampling
+ ** INPUT:
+ **  time,
+ **  expandRate - rate of upsampling,
+ **  sampleRate (usually 256) - rate of signal sampling.
 
- ** OUTPUT (RETURN)
- **  index
+ ** OUTPUT:
+ **  index.
 
- ** RETURN
- **  bool success or not
+ ** RETURN:
+ **  bool success or not.
 */
 
 bool BizMath::TimeToIndex(const float time, const int expandRate,
@@ -113,21 +113,21 @@ bool BizMath::TimeToIndex(const float time, const int expandRate,
 }
 
 /**
- ** IndexToTime
+ ** IndexToTime()
  **
- ** DESCRIPTION
- **  Convert index into time in msec
+ ** DESCRIPTION:
+ **  Convert index into time in msec.
 
- ** INPUT
- **  index
- **  expandRate - rate of upsampling
- **  sampleRate (usually 256) - rate of signal sampling
+ ** INPUT:
+ **  index,
+ **  expandRate - rate of upsampling,
+ **  sampleRate (usually 256) - rate of signal sampling.
 
- ** OUTPUT (RETURN)
- **  time
+ ** OUTPUT:
+ **  time.
 
- ** RETURN
- **  bool success or not
+ ** RETURN:
+ **  bool success or not.
 */
 
 bool BizMath::IndexToTime(const int index, const int expandRate,
@@ -153,22 +153,22 @@ bool BizMath::IndexToTime(const int index, const int expandRate,
 }
 
 /**
- ** Round (double input)
+ ** Round()
  **
- ** DESCRIPTION
+ ** DESCRIPTION:
  **  Round real numbers to nearest integer
  **		Example :
  **		3.78 -> 4, -3.78 -> -4
  **		3.27 -> 3, -3.27 -> -3
  **
- ** INPUT
- **  input - double value to round
+ ** INPUT:
+ **  input - double value to round.
  **
- ** OUTPUT (RETURN)
- **  output - rounded integer
+ ** OUTPUT:
+ **  output - rounded integer.
  **
- ** RETURN
- **  bool success or not
+ ** RETURN:
+ **  bool success or not.
 */
 
 bool BizMath::Round(double input, int% output)
@@ -212,22 +212,22 @@ bool BizMath::Round(double input, int% output)
 }
 
 /**
- ** RoundNearest20 (int input)
+ ** RoundNearest20()
  **
- ** DESCRIPTION
+ ** DESCRIPTION:
  **  Round integers to nearest multiple of 20
  **		Example :
  **		110 -> 120, -110 -> -100
  **     109 -> 100, -111 -> -120
 
- ** INPUT
- **  input - integer value to round
+ ** INPUT:
+ **  input - integer value to round.
 
- ** OUTPUT (RETURN)
- **  output - rounded integer
+ ** OUTPUT:
+ **  output - rounded integer.
 
- ** RETURN
- **  bool success or not
+ ** RETURN:
+ **  bool success or not.
 */
 
 bool BizMath::RoundNearest20(int input, int% output)
@@ -278,27 +278,27 @@ bool BizMath::RoundNearest20(int input, int% output)
 }
 
 /**
- ** SmoothDerivative1(...)
+ ** SmoothFirstDerivative()
  **
- ** DESCRIPTION
+ ** DESCRIPTION:
  **  Calculate first derivative of a function
  **  using formula after smoothing
  **  input[k]' = 3/[n*(n+1)*(2n+1)] * Sum (j*input[k+j]) , j = -n...n
 
- ** INPUT
- **  input[size] - function values
- **  step - step of abscissa
- **  n - smoothOrder - Smoothing order
+ ** INPUT:
+ **  input[size] - function values,
+ **  step - step of abscissa,
+ **  n - smoothOrder - Smoothing order.
 
- ** OUTPUT
- **  firstDerivative[size] - first derivative
- **  maximum - maximum value of a derivative (cannot be the first or last 2 points)
+ ** OUTPUT:
+ **  firstDerivative[size] - first derivative,
+ **  maximum - maximum value of a derivative (cannot be the first or last 2 points).
 
- ** RETURN
- **  bool success or not
+ ** RETURN:
+ **  bool success or not.
 */
 
-bool BizMath::SmoothDerivative1(array<const float>^ input, const int size, const int smoothOrder,
+bool BizMath::SmoothFirstDerivative(array<const float>^ input, const int size, const int smoothOrder,
                             const float step, array<float>^ firstDerivative, float% maximum)
 {
 
@@ -372,27 +372,27 @@ bool BizMath::SmoothDerivative1(array<const float>^ input, const int size, const
 	// Find the maximum, not including the first or last 2 points
 	array<const float>^ subset = gcnew array<const float>(size - 3);
 	Array::Copy(firstDerivative, 1, subset, 0, size - 3);
-	// MaxInArray cannot return false because we've already validated the array
-	MaxInArray(subset, size - 3, maximum);
+	// MaximumInArray cannot return false because we've already validated the array
+	MaximumInArray(subset, size - 3, maximum);
 	return true;
 }
 /**
- ** MaxInArray(...),  MinInArray(...),  MinMaxInArray(...)
+ ** MaximumInArray(),  MinimumInArray(),  MinimumMaximumInArray()
  **
- ** DESCRIPTION
- **  find maximum/minimum value in array
+ ** DESCRIPTION:
+ **  find maximum/minimum value in array.
 
- ** INPUT
- **  input[size] - array
+ ** INPUT:
+ **  input[size] - array.
 
- ** OUTPUT (RETURN)
- **  maximum/minimum value
+ ** OUTPUT:
+ **  maximum/minimum value.
 
- ** RETURN
- ** bool success or not
+ ** RETURN:
+ ** bool success or not.
 */
 
-bool BizMath::MaxInArray (array<const float>^ input, int size, float% maximum)
+bool BizMath::MaximumInArray (array<const float>^ input, int size, float% maximum)
 {
 	// Validation
 	if (!ValidateArray(input, size))
@@ -412,7 +412,7 @@ bool BizMath::MaxInArray (array<const float>^ input, int size, float% maximum)
 	return true;
 }
 
-bool BizMath::MinInArray (array<const float>^ input, int size, float% minimum)
+bool BizMath::MinimumInArray (array<const float>^ input, int size, float% minimum)
 {
 	// Validation
 	if (!ValidateArray(input, size))
@@ -432,7 +432,7 @@ bool BizMath::MinInArray (array<const float>^ input, int size, float% minimum)
 	return true;
 }
 
-bool BizMath::MinMaxInArray (array<const float>^ input, int size, float% minimum, float% maximum)
+bool BizMath::MinimumMaximumInArray (array<const float>^ input, int size, float% minimum, float% maximum)
 {
 	// Validation
 	if (!ValidateArray(input, size))
@@ -457,7 +457,7 @@ bool BizMath::MinMaxInArray (array<const float>^ input, int size, float% minimum
 	return true;
 }
 
-bool BizMath::MinMaxInArray (array<const short int>^ input, int size, short int% minimum, short int% maximum)
+bool BizMath::MinimumMaximumInArray (array<const short int>^ input, int size, short int% minimum, short int% maximum)
 {
 	// Validation
 	if (!ValidateArray(input, size))
@@ -485,7 +485,7 @@ bool BizMath::MinMaxInArray (array<const short int>^ input, int size, short int%
 /**
 ** Find the index of where the maximum resides within an array.
 */
-bool BizMath::MaxInArrayIndex(array<const float>^ input, int size, int% maximumIndex)
+bool BizMath::MaximumInArrayIndex(array<const float>^ input, int size, int% maximumIndex)
 {
 	// Validation
 	if (!ValidateArray(input, size))
@@ -508,20 +508,20 @@ bool BizMath::MaxInArrayIndex(array<const float>^ input, int size, int% maximumI
 }
 
 /**
- ** GetSplineIndex(abscissa, size);
+ ** GetSplineIndex()
  **
- ** DESCRIPTION
- **  Find SplineIndex (beginning of a spline) for pulse
+ ** DESCRIPTION:
+ **  Find SplineIndex (beginning of a spline) for pulse.
 
- ** INPUT
- **  abscissa - abscissa of a point on a Pulse
- **  size - length of a pulse
+ ** INPUT:
+ **  abscissa - abscissa of a point on a Pulse,
+ **  size - length of a pulse.
 
- ** OUTPUT
- **  newSplineIndex - new spline index
+ ** OUTPUT:
+ **  newSplineIndex - new spline index.
 
- ** RETURN
- **  bool success or not
+ ** RETURN:
+ **  bool success or not.
 */
 bool BizMath::GetSplineIndex(const float abscissa, const int splineIndex, const int size, int% newSplineIndex)
 {
@@ -561,20 +561,20 @@ bool BizMath::GetSplineIndex(const float abscissa, const int splineIndex, const 
 }
 
 /**
- ** Spline(...)
+ ** Spline()
  **
- ** DESCRIPTION
- **  Find a value of polinomial spline approximation in point abscissa of Pulse profile
+ ** DESCRIPTION:
+ **  Find a value of polinomial spline approximation in point abscissa of Pulse profile.
 
- ** INPUT
- **  abscissa - abscissa of a point on a Pulse
- **  input[splineOrder + 1] - Pulse section
+ ** INPUT:
+ **  abscissa - abscissa of a point on a Pulse,
+ **  input[splineOrder + 1] - Pulse section.
 
- ** OUTPUT
- **  output - pulse value
+ ** OUTPUT:
+ **  output - pulse value.
 
- ** RETURN
- **  bool success or not
+ ** RETURN:
+ **  bool success or not.
 */
 
 bool BizMath::Spline(const float abscissa, array<const float>^ input, float% output)
@@ -613,17 +613,17 @@ bool BizMath::Spline(const float abscissa, array<const float>^ input, float% out
 /**
  ** SmoothArray()
  **
- ** DESCRIPTION
- **  Smooth array using Running average algorithm
+ ** DESCRIPTION:
+ **  Smooth array using Running average algorithm.
 
- ** INPUT
- **  input[size] - float array
+ ** INPUT:
+ **  input[size] - float array.
  
- ** OUTPUT
- **  input rewritten
+ ** OUTPUT:
+ **  input rewritten.
 
- ** RETURN
- **  true if success, false otherwise
+ ** RETURN:
+ **  true if success, false otherwise.
 */
 bool BizMath::SmoothArray(array<float>^ input, const int size)
 {
@@ -687,20 +687,20 @@ bool BizMath::SmoothArray(array<float>^ input, const int size)
 /**
  ** IndexOfExtremum()
  **
- ** DESCRIPTION
- **  Find index of the first Extremal Maximal value for pulse
- **  between indexes start and end, greater than the threshold
+ ** DESCRIPTION:
+ **  Find index of the first Extremal Maximum value for pulse
+ **  between indexes start and end, greater than the threshold.
 
- ** INPUT
- **  start, end - indexes
- **  input - float array
- **	 threshold
+ ** INPUT:
+ **  start, end - indexes,
+ **  input - float array,
+ **	 threshold.
 
- ** OUTPUT
- **  Index
+ ** OUTPUT:
+ **  Index.
 
- ** RETURN
- **  true if success, false otherwise
+ ** RETURN:
+ **  true if success, false otherwise.
 */
 
 bool BizMath::IndexOfExtremum(array<const float>^ input, const int start, const int end, 
@@ -744,20 +744,20 @@ bool BizMath::IndexOfExtremum(array<const float>^ input, const int start, const 
 }
 
 /**
- ** FunctionValue
+ ** FunctionValue()
  **
- ** DESCRIPTION
- **  Find value of function at argument
+ ** DESCRIPTION:
+ **  Find value of function at argument.
 
- ** INPUT
- **  function[size] - function
- **  argument - point to find value at
+ ** INPUT:
+ **  function[size] - function,
+ **  argument - point to find value at.
 
- ** OUTPUT
- **  value at point argument
+ ** OUTPUT:
+ **  value at point argument.
 
- ** RETURN
- **  true if success, false otherwise
+ ** RETURN:
+ **  true if success, false otherwise.
 */
 bool BizMath::FunctionValue(array<const float>^ function, const int size, const float argument, float% value)
 {

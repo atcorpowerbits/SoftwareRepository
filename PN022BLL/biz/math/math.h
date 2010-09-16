@@ -31,15 +31,15 @@ namespace Biz {
 		static bool RoundNearest20(int input, int% output);
 
 		// Calculate smooth first derivative of a function and find max
-		static bool SmoothDerivative1(array<const float>^ input, const int size,  const int smoothOrder,
+		static bool SmoothFirstDerivative(array<const float>^ input, const int size,  const int smoothOrder,
 									const float step, array<float>^ firstDerivative, float% maximum);
 
 		// find maximum and minimum value in array
-		static bool MaxInArray (array<const float>^ input, int size, float% maximum);
-		static bool MinInArray (array<const float>^ input, int size, float% minimum);
-		static bool MinMaxInArray (array<const float>^ input, int size, float% minimum, float% maximum);
-		static bool MinMaxInArray (array<const short int>^ input, int size, short int% minimum, short int% maximum);
-		static bool	MaxInArrayIndex(array<const float>^ input, int size, int% maximumIndex);
+		static bool MaximumInArray (array<const float>^ input, int size, float% maximum);
+		static bool MinimumInArray (array<const float>^ input, int size, float% minimum);
+		static bool MinimumMaximumInArray (array<const float>^ input, int size, float% minimum, float% maximum);
+		static bool MinimumMaximumInArray (array<const short int>^ input, int size, short int% minimum, short int% maximum);
+		static bool	MaximumInArrayIndex(array<const float>^ input, int size, int% maximumIndex);
 		
 		// Find SplineIndex (beginning of a spline) for pulse
 		static bool GetSplineIndex(const float abscissa, const int splineIndex, const int size, int% newSplineIndex);
@@ -50,7 +50,7 @@ namespace Biz {
 		// Smooth array using Running average algorithm
 		static bool SmoothArray(array<float>^ input, const int size);
 
-		// Find index of the first Extremal Maximal value for pulse between indexes start and end, greater than the threshold
+		// Find index of the first Extremal Maximum value for pulse between indexes start and end, greater than the threshold
 		static bool IndexOfExtremum(array<const float>^ input, const int start, const int end,
 								 const float threshold, int% index);
 		

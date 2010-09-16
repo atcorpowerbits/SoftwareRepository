@@ -156,7 +156,7 @@ namespace TestBiz {
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
-			///A test for MaxInArray
+			///A test for MaximumInArray
 			///</summary>
 public: [
 
@@ -177,7 +177,7 @@ public: [
 			float maximum = 0;
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
 			bool actual;
-			actual = BizMath::MaxInArray(input, size, maximum);
+			actual = BizMath::MaximumInArray(input, size, maximum);
 			Assert::AreEqual(maximumExpected, maximum);
 			Assert::AreEqual(expected, actual);
 		}
@@ -210,13 +210,13 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
-		///A test for MinInArray
+		///A test for MinimumInArray
 		///</summary>
 public: [
 
 			DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\MinInArray.csv", L"MinInArray#csv", DataAccessMethod::Sequential),
 				TestMethod]
-		void MinInArrayTest()
+		void MinimumInArrayTest()
 		{
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
 			cli::array< float >^  input = nullptr;
@@ -230,16 +230,16 @@ public: [
 			float minimum = 0;
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
 			bool actual;
-			actual = BizMath::MinInArray(input, size, minimum);
+			actual = BizMath::MinimumInArray(input, size, minimum);
 			Assert::AreEqual(minimumExpected, minimum);
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
-		///A test for MaxInArrayIndex
+		///A test for MaximumInArrayIndex
 		///</summary>
 public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\MaxInArrayIndex.csv", L"MaxInArrayIndex#csv", DataAccessMethod::Sequential),
 			TestMethod]
-		void MaxInArrayIndexTest()
+		void MaximumInArrayIndexTest()
 		{
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
 			cli::array< float >^  input = nullptr;
@@ -253,7 +253,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			int maximumIndex = 0;
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
 			bool actual;
-			actual = BizMath::MaxInArrayIndex(input, size, maximumIndex);
+			actual = BizMath::MaximumInArrayIndex(input, size, maximumIndex);
 			Assert::AreEqual(maximumIndexExpected, maximumIndex);
 			Assert::AreEqual(expected, actual);
 		}
@@ -307,7 +307,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
-		///A test for SmoothDerivative1
+		///A test for SmoothFirstDerivative
 		///</summary>
 public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\SmoothDerivative1.csv", L"SmoothDerivative1#csv", DataAccessMethod::Sequential),
 			TestMethod]
@@ -331,7 +331,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			float maximum = 0;
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
 			bool actual;
-			actual = BizMath::SmoothDerivative1(input, size, smoothOrder, step, firstDerivative, maximum);
+			actual = BizMath::SmoothFirstDerivative(input, size, smoothOrder, step, firstDerivative, maximum);
 			CollectionAssert::AreEqual(firstDerivativeExpected, firstDerivative);
 			Assert::AreEqual(maximumExpected, maximum);
 			Assert::AreEqual(expected, actual);
@@ -360,11 +360,11 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
-		///A test for MinMaxInArray
+		///A test for MinimumMaximumInArray
 		///</summary>
 public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\MinMaxInArray1.csv", L"MinMaxInArray1#csv", DataAccessMethod::Sequential),
 			TestMethod]
-		void MinMaxInArrayTest1()
+		void MinimumMaximumInArrayTest1()
 		{
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
 			cli::array< short >^  input = nullptr;
@@ -375,22 +375,22 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			}
 			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
-			short pMin = 0; 
-			short pMinExpected = Convert::ToInt16(testContextInstance->DataRow[L"Minimum"]);
-			short pMax = 0;
-			short pMaxExpected = Convert::ToInt16(testContextInstance->DataRow[L"Maximum"]); 
+			short pMinimum = 0; 
+			short pMinimumExpected = Convert::ToInt16(testContextInstance->DataRow[L"Minimum"]);
+			short pMaximum = 0;
+			short pMaximumExpected = Convert::ToInt16(testContextInstance->DataRow[L"Maximum"]); 
 			bool actual;
-			actual = BizMath::MinMaxInArray(input, size, pMin, pMax);
-			Assert::AreEqual(pMinExpected, pMin);
-			Assert::AreEqual(pMaxExpected, pMax);
+			actual = BizMath::MinimumMaximumInArray(input, size, pMinimum, pMaximum);
+			Assert::AreEqual(pMinimumExpected, pMinimum);
+			Assert::AreEqual(pMaximumExpected, pMaximum);
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
-		///A test for MinMaxInArray
+		///A test for MinimumMaximumInArray
 		///</summary>
 public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\MinMaxInArray.csv", L"MinMaxInArray#csv", DataAccessMethod::Sequential),
 			TestMethod]
-		void MinMaxInArrayTest()
+		void MinimumMaximumInArrayTest()
 		{
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
 			cli::array< float >^  input = nullptr;
@@ -401,14 +401,14 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			}
 			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
-			float pMin = 0; 
-			float pMinExpected = Convert::ToSingle(testContextInstance->DataRow[L"Minimum"]);
-			float pMax = 0;
-			float pMaxExpected = Convert::ToSingle(testContextInstance->DataRow[L"Maximum"]); 
+			float pMinimum = 0; 
+			float pMinimumExpected = Convert::ToSingle(testContextInstance->DataRow[L"Minimum"]);
+			float pMaximum = 0;
+			float pMaximumExpected = Convert::ToSingle(testContextInstance->DataRow[L"Maximum"]); 
 			bool actual;
-			actual = BizMath::MinMaxInArray(input, size, pMin, pMax);
-			Assert::AreEqual(pMinExpected, pMin);
-			Assert::AreEqual(pMaxExpected, pMax);
+			actual = BizMath::MinimumMaximumInArray(input, size, pMinimum, pMaximum);
+			Assert::AreEqual(pMinimumExpected, pMinimum);
+			Assert::AreEqual(pMaximumExpected, pMaximum);
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>

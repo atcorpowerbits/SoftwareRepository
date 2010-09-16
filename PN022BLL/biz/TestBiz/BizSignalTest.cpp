@@ -1,9 +1,6 @@
 ﻿
 #include "StdAfx.h"
 #include <biz.h>
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 namespace TestBiz {
     using namespace System;
@@ -69,23 +66,23 @@ namespace TestBiz {
 		///A test for SetDefaults
 		///</summary>
 public: [TestMethod]
-		[DeploymentItem(L"biz.dll")]
 		void SetDefaultsTest()
 		{
-			BizSignal_Accessor^  target = (gcnew BizSignal_Accessor());
-			target->maxOnsetsLength = MAX_ONSETS;
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			accessor->SetProperty("maximumOnsetsLength", MAX_ONSETS);
 			array<float>^ floatOnsetsExpected = gcnew array<float>(MAX_ONSETS);;
 			for (int i = 0; i < MAX_ONSETS; i++)
 			{
 				floatOnsetsExpected[i] = -1;
 			}
-			target->floatOnsets = gcnew array<float>(MAX_ONSETS);;
+			accessor->SetProperty("floatOnsets", gcnew array<float>(MAX_ONSETS));
 			target->SetDefaults();
-			Assert::AreEqual(false, target->readyToCapture);
+			Assert::AreEqual(false, (bool) accessor->GetProperty("_readyToCapture"));
 			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseHeight);
 			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseHeightVariation);
 			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseLengthVariation);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->baseLineVariation);
+			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseBaselineVariation);
 			Assert::AreEqual((short) 0, target->onsetsLength);
 			CollectionAssert::AreEqual(floatOnsetsExpected, target->floatOnsets);
 		}
@@ -96,10 +93,11 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			TestMethod]
 		void InitialiseTest()
 		{
-			BizSignal_Accessor^  target = (gcnew BizSignal_Accessor());
-			target->maxSignalLength = MAX_SIGNAL_LENGTH;
-			array<float>^ signalExpected = gcnew array<float>(MAX_SIGNAL_LENGTH);;
-			target->signal = gcnew array<float>(MAX_SIGNAL_LENGTH);;
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			accessor->SetProperty("maximumSignalLength", MAX_SIGNAL_LENGTH);
+			array<float>^ signalExpected = gcnew array<float>(MAX_SIGNAL_LENGTH);
+			accessor->SetProperty("signal", gcnew array<float>(MAX_SIGNAL_LENGTH));
 			short inputSampleRate = Convert::ToInt16(testContextInstance->DataRow[L"InputSampleRate"]);
 			short sampleRateExpected = Convert::ToInt16(testContextInstance->DataRow[L"SampleRate"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
@@ -116,30 +114,29 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			TestMethod]
 		void AllocateTest()
 		{
-			BizSignal_Accessor^  target = (gcnew BizSignal_Accessor());
-			short inputMaxSignalLength = Convert::ToInt16(testContextInstance->DataRow[L"InputMaxSignalLength"]);
-			short inputMaxOnsetsLength = Convert::ToInt16(testContextInstance->DataRow[L"InputMaxOnsetsLength"]);
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			short inputMaximumSignalLength = Convert::ToInt16(testContextInstance->DataRow[L"InputMaxSignalLength"]);
+			short inputMaximumOnsetsLength = Convert::ToInt16(testContextInstance->DataRow[L"InputMaxOnsetsLength"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
 			bool actual;
-			actual = target->Allocate(inputMaxSignalLength, inputMaxOnsetsLength);
+			actual = target->Allocate(inputMaximumSignalLength, inputMaximumOnsetsLength);
 			Assert::AreEqual(expected, actual);
 			if (expected)
 			{
-				Assert::AreEqual(inputMaxSignalLength, target->maxSignalLength);
-				Assert::AreEqual(inputMaxOnsetsLength, target->maxOnsetsLength);
+				Assert::AreEqual(inputMaximumSignalLength, (short) accessor->GetProperty("maximumSignalLength"));
+				Assert::AreEqual(inputMaximumOnsetsLength, (short) accessor->GetProperty("maximumOnsetsLength"));
 				Assert::IsNotNull(target->signal);
 				Assert::IsNotNull(target->floatOnsets);
-				Assert::IsNotNull(target->derivative1);
-				Assert::IsNotNull(target->derivative2);
+				Assert::IsNotNull(target->firstDerivative);
 			}
 			else
 			{
-				Assert::AreEqual((short) 0, target->maxSignalLength);
-				Assert::AreEqual((short) 0, target->maxOnsetsLength);
+				Assert::AreEqual((short) 0, (short) accessor->GetProperty("maximumSignalLength"));
+				Assert::AreEqual((short) 0, (short) accessor->GetProperty("maximumOnsetsLength"));
 				Assert::IsNull(target->signal);
 				Assert::IsNull(target->floatOnsets);
-				Assert::IsNull(target->derivative1);
-				Assert::IsNull(target->derivative2);
+				Assert::IsNull(target->firstDerivative);
 			}
 		}
 		/// <summary>
@@ -148,18 +145,20 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 public: [TestMethod]
 		void BizSignalConstructorTest()
 		{
-			BizSignal_Accessor^  target = (gcnew BizSignal_Accessor());
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
 			Assert::AreEqual((short) 0, target->signalLength);
 			Assert::AreEqual((short) 0, target->onsetsLength);
-			Assert::AreEqual((short) 0, target->maxSignalLength);
-			Assert::AreEqual((short) 0, target->maxOnsetsLength);
+			Assert::AreEqual((short) 0, (short) accessor->GetProperty("maximumSignalLength"));
+			Assert::AreEqual((short) 0, (short) accessor->GetProperty("maximumOnsetsLength"));
 			Assert::IsNull(target->signal);
 			Assert::IsNull(target->floatOnsets);
-			Assert::AreEqual(false, target->readyToCapture);
+			Assert::IsNull(target->firstDerivative);
+			Assert::AreEqual(false, (bool) accessor->GetProperty("_readyToCapture"));
 			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseHeight);
 			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseHeightVariation);
 			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseLengthVariation);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->baseLineVariation);
+			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseBaselineVariation);
 		}
 		/// <summary>
 		///A test for CaptureSignal
@@ -168,7 +167,8 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			TestMethod]
 		void CaptureSignalTest()
 		{
-			BizSignal_Accessor^  target = (gcnew BizSignal_Accessor());
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
 			short size = Convert::ToInt16(testContextInstance->DataRow[L"Size"]);
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
 			cli::array< short >^  input = nullptr;
@@ -177,12 +177,12 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 				array<String^>^ valuesArray = values->Split(',');
 				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, short>(Convert::ToInt16));
 			}
-			bool readyToCapture = Convert::ToBoolean(testContextInstance->DataRow[L"ReadyToCapture"]);
-			if (readyToCapture)
+			bool _readyToCapture = Convert::ToBoolean(testContextInstance->DataRow[L"ReadyToCapture"]);
+			if (_readyToCapture)
 			{
-				target->maxSignalLength = size;
-				target->signal = gcnew array<float>(size);;
-				target->readyToCapture = true;
+				accessor->SetProperty("maximumSignalLength", size);
+				accessor->SetProperty("signal", gcnew array<float>(size));
+				accessor->SetProperty("_readyToCapture", true);
 			}
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 			bool actual;
@@ -200,9 +200,10 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 public: [TestMethod]
 		void PrepareToCaptureTest()
 		{
-			BizSignal_Accessor^  target = (gcnew BizSignal_Accessor());
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
 			target->PrepareToCapture();
-			Assert::IsTrue(target->readyToCapture);
+			Assert::IsTrue((bool) accessor->GetProperty("_readyToCapture"));
 		}
 		/// <summary>
 		///A test for ValidateSignalLength
@@ -211,9 +212,10 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			TestMethod]
 		void ValidateSignalLengthTest()
 		{
-			BizSignal_Accessor^  target = (gcnew BizSignal_Accessor());
-			target->maxSignalLength = MAX_SIGNAL_LENGTH;
-			short minSignalLength = Convert::ToInt16(testContextInstance->DataRow[L"MinSignalLength"]);
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			accessor->SetProperty("maximumSignalLength", MAX_SIGNAL_LENGTH);
+			short minimumSignalLength = Convert::ToInt16(testContextInstance->DataRow[L"MinSignalLength"]);
 			short signalLength = Convert::ToInt16(testContextInstance->DataRow[L"SignalLength"]);
 			target->signalLength = signalLength;
 			short sampleRate = Convert::ToInt16(testContextInstance->DataRow[L"SampleRate"]);
@@ -221,7 +223,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			short signalLengthExpected = Convert::ToInt16(testContextInstance->DataRow[L"SignalLengthExpected"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
 			bool actual;
-			actual = target->ValidateSignalLength(minSignalLength);
+			actual = target->ValidateSignalLength(minimumSignalLength);
 			Assert::AreEqual(signalLengthExpected, target->signalLength);
 			Assert::AreEqual(expected, actual);
 		}
@@ -233,16 +235,17 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		void ValidateSignalHeightTest()
 		{
 			BizSignal^  target = (gcnew BizSignal()); 
-			short minSignalHeight = Convert::ToInt16(testContextInstance->DataRow[L"MinSignalHeight"]);
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			short minimumSignalHeight = Convert::ToInt16(testContextInstance->DataRow[L"MinSignalHeight"]);
 			short signalLength = Convert::ToInt16(testContextInstance->DataRow[L"SignalLength"]);
 			target->signalLength = signalLength;
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Signal"]);
 			array<String^>^ valuesArray = values->Split(',');
 			cli::array< float >^ signal = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
-			target->signal = signal;
+			accessor->SetProperty("signal", signal);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 			bool actual;
-			actual = target->ValidateSignalHeight(minSignalHeight);
+			actual = target->ValidateSignalHeight(minimumSignalHeight);
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
@@ -252,25 +255,144 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			TestMethod]
 		void ValidateBeforeStoreTest()
 		{
-			BizSignal_Accessor^  target = (gcnew BizSignal_Accessor());
-			target->maxSignalLength = MAX_SIGNAL_LENGTH;
-			target->maxOnsetsLength = MAX_ONSETS;
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			accessor->SetProperty("maximumSignalLength", MAX_SIGNAL_LENGTH);
+			accessor->SetProperty("maximumOnsetsLength", MAX_ONSETS);
 			target->sampleRate = DEFAULT_SAMPLE_RATE;
 			target->signalLength = 1359;
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Signal"]);
 			array<String^>^ valuesArray = values->Split(',');
 			cli::array< float >^ signal = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
-			target->signal = signal;
-			short minSignalLength = Convert::ToInt16(testContextInstance->DataRow[L"MinSignalLength"]);
-			short minOnsetsLength = Convert::ToInt16(testContextInstance->DataRow[L"MinOnsetsLength"]);
-			short minSignalHeight = Convert::ToInt16(testContextInstance->DataRow[L"MinSignalHeight"]);
+			accessor->SetProperty("signal", signal);
+			short minimumSignalLength = Convert::ToInt16(testContextInstance->DataRow[L"MinSignalLength"]);
+			short minimumOnsetsLength = Convert::ToInt16(testContextInstance->DataRow[L"MinOnsetsLength"]);
+			short minimumSignalHeight = Convert::ToInt16(testContextInstance->DataRow[L"MinSignalHeight"]);
 			short onsetsLength = Convert::ToInt16(testContextInstance->DataRow[L"OnsetsLength"]);
 			target->onsetsLength = onsetsLength;
 			short onsetsLengthExpected = Convert::ToInt16(testContextInstance->DataRow[L"OnsetsLengthExpected"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 			bool actual;
-			actual = target->ValidateBeforeStore(minSignalLength, minOnsetsLength, minSignalHeight);
+			actual = target->ValidateBeforeStore(minimumSignalLength, minimumOnsetsLength, minimumSignalHeight);
 			Assert::AreEqual(onsetsLengthExpected, target->onsetsLength);
+			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for ValidateSignal
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizSignalValidateSignal.csv", L"BizSignalValidateSignal#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		[DeploymentItem(L"biz.dll")]
+		void ValidateSignalTest()
+		{
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			accessor->SetProperty("maximumSignalLength", MAX_SIGNAL_LENGTH);
+			target->sampleRate = DEFAULT_SAMPLE_RATE;
+			target->signalLength = 1359;
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Signal"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^ signal = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			accessor->SetProperty("signal", signal);
+			short minimumSignalLength = Convert::ToInt16(testContextInstance->DataRow[L"MinSignalLength"]);
+			short minimumSignalHeight = Convert::ToInt16(testContextInstance->DataRow[L"MinSignalHeight"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = target->ValidateSignal(minimumSignalLength, minimumSignalHeight);
+			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for FindOnsets
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizSignalFindOnsets.csv", L"BizSignalFindOnsets#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void FindOnsetsTest()
+		{
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Signal"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^ signal = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			accessor->SetProperty("signal", signal);
+			target->sampleRate = DEFAULT_SAMPLE_RATE;
+			accessor->SetProperty("maximumOnsetsLength", MAX_ONSETS);
+			accessor->SetProperty("floatOnsets", gcnew array<float>(MAX_ONSETS));
+			accessor->SetProperty("firstDerivative", gcnew array<float>(MAX_SIGNAL_LENGTH));
+			target->signalLength = Convert::ToInt16(testContextInstance->DataRow[L"SignalLength"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = target->FindOnsets();
+			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for TangentAlgorithm
+		///</summary>
+public: [
+			DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizSignalTangentAlgorithm.csv", L"BizSignalTangentAlgorithm#csv", DataAccessMethod::Sequential),
+				TestMethod]
+		void TangentAlgorithmTest()
+		{
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Signal"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^ signal = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			accessor->SetProperty("signal", signal);
+			target->signalLength = Convert::ToInt16(testContextInstance->DataRow[L"SignalLength"]);
+			short onsetsLengthExpected = Convert::ToInt16(testContextInstance->DataRow[L"OnsetsLength"]);
+			String^ onsets = Convert::ToString(testContextInstance->DataRow[L"FloatOnsets"]);
+			cli::array< float >^ floatOnsetsExpected = nullptr;
+			accessor->SetProperty("floatOnsets", nullptr);
+			if (onsets != "nullptr")
+			{
+				array<String^>^ onsetsArray = onsets->Split(',');
+				floatOnsetsExpected = Array::ConvertAll(onsetsArray, gcnew Converter<String^, float>(Convert::ToSingle));
+				accessor->SetProperty("floatOnsets", gcnew array<float>(onsetsLengthExpected));
+			}
+			target->sampleRate = DEFAULT_SAMPLE_RATE;
+			accessor->SetProperty("maximumOnsetsLength", onsetsLengthExpected);
+			accessor->SetProperty("firstDerivative", gcnew array<float>(MAX_SIGNAL_LENGTH));
+			float maximumFirstDerivative;
+			BizMath::SmoothFirstDerivative(signal, target->signalLength, 
+			SIGNAL_SMOOTH_ORDER, SIGNAL_STEP, target->firstDerivative, maximumFirstDerivative);
+			float inputMaximumFirstDerivative = Convert::ToSingle(testContextInstance->DataRow[L"MaxFirstDerivative"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
+			bool actual;
+			actual = target->TangentAlgorithm(inputMaximumFirstDerivative);
+			CollectionAssert::AreEqual(floatOnsetsExpected, target->floatOnsets);
+			Assert::AreEqual(onsetsLengthExpected, target->onsetsLength);
+			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for CalculateQualityControls
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizSignalCalculateQualityControls.csv", L"BizSignalCalculateQualityControls#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void CalculateQualityControlsTest()
+		{
+			BizSignal^ target = gcnew BizSignal();
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Signal"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^ signal = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			accessor->SetProperty("signal", signal);
+			String^ onsets = Convert::ToString(testContextInstance->DataRow[L"FloatOnsets"]);
+			array<String^>^ onsetsArray = onsets->Split(',');
+			cli::array< float >^ floatOnsets = Array::ConvertAll(onsetsArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			accessor->SetProperty("floatOnsets", floatOnsets);
+			target->signalLength = Convert::ToInt16(testContextInstance->DataRow[L"SignalLength"]);
+			target->onsetsLength = Convert::ToInt16(testContextInstance->DataRow[L"OnsetsLength"]);
+			float pulseHeight = Convert::ToSingle(testContextInstance->DataRow[L"PulseHeight"]);
+			float pulseHeightVariation = Convert::ToSingle(testContextInstance->DataRow[L"PulseHeightVariation"]);
+			float pulseLengthVariation = Convert::ToSingle(testContextInstance->DataRow[L"PulseLengthVariation"]);
+			float pulseBaselineVariation = Convert::ToSingle(testContextInstance->DataRow[L"PulseBaselineVariation"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
+			bool actual;
+			actual = target->CalculateQualityControls();
+			Assert::AreEqual(pulseHeight, target->pulseHeight);
+			Assert::AreEqual(pulseHeightVariation, target->pulseHeightVariation);
+			Assert::AreEqual(pulseLengthVariation, target->pulseLengthVariation);
+			Assert::AreEqual(pulseBaselineVariation, target->pulseBaselineVariation);
 			Assert::AreEqual(expected, actual);
 		}
 };

@@ -24,7 +24,9 @@ namespace CrossCutting {
 
 		static CrxMessageFacade^ CrxMessageFacade::Instance();
 		
-		// Display a message to the user
+		// Display a message to the user.
+		// The user message should be translated by the Resource -
+		// Manager, while the log message should be invariant (English)
 		bool Message(TraceEventType severity, String^ title, 
 					String^ userMessage, String^ logMessage);
 
