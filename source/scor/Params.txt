@@ -1,2 +1,2 @@
-00050,312,DATA,28
+00139,690,FQTTEST,1
 "Radial Sp","Radial Dp","Aortic Sp","Aortic Dp","Mean P","Heart rate","Ejection duration","Aortic T1","Aortic T2",AI1,"Aortic AP","Mean pressure systolic","Mean pressure diastolic","End systolic pressure",SEVR,Period,"Aortic PP","Augmentation index","Event Marker","Aortic Tr"
