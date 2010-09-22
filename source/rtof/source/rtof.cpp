@@ -380,7 +380,10 @@ bool rtof_add_sample(short int pressure_sample)
             QC_LowerVariation = 0.5 * QC_BaselineVariation + 0.5 * QC_DiastolicVariation;
 
             // The actual Pulse Height value is dependant on the Electronics Module type
-            QC_PulseHeight = QC_PulseHeight / rtof_pwa->Periph.qc_scale;
+            if (rtof_pwa->Periph.qc_scale != DEFAULT_VALUE && rtof_pwa->Periph.qc_scale != 0)
+            {
+                QC_PulseHeight = QC_PulseHeight / rtof_pwa->Periph.qc_scale;
+            }
 
             // Determine the Pulse Height Variation feedback colour and label
             if (QC_PulseHeightVariation < 5.0)
