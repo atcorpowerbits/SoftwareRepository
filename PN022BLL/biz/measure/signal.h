@@ -11,6 +11,7 @@
 #pragma once
 #include <biz.h>
 #include <math.h>
+using namespace System::Runtime::InteropServices;
 
 namespace Biz {
 
@@ -62,6 +63,18 @@ namespace Biz {
 				_firstDerivative = input;
 			}
 		}
+
+		// Direct native API call.
+		/*[DllImport("bizcor.dll")]
+		static bool BizCorCalculateQualityControls(short signalLength, 
+														short onsetsLength, 
+														array<float>^ signal, 
+														array<float>^ floatOnsets,
+														float% pulseHeight,
+														float% pulseHeightVariation,
+														float% pulseLengthVariation,
+														float% pulseBaselineVariation);*/
+
 	private:
 		property bool	_readyToCapture;		
     	array<float>^	_signal;
@@ -116,3 +129,11 @@ namespace Biz {
 		
 	};
 }
+static bool BizCorCalculateQualityControls(short signalLength, 
+											short onsetsLength, 
+											float* signal, 
+											float* floatOnsets,
+											float pulseHeight,
+											float pulseHeightVariation,
+											float pulseLengthVariation,
+											float pulseBaselineVariation);

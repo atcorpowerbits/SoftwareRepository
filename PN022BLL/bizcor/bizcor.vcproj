@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="C:\projects\PN022BLL\biz\biz"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;BIZCORNATIVEDLL_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

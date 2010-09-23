@@ -10,6 +10,9 @@
    #define BIZCORNATIVEDLL_API __declspec(dllimport)
 #endif
 
+//#include <biz.h>
+//#include <math.h>
+
 // This class is exported from the bizcor.dll
 class BIZCORNATIVEDLL_API CPerson {
 public:
@@ -33,6 +36,17 @@ extern "C" {
 extern BIZCORNATIVEDLL_API int nBizCorNativeDLL;
 
 BIZCORNATIVEDLL_API int fnBizCorNativeDLL(void);
+
+//BIZCORNATIVEDLL_API bool BizCorValidateArray(const float* input, int size);
+
+BIZCORNATIVEDLL_API bool BizCorCalculateQualityControls(short signalLength, 
+														short onsetsLength, 
+														float* signal, 
+														float* floatOnsets,
+														float& pulseHeight,
+														float& pulseHeightVariation,
+														float& pulseLengthVariation,
+														float& pulseBaselineVariation);
 
 #ifdef __cplusplus
 }

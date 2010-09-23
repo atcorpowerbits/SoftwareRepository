@@ -10,6 +10,7 @@
 #include "stdafx.h"
 #include "stdlib.h"
 #include "math.h"
+//#include <vcclr.h>
 
 using namespace Biz;
 using namespace System;
@@ -31,10 +32,27 @@ using namespace System;
  ** RETURN:
  **  bool success or not.
 */
-
 bool BizMath::ValidateArray(array<const float>^ input, int size)
 {
 	if (input == nullptr)
+	{
+		return false; 
+	}
+	
+	// We cannot determine the length of an unmanaged array -
+	// so check here first
+	if (size > input->Length)
+	{
+		return false;
+	}
+	
+	// Prevent the Garbage Collector from deleting the -
+	// managed array
+	pin_ptr<const float> unmanagedInput = &input[0];
+	
+	return BizCorValidateArray(unmanagedInput, size);
+	
+	/*if (input == nullptr)
 	{
 		return false; 
 	}
@@ -49,9 +67,31 @@ bool BizMath::ValidateArray(array<const float>^ input, int size)
 			return false;
 		}
 	}
+	return true;*/
+}
+
+#pragma unmanaged
+bool BizCorValidateArray(const float* input, int size)
+{
+	if (input == NULL)
+	{
+		return false; 
+	}
+	if (size < 1 || size >= DEFAULT_VALUE)// || size > sizeof(input) / sizeof(input[0]))
+	{
+		return false;
+	}
+	for (int i = 0; i < size; i++)
+	{
+		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
+		{
+			return false;
+		}
+	}
 	return true;
 }
 
+#pragma managed
 bool BizMath::ValidateArray(array<const short int>^ input, int size)
 {
 	if (input == nullptr)
@@ -71,6 +111,7 @@ bool BizMath::ValidateArray(array<const short int>^ input, int size)
 	}
 	return true;
 }
+
 /**
  ** TimeToIndex()
  **
@@ -761,7 +802,7 @@ bool BizMath::IndexOfExtremum(array<const float>^ input, const int start, const 
 */
 bool BizMath::FunctionValue(array<const float>^ function, const int size, const float argument, float% value)
 {
-  // Validation
+	// Validation
 	if (!ValidateArray(function, size))
 	{
 		return false;

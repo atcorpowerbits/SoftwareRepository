@@ -10,6 +10,7 @@
 
 #pragma once
 #include <biz.h>
+//using namespace System::Runtime::InteropServices;
 
 namespace Biz {
 
@@ -59,7 +60,7 @@ namespace Biz {
 
 		// Validate the array boundaries
 		static bool ValidateArray(array<const float>^ input, int size);
-		static bool ValidateArray(array<const short int>^ input, int size);
-
+		static bool ValidateArray(array<const short int>^ input, int size); 
 	};
 }
+static bool BizCorValidateArray(const float* input, int size);

@@ -474,6 +474,19 @@ bool BizSignal::CalculateQualityControls()
 	pulseHeightVariation = DEFAULT_VALUE;
 	pulseLengthVariation = DEFAULT_VALUE;
 	pulseBaselineVariation = DEFAULT_VALUE;
+	
+	/*pin_ptr<float> unmanagedSignal = &signal[0];
+	pin_ptr<float> unmanagedFloatOnsets = &floatOnsets[0];
+	
+	return BizCorCalculateQualityControls(signalLength,
+											onsetsLength, 
+											unmanagedSignal, 
+											unmanagedFloatOnsets,
+											pulseHeight,
+											pulseHeightVariation,
+											pulseLengthVariation,
+											pulseBaselineVariation);*/
+
 	array<const float>^ subset = gcnew array<const float>((short) signalLength);
 
 	// Additional Validation, onsetsLength should never be less than 2
@@ -550,10 +563,115 @@ bool BizSignal::CalculateQualityControls()
 
 	baselineVariation = (float) Math::Sqrt(baselineVariation/(onsetsLength - 1));
 	pulseBaselineVariation = baselineVariation/averagePulseHeight * 100;
-
+	
 	return true;
 }
+#pragma unmanaged
+bool BizCorCalculateQualityControls(short signalLength, 
+									short onsetsLength, 
+									float* signal, 
+									float* floatOnsets,
+									float pulseHeight,
+									float pulseHeightVariation,
+									float pulseLengthVariation,
+									float pulseBaselineVariation)
+{
+	/*
+	float minimum; 
+	float maximum;
+	float baseline;
+	float height;
+	float pulseLength;
+	float currentOnset;
+	float nextOnset;	
+	short index;
+	
+	// Initialisation
+	pulseHeight = DEFAULT_VALUE;
+	pulseHeightVariation = DEFAULT_VALUE;
+	pulseLengthVariation = DEFAULT_VALUE;
+	pulseBaselineVariation = DEFAULT_VALUE;
 
+	array<const float>^ subset = gcnew array<const float>((short) signalLength);
+
+	// Additional Validation, onsetsLength should never be less than 2
+	if (onsetsLength <= 1)
+	{
+		return false;
+	}
+
+	// Sum the Heights, Lengths and Baselines of each pulse
+	float averagePulseHeight = 0;
+	float averagePulseLength = 0;
+	float averageBaseline = 0;
+	for (index = 0; index < onsetsLength - 1; index++)
+	{
+		currentOnset = Math::Abs(floatOnsets[index]);
+		nextOnset = Math::Abs(floatOnsets[index + 1]);
+
+		pulseLength = nextOnset - currentOnset;
+		averagePulseLength += pulseLength;
+
+		BizMath::FunctionValue(signal, signalLength, currentOnset, baseline);
+		averageBaseline += baseline;
+
+		Array::Copy(signal, (short) currentOnset, subset, 0, (short) pulseLength);
+		BizMath::MinimumMaximumInArray(subset, (short) pulseLength, minimum, maximum);
+		height = maximum - minimum;
+		averagePulseHeight += height;
+	}
+	
+	// Average the Heights, Lengths and Baselines of each pulse
+	averagePulseHeight /= (onsetsLength - 1);
+	averagePulseLength /= (onsetsLength - 1);
+	averageBaseline /= (onsetsLength - 1);
+
+	// Average Pulse Height
+	if (averagePulseHeight > 0)
+	{
+		pulseHeight = averagePulseHeight;
+	}
+	else
+	{
+		return false;
+	}
+	
+	// Sum the variations in Height, Length and Baseline of -
+	// each pulse from the average
+	float heightVariation = 0;
+	float lengthVariation = 0;
+	float baselineVariation = 0;
+	for (index = 0; index < onsetsLength - 1; index++)
+	{
+		currentOnset = Math::Abs(floatOnsets[index]);
+		nextOnset = Math::Abs(floatOnsets[index + 1]);
+
+		pulseLength = nextOnset - currentOnset;
+		lengthVariation += Math::Abs(pulseLength - averagePulseLength);
+
+		BizMath::FunctionValue(signal, signalLength, currentOnset, baseline);
+		baselineVariation += (float) Math::Pow(baseline - averageBaseline, 2);
+
+		Array::Copy(signal, (short) currentOnset, subset, 0, (short) pulseLength);
+		BizMath::MinimumMaximumInArray(subset, (short) pulseLength, minimum, maximum);
+		height = maximum - minimum;
+		heightVariation += Math::Abs(height - averagePulseHeight);
+	}
+
+	// Average the variations in Height, Length and Baseline of -
+	// each pulse from the average
+	heightVariation /= (onsetsLength - 1);
+	pulseHeightVariation = heightVariation/averagePulseHeight * 100;
+
+	lengthVariation /= (onsetsLength - 1);
+	pulseLengthVariation = lengthVariation/averagePulseHeight * 100;
+
+	baselineVariation = (float) Math::Sqrt(baselineVariation/(onsetsLength - 1));
+	pulseBaselineVariation = baselineVariation/averagePulseHeight * 100;
+	*/
+	return true;
+}
+#pragma managed
 /**
  ** ValidateSignal()
  **

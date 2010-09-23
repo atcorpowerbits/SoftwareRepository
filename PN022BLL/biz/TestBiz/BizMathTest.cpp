@@ -1,5 +1,7 @@
 ﻿
 #include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
 
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 namespace TestBiz {
