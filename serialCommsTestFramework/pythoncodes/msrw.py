@@ -2,6 +2,7 @@
 # Description: My serial read write
 # History:
 #   v0.1    12 Aug 2010     LC      Original
+# Copyright 2010 AtCor Medical
 #
 import sys, threading, string, serial, time
 from crc_algorithms import Crc
