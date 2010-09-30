@@ -107,6 +107,16 @@
          </Type>
          <Type Name="BizCircularBuffer">
           <Members>
+           <Member Name=".ctor(System.UInt32)">
+            <Messages>
+             <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Created="2010-09-29 07:42:36Z">
+              <Issue>
+               <Item>BizCircularBuffer.BizCircularBuffer(UInt32)</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;BizCircularBuffer.BizCircularBuffer(UInt32)&#xD;&#xA;BizCircularBuffer.Reset():Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="~BizCircularBuffer():System.Void">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
@@ -117,6 +127,62 @@
             </Messages>
            </Member>
           </Members>
+         </Type>
+         <Type Name="BizCountdownArgs">
+          <Messages>
+           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2010-09-29 07:42:36Z">
+            <Issue>
+             <Item>Biz.BizCountdownArgs</Item>
+             <Item>EventArgs</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="data">
+            <Messages>
+             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-09-29 07:42:36Z">
+              <Issue>
+               <Item>data</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCountdownCapture">
+          <Members>
+           <Member Name="countdownBiz">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-29 07:42:36Z">
+              <Issue Name="Member">
+               <Item>countdownBiz</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCountdownEvent">
+          <Members>
+           <Member Name="CountdownEvent" Kind="Event">
+            <Messages>
+             <Message TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009" Created="2010-09-29 07:42:36Z">
+              <Issue Name="Second">
+               <Item>BizCountdownEventHandler</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCountdownEvent+BizCountdownEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-09-29 07:42:36Z">
+            <Issue>
+             <Item>Biz.BizCountdownEvent+BizCountdownEventHandler</Item>
+            </Issue>
+           </Message>
+          </Messages>
          </Type>
          <Type Name="BizCuffPulseArgs">
           <Messages>
@@ -223,26 +289,35 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="FindCuffPulse():Biz.BizCuffPulseEvent">
+           <Member Name="FindCountdownEvent():Biz.BizCountdownEvent">
             <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
               <Issue>
-               <Item>BizFacade.FindCuffPulse():BizCuffPulseEvent</Item>
+               <Item>BizFacade.FindCountdownEvent():BizCountdownEvent</Item>
               </Issue>
              </Message>
             </Messages>
            </Member>
-           <Member Name="FindTonoData():Biz.BizTonoDataEvent">
+           <Member Name="FindCuffPulseEvent():Biz.BizCuffPulseEvent">
             <Messages>
-             <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
-              <Issue Name="Member">
-               <Item>Tono</Item>
-               <Item>BizFacade.FindTonoData():BizTonoDataEvent</Item>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizFacade.FindCuffPulseEvent():BizCuffPulseEvent</Item>
               </Issue>
              </Message>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+            </Messages>
+           </Member>
+           <Member Name="FindTonoDataEvent():Biz.BizTonoDataEvent">
+            <Messages>
+             <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-29 07:42:36Z">
+              <Issue Name="Member">
+               <Item>Tono</Item>
+               <Item>BizFacade.FindTonoDataEvent():BizTonoDataEvent</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
               <Issue>
-               <Item>BizFacade.FindTonoData():BizTonoDataEvent</Item>
+               <Item>BizFacade.FindTonoDataEvent():BizTonoDataEvent</Item>
               </Issue>
              </Message>
             </Messages>
@@ -265,6 +340,15 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="SimulateDeflationTimer():System.Void">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizFacade.SimulateDeflationTimer():Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="StartCapture():System.Boolean">
             <Messages>
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-08-12 07:21:54Z" FixCategory="Breaking">
@@ -283,11 +367,20 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="StopSimulation():System.Void">
+           <Member Name="StopCaptureSimulation():System.Void">
             <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
               <Issue>
-               <Item>BizFacade.StopSimulation():Void</Item>
+               <Item>BizFacade.StopCaptureSimulation():Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="StopDeflationTimerSimulation():System.Void">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizFacade.StopDeflationTimerSimulation():Void</Item>
               </Issue>
              </Message>
             </Messages>
@@ -805,6 +898,15 @@
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
               <Issue Name="Member">
                <Item>myCarotidDistance</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="myCountdownObserver">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-29 07:42:36Z">
+              <Issue Name="Member">
+               <Item>myCountdownObserver</Item>
               </Issue>
              </Message>
             </Messages>
@@ -1343,6 +1445,9 @@
    </Rule>
    <Rule TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009">
     <Resolution Name="Second">Declare the second parameter of '{0}' as an EventArgs, or an instance of a type that extends EventArgs, named 'e'.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
+    <Resolution Name="Default">'{0}' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: {1}</Resolution>
    </Rule>
    <Rule TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051">
     <Resolution Name="Default">Make '{0}' private or internal (Friend in VB, public private in C++) and provide a public or protected property to access it.</Resolution>

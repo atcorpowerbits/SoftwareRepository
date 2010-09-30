@@ -1,7 +1,7 @@
 /*
     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
 
-    Filename	 :	math.h
+    Filename	 :	math_library.h
 	
 	Author       :  Paul McBryde
 
@@ -10,7 +10,7 @@
 
 #pragma once
 #include <biz.h>
-//using namespace System::Runtime::InteropServices;
+using namespace System::Runtime::InteropServices;
 
 namespace Biz {
 
@@ -63,4 +63,11 @@ namespace Biz {
 		static bool ValidateArray(array<const short int>^ input, int size); 
 	};
 }
-static bool BizCorValidateArray(const float* input, int size);
+extern bool BizCorValidateArray(const float* input, int size);
+extern bool BizCorFunctionValue(const float* function, const int size, const float argument, float* value);
+extern bool BizCorMaximumInArray (const float* input, int size, float* maximum);
+extern bool BizCorMinimumMaximumInArray (const float* input, int size, float* minimum, float* maximum);
+extern bool BizCorSmoothFirstDerivative(const float* input, const int size, const int smoothOrder,
+										const float step, float* firstDerivative, float* maximum);
+extern bool BizCorIndexOfExtremum(const float* input, const int start, const int end, 
+										const float threshold, int* index);

@@ -9,6 +9,7 @@
 */
 #include "stdafx.h"
 #include "signal.h"
+#include <math.h>
 
 using namespace Biz;
 using namespace System;
@@ -460,7 +461,34 @@ bool BizSignal::ValidateSignalHeight(const short minimumSignalHeight)
 */
 bool BizSignal::CalculateQualityControls()
 {
-	float minimum; 
+	// Prevent the Garbage Collector from deleting array's and -
+	// output parameters
+	pin_ptr<float> corSignal = &signal[0];
+	pin_ptr<float> corFloatOnsets = &floatOnsets[0];
+	pin_ptr<float> corPulseHeight = &(float%)pulseHeight;
+	pin_ptr<float> corPulseHeightVariation = &(float%)pulseHeightVariation;
+	pin_ptr<float> corPulseLengthVariation = &(float%)pulseLengthVariation;
+	pin_ptr<float> corPulseBaselineVariation = &(float%)pulseBaselineVariation;
+	
+	bool success = BizCorCalculateQualityControls(signalLength,
+											onsetsLength, 
+											corSignal, 
+											corFloatOnsets,
+											corPulseHeight,
+											corPulseHeightVariation,
+											corPulseLengthVariation,
+											corPulseBaselineVariation);
+
+	// References to the class members themselves cannot be passed -
+	// to a native function, so we assign them now
+	pulseHeight = *corPulseHeight;
+	pulseHeightVariation = *corPulseHeightVariation;
+	pulseLengthVariation = *corPulseLengthVariation;
+	pulseBaselineVariation = *corPulseBaselineVariation;
+
+	return success;
+	
+	/*float minimum; 
 	float maximum;
 	float baseline;
 	float height;
@@ -474,18 +502,6 @@ bool BizSignal::CalculateQualityControls()
 	pulseHeightVariation = DEFAULT_VALUE;
 	pulseLengthVariation = DEFAULT_VALUE;
 	pulseBaselineVariation = DEFAULT_VALUE;
-	
-	/*pin_ptr<float> unmanagedSignal = &signal[0];
-	pin_ptr<float> unmanagedFloatOnsets = &floatOnsets[0];
-	
-	return BizCorCalculateQualityControls(signalLength,
-											onsetsLength, 
-											unmanagedSignal, 
-											unmanagedFloatOnsets,
-											pulseHeight,
-											pulseHeightVariation,
-											pulseLengthVariation,
-											pulseBaselineVariation);*/
 
 	array<const float>^ subset = gcnew array<const float>((short) signalLength);
 
@@ -564,19 +580,18 @@ bool BizSignal::CalculateQualityControls()
 	baselineVariation = (float) Math::Sqrt(baselineVariation/(onsetsLength - 1));
 	pulseBaselineVariation = baselineVariation/averagePulseHeight * 100;
 	
-	return true;
+	return true;*/
 }
 #pragma unmanaged
 bool BizCorCalculateQualityControls(short signalLength, 
 									short onsetsLength, 
 									float* signal, 
 									float* floatOnsets,
-									float pulseHeight,
-									float pulseHeightVariation,
-									float pulseLengthVariation,
-									float pulseBaselineVariation)
+									float* pulseHeight,
+									float* pulseHeightVariation,
+									float* pulseLengthVariation,
+									float* pulseBaselineVariation)
 {
-	/*
 	float minimum; 
 	float maximum;
 	float baseline;
@@ -587,12 +602,10 @@ bool BizCorCalculateQualityControls(short signalLength,
 	short index;
 	
 	// Initialisation
-	pulseHeight = DEFAULT_VALUE;
-	pulseHeightVariation = DEFAULT_VALUE;
-	pulseLengthVariation = DEFAULT_VALUE;
-	pulseBaselineVariation = DEFAULT_VALUE;
-
-	array<const float>^ subset = gcnew array<const float>((short) signalLength);
+	*pulseHeight = DEFAULT_VALUE;
+	*pulseHeightVariation = DEFAULT_VALUE;
+	*pulseLengthVariation = DEFAULT_VALUE;
+	*pulseBaselineVariation = DEFAULT_VALUE;
 
 	// Additional Validation, onsetsLength should never be less than 2
 	if (onsetsLength <= 1)
@@ -606,17 +619,16 @@ bool BizCorCalculateQualityControls(short signalLength,
 	float averageBaseline = 0;
 	for (index = 0; index < onsetsLength - 1; index++)
 	{
-		currentOnset = Math::Abs(floatOnsets[index]);
-		nextOnset = Math::Abs(floatOnsets[index + 1]);
+		currentOnset = fabs(floatOnsets[index]);
+		nextOnset = fabs(floatOnsets[index + 1]);
 
 		pulseLength = nextOnset - currentOnset;
 		averagePulseLength += pulseLength;
 
-		BizMath::FunctionValue(signal, signalLength, currentOnset, baseline);
+		BizCorFunctionValue(signal, signalLength, currentOnset, &baseline);
 		averageBaseline += baseline;
 
-		Array::Copy(signal, (short) currentOnset, subset, 0, (short) pulseLength);
-		BizMath::MinimumMaximumInArray(subset, (short) pulseLength, minimum, maximum);
+		BizCorMinimumMaximumInArray(&signal[(int) currentOnset], (short) pulseLength, &minimum, &maximum);
 		height = maximum - minimum;
 		averagePulseHeight += height;
 	}
@@ -629,7 +641,7 @@ bool BizCorCalculateQualityControls(short signalLength,
 	// Average Pulse Height
 	if (averagePulseHeight > 0)
 	{
-		pulseHeight = averagePulseHeight;
+		*pulseHeight = averagePulseHeight;
 	}
 	else
 	{
@@ -643,32 +655,31 @@ bool BizCorCalculateQualityControls(short signalLength,
 	float baselineVariation = 0;
 	for (index = 0; index < onsetsLength - 1; index++)
 	{
-		currentOnset = Math::Abs(floatOnsets[index]);
-		nextOnset = Math::Abs(floatOnsets[index + 1]);
+		currentOnset = fabs(floatOnsets[index]);
+		nextOnset = fabs(floatOnsets[index + 1]);
 
 		pulseLength = nextOnset - currentOnset;
-		lengthVariation += Math::Abs(pulseLength - averagePulseLength);
+		lengthVariation += fabs(pulseLength - averagePulseLength);
 
-		BizMath::FunctionValue(signal, signalLength, currentOnset, baseline);
-		baselineVariation += (float) Math::Pow(baseline - averageBaseline, 2);
+		BizCorFunctionValue(signal, signalLength, currentOnset, &baseline);
+		baselineVariation += (float) pow(baseline - averageBaseline, 2);
 
-		Array::Copy(signal, (short) currentOnset, subset, 0, (short) pulseLength);
-		BizMath::MinimumMaximumInArray(subset, (short) pulseLength, minimum, maximum);
+		BizCorMinimumMaximumInArray(&signal[(int) currentOnset], (short) pulseLength, &minimum, &maximum);
 		height = maximum - minimum;
-		heightVariation += Math::Abs(height - averagePulseHeight);
+		heightVariation += fabs(height - averagePulseHeight);
 	}
 
 	// Average the variations in Height, Length and Baseline of -
 	// each pulse from the average
 	heightVariation /= (onsetsLength - 1);
-	pulseHeightVariation = heightVariation/averagePulseHeight * 100;
+	*pulseHeightVariation = heightVariation/averagePulseHeight * 100;
 
 	lengthVariation /= (onsetsLength - 1);
-	pulseLengthVariation = lengthVariation/averagePulseHeight * 100;
+	*pulseLengthVariation = lengthVariation/averagePulseHeight * 100;
 
-	baselineVariation = (float) Math::Sqrt(baselineVariation/(onsetsLength - 1));
-	pulseBaselineVariation = baselineVariation/averagePulseHeight * 100;
-	*/
+	baselineVariation = (float) sqrt(baselineVariation/(onsetsLength - 1));
+	*pulseBaselineVariation = baselineVariation/averagePulseHeight * 100;
+	
 	return true;
 }
 #pragma managed
@@ -721,14 +732,46 @@ bool BizSignal::ValidateSignal(const short minimumSignalLength, const short mini
  **  BizSignal::maximumOnsetsLength - Maximum number of onsets.
 
  ** OUTPUT:
- **  firstDerivative - Signal 1st Derivative.
+ **  firstDerivative - Signal 1st Derivative,
+ **  floatOnsets - Index of onsets in the signal,
+ **  onsetsLength - Actual number of onsets.
 
  ** RETURN:
  **  boolean success or not.
 */
 bool BizSignal::FindOnsets()
 {
-	bool success = false;
+	// Prevent the Garbage Collector from deleting array's and -
+	// output parameters
+	pin_ptr<float> corSignal = &signal[0];
+	pin_ptr<float> corFirstDerivative = &firstDerivative[0];
+	pin_ptr<float> corFloatOnsets = &floatOnsets[0];
+	pin_ptr<short> corOnsetsLength = &(short%)onsetsLength;
+	
+	bool success = BizCorFindOnsets(signalLength,
+										sampleRate,
+										maximumOnsetsLength,
+										corSignal, 
+										corFirstDerivative,
+										corFloatOnsets,
+										corOnsetsLength);
+
+	// References to the class members themselves cannot be passed -
+	// to a native function, so we assign them now
+	onsetsLength = *corOnsetsLength;
+
+	if (!success)
+	{
+		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
+			CrxMessageFacade::Instance()->messageResources->GetString(L"MATH_ERROR", CultureInfo::CurrentUICulture), 
+			/*GetCurrentMeasureDetails() +*/
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_ONSETS_ERROR", CultureInfo::CurrentUICulture), 
+			/*GetCurrentMeasureDetails() +*/
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_ONSETS_ERROR", CultureInfo::InvariantCulture));
+	}
+	return success;
+	
+	/*bool success = false;
 	
 	// Initialise Onsets
 	for (short i = 0; i < maximumOnsetsLength; i++)
@@ -798,15 +841,95 @@ bool BizSignal::FindOnsets()
 	{
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"MATH_ERROR", CultureInfo::CurrentUICulture), 
-			/*GetCurrentMeasureDetails() +*/
+			/*GetCurrentMeasureDetails() +
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_ONSETS_ERROR", CultureInfo::CurrentUICulture), 
-			/*GetCurrentMeasureDetails() +*/
+			/*GetCurrentMeasureDetails() +
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_ONSETS_ERROR", CultureInfo::InvariantCulture));
 	}
-	return success;
+	return success;*/
 }
 
-/**
+#pragma unmanaged
+bool BizCorFindOnsets(short signalLength, short sampleRate, short maximumOnsetsLength,
+						float* signal, float* firstDerivative, 
+						float* floatOnsets,	short* onsetsLength)
+{
+	bool success = false;
+	
+	// Initialise Onsets
+	for (short i = 0; i < maximumOnsetsLength; i++)
+	{
+		floatOnsets[i] = -1;
+	}
+	*onsetsLength = 0;
+	
+	// Find the 1st derivative and its maximum
+	// SmoothFirstDerivative cannot return false because only -
+	// valid signals can be available in this class (see CaptureSignal) -
+	// and smoothOrder and step are static
+	float maximumFirstDerivative;
+	BizCorSmoothFirstDerivative(signal, signalLength, SIGNAL_SMOOTH_ORDER, 
+					SIGNAL_STEP, firstDerivative, &maximumFirstDerivative);
+	
+	// Find the average of the extremums of the 1st derivative which are higher
+	// than 40% (FIRST_DERIVATIVE_THRESHOLD3) of the maximum of 1st derivative
+	float averageMaximumFirstDerivative = 0;
+	short extremums = 0;
+	short loops = 0;
+	do
+	{
+		int extremumFirstDerivative = 0;
+
+		// Find the first extremum above the threshold starting at -
+		// extremumFirstDerivative until there are no more extremums
+		while (BizCorIndexOfExtremum(firstDerivative, extremumFirstDerivative, signalLength, 
+			FIRST_DERIVATIVE_THRESHOLD3 * maximumFirstDerivative, &extremumFirstDerivative))
+		{
+			// Ignore the maximum of 1st derivative
+			if (firstDerivative[extremumFirstDerivative] < maximumFirstDerivative)
+			{
+				averageMaximumFirstDerivative += firstDerivative[extremumFirstDerivative];
+				extremums++;
+			}
+			// Find the next extremum
+			extremumFirstDerivative++;
+		}
+	  
+		// Calculate the average if enough extremums were found
+		if (extremums > 3)
+		{
+			averageMaximumFirstDerivative /= extremums;
+			break;
+		}
+		else
+		{
+			// Otherwise, lower the threshold and try again
+			if (loops++ < 5)
+			{
+				maximumFirstDerivative *= (float) 0.9;
+			}
+			// After 5 attempts, set the average to the maximum and give up
+			else
+			{
+				averageMaximumFirstDerivative = maximumFirstDerivative;
+				break;
+			}
+		}
+	} while (extremums <= 3);
+
+	// Find Onsets using the Tangent Algorithm
+	success = BizCorTangentAlgorithm(averageMaximumFirstDerivative,
+										signalLength, 
+										sampleRate, 
+										maximumOnsetsLength,
+										signal, 
+										firstDerivative, 
+										floatOnsets,	
+										onsetsLength);
+	
+	return success;
+}
+/*
  ** TangentAlgorithm()
  **
  ** DESCRIPTION:
@@ -815,7 +938,6 @@ bool BizSignal::FindOnsets()
 
  ** INPUT:
  **  maximumFirstDerivative			- Average of the 1st derivative maximums,
- **  minimumPulseLength				- Minimum pulse length,
  **  BizSignal::signalLength		- Number of accounted points in signal,
  **  BizSignal::sampleRate			- Signal Sample rate,
  **  BizSignal::signal				- Signal array,
@@ -829,6 +951,132 @@ bool BizSignal::FindOnsets()
  ** RETURN:
  **  boolean success or not.
 */
+bool BizCorTangentAlgorithm(const float maximumFirstDerivative, short signalLength, 
+							short sampleRate, short maximumOnsetsLength,
+							float* signal, float* firstDerivative, 
+							float* floatOnsets,	short* onsetsLength)
+{
+	// Validate Input
+	if (maximumFirstDerivative <= -DEFAULT_VALUE || maximumFirstDerivative >= DEFAULT_VALUE)
+	{
+		return false;
+	}
+	
+	// Minimum pulse length
+	short minimumPulseLength = 60 * sampleRate / MAX_HR;
+	
+	// Threshold values are 70% (threshold1) and 65% (threshold2) -
+	// of the maximum 1st derivative
+	float threshold1 = FIRST_DERIVATIVE_THRESHOLD1 * maximumFirstDerivative;
+	float threshold2 = FIRST_DERIVATIVE_THRESHOLD2 * maximumFirstDerivative;
+
+	bool weAreInPeak = false;
+	bool thisIsBeginning = true;
+	short peakIndex = -1;
+	short footIndex;
+	short previousOnsetIndex = 0;
+
+	// Find All Trigger Points in the signal
+	for (short index = 0; index < signalLength; index++)
+	{	
+		// Avoid onsets within the minimum pulse length of the previous onset
+		if (*onsetsLength > 0)
+		{
+			previousOnsetIndex = (short) floatOnsets[*onsetsLength - 1];
+			if (index - previousOnsetIndex < minimumPulseLength)
+			{
+				continue;
+			}
+
+			// When searching for the minimum, we do not want to -
+			// search all the way back to the previous onset
+			previousOnsetIndex++;
+		}
+		
+		// Wait for the derivative to drop below the threshold -
+		// because we need to find a peak first
+		if (firstDerivative[index] >= threshold1)
+		{
+			if (thisIsBeginning)
+			{	
+				continue;
+			}
+			weAreInPeak = true;
+		}
+		thisIsBeginning = false;
+
+		if (!weAreInPeak)
+		{
+			continue;
+		}
+
+		if (firstDerivative[index] > threshold2)
+		{
+			// This is the first point in the peak
+			if (peakIndex < 0)
+			{
+				peakIndex = index;
+				continue;
+			}
+			
+			// Find the maximum of the 1st derivative (maximum dp/dt)
+			if (firstDerivative[index] > firstDerivative[peakIndex])
+			{
+				peakIndex = index;
+			}
+		}
+		else
+		{
+			// The end of the peak. Now find the previous minimum
+			weAreInPeak = false;			
+			footIndex = -1;
+
+			// Find the foot index at the first minimum before this peak
+			for (short i = peakIndex; i > previousOnsetIndex; i--)
+			{
+				if (signal[i] <= signal[i-1])
+				{
+					footIndex = i;
+					break;
+				}
+			}
+			
+			// tangent is the maximum slope (maximum dp/dt)
+			float tangent = firstDerivative[peakIndex]; 
+
+			// Validate
+			if (footIndex < 0 || tangent <= 0)
+			{
+				peakIndex = -1;
+				continue;
+			}
+			
+			// Find where the tangent intersects the foot
+			float signalChange = signal[peakIndex] - signal[footIndex];
+			float indexChange = signalChange/tangent;
+			
+			// Find onset checking that it is not before the previous onset
+			if (float(peakIndex) - indexChange > previousOnsetIndex)
+			{
+				floatOnsets[*onsetsLength] = (float(peakIndex) - indexChange);
+				*onsetsLength = *onsetsLength + 1;
+			}
+
+			// Find the next onset
+			peakIndex = -1;
+
+			// Check onsetsLength limit. If more, stop process
+			if (*onsetsLength == maximumOnsetsLength) 
+			{
+				break;
+			}
+		}
+	}
+
+	// return success if the minimum onsets were found
+	return (*onsetsLength >= MIN_ONSETS);
+}
+/*
 bool BizSignal::TangentAlgorithm(const float maximumFirstDerivative)
 {
 	// Validate Input
@@ -950,4 +1198,4 @@ bool BizSignal::TangentAlgorithm(const float maximumFirstDerivative)
 
 	// return success if the minimum onsets were found
 	return (onsetsLength >= MIN_ONSETS);
-}
+}*/

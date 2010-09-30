@@ -10,7 +10,7 @@
 
 #pragma once
 #include <biz.h>
-#include <math.h>
+#include <math_library.h>
 using namespace System::Runtime::InteropServices;
 
 namespace Biz {
@@ -64,17 +64,6 @@ namespace Biz {
 			}
 		}
 
-		// Direct native API call.
-		/*[DllImport("bizcor.dll")]
-		static bool BizCorCalculateQualityControls(short signalLength, 
-														short onsetsLength, 
-														array<float>^ signal, 
-														array<float>^ floatOnsets,
-														float% pulseHeight,
-														float% pulseHeightVariation,
-														float% pulseLengthVariation,
-														float% pulseBaselineVariation);*/
-
 	private:
 		property bool	_readyToCapture;		
     	array<float>^	_signal;
@@ -125,7 +114,7 @@ namespace Biz {
 		
 		// Find onsets using tangent algorithm (crossing of
 		// pulse foot line by tangent at point of maximum dP/dt
-		bool TangentAlgorithm(const float maximumFirstDerivative);
+		//bool TangentAlgorithm(const float maximumFirstDerivative);
 		
 	};
 }
@@ -133,7 +122,14 @@ static bool BizCorCalculateQualityControls(short signalLength,
 											short onsetsLength, 
 											float* signal, 
 											float* floatOnsets,
-											float pulseHeight,
-											float pulseHeightVariation,
-											float pulseLengthVariation,
-											float pulseBaselineVariation);
+											float* pulseHeight,
+											float* pulseHeightVariation,
+											float* pulseLengthVariation,
+											float* pulseBaselineVariation);
+static bool BizCorFindOnsets(short signalLength, short sampleRate, short maximumOnsetsLength,
+						float* signal, float* firstDerivative, 
+						float* floatOnsets,	short* onsetsLength);
+bool BizCorTangentAlgorithm(const float maximumFirstDerivative, short signalLength, 
+							short sampleRate, short maximumOnsetsLength,
+							float* signal, float* firstDerivative, 
+							float* floatOnsets,	short* onsetsLength);

@@ -35,7 +35,6 @@
             this.calculateReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,8 +42,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pwvCommandToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.mixToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(284, 24);
@@ -94,16 +92,9 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // mixToolStripMenuItem
-            // 
-            this.mixToolStripMenuItem.Name = "mixToolStripMenuItem";
-            this.mixToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.mixToolStripMenuItem.Text = "Mix";
-            this.mixToolStripMenuItem.Click += new System.EventHandler(this.mixToolStripMenuItem_Click_1);
             // 
             // MainMenu
             // 
@@ -130,7 +121,6 @@
         private System.Windows.Forms.ToolStripMenuItem startCaptureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculateReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simulateCaptureDataToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mixToolStripMenuItem;
     }
 }
 

@@ -314,20 +314,41 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			array<String^>^ valuesArray = values->Split(',');
 			cli::array< float >^ signal = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			accessor->SetProperty("signal", signal);
-			target->sampleRate = DEFAULT_SAMPLE_RATE;
-			accessor->SetProperty("maximumOnsetsLength", MAX_ONSETS);
-			accessor->SetProperty("floatOnsets", gcnew array<float>(MAX_ONSETS));
-			accessor->SetProperty("firstDerivative", gcnew array<float>(MAX_SIGNAL_LENGTH));
 			target->signalLength = Convert::ToInt16(testContextInstance->DataRow[L"SignalLength"]);
+			short onsetsLengthExpected = Convert::ToInt16(testContextInstance->DataRow[L"OnsetsLength"]);
+			String^ onsets = Convert::ToString(testContextInstance->DataRow[L"FloatOnsets"]);
+			cli::array< float >^ floatOnsetsExpected = nullptr;
+			//accessor->SetProperty("floatOnsets", nullptr);
+			array<String^>^ onsetsArray = onsets->Split(',');
+			floatOnsetsExpected = Array::ConvertAll(onsetsArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			if (onsetsLengthExpected > 0)
+			{
+				accessor->SetProperty("floatOnsets", gcnew array<float>(onsetsLengthExpected));
+			}
+			else
+			{
+				accessor->SetProperty("floatOnsets", gcnew array<float>(1));
+			}
+			/*if (onsets != "nullptr")
+			{
+				array<String^>^ onsetsArray = onsets->Split(',');
+				floatOnsetsExpected = Array::ConvertAll(onsetsArray, gcnew Converter<String^, float>(Convert::ToSingle));
+				accessor->SetProperty("floatOnsets", gcnew array<float>(onsetsLengthExpected));
+			}*/
+			target->sampleRate = DEFAULT_SAMPLE_RATE;
+			accessor->SetProperty("maximumOnsetsLength", onsetsLengthExpected);
+			accessor->SetProperty("firstDerivative", gcnew array<float>(MAX_SIGNAL_LENGTH));
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 			bool actual;
 			actual = target->FindOnsets();
+			CollectionAssert::AreEqual(floatOnsetsExpected, target->floatOnsets);
+			Assert::AreEqual(onsetsLengthExpected, target->onsetsLength);
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
 		///A test for TangentAlgorithm
 		///</summary>
-public: [
+/*public: [
 			DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizSignalTangentAlgorithm.csv", L"BizSignalTangentAlgorithm#csv", DataAccessMethod::Sequential),
 				TestMethod]
 		void TangentAlgorithmTest()
@@ -362,7 +383,7 @@ public: [
 			CollectionAssert::AreEqual(floatOnsetsExpected, target->floatOnsets);
 			Assert::AreEqual(onsetsLengthExpected, target->onsetsLength);
 			Assert::AreEqual(expected, actual);
-		}
+		}*/
 		/// <summary>
 		///A test for CalculateQualityControls
 		///</summary>

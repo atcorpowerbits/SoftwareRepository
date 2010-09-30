@@ -116,6 +116,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="C:\Projects\PN022BLL\bizcor;C:\Projects\PN022BLL\biz\capture;C:\Projects\PN022BLL\biz\manager;C:\Projects\PN022BLL\biz\math;C:\Projects\PN022BLL\biz\biz;C:\Projects\PN022BLL\biz\events;C:\Projects\PN022BLL\biz\measure;C:\Projects\PN022BLL\biz\facade"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -179,12 +180,12 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\..\crx\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3904.23501, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="crx, Version=1.0.3912.23772, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\..\dal\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.3904.23501, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="dal, Version=1.0.3912.27306, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<ProjectReference
@@ -204,10 +205,6 @@
 			</File>
 			<File
 				RelativePath=".\biz.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\bizmix\bizmix.cpp"
 				>
 			</File>
 			<File
@@ -231,7 +228,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\math\math.cpp"
+				RelativePath="..\math\math_library.cpp"
 				>
 			</File>
 			<File
@@ -281,10 +278,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\bizmix\bizmix.h"
-				>
-			</File>
-			<File
 				RelativePath="..\capture\buffer.h"
 				>
 			</File>
@@ -305,7 +298,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\math\math.h"
+				RelativePath="..\math\math_library.h"
 				>
 			</File>
 			<File
