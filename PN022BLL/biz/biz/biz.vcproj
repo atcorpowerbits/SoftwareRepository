@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Projects\PN022BLL\bizcor;C:\Projects\PN022BLL\biz\capture;C:\Projects\PN022BLL\biz\manager;C:\Projects\PN022BLL\biz\math;C:\Projects\PN022BLL\biz\biz;C:\Projects\PN022BLL\biz\events;C:\Projects\PN022BLL\biz\measure;C:\Projects\PN022BLL\biz\facade"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\..\math&quot;;&quot;$(ProjectDir)\..\capture&quot;;&quot;$(ProjectDir)\..\manager&quot;;&quot;$(ProjectDir)\..\events&quot;;&quot;$(ProjectDir)\..\measure&quot;;&quot;$(ProjectDir)\..\facade&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -180,17 +180,13 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\..\crx\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3912.23772, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="crx, Version=1.0.3925.42061, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\..\dal\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.3912.27306, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="dal, Version=1.0.3925.42061, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
-		/>
-		<ProjectReference
-			ReferencedProjectIdentifier="{A51C8984-745A-423B-9284-8B734702F12E}"
-			RelativePathToProject="..\bizcor\bizcor.vcproj"
 		/>
 	</References>
 	<Files>

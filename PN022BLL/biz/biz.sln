@@ -19,15 +19,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gui_stub", "..\gui\gui_stub
 	ProjectSection(ProjectDependencies) = postProject
 		{AE380201-F1EE-4E26-9445-4631613B824B} = {AE380201-F1EE-4E26-9445-4631613B824B}
 		{35458E54-8C4A-4819-8BF3-F7B9113FEBA0} = {35458E54-8C4A-4819-8BF3-F7B9113FEBA0}
-		{A51C8984-745A-423B-9284-8B734702F12E} = {A51C8984-745A-423B-9284-8B734702F12E}
 		{588098F7-48AB-45D0-8FED-CAE6589305E9} = {588098F7-48AB-45D0-8FED-CAE6589305E9}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "crx_stub", "..\crx\crx_stub\crx_stub.vcproj", "{35458E54-8C4A-4819-8BF3-F7B9113FEBA0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dal_stub", "..\dal\dal_stub\dal_stub.vcproj", "{588098F7-48AB-45D0-8FED-CAE6589305E9}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bizcor", "..\bizcor\bizcor.vcproj", "{A51C8984-745A-423B-9284-8B734702F12E}"
 EndProject
 Project("{4CAA2610-1955-4629-BDC1-8133FE0B2087}") = "AQtimeBiz", "AQtimeBiz\AQtimeBiz.aqt", "{ECFED6E1-3E81-48B5-9ACD-3F651DDCDD04}"
 EndProject
@@ -94,16 +91,6 @@ Global
 		{588098F7-48AB-45D0-8FED-CAE6589305E9}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{588098F7-48AB-45D0-8FED-CAE6589305E9}.Release|Win32.ActiveCfg = Release|Win32
 		{588098F7-48AB-45D0-8FED-CAE6589305E9}.Release|Win32.Build.0 = Release|Win32
-		{A51C8984-745A-423B-9284-8B734702F12E}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{A51C8984-745A-423B-9284-8B734702F12E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{A51C8984-745A-423B-9284-8B734702F12E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{A51C8984-745A-423B-9284-8B734702F12E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{A51C8984-745A-423B-9284-8B734702F12E}.Debug|Win32.Build.0 = Debug|Win32
-		{A51C8984-745A-423B-9284-8B734702F12E}.Release|Any CPU.ActiveCfg = Release|Win32
-		{A51C8984-745A-423B-9284-8B734702F12E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{A51C8984-745A-423B-9284-8B734702F12E}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{A51C8984-745A-423B-9284-8B734702F12E}.Release|Win32.ActiveCfg = Release|Win32
-		{A51C8984-745A-423B-9284-8B734702F12E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
