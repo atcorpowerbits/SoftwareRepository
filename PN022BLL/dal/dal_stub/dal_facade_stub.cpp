@@ -42,20 +42,26 @@ namespace DataAccess {
 		_module->StopCapture();
 		return true; 
 	}
+	DalModuleInfo^ DalFacade::FindModuleInfo()
+	{
+		return DalModuleInfo::Instance();
+	}
 	String^ DalFacade::GetFWConfig(unsigned int configType)
 	{
 		switch (configType)
 		{
 		case DalConstants::CONFIG_MODULE_TYPE:
-				return "EM4 (stub)"; 
+				return L"EM4 (stub)"; 
 			case DalConstants::CONFIG_MODULE_CAPABILITY:
-				return "xxx (stub)"; 
+				return L"xxx (stub)"; 
 			case DalConstants::CONFIG_MODULE_SN:
-				return "1234567890 (stub)"; 
-			case DalConstants::CONFIG_MAIN_FW_VERSION:
-				return "0.1 (stub)"; 
+				return L"1234567890 (stub)"; 
+			case DalConstants::CONFIG_MODULE_MAIN_FW_VERSION:
+				return L"0.1 (stub)"; 
+			case DalConstants::CONFIG_MODULE_CALIBRATION_DATE:
+				return L"(stub)"; 
 			default:
-				return "cannot get undefined config"; 
+				return L"cannot get undefined config"; 
 		}
 	}
 	void DalFacade::SimulateCaptureOneShot() 

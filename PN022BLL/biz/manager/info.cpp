@@ -11,6 +11,7 @@
 #include "stdafx.h"
 #include "info.h"
 
+using namespace System::Globalization;
 using namespace DataAccess;
 
 namespace Biz {
@@ -105,35 +106,33 @@ namespace Biz {
 	}
 
 	/**
-	GetModuleType
+	GetCopyright
 
 	DESCRIPTION
 
-		Get the electronic module type.
+		Get the application copyright.
 	
 	INPUT
 	
-		len - Module type string buffer limit.
+		len - Application copyright string buffer limit.
 	
 	OUTPUT
 	
-		moduleType - Module type string.
+		copyRight - Application copyright string.
 	
 	RETURN
 	
 		None.
 	
 	*/
-	void BizInfo::GetModuleType(String^ %moduleType, int len)
+	void BizInfo::GetCopyright(String^ %copyRight, int len)
 	{
-		this->moduleType = DalFacade::Instance()->GetFWConfig(DalConstants::CONFIG_MODULE_TYPE);
-
-		if (this->moduleType->Length > len) 
+		if (this->copyRight->Length > len) 
 		{
-			moduleType = this->moduleType->Substring(0,len);
+			copyRight = this->copyRight->Substring(0,len);
 		} else 
 		{
-			moduleType = this->moduleType;
+			copyRight = this->copyRight;
 		}
 	}
 
@@ -150,59 +149,177 @@ namespace Biz {
 	
 	OUTPUT
 	
-		moduleType - Module type string.
+		info - Module type string.
 	
 	RETURN
 	
 		None.
 	
 	*/
-	void BizInfo::GetModuleCapability(String^ %moduleCapability, int len)
+	void BizInfo::GetModuleType(String^ %info, int len)
 	{
-		this->moduleCapability = DalFacade::Instance()->GetFWConfig(DalConstants::CONFIG_MODULE_CAPABILITY);
+		moduleType = DalFacade::Instance()->FindModuleInfo()->moduleType;
 
-		if (this->moduleCapability->Length > len) 
+		if (moduleType->Length > len) 
 		{
-			moduleCapability = this->moduleCapability->Substring(0,len);
+			info = moduleType->Substring(0,len);
 		} else 
 		{
-			moduleCapability = this->moduleCapability;
+			info = moduleType;
 		}
 	}
 
-	void BizInfo::GetModuleSN(String^ %moduleSN, int len)
-	{
-		this->moduleSN = DalFacade::Instance()->GetFWConfig(DalConstants::CONFIG_MODULE_SN);
+	/**
+	GetModuleCapability
 
-		if (this->moduleSN->Length > len) 
+	DESCRIPTION
+
+		Get the electronic module capability.
+	
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		Electronic module capability integer value.
+	
+	*/
+	unsigned short BizInfo::GetModuleCapability()
+	{
+		moduleCapability = DalFacade::Instance()->FindModuleInfo()->moduleCapability;
+		return moduleCapability;
+	}
+
+	/**
+	GetModuleSN
+
+	DESCRIPTION
+
+		Get the electronic module serial number.
+	
+	INPUT
+	
+		len - Module serial number string buffer limit.
+	
+	OUTPUT
+	
+		info - Module serial number string.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizInfo::GetModuleSN(String^ %info, int len)
+	{
+		moduleSN = DalFacade::Instance()->FindModuleInfo()->moduleSN;
+
+		if (moduleSN->Length > len) 
 		{
-			moduleSN = this->moduleSN->Substring(0,len);
+			info = moduleSN->Substring(0,len);
 		} else 
 		{
-			moduleSN = this->moduleSN;
+			info = moduleSN;
 		}
 	}
 
-	void BizInfo::GetModuleVersion(String^ %moduleVersion, int len)
-	{
-		this->moduleVersion = DalFacade::Instance()->GetFWConfig(DalConstants::CONFIG_MAIN_FW_VERSION);
+	/**
+	GetModuleVersion
 
-		if (this->moduleVersion->Length > len) 
+	DESCRIPTION
+
+		Get the electronic module version.
+	
+	INPUT
+	
+		len - Module version string buffer limit.
+	
+	OUTPUT
+	
+		info - Module version string.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizInfo::GetModuleVersion(String^ %info, int len)
+	{
+		moduleVersion = DalFacade::Instance()->FindModuleInfo()->moduleMainFWVersion;
+
+		if (moduleVersion->Length > len) 
 		{
-			moduleVersion = this->moduleVersion->Substring(0,len);
+			info = moduleVersion->Substring(0,len);
 		} else 
 		{
-			moduleVersion = this->moduleVersion;
+			info = moduleVersion;
 		}
 	}
+	/**
+	GetModuleCalibrationDate
 
+	DESCRIPTION
+
+		Get the electronic module calibration date.
+	
+	INPUT
+	
+		len - Module calibration date string buffer limit.
+	
+	OUTPUT
+	
+		info - Module calibration date.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizInfo::GetModuleCalibrationDate(String^ %info, int len)
+	{
+		// Use CultureInfo as IFormatProvider interface to format date to string
+		// to meet a FxCop rule.
+		CultureInfo^ culture = gcnew CultureInfo(CultureInfo::CurrentUICulture->ToString());
+
+		moduleCalibrationDate = DalFacade::Instance()->FindModuleInfo()->moduleCalibrationDate;
+
+		if (moduleCalibrationDate->ToString(culture)->Length > len) 
+		{
+			info = moduleCalibrationDate->ToString(culture)->Substring(0,len);
+		} else 
+		{
+			info = moduleCalibrationDate->ToString(culture);
+		}
+	}
+	/**
+	BizInfo
+
+	DESCRIPTION
+
+		Contruct and set information regarding Business Layer and Electronic Module.
+	
+	INPUT
+	
+		None.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		None.
+	
+	*/
 	BizInfo::BizInfo(void)
 	{
 		company = STR_BIZ_CO_NAME;
 		appVersion = STR_BIZ_VERSION;
-		moduleType = STR_BIZ_MODULE_VERSION;
-		moduleCapability = STR_BIZ_MODULE_CAPABILITY;
-		moduleSN = STR_BIZ_MODULE_SN;
-		moduleVersion = STR_BIZ_MODULE_VERSION;
+		copyRight = STR_BIZ_COPYRIGHT;
 	}
 }

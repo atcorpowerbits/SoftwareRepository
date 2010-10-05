@@ -13,32 +13,41 @@
 
 using namespace System;
 
-#define STR_BIZ_CO_NAME	L"AtCor Medical (stub)"
-#define STR_BIZ_VERSION	L"Version 0.1 (stub)"
-#define STR_BIZ_MODULE_TYPE	L"Unknown (stub)"
-#define STR_BIZ_MODULE_CAPABILITY	L"Unknown (stub)"
-#define STR_BIZ_MODULE_SN	L"Unknown (stub)"
-#define STR_BIZ_MODULE_VERSION	L"Unknown (stub)"
-
 namespace Biz {
+	public ref class BizDateFormat: public IFormatProvider
+	{
+	public:
+		virtual Object^ GetFormat( Type^ argType )
+		{
+			return this;
+		}
+	};
 	public ref class BizInfo {
 	public:
+		static String^ STR_BIZ_CO_NAME = gcnew String(L"AtCor Medical [THE PRODUCT]");
+		static String^ STR_BIZ_VERSION = gcnew String(L"Version 1.0");
+		static String^ STR_BIZ_COPYRIGHT = gcnew String(L"Copyright(c)2011 AtCor Medical Pty Ltd. All Rights Reserved.");
+
 		static BizInfo^ BizInfo::Instance();
 		void GetCompanyName(String^ %coName, int len);
 		void GetVersion(String^ %appVersion, int len);
+		void GetCopyright(String^ %copyRight, int len);
 		void GetModuleType(String^ %moduleType, int len);
-		void GetModuleCapability(String^ %moduleCapability, int len);
+		unsigned short GetModuleCapability();
 		void GetModuleSN(String^ %moduleSN, int len);
 		void GetModuleVersion(String^ %moduleVersion, int len);
+		void GetModuleCalibrationDate(String^ %moduleCalibrationDate, int len);
 	protected:
 		BizInfo(void);
 	private:
 		property String^ company;
 		property String^ appVersion;
+		property String^ copyRight;
 		property String^ moduleType;
-		property String^ moduleCapability;
 		property String^ moduleSN;
 		property String^ moduleVersion;
+		property DateTime^ moduleCalibrationDate;
+		unsigned short moduleCapability;
 		static BizInfo^ _instance;
 	};
 }

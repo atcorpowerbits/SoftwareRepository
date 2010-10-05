@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "dal_info_stub.h"
+
 using namespace System;
 
 namespace DataAccess {
@@ -19,6 +21,7 @@ namespace DataAccess {
 		bool StartCapture(unsigned int dataType);
 		bool StopCapture();
 		String^ GetFWConfig(unsigned int configType);
+		DalModuleInfo^ FindModuleInfo();
 		void SimulateCaptureData();
 		void StopCaptureSimulation();
 		void SimulateCaptureOneShot();

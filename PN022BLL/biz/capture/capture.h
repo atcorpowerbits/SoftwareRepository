@@ -41,12 +41,12 @@ namespace Biz {
 	public:
 		BizTonoDataCapture(BizBuffer^ buffer);
 
+		void Update(Object^ sender, DalTonoDataArgs^ e);
 		property BizTonoDataEvent^ tonoDataBiz; //tonometer data to be dispatched
 		virtual void Dispatch() override;
 
 	private:
 		DalTonoDataEvent^ tonoDataRaw; // to observe tonometer raw data from DAL
-		void Update(Object^ sender, DalTonoDataArgs^ e);
 	};
 
 	public ref class BizCuffPulseCapture : BizCapture
@@ -54,12 +54,12 @@ namespace Biz {
 	public:
 		BizCuffPulseCapture(BizBuffer^ buffer);
 
+		void Update(Object^ sender, DalCuffPulseArgs^ e);
 		property BizCuffPulseEvent^ cuffPulseBiz; //cuff pulse data to be dispatched
 		virtual void Dispatch() override;
 
 	private:
 		DalCuffPulseEvent^ cuffPulseRaw; // to observe cuff pulse raw data from DAL
-		void Update(Object^ sender, DalCuffPulseArgs^ e);
 	};
 
 	public ref class BizCountdownCapture : BizCapture
@@ -67,12 +67,12 @@ namespace Biz {
 	public:
 		BizCountdownCapture(BizBuffer^ buffer);
 
+		void Update(Object^ sender, DalCountdownArgs^ e);
 		property BizCountdownEvent^ countdownBiz; //countdown data to be dispatched
 		virtual void Dispatch() override;
 
 	private:
 		DalCountdownEvent^ countdownRaw; // to observe countdown raw data from DAL
-		void Update(Object^ sender, DalCountdownArgs^ e);
 	};
 }
 

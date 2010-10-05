@@ -47,11 +47,11 @@ namespace Biz {
 
 	DESCRIPTION
 
-		Creates a tonometer data arguments and notifies the changes as an event to all observers.
+		Creates a cuff pulse data arguments and notifies the changes as an event to all observers.
 	
 	INPUT
 	
-		data - Tonometer data in business context
+		data - Cuff pulse data in business context
 	
 	OUTPUT
 	
@@ -77,11 +77,11 @@ namespace Biz {
 
 	DESCRIPTION
 
-		Creates a tonometer data arguments and notifies the changes as an event to all observers.
+		Creates a count down timer arguments and notifies the changes as an event to all observers.
 	
 	INPUT
 	
-		data - Tonometer data in business context
+		data - Count down timer in business context
 	
 	OUTPUT
 	
