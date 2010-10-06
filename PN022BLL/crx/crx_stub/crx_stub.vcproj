@@ -61,7 +61,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(NoInherit)"
 				ShowProgress="1"
-				OutputFile="..\$(ConfigurationName)\crx.dll"
+				OutputFile="$(OutDir)\crx.dll"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"

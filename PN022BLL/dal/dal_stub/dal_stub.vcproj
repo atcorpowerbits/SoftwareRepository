@@ -62,7 +62,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(NoInherit)"
 				ShowProgress="1"
-				OutputFile="..\$(ConfigurationName)\dal.dll"
+				OutputFile="$(OutDir)\dal.dll"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"

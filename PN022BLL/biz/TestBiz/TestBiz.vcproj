@@ -192,16 +192,6 @@
 			AssemblyName="biz_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
 			MinFrameworkVersion="0"
 		/>
-		<AssemblyReference
-			RelativePath="..\..\crx\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3930.27253, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
-			MinFrameworkVersion="131072"
-		/>
-		<AssemblyReference
-			RelativePath="..\..\dal\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.3930.27253, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
-			MinFrameworkVersion="131072"
-		/>
 	</References>
 	<Files>
 		<Filter
