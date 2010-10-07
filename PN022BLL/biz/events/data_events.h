@@ -14,27 +14,31 @@ using namespace System;
 
 namespace Biz {
 
-	// BizTonoDataArgs: a custom event inherited from EventArgs.
-	public ref class BizTonoDataArgs: public EventArgs
+	// BizTonometerDataEventArgs: a custom event inherited from EventArgs.
+	public ref class BizTonometerDataEventArgs: public EventArgs
 	{
 	public:
-	   BizTonoDataArgs( unsigned short data )
+	   BizTonometerDataEventArgs( unsigned short data )
 	   {
 		  this->data = data;
 	   }
-	   unsigned short data;
+	   property unsigned short data;
 	};
 
 	// Class with a function that creates the eventargs and initiates the event
-	public ref class BizTonoDataEvent
+	public ref class BizTonometerDataEvent
 	{
 	public:
 	   // Events are handled with delegates, so we must establish a handler
-	   // as a delegate:
-	   delegate void BizTonoDataEventHandler(Object^ sender, BizTonoDataArgs^ args );
+	   // as a delegate. FxCop suggested to use EventHandler<T> to eliminate
+	   // custom delegate like this but unit test couldn't be compiled.
+	   delegate void BizTonometerDataEventHandler(Object^ sender, BizTonometerDataEventArgs^ e );
 
 	   // Now, create a public event whose type is our handler delegate. 
-	   event BizTonoDataEventHandler^ TonoDataEvent;
+	   event BizTonometerDataEventHandler^ TonometerDataEvent;
+	   /* FxCop suggested to use EventHandler<T> to replace above above but it didn't comiple as explained above.
+	   event EventHandler<BizTonometerDataEventArgs^>^ TonometerDataEvent;
+	   */
 
 	   // This will be the starting point of our event-- it will create data args,
 	   // and then raise the event, passing the args. 

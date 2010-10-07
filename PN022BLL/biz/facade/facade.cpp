@@ -217,7 +217,7 @@ namespace Biz {
 		return DalFacade::Instance()->StopCaptureSimulation();
 	}
 	/**
-	FindTonoData
+	FindTonometerData
 
 	DESCRIPTION
 
@@ -233,14 +233,14 @@ namespace Biz {
 	
 	RETURN
 	
-		BizTonoDataEvent^ - Handle to tonometer data event in the business logic.
+		BizTonometerDataEvent^ - Handle to tonometer data event in the business logic.
 	
 	*/
-	BizTonoDataEvent^ BizFacade::FindTonoDataEvent() 
+	BizTonometerDataEvent^ BizFacade::FindTonometerDataEvent() 
 	{ 
 		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
 
-		return measurePWV->myTonoDataObserver->tonoDataBiz; 
+		return measurePWV->myTonometerDataObserver->tonometerDataBiz; 
 	}
 	/**
 	FindCuffPulse

@@ -208,6 +208,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BizCountdownCaptureTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizCountdownEventTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizCuffPulseCaptureTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizCuffPulseEventTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BizFacadeTest.cpp"
 				>
 			</File>
@@ -229,6 +245,14 @@
 			</File>
 			<File
 				RelativePath=".\BizSignalTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizTonoDataCaptureTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizTonoDataEventTest.cpp"
 				>
 			</File>
 			<File

@@ -10,6 +10,7 @@
 
 #include "StdAfx.h"
 #include <measure_pwv.h>
+#include <biz.h>
 
 using namespace CrossCutting;
 using namespace DataAccess;
@@ -198,14 +199,15 @@ namespace Biz {
 		myFemoral2CuffDistance = gcnew BizFemoral2CuffDistance;
 
 		// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
-		// TBD: Replace magic numbers: 2 sec extra
-		myTonoDataObserver = gcnew BizTonoDataCapture(
+		myTonometerDataObserver = gcnew BizTonometerDataCapture(
 			gcnew BizCircularBuffer(1000 * 
-			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 2) / 
+			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 
+									Biz::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
 		myCuffPulseObserver = gcnew BizCuffPulseCapture(
 			gcnew BizCircularBuffer(1000 * 
-			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 2) / 
+			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 
+									Biz::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
 
 		// Countdown data from DAL are captured here for PWV measurement.
@@ -326,7 +328,7 @@ namespace Biz {
 	*/		
 	bool BizPWV::StartCapture()
 	{
-		myTonoDataObserver->Reset();
+		myTonometerDataObserver->Reset();
 		myCuffPulseObserver->Reset();
 		return DalFacade::Instance()->StartCapture(DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
 	}
@@ -383,7 +385,7 @@ namespace Biz {
 	*/		
 	void BizPWV::DispatchCaptureData()
 	{
-		myTonoDataObserver->Dispatch();
+		myTonometerDataObserver->Dispatch();
 		myCuffPulseObserver->Dispatch();
 		myCountdownObserver->Dispatch();
 	}
@@ -438,7 +440,7 @@ namespace Biz {
 		return true;
 	}
 
-	// Calculate time difference between Tonom and ECG Onsets
+	// Calculate time difference between Tonometer and Cuff Onsets
 	bool BizPWV::CalcDeltaT(const int sampleRate)
 	{
 		return true;

@@ -76,7 +76,7 @@ namespace DataAccess {
 	{
 		//TBD: notify data subjects when response data is received
 //???		TonoData^ data = gcnew TonoData;
-//?		m->tonoDataRaw->Notify(1234);
+//?		m->tonometerDataRaw->Notify(1234);
 		ChangeState(m, DalMeterIdle::Instance());
 	}
 
@@ -157,11 +157,11 @@ namespace DataAccess {
 	}
 	void DalModule::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 	{
-		short tonoData;
+		short tonometerData;
 		short cuffData;
 
-		DalModule::Instance()->dataFile->GetNextValueFromFile(&tonoData, &cuffData);
-		DalTonometerStub::Instance()->tonoDataRaw->Notify(tonoData);
+		DalModule::Instance()->dataFile->GetNextValueFromFile(&tonometerData, &cuffData);
+		DalTonometerStub::Instance()->tonometerDataRaw->Notify(tonometerData);
 		DalCuffStub::Instance()->cuffPulseRaw->Notify(cuffData);
 	}
 	void DalModule::StopCaptureSimulation()

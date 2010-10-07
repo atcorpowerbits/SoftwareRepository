@@ -13,14 +13,14 @@
 
 namespace DataAccess {
 
-	void DalTonoDataEvent::Notify( unsigned int data )
+	void DalTonometerDataEvent::Notify( unsigned int data )
 	{
-		DalTonoDataArgs^ tonoArgs = gcnew DalTonoDataArgs( data );
+		DalTonometerDataEventArgs^ tonometerArgs = gcnew DalTonometerDataEventArgs( data );
 
 		// Now, raise the event by invoking the delegate. Pass in 
 		// the object that initated the event (this) as well as event args. 
 		// The call must match the signature of the corresponding event handler.
-		TonoDataEvent( this, tonoArgs );
+		TonometerDataEvent( this, tonometerArgs );
 	}
 	void DalCuffPulseEvent::Notify( unsigned short data )
 	{
@@ -33,7 +33,7 @@ namespace DataAccess {
 	}
 	void DalPayloadDataEvent::Notify( unsigned int dataType, unsigned int len, array<char>^ data )
 	{
-		DalPayloadDataArgs^ payloadArgs = gcnew DalPayloadDataArgs( dataType, len, data );
+		DalPayloadDataEventArgs^ payloadArgs = gcnew DalPayloadDataEventArgs( dataType, len, data );
 
 		// Now, raise the event by invoking the delegate. Pass in 
 		// the object that initated the event (this) as well as event args. 
@@ -52,8 +52,8 @@ namespace DataAccess {
 
 	DalTonometerStub::DalTonometerStub()
 	{
-		tonoDataRaw = gcnew DalTonoDataEvent;
-//?		tonoDataValue = 0;
+		tonometerDataRaw = gcnew DalTonometerDataEvent;
+//?		tonometerDataValue = 0;
 	}
 
 	DalTonometerStub^ DalTonometerStub::Instance()

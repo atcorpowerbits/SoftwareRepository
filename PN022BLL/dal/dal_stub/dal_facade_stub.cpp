@@ -19,9 +19,9 @@ namespace DataAccess {
 	DalFacade::DalFacade(void)
 	{
 	}
-	DalTonoDataEvent^ DalFacade::FindTonoDataEvent() 
+	DalTonometerDataEvent^ DalFacade::FindTonometerDataEvent() 
 	{ 
-		return DalTonometerStub::Instance()->tonoDataRaw; 
+		return DalTonometerStub::Instance()->tonometerDataRaw; 
 	}
 	DalCuffPulseEvent^ DalFacade::FindCuffPulseEvent() 
 	{ 
@@ -66,7 +66,7 @@ namespace DataAccess {
 	}
 	void DalFacade::SimulateCaptureOneShot() 
 	{
-		DalTonometerStub::Instance()->tonoDataRaw->Notify(1234); 
+		DalTonometerStub::Instance()->tonometerDataRaw->Notify(1234); 
 		DalCuffStub::Instance()->cuffPulseRaw->Notify(5678); 
 	}
 	void DalFacade::SimulateCaptureData() 

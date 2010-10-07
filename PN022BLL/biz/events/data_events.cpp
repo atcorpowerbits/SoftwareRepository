@@ -13,7 +13,7 @@
 
 namespace Biz {
 	/**
-	BizTonoDataEvent::Notify
+	BizTonometerDataEvent::Notify
 
 	DESCRIPTION
 
@@ -21,7 +21,7 @@ namespace Biz {
 	
 	INPUT
 	
-		data - Tonometer data in business context
+		data - Tonometermeter data in business context
 	
 	OUTPUT
 	
@@ -32,14 +32,14 @@ namespace Biz {
 		None.
 	
 	*/
-	void BizTonoDataEvent::Notify( unsigned int data )
+	void BizTonometerDataEvent::Notify( unsigned int data )
 	{
-		BizTonoDataArgs^ tonoArgs = gcnew BizTonoDataArgs( data );
+		BizTonometerDataEventArgs^ tonoArgs = gcnew BizTonometerDataEventArgs( data );
 
 		// Now, raise the event by invoking the delegate. Pass in 
 		// the object that initated the event (this) as well as data args. 
 		// The call must match the signature of the handler.
-		TonoDataEvent( this, tonoArgs );
+		TonometerDataEvent( this, tonoArgs );
 	}
 
 	/**

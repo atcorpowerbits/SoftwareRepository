@@ -81,7 +81,7 @@ namespace Biz {
 		virtual bool StopCapture() override;
 		virtual void DispatchCaptureData() override;
 
-		property BizTonoDataCapture^ myTonoDataObserver;
+		property BizTonometerDataCapture^ myTonometerDataObserver;
 		property BizCuffPulseCapture^ myCuffPulseObserver;
 		property BizCountdownCapture^ myCountdownObserver;
 
@@ -139,7 +139,7 @@ namespace Biz {
 		// Calculate PWV, MeanDt, Deviation for this measurement
 		bool CalcMainFeatures();
 
-		// Calculate time difference between Tonom and ECG Onsets
+		// Calculate time difference between Tonometer and Cuff Onsets
 		bool CalcDeltaT(const int sampleRate);
 
 		// Calculate Heart rate on the base of ECG Onsets

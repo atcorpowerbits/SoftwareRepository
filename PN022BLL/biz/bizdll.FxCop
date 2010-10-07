@@ -353,17 +353,17 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="FindTonoDataEvent():Biz.BizTonoDataEvent">
+           <Member Name="FindTonometerDataEvent():Biz.BizTonometerDataEvent">
             <Messages>
-             <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-29 07:42:36Z">
+             <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-07 04:09:58Z">
               <Issue Name="Member">
-               <Item>Tono</Item>
-               <Item>BizFacade.FindTonoDataEvent():BizTonoDataEvent</Item>
+               <Item>Tonometer</Item>
+               <Item>BizFacade.FindTonometerDataEvent():BizTonometerDataEvent</Item>
               </Issue>
              </Message>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-07 04:09:58Z" FixCategory="Breaking">
               <Issue>
-               <Item>BizFacade.FindTonoDataEvent():BizTonoDataEvent</Item>
+               <Item>BizFacade.FindTonometerDataEvent():BizTonometerDataEvent</Item>
               </Issue>
              </Message>
             </Messages>
@@ -1141,17 +1141,17 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="myTonoDataObserver">
+           <Member Name="myTonometerDataObserver">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-07 04:09:58Z">
               <Issue Name="Member">
-               <Item>myTonoDataObserver</Item>
+               <Item>myTonometerDataObserver</Item>
               </Issue>
              </Message>
-             <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
+             <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-07 04:09:58Z">
               <Issue Name="Member">
-               <Item>Tono</Item>
-               <Item>BizPWV.myTonoDataObserver:BizTonoDataCapture</Item>
+               <Item>Tonometer</Item>
+               <Item>BizPWV.myTonometerDataObserver:BizTonometerDataCapture</Item>
               </Issue>
              </Message>
             </Messages>
@@ -1487,110 +1487,113 @@
            </Member>
           </Members>
          </Type>
-         <Type Name="BizTonoDataArgs">
+         <Type Name="BizTonometerDataCapture">
           <Messages>
-           <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
+           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-07 04:09:58Z">
             <Issue Name="Type">
-             <Item>Tono</Item>
-             <Item>Biz.BizTonoDataArgs</Item>
+             <Item>Tonometer</Item>
+             <Item>Biz.BizTonometerDataCapture</Item>
+            </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="13" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="tonometerDataBiz">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-07 04:09:58Z">
+              <Issue Name="Member">
+               <Item>tonometerDataBiz</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="17" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-07 04:09:58Z">
+              <Issue Name="Member">
+               <Item>tonometer</Item>
+               <Item>BizTonometerDataCapture.tonometerDataBiz:BizTonometerDataEvent</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizTonometerDataEvent">
+          <Messages>
+           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-07 04:09:58Z">
+            <Issue Name="Type">
+             <Item>Tonometer</Item>
+             <Item>Biz.BizTonometerDataEvent</Item>
+            </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="18" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="BizTonometerDataEvent+BizTonometerDataEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-10-07 09:40:01Z">
+            <Issue>
+             <Item>Biz.BizTonometerDataEvent+BizTonometerDataEventHandler</Item>
             </Issue>
            </Message>
-           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2010-09-02 03:44:52Z">
-            <Issue>
-             <Item>Biz.BizTonoDataArgs</Item>
-             <Item>EventArgs</Item>
+           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-07 09:40:01Z">
+            <Issue Name="Type">
+             <Item>Tonometer</Item>
+             <Item>Biz.BizTonometerDataEvent+BizTonometerDataEventHandler</Item>
             </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="22" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="BizTonometerDataEventArgs">
+          <Messages>
+           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-07 04:09:58Z">
+            <Issue Name="Type">
+             <Item>Tonometer</Item>
+             <Item>Biz.BizTonometerDataEventArgs</Item>
+            </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="20" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
           <Members>
            <Member Name="data">
             <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-09-02 03:44:52Z">
-              <Issue>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-07 04:09:58Z">
+              <Issue Name="Member">
                <Item>data</Item>
               </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="21" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
           </Members>
-         </Type>
-         <Type Name="BizTonoDataCapture">
-          <Messages>
-           <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
-            <Issue Name="Type">
-             <Item>Tono</Item>
-             <Item>Biz.BizTonoDataCapture</Item>
-            </Issue>
-           </Message>
-          </Messages>
-          <Members>
-           <Member Name="tonoDataBiz">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
-              <Issue Name="Member">
-               <Item>tonoDataBiz</Item>
-              </Issue>
-             </Message>
-             <Message Id="tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
-              <Issue Name="Member">
-               <Item>tono</Item>
-               <Item>BizTonoDataCapture.tonoDataBiz:BizTonoDataEvent</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="Update(System.Object,DataAccess.DalTonoDataArgs):System.Void">
-            <Messages>
-             <Message TypeName="ReviewVisibleEventHandlers" Category="Microsoft.Security" CheckId="CA2109" Created="2010-10-01 02:39:59Z">
-              <Issue>
-               <Item>BizTonoDataCapture.Update(Object, DalTonoDataArgs):Void</Item>
-              </Issue>
-             </Message>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-10-01 02:39:59Z">
-              <Issue>
-               <Item>'e'</Item>
-               <Item>BizTonoDataCapture.Update(Object, DalTonoDataArgs):Void</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="BizTonoDataEvent">
-          <Messages>
-           <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
-            <Issue Name="Type">
-             <Item>Tono</Item>
-             <Item>Biz.BizTonoDataEvent</Item>
-            </Issue>
-           </Message>
-          </Messages>
-          <Members>
-           <Member Name="TonoDataEvent" Kind="Event">
-            <Messages>
-             <Message TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009" Created="2010-09-02 03:44:52Z">
-              <Issue Name="Second">
-               <Item>BizTonoDataEventHandler</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="BizTonoDataEvent+BizTonoDataEventHandler">
-          <Messages>
-           <Message Id="Tono" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-09-02 03:44:52Z">
-            <Issue Name="Type">
-             <Item>Tono</Item>
-             <Item>Biz.BizTonoDataEvent+BizTonoDataEventHandler</Item>
-            </Issue>
-           </Message>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-09-02 03:44:52Z">
-            <Issue>
-             <Item>Biz.BizTonoDataEvent+BizTonoDataEventHandler</Item>
-            </Issue>
-           </Message>
-          </Messages>
          </Type>
          <Type Name="BizWeight">
           <Messages>
@@ -1653,8 +1656,15 @@
     <Note Id="10" Modified="2010-10-05 01:37:30Z">Properties is not appropriate to use here.</Note>
     <Note Id="11" Modified="2010-10-05 23:06:01Z">need ref pointer to interface with C# string</Note>
     <Note Id="12" Modified="2010-10-05 23:07:10Z">Copyright is one word.</Note>
+    <Note Id="13" Modified="2010-10-07 04:11:53Z">Tonometer is a technical term.</Note>
     <Note Id="14" Modified="2010-10-05 23:07:44Z">Named with underscore as const.</Note>
     <Note Id="15" Modified="2010-10-05 23:08:56Z">can't make it const which needs to be assigned to a property</Note>
+    <Note Id="16" Modified="2010-10-07 04:12:24Z">Tonometer is a technical term.</Note>
+    <Note Id="17" Modified="2010-10-07 04:12:29Z">Tonometer is a technical term.</Note>
+    <Note Id="18" Modified="2010-10-07 04:12:33Z">Tonometer is a technical term.</Note>
+    <Note Id="20" Modified="2010-10-07 04:12:44Z">Tonometer is a technical term.</Note>
+    <Note Id="21" Modified="2010-10-07 04:12:47Z">Tonometer is a technical term.</Note>
+    <Note Id="22" Modified="2010-10-07 09:40:52Z">Tonometer is a technical term</Note>
    </User>
   </Notes>
   <Rules>

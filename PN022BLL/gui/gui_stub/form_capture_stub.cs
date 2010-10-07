@@ -12,7 +12,7 @@ namespace gui
 {
     public partial class form_capture_stub : Form
     {
-        Biz.BizTonoDataEvent tonoData;
+        Biz.BizTonometerDataEvent tonometerData;
         Biz.BizCuffPulseEvent cuffPulse;
         Biz.BizCountdownEvent countdownData;
 
@@ -45,12 +45,14 @@ namespace gui
 
         private void form_capture_stub_Load(object sender, EventArgs e)
         {
-            tonoData = Biz.BizFacade.Instance().FindTonoDataEvent(); // to observe tonometer data from BLL
+            tonometerData = Biz.BizFacade.Instance().FindTonometerDataEvent(); // to observe tonometer data from BLL
             cuffPulse = Biz.BizFacade.Instance().FindCuffPulseEvent(); // to observe cuff pulse data from BLL
             countdownData = Biz.BizFacade.Instance().FindCountdownEvent(); // to observe countdown data from BLL
 
             // Attach the handler to observe tonometer data event from Biz
-	    	tonoData.TonoDataEvent += new BizTonoDataEvent.BizTonoDataEventHandler( UpdateTonoData );
+	    	tonometerData.TonometerDataEvent += new BizTonometerDataEvent.BizTonometerDataEventHandler( UpdateTonoData );
+            // FxCop suggested to use EventHandler<T> but unit test doesn't like it, not compiling.
+            // tonometerData.TonometerDataEvent += new EventHandler<BizTonometerDataEventArgs>(UpdateTonoData);
 
             // Attach the handler to observe cuff pulse event from Biz
             cuffPulse.CuffPulseEvent += new BizCuffPulseEvent.BizCuffPulseEventHandler(UpdateCuffPulse);
@@ -67,7 +69,7 @@ namespace gui
             timer1.Enabled = true;
         }
 
-        private void UpdateTonoData( Object sender, BizTonoDataArgs e )
+        private void UpdateTonoData( Object sender, BizTonometerDataEventArgs e )
         {
             int data = e.data;
             listBoxTonoData.Items.Add(data.ToString());

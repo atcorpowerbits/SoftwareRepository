@@ -15,7 +15,7 @@ using namespace System::Threading;
 
 namespace Biz {
 	/**
-	BizTonoDataCapture
+	BizTonometerDataCapture
 
 	DESCRIPTION
 
@@ -34,17 +34,17 @@ namespace Biz {
 		None.
 	
 	*/		
-	BizTonoDataCapture::BizTonoDataCapture(BizBuffer^ buffer)
+	BizTonometerDataCapture::BizTonometerDataCapture(BizBuffer^ buffer)
 	{
 		_buffer = buffer;
-		tonoDataRaw = DalFacade::Instance()->FindTonoDataEvent();
+		tonometerDataRaw = DalFacade::Instance()->FindTonometerDataEvent();
 
 		// Attach the handler to observe tonometer data event from DAL
-		tonoDataRaw->TonoDataEvent += 
-			gcnew DalTonoDataEvent::DalTonoDataEventHandler( this, &BizTonoDataCapture::Update );
+		tonometerDataRaw->TonometerDataEvent += 
+			gcnew DalTonometerDataEvent::DalTonometerDataEventHandler( this, &BizTonometerDataCapture::Update );
 
 		// Create a tonometer business data subject
-		tonoDataBiz = gcnew BizTonoDataEvent;
+		tonometerDataBiz = gcnew BizTonometerDataEvent;
 	}
 	/**
 	Update
@@ -69,7 +69,7 @@ namespace Biz {
 		None.
 	
 	*/		
-	void BizTonoDataCapture::Update( Object^ sender, DalTonoDataArgs^ e )
+	void BizTonometerDataCapture::Update( Object^ sender, DalTonometerDataEventArgs^ e )
 	{
 		// Keep it in the buffer
 		_buffer->Append(e->data);
@@ -95,14 +95,14 @@ namespace Biz {
 		None.
 	
 	*/		
-	void BizTonoDataCapture::Dispatch()
+	void BizTonometerDataCapture::Dispatch()
 	{
 		unsigned short^ readData = gcnew unsigned short;
 
 		// dispatch tonometer data if it's arrived.
 		if (_buffer->ReadNext(readData))
 		{
-			tonoDataBiz->Notify(*readData);
+			tonometerDataBiz->Notify(*readData);
 		}
 	}
 

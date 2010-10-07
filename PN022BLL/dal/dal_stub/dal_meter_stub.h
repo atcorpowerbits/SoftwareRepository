@@ -15,11 +15,11 @@ using namespace System::Timers;
 
 namespace DataAccess {
 
-	// DalTonoDataEventArgs: a custom event inherited from EventArgs.
-	public ref class DalTonoDataArgs: public EventArgs
+	// DalTonometerDataEventArgs: a custom event inherited from EventArgs.
+	public ref class DalTonometerDataEventArgs: public EventArgs
 	{
 	public:
-	   DalTonoDataArgs( unsigned short data )
+	   DalTonometerDataEventArgs( unsigned short data )
 	   {
 		  this->data = data;
 	   }
@@ -27,18 +27,18 @@ namespace DataAccess {
 	};
 
 	// Class with a function that creates the eventargs and initiates the event
-	public ref class DalTonoDataEvent
+	public ref class DalTonometerDataEvent
 	{
 	public:
-	   // Events are handled with delegates, so we must establish a DalTonoDataHandler
+	   // Events are handled with delegates, so we must establish a DalTonometerDataHandler
 	   // as a delegate:
-	   delegate void DalTonoDataEventHandler(Object^ sender, DalTonoDataArgs^ args );
+	   delegate void DalTonometerDataEventHandler(Object^ sender, DalTonometerDataEventArgs^ args );
 
-	   // Now, create a public event "TonoDataEvent" whose type is our DalTonoDataEventHandler delegate. 
-	   event DalTonoDataEventHandler^ TonoDataEvent;
+	   // Now, create a public event "TonometerDataEvent" whose type is our DalTonometerDataEventHandler delegate. 
+	   event DalTonometerDataEventHandler^ TonometerDataEvent;
 
-	   // This will be the starting point of our event-- it will create DalTonoDataEventArgs,
-	   // and then raise the event, passing DalTonoDataEventArgs. 
+	   // This will be the starting point of our event-- it will create DalTonometerDataEventArgs,
+	   // and then raise the event, passing DalTonometerDataEventArgs. 
 	   void Notify( unsigned int data );
 	};
 
@@ -91,10 +91,10 @@ namespace DataAccess {
 	};
 
 	// PayloadDataEventArgs: a custom event inherited from EventArgs.
-	public ref class DalPayloadDataArgs: public EventArgs
+	public ref class DalPayloadDataEventArgs: public EventArgs
 	{
 	public:
-	   DalPayloadDataArgs( unsigned int dataType, unsigned short len, array<char>^ data )
+	   DalPayloadDataEventArgs( unsigned int dataType, unsigned short len, array<char>^ data )
 	   {
 	      payLoadType = dataType;
 		  payloadLength = len;
@@ -111,7 +111,7 @@ namespace DataAccess {
 	public:
 	   // Events are handled with delegates, so we must establish a DalPayloadData
 	   // as a delegate:
-	   delegate void PayloadDataEventHandler(Object^ sender, DalPayloadDataArgs^ tde );
+	   delegate void PayloadDataEventHandler(Object^ sender, DalPayloadDataEventArgs^ tde );
 
 	   // Now, create a public event whose type is our PayloadDataEventHandler delegate. 
 	   event PayloadDataEventHandler^ PayloadDataEvent;
@@ -136,7 +136,7 @@ namespace DataAccess {
 		DalTonometerStub();
 	public:
 		static DalTonometerStub^ Instance();
-		property DalTonoDataEvent^ tonoDataRaw;
+		property DalTonometerDataEvent^ tonometerDataRaw;
 	};
 
 	public ref class DalCuffStub : DalMeter

@@ -35,5 +35,7 @@ namespace Biz {
 	const float FIRST_DERIVATIVE_THRESHOLD1 = (float) 0.70;
 	const float FIRST_DERIVATIVE_THRESHOLD2 = (float) 0.65;
 	const float FIRST_DERIVATIVE_THRESHOLD3 = (float) 0.40;			// To find Average Peak of Der1
+
+	const unsigned short CAPTURE_EXTRA_FOR_HANDSHAKE = 2;
 }
 

@@ -36,17 +36,17 @@ namespace Biz {
 		BizBuffer^ _buffer;
 	};
 
-	public ref class BizTonoDataCapture : BizCapture
+	public ref class BizTonometerDataCapture : BizCapture
 	{
 	public:
-		BizTonoDataCapture(BizBuffer^ buffer);
+		BizTonometerDataCapture(BizBuffer^ buffer);
 
-		void Update(Object^ sender, DalTonoDataArgs^ e);
-		property BizTonoDataEvent^ tonoDataBiz; //tonometer data to be dispatched
+		property BizTonometerDataEvent^ tonometerDataBiz; //tonometer data to be dispatched
 		virtual void Dispatch() override;
 
 	private:
-		DalTonoDataEvent^ tonoDataRaw; // to observe tonometer raw data from DAL
+		void Update(Object^ sender, DalTonometerDataEventArgs^ e);
+		DalTonometerDataEvent^ tonometerDataRaw; // to observe tonometer raw data from DAL
 	};
 
 	public ref class BizCuffPulseCapture : BizCapture

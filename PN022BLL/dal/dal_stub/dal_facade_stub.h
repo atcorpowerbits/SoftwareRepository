@@ -10,7 +10,7 @@ namespace DataAccess {
 	// Some forward declarations
 	ref class DalMeter; 
 	ref class DalModule; 
-	ref class DalTonoDataEvent;
+	ref class DalTonometerDataEvent;
 	ref class DalCuffPulseEvent;
 	ref class DalCountdownEvent;
 
@@ -28,7 +28,7 @@ namespace DataAccess {
 		void SimulateDeflationTimer();
 		void StopDeflationTimerSimulation();
 
-		DalTonoDataEvent^ FindTonoDataEvent();
+		DalTonometerDataEvent^ FindTonometerDataEvent();
 		DalCuffPulseEvent^ FindCuffPulseEvent();
 		DalCountdownEvent^ FindCountdownEvent();
 

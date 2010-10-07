@@ -28,7 +28,7 @@ namespace Biz {
 		void SimulateDeflationTimer();
 		void StopDeflationTimerSimulation();
 		bool CalculateReport();
-		BizTonoDataEvent^ FindTonoDataEvent();
+		BizTonometerDataEvent^ FindTonometerDataEvent();
 		BizCuffPulseEvent^ FindCuffPulseEvent();
 		BizCountdownEvent^ FindCountdownEvent();
 
