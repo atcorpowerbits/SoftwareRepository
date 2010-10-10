@@ -64,7 +64,7 @@ namespace Biz {
 	*/
 	void BizCuffPulseEvent::Notify( unsigned int data )
 	{
-		BizCuffPulseArgs^ cuffArgs = gcnew BizCuffPulseArgs( data );
+		BizCuffPulseEventArgs^ cuffArgs = gcnew BizCuffPulseEventArgs( data );
 
 		// Now, raise the event by invoking the delegate. Pass in 
 		// the object that initated the event (this) as well as data args. 
@@ -94,7 +94,7 @@ namespace Biz {
 	*/
 	void BizCountdownEvent::Notify( unsigned int data )
 	{
-		BizCountdownArgs^ countdownArgs = gcnew BizCountdownArgs( data );
+		BizCountdownEventArgs^ countdownArgs = gcnew BizCountdownEventArgs( data );
 
 		// Now, raise the event by invoking the delegate. Pass in 
 		// the object that initated the event (this) as well as data args. 

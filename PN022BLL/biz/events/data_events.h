@@ -46,15 +46,15 @@ namespace Biz {
 
 	};
 
-	// BizCuffPulseArgs: a custom event inherited from EventArgs.
-	public ref class BizCuffPulseArgs: public EventArgs
+	// BizCuffPulseEventArgs: a custom event inherited from EventArgs.
+	public ref class BizCuffPulseEventArgs: public EventArgs
 	{
 	public:
-	   BizCuffPulseArgs( unsigned short data )
+	   BizCuffPulseEventArgs( unsigned short data )
 	   {
 		  this->data = data;
 	   }
-	   unsigned short data;
+	   property unsigned short data;
 	};
 
 	// Class with a function that creates the eventargs and initiates the event
@@ -63,7 +63,7 @@ namespace Biz {
 	public:
 	   // Events are handled with delegates, so we must establish a handler
 	   // as a delegate:
-	   delegate void BizCuffPulseEventHandler(Object^ sender, BizCuffPulseArgs^ args );
+	   delegate void BizCuffPulseEventHandler(Object^ sender, BizCuffPulseEventArgs^ e );
 
 	   // Now, create a public event whose type is our handler delegate. 
 	   event BizCuffPulseEventHandler^ CuffPulseEvent;
@@ -74,14 +74,14 @@ namespace Biz {
 
 	};
 	// BizCountdownArgs: a custom event inherited from EventArgs.
-	public ref class BizCountdownArgs: public EventArgs
+	public ref class BizCountdownEventArgs: public EventArgs
 	{
 	public:
-	   BizCountdownArgs( unsigned short data )
+	   BizCountdownEventArgs( unsigned short data )
 	   {
 		  this->data = data;
 	   }
-	   unsigned short data;
+	   property unsigned short data;
 	};
 
 	// Class with a function that creates the eventargs and initiates the event
@@ -90,7 +90,7 @@ namespace Biz {
 	public:
 	   // Events are handled with delegates, so we must establish a handler
 	   // as a delegate:
-	   delegate void BizCountdownEventHandler(Object^ sender, BizCountdownArgs^ args );
+	   delegate void BizCountdownEventHandler(Object^ sender, BizCountdownEventArgs^ e );
 
 	   // Now, create a public event whose type is our handler delegate. 
 	   event BizCountdownEventHandler^ CountdownEvent;

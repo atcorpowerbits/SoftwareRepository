@@ -162,7 +162,7 @@ namespace Biz {
 		None.
 	
 	*/		
-	void BizCuffPulseCapture::Update( Object^ sender, DalCuffPulseArgs^ e )
+	void BizCuffPulseCapture::Update( Object^ sender, DalCuffPulseEventArgs^ e )
 	{
 		// Keep it in the buffer
 		_buffer->Append(e->data);
@@ -256,7 +256,7 @@ namespace Biz {
 		None.
 	
 	*/		
-	void BizCountdownCapture::Update( Object^ sender, DalCountdownArgs^ e )
+	void BizCountdownCapture::Update( Object^ sender, DalCountdownEventArgs^ e )
 	{
 		// Keep it in the buffer
 		_buffer->Append(e->data);

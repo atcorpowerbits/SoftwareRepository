@@ -24,7 +24,7 @@ namespace DataAccess {
 	}
 	void DalCuffPulseEvent::Notify( unsigned short data )
 	{
-		DalCuffPulseArgs^ cuffPulseArgs = gcnew DalCuffPulseArgs( data );
+		DalCuffPulseEventArgs^ cuffPulseArgs = gcnew DalCuffPulseEventArgs( data );
 
 		// Now, raise the event by invoking the delegate. Pass in 
 		// the object that initated the event (this) as well as event args. 
@@ -42,7 +42,7 @@ namespace DataAccess {
 	}
 	void DalCountdownEvent::Notify( unsigned short data )
 	{
-		DalCountdownArgs^ countdownArgs = gcnew DalCountdownArgs( data );
+		DalCountdownEventArgs^ countdownArgs = gcnew DalCountdownEventArgs( data );
 
 		// Now, raise the event by invoking the delegate. Pass in 
 		// the object that initated the event (this) as well as event args. 

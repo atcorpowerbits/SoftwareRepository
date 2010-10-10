@@ -128,27 +128,6 @@
            </Member>
           </Members>
          </Type>
-         <Type Name="BizCountdownArgs">
-          <Messages>
-           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2010-09-29 07:42:36Z">
-            <Issue>
-             <Item>Biz.BizCountdownArgs</Item>
-             <Item>EventArgs</Item>
-            </Issue>
-           </Message>
-          </Messages>
-          <Members>
-           <Member Name="data">
-            <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-09-29 07:42:36Z">
-              <Issue>
-               <Item>data</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
          <Type Name="BizCountdownCapture">
           <Members>
            <Member Name="countdownBiz">
@@ -156,34 +135,6 @@
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-29 07:42:36Z">
               <Issue Name="Member">
                <Item>countdownBiz</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="Update(System.Object,DataAccess.DalCountdownArgs):System.Void">
-            <Messages>
-             <Message TypeName="ReviewVisibleEventHandlers" Category="Microsoft.Security" CheckId="CA2109" Created="2010-10-01 02:39:59Z">
-              <Issue>
-               <Item>BizCountdownCapture.Update(Object, DalCountdownArgs):Void</Item>
-              </Issue>
-             </Message>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-10-01 02:39:59Z">
-              <Issue>
-               <Item>'e'</Item>
-               <Item>BizCountdownCapture.Update(Object, DalCountdownArgs):Void</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="BizCountdownEvent">
-          <Members>
-           <Member Name="CountdownEvent" Kind="Event">
-            <Messages>
-             <Message TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009" Created="2010-09-29 07:42:36Z">
-              <Issue Name="Second">
-               <Item>BizCountdownEventHandler</Item>
               </Issue>
              </Message>
             </Messages>
@@ -199,22 +150,19 @@
            </Message>
           </Messages>
          </Type>
-         <Type Name="BizCuffPulseArgs">
-          <Messages>
-           <Message TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710" Created="2010-09-02 03:44:52Z">
-            <Issue>
-             <Item>Biz.BizCuffPulseArgs</Item>
-             <Item>EventArgs</Item>
-            </Issue>
-           </Message>
-          </Messages>
+         <Type Name="BizCountdownEventArgs">
           <Members>
            <Member Name="data">
             <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-09-02 03:44:52Z">
-              <Issue>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-08 05:53:31Z">
+              <Issue Name="Member">
                <Item>data</Item>
               </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="24" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -224,38 +172,15 @@
           <Members>
            <Member Name="cuffPulseBiz">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
               <Issue Name="Member">
                <Item>cuffPulseBiz</Item>
               </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="Update(System.Object,DataAccess.DalCuffPulseArgs):System.Void">
-            <Messages>
-             <Message TypeName="ReviewVisibleEventHandlers" Category="Microsoft.Security" CheckId="CA2109" Created="2010-10-01 02:39:59Z">
-              <Issue>
-               <Item>BizCuffPulseCapture.Update(Object, DalCuffPulseArgs):Void</Item>
-              </Issue>
-             </Message>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-10-01 02:39:59Z">
-              <Issue>
-               <Item>'e'</Item>
-               <Item>BizCuffPulseCapture.Update(Object, DalCuffPulseArgs):Void</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="BizCuffPulseEvent">
-          <Members>
-           <Member Name="CuffPulseEvent" Kind="Event">
-            <Messages>
-             <Message TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009" Created="2010-09-02 03:44:52Z">
-              <Issue Name="Second">
-               <Item>BizCuffPulseEventHandler</Item>
-              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="19" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -269,6 +194,24 @@
             </Issue>
            </Message>
           </Messages>
+         </Type>
+         <Type Name="BizCuffPulseEventArgs">
+          <Members>
+           <Member Name="data">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-08 05:16:33Z">
+              <Issue Name="Member">
+               <Item>data</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
          </Type>
          <Type Name="BizDateFormat">
           <Members>
@@ -1662,9 +1605,12 @@
     <Note Id="16" Modified="2010-10-07 04:12:24Z">Tonometer is a technical term.</Note>
     <Note Id="17" Modified="2010-10-07 04:12:29Z">Tonometer is a technical term.</Note>
     <Note Id="18" Modified="2010-10-07 04:12:33Z">Tonometer is a technical term.</Note>
+    <Note Id="19" Modified="2010-10-08 05:17:49Z">this is a property, not a member</Note>
     <Note Id="20" Modified="2010-10-07 04:12:44Z">Tonometer is a technical term.</Note>
     <Note Id="21" Modified="2010-10-07 04:12:47Z">Tonometer is a technical term.</Note>
     <Note Id="22" Modified="2010-10-07 09:40:52Z">Tonometer is a technical term</Note>
+    <Note Id="23" Modified="2010-10-08 05:18:47Z">this is a property, not a member</Note>
+    <Note Id="24" Modified="2010-10-08 05:54:40Z">this is a property, not a member</Note>
    </User>
   </Notes>
   <Rules>
@@ -1676,9 +1622,6 @@
    </Rule>
    <Rule TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702">
     <Resolution Name="ShouldBeDiscreteTerm">The compound word '{0}' in {1} '{2}' exists as a discrete term. If your usage is intended to be single word, case it as '{3}'.</Resolution>
-   </Rule>
-   <Rule TypeName="DeclareEventHandlersCorrectly" Category="Microsoft.Design" CheckId="CA1009">
-    <Resolution Name="Second">Declare the second parameter of '{0}' as an EventArgs, or an instance of a type that extends EventArgs, named 'e'.</Resolution>
    </Rule>
    <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
     <Resolution Name="Default">'{0}' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: {1}</Resolution>
@@ -1695,9 +1638,6 @@
    <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
     <Resolution Name="Member">Correct the spelling of the unrecognized token '{0}' in member name '{1}'.</Resolution>
     <Resolution Name="Type">Correct the spelling of the unrecognized token '{0}' in type name '{1}'.</Resolution>
-   </Rule>
-   <Rule TypeName="IdentifiersShouldHaveCorrectSuffix" Category="Microsoft.Naming" CheckId="CA1710">
-    <Resolution Name="Default">Rename '{0}' to end in '{1}'.</Resolution>
    </Rule>
    <Rule TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707">
     <Resolution Name="Member">Remove all underscores from member '{0}'.</Resolution>
@@ -1720,9 +1660,6 @@
    </Rule>
    <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
     <Resolution Name="Default">Parameter '{0}' of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
-   </Rule>
-   <Rule TypeName="ReviewVisibleEventHandlers" Category="Microsoft.Security" CheckId="CA2109">
-    <Resolution Name="Default">Consider making {0} not externally visible.</Resolution>
    </Rule>
    <Rule TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053">
     <Resolution Name="Default">Remove the public constructors from '{0}'.</Resolution>

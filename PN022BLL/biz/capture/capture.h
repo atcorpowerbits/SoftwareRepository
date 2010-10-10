@@ -25,14 +25,6 @@ namespace Biz {
 		virtual void Dispatch() = 0;
 
 	protected:
-/*		bool gotData;
-		Mutex lockData;
-		unsigned short dataCaptured;
-		unsigned short bufferLength;
-		unsigned short startBuffer;
-		unsigned short endBuffer;
-		unsigned short nextToDispatch;
-*/
 		BizBuffer^ _buffer;
 	};
 
@@ -54,11 +46,11 @@ namespace Biz {
 	public:
 		BizCuffPulseCapture(BizBuffer^ buffer);
 
-		void Update(Object^ sender, DalCuffPulseArgs^ e);
 		property BizCuffPulseEvent^ cuffPulseBiz; //cuff pulse data to be dispatched
 		virtual void Dispatch() override;
 
 	private:
+		void Update(Object^ sender, DalCuffPulseEventArgs^ e);
 		DalCuffPulseEvent^ cuffPulseRaw; // to observe cuff pulse raw data from DAL
 	};
 
@@ -67,11 +59,11 @@ namespace Biz {
 	public:
 		BizCountdownCapture(BizBuffer^ buffer);
 
-		void Update(Object^ sender, DalCountdownArgs^ e);
 		property BizCountdownEvent^ countdownBiz; //countdown data to be dispatched
 		virtual void Dispatch() override;
 
 	private:
+		void Update(Object^ sender, DalCountdownEventArgs^ e);
 		DalCountdownEvent^ countdownRaw; // to observe countdown raw data from DAL
 	};
 }

@@ -75,13 +75,13 @@ namespace gui
             listBoxTonoData.Items.Add(data.ToString());
         }
 
-        private void UpdateCuffPulse(Object sender, BizCuffPulseArgs e)
+        private void UpdateCuffPulse(Object sender, BizCuffPulseEventArgs e)
         {
             int data = e.data;
             listBoxCuffPulse.Items.Add(data.ToString());
         }
 
-        private void UpdateCountdown(Object sender, BizCountdownArgs e)
+        private void UpdateCountdown(Object sender, BizCountdownEventArgs e)
         {
             int data = e.data;
             labelTimeCountDown.Text = data.ToString();

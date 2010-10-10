@@ -43,10 +43,10 @@ namespace DataAccess {
 	};
 
 	// DalCuffPulseArgs: a custom event inherited from EventArgs.
-	public ref class DalCuffPulseArgs: public EventArgs
+	public ref class DalCuffPulseEventArgs: public EventArgs
 	{
 	public:
-	   DalCuffPulseArgs( unsigned short data )
+	   DalCuffPulseEventArgs( unsigned short data )
 	   {
 		  this->data = data;
 	   }
@@ -56,7 +56,7 @@ namespace DataAccess {
 	public ref class DalCuffPulseEvent
 	{
 	public:
-	   delegate void DalCuffPulseEventHandler(Object^ sender, DalCuffPulseArgs^ args );
+	   delegate void DalCuffPulseEventHandler(Object^ sender, DalCuffPulseEventArgs^ args );
 
 	   // Now, create a public event "CuffPulseEvent" whose type is our DalCuffPulseEventHandler delegate. 
 	   event DalCuffPulseEventHandler^ CuffPulseEvent;
@@ -67,10 +67,10 @@ namespace DataAccess {
 	};
 
 	// DalCountdownArgs: a custom event inherited from EventArgs.
-	public ref class DalCountdownArgs: public EventArgs
+	public ref class DalCountdownEventArgs: public EventArgs
 	{
 	public:
-	   DalCountdownArgs( unsigned short data )
+	   DalCountdownEventArgs( unsigned short data )
 	   {
 		  this->data = data;
 	   }
@@ -80,7 +80,7 @@ namespace DataAccess {
 	public ref class DalCountdownEvent
 	{
 	public:
-	   delegate void DalCountdownEventHandler(Object^ sender, DalCountdownArgs^ args );
+	   delegate void DalCountdownEventHandler(Object^ sender, DalCountdownEventArgs^ args );
 
 	   // Now, create a public event "CountdownEvent" whose type is our DalCountdownEventHandler delegate. 
 	   event DalCountdownEventHandler^ CountdownEvent;
