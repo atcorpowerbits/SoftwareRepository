@@ -270,7 +270,7 @@ public: [TestMethod]
 		void GetModuleCalibrationDateTest()
 		{
 			CultureInfo^ culture = gcnew CultureInfo(CultureInfo::CurrentUICulture->ToString());
-			String^  moduleCalibrationDate = L"123456789012345678901"; // TODO: Initialize to an appropriate value
+			String^  moduleCalibrationDate = L"1234567890123456789012"; // TODO: Initialize to an appropriate value
 			String^  moduleCalibrationDateExpected = DateTime::Today.Date.ToString(culture); // TODO: Initialize to an appropriate value
 			int len = moduleCalibrationDate->Length; // TODO: Initialize to an appropriate value
 			BizInfo::Instance()->GetModuleCalibrationDate(moduleCalibrationDate, len);
