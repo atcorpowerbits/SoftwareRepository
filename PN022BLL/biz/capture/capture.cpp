@@ -36,7 +36,7 @@ namespace Biz {
 	*/		
 	BizTonometerDataCapture::BizTonometerDataCapture(BizBuffer^ buffer)
 	{
-		_buffer = buffer;
+		this->buffer = buffer;
 		tonometerDataRaw = DalFacade::Instance()->FindTonometerDataEvent();
 
 		// Attach the handler to observe tonometer data event from DAL
@@ -72,7 +72,7 @@ namespace Biz {
 	void BizTonometerDataCapture::Update( Object^ sender, DalTonometerDataEventArgs^ e )
 	{
 		// Keep it in the buffer
-		_buffer->Append(e->data);
+		buffer->Append(e->data);
 
 	}
 	/**
@@ -100,7 +100,7 @@ namespace Biz {
 		unsigned short^ readData = gcnew unsigned short;
 
 		// dispatch tonometer data if it's arrived.
-		if (_buffer->ReadNext(readData))
+		if (buffer->ReadNext(readData))
 		{
 			tonometerDataBiz->Notify(*readData);
 		}
@@ -128,7 +128,7 @@ namespace Biz {
 	*/		
 	BizCuffPulseCapture::BizCuffPulseCapture(BizBuffer^ buffer)
 	{
-		_buffer = buffer;
+		this->buffer = buffer;
 		cuffPulseRaw = DalFacade::Instance()->FindCuffPulseEvent();
 
 		// Attach the handler to observe cuff pulse data event from DAL
@@ -165,7 +165,7 @@ namespace Biz {
 	void BizCuffPulseCapture::Update( Object^ sender, DalCuffPulseEventArgs^ e )
 	{
 		// Keep it in the buffer
-		_buffer->Append(e->data);
+		buffer->Append(e->data);
 
 	}
 
@@ -194,7 +194,7 @@ namespace Biz {
 		unsigned short^ readData = gcnew unsigned short;
 
 		// dispatch cuff pulse data if it's arrived.
-		if (_buffer->ReadNext(readData))
+		if (buffer->ReadNext(readData))
 		{
 			cuffPulseBiz->Notify(*readData);
 		}
@@ -222,7 +222,7 @@ namespace Biz {
 	*/		
 	BizCountdownCapture::BizCountdownCapture(BizBuffer^ buffer)
 	{
-		_buffer = buffer;
+		this->buffer = buffer;
 		countdownRaw = DalFacade::Instance()->FindCountdownEvent();
 
 		// Attach the handler to observe countdown data event from DAL
@@ -259,7 +259,7 @@ namespace Biz {
 	void BizCountdownCapture::Update( Object^ sender, DalCountdownEventArgs^ e )
 	{
 		// Keep it in the buffer
-		_buffer->Append(e->data);
+		buffer->Append(e->data);
 
 	}
 
@@ -288,7 +288,7 @@ namespace Biz {
 		unsigned short^ readData = gcnew unsigned short;
 
 		// dispatch countdown data if it's arrived.
-		if (_buffer->ReadNext(readData))
+		if (buffer->ReadNext(readData))
 		{
 			countdownBiz->Notify(*readData);
 		}

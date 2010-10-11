@@ -21,11 +21,12 @@ namespace Biz {
 	public ref class BizCapture abstract
 	{
 	public:
-		virtual void Reset() { _buffer->Reset(); };
+		virtual void Reset() { buffer->Reset(); };
 		virtual void Dispatch() = 0;
 
 	protected:
-		BizBuffer^ _buffer;
+		BizCapture() {};
+		property BizBuffer^ buffer;
 	};
 
 	public ref class BizTonometerDataCapture : BizCapture

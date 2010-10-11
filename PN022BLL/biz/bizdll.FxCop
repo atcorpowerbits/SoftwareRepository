@@ -56,50 +56,36 @@
           </Messages>
          </Type>
          <Type Name="BizBuffer">
-          <Messages>
-           <Message TypeName="AbstractTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1012" Created="2010-09-02 03:44:52Z">
-            <Issue>
-             <Item>BizBuffer</Item>
-            </Issue>
-           </Message>
-          </Messages>
           <Members>
-           <Member Name="_bufferSize">
+           <Member Name="bufferSize">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-11 04:17:05Z">
               <Issue Name="Member">
-               <Item>_bufferSize</Item>
+               <Item>bufferSize</Item>
               </Issue>
-             </Message>
-             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2010-09-02 03:44:52Z">
-              <Issue Name="Member">
-               <Item>_bufferSize</Item>
-              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="26" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
           </Members>
          </Type>
          <Type Name="BizCapture">
-          <Messages>
-           <Message TypeName="AbstractTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1012" Created="2010-09-02 03:44:52Z">
-            <Issue>
-             <Item>BizCapture</Item>
-            </Issue>
-           </Message>
-          </Messages>
           <Members>
-           <Member Name="_buffer">
+           <Member Name="buffer">
             <Messages>
-             <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Created="2010-09-02 03:44:52Z">
-              <Issue>
-               <Item>_buffer</Item>
-              </Issue>
-             </Message>
-             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Created="2010-09-02 03:44:52Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-11 04:17:05Z">
               <Issue Name="Member">
-               <Item>_buffer</Item>
+               <Item>buffer</Item>
               </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="27" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -107,22 +93,17 @@
          </Type>
          <Type Name="BizCircularBuffer">
           <Members>
-           <Member Name=".ctor(System.UInt32)">
-            <Messages>
-             <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Created="2010-09-29 07:42:36Z">
-              <Issue>
-               <Item>BizCircularBuffer.BizCircularBuffer(UInt32)</Item>
-               <Item>&#xD;&#xA;&#xD;&#xA;BizCircularBuffer.BizCircularBuffer(UInt32)&#xD;&#xA;BizCircularBuffer.Reset():Void</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="~BizCircularBuffer():System.Void">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-09-02 03:44:52Z">
               <Issue Name="Member">
                <Item>~BizCircularBuffer</Item>
               </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="25" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -1611,6 +1592,9 @@
     <Note Id="22" Modified="2010-10-07 09:40:52Z">Tonometer is a technical term</Note>
     <Note Id="23" Modified="2010-10-08 05:18:47Z">this is a property, not a member</Note>
     <Note Id="24" Modified="2010-10-08 05:54:40Z">this is a property, not a member</Note>
+    <Note Id="25" Modified="2010-10-11 04:17:50Z">Not an identifier. Internal destructor.</Note>
+    <Note Id="26" Modified="2010-10-11 04:18:35Z">this is a property, not a member</Note>
+    <Note Id="27" Modified="2010-10-11 04:18:50Z">this is a property, not a member</Note>
    </User>
   </Notes>
   <Rules>
@@ -1622,12 +1606,6 @@
    </Rule>
    <Rule TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702">
     <Resolution Name="ShouldBeDiscreteTerm">The compound word '{0}' in {1} '{2}' exists as a discrete term. If your usage is intended to be single word, case it as '{3}'.</Resolution>
-   </Rule>
-   <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
-    <Resolution Name="Default">'{0}' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: {1}</Resolution>
-   </Rule>
-   <Rule TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051">
-    <Resolution Name="Default">Make '{0}' private or internal (Friend in VB, public private in C++) and provide a public or protected property to access it.</Resolution>
    </Rule>
    <Rule TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045">
     <Resolution Name="Default">Consider a design that does not require that '{0}' be a reference parameter.</Resolution>

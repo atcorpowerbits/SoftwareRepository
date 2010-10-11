@@ -15,7 +15,13 @@ using namespace System::Threading;
 
 namespace Biz {
 
-	// Buffer strategy
+#define WRAP_IF_NEEDED(index, maxSize)	\
+		if (index == maxSize)			\
+		{								\
+			index = 0;					\
+		}
+
+		// Buffer strategy
 	public ref class BizBuffer abstract
 	{
 	public:
@@ -23,7 +29,8 @@ namespace Biz {
 		virtual bool ReadNext(unsigned short^ data) { return false; };
 		virtual void Reset() {};
 	protected:
-		property unsigned int _bufferSize;
+		BizBuffer() {};
+		property unsigned int bufferSize;
 	};
 
 	public ref class BizCircularBuffer : BizBuffer

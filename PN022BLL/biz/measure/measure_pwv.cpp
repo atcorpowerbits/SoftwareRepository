@@ -204,15 +204,19 @@ namespace Biz {
 			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 
 									Biz::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
+		myTonometerDataObserver->Reset();
+
 		myCuffPulseObserver = gcnew BizCuffPulseCapture(
 			gcnew BizCircularBuffer(1000 * 
 			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 
 									Biz::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
+		myCuffPulseObserver->Reset();
 
 		// Countdown data from DAL are captured here for PWV measurement.
 		// Only one last countdown data is needed to be captured.
 		myCountdownObserver = gcnew BizCountdownCapture(gcnew BizCircularBuffer(1));
+		myCountdownObserver->Reset();
 
 	}
 	/**

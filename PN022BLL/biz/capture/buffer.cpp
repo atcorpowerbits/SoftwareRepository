@@ -34,9 +34,8 @@ namespace Biz {
 	*/
 	BizCircularBuffer::BizCircularBuffer(unsigned int bufferSize)
 	{
-		this->_bufferSize = bufferSize;
+		this->bufferSize = bufferSize;
 		_buffer = gcnew array<unsigned short>(bufferSize);
-		Reset();
 	}
 
 	/**
@@ -72,10 +71,9 @@ namespace Biz {
 		// Check if circular buffer is full.
 		if (!_firstAppend && (_endIndex == _startIndex))
 		{
-
-			// Rotate the start buffer.
+			// Buffer is full so rotate the start buffer.
 			// If start and next to read were together then
-			// bring along the next to read position.
+			// advance the next to read position along with the start.
 			if (_bringAlongNextRead)
 			{
 				_nextReadIndex++;
@@ -87,26 +85,15 @@ namespace Biz {
 			{
 				_bringAlongNextRead = true;
 			}
-			// Wrap the start buffer position if necessary
-			if (_startIndex == _bufferSize)
-			{
-				_startIndex = 0;
-			}
-			// Wrap the next to read position if necessary
-			if (_nextReadIndex == _bufferSize)
-			{
-				_nextReadIndex = 0;
-			}
+			WRAP_IF_NEEDED(_startIndex, bufferSize)
+			WRAP_IF_NEEDED(_nextReadIndex, bufferSize)
 		}
 		_firstAppend = false;
 
 		// Inc for next append and 
 		// wrap the end buffer if necessary
 		_endIndex++;
-		if (_endIndex == _bufferSize) 
-		{
-			_endIndex = 0;
-		}
+		WRAP_IF_NEEDED(_endIndex, bufferSize)
 
 		_lockData.ReleaseMutex();
 
@@ -149,11 +136,8 @@ namespace Biz {
 		{
 			*data = _buffer[_nextReadIndex++];
 			isRead = true;
-			// Wrap the next read position if necessary
-			if (_nextReadIndex == _bufferSize)
-			{
-				_nextReadIndex = 0;
-			}
+			WRAP_IF_NEEDED(_nextReadIndex, bufferSize)
+
 			// See if all data has been read
 			if (_nextReadIndex == _endIndex)
 			{

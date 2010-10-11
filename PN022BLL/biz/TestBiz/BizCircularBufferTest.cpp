@@ -167,6 +167,18 @@ namespace TestBiz {
 				actual = target->Append(dataSource);
 				Assert::AreEqual(expected, actual);
 
+				actual = target->Append(dataSource);
+				Assert::AreEqual(expected, actual);
+
+				actual = target->Append(dataSource);
+				Assert::AreEqual(expected, actual);
+
+				actual = target->Append(dataSource);
+				Assert::AreEqual(expected, actual);
+
+				actual = target->Append(dataSource);
+				Assert::AreEqual(expected, actual);
+
 				actual = target->ReadNext(data);
 				Assert::AreEqual(expected, actual);
 				Assert::AreEqual(dataRead, *data);

@@ -26,7 +26,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "crx_stub", "..\crx\crx_stub
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dal_stub", "..\dal\dal_stub\dal_stub.vcproj", "{588098F7-48AB-45D0-8FED-CAE6589305E9}"
 EndProject
-Project("{4CAA2610-1955-4629-BDC1-8133FE0B2087}") = "AQtimeBiz", "AQtimeBiz\AQtimeBiz.aqt", "{ECFED6E1-3E81-48B5-9ACD-3F651DDCDD04}"
+Project("{4CAA2610-1955-4629-BDC1-8133FE0B2087}") = "AQtimeBiz", "AQtimeBiz\AQtimeBiz.aqt", "{C95F07BF-02C7-40C9-BCF5-950A51D31059}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
