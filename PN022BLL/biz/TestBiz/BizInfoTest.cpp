@@ -6,6 +6,7 @@
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace System::Globalization;
 using namespace Biz;
+using namespace DataAccess;
 namespace TestBiz {
     using namespace System;
     ref class BizInfoTest;
@@ -87,7 +88,7 @@ namespace TestBiz {
 				String^ appVersion = L"blankVersion1234567890"; // TODO: Initialize to an appropriate value
 				int len = appVersion->Length;
 				target->GetVersion(appVersion, len);
-				Assert::AreEqual(L"Version 1.0", appVersion);
+				Assert::AreEqual(L"Version 10.0.0.0", appVersion);
 			}
 			/// <summary>
 			///A test for GetVersion
@@ -110,7 +111,7 @@ namespace TestBiz {
 				String^ appVersion = L"1234567890"; // TODO: Initialize to an appropriate value
 				int len = appVersion->Length;
 				target->GetVersion(appVersion, len);
-				Assert::AreEqual(L"Version 1.", appVersion);
+				Assert::AreEqual(L"Version 10", appVersion);
 			}
 			/// <summary>
 			///A test for GetCoName
@@ -119,10 +120,10 @@ namespace TestBiz {
 			void GetCoNameTest()
 			{
 				BizInfo^  target = BizFacade::Instance()->FindBizInfo(); // TODO: Initialize to an appropriate value
-				String^ coName = L"blankCoName1234567890123456"; // TODO: Initialize to an appropriate value
+				String^ coName = L"blankCoName12345678901234567890"; // TODO: Initialize to an appropriate value
 				int len = coName->Length;
 				target->GetCompanyName(coName, len);
-				Assert::AreEqual(L"AtCor Medical [THE PRODUCT]", coName);
+				Assert::AreEqual(L"AtCor Medical [THE PRODUCT] (R)", coName);
 			}			/// <summary>
 			/// <summary>
 			///A test for GetCoName
@@ -154,10 +155,10 @@ namespace TestBiz {
 			void GetCopyrightTest()
 			{
 				BizInfo^  target = BizFacade::Instance()->FindBizInfo(); // TODO: Initialize to an appropriate value
-				String^ copyRight = L"blank1234567890123456789012345678901"; // TODO: Initialize to an appropriate value
+				String^ copyRight = L"blank123456789012345678901234567890123456789012345678901234567"; // TODO: Initialize to an appropriate value
 				int len = copyRight->Length;
 				target->GetCopyright(copyRight, len);
-				Assert::AreEqual(   L"Copyright(c)2011 AtCor Medical Pty L", copyRight);
+				Assert::AreEqual(   L"Copyright (c) 2011 AtCor Medical Pty Ltd. All Rights Reserved.", copyRight);
 			}
 			/// <summary>
 			///A test for GetCopyright
@@ -166,10 +167,10 @@ namespace TestBiz {
 			void GetCopyrightTestTruncated()
 			{
 				BizInfo^  target = BizFacade::Instance()->FindBizInfo(); // TODO: Initialize to an appropriate value
-				String^ copyRight = L"blank1234567890123456789012345678901234567890123456789012345"; // TODO: Initialize to an appropriate value
+				String^ copyRight = L"blank123456789012345678901234567890123456789012345678901"; // TODO: Initialize to an appropriate value
 				int len = copyRight->Length;
 				target->GetCopyright(copyRight, len);
-				Assert::AreEqual(   L"Copyright(c)2011 AtCor Medical Pty Ltd. All Rights Reserved.", copyRight);
+				Assert::AreEqual(   L"Copyright (c) 2011 AtCor Medical Pty Ltd. All Rights Res", copyRight);
 			}
 			/// <summary>
 			///A test for BizInfo Constructor
@@ -253,14 +254,14 @@ public: [TestMethod]
 			Assert::AreEqual(moduleSNExpected, moduleSN);
 		}
 		/// <summary>
-		///A test for GetModuleCapability
+		///A test for GetModuleConfigID
 		///</summary>
 public: [TestMethod]
-		void GetModuleCapabilityTest()
+		void GetModuleConfigIDTest()
 		{
 			unsigned short expected = 99; // TODO: Initialize to an appropriate value
 			unsigned short actual;
-			actual = BizInfo::Instance()->GetModuleCapability();
+			actual = BizInfo::Instance()->GetModuleConfigID();
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
@@ -288,6 +289,61 @@ public: [TestMethod]
 			int len = moduleCalibrationDate->Length; // TODO: Initialize to an appropriate value
 			BizInfo::Instance()->GetModuleCalibrationDate(moduleCalibrationDate, len);
 			Assert::AreEqual(moduleCalibrationDateExpected, moduleCalibrationDate);
+		}
+			/// <summary>
+			///A test for GetModuleConfigName
+			///</summary>
+public: [TestMethod]
+		void GetModuleConfigNameTest()
+		{
+			String^  moduleConfigName         = L"blankVersion1234567890"; // TODO: Initialize to an appropriate value
+			String^  moduleConfigNameExpected = L"Invalid Config"; // TODO: Initialize to an appropriate value
+			int len = moduleConfigName->Length; // TODO: Initialize to an appropriate value
+			BizInfo::Instance()->GetModuleConfigName(moduleConfigName, len);
+			Assert::AreEqual(moduleConfigNameExpected, moduleConfigName);
+			DalFacade::Instance()->FindModuleInfo()->moduleConfigID = 1;
+			moduleConfigNameExpected = L"PWV"; // TODO: Initialize to an appropriate value
+			BizInfo::Instance()->GetModuleConfigName(moduleConfigName, len);
+			Assert::AreEqual(moduleConfigNameExpected, moduleConfigName);
+		}
+			/// <summary>
+			///A test for GetModuleConfigName
+			///</summary>
+public: [TestMethod]
+		void GetModuleConfigNameTestTruncated()
+		{
+			String^  moduleConfigName         = L"12"; // TODO: Initialize to an appropriate value
+			String^  moduleConfigNameExpected = L"In"; // TODO: Initialize to an appropriate value
+			int len = moduleConfigName->Length; // TODO: Initialize to an appropriate value
+			DalFacade::Instance()->FindModuleInfo()->moduleConfigID =255;
+			BizInfo::Instance()->GetModuleConfigName(moduleConfigName, len);
+			Assert::AreEqual(moduleConfigNameExpected, moduleConfigName);
+		}
+		/// <summary>
+		///A test for GetModuleConfigDate
+		///</summary>
+public: [TestMethod]
+		void GetModuleConfigDateTest()
+		{
+			CultureInfo^ culture = gcnew CultureInfo(CultureInfo::CurrentUICulture->ToString());
+			String^  moduleConfigDate = L"1234567890123456789012"; // TODO: Initialize to an appropriate value
+			String^  moduleConfigDateExpected = DateTime::Today.Date.ToString(culture); // TODO: Initialize to an appropriate value
+			int len = moduleConfigDate->Length; // TODO: Initialize to an appropriate value
+			BizInfo::Instance()->GetModuleConfigDate(moduleConfigDate, len);
+			Assert::AreEqual(moduleConfigDateExpected, moduleConfigDate);
+		}
+		/// <summary>
+		///A test for GetModuleConfigDate
+		///</summary>
+public: [TestMethod]
+		void GetModuleConfigDateTestTruncated()
+		{
+			CultureInfo^ culture = gcnew CultureInfo(CultureInfo::CurrentUICulture->ToString());
+			String^  moduleConfigDate = L"1234567"; // TODO: Initialize to an appropriate value
+			String^  moduleConfigDateExpected = DateTime::Today.Date.ToString(culture)->Substring(0, 7); // TODO: Initialize to an appropriate value
+			int len = moduleConfigDate->Length; // TODO: Initialize to an appropriate value
+			BizInfo::Instance()->GetModuleConfigDate(moduleConfigDate, len);
+			Assert::AreEqual(moduleConfigDateExpected, moduleConfigDate);
 		}
 };
 }

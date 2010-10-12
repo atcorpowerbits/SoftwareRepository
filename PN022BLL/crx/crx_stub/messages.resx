@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="APP_VERSION" xml:space="preserve">
+    <value>Version 10.0.0.0</value>
+    <comment>About box info</comment>
+  </data>
+  <data name="COMPANY_COPYRIGHT" xml:space="preserve">
+    <value>Copyright (c) 2011 AtCor Medical Pty Ltd. All Rights Reserved.</value>
+    <comment>About box info</comment>
+  </data>
+  <data name="COMPANY_NAME" xml:space="preserve">
+    <value>AtCor Medical [THE PRODUCT] (R)</value>
+    <comment>About box info</comment>
+  </data>
+  <data name="CONFIG_NAME_INVALID" xml:space="preserve">
+    <value>Invalid Config</value>
+  </data>
+  <data name="CONFIG_NAME_PWV" xml:space="preserve">
+    <value>PWV</value>
+  </data>
   <data name="MATH_ERROR" xml:space="preserve">
     <value>Mathematical Error</value>
     <comment>Title</comment>

@@ -18,7 +18,8 @@ namespace DataAccess {
 		moduleType = L"EM4 (stub)";
 		moduleSN = L"1234567890 (stub)";
 		moduleMainFWVersion = L"0.1 (stub)";
-		moduleCapability = 99;
+		moduleConfigID = 99;
+		moduleConfigDate = DateTime::Today.Date;
 		moduleCalibrationDate = DateTime::Today.Date;
 	}
 }

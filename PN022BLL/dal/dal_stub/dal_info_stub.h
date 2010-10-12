@@ -12,7 +12,8 @@ namespace DataAccess {
 		property String^ moduleType;
 		property String^ moduleSN;
 		property String^ moduleMainFWVersion;
-		property unsigned short moduleCapability;
+		property unsigned short moduleConfigID;
+		property DateTime moduleConfigDate;
 		property DateTime moduleCalibrationDate;
 	protected:
 		DalModuleInfo(void);

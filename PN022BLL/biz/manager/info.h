@@ -24,19 +24,17 @@ namespace Biz {
 	};
 	public ref class BizInfo {
 	public:
-		static String^ STR_BIZ_CO_NAME = gcnew String(L"AtCor Medical [THE PRODUCT]");
-		static String^ STR_BIZ_VERSION = gcnew String(L"Version 1.0");
-		static String^ STR_BIZ_COPYRIGHT = gcnew String(L"Copyright(c)2011 AtCor Medical Pty Ltd. All Rights Reserved.");
-
 		static BizInfo^ BizInfo::Instance();
-		void GetCompanyName(String^ %coName, int len);
-		void GetVersion(String^ %appVersion, int len);
-		void GetCopyright(String^ %copyRight, int len);
-		void GetModuleType(String^ %moduleType, int len);
-		unsigned short GetModuleCapability();
-		void GetModuleSN(String^ %moduleSN, int len);
-		void GetModuleVersion(String^ %moduleVersion, int len);
-		void GetModuleCalibrationDate(String^ %moduleCalibrationDate, int len);
+		void GetCompanyName(String^ %companyName, unsigned short length);
+		void GetVersion(String^ %appVersion, unsigned short length);
+		void GetCopyright(String^ %copyRight, unsigned short length);
+		void GetModuleType(String^ %moduleType, unsigned short length);
+		unsigned short GetModuleConfigID();
+		void GetModuleSN(String^ %moduleSN, unsigned short length);
+		void GetModuleVersion(String^ %moduleVersion, unsigned short length);
+		void GetModuleCalibrationDate(String^ %moduleCalibrationDate, unsigned short length);
+		void GetModuleConfigName(String^ %configName, unsigned short length);
+		void GetModuleConfigDate(String^ %configDate, unsigned short length);
 	protected:
 		BizInfo(void);
 	private:
@@ -47,7 +45,8 @@ namespace Biz {
 		property String^ moduleSN;
 		property String^ moduleVersion;
 		property DateTime^ moduleCalibrationDate;
-		unsigned short moduleCapability;
+		property unsigned short moduleConfigID;
+		property DateTime^ moduleConfigDate;
 		static BizInfo^ _instance;
 	};
 }

@@ -14,7 +14,7 @@ namespace gui
     {
         public AboutBox1()
         {
-            int coInfoSize = 100;
+            ushort coInfoSize = 100;
             StringBuilder coInfo = new StringBuilder(coInfoSize);
             String coInfoStr = coInfo.ToString();
 
@@ -31,7 +31,8 @@ namespace gui
             this.textBoxDescription.Text = AssemblyDescription;
             Biz.BizFacade.Instance().FindBizInfo().GetModuleType(ref coInfoStr, coInfoSize); ;
             this.labelModuleType.Text = coInfoStr;
-            this.labelModuleCapability.Text = Biz.BizFacade.Instance().FindBizInfo().GetModuleCapability().ToString();
+            Biz.BizFacade.Instance().FindBizInfo().GetModuleConfigName(ref coInfoStr, coInfoSize);
+            this.labelModuleCapability.Text = coInfoStr;
             Biz.BizFacade.Instance().FindBizInfo().GetModuleSN(ref coInfoStr, coInfoSize); ;
             this.labelModuleSN.Text = coInfoStr;
             Biz.BizFacade.Instance().FindBizInfo().GetModuleVersion(ref coInfoStr, coInfoSize); ;

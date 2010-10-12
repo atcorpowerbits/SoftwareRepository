@@ -368,11 +368,66 @@
          </Type>
          <Type Name="BizInfo">
           <Members>
-           <Member Name="GetCompanyName(System.String&amp;,System.Int32):System.Void">
+           <Member Name="GetCompanyName(System.String&amp;,System.UInt16):System.Void">
             <Messages>
-             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-08-12 07:21:54Z">
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-11 06:17:02Z">
               <Issue Level="CriticalWarning">
-               <Item>coName</Item>
+               <Item>companyName</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetCopyright(System.String&amp;,System.UInt16):System.Void">
+            <Messages>
+             <Message Id="copyRight" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2010-10-11 06:17:02Z">
+              <Issue Name="ShouldBeDiscreteTerm">
+               <Item>copyRight</Item>
+               <Item>parameter</Item>
+               <Item>copyRight</Item>
+               <Item>copyright</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="35" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-11 06:17:02Z">
+              <Issue Level="CriticalWarning">
+               <Item>copyRight</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="29" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetModuleCalibrationDate(System.String&amp;,System.UInt16):System.Void">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-11 06:17:02Z">
+              <Issue Level="CriticalWarning">
+               <Item>moduleCalibrationDate</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="30" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetModuleConfigDate(System.String&amp;,System.UInt16):System.Void">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-12 03:03:38Z">
+              <Issue Level="CriticalWarning">
+               <Item>configDate</Item>
               </Issue>
               <Notes>
                <User Name="victora">
@@ -382,66 +437,11 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="GetCopyright(System.String&amp;,System.Int32):System.Void">
+           <Member Name="GetModuleConfigID():System.UInt16">
             <Messages>
-             <Message Id="copyRight" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2010-10-05 23:05:10Z">
-              <Issue Name="ShouldBeDiscreteTerm">
-               <Item>copyRight</Item>
-               <Item>parameter</Item>
-               <Item>copyRight</Item>
-               <Item>copyright</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="12" />
-               </User>
-              </Notes>
-             </Message>
-             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-05 23:05:10Z">
-              <Issue Level="CriticalWarning">
-               <Item>copyRight</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="11" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="GetModuleCalibrationDate(System.String&amp;,System.Int32):System.Void">
-            <Messages>
-             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-04 23:03:19Z">
-              <Issue Level="CriticalWarning">
-               <Item>moduleCalibrationDate</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="1" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="GetModuleCapability():System.UInt16">
-            <Messages>
-             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Excluded" Created="2010-10-04 23:03:19Z">
-              <Issue>
-               <Item>GetModuleCapability</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="10" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="GetModuleSN(System.String&amp;,System.Int32):System.Void">
-            <Messages>
-             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-09-02 03:44:52Z">
-              <Issue Level="CriticalWarning">
-               <Item>moduleSN</Item>
+             <Message Id="Member" TypeName="ShortAcronymsShouldBeUppercase" Category="Microsoft.Naming" CheckId="CA1706" Status="Excluded" Created="2010-10-12 03:03:38Z">
+              <Issue Name="MemberId">
+               <Item>BizInfo.GetModuleConfigID():UInt16</Item>
               </Issue>
               <Notes>
                <User Name="victora">
@@ -449,13 +449,9 @@
                </User>
               </Notes>
              </Message>
-            </Messages>
-           </Member>
-           <Member Name="GetModuleType(System.String&amp;,System.Int32):System.Void">
-            <Messages>
-             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-09-02 03:44:52Z">
-              <Issue Level="CriticalWarning">
-               <Item>moduleType</Item>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Excluded" Created="2010-10-12 03:03:38Z">
+              <Issue>
+               <Item>GetModuleConfigID</Item>
               </Issue>
               <Notes>
                <User Name="victora">
@@ -465,101 +461,71 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="GetModuleVersion(System.String&amp;,System.Int32):System.Void">
+           <Member Name="GetModuleConfigName(System.String&amp;,System.UInt16):System.Void">
             <Messages>
-             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-09-02 03:44:52Z">
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-12 03:03:38Z">
+              <Issue Level="CriticalWarning">
+               <Item>configName</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="1" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetModuleSN(System.String&amp;,System.UInt16):System.Void">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-11 06:17:02Z">
+              <Issue Level="CriticalWarning">
+               <Item>moduleSN</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="31" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetModuleType(System.String&amp;,System.UInt16):System.Void">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-11 06:17:02Z">
+              <Issue Level="CriticalWarning">
+               <Item>moduleType</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="32" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetModuleVersion(System.String&amp;,System.UInt16):System.Void">
+            <Messages>
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-11 06:17:02Z">
               <Issue Level="CriticalWarning">
                <Item>moduleVersion</Item>
               </Issue>
               <Notes>
                <User Name="victora">
-                <Note Id="4" />
+                <Note Id="33" />
                </User>
               </Notes>
              </Message>
             </Messages>
            </Member>
-           <Member Name="GetVersion(System.String&amp;,System.Int32):System.Void">
+           <Member Name="GetVersion(System.String&amp;,System.UInt16):System.Void">
             <Messages>
-             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-08-12 07:21:54Z">
+             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Status="Excluded" Created="2010-10-11 06:17:02Z">
               <Issue Level="CriticalWarning">
                <Item>appVersion</Item>
               </Issue>
               <Notes>
                <User Name="victora">
-                <Note Id="5" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="STR_BIZ_CO_NAME">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-10-01 02:39:59Z">
-              <Issue Name="Member">
-               <Item>STR_BIZ_CO_NAME</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="6" />
-               </User>
-              </Notes>
-             </Message>
-             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-10-01 02:39:59Z">
-              <Issue>
-               <Item>STR_BIZ_CO_NAME</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="7" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="STR_BIZ_COPYRIGHT">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-10-05 23:05:10Z">
-              <Issue Name="Member">
-               <Item>STR_BIZ_COPYRIGHT</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="14" />
-               </User>
-              </Notes>
-             </Message>
-             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-10-05 23:05:10Z">
-              <Issue>
-               <Item>STR_BIZ_COPYRIGHT</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="15" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="STR_BIZ_VERSION">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-10-01 02:39:59Z">
-              <Issue Name="Member">
-               <Item>STR_BIZ_VERSION</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="9" />
-               </User>
-              </Notes>
-             </Message>
-             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-10-01 02:39:59Z">
-              <Issue>
-               <Item>STR_BIZ_VERSION</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="8" />
+                <Note Id="34" />
                </User>
               </Notes>
              </Message>
@@ -1567,22 +1533,11 @@
     <Note Id="35" Modified="2010-09-09 03:14:41Z">this is a property, not a member</Note>
    </User>
    <User Name="victora">
-    <Note Id="0" Modified="2010-10-01 02:49:56Z">need ref pointer to interface with C# string</Note>
-    <Note Id="1" Modified="2010-10-04 23:48:22Z">need ref pointer to interface with C# string</Note>
-    <Note Id="2" Modified="2010-10-01 02:50:44Z">need ref pointer to interface with C# string</Note>
-    <Note Id="3" Modified="2010-10-01 02:50:47Z">need ref pointer to interface with C# string</Note>
-    <Note Id="4" Modified="2010-10-01 02:50:52Z">need ref pointer to interface with C# string</Note>
-    <Note Id="5" Modified="2010-10-01 02:50:56Z">need ref pointer to interface with C# string</Note>
-    <Note Id="6" Modified="2010-10-01 02:54:37Z">Named with underscore as const.</Note>
-    <Note Id="7" Modified="2010-10-01 02:55:00Z">can't make it const which needs to be assigned to a property</Note>
-    <Note Id="8" Modified="2010-10-01 02:55:04Z">can't make it const which needs to be assigned to a property</Note>
-    <Note Id="9" Modified="2010-10-01 02:56:42Z">Named with underscore as const.</Note>
-    <Note Id="10" Modified="2010-10-05 01:37:30Z">Properties is not appropriate to use here.</Note>
-    <Note Id="11" Modified="2010-10-05 23:06:01Z">need ref pointer to interface with C# string</Note>
-    <Note Id="12" Modified="2010-10-05 23:07:10Z">Copyright is one word.</Note>
+    <Note Id="0" Modified="2010-10-12 03:04:08Z">Need to pass types by ref from C# to C++</Note>
+    <Note Id="1" Modified="2010-10-12 03:04:13Z">Need to pass types by ref from C# to C++</Note>
+    <Note Id="2" Modified="2010-10-12 03:04:35Z">Config is not acronym.</Note>
+    <Note Id="3" Modified="2010-10-12 03:13:16Z">Not appropriate to use property because config ID is not BizInfo property. </Note>
     <Note Id="13" Modified="2010-10-07 04:11:53Z">Tonometer is a technical term.</Note>
-    <Note Id="14" Modified="2010-10-05 23:07:44Z">Named with underscore as const.</Note>
-    <Note Id="15" Modified="2010-10-05 23:08:56Z">can't make it const which needs to be assigned to a property</Note>
     <Note Id="16" Modified="2010-10-07 04:12:24Z">Tonometer is a technical term.</Note>
     <Note Id="17" Modified="2010-10-07 04:12:29Z">Tonometer is a technical term.</Note>
     <Note Id="18" Modified="2010-10-07 04:12:33Z">Tonometer is a technical term.</Note>
@@ -1595,6 +1550,14 @@
     <Note Id="25" Modified="2010-10-11 04:17:50Z">Not an identifier. Internal destructor.</Note>
     <Note Id="26" Modified="2010-10-11 04:18:35Z">this is a property, not a member</Note>
     <Note Id="27" Modified="2010-10-11 04:18:50Z">this is a property, not a member</Note>
+    <Note Id="28" Modified="2010-10-11 06:52:20Z">pass types by reference between C# and C++</Note>
+    <Note Id="29" Modified="2010-10-11 06:52:25Z">pass types by reference between C# and C++</Note>
+    <Note Id="30" Modified="2010-10-11 06:52:29Z">pass types by reference between C# and C++</Note>
+    <Note Id="31" Modified="2010-10-11 06:52:32Z">pass types by reference between C# and C++</Note>
+    <Note Id="32" Modified="2010-10-11 06:52:35Z">pass types by reference between C# and C++</Note>
+    <Note Id="33" Modified="2010-10-11 06:52:39Z">pass types by reference between C# and C++</Note>
+    <Note Id="34" Modified="2010-10-11 06:52:42Z">pass types by reference between C# and C++</Note>
+    <Note Id="35" Modified="2010-10-11 06:53:48Z">Copyright is right.</Note>
    </User>
   </Notes>
   <Rules>
@@ -1617,18 +1580,12 @@
     <Resolution Name="Member">Correct the spelling of the unrecognized token '{0}' in member name '{1}'.</Resolution>
     <Resolution Name="Type">Correct the spelling of the unrecognized token '{0}' in type name '{1}'.</Resolution>
    </Rule>
-   <Rule TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707">
-    <Resolution Name="Member">Remove all underscores from member '{0}'.</Resolution>
-   </Rule>
    <Rule TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705">
     <Resolution Name="Member">Correct the capitalization of member name '{0}'.</Resolution>
     <Resolution Name="Type">Correct the capitalization of type name '{0}'.</Resolution>
    </Rule>
    <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
     <Resolution Name="Default">The 'this' parameter (or 'Me' in VB) of {0} is never used. Mark the member as static (or Shared in VB) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
-   </Rule>
-   <Rule TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211">
-    <Resolution Name="Default">Consider making '{0}' non-public or a constant.</Resolution>
    </Rule>
    <Rule TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725">
     <Resolution Name="Default">Change parameter name '{0}' of method {1} to '{2}' in order to match the identifier as it has been declared in {3}.</Resolution>
@@ -1638,6 +1595,9 @@
    </Rule>
    <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
     <Resolution Name="Default">Parameter '{0}' of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
+   </Rule>
+   <Rule TypeName="ShortAcronymsShouldBeUppercase" Category="Microsoft.Naming" CheckId="CA1706">
+    <Resolution Name="MemberId">'Id' is an abbreviation and therefore is not subject to acronym casing guidelines. Correct the capitalization of 'ID' in member name '{0}' by changing it to 'Id'.</Resolution>
    </Rule>
    <Rule TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053">
     <Resolution Name="Default">Remove the public constructors from '{0}'.</Resolution>

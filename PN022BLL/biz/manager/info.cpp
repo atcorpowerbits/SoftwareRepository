@@ -9,9 +9,11 @@
 */
 
 #include "stdafx.h"
+#include "biz.h"
 #include "info.h"
 
 using namespace System::Globalization;
+using namespace CrossCutting;
 using namespace DataAccess;
 
 namespace Biz {
@@ -52,7 +54,7 @@ namespace Biz {
 	
 	INPUT
 	
-		len - Company name string buffer limit.
+		length - Company name string buffer limit.
 	
 	OUTPUT
 	
@@ -63,11 +65,11 @@ namespace Biz {
 		None.
 	
 	*/
-	void BizInfo::GetCompanyName(String^ %coName, int len)
+	void BizInfo::GetCompanyName(String^ %coName, unsigned short length)
 	{
-		if (company->Length > len) 
+		if (company->Length > length) 
 		{
-			coName = company->Substring(0,len);
+			coName = company->Substring(0,length);
 		} else 
 		{
 			coName = company;
@@ -83,7 +85,7 @@ namespace Biz {
 	
 	INPUT
 	
-		len - Application version string buffer limit.
+		length - Application version string buffer limit.
 	
 	OUTPUT
 	
@@ -94,11 +96,11 @@ namespace Biz {
 		None.
 	
 	*/
-	void BizInfo::GetVersion(String^ %appVersion, int len)
+	void BizInfo::GetVersion(String^ %appVersion, unsigned short length)
 	{
-		if (this->appVersion->Length > len) 
+		if (this->appVersion->Length > length) 
 		{
-			appVersion = this->appVersion->Substring(0,len);
+			appVersion = this->appVersion->Substring(0,length);
 		} else 
 		{
 			appVersion = this->appVersion;
@@ -114,7 +116,7 @@ namespace Biz {
 	
 	INPUT
 	
-		len - Application copyright string buffer limit.
+		length - Application copyright string buffer limit.
 	
 	OUTPUT
 	
@@ -125,11 +127,11 @@ namespace Biz {
 		None.
 	
 	*/
-	void BizInfo::GetCopyright(String^ %copyRight, int len)
+	void BizInfo::GetCopyright(String^ %copyRight, unsigned short length)
 	{
-		if (this->copyRight->Length > len) 
+		if (this->copyRight->Length > length) 
 		{
-			copyRight = this->copyRight->Substring(0,len);
+			copyRight = this->copyRight->Substring(0,length);
 		} else 
 		{
 			copyRight = this->copyRight;
@@ -145,7 +147,7 @@ namespace Biz {
 	
 	INPUT
 	
-		len - Module type string buffer limit.
+		length - Module type string buffer limit.
 	
 	OUTPUT
 	
@@ -156,13 +158,13 @@ namespace Biz {
 		None.
 	
 	*/
-	void BizInfo::GetModuleType(String^ %info, int len)
+	void BizInfo::GetModuleType(String^ %info, unsigned short length)
 	{
 		moduleType = DalFacade::Instance()->FindModuleInfo()->moduleType;
 
-		if (moduleType->Length > len) 
+		if (moduleType->Length > length) 
 		{
-			info = moduleType->Substring(0,len);
+			info = moduleType->Substring(0,length);
 		} else 
 		{
 			info = moduleType;
@@ -170,11 +172,11 @@ namespace Biz {
 	}
 
 	/**
-	GetModuleCapability
+	GetModuleConfigID
 
 	DESCRIPTION
 
-		Get the electronic module capability.
+		Get the electronic module config ID.
 	
 	INPUT
 	
@@ -186,13 +188,13 @@ namespace Biz {
 	
 	RETURN
 	
-		Electronic module capability integer value.
+		Electronic module config ID integer value.
 	
 	*/
-	unsigned short BizInfo::GetModuleCapability()
+	unsigned short BizInfo::GetModuleConfigID()
 	{
-		moduleCapability = DalFacade::Instance()->FindModuleInfo()->moduleCapability;
-		return moduleCapability;
+		moduleConfigID = DalFacade::Instance()->FindModuleInfo()->moduleConfigID;
+		return moduleConfigID;
 	}
 
 	/**
@@ -204,7 +206,7 @@ namespace Biz {
 	
 	INPUT
 	
-		len - Module serial number string buffer limit.
+		length - Module serial number string buffer limit.
 	
 	OUTPUT
 	
@@ -215,13 +217,13 @@ namespace Biz {
 		None.
 	
 	*/
-	void BizInfo::GetModuleSN(String^ %info, int len)
+	void BizInfo::GetModuleSN(String^ %info, unsigned short length)
 	{
 		moduleSN = DalFacade::Instance()->FindModuleInfo()->moduleSN;
 
-		if (moduleSN->Length > len) 
+		if (moduleSN->Length > length) 
 		{
-			info = moduleSN->Substring(0,len);
+			info = moduleSN->Substring(0,length);
 		} else 
 		{
 			info = moduleSN;
@@ -237,7 +239,7 @@ namespace Biz {
 	
 	INPUT
 	
-		len - Module version string buffer limit.
+		length - Module version string buffer limit.
 	
 	OUTPUT
 	
@@ -248,13 +250,13 @@ namespace Biz {
 		None.
 	
 	*/
-	void BizInfo::GetModuleVersion(String^ %info, int len)
+	void BizInfo::GetModuleVersion(String^ %info, unsigned short length)
 	{
 		moduleVersion = DalFacade::Instance()->FindModuleInfo()->moduleMainFWVersion;
 
-		if (moduleVersion->Length > len) 
+		if (moduleVersion->Length > length) 
 		{
-			info = moduleVersion->Substring(0,len);
+			info = moduleVersion->Substring(0,length);
 		} else 
 		{
 			info = moduleVersion;
@@ -269,7 +271,7 @@ namespace Biz {
 	
 	INPUT
 	
-		len - Module calibration date string buffer limit.
+		length - Module calibration date string buffer limit.
 	
 	OUTPUT
 	
@@ -280,20 +282,102 @@ namespace Biz {
 		None.
 	
 	*/
-	void BizInfo::GetModuleCalibrationDate(String^ %info, int len)
+	void BizInfo::GetModuleCalibrationDate(String^ %info, unsigned short length)
 	{
-		// Use CultureInfo as IFormatProvider interface to format date to string
-		// to meet a FxCop rule.
-		CultureInfo^ culture = gcnew CultureInfo(CultureInfo::CurrentUICulture->ToString());
+		String^ dateString;
 
 		moduleCalibrationDate = DalFacade::Instance()->FindModuleInfo()->moduleCalibrationDate;
 
-		if (moduleCalibrationDate->ToString(culture)->Length > len) 
+		// Convert date to culturally correct string suggested by FxCop
+		dateString = Convert::ToString(moduleCalibrationDate, CultureInfo::CurrentUICulture);
+
+		if (dateString->Length > length) 
 		{
-			info = moduleCalibrationDate->ToString(culture)->Substring(0,len);
+			info = dateString->Substring(0,length);
 		} else 
 		{
-			info = moduleCalibrationDate->ToString(culture);
+			info = dateString;
+		}
+	}
+	/**
+	GetModuleConfigName
+
+	DESCRIPTION
+
+		Get the electronic module config name.
+	
+	INPUT
+	
+		length - Module config name string buffer limit.
+	
+	OUTPUT
+	
+		info - Module config name.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizInfo::GetModuleConfigName(String^ %info, unsigned short length)
+	{
+		String^ configName;
+		unsigned short configValue = GetModuleConfigID();
+
+		switch (configValue)
+		{
+		case CONFIG_ID_PWV:
+			configName = CrxMessageFacade::Instance()->messageResources->
+				GetString(L"CONFIG_NAME_PWV", CultureInfo::CurrentUICulture);
+			break;
+		default:
+			configName = CrxMessageFacade::Instance()->messageResources->
+				GetString(L"CONFIG_NAME_INVALID", CultureInfo::CurrentUICulture);
+			break;
+		}
+		if (configName->Length > length) 
+		{
+			info = configName->Substring(0,length);
+		} else 
+		{
+			info = configName;
+		}
+	}
+	/**
+	GetConfigDate
+
+	DESCRIPTION
+
+		Get the electronic module configuration date.
+	
+	INPUT
+	
+		length - Module configuration date string buffer limit.
+	
+	OUTPUT
+	
+		info - Module configuration date.
+	
+	RETURN
+	
+		None.
+	
+	*/
+	void BizInfo::GetModuleConfigDate(String^ %info, unsigned short length)
+	{
+		String^ dateString;
+
+		moduleConfigDate = DalFacade::Instance()->FindModuleInfo()->moduleConfigDate;
+
+		// Convert date to culturally correct string suggested by FxCop
+		dateString = Convert::ToString(moduleConfigDate, CultureInfo::CurrentUICulture);
+
+		if (dateString->Length > length) 
+		{
+			info = dateString->Substring(0,length);
+		} else 
+		{
+			info = dateString;
 		}
 	}
 	/**
@@ -318,8 +402,11 @@ namespace Biz {
 	*/
 	BizInfo::BizInfo(void)
 	{
-		company = STR_BIZ_CO_NAME;
-		appVersion = STR_BIZ_VERSION;
-		copyRight = STR_BIZ_COPYRIGHT;
+		company = CrxMessageFacade::Instance()->messageResources->
+			GetString(L"COMPANY_NAME", CultureInfo::CurrentUICulture);
+		appVersion = CrxMessageFacade::Instance()->messageResources->
+			GetString(L"APP_VERSION", CultureInfo::CurrentUICulture);
+		copyRight = CrxMessageFacade::Instance()->messageResources->
+			GetString(L"COMPANY_COPYRIGHT", CultureInfo::CurrentUICulture);
 	}
 }
