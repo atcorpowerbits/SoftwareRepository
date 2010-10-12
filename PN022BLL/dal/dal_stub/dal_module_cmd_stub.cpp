@@ -13,76 +13,8 @@
 #include <dal_module_cmd_stub.h>
 
 namespace DataAccess {
-	void DalModuleCommandState::ChangeState(DalModule^ const m, DalModuleCommandState^ %s)
-	{
-		m->ChangeState(s);
-	}
-	DalMeterIdle^ DalMeterIdle::Instance()
-	{
-		if (_instance == nullptr) 
-		{
-			_instance = gcnew DalMeterIdle;
-		}
-		return _instance;
-	}
-	bool DalMeterIdle::StartCapture(DalModule^ const m)
-	{
-		bool isSent = false;
-
-		//TBD: send start capture command here
-		isSent = true;
-
-		ChangeState(m, DalMeterWaitConfirmation::Instance());
-		return isSent;
-	}
-	DalMeterWaitConfirmation^ DalMeterWaitConfirmation::Instance()
-	{
-		if (_instance == nullptr) 
-		{
-			_instance = gcnew DalMeterWaitConfirmation;
-		}
-		return _instance;
-	}
-	int DalMeterWaitConfirmation::ConfirmCommand(DalModule^ const m)
-	{
-		int confirmation;
-
-		// wait for ACK or NACK or timeout
-		confirmation = 1;
-
-		// change state to wait for response data if necessary
-
-		// just done
-		ChangeState(m, DalMeterIdle::Instance());
-		return confirmation;
-	}
-	DalMeterCapturing^ DalMeterCapturing::Instance()
-	{
-		if (_instance == nullptr) 
-		{
-			_instance = gcnew DalMeterCapturing;
-		}
-		return _instance;
-	}
-	DalMeterWaitResponse^ DalMeterWaitResponse::Instance()
-	{
-		if (_instance == nullptr) 
-		{
-			_instance = gcnew DalMeterWaitResponse;
-		}
-		return _instance;
-	}
-	void DalMeterWaitResponse::ReceiveResponse(DalModule^ const m)
-	{
-		//TBD: notify data subjects when response data is received
-//???		TonoData^ data = gcnew TonoData;
-//?		m->tonometerDataRaw->Notify(1234);
-		ChangeState(m, DalMeterIdle::Instance());
-	}
-
 	DalModule::DalModule(void) 
 	{
-		_state = DalMeterIdle::Instance();
 	}
 	DalModule^ DalModule::Instance()
 	{
@@ -92,33 +24,14 @@ namespace DataAccess {
 		}
 		return _instance;
 	}
-	void DalModule::ChangeState(DalModuleCommandState^ s)
+	bool DalModule::StartCapture()
 	{
-		_state = s;
-	}
-	int DalModule::StartCapture()
-	{
-		int startOK = 0;
-		if (!_state->StartCapture(this))
-		{
-			;
-		} else if (!_state->ConfirmCommand(this))
-		{
-			;
-		} else
-		{
-			startOK = 1;
-		}
+		bool startOK = false;
 		return startOK;
 	}
 	bool DalModule::StopCapture()
 	{
 		bool stopOK = false;
-/*		if (_state->StopCapture(this))
-		{
-			stopOK = true;
-		}
-*/
 		stopOK = true; // stub
 		return stopOK;
 	}
@@ -141,7 +54,7 @@ namespace DataAccess {
 		{
 		case DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO:
 			captureTimer->Elapsed += gcnew ElapsedEventHandler( &DalModule::OnCaptureTimedEvent );
-			dataFile = gcnew DalSimulationFile("c:\\projects\\pn022bll\\dal\\dal_stub\\pwv.dat");
+			dataFile = gcnew DalSimulationFile("pwv_default.dat");
 			break;
 		default:
 			return; // nothing to simulate

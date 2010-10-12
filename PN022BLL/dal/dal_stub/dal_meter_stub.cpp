@@ -31,15 +31,6 @@ namespace DataAccess {
 		// The call must match the signature of the corresponding event handler.
 		CuffPulseEvent( this, cuffPulseArgs );
 	}
-	void DalPayloadDataEvent::Notify( unsigned int dataType, unsigned int len, array<char>^ data )
-	{
-		DalPayloadDataEventArgs^ payloadArgs = gcnew DalPayloadDataEventArgs( dataType, len, data );
-
-		// Now, raise the event by invoking the delegate. Pass in 
-		// the object that initated the event (this) as well as event args. 
-		// The call must match the signature of the corresponding event handler.
-		PayloadDataEvent( this, payloadArgs );
-	}
 	void DalCountdownEvent::Notify( unsigned short data )
 	{
 		DalCountdownEventArgs^ countdownArgs = gcnew DalCountdownEventArgs( data );

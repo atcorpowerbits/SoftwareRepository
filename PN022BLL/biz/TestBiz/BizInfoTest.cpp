@@ -315,7 +315,7 @@ public: [TestMethod]
 			String^  moduleConfigName         = L"12"; // TODO: Initialize to an appropriate value
 			String^  moduleConfigNameExpected = L"In"; // TODO: Initialize to an appropriate value
 			int len = moduleConfigName->Length; // TODO: Initialize to an appropriate value
-			DalFacade::Instance()->FindModuleInfo()->moduleConfigID =255;
+			DalFacade::Instance()->FindModuleInfo()->moduleConfigID =99;
 			BizInfo::Instance()->GetModuleConfigName(moduleConfigName, len);
 			Assert::AreEqual(moduleConfigNameExpected, moduleConfigName);
 		}

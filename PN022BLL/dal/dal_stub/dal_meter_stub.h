@@ -90,37 +90,6 @@ namespace DataAccess {
 	   void Notify( unsigned short data );
 	};
 
-	// PayloadDataEventArgs: a custom event inherited from EventArgs.
-	public ref class DalPayloadDataEventArgs: public EventArgs
-	{
-	public:
-	   DalPayloadDataEventArgs( unsigned int dataType, unsigned short len, array<char>^ data )
-	   {
-	      payLoadType = dataType;
-		  payloadLength = len;
-		  payloadBuffer = data;
-	   }
-	protected:
-	   property unsigned short payLoadType;
-	   property unsigned short payloadLength;
-	   property array<char>^ payloadBuffer;
-	};
-	// Class with a function that creates the eventargs and initiates the event
-	public ref class DalPayloadDataEvent
-	{
-	public:
-	   // Events are handled with delegates, so we must establish a DalPayloadData
-	   // as a delegate:
-	   delegate void PayloadDataEventHandler(Object^ sender, DalPayloadDataEventArgs^ tde );
-
-	   // Now, create a public event whose type is our PayloadDataEventHandler delegate. 
-	   event PayloadDataEventHandler^ PayloadDataEvent;
-
-	   // This will be the starting point of our event-- it will create DalPayloadDataEventArgs,
-	   // and then raise the event, passing DalPayloadDataEventArgs. 
-	   void Notify( unsigned int dataType, unsigned int len, array<char>^ data );
-	};
-
 	public ref class DalMeter abstract
 	{
 	public:
