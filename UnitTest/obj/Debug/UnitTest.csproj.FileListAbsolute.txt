@@ -1,0 +1,5 @@
+D:\Atcor_Projct_Solution\Scor\UnitTest\bin\Debug\UnitTest.dll
+D:\Atcor_Projct_Solution\Scor\UnitTest\bin\Debug\UnitTest.pdb
+D:\Atcor_Projct_Solution\Scor\UnitTest\obj\Debug\ResolveAssemblyReference.cache
+D:\Atcor_Projct_Solution\Scor\UnitTest\obj\Debug\UnitTest.dll
+D:\Atcor_Projct_Solution\Scor\UnitTest\obj\Debug\UnitTest.pdb
