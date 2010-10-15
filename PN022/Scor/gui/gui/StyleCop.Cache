@@ -1,0 +1,149 @@
+<stylecopresultscache>
+  <version>10</version>
+  <sourcecode name="Form1.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>10/13/2010 11:36:19</timestamp>
+      <milliseconds>730</milliseconds>
+    </settings>
+    <timestamp>10/13/2010 11:27:48</timestamp>
+    <milliseconds>77</milliseconds>
+    <violations>
+      <violation namespace="Microsoft.StyleCop.CSharp.NamingRules" rule="ElementMustBeginWithUpperCaseLetter" ruleCheckId="SA1300">
+        <context>namespace names begin with an upper-case letter: gui.</context>
+        <line>10</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+  <sourcecode name="Form1.Designer.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>10/13/2010 11:36:19</timestamp>
+      <milliseconds>730</milliseconds>
+    </settings>
+    <timestamp>10/01/2010 17:56:17</timestamp>
+    <milliseconds>653</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="1355481876">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="Program.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>10/14/2010 08:30:05</timestamp>
+      <milliseconds>843</milliseconds>
+    </settings>
+    <timestamp>10/13/2010 11:42:40</timestamp>
+    <milliseconds>603</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="AssemblyInfo.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>10/14/2010 08:30:05</timestamp>
+      <milliseconds>843</milliseconds>
+    </settings>
+    <timestamp>10/01/2010 10:08:48</timestamp>
+    <milliseconds>938</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Resources.Designer.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>10/14/2010 08:30:05</timestamp>
+      <milliseconds>843</milliseconds>
+    </settings>
+    <timestamp>10/01/2010 10:08:49</timestamp>
+    <milliseconds>219</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="DefaultWindow.Designer.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>10/14/2010 08:30:05</timestamp>
+      <milliseconds>843</milliseconds>
+    </settings>
+    <timestamp>10/13/2010 11:42:39</timestamp>
+    <milliseconds>915</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Settings.Designer.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>10/14/2010 08:30:05</timestamp>
+      <milliseconds>843</milliseconds>
+    </settings>
+    <timestamp>10/01/2010 10:08:49</timestamp>
+    <milliseconds>625</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="DefaultWindow.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>10/14/2010 08:30:05</timestamp>
+      <milliseconds>843</milliseconds>
+    </settings>
+    <timestamp>10/14/2010 08:12:17</timestamp>
+    <milliseconds>756</milliseconds>
+    <violations>
+      <violation namespace="Microsoft.StyleCop.CSharp.NamingRules" rule="ElementMustBeginWithUpperCaseLetter" ruleCheckId="SA1300">
+        <context>method names begin with an upper-case letter: radButtonElementExit_Click.</context>
+        <line>90</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.NamingRules" rule="ElementMustBeginWithUpperCaseLetter" ruleCheckId="SA1300">
+        <context>method names begin with an upper-case letter: radButtonElementSettings_Click.</context>
+        <line>228</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+  <sourcecode name="SettingsWindow.Designer.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>10/14/2010 08:30:05</timestamp>
+      <milliseconds>843</milliseconds>
+    </settings>
+    <timestamp>10/14/2010 08:12:59</timestamp>
+    <milliseconds>959</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="SettingsWindow.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>10/14/2010 08:30:05</timestamp>
+      <milliseconds>843</milliseconds>
+    </settings>
+    <timestamp>10/14/2010 08:25:36</timestamp>
+    <milliseconds>157</milliseconds>
+    <violations>
+      <violation namespace="Microsoft.StyleCop.CSharp.NamingRules" rule="ElementMustBeginWithUpperCaseLetter" ruleCheckId="SA1300">
+        <context>method names begin with an upper-case letter: radbtnCancel_Click.</context>
+        <line>382</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.NamingRules" rule="ElementMustBeginWithUpperCaseLetter" ruleCheckId="SA1300">
+        <context>method names begin with an upper-case letter: radbtnChange_Click.</context>
+        <line>394</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.NamingRules" rule="ElementMustBeginWithUpperCaseLetter" ruleCheckId="SA1300">
+        <context>method names begin with an upper-case letter: radbtnDefaults_Click.</context>
+        <line>438</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.NamingRules" rule="ElementMustBeginWithUpperCaseLetter" ruleCheckId="SA1300">
+        <context>method names begin with an upper-case letter: radbtnSave_Click.</context>
+        <line>466</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.NamingRules" rule="ElementMustBeginWithUpperCaseLetter" ruleCheckId="SA1300">
+        <context>method names begin with an upper-case letter: radchkbxPatientPrivacy_MouseClick.</context>
+        <line>580</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.NamingRules" rule="ElementMustBeginWithUpperCaseLetter" ruleCheckId="SA1300">
+        <context>method names begin with an upper-case letter: radtxtReportTitle_TextChanged.</context>
+        <line>589</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="Microsoft.StyleCop.CSharp.NamingRules" rule="ElementMustBeginWithUpperCaseLetter" ruleCheckId="SA1300">
+        <context>method names begin with an upper-case letter: comboBoxCommsPort_SelectionChangeCommitted.</context>
+        <line>598</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+</stylecopresultscache>
