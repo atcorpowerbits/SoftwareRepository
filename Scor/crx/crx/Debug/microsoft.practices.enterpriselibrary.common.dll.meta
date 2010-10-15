@@ -1,0 +1,2076 @@
+  Microsoft.Practices.EnterpriseLibrary.Common.Configuration.DesignResources.resources - Embedded, ContainedInManifestFile, 
+  Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+  Microsoft.Practices.EnterpriseLibrary.Common.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Configuration.Install, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IPerformanceCounterNameFormatter: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    CreateName(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.AppDomainNameFormatter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IPerformanceCounterNameFormatter
+  Methods:
+    CreateName(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.EnterpriseLibraryPerformanceCounter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Diagnostics.PerformanceCounter[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Diagnostics.PerformanceCounter[] Counters 'get ' : 
+    Int64 Value 'get ' : 
+  Methods:
+    get_Counters(): PrivateScope, Public, HideBySig, SpecialName
+    Clear(): PrivateScope, Public, HideBySig
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    Increment(): PrivateScope, Public, HideBySig
+    IncrementBy(Int64): PrivateScope, Public, HideBySig
+    GetValueFor(String): PrivateScope, Public, HideBySig
+    SetValueFor(String, Int64): PrivateScope, Public, HideBySig
+    Increment(String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.EventBinder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Object, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Bind(EventInfo, MethodInfo): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationBaseAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+  Properties:
+    System.String SubjectName 'get ' : 
+  Methods:
+    get_SubjectName(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationConsumerAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationBaseAttribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationListenerAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ListenerType 'get ' : 
+    System.Type ListenerBinderType 'get ' : 
+  Methods:
+    get_ListenerType(): PrivateScope, Public, HideBySig, SpecialName
+    get_ListenerBinderType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationProviderAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationBaseAttribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.HasInstallableResourcesAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.PerformanceCounterAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String, System.String, System.Diagnostics.PerformanceCounterType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Diagnostics.PerformanceCounterType CounterType 'get ' : 
+    System.String CounterHelp 'get ' : 
+    System.String CounterName 'get ' : 
+    System.Diagnostics.PerformanceCounterType BaseCounterType 'get set' : 
+    System.String BaseCounterHelp 'get set' : 
+    System.String BaseCounterName 'get set' : 
+  Methods:
+    get_CounterType(): PrivateScope, Public, HideBySig, SpecialName
+    get_CounterHelp(): PrivateScope, Public, HideBySig, SpecialName
+    get_CounterName(): PrivateScope, Public, HideBySig, SpecialName
+    get_BaseCounterType(): PrivateScope, Public, HideBySig, SpecialName
+    set_BaseCounterType(PerformanceCounterType): PrivateScope, Public, HideBySig, SpecialName
+    get_BaseCounterHelp(): PrivateScope, Public, HideBySig, SpecialName
+    set_BaseCounterHelp(String): PrivateScope, Public, HideBySig, SpecialName
+    get_BaseCounterName(): PrivateScope, Public, HideBySig, SpecialName
+    set_BaseCounterName(String): PrivateScope, Public, HideBySig, SpecialName
+    HasBaseCounter(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.NoPrefixNameFormatter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IPerformanceCounterNameFormatter
+  Methods:
+    CreateName(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Properties.Resources: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    System.Resources.ResourceManager ResourceManager 'get ' : 
+    System.Globalization.CultureInfo Culture 'get set' : 
+    System.String CannotCreateDesignSource 'get ' : 
+    System.String ConfigurationSourceInvalidTypeErrorMessage 'get ' : 
+    System.String EventLogEntryExceptionTemplate 'get ' : 
+    System.String EventLogEntryHeaderTemplate 'get ' : 
+    System.String ExceptionArgumentShouldDeriveFromIDictionary 'get ' : 
+    System.String ExceptionArgumentShouldDeriveFromIList 'get ' : 
+    System.String ExceptionAssemblerAttributeNotSet 'get ' : 
+    System.String ExceptionAssemblerTypeNotCompatible 'get ' : 
+    System.String ExceptionBaseConfigurationSourceElementIsInvalid 'get ' : 
+    System.String ExceptionCannotAddParametersAfterDispose 'get ' : 
+    System.String ExceptionCanNotConvertType 'get ' : 
+    System.String ExceptionCannotFinish 'get ' : 
+    System.String ExceptionConfigurationFileNotFound 'get ' : 
+    System.String ExceptionConfigurationLoadFileNotFound 'get ' : 
+    System.String ExceptionConfigurationObjectIsNotCustomProviderData 'get ' : 
+    System.String ExceptionConfigurationObjectWithTypeDoesNotHaveTypeSet 'get ' : 
+    System.String ExceptionConfigurationSectionPointsToNonExistingSource 'get ' : 
+    System.String ExceptionConfigurationSourceNotFound 'get ' : 
+    System.String ExceptionConfigurationSourceSectionNotFound 'get ' : 
+    System.String ExceptionContainerPolicyCreatorAttributeNotPresent 'get ' : 
+    System.String ExceptionCustomFactoryAttributeNotFound 'get ' : 
+    System.String ExceptionCustomProviderTypeDoesNotHaveTheRequiredConstructor 'get ' : 
+    System.String ExceptionEventRaisingFailed 'get ' : 
+    System.String ExceptionFactoryMethodHasInvalidReturnType 'get ' : 
+    System.String ExceptionIncompaitbleMergeElementType 'get ' : 
+    System.String ExceptionInvalidType 'get ' : 
+    System.String ExceptionMustBeNameTypeConfigurationElement 'get ' : 
+    System.String ExceptionMustHaveNoArgsConstructor 'get ' : 
+    System.String ExceptionMustImplementIContainerPolicyCreator 'get ' : 
+    System.String ExceptionNamedConfigurationNotFound 'get ' : 
+    System.String ExceptionNoConfigurationElementAttribute 'get ' : 
+    System.String ExceptionNoConfigurationObjectPolicySet 'get ' : 
+    System.String ExceptionNoMatchingConstructorFound 'get ' : 
+    System.String ExceptionNoMethodAnnotatedForInjectionFound 'get ' : 
+    System.String ExceptionNoSuitableFactoryMethodFound 'get ' : 
+    System.String ExceptionNoTypeAttribute 'get ' : 
+    System.String ExceptionParameterNotAnnotatedForInjection 'get ' : 
+    System.String ExceptionPerformanceCounterRedefined 'get ' : 
+    System.String ExceptionPolicyBuilderFinished 'get ' : 
+    System.String ExceptionPolicyBuilderStillWaitingForPropertyPolicy 'get ' : 
+    System.String ExceptionPropertyAccessExpressionNotPropertyAccess 'get ' : 
+    System.String ExceptionPropertyNotFound 'get ' : 
+    System.String ExceptionRedirectedConfigurationSectionNotFound 'get ' : 
+    System.String ExceptionRegistrationServiceTypeIsNotCompatible 'get ' : 
+    System.String ExceptionRegistrationTypeExpressionMustBeNewLambda 'get ' : 
+    System.String ExceptionRetrievalAttributeNotFound 'get ' : 
+    System.String ExceptionShouldBeImplementedBySubclass 'get ' : 
+    System.String ExceptionSourcePropertyDoesNotExist 'get ' : 
+    System.String ExceptionStringNullOrEmpty 'get ' : 
+    System.String ExceptionSuppliedCreationExpressionIsNotNewExpression 'get ' : 
+    System.String ExceptionSystemSourceNotDefined 'get ' : 
+    System.String ExceptionTheSpecifiedDefaultProviderDoesNotExistInConfiguration 'get ' : 
+    System.String ExceptionTypeCouldNotBeCreated 'get ' : 
+    System.String ExceptionTypeDoesNotProvideCorrectConstructor 'get ' : 
+    System.String ExceptionTypeMustDeriveFromType 'get ' : 
+    System.String ExceptionTypeMustImplementInterface 'get ' : 
+    System.String ExceptionTypeNotCustomFactory 'get ' : 
+    System.String ExceptionTypeNotNameMapper 'get ' : 
+    System.String ExceptionTypeNotRetriever 'get ' : 
+    System.String ExceptionUnableToMatchConstructorToConfigurationObject 'get ' : 
+    System.String ExceptionUnexpectedType 'get ' : 
+    System.String ExceptionUnknownResolveMethod 'get ' : 
+    System.String ExceptionUnrecognizedContainerMarkerMethod 'get ' : 
+    System.String ExceptionUnrecognizedDependencyParameterType 'get ' : 
+    System.String ExceptionUnsupportedBindingExpressionType 'get ' : 
+    System.String FileConfigurationSourceName 'get ' : 
+    System.String SystemConfigurationSourceName 'get ' : 
+  Methods:
+    get_ResourceManager(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Culture(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_Culture(CultureInfo): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_CannotCreateDesignSource(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ConfigurationSourceInvalidTypeErrorMessage(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EventLogEntryExceptionTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EventLogEntryHeaderTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionArgumentShouldDeriveFromIDictionary(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionArgumentShouldDeriveFromIList(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionAssemblerAttributeNotSet(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionAssemblerTypeNotCompatible(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionBaseConfigurationSourceElementIsInvalid(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionCannotAddParametersAfterDispose(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionCanNotConvertType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionCannotFinish(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionConfigurationFileNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionConfigurationLoadFileNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionConfigurationObjectIsNotCustomProviderData(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionConfigurationObjectWithTypeDoesNotHaveTypeSet(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionConfigurationSectionPointsToNonExistingSource(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionConfigurationSourceNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionConfigurationSourceSectionNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionContainerPolicyCreatorAttributeNotPresent(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionCustomFactoryAttributeNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionCustomProviderTypeDoesNotHaveTheRequiredConstructor(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionEventRaisingFailed(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionFactoryMethodHasInvalidReturnType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionIncompaitbleMergeElementType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionInvalidType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionMustBeNameTypeConfigurationElement(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionMustHaveNoArgsConstructor(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionMustImplementIContainerPolicyCreator(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionNamedConfigurationNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionNoConfigurationElementAttribute(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionNoConfigurationObjectPolicySet(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionNoMatchingConstructorFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionNoMethodAnnotatedForInjectionFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionNoSuitableFactoryMethodFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionNoTypeAttribute(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionParameterNotAnnotatedForInjection(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionPerformanceCounterRedefined(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionPolicyBuilderFinished(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionPolicyBuilderStillWaitingForPropertyPolicy(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionPropertyAccessExpressionNotPropertyAccess(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionPropertyNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionRedirectedConfigurationSectionNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionRegistrationServiceTypeIsNotCompatible(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionRegistrationTypeExpressionMustBeNewLambda(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionRetrievalAttributeNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionShouldBeImplementedBySubclass(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionSourcePropertyDoesNotExist(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionStringNullOrEmpty(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionSuppliedCreationExpressionIsNotNewExpression(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionSystemSourceNotDefined(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionTheSpecifiedDefaultProviderDoesNotExistInConfiguration(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionTypeCouldNotBeCreated(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionTypeDoesNotProvideCorrectConstructor(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionTypeMustDeriveFromType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionTypeMustImplementInterface(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionTypeNotCustomFactory(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionTypeNotNameMapper(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionTypeNotRetriever(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionUnableToMatchConstructorToConfigurationObject(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionUnexpectedType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionUnknownResolveMethod(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionUnrecognizedContainerMarkerMethod(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionUnrecognizedDependencyParameterType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionUnsupportedBindingExpressionType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_FileConfigurationSourceName(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SystemConfigurationSourceName(): PrivateScope, Public, Static, HideBySig, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IObjectWithName: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    System.String Name 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IObjectWithName
+  Fields:
+    System.String nameProperty = name : Public, Static, Literal, HasDefault
+  Properties:
+    System.String Name 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Name(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    DeserializeElement(XmlReader): PrivateScope, Public, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IObjectWithNameAndType: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IObjectWithName
+  Properties:
+    System.Type Type 'get ' : 
+  Methods:
+    get_Type(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IObjectWithNameAndType
+  Fields:
+    System.String typeProperty = type : Public, Static, Literal, HasDefault
+  Properties:
+    System.Type Type 'get set' : 
+    System.String TypeName 'get set' : 
+  Methods:
+    get_Type(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Type(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_TypeName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_TypeName(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CallHandlerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 Order 'get set' : 
+  Methods:
+    get_Order(): PrivateScope, Public, HideBySig, SpecialName
+    set_Order(Int32): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSectionCloner: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Clone(ConfigurationSection): PrivateScope, Public, HideBySig
+    CloneElement(ConfigurationElement, ConfigurationElement): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceHandler: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Events:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationChangedEventHandler ConfigurationSectionChanged: 
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceChangedEventArgs] ConfigurationSourceChanged: 
+  Methods:
+    CheckGetSection(String, ConfigurationSection): PrivateScope, Public, HideBySig
+    CheckAddSection(String, ConfigurationSection): PrivateScope, Public, HideBySig
+    CheckRemoveSection(String): PrivateScope, Public, HideBySig
+    add_ConfigurationSectionChanged(ConfigurationChangedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_ConfigurationSectionChanged(ConfigurationChangedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    add_ConfigurationSourceChanged(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_ConfigurationSourceChanged(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CompositeConfigurationSourceHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceHandler
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    GetType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ToString(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSourceBuilder: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    AddSection(String, ConfigurationSection): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Contains(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Get(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Get(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UpdateConfigurationWithReplace(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSourceBuilder
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    AddSection(String, ConfigurationSection): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Contains(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Get(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Get(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    UpdateConfigurationWithReplace(IConfigurationSource): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.IContainerConfigurator: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    RegisterAll(IConfigurationSource, ITypeRegistrationsProvider): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.IContainerReconfiguringEventSource: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ContainerReconfiguringEventArgs] ContainerReconfiguring: 
+  Methods:
+    add_ContainerReconfiguring(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_ContainerReconfiguring(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ChangeTrackingContainerConfigurator: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.IContainerConfigurator
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.IContainerReconfiguringEventSource
+    System.IDisposable
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ContainerReconfiguringEventArgs] ContainerReconfiguring: 
+  Methods:
+    add_ContainerReconfiguring(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_ContainerReconfiguring(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Dispose(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    RegisterAll(IConfigurationSource, ITypeRegistrationsProvider): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ContainerReconfiguringEventArgs: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :System.EventArgs
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource ConfigurationSource 'get ' : 
+    System.Collections.ObjectModel.ReadOnlyCollection`1[System.String] ChangedSectionNames 'get ' : 
+  Methods:
+    get_ConfigurationSource(): PrivateScope, Public, HideBySig, SpecialName
+    get_ChangedSectionNames(): PrivateScope, Public, HideBySig, SpecialName
+    AddTypeRegistrations(IEnumerable`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ConfigurationBasedTypeRegistrationsProviderFactory: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    CreateProvider(): PrivateScope, Public, Static, HideBySig
+    CreateProvider(IConfigurationSource, IContainerReconfiguringEventSource): PrivateScope, Public, Static, HideBySig
+    CreateTypeRegistrationsProviderLocators(IConfigurationSource, IContainerReconfiguringEventSource): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ConfigurationChangeEventSource: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceChangedEventArgs] SourceChanged: 
+  Methods:
+    add_SourceChanged(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_SourceChanged(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    GetSection(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ConfigurationChangeEventSource+ISourceChangeEventSource`1[TSection]: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Type parameter: TSection, System.Configuration.ConfigurationSection
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SectionChangedEventArgs`1[TSection]] SectionChanged: 
+  Methods:
+    add_SectionChanged(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_SectionChanged(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ConfigurationChangeEventSourceImpl: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ConfigurationChangeEventSource
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetSection(): PrivateScope, Public, Virtual, HideBySig
+    ConfigurationSourceChanged(IConfigurationSource, IServiceLocator, IEnumerable`1): PrivateScope, Public, HideBySig
+    ConfigurationSourceChanged(IConfigurationSource, IServiceLocator, String[]): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.NullContainerReconfiguringEventSource: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.IContainerReconfiguringEventSource
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ContainerReconfiguringEventArgs] ContainerReconfiguring: 
+  Methods:
+    add_ContainerReconfiguring(EventHandler`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_ContainerReconfiguring(EventHandler`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ParameterValueVisitor: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Methods:
+    Visit(ParameterValue): PrivateScope, Public, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    System.String Name 'get ' : 
+    System.Collections.Specialized.NameValueCollection Attributes 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Attributes(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[T]: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[T]
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CustomProviderDataHelper`1[T] Helper 'get ' : 
+  Methods:
+    get_Helper(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    BaseGetPropertyValue(ConfigurationProperty): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    BaseIsModified(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    BaseReset(ConfigurationElement): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    BaseSetPropertyValue(ConfigurationProperty, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    BaseUnmerge(ConfigurationElement, ConfigurationElement, ConfigurationSaveMode): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CustomCallHandlerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CallHandlerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CustomCallHandlerData]
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData
+  Properties:
+    System.String TypeName 'get set' : 
+    System.Collections.Specialized.NameValueCollection Attributes 'get ' : 
+  Methods:
+    SetAttributeValue(String, String): PrivateScope, Public, HideBySig
+    get_TypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Attributes(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IMergeableConfigurationElementCollection: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    ResetCollection(IEnumerable`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    CreateNewElement(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement,  DefaultConstructor
+  :System.Configuration.ConfigurationElementCollection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IMergeableConfigurationElementCollection
+    System.Collections.Generic.IEnumerable`1[T]
+  Methods:
+    ForEach(Action`1): PrivateScope, Public, HideBySig
+    Get(Int32): PrivateScope, Public, HideBySig
+    Add(T): PrivateScope, Public, HideBySig
+    Get(String): PrivateScope, Public, HideBySig
+    Contains(String): PrivateScope, Public, HideBySig
+    Remove(String): PrivateScope, Public, HideBySig
+    Clear(): PrivateScope, Public, HideBySig
+    GetEnumerator(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.PolymorphicConfigurationElementCollection`1[T]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement,  DefaultConstructor
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[T]
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElementCollection`2[T,TCustomElementData]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement,  DefaultConstructor
+  Type parameter: TCustomElementData, T,  DefaultConstructor
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.PolymorphicConfigurationElementCollection`1[T]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CustomConfigurationElementCollection`2[T,TCustomElementData]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement,  DefaultConstructor
+  Type parameter: TCustomElementData, T,  DefaultConstructor
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElementCollection`2[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceElement,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TitleResourceName 'get set' : 
+    System.Type TitleResourceType 'get set' : 
+    System.String Title 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandReplacement Replace 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandPlacement CommandPlacement 'get set' : 
+    System.String CommandModelTypeName 'get set' : 
+    System.Type CommandModelType 'get ' : 
+    System.String KeyGesture 'get set' : 
+    System.Object TypeId 'get ' : 
+  Methods:
+    get_TitleResourceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TitleResourceName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TitleResourceType(): PrivateScope, Public, HideBySig, SpecialName
+    set_TitleResourceType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_Title(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Title(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Replace(): PrivateScope, Public, HideBySig, SpecialName
+    set_Replace(CommandReplacement): PrivateScope, Public, HideBySig, SpecialName
+    get_CommandPlacement(): PrivateScope, Public, HideBySig, SpecialName
+    set_CommandPlacement(CommandPlacement): PrivateScope, Public, HideBySig, SpecialName
+    get_CommandModelTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_CommandModelTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_CommandModelType(): PrivateScope, Public, HideBySig, SpecialName
+    get_KeyGesture(): PrivateScope, Public, HideBySig, SpecialName
+    set_KeyGesture(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeId(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.AddApplicationBlockCommandAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandAttribute
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String SectionName 'get ' : 
+    System.Type ConfigurationSectionType 'get ' : 
+  Methods:
+    get_SectionName(): PrivateScope, Public, HideBySig, SpecialName
+    get_ConfigurationSectionType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.AddSateliteProviderCommandAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandAttribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String SectionName 'get ' : 
+    System.Type DefaultProviderConfigurationType 'get ' : 
+    System.String DefaultProviderConfigurationPropertyName 'get ' : 
+    System.String SateliteProviderReferencePropertyName 'get ' : 
+  Methods:
+    get_SectionName(): PrivateScope, Public, HideBySig, SpecialName
+    get_DefaultProviderConfigurationType(): PrivateScope, Public, HideBySig, SpecialName
+    get_DefaultProviderConfigurationPropertyName(): PrivateScope, Public, HideBySig, SpecialName
+    get_SateliteProviderReferencePropertyName(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.AppSettingsDesignTime: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    System.String AppSettingsSectionName = appSettings : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.AppSettingsDesignTime+MetadataTypes: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.AppSettingsDesignTime+MetadataTypes+AppSettingsSectionMetadata: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, BeforeFieldInit
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.AppSettingsDesignTime+MetadataTypes+KeyValueConfigurationCollectionMetadata: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, BeforeFieldInit
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.AppSettingsDesignTime+MetadataTypes+KeyValueConfigurationElementMetadata: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, BeforeFieldInit
+  Properties:
+    System.String Key 'get set' : 
+    System.String Value 'get set' : 
+  Methods:
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Key(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Value(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Value(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.BaseTypeAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypeSelectorIncludes): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypeSelectorIncludes, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypeSelectorIncludes TypeSelectorIncludes 'get ' : 
+    System.Type BaseType 'get ' : 
+    System.Type ConfigurationType 'get ' : 
+  Methods:
+    get_TypeSelectorIncludes(): PrivateScope, Public, HideBySig, SpecialName
+    get_BaseType(): PrivateScope, Public, HideBySig, SpecialName
+    get_ConfigurationType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CloneableConfigurationElementTypeAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type CloneableConfigurationElementType 'get ' : 
+  Methods:
+    get_CloneableConfigurationElementType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.DesigntimeDefaultAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String BindableDefaultValue 'get ' : 
+  Methods:
+    get_BindableDefaultValue(): PrivateScope, Public, HideBySig, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceChangedEventArgs] SourceChanged: 
+  Methods:
+    GetSection(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Add(String, ConfigurationSection): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Remove(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    add_SourceChanged(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_SourceChanged(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    AddSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    RemoveSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSourceTest: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource
+    System.IDisposable
+  Properties:
+    System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceWatcher] ConfigSourceWatcherMappings 'get ' : 
+    System.Collections.Generic.ICollection`1[System.String] WatchedConfigSources 'get ' : 
+    System.Collections.Generic.ICollection`1[System.String] WatchedSections 'get ' : 
+  Methods:
+    ConfigSourceChanged(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExternalConfigSourceChanged(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_ConfigSourceWatcherMappings(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_WatchedConfigSources(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_WatchedSections(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.FileBasedConfigurationSource: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSourceTest
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource
+    System.IDisposable
+  Fields:
+    System.String NullConfigSource = __null__ : Public, Static, Literal, HasDefault
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceChangedEventArgs] SourceChanged: 
+  Methods:
+    GetSection(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    add_SourceChanged(EventHandler`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_SourceChanged(EventHandler`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    AddSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RemoveSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Add(String, ConfigurationSection): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    DoAdd(String, ConfigurationSection): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Remove(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    DoRemove(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IProtectedConfigurationSource: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    Add(String, ConfigurationSection, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.FileConfigurationSource: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.FileBasedConfigurationSource
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IProtectedConfigurationSource
+  Methods:
+    DoAdd(String, ConfigurationSection): PrivateScope, Public, Virtual, HideBySig
+    DoRemove(String): PrivateScope, Public, Virtual, HideBySig
+    Add(String, ConfigurationSection, String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Save(String, ConfigurationSection): PrivateScope, Public, HideBySig
+    Save(String, ConfigurationSection, String): PrivateScope, Public, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.IDesignConfigurationSource: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IProtectedConfigurationSource
+  Methods:
+    GetLocalSection(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    AddLocalSection(String, ConfigurationSection): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    RemoveLocalSection(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.DesignConfigurationSource: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.FileConfigurationSource
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.IDesignConfigurationSource
+  Properties:
+    System.String ConfigurationFilePath 'get ' : 
+  Methods:
+    GetLocalSection(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    AddLocalSection(String, ConfigurationSection): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RemoveLocalSection(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_ConfigurationFilePath(): PrivateScope, Public, HideBySig, SpecialName
+    CreateDesignSource(IDesignConfigurationSource, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.MergeableConfigurationCollectionTypeAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type MergeableConfigurationCollectionType 'get ' : 
+  Methods:
+    get_MergeableConfigurationCollectionType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.NamePropertyAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String PropertyName 'get ' : 
+    System.String NamePropertyDisplayFormat 'get set' : 
+  Methods:
+    get_PropertyName(): PrivateScope, Public, HideBySig, SpecialName
+    get_NamePropertyDisplayFormat(): PrivateScope, Public, HideBySig, SpecialName
+    set_NamePropertyDisplayFormat(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.OmitCustomAttributesPropertyAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.PromoteCommandsAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.EditorWithReadOnlyTextAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean ReadonlyText 'get ' : 
+  Methods:
+    get_ReadonlyText(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.RegisterAsMetadataTypeAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type TargetType 'get ' : 
+  Methods:
+    get_TargetType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypePickingCommandAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Property 'get ' : 
+  Methods:
+    get_Property(): PrivateScope, Public, HideBySig, SpecialName
+Struct Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandReplacement: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandReplacement DefaultAddCommandReplacement = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandReplacement DefaultDeleteCommandReplacement = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandReplacement NoCommand = 2 : Public, Static, Literal, HasDefault
+Struct Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandPlacement: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandPlacement FileMenu = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandPlacement BlocksMenu = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandPlacement WizardMenu = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandPlacement ContextAdd = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandPlacement ContextCustom = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandPlacement ContextDelete = 5 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.DesignTimeReadOnlyAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean ReadOnly 'get set' : 
+  Methods:
+    get_ReadOnly(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.EnvironmentalOverridesAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean CanOverride 'get ' : 
+    System.Type CustomOverridesPropertyType 'get set' : 
+    System.Type StorageConverterType 'get set' : 
+  Methods:
+    get_CanOverride(): PrivateScope, Public, HideBySig, SpecialName
+    get_CustomOverridesPropertyType(): PrivateScope, Public, HideBySig, SpecialName
+    set_CustomOverridesPropertyType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_StorageConverterType(): PrivateScope, Public, HideBySig, SpecialName
+    set_StorageConverterType(Type): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.FilteredFileNameEditorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Filter 'get ' : 
+    Boolean CheckFileExists 'get set' : 
+  Methods:
+    get_Filter(): PrivateScope, Public, HideBySig, SpecialName
+    get_CheckFileExists(): PrivateScope, Public, HideBySig, SpecialName
+    set_CheckFileExists(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.ResourceCategoryAttribute: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.ComponentModel.CategoryAttribute
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ResourceType 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.ResourceCategoryAttribute General 'get ' : 
+  Methods:
+    get_ResourceType(): PrivateScope, Public, HideBySig, SpecialName
+    get_General(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommonDesignTime: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommonDesignTime+CommandTypeNames: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    System.String WizardCommand : Public, Static
+    System.String AddSatelliteProviderCommand = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.Commands.AddSatelliteProviderCommand, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String AddApplicationBlockCommand = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.Commands.AddApplicationBlockCommand, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String AddProviderUsingTypePickerCommand = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.TypePickingCollectionElementAddCommand, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String ExportAdmTemplateCommand = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.BlockSpecifics.ExportAdmTemplateCommand, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String HiddenCommand = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.BlockSpecifics.Commands.HiddenCommand, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String AddInstrumentationApplicationBlockCommand = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.BlockSpecifics.AddInstrumentationBlockCommand, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommonDesignTime+EditorTypes: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    System.String DatePickerEditor = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ComponentModel.Editors.DatePickerEditor, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String CollectionEditor = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ComponentModel.Editors.ElementCollectionEditor, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String UITypeEditor = System.Drawing.Design.UITypeEditor, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a : Public, Static, Literal, HasDefault
+    System.String TypeSelector = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ComponentModel.Editors.TypeSelectionEditor, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String FilteredFilePath = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ComponentModel.Editors.FilteredFileNameEditor, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String FrameworkElement = System.Windows.FrameworkElement, PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 : Public, Static, Literal, HasDefault
+    System.String MultilineText = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ComponentModel.Editors.MultilineTextEditor, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String PopupTextEditor = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ComponentModel.Editors.PopupTextEditor, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String Flags = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ComponentModel.Editors.FlagsEditor, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String RegexTypeEditor = System.Web.UI.Design.WebControls.RegexTypeEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a : Public, Static, Literal, HasDefault
+    System.String ConnectionStringEditor = System.Web.UI.Design.ConnectionStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a : Public, Static, Literal, HasDefault
+    System.String TemplateEditor = Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.Formatters.TemplateEditor, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String OverridesEditor = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.BlockSpecifics.IEnvironmentalOverridesEditor, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommonDesignTime+ViewModelTypeNames: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    System.String TypeNameProperty = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.TypeNameProperty, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String ConfigurationPropertyViewModel = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.ConfigurationProperty, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String SectionViewModel = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.SectionViewModel, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String InstrumentationViewModel = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.BlockSpecifics.InstrumentationViewModel, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String ManageableConfigurationSourceViewModel = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.BlockSpecifics.ManageableConfigurationSourceViewModel, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String CollectionEditorContainedElementProperty = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.CollectionEditorContainedElementProperty, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String CollectionEditorContainedElementReferenceProperty = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.CollectionEditorContainedElementReferenceProperty, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String RedirectedSectionSourceProperty = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.BlockSpecifics.RedirectedSectionSourceProperty, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommonDesignTime+ConverterTypeNames: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    System.String RedirectedSectionNameConverter = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ComponentModel.Converters.RedirectedSectionNameConverter, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommonDesignTime+MetadataTypes: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommonDesignTime+MetadataTypes+RedirectedSectionElementMetadata: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, BeforeFieldInit
+  Properties:
+    System.String Name 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommonDesignTime+ValidationTypeNames: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    System.String FileWritableValidator = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.Validation.FileWritableValidator, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String FileValidator = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.Validation.FilePathValidator, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String PathExistsValidator = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.Validation.FilePathExistsValidator, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String RequiredFieldValidator = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.Validation.RequiredFieldValidator, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String TypeValidator = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.Validation.TypeValidator, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String SelectedSourceValidator = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.ViewModel.BlockSpecifics.SelectedSourceValidator, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+    System.String NameValueCollectionValidator = Microsoft.Practices.EnterpriseLibrary.Configuration.Design.Validation.NameValueCollectionValidator, Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommonDesignTime+SectionType: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    System.String LoggingSettings = Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings, Microsoft.Practices.EnterpriseLibrary.Logging : Public, Static, Literal, HasDefault
+    System.String DatabaseSettings = Microsoft.Practices.EnterpriseLibrary.Data.Configuration.DatabaseSettings, Microsoft.Practices.EnterpriseLibrary.Data : Public, Static, Literal, HasDefault
+    System.String ExceptionHandlingSettings = Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlingSettings, Microsoft.Practices.EnterpriseLibrary.ExceptionHandling : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.ReferenceAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ScopeType 'get ' : 
+    Boolean ScopeIsDeclaringElement 'get set' : 
+    System.Type TargetType 'get ' : 
+  Methods:
+    get_ScopeType(): PrivateScope, Public, HideBySig, SpecialName
+    get_ScopeIsDeclaringElement(): PrivateScope, Public, HideBySig, SpecialName
+    set_ScopeIsDeclaringElement(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_TargetType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.ResourceDescriptionAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.ComponentModel.DescriptionAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ResourceType 'get set' : 
+    System.String ResourceName 'get set' : 
+    System.String Description 'get ' : 
+  Methods:
+    get_ResourceType(): PrivateScope, Public, HideBySig, SpecialName
+    set_ResourceType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_ResourceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ResourceName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Description(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.ResourceDisplayNameAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.ComponentModel.DisplayNameAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ResourceType 'get set' : 
+    System.String ResourceName 'get set' : 
+    System.String DisplayName 'get ' : 
+  Methods:
+    get_ResourceType(): PrivateScope, Public, HideBySig, SpecialName
+    set_ResourceType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_ResourceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ResourceName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_DisplayName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.HandlesSectionAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String SectionName 'get ' : 
+    Boolean ClearOnly 'get set' : 
+  Methods:
+    get_SectionName(): PrivateScope, Public, HideBySig, SpecialName
+    get_ClearOnly(): PrivateScope, Public, HideBySig, SpecialName
+    set_ClearOnly(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Struct Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypeSelectorIncludes: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypeSelectorIncludes None = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypeSelectorIncludes AbstractTypes = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypeSelectorIncludes Interfaces = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypeSelectorIncludes BaseType = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypeSelectorIncludes NonpublicTypes = 8 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.TypeSelectorIncludes All = 15 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.Validation.ValidationAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ValidatorType 'get ' : 
+    System.Object TypeId 'get ' : 
+  Methods:
+    get_ValidatorType(): PrivateScope, Public, HideBySig, SpecialName
+    CreateValidator(): PrivateScope, Public, HideBySig
+    get_TypeId(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.Validation.ElementValidationAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ValidatorType 'get ' : 
+    System.Object TypeId 'get ' : 
+  Methods:
+    get_ValidatorType(): PrivateScope, Public, HideBySig, SpecialName
+    CreateValidator(): PrivateScope, Public, HideBySig
+    get_TypeId(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.ViewModelAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ModelType 'get ' : 
+  Methods:
+    get_ModelType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.WizardCommandAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Design.CommandAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type WizardType 'get set' : 
+    System.String WizardTypeName 'get set' : 
+  Methods:
+    get_WizardType(): PrivateScope, Public, HideBySig, SpecialName
+    set_WizardType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_WizardTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_WizardTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.EnumConverterWithExclusiveStandardValues`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :System.ComponentModel.EnumConverter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetStandardValuesExclusive(ITypeDescriptorContext): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IConfigureTypeRegistrations: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    AddTypeRegistrationsProviderNamed(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IConfigureTypeRegistration: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    ForType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ForType(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ForSection(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.TypeRegistrationProviderConfigurationSourceBuilderExtension: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ConfigureTypeRegistrations(IConfigurationSourceBuilder): PrivateScope, Public, Static, HideBySig
+    ConfigureEmptyTypeRegistrations(IConfigurationSourceBuilder): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceErrorsException: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.Configuration.ConfigurationErrorsException
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Exception, System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.HierarchicalConfigurationSourceHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceHandler
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICloneableConfigurationElement: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    CreateFullClone(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.MergeableConfigurationCollectionFactory: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GetCreateMergeableCollection(ConfigurationElementCollection): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.RedirectedSectionElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String SourceName 'get set' : 
+  Methods:
+    get_SourceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_SourceName(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SectionChangedEventArgs`1[TSection]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TSection, System.Configuration.ConfigurationSection
+  :System.EventArgs
+    Void .ctor(TSection, Microsoft.Practices.ServiceLocation.IServiceLocator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    TSection Section 'get ' : 
+    Microsoft.Practices.ServiceLocation.IServiceLocator Container 'get ' : 
+  Methods:
+    get_Section(): PrivateScope, Public, HideBySig, SpecialName
+    get_Container(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SerializableConfigurationSection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationSection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Xml.Serialization.IXmlSerializable
+  Methods:
+    GetSchema(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ReadXml(XmlReader): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    WriteXml(XmlWriter): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.TypeRegistrationProvidersConfigurationSection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SerializableConfigurationSection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String SectionName = typeRegistrationProvidersConfiguration : Public, Static, Literal, HasDefault
+    System.String CachingTypeRegistrationProviderName = Caching : Public, Static, Literal, HasDefault
+    System.String CryptographyTypeRegistrationProviderName = Cryptography : Public, Static, Literal, HasDefault
+    System.String ExceptionHandlingTypeRegistrationProviderName = Exception Handling : Public, Static, Literal, HasDefault
+    System.String InstrumentationTypeRegistrationProviderName = Instrumentation : Public, Static, Literal, HasDefault
+    System.String LoggingTypeRegistrationProviderName = Logging : Public, Static, Literal, HasDefault
+    System.String PolicyInjectionTypeRegistrationProviderName = Policy Injection : Public, Static, Literal, HasDefault
+    System.String SecurityTypeRegistrationProviderName = Security : Public, Static, Literal, HasDefault
+    System.String DataAccessTypeRegistrationProviderName = Data Access : Public, Static, Literal, HasDefault
+    System.String ValidationTypeRegistrationProviderName = Validation : Public, Static, Literal, HasDefault
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.TypeRegistrationProviderElementCollection TypeRegistrationProviders 'get ' : 
+  Methods:
+    get_TypeRegistrationProviders(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.AssemblyQualifiedTypeNameConverter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationConverterBase
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type): PrivateScope, Public, Virtual, HideBySig
+    ConvertFrom(ITypeDescriptorContext, CultureInfo, Object): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.BlockSectionNames: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    System.String Cryptography = securityCryptographyConfiguration : Public, Static, Literal, HasDefault
+    System.String Data = dataConfiguration : Public, Static, Literal, HasDefault
+    System.String ExceptionHandling = exceptionHandling : Public, Static, Literal, HasDefault
+    System.String Caching = cachingConfiguration : Public, Static, Literal, HasDefault
+    System.String Security = securityConfiguration : Public, Static, Literal, HasDefault
+    System.String Logging = loggingConfiguration : Public, Static, Literal, HasDefault
+    System.String Instrumentation = instrumentationConfiguration : Public, Static, Literal, HasDefault
+    System.String PolicyInjection = policyInjection : Public, Static, Literal, HasDefault
+    System.String Validation = validation : Public, Static, Literal, HasDefault
+    System.String DataRegistrationProviderLocatorType = Microsoft.Practices.EnterpriseLibrary.Data.Configuration.DatabaseSyntheticConfigSettings, Microsoft.Practices.EnterpriseLibrary.Data : Public, Static, Literal, HasDefault
+    System.String ValidationRegistrationProviderLocatorType = Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationTypeRegistrationProvider, Microsoft.Practices.EnterpriseLibrary.Validation : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ByteArrayTypeConverter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.ComponentModel.TypeConverter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CanConvertFrom(ITypeDescriptorContext, Type): PrivateScope, Public, Virtual, HideBySig
+    ConvertFrom(ITypeDescriptorContext, CultureInfo, Object): PrivateScope, Public, Virtual, HideBySig
+    CanConvertTo(ITypeDescriptorContext, Type): PrivateScope, Public, Virtual, HideBySig
+    ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceWatcher: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    System.String ConfigSource 'get set' : 
+    System.Collections.Generic.IList`1[System.String] WatchedSections 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Storage.ConfigurationChangeWatcher Watcher 'get ' : 
+  Methods:
+    get_ConfigSource(): PrivateScope, Public, HideBySig, SpecialName
+    set_ConfigSource(String): PrivateScope, Public, HideBySig, SpecialName
+    get_WatchedSections(): PrivateScope, Public, HideBySig, SpecialName
+    set_WatchedSections(IList`1): PrivateScope, Public, HideBySig, SpecialName
+    StartWatching(): PrivateScope, Public, HideBySig
+    StopWatching(): PrivateScope, Public, HideBySig
+    get_Watcher(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationFileSourceWatcher: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceWatcher
+    Void .ctor(System.String, System.String, Boolean, Int32, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationChangedEventHandler): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Storage.ConfigurationChangeWatcher Watcher 'get ' : 
+  Methods:
+    GetFullFileName(String, String): PrivateScope, Public, Static, HideBySig
+    get_Watcher(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceChangedEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource, System.Collections.Generic.IEnumerable`1[System.String]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource, Microsoft.Practices.ServiceLocation.IServiceLocator, System.Collections.Generic.IEnumerable`1[System.String]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource ConfigurationSource 'get ' : 
+    Microsoft.Practices.ServiceLocation.IServiceLocator Container 'get ' : 
+    System.Collections.ObjectModel.ReadOnlyCollection`1[System.String] ChangedSectionNames 'get ' : 
+  Methods:
+    get_ConfigurationSource(): PrivateScope, Public, HideBySig, SpecialName
+    get_Container(): PrivateScope, Public, HideBySig, SpecialName
+    get_ChangedSectionNames(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CreateSource(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    CreateDesignSource(IDesignConfigurationSource): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceFactory: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Create(String): PrivateScope, Public, Static, HideBySig
+    Create(): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceSection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SerializableConfigurationSection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String SectionName = enterpriseLibrary.ConfigurationSource : Public, Static, Literal, HasDefault
+  Properties:
+    System.String SelectedSource 'get set' : 
+    System.String ParentSource 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CustomConfigurationElementCollection`2[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceElement,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceElement] Sources 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.RedirectedSectionElement] RedirectedSections 'get ' : 
+  Methods:
+    GetConfigurationSourceSection(): PrivateScope, Public, Static, HideBySig
+    get_SelectedSource(): PrivateScope, Public, HideBySig, SpecialName
+    set_SelectedSource(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ParentSource(): PrivateScope, Public, HideBySig, SpecialName
+    set_ParentSource(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Sources(): PrivateScope, Public, HideBySig, SpecialName
+    get_RedirectedSections(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationChangedEventHandler: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, ConfigurationChangedEventArgs): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Object, ConfigurationChangedEventArgs, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationChangedEventArgs: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String SectionName 'get ' : 
+  Methods:
+    get_SectionName(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationElementTypeAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ConfigurationType 'get ' : 
+    System.String TypeName 'get ' : 
+  Methods:
+    get_ConfigurationType(): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationFileChangedEventArgs: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationChangedEventArgs
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String ConfigurationFile 'get ' : 
+  Methods:
+    get_ConfigurationFile(): PrivateScope, Public, HideBySig, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ITypeRegistrationsProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetUpdatedRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistrationsProvider: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ITypeRegistrationsProvider
+  Properties:
+    System.String Name 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetUpdatedRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    CreateDefaultProvider(): PrivateScope, Public, Static, HideBySig
+    CreateDefaultProvider(IConfigurationSource, IContainerReconfiguringEventSource): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ConfigSectionLocator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistrationsProvider
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.IContainerReconfiguringEventSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+    GetUpdatedRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.Container: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Resolved(): PrivateScope, Public, Static, HideBySig
+    Resolved(String): PrivateScope, Public, Static, HideBySig
+    ResolvedIfNotNull(String): PrivateScope, Public, Static, HideBySig
+    ResolvedEnumerable(IEnumerable`1): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ContainerBasedInstanceFactory`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+    Void .ctor(Microsoft.Practices.ServiceLocation.IServiceLocator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Methods:
+    CreateDefault(): PrivateScope, Public, HideBySig
+    Create(String): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ParameterValue: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    System.Linq.Expressions.Expression Expression 'get set' : 
+    System.Type Type 'get ' : 
+  Methods:
+    get_Expression(): PrivateScope, Public, HideBySig, SpecialName
+    get_Type(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ContainerResolvedEnumerableParameter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ParameterValue
+  Properties:
+    System.Collections.Generic.IEnumerable`1[System.String] Names 'get set' : 
+    System.Type ElementType 'get set' : 
+  Methods:
+    get_Names(): PrivateScope, Public, HideBySig, SpecialName
+    get_ElementType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ContainerResolvedParameter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ParameterValue
+  Properties:
+    System.String Name 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.InjectedProperty: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    System.String PropertyName 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ParameterValue PropertyValue 'get set' : 
+  Methods:
+    get_PropertyName(): PrivateScope, Public, HideBySig, SpecialName
+    get_PropertyValue(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.RegistrationExpressionBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    BuildExpression(Type, NameValueCollection): PrivateScope, Public, Static, HideBySig
+    BuildNewExpression(Type, NameValueCollection): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeLoadingLocator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistrationsProvider
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.IContainerReconfiguringEventSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+    GetUpdatedRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Linq.Expressions.LambdaExpression): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Linq.Expressions.LambdaExpression, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ImplementationType 'get ' : 
+    System.Linq.Expressions.NewExpression NewExpressionBody 'get ' : 
+    System.Type ServiceType 'get set' : 
+    System.String Name 'get set' : 
+    Boolean IsPublicName 'get set' : 
+    System.Linq.Expressions.LambdaExpression LambdaExpression 'get set' : 
+    Boolean IsDefault 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistrationLifetime Lifetime 'get set' : 
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ParameterValue] ConstructorParameters 'get ' : 
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.InjectedProperty] InjectedProperties 'get ' : 
+  Methods:
+    get_ImplementationType(): PrivateScope, Public, HideBySig, SpecialName
+    get_NewExpressionBody(): PrivateScope, Public, HideBySig, SpecialName
+    get_ServiceType(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_IsPublicName(): PrivateScope, Public, HideBySig, SpecialName
+    set_IsPublicName(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    DefaultName(Type): PrivateScope, Public, Static, HideBySig
+    DefaultName(): PrivateScope, Public, Static, HideBySig
+    get_LambdaExpression(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsDefault(): PrivateScope, Public, HideBySig, SpecialName
+    set_IsDefault(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_Lifetime(): PrivateScope, Public, HideBySig, SpecialName
+    set_Lifetime(TypeRegistrationLifetime): PrivateScope, Public, HideBySig, SpecialName
+    get_ConstructorParameters(): PrivateScope, Public, HideBySig, SpecialName
+    get_InjectedProperties(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistration
+    Void .ctor(System.Linq.Expressions.Expression`1[System.Func`1[T]]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Struct Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistrationLifetime: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistrationLifetime Singleton = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistrationLifetime Transient = 1 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.CompositeTypeRegistrationsProviderLocator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.TypeRegistrationsProvider
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ITypeRegistrationsProvider]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ITypeRegistrationsProvider[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+    GetUpdatedRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.Unity.UnityContainerConfigurator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ChangeTrackingContainerConfigurator
+    Void .ctor(Microsoft.Practices.Unity.IUnityContainer): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ConstantParameterValue: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ParameterValue
+  Properties:
+    System.Object Value 'get set' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CustomProviderDataHelper`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[T]
+    Void .ctor(T): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Collections.Specialized.NameValueCollection Attributes 'get ' : 
+    System.Configuration.ConfigurationPropertyCollection Properties 'get ' : 
+  Methods:
+    HandleIsModified(): PrivateScope, Public, HideBySig
+    HandleOnDeserializeUnrecognizedAttribute(String, String): PrivateScope, Public, HideBySig
+    HandleReset(ConfigurationElement): PrivateScope, Public, HideBySig
+    HandleSetAttributeValue(String, String): PrivateScope, Public, HideBySig
+    HandleUnmerge(ConfigurationElement, ConfigurationElement, ConfigurationSaveMode): PrivateScope, Public, HideBySig
+    get_Attributes(): PrivateScope, Public, HideBySig, SpecialName
+    get_Properties(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.DictionaryConfigurationSource: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource
+    System.IDisposable
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceChangedEventArgs] SourceChanged: 
+  Methods:
+    add_SourceChanged(EventHandler`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_SourceChanged(EventHandler`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetSection(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Add(String, ConfigurationSection): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Remove(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Contains(String): PrivateScope, Public, HideBySig
+    AddSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RemoveSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.FileConfigurationSourceElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String FilePath 'get set' : 
+  Methods:
+    get_FilePath(): PrivateScope, Public, HideBySig, SpecialName
+    set_FilePath(String): PrivateScope, Public, HideBySig, SpecialName
+    CreateSource(): PrivateScope, Public, Virtual, HideBySig
+    CreateDesignSource(IDesignConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmCategory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmCategory] Categories 'get ' : 
+    System.String Name 'get ' : 
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmPolicy] Policies 'get ' : 
+  Methods:
+    get_Categories(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_Policies(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmPart: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Fields:
+    System.String PartStartTemplate = 		PART "{0}" : Public, Static, Literal, HasDefault
+    System.String PartEndTemplate = 		END PART : Public, Static, Literal, HasDefault
+    System.String ValueNameTemplate = 			VALUENAME "{0}" : Public, Static, Literal, HasDefault
+    System.String KeyNameTemplate = 			KEYNAME "Software\Policies\{0}" : Public, Static, Literal, HasDefault
+  Properties:
+    System.String KeyName 'get ' : 
+    System.String PartName 'get ' : 
+    System.String ValueName 'get ' : 
+  Methods:
+    Write(TextWriter): PrivateScope, Public, HideBySig
+    get_KeyName(): PrivateScope, Public, HideBySig, SpecialName
+    get_PartName(): PrivateScope, Public, HideBySig, SpecialName
+    get_ValueName(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmCheckboxPart: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmPart
+  Properties:
+    Boolean CheckedByDefault 'get ' : 
+    Boolean ValueForOn 'get ' : 
+    Boolean ValueForOff 'get ' : 
+  Methods:
+    get_CheckedByDefault(): PrivateScope, Public, HideBySig, SpecialName
+    get_ValueForOn(): PrivateScope, Public, HideBySig, SpecialName
+    get_ValueForOff(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmEditTextPart: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmPart
+  Properties:
+    System.String DefaultValue 'get ' : 
+    Int32 Maxlen 'get ' : 
+    Boolean Required 'get ' : 
+  Methods:
+    get_DefaultValue(): PrivateScope, Public, HideBySig, SpecialName
+    get_Maxlen(): PrivateScope, Public, HideBySig, SpecialName
+    get_Required(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmComboBoxPart: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmEditTextPart
+  Properties:
+    System.Collections.Generic.IEnumerable`1[System.String] Suggestions 'get ' : 
+  Methods:
+    get_Suggestions(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContent: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmCategory] Categories 'get ' : 
+  Methods:
+    get_Categories(): PrivateScope, Public, HideBySig, SpecialName
+    AddCategory(AdmCategory): PrivateScope, Public, HideBySig
+    Write(TextWriter): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmContentBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String AvailableValueName = Available : Public, Static, Literal, HasDefault
+    System.String NoneListItem = __none__ : Public, Static, Literal, HasDefault
+  Methods:
+    AddCheckboxPart(String, String, Boolean): PrivateScope, Public, HideBySig
+    AddCheckboxPart(String, String, Boolean, Boolean, Boolean): PrivateScope, Public, HideBySig
+    AddCheckboxPart(String, String, String, Boolean, Boolean, Boolean): PrivateScope, Public, HideBySig
+    AddComboBoxPart(String, String, String, Int32, Boolean, String[]): PrivateScope, Public, HideBySig
+    AddComboBoxPart(String, String, String, String, Int32, Boolean, String[]): PrivateScope, Public, HideBySig
+    AddDropDownListPart(String, String, IEnumerable`1, String): PrivateScope, Public, HideBySig
+    AddDropDownListPart(String, String, String, IEnumerable`1, String): PrivateScope, Public, HideBySig
+    AddDropDownListPartForEnumeration(String, String, T): PrivateScope, Public, HideBySig
+    AddDropDownListPartForEnumeration(String, String, String, T): PrivateScope, Public, HideBySig
+    AddDropDownListPartForNamedElementCollection(String, String, NamedElementCollection`1, String, Boolean): PrivateScope, Public, HideBySig
+    AddDropDownListPartForNamedElementCollection(String, String, String, NamedElementCollection`1, String, Boolean): PrivateScope, Public, HideBySig
+    AddEditTextPart(String, String, String, Int32, Boolean): PrivateScope, Public, HideBySig
+    AddEditTextPart(String, String, String, String, Int32, Boolean): PrivateScope, Public, HideBySig
+    AddNumericPart(String, String, Nullable`1): PrivateScope, Public, HideBySig
+    AddNumericPart(String, String, String, Nullable`1): PrivateScope, Public, HideBySig
+    AddNumericPart(String, String, String, Nullable`1, Nullable`1, Nullable`1): PrivateScope, Public, HideBySig
+    AddPart(AdmPart): PrivateScope, Public, HideBySig
+    AddTextPart(String): PrivateScope, Public, HideBySig
+    EndCategory(): PrivateScope, Public, HideBySig
+    EndPolicy(): PrivateScope, Public, HideBySig
+    GetContent(): PrivateScope, Public, HideBySig
+    StartCategory(String): PrivateScope, Public, HideBySig
+    StartPolicy(String, String): PrivateScope, Public, HideBySig
+Struct Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmDropDownListItem: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get ' : 
+    System.String Value 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmDropDownListPart: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmPart
+    Void .ctor(System.String, System.String, System.String, System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmDropDownListItem], System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String DropDownListTemplate = 			DROPDOWNLIST : Public, Static, Literal, HasDefault
+    System.String ItemListStartTemplate = 			ITEMLIST : Public, Static, Literal, HasDefault
+    System.String ListItemTemplate = 				NAME "{0}" VALUE "{1}" : Public, Static, Literal, HasDefault
+    System.String DefaultListItemTemplate = 				NAME "{0}" VALUE "{1}" DEFAULT : Public, Static, Literal, HasDefault
+    System.String ItemListEndTemplate = 			END ITEMLIST : Public, Static, Literal, HasDefault
+  Properties:
+    System.String DefaultValue 'get ' : 
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmDropDownListItem] Items 'get ' : 
+  Methods:
+    get_DefaultValue(): PrivateScope, Public, HideBySig, SpecialName
+    get_Items(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdministrativeTemplateGenerator: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GenerateAdministrativeTemplateContent(IConfigurationSource, String, IDictionary`2): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmNumericPart: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmPart
+  Properties:
+    System.Nullable`1[System.Int32] DefaultValue 'get ' : 
+    System.Nullable`1[System.Int32] MaxValue 'get ' : 
+    System.Nullable`1[System.Int32] MinValue 'get ' : 
+  Methods:
+    get_DefaultValue(): PrivateScope, Public, HideBySig, SpecialName
+    get_MaxValue(): PrivateScope, Public, HideBySig, SpecialName
+    get_MinValue(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    System.String KeyName 'get ' : 
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmPart] Parts 'get ' : 
+    System.String Name 'get ' : 
+    System.String ValueName 'get ' : 
+  Methods:
+    get_KeyName(): PrivateScope, Public, HideBySig, SpecialName
+    get_Parts(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_ValueName(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmTextPart: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Adm.AdmPart
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationChangeNotificationCoordinator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AddSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, HideBySig
+    NotifyUpdatedSections(IEnumerable`1): PrivateScope, Public, HideBySig
+    RemoveSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationChangeWatcherCoordinator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    System.String MainConfigurationFileSource =  : Public, Static, Literal, HasDefault
+  Properties:
+    System.Collections.Generic.ICollection`1[System.String] WatchedConfigSources 'get ' : 
+  Events:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationChangedEventHandler ConfigurationChanged: 
+  Methods:
+    get_WatchedConfigSources(): PrivateScope, Public, HideBySig, SpecialName
+    add_ConfigurationChanged(ConfigurationChangedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_ConfigurationChanged(ConfigurationChangedEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    IsWatchingConfigSource(String): PrivateScope, Public, HideBySig
+    OnConfigurationChanged(Object, ConfigurationChangedEventArgs): PrivateScope, Public, HideBySig
+    RemoveWatcherForConfigSource(String): PrivateScope, Public, HideBySig
+    SetWatcherForConfigSource(String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProvider: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Fields:
+    System.String PolicyValueName = Available : Public, Static, Literal, HasDefault
+  Methods:
+    AddAdministrativeTemplateDirectives(AdmContentBuilder, ConfigurationElement, IConfigurationSource, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OverrideWithGroupPolicies(ConfigurationElement, Boolean, IRegistryKey, IRegistryKey): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.Type, System.Type, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ManageabilityProviderType 'get ' : 
+    System.Type TargetType 'get ' : 
+    System.Type SectionManageabilityProviderType 'get ' : 
+  Methods:
+    get_ManageabilityProviderType(): PrivateScope, Public, HideBySig, SpecialName
+    get_TargetType(): PrivateScope, Public, HideBySig, SpecialName
+    get_SectionManageabilityProviderType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1[T]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProvider
+  Methods:
+    AddAdministrativeTemplateDirectives(AdmContentBuilder, ConfigurationElement, IConfigurationSource, String): PrivateScope, Public, Final, Virtual, HideBySig
+    OverrideWithGroupPolicies(ConfigurationElement, Boolean, IRegistryKey, IRegistryKey): PrivateScope, Public, Final, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IConfigurationAccessor: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    GetSection(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    RemoveSection(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetRequestedSectionNames(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationInstanceConfigurationAccessor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Configuration.Configuration): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IConfigurationAccessor
+  Methods:
+    GetRequestedSectionNames(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetSection(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RemoveSection(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProvider: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Fields:
+    System.String PolicyValueName = Available : Public, Static, Literal, HasDefault
+  Properties:
+    System.Collections.Generic.IDictionary`2[System.Type,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProvider] Providers 'get ' : 
+  Methods:
+    get_Providers(): PrivateScope, Public, HideBySig, SpecialName
+    AddAdministrativeTemplateDirectives(AdmContentBuilder, ConfigurationSection, IConfigurationSource, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OverrideWithGroupPolicies(ConfigurationSection, Boolean, IRegistryKey, IRegistryKey): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProviderAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String SectionName 'get ' : 
+    System.Type ManageabilityProviderType 'get ' : 
+  Methods:
+    get_SectionName(): PrivateScope, Public, HideBySig, SpecialName
+    get_ManageabilityProviderType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProviderBase`1[T]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: T, System.Configuration.ConfigurationSection
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProvider
+  Methods:
+    AddAdministrativeTemplateDirectives(AdmContentBuilder, ConfigurationSection, IConfigurationSource, String): PrivateScope, Public, Final, Virtual, HideBySig
+    OverrideWithGroupPolicies(ConfigurationSection, Boolean, IRegistryKey, IRegistryKey): PrivateScope, Public, Final, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Configuration.ConfigurationElementManageabilityProviderData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type TargetType 'get set' : 
+  Methods:
+    get_TargetType(): PrivateScope, Public, HideBySig, SpecialName
+    set_TargetType(Type): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Configuration.ConfigurationSectionManageabilityProviderData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Configuration.ConfigurationElementManageabilityProviderData] ManageabilityProviders 'get ' : 
+  Methods:
+    get_ManageabilityProviders(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Configuration.ManageableConfigurationSourceElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 MinimumApplicationNameLength = 1 : Public, Static, Literal, HasDefault
+    Int32 MaximumApplicationNameLength = 255 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String FilePath 'get set' : 
+    System.String ApplicationName 'get set' : 
+    Boolean EnableGroupPolicies 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Configuration.ConfigurationSectionManageabilityProviderData] ConfigurationManageabilityProviders 'get ' : 
+  Methods:
+    get_FilePath(): PrivateScope, Public, HideBySig, SpecialName
+    set_FilePath(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ApplicationName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ApplicationName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_EnableGroupPolicies(): PrivateScope, Public, HideBySig, SpecialName
+    set_EnableGroupPolicies(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_ConfigurationManageabilityProviders(): PrivateScope, Public, HideBySig, SpecialName
+    CreateSource(): PrivateScope, Public, Virtual, HideBySig
+    CreateDesignSource(IDesignConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.CustomProviderDataManageabilityProvider`1[T]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1[T]
+  Fields:
+    System.String AttributesPropertyName = attributes : Public, Static, Literal, HasDefault
+    System.String ProviderTypePropertyName = type : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.GroupPolicyNotificationRegistration: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    System.Threading.AutoResetEvent MachinePolicyEvent 'get ' : 
+    System.Threading.AutoResetEvent UserPolicyEvent 'get ' : 
+  Methods:
+    get_MachinePolicyEvent(): PrivateScope, Public, HideBySig, SpecialName
+    get_UserPolicyEvent(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.GroupPolicyNotificationRegistrationBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CreateRegistration(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IGroupPolicyWatcher: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Events:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.GroupPolicyUpdateDelegate GroupPolicyUpdated: 
+  Methods:
+    add_GroupPolicyUpdated(GroupPolicyUpdateDelegate): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_GroupPolicyUpdated(GroupPolicyUpdateDelegate): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    StartWatching(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    StopWatching(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.GroupPolicyWatcher: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.GroupPolicyNotificationRegistrationBuilder): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IGroupPolicyWatcher
+    System.IDisposable
+  Events:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.GroupPolicyUpdateDelegate GroupPolicyUpdated: 
+  Methods:
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    add_GroupPolicyUpdated(GroupPolicyUpdateDelegate): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_GroupPolicyUpdated(GroupPolicyUpdateDelegate): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    StartWatching(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    StopWatching(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.GroupPolicyUpdateDelegate: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Boolean): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Boolean, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IManageabilityHelper: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    UpdateConfigurationManageability(IConfigurationAccessor): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UpdateConfigurationSectionManageability(IConfigurationAccessor, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Struct Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ImplementationKey: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String ApplicationName : Public
+    Boolean EnableGroupPolicies : Public
+    System.String FileName : Public
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ImplementationKeyComparer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Collections.Generic.IEqualityComparer`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ImplementationKey]
+  Methods:
+    Equals(ImplementationKey, ImplementationKey): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetHashCode(ImplementationKey): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.CommonWmiInstaller: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.Install.Installer
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Installer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.CommonWmiInstaller
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.InstrumentationConfigurationSectionManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProviderBase`1[Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.Configuration.InstrumentationConfigurationSection]
+    Void .ctor(System.Collections.Generic.IDictionary`2[System.Type,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProvider]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String EventLoggingEnabledPropertyName = eventLoggingEnabled : Public, Static, Literal, HasDefault
+    System.String PerformanceCountersEnabledPropertyName = performanceCountersEnabled : Public, Static, Literal, HasDefault
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryAccessor: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey CurrentUser 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey LocalMachine 'get ' : 
+  Methods:
+    get_CurrentUser(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_LocalMachine(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryKey: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Boolean IsPolicyKey 'get ' : 
+    System.String Name 'get ' : 
+  Methods:
+    Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetBoolValue(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetEnumValue(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetIntValue(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetStringValue(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetTypeValue(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetValueNames(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OpenSubKey(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_IsPolicyKey(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.KeyValuePairEncoder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AppendKeyValuePair(String, String): PrivateScope, Public, HideBySig
+    GetEncodedKeyValuePairs(): PrivateScope, Public, HideBySig
+    EncodeKeyValuePair(String, String): PrivateScope, Public, Static, HideBySig
+    EncodeKeyValuePair(String, String, Boolean): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.KeyValuePairParser: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ExtractKeyValueEntries(String, IDictionary`2): PrivateScope, Public, Static, HideBySig
+    DecodeKeyValuePair(String, String&(Out), String&(Out)): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ManageabilityExtensionsLogger: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    LogExceptionWhileOverriding(Exception): PrivateScope, Public, Static, HideBySig
+    LogException(Exception, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ManageabilityHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProvider], Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProvider], Boolean, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IRegistryAccessor, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IManageabilityHelper
+  Properties:
+    System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProvider] ManageabilityProviders 'get ' : 
+  Methods:
+    get_ManageabilityProviders(): PrivateScope, Public, HideBySig, SpecialName
+    BuildSectionKeyName(String, String): PrivateScope, Public, Static, HideBySig
+    UpdateConfigurationManageability(IConfigurationAccessor): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    UpdateConfigurationSectionManageability(IConfigurationAccessor, String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ManageableConfigurationSource: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProvider], Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ManageableConfigurationSourceImplementation): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource
+    System.IDisposable
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ManageableConfigurationSourceImplementation Implementation 'get ' : 
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceChangedEventArgs] SourceChanged: 
+  Methods:
+    get_Implementation(): PrivateScope, Public, HideBySig, SpecialName
+    Add(String, ConfigurationSection): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    add_SourceChanged(EventHandler`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_SourceChanged(EventHandler`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    AddSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetSection(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Remove(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RemoveSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ResetAllImplementations(): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ManageableConfigurationSourceImplementation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, Boolean, System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProvider], Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IManageabilityHelper, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IGroupPolicyWatcher, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationChangeWatcherCoordinator, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationChangeNotificationCoordinator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.IManageabilityHelper ManageabilityHelper 'get ' : 
+  Methods:
+    get_ManageabilityHelper(): PrivateScope, Public, HideBySig, SpecialName
+    AddSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetSection(String): PrivateScope, Public, HideBySig
+    RemoveSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ManageableConfigurationSourceSingletonHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Methods:
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetInstance(String, IDictionary`2, Boolean, String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ParseHelper: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ParseEnum(String, Boolean): PrivateScope, Public, Static, HideBySig
+    TryParseEnum(String, T&(Out)): PrivateScope, Public, Static, HideBySig
+    ParseType(String, Boolean): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.RegistryAccessException: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.RegistryKeyBase: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Fields:
+    System.String PolicyValueName = Available : Public, Static, Literal, HasDefault
+  Properties:
+    Boolean IsPolicyKey 'get ' : 
+    System.String Name 'get ' : 
+  Methods:
+    Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    DoOpenSubKey(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetBoolValue(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetEnumValue(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetIntValue(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetStringValue(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetTypeValue(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetValueNames(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OpenSubKey(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_IsPolicyKey(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Configuration.ManageabilityProviderBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CreateConfigurationElementManageabilityProvider(ConfigurationElementManageabilityProviderData): PrivateScope, Public, HideBySig
+    CreateConfigurationSectionManageabilityProvider(ConfigurationSectionManageabilityProviderData): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NullConfigurationSource: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource
+    System.IDisposable
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceChangedEventArgs] SourceChanged: 
+  Methods:
+    add_SourceChanged(EventHandler`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_SourceChanged(EventHandler`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetSection(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Add(String, ConfigurationSection): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Remove(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    AddSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RemoveSectionChangeHandler(String, ConfigurationChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Storage.IConfigurationChangeWatcher: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Properties:
+    System.String SectionName 'get ' : 
+  Events:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationChangedEventHandler ConfigurationChanged: 
+  Methods:
+    add_ConfigurationChanged(ConfigurationChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_ConfigurationChanged(ConfigurationChangedEventHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    StartWatching(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    StopWatching(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_SectionName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Storage.ConfigurationChangeWatcher: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Storage.IConfigurationChangeWatcher
+    System.IDisposable
+  Properties:
+    System.String SectionName 'get ' : 
+  Events:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationChangedEventHandler ConfigurationChanged: 
+  Methods:
+    SetDefaultPollDelayInMilliseconds(Int32): PrivateScope, Public, Static, HideBySig
+    ResetDefaultPollDelay(): PrivateScope, Public, Static, HideBySig
+    SetPollDelayInMilliseconds(Int32): PrivateScope, Public, HideBySig
+    add_ConfigurationChanged(ConfigurationChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_ConfigurationChanged(ConfigurationChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_SectionName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    StartWatching(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    StopWatching(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Storage.ConfigurationChangeFileWatcher: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Storage.ConfigurationChangeWatcher
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String SectionName 'get ' : 
+  Methods:
+    get_SectionName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SystemConfigurationSource: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.FileBasedConfigurationSource
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Boolean, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    DoAdd(String, ConfigurationSection): PrivateScope, Public, Virtual, HideBySig
+    DoRemove(String): PrivateScope, Public, Virtual, HideBySig
+    Save(String, ConfigurationSection): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SystemConfigurationSourceElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CreateSource(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.TypeRegistrationProviderElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String SectionName 'get set' : 
+    System.String ProviderTypeName 'get set' : 
+  Methods:
+    get_SectionName(): PrivateScope, Public, HideBySig, SpecialName
+    set_SectionName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ProviderTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ProviderTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.TypeRegistrationProviderElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.TypeRegistrationProviderElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryBlockExtension: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.UnityContainerExtension
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryCoreExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.UnityContainerExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.EnterpriseLibraryContainer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.ServiceLocation.IServiceLocator Current 'get set' : 
+  Methods:
+    get_Current(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_Current(IServiceLocator): PrivateScope, Public, Static, HideBySig, SpecialName
+    ConfigureContainer(IContainerConfigurator, IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    ConfigureContainer(ITypeRegistrationsProvider, IContainerConfigurator, IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    CreateDefaultContainer(): PrivateScope, Public, Static, HideBySig
+    CreateDefaultContainer(IConfigurationSource): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.ReaderWriterLockExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.UnityContainerExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    EnterWriteLock(): PrivateScope, Public, HideBySig
+    ExitWriteLock(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.TransientPolicyBuildUpExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.UnityContainerExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    BuildUp(Type, Object, String, InjectionMember[]): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.UnityContainerExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    AddExtensionIfNotPresent(IUnityContainer, UnityContainerExtension): PrivateScope, Public, Static, HideBySig
+    AddNewExtensionIfNotPresent(IUnityContainer): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.AbstractInstallerBuilder: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Methods:
+    Fill(Installer): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.Configuration.InstrumentationConfigurationSection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SerializableConfigurationSection
+    Void .ctor(Boolean, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Boolean, Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String SectionName = instrumentationConfiguration : Public, Static, Literal, HasDefault
+  Properties:
+    Boolean PerformanceCountersEnabled 'get set' : 
+    Boolean EventLoggingEnabled 'get set' : 
+    System.String ApplicationInstanceName 'get set' : 
+  Methods:
+    get_PerformanceCountersEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    set_PerformanceCountersEnabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_EventLoggingEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    set_EventLoggingEnabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_ApplicationInstanceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ApplicationInstanceName(String): PrivateScope, Public, HideBySig, SpecialName
+    GetSection(IConfigurationSource): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ConfigurationSourceBuilderExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ConfigureInstrumentation(IConfigurationSourceBuilder): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IInstrumentationConfiguration: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    EnableLogging(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    EnablePerformanceCounters(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ForApplicationInstance(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.EnterpriseLibraryPerformanceCounterFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CreateCounter(String, String, String[]): PrivateScope, Public, HideBySig
+    ClearCachedCounters(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.EventLogDefinitionAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String LogName 'get ' : 
+    System.String SourceName 'get ' : 
+    Int32 CategoryCount 'get set' : 
+    System.String CategoryResourceFile 'get set' : 
+    System.String MessageResourceFile 'get set' : 
+    System.String ParameterResourceFile 'get set' : 
+  Methods:
+    get_LogName(): PrivateScope, Public, HideBySig, SpecialName
+    get_SourceName(): PrivateScope, Public, HideBySig, SpecialName
+    get_CategoryCount(): PrivateScope, Public, HideBySig, SpecialName
+    set_CategoryCount(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_CategoryResourceFile(): PrivateScope, Public, HideBySig, SpecialName
+    set_CategoryResourceFile(String): PrivateScope, Public, HideBySig, SpecialName
+    get_MessageResourceFile(): PrivateScope, Public, HideBySig, SpecialName
+    set_MessageResourceFile(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ParameterResourceFile(): PrivateScope, Public, HideBySig, SpecialName
+    set_ParameterResourceFile(String): PrivateScope, Public, HideBySig, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IEventLogEntryFormatter: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    GetEntryText(String, String[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetEntryText(String, Exception, String[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.EventLogEntryFormatter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IEventLogEntryFormatter
+  Methods:
+    GetEntryText(String, String[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetEntryText(String, Exception, String[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.EventLogInstallerBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.AbstractInstallerBuilder
+    Void .ctor(System.Type[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationListener: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    Boolean EventLoggingEnabled 'get set' : 
+    Boolean PerformanceCountersEnabled 'get set' : 
+  Methods:
+    get_EventLoggingEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    get_PerformanceCountersEnabled(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.PerformanceCounterInstallerBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.AbstractInstallerBuilder
+    Void .ctor(System.Type[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetCategoryHelp(PerformanceCountersDefinitionAttribute, Assembly): PrivateScope, Public, Static, HideBySig
+    GetCounterHelp(String, Assembly): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.PerformanceCounterInstanceName: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.PerformanceCountersDefinitionAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.Diagnostics.PerformanceCounterCategoryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Diagnostics.PerformanceCounterCategoryType CategoryType 'get ' : 
+    System.String CategoryName 'get ' : 
+    System.String CategoryHelp 'get ' : 
+  Methods:
+    get_CategoryType(): PrivateScope, Public, HideBySig, SpecialName
+    get_CategoryName(): PrivateScope, Public, HideBySig, SpecialName
+    get_CategoryHelp(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.ReflectionInstaller`1[TInstallerBuilder]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TInstallerBuilder, Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.AbstractInstallerBuilder
+  :System.Configuration.Install.Installer
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Install(IDictionary): PrivateScope, Public, Virtual, HideBySig
+    Uninstall(IDictionary): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.ReplacementFormatter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.ReplacementToken[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Common.ReplacementToken]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Add(ReplacementToken[]): PrivateScope, Public, HideBySig
+    AddRange(IEnumerable`1): PrivateScope, Public, HideBySig
+    Format(String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.MethodInvocationFormatter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.ReplacementFormatter
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IMethodInvocation): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.ReplacementToken: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Common.ReplacementTextDelegate): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Token 'get ' : 
+    System.String ReplacementText 'get ' : 
+  Methods:
+    get_Token(): PrivateScope, Public, HideBySig, SpecialName
+    get_ReplacementText(): PrivateScope, Public, HideBySig, SpecialName
+    ReplaceToken(StringBuilder): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.ReplacementTextDelegate: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Common.ResourceStringLoader: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    LoadString(String, String): PrivateScope, Public, Static, HideBySig
+    LoadString(String, String, Assembly): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Utility.IStringResolver: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    GetString(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Utility.ConstantStringResolver: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Utility.IStringResolver
+Class Microsoft.Practices.EnterpriseLibrary.Common.Utility.DelegateStringResolver: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(System.Func`1[System.String]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Utility.IStringResolver
+Class Microsoft.Practices.EnterpriseLibrary.Common.Utility.EnumerableExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ForEach(IEnumerable`1, Action`1): PrivateScope, Public, Static, HideBySig
+    Zip(IEnumerable`1, IEnumerable`1, Func`3): PrivateScope, Public, Static, HideBySig
+    Zip(IEnumerable`1, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+    ToDictionary(IEnumerable`1, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Utility.ResourceStringResolver: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+    Void .ctor(System.Type, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Utility.IStringResolver
+Class Microsoft.Practices.EnterpriseLibrary.Common.Utility.ServiceLocatorExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Dispose(IServiceLocator): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Utility.TypeExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    FindGenericParent(Type, Type): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Utility.WrappedAsyncOperation: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    BeginAsyncOperation(AsyncCallback, Func`2, Func`2): PrivateScope, Public, Static, HideBySig
