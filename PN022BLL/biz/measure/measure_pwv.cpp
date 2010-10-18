@@ -199,25 +199,26 @@ namespace Biz {
 		myFemoral2CuffDistance = gcnew BizFemoral2CuffDistance;
 
 		// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
-		myTonometerDataObserver = gcnew BizTonometerDataCapture(
+		tonometerDataObserver = gcnew BizTonometerDataCapture(
 			gcnew BizCircularBuffer(1000 * 
 			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 
 									Biz::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
-		myTonometerDataObserver->Reset();
+		tonometerDataObserver->Reset();
 
-		myCuffPulseObserver = gcnew BizCuffPulseCapture(
+		cuffPulseObserver = gcnew BizCuffPulseCapture(
 			gcnew BizCircularBuffer(1000 * 
 			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 
 									Biz::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
-		myCuffPulseObserver->Reset();
+		cuffPulseObserver->Reset();
 
 		// Countdown data from DAL are captured here for PWV measurement.
 		// Only one last countdown data is needed to be captured.
-		myCountdownObserver = gcnew BizCountdownCapture(gcnew BizCircularBuffer(1));
-		myCountdownObserver->Reset();
+		countdownTimerObserver = gcnew BizCountdownTimerCapture(gcnew BizCircularBuffer(1));
+		countdownTimerObserver->Reset();
 
+		cuffObserver = gcnew BizCuff;
 	}
 	/**
 	ValidatePWVDistance
@@ -332,8 +333,8 @@ namespace Biz {
 	*/		
 	bool BizPWV::StartCapture()
 	{
-		myTonometerDataObserver->Reset();
-		myCuffPulseObserver->Reset();
+		tonometerDataObserver->Reset();
+		cuffPulseObserver->Reset();
 		return DalFacade::Instance()->StartCapture(DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
 	}
 	/**
@@ -389,9 +390,10 @@ namespace Biz {
 	*/		
 	void BizPWV::DispatchCaptureData()
 	{
-		myTonometerDataObserver->Dispatch();
-		myCuffPulseObserver->Dispatch();
-		myCountdownObserver->Dispatch();
+		tonometerDataObserver->Dispatch();
+		cuffPulseObserver->Dispatch();
+		countdownTimerObserver->Dispatch();
+		cuffObserver->Dispatch();
 	}
 	// Initialise properties
 	void BizPWV::Initialise(const int signalSampleRate)

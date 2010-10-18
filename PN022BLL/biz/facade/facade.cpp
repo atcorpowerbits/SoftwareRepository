@@ -217,7 +217,7 @@ namespace Biz {
 		return DalFacade::Instance()->StopCaptureSimulation();
 	}
 	/**
-	FindTonometerData
+	FindTonometerDataEvent
 
 	DESCRIPTION
 
@@ -240,10 +240,10 @@ namespace Biz {
 	{ 
 		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
 
-		return measurePWV->myTonometerDataObserver->tonometerDataBiz; 
+		return measurePWV->tonometerDataObserver->tonometerDataBiz; 
 	}
 	/**
-	FindCuffPulse
+	FindCuffPulseEvent
 
 	DESCRIPTION
 
@@ -266,14 +266,14 @@ namespace Biz {
 	{ 
 		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
 
-		return measurePWV->myCuffPulseObserver->cuffPulseBiz; 
+		return measurePWV->cuffPulseObserver->cuffPulseBiz; 
 	}
 	/**
-	FindCountdown
+	FindCountdownTimerEvent
 
 	DESCRIPTION
 
-		Find a countdown data event in business logic context.
+		Find a countdown timer event in business logic context.
 	
 	INPUT
 	
@@ -285,14 +285,40 @@ namespace Biz {
 	
 	RETURN
 	
-		BizCountdownEvent^ - Handle to countdown data event in the business logic.
+		BizCountdownTimerEvent^ - Handle to countdown timer event in the business logic.
 	
 	*/
-	BizCountdownEvent^ BizFacade::FindCountdownEvent() 
+	BizCountdownTimerEvent^ BizFacade::FindCountdownTimerEvent() 
 	{ 
 		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
 
-		return measurePWV->myCountdownObserver->countdownBiz; 
+		return measurePWV->countdownTimerObserver->countdownTimerBiz; 
+	}
+	/**
+	FindCuffStateEvent
+
+	DESCRIPTION
+
+		Find a cuff state event in business logic context.
+	
+	INPUT
+	
+		none.
+	
+	OUTPUT
+	
+		None.
+	
+	RETURN
+	
+		BizCuffStateEvent^ - Handle to cuff state event in the business logic.
+	
+	*/
+	BizCuffStateEvent^ BizFacade::FindCuffStateEvent() 
+	{ 
+		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
+
+		return measurePWV->cuffObserver->cuffStateBiz; 
 	}
 	/**
 	SimulateCaptureOneShot
@@ -319,11 +345,11 @@ namespace Biz {
 		DalFacade::Instance()->SimulateCaptureOneShot();
 	}
 	/**
-	DispatchCaptureData
+	Dispatch
 
 	DESCRIPTION
 
-		Dispatch data captured in business logic for current measurement mode.
+		Dispatch data from business logic for current measurement mode.
 	
 	INPUT
 	
@@ -338,56 +364,8 @@ namespace Biz {
 		None.
 	
 	*/
-	void BizFacade::DispatchCaptureData() 
+	void BizFacade::Dispatch() 
 	{ 
 		BizSession::Instance()->DispatchCaptureData(); 
-	}
-	/**
-	SimulateDeflationTimer
-
-	DESCRIPTION
-
-		Simulate cuff deflation count down timer.
-	
-	INPUT
-	
-		none.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		None.
-	
-	*/
-	void BizFacade::SimulateDeflationTimer()
-	{
-		DalFacade::Instance()->SimulateDeflationTimer();
-	}
-	/**
-	StopDeflationTimerSimulation
-
-	DESCRIPTION
-
-		Stop simulation of cuff deflation count down timer.
-	
-	INPUT
-	
-		none.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		None.
-	
-	*/
-	void BizFacade::StopDeflationTimerSimulation(void)
-	{
-		return DalFacade::Instance()->StopDeflationTimerSimulation();
 	}
 }

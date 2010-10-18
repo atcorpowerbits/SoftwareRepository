@@ -11,94 +11,124 @@
 #include "StdAfx.h"
 #include "data_events.h"
 
-namespace Biz {
-	/**
-	BizTonometerDataEvent::Notify
+using namespace Biz;
 
-	DESCRIPTION
+/**
+BizTonometerDataEvent::Notify
 
-		Creates a tonometer data arguments and notifies the changes as an event to all observers.
-	
-	INPUT
-	
-		data - Tonometermeter data in business context
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		None.
-	
-	*/
-	void BizTonometerDataEvent::Notify( unsigned int data )
-	{
-		BizTonometerDataEventArgs^ tonoArgs = gcnew BizTonometerDataEventArgs( data );
+DESCRIPTION
 
-		// Now, raise the event by invoking the delegate. Pass in 
-		// the object that initated the event (this) as well as data args. 
-		// The call must match the signature of the handler.
-		TonometerDataEvent( this, tonoArgs );
-	}
+	Creates a tonometer data arguments and notifies the changes as an event to all observers.
 
-	/**
-	BizCuffPulseEvent::Notify
+INPUT
 
-	DESCRIPTION
+	data - Tonometermeter data in business context
 
-		Creates a cuff pulse data arguments and notifies the changes as an event to all observers.
-	
-	INPUT
-	
-		data - Cuff pulse data in business context
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		None.
-	
-	*/
-	void BizCuffPulseEvent::Notify( unsigned int data )
-	{
-		BizCuffPulseEventArgs^ cuffArgs = gcnew BizCuffPulseEventArgs( data );
+OUTPUT
 
-		// Now, raise the event by invoking the delegate. Pass in 
-		// the object that initated the event (this) as well as data args. 
-		// The call must match the signature of the handler.
-		CuffPulseEvent( this, cuffArgs );
-	}
+	None.
 
-	/**
-	BizCountdownEvent::Notify
+RETURN
 
-	DESCRIPTION
+	None.
 
-		Creates a count down timer arguments and notifies the changes as an event to all observers.
-	
-	INPUT
-	
-		data - Count down timer in business context
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		None.
-	
-	*/
-	void BizCountdownEvent::Notify( unsigned int data )
-	{
-		BizCountdownEventArgs^ countdownArgs = gcnew BizCountdownEventArgs( data );
+*/
+void BizTonometerDataEvent::Notify( unsigned int data )
+{
+	BizTonometerDataEventArgs^ tonoArgs = gcnew BizTonometerDataEventArgs( data );
 
-		// Now, raise the event by invoking the delegate. Pass in 
-		// the object that initated the event (this) as well as data args. 
-		// The call must match the signature of the handler.
-		CountdownEvent( this, countdownArgs );
-	}
+	// Now, raise the event by invoking the delegate. Pass in 
+	// the object that initated the event (this) as well as data args. 
+	// The call must match the signature of the handler.
+	TonometerDataEvent( this, tonoArgs );
+}
+
+/**
+BizCuffPulseEvent::Notify
+
+DESCRIPTION
+
+	Creates a cuff pulse data arguments and notifies the changes as an event to all observers.
+
+INPUT
+
+	data - Cuff pulse data in business context
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	None.
+
+*/
+void BizCuffPulseEvent::Notify( unsigned int data )
+{
+	BizCuffPulseEventArgs^ cuffArgs = gcnew BizCuffPulseEventArgs( data );
+
+	// Now, raise the event by invoking the delegate. Pass in 
+	// the object that initated the event (this) as well as data args. 
+	// The call must match the signature of the handler.
+	CuffPulseEvent( this, cuffArgs );
+}
+
+/**
+BizCountdownTimerEvent::Notify
+
+DESCRIPTION
+
+	Creates a count down timer arguments and notifies the changes as an event to all observers.
+
+INPUT
+
+	data - Count down timer in business context
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	None.
+
+*/
+void BizCountdownTimerEvent::Notify( unsigned int data )
+{
+	BizCountdownTimerEventArgs^ countdownTimerArgs = gcnew BizCountdownTimerEventArgs( data );
+
+	// Now, raise the event by invoking the delegate. Pass in 
+	// the object that initated the event (this) as well as data args. 
+	// The call must match the signature of the handler.
+	CountdownTimerEvent( this, countdownTimerArgs );
+}
+
+/**
+BizCuffStateEvent::Notify
+
+DESCRIPTION
+
+	Creates a cuff state argument and notifies the changes as an event to all observers.
+
+INPUT
+
+	data - Cuff state in business context
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	None.
+
+*/
+void BizCuffStateEvent::Notify( String^ data )
+{
+	BizCuffStateEventArgs^ cuffStateEventArgs = gcnew BizCuffStateEventArgs( data );
+
+	// Now, raise the event by invoking the delegate. Pass in 
+	// the object that initated the event (this) as well as data args. 
+	// The call must match the signature of the handler.
+	CuffStateEvent( this, cuffStateEventArgs );
 }

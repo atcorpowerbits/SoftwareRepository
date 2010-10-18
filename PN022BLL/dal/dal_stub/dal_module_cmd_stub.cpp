@@ -47,20 +47,22 @@ namespace DataAccess {
 
 		// Create a new Timer with Interval set in milliseconds.
 		// e.g. ~4 ms for 256 samples/sec
-		captureTimer = gcnew Timer (4);
+		captureTimer = gcnew Timer(DalConstants::SIMULATION_TIMER_INTERVAL);
 
 		// Hook up the Elapsed event for the timer.
 		switch (captureDataType)
 		{
 		case DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO:
 			captureTimer->Elapsed += gcnew ElapsedEventHandler( &DalModule::OnCaptureTimedEvent );
-			dataFile = gcnew DalSimulationFile("pwv_default.dat");
+			dataFile = gcnew DalSimulationFile("./pwv_default.dat");
+			timerFile = gcnew DalSimulationFile("./cuff_timer.dat");
 			break;
 		default:
 			return; // nothing to simulate
 		}
 		dataFile->OpenFile();
-
+		timerFile->OpenFile();
+		countDown = 0;
 		captureTimer->Enabled = true;
 
 		// If the timer is declared in a long-running method, use
@@ -71,18 +73,45 @@ namespace DataAccess {
 	void DalModule::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 	{
 		short tonometerData;
-		short cuffData;
+		short cuffPulse;
+		short newPressure;
+		short newStatus;
+		short newCountdown;
 
-		DalModule::Instance()->dataFile->GetNextValueFromFile(&tonometerData, &cuffData);
-		DalTonometerStub::Instance()->tonometerDataRaw->Notify(tonometerData);
-		DalCuffStub::Instance()->cuffPulseRaw->Notify(cuffData);
+		// Read new timer data if it's counted down to zero
+		if (DalModule::Instance()->countDown <= 0) 
+		{
+			DalModule::Instance()->timerFile->GetNextValues(
+				&newCountdown,
+				&newPressure,
+				&newStatus);
+			DalModule::Instance()->countDown = newCountdown * 1000;
+			DalModule::Instance()->cuffPressure = newPressure;
+			DalModule::Instance()->status = newStatus;
+		}
+		// Read PWV simulation data
+		DalModule::Instance()->dataFile->GetNextValues(
+			&tonometerData, 
+			&cuffPulse);
+
+		// Notify observers to generate corresponding events
+		DalMeter::Instance()->tonometerDataEvent->Notify(tonometerData);
+		DalMeter::Instance()->cuffPulseEvent->Notify(cuffPulse);
+		DalMeter::Instance()->countdownTimerEvent->Notify(DalModule::Instance()->countDown);
+		DalMeter::Instance()->cuffStatusEvent->Notify(DalModule::Instance()->status & 0x2F);
+		DalMeter::Instance()->cuffPressureEvent->Notify(DalModule::Instance()->cuffPressure);
+
+		// Countdown the timer by the amount of simulation interval
+		DalModule::Instance()->countDown -= DalConstants::SIMULATION_TIMER_INTERVAL;
 	}
+
 	void DalModule::StopCaptureSimulation()
 	{
 		captureTimer->Enabled = false; // stop simulation
 		dataFile->CloseFile();
+		timerFile->CloseFile();
 	}
-	void DalModule::SimulateDeflationTimer()
+/*	void DalModule::SimulateDeflationTimer()
 	{
 		// Start to count down for deflation
 		countdownSecLeft = DAL_SIM_COUNTDOWN_DEFLATION;
@@ -118,4 +147,5 @@ namespace DataAccess {
 			}
 		}
 	}
+*/
 }

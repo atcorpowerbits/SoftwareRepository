@@ -36,23 +36,8 @@ namespace Biz {
 	const float FIRST_DERIVATIVE_THRESHOLD2 = (float) 0.65;
 	const float FIRST_DERIVATIVE_THRESHOLD3 = (float) 0.40;			// To find Average Peak of Der1
 
-	const unsigned short CAPTURE_EXTRA_FOR_HANDSHAKE = 2;
-/*
-PWV 	0x01
-PWA with brachial cuff	0x02
-PWA with tonometer	0x03
-PWA with cuff and tonometer	0x04
-PWA with tonometer and PWV	0x05
-PWA with cuff and PWV	0x06
-NIBP+PWV	0x07
-NIBP	0x08
-NIBP+PWA with cuff and tonometer	0x09
-NIBP+PWA with cuff	0x0A
-NIBP+PWA with tonometer	0x0B
-NIBP+PWA with cuff+PWV	0x0C
-NIBP+PWA with tonometer + PWV	0x0D
-NIBP+PWA with tonometer and cuff + PWV	0x0E
-*/
+	const unsigned short CAPTURE_EXTRA_FOR_HANDSHAKE = 2; // seconds
+
 	const unsigned short CONFIG_ID_PWV = 0x01;
 	const unsigned short CONFIG_ID_PWA_CUFF = 0x02;
 	const unsigned short CONFIG_ID_PWA_TONO = 0x03;
@@ -67,5 +52,12 @@ NIBP+PWA with tonometer and cuff + PWV	0x0E
 	const unsigned short CONFIG_ID_NIBP_PWA_CUFF_PWV = 0x0C;
 	const unsigned short CONFIG_ID_NIBP_PWA_TONO_PWV = 0x0D;
 	const unsigned short CONFIG_ID_NIBP_PWA_CUFF_TONO_PWV = 0x0E;
+
+	const unsigned int CUFF_STATE_DISCONNECTED = 1;
+	const unsigned int CUFF_STATE_CONNECTED_DEFLATED = 2;
+	const unsigned int CUFF_STATE_INFLATING = 3;
+	const unsigned int CUFF_STATE_INFLATED = 4;
+	const unsigned int CUFF_STATE_DEFLATING = 5;
+	const unsigned int CUFF_STATE_RESTING = 6;
 }
 

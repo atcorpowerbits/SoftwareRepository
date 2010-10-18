@@ -73,11 +73,11 @@ namespace Biz {
 	   void Notify( unsigned int data );
 
 	};
-	// BizCountdownArgs: a custom event inherited from EventArgs.
-	public ref class BizCountdownEventArgs: public EventArgs
+	// BizCountdownTimerEventArgs: a custom event inherited from EventArgs.
+	public ref class BizCountdownTimerEventArgs: public EventArgs
 	{
 	public:
-	   BizCountdownEventArgs( unsigned short data )
+	   BizCountdownTimerEventArgs( unsigned short data )
 	   {
 		  this->data = data;
 	   }
@@ -85,19 +85,53 @@ namespace Biz {
 	};
 
 	// Class with a function that creates the eventargs and initiates the event
-	public ref class BizCountdownEvent
+	public ref class BizCountdownTimerEvent
 	{
 	public:
 	   // Events are handled with delegates, so we must establish a handler
 	   // as a delegate:
-	   delegate void BizCountdownEventHandler(Object^ sender, BizCountdownEventArgs^ e );
+	   delegate void BizCountdownTimerEventHandler(Object^ sender, BizCountdownTimerEventArgs^ e );
 
 	   // Now, create a public event whose type is our handler delegate. 
-	   event BizCountdownEventHandler^ CountdownEvent;
+	   event BizCountdownTimerEventHandler^ CountdownTimerEvent;
 
 	   // This will be the starting point of our event-- it will create data args,
 	   // and then raise the event, passing the args. 
 	   void Notify( unsigned int data );
+
+	};
+	// BizCuffStateEventArgs: a custom event inherited from EventArgs.
+	public ref class BizCuffStateEventArgs: public EventArgs
+	{
+	public:
+	   BizCuffStateEventArgs( String^ data )
+	   {
+		  this->data = data;
+	   }
+	   property String^ data;
+	};
+
+	// Class with a function that creates the eventargs and initiates the event
+	public ref class BizCuffStateEvent
+	{
+	public:
+	   // Events are handled with delegates, so we must establish a handler
+	   // as a delegate:
+	   delegate void BizCuffStateEventHandler(Object^ sender, BizCuffStateEventArgs^ e );
+
+	   // Now, create a public event whose type is our handler delegate. 
+	   event BizCuffStateEventHandler^ CuffStateEvent;
+
+	   // This will be the starting point of our event-- it will create data args,
+	   // and then raise the event, passing the args. 
+	   // Possible cuff states are:
+	   // -Disconnected
+	   // -Deflated
+	   // -Inflating
+	   // -Inflated
+	   // -Deflating
+	   // -Resting
+	   void Notify( String^ data );
 
 	};
 }

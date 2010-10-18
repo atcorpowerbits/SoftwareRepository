@@ -20,6 +20,19 @@ namespace DataAccess {
 		static const unsigned int CONFIG_MODULE_CALIBRATION_DATE = 5;
 
 		static const unsigned int DATA_SAMPLING_INTERVAL = 4; // in msec
+		static const unsigned int SIMULATION_TIMER_INTERVAL = 300; // in msec
+
+		static const unsigned int CUFF_STATE_DISCONNECTED = 1;
+		static const unsigned int CUFF_STATE_DEFLATED = 2;
+		static const unsigned int CUFF_STATE_INFLATING = 3;
+		static const unsigned int CUFF_STATE_INFLATED = 4;
+		static const unsigned int CUFF_STATE_DEFLATING = 5;
+
+		static const unsigned int CUFF_DISCONNECTED_STATUS_BITS = 0x20; //00100000;
+		static const unsigned int CUFF_DEFLATED_STATUS_BITS     = 0x01; //00000001;
+		static const unsigned int CUFF_INFLATING_STATUS_BITS    = 0x04; //00000100;
+		static const unsigned int CUFF_INFLATED_STATUS_BITS     = 0x09; //00001001;
+		static const unsigned int CUFF_DEFLATING_STATUS_BITS    = 0x02; //00000010;
 	};
 }
 

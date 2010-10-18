@@ -220,17 +220,17 @@ namespace Biz {
 		None.
 	
 	*/		
-	BizCountdownCapture::BizCountdownCapture(BizBuffer^ buffer)
+	BizCountdownTimerCapture::BizCountdownTimerCapture(BizBuffer^ buffer)
 	{
 		this->buffer = buffer;
-		countdownRaw = DalFacade::Instance()->FindCountdownEvent();
+		countdownTimerRaw = DalFacade::Instance()->FindCountdownTimerEvent();
 
 		// Attach the handler to observe countdown data event from DAL
-		countdownRaw->CountdownEvent += 
-			gcnew DalCountdownEvent::DalCountdownEventHandler( this, &BizCountdownCapture::Update );
+		countdownTimerRaw->CountdownTimerEvent += 
+			gcnew DalCountdownTimerEvent::DalCountdownTimerEventHandler( this, &BizCountdownTimerCapture::Update );
 
 		// Create a countdown business data subject
-		countdownBiz = gcnew BizCountdownEvent;
+		countdownTimerBiz = gcnew BizCountdownTimerEvent;
 	}
 
 	/**
@@ -238,14 +238,14 @@ namespace Biz {
 
 	DESCRIPTION
 
-		Process the countdown data update.
+		Process the countdown timer update.
 		Note that it shouldn't display the data as the update is not called from a GUI thread.
 	
 	INPUT
 	
 		sender - Subject which is sending the update event.
 	
-		e - Event arguments where a countdown data is passed.
+		e - Event arguments where a countdown timer is passed.
 	
 	OUTPUT
 	
@@ -256,7 +256,7 @@ namespace Biz {
 		None.
 	
 	*/		
-	void BizCountdownCapture::Update( Object^ sender, DalCountdownEventArgs^ e )
+	void BizCountdownTimerCapture::Update( Object^ sender, DalCountdownTimerEventArgs^ e )
 	{
 		// Keep it in the buffer
 		buffer->Append(e->data);
@@ -283,14 +283,15 @@ namespace Biz {
 		None.
 	
 	*/		
-	void BizCountdownCapture::Dispatch()
+	void BizCountdownTimerCapture::Dispatch()
 	{
 		unsigned short^ readData = gcnew unsigned short;
 
 		// dispatch countdown data if it's arrived.
 		if (buffer->ReadNext(readData))
 		{
-			countdownBiz->Notify(*readData);
+			// round to seconds
+			countdownTimerBiz->Notify(*readData);
 		}
 	}
 }

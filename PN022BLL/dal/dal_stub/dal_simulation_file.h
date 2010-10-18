@@ -19,12 +19,14 @@ namespace DataAccess {
 	private:
 		StreamReader^ reader; 
 		String^ path;
+		String^ GetLine();
 	public:
 		// Constructors, destructors
 		DalSimulationFile(String^ const fileName);
 		~DalSimulationFile();
 		bool OpenFile();
 		void CloseFile();
-		bool GetNextValueFromFile(short *value1, short *value2);
+		bool GetNextValues(short *value1, short *value2);
+		bool GetNextValues(short *value1, short *value2, short *value3);
 	};
 }

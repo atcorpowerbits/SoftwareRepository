@@ -180,12 +180,12 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3936.26461, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="crx, Version=1.0.3938.27832, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.3936.26461, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="dal, Version=1.0.3938.27832, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 	</References>
@@ -209,6 +209,14 @@
 			</File>
 			<File
 				RelativePath="..\capture\capture.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\capture\cuff.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\capture\cuff_state.cpp"
 				>
 			</File>
 			<File
@@ -279,6 +287,14 @@
 			</File>
 			<File
 				RelativePath="..\capture\capture.h"
+				>
+			</File>
+			<File
+				RelativePath="..\capture\cuff.h"
+				>
+			</File>
+			<File
+				RelativePath="..\capture\cuff_state.h"
 				>
 			</File>
 			<File

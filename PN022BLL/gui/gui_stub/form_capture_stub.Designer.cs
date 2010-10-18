@@ -29,28 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.listBoxTonoData = new System.Windows.Forms.ListBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.buttonCapture = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.listBoxCuffPulse = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.buttonCountDown = new System.Windows.Forms.Button();
-            this.buttonStopCountDown = new System.Windows.Forms.Button();
             this.progressBarTimeCountDown = new System.Windows.Forms.ProgressBar();
-            this.labelTimeTo = new System.Windows.Forms.Label();
-            this.labelTimeCountDown = new System.Windows.Forms.Label();
+            this.labelCuffState = new System.Windows.Forms.Label();
+            this.labelCountdownTimer = new System.Windows.Forms.Label();
+            this.labelTonoData = new System.Windows.Forms.Label();
+            this.labelCuffPulse = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // listBoxTonoData
-            // 
-            this.listBoxTonoData.FormattingEnabled = true;
-            this.listBoxTonoData.Location = new System.Drawing.Point(44, 35);
-            this.listBoxTonoData.Name = "listBoxTonoData";
-            this.listBoxTonoData.Size = new System.Drawing.Size(88, 199);
-            this.listBoxTonoData.TabIndex = 0;
             // 
             // backgroundWorker1
             // 
@@ -60,7 +53,7 @@
             // 
             // buttonCapture
             // 
-            this.buttonCapture.Location = new System.Drawing.Point(43, 260);
+            this.buttonCapture.Location = new System.Drawing.Point(252, 206);
             this.buttonCapture.Name = "buttonCapture";
             this.buttonCapture.Size = new System.Drawing.Size(97, 23);
             this.buttonCapture.TabIndex = 1;
@@ -70,7 +63,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(146, 260);
+            this.buttonCancel.Location = new System.Drawing.Point(355, 206);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 2;
@@ -81,14 +74,6 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // listBoxCuffPulse
-            // 
-            this.listBoxCuffPulse.FormattingEnabled = true;
-            this.listBoxCuffPulse.Location = new System.Drawing.Point(180, 35);
-            this.listBoxCuffPulse.Name = "listBoxCuffPulse";
-            this.listBoxCuffPulse.Size = new System.Drawing.Size(88, 199);
-            this.listBoxCuffPulse.TabIndex = 3;
             // 
             // label1
             // 
@@ -102,74 +87,99 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(180, 13);
+            this.label2.Location = new System.Drawing.Point(44, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Cuff Pulse";
             // 
-            // buttonCountDown
-            // 
-            this.buttonCountDown.Location = new System.Drawing.Point(321, 259);
-            this.buttonCountDown.Name = "buttonCountDown";
-            this.buttonCountDown.Size = new System.Drawing.Size(113, 23);
-            this.buttonCountDown.TabIndex = 6;
-            this.buttonCountDown.Text = "Simulate Countdown";
-            this.buttonCountDown.UseVisualStyleBackColor = true;
-            this.buttonCountDown.Click += new System.EventHandler(this.buttonCountDown_Click);
-            // 
-            // buttonStopCountDown
-            // 
-            this.buttonStopCountDown.Enabled = false;
-            this.buttonStopCountDown.Location = new System.Drawing.Point(440, 259);
-            this.buttonStopCountDown.Name = "buttonStopCountDown";
-            this.buttonStopCountDown.Size = new System.Drawing.Size(75, 23);
-            this.buttonStopCountDown.TabIndex = 7;
-            this.buttonStopCountDown.Text = "Stop";
-            this.buttonStopCountDown.UseVisualStyleBackColor = true;
-            this.buttonStopCountDown.Click += new System.EventHandler(this.buttonStopCountDown_Click);
-            // 
             // progressBarTimeCountDown
             // 
-            this.progressBarTimeCountDown.Location = new System.Drawing.Point(321, 210);
+            this.progressBarTimeCountDown.Location = new System.Drawing.Point(47, 136);
             this.progressBarTimeCountDown.Name = "progressBarTimeCountDown";
             this.progressBarTimeCountDown.Size = new System.Drawing.Size(194, 23);
             this.progressBarTimeCountDown.TabIndex = 8;
             // 
-            // labelTimeTo
+            // labelCuffState
             // 
-            this.labelTimeTo.AutoSize = true;
-            this.labelTimeTo.Location = new System.Drawing.Point(321, 191);
-            this.labelTimeTo.Name = "labelTimeTo";
-            this.labelTimeTo.Size = new System.Drawing.Size(74, 13);
-            this.labelTimeTo.TabIndex = 9;
-            this.labelTimeTo.Text = "Time To xxxxx";
+            this.labelCuffState.AutoSize = true;
+            this.labelCuffState.Location = new System.Drawing.Point(150, 77);
+            this.labelCuffState.Name = "labelCuffState";
+            this.labelCuffState.Size = new System.Drawing.Size(63, 13);
+            this.labelCuffState.TabIndex = 9;
+            this.labelCuffState.Text = "<cuff state>";
             // 
-            // labelTimeCountDown
+            // labelCountdownTimer
             // 
-            this.labelTimeCountDown.AutoSize = true;
-            this.labelTimeCountDown.Location = new System.Drawing.Point(402, 190);
-            this.labelTimeCountDown.Name = "labelTimeCountDown";
-            this.labelTimeCountDown.Size = new System.Drawing.Size(86, 13);
-            this.labelTimeCountDown.TabIndex = 10;
-            this.labelTimeCountDown.Text = "Count down time";
+            this.labelCountdownTimer.AutoSize = true;
+            this.labelCountdownTimer.Location = new System.Drawing.Point(150, 109);
+            this.labelCountdownTimer.Name = "labelCountdownTimer";
+            this.labelCountdownTimer.Size = new System.Drawing.Size(26, 13);
+            this.labelCountdownTimer.TabIndex = 10;
+            this.labelCountdownTimer.Text = "time";
+            // 
+            // labelTonoData
+            // 
+            this.labelTonoData.AutoSize = true;
+            this.labelTonoData.Location = new System.Drawing.Point(150, 13);
+            this.labelTonoData.Name = "labelTonoData";
+            this.labelTonoData.Size = new System.Drawing.Size(51, 13);
+            this.labelTonoData.TabIndex = 11;
+            this.labelTonoData.Text = "tonoData";
+            // 
+            // labelCuffPulse
+            // 
+            this.labelCuffPulse.AutoSize = true;
+            this.labelCuffPulse.Location = new System.Drawing.Point(150, 45);
+            this.labelCuffPulse.Name = "labelCuffPulse";
+            this.labelCuffPulse.Size = new System.Drawing.Size(51, 13);
+            this.labelCuffPulse.TabIndex = 12;
+            this.labelCuffPulse.Text = "cuffPulse";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(44, 109);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(64, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Count down";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(114, 110);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(30, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "(sec)";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(44, 77);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 13);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Cuff State";
             // 
             // form_capture_stub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 428);
-            this.Controls.Add(this.labelTimeCountDown);
-            this.Controls.Add(this.labelTimeTo);
+            this.ClientSize = new System.Drawing.Size(442, 241);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.labelCuffPulse);
+            this.Controls.Add(this.labelTonoData);
+            this.Controls.Add(this.labelCountdownTimer);
+            this.Controls.Add(this.labelCuffState);
             this.Controls.Add(this.progressBarTimeCountDown);
-            this.Controls.Add(this.buttonStopCountDown);
-            this.Controls.Add(this.buttonCountDown);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBoxCuffPulse);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonCapture);
-            this.Controls.Add(this.listBoxTonoData);
             this.Name = "form_capture_stub";
             this.Text = "form_capture_stub";
             this.Load += new System.EventHandler(this.form_capture_stub_Load);
@@ -180,18 +190,19 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBoxTonoData;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button buttonCapture;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.ListBox listBoxCuffPulse;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonCountDown;
-        private System.Windows.Forms.Button buttonStopCountDown;
         private System.Windows.Forms.ProgressBar progressBarTimeCountDown;
-        private System.Windows.Forms.Label labelTimeTo;
-        private System.Windows.Forms.Label labelTimeCountDown;
+        private System.Windows.Forms.Label labelCuffState;
+        private System.Windows.Forms.Label labelCountdownTimer;
+        private System.Windows.Forms.Label labelTonoData;
+        private System.Windows.Forms.Label labelCuffPulse;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

@@ -57,5 +57,10 @@ namespace gui
             Biz.BizFacade.Instance().SimulateCaptureOneShot();
         }
 
+        private void simulateDispatchOneShotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Biz.BizFacade.Instance().Dispatch();
+        }
+
     }
 }

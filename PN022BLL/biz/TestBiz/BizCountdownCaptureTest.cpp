@@ -64,7 +64,7 @@ namespace TestBiz {
 			//
 			unsigned int actualUpdate; //actual data received via an event
 
-			void Update(Object^ sender, BizCountdownEventArgs^ e)
+			void Update(Object^ sender, BizCountdownTimerEventArgs^ e)
 			{
 				actualUpdate = e->data;
 			}
@@ -76,16 +76,16 @@ namespace TestBiz {
 			void BizCountdownCaptureDispatchTest()
 			{
 				BizCircularBuffer^  buffer = (gcnew BizCircularBuffer(2)); // TODO: Initialize to an appropriate value
-				BizCountdownCapture^  target = (gcnew BizCountdownCapture(buffer)); // TODO: Initialize to an appropriate value
+				BizCountdownTimerCapture^  target = (gcnew BizCountdownTimerCapture(buffer)); // TODO: Initialize to an appropriate value
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 				unsigned int data = 12345; // TODO: Initialize to an appropriate value
 
-				DalCountdownEventArgs^ countdownArgs = gcnew DalCountdownEventArgs( data );
+				DalCountdownTimerEventArgs^ countdownTimerArgs = gcnew DalCountdownTimerEventArgs( data );
 				// Update BizCountdownCapture with data so it's saved in circular buffer
-				accessor->Invoke("Update", this, countdownArgs);
+				accessor->Invoke("Update", this, countdownTimerArgs);
 
 				// Setup a delegate (observer) to whom data is updated by BizCountdownCapture during dispatch
-				target->countdownBiz->CountdownEvent += gcnew BizCountdownEvent::BizCountdownEventHandler( this, &BizCountdownCaptureTest::Update );
+				target->countdownTimerBiz->CountdownTimerEvent += gcnew BizCountdownTimerEvent::BizCountdownTimerEventHandler( this, &BizCountdownCaptureTest::Update );
 
 				// Update the observer with data read from circular buffer
 				target->Dispatch();
@@ -98,11 +98,11 @@ namespace TestBiz {
 			void BizCountdownCaptureUpdateTest()
 			{
 				BizCircularBuffer^  buffer = (gcnew BizCircularBuffer(2)); // TODO: Initialize to an appropriate value
-				BizCountdownCapture^  target = (gcnew BizCountdownCapture(buffer)); // TODO: Initialize to an appropriate value
+				BizCountdownTimerCapture^  target = (gcnew BizCountdownTimerCapture(buffer)); // TODO: Initialize to an appropriate value
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 				unsigned short data = 12345; // TODO: Initialize to an appropriate value
 				unsigned short^ actual = gcnew unsigned short; // = gcnew unsigned short; // TODO: Initialize to an appropriate value
-				DalCountdownEventArgs^  e = gcnew DalCountdownEventArgs( data ); // TODO: Initialize to an appropriate value
+				DalCountdownTimerEventArgs^  e = gcnew DalCountdownTimerEventArgs( data ); // TODO: Initialize to an appropriate value
 				bool rc = false;
 
 				// Update BizCountdownCapture with data so it's saved in circular buffer

@@ -35,6 +35,7 @@
             this.calculateReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.simulateDispatchOneShotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +55,7 @@
             this.pwvCommandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startCaptureToolStripMenuItem,
             this.simulateCaptureDataToolStripMenuItem,
+            this.simulateDispatchOneShotToolStripMenuItem,
             this.calculateReportToolStripMenuItem});
             this.pwvCommandToolStripMenuItem.Name = "pwvCommandToolStripMenuItem";
             this.pwvCommandToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -92,9 +94,16 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // simulateDispatchOneShotToolStripMenuItem
+            // 
+            this.simulateDispatchOneShotToolStripMenuItem.Name = "simulateDispatchOneShotToolStripMenuItem";
+            this.simulateDispatchOneShotToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.simulateDispatchOneShotToolStripMenuItem.Text = "Dispatch One Shot";
+            this.simulateDispatchOneShotToolStripMenuItem.Click += new System.EventHandler(this.simulateDispatchOneShotToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
@@ -121,6 +130,7 @@
         private System.Windows.Forms.ToolStripMenuItem startCaptureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculateReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simulateCaptureDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem simulateDispatchOneShotToolStripMenuItem;
     }
 }
 

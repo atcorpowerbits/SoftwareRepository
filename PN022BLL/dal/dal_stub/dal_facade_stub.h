@@ -12,7 +12,9 @@ namespace DataAccess {
 	ref class DalModule; 
 	ref class DalTonometerDataEvent;
 	ref class DalCuffPulseEvent;
-	ref class DalCountdownEvent;
+	ref class DalCuffPressureEvent;
+	ref class DalCountdownTimerEvent;
+	ref class DalCuffStatusEvent;
 
 	public ref class DalFacade
 	{
@@ -25,12 +27,14 @@ namespace DataAccess {
 		void SimulateCaptureData();
 		void StopCaptureSimulation();
 		void SimulateCaptureOneShot();
-		void SimulateDeflationTimer();
-		void StopDeflationTimerSimulation();
+//		void SimulateDeflationTimer();
+//		void StopDeflationTimerSimulation();
 
 		DalTonometerDataEvent^ FindTonometerDataEvent();
 		DalCuffPulseEvent^ FindCuffPulseEvent();
-		DalCountdownEvent^ FindCountdownEvent();
+		DalCuffPressureEvent^ FindCuffPressureEvent();
+		DalCountdownTimerEvent^ FindCountdownTimerEvent();
+		DalCuffStatusEvent^ FindCuffStatusEvent();
 
 	protected:
 		DalFacade(void);

@@ -24,13 +24,12 @@ namespace Biz {
 		void SimulateCaptureData();
 		void StopCaptureSimulation();
 		void SimulateCaptureOneShot(); // simulate a single data capture
-		void DispatchCaptureData();
-		void SimulateDeflationTimer();
-		void StopDeflationTimerSimulation();
+		void Dispatch();
 		bool CalculateReport();
 		BizTonometerDataEvent^ FindTonometerDataEvent();
 		BizCuffPulseEvent^ FindCuffPulseEvent();
-		BizCountdownEvent^ FindCountdownEvent();
+		BizCountdownTimerEvent^ FindCountdownTimerEvent();
+		BizCuffStateEvent^ FindCuffStateEvent();
 
 	protected:
 		BizFacade(void);

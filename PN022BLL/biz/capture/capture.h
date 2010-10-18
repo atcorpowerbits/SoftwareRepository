@@ -55,17 +55,17 @@ namespace Biz {
 		DalCuffPulseEvent^ cuffPulseRaw; // to observe cuff pulse raw data from DAL
 	};
 
-	public ref class BizCountdownCapture : BizCapture
+	public ref class BizCountdownTimerCapture : BizCapture
 	{
 	public:
-		BizCountdownCapture(BizBuffer^ buffer);
+		BizCountdownTimerCapture(BizBuffer^ buffer);
 
-		property BizCountdownEvent^ countdownBiz; //countdown data to be dispatched
+		property BizCountdownTimerEvent^ countdownTimerBiz; //countdown data to be dispatched
 		virtual void Dispatch() override;
 
 	private:
-		void Update(Object^ sender, DalCountdownEventArgs^ e);
-		DalCountdownEvent^ countdownRaw; // to observe countdown raw data from DAL
+		void Update(Object^ sender, DalCountdownTimerEventArgs^ e);
+		DalCountdownTimerEvent^ countdownTimerRaw; // to observe countdown raw data from DAL
 	};
 }
 

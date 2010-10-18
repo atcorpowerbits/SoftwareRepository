@@ -66,68 +66,92 @@ namespace DataAccess {
 	   void Notify( unsigned short data );
 	};
 
-	// DalCountdownArgs: a custom event inherited from EventArgs.
-	public ref class DalCountdownEventArgs: public EventArgs
+	// DalCuffPressureArgs: a custom event inherited from EventArgs.
+	public ref class DalCuffPressureEventArgs: public EventArgs
 	{
 	public:
-	   DalCountdownEventArgs( unsigned short data )
+	   DalCuffPressureEventArgs( unsigned short data )
 	   {
 		  this->data = data;
 	   }
 	   unsigned short data;
 	};
 	// Class with a function that creates the eventargs and initiates the event
-	public ref class DalCountdownEvent
+	public ref class DalCuffPressureEvent
 	{
 	public:
-	   delegate void DalCountdownEventHandler(Object^ sender, DalCountdownEventArgs^ args );
+	   delegate void DalCuffPressureEventHandler(Object^ sender, DalCuffPressureEventArgs^ args );
 
-	   // Now, create a public event "CountdownEvent" whose type is our DalCountdownEventHandler delegate. 
-	   event DalCountdownEventHandler^ CountdownEvent;
+	   // Now, create a public event "CuffPressureEvent" whose type is our DalCuffPressureEventHandler delegate. 
+	   event DalCuffPressureEventHandler^ CuffPressureEvent;
 
-	   // This will be the starting point of our event-- it will create DalCountdownArgs,
-	   // and then raise the event, passing DalCountdownArgs. 
+	   // This will be the starting point of our event-- it will create DalCuffPressureArgs,
+	   // and then raise the event, passing DalCuffPressureArgs. 
 	   void Notify( unsigned short data );
 	};
 
-	public ref class DalMeter abstract
+	// DalCountdownTimerArgs: a custom event inherited from EventArgs.
+	public ref class DalCountdownTimerEventArgs: public EventArgs
 	{
 	public:
-		virtual void Simulate() {};
-		property DalCuffPulseEvent^ cuffPulse;
+	   DalCountdownTimerEventArgs( unsigned short data )
+	   {
+		  this->data = data;
+	   }
+	   unsigned short data;
+	};
+	// Class with a function that creates the eventargs and initiates the event
+	public ref class DalCountdownTimerEvent
+	{
+	public:
+	   delegate void DalCountdownTimerEventHandler(Object^ sender, DalCountdownTimerEventArgs^ args );
+
+	   // Now, create a public event "CountdownTimerEvent" whose type is our DalCountdownTimerEventHandler delegate. 
+	   event DalCountdownTimerEventHandler^ CountdownTimerEvent;
+
+	   // This will be the starting point of our event-- it will create DalCountdownTimerArgs,
+	   // and then raise the event, passing DalCountdownTimerArgs. 
+	   void Notify( unsigned short data );
 	};
 
-	public ref class DalTonometerStub : DalMeter
+	// DalCuffStatusArgs: a custom event inherited from EventArgs.
+	public ref class DalCuffStatusEventArgs: public EventArgs
 	{
-	private: 
-		static DalTonometerStub^ _instance;
+	public:
+	   DalCuffStatusEventArgs( unsigned short data )
+	   {
+		  this->data = data;
+	   }
+	   unsigned short data;
+	};
+	// Class with a function that creates the eventargs and initiates the event
+	public ref class DalCuffStatusEvent
+	{
+	public:
+	   delegate void DalCuffStatusEventHandler(Object^ sender, DalCuffStatusEventArgs^ args );
+
+	   // Now, create a public event "CuffStatusEvent" whose type is our DalCuffStatusEventHandler delegate. 
+	   event DalCuffStatusEventHandler^ CuffStatusEvent;
+
+	   // This will be the starting point of our event-- it will create DalCuffStatusArgs,
+	   // and then raise the event, passing DalCuffStatusArgs. 
+	   void Notify( unsigned short data );
+	private:
+		unsigned short previousStatus;
+	};
+
+	public ref class DalMeter
+	{
+	public:
+		static DalMeter^ Instance();
+		property DalTonometerDataEvent^ tonometerDataEvent;
+		property DalCuffPulseEvent^ cuffPulseEvent;
+		property DalCuffPressureEvent^ cuffPressureEvent;
+		property DalCountdownTimerEvent^ countdownTimerEvent;
+		property DalCuffStatusEvent^ cuffStatusEvent;
 	protected:
-		DalTonometerStub();
-	public:
-		static DalTonometerStub^ Instance();
-		property DalTonometerDataEvent^ tonometerDataRaw;
-	};
-
-	public ref class DalCuffStub : DalMeter
-	{
+		DalMeter();
 	private: 
-		static DalCuffStub^ _instance;
-	protected:
-		DalCuffStub();
-	public:
-		static DalCuffStub^ Instance();
-		property DalCuffPulseEvent^ cuffPulseRaw;
+		static DalMeter^ _instance;
 	};
-
-	public ref class DalCountdownStub : DalMeter
-	{
-	private: 
-		static DalCountdownStub^ _instance;
-	protected:
-		DalCountdownStub();
-	public:
-		static DalCountdownStub^ Instance();
-		property DalCountdownEvent^ countdownRaw;
-	};
-
 }

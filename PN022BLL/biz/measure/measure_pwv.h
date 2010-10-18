@@ -12,6 +12,7 @@
 
 #include <measure.h>
 #include <capture.h>
+#include <cuff.h>
 
 using namespace System;
 using namespace DataAccess;
@@ -81,9 +82,10 @@ namespace Biz {
 		virtual bool StopCapture() override;
 		virtual void DispatchCaptureData() override;
 
-		property BizTonometerDataCapture^ myTonometerDataObserver;
-		property BizCuffPulseCapture^ myCuffPulseObserver;
-		property BizCountdownCapture^ myCountdownObserver;
+		property BizTonometerDataCapture^ tonometerDataObserver;
+		property BizCuffPulseCapture^ cuffPulseObserver;
+		property BizCountdownTimerCapture^ countdownTimerObserver;
+		property BizCuff^ cuffObserver;
 
 		property float meanDeltaTime;				// Mean pulse onset time difference (in ms) between pulse traces
 		property array<float>^ deltaTime;			// Pulse onset time difference (in ms) between pulse traces of each pulse

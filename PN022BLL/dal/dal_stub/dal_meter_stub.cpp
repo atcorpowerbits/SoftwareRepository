@@ -8,8 +8,9 @@
     Description  :	Meter Data stub classes
 */
 
-#include "StdAfx.h"
-#include "dal_meter_stub.h"
+#include <StdAfx.h>
+#include <dal.h>
+#include <dal_meter_stub.h>
 
 namespace DataAccess {
 
@@ -31,55 +32,75 @@ namespace DataAccess {
 		// The call must match the signature of the corresponding event handler.
 		CuffPulseEvent( this, cuffPulseArgs );
 	}
-	void DalCountdownEvent::Notify( unsigned short data )
+	void DalCuffPressureEvent::Notify( unsigned short data )
 	{
-		DalCountdownEventArgs^ countdownArgs = gcnew DalCountdownEventArgs( data );
+		DalCuffPressureEventArgs^ cuffPressureArgs = gcnew DalCuffPressureEventArgs( data );
 
 		// Now, raise the event by invoking the delegate. Pass in 
 		// the object that initated the event (this) as well as event args. 
 		// The call must match the signature of the corresponding event handler.
-		CountdownEvent( this, countdownArgs );
+		CuffPressureEvent( this, cuffPressureArgs );
 	}
-
-	DalTonometerStub::DalTonometerStub()
+	void DalCountdownTimerEvent::Notify( unsigned short data )
 	{
-		tonometerDataRaw = gcnew DalTonometerDataEvent;
-//?		tonometerDataValue = 0;
+		// Notify only a round sec 
+//		if (!(data % 1000))
+//		{
+			DalCountdownTimerEventArgs^ countdownTimerArgs = gcnew DalCountdownTimerEventArgs( data );
+
+			// Now, raise the event by invoking the delegate. Pass in 
+			// the object that initated the event (this) as well as event args. 
+			// The call must match the signature of the corresponding event handler.
+			CountdownTimerEvent( this, countdownTimerArgs );
+//		}
 	}
-
-	DalTonometerStub^ DalTonometerStub::Instance()
+	void DalCuffStatusEvent::Notify( unsigned short data )
 	{
-		if (_instance == nullptr) 
+		unsigned short cuffState;
+
+		// Map cuff status data to cuff state 
+		switch (data & 0xFF)
 		{
-			_instance = gcnew DalTonometerStub;
+		case DataAccess::DalConstants::CUFF_DISCONNECTED_STATUS_BITS:
+			cuffState = DataAccess::DalConstants::CUFF_STATE_DISCONNECTED;
+			break;
+		case DataAccess::DalConstants::CUFF_DEFLATED_STATUS_BITS:
+			cuffState = DataAccess::DalConstants::CUFF_STATE_DEFLATED;
+			break;
+		case DataAccess::DalConstants::CUFF_INFLATING_STATUS_BITS:
+			cuffState = DataAccess::DalConstants::CUFF_STATE_INFLATING;
+			break;
+		case DataAccess::DalConstants::CUFF_INFLATED_STATUS_BITS:
+			cuffState = DataAccess::DalConstants::CUFF_STATE_INFLATED;
+			break;
+		case DataAccess::DalConstants::CUFF_DEFLATING_STATUS_BITS:
+			cuffState = DataAccess::DalConstants::CUFF_STATE_DEFLATING;
+			break;
+		default:
+			break;
 		}
-		return _instance;
-	}
-	   
-	DalCuffStub::DalCuffStub()
-	{
-		cuffPulseRaw = gcnew DalCuffPulseEvent;
+		DalCuffStatusEventArgs^ cuffStatusArgs = gcnew DalCuffStatusEventArgs( cuffState );
+
+		// Now, raise the event by invoking the delegate. Pass in 
+		// the object that initated the event (this) as well as event args. 
+		// The call must match the signature of the corresponding event handler.
+		CuffStatusEvent( this, cuffStatusArgs );
 	}
 
-	DalCuffStub^ DalCuffStub::Instance()
+	DalMeter::DalMeter()
+	{
+		tonometerDataEvent = gcnew DalTonometerDataEvent;
+		cuffPulseEvent = gcnew DalCuffPulseEvent;
+		cuffPressureEvent = gcnew DalCuffPressureEvent;
+		countdownTimerEvent = gcnew DalCountdownTimerEvent;
+		cuffStatusEvent = gcnew DalCuffStatusEvent;
+	}
+
+	DalMeter^ DalMeter::Instance()
 	{
 		if (_instance == nullptr) 
 		{
-			_instance = gcnew DalCuffStub;
-		}
-		return _instance;
-	}
-
-	DalCountdownStub::DalCountdownStub()
-	{
-		countdownRaw = gcnew DalCountdownEvent;
-	}
-
-	DalCountdownStub^ DalCountdownStub::Instance()
-	{
-		if (_instance == nullptr) 
-		{
-			_instance = gcnew DalCountdownStub;
+			_instance = gcnew DalMeter;
 		}
 		return _instance;
 	}

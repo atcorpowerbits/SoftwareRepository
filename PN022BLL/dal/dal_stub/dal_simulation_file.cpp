@@ -48,8 +48,20 @@ namespace DataAccess {
 		path = L"";
 	}
 
-	bool DalSimulationFile::GetNextValueFromFile(short *value1, short *value2)
+	String^ DalSimulationFile::GetLine()
 	{
+		// Read a line from the file
+		String^ line = reader->ReadLine(); 
+		if (line == nullptr) 
+		{
+			reader = File::OpenText(path);
+			line = GetLine();
+		}
+		return line;
+	}
+	bool DalSimulationFile::GetNextValues(short *value1, short *value2)
+	{
+/*
 		// Read file
 		String^ line = reader->ReadLine(); 
 		if (line == nullptr) 
@@ -57,6 +69,9 @@ namespace DataAccess {
 			reader = File::OpenText(path);
 			return GetNextValueFromFile(value1, value2);
 		} else 
+*/
+		// Read file
+		String^ line = GetLine(); 
 		{
 			array<String^>^split = line->Split();
 			IEnumerator^ myEnum = split->GetEnumerator();
@@ -68,6 +83,39 @@ namespace DataAccess {
 			myEnum->MoveNext();
 			String^ string2 = safe_cast<String^>(myEnum->Current);
 			*value2 = (short)Single::Parse(string2);
+		}
+		return true;
+	}
+	bool DalSimulationFile::GetNextValues(
+		short *value1, 
+		short *value2, 
+		short *value3)
+	{
+		bool check;
+		String^ token;
+		String^ line = reader->ReadLine(); 
+		if (line == nullptr) 
+		{
+			reader = File::OpenText(path);
+			return GetNextValues(value1, value2, value3);
+		} else 
+		{
+			array<String^>^split = line->Split();
+			IEnumerator^ myEnum = split->GetEnumerator();
+
+			check = myEnum->MoveNext();
+			token = safe_cast<String^>(myEnum->Current);
+			*value1 = Convert::ToInt16(Single::Parse(token));
+
+			check = myEnum->MoveNext();
+			token = safe_cast<String^>(myEnum->Current);
+//?			*value2 = (short)Single::Parse(token);
+			*value2 = Convert::ToInt16(Single::Parse(token));
+
+			check = myEnum->MoveNext();
+			token = safe_cast<String^>(myEnum->Current);
+//?			*value3 = (short)Single::Parse(token);
+			*value3 = Convert::ToInt16(Single::Parse(token));
 		}
 		return true;
 	}

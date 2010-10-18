@@ -21,15 +21,23 @@ namespace DataAccess {
 	}
 	DalTonometerDataEvent^ DalFacade::FindTonometerDataEvent() 
 	{ 
-		return DalTonometerStub::Instance()->tonometerDataRaw; 
+		return DalMeter::Instance()->tonometerDataEvent; 
 	}
 	DalCuffPulseEvent^ DalFacade::FindCuffPulseEvent() 
 	{ 
-		return DalCuffStub::Instance()->cuffPulseRaw; 
+		return DalMeter::Instance()->cuffPulseEvent; 
 	}
-	DalCountdownEvent^ DalFacade::FindCountdownEvent() 
+	DalCuffPressureEvent^ DalFacade::FindCuffPressureEvent() 
 	{ 
-		return DalCountdownStub::Instance()->countdownRaw; 
+		return DalMeter::Instance()->cuffPressureEvent; 
+	}
+	DalCountdownTimerEvent^ DalFacade::FindCountdownTimerEvent() 
+	{ 
+		return DalMeter::Instance()->countdownTimerEvent; 
+	}
+	DalCuffStatusEvent^ DalFacade::FindCuffStatusEvent() 
+	{ 
+		return DalMeter::Instance()->cuffStatusEvent; 
 	}
 	bool DalFacade::StartCapture(unsigned int captureDataType)
 	{
@@ -66,8 +74,10 @@ namespace DataAccess {
 	}
 	void DalFacade::SimulateCaptureOneShot() 
 	{
-		DalTonometerStub::Instance()->tonometerDataRaw->Notify(1234); 
-		DalCuffStub::Instance()->cuffPulseRaw->Notify(5678); 
+		DalMeter::Instance()->tonometerDataEvent->Notify(1234); 
+		DalMeter::Instance()->cuffPulseEvent->Notify(5678); 
+		DalMeter::Instance()->cuffStatusEvent->Notify(DalConstants::CUFF_DEFLATED_STATUS_BITS);
+		DalMeter::Instance()->cuffPressureEvent->Notify(70);
 	}
 	void DalFacade::SimulateCaptureData() 
 	{
@@ -77,6 +87,7 @@ namespace DataAccess {
 	{
 		_module->StopCaptureSimulation();
 	}
+/*
 	void DalFacade::SimulateDeflationTimer() 
 	{
 		_module->SimulateDeflationTimer();
@@ -85,4 +96,5 @@ namespace DataAccess {
 	{
 		_module->StopDeflationTimerSimulation();
 	}
+*/
 }
