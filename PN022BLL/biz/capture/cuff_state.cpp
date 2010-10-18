@@ -34,9 +34,12 @@ RETURN
 	None.
 
 */		
-void BizCuffState::ChangeState(BizCuff^ const client, BizCuffState^ %state)
+void BizCuffState::ChangeState(BizCuff^ const client, BizCuffState^ state)
 {
-	client->ChangeState(state);
+	if (client != nullptr)
+	{
+		client->ChangeState(state);
+	}
 }
 
 /**

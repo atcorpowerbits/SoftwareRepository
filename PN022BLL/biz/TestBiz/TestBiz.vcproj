@@ -194,12 +194,12 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3937.25987, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="crx, Version=1.0.3943.32373, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.3937.25988, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="dal, Version=1.0.3943.37810, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 	</References>
@@ -255,6 +255,14 @@
 			</File>
 			<File
 				RelativePath=".\BizCuffRestingTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizCuffStateEventTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizCuffTest.cpp"
 				>
 			</File>
 			<File

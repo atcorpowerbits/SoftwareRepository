@@ -109,39 +109,90 @@
            </Member>
           </Members>
          </Type>
-         <Type Name="BizCountdownCapture">
+         <Type Name="BizCountdownTimerCapture">
           <Members>
-           <Member Name="countdownBiz">
+           <Member Name="countdownTimerBiz">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-29 07:42:36Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-18 08:32:58Z">
               <Issue Name="Member">
-               <Item>countdownBiz</Item>
+               <Item>countdownTimerBiz</Item>
               </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="9" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
           </Members>
          </Type>
-         <Type Name="BizCountdownEvent+BizCountdownEventHandler">
+         <Type Name="BizCountdownTimerEvent+BizCountdownTimerEventHandler">
           <Messages>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-09-29 07:42:36Z">
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-10-18 08:32:58Z">
             <Issue>
-             <Item>Biz.BizCountdownEvent+BizCountdownEventHandler</Item>
+             <Item>Biz.BizCountdownTimerEvent+BizCountdownTimerEventHandler</Item>
             </Issue>
            </Message>
           </Messages>
          </Type>
-         <Type Name="BizCountdownEventArgs">
+         <Type Name="BizCountdownTimerEventArgs">
           <Members>
            <Member Name="data">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-08 05:53:31Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-18 08:32:58Z">
               <Issue Name="Member">
                <Item>data</Item>
               </Issue>
               <Notes>
                <User Name="victora">
-                <Note Id="24" />
+                <Note Id="10" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCuff">
+          <Members>
+           <Member Name="cuffStateBiz">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-18 08:32:58Z">
+              <Issue Name="Member">
+               <Item>cuffStateBiz</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="6" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="currentState">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-18 08:32:58Z">
+              <Issue Name="Member">
+               <Item>currentState</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="4" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="previousState">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-18 08:32:58Z">
+              <Issue Name="Member">
+               <Item>previousState</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="5" />
                </User>
               </Notes>
              </Message>
@@ -194,17 +245,46 @@
            </Member>
           </Members>
          </Type>
-         <Type Name="BizDateFormat">
+         <Type Name="BizCuffState">
           <Members>
-           <Member Name="GetFormat(System.Type):System.Object">
+           <Member Name="internalName">
             <Messages>
-             <Message Id="0#" TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725" Created="2010-10-05 05:14:12Z">
-              <Issue>
-               <Item>argType</Item>
-               <Item>BizDateFormat.GetFormat(Type):Object</Item>
-               <Item>formatType</Item>
-               <Item>IFormatProvider.GetFormat(Type):Object</Item>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-18 08:32:58Z">
+              <Issue Name="Member">
+               <Item>internalName</Item>
               </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="7" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizCuffStateEvent+BizCuffStateEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-10-18 08:32:58Z">
+            <Issue>
+             <Item>Biz.BizCuffStateEvent+BizCuffStateEventHandler</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="BizCuffStateEventArgs">
+          <Members>
+           <Member Name="data">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-18 08:32:58Z">
+              <Issue Name="Member">
+               <Item>data</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="8" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -241,11 +321,11 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="DispatchCaptureData():System.Void">
+           <Member Name="Dispatch():System.Void">
             <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-02 03:44:52Z" FixCategory="Breaking">
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-18 08:32:58Z" FixCategory="Breaking">
               <Issue>
-               <Item>BizFacade.DispatchCaptureData():Void</Item>
+               <Item>BizFacade.Dispatch():Void</Item>
               </Issue>
              </Message>
             </Messages>
@@ -259,11 +339,11 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="FindCountdownEvent():Biz.BizCountdownEvent">
+           <Member Name="FindCountdownTimerEvent():Biz.BizCountdownTimerEvent">
             <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-18 08:32:58Z" FixCategory="Breaking">
               <Issue>
-               <Item>BizFacade.FindCountdownEvent():BizCountdownEvent</Item>
+               <Item>BizFacade.FindCountdownTimerEvent():BizCountdownTimerEvent</Item>
               </Issue>
              </Message>
             </Messages>
@@ -273,6 +353,15 @@
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
               <Issue>
                <Item>BizFacade.FindCuffPulseEvent():BizCuffPulseEvent</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="FindCuffStateEvent():Biz.BizCuffStateEvent">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-18 08:32:58Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizFacade.FindCuffStateEvent():BizCuffStateEvent</Item>
               </Issue>
              </Message>
             </Messages>
@@ -310,15 +399,6 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="SimulateDeflationTimer():System.Void">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizFacade.SimulateDeflationTimer():Void</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="StartCapture():System.Boolean">
             <Messages>
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-08-12 07:21:54Z" FixCategory="Breaking">
@@ -342,15 +422,6 @@
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
               <Issue>
                <Item>BizFacade.StopCaptureSimulation():Void</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="StopDeflationTimerSimulation():System.Void">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-09-29 07:42:36Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizFacade.StopDeflationTimerSimulation():Void</Item>
               </Issue>
              </Message>
             </Messages>
@@ -902,6 +973,33 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="countdownTimerObserver">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-18 08:32:58Z">
+              <Issue Name="Member">
+               <Item>countdownTimerObserver</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="cuffObserver">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-18 08:32:58Z">
+              <Issue Name="Member">
+               <Item>cuffObserver</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="cuffPulseObserver">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-18 08:32:58Z">
+              <Issue Name="Member">
+               <Item>cuffPulseObserver</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="deltaTime">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
@@ -981,29 +1079,11 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="myCountdownObserver">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-29 07:42:36Z">
-              <Issue Name="Member">
-               <Item>myCountdownObserver</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="myCuffDistance">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
               <Issue Name="Member">
                <Item>myCuffDistance</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="myCuffPulseObserver">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-09-02 03:44:52Z">
-              <Issue Name="Member">
-               <Item>myCuffPulseObserver</Item>
               </Issue>
              </Message>
             </Messages>
@@ -1027,21 +1107,6 @@
              <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Created="2010-09-02 03:44:52Z">
               <Issue Name="Member">
                <Item>BizPWV.myPWVDirectDistance:BizPWVDirectDistance</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="myTonometerDataObserver">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-07 04:09:58Z">
-              <Issue Name="Member">
-               <Item>myTonometerDataObserver</Item>
-              </Issue>
-             </Message>
-             <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-07 04:09:58Z">
-              <Issue Name="Member">
-               <Item>Tonometer</Item>
-               <Item>BizPWV.myTonometerDataObserver:BizTonometerDataCapture</Item>
               </Issue>
              </Message>
             </Messages>
@@ -1101,6 +1166,21 @@
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-08-12 07:21:54Z">
               <Issue Name="Member">
                <Item>standardDeviation</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="tonometerDataObserver">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-18 08:32:58Z">
+              <Issue Name="Member">
+               <Item>tonometerDataObserver</Item>
+              </Issue>
+             </Message>
+             <Message Id="tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-18 08:32:58Z">
+              <Issue Name="Member">
+               <Item>tonometer</Item>
+               <Item>BizPWV.tonometerDataObserver:BizTonometerDataCapture</Item>
               </Issue>
              </Message>
             </Messages>
@@ -1537,6 +1617,13 @@
     <Note Id="1" Modified="2010-10-12 03:04:13Z">Need to pass types by ref from C# to C++</Note>
     <Note Id="2" Modified="2010-10-12 03:04:35Z">Config is not acronym.</Note>
     <Note Id="3" Modified="2010-10-12 03:13:16Z">Not appropriate to use property because config ID is not BizInfo property. </Note>
+    <Note Id="4" Modified="2010-10-18 08:34:39Z">this is a property, not a member</Note>
+    <Note Id="5" Modified="2010-10-18 08:34:56Z">this is a property, not a member</Note>
+    <Note Id="6" Modified="2010-10-18 08:35:11Z">this is a property, not a member</Note>
+    <Note Id="7" Modified="2010-10-18 08:35:24Z">this is a property, not a member</Note>
+    <Note Id="8" Modified="2010-10-18 09:20:33Z">this is a property, not a member</Note>
+    <Note Id="9" Modified="2010-10-18 12:01:22Z">this is a property, not a member</Note>
+    <Note Id="10" Modified="2010-10-18 12:01:38Z">this is a property, not a member</Note>
     <Note Id="13" Modified="2010-10-07 04:11:53Z">Tonometer is a technical term.</Note>
     <Note Id="16" Modified="2010-10-07 04:12:24Z">Tonometer is a technical term.</Note>
     <Note Id="17" Modified="2010-10-07 04:12:29Z">Tonometer is a technical term.</Note>
@@ -1546,7 +1633,6 @@
     <Note Id="21" Modified="2010-10-07 04:12:47Z">Tonometer is a technical term.</Note>
     <Note Id="22" Modified="2010-10-07 09:40:52Z">Tonometer is a technical term</Note>
     <Note Id="23" Modified="2010-10-08 05:18:47Z">this is a property, not a member</Note>
-    <Note Id="24" Modified="2010-10-08 05:54:40Z">this is a property, not a member</Note>
     <Note Id="25" Modified="2010-10-11 04:17:50Z">Not an identifier. Internal destructor.</Note>
     <Note Id="26" Modified="2010-10-11 04:18:35Z">this is a property, not a member</Note>
     <Note Id="27" Modified="2010-10-11 04:18:50Z">this is a property, not a member</Note>
@@ -1586,9 +1672,6 @@
    </Rule>
    <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
     <Resolution Name="Default">The 'this' parameter (or 'Me' in VB) of {0} is never used. Mark the member as static (or Shared in VB) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
-   </Rule>
-   <Rule TypeName="ParameterNamesShouldMatchBaseDeclaration" Category="Microsoft.Naming" CheckId="CA1725">
-    <Resolution Name="Default">Change parameter name '{0}' of method {1} to '{2}' in order to match the identifier as it has been declared in {3}.</Resolution>
    </Rule>
    <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
     <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>

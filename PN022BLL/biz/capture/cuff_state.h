@@ -28,10 +28,7 @@ namespace Biz {
 
 	protected:
 		BizCuffState() {};
-		void ChangeState(BizCuff^ const client, BizCuffState^ %state);
-
-	private:
-		BizCuffState^ _state;
+		static void ChangeState(BizCuff^ const client, BizCuffState^ state);
 	};
 
 	// Cuff not connected state

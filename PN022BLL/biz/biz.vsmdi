@@ -50,6 +50,7 @@
       <TestLink id="a05cb35b-f927-efe7-51f2-000ff8de0cd4" name="BizCuffPulseEventNotifyTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="b99be400-46fe-2864-acb1-1ea19db0f920" name="BizCountdownEventNotifyTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="fb5e1d8c-b1fa-90fa-1e2b-1adf2b43b31e" name="BizTonometerDataEventNotifyTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="d55db995-7a44-b759-1350-fc459a8ec2e3" name="BizCuffStateEventNotifyTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
     </TestLinks>
   </TestList>
   <TestList name="BizCaptureXXX" id="497b610f-b759-4e0a-b7c0-b872a1f0c5ab" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
@@ -66,6 +67,13 @@
     <TestLinks>
       <TestLink id="bad95302-db11-b710-70ba-d192cb05418f" name="InstanceTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="82a52d3f-244c-4f4e-5b68-0d8b3dcef753" name="GetBizInfoTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="BizCuff" id="73b37c71-7e92-4e17-8b5a-46f7d3148d20" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <TestLinks>
+      <TestLink id="0de0e1f6-6ee1-ba85-bbd4-ef4a91aee918" name="BizCuffChangeStateTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="a6103b84-6be7-be01-700d-1bed20c3cc62" name="BizCuffDispatchTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="99183092-1796-e96e-85fa-18744ab03f6b" name="BizCuffUpdateTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
     </TestLinks>
   </TestList>
   <TestList name="Lists of Tests" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">

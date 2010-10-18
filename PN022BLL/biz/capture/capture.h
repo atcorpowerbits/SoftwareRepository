@@ -60,7 +60,7 @@ namespace Biz {
 	public:
 		BizCountdownTimerCapture(BizBuffer^ buffer);
 
-		property BizCountdownTimerEvent^ countdownTimerBiz; //countdown data to be dispatched
+		 property BizCountdownTimerEvent^ countdownTimerBiz; //countdown data to be dispatched
 		virtual void Dispatch() override;
 
 	private:

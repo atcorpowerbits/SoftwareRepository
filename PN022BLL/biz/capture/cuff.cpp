@@ -83,19 +83,19 @@ void BizCuff::Update( Object^ sender, DalCuffStatusEventArgs^ e )
 	// Map DAL cuff state event into 
 	switch (e->data)
 	{
-	case 1: // TBD: Why can't DataAccess::DalConstants::CUFF_STATE_DISCONNECTED):
+	case 1: // TBD: Why can't use DataAccess::DalConstants::CUFF_STATE_DISCONNECTED):
 		ChangeState(BizCuffDisconnected::Instance());
 		break;
-	case 2: // TBD: Why can't DataAccess::DalConstants::CUFF_STATE_CONNECTED_DEFLATED):
+	case 2: // TBD: Why can't use DataAccess::DalConstants::CUFF_STATE_CONNECTED_DEFLATED):
 		ChangeState(BizCuffDeflated::Instance());
 		break;
-	case 3: // TBD: Why can't DataAccess::DalConstants::CUFF_STATE_INFLATING):
+	case 3: // TBD: Why can't use DataAccess::DalConstants::CUFF_STATE_INFLATING):
 		ChangeState(BizCuffInflating::Instance());
 		break;
-	case 4: // TBD: Why can't DataAccess::DalConstants::CUFF_STATE_INFLATED):
+	case 4: // TBD: Why can't use DataAccess::DalConstants::CUFF_STATE_INFLATED):
 		ChangeState(BizCuffInflated::Instance());
 		break;
-	case 5: // TBD: Why can't DataAccess::DalConstants::CUFF_STATE_DEFLATING):
+	case 5: // TBD: Why can't use DataAccess::DalConstants::CUFF_STATE_DEFLATING):
 		ChangeState(BizCuffDeflating::Instance());
 		break;
 	default:

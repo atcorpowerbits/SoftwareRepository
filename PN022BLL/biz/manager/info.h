@@ -14,14 +14,14 @@
 using namespace System;
 
 namespace Biz {
-	public ref class BizDateFormat: public IFormatProvider
-	{
-	public:
-		virtual Object^ GetFormat( Type^ argType )
-		{
-			return this;
-		}
-	};
+//	public ref class BizDateFormat: public IFormatProvider
+//	{
+//	public:
+//		virtual Object^ GetFormat( Type^ argType )
+//		{
+//			return this;
+//		}
+//	};
 	public ref class BizInfo {
 	public:
 		static BizInfo^ BizInfo::Instance();
