@@ -52,6 +52,8 @@ namespace CrossCutting {
 	*/	
 	CrxConfigFacade::CrxConfigFacade(void)
 	{
+		PWVMeasureUnit = MEASUREMENT_UNIT_METRICS; // stub to metrics
+		PWVSubtractingMethod = true;
 		PWVCaptureTime = 20; // stub to 20 sec
 	}
 	/** 
@@ -78,6 +80,34 @@ namespace CrossCutting {
 	*/
 	bool CrxConfigFacade::isMetricsUnit()
 	{
-		return (MeasureUnit == MEASUREMENT_UNIT_METRICS);
+		return (PWVMeasureUnit == MEASUREMENT_UNIT_METRICS);
+	}
+	bool CrxConfigFacade::isSubtractingMethod()
+	{
+		return (PWVSubtractingMethod);
+	}
+	unsigned short CrxConfigFacade::GetCaptureTime()
+	{
+		return PWVCaptureTime;
+	}
+	void CrxConfigFacade::SetMeasurementUnit(unsigned short metrics)
+	{
+		PWVMeasureUnit = metrics;
+	}
+	void CrxConfigFacade::SetDistanceMethod(bool subtracting)
+	{
+		PWVSubtractingMethod = subtracting;
+	}
+	void CrxConfigFacade::SetCaptureTime(unsigned short captureTime)
+	{
+		PWVCaptureTime = captureTime;
+	}
+	void CrxConfigFacade::SetBPCombination(unsigned short bp)
+	{
+		PWVBPCombination = bp;
+	}
+	unsigned short CrxConfigFacade::GetBPCombination()
+	{
+		return PWVBPCombination;
 	}
 }

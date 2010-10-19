@@ -19,12 +19,6 @@ using namespace DataAccess;
 
 namespace Biz {
 
-	const unsigned short PWV_DISTANCE_MIN = 10;
-	const unsigned short PWV_DISTANCE_MAX = 2200;
-	const unsigned short PWV_FEM2CUFF_MIN = 10;
-	const unsigned short PWV_FEM2CUFF_MAX = 700;
-	const unsigned short PWV_MAX_ONSETS = 30 * 3;
-
 	/*---------------------------------------------------------------------------
 	// Pulse Wave Velocity data structure
 	//---------------------------------------------------------------------------
@@ -40,6 +34,8 @@ namespace Biz {
 	public:
 		virtual bool Validate() = 0;
 		property unsigned short distance;
+	protected:
+		BizDistance() {};
 	};
 	// Carotid distance with validation
 	public ref class BizCarotidDistance : BizDistance

@@ -109,7 +109,6 @@ namespace TestBiz {
 			{
 				BizCuff^  target = (gcnew BizCuff()); // TODO: Initialize to an appropriate value
 				PrivateObject^ accessor = gcnew PrivateObject(target);
-				unsigned short data; // TODO: Initialize to an appropriate value
 				unsigned short^ actual = gcnew unsigned short; // = gcnew unsigned short; // TODO: Initialize to an appropriate value
 				DalCuffStatusEventArgs^  e;
 				bool rc = false;

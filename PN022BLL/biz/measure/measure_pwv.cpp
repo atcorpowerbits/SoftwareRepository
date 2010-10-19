@@ -201,14 +201,14 @@ namespace Biz {
 		// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
 		tonometerDataObserver = gcnew BizTonometerDataCapture(
 			gcnew BizCircularBuffer(1000 * 
-			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 
+			                        (CrossCutting::CrxConfigFacade::Instance()->GetCaptureTime() + 
 									Biz::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
 		tonometerDataObserver->Reset();
 
 		cuffPulseObserver = gcnew BizCuffPulseCapture(
 			gcnew BizCircularBuffer(1000 * 
-			                        (CrossCutting::CrxConfigFacade::Instance()->PWVCaptureTime + 
+			                        (CrossCutting::CrxConfigFacade::Instance()->GetCaptureTime() + 
 									Biz::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
 		cuffPulseObserver->Reset();
@@ -247,7 +247,7 @@ namespace Biz {
 		bool isValid = false;
 
 		// TBD: check PWV distance method
-		if (CrxConfigFacade::Instance()->PWVSubtractingMethod)
+		if (CrxConfigFacade::Instance()->isSubtractingMethod())
 		{
 			isValid = myCarotidDistance->Validate() && myCuffDistance->Validate();
 		} else

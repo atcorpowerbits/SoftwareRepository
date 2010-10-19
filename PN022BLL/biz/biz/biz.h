@@ -36,6 +36,26 @@ namespace Biz {
 	const float FIRST_DERIVATIVE_THRESHOLD2 = (float) 0.65;
 	const float FIRST_DERIVATIVE_THRESHOLD3 = (float) 0.40;			// To find Average Peak of Der1
 
+	const unsigned int MEA_HEIGHT_CM_MIN = 20;
+	const unsigned int MEA_HEIGHT_CM_MAX= 220;
+	const unsigned int MEA_HEIGHT_INCH_MIN = 12;
+	const unsigned int MEA_HEIGHT_INCH_MAX = 100;
+	const unsigned int MEA_WEIGHT_KG_MIN = 3;
+	const unsigned int MEA_WEIGHT_KG_MAX = 227;
+	const unsigned int MEA_WEIGHT_LB_MIN = 7;
+	const unsigned int MEA_WEIGHT_LB_MAX = 500;
+	const unsigned int MEA_BP_MIN = 30;
+	const unsigned int MEA_BP_MAX = 250;
+	const unsigned int MEA_SP2DP_DIFF_MIN = 10;
+	const unsigned int MEA_MP2DP_DIFF_MIN = 5;
+	const unsigned int MEA_SP2MP_DIFF_MIN = 5;
+
+	const unsigned short PWV_DISTANCE_MIN = 10;
+	const unsigned short PWV_DISTANCE_MAX = 2200;
+	const unsigned short PWV_FEM2CUFF_MIN = 10;
+	const unsigned short PWV_FEM2CUFF_MAX = 700;
+	const unsigned short PWV_MAX_ONSETS = 30 * 3;
+
 	const unsigned short CAPTURE_EXTRA_FOR_HANDSHAKE = 2; // seconds
 
 	const unsigned short CONFIG_ID_PWV = 0x01;

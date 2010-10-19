@@ -10,24 +10,12 @@
 
 #pragma once
 
+#include <biz.h>
+
 using namespace System;
 using namespace DataAccess;
 
 namespace Biz {
-
-	const unsigned int MEA_HEIGHT_CM_MIN = 20;
-	const unsigned int MEA_HEIGHT_CM_MAX= 220;
-	const unsigned int MEA_HEIGHT_INCH_MIN = 12;
-	const unsigned int MEA_HEIGHT_INCH_MAX = 100;
-	const unsigned int MEA_WEIGHT_KG_MIN = 3;
-	const unsigned int MEA_WEIGHT_KG_MAX = 227;
-	const unsigned int MEA_WEIGHT_LB_MIN = 7;
-	const unsigned int MEA_WEIGHT_LB_MAX = 500;
-	const unsigned int MEA_BP_MIN = 30;
-	const unsigned int MEA_BP_MAX = 250;
-	const unsigned int MEA_SP2DP_DIFF_MIN = 10;
-	const unsigned int MEA_MP2DP_DIFF_MIN = 5;
-	const unsigned int MEA_SP2MP_DIFF_MIN = 5;
 
 	// Audit flag types
 	typedef enum
@@ -43,8 +31,9 @@ namespace Biz {
 	{
 	public:
 		property unsigned short Height;
-	public:
 		virtual bool Validate() = 0;
+	protected:
+		BizHeight() {};
 	};
 	// Height in cm with validation
 	public ref class BizHeightCM : BizHeight
@@ -65,8 +54,9 @@ namespace Biz {
 	{
 	public:
 		property unsigned int Weight;
-	public:
 		virtual bool Validate() = 0;
+	protected:
+		BizWeight() {};
 	};
 	// Weight in kilograms with validation
 	public ref class BizWeightKG : BizWeight
@@ -87,8 +77,9 @@ namespace Biz {
 	{
 	public:
 		property unsigned int Reading;
-	public:
 		virtual bool Validate();
+	protected:
+		BizPressureReading() {};
 	};
 	// Systolic blood pressure reading with validation
 	public ref class BizSP : BizPressureReading
@@ -114,32 +105,33 @@ namespace Biz {
 	// Abstract blood pressure measurement with validation
 	public ref class BizBloodPressure abstract
 	{
-	protected:
+	public:
 		property BizSP^ SP;
 		property BizDP^ DP;
 		property BizMP^ MP;
-	public:
 		virtual bool Validate() = 0;
+	protected:
+		BizBloodPressure() {};
 	};
 	// Blood pressure measurement in SP & DP with validation
 	public ref class BizSPAndDP : BizBloodPressure
 	{
 	public:
-		BizSPAndDP(void) {};
+		BizSPAndDP(void) { SP = gcnew BizSP; DP = gcnew BizDP; };
 		virtual bool Validate() override;
 	};
 	// Blood pressure measurement in MP & DP with validation
 	public ref class BizMPAndDP : BizBloodPressure
 	{
 	public:
-		BizMPAndDP(void) {};
+		BizMPAndDP(void) { DP = gcnew BizDP; MP = gcnew BizMP; };
 		virtual bool Validate() override;
 	};
 	// Blood pressure measurement in SP & MP with validation
 	public ref class BizSPAndMP : BizBloodPressure
 	{
 	public:
-		BizSPAndMP(void) {};
+		BizSPAndMP(void) { SP = gcnew BizSP; MP = gcnew BizMP; };
 		virtual bool Validate() override;
 	};
 	// Abstract measurement
@@ -150,6 +142,10 @@ namespace Biz {
 		virtual bool StopCapture() { return false; };
 		virtual void DispatchCaptureData() {};
 
+		property BizBloodPressure^	myBP;				// patient blood pressure
+		property BizHeight^		myHeight;				// patient height 
+		property BizWeight^		myWeight;				// patient weight
+
 	protected:
 		property String^        SystemId;
 		property String^        GroupStudyId;
@@ -158,9 +154,6 @@ namespace Biz {
 		property DateTime       MeasurementDateTime;    // date and time of measurement
 		property unsigned short DataRev;				// data revision number
 
-		property BizBloodPressure^	myBP;				// patient blood pressure
-		property BizHeight^		myHeight;				// patient height 
-		property BizWeight^		myWeight;				// patient weight
 		property float          Bmi;					// body mass index
 
 		property String^        Medication;				// notes regarding medication for this patient

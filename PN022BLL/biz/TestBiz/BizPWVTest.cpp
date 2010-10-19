@@ -126,7 +126,7 @@ namespace TestBiz {
 				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
 				bool expected = Convert::ToBoolean(testContextInstance->DataRow["Expected"]); // TODO: Initialize to an appropriate value
 				bool actual;
-				CrxConfigFacade::Instance()->PWVSubtractingMethod = Convert::ToBoolean(testContextInstance->DataRow["Method"]);
+				CrxConfigFacade::Instance()->SetDistanceMethod(Convert::ToBoolean(testContextInstance->DataRow["Method"]));
 				target->myCarotidDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Carotid"]);
 				target->myCuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Cuff"]);
 				target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["PWVDist"]);
@@ -134,26 +134,52 @@ namespace TestBiz {
 				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
-			///A test for ValidateFemoral2CuffDistance
-			///</summary>
-	public: [TestMethod]
-			void ValidateFemoral2CuffDistanceTest()
-			{
-				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
-				bool actual;
-				actual = target->myFemoral2CuffDistance->Validate();
-				Assert::AreEqual(expected, actual);
-			}
-			/// <summary>
 			///A test for Validate
 			///</summary>
-	public: [TestMethod]
-			void ValidateTest()
+	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVValidate.csv", L"BizPWVValidate#csv", DataAccessMethod::Sequential),
+				TestMethod]
+			void BizPWVValidateTest()
 			{
-				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
+				bool expected = Convert::ToBoolean(testContextInstance->DataRow["Expected"]); // TODO: Initialize to an appropriate value
 				bool actual;
+
+				CrxConfigFacade::Instance()->SetMeasurementUnit(Convert::ToUInt16(testContextInstance->DataRow["Unit"]));
+				CrxConfigFacade::Instance()->SetDistanceMethod(Convert::ToBoolean(testContextInstance->DataRow["DistanceMethod"]));
+				CrxConfigFacade::Instance()->SetBPCombination(Convert::ToUInt16(testContextInstance->DataRow["BP"]));
+
+				// Instantiate after config is set
+				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
+
+				target->myHeight->Height = Convert::ToUInt16(testContextInstance->DataRow["Height"]);
+				target->myWeight->Weight = Convert::ToUInt16(testContextInstance->DataRow["Weight"]);
+
+				/**<0 : if SP and DP is selected 1:SP and MP is selected 2:MP and DP is selected */
+				switch (CrxConfigFacade::Instance()->GetBPCombination())
+				{
+				case 0:
+					target->myBP->SP->Reading = Convert::ToUInt16(testContextInstance->DataRow["SP"]);
+					target->myBP->DP->Reading = Convert::ToUInt16(testContextInstance->DataRow["DP"]);
+					break;
+				case 1:
+					target->myBP->SP->Reading = Convert::ToUInt16(testContextInstance->DataRow["SP"]);
+					target->myBP->MP->Reading = Convert::ToUInt16(testContextInstance->DataRow["MP"]);
+				case 2:
+					target->myBP->DP->Reading = Convert::ToUInt16(testContextInstance->DataRow["DP"]);
+					target->myBP->MP->Reading = Convert::ToUInt16(testContextInstance->DataRow["MP"]);
+				default:
+					break;
+				}
+
+				if (CrxConfigFacade::Instance()->isSubtractingMethod())
+				{
+					target->myCarotidDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["CarotidDist"]);
+					target->myCuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["CuffDist"]);
+				} else 
+				{
+					target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["PWVDist"]);
+				}
+				target->myFemoral2CuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Femoral2CuffDist"]);
+
 				actual = target->Validate();
 				Assert::AreEqual(expected, actual);
 			}

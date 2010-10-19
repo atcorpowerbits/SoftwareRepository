@@ -195,11 +195,11 @@ namespace Biz {
 		return isValid;
 	}
 	/**
-	xyz
+	Validate
 
 	DESCRIPTION
 
-		xyz
+		Validate pressure reading.
 
 	INPUT
 	
@@ -211,7 +211,9 @@ namespace Biz {
 	
 	RETURN
 	
-		None.
+		true - valid
+
+		false - invalid
 	
 	*/		
 	bool BizPressureReading::Validate()
@@ -227,11 +229,11 @@ namespace Biz {
 		return isValid;
 	}
 	/**
-	xyz
+	Validate
 
 	DESCRIPTION
 
-		xyz
+		Validate SP.
 
 	INPUT
 	
@@ -243,7 +245,9 @@ namespace Biz {
 	
 	RETURN
 	
-		None.
+		true - valid
+
+		false - invalid
 	
 	*/		
 	bool BizSP::Validate()
@@ -259,11 +263,11 @@ namespace Biz {
 		return isValid;
 	}
 	/**
-	xyz
+	Validate
 
 	DESCRIPTION
 
-		xyz
+		Validate DP.
 
 	INPUT
 	
@@ -275,7 +279,9 @@ namespace Biz {
 	
 	RETURN
 	
-		None.
+		true - valid
+
+		false - invalid
 	
 	*/		
 	bool BizDP::Validate()
@@ -291,11 +297,11 @@ namespace Biz {
 		return isValid;
 	}
 	/**
-	xyz
+	Validate
 
 	DESCRIPTION
 
-		xyz
+		Validate MP.
 
 	INPUT
 	
@@ -307,7 +313,9 @@ namespace Biz {
 	
 	RETURN
 	
-		None.
+		true - valid
+
+		false - invalid
 	
 	*/		
 	bool BizMP::Validate()
@@ -323,11 +331,11 @@ namespace Biz {
 		return isValid;
 	}
 	/**
-	xyz
+	Validate
 
 	DESCRIPTION
 
-		xyz
+		Validate SP and DP blood pressure.
 
 	INPUT
 	
@@ -339,7 +347,9 @@ namespace Biz {
 	
 	RETURN
 	
-		None.
+		true - valid
+
+		false - invalid
 	
 	*/		
 	bool BizSPAndDP::Validate()
@@ -351,7 +361,7 @@ namespace Biz {
 		} else if (!DP->Validate())
 		{
 			isValid = false;
-		} else if (!((SP->Reading - DP->Reading) < MEA_SP2DP_DIFF_MIN))
+		} else if (SP->Reading < (DP->Reading + MEA_SP2DP_DIFF_MIN))
 		{
 			//TBD: Inform user "Diff bet SP and DP should be ... mmHg"
 			isValid = false;
@@ -362,11 +372,11 @@ namespace Biz {
 		return isValid;
 	}
 	/**
-	xyz
+	Validate
 
 	DESCRIPTION
 
-		xyz
+		Validate MP and DP blood pressure.
 
 	INPUT
 	
@@ -378,7 +388,9 @@ namespace Biz {
 	
 	RETURN
 	
-		None.
+		true - valid
+
+		false - invalid
 	
 	*/		
 	bool BizMPAndDP::Validate()
@@ -390,7 +402,7 @@ namespace Biz {
 		} else if (!DP->Validate())
 		{
 			isValid = false;
-		} else if (!((MP->Reading - DP->Reading) < MEA_MP2DP_DIFF_MIN))
+		} else if (MP->Reading < (DP->Reading + MEA_MP2DP_DIFF_MIN))
 		{
 			//TBD: Inform user "Diff bet MP and DP should be ... mmHg"
 			isValid = false;
@@ -401,11 +413,11 @@ namespace Biz {
 		return isValid;
 	}
 	/**
-	xyz
+	Validate
 
 	DESCRIPTION
 
-		xyz
+		Validate SP and MP blood pressure.
 
 	INPUT
 	
@@ -417,7 +429,9 @@ namespace Biz {
 	
 	RETURN
 	
-		None.
+		true - valid
+
+		false - invalid
 	
 	*/		
 	bool BizSPAndMP::Validate()
@@ -429,7 +443,7 @@ namespace Biz {
 		} else if (!MP->Validate())
 		{
 			isValid = false;
-		} else if (!((SP->Reading - MP->Reading) < MEA_SP2MP_DIFF_MIN))
+		} else if (SP->Reading < (MP->Reading + MEA_SP2MP_DIFF_MIN))
 		{
 			//TBD: Inform user "Diff bet SP and MP should be ... mmHg"
 			isValid = false;

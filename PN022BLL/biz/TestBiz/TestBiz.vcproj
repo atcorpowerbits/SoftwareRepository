@@ -194,12 +194,12 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3943.32373, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="crx, Version=1.0.3944.19762, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.3943.37810, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="dal, Version=1.0.3944.19762, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 	</References>
@@ -211,6 +211,10 @@
 			>
 			<File
 				RelativePath=".\AssemblyInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizCarotidDistanceTest.cpp"
 				>
 			</File>
 			<File
@@ -235,6 +239,10 @@
 			</File>
 			<File
 				RelativePath=".\BizCuffDisconnectedTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizCuffDistanceTest.cpp"
 				>
 			</File>
 			<File
@@ -266,7 +274,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BizDPTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BizFacadeTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizFemoral2CuffDistanceTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizHeightCMTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizHeightInchTest.cpp"
 				>
 			</File>
 			<File
@@ -275,6 +299,18 @@
 			</File>
 			<File
 				RelativePath=".\BizMathTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizMPAndDPTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizMPTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizPWVDirectDistanceTest.cpp"
 				>
 			</File>
 			<File
@@ -290,11 +326,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BizSPAndDPTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizSPAndMPTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizSPTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BizTonoDataCaptureTest.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\BizTonoDataEventTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizWeightKGTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizWeightLBTest.cpp"
 				>
 			</File>
 			<File

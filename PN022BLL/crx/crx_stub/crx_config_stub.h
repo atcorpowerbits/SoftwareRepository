@@ -22,13 +22,25 @@ namespace CrossCutting {
 	{
 	public:
 		static CrxConfigFacade^ CrxConfigFacade::Instance();
-		property bool PWVSubtractingMethod;
-		property unsigned short PWVCaptureTime;
 		bool isMetricsUnit();
+		bool isSubtractingMethod();
+		unsigned short GetCaptureTime();
+		/**<0 : if SP and DP is selected 1:SP and MP is selected 2:MP and DP is selected */
+		unsigned short GetBPCombination();
+
+		// For unit testing PWV
+		void SetMeasurementUnit(unsigned short);
+		void SetDistanceMethod(bool);
+		void SetCaptureTime(unsigned short);
+		void SetBPCombination(unsigned short);
+
 	protected:
 		CrxConfigFacade(void);
+		property unsigned short PWVMeasureUnit;
+		property bool PWVSubtractingMethod;
+		property unsigned short PWVCaptureTime;
+		property unsigned short PWVBPCombination;
 	private:
 		static CrxConfigFacade^ _instance;
-		property measurement_unit MeasureUnit;
 	};
 }
