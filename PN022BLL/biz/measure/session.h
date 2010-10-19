@@ -21,6 +21,7 @@ namespace Biz {
 		bool StartCapture();
 		bool StopCapture();
 		void DispatchCaptureData();
+		void ClearMeasurement();
 		property BizMeasure^ measurement;
 	protected:
 		BizSession(void);

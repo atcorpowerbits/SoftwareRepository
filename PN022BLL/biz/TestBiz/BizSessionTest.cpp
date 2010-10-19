@@ -1,5 +1,6 @@
 ﻿
 #include "StdAfx.h"
+#include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace Biz;
 namespace TestBiz {
@@ -65,7 +66,7 @@ namespace TestBiz {
 			///A test for StartCapture
 			///</summary>
 	public: [TestMethod]
-			void StartCaptureTest()
+			void BizSessionStartCaptureTest()
 			{
 				BizSession^  target = BizSession::Instance(); // TODO: Initialize to an appropriate value
 				bool expected = true; // TODO: Initialize to an appropriate value
@@ -77,12 +78,23 @@ namespace TestBiz {
 			///A test for Instance
 			///</summary>
 	public: [TestMethod]
-			void InstanceTest()
+			void BizSessionInstanceTest()
 			{
 				BizSession^  expected = nullptr; // TODO: Initialize to an appropriate value
 				BizSession^  actual;
 				actual = BizSession::Instance();
 				Assert::AreNotEqual(expected, actual);
+			}
+			/// <summary>
+			///A test for ClearMeasurement
+			///</summary>
+	public: [TestMethod]
+			void ClearMeasurementTest()
+			{
+				BizSession^  target = BizSession::Instance(); // TODO: Initialize to an appropriate value
+				BizMeasure^ old = target->measurement;
+				target->ClearMeasurement();
+				Assert::AreNotEqual(old, target->measurement);
 			}
 	};
 }
