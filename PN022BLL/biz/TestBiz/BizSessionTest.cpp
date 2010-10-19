@@ -84,6 +84,7 @@ namespace TestBiz {
 				BizSession^  actual;
 				actual = BizSession::Instance();
 				Assert::AreNotEqual(expected, actual);
+				Assert::AreNotEqual(expected, actual->measurement);// to test measurement object is created.
 			}
 			/// <summary>
 			///A test for ClearMeasurement
