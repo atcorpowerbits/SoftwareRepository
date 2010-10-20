@@ -20,21 +20,21 @@ namespace Biz {
 	
 	public:
 
-		property short	signalLength;			// Number of accounted points in signal
-		property short	onsetsLength;			// Actual number of onsets
-		property short	sampleRate;				// Signal Sample rate
+		property unsigned short	signalLength;	// Number of accounted points in signal
+		property unsigned short	onsetsLength;	// Actual number of onsets
+		property unsigned short	sampleRate;		// Signal Sample rate
 		property float	pulseHeight;			// Quality Control - pulse height
 		property float	pulseHeightVariation;	// Quality Control - pulse height variation
 		property float	pulseLengthVariation;	// Quality Control - pulse length variation
 		property float	pulseBaselineVariation;	// Quality Control - baseline variation
 
-		property array<float>^ signal			// Signal array
+		property array<unsigned short>^ signal			// Signal array
 		{
-			array<float>^ get() 
+			array<unsigned short>^ get() 
 			{
 				return _signal;
 			}
-		private: void set(array<float>^ input) 
+		private: void set(array<unsigned short>^ input) 
 			{
 				_signal = input;
 			}
@@ -65,14 +65,14 @@ namespace Biz {
 		}
 
 	private:
-		property bool	_readyToCapture;		
-    	array<float>^	_signal;
-		array<float>^	_floatOnsets;	
-		array<float>^	_firstDerivative;
+		property bool			_readyToCapture;		
+    	array<unsigned short>^	_signal;
+		array<float>^			_floatOnsets;	
+		array<float>^			_firstDerivative;
 
 	protected:
-		property short   maximumSignalLength;		// Maximum accounted points in signal
-		property short   maximumOnsetsLength;		// Maximum number of onsets
+		property unsigned short maximumSignalLength;		// Maximum accounted points in signal
+		property unsigned short maximumOnsetsLength;		// Maximum number of onsets
 		
 	public:
 		// Member functions:
@@ -81,33 +81,33 @@ namespace Biz {
 		BizSignal();
 		
 		// Initialise properties
-		bool Initialise(const short inputSampleRate);
-		bool Allocate(const short inputMaximumSignalLength, const short inputMaximumOnsetsLength);
+		bool Initialise(const unsigned short inputSampleRate);
+		bool Allocate(const unsigned short inputMaximumSignalLength, const unsigned short inputMaximumOnsetsLength);
 
 		// Set default values for onsets not touching Signal
 		void SetDefaults();
 
 		// Store whole signal in Signal array
-		bool CaptureSignal(array<const short>^ input, const short size);
+		bool CaptureSignal(array<const unsigned short>^ input, const unsigned short size);
 
 		// Allow signal capture
 		void PrepareToCapture();
 		
 		// Validate Signal length
-		bool ValidateSignalLength(const short minimumSignalLength);
+		bool ValidateSignalLength(const unsigned short minimumSignalLength);
 
 		// Validate Signal amplitude
-		bool ValidateSignalHeight(const short minimumSignalHeight);
+		bool ValidateSignalHeight(const unsigned short minimumSignalHeight);
 
 		// Validate signal record before storing in Database
-		bool ValidateBeforeStore(const short minimumSignalLength, const short minimumOnsetsLength,
-								 const short minimumSignalHeight);
+		bool ValidateBeforeStore(const unsigned short minimumSignalLength, const unsigned short minimumOnsetsLength,
+								 const unsigned short minimumSignalHeight);
 
 		// Calculate Quality Control parameters for a Signal
 		bool CalculateQualityControls();
 
 		// Validate Signal
-		bool ValidateSignal(const short minimumSignalLength, const short minimumSignalHeight);
+		bool ValidateSignal(const unsigned short minimumSignalLength, const unsigned short minimumSignalHeight);
     
 		// Find Trigger points for TSignal signal
 		bool FindOnsets();
@@ -118,18 +118,18 @@ namespace Biz {
 		
 	};
 }
-static bool BizCorCalculateQualityControls(short signalLength, 
-											short onsetsLength, 
-											float* signal, 
+static bool BizCorCalculateQualityControls(unsigned short signalLength, 
+											unsigned short onsetsLength, 
+											unsigned short* signal, 
 											float* floatOnsets,
 											float* pulseHeight,
 											float* pulseHeightVariation,
 											float* pulseLengthVariation,
 											float* pulseBaselineVariation);
-static bool BizCorFindOnsets(short signalLength, short sampleRate, short maximumOnsetsLength,
-						float* signal, float* firstDerivative, 
-						float* floatOnsets,	short* onsetsLength);
-bool BizCorTangentAlgorithm(const float maximumFirstDerivative, short signalLength, 
-							short sampleRate, short maximumOnsetsLength,
-							float* signal, float* firstDerivative, 
-							float* floatOnsets,	short* onsetsLength);
+static bool BizCorFindOnsets(unsigned short signalLength, unsigned short sampleRate, unsigned short maximumOnsetsLength,
+						unsigned short* signal, float* firstDerivative, 
+						float* floatOnsets,	unsigned short* onsetsLength);
+bool BizCorTangentAlgorithm(const float maximumFirstDerivative, unsigned short signalLength, 
+							unsigned short sampleRate, unsigned short maximumOnsetsLength,
+							unsigned short* signal, float* firstDerivative, 
+							float* floatOnsets,	unsigned short* onsetsLength);

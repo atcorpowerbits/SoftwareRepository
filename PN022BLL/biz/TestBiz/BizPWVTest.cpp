@@ -1,5 +1,6 @@
 ﻿
 #include "StdAfx.h"
+#include <biz.h>
 
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace Biz;
@@ -140,48 +141,37 @@ namespace TestBiz {
 				TestMethod]
 			void BizPWVValidateTest()
 			{
-				bool expected = Convert::ToBoolean(testContextInstance->DataRow["Expected"]); // TODO: Initialize to an appropriate value
+				BizPWV^  target = (gcnew BizPWV());
+				bool expected = true; 
 				bool actual;
-
-				CrxConfigFacade::Instance()->SetMeasurementUnit(Convert::ToUInt16(testContextInstance->DataRow["Unit"]));
-				CrxConfigFacade::Instance()->SetDistanceMethod(Convert::ToBoolean(testContextInstance->DataRow["DistanceMethod"]));
-				CrxConfigFacade::Instance()->SetBPCombination(Convert::ToUInt16(testContextInstance->DataRow["BP"]));
-
-				// Instantiate after config is set
-				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
-
-				target->myHeight->Height = Convert::ToUInt16(testContextInstance->DataRow["Height"]);
-				target->myWeight->Weight = Convert::ToUInt16(testContextInstance->DataRow["Weight"]);
-
-				/**<0 : if SP and DP is selected 1:SP and MP is selected 2:MP and DP is selected */
-				switch (CrxConfigFacade::Instance()->GetBPCombination())
-				{
-				case 0:
-					target->myBP->SP->Reading = Convert::ToUInt16(testContextInstance->DataRow["SP"]);
-					target->myBP->DP->Reading = Convert::ToUInt16(testContextInstance->DataRow["DP"]);
-					break;
-				case 1:
-					target->myBP->SP->Reading = Convert::ToUInt16(testContextInstance->DataRow["SP"]);
-					target->myBP->MP->Reading = Convert::ToUInt16(testContextInstance->DataRow["MP"]);
-				case 2:
-					target->myBP->DP->Reading = Convert::ToUInt16(testContextInstance->DataRow["DP"]);
-					target->myBP->MP->Reading = Convert::ToUInt16(testContextInstance->DataRow["MP"]);
-				default:
-					break;
-				}
-
-				if (CrxConfigFacade::Instance()->isSubtractingMethod())
-				{
-					target->myCarotidDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["CarotidDist"]);
-					target->myCuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["CuffDist"]);
-				} else 
-				{
-					target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["PWVDist"]);
-				}
-				target->myFemoral2CuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Femoral2CuffDist"]);
-
+				actual = target->myFemoral2CuffDistance->Validate();
+				Assert::AreEqual(expected, actual);
+			}
+			/// <summary>
+			///A test for Validate
+			///</summary>
+	public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVValidate.csv", L"BizPWVValidate#csv", DataAccessMethod::Sequential),
+				TestMethod]
+			void ValidateTest()
+			{
+				BizPWV^  target = (gcnew BizPWV());
+				PrivateObject^ accessor = gcnew PrivateObject(target);
+				CrxConfigFacade::Instance()->SetDistanceMethod(true);
+				accessor->SetProperty("systemId", Convert::ToString(testContextInstance->DataRow["SystemID"]));
+				accessor->SetProperty("patientNumber", Convert::ToUInt16(testContextInstance->DataRow["PatientNumber"]));
+				accessor->SetProperty("measurementDateTime", Convert::ToDateTime(testContextInstance->DataRow["MeasurementDateTime"]));
+				accessor->SetProperty("dataRevision", Convert::ToUInt16(testContextInstance->DataRow["DataRevision"]));
+				accessor->SetProperty("sampleRate", Convert::ToUInt16(testContextInstance->DataRow["SampleRate"]));
+				accessor->SetProperty("captureTime", Convert::ToUInt16(testContextInstance->DataRow["CaptureTime"]));
+				target->myCarotidDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Carotid"]);
+				target->myCuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Cuff"]);
+				target->myFemoral2CuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["FemoralToCuff"]);
+				unsigned short distanceExpected = Convert::ToUInt16(testContextInstance->DataRow[L"CalculatedDistanceExpected"]);
+				bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+				bool actual;
 				actual = target->Validate();
 				Assert::AreEqual(expected, actual);
+				Assert::AreEqual(distanceExpected, target->calculatedDistance);
 			}
 			/// <summary>
 			///A test for BizPWV Constructor
@@ -189,11 +179,361 @@ namespace TestBiz {
 	public: [TestMethod]
 			void BizPWVConstructorTest()
 			{
+				// Metric Test
 				BizPWV^  target = (gcnew BizPWV());
-				Assert::AreNotEqual(nullptr, target);
+				PrivateObject^ accessor = gcnew PrivateObject(target);
+				Assert::IsNotNull(target);
+				Assert::IsNotNull(accessor->GetProperty("myHeight"));
+				Assert::IsNotNull(accessor->GetProperty("myWeight"));
+				Assert::IsNotNull(accessor->GetProperty("myBP"));
+				Assert::IsNotNull(target->myCarotidDistance);
+				Assert::IsNotNull(target->myCuffDistance);
+				Assert::IsNotNull(target->myPWVDirectDistance);
+				Assert::IsNotNull(target->myFemoral2CuffDistance);
+				Assert::IsNotNull(target->tonometerDataObserver);
+				Assert::IsNotNull(target->cuffPulseObserver);
+				Assert::IsNotNull(target->countdownTimerObserver);
+				Assert::IsNotNull(target->carotidSignal);
+				Assert::IsNotNull(target->femoralSignal);
+				Assert::IsNotNull(target->pulseWaveVelocity);
+				
+				// Imperial Test
+				CrxConfigFacade::Instance()->SetMeasurementUnit(CrxConfigFacade::Instance()->MEASUREMENT_UNIT_IMPERIAL);
+				target = (gcnew BizPWV());
+				accessor = gcnew PrivateObject(target);
+				Assert::IsNotNull(target);
+				Assert::IsNotNull(accessor->GetProperty("myHeight"));
+				Assert::IsNotNull(accessor->GetProperty("myWeight"));
+				Assert::IsNotNull(accessor->GetProperty("myBP"));
+				Assert::IsNotNull(target->myCarotidDistance);
+				Assert::IsNotNull(target->myCuffDistance);
+				Assert::IsNotNull(target->myPWVDirectDistance);
+				Assert::IsNotNull(target->myFemoral2CuffDistance);
+				Assert::IsNotNull(target->tonometerDataObserver);
+				Assert::IsNotNull(target->cuffPulseObserver);
+				Assert::IsNotNull(target->countdownTimerObserver);
+				Assert::IsNotNull(target->carotidSignal);
+				Assert::IsNotNull(target->femoralSignal);
+				Assert::IsNotNull(target->pulseWaveVelocity);
 			}
-	};
-}
-namespace TestBiz {
-    
+			/// <summary>
+			///A test for SetDefaults
+			///</summary>
+public: [TestMethod]
+		void SetDefaultsTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			accessor->Invoke("SetDefaults");
+			Assert::AreEqual((float) DEFAULT_VALUE, target->meanDeltaTime);
+			Assert::AreEqual((float) DEFAULT_VALUE, target->meanCorrectedTime);
+			Assert::AreEqual((float) DEFAULT_VALUE, target->meanPulseWaveVelocity);
+			Assert::AreEqual((float) DEFAULT_VALUE, target->standardDeviation);
+			Assert::AreEqual((unsigned short) 0, target->numberOfDeltas);
+			Assert::AreEqual((unsigned short) 0, target->numberOfValidDeltas);
+			Assert::IsFalse(target->isCarotidSignalValid);
+			Assert::IsFalse(target->isFemoralSignalValid);
+			Assert::IsFalse(target->isStandardDeviationValid);	
+			Assert::AreEqual((float) DEFAULT_VALUE, target->heartRate);
+		}
+		/// <summary>
+		///A test for Initialise
+		///</summary>
+public: [TestMethod]
+		void InitialiseTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			target->Initialise();
+			Assert::AreEqual((unsigned short) DEFAULT_VALUE, target->myCarotidDistance->distance);
+			Assert::AreEqual((unsigned short) DEFAULT_VALUE, target->myCuffDistance->distance);
+			Assert::AreEqual((unsigned short) DEFAULT_FEMORAL_TO_CUFF_DISTANCE, target->myFemoral2CuffDistance->distance);
+			Assert::AreEqual((unsigned short) DEFAULT_VALUE, target->myPWVDirectDistance->distance);
+			Assert::AreEqual((unsigned short) DEFAULT_VALUE, target->calculatedDistance);
+			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
+			Assert::AreEqual((String^) "", accessor->GetProperty("systemId"));
+			Assert::AreEqual((unsigned short) 0, (unsigned short) accessor->GetProperty("patientNumber"));
+			Assert::AreEqual((String^) "", accessor->GetProperty("groupStudyId"));
+			Assert::IsNotNull(accessor->GetProperty("measurementDateTime"));
+			Assert::AreEqual((unsigned short) DATA_REVISION, accessor->GetProperty("dataRevision"));
+			Assert::AreEqual((String^) "", accessor->GetProperty("medication"));
+			Assert::AreEqual((String^) "", accessor->GetProperty("notes"));
+			Assert::AreEqual((String^) "", accessor->GetProperty("operatorId"));
+			Assert::AreEqual((String^) "", accessor->GetProperty("interpretation"));
+			Assert::AreEqual((float) DEFAULT_VALUE, accessor->GetProperty("bodyMassIndex"));
+			Assert::AreEqual((unsigned short) DEFAULT_CAPTURE_TIME, accessor->GetProperty("captureTime"));
+			Assert::AreEqual((unsigned short) DEFAULT_SAMPLE_RATE, accessor->GetProperty("sampleRate"));
+			Assert::IsFalse((bool)accessor->GetProperty("simulation"));
+			Assert::AreEqual((String^) "", accessor->GetProperty("reasonForChange"));
+			Assert::AreEqual((int) AUDIT_ORIGINAL, (int)accessor->GetProperty("auditChange"));
+			Assert::IsNotNull(accessor->GetProperty("auditDateTime"));
+		}
+		/// <summary>
+		///A test for ValidateSignals
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVValidateSignals.csv", L"BizPWVValidateSignals#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void ValidateSignalsTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			target->carotidSignal->PrepareToCapture();
+			target->femoralSignal->PrepareToCapture();
+			unsigned short carotidSignalLength = Convert::ToUInt16(testContextInstance->DataRow[L"CarotidSignalLength"]);
+			unsigned short femoralSignalLength = Convert::ToUInt16(testContextInstance->DataRow[L"FemoralSignalLength"]);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"Signal"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< unsigned short >^ signal = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			target->carotidSignal->CaptureSignal(signal, carotidSignalLength);
+			target->femoralSignal->CaptureSignal(signal, femoralSignalLength);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = target->ValidateSignals();
+			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for CalculateDistance
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculateDistance.csv", L"BizPWVCalculateDistance#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void CalculateAndValidateDistanceTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			CrxConfigFacade::Instance()->SetDistanceMethod(Convert::ToBoolean(testContextInstance->DataRow["Method"]));
+			target->myCarotidDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Carotid"]);
+			target->myCuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Cuff"]);
+			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
+			target->myFemoral2CuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["FemoralToCuff"]);
+			unsigned short distanceExpected = Convert::ToUInt16(testContextInstance->DataRow[L"CalculatedDistanceExpected"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = (bool) accessor->Invoke("CalculateAndValidateDistance");
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(distanceExpected, target->calculatedDistance);
+		}
+		/// <summary>
+		///A test for CalculateHeartRate
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculateHeartRate.csv", L"BizPWVCalculateHeartRate#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		
+		void CalculateHeartRateTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			BizSignal^ femoral = target->femoralSignal;
+			PrivateObject^ femoralAccessor = gcnew PrivateObject(femoral);
+			accessor->SetProperty("sampleRate", Convert::ToUInt16(testContextInstance->DataRow[L"SampleRate"]));
+			target->femoralSignal->onsetsLength = Convert::ToUInt16(testContextInstance->DataRow[L"OnsetsLength"]);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"FloatOnsets"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^ floatOnsets = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			femoralAccessor->SetProperty("floatOnsets", floatOnsets);
+			float heartRateExpected = Convert::ToSingle(testContextInstance->DataRow[L"HeartRateExpected"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = (bool) accessor->Invoke("CalculateHeartRate");
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(heartRateExpected, target->heartRate);
+		}
+		/// <summary>
+		///A test for CalculateBizDeltaArray
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculateBizDeltaArray.csv", L"BizPWVCalculateBizDeltaArray#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void CalculateBizDeltaArrayTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			BizSignal^ femoral = target->femoralSignal;
+			PrivateObject^ femoralAccessor = gcnew PrivateObject(femoral);
+			BizSignal^ carotid = target->carotidSignal;
+			PrivateObject^ carotidAccessor = gcnew PrivateObject(carotid);
+			accessor->SetProperty("sampleRate", Convert::ToUInt16(testContextInstance->DataRow[L"SampleRate"]));
+			target->calculatedDistance = Convert::ToUInt16(testContextInstance->DataRow[L"CalculatedDistance"]);
+			unsigned short numberOfDeltasExpected = Convert::ToUInt16(testContextInstance->DataRow[L"NumberOfDeltas"]);
+			unsigned short numberOfValidDeltasExpected = Convert::ToUInt16(testContextInstance->DataRow[L"NumberOfValidDeltas"]);
+			target->femoralSignal->onsetsLength = Convert::ToUInt16(testContextInstance->DataRow[L"FemoralOnsetsLength"]);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"FemoralFloatOnsets"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^ floatOnsets = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			femoralAccessor->SetProperty("floatOnsets", floatOnsets);
+			target->carotidSignal->onsetsLength = Convert::ToUInt16(testContextInstance->DataRow[L"CarotidOnsetsLength"]);
+			values = Convert::ToString(testContextInstance->DataRow[L"CarotidFloatOnsets"]);
+			valuesArray = values->Split(',');
+			floatOnsets = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			carotidAccessor->SetProperty("floatOnsets", floatOnsets);
+			values = Convert::ToString(testContextInstance->DataRow[L"DeltaTime"]);
+			valuesArray = values->Split(',');
+			cli::array< float >^ deltaTimeExpected = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			values = Convert::ToString(testContextInstance->DataRow[L"CorrectedTime"]);
+			valuesArray = values->Split(',');
+			cli::array< float >^ correctedTimeExpected = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			values = Convert::ToString(testContextInstance->DataRow[L"PulseWaveVelocity"]);
+			valuesArray = values->Split(',');
+			cli::array< float >^ pulseWaveVelocityExpected = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			values = Convert::ToString(testContextInstance->DataRow[L"IsValid"]);
+			valuesArray = values->Split(',');
+			cli::array< bool >^ isValidExpected = Array::ConvertAll(valuesArray, gcnew Converter<String^, bool>(Convert::ToBoolean));
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = (bool) accessor->Invoke("CalculateBizDeltaArray");
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(numberOfDeltasExpected, target->numberOfDeltas);
+			Assert::AreEqual(numberOfValidDeltasExpected, target->numberOfValidDeltas);
+			for (int i = 0; i < numberOfDeltasExpected; i++)
+			{
+				Assert::AreEqual(deltaTimeExpected[i], target->pulseWaveVelocity[i]->deltaTime);
+				Assert::AreEqual(correctedTimeExpected[i], target->pulseWaveVelocity[i]->correctedTime);
+				Assert::AreEqual(pulseWaveVelocityExpected[i], target->pulseWaveVelocity[i]->pulseWaveVelocity);
+				Assert::AreEqual(isValidExpected[i], target->pulseWaveVelocity[i]->isValid);
+			}
+		}
+		/// <summary>
+		///A test for CalculateFeatures
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculateFeatures.csv", L"BizPWVCalculateFeatures#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void CalculateFeaturesTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			target->numberOfDeltas = Convert::ToUInt16(testContextInstance->DataRow[L"NumberOfDeltas"]);
+			target->numberOfValidDeltas = Convert::ToUInt16(testContextInstance->DataRow[L"NumberOfValidDeltas"]);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"DeltaTime"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^ deltaTimeInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			values = Convert::ToString(testContextInstance->DataRow[L"CorrectedTime"]);
+			valuesArray = values->Split(',');
+			cli::array< float >^ correctedTimeInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			values = Convert::ToString(testContextInstance->DataRow[L"PulseWaveVelocity"]);
+			valuesArray = values->Split(',');
+			cli::array< float >^ pulseWaveVelocityInput= Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			values = Convert::ToString(testContextInstance->DataRow[L"IsValid"]);
+			valuesArray = values->Split(',');
+			cli::array< bool >^ isValidInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, bool>(Convert::ToBoolean));
+			for (int i = 0; i < target->numberOfDeltas; i++)
+			{
+				target->pulseWaveVelocity[i]->deltaTime = deltaTimeInput[i];
+				target->pulseWaveVelocity[i]->correctedTime = correctedTimeInput[i];
+				target->pulseWaveVelocity[i]->pulseWaveVelocity = pulseWaveVelocityInput[i];
+				target->pulseWaveVelocity[i]->isValid = isValidInput[i];
+			}
+			float meanDeltaTimeExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanDeltaTime"]);
+			float meanCorrectedTimeExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanCorrectedTime"]);
+			float meanPulseWaveVelocityExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanPulseWaveVelocity"]);
+			float standardDeviationExpected = Convert::ToSingle(testContextInstance->DataRow[L"StandardDeviation"]);
+			bool isStandardDeviationValidExpected = Convert::ToBoolean(testContextInstance->DataRow[L"IsStandardDeviationValid"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = (bool) accessor->Invoke("CalculateFeatures");
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(meanDeltaTimeExpected, target->meanDeltaTime);
+			Assert::AreEqual(meanCorrectedTimeExpected, target->meanCorrectedTime);
+			Assert::AreEqual(meanPulseWaveVelocityExpected, target->meanPulseWaveVelocity);
+			Assert::AreEqual(standardDeviationExpected, target->standardDeviation);
+			Assert::AreEqual(isStandardDeviationValidExpected, target->isStandardDeviationValid);
+		}
+		/// <summary>
+		///A test for Calculate
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculate.csv", L"BizPWVCalculate#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void CalculateTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			accessor->SetProperty("systemId", "00050");
+			accessor->SetProperty("patientNumber", (unsigned short) 1);
+			target->PrepareToCaptureSignal();
+			unsigned short signalLength = Convert::ToUInt16(testContextInstance->DataRow[L"SignalLength"]);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidSignal"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< unsigned short >^ carotidSignal = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			values = Convert::ToString(testContextInstance->DataRow[L"FemoralSignal"]);
+			valuesArray = values->Split(',');
+			cli::array< unsigned short >^ femoralSignal = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			target->carotidSignal->CaptureSignal(carotidSignal, signalLength);
+			target->femoralSignal->CaptureSignal(femoralSignal, signalLength);
+			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
+			float heartRateExpected = Convert::ToSingle(testContextInstance->DataRow[L"HeartRate"]);
+			float meanDeltaTimeExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanDeltaTime"]);
+			float meanCorrectedTimeExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanCorrectedTime"]);
+			float meanPulseWaveVelocityExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanPulseWaveVelocity"]);
+			float standardDeviationExpected = Convert::ToSingle(testContextInstance->DataRow[L"StandardDeviation"]);
+			bool isStandardDeviationValidExpected = Convert::ToBoolean(testContextInstance->DataRow[L"IsStandardDeviationValid"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = target->Calculate();
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(heartRateExpected, target->heartRate);
+			Assert::AreEqual(meanDeltaTimeExpected, target->meanDeltaTime);
+			Assert::AreEqual(meanCorrectedTimeExpected, target->meanCorrectedTime);
+			Assert::AreEqual(meanPulseWaveVelocityExpected, target->meanPulseWaveVelocity);
+			Assert::AreEqual(standardDeviationExpected, target->standardDeviation);
+			Assert::AreEqual(isStandardDeviationValidExpected, target->isStandardDeviationValid);
+		}
+		/// <summary>
+		///A test for CalculateQualityControls
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculateQualityControls.csv", L"BizPWVCalculateQualityControls#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void CalculateQualityControlsTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			BizSignal^ femoral = target->femoralSignal;
+			PrivateObject^ femoralAccessor = gcnew PrivateObject(femoral);
+			BizSignal^ carotid = target->carotidSignal;
+			PrivateObject^ carotidAccessor = gcnew PrivateObject(carotid);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidSignal"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< unsigned short >^ carotidSignal = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			values = Convert::ToString(testContextInstance->DataRow[L"FemoralSignal"]);
+			valuesArray = values->Split(',');
+			cli::array< unsigned short >^ femoralSignal = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			values = Convert::ToString(testContextInstance->DataRow[L"CarotidFloatOnsets"]);
+			valuesArray = values->Split(',');
+			cli::array< float >^ carotidFloatOnsets = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			values = Convert::ToString(testContextInstance->DataRow[L"FemoralFloatOnsets"]);
+			valuesArray = values->Split(',');
+			cli::array< float >^ femoralFloatOnsets = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			carotidAccessor->SetProperty("signal", carotidSignal);
+			femoralAccessor->SetProperty("signal", femoralSignal);
+			target->carotidSignal->signalLength = Convert::ToUInt16(testContextInstance->DataRow[L"CarotidSignalLength"]);
+			target->femoralSignal->signalLength = Convert::ToUInt16(testContextInstance->DataRow[L"FemoralSignalLength"]);
+			carotidAccessor->SetProperty("floatOnsets", carotidFloatOnsets);
+			femoralAccessor->SetProperty("floatOnsets", femoralFloatOnsets);
+			target->carotidSignal->onsetsLength = Convert::ToUInt16(testContextInstance->DataRow[L"CarotidOnsetsLength"]);
+			target->femoralSignal->onsetsLength = Convert::ToUInt16(testContextInstance->DataRow[L"FemoralOnsetsLength"]);
+			bool isCarotidSignalValidExpected = Convert::ToBoolean(testContextInstance->DataRow[L"IsCarotidSignalValid"]);
+			bool isFemoralSignalValidExpected = Convert::ToBoolean(testContextInstance->DataRow[L"IsFemoralSignalValid"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = (bool) accessor->Invoke("CalculateQualityControls");
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(isCarotidSignalValidExpected, target->isCarotidSignalValid);
+			Assert::AreEqual(isFemoralSignalValidExpected, target->isFemoralSignalValid);
+		}
+		/// <summary>
+		///A test for ValidateBeforeStore
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVValidateBeforeStore.csv", L"BizPWVValidateBeforeStore#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void ValidateBeforeStoreTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			CrxConfigFacade::Instance()->SetDistanceMethod(false);
+			accessor->SetProperty("systemId", "00050");
+			accessor->SetProperty("patientNumber", Convert::ToUInt16(testContextInstance->DataRow["PatientNumber"]));
+			target->myPWVDirectDistance->distance = (unsigned short) 600;
+			target->meanPulseWaveVelocity = Convert::ToUInt16(testContextInstance->DataRow[L"MeanPulseWaveVelocity"]);
+			target->standardDeviation = Convert::ToUInt16(testContextInstance->DataRow[L"StandardDeviation"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = target->ValidateBeforeStore();
+			Assert::AreEqual(expected, actual);
+		}
+};
 }

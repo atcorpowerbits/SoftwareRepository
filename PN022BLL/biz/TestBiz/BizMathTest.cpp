@@ -73,10 +73,10 @@ namespace TestBiz {
 			void TimeToIndexTest()
 			{
 				float time = Convert::ToSingle(testContextInstance->DataRow[L"Time"]); 
-				int expandRate = Convert::ToInt32(testContextInstance->DataRow[L"ExpandRate"]); 
-				int sampleRate = Convert::ToInt32(testContextInstance->DataRow[L"SampleRate"]); 
-				int indexExpected = Convert::ToInt32(testContextInstance->DataRow[L"Index"]); 
-				int index = 0;
+				unsigned short expandRate = Convert::ToUInt16(testContextInstance->DataRow[L"ExpandRate"]); 
+				unsigned short sampleRate = Convert::ToUInt16(testContextInstance->DataRow[L"SampleRate"]); 
+				short indexExpected = Convert::ToInt16(testContextInstance->DataRow[L"Index"]); 
+				short index = 0;
 				bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 				bool actual;
 				actual = BizMath::TimeToIndex(time, expandRate, sampleRate, index);
@@ -91,9 +91,9 @@ namespace TestBiz {
 				TestMethod]
 			void RoundNearest20Test()
 			{
-				int input = Convert::ToInt32(testContextInstance->DataRow[L"Input"]); 
-				int outputExpected = Convert::ToInt32(testContextInstance->DataRow[L"Output"]); 
-				int output = 0;
+				short input = Convert::ToInt16(testContextInstance->DataRow[L"Input"]); 
+				short outputExpected = Convert::ToInt16(testContextInstance->DataRow[L"Output"]); 
+				short output = 0;
 				bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 				bool actual;
 				actual = BizMath::RoundNearest20(input, output);
@@ -109,9 +109,9 @@ namespace TestBiz {
 				TestMethod]
 			void RoundTest()
 			{
-				double input = Convert::ToDouble(testContextInstance->DataRow[L"Input"]); 
-				int outputExpected = Convert::ToInt32(testContextInstance->DataRow[L"Output"]); 
-				int output = 0;
+				float input = Convert::ToSingle(testContextInstance->DataRow[L"Input"]); 
+				short outputExpected = Convert::ToInt16(testContextInstance->DataRow[L"Output"]); 
+				short output = 0;
 				bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
 				bool actual;
 				actual = BizMath::Round(input, output);
@@ -127,9 +127,9 @@ namespace TestBiz {
 					TestMethod]
 			void IndexToTimeTest()
 			{
-				int index = Convert::ToInt32(testContextInstance->DataRow[L"Index"]); 
-				int expandRate = Convert::ToInt32(testContextInstance->DataRow[L"ExpandRate"]); 
-				int sampleRate = Convert::ToInt32(testContextInstance->DataRow[L"SampleRate"]); 
+				unsigned short index = Convert::ToUInt16(testContextInstance->DataRow[L"Index"]); 
+				unsigned short expandRate = Convert::ToUInt16(testContextInstance->DataRow[L"ExpandRate"]); 
+				unsigned short sampleRate = Convert::ToUInt16(testContextInstance->DataRow[L"SampleRate"]); 
 				float timeExpected = Convert::ToSingle(testContextInstance->DataRow[L"Time"]); 
 				float time = 0;
 				bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
@@ -147,10 +147,10 @@ namespace TestBiz {
 			void GetSplineIndexTest()
 			{
 				float abscissa = Convert::ToSingle(testContextInstance->DataRow[L"Abscissa"]);
-				int splineIndex = Convert::ToInt32(testContextInstance->DataRow[L"SplineIndex"]);
-				int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);
-				int newSplineIndexExpected = Convert::ToInt32(testContextInstance->DataRow[L"NewSplineIndex"]);
-				int newSplineIndex = 0;
+				unsigned short splineIndex = Convert::ToUInt16(testContextInstance->DataRow[L"SplineIndex"]);
+				unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);
+				unsigned short newSplineIndexExpected = Convert::ToUInt16(testContextInstance->DataRow[L"NewSplineIndex"]);
+				unsigned short newSplineIndex = 0;
 				bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
 				bool actual;
 				actual = BizMath::GetSplineIndex(abscissa, splineIndex, size, newSplineIndex);
@@ -174,7 +174,7 @@ public: [
 				array<String^>^ valuesArray = values->Split(',');
 				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			}
-			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);;
+			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);;
 			float maximumExpected = Convert::ToSingle(testContextInstance->DataRow[L"Maximum"]);; 
 			float maximum = 0;
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
@@ -197,7 +197,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 				array<String^>^ valuesArray = values->Split(',');
 				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			}
-			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);;
+			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);;
 			String^ outputs = Convert::ToString(testContextInstance->DataRow[L"Output"]);
 			cli::array< float >^  outputExpected = nullptr;
 			if (outputs != "nullptr")
@@ -227,7 +227,7 @@ public: [
 				array<String^>^ valuesArray = values->Split(',');
 				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			}
-			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);;
+			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);;
 			float minimumExpected = Convert::ToSingle(testContextInstance->DataRow[L"Minimum"]);; 
 			float minimum = 0;
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
@@ -250,9 +250,9 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 				array<String^>^ valuesArray = values->Split(',');
 				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			}
-			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);;
-			int maximumIndexExpected = Convert::ToInt32(testContextInstance->DataRow[L"MaximumIndex"]);; 
-			int maximumIndex = 0;
+			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);;
+			unsigned short maximumIndexExpected = Convert::ToUInt16(testContextInstance->DataRow[L"MaximumIndex"]);; 
+			unsigned short maximumIndex = 0;
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
 			bool actual;
 			actual = BizMath::MaximumInArrayIndex(input, size, maximumIndex);
@@ -273,11 +273,11 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 				array<String^>^ valuesArray = values->Split(',');
 				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			}
-			int start = Convert::ToInt32(testContextInstance->DataRow[L"Start"]);;
-			int end = Convert::ToInt32(testContextInstance->DataRow[L"End"]);;
+			unsigned short start = Convert::ToUInt16(testContextInstance->DataRow[L"Start"]);;
+			unsigned short end = Convert::ToUInt16(testContextInstance->DataRow[L"End"]);;
 			float threshold = Convert::ToSingle(testContextInstance->DataRow[L"Threshold"]);;
-			int indexExpected = Convert::ToInt32(testContextInstance->DataRow[L"Index"]);; 
-			int index = 0;
+			unsigned short indexExpected = Convert::ToUInt16(testContextInstance->DataRow[L"Index"]);; 
+			unsigned short index = 0;
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);; 
 			bool actual;
 			actual = BizMath::IndexOfExtremum(input, start, end, threshold, index);
@@ -292,13 +292,13 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		void FunctionValueTest()
 		{
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Function"]);
-			cli::array< float >^  function = nullptr;
+			cli::array< unsigned short >^  function = nullptr;
 			if (values != "nullptr")
 			{
 				array<String^>^ valuesArray = values->Split(',');
-				function = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+				function = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
 			}
-			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);;
+			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);;
 			float argument = Convert::ToSingle(testContextInstance->DataRow[L"Argument"]);;
 			float valueExpected = Convert::ToSingle(testContextInstance->DataRow[L"Value"]);; 
 			float value = 0;
@@ -316,15 +316,15 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		void SmoothDerivative1Test()
 		{
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
-			cli::array< float >^  input = nullptr;
+			cli::array< unsigned short >^  input = nullptr;
 			if (values != "nullptr")
 			{
 				array<String^>^ valuesArray = values->Split(',');
-				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
 			}
-			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);;
-			int smoothOrder = Convert::ToInt32(testContextInstance->DataRow[L"SmoothOrder"]);;
-			float step = Convert::ToSingle(testContextInstance->DataRow[L"Step"]);;
+			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);
+			unsigned short smoothOrder = Convert::ToUInt16(testContextInstance->DataRow[L"SmoothOrder"]);
+			float step = Convert::ToSingle(testContextInstance->DataRow[L"Step"]);
 			String^ derivatives = Convert::ToString(testContextInstance->DataRow[L"FirstDerivative"]);
 			array<String^>^ derivativesArray = derivatives->Split(',');
 			cli::array< float >^  firstDerivativeExpected = Array::ConvertAll(derivativesArray, gcnew Converter<String^, float>(Convert::ToSingle));
@@ -369,18 +369,18 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		void MinimumMaximumInArrayTest1()
 		{
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
-			cli::array< short >^  input = nullptr;
+			cli::array< unsigned short >^  input = nullptr;
 			if (values != "nullptr")
 			{
 				array<String^>^ valuesArray = values->Split(',');
-				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, short>(Convert::ToInt16));
+				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
 			}
-			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);
+			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
-			short pMinimum = 0; 
-			short pMinimumExpected = Convert::ToInt16(testContextInstance->DataRow[L"Minimum"]);
-			short pMaximum = 0;
-			short pMaximumExpected = Convert::ToInt16(testContextInstance->DataRow[L"Maximum"]); 
+			unsigned short pMinimum = 0; 
+			unsigned short pMinimumExpected = Convert::ToUInt16(testContextInstance->DataRow[L"Minimum"]);
+			unsigned short pMaximum = 0;
+			unsigned short pMaximumExpected = Convert::ToUInt16(testContextInstance->DataRow[L"Maximum"]); 
 			bool actual;
 			actual = BizMath::MinimumMaximumInArray(input, size, pMinimum, pMaximum);
 			Assert::AreEqual(pMinimumExpected, pMinimum);
@@ -401,7 +401,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 				array<String^>^ valuesArray = values->Split(',');
 				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			}
-			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);
+			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
 			float pMinimum = 0; 
 			float pMinimumExpected = Convert::ToSingle(testContextInstance->DataRow[L"Minimum"]);
@@ -427,7 +427,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 				array<String^>^ valuesArray = values->Split(',');
 				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			}
-			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);
+			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
 			bool actual;
 			actual = BizMath::ValidateArray(input, size);
@@ -441,13 +441,13 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		void ValidateArrayTest1()
 		{
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
-			cli::array< short >^  input = nullptr;
+			cli::array< unsigned short >^  input = nullptr;
 			if (values != "nullptr")
 			{
 				array<String^>^ valuesArray = values->Split(',');
-				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, short>(Convert::ToInt16));
+				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
 			}
-			int size = Convert::ToInt32(testContextInstance->DataRow[L"Size"]);
+			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]);
 			bool actual;
 			actual = BizMath::ValidateArray(input, size);

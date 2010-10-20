@@ -32,7 +32,7 @@ using namespace System;
  ** RETURN:
  **  bool success or not.
 */
-bool BizMath::ValidateArray(array<const float>^ input, int size)
+bool BizMath::ValidateArray(array<const float>^ input, unsigned short size)
 {
 	if (input == nullptr)
 	{
@@ -70,7 +70,7 @@ bool BizMath::ValidateArray(array<const float>^ input, int size)
 }
 
 #pragma unmanaged
-bool BizCorValidateArray(const float* input, int size)
+bool BizCorValidateArray(const float* input, unsigned short size)
 {
 	if (input == NULL)
 	{
@@ -80,7 +80,7 @@ bool BizCorValidateArray(const float* input, int size)
 	{
 		return false;
 	}
-	for (int i = 0; i < size; i++)
+	for (unsigned short i = 0; i < size; i++)
 	{
 		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
 		{
@@ -91,7 +91,7 @@ bool BizCorValidateArray(const float* input, int size)
 }
 
 #pragma managed
-bool BizMath::ValidateArray(array<const short int>^ input, int size)
+bool BizMath::ValidateArray(array<const unsigned short>^ input, unsigned short size)
 {
 	if (input == nullptr)
 	{
@@ -101,9 +101,9 @@ bool BizMath::ValidateArray(array<const short int>^ input, int size)
 	{
 		return false;
 	}
-	for (int i = 0; i < size; i++)
+	for (unsigned short i = 0; i < size; i++)
 	{
-		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
+		if (input[i] >= DEFAULT_VALUE)
 		{
 			return false;
 		}
@@ -129,8 +129,8 @@ bool BizMath::ValidateArray(array<const short int>^ input, int size)
  **  bool success or not.
 */
 
-bool BizMath::TimeToIndex(const float time, const int expandRate,
-                     const int sampleRate, int% index)
+bool BizMath::TimeToIndex(const float time, const unsigned short expandRate,
+                     const unsigned short sampleRate, short% index)
 {
 	// Validation
 	if (expandRate < 1 || expandRate >= DEFAULT_VALUE)
@@ -148,7 +148,7 @@ bool BizMath::TimeToIndex(const float time, const int expandRate,
 	}
 
 	// Calculate index
-	BizMath::Round(time * sampleRate * expandRate / 1000., index);
+	BizMath::Round(time * sampleRate * expandRate / 1000, index);
 	return true;
 }
 
@@ -170,15 +170,15 @@ bool BizMath::TimeToIndex(const float time, const int expandRate,
  **  bool success or not.
 */
 
-bool BizMath::IndexToTime(const int index, const int expandRate,
-                       const int sampleRate, float% time)
+bool BizMath::IndexToTime(const unsigned short index, const unsigned short expandRate,
+                       const unsigned short sampleRate, float% time)
 {
 	// Validation
 	if (expandRate < 1 || expandRate >= DEFAULT_VALUE)
 	{
 		return false;  
 	}
-	if (index < 0 || index >= DEFAULT_VALUE)
+	if (index >= DEFAULT_VALUE)
 	{
 		return false;  
 	}
@@ -211,7 +211,7 @@ bool BizMath::IndexToTime(const int index, const int expandRate,
  **  bool success or not.
 */
 
-bool BizMath::Round(double input, int% output)
+bool BizMath::Round(float input, short% output)
 {
 	// Validation
 	if (input >= DEFAULT_VALUE || input <= -DEFAULT_VALUE)
@@ -225,12 +225,12 @@ bool BizMath::Round(double input, int% output)
 		// Round down
 		if ((input - ((long long int) input)) < 0.5)
 		{
-			output = Convert::ToInt32(Math::Floor(input));		
+			output = Convert::ToInt16(Math::Floor(input));		
 		}
 		// Round up
 		else
 		{
-			output = Convert::ToInt32(Math::Ceiling(input));	
+			output = Convert::ToInt16(Math::Ceiling(input));	
 		}
 	}
 	// Round negative number
@@ -239,12 +239,12 @@ bool BizMath::Round(double input, int% output)
 		// Round down
 		if ((input - ((long long int)input)) < -0.5 )
 		{
-			output = Convert::ToInt32(Math::Floor(input));		
+			output = Convert::ToInt16(Math::Floor(input));		
 		}
 		// Round up
 		else
 		{
-			output = Convert::ToInt32(Math::Ceiling(input));	
+			output = Convert::ToInt16(Math::Ceiling(input));	
 		}
 	}
 
@@ -270,10 +270,10 @@ bool BizMath::Round(double input, int% output)
  **  bool success or not.
 */
 
-bool BizMath::RoundNearest20(int input, int% output)
+bool BizMath::RoundNearest20(short input, short% output)
 {
-	int multiple;
-	int remainder;
+	short multiple;
+	short remainder;
 
 	// Validation
 	if (input >= DEFAULT_VALUE || input <= -DEFAULT_VALUE)
@@ -338,7 +338,7 @@ bool BizMath::RoundNearest20(int input, int% output)
  **  bool success or not.
 */
 
-bool BizMath::SmoothFirstDerivative(array<const float>^ input, const int size, const int smoothOrder,
+bool BizMath::SmoothFirstDerivative(array<const unsigned short>^ input, const unsigned short size, const unsigned short smoothOrder,
                             const float step, array<float>^ firstDerivative, float% maximum)
 {
 
@@ -350,7 +350,7 @@ bool BizMath::SmoothFirstDerivative(array<const float>^ input, const int size, c
 
 	// Prevent the Garbage Collector from deleting array's and -
 	// output parameters
-	pin_ptr<const float> corInput = &input[0];
+	pin_ptr<const unsigned short> corInput = &input[0];
 	pin_ptr<float> corFirstDerivative = &firstDerivative[0];
 	pin_ptr<float> corMaximum = &maximum;
 	
@@ -428,7 +428,7 @@ bool BizMath::SmoothFirstDerivative(array<const float>^ input, const int size, c
 }
 
 #pragma unmanaged
-bool BizCorSmoothFirstDerivative(const float* input, const int size, const int smoothOrder,
+bool BizCorSmoothFirstDerivative(const unsigned short* input, const unsigned short size, const unsigned short smoothOrder,
                             const float step, float* firstDerivative, float* maximum)
 {
 
@@ -451,7 +451,7 @@ bool BizCorSmoothFirstDerivative(const float* input, const int size, const int s
 	firstDerivative[0] = (-input[0] + input[1]) /step;
 	
 	// Start points (ForwardStep formula)
-	for (int i = 1; i < smoothOrder; i++)
+	for (unsigned short i = 1; i < smoothOrder; i++)
 	{
 		if (i == 1)
 		{
@@ -465,10 +465,10 @@ bool BizCorSmoothFirstDerivative(const float* input, const int size, const int s
 
 	// Middle points
 	float smoothingCoefficient = float(3)/(smoothOrder * (smoothOrder + 1) * (2*smoothOrder + 1)* step);
-	for (int i = smoothOrder; i < size - smoothOrder; i++)
+	for (unsigned short i = smoothOrder; i < size - smoothOrder; i++)
 	{
 		float sum = 0.;
-		for (int j = -smoothOrder; j <= smoothOrder; j++)
+		for (short j = -smoothOrder; j <= smoothOrder; j++)
 		{
 			if (j != 0) 
 			{
@@ -479,7 +479,7 @@ bool BizCorSmoothFirstDerivative(const float* input, const int size, const int s
 	}
 
 	// End points (BackStep formula)
-	for (int i = size - smoothOrder; i < size - 1; i++)
+	for (unsigned short i = size - smoothOrder; i < size - 1; i++)
 	{
 		if (i == size - 2)
 		{
@@ -515,7 +515,7 @@ bool BizCorSmoothFirstDerivative(const float* input, const int size, const int s
  ** bool success or not.
 */
 
-bool BizMath::MaximumInArray (array<const float>^ input, int size, float% maximum)
+bool BizMath::MaximumInArray (array<const float>^ input, unsigned short size, float% maximum)
 {
 	// Validation
 	if (!ValidateArray(input, size))
@@ -540,11 +540,11 @@ bool BizMath::MaximumInArray (array<const float>^ input, int size, float% maximu
 	return true;*/
 }
 #pragma unmanaged
-bool BizCorMaximumInArray (const float* input, int size, float* maximum)
+bool BizCorMaximumInArray (const float* input, unsigned short size, float* maximum)
 {
 	*maximum = input[0];
 	// Find the maximum in the array
-	for (int i = 0; i < size; i++)
+	for (unsigned short i = 0; i < size; i++)
 	{
 		if (input[i] > *maximum)
 		{
@@ -554,7 +554,7 @@ bool BizCorMaximumInArray (const float* input, int size, float* maximum)
 	return true;
 }
 #pragma managed
-bool BizMath::MinimumInArray (array<const float>^ input, int size, float% minimum)
+bool BizMath::MinimumInArray (array<const float>^ input, unsigned short size, float% minimum)
 {
 	// Validation
 	if (!ValidateArray(input, size))
@@ -564,7 +564,7 @@ bool BizMath::MinimumInArray (array<const float>^ input, int size, float% minimu
 
 	minimum = input[0];
 	// Find the minimum in the array
-	for (int i = 0; i < size; i++)
+	for (unsigned short i = 0; i < size; i++)
 	{
 		if (input[i] < minimum)
 		{
@@ -574,7 +574,7 @@ bool BizMath::MinimumInArray (array<const float>^ input, int size, float% minimu
 	return true;
 }
 
-bool BizMath::MinimumMaximumInArray (array<const float>^ input, int size, float% minimum, float% maximum)
+bool BizMath::MinimumMaximumInArray (array<const float>^ input, unsigned short size, float% minimum, float% maximum)
 {
 	// Validation
 	if (!ValidateArray(input, size))
@@ -604,12 +604,12 @@ bool BizMath::MinimumMaximumInArray (array<const float>^ input, int size, float%
 	return true;*/
 }
 #pragma unmanaged
-bool BizCorMinimumMaximumInArray (const float* input, int size, float* minimum, float* maximum)
+bool BizCorMinimumMaximumInArray (const float* input, unsigned short size, float* minimum, float* maximum)
 {
 	*maximum = input[0];
 	*minimum = input[0];
 	// Find the minimum and maximum in the array
-	for (int i = 0; i < size; i++)
+	for (unsigned short i = 0; i < size; i++)
 	{
 		if (input[i] > *maximum)
 		{
@@ -623,15 +623,21 @@ bool BizCorMinimumMaximumInArray (const float* input, int size, float* minimum, 
 	return true;
 }
 #pragma managed
-bool BizMath::MinimumMaximumInArray (array<const short int>^ input, int size, short int% minimum, short int% maximum)
+bool BizMath::MinimumMaximumInArray (array<const unsigned short>^ input, unsigned short size, unsigned short% minimum, unsigned short% maximum)
 {
 	// Validation
 	if (!ValidateArray(input, size))
 	{
 		return false;
 	}
-	
-	maximum = input[0];
+
+	// Prevent the Garbage Collector from deleting the array
+	pin_ptr<const unsigned short> corInput = &input[0];
+	pin_ptr<unsigned short> corMinimum = &minimum;
+	pin_ptr<unsigned short> corMaximum = &maximum;
+
+	return BizCorMinimumMaximumInArray (corInput, size, corMinimum, corMaximum);
+	/*maximum = input[0];
 	minimum = input[0];
 	// Find the minimum and maximum in the array
 	for (int i = 0; i < size; i++)
@@ -645,13 +651,33 @@ bool BizMath::MinimumMaximumInArray (array<const short int>^ input, int size, sh
 			minimum = input[i];
 		}
 	}
+	return true;*/
+}
+#pragma unmanaged
+bool BizCorMinimumMaximumInArray (const unsigned short* input, unsigned short size, unsigned short* minimum, unsigned short* maximum)
+{
+	*maximum = input[0];
+	*minimum = input[0];
+	// Find the minimum and maximum in the array
+	for (unsigned short i = 0; i < size; i++)
+	{
+		if (input[i] > *maximum)
+		{
+			*maximum = input[i];
+		}
+		if (input[i] < *minimum)
+		{
+			*minimum = input[i];
+		}
+	}
 	return true;
 }
+#pragma managed
 
 /**
 ** Find the index of where the maximum resides within an array.
 */
-bool BizMath::MaximumInArrayIndex(array<const float>^ input, int size, int% maximumIndex)
+bool BizMath::MaximumInArrayIndex(array<const float>^ input, unsigned short size, unsigned short% maximumIndex)
 {
 	// Validation
 	if (!ValidateArray(input, size))
@@ -662,7 +688,7 @@ bool BizMath::MaximumInArrayIndex(array<const float>^ input, int size, int% maxi
 	float maximum = input[0];
 	maximumIndex = 0;
 	// Find the index of the maximum in the array
-	for (int i = 0; i < size; i++)
+	for (unsigned short i = 0; i < size; i++)
 	{
 		if (input[i] > maximum)
 		{
@@ -689,14 +715,14 @@ bool BizMath::MaximumInArrayIndex(array<const float>^ input, int size, int% maxi
  ** RETURN:
  **  bool success or not.
 */
-bool BizMath::GetSplineIndex(const float abscissa, const int splineIndex, const int size, int% newSplineIndex)
+bool BizMath::GetSplineIndex(const float abscissa, const unsigned short splineIndex, const unsigned short size, unsigned short% newSplineIndex)
 {
 	// Validation
 	if (abscissa < 0 || abscissa >= DEFAULT_VALUE)
 	{
 		return false;
 	}
-	if (splineIndex < 0 || splineIndex >= DEFAULT_VALUE)
+	if (splineIndex >= DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -769,7 +795,7 @@ bool BizMath::Spline(const float abscissa, array<const float>^ input, float% out
          
 	// Calculate output
 	output = 0.;
-	for (int i = 0; i <= DEFAULT_SPLINE_ORDER; i++)
+	for (unsigned short i = 0; i <= DEFAULT_SPLINE_ORDER; i++)
 	{
 		output += function[i]*input[i];
 	}
@@ -791,7 +817,7 @@ bool BizMath::Spline(const float abscissa, array<const float>^ input, float% out
  ** RETURN:
  **  true if success, false otherwise.
 */
-bool BizMath::SmoothArray(array<float>^ input, const int size)
+bool BizMath::SmoothArray(array<float>^ input, const unsigned short size)
 {
 	// Validation
 	if (!ValidateArray(input, size))
@@ -808,11 +834,11 @@ bool BizMath::SmoothArray(array<float>^ input, const int size)
 	input[0] = (copy[0] + copy[1]) / (float)2;
 	
 	// Smooth starting points
-	for(int i = 1; i < DEFAULT_SMOOTH_ORDER; i++ )
+	for(unsigned short i = 1; i < DEFAULT_SMOOTH_ORDER; i++ )
 	{
 		sum = 0;
-		int limit = i * 2 + 1;
-		for(int j = 0; j < limit; j++)
+		unsigned short limit = i * 2 + 1;
+		for(unsigned short j = 0; j < limit; j++)
 		{
 			sum += copy[j];
 		}
@@ -820,8 +846,8 @@ bool BizMath::SmoothArray(array<float>^ input, const int size)
 	}
   
 	// Smooth middle points
-	int nofFilterPoints = DEFAULT_SMOOTH_ORDER * 2 + 1;
-	for (int i = DEFAULT_SMOOTH_ORDER; i < size - DEFAULT_SMOOTH_ORDER; i++)
+	unsigned short nofFilterPoints = DEFAULT_SMOOTH_ORDER * 2 + 1;
+	for (unsigned short i = DEFAULT_SMOOTH_ORDER; i < size - DEFAULT_SMOOTH_ORDER; i++)
 	{
 		sum = 0.;
 		for (int j = -DEFAULT_SMOOTH_ORDER; j <= DEFAULT_SMOOTH_ORDER; j++)
@@ -832,11 +858,11 @@ bool BizMath::SmoothArray(array<float>^ input, const int size)
 	}
 	
 	// Smooth end points
-	for(int i = size - DEFAULT_SMOOTH_ORDER; i < size - 1; i++)
+	for(unsigned short i = size - DEFAULT_SMOOTH_ORDER; i < size - 1; i++)
 	{
 		sum = 0;
-		int limit = (size - 1 - i) * 2 + 1;
-		for(int j = 0; j < limit; j++)
+		unsigned short limit = (size - 1 - i) * 2 + 1;
+		for(unsigned short j = 0; j < limit; j++)
 		{
 			sum += copy[size - 1 - j];
 		}
@@ -869,8 +895,8 @@ bool BizMath::SmoothArray(array<float>^ input, const int size)
  **  true if success, false otherwise.
 */
 
-bool BizMath::IndexOfExtremum(array<const float>^ input, const int start, const int end, 
-							  const float threshold, int% index)
+bool BizMath::IndexOfExtremum(array<const float>^ input, const unsigned short start, const unsigned short end, 
+							  const float threshold, unsigned short% index)
 {
 	// Validation
 	if (!ValidateArray(input, end + 1))
@@ -880,7 +906,7 @@ bool BizMath::IndexOfExtremum(array<const float>^ input, const int start, const 
 	// Prevent the Garbage Collector from deleting array's and -
 	// output parameters
 	pin_ptr<const float> corInput = &input[0];
-	pin_ptr<int> corIndex = &index;
+	pin_ptr<unsigned short> corIndex = &index;
 	
 	return BizCorIndexOfExtremum(corInput, start, end, threshold, corIndex);
 	
@@ -917,11 +943,11 @@ bool BizMath::IndexOfExtremum(array<const float>^ input, const int start, const 
 }
 
 #pragma unmanaged
-bool BizCorIndexOfExtremum(const float* input, const int start, const int end, 
-							  const float threshold, int* index)
+bool BizCorIndexOfExtremum(const float* input, const unsigned short start, const unsigned short end, 
+							  const float threshold, unsigned short* index)
 {
 	// Validation
-	if (start < 0 || start > end - 2)
+	if (start > end - 2)
 	{
 		return false;
 	}
@@ -932,7 +958,7 @@ bool BizCorIndexOfExtremum(const float* input, const int start, const int end,
 	
 	// Find Extremum for Pulse where current > last, current >= next
 	float current, last, next;
-	for (int i = start + 1; i < end; i++)
+	for (unsigned short i = start + 1; i < end; i++)
 	{
 		current = input[i];
 		// If threshold is the DEFAULT VALUE, then find the first extremum
@@ -969,7 +995,7 @@ bool BizCorIndexOfExtremum(const float* input, const int start, const int end,
  ** RETURN:
  **  true if success, false otherwise.
 */
-bool BizMath::FunctionValue(array<const float>^ function, const int size, const float argument, float% value)
+bool BizMath::FunctionValue(array<const unsigned short>^ function, const unsigned short size, const float argument, float% value)
 {
 	// Validation
 	if (!ValidateArray(function, size))
@@ -978,7 +1004,7 @@ bool BizMath::FunctionValue(array<const float>^ function, const int size, const 
 	} 
 	
 	// Prevent the Garbage Collector from deleting the array
-	pin_ptr<const float> corFunction = &function[0];
+	pin_ptr<const unsigned short> corFunction = &function[0];
 	pin_ptr<float> corValue = &value;
 	
 	return BizCorFunctionValue(corFunction, size, argument, corValue);
@@ -1010,7 +1036,7 @@ bool BizMath::FunctionValue(array<const float>^ function, const int size, const 
 	return true;*/
 }
 #pragma unmanaged
-bool BizCorFunctionValue(const float* function, const int size, const float argument, float* value)
+bool BizCorFunctionValue(const unsigned short* function, const unsigned short size, const float argument, float* value)
 {
 	// Validation
 	if (argument < 0 || argument > size - 1)
@@ -1026,7 +1052,7 @@ bool BizCorFunctionValue(const float* function, const int size, const float argu
 	}
 
 	// Finding Value
-	for (int i = 1; i < size; i++)
+	for (unsigned short i = 1; i < size; i++)
 	{
 		float moment = (float) i;
 		if (moment >= argument)

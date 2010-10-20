@@ -17,15 +17,6 @@ using namespace DataAccess;
 
 namespace Biz {
 
-	// Audit flag types
-	typedef enum
-	{
-	  AUDIT_ORIGINAL,
-	  AUDIT_MODIFIED,
-	  AUDIT_DELETED,
-	  AUDIT_NOF_FLAGS
-	} auditChangeType;
-
 	// Abstract height with validation
 	public ref class BizHeight abstract
 	{
@@ -147,37 +138,35 @@ namespace Biz {
 		property BizWeight^		myWeight;				// patient weight
 
 	protected:
-		property String^        SystemId;
-		property String^        GroupStudyId;
-		property unsigned short PatientNo;				// patient number
+		property String^			systemId;				// Customer System ID
+		property String^			groupStudyId;			// User defined group/study
+		property unsigned short		patientNumber;			// Internal patient number
     
-		property DateTime       MeasurementDateTime;    // date and time of measurement
-		property unsigned short DataRev;				// data revision number
+		property DateTime			measurementDateTime;    // date and time of measurement
+		property unsigned short		dataRevision;			// data revision number
 
-		property float          Bmi;					// body mass index
+		property float				bodyMassIndex;			// body mass index
 
-		property String^        Medication;				// notes regarding medication for this patient
-		property String^        Notes;					// miscellaneous notes for this measurement
-		property String^    	OperatorId;				// Operator Id
-		property String^        Interpretation;			// notes regarding clinical interpretation for this patient
+		property String^			medication;				// notes regarding medication for this patient
+		property String^			notes;					// miscellaneous notes for this measurement
+		property String^    		operatorId;				// Operator Id
+		property String^			interpretation;			// notes regarding clinical interpretation for this patient
 
-		property unsigned short CaptureTime;
-		property unsigned short SampleRate;				// Rate of measurement in Htz.
-		property bool           Simulation;				// Indicates a Simulated report
-		property unsigned short DefSampleRate;			// Default sample rate
-
-		// CFR11 data members
-		property String^        reasonForChange;		// Notes for changing this measurement
-		property auditChangeType  auditChange;			// The type of change to this measurement
-		property DateTime       auditDateTime;			// The date and time of the change to this measurement
-
-		virtual bool Validate() = 0;
-
-		// Constructors
-		BizMeasure(void) {};
-		void Initialise();
+		property unsigned short		captureTime;			// Time used for report calculation
+		property unsigned short		sampleRate;				// Rate of measurement in Hz.
+		property bool				simulation;				// Indicates a Simulated report
 		
-		// Validate measure class properties before storing in database
-		bool ValidateBeforeStore();
+		// CFR11 data members
+		property String^			reasonForChange;		// notes for changing this measurement
+		property auditChangeType	auditChange;			// The type of change to this measurement
+		property DateTime			auditDateTime;			// The date and time of the change to this measurement
+
+		virtual bool Validate();
+
+		// Constructor
+		BizMeasure(void);
+
+		// Initialse the members of the measure class
+		void Initialise();
 	};
 }

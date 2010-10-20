@@ -20,54 +20,55 @@ namespace Biz {
 	public:
 		
 		// Convert time in msec into index
-		static bool TimeToIndex(const float time, const int expandRate, const int sampleRate, int% index);
+		static bool TimeToIndex(const float time, const unsigned short expandRate, const unsigned short sampleRate, short% index);
 
 		// Convert index into time in msec
-		static bool IndexToTime(const int index, const int expandRate, const int sampleRate, float% time);
+		static bool IndexToTime(const unsigned short index, const unsigned short expandRate, const unsigned short sampleRate, float% time);
 
 		// Round real numbers to nearest integer
-		static bool Round(double input, int% output);
+		static bool Round(float input, short% output);
 
 		// Round integers to nearest multiple of 20
-		static bool RoundNearest20(int input, int% output);
+		static bool RoundNearest20(short input, short% output);
 
 		// Calculate smooth first derivative of a function and find max
-		static bool SmoothFirstDerivative(array<const float>^ input, const int size,  const int smoothOrder,
+		static bool SmoothFirstDerivative(array<const unsigned short>^ input, const unsigned short size,  const unsigned short smoothOrder,
 									const float step, array<float>^ firstDerivative, float% maximum);
 
 		// find maximum and minimum value in array
-		static bool MaximumInArray (array<const float>^ input, int size, float% maximum);
-		static bool MinimumInArray (array<const float>^ input, int size, float% minimum);
-		static bool MinimumMaximumInArray (array<const float>^ input, int size, float% minimum, float% maximum);
-		static bool MinimumMaximumInArray (array<const short int>^ input, int size, short int% minimum, short int% maximum);
-		static bool	MaximumInArrayIndex(array<const float>^ input, int size, int% maximumIndex);
+		static bool MaximumInArray (array<const float>^ input, unsigned short size, float% maximum);
+		static bool MinimumInArray (array<const float>^ input, unsigned short size, float% minimum);
+		static bool MinimumMaximumInArray (array<const float>^ input, unsigned short size, float% minimum, float% maximum);
+		static bool MinimumMaximumInArray (array<const unsigned short>^ input, unsigned short size, unsigned short% minimum, unsigned short% maximum);
+		static bool	MaximumInArrayIndex(array<const float>^ input, unsigned short size, unsigned short% maximumIndex);
 		
 		// Find SplineIndex (beginning of a spline) for pulse
-		static bool GetSplineIndex(const float abscissa, const int splineIndex, const int size, int% newSplineIndex);
+		static bool GetSplineIndex(const float abscissa, const unsigned short splineIndex, const unsigned short size, unsigned short% newSplineIndex);
 
 		// Find a value of spline approximation in point abscissa of pulse profile
 		static bool Spline(const float abscissa, array<const float>^ input, float% output);
 
 		// Smooth array using Running average algorithm
-		static bool SmoothArray(array<float>^ input, const int size);
+		static bool SmoothArray(array<float>^ input, const unsigned short size);
 
 		// Find index of the first Extremal Maximum value for pulse between indexes start and end, greater than the threshold
-		static bool IndexOfExtremum(array<const float>^ input, const int start, const int end,
-								 const float threshold, int% index);
+		static bool IndexOfExtremum(array<const float>^ input, const unsigned short start, const unsigned short end,
+								 const float threshold, unsigned short% index);
 		
 		// Find Value of function f at x-point
-		static bool FunctionValue(array<const float>^ function, const int size, const float argument, float% value);
+		static bool FunctionValue(array<const unsigned short>^ function, const unsigned short size, const float argument, float% value);
 
 		// Validate the array boundaries
-		static bool ValidateArray(array<const float>^ input, int size);
-		static bool ValidateArray(array<const short int>^ input, int size); 
+		static bool ValidateArray(array<const float>^ input, unsigned short size);
+		static bool ValidateArray(array<const unsigned short>^ input, unsigned short size); 
 	};
 }
-extern bool BizCorValidateArray(const float* input, int size);
-extern bool BizCorFunctionValue(const float* function, const int size, const float argument, float* value);
-extern bool BizCorMaximumInArray (const float* input, int size, float* maximum);
-extern bool BizCorMinimumMaximumInArray (const float* input, int size, float* minimum, float* maximum);
-extern bool BizCorSmoothFirstDerivative(const float* input, const int size, const int smoothOrder,
+extern bool BizCorValidateArray(const float* input, unsigned short size);
+extern bool BizCorFunctionValue(const unsigned short* function, const unsigned short size, const float argument, float* value);
+extern bool BizCorMaximumInArray (const float* input, unsigned short size, float* maximum);
+extern bool BizCorMinimumMaximumInArray (const float* input, unsigned short size, float* minimum, float* maximum);
+extern bool BizCorMinimumMaximumInArray (const unsigned short* input, unsigned short size, unsigned short* minimum, unsigned short* maximum);
+extern bool BizCorSmoothFirstDerivative(const unsigned short* input, const unsigned short size, const unsigned short smoothOrder,
 										const float step, float* firstDerivative, float* maximum);
-extern bool BizCorIndexOfExtremum(const float* input, const int start, const int end, 
-										const float threshold, int* index);
+extern bool BizCorIndexOfExtremum(const float* input, const unsigned short start, const unsigned short end, 
+										const float threshold, unsigned short* index);

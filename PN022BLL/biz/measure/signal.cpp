@@ -69,8 +69,8 @@ BizSignal::BizSignal()
  ** RETURN:
  **  boolean success or not.
 */
-bool BizSignal::Allocate(const short inputMaximumSignalLength, 
-						 const short inputMaximumOnsetsLength)
+bool BizSignal::Allocate(const unsigned short inputMaximumSignalLength, 
+						 const unsigned short inputMaximumOnsetsLength)
 {
 	if (inputMaximumSignalLength < MIN_SIGNAL_LENGTH 
 		|| inputMaximumSignalLength > MAX_SIGNAL_LENGTH)
@@ -87,7 +87,7 @@ bool BizSignal::Allocate(const short inputMaximumSignalLength,
 	maximumOnsetsLength = inputMaximumOnsetsLength;
 
 	// Allocate
-	signal = gcnew array<float>(maximumSignalLength);
+	signal = gcnew array<unsigned short>(maximumSignalLength);
 	floatOnsets = gcnew array<float>(maximumOnsetsLength);
 
 	// Allocate Derivatives
@@ -115,10 +115,9 @@ bool BizSignal::Allocate(const short inputMaximumSignalLength,
  ** RETURN:
  **  boolean success or not.
 */
-bool BizSignal::Initialise(const short inputSampleRate)
+bool BizSignal::Initialise(const unsigned short inputSampleRate)
 {
-	if (inputSampleRate < 0 
-		|| inputSampleRate >= DEFAULT_VALUE)
+	if (inputSampleRate >= DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -127,7 +126,7 @@ bool BizSignal::Initialise(const short inputSampleRate)
 	sampleRate = inputSampleRate;
 
 	// Signal initialisation
-	for (int i = 0; i < maximumSignalLength; i++)
+	for (unsigned short i = 0; i < maximumSignalLength; i++)
 	{
 		signal[i] = 0;
 	}
@@ -166,7 +165,7 @@ void BizSignal::SetDefaults()
 	onsetsLength = 0;
 	for (int i = 0; i < maximumOnsetsLength; i++)
 	{
-		floatOnsets[i] = -1;
+		floatOnsets[i] = DEFAULT_FLOAT_VALUE;
 	}
 }
 
@@ -193,9 +192,9 @@ void BizSignal::SetDefaults()
  ** RETURN:
  **  boolean success or not.
 */
-bool BizSignal::ValidateBeforeStore(const short minimumSignalLength, 
-									const short minimumOnsetsLength, 
-									const short minimumSignalHeight)
+bool BizSignal::ValidateBeforeStore(const unsigned short minimumSignalLength, 
+									const unsigned short minimumOnsetsLength, 
+									const unsigned short minimumSignalHeight)
 {
 	// Validate input
 	if (minimumOnsetsLength < MIN_ONSETS 
@@ -285,8 +284,8 @@ void BizSignal::PrepareToCapture()
  ** RETURN:
  **  boolean success or not.
 */
-bool BizSignal::CaptureSignal(array<const short>^ input, 
-							  const short size)
+bool BizSignal::CaptureSignal(array<const unsigned short>^ input, 
+							  const unsigned short size)
 {
 	// Validation
 	if (!Biz::BizMath::ValidateArray(input, size))
@@ -325,7 +324,7 @@ bool BizSignal::CaptureSignal(array<const short>^ input,
  ** RETURN:
  **  boolean appropriate signal or not.
 */
-bool BizSignal::ValidateSignalLength(const short minimumSignalLength)
+bool BizSignal::ValidateSignalLength(const unsigned short minimumSignalLength)
 {
 	// Validate input
 	if (minimumSignalLength < MIN_SIGNAL_LENGTH 
@@ -371,10 +370,10 @@ bool BizSignal::ValidateSignalLength(const short minimumSignalLength)
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
-			CrxMessageFacade::Instance()->messageResources->GetString(L"INVALID_SAMPLE_RATE", CultureInfo::CurrentUICulture)
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_INVALID_SAMPLE_RATE", CultureInfo::CurrentUICulture)
 			+ Convert::ToString(sampleRate, CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
-			CrxMessageFacade::Instance()->messageResources->GetString(L"INVALID_SAMPLE_RATE", CultureInfo::InvariantCulture)
+			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_INVALID_SAMPLE_RATE", CultureInfo::InvariantCulture)
 			+ Convert::ToString(sampleRate, CultureInfo::InvariantCulture));
 		success = false;
 	}
@@ -399,7 +398,7 @@ bool BizSignal::ValidateSignalLength(const short minimumSignalLength)
  ** RETURN:
  **  boolean appropriate signal or not.
 */
-bool BizSignal::ValidateSignalHeight(const short minimumSignalHeight)
+bool BizSignal::ValidateSignalHeight(const unsigned short minimumSignalHeight)
 {
 	// Validate input
 	if (minimumSignalHeight < TONOMETER_MIN_SIGNAL_HEIGHT 
@@ -414,12 +413,12 @@ bool BizSignal::ValidateSignalHeight(const short minimumSignalHeight)
 	bool success = true;
 	
 	// Validate signal height
-	float signalMinimum, signalMaximum;
+	unsigned short signalMinimum, signalMaximum;
 
 	// MinimumMaximumInArray cannot return false because only valid signals can be
 	// available in this class - see CaptureSignal
 	BizMath::MinimumMaximumInArray(signal, signalLength, signalMinimum, signalMaximum);
-	float signalHeight = signalMaximum - signalMinimum;
+	unsigned short signalHeight = signalMaximum - signalMinimum;
 	if (signalHeight < minimumSignalHeight)
 	{
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
@@ -463,7 +462,7 @@ bool BizSignal::CalculateQualityControls()
 {
 	// Prevent the Garbage Collector from deleting array's and -
 	// output parameters
-	pin_ptr<float> corSignal = &signal[0];
+	pin_ptr<unsigned short> corSignal = &signal[0];
 	pin_ptr<float> corFloatOnsets = &floatOnsets[0];
 	pin_ptr<float> corPulseHeight = &(float%)pulseHeight;
 	pin_ptr<float> corPulseHeightVariation = &(float%)pulseHeightVariation;
@@ -583,23 +582,23 @@ bool BizSignal::CalculateQualityControls()
 	return true;*/
 }
 #pragma unmanaged
-bool BizCorCalculateQualityControls(short signalLength, 
-									short onsetsLength, 
-									float* signal, 
+bool BizCorCalculateQualityControls(unsigned short signalLength, 
+									unsigned short onsetsLength, 
+									unsigned short* signal, 
 									float* floatOnsets,
 									float* pulseHeight,
 									float* pulseHeightVariation,
 									float* pulseLengthVariation,
 									float* pulseBaselineVariation)
 {
-	float minimum; 
-	float maximum;
+	unsigned short minimum; 
+	unsigned short maximum;
 	float baseline;
-	float height;
+	unsigned short height;
 	float pulseLength;
 	float currentOnset;
 	float nextOnset;	
-	short index;
+	unsigned short index;
 	
 	// Initialisation
 	*pulseHeight = DEFAULT_VALUE;
@@ -628,9 +627,9 @@ bool BizCorCalculateQualityControls(short signalLength,
 		BizCorFunctionValue(signal, signalLength, currentOnset, &baseline);
 		averageBaseline += baseline;
 
-		BizCorMinimumMaximumInArray(&signal[(int) currentOnset], (short) pulseLength, &minimum, &maximum);
+		BizCorMinimumMaximumInArray(&signal[(int) currentOnset], (unsigned short) pulseLength, &minimum, &maximum);
 		height = maximum - minimum;
-		averagePulseHeight += height;
+		averagePulseHeight += (float) height;
 	}
 	
 	// Average the Heights, Lengths and Baselines of each pulse
@@ -664,9 +663,9 @@ bool BizCorCalculateQualityControls(short signalLength,
 		BizCorFunctionValue(signal, signalLength, currentOnset, &baseline);
 		baselineVariation += (float) pow(baseline - averageBaseline, 2);
 
-		BizCorMinimumMaximumInArray(&signal[(int) currentOnset], (short) pulseLength, &minimum, &maximum);
+		BizCorMinimumMaximumInArray(&signal[(int) currentOnset], (unsigned short) pulseLength, &minimum, &maximum);
 		height = maximum - minimum;
-		heightVariation += fabs(height - averagePulseHeight);
+		heightVariation += fabs((float)height - averagePulseHeight);
 	}
 
 	// Average the variations in Height, Length and Baseline of -
@@ -703,7 +702,7 @@ bool BizCorCalculateQualityControls(short signalLength,
  ** RETURN:
  **  boolean success or not.
 */
-bool BizSignal::ValidateSignal(const short minimumSignalLength, const short minimumSignalHeight)
+bool BizSignal::ValidateSignal(const unsigned short minimumSignalLength, const unsigned short minimumSignalHeight)
 {
 	// Validate length and input
 	if (!ValidateSignalLength(minimumSignalLength))
@@ -743,10 +742,10 @@ bool BizSignal::FindOnsets()
 {
 	// Prevent the Garbage Collector from deleting array's and -
 	// output parameters
-	pin_ptr<float> corSignal = &signal[0];
+	pin_ptr<unsigned short> corSignal = &signal[0];
 	pin_ptr<float> corFirstDerivative = &firstDerivative[0];
 	pin_ptr<float> corFloatOnsets = &floatOnsets[0];
-	pin_ptr<short> corOnsetsLength = &(short%)onsetsLength;
+	pin_ptr<unsigned short> corOnsetsLength = &(unsigned short%)onsetsLength;
 	
 	bool success = BizCorFindOnsets(signalLength,
 										sampleRate,
@@ -769,6 +768,7 @@ bool BizSignal::FindOnsets()
 			/*GetCurrentMeasureDetails() +*/
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_ONSETS_ERROR", CultureInfo::InvariantCulture));
 	}
+
 	return success;
 	
 	/*bool success = false;
@@ -776,7 +776,7 @@ bool BizSignal::FindOnsets()
 	// Initialise Onsets
 	for (short i = 0; i < maximumOnsetsLength; i++)
 	{
-		floatOnsets[i] = -1;
+		floatOnsets[i] = DEFAULT_FLOAT_VALUE;
 	}
 	onsetsLength = 0;
 	
@@ -850,16 +850,16 @@ bool BizSignal::FindOnsets()
 }
 
 #pragma unmanaged
-bool BizCorFindOnsets(short signalLength, short sampleRate, short maximumOnsetsLength,
-						float* signal, float* firstDerivative, 
-						float* floatOnsets,	short* onsetsLength)
+bool BizCorFindOnsets(unsigned short signalLength, unsigned short sampleRate, unsigned short maximumOnsetsLength,
+						unsigned short* signal, float* firstDerivative, 
+						float* floatOnsets,	unsigned short* onsetsLength)
 {
 	bool success = false;
 	
 	// Initialise Onsets
-	for (short i = 0; i < maximumOnsetsLength; i++)
+	for (unsigned short i = 0; i < maximumOnsetsLength; i++)
 	{
-		floatOnsets[i] = -1;
+		floatOnsets[i] = DEFAULT_FLOAT_VALUE;
 	}
 	*onsetsLength = 0;
 	
@@ -874,11 +874,11 @@ bool BizCorFindOnsets(short signalLength, short sampleRate, short maximumOnsetsL
 	// Find the average of the extremums of the 1st derivative which are higher
 	// than 40% (FIRST_DERIVATIVE_THRESHOLD3) of the maximum of 1st derivative
 	float averageMaximumFirstDerivative = 0;
-	short extremums = 0;
-	short loops = 0;
+	unsigned short extremums = 0;
+	unsigned short loops = 0;
 	do
 	{
-		int extremumFirstDerivative = 0;
+		unsigned short extremumFirstDerivative = 0;
 
 		// Find the first extremum above the threshold starting at -
 		// extremumFirstDerivative until there are no more extremums
@@ -951,10 +951,10 @@ bool BizCorFindOnsets(short signalLength, short sampleRate, short maximumOnsetsL
  ** RETURN:
  **  boolean success or not.
 */
-bool BizCorTangentAlgorithm(const float maximumFirstDerivative, short signalLength, 
-							short sampleRate, short maximumOnsetsLength,
-							float* signal, float* firstDerivative, 
-							float* floatOnsets,	short* onsetsLength)
+bool BizCorTangentAlgorithm(const float maximumFirstDerivative, unsigned short signalLength, 
+							unsigned short sampleRate, unsigned short maximumOnsetsLength,
+							unsigned short* signal, float* firstDerivative, 
+							float* floatOnsets,	unsigned short* onsetsLength)
 {
 	// Validate Input
 	if (maximumFirstDerivative <= -DEFAULT_VALUE || maximumFirstDerivative >= DEFAULT_VALUE)
@@ -963,7 +963,7 @@ bool BizCorTangentAlgorithm(const float maximumFirstDerivative, short signalLeng
 	}
 	
 	// Minimum pulse length
-	short minimumPulseLength = 60 * sampleRate / MAX_HR;
+	unsigned short minimumPulseLength = 60 * sampleRate / MAX_HEART_RATE;
 	
 	// Threshold values are 70% (threshold1) and 65% (threshold2) -
 	// of the maximum 1st derivative
@@ -1052,7 +1052,7 @@ bool BizCorTangentAlgorithm(const float maximumFirstDerivative, short signalLeng
 			}
 			
 			// Find where the tangent intersects the foot
-			float signalChange = signal[peakIndex] - signal[footIndex];
+			float signalChange = float(signal[peakIndex] - signal[footIndex]);
 			float indexChange = signalChange/tangent;
 			
 			// Find onset checking that it is not before the previous onset
@@ -1086,7 +1086,7 @@ bool BizSignal::TangentAlgorithm(const float maximumFirstDerivative)
 	}
 	
 	// Minimum pulse length
-	short minimumPulseLength = 60 * sampleRate / MAX_HR;
+	short minimumPulseLength = 60 * sampleRate / MAX_HEART_RATE;
 	
 	// Threshold values are 70% (threshold1) and 65% (threshold2) -
 	// of the maximum 1st derivative

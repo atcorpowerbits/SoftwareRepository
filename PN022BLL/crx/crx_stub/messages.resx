@@ -139,26 +139,56 @@
     <value>Mathematical Error</value>
     <comment>Title</comment>
   </data>
+  <data name="MEASURE_INVALID_CAPTURE_TIME" xml:space="preserve">
+    <value>#202 Invalid capture time.\n\nCapture time = {0} seconds and the allowed range = ({1} - {2}) seconds</value>
+  </data>
+  <data name="MEASURE_INVALID_SAMPLE_RATE" xml:space="preserve">
+    <value>#201 Invalid sample rate.\n\nSample rate = {0} Hz and the allowed range = ({1} - {2}) Hz</value>
+  </data>
+  <data name="PWV_DEVIATION_HIGH" xml:space="preserve">
+    <value>#308 The Standard Deviation is considered high.\nThis could be as a result of a poor quality measurement.\n\nPulse Wave Velocity = {0} m/s and Standard Deviation = {1} m/s</value>
+  </data>
+  <data name="PWV_DEVIATION_TOO_BIG" xml:space="preserve">
+    <value>#306 The Standard Deviation is greater than the Pulse Wave Velocity.\nThis could be as a result of a poor quality measurement.\n\nPulse Wave Velocity = {0} m/s and Standard Deviation = {1} m/s</value>
+  </data>
+  <data name="PWV_INVALID" xml:space="preserve">
+    <value>#305 The value for Pulse Wave Velocity is out of range.\n\nThe allowed range =({0} - {1}) m/s.\n\nPlease repeat the measurement and ensure the Pulse Wave Velocity Distance was entered correctly.</value>
+  </data>
+  <data name="PWV_INVALID_ADULT" xml:space="preserve">
+    <value>#307 The value for Pulse Wave Velocity is outside the normal adult range.\n\nPulse Wave Velocity = {0} m/s and the adult range = ({1} - {2}) m/s.\n\nWould you like to continue and calculate a report?</value>
+  </data>
+  <data name="PWV_INVALID_DISTANCE" xml:space="preserve">
+    <value>#301 The value for Pulse Wave Velocity distance is out of range.\n\nPulse Wave Velocity Distance = {0} mm and the allowed range =({1} - {2}) mm</value>
+  </data>
+  <data name="PWV_INVALID_HEART_RATE" xml:space="preserve">
+    <value>#303 The value for heart rate is out of range.\n\nHeart rate = {0} bpm and the allowed range = ({1} - {2}) bpm</value>
+  </data>
+  <data name="PWV_NOT_ENOUGH_DELTAS" xml:space="preserve">
+    <value>#304 Signal quality is too bad to calculate time differences</value>
+  </data>
+  <data name="PWV_SIGNAL_TOO_BAD" xml:space="preserve">
+    <value>#302 Femoral cuff signal quality is too bad to calculate heart rate</value>
+  </data>
   <data name="SIGNAL_INVALID_SAMPLE_RATE" xml:space="preserve">
-    <value>#103 Invalid sample rate. Sample rate = </value>
+    <value>#103 Invalid sample rate.\n\nSample rate = {0} Hz</value>
   </data>
   <data name="SIGNAL_NOT_ENOUGH_ONSETS" xml:space="preserve">
-    <value>#105 Not enough onsets (trigger points). Calculated and minimum number = </value>
+    <value>#105 Not enough onsets (trigger points).\n\nCalculated onsets = {0} and the minimum = {1}</value>
   </data>
   <data name="SIGNAL_ONSETS_ERROR" xml:space="preserve">
-    <value>#107 Error calculating Onsets. Check data quality.</value>
+    <value>#107 Error calculating onsets.\n\nCheck data quality.</value>
   </data>
   <data name="SIGNAL_TOO_LONG" xml:space="preserve">
-    <value>#102 The signal length is too long and has been truncated. Signal length and maximum =</value>
+    <value>#102 The signal length is too long and has been truncated.\n\nSignal length = {0} and the maximum = {1}</value>
   </data>
   <data name="SIGNAL_TOO_MANY_ONSETS" xml:space="preserve">
-    <value>#106 Too many onsets (trigger points). Extra onsets are omitted. Calculated and maximum number = </value>
+    <value>#106 Too many onsets (trigger points). Extra onsets are omitted.\n\nCalculated onsets = {0} and the maximum = {1}</value>
   </data>
   <data name="SIGNAL_TOO_SHORT" xml:space="preserve">
-    <value>#101 The signal length is too short to proceed with the calculation. Signal length and minimum = </value>
+    <value>#101 The signal length is too short to proceed with the calculation.\n\nSignal length = {0} and the minimum = {1}</value>
   </data>
   <data name="SIGNAL_TOO_SMALL" xml:space="preserve">
-    <value>#104 Signal amplitude is too small. Signal height and minimum = </value>
+    <value>#104 Signal amplitude is too small.\n\nSignal height = {0} and the minimum = {1}</value>
   </data>
   <data name="VALIDATION_ERROR" xml:space="preserve">
     <value>Validation Error</value>

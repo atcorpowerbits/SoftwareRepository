@@ -4,5 +4,5 @@ true,1.49,1
 true,1.5,2
 true,-1.5,-1
 true,-1.51,-2
-false,-1.7E308,0
-false,1.7E308,0  
+false,-3.4E38,0
+false,3.4E38,0  

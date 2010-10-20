@@ -13,14 +13,13 @@
 using namespace System;
 
 namespace CrossCutting {
-	typedef enum {
-		MEASUREMENT_UNIT_METRICS = 0,
-		MEASUREMENT_UNIT_IMPERIAL = 1,
-	} measurement_unit;
 	// Cross-Cutting Configuration Facade Singleton Class
 	public ref class CrxConfigFacade
 	{
 	public:
+		static const short MEASUREMENT_UNIT_METRICS = 0;
+		static const short MEASUREMENT_UNIT_IMPERIAL = 1;
+	
 		static CrxConfigFacade^ CrxConfigFacade::Instance();
 		bool isMetricsUnit();
 		bool isSubtractingMethod();
