@@ -692,6 +692,3 @@ Class Microsoft.VisualStudio.TestTools.UnitTesting.RuntimeTypeHelper: AutoLayout
     FindMostSpecificMethod(MethodBase, Int32[], Type, MethodBase, Int32[], Type, Type[], Object[]): PrivateScope, Assembly, Static, HideBySig
     FindMostSpecific(ParameterInfo[], Int32[], Type, ParameterInfo[], Int32[], Type, Type[], Object[]): PrivateScope, Assembly, Static, HideBySig
     FindMostSpecificType(Type, Type, Type): PrivateScope, Assembly, Static, HideBySig
-Class <PrivateImplementationDetails>{5DBD4116-DCB5-4780-B308-733B18728ED0}: NotPublic
-  Fields:
-    __StaticArrayInitTypeSize=6 $$method0x60000e3-1 : Assembly, Static, HasFieldRVA

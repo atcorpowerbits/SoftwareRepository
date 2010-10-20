@@ -175,17 +175,17 @@
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\..\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
+			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\..\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
+			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\..\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
+			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
 			AssemblyName="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
