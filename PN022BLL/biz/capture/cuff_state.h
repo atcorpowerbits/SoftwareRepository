@@ -11,10 +11,11 @@
 #pragma once
 
 #include <cuff.h>
+#include <biz_namespace.h>
 
 using namespace System;
 
-namespace Biz {
+START_BIZ_NAMESPACE
 	public ref class BizCuffState abstract
 	{
 	public:
@@ -98,5 +99,4 @@ namespace Biz {
 	private:
 		static BizCuffResting^ _instance;
 	};
-}
-
+END_BIZ_NAMESPACE

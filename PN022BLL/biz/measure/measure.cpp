@@ -9,10 +9,10 @@
 */
 
 #include "StdAfx.h"
-#include "Measure.h"
+#include <measure.h>
 
-using namespace CrossCutting;
-using namespace Biz;
+using namespace CRX_CONFIG_NAMESPACE;
+using namespace BIZ_NAMESPACE;
 
 /**
  ** Constructor()

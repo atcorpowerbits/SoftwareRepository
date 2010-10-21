@@ -239,6 +239,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crx_namespace.h"
+				>
+			</File>
+			<File
 				RelativePath=".\resource.h"
 				>
 			</File>

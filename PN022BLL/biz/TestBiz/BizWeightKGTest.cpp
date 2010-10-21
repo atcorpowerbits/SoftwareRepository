@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include <biz.h>
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
-using namespace Biz;
+using namespace BIZ_NAMESPACE;
 namespace TestBiz {
     using namespace System;
     ref class BizWeightKGTest;

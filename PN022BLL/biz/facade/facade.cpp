@@ -11,10 +11,11 @@
 #include <facade.h>
 #include <session.h>
 #include <measure_pwv.h>
+#include <biz_namespace.h>
 
-using namespace DataAccess;
+using namespace DAL_NAMESPACE;
 
-namespace Biz {
+START_BIZ_NAMESPACE
 	/**
 	BizFacade
 
@@ -368,4 +369,4 @@ namespace Biz {
 	{ 
 		BizSession::Instance()->DispatchCaptureData(); 
 	}
-}
+END_BIZ_NAMESPACE

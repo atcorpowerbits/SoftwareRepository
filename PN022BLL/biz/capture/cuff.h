@@ -11,31 +11,32 @@
 #pragma once
 
 #include <data_events.h>
+#include <biz_namespace.h>
 
 using namespace System;
-using namespace DataAccess;
+using namespace DAL_NAMESPACE;
 
-namespace Biz {
+START_BIZ_NAMESPACE
 
-	ref class BizCuffState; // needed for forward declaration
+ref class BizCuffState; // needed for forward declaration
 
-	public ref class BizCuff
-	{
-	public:
-		void ChangeState(BizCuffState^ state);
-		void Dispatch();
+public ref class BizCuff
+{
+public:
+	void ChangeState(BizCuffState^ state);
+	void Dispatch();
 
-		property BizCuffStateEvent^ cuffStateBiz; //cuff state event to be passed to obesrserve
+	property BizCuffStateEvent^ cuffStateBiz; //cuff state event to be passed to obesrserve
 
-		// Keep previous and current cuff states
-		property BizCuffState^ previousState;
-		property BizCuffState^ currentState;
+	// Keep previous and current cuff states
+	property BizCuffState^ previousState;
+	property BizCuffState^ currentState;
 
-		// Constructor
-		BizCuff(void);
+	// Constructor
+	BizCuff(void);
 
-	private:
-		void Update(Object^ sender, DalCuffStatusEventArgs^ e);
-		DalCuffStatusEvent^ cuffStatusSubject; // to observe cuff state event from DAL
-	};
-}
+private:
+	void Update(Object^ sender, DalCuffStatusEventArgs^ e);
+	DalCuffStatusEvent^ cuffStatusSubject; // to observe cuff state event from DAL
+};
+END_BIZ_NAMESPACE

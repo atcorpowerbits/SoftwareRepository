@@ -9,10 +9,9 @@
 */
 #include "stdafx.h"
 #include "stdlib.h"
-#include "math_library.h"
-//#include <vcclr.h>
+#include <math_library.h>
 
-using namespace Biz;
+using namespace BIZ_NAMESPACE;
 using namespace System;
 
 #pragma hdrstop

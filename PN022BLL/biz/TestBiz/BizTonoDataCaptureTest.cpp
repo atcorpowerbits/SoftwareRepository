@@ -1,9 +1,9 @@
 ﻿
 #include "StdAfx.h"
-#include "StdAfx.h"
+#include <biz.h>
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
-using namespace Biz;
-using namespace DataAccess;
+using namespace BIZ_NAMESPACE;
+using namespace DAL_NAMESPACE;
 
 namespace TestBiz {
     using namespace System;

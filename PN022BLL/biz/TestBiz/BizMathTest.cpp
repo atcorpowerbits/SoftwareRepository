@@ -1,12 +1,11 @@
 ﻿
 #include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
+#include <biz.h>
+using namespace BIZ_NAMESPACE;
 
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 namespace TestBiz {
     using namespace System;
-    using namespace Biz;
 	ref class BizMathTest;
     
     

@@ -1,10 +1,9 @@
 ﻿
 #include "StdAfx.h"
 #include <biz.h>
-
+using namespace BIZ_NAMESPACE;
+using namespace CRX_CONFIG_NAMESPACE;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
-using namespace Biz;
-using namespace CrossCutting;
 namespace TestBiz {
     using namespace System;
     ref class BizPWVTest;

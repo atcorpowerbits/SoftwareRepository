@@ -10,10 +10,11 @@
 
 #pragma once
 #include <string.h>
+#include <biz_namespace.h>
 
 using namespace System;
 
-namespace Biz {
+START_BIZ_NAMESPACE
 //	public ref class BizDateFormat: public IFormatProvider
 //	{
 //	public:
@@ -49,4 +50,4 @@ namespace Biz {
 		property DateTime^ moduleConfigDate;
 		static BizInfo^ _instance;
 	};
-}
+END_BIZ_NAMESPACE

@@ -10,25 +10,28 @@
 
 #pragma once
 
+#include "crx_namespace.h"
+
 using namespace System;
 
-namespace CrossCutting {
+START_CRX_DB_NAMESPACE
 	
-	public ref class CrxDbMgrFacade
-	{
-	public:
-		static CrxDbMgrFacade^ CrxDbMgrFacade::Instance();
-		
-		// populate class properties from current record
-		bool Populate(BizPWV^ PWVObject);
-    
-		// Store class properties to current record
-		bool Store(BizPWV^ PWVObject, bool pRewriteKeyFields, bool pRewriteDate);
+public ref class CrxDbMgrFacade
+{
+public:
+	static CrxDbMgrFacade^ CrxDbMgrFacade::Instance();
+	
+	// populate class properties from current record
+	bool Populate(BizPWV^ PWVObject);
 
-	protected:
-		CrxDbMgrFacade(void);
+	// Store class properties to current record
+	bool Store(BizPWV^ PWVObject, bool pRewriteKeyFields, bool pRewriteDate);
 
-	private:
-		static CrxDbMgrFacade^ _instance;
-	};
-}
+protected:
+	CrxDbMgrFacade(void);
+
+private:
+	static CrxDbMgrFacade^ _instance;
+};
+
+END_CRX_DB_NAMESPACE

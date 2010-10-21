@@ -258,6 +258,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\dal_namespace.h"
+				>
+			</File>
+			<File
 				RelativePath=".\dal_simulation_file.h"
 				>
 			</File>

@@ -12,10 +12,10 @@
 #include <measure_pwv.h>
 #include <biz.h>
 
-using namespace CrossCutting;
-using namespace DataAccess;
+using namespace CRX_CONFIG_NAMESPACE;
+using namespace DAL_NAMESPACE;
+using namespace BIZ_NAMESPACE;
 
-using namespace Biz;
 /**
 ValidateFemoral2CuffDistance
 
@@ -201,15 +201,15 @@ BizPWV::BizPWV(void)
 		// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
 		tonometerDataObserver = gcnew BizTonometerDataCapture(
 			gcnew BizCircularBuffer(1000 * 
-			                        (CrossCutting::CrxConfigFacade::Instance()->GetCaptureTime() + 
-									Biz::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
+			                        (CrxConfigFacade::Instance()->GetCaptureTime() + 
+									BusinessLogic::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
 		tonometerDataObserver->Reset();
 
 		cuffPulseObserver = gcnew BizCuffPulseCapture(
 			gcnew BizCircularBuffer(1000 * 
-			                        (CrossCutting::CrxConfigFacade::Instance()->GetCaptureTime() + 
-									Biz::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
+			                        (CrxConfigFacade::Instance()->GetCaptureTime() + 
+									BusinessLogic::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
 									DalConstants::DATA_SAMPLING_INTERVAL));
 		cuffPulseObserver->Reset();
 

@@ -9,9 +9,9 @@
 */
 
 #include "StdAfx.h"
-#include "data_events.h"
+#include <data_events.h>
 
-using namespace Biz;
+using namespace BIZ_NAMESPACE;
 
 /**
 BizTonometerDataEvent::Notify

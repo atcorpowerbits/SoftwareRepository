@@ -180,12 +180,12 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3938.27832, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="crx, Version=1.0.3946.15893, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.3938.27832, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="dal, Version=1.0.3946.20594, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 	</References>
@@ -279,6 +279,10 @@
 			>
 			<File
 				RelativePath=".\biz.h"
+				>
+			</File>
+			<File
+				RelativePath=".\biz_namespace.h"
 				>
 			</File>
 			<File

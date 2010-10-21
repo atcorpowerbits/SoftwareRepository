@@ -1,4 +1,8 @@
-﻿namespace gui
+﻿namespace AtCor
+{
+namespace Scor
+{
+namespace Presentation
 {
     partial class form_capture_stub
     {
@@ -206,3 +210,6 @@
         private System.Windows.Forms.Label label5;
     }
 }
+}
+}
+

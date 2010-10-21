@@ -11,7 +11,7 @@
 #include "stdafx.h"
 #include "crx_message_stub.h"
 
-using namespace CrossCutting;
+using namespace CRX_MSG_NAMESPACE;
 
 #pragma hdrstop
 

@@ -8,106 +8,107 @@
     Description  :	Cross Cutting Configuration Facade Classes
 */
 #include "stdafx.h"
+#include "crx_namespace.h"
 #include "crx_config_stub.h"
 
-namespace CrossCutting {
-	/** 
-	Instance
-	
-	DESCRIPTION
-	   Get the singleton instance of Config Facade.
+using namespace CRX_CONFIG_NAMESPACE;
 
-	INPUT
+/** 
+Instance
 
-	   None.
+DESCRIPTION
+   Get the singleton instance of Config Facade.
 
-	OUTPUT
+INPUT
 
-	   None.
+   None.
 
-	RETURN
+OUTPUT
 
-	   Handle to the object instance
+   None.
 
-	*/	
-	CrxConfigFacade^ CrxConfigFacade::Instance()
+RETURN
+
+   Handle to the object instance
+
+*/	
+CrxConfigFacade^ CrxConfigFacade::Instance()
+{
+	if (_instance == nullptr) 
 	{
-		if (_instance == nullptr) 
-		{
-			_instance = gcnew CrxConfigFacade;
-		}
-		return _instance;
+		_instance = gcnew CrxConfigFacade;
 	}
-	/** 
-	Instance
-	
-	DESCRIPTION
-	   Constructor for Config Facade.
-	INPUT
-	   None.
-	OUTPUT
-	   None.
-	RETURN
-	   None.
-	*/	
-	CrxConfigFacade::CrxConfigFacade(void)
-	{
-		PWVMeasureUnit = MEASUREMENT_UNIT_METRICS; // stub to metrics
-		PWVSubtractingMethod = true;
-		PWVCaptureTime = 20; // stub to 20 sec
-	}
-	/** 
-	isPWVSubtractingMethod
-	
-	DESCRIPTION
+	return _instance;
+}
+/** 
+Instance
 
-	   Check PWV Distance Subtracting Method is used.
+DESCRIPTION
+   Constructor for Config Facade.
+INPUT
+   None.
+OUTPUT
+   None.
+RETURN
+   None.
+*/	
+CrxConfigFacade::CrxConfigFacade(void)
+{
+	PWVMeasureUnit = MEASUREMENT_UNIT_METRICS; // stub to metrics
+	PWVSubtractingMethod = true;
+	PWVCaptureTime = 20; // stub to 20 sec
+}
+/** 
+isPWVSubtractingMethod
 
-	INPUT
+DESCRIPTION
 
-	   None.
+   Check PWV Distance Subtracting Method is used.
 
-	OUTPUT
+INPUT
 
-	   None.
+   None.
 
-	RETURN
+OUTPUT
 
-	   true  - PWV Distance Subtracting Method is used
+   None.
 
-	   false - PWV Distance Subtracting Method is not used
+RETURN
 
-	*/
-	bool CrxConfigFacade::isMetricsUnit()
-	{
-		return (PWVMeasureUnit == MEASUREMENT_UNIT_METRICS);
-	}
-	bool CrxConfigFacade::isSubtractingMethod()
-	{
-		return (PWVSubtractingMethod);
-	}
-	unsigned short CrxConfigFacade::GetCaptureTime()
-	{
-		return PWVCaptureTime;
-	}
-	void CrxConfigFacade::SetMeasurementUnit(unsigned short metrics)
-	{
-		PWVMeasureUnit = metrics;
-	}
-	void CrxConfigFacade::SetDistanceMethod(bool subtracting)
-	{
-		PWVSubtractingMethod = subtracting;
-	}
-	void CrxConfigFacade::SetCaptureTime(unsigned short captureTime)
-	{
-		PWVCaptureTime = captureTime;
-	}
-	void CrxConfigFacade::SetBPCombination(unsigned short bp)
-	{
-		PWVBPCombination = bp;
-	}
-	unsigned short CrxConfigFacade::GetBPCombination()
-	{
-		return PWVBPCombination;
-	}
+   true  - PWV Distance Subtracting Method is used
+
+   false - PWV Distance Subtracting Method is not used
+
+*/
+bool CrxConfigFacade::isMetricsUnit()
+{
+	return (PWVMeasureUnit == MEASUREMENT_UNIT_METRICS);
+}
+bool CrxConfigFacade::isSubtractingMethod()
+{
+	return (PWVSubtractingMethod);
+}
+unsigned short CrxConfigFacade::GetCaptureTime()
+{
+	return PWVCaptureTime;
+}
+void CrxConfigFacade::SetMeasurementUnit(unsigned short metrics)
+{
+	PWVMeasureUnit = metrics;
+}
+void CrxConfigFacade::SetDistanceMethod(bool subtracting)
+{
+	PWVSubtractingMethod = subtracting;
+}
+void CrxConfigFacade::SetCaptureTime(unsigned short captureTime)
+{
+	PWVCaptureTime = captureTime;
+}
+void CrxConfigFacade::SetBPCombination(unsigned short bp)
+{
+	PWVBPCombination = bp;
+}
+unsigned short CrxConfigFacade::GetBPCombination()
+{
+	return PWVBPCombination;
 }

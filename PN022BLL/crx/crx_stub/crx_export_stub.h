@@ -10,25 +10,28 @@
 
 #pragma once
 
+#include "crx_namespace.h"
+
 using namespace System;
 
-namespace CrossCutting {
+START_CRX_EXPORT_NAMESPACE
+
+public ref class CrxExportFacade
+{
+public:
+	static CrxExportFacade^ CrxExportFacade::Instance();
 	
-	public ref class CrxExportFacade
-	{
-	public:
-		static CrxExportFacade^ CrxExportFacade::Instance();
-		
-		// Export class properties from current record
-		bool Export(BizPWV^ PWVObject);
+	// Export class properties from current record
+	bool Export(BizPWV^ PWVObject);
 
-		// Export class property titles (usually from the database column titles)
-		bool ExportPrintTitle(DataSet dataSet);
+	// Export class property titles (usually from the database column titles)
+	bool ExportPrintTitle(DataSet dataSet);
 
-	protected:
-		CrxExportFacade(void);
+protected:
+	CrxExportFacade(void);
 
-	private:
-		static CrxExportFacade^ _instance;
-	};
-}
+private:
+	static CrxExportFacade^ _instance;
+};
+
+END_CRX_EXPORT_NAMESPACE

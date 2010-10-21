@@ -12,29 +12,32 @@
 #include <string.h>
 #include <info.h>
 #include <data_events.h>
+#include <biz_namespace.h>
 
-namespace Biz {
-	// A singleton to interface Business Logic Layer
-	public ref class BizFacade {
-	public:
-		static BizFacade^ BizFacade::Instance();
-		BizInfo^ FindBizInfo();
-		bool StartCapture();
-		bool StopCapture();
-		void SimulateCaptureData();
-		void StopCaptureSimulation();
-		void SimulateCaptureOneShot(); // simulate a single data capture
-		void Dispatch();
-		bool CalculateReport();
-		BizTonometerDataEvent^ FindTonometerDataEvent();
-		BizCuffPulseEvent^ FindCuffPulseEvent();
-		BizCountdownTimerEvent^ FindCountdownTimerEvent();
-		BizCuffStateEvent^ FindCuffStateEvent();
+START_BIZ_NAMESPACE
 
-	protected:
-		BizFacade(void);
+// A singleton to interface Business Logic Layer
+public ref class BizFacade {
+public:
+	static BizFacade^ BizFacade::Instance();
+	BizInfo^ FindBizInfo();
+	bool StartCapture();
+	bool StopCapture();
+	void SimulateCaptureData();
+	void StopCaptureSimulation();
+	void SimulateCaptureOneShot(); // simulate a single data capture
+	void Dispatch();
+	bool CalculateReport();
+	BizTonometerDataEvent^ FindTonometerDataEvent();
+	BizCuffPulseEvent^ FindCuffPulseEvent();
+	BizCountdownTimerEvent^ FindCountdownTimerEvent();
+	BizCuffStateEvent^ FindCuffStateEvent();
 
-	private:
-		static BizFacade^ _instance;
-	};
-}
+protected:
+	BizFacade(void);
+
+private:
+	static BizFacade^ _instance;
+};
+
+END_BIZ_NAMESPACE

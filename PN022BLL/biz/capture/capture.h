@@ -12,60 +12,60 @@
 
 #include <data_events.h>
 #include <buffer.h>
+#include <biz_namespace.h>
 
 using namespace System;
+using namespace AtCor::Scor::DataAccess;
 
-using namespace DataAccess;
+START_BIZ_NAMESPACE
+public ref class BizCapture abstract
+{
+public:
+	virtual void Reset() { buffer->Reset(); };
+	virtual void Dispatch() = 0;
 
-namespace Biz {
-	public ref class BizCapture abstract
-	{
-	public:
-		virtual void Reset() { buffer->Reset(); };
-		virtual void Dispatch() = 0;
+protected:
+	BizCapture() {};
+	property BizBuffer^ buffer;
+};
 
-	protected:
-		BizCapture() {};
-		property BizBuffer^ buffer;
-	};
+public ref class BizTonometerDataCapture : BizCapture
+{
+public:
+	BizTonometerDataCapture(BizBuffer^ buffer);
 
-	public ref class BizTonometerDataCapture : BizCapture
-	{
-	public:
-		BizTonometerDataCapture(BizBuffer^ buffer);
+	property BizTonometerDataEvent^ tonometerDataBiz; //tonometer data to be dispatched
+	virtual void Dispatch() override;
 
-		property BizTonometerDataEvent^ tonometerDataBiz; //tonometer data to be dispatched
-		virtual void Dispatch() override;
+private:
+	void Update(Object^ sender, DalTonometerDataEventArgs^ e);
+	DalTonometerDataEvent^ tonometerDataRaw; // to observe tonometer raw data from DAL
+};
 
-	private:
-		void Update(Object^ sender, DalTonometerDataEventArgs^ e);
-		DalTonometerDataEvent^ tonometerDataRaw; // to observe tonometer raw data from DAL
-	};
+public ref class BizCuffPulseCapture : BizCapture
+{
+public:
+	BizCuffPulseCapture(BizBuffer^ buffer);
 
-	public ref class BizCuffPulseCapture : BizCapture
-	{
-	public:
-		BizCuffPulseCapture(BizBuffer^ buffer);
+	property BizCuffPulseEvent^ cuffPulseBiz; //cuff pulse data to be dispatched
+	virtual void Dispatch() override;
 
-		property BizCuffPulseEvent^ cuffPulseBiz; //cuff pulse data to be dispatched
-		virtual void Dispatch() override;
+private:
+	void Update(Object^ sender, DalCuffPulseEventArgs^ e);
+	DalCuffPulseEvent^ cuffPulseRaw; // to observe cuff pulse raw data from DAL
+};
 
-	private:
-		void Update(Object^ sender, DalCuffPulseEventArgs^ e);
-		DalCuffPulseEvent^ cuffPulseRaw; // to observe cuff pulse raw data from DAL
-	};
+public ref class BizCountdownTimerCapture : BizCapture
+{
+public:
+	BizCountdownTimerCapture(BizBuffer^ buffer);
 
-	public ref class BizCountdownTimerCapture : BizCapture
-	{
-	public:
-		BizCountdownTimerCapture(BizBuffer^ buffer);
+	 property BizCountdownTimerEvent^ countdownTimerBiz; //countdown data to be dispatched
+	virtual void Dispatch() override;
 
-		 property BizCountdownTimerEvent^ countdownTimerBiz; //countdown data to be dispatched
-		virtual void Dispatch() override;
+private:
+	void Update(Object^ sender, DalCountdownTimerEventArgs^ e);
+	DalCountdownTimerEvent^ countdownTimerRaw; // to observe countdown raw data from DAL
+};
 
-	private:
-		void Update(Object^ sender, DalCountdownTimerEventArgs^ e);
-		DalCountdownTimerEvent^ countdownTimerRaw; // to observe countdown raw data from DAL
-	};
-}
-
+END_BIZ_NAMESPACE

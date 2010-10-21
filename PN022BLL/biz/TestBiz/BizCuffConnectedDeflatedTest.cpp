@@ -1,7 +1,8 @@
 ﻿
 #include "StdAfx.h"
+#include <biz.h>
+using namespace BIZ_NAMESPACE;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
-using namespace Biz;
 namespace TestBiz {
     using namespace System;
     ref class BizCuffConnectedDeflatedTest;

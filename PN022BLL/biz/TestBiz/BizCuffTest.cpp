@@ -1,8 +1,9 @@
 ﻿
 #include "StdAfx.h"
+#include <biz.h>
+using namespace BIZ_NAMESPACE;
+using namespace DAL_NAMESPACE;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
-using namespace Biz;
-using namespace DataAccess;
 namespace TestBiz {
     using namespace System;
     ref class BizCuffTest;
@@ -97,7 +98,7 @@ namespace TestBiz {
 			void BizCuffChangeStateTest()
 			{
 				BizCuff^  target = (gcnew BizCuff()); // TODO: Initialize to an appropriate value
-				BizCuffState^  state = Biz::BizCuffInflated::Instance(); // TODO: Initialize to an appropriate value
+				BizCuffState^  state = BizCuffInflated::Instance(); // TODO: Initialize to an appropriate value
 				target->ChangeState(state);
 				Assert::AreEqual(state->internalName, target->currentState->internalName);
 			}

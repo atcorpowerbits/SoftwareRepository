@@ -11,7 +11,7 @@
 #include "StdAfx.h"
 #include <cuff_state.h>
 
-using namespace Biz;
+using namespace BIZ_NAMESPACE;
 
 /**
 ChangeState

@@ -12,7 +12,7 @@
 #include <cuff.h>
 #include <cuff_state.h>
 
-using namespace Biz;
+using namespace BIZ_NAMESPACE;
 
 BizCuff::BizCuff(void) 
 {

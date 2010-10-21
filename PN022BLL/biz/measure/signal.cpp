@@ -11,11 +11,11 @@
 #include "signal.h"
 #include <math.h>
 
-using namespace Biz;
 using namespace System;
-using namespace CrossCutting;
 using namespace System::Diagnostics;
 using namespace System::Globalization;
+using namespace BIZ_NAMESPACE;
+using namespace CRX_MSG_NAMESPACE;
 
 #pragma hdrstop
 
@@ -288,7 +288,7 @@ bool BizSignal::CaptureSignal(array<const unsigned short>^ input,
 							  const unsigned short size)
 {
 	// Validation
-	if (!Biz::BizMath::ValidateArray(input, size))
+	if (!BizMath::ValidateArray(input, size))
 	{
 		return false;
 	}
