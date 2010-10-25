@@ -3,7 +3,7 @@
 
 using namespace System;
 
-using namespace CrxMessaging;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 
 //TODO:under construction
 CrxResourceFileManager::CrxResourceFileManager()

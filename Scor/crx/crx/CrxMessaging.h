@@ -25,7 +25,10 @@ using namespace System::Reflection;
  * @brief		This namespace implements messaging related cross-cutting functionalities.
  * 
  */
-namespace CrxMessaging
+namespace AtCor {
+namespace Scor {
+namespace CrossCutting {
+namespace Messaging
 {
 	
 	/**
@@ -154,5 +157,6 @@ namespace CrxMessaging
             }
       };
 }
-
-
+}
+}
+}

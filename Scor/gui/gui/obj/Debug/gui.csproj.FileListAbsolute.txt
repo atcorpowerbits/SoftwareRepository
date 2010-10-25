@@ -47,9 +47,9 @@ C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
-C:\Projects\PN022\Scor\gui\gui\obj\Debug\ScorGui.DefaultWindow.resources
-C:\Projects\PN022\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
-C:\Projects\PN022\Scor\gui\gui\obj\Debug\ScorGui.SettingsWindow.resources
+C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Presentation.DefaultWindow.resources
+C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Presentation.Properties.Resources.resources
+C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Presentation.SettingsWindow.resources
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\scor.exe
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\scor.pdb

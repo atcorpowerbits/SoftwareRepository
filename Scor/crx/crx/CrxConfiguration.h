@@ -10,7 +10,10 @@ using namespace System;
  * @brief		This namespace implements configuration related functionality.
  * 
  */
-namespace CrxConfiguration {
+namespace AtCor {
+namespace Scor {
+namespace CrossCutting {
+namespace Configuration {
 
 	/**
 	* @class ConfigException
@@ -162,4 +165,7 @@ namespace CrxConfiguration {
 		void SetGeneralUserSettings(CrxStructGeneralSetting^);	
 		
 	};
+}
+}
+}
 }

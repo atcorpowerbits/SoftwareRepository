@@ -4,10 +4,10 @@ using namespace System;
 using namespace System::Text;
 using namespace System::Collections::Generic;
 using namespace	Microsoft::VisualStudio::TestTools::UnitTesting;
-using namespace CrxLogging;
-using namespace CrxMessaging;
+using namespace AtCor::Scor::CrossCutting::Logging;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace System::IO;
-using namespace CrxConfiguration;
+using namespace AtCor::Scor::CrossCutting::Configuration;
 
 namespace TestCrx
 {

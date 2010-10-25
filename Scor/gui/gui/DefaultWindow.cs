@@ -7,9 +7,9 @@
  
      Description  :      This is the Default Window on Application load.
 */
-using CrxConfiguration;
-using CrxLogging;
-using CrxMessaging;
+using AtCor.Scor.CrossCutting.Configuration;
+using AtCor.Scor.CrossCutting.Logging;
+using AtCor.Scor.CrossCutting.Messaging;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,7 +23,9 @@ using Telerik.Charting;
 using Telerik.WinControls.UI;
 using Telerik.WinControls;
 
-namespace ScorGui
+namespace AtCor {
+namespace Scor {
+namespace Presentation
 {
     /**
 	 * @class		Class for Default Window when the application loads.
@@ -242,4 +244,6 @@ namespace ScorGui
             }
         }
     }
+}
+}
 }

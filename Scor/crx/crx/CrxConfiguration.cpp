@@ -7,7 +7,7 @@ using namespace System;// For String, Console
 using namespace System::Xml;// For XML classes and enums
 using namespace System::IO;// For FileStream
 
-using namespace CrxConfiguration;
+using namespace AtCor::Scor::CrossCutting::Configuration;
 
 //To get General Default Settings from file
 void CrxConfigManager::GetGeneralDefaultSettings()

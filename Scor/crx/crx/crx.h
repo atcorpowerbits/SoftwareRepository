@@ -4,10 +4,15 @@
 
 using namespace System;
 
-namespace Crx {
+namespace AtCor {
+namespace Scor {
+namespace CrossCutting {
 
 	public ref class Class1
 	{
 		// TODO: Add your methods for this class here.
 	};
 }
+}
+}
+

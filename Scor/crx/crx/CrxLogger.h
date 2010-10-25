@@ -25,7 +25,10 @@ using namespace Microsoft::Practices::EnterpriseLibrary::Common::Configuration;
  * @brief		This namespace implements the cross-cuttinng component for Logging.
  * 
  */
-namespace CrxLogging {
+namespace AtCor {
+namespace Scor {
+namespace CrossCutting {
+namespace Logging {
 
 	/**
 	 * @class		CrxLogger
@@ -138,5 +141,6 @@ namespace CrxLogging {
       };
 
 }
-
-
+}
+}
+}

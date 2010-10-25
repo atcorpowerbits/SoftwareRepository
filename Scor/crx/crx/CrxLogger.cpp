@@ -4,17 +4,17 @@
 
 #include "CrxLogger.h"
 
-using namespace CrxLogging;
+using namespace AtCor::Scor::CrossCutting::Logging;
 
 //Constructor for CrxLogger
-CrxLogging::CrxLogger::CrxLogger()
+CrxLogger::CrxLogger()
 {
 	//Get the LogWriter from enterprise library
 	CrxLogWriter =  EnterpriseLibraryContainer::Current->GetInstance<LogWriter^>();
 }
 
 //Write method to write to log file and event logger
-void CrxLogging::CrxLogger::Write(String^ message)
+void CrxLogger::Write(String^ message)
 {
 	//Write the passed message to the LogWriter
 	CrxLogWriter->Write(message);
