@@ -55,7 +55,7 @@ void DalModule::SimulateCaptureData(unsigned int captureDataType)
 	{
 	case DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO:
 		captureTimer->Elapsed += gcnew ElapsedEventHandler( &DalModule::OnCaptureTimedEvent );
-		dataFile = gcnew DalSimulationFile("./pwv_default.dat");
+		dataFile = gcnew DalSimulationFile("./simulation/pwv/Default.dat");
 		timerFile = gcnew DalSimulationFile("./cuff_timer.dat");
 		break;
 	default:

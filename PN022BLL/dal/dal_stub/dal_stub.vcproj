@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="dal_stub"
-	ProjectGUID="{588098F7-48AB-45D0-8FED-CAE6589305E9}"
+	ProjectGUID="{4279925F-9003-4B54-B76F-4994E1DC7C9E}"
 	RootNamespace="dac_stub"
 	Keyword="ManagedCProj"
 	TargetFrameworkVersion="196613"
