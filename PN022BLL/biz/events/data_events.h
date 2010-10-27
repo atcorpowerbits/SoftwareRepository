@@ -13,6 +13,7 @@
 #include <biz_namespace.h>
 
 using namespace System;
+using namespace System::Drawing;
 
 START_BIZ_NAMESPACE
 
@@ -134,6 +135,43 @@ public:
    // -Deflating
    // -Resting
    void Notify( String^ data );
+
+};
+
+// BizCarotidQualityEventArgs: a custom event inherited from EventArgs.
+public ref class BizCarotidQualityEventArgs: public EventArgs
+{
+public:
+	
+   BizCarotidQualityEventArgs( unsigned short signalStrength, Color signalStrengthColor, bool enableOkayButton )
+   {
+	  this->signalStrength = signalStrength;
+	  this->signalStrengthColor = signalStrengthColor;
+	  this->enableOkayButton = enableOkayButton;
+   }
+   property unsigned short signalStrength;
+   property Color signalStrengthColor;
+   property bool enableOkayButton;
+};
+
+// Class with a function that creates the eventargs and initiates the event
+public ref class BizCarotidQualityEvent
+{
+public:
+   // Events are handled with delegates, so we must establish a handler
+   // as a delegate. FxCop suggested to use EventHandler<T> to eliminate
+   // custom delegate like this but unit test couldn't be compiled.
+   delegate void BizCarotidQualityEventHandler(Object^ sender, BizCarotidQualityEventArgs^ e );
+
+   // Now, create a public event whose type is our handler delegate. 
+   event BizCarotidQualityEventHandler^ CarotidQualityEvent;
+   /* FxCop suggested to use EventHandler<T> to replace above above but it didn't comiple as explained above.
+   event EventHandler<BizTonometerDataEventArgs^>^ TonometerDataEvent;
+   */
+
+   // This will be the starting point of our event-- it will create data args,
+   // and then raise the event, passing the args. 
+   void Notify( unsigned short signalStrength, Color signalStrengthColor, bool enableOkayButton );
 
 };
 

@@ -1,6 +1,9 @@
 ﻿
 #include "StdAfx.h"
 #include <biz.h>
+#include "StdAfx.h"
+#include "StdAfx.h"
+using namespace AtCor::Scor::BusinessLogic;
 using namespace BIZ_NAMESPACE;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 namespace TestBiz {
@@ -195,7 +198,31 @@ namespace TestBiz {
 				actual = target->ReadNext(data);
 				Assert::AreNotEqual(expected, actual);
 			}
-	};
+			/// <summary>
+			///A test for ReadBuffer
+			///</summary>
+public: [TestMethod]
+		void ReadBufferTest()
+		{
+			unsigned int bufferSize = 10; 
+			BizCircularBuffer^  target = (gcnew BizCircularBuffer(bufferSize)); 
+			cli::array< unsigned short >^  buffer; 
+			unsigned int bufferSizeExpected = 10; 
+			bufferSize = 0;
+			unsigned short startIndexExpected = 0; 
+			unsigned short startIndex = 0; 
+			unsigned short endIndexExpected = 1; 
+			unsigned short endIndex = 0; 
+			unsigned short data = 5;
+			target->Reset();
+			target->Append(data);
+			target->ReadBuffer(buffer, bufferSize, startIndex, endIndex);
+			Assert::AreEqual(buffer[0], data);
+			Assert::AreEqual(bufferSizeExpected, bufferSize);
+			Assert::AreEqual(startIndexExpected, startIndex);
+			Assert::AreEqual(endIndexExpected, endIndex);
+		}
+};
 }
 namespace TestBiz {
     

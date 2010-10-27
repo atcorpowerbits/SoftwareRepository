@@ -164,3 +164,35 @@ void BizCircularBuffer::Reset()
 	_bringAlongNextRead = true;
 	_lockData.ReleaseMutex();
 }
+
+/**
+ReadBuffer
+
+DESCRIPTION
+
+	Read the entire buffer from start to end.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	buffer - handle to the buffer array.
+	bufferSize - handle to the size of the array.
+
+RETURN
+
+	None.
+
+*/
+void BizCircularBuffer::ReadBuffer(array<unsigned short>^% buffer, 
+									unsigned int% bufferSize,
+									unsigned short% startIndex,
+									unsigned short% endIndex)
+{
+	buffer = _buffer;
+	bufferSize = this->bufferSize;
+	startIndex = _startIndex;
+	endIndex = _endIndex;
+}

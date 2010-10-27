@@ -99,6 +99,7 @@ namespace Presentation
             // 
             // progressBarTimeCountDown
             // 
+            this.progressBarTimeCountDown.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.progressBarTimeCountDown.Location = new System.Drawing.Point(47, 136);
             this.progressBarTimeCountDown.Name = "progressBarTimeCountDown";
             this.progressBarTimeCountDown.Size = new System.Drawing.Size(194, 23);

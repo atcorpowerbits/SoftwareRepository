@@ -132,3 +132,33 @@ void BizCuffStateEvent::Notify( String^ data )
 	// The call must match the signature of the handler.
 	CuffStateEvent( this, cuffStateEventArgs );
 }
+
+/**
+BizCarotidQualityEvent::Notify
+
+DESCRIPTION
+
+	Creates carotid quality arguments and notifies the changes as an event to all observers.
+
+INPUT
+
+	data - Tonometermeter data in business context
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	None.
+
+*/
+void BizCarotidQualityEvent::Notify( unsigned short signalStrength, Color signalStrengthColor, bool enableOkayButton )
+{
+	BizCarotidQualityEventArgs^ carotidArgs = gcnew BizCarotidQualityEventArgs( signalStrength, signalStrengthColor, enableOkayButton);
+
+	// Now, raise the event by invoking the delegate. Pass in 
+	// the object that initated the event (this) as well as data args. 
+	// The call must match the signature of the handler.
+	CarotidQualityEvent( this, carotidArgs );
+}

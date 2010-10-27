@@ -30,6 +30,10 @@ public:
 	virtual bool Append(unsigned short data) { return false; };
 	virtual bool ReadNext(unsigned short^ data) { return false; };
 	virtual void Reset() {};
+	virtual void ReadBuffer(array<unsigned short>^% buffer, 
+									unsigned int% bufferSize,
+									unsigned short% startIndex,
+									unsigned short% endIndex) {};
 protected:
 	BizBuffer() {};
 	property unsigned int bufferSize;
@@ -42,6 +46,10 @@ public:
 	virtual bool Append(unsigned short data) override;
 	virtual bool ReadNext(unsigned short^ data) override;
 	virtual void Reset() override;
+	virtual void ReadBuffer(array<unsigned short>^% buffer, 
+									unsigned int% bufferSize,
+									unsigned short% startIndex,
+									unsigned short% endIndex) override;
 private:
 	array<unsigned short>^ _buffer;
 	Mutex _lockData;

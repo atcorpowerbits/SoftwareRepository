@@ -404,10 +404,10 @@ RETURN
 */		
 void BizPWV::DispatchCaptureData()
 {
-		tonometerDataObserver->Dispatch();
-		cuffPulseObserver->Dispatch();
-		countdownTimerObserver->Dispatch();
-		cuffObserver->Dispatch();
+	tonometerDataObserver->Dispatch();
+	cuffPulseObserver->Dispatch();
+	countdownTimerObserver->Dispatch();
+	cuffObserver->Dispatch();
 }
 /**
  ** Initialise()
@@ -553,7 +553,6 @@ bool BizPWV::ValidateBeforeStore()
 Calculate()
 
 DESCRIPTION
-		cuffPulseObserver->Reset();
 
 	Calculate all members of this class.
 
