@@ -22,6 +22,7 @@ using System;
 using Telerik.Charting;
 using Telerik.WinControls.UI;
 using Telerik.WinControls;
+using AtCor.Scor.BusinessLogic;
 
 namespace AtCor {
 namespace Scor {
@@ -242,6 +243,32 @@ namespace Presentation
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);             
             }
+        }
+
+        private void radRibbonBarGroup1_Click(object sender, EventArgs e)
+        {
+            bool rc = BizFacade.Instance().StartCapture();
+
+            if (rc)
+            {
+                SimulatePWVCapture pwvCaptureWinObj = new SimulatePWVCapture();
+
+                pwvCaptureWinObj.Show();
+            }
+            else
+            {
+                MessageBox.Show("Capture start failed???");
+            }
+        }
+
+        private void radRibbonBarGroup2_Click(object sender, EventArgs e)
+        {
+            BizFacade.Instance().SimulateCaptureOneShot();
+        }
+
+        private void radRibbonBarGroup3_Click(object sender, EventArgs e)
+        {
+            BizFacade.Instance().Dispatch();
         }
     }
 }

@@ -37,12 +37,15 @@ C:\Projects\PN022-merged-not-committed\Scor\gui\gui\obj\Debug\scor.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.exe.config
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.exe
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.pdb
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\biz.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\crx.dll
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\dal.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\dal.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\crx.pdb
@@ -53,6 +56,7 @@ C:\Projects\PN022\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Presentation.DefaultWindow.resources
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Presentation.Properties.Resources.resources
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Presentation.SettingsWindow.resources
+C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Presentation.SimulatePWVCapture.resources
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\scor.exe
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\scor.pdb

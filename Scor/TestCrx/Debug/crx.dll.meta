@@ -1,5 +1,5 @@
   crx.messages.resources - Embedded, ContainedInManifestFile, 
-Assembly crx, Version=1.0.3952.29955, Culture=neutral, PublicKeyToken=3abc55289af2db05: 
+Assembly crx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05: 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=SHA1, flags=None

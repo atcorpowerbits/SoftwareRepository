@@ -33,7 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="crx, Version=1.0.3944.30192, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="biz, Version=1.0.3950.31060, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Debug\biz.dll</HintPath>
+    </Reference>
+    <Reference Include="crx, Version=1.0.3952.31011, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Debug\crx.dll</HintPath>
     </Reference>
@@ -111,6 +115,10 @@
       <DependentUpon>SettingsWindow.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SimulatePWVCapture.resx">
+      <DependentUpon>SimulatePWVCapture.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -131,6 +139,12 @@
     </Compile>
     <Compile Include="SettingsWindow.Designer.cs">
       <DependentUpon>SettingsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimulatePWVCapture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimulatePWVCapture.Designer.cs">
+      <DependentUpon>SimulatePWVCapture.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

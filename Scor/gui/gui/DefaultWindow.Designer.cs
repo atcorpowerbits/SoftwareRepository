@@ -42,8 +42,12 @@
                     this.radButtonElementExit = new Telerik.WinControls.UI.RadButtonElement();
                     this.rbnTabDatabase = new Telerik.WinControls.UI.RibbonTab();
                     this.rbnTabHelp = new Telerik.WinControls.UI.RibbonTab();
+                    this.ribbonTab1 = new Telerik.WinControls.UI.RibbonTab();
+                    this.radRibbonBarGroup1 = new Telerik.WinControls.UI.RadRibbonBarGroup();
+                    this.radRibbonBarGroup2 = new Telerik.WinControls.UI.RadRibbonBarGroup();
                     this.radStatusStrip1 = new Telerik.WinControls.UI.RadStatusStrip();
                     this.panel1 = new System.Windows.Forms.Panel();
+                    this.radRibbonBarGroup3 = new Telerik.WinControls.UI.RadRibbonBarGroup();
                     ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
                     ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
                     ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -55,7 +59,8 @@
                     this.radRibbonBar1.CommandTabs.AddRange(new Telerik.WinControls.RadItem[] {
             this.rbnTabSystem,
             this.rbnTabDatabase,
-            this.rbnTabHelp});
+            this.rbnTabHelp,
+            this.ribbonTab1});
                     this.radRibbonBar1.Dock = System.Windows.Forms.DockStyle.Top;
                     this.radRibbonBar1.EnableKeyMap = true;
                     // 
@@ -103,7 +108,6 @@
                     this.rbnTabSystem.ContentPanel.ForeColor = System.Drawing.SystemColors.ControlText;
                     this.rbnTabSystem.ContentPanel.Location = new System.Drawing.Point(0, 0);
                     this.rbnTabSystem.ContentPanel.Size = new System.Drawing.Size(200, 100);
-                    this.rbnTabSystem.IsSelected = true;
                     this.rbnTabSystem.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radRibbonBarGroupSettings});
                     this.rbnTabSystem.Name = "rbnTabSystem";
@@ -185,6 +189,39 @@
                     this.rbnTabHelp.StretchHorizontally = false;
                     this.rbnTabHelp.Text = "Help";
                     // 
+                    // ribbonTab1
+                    // 
+                    this.ribbonTab1.Alignment = System.Drawing.ContentAlignment.BottomLeft;
+                    // 
+                    // ribbonTab1.ContentPanel
+                    // 
+                    this.ribbonTab1.ContentPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+                    this.ribbonTab1.ContentPanel.CausesValidation = true;
+                    this.ribbonTab1.ContentPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    this.ribbonTab1.ContentPanel.ForeColor = System.Drawing.SystemColors.ControlText;
+                    this.ribbonTab1.ContentPanel.Location = new System.Drawing.Point(0, 0);
+                    this.ribbonTab1.ContentPanel.Size = new System.Drawing.Size(200, 100);
+                    this.ribbonTab1.IsSelected = true;
+                    this.ribbonTab1.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.radRibbonBarGroup1,
+            this.radRibbonBarGroup2,
+            this.radRibbonBarGroup3});
+                    this.ribbonTab1.Name = "ribbonTab1";
+                    this.ribbonTab1.StretchHorizontally = false;
+                    this.ribbonTab1.Text = "Simulate";
+                    // 
+                    // radRibbonBarGroup1
+                    // 
+                    this.radRibbonBarGroup1.Name = "radRibbonBarGroup1";
+                    this.radRibbonBarGroup1.Text = "PWV Capture";
+                    this.radRibbonBarGroup1.Click += new System.EventHandler(this.radRibbonBarGroup1_Click);
+                    // 
+                    // radRibbonBarGroup2
+                    // 
+                    this.radRibbonBarGroup2.Name = "radRibbonBarGroup2";
+                    this.radRibbonBarGroup2.Text = "PWV One Shot";
+                    this.radRibbonBarGroup2.Click += new System.EventHandler(this.radRibbonBarGroup2_Click);
+                    // 
                     // radStatusStrip1
                     // 
                     this.radStatusStrip1.AutoSize = true;
@@ -203,6 +240,12 @@
                     this.panel1.Name = "panel1";
                     this.panel1.Size = new System.Drawing.Size(474, 247);
                     this.panel1.TabIndex = 2;
+                    // 
+                    // radRibbonBarGroup3
+                    // 
+                    this.radRibbonBarGroup3.Name = "radRibbonBarGroup3";
+                    this.radRibbonBarGroup3.Text = "PWV Dispatch";
+                    this.radRibbonBarGroup3.Click += new System.EventHandler(this.radRibbonBarGroup3_Click);
                     // 
                     // DefaultWindow
                     // 
@@ -242,6 +285,10 @@
                 private Telerik.WinControls.UI.RadButtonElement radButtonElementFindModule;
                 private Telerik.WinControls.UI.RadButtonElement radButtonElementPrinterSetup;
                 private Telerik.WinControls.UI.RadButtonElement radButtonElementExit;
+                private Telerik.WinControls.UI.RibbonTab ribbonTab1;
+                private Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup1;
+                private Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup2;
+                private Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup3;
             }
         }
     }
