@@ -28,8 +28,7 @@ using namespace System::Reflection;
 namespace AtCor {
 namespace Scor {
 namespace CrossCutting {
-namespace Messaging
-{
+namespace Messaging {
 	
 	/**
 	 * @class		CrxResourceFileManager
@@ -156,7 +155,6 @@ namespace Messaging
                   }
             }
       };
-}
-}
-}
-}
+}}}}
+
+

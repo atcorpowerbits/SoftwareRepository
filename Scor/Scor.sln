@@ -5,10 +5,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 		Scor.vsmdi = Scor.vsmdi
-		Scor1.vsmdi = Scor1.vsmdi
+		Scor2.vsmdi = Scor2.vsmdi
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dal", "dal\dal\dal.vcproj", "{E274BA19-F920-40C0-8747-214688D2ABB3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "crx", "crx\crx\crx.vcproj", "{24748540-BFD1-4293-99F5-D556338366C4}"
 EndProject
@@ -22,9 +20,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCrx", "TestCrx\TestCrx.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestDal", "TestDal\TestDal.vcproj", "{B230F6FB-6587-4DC1-9648-952B52A42FE4}"
 EndProject
+Project("{4CAA2610-1955-4629-BDC1-8133FE0B2087}") = "AQtimeCrx", "AQtimeCrx\AQtimeCrx\AQtimeCrx.aqt", "{2BA3C017-46D2-42EB-BE5A-61644EA154C5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dal", "dal\dal\dal.vcproj", "{E274BA19-F920-40C0-8747-214688D2ABB3}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Scor1.vsmdi
+		CategoryFile = Scor2.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,16 +37,6 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E274BA19-F920-40C0-8747-214688D2ABB3}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{E274BA19-F920-40C0-8747-214688D2ABB3}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{E274BA19-F920-40C0-8747-214688D2ABB3}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{E274BA19-F920-40C0-8747-214688D2ABB3}.Debug|Win32.ActiveCfg = Debug|Win32
-		{E274BA19-F920-40C0-8747-214688D2ABB3}.Debug|Win32.Build.0 = Debug|Win32
-		{E274BA19-F920-40C0-8747-214688D2ABB3}.Release|Any CPU.ActiveCfg = Release|Win32
-		{E274BA19-F920-40C0-8747-214688D2ABB3}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{E274BA19-F920-40C0-8747-214688D2ABB3}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{E274BA19-F920-40C0-8747-214688D2ABB3}.Release|Win32.ActiveCfg = Release|Win32
-		{E274BA19-F920-40C0-8747-214688D2ABB3}.Release|Win32.Build.0 = Release|Win32
 		{24748540-BFD1-4293-99F5-D556338366C4}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{24748540-BFD1-4293-99F5-D556338366C4}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{24748540-BFD1-4293-99F5-D556338366C4}.Debug|Mixed Platforms.Build.0 = Debug|Win32
@@ -85,6 +77,16 @@ Global
 		{B230F6FB-6587-4DC1-9648-952B52A42FE4}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{B230F6FB-6587-4DC1-9648-952B52A42FE4}.Release|Win32.ActiveCfg = Release|Win32
 		{B230F6FB-6587-4DC1-9648-952B52A42FE4}.Release|Win32.Build.0 = Release|Win32
+		{E274BA19-F920-40C0-8747-214688D2ABB3}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{E274BA19-F920-40C0-8747-214688D2ABB3}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{E274BA19-F920-40C0-8747-214688D2ABB3}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{E274BA19-F920-40C0-8747-214688D2ABB3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E274BA19-F920-40C0-8747-214688D2ABB3}.Debug|Win32.Build.0 = Debug|Win32
+		{E274BA19-F920-40C0-8747-214688D2ABB3}.Release|Any CPU.ActiveCfg = Release|Win32
+		{E274BA19-F920-40C0-8747-214688D2ABB3}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{E274BA19-F920-40C0-8747-214688D2ABB3}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{E274BA19-F920-40C0-8747-214688D2ABB3}.Release|Win32.ActiveCfg = Release|Win32
+		{E274BA19-F920-40C0-8747-214688D2ABB3}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -165,7 +165,5 @@ namespace Configuration {
 		void SetGeneralUserSettings(CrxStructGeneralSetting^);	
 		
 	};
-}
-}
-}
-}
+}}}}
+

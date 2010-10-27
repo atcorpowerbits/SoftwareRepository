@@ -64,6 +64,7 @@
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
+				KeyFile="crx_key.snk"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -220,6 +221,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crx_config_stub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_message_stub.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CrxConfiguration.cpp"
 				>
 			</File>
@@ -262,6 +271,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crx_config_stub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_message_stub.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CrxConfiguration.h"
 				>
 			</File>
@@ -293,6 +310,10 @@
 			</File>
 			<File
 				RelativePath=".\app.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\messages.resx"
 				>
 			</File>
 		</Filter>

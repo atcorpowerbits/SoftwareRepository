@@ -31,6 +31,9 @@ D:\Atcor_SVN\src\trunk\Scor\gui\gui\obj\Debug\scor.exe
 D:\Atcor_SVN\src\trunk\Scor\gui\gui\obj\Debug\scor.pdb
 D:\Atcor_SVN\src\trunk\Scor\gui\gui\obj\Debug\ScorGui.DefaultWindow.resources
 D:\Atcor_SVN\src\trunk\Scor\gui\gui\obj\Debug\ScorGui.SettingsWindow.resources
+C:\Projects\PN022-merged-not-committed\Scor\gui\gui\bin\Debug\scor.exe.config
+C:\Projects\PN022-merged-not-committed\Scor\gui\gui\obj\Debug\scor.exe
+C:\Projects\PN022-merged-not-committed\Scor\gui\gui\obj\Debug\scor.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.exe.config
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.exe
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.pdb

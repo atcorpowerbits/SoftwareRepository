@@ -1,4 +1,5 @@
-Assembly crx, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+  crx.messages.resources - Embedded, ContainedInManifestFile, 
+Assembly crx, Version=1.0.3952.29955, Culture=neutral, PublicKeyToken=3abc55289af2db05: 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=SHA1, flags=None
@@ -28,6 +29,28 @@ Assembly Microsoft.VisualC, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03
 	hash=SHA1, flags=None
 Class AtCor.Scor.CrossCutting.Class1: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class AtCor.Scor.CrossCutting.Configuration.CrxConfigConstants: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean GENERAL_PATIENT_PRIVACY IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_UNIT_METRIC IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_UNIT_IMPERIAL IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_BP_ENTRY_SPDP IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_BP_ENTRY_SPMP IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_BP_ENTRY_MPDP IsConst : Public, Static, HasDefault
+Class AtCor.Scor.CrossCutting.Configuration.CrxConfigFacade: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Methods:
+    Instance(): PrivateScope, Public, Static, HideBySig
+    isSubtractingMethod(): PrivateScope, Public, HideBySig
+    GetCaptureTime(): PrivateScope, Public, HideBySig
+    SetDistanceMethod(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SetCaptureTime(UInt16): PrivateScope, Public, HideBySig
+Class AtCor.Scor.CrossCutting.Messaging.CrxMessageFacade: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Fields:
+    System.Resources.ResourceManager messageResources : Public, Static
+  Methods:
+    Instance(): PrivateScope, Public, Static, HideBySig
+    Message(TraceEventType, String, String, String): PrivateScope, Public, HideBySig
 Class AtCor.Scor.CrossCutting.Configuration.ConfigException: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Exception
     Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
