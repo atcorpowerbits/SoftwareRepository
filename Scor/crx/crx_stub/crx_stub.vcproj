@@ -3,8 +3,8 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="crx_stub"
-	ProjectGUID="{48D8589E-EBD0-460C-84AE-41B1F4F37F87}"
-	RootNamespace="crx_stub"
+	ProjectGUID="{24748540-BFD1-4293-99F5-D556338366C4}"
+	RootNamespace="crx"
 	Keyword="ManagedCProj"
 	TargetFrameworkVersion="196613"
 	>
@@ -60,10 +60,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(NoInherit)"
+				OutputFile="$(OutDir)\crx.dll"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
+				KeyFile="crx_key.snk"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -174,6 +176,36 @@
 			AssemblyName="System.Xml, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
+		<AssemblyReference
+			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
+			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
+			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
+			AssemblyName="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="131072"
+		/>
+		<AssemblyReference
+			RelativePath="System.configuration.dll"
+			AssemblyName="System.Configuration, Version=2.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+			MinFrameworkVersion="131072"
+		/>
+		<AssemblyReference
+			RelativePath="System.ServiceModel.dll"
+			AssemblyName="System.ServiceModel, Version=3.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
+			MinFrameworkVersion="196608"
+		/>
+		<AssemblyReference
+			RelativePath="System.Windows.Forms.dll"
+			AssemblyName="System.Windows.Forms, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
+			MinFrameworkVersion="131072"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -186,7 +218,27 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crx_stub.cpp"
+				RelativePath=".\crx.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_config_stub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_message_stub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxConfiguration.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxLogger.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxMessaging.cpp"
 				>
 			</File>
 			<File
@@ -216,7 +268,27 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\crx_stub.h"
+				RelativePath=".\crx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_config_stub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_message_stub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxConfiguration.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxLogger.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxMessaging.h"
 				>
 			</File>
 			<File
@@ -241,7 +313,15 @@
 				RelativePath=".\app.rc"
 				>
 			</File>
+			<File
+				RelativePath=".\messages.resx"
+				>
+			</File>
 		</Filter>
+		<File
+			RelativePath=".\ClassDiagram1.cd"
+			>
+		</File>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>
