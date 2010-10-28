@@ -217,6 +217,7 @@ bool BizSignal::ValidateBeforeStore(const unsigned short minimumSignalLength,
 	bool success = true;
 	if (onsetsLength < minimumOnsetsLength)
 	{
+#if 0 // TBD: Use a suitable CRX API
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails()\n\n +*/
@@ -227,10 +228,12 @@ bool BizSignal::ValidateBeforeStore(const unsigned short minimumSignalLength,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_NOT_ENOUGH_ONSETS", CultureInfo::InvariantCulture) 
 			+ Convert::ToString(onsetsLength, CultureInfo::InvariantCulture) 
 			+ ", " + Convert::ToString(minimumOnsetsLength, CultureInfo::InvariantCulture));
+#endif
 		success = false;
 	}
 	if (onsetsLength > maximumOnsetsLength)
 	{
+#if 0 // TBD: Use a suitable CRX API
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails()\n\n +*/
@@ -241,6 +244,7 @@ bool BizSignal::ValidateBeforeStore(const unsigned short minimumSignalLength,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_MANY_ONSETS", CultureInfo::InvariantCulture) 
 			+ Convert::ToString(onsetsLength, CultureInfo::InvariantCulture) 
 			+ ", " + Convert::ToString(maximumOnsetsLength, CultureInfo::InvariantCulture));
+#endif
 		onsetsLength = maximumOnsetsLength;
 	}
 	return success;
@@ -337,6 +341,7 @@ bool BizSignal::ValidateSignalLength(const unsigned short minimumSignalLength)
 	// Validate signal
 	if (signalLength < minimumSignalLength)
 	{
+#if 0 // TBD: Use a suitable CRX API
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
@@ -347,10 +352,12 @@ bool BizSignal::ValidateSignalLength(const unsigned short minimumSignalLength)
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_SHORT", CultureInfo::InvariantCulture) 
 			+ Convert::ToString(signalLength, CultureInfo::InvariantCulture) 
 			+ ", " + Convert::ToString(minimumSignalLength, CultureInfo::InvariantCulture));
+#endif
 		success = false;
 	}
 	if (signalLength > maximumSignalLength)
 	{
+#if 0 // TBD: Use a suitable CRX API
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
@@ -361,12 +368,14 @@ bool BizSignal::ValidateSignalLength(const unsigned short minimumSignalLength)
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_LONG", CultureInfo::InvariantCulture) 
 			+ Convert::ToString(signalLength, CultureInfo::InvariantCulture) 
 			+ ", " + Convert::ToString(maximumSignalLength, CultureInfo::InvariantCulture));
+#endif
 		signalLength = maximumSignalLength;
 	}
 	
 	// Validate sample rate
 	if (sampleRate <= 0 || sampleRate >= DEFAULT_VALUE)
 	{
+#if 0 // TBD: Use a suitable CRX API
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
@@ -375,6 +384,7 @@ bool BizSignal::ValidateSignalLength(const unsigned short minimumSignalLength)
 			/*GetCurrentMeasureDetails() +*/
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_INVALID_SAMPLE_RATE", CultureInfo::InvariantCulture)
 			+ Convert::ToString(sampleRate, CultureInfo::InvariantCulture));
+#endif
 		success = false;
 	}
 	
@@ -421,6 +431,7 @@ bool BizSignal::ValidateSignalHeight(const unsigned short minimumSignalHeight)
 	unsigned short signalHeight = signalMaximum - signalMinimum;
 	if (signalHeight < minimumSignalHeight)
 	{
+#if 0 // TBD: Use a suitable CRX API
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
@@ -431,6 +442,7 @@ bool BizSignal::ValidateSignalHeight(const unsigned short minimumSignalHeight)
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_TOO_SMALL", CultureInfo::InvariantCulture)
 			+ Convert::ToString(signalHeight, CultureInfo::InvariantCulture) 
 			+ ", " + Convert::ToString(minimumSignalHeight, CultureInfo::InvariantCulture));
+#endif
 		success = false;
 	}
 
@@ -761,12 +773,14 @@ bool BizSignal::FindOnsets()
 
 	if (!success)
 	{
+#if 0 // TBD: Use a suitable CRX API
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"MATH_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_ONSETS_ERROR", CultureInfo::CurrentUICulture), 
 			/*GetCurrentMeasureDetails() +*/
 			CrxMessageFacade::Instance()->messageResources->GetString(L"SIGNAL_ONSETS_ERROR", CultureInfo::InvariantCulture));
+#endif
 	}
 
 	return success;

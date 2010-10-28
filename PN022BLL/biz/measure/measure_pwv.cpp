@@ -180,7 +180,8 @@ BizPWV::BizPWV(void)
 	{
 		// TBD: need to check the Height & Weight Unit from the config
 		// then instantiate the right object, i.e. metric or imperial
-		if (CrxConfigFacade::Instance()->isMetricsUnit())
+		if (AtCor::Scor::CrossCutting::Configuration::CrxConfigManager::Instance->
+			GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_METRIC)
 		{
 			myHeight = gcnew BizHeightCM;
 			myWeight = gcnew BizWeightKG;
@@ -349,7 +350,15 @@ bool BizPWV::StartCapture()
 {
 	tonometerDataObserver->Reset();
 	cuffPulseObserver->Reset();
-	return DalFacade::Instance()->StartCapture(DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
+//	return DalFacade::Instance()->StartCapture(DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
+	try {
+		DalModule::Instance->StartCapture();
+		return true;
+	}
+	catch (Exception^) {
+//		throw gcnew BizException(???); //Failed to start PWV capture
+		return true;
+	}
 }
 /**
 StopCapture
@@ -375,7 +384,15 @@ RETURN
 */		
 bool BizPWV::StopCapture()
 {
-	return DalFacade::Instance()->StopCapture();
+//	return DalFacade::Instance()->StopCapture();
+	try {
+		DalModule::Instance->StopCapture();
+		return true;
+	}
+	catch (Exception^) {
+//		throw gcnew BizException(???); //Failed to stop PWV capture
+		return true;
+	}
 }
 /**
 DispatchCaptureData

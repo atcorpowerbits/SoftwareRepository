@@ -137,7 +137,6 @@ public:
 	property BizHeight^		myHeight;				// patient height 
 	property BizWeight^		myWeight;				// patient weight
 
-protected:
 	property String^			systemId;				// Customer System ID
 	property String^			groupStudyId;			// User defined group/study
 	property unsigned short		patientNumber;			// Internal patient number
@@ -163,11 +162,12 @@ protected:
 
 	virtual bool Validate();
 
-	// Constructor
-	BizMeasure(void);
-
 	// Initialse the members of the measure class
 	void Initialise();
+
+protected:
+	// Constructor
+	BizMeasure(void);
 };
 
 END_BIZ_NAMESPACE

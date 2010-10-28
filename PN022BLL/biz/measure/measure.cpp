@@ -33,7 +33,8 @@ BizMeasure::BizMeasure()
 {
 	// TBD: need to check the Height & Weight Unit from the config
 	// then instantiate the right object, i.e. metric or imperial
-	if (CrxConfigFacade::Instance()->isMetricsUnit())
+	if (AtCor::Scor::CrossCutting::Configuration::CrxConfigManager::Instance->
+		GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_METRIC)
 	{
 		myHeight = gcnew BizHeightCM;
 		myWeight = gcnew BizWeightKG;

@@ -87,6 +87,9 @@ namespace TestBiz {
 
 				// Setup a delegate (observer) to whom data is updated by BizCuffPulseCapture during dispatch
 				target->cuffPulseBiz->CuffPulseEvent += gcnew BizCuffPulseEvent::BizCuffPulseEventHandler( this, &BizCuffPulseCaptureTest::Update );
+				// Set the cuff to inflated state to see the actual data instead of zero
+				BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
+				measurePWV->cuffObserver->currentState = BizCuffInflated::Instance();
 
 				// Update the observer with data read from circular buffer
 				target->Dispatch();

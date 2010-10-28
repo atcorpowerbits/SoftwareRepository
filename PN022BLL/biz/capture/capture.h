@@ -39,7 +39,7 @@ public:
 
 private:
 	void Update(Object^ sender, DalTonometerDataEventArgs^ e);
-	DalTonometerDataEvent^ tonometerDataRaw; // to observe tonometer raw data from DAL
+//	DalTonometerDataEvent^ tonometerDataRaw; // to observe tonometer raw data from DAL
 };
 
 public ref class BizCuffPulseCapture : BizCapture
@@ -52,7 +52,7 @@ public:
 
 private:
 	void Update(Object^ sender, DalCuffPulseEventArgs^ e);
-	DalCuffPulseEvent^ cuffPulseRaw; // to observe cuff pulse raw data from DAL
+//	DalCuffPulseEvent^ cuffPulseRaw; // to observe cuff pulse raw data from DAL
 };
 
 public ref class BizCountdownTimerCapture : BizCapture
@@ -65,7 +65,7 @@ public:
 
 private:
 	void Update(Object^ sender, DalCountdownTimerEventArgs^ e);
-	DalCountdownTimerEvent^ countdownTimerRaw; // to observe countdown raw data from DAL
+//	DalCountdownTimerEvent^ countdownTimerRaw; // to observe countdown raw data from DAL
 };
 
 END_BIZ_NAMESPACE

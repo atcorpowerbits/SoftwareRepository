@@ -37,6 +37,6 @@ public:
 
 private:
 	void Update(Object^ sender, DalCuffStatusEventArgs^ e);
-	DalCuffStatusEvent^ cuffStatusSubject; // to observe cuff state event from DAL
+//	DalCuffStatusEvent^ cuffStatusSubject; // to observe cuff state event from DAL
 };
 END_BIZ_NAMESPACE

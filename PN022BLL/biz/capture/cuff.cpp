@@ -20,11 +20,12 @@ BizCuff::BizCuff(void)
 	currentState = BizCuffDisconnected::Instance();
 	previousState = currentState;
 
-	cuffStatusSubject = DalFacade::Instance()->FindCuffStatusEvent();
+//	cuffStatusSubject = DalFacade::Instance()->FindCuffStatusEvent();
 
 	// Attach the handler to observe cuff state event from DAL
-	cuffStatusSubject->CuffStatusEvent += 
-		gcnew DalCuffStatusEvent::DalCuffStatusEventHandler( this, &BizCuff::Update );
+//	cuffStatusSubject->CuffStatusEvent += 
+//		gcnew DalCuffStatusEvent::DalCuffStatusEventHandler( this, &BizCuff::Update );
+	DalEventContainerStub::Instance->OnDalCuffStatusEvent += gcnew DalCuffStatusEventHandler(this, &BizCuff::Update);
 
 	// Create a cuff state business data subject
 	cuffStateBiz = gcnew BizCuffStateEvent;

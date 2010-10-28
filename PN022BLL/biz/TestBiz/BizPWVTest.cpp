@@ -197,7 +197,7 @@ namespace TestBiz {
 				Assert::IsNotNull(target->pulseWaveVelocity);
 				
 				// Imperial Test
-				CrxConfigFacade::Instance()->SetMeasurementUnit(CrxConfigFacade::Instance()->MEASUREMENT_UNIT_IMPERIAL);
+				CrxConfigManager::Instance->GeneralSettings->HeightandWeightUnit = CrxConfigConstants::GENERAL_UNIT_IMPERIAL;
 				target = (gcnew BizPWV());
 				accessor = gcnew PrivateObject(target);
 				Assert::IsNotNull(target);

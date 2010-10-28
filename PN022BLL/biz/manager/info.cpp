@@ -161,7 +161,8 @@ RETURN
 */
 void BizInfo::GetModuleType(String^ %info, unsigned short length)
 {
-	moduleType = DalFacade::Instance()->FindModuleInfo()->moduleType;
+//	moduleType = DalFacade::Instance()->FindModuleInfo()->moduleType;
+	moduleType = L"EM4 (stub)"; //TBD: use real info when available
 
 	if (moduleType->Length > length) 
 	{
@@ -194,7 +195,8 @@ RETURN
 */
 unsigned short BizInfo::GetModuleConfigID()
 {
-	moduleConfigID = DalFacade::Instance()->FindModuleInfo()->moduleConfigID;
+//	moduleConfigID = DalFacade::Instance()->FindModuleInfo()->moduleConfigID;
+	moduleConfigID = 99; // TBD: use real ID when available
 	return moduleConfigID;
 }
 
@@ -220,7 +222,8 @@ RETURN
 */
 void BizInfo::GetModuleSN(String^ %info, unsigned short length)
 {
-	moduleSN = DalFacade::Instance()->FindModuleInfo()->moduleSN;
+//	moduleSN = DalFacade::Instance()->FindModuleInfo()->moduleSN;
+	moduleSN = L"1234567890 (stub)"; // TBD: use real data when available
 
 	if (moduleSN->Length > length) 
 	{
@@ -253,7 +256,8 @@ RETURN
 */
 void BizInfo::GetModuleVersion(String^ %info, unsigned short length)
 {
-	moduleVersion = DalFacade::Instance()->FindModuleInfo()->moduleMainFWVersion;
+//	moduleVersion = DalFacade::Instance()->FindModuleInfo()->moduleMainFWVersion;
+	moduleVersion = L"0.1 (stub)"; // TBD: use real data when available
 
 	if (moduleVersion->Length > length) 
 	{
@@ -287,7 +291,8 @@ void BizInfo::GetModuleCalibrationDate(String^ %info, unsigned short length)
 {
 	String^ dateString;
 
-	moduleCalibrationDate = DalFacade::Instance()->FindModuleInfo()->moduleCalibrationDate;
+//	moduleCalibrationDate = DalFacade::Instance()->FindModuleInfo()->moduleCalibrationDate;
+	moduleCalibrationDate = DateTime::Today.Date; // TBD: use real data when available
 
 	// Convert date to culturally correct string suggested by FxCop
 	dateString = Convert::ToString(moduleCalibrationDate, CultureInfo::CurrentUICulture);
@@ -368,7 +373,8 @@ void BizInfo::GetModuleConfigDate(String^ %info, unsigned short length)
 {
 	String^ dateString;
 
-	moduleConfigDate = DalFacade::Instance()->FindModuleInfo()->moduleConfigDate;
+//	moduleConfigDate = DalFacade::Instance()->FindModuleInfo()->moduleConfigDate;
+	moduleConfigDate = DateTime::Today.Date; // TBD: use real data when available
 
 	// Convert date to culturally correct string suggested by FxCop
 	dateString = Convert::ToString(moduleConfigDate, CultureInfo::CurrentUICulture);
