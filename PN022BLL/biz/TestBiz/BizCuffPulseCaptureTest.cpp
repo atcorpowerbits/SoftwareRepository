@@ -79,11 +79,15 @@ namespace TestBiz {
 				BizCircularBuffer^  buffer = (gcnew BizCircularBuffer(2)); // TODO: Initialize to an appropriate value
 				BizCuffPulseCapture^  target = (gcnew BizCuffPulseCapture(buffer)); // TODO: Initialize to an appropriate value
 				PrivateObject^ accessor = gcnew PrivateObject(target);
-				unsigned int data = 12345; // TODO: Initialize to an appropriate value
+				unsigned int data; 
+				unsigned int lastData = 10; 
 
-				DalCuffPulseEventArgs^ cuffPulseArgs = gcnew DalCuffPulseEventArgs( data );
-				// Update BizCuffPulseCapture with data so it's saved in circular buffer
-				accessor->Invoke("Update", this, cuffPulseArgs);
+				for (data = 0; data <= lastData; data++)
+				{
+					DalCuffPulseEventArgs^ cuffPulseArgs = gcnew DalCuffPulseEventArgs( data );
+					// Update BizCuffPulseCapture with data so it's saved in circular buffer
+					accessor->Invoke("Update", this, cuffPulseArgs);
+				}
 
 				// Setup a delegate (observer) to whom data is updated by BizCuffPulseCapture during dispatch
 				target->cuffPulseBiz->CuffPulseEvent += gcnew BizCuffPulseEvent::BizCuffPulseEventHandler( this, &BizCuffPulseCaptureTest::Update );
@@ -93,7 +97,36 @@ namespace TestBiz {
 
 				// Update the observer with data read from circular buffer
 				target->Dispatch();
-				Assert::AreEqual(data, actualUpdate);
+				Assert::AreEqual(lastData, actualUpdate);
+			}
+			/// <summary>
+			///A test for Dispatch
+			///</summary>
+	public: [TestMethod]
+			void BizCuffPulseCaptureDispatchZeroTest()
+			{
+				BizCircularBuffer^  buffer = (gcnew BizCircularBuffer(2)); // TODO: Initialize to an appropriate value
+				BizCuffPulseCapture^  target = (gcnew BizCuffPulseCapture(buffer)); // TODO: Initialize to an appropriate value
+				PrivateObject^ accessor = gcnew PrivateObject(target);
+				unsigned int data; 
+				unsigned int lastData = 10; 
+
+				for (data = 0; data <= lastData; data++)
+				{
+					DalCuffPulseEventArgs^ cuffPulseArgs = gcnew DalCuffPulseEventArgs( data );
+					// Update BizCuffPulseCapture with data so it's saved in circular buffer
+					accessor->Invoke("Update", this, cuffPulseArgs);
+				}
+
+				// Setup a delegate (observer) to whom data is updated by BizCuffPulseCapture during dispatch
+				target->cuffPulseBiz->CuffPulseEvent += gcnew BizCuffPulseEvent::BizCuffPulseEventHandler( this, &BizCuffPulseCaptureTest::Update );
+				// Set the cuff to inflated state to see the actual data instead of zero
+				BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
+				measurePWV->cuffObserver->currentState = BizCuffDeflating::Instance();
+
+				// Update the observer with data read from circular buffer
+				target->Dispatch();
+				Assert::AreEqual((unsigned int)0, actualUpdate);
 			}
 			/// <summary>
 			///A test for Update
@@ -105,7 +138,7 @@ namespace TestBiz {
 				BizCuffPulseCapture^  target = (gcnew BizCuffPulseCapture(buffer)); // TODO: Initialize to an appropriate value
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 				unsigned short data = 12345; // TODO: Initialize to an appropriate value
-				unsigned short^ actual = gcnew unsigned short; // = gcnew unsigned short; // TODO: Initialize to an appropriate value
+				unsigned short actual; // = gcnew unsigned short; // TODO: Initialize to an appropriate value
 				DalCuffPulseEventArgs^  e = gcnew DalCuffPulseEventArgs( data ); // TODO: Initialize to an appropriate value
 				bool rc = false;
 

@@ -15,7 +15,7 @@
 #include <biz_namespace.h>
 
 using namespace System;
-using namespace AtCor::Scor::DataAccess;
+using namespace DAL_NAMESPACE;
 
 START_BIZ_NAMESPACE
 public ref class BizCapture abstract
@@ -39,7 +39,6 @@ public:
 
 private:
 	void Update(Object^ sender, DalTonometerDataEventArgs^ e);
-//	DalTonometerDataEvent^ tonometerDataRaw; // to observe tonometer raw data from DAL
 };
 
 public ref class BizCuffPulseCapture : BizCapture
@@ -52,7 +51,6 @@ public:
 
 private:
 	void Update(Object^ sender, DalCuffPulseEventArgs^ e);
-//	DalCuffPulseEvent^ cuffPulseRaw; // to observe cuff pulse raw data from DAL
 };
 
 public ref class BizCountdownTimerCapture : BizCapture
@@ -65,7 +63,6 @@ public:
 
 private:
 	void Update(Object^ sender, DalCountdownTimerEventArgs^ e);
-//	DalCountdownTimerEvent^ countdownTimerRaw; // to observe countdown raw data from DAL
 };
 
 END_BIZ_NAMESPACE

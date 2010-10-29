@@ -72,7 +72,7 @@ namespace TestBiz {
 			void ResetTest()
 			{
 				unsigned short expected;
-				unsigned short^ actual = gcnew unsigned short;
+				unsigned short actual;
 				unsigned int bufferSize = 5; // TODO: Initialize to an appropriate value
 				BizCircularBuffer^  target = (gcnew BizCircularBuffer(bufferSize)); // TODO: Initialize to an appropriate value
 				target->Append(1);
@@ -152,7 +152,7 @@ namespace TestBiz {
 				BizCircularBuffer^  target = (gcnew BizCircularBuffer(bufferSize)); // TODO: Initialize to an appropriate value
 				bool expected = Convert::ToBoolean(testContextInstance->DataRow["Expected"]); // TODO: Initialize to an appropriate value
 				bool actual;
-				unsigned short^ data = gcnew unsigned short; // TODO: Initialize to an appropriate value
+				unsigned short data; // TODO: Initialize to an appropriate value
 				unsigned short dataSource = Convert::ToUInt16(testContextInstance->DataRow["AppendData"]); // TODO: Initialize to an appropriate value
 				unsigned short dataRead = Convert::ToUInt16(testContextInstance->DataRow["ReadData"]); // TODO: Initialize to an appropriate value
 				actual = target->Append(dataSource);
@@ -160,7 +160,7 @@ namespace TestBiz {
 
 				actual = target->ReadNext(data);
 				Assert::AreEqual(expected, actual);
-				Assert::AreEqual(dataRead, *data);
+				Assert::AreEqual(dataRead, data);
 
 				actual = target->Append(dataSource);
 				Assert::AreEqual(expected, actual);
@@ -185,15 +185,15 @@ namespace TestBiz {
 
 				actual = target->ReadNext(data);
 				Assert::AreEqual(expected, actual);
-				Assert::AreEqual(dataRead, *data);
+				Assert::AreEqual(dataRead, data);
 
 				actual = target->ReadNext(data);
 				Assert::AreEqual(expected, actual);
-				Assert::AreEqual(dataRead, *data);
+				Assert::AreEqual(dataRead, data);
 
 				actual = target->ReadNext(data);
 				Assert::AreEqual(expected, actual);
-				Assert::AreEqual(dataRead, *data);
+				Assert::AreEqual(dataRead, data);
 
 				actual = target->ReadNext(data);
 				Assert::AreNotEqual(expected, actual);
@@ -214,7 +214,6 @@ public: [TestMethod]
 			unsigned short endIndexExpected = 1; 
 			unsigned short endIndex = 0; 
 			unsigned short data = 5;
-			target->Reset();
 			target->Append(data);
 			target->ReadBuffer(buffer, bufferSize, startIndex, endIndex);
 			Assert::AreEqual(buffer[0], data);

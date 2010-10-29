@@ -76,21 +76,25 @@ namespace TestBiz {
 	public: [TestMethod]
 			void BizTonometerDataCaptureDispatchTest()
 			{
-				BizCircularBuffer^  buffer = (gcnew BizCircularBuffer(2)); // TODO: Initialize to an appropriate value
-				BizTonometerDataCapture^  target = (gcnew BizTonometerDataCapture(buffer)); // TODO: Initialize to an appropriate value
+				BizCircularBuffer^  buffer = (gcnew BizCircularBuffer(2)); 
+				BizTonometerDataCapture^  target = (gcnew BizTonometerDataCapture(buffer)); 
 				PrivateObject^ accessor = gcnew PrivateObject(target);
-				unsigned int data = 12345; // TODO: Initialize to an appropriate value
+				unsigned int data; 
+				unsigned int lastData = 10; 
 
-				DalTonometerDataEventArgs^ tonoArgs = gcnew DalTonometerDataEventArgs( data );
-				// Update BizTonometerDataCapture with data so it's saved in circular buffer
-				accessor->Invoke("Update", this, tonoArgs);
+				for (data = 0; data <= lastData; data++)
+				{
+					DalTonometerDataEventArgs^ tonoArgs = gcnew DalTonometerDataEventArgs( data );
+					// Update BizTonometerDataCapture with data so it's saved in circular buffer
+					accessor->Invoke("Update", this, tonoArgs);
+				}
 
 				// Setup a delegate (observer) to whom data is updated by BizTonometerDataCapture during dispatch
 				target->tonometerDataBiz->TonometerDataEvent += gcnew BizTonometerDataEvent::BizTonometerDataEventHandler( this, &BizTonometerDataCaptureTest::Update );
 
 				// Update the observer with data read from circular buffer
 				target->Dispatch();
-				Assert::AreEqual(data, actualUpdate);
+				Assert::AreEqual(lastData, actualUpdate);
 			}
 			/// <summary>
 			///A test for Update
@@ -102,7 +106,7 @@ namespace TestBiz {
 				BizTonometerDataCapture^  target = (gcnew BizTonometerDataCapture(buffer)); // TODO: Initialize to an appropriate value
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 				unsigned short data = 12345; // TODO: Initialize to an appropriate value
-				unsigned short^ actual = gcnew unsigned short; // = gcnew unsigned short; // TODO: Initialize to an appropriate value
+				unsigned short actual; // = gcnew unsigned short; // TODO: Initialize to an appropriate value
 				DalTonometerDataEventArgs^  e = gcnew DalTonometerDataEventArgs( data ); // TODO: Initialize to an appropriate value
 				bool rc = false;
 

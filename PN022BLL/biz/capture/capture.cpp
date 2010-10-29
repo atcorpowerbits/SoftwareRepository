@@ -41,11 +41,8 @@ RETURN
 BizTonometerDataCapture::BizTonometerDataCapture(BizBuffer^ buffer)
 {
 	this->buffer = buffer;
-//	tonometerDataRaw = DalFacade::Instance()->FindTonometerDataEvent();
 
 	// Attach the handler to observe tonometer data event from DAL
-//	tonometerDataRaw->TonometerDataEvent += 
-//		gcnew DalTonometerDataEvent::DalTonometerDataEventHandler( this, &BizTonometerDataCapture::Update );
 	DalEventContainer::Instance->OnDalTonometerDataEvent += gcnew DalTonometerDataEventHandler(this, &BizTonometerDataCapture::Update);
 
 	// Create a tonometer business data subject
@@ -85,7 +82,7 @@ Dispatch
 
 DESCRIPTION
 
-	Dispatch tonometer data if new data has arrived.
+	Dispatch tonometer data as many as arrived.
 
 INPUT
 
@@ -102,12 +99,12 @@ RETURN
 */		
 void BizTonometerDataCapture::Dispatch()
 {
-	unsigned short^ readData = gcnew unsigned short;
+	unsigned short readData;
 
-	// dispatch tonometer data if it's arrived.
-	if (buffer->ReadNext(readData))
+	// dispatch tonometer data as many as arrived.
+	while (buffer->ReadNext(readData))
 	{
-		tonometerDataBiz->Notify(*readData);
+		tonometerDataBiz->Notify(readData);
 	}
 }
 
@@ -134,11 +131,8 @@ RETURN
 BizCuffPulseCapture::BizCuffPulseCapture(BizBuffer^ buffer)
 {
 	this->buffer = buffer;
-//	cuffPulseRaw = DalFacade::Instance()->FindCuffPulseEvent();
 
 	// Attach the handler to observe cuff pulse data event from DAL
-//	cuffPulseRaw->CuffPulseEvent += 
-//		gcnew DalCuffPulseEvent::DalCuffPulseEventHandler( this, &BizCuffPulseCapture::Update );
 	DalEventContainer::Instance->OnDalCuffPulseEvent += gcnew DalCuffPulseEventHandler(this, &BizCuffPulseCapture::Update);
 
 	// Create a cuff pulse business data subject
@@ -180,7 +174,7 @@ Dispatch
 
 DESCRIPTION
 
-	Dispatch cuff pulse data if new data has arrived.
+	Dispatch cuff pulse data as many as arrived.
 
 INPUT
 
@@ -197,18 +191,18 @@ RETURN
 */		
 void BizCuffPulseCapture::Dispatch()
 {
-	unsigned short^ readData = gcnew unsigned short;
+	unsigned short readData;
 
-	// dispatch cuff pulse data if it's arrived.
-	if (buffer->ReadNext(readData))
+	// dispatch cuff pulse data as many as arrived.
+	while (buffer->ReadNext(readData))
 	{
 		// TBD:: Revisit design - send zero signal when cuff is not inflated
 		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
 		if (measurePWV->cuffObserver->currentState != BizCuffInflated::Instance())
 		{
-			*readData = 0;
+			readData = 0;
 		}
-		cuffPulseBiz->Notify(*readData);
+		cuffPulseBiz->Notify(readData);
 	}
 }
 
@@ -235,11 +229,8 @@ RETURN
 BizCountdownTimerCapture::BizCountdownTimerCapture(BizBuffer^ buffer)
 {
 	this->buffer = buffer;
-//	countdownTimerRaw = DalFacade::Instance()->FindCountdownTimerEvent();
 
 	// Attach the handler to observe countdown data event from DAL
-//	countdownTimerRaw->CountdownTimerEvent += 
-//		gcnew DalCountdownTimerEvent::DalCountdownTimerEventHandler( this, &BizCountdownTimerCapture::Update );
 	DalEventContainerStub::Instance->OnDalCountdownTimerEvent += gcnew DalCountdownTimerEventHandler(this, &BizCountdownTimerCapture::Update);
 
 	// Create a countdown business data subject
@@ -281,7 +272,7 @@ Dispatch
 
 DESCRIPTION
 
-	Dispatch countdown data if new data has arrived.
+	Dispatch countdown data as many as arrived.
 
 INPUT
 
@@ -298,13 +289,13 @@ RETURN
 */		
 void BizCountdownTimerCapture::Dispatch()
 {
-	unsigned short^ readData = gcnew unsigned short;
+	unsigned short readData;
 
-	// dispatch countdown data if it's arrived.
-	if (buffer->ReadNext(readData))
+	// dispatch countdown data as many as arrived.
+	while (buffer->ReadNext(readData))
 	{
 		// round to seconds
-		countdownTimerBiz->Notify(*readData);
+		countdownTimerBiz->Notify(readData);
 	}
 }
 END_BIZ_NAMESPACE

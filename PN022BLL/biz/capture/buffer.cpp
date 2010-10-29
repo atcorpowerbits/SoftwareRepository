@@ -33,10 +33,11 @@ RETURN
 	None.
 
 */
-BizCircularBuffer::BizCircularBuffer(unsigned int bufferSize)
+BizCircularBuffer::BizCircularBuffer(unsigned short bufferSize)
 {
 	this->bufferSize = bufferSize;
 	_buffer = gcnew array<unsigned short>(bufferSize);
+	Reset();
 }
 
 /**
@@ -49,6 +50,8 @@ DESCRIPTION
 INPUT
 
 	data - Data to be appended.
+    Note: Do not validate data here. It's called during comms event to collect a raw data 
+	      so should avoid any data processing.
 
 OUTPUT
 
@@ -125,7 +128,7 @@ RETURN
 	false - There's no new data to read.
 
 */
-bool BizCircularBuffer::ReadNext(unsigned short^ data)
+bool BizCircularBuffer::ReadNext(unsigned short% data)
 {
 	bool isRead = false;
 
@@ -135,7 +138,7 @@ bool BizCircularBuffer::ReadNext(unsigned short^ data)
 	// See if there's any data to read
 	if (_unreadData)
 	{
-		*data = _buffer[_nextReadIndex++];
+		data = _buffer[_nextReadIndex++];
 		isRead = true;
 		WRAP_IF_NEEDED(_nextReadIndex, bufferSize)
 
@@ -152,6 +155,27 @@ bool BizCircularBuffer::ReadNext(unsigned short^ data)
 	return isRead;
 }
 
+/**
+Reset
+
+DESCRIPTION
+
+	Reset circular buffer indices (thread safe).
+	All data in circular buffer is discarded.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	None.
+
+*/
 void BizCircularBuffer::Reset()
 {
 	// Should be thread safe

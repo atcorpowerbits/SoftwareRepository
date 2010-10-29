@@ -28,24 +28,24 @@ public ref class BizBuffer abstract
 {
 public:
 	virtual bool Append(unsigned short data) { return false; };
-	virtual bool ReadNext(unsigned short^ data) { return false; };
-	virtual void Reset() {};
+	virtual bool ReadNext(unsigned short% data) { return false; };
+	virtual void Reset() = 0;
 	virtual void ReadBuffer(array<unsigned short>^% buffer, 
 									unsigned int% bufferSize,
 									unsigned short% startIndex,
 									unsigned short% endIndex) {};
 protected:
 	BizBuffer() {};
-	property unsigned int bufferSize;
+	property unsigned short bufferSize;
 };
 
 public ref class BizCircularBuffer : BizBuffer
 {
 public:
-	BizCircularBuffer(unsigned int bufferSize);
+	BizCircularBuffer(unsigned short bufferSize);
 	virtual bool Append(unsigned short data) override;
-	virtual bool ReadNext(unsigned short^ data) override;
-	virtual void Reset() override;
+	virtual bool ReadNext(unsigned short% data) override;
+	virtual void Reset() override sealed;
 	virtual void ReadBuffer(array<unsigned short>^% buffer, 
 									unsigned int% bufferSize,
 									unsigned short% startIndex,
@@ -58,6 +58,8 @@ private:
 	unsigned short _nextReadIndex;
 	bool _unreadData;
 	bool _firstAppend;
+	// A flag to indicate _nextReadIndex should be moved along with _startIndex
+	// when the latter is rotated due to buffer full.
 	bool _bringAlongNextRead;
 };
 
