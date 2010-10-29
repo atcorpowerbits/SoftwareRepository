@@ -113,10 +113,10 @@ START_BIZ_NAMESPACE
 		false - Data capture failed to start
 	
 	*/
-	bool BizFacade::StartCapture(void)
-	{
-		return BizSession::Instance()->StartCapture();
-	}
+//	bool BizFacade::StartCapture(void)
+//	{
+//		return BizSession::Instance()->StartCapture();
+//	}
 	/**
 	StopCapture
 
@@ -139,10 +139,10 @@ START_BIZ_NAMESPACE
 		false - Data capture failed to stop
 	
 	*/
-	bool BizFacade::StopCapture(void)
-	{
-		return BizSession::Instance()->StopCapture();
-	}
+//	bool BizFacade::StopCapture(void)
+//	{
+//		return BizSession::Instance()->StopCapture();
+//	}
 	/**
 	CalculateReport
 
@@ -165,10 +165,10 @@ START_BIZ_NAMESPACE
 		false - Measurement report failed to calculate
 	
 	*/
-	bool BizFacade::CalculateReport(void)
-	{
-		return false; // temp UT stub
-	}
+//	bool BizFacade::CalculateReport(void)
+//	{
+//		return false; // temp UT stub
+//	}
 	/**
 	SimulateCaptureData
 
@@ -237,12 +237,12 @@ START_BIZ_NAMESPACE
 		BizTonometerDataEvent^ - Handle to tonometer data event in the business logic.
 	
 	*/
-	BizTonometerDataEvent^ BizFacade::FindTonometerDataEvent() 
-	{ 
-		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
-
-		return measurePWV->tonometerDataObserver->tonometerDataBiz; 
-	}
+//	BizTonometerDataEvent^ BizFacade::FindTonometerDataEvent() 
+//	{ 
+//		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
+//
+//		return measurePWV->tonometerDataObserver->tonometerDataBiz; 
+//	}
 	/**
 	FindCuffPulseEvent
 
@@ -365,8 +365,8 @@ START_BIZ_NAMESPACE
 		None.
 	
 	*/
-	void BizFacade::Dispatch() 
-	{ 
-		BizSession::Instance()->DispatchCaptureData(); 
-	}
+//	void BizFacade::Dispatch() 
+//	{ 
+//		BizSession::Instance()->DispatchCaptureData(); 
+//	}
 END_BIZ_NAMESPACE

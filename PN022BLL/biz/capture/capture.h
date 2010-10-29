@@ -34,7 +34,7 @@ public ref class BizTonometerDataCapture : BizCapture
 public:
 	BizTonometerDataCapture(BizBuffer^ buffer);
 
-	property BizTonometerDataEvent^ tonometerDataBiz; //tonometer data to be dispatched
+//	property BizTonometerDataEvent^ tonometerDataBiz; //tonometer data to be dispatched
 	virtual void Dispatch() override;
 
 private:

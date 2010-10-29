@@ -46,7 +46,7 @@ BizTonometerDataCapture::BizTonometerDataCapture(BizBuffer^ buffer)
 	DalEventContainer::Instance->OnDalTonometerDataEvent += gcnew DalTonometerDataEventHandler(this, &BizTonometerDataCapture::Update);
 
 	// Create a tonometer business data subject
-	tonometerDataBiz = gcnew BizTonometerDataEvent;
+//	tonometerDataBiz = gcnew BizTonometerDataEvent;
 }
 /**
 Update
@@ -104,7 +104,8 @@ void BizTonometerDataCapture::Dispatch()
 	// dispatch tonometer data as many as arrived.
 	while (buffer->ReadNext(readData))
 	{
-		tonometerDataBiz->Notify(readData);
+//		tonometerDataBiz->Notify(readData);
+		BizEventContainer::Instance->OnBizTonometerDataEvent(this, gcnew BizTonometerDataEventArgs(readData));	
 	}
 }
 

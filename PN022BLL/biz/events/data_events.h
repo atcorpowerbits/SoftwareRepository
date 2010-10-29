@@ -11,9 +11,11 @@
 #pragma once
 
 #include <biz_namespace.h>
+#include <msclr\lock.h>
 
 using namespace System;
 using namespace System::Drawing;
+using namespace msclr;
 
 START_BIZ_NAMESPACE
 
@@ -172,6 +174,52 @@ public:
    // This will be the starting point of our event-- it will create data args,
    // and then raise the event, passing the args. 
    void Notify( unsigned short signalStrength, Color signalStrengthColor, bool enableOkayButton );
+
+};
+
+// Delegate for tonometer data event
+public delegate void BizTonometerDataEventHandler(Object^ sender, BizTonometerDataEventArgs ^ args);
+
+// Container for all BizXXXEvent handlers
+public ref class BizEventContainer
+{
+	private:
+		static BizEventContainer^ _instance = gcnew BizEventContainer();
+		BizEventContainer() {};
+		BizEventContainer(const BizEventContainer^) {};
+		BizEventContainer^ operator= (const BizEventContainer) { return this; };
+
+		BizTonometerDataEventHandler^ _bizTonometerDataEventHandler;
+
+	public:
+		static property BizEventContainer^ Instance
+		{
+			BizEventContainer^ get()
+			{
+				return BizEventContainer::_instance;
+			};
+		};
+
+		event BizTonometerDataEventHandler^ OnBizTonometerDataEvent
+		{
+			void add(BizTonometerDataEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizTonometerDataEventHandler += handler;
+			}
+
+			void remove(BizTonometerDataEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizTonometerDataEventHandler -= handler;
+			}
+
+			void raise(Object^ sender, BizTonometerDataEventArgs ^ args)
+			{
+				if(_bizTonometerDataEventHandler)
+					_bizTonometerDataEventHandler->Invoke(sender, args);
+			}
+		}
 
 };
 

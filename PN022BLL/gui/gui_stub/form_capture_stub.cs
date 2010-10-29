@@ -16,7 +16,7 @@ namespace AtCor
         {
             public partial class form_capture_stub : Form
             {
-                BizTonometerDataEvent tonometerData;
+//                BizTonometerDataEvent tonometerData;
                 BizCuffPulseEvent cuffPulse;
                 BizCountdownTimerEvent countdownTimerData;
                 BizCuffStateEvent cuffState;
@@ -50,15 +50,16 @@ namespace AtCor
 
                 private void form_capture_stub_Load(object sender, EventArgs e)
                 {
-                    tonometerData = BizFacade.Instance().FindTonometerDataEvent(); // to observe tonometer data from BLL
+//                    tonometerData = BizFacade.Instance().FindTonometerDataEvent(); // to observe tonometer data from BLL
                     cuffPulse = BizFacade.Instance().FindCuffPulseEvent(); // to observe cuff pulse data from BLL
                     countdownTimerData = BizFacade.Instance().FindCountdownTimerEvent(); // to observe countdown data from BLL
                     cuffState = BizFacade.Instance().FindCuffStateEvent(); // to observe countdown data from BLL
 
                     // Attach the handler to observe tonometer data event from Biz
-                    tonometerData.TonometerDataEvent += new BizTonometerDataEvent.BizTonometerDataEventHandler(UpdateTonoData);
+//                    tonometerData.TonometerDataEvent += new BizTonometerDataEvent.BizTonometerDataEventHandler(UpdateTonoData);
                     // FxCop suggested to use EventHandler<T> but unit test doesn't like it, not compiling.
                     // tonometerData.TonometerDataEvent += new EventHandler<BizTonometerDataEventArgs>(UpdateTonoData);
+                    BizEventContainer.Instance.OnBizTonometerDataEvent += new BizTonometerDataEventHandler(UpdateTonoData);
 
                     // Attach the handler to observe cuff pulse event from Biz
                     cuffPulse.CuffPulseEvent += new BizCuffPulseEvent.BizCuffPulseEventHandler(UpdateCuffPulse);
@@ -118,7 +119,7 @@ namespace AtCor
 
                 private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
                 {
-                    BizFacade.Instance().Dispatch();
+                    BizSession.Instance().DispatchCaptureData();
                 }
 
                 private void buttonCapture_Click(object sender, EventArgs e)
@@ -155,7 +156,7 @@ namespace AtCor
 
                 private void timer1_Tick(object sender, EventArgs e)
                 {
-                    BizFacade.Instance().Dispatch();
+                    BizSession.Instance().DispatchCaptureData();
                 }
 
                 //        private void buttonCountDown_Click(object sender, EventArgs e)

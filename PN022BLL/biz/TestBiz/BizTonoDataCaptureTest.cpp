@@ -90,7 +90,8 @@ namespace TestBiz {
 				}
 
 				// Setup a delegate (observer) to whom data is updated by BizTonometerDataCapture during dispatch
-				target->tonometerDataBiz->TonometerDataEvent += gcnew BizTonometerDataEvent::BizTonometerDataEventHandler( this, &BizTonometerDataCaptureTest::Update );
+//				target->tonometerDataBiz->TonometerDataEvent += gcnew BizTonometerDataEvent::BizTonometerDataEventHandler( this, &BizTonometerDataCaptureTest::Update );
+				BizEventContainer::Instance->OnBizTonometerDataEvent += gcnew BizTonometerDataEventHandler(this, &BizTonometerDataCaptureTest::Update);
 
 				// Update the observer with data read from circular buffer
 				target->Dispatch();

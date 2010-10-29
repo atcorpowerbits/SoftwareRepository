@@ -32,7 +32,7 @@ public:
 	property BizCarotidQualityEvent^ carotidQualityBiz; //tonometer data to be dispatched
 
 private:
-	void Update(Object^ sender, BizTonometerDataEventArgs^ e);
+	void Update(Object^ sender, BizCarotidQualityEventArgs^ e);
 };
 
 END_BIZ_NAMESPACE

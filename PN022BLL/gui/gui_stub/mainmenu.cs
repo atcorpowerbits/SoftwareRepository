@@ -29,7 +29,7 @@ namespace AtCor
 
                 private void startCaptureToolStripMenuItem_Click(object sender, EventArgs e)
                 {
-                    bool rc = BizFacade.Instance().StartCapture();
+                    bool rc = BizSession.Instance().StartCapture();
 
                     if (rc)
                     {
@@ -43,8 +43,10 @@ namespace AtCor
                     }
                 }
 
+
                 private void calculateReportToolStripMenuItem_Click(object sender, EventArgs e)
                 {
+/*
                     bool rc = BizFacade.Instance().CalculateReport();
                     if (rc)
                     {
@@ -54,6 +56,7 @@ namespace AtCor
                     {
                         MessageBox.Show("Report calculation failed???");
                     }
+*/
                 }
 
                 private void simulateCaptureDataToolStripMenuItem_Click(object sender, EventArgs e)
@@ -63,7 +66,7 @@ namespace AtCor
 
                 private void simulateDispatchOneShotToolStripMenuItem_Click(object sender, EventArgs e)
                 {
-                    BizFacade.Instance().Dispatch();
+                    BizSession.Instance().DispatchCaptureData();
                 }
 
             }

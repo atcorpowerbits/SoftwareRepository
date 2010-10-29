@@ -21,14 +21,14 @@ public ref class BizFacade {
 public:
 	static BizFacade^ BizFacade::Instance();
 	BizInfo^ FindBizInfo();
-	bool StartCapture();
-	bool StopCapture();
+//	bool StartCapture();
+//	bool StopCapture();
 	void SimulateCaptureData();
 	void StopCaptureSimulation();
 	void SimulateCaptureOneShot(); // simulate a single data capture
-	void Dispatch();
-	bool CalculateReport();
-	BizTonometerDataEvent^ FindTonometerDataEvent();
+//	void Dispatch();
+//	bool CalculateReport();
+//	BizTonometerDataEvent^ FindTonometerDataEvent();
 	BizCuffPulseEvent^ FindCuffPulseEvent();
 	BizCountdownTimerEvent^ FindCountdownTimerEvent();
 	BizCuffStateEvent^ FindCuffStateEvent();
