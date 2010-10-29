@@ -12,7 +12,7 @@ namespace AtCor.Scor.Presentation
 {
     public partial class SimulatePWVCapture : Telerik.WinControls.UI.RadForm
     {
-        BizTonometerDataEvent tonometerData;
+//        BizTonometerDataEvent tonometerData;
         BizCuffPulseEvent cuffPulse;
         BizCountdownTimerEvent countdownTimerData;
         BizCuffStateEvent cuffState;
@@ -64,20 +64,21 @@ namespace AtCor.Scor.Presentation
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            BizFacade.Instance().Dispatch();
+                    BizSession.Instance().DispatchCaptureData();
         }
 
         private void SimulatePWVCapture_Load(object sender, EventArgs e)
         {
-            tonometerData = BizFacade.Instance().FindTonometerDataEvent(); // to observe tonometer data from BLL
+//            tonometerData = BizFacade.Instance().FindTonometerDataEvent(); // to observe tonometer data from BLL
             cuffPulse = BizFacade.Instance().FindCuffPulseEvent(); // to observe cuff pulse data from BLL
             countdownTimerData = BizFacade.Instance().FindCountdownTimerEvent(); // to observe countdown data from BLL
             cuffState = BizFacade.Instance().FindCuffStateEvent(); // to observe countdown data from BLL
 
             // Attach the handler to observe tonometer data event from Biz
-            tonometerData.TonometerDataEvent += new BizTonometerDataEvent.BizTonometerDataEventHandler(UpdateTonoData);
+//            tonometerData.TonometerDataEvent += new BizTonometerDataEvent.BizTonometerDataEventHandler(UpdateTonoData);
             // FxCop suggested to use EventHandler<T> but unit test doesn't like it, not compiling.
             // tonometerData.TonometerDataEvent += new EventHandler<BizTonometerDataEventArgs>(UpdateTonoData);
+            BizEventContainer.Instance.OnBizTonometerDataEvent += new BizTonometerDataEventHandler(UpdateTonoData);
 
             // Attach the handler to observe cuff pulse event from Biz
             cuffPulse.CuffPulseEvent += new BizCuffPulseEvent.BizCuffPulseEventHandler(UpdateCuffPulse);

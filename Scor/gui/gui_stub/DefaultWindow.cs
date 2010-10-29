@@ -247,7 +247,7 @@ namespace Presentation
 
         private void radRibbonBarGroup1_Click(object sender, EventArgs e)
         {
-            bool rc = BizFacade.Instance().StartCapture();
+            bool rc = BizSession.Instance().StartCapture();
 
             if (rc)
             {
@@ -268,7 +268,7 @@ namespace Presentation
 
         private void radRibbonBarGroup3_Click(object sender, EventArgs e)
         {
-            BizFacade.Instance().Dispatch();
+            BizSession.Instance().DispatchCaptureData();
         }
     }
 }

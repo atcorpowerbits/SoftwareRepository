@@ -3,12 +3,6 @@ D:\Atcor_Projct_Solution\Scor\gui\gui_stub\bin\Debug\gui_stub.pdb
 D:\Atcor_Projct_Solution\Scor\gui\gui_stub\obj\Debug\ResolveAssemblyReference.cache
 D:\Atcor_Projct_Solution\Scor\gui\gui_stub\obj\Debug\gui_stub.dll
 D:\Atcor_Projct_Solution\Scor\gui\gui_stub\obj\Debug\gui_stub.pdb
-C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\ResolveAssemblyReference.cache
-C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\AtCor.Scor.Presentation.DefaultWindow.resources
-C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\AtCor.Scor.Presentation.Properties.Resources.resources
-C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\AtCor.Scor.Presentation.SettingsWindow.resources
-C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\AtCor.Scor.Presentation.SimulatePWVCapture.resources
-C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\gui_stub.csproj.GenerateResource.Cache
 C:\Projects\PN022\Scor\gui\gui_stub\bin\Debug\scor.exe.config
 C:\Projects\PN022\Scor\gui\gui_stub\bin\Debug\scor.exe
 C:\Projects\PN022\Scor\gui\gui_stub\bin\Debug\scor.pdb
@@ -27,5 +21,11 @@ C:\Projects\PN022\Scor\gui\gui_stub\bin\Debug\Microsoft.Practices.ServiceLocatio
 C:\Projects\PN022\Scor\gui\gui_stub\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
 C:\Projects\PN022\Scor\gui\gui_stub\bin\Debug\Microsoft.Practices.Unity.pdb
 C:\Projects\PN022\Scor\gui\gui_stub\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\AtCor.Scor.Presentation.DefaultWindow.resources
+C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\AtCor.Scor.Presentation.Properties.Resources.resources
+C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\AtCor.Scor.Presentation.SettingsWindow.resources
+C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\AtCor.Scor.Presentation.SimulatePWVCapture.resources
+C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\gui_stub.csproj.GenerateResource.Cache
 C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\scor.exe
 C:\Projects\PN022\Scor\gui\gui_stub\obj\Debug\scor.pdb
