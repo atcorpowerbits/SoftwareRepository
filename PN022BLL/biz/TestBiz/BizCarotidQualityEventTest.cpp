@@ -63,13 +63,15 @@ namespace TestBiz {
 			//
 	public:
 			//actual data received via BizCarotidQualityEvent
-			unsigned short signalStrengthActual;
+			unsigned short signalMinimumActual;
+			unsigned short signalMaximumActual;
 			Color signalStrengthColorActual;
 			bool enableOkayButtonActual;
 				
 			void Update(Object^ sender, BizCarotidQualityEventArgs^ e)
 			{
-				signalStrengthActual = e->signalStrength;
+				signalMinimumActual = e->signalMinimum;
+				signalMaximumActual = e->signalMaximum;
 				signalStrengthColorActual = e->signalStrengthColor;
 				enableOkayButtonActual = e->enableOkayButton;
 			}
@@ -85,11 +87,13 @@ namespace TestBiz {
 				/* FxCop suggested to use Event<T> but unit test frame work doesn't like it
 				target->TonometerDataEvent += gcnew EventHandler<BizTonometerDataEventArgs^(&BizTonometerDataEventTest::Update);
 				*/
-				unsigned short signalStrength = 300;
+				unsigned short signalMinimum = 2000;
+				unsigned short signalMaximum = 2500;
 				Color signalStrengthColor = Color(Color::Green);
 				bool enableOkayButton = true;
-				target->Notify(signalStrength, signalStrengthColor, enableOkayButton);
-				Assert::AreEqual(signalStrength, signalStrengthActual);
+				target->Notify(signalMinimum, signalMaximum, signalStrengthColor, enableOkayButton);
+				Assert::AreEqual(signalMinimum, signalMinimumActual);
+				Assert::AreEqual(signalMaximum, signalMaximumActual);
 				Assert::AreEqual(signalStrengthColor, signalStrengthColorActual);
 				Assert::AreEqual(enableOkayButton, enableOkayButtonActual);
 				// remove the handler

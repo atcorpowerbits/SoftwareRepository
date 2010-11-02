@@ -202,8 +202,10 @@ INPUT
 
 OUTPUT
 
-	buffer - handle to the buffer array.
-	bufferSize - handle to the size of the array.
+	buffer - reference to the buffer array,
+	bufferSize - reference to the size of the array,
+	startIndex - reference to the start of the array,
+	endIndex - reference to the end of the array.
 
 RETURN
 

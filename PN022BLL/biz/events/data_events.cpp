@@ -153,9 +153,9 @@ RETURN
 	None.
 
 */
-void BizCarotidQualityEvent::Notify( unsigned short signalStrength, Color signalStrengthColor, bool enableOkayButton )
+void BizCarotidQualityEvent::Notify( unsigned short signalMinimum, unsigned short signalMaximum, Color signalStrengthColor, bool enableOkayButton )
 {
-	BizCarotidQualityEventArgs^ carotidArgs = gcnew BizCarotidQualityEventArgs( signalStrength, signalStrengthColor, enableOkayButton);
+	BizCarotidQualityEventArgs^ carotidArgs = gcnew BizCarotidQualityEventArgs( signalMinimum, signalMaximum, signalStrengthColor, enableOkayButton);
 
 	// Now, raise the event by invoking the delegate. Pass in 
 	// the object that initated the event (this) as well as data args. 

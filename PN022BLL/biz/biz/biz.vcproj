@@ -249,6 +249,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\capture\quality.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\measure\session.cpp"
 				>
 			</File>
@@ -331,7 +335,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\quality.h"
+				RelativePath="..\capture\quality.h"
 				>
 			</File>
 			<File

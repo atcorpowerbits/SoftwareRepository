@@ -5,8 +5,7 @@ using namespace BIZ_NAMESPACE;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 namespace TestBiz {
     using namespace System;
-    using namespace Biz;
-	ref class BizSignalTest;
+    ref class BizSignalTest;
     
     
     /// <summary>

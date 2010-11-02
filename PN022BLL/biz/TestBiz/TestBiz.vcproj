@@ -227,6 +227,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BizCarotidQualityTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BizCircularBufferTest.cpp"
 				>
 			</File>

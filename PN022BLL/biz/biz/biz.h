@@ -47,6 +47,13 @@ typedef enum
   AUDIT_NOF_FLAGS
 } auditChangeType;																	// Audit flag types
 
+// Quality Class
+const unsigned short QUALITY_UPDATE_INTERVAL = 1;									// Update quality information every 1 second
+const unsigned short TONOMETER_SIGNAL_STRENGTH_POOR = 200;							// Indicates a poor signal
+const unsigned short TONOMETER_SIGNAL_STRENGTH_GOOD = 300;							// Indicates a good signal
+const unsigned short MINIMUM_TONOMETER_SIGNAL_STRENGTH = 80;						// Indicates a valid signal strength
+const unsigned short MINIMUM_TONOMETER_BASELINE = 120;								// Indicates a valid signal baseline
+
 // Signal Class
 const unsigned short MAX_HEART_RATE = 200;													// 200 bpm
 const unsigned short MIN_HEART_RATE = 30;													// 30 bpm

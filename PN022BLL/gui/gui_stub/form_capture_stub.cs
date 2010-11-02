@@ -54,7 +54,7 @@ namespace AtCor
                     cuffPulse = BizFacade.Instance().FindCuffPulseEvent(); // to observe cuff pulse data from BLL
                     countdownTimerData = BizFacade.Instance().FindCountdownTimerEvent(); // to observe countdown data from BLL
                     cuffState = BizFacade.Instance().FindCuffStateEvent(); // to observe countdown data from BLL
-
+                    
                     // Attach the handler to observe tonometer data event from Biz
 //                    tonometerData.TonometerDataEvent += new BizTonometerDataEvent.BizTonometerDataEventHandler(UpdateTonoData);
                     // FxCop suggested to use EventHandler<T> but unit test doesn't like it, not compiling.

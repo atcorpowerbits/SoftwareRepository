@@ -145,15 +145,18 @@ public ref class BizCarotidQualityEventArgs: public EventArgs
 {
 public:
 	
-   BizCarotidQualityEventArgs( unsigned short signalStrength, Color signalStrengthColor, bool enableOkayButton )
+   BizCarotidQualityEventArgs( unsigned short signalMinimum, unsigned short signalMaximum, 
+								Color signalStrengthColor, bool enableOkayButton )
    {
-	  this->signalStrength = signalStrength;
+	  this->signalMinimum = signalMinimum;
+	  this->signalMaximum = signalMaximum;
 	  this->signalStrengthColor = signalStrengthColor;
 	  this->enableOkayButton = enableOkayButton;
    }
-   property unsigned short signalStrength;
-   property Color signalStrengthColor;
-   property bool enableOkayButton;
+   property unsigned short signalMinimum;	// Signal maximum, used to calculate signal strength
+   property unsigned short signalMaximum;	// Signal minimum, used to calculate signal strength
+   property Color signalStrengthColor;		// Colour to be displayed on the quality indicator
+   property bool enableOkayButton;			// Can the user calculate a report or not
 };
 
 // Class with a function that creates the eventargs and initiates the event
@@ -173,7 +176,7 @@ public:
 
    // This will be the starting point of our event-- it will create data args,
    // and then raise the event, passing the args. 
-   void Notify( unsigned short signalStrength, Color signalStrengthColor, bool enableOkayButton );
+   void Notify( unsigned short signalMinimum, unsigned short signalMaximum, Color signalStrengthColor, bool enableOkayButton );
 
 };
 

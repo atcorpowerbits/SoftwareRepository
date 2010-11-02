@@ -21,7 +21,7 @@ public ref class BizQuality abstract
 {
 protected:
 	BizQuality() {};
-	property BizBuffer^% buffer;
+	property BizBuffer^ buffer;
 };
 
 public ref class BizCarotidQuality : BizQuality
