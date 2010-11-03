@@ -5,28 +5,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4D1A6D40-ED28-4CCA-82FE-BF6F31D4C737}</ProjectGuid>
+    <ProjectGuid>{2C08D735-4AD3-4AB4-9C5A-38685356CAA0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AtCor.Scor.Presentation</RootNamespace>
-    <AssemblyName>gui</AssemblyName>
+    <AssemblyName>scor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,7 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,7 +33,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="biz, Version=0.1.1.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86" />
+    <Reference Include="biz, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Debug\biz.dll</HintPath>
+    </Reference>
+    <Reference Include="crx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Debug\crx.dll</HintPath>
+    </Reference>
+    <Reference Include="dal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Debug\dal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -65,74 +62,65 @@
     <Reference Include="System.Xml" />
     <Reference Include="Telerik.WinControls, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.dll</HintPath>
+      <HintPath>..\..\..\..\..\Users\victora\Documents\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Docking, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.Docking.dll</HintPath>
+      <HintPath>..\..\..\..\..\Users\victora\Documents\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.Docking.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.GridView, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.GridView.dll</HintPath>
+      <HintPath>..\..\..\..\..\Users\victora\Documents\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.GridView.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.RadChart, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.RadChart.dll</HintPath>
+      <HintPath>..\..\..\..\..\Users\victora\Documents\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.RadChart.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.RadDock, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.RadDock.dll</HintPath>
+      <HintPath>..\..\..\..\..\Users\victora\Documents\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.RadDock.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.RadMarkupEditor, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.RadMarkupEditor.dll</HintPath>
+      <HintPath>..\..\..\..\..\Users\victora\Documents\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.RadMarkupEditor.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.Scheduler, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.Scheduler.dll</HintPath>
+      <HintPath>..\..\..\..\..\Users\victora\Documents\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.Scheduler.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.WinControls.UI, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.UI.dll</HintPath>
+      <HintPath>..\..\..\..\..\Users\victora\Documents\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\Telerik.WinControls.UI.dll</HintPath>
     </Reference>
     <Reference Include="TelerikCommon, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\TelerikCommon.dll</HintPath>
+      <HintPath>..\..\..\..\..\Users\victora\Documents\RadControls_WinForms_2010_2_10_914_dev_dlls\bin\TelerikCommon.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox1.cs">
+    <Compile Include="DefaultWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox1.Designer.cs">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="form_capture_stub.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="form_capture_stub.Designer.cs">
-      <DependentUpon>form_capture_stub.cs</DependentUpon>
-    </Compile>
-    <Compile Include="mainmenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="mainmenu.Designer.cs">
-      <DependentUpon>mainmenu.cs</DependentUpon>
+    <Compile Include="DefaultWindow.Designer.cs">
+      <DependentUpon>DefaultWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AboutBox1.resx">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="form_capture_stub.resx">
-      <DependentUpon>form_capture_stub.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="mainmenu.resx">
-      <DependentUpon>mainmenu.cs</DependentUpon>
+    <EmbeddedResource Include="DefaultWindow.resx">
+      <DependentUpon>DefaultWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsWindow.resx">
+      <DependentUpon>SettingsWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimulatePWVCapture.resx">
+      <DependentUpon>SimulatePWVCapture.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -140,7 +128,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -150,36 +138,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <Compile Include="SettingsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsWindow.Designer.cs">
+      <DependentUpon>SettingsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimulatePWVCapture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimulatePWVCapture.Designer.cs">
+      <DependentUpon>SimulatePWVCapture.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
