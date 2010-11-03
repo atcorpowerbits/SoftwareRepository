@@ -198,21 +198,22 @@ BizPWV::BizPWV(void)
 		myCuffDistance = gcnew BizCuffDistance;
 		myPWVDirectDistance = gcnew BizPWVDirectDistance;
 		myFemoral2CuffDistance = gcnew BizFemoral2CuffDistance;
+		BizBuffer^ tonometerBuffer = gcnew BizCircularBuffer((captureTime + 
+									BusinessLogic::CAPTURE_EXTRA_FOR_HANDSHAKE) * 
+									sampleRate);
 
 		// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
-		tonometerDataObserver = gcnew BizTonometerDataCapture(
-			gcnew BizCircularBuffer(1000 * 
-			                        (CrxConfigFacade::Instance()->GetCaptureTime() + 
-									BusinessLogic::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
-									DalConstants::DATA_SAMPLING_INTERVAL));
+		tonometerDataObserver = gcnew BizTonometerDataCapture( tonometerBuffer );
 		tonometerDataObserver->Reset();
 
 		cuffPulseObserver = gcnew BizCuffPulseCapture(
-			gcnew BizCircularBuffer(1000 * 
-			                        (CrxConfigFacade::Instance()->GetCaptureTime() + 
-									BusinessLogic::CAPTURE_EXTRA_FOR_HANDSHAKE) / 
-									DalConstants::DATA_SAMPLING_INTERVAL));
+			gcnew BizCircularBuffer((captureTime + 
+									BusinessLogic::CAPTURE_EXTRA_FOR_HANDSHAKE) * 
+									sampleRate));
 		cuffPulseObserver->Reset();
+
+		// Carotid quality is calculated from the captured tonometer data
+		carotidQualityObserver = gcnew BizCarotidQuality( tonometerBuffer, sampleRate );
 
 		// Countdown data from DAL are captured here for PWV measurement.
 		// Only one last countdown data is needed to be captured.
@@ -350,6 +351,7 @@ bool BizPWV::StartCapture()
 {
 	tonometerDataObserver->Reset();
 	cuffPulseObserver->Reset();
+	carotidQualityObserver->Reset();
 //	return DalFacade::Instance()->StartCapture(DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
 	try {
 		DalModule::Instance->StartCapture();

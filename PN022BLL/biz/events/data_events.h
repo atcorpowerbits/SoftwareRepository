@@ -183,6 +183,9 @@ public:
 // Delegate for tonometer data event
 public delegate void BizTonometerDataEventHandler(Object^ sender, BizTonometerDataEventArgs ^ args);
 
+// Delegate for carotid quality event
+public delegate void BizCarotidQualityEventHandler(Object^ sender, BizCarotidQualityEventArgs ^ args);
+
 // Container for all BizXXXEvent handlers
 public ref class BizEventContainer
 {
@@ -193,6 +196,7 @@ public ref class BizEventContainer
 		BizEventContainer^ operator= (const BizEventContainer) { return this; };
 
 		BizTonometerDataEventHandler^ _bizTonometerDataEventHandler;
+		BizCarotidQualityEventHandler^ _bizCarotidQualityEventHandler;
 
 	public:
 		static property BizEventContainer^ Instance
@@ -224,6 +228,26 @@ public ref class BizEventContainer
 			}
 		}
 
+		event BizCarotidQualityEventHandler^ OnBizCarotidQualityEvent
+		{
+			void add(BizCarotidQualityEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizCarotidQualityEventHandler += handler;
+			}
+
+			void remove(BizCarotidQualityEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizCarotidQualityEventHandler -= handler;
+			}
+
+			void raise(Object^ sender, BizCarotidQualityEventArgs ^ args)
+			{
+				if(_bizCarotidQualityEventHandler)
+					_bizCarotidQualityEventHandler->Invoke(sender, args);
+			}
+		}
 };
 
 END_BIZ_NAMESPACE

@@ -40,6 +40,14 @@ namespace AtCor.Scor.Presentation
             this.radButtonPWVCapture = new Telerik.WinControls.UI.RadButton();
             this.radButtonPWVStop = new Telerik.WinControls.UI.RadButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.radLabelCarotidEnable = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabelCarotidColor = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabelCarotidMinimum = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel10 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabelCarotidMaximum = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel12 = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabelTonoData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
@@ -50,6 +58,14 @@ namespace AtCor.Scor.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radLabelCountdownTimer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButtonPWVCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButtonPWVStop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelCarotidEnable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelCarotidColor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelCarotidMinimum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelCarotidMaximum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,11 +155,88 @@ namespace AtCor.Scor.Presentation
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // radLabelCarotidEnable
+            // 
+            this.radLabelCarotidEnable.Location = new System.Drawing.Point(450, 218);
+            this.radLabelCarotidEnable.Name = "radLabelCarotidEnable";
+            this.radLabelCarotidEnable.Size = new System.Drawing.Size(74, 18);
+            this.radLabelCarotidEnable.TabIndex = 17;
+            this.radLabelCarotidEnable.Text = "carotidEnable";
+            // 
+            // radLabel6
+            // 
+            this.radLabel6.Location = new System.Drawing.Point(316, 218);
+            this.radLabel6.Name = "radLabel6";
+            this.radLabel6.Size = new System.Drawing.Size(105, 18);
+            this.radLabel6.TabIndex = 16;
+            this.radLabel6.Text = "Enable Okay Button";
+            // 
+            // radLabelCarotidColor
+            // 
+            this.radLabelCarotidColor.ForeColor = System.Drawing.Color.Black;
+            this.radLabelCarotidColor.Location = new System.Drawing.Point(450, 154);
+            this.radLabelCarotidColor.Name = "radLabelCarotidColor";
+            // 
+            // 
+            // 
+            this.radLabelCarotidColor.RootElement.ForeColor = System.Drawing.Color.Black;
+            this.radLabelCarotidColor.Size = new System.Drawing.Size(68, 18);
+            this.radLabelCarotidColor.TabIndex = 15;
+            this.radLabelCarotidColor.Text = "carotidColor";
+            // 
+            // radLabel8
+            // 
+            this.radLabel8.Location = new System.Drawing.Point(316, 154);
+            this.radLabel8.Name = "radLabel8";
+            this.radLabel8.Size = new System.Drawing.Size(81, 18);
+            this.radLabel8.TabIndex = 14;
+            this.radLabel8.Text = "Carotid Quality";
+            // 
+            // radLabelCarotidMinimum
+            // 
+            this.radLabelCarotidMinimum.Location = new System.Drawing.Point(450, 88);
+            this.radLabelCarotidMinimum.Name = "radLabelCarotidMinimum";
+            this.radLabelCarotidMinimum.Size = new System.Drawing.Size(89, 18);
+            this.radLabelCarotidMinimum.TabIndex = 13;
+            this.radLabelCarotidMinimum.Text = "carotidMinimum";
+            // 
+            // radLabel10
+            // 
+            this.radLabel10.Location = new System.Drawing.Point(316, 88);
+            this.radLabel10.Name = "radLabel10";
+            this.radLabel10.Size = new System.Drawing.Size(94, 18);
+            this.radLabel10.TabIndex = 12;
+            this.radLabel10.Text = "Carotid Minimum";
+            // 
+            // radLabelCarotidMaximum
+            // 
+            this.radLabelCarotidMaximum.Location = new System.Drawing.Point(450, 37);
+            this.radLabelCarotidMaximum.Name = "radLabelCarotidMaximum";
+            this.radLabelCarotidMaximum.Size = new System.Drawing.Size(91, 18);
+            this.radLabelCarotidMaximum.TabIndex = 11;
+            this.radLabelCarotidMaximum.Text = "carotidMaximum";
+            // 
+            // radLabel12
+            // 
+            this.radLabel12.Location = new System.Drawing.Point(316, 37);
+            this.radLabel12.Name = "radLabel12";
+            this.radLabel12.Size = new System.Drawing.Size(96, 18);
+            this.radLabel12.TabIndex = 10;
+            this.radLabel12.Text = "Carotid Maximum";
+            // 
             // SimulatePWVCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(612, 426);
+            this.Controls.Add(this.radLabelCarotidEnable);
+            this.Controls.Add(this.radLabel6);
+            this.Controls.Add(this.radLabelCarotidColor);
+            this.Controls.Add(this.radLabel8);
+            this.Controls.Add(this.radLabelCarotidMinimum);
+            this.Controls.Add(this.radLabel10);
+            this.Controls.Add(this.radLabelCarotidMaximum);
+            this.Controls.Add(this.radLabel12);
             this.Controls.Add(this.radButtonPWVStop);
             this.Controls.Add(this.radButtonPWVCapture);
             this.Controls.Add(this.radLabelCountdownTimer);
@@ -172,6 +265,14 @@ namespace AtCor.Scor.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radLabelCountdownTimer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButtonPWVCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButtonPWVStop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelCarotidEnable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelCarotidColor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelCarotidMinimum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelCarotidMaximum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -191,6 +292,14 @@ namespace AtCor.Scor.Presentation
         private Telerik.WinControls.UI.RadButton radButtonPWVCapture;
         private Telerik.WinControls.UI.RadButton radButtonPWVStop;
         private System.Windows.Forms.Timer timer1;
+        private Telerik.WinControls.UI.RadLabel radLabelCarotidEnable;
+        private Telerik.WinControls.UI.RadLabel radLabel6;
+        private Telerik.WinControls.UI.RadLabel radLabelCarotidColor;
+        private Telerik.WinControls.UI.RadLabel radLabel8;
+        private Telerik.WinControls.UI.RadLabel radLabelCarotidMinimum;
+        private Telerik.WinControls.UI.RadLabel radLabel10;
+        private Telerik.WinControls.UI.RadLabel radLabelCarotidMaximum;
+        private Telerik.WinControls.UI.RadLabel radLabel12;
     }
 }
 

@@ -84,14 +84,14 @@ namespace TestBiz {
 			void BizCarotidQualityConstructorTest()
 			{
 				BizBuffer^  buffer = gcnew BizCircularBuffer(10);
-				BizTonometerDataEvent^  carotidData = gcnew BizTonometerDataEvent();
+				//BizTonometerDataEvent^  carotidData = gcnew BizTonometerDataEvent();
 				unsigned short sampleRate = DEFAULT_SAMPLE_RATE;
-				BizCarotidQuality^  target = (gcnew BizCarotidQuality(buffer, carotidData, sampleRate));
+				BizCarotidQuality^  target = (gcnew BizCarotidQuality(buffer, sampleRate));
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 				Assert::AreEqual(buffer, accessor->GetProperty("buffer"));
-				Assert::AreEqual(carotidData, accessor->GetProperty("carotidData"));
+				//Assert::AreEqual(carotidData, accessor->GetProperty("carotidData"));
 				Assert::AreEqual(sampleRate, accessor->GetProperty("sampleRate"));
-				Assert::IsNotNull(target->carotidQualityBiz);
+				//Assert::IsNotNull(target->carotidQualityBiz);
 			}
 			/// <summary>
 			///A test for Reset
@@ -100,9 +100,9 @@ namespace TestBiz {
 			void ResetTest()
 			{
 				BizBuffer^  buffer = gcnew BizCircularBuffer(10);
-				BizTonometerDataEvent^  carotidData = gcnew BizTonometerDataEvent();
+				//BizTonometerDataEvent^  carotidData = gcnew BizTonometerDataEvent();
 				unsigned short sampleRate = DEFAULT_SAMPLE_RATE;
-				BizCarotidQuality^  target = (gcnew BizCarotidQuality(buffer, carotidData, sampleRate));
+				BizCarotidQuality^  target = (gcnew BizCarotidQuality(buffer, sampleRate));
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 				target->Reset();
 				Assert::AreEqual((unsigned short) 0, (unsigned short) accessor->GetProperty("counter"));
@@ -116,9 +116,9 @@ namespace TestBiz {
 			{
 				unsigned int bufferSize = Convert::ToInt32(testContextInstance->DataRow[L"BufferSize"]);
 				BizBuffer^  buffer = gcnew BizCircularBuffer(bufferSize);
-				BizTonometerDataEvent^  carotidData = gcnew BizTonometerDataEvent();
+				//BizTonometerDataEvent^  carotidData = gcnew BizTonometerDataEvent();
 				unsigned short sampleRate = 1;
-				BizCarotidQuality^  target = (gcnew BizCarotidQuality(buffer, carotidData, sampleRate));
+				BizCarotidQuality^  target = (gcnew BizCarotidQuality(buffer, sampleRate));
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 				PrivateObject^ bufferAccessor = gcnew PrivateObject(buffer);
 				unsigned short startIndex = Convert::ToUInt16(testContextInstance->DataRow[L"StartIndex"]);
@@ -134,7 +134,8 @@ namespace TestBiz {
 				String^ signalStrengthColor = Convert::ToString(testContextInstance->DataRow[L"signalStrengthColorExpected"]);
 				bool enableOkayButtonExpected = Convert::ToBoolean(testContextInstance->DataRow[L"EnableOkayButtonExpected"]);
 				Color signalStrengthColorExpected = Color( Color::FromName( signalStrengthColor ) );
-				target->carotidQualityBiz->CarotidQualityEvent += gcnew BizCarotidQualityEvent::BizCarotidQualityEventHandler( this, &BizCarotidQualityTest::Update );
+				//target->carotidQualityBiz->CarotidQualityEvent += gcnew BizCarotidQualityEvent::BizCarotidQualityEventHandler( this, &BizCarotidQualityTest::Update );
+				BizEventContainer::Instance->OnBizCarotidQualityEvent += gcnew BizCarotidQualityEventHandler(this, &BizCarotidQualityTest::Update);
 				unsigned short data = 0;
 				BizTonometerDataEventArgs^  e = gcnew BizTonometerDataEventArgs( data );
 				accessor->Invoke("Update", this, e);
@@ -143,7 +144,8 @@ namespace TestBiz {
 				Assert::AreEqual(signalStrengthColorExpected, signalStrengthColorActual);
 				Assert::AreEqual(enableOkayButtonExpected, enableOkayButtonActual);
 				// remove the handler
-				target->carotidQualityBiz->CarotidQualityEvent -= gcnew BizCarotidQualityEvent::BizCarotidQualityEventHandler( this, &BizCarotidQualityTest::Update );
+				//target->carotidQualityBiz->CarotidQualityEvent -= gcnew BizCarotidQualityEvent::BizCarotidQualityEventHandler( this, &BizCarotidQualityTest::Update );
+				BizEventContainer::Instance->OnBizCarotidQualityEvent -= gcnew BizCarotidQualityEventHandler(this, &BizCarotidQualityTest::Update);
 			}
 	};
 }

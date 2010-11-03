@@ -80,6 +80,9 @@ namespace AtCor.Scor.Presentation
             // tonometerData.TonometerDataEvent += new EventHandler<BizTonometerDataEventArgs>(UpdateTonoData);
             BizEventContainer.Instance.OnBizTonometerDataEvent += new BizTonometerDataEventHandler(UpdateTonoData);
 
+            // Attach the handler to observe carotid quality event from Biz
+            BizEventContainer.Instance.OnBizCarotidQualityEvent += new BizCarotidQualityEventHandler(UpdateCarotidQuality);
+            
             // Attach the handler to observe cuff pulse event from Biz
             cuffPulse.CuffPulseEvent += new BizCuffPulseEvent.BizCuffPulseEventHandler(UpdateCuffPulse);
 
@@ -99,6 +102,15 @@ namespace AtCor.Scor.Presentation
             int data = e.data;
             //            listBoxTonoData.Items.Add(data.ToString());
             radLabelTonoData.Text = data.ToString();
+        }
+
+        private void UpdateCarotidQuality(Object sender, BizCarotidQualityEventArgs e)
+        {
+            radLabelCarotidMinimum.Text = e.signalMinimum.ToString();
+            radLabelCarotidMaximum.Text = e.signalMaximum.ToString();
+            radLabelCarotidColor.Text = e.signalStrengthColor.ToString();
+            radLabelCarotidColor.ForeColor = e.signalStrengthColor;
+            radLabelCarotidEnable.Text = e.enableOkayButton.ToString();
         }
 
         private void UpdateCuffPulse(Object sender, BizCuffPulseEventArgs e)

@@ -30,13 +30,13 @@ protected:
 public ref class BizCarotidQuality : BizQuality
 {
 public:
-	BizCarotidQuality(BizBuffer^ buffer, BizTonometerDataEvent^ carotidData, unsigned short sampleRate);
+	BizCarotidQuality(BizBuffer^ buffer, unsigned short sampleRate);
 	virtual void Reset() override;
-	property BizCarotidQualityEvent^ carotidQualityBiz; // Quality data to be dispatched
+	//property BizCarotidQualityEvent^ carotidQualityBiz; // Quality data to be dispatched
 
 private:
 	void Update(Object^ sender, BizTonometerDataEventArgs^ e);
-	property BizTonometerDataEvent^ carotidData;		// To observe tonometer data from Biz
+	//property BizTonometerDataEvent^ carotidData;		// To observe tonometer data from Biz
 	property unsigned short counter;					// To keep track of when to dispatch quality data
 };
 

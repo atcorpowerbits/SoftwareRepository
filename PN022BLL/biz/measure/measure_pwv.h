@@ -15,6 +15,7 @@
 #include <biz.h>
 #include <signal.h>
 #include <cuff.h>
+#include <quality.h>
 
 using namespace System;
 using namespace DAL_NAMESPACE;
@@ -86,6 +87,7 @@ public:
 	property BizCuffPulseCapture^ cuffPulseObserver;
 	property BizCountdownTimerCapture^ countdownTimerObserver;
 	property BizCuff^ cuffObserver;
+	property BizQuality^ carotidQualityObserver;
 
 	property BizSignal^ carotidSignal;				// Carotid Tonometer signal
 	property BizSignal^ femoralSignal;				// Femoral Cuff signal

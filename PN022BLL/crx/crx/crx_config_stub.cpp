@@ -55,7 +55,7 @@ RETURN
 CrxConfigFacade::CrxConfigFacade(void)
 {
 	PWVSubtractingMethod = true;
-	PWVCaptureTime = 20; // stub to 20 sec
+	PWVCaptureTime = 5; // stub to 5 sec
 }
 /** 
 isPWVSubtractingMethod

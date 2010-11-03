@@ -25,7 +25,7 @@ namespace DataAccess{
 		static const unsigned int CONFIG_MODULE_CALIBRATION_DATE = 5;
 
 		static const unsigned int DATA_SAMPLING_INTERVAL = 4; // in msec
-		static const unsigned int SIMULATION_TIMER_INTERVAL = 300; // in msec
+		static const unsigned int SIMULATION_TIMER_INTERVAL = 4; // in msec
 
 		static const unsigned int CUFF_STATE_DISCONNECTED = 1;
 		static const unsigned int CUFF_STATE_DEFLATED = 2;

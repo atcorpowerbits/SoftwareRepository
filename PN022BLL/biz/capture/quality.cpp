@@ -26,7 +26,6 @@ DESCRIPTION
 INPUT
 
 	buffer,
-	carotidData,
 	sampleRate. 
 
 OUTPUT
@@ -38,17 +37,18 @@ RETURN
 	None.
 
 */		
-BizCarotidQuality::BizCarotidQuality(BizBuffer^ buffer, BizTonometerDataEvent^ carotidData, unsigned short sampleRate)
+BizCarotidQuality::BizCarotidQuality(BizBuffer^ buffer, unsigned short sampleRate)
 {
 	this->buffer = buffer;
-	this->carotidData = carotidData;
+	//this->carotidData = carotidData;
 	this->sampleRate = sampleRate;
 
 	// Create a tonometer business data subject
-	carotidQualityBiz = gcnew BizCarotidQualityEvent;
+	//carotidQualityBiz = gcnew BizCarotidQualityEvent;
 
 	// Attach the handler to observe tonometer data event from Biz
-	carotidData->TonometerDataEvent += gcnew BizTonometerDataEvent::BizTonometerDataEventHandler( this, &BizCarotidQuality::Update);  
+	//carotidData->TonometerDataEvent += gcnew BizTonometerDataEvent::BizTonometerDataEventHandler( this, &BizCarotidQuality::Update);  
+	BizEventContainer::Instance->OnBizTonometerDataEvent += gcnew BizTonometerDataEventHandler(this, &BizCarotidQuality::Update);
 
 	Reset();
 }
@@ -95,19 +95,32 @@ void BizCarotidQuality::Update( Object^ sender, BizTonometerDataEventArgs^ e )
 	Color signalStrengthColor = Color( Color::Red );
 	bool enableOkayButton = false;
 	
+	// Update the counter first so we ignore the first sample
 	counter++;
+	
+	// Calculate the quality every second. There's no need to update every sample
 	counter %= QUALITY_UPDATE_INTERVAL * sampleRate;
 	if ( counter == 0 )
 	{
+		// Read the carotid signal buffer 
 		buffer->ReadBuffer( signal, bufferSize, startIndex, endIndex );
+		
+		// If the buffer is not full, calculate up to the last sample
 		if ( startIndex != endIndex )
 		{
 			bufferSize = endIndex;
 		}
+		
+		// Calculate the range
 		BizMath::MinimumMaximumInArray( signal, bufferSize, signalMinimum, signalMaximum );
 		signalHeight = signalMaximum - signalMinimum;
+		
+		// If the minimum is below the baseline, the signal is not valid (the tonometer may -
+		// have been disconnected) so the Okay button shall remain disabled and the quality -
+		// indicator Red
 		if ( signalMinimum > MINIMUM_TONOMETER_BASELINE )
 		{
+			// Determine the quality indicator colour
 			if ( signalHeight >= TONOMETER_SIGNAL_STRENGTH_GOOD )
 			{
 				signalStrengthColor = Color( Color::Green );
@@ -116,13 +129,16 @@ void BizCarotidQuality::Update( Object^ sender, BizTonometerDataEventArgs^ e )
 			{
 				signalStrengthColor = Color( Color::Yellow );
 			}
+			
+			// Enable the Okay button if the buffer is full and the range is above the minimum
 			if ( startIndex == endIndex && 
 				signalHeight > MINIMUM_TONOMETER_SIGNAL_STRENGTH )
 			{
 				enableOkayButton = true;
 			}
 		}
-		carotidQualityBiz->Notify( signalMinimum, signalMaximum, signalStrengthColor, enableOkayButton );
+		//carotidQualityBiz->Notify( signalMinimum, signalMaximum, signalStrengthColor, enableOkayButton );
+		BizEventContainer::Instance->OnBizCarotidQualityEvent(this, gcnew BizCarotidQualityEventArgs( signalMinimum, signalMaximum, signalStrengthColor, enableOkayButton ));
 	}
 }
 

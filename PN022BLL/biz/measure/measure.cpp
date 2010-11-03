@@ -89,8 +89,8 @@ void BizMeasure::Initialise()
 	//myBP->MP = DEFAULT_VALUE;
 	//myBP->DP = DEFAULT_VALUE;
 
-	captureTime = DEFAULT_CAPTURE_TIME;
-	sampleRate = DEFAULT_SAMPLE_RATE;  
+	captureTime = CrxConfigFacade::Instance()->GetCaptureTime(); // DEFAULT_CAPTURE_TIME
+	sampleRate = 1024 / DalConstants::DATA_SAMPLING_INTERVAL; //DEFAULT_SAMPLE_RATE;  
 	
 	simulation = false;
 
