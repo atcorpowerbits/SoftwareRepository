@@ -291,6 +291,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\biz_constants.h"
+				>
+			</File>
+			<File
 				RelativePath=".\biz_namespace.h"
 				>
 			</File>

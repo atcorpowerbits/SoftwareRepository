@@ -81,13 +81,13 @@ void BizMeasure::Initialise()
 	operatorId = "";       
 	interpretation = ""; 
 
-	//myHeight->Height = DEFAULT_VALUE; 
-	//myWeight->Weight = DEFAULT_VALUE; 
-	bodyMassIndex = DEFAULT_VALUE;    
+	//myHeight->Height = BizConstants::DEFAULT_VALUE; 
+	//myWeight->Weight = BizConstants::DEFAULT_VALUE; 
+	bodyMassIndex = BizConstants::DEFAULT_VALUE;    
 
-	//myBP->SP = DEFAULT_VALUE;
-	//myBP->MP = DEFAULT_VALUE;
-	//myBP->DP = DEFAULT_VALUE;
+	//myBP->SP = BizConstants::DEFAULT_VALUE;
+	//myBP->MP = BizConstants::DEFAULT_VALUE;
+	//myBP->DP = BizConstants::DEFAULT_VALUE;
 
 	captureTime = CrxConfigFacade::Instance()->GetCaptureTime(); // DEFAULT_CAPTURE_TIME
 	sampleRate = 1024 / DalConstants::DATA_SAMPLING_INTERVAL; //DEFAULT_SAMPLE_RATE;  

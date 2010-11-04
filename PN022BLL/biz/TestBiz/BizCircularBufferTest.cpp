@@ -215,7 +215,7 @@ public: [TestMethod]
 			unsigned short endIndex = 0; 
 			unsigned short data = 5;
 			target->Append(data);
-			target->ReadBuffer(buffer, bufferSize, startIndex, endIndex);
+			buffer = target->ReadBuffer( bufferSize, startIndex, endIndex );
 			Assert::AreEqual(buffer[0], data);
 			Assert::AreEqual(bufferSizeExpected, bufferSize);
 			Assert::AreEqual(startIndexExpected, startIndex);

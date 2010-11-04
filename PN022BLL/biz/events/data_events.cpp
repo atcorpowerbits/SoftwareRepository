@@ -153,7 +153,7 @@ RETURN
 	None.
 
 */
-void BizCarotidQualityEvent::Notify( unsigned short signalMinimum, unsigned short signalMaximum, Color signalStrengthColor, bool enableOkayButton )
+/*void BizCarotidQualityEvent::Notify( unsigned short signalMinimum, unsigned short signalMaximum, Color signalStrengthColor, bool enableOkayButton )
 {
 	BizCarotidQualityEventArgs^ carotidArgs = gcnew BizCarotidQualityEventArgs( signalMinimum, signalMaximum, signalStrengthColor, enableOkayButton);
 
@@ -161,4 +161,4 @@ void BizCarotidQualityEvent::Notify( unsigned short signalMinimum, unsigned shor
 	// the object that initated the event (this) as well as data args. 
 	// The call must match the signature of the handler.
 	CarotidQualityEvent( this, carotidArgs );
-}
+}*/

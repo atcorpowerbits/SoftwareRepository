@@ -202,23 +202,21 @@ INPUT
 
 OUTPUT
 
-	buffer - reference to the buffer array,
 	bufferSize - reference to the size of the array,
 	startIndex - reference to the start of the array,
 	endIndex - reference to the end of the array.
 
 RETURN
 
-	None.
+	buffer - reference to the buffer array.
 
 */
-void BizCircularBuffer::ReadBuffer(array<unsigned short>^% buffer, 
-									unsigned int% bufferSize,
+array<unsigned short>^ BizCircularBuffer::ReadBuffer(unsigned int% bufferSize,
 									unsigned short% startIndex,
 									unsigned short% endIndex)
 {
-	buffer = _buffer;
 	bufferSize = this->bufferSize;
 	startIndex = _startIndex;
 	endIndex = _endIndex;
+	return _buffer;
 }

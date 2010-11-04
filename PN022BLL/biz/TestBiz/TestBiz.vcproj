@@ -194,12 +194,12 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3951.19988, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.3951.19988, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName="dal, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
@@ -220,10 +220,6 @@
 			</File>
 			<File
 				RelativePath=".\BizCarotidDistanceTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\BizCarotidQualityEventTest.cpp"
 				>
 			</File>
 			<File

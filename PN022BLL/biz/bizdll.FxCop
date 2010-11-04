@@ -62,101 +62,126 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="ReadBuffer(System.UInt16[]&amp;,System.UInt32&amp;,System.UInt16&amp;,System.UInt16&amp;):System.Void">
-            <Messages>
-             <Message Id="0#" TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045" Created="2010-10-29 02:05:19Z">
-              <Issue Level="CriticalWarning">
-               <Item>buffer</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
           </Members>
          </Type>
          <Type Name="BizCapture">
           <Members>
            <Member Name="buffer">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>buffer</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
           </Members>
-         </Type>
-         <Type Name="BizCarotidQualityEvent">
-          <Members>
-           <Member Name="Notify(System.UInt16,System.Drawing.Color,System.Boolean):System.Void">
-            <Messages>
-             <Message Id="1#Color" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Parameter">
-               <Item>BizCarotidQualityEvent.Notify(UInt16, Color, Boolean):Void</Item>
-               <Item>Color</Item>
-               <Item>signalStrengthColor</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="BizCarotidQualityEvent+BizCarotidQualityEventHandler">
-          <Messages>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-10-29 02:05:19Z">
-            <Issue>
-             <Item>AtCor.Scor.BusinessLogic.BizCarotidQualityEvent+BizCarotidQualityEventHandler</Item>
-            </Issue>
-           </Message>
-          </Messages>
          </Type>
          <Type Name="BizCarotidQualityEventArgs">
           <Members>
-           <Member Name=".ctor(System.UInt16,System.Drawing.Color,System.Boolean)">
+           <Member Name=".ctor(System.UInt16,System.UInt16,System.Drawing.Color,System.Boolean)">
             <Messages>
-             <Message Id="1#Color" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-29 02:05:19Z">
+             <Message Id="2#Color" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-11-03 04:10:59Z">
               <Issue Name="Parameter">
-               <Item>BizCarotidQualityEventArgs.BizCarotidQualityEventArgs(UInt16, Color, Boolean)</Item>
+               <Item>BizCarotidQualityEventArgs.BizCarotidQualityEventArgs(UInt16, UInt16, Color, Boolean)</Item>
                <Item>Color</Item>
                <Item>signalStrengthColor</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="4" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="enableOkayButton">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>enableOkayButton</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
-           <Member Name="signalStrength">
+           <Member Name="signalMaximum">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-03 04:10:59Z">
               <Issue Name="Member">
-               <Item>signalStrength</Item>
+               <Item>signalMaximum</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="signalMinimum">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue Name="Member">
+               <Item>signalMinimum</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="signalStrengthColor">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>signalStrengthColor</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
-             <Message Id="Color" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-29 02:05:19Z">
+             <Message Id="Color" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>Color</Item>
                <Item>BizCarotidQualityEventArgs.signalStrengthColor:Color</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="4" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
           </Members>
+         </Type>
+         <Type Name="BizCarotidQualityEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-11-03 04:10:59Z">
+            <Issue>
+             <Item>AtCor.Scor.BusinessLogic.BizCarotidQualityEventHandler</Item>
+            </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="10" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
          </Type>
          <Type Name="BizCircularBuffer">
           <Members>
@@ -180,10 +205,15 @@
           <Members>
            <Member Name="countdownTimerBiz">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>countdownTimerBiz</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -191,10 +221,15 @@
          </Type>
          <Type Name="BizCountdownTimerEvent+BizCountdownTimerEventHandler">
           <Messages>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-10-29 02:05:19Z">
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue>
              <Item>AtCor.Scor.BusinessLogic.BizCountdownTimerEvent+BizCountdownTimerEventHandler</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="10" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
          </Type>
@@ -202,10 +237,15 @@
           <Members>
            <Member Name="data">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>data</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -215,28 +255,43 @@
           <Members>
            <Member Name="cuffStateBiz">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>cuffStateBiz</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="currentState">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>currentState</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="previousState">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>previousState</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -262,10 +317,15 @@
          </Type>
          <Type Name="BizCuffPulseEvent+BizCuffPulseEventHandler">
           <Messages>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-10-29 02:05:19Z">
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue>
              <Item>AtCor.Scor.BusinessLogic.BizCuffPulseEvent+BizCuffPulseEventHandler</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="10" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
          </Type>
@@ -291,10 +351,15 @@
           <Members>
            <Member Name="internalName">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>internalName</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -302,10 +367,15 @@
          </Type>
          <Type Name="BizCuffStateEvent+BizCuffStateEventHandler">
           <Messages>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-10-29 02:05:19Z">
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue>
              <Item>AtCor.Scor.BusinessLogic.BizCuffStateEvent+BizCuffStateEventHandler</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="10" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
          </Type>
@@ -313,10 +383,15 @@
           <Members>
            <Member Name="data">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>data</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -326,37 +401,57 @@
           <Members>
            <Member Name="correctedTime">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>correctedTime</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="deltaTime">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>deltaTime</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="isValid">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>isValid</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="pulseWaveVelocity">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>pulseWaveVelocity</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -366,10 +461,15 @@
           <Members>
            <Member Name="distance">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>distance</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -377,24 +477,6 @@
          </Type>
          <Type Name="BizFacade">
           <Members>
-           <Member Name="CalculateReport():System.Boolean">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizFacade.CalculateReport():Boolean</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="Dispatch():System.Void">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizFacade.Dispatch():Void</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="FindBizInfo():AtCor.Scor.BusinessLogic.BizInfo">
             <Messages>
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
@@ -431,21 +513,6 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="FindTonometerDataEvent():AtCor.Scor.BusinessLogic.BizTonometerDataEvent">
-            <Messages>
-             <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>Tonometer</Item>
-               <Item>BizFacade.FindTonometerDataEvent():BizTonometerDataEvent</Item>
-              </Issue>
-             </Message>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizFacade.FindTonometerDataEvent():BizTonometerDataEvent</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="SimulateCaptureData():System.Void">
             <Messages>
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
@@ -460,24 +527,6 @@
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
               <Issue>
                <Item>BizFacade.SimulateCaptureOneShot():Void</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="StartCapture():System.Boolean">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizFacade.StartCapture():Boolean</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="StopCapture():System.Boolean">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizFacade.StopCapture():Boolean</Item>
               </Issue>
              </Message>
             </Messages>
@@ -539,16 +588,11 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="GetModuleConfigID():System.UInt16">
+           <Member Name="GetModuleConfigId():System.UInt16">
             <Messages>
-             <Message Id="Member" TypeName="ShortAcronymsShouldBeUppercase" Category="Microsoft.Naming" CheckId="CA1706" Created="2010-10-29 02:05:19Z">
-              <Issue Name="MemberId">
-               <Item>BizInfo.GetModuleConfigID():UInt16</Item>
-              </Issue>
-             </Message>
-             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-10-29 02:05:19Z">
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2010-11-03 05:57:14Z">
               <Issue>
-               <Item>GetModuleConfigID</Item>
+               <Item>GetModuleConfigId</Item>
               </Issue>
              </Message>
             </Messages>
@@ -602,56 +646,81 @@
          </Type>
          <Type Name="BizMath">
           <Messages>
-           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Created="2010-10-29 02:05:19Z">
+           <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue>
              <Item>BizMath</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="9" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
           <Members>
            <Member Name="IndexOfExtremum(System.optional(IsConst) Single[],System.UInt16,System.UInt16,System.Single,System.UInt16&amp;):System.Boolean">
             <Messages>
-             <Message Id="Extremum" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-29 02:05:19Z">
+             <Message Id="Extremum" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>Extremum</Item>
                <Item>BizMath.IndexOfExtremum(optional(IsConst) Single[], UInt16, UInt16, Single, UInt16&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="5" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="MaximumInArrayIndex(System.optional(IsConst) Single[],System.UInt16,System.UInt16&amp;):System.Boolean">
             <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-10-29 02:05:19Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue>
                <Item>'input'</Item>
                <Item>BizMath.MaximumInArrayIndex(optional(IsConst) Single[], UInt16, UInt16&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="11" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="MinimumInArray(System.optional(IsConst) Single[],System.UInt16,System.Single&amp;):System.Boolean">
             <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-10-29 02:05:19Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue>
                <Item>'input'</Item>
                <Item>BizMath.MinimumInArray(optional(IsConst) Single[], UInt16, Single&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="11" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="SmoothArray(System.Single[],System.UInt16):System.Boolean">
             <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-10-29 02:05:19Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue>
                <Item>'input'</Item>
                <Item>BizMath.SmoothArray(Single[], UInt16):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="11" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="Spline(System.Single,System.optional(IsConst) Single[],System.Single&amp;):System.Boolean">
             <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-10-29 02:05:19Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue>
                <Item>'input'</Item>
                <Item>BizMath.Spline(Single, optional(IsConst) Single[], Single&amp;):Boolean</Item>
@@ -660,6 +729,11 @@
                <Item>'input'</Item>
                <Item>BizMath.Spline(Single, optional(IsConst) Single[], Single&amp;):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="11" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -669,172 +743,267 @@
           <Members>
            <Member Name="auditChange">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>auditChange</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="auditDateTime">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>auditDateTime</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="bodyMassIndex">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>bodyMassIndex</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="captureTime">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>captureTime</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="dataRevision">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>dataRevision</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="groupStudyId">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>groupStudyId</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="interpretation">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>interpretation</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="measurementDateTime">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>measurementDateTime</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="medication">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>medication</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="myBP">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>myBP</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="myHeight">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>myHeight</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="myWeight">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>myWeight</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="notes">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>notes</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="operatorId">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>operatorId</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="patientNumber">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>patientNumber</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="reasonForChange">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>reasonForChange</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="sampleRate">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>sampleRate</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="simulation">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>simulation</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="systemId">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>systemId</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -842,209 +1011,343 @@
          </Type>
          <Type Name="BizPWV">
           <Messages>
-           <Message TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Created="2010-10-29 02:05:19Z">
+           <Message TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue Name="Type">
              <Item>BizPWV</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="0" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
           <Members>
            <Member Name="calculatedDistance">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>calculatedDistance</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="carotidQualityObserver">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue Name="Member">
+               <Item>carotidQualityObserver</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="carotidSignal">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>carotidSignal</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="correctionTime">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>correctionTime</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="countdownTimerObserver">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>countdownTimerObserver</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="cuffObserver">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>cuffObserver</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="cuffPulseObserver">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>cuffPulseObserver</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="femoralSignal">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>femoralSignal</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="heartRate">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>heartRate</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="isCarotidSignalValid">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>isCarotidSignalValid</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="isFemoralSignalValid">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>isFemoralSignalValid</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="isStandardDeviationValid">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>isStandardDeviationValid</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="meanCorrectedTime">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>meanCorrectedTime</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="meanDeltaTime">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>meanDeltaTime</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="meanPulseWaveVelocity">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>meanPulseWaveVelocity</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="myCarotidDistance">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>myCarotidDistance</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="myCuffDistance">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>myCuffDistance</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="myFemoral2CuffDistance">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>myFemoral2CuffDistance</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="myPWVDirectDistance">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>myPWVDirectDistance</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
-             <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>BizPWV.myPWVDirectDistance:BizPWVDirectDistance</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="1" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="numberOfDeltas">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>numberOfDeltas</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="numberOfValidDeltas">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>numberOfValidDeltas</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="pulseWaveVelocity">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>pulseWaveVelocity</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
-             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-10-29 02:05:19Z">
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue>
                <Item>BizPWV.pulseWaveVelocity:BizDelta[]</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="6" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -1059,10 +1362,15 @@
            </Member>
            <Member Name="standardDeviation">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>standardDeviation</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -1123,10 +1431,15 @@
            </Member>
            <Member Name="ValidatePWVDistance():System.Boolean">
             <Messages>
-             <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>BizPWV.ValidatePWVDistance():Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="1" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -1134,21 +1447,63 @@
          </Type>
          <Type Name="BizPWVDirectDistance">
           <Messages>
-           <Message TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Created="2010-10-29 02:05:19Z">
+           <Message TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue Name="Type">
              <Item>BizPWVDirectDistance</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="1" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
+         </Type>
+         <Type Name="BizQuality">
+          <Members>
+           <Member Name="buffer">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue Name="Member">
+               <Item>buffer</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="sampleRate">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue Name="Member">
+               <Item>sampleRate</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
          </Type>
          <Type Name="BizSession">
           <Members>
            <Member Name="measurement">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>measurement</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -1158,7 +1513,7 @@
           <Members>
            <Member Name="CaptureSignal(System.optional(IsConst) UInt16[],System.UInt16):System.Boolean">
             <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2010-10-29 02:05:19Z">
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue>
                <Item>'input'</Item>
                <Item>BizSignal.CaptureSignal(optional(IsConst) UInt16[], UInt16):Boolean</Item>
@@ -1167,129 +1522,209 @@
                <Item>'input'</Item>
                <Item>BizSignal.CaptureSignal(optional(IsConst) UInt16[], UInt16):Boolean</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="11" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="firstDerivative">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>firstDerivative</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
-             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-10-29 02:05:19Z">
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue>
                <Item>BizSignal.firstDerivative:Single[]</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="7" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="floatOnsets">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>floatOnsets</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
-             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-10-29 02:05:19Z">
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue>
                <Item>BizSignal.floatOnsets:Single[]</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="7" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="maximumOnsetsLength">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>maximumOnsetsLength</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="maximumSignalLength">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>maximumSignalLength</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="onsetsLength">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>onsetsLength</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="pulseBaselineVariation">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>pulseBaselineVariation</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="pulseHeight">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>pulseHeight</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="pulseHeightVariation">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>pulseHeightVariation</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="pulseLengthVariation">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>pulseLengthVariation</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="sampleRate">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>sampleRate</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="signal">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>signal</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
-             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2010-10-29 02:05:19Z">
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue>
                <Item>BizSignal.signal:UInt16[]</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="7" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
            <Member Name="signalLength">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>signalLength</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -1297,72 +1732,279 @@
          </Type>
          <Type Name="BizTonometerDataCapture">
           <Messages>
-           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-29 02:05:19Z">
+           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue Name="Type">
              <Item>Tonometer</Item>
              <Item>AtCor.Scor.BusinessLogic.BizTonometerDataCapture</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="3" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
-          <Members>
-           <Member Name="tonometerDataBiz">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>tonometerDataBiz</Item>
-              </Issue>
-             </Message>
-             <Message Id="tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>tonometer</Item>
-               <Item>BizTonometerDataCapture.tonometerDataBiz:BizTonometerDataEvent</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
          </Type>
          <Type Name="BizTonometerDataEvent">
           <Messages>
-           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-29 02:05:19Z">
+           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue Name="Type">
              <Item>Tonometer</Item>
              <Item>AtCor.Scor.BusinessLogic.BizTonometerDataEvent</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="3" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
          </Type>
          <Type Name="BizTonometerDataEvent+BizTonometerDataEventHandler">
           <Messages>
-           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-29 02:05:19Z">
+           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue Name="Type">
              <Item>Tonometer</Item>
              <Item>AtCor.Scor.BusinessLogic.BizTonometerDataEvent+BizTonometerDataEventHandler</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="3" />
+             </User>
+            </Notes>
            </Message>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Created="2010-10-29 02:05:19Z">
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue>
              <Item>AtCor.Scor.BusinessLogic.BizTonometerDataEvent+BizTonometerDataEventHandler</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="10" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
          </Type>
          <Type Name="BizTonometerDataEventArgs">
           <Messages>
-           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2010-10-29 02:05:19Z">
+           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-29 02:05:19Z">
             <Issue Name="Type">
              <Item>Tonometer</Item>
              <Item>AtCor.Scor.BusinessLogic.BizTonometerDataEventArgs</Item>
             </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="3" />
+             </User>
+            </Notes>
            </Message>
           </Messages>
           <Members>
            <Member Name="data">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>data</Item>
               </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizTonometerDataEventHandler">
+          <Messages>
+           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-11-03 04:10:59Z">
+            <Issue Name="Type">
+             <Item>Tonometer</Item>
+             <Item>AtCor.Scor.BusinessLogic.BizTonometerDataEventHandler</Item>
+            </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="3" />
+             </User>
+            </Notes>
+           </Message>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-11-03 04:10:59Z">
+            <Issue>
+             <Item>AtCor.Scor.BusinessLogic.BizTonometerDataEventHandler</Item>
+            </Issue>
+            <Notes>
+             <User Name="paul">
+              <Note Id="10" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="msclr">
+        <Types>
+         <Type Name="lock">
+          <Members>
+           <Member Name=".ctor(AtCor.Scor.BusinessLogic.BizEventContainer)">
+            <Messages>
+             <Message TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue>
+               <Item>lock.lock(BizEventContainer)</Item>
+               <Item>m_locked</Item>
+               <Item>System.Boolean</Item>
+               <Item>false</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="_Diagnostic" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue>
+               <Item>lock.lock(BizEventContainer)</Item>
+               <Item>_Diagnostic</Item>
+               <Item>System.Int32</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="acquire():System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue>
+               <Item>lock.acquire():Void</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="System.ApplicationException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue>
+               <Item>lock.acquire():Void</Item>
+               <Item>1</Item>
+               <Item>ApplicationException.ApplicationException(String)</Item>
+               <Item>lock timeout</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue Name="TooGeneric">
+               <Item>lock.acquire():Void</Item>
+               <Item>System.ApplicationException</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="acquire(System.Int32):System.Void">
+            <Messages>
+             <Message Id="System.ApplicationException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue>
+               <Item>lock.acquire(Int32):Void</Item>
+               <Item>1</Item>
+               <Item>ApplicationException.ApplicationException(String)</Item>
+               <Item>lock timeout</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue Name="TooGeneric">
+               <Item>lock.acquire(Int32):Void</Item>
+               <Item>System.ApplicationException</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="acquire(System.TimeSpan):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue>
+               <Item>lock.acquire(TimeSpan):Void</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+             <Message Id="System.ApplicationException.#ctor(System.String)" TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue>
+               <Item>lock.acquire(TimeSpan):Void</Item>
+               <Item>1</Item>
+               <Item>ApplicationException.ApplicationException(String)</Item>
+               <Item>lock timeout</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue Name="TooGeneric">
+               <Item>lock.acquire(TimeSpan):Void</Item>
+               <Item>System.ApplicationException</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="try_acquire(System.Int32):System.Boolean">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue>
+               <Item>lock.try_acquire(Int32):Boolean</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="try_acquire(System.TimeSpan):System.Boolean">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Excluded" Created="2010-11-03 04:10:59Z">
+              <Issue>
+               <Item>lock.try_acquire(TimeSpan):Boolean</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="8" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -1376,6 +2018,20 @@
    </Target>
   </Targets>
   <Notes>
+   <User Name="paul">
+    <Note Id="0" Modified="2010-11-03 04:13:07Z">The acronym PWV is acceptable</Note>
+    <Note Id="1" Modified="2010-11-03 04:13:29Z">The acronym PWV is acceptable</Note>
+    <Note Id="2" Modified="2010-11-03 05:33:43Z">This is a property not a method</Note>
+    <Note Id="3" Modified="2010-11-03 05:34:40Z">Tonometer is spelled correctly</Note>
+    <Note Id="4" Modified="2010-11-03 05:35:14Z">Color is spelt the US way</Note>
+    <Note Id="5" Modified="2010-11-03 05:35:24Z">Extremum is correctly spelled</Note>
+    <Note Id="6" Modified="2010-11-03 05:45:11Z">The set method is private to protect the array, which makes cloning the array unnecessary and maintains efficiency.</Note>
+    <Note Id="7" Modified="2010-11-03 05:45:19Z">The set method is private to protect the array, which makes cloning the array unnecessary and maintains efficiency.</Note>
+    <Note Id="8" Modified="2010-11-03 05:46:33Z">This is not our code</Note>
+    <Note Id="9" Modified="2010-11-03 05:50:04Z">Added an empty private constructor is not necessary</Note>
+    <Note Id="10" Modified="2010-11-03 05:55:40Z">Could not compile EventHandler in C++ so using delegates instead</Note>
+    <Note Id="11" Modified="2010-11-03 05:56:17Z">input is validated in the ValidateArray function</Note>
+   </User>
    <User Name="victora">
     <Note Id="0" Modified="2010-10-29 03:47:21Z">not a method but a property</Note>
     <Note Id="1" Modified="2010-10-29 03:47:30Z">not a method but a property</Note>
@@ -1386,6 +2042,9 @@
    </User>
   </Notes>
   <Rules>
+   <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+    <Resolution Name="Default">'{0}' appears to have no upstream public or protected callers.</Resolution>
+   </Rule>
    <Rule TypeName="CatchNonClsCompliantExceptionsInGeneralHandlers" Category="Microsoft.Security" CheckId="CA2102">
     <Resolution Name="Default">{0} is defined in an assembly that is not marked RuntimeCompatibility(WrapNonExceptionThrows = true) and defines a catch(Exception) handler that is not matched with a generic catch clause (catch{{}} in C#, catch(System::Object*){{}} in mc++) for non-CLSCompliant exceptions. Either mark the assembly as RuntimeCompatibility(WrapNonExceptionThrows = true), eliminate the catch(Exception) clause by catching a specific set of Exceptions or add a generic catch handler that duplicates the code contained within the catch(Exception) handler.</Resolution>
    </Rule>
@@ -1395,8 +2054,17 @@
    <Rule TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031">
     <Resolution Name="Default">Modify '{0}' to catch a more specific exception than '{1}' or rethrow the exception.</Resolution>
    </Rule>
+   <Rule TypeName="DoNotInitializeUnnecessarily" Category="Microsoft.Performance" CheckId="CA1805">
+    <Resolution Name="Default">{0} initializes field {1} of type {2} to {3}. Remove this initialization as it will be done automatically by the runtime.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotPassLiteralsAsLocalizedParameters" Category="Microsoft.Globalization" CheckId="CA1303">
+    <Resolution Name="Default">{0} passes a literal as parameter {1} of a call to {2}. Retrieve the following string argument from a resource table instead: '{3}'</Resolution>
+   </Rule>
    <Rule TypeName="DoNotPassTypesByReference" Category="Microsoft.Design" CheckId="CA1045">
     <Resolution Name="Default">Consider a design that does not require that '{0}' be a reference parameter.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201">
+    <Resolution Name="TooGeneric">{0} creates an exception of type '{1}', an exception type that is not sufficiently specific and should never be raised by user code. If this exception instance might be thrown, use a different exception type.</Resolution>
    </Rule>
    <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
     <Resolution Name="Member">Correct the casing of member name '{0}'.</Resolution>
@@ -1416,8 +2084,8 @@
    <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
     <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>
    </Rule>
-   <Rule TypeName="ShortAcronymsShouldBeUppercase" Category="Microsoft.Naming" CheckId="CA1706">
-    <Resolution Name="MemberId">'Id' is an abbreviation and therefore is not subject to acronym casing guidelines. Correct the capitalization of 'ID' in member name '{0}' by changing it to 'Id'.</Resolution>
+   <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
+    <Resolution Name="Default">{0} declares a local, '{1}', of type {2}, which is never used or is only assigned to. Use this local or remove it.</Resolution>
    </Rule>
    <Rule TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053">
     <Resolution Name="Default">Remove the public constructors from '{0}'.</Resolution>

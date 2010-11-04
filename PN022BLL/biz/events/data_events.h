@@ -159,7 +159,7 @@ public:
    property bool enableOkayButton;			// Can the user calculate a report or not
 };
 
-// Class with a function that creates the eventargs and initiates the event
+/* Class with a function that creates the eventargs and initiates the event
 public ref class BizCarotidQualityEvent
 {
 public:
@@ -170,21 +170,21 @@ public:
 
    // Now, create a public event whose type is our handler delegate. 
    event BizCarotidQualityEventHandler^ CarotidQualityEvent;
-   /* FxCop suggested to use EventHandler<T> to replace above above but it didn't comiple as explained above.
-   event EventHandler<BizTonometerDataEventArgs^>^ TonometerDataEvent;
-   */
+   // FxCop suggested to use EventHandler<T> to replace above above but it didn't comiple as explained above.
+   //event EventHandler<BizTonometerDataEventArgs^>^ TonometerDataEvent;
+   
 
    // This will be the starting point of our event-- it will create data args,
    // and then raise the event, passing the args. 
    void Notify( unsigned short signalMinimum, unsigned short signalMaximum, Color signalStrengthColor, bool enableOkayButton );
 
-};
+};*/
 
 // Delegate for tonometer data event
-public delegate void BizTonometerDataEventHandler(Object^ sender, BizTonometerDataEventArgs ^ args);
+public delegate void BizTonometerDataEventHandler(Object^ sender, BizTonometerDataEventArgs ^ e);
 
 // Delegate for carotid quality event
-public delegate void BizCarotidQualityEventHandler(Object^ sender, BizCarotidQualityEventArgs ^ args);
+public delegate void BizCarotidQualityEventHandler(Object^ sender, BizCarotidQualityEventArgs ^ e);
 
 // Container for all BizXXXEvent handlers
 public ref class BizEventContainer
@@ -192,8 +192,8 @@ public ref class BizEventContainer
 	private:
 		static BizEventContainer^ _instance = gcnew BizEventContainer();
 		BizEventContainer() {};
-		BizEventContainer(const BizEventContainer^) {};
-		BizEventContainer^ operator= (const BizEventContainer) { return this; };
+		//BizEventContainer(const BizEventContainer^) {};
+		//BizEventContainer^ operator= (const BizEventContainer) { return this; };
 
 		BizTonometerDataEventHandler^ _bizTonometerDataEventHandler;
 		BizCarotidQualityEventHandler^ _bizCarotidQualityEventHandler;
@@ -221,10 +221,10 @@ public ref class BizEventContainer
 				_bizTonometerDataEventHandler -= handler;
 			}
 
-			void raise(Object^ sender, BizTonometerDataEventArgs ^ args)
+			void raise(Object^ sender, BizTonometerDataEventArgs ^ e)
 			{
 				if(_bizTonometerDataEventHandler)
-					_bizTonometerDataEventHandler->Invoke(sender, args);
+					_bizTonometerDataEventHandler->Invoke(sender, e);
 			}
 		}
 
@@ -242,10 +242,10 @@ public ref class BizEventContainer
 				_bizCarotidQualityEventHandler -= handler;
 			}
 
-			void raise(Object^ sender, BizCarotidQualityEventArgs ^ args)
+			void raise(Object^ sender, BizCarotidQualityEventArgs ^ e)
 			{
 				if(_bizCarotidQualityEventHandler)
-					_bizCarotidQualityEventHandler->Invoke(sender, args);
+					_bizCarotidQualityEventHandler->Invoke(sender, e);
 			}
 		}
 };

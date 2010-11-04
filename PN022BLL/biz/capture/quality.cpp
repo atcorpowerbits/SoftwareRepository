@@ -50,7 +50,7 @@ BizCarotidQuality::BizCarotidQuality(BizBuffer^ buffer, unsigned short sampleRat
 	//carotidData->TonometerDataEvent += gcnew BizTonometerDataEvent::BizTonometerDataEventHandler( this, &BizCarotidQuality::Update);  
 	BizEventContainer::Instance->OnBizTonometerDataEvent += gcnew BizTonometerDataEventHandler(this, &BizCarotidQuality::Update);
 
-	Reset();
+	BizCarotidQuality::Reset();
 }
 /**
 Update
@@ -103,7 +103,7 @@ void BizCarotidQuality::Update( Object^ sender, BizTonometerDataEventArgs^ e )
 	if ( counter == 0 )
 	{
 		// Read the carotid signal buffer 
-		buffer->ReadBuffer( signal, bufferSize, startIndex, endIndex );
+		signal = buffer->ReadBuffer( bufferSize, startIndex, endIndex );
 		
 		// If the buffer is not full, calculate up to the last sample
 		if ( startIndex != endIndex )

@@ -30,7 +30,7 @@ START_BIZ_NAMESPACE
 		void GetVersion(String^ %appVersion, unsigned short length);
 		void GetCopyright(String^ %copyRight, unsigned short length);
 		void GetModuleType(String^ %moduleType, unsigned short length);
-		unsigned short GetModuleConfigID();
+		unsigned short GetModuleConfigId();
 		void GetModuleSN(String^ %moduleSN, unsigned short length);
 		void GetModuleVersion(String^ %moduleVersion, unsigned short length);
 		void GetModuleCalibrationDate(String^ %moduleCalibrationDate, unsigned short length);
@@ -46,7 +46,7 @@ START_BIZ_NAMESPACE
 		property String^ moduleSN;
 		property String^ moduleVersion;
 		property DateTime^ moduleCalibrationDate;
-		property unsigned short moduleConfigID;
+		property unsigned short moduleConfigId;
 		property DateTime^ moduleConfigDate;
 		static BizInfo^ _instance;
 	};

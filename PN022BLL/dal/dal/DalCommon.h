@@ -50,7 +50,7 @@ namespace AtCor{
 										property String^ moduleType;
 										property String^ moduleSN;
 										property String^ moduleMainFWVersion;
-										property unsigned short moduleConfigID;
+										property unsigned short moduleConfigId;
 										property DateTime moduleConfigDate;
 										property DateTime moduleCalibrationDate;
 

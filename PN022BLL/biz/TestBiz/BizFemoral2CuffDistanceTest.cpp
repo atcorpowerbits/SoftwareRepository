@@ -71,11 +71,11 @@ namespace TestBiz {
 				BizFemoral2CuffDistance^  target = (gcnew BizFemoral2CuffDistance()); // TODO: Initialize to an appropriate value
 				bool actual;
 
-				target->distance = PWV_FEM2CUFF_MIN - 1;
+				target->distance = PWV_FEMORAL_TO_CUFF_DISTANCE_MIN - 1;
 				actual = target->Validate();
 				Assert::AreEqual(false, actual);
 
-				target->distance = PWV_FEM2CUFF_MAX + 1;
+				target->distance = PWV_FEMORAL_TO_CUFF_DISTANCE_MAX + 1;
 				actual = target->Validate();
 				Assert::AreEqual(false, actual);
 

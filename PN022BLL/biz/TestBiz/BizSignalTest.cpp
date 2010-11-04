@@ -74,15 +74,15 @@ public: [TestMethod]
 			array<float>^ floatOnsetsExpected = gcnew array<float>(MAX_ONSETS);;
 			for (int i = 0; i < MAX_ONSETS; i++)
 			{
-				floatOnsetsExpected[i] = DEFAULT_FLOAT_VALUE;
+				floatOnsetsExpected[i] = BizConstants::DEFAULT_FLOAT_VALUE;
 			}
 			accessor->SetProperty("floatOnsets", gcnew array<float>(MAX_ONSETS));
 			target->SetDefaults();
 			Assert::AreEqual(false, (bool) accessor->GetProperty("_readyToCapture"));
-			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseHeight);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseHeightVariation);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseLengthVariation);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseBaselineVariation);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseHeight);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseHeightVariation);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseLengthVariation);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseBaselineVariation);
 			Assert::AreEqual((unsigned short) 0, target->onsetsLength);
 			CollectionAssert::AreEqual(floatOnsetsExpected, target->floatOnsets);
 		}
@@ -155,10 +155,10 @@ public: [TestMethod]
 			Assert::IsNull(target->floatOnsets);
 			Assert::IsNull(target->firstDerivative);
 			Assert::AreEqual(false, (bool) accessor->GetProperty("_readyToCapture"));
-			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseHeight);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseHeightVariation);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseLengthVariation);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->pulseBaselineVariation);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseHeight);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseHeightVariation);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseLengthVariation);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseBaselineVariation);
 		}
 		/// <summary>
 		///A test for CaptureSignal

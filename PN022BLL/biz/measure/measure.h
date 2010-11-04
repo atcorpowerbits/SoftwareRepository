@@ -11,6 +11,7 @@
 #pragma once
 
 #include <biz.h>
+#include <biz_constants.h>
 
 using namespace System;
 using namespace DAL_NAMESPACE;

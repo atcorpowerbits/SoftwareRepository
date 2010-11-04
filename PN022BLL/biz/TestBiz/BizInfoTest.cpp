@@ -252,14 +252,14 @@ public: [TestMethod]
 			Assert::AreEqual(moduleSNExpected, moduleSN);
 		}
 		/// <summary>
-		///A test for GetModuleConfigID
+		///A test for GetModuleConfigId
 		///</summary>
 public: [TestMethod]
 		void GetModuleConfigIDTest()
 		{
 			unsigned short expected = 99; // TODO: Initialize to an appropriate value
 			unsigned short actual;
-			actual = BizInfo::Instance()->GetModuleConfigID();
+			actual = BizInfo::Instance()->GetModuleConfigId();
 			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
@@ -299,8 +299,8 @@ public: [TestMethod]
 			int len = moduleConfigName->Length; // TODO: Initialize to an appropriate value
 			BizInfo::Instance()->GetModuleConfigName(moduleConfigName, len);
 			Assert::AreEqual(moduleConfigNameExpected, moduleConfigName);
-// TBD: Use real DAL API when it's ready to set moduleConfigID
-//			DalFacade::Instance()->FindModuleInfo()->moduleConfigID = 1;
+// TBD: Use real DAL API when it's ready to set moduleConfigId
+//			DalFacade::Instance()->FindModuleInfo()->moduleConfigId = 1;
 //			moduleConfigNameExpected = L"PWV"; // TODO: Initialize to an appropriate value
 //			BizInfo::Instance()->GetModuleConfigName(moduleConfigName, len);
 //			Assert::AreEqual(moduleConfigNameExpected, moduleConfigName);
@@ -314,8 +314,8 @@ public: [TestMethod]
 			String^  moduleConfigName         = L"12"; // TODO: Initialize to an appropriate value
 			String^  moduleConfigNameExpected = L"In"; // TODO: Initialize to an appropriate value
 			int len = moduleConfigName->Length; // TODO: Initialize to an appropriate value
-// TBD: Use real DAL API when it's ready to set moduleConfigID
-//			DalFacade::Instance()->FindModuleInfo()->moduleConfigID =99;
+// TBD: Use real DAL API when it's ready to set moduleConfigId
+//			DalFacade::Instance()->FindModuleInfo()->moduleConfigId =99;
 			BizInfo::Instance()->GetModuleConfigName(moduleConfigName, len);
 			Assert::AreEqual(moduleConfigNameExpected, moduleConfigName);
 		}

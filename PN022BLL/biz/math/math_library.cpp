@@ -54,13 +54,13 @@ bool BizMath::ValidateArray(array<const float>^ input, unsigned short size)
 	{
 		return false; 
 	}
-	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+	if (size < 1 || size >= BizConstants::DEFAULT_VALUE || size > input->Length)
 	{
 		return false;
 	}
 	for (int i = 0; i < size; i++)
 	{
-		if (input[i] >= DEFAULT_VALUE || input[i] <= -DEFAULT_VALUE)
+		if (input[i] >= BizConstants::DEFAULT_VALUE || input[i] <= -BizConstants::DEFAULT_VALUE)
 		{
 			return false;
 		}
@@ -96,13 +96,13 @@ bool BizMath::ValidateArray(array<const unsigned short>^ input, unsigned short s
 	{
 		return false;
 	}
-	if (size < 1 || size >= DEFAULT_VALUE || size > input->Length)
+	if (size < 1 || size >= BizConstants::DEFAULT_VALUE || size > input->Length)
 	{
 		return false;
 	}
 	for (unsigned short i = 0; i < size; i++)
 	{
-		if (input[i] >= DEFAULT_VALUE)
+		if (input[i] >= BizConstants::DEFAULT_VALUE)
 		{
 			return false;
 		}
@@ -132,16 +132,16 @@ bool BizMath::TimeToIndex(const float time, const unsigned short expandRate,
                      const unsigned short sampleRate, short% index)
 {
 	// Validation
-	if (expandRate < 1 || expandRate >= DEFAULT_VALUE)
+	if (expandRate < 1 || expandRate >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;  
 	}
-	if (time <= 0. || time >= DEFAULT_VALUE)
+	if (time <= 0. || time >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;  
 
 	}
-	if (sampleRate < 1 || sampleRate >= DEFAULT_VALUE)
+	if (sampleRate < 1 || sampleRate >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -173,15 +173,15 @@ bool BizMath::IndexToTime(const unsigned short index, const unsigned short expan
                        const unsigned short sampleRate, float% time)
 {
 	// Validation
-	if (expandRate < 1 || expandRate >= DEFAULT_VALUE)
+	if (expandRate < 1 || expandRate >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;  
 	}
-	if (index >= DEFAULT_VALUE)
+	if (index >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;  
 	}
-	if (sampleRate < 1 || sampleRate >= DEFAULT_VALUE)
+	if (sampleRate < 1 || sampleRate >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -213,7 +213,7 @@ bool BizMath::IndexToTime(const unsigned short index, const unsigned short expan
 bool BizMath::Round(float input, short% output)
 {
 	// Validation
-	if (input >= DEFAULT_VALUE || input <= -DEFAULT_VALUE)
+	if (input >= BizConstants::DEFAULT_VALUE || input <= -BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -275,7 +275,7 @@ bool BizMath::RoundNearest20(short input, short% output)
 	short remainder;
 
 	// Validation
-	if (input >= DEFAULT_VALUE || input <= -DEFAULT_VALUE)
+	if (input >= BizConstants::DEFAULT_VALUE || input <= -BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -356,7 +356,7 @@ bool BizMath::SmoothFirstDerivative(array<const unsigned short>^ input, const un
 	return BizCorSmoothFirstDerivative(corInput, size, smoothOrder,
                             step, corFirstDerivative, corMaximum);
 	/*
-	if (smoothOrder < 1 || smoothOrder >= DEFAULT_VALUE)
+	if (smoothOrder < 1 || smoothOrder >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -364,7 +364,7 @@ bool BizMath::SmoothFirstDerivative(array<const unsigned short>^ input, const un
 	{
 		return false;
 	}
-	if (step == 0 || step <= -DEFAULT_VALUE || step >= DEFAULT_VALUE) 
+	if (step == 0 || step <= -BizConstants::DEFAULT_VALUE || step >= BizConstants::DEFAULT_VALUE) 
 	{
 		return false;
 	}
@@ -717,15 +717,15 @@ bool BizMath::MaximumInArrayIndex(array<const float>^ input, unsigned short size
 bool BizMath::GetSplineIndex(const float abscissa, const unsigned short splineIndex, const unsigned short size, unsigned short% newSplineIndex)
 {
 	// Validation
-	if (abscissa < 0 || abscissa >= DEFAULT_VALUE)
+	if (abscissa < 0 || abscissa >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
-	if (splineIndex >= DEFAULT_VALUE)
+	if (splineIndex >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
-	if (size < 1 || size >= DEFAULT_VALUE)
+	if (size < 1 || size >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -771,7 +771,7 @@ bool BizMath::GetSplineIndex(const float abscissa, const unsigned short splineIn
 bool BizMath::Spline(const float abscissa, array<const float>^ input, float% output)
 {
 	// Validation
-	if (abscissa < 0 || abscissa >= DEFAULT_VALUE)
+	if (abscissa < 0 || abscissa >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -913,7 +913,7 @@ bool BizMath::IndexOfExtremum(array<const float>^ input, const unsigned short st
 	{
 		return false;
 	}
-	if (threshold <= -DEFAULT_VALUE || threshold > DEFAULT_VALUE)
+	if (threshold <= -BizConstants::DEFAULT_VALUE || threshold > BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -924,7 +924,7 @@ bool BizMath::IndexOfExtremum(array<const float>^ input, const unsigned short st
 	{
 		current = input[i];
 		// If threshold is the DEFAULT VALUE, then find the first extremum
-		if (threshold == DEFAULT_VALUE || current > threshold)
+		if (threshold == BizConstants::DEFAULT_VALUE || current > threshold)
 		{
 			last = input[i-1];
 			next = input[i+1];

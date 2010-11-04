@@ -10,6 +10,7 @@
 
 #pragma once
 #include <biz.h>
+#include <biz_constants.h>
 #include <math_library.h>
 #include <biz_namespace.h>
 

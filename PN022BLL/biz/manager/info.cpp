@@ -174,7 +174,7 @@ void BizInfo::GetModuleType(String^ %info, unsigned short length)
 }
 
 /**
-GetModuleConfigID
+GetModuleConfigId
 
 DESCRIPTION
 
@@ -193,11 +193,11 @@ RETURN
 	Electronic module config ID integer value.
 
 */
-unsigned short BizInfo::GetModuleConfigID()
+unsigned short BizInfo::GetModuleConfigId()
 {
-//	moduleConfigID = DalFacade::Instance()->FindModuleInfo()->moduleConfigID;
-	moduleConfigID = 99; // TBD: use real ID when available
-	return moduleConfigID;
+//	moduleConfigId = DalFacade::Instance()->FindModuleInfo()->moduleConfigId;
+	moduleConfigId = 99; // TBD: use real ID when available
+	return moduleConfigId;
 }
 
 /**
@@ -328,7 +328,7 @@ RETURN
 void BizInfo::GetModuleConfigName(String^ %info, unsigned short length)
 {
 	String^ configName;
-	unsigned short configValue = GetModuleConfigID();
+	unsigned short configValue = GetModuleConfigId();
 
 	switch (configValue)
 	{

@@ -224,16 +224,16 @@ public: [TestMethod]
 			BizPWV^  target = (gcnew BizPWV());
 			PrivateObject^ accessor = gcnew PrivateObject(target);
 			accessor->Invoke("SetDefaults");
-			Assert::AreEqual((float) DEFAULT_VALUE, target->meanDeltaTime);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->meanCorrectedTime);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->meanPulseWaveVelocity);
-			Assert::AreEqual((float) DEFAULT_VALUE, target->standardDeviation);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->meanDeltaTime);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->meanCorrectedTime);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->meanPulseWaveVelocity);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->standardDeviation);
 			Assert::AreEqual((unsigned short) 0, target->numberOfDeltas);
 			Assert::AreEqual((unsigned short) 0, target->numberOfValidDeltas);
 			Assert::IsFalse(target->isCarotidSignalValid);
 			Assert::IsFalse(target->isFemoralSignalValid);
 			Assert::IsFalse(target->isStandardDeviationValid);	
-			Assert::AreEqual((float) DEFAULT_VALUE, target->heartRate);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->heartRate);
 		}
 		/// <summary>
 		///A test for Initialise
@@ -244,11 +244,11 @@ public: [TestMethod]
 			BizPWV^  target = (gcnew BizPWV());
 			PrivateObject^ accessor = gcnew PrivateObject(target);
 			target->Initialise();
-			Assert::AreEqual((unsigned short) DEFAULT_VALUE, target->myCarotidDistance->distance);
-			Assert::AreEqual((unsigned short) DEFAULT_VALUE, target->myCuffDistance->distance);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myCarotidDistance->distance);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myCuffDistance->distance);
 			Assert::AreEqual((unsigned short) DEFAULT_FEMORAL_TO_CUFF_DISTANCE, target->myFemoral2CuffDistance->distance);
-			Assert::AreEqual((unsigned short) DEFAULT_VALUE, target->myPWVDirectDistance->distance);
-			Assert::AreEqual((unsigned short) DEFAULT_VALUE, target->calculatedDistance);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myPWVDirectDistance->distance);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->calculatedDistance);
 			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
 			Assert::AreEqual((String^) "", accessor->GetProperty("systemId"));
 			Assert::AreEqual((unsigned short) 0, (unsigned short) accessor->GetProperty("patientNumber"));
@@ -259,7 +259,7 @@ public: [TestMethod]
 			Assert::AreEqual((String^) "", accessor->GetProperty("notes"));
 			Assert::AreEqual((String^) "", accessor->GetProperty("operatorId"));
 			Assert::AreEqual((String^) "", accessor->GetProperty("interpretation"));
-			Assert::AreEqual((float) DEFAULT_VALUE, accessor->GetProperty("bodyMassIndex"));
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, accessor->GetProperty("bodyMassIndex"));
 			Assert::AreEqual((unsigned short) DEFAULT_CAPTURE_TIME, accessor->GetProperty("captureTime"));
 			Assert::AreEqual((unsigned short) DEFAULT_SAMPLE_RATE, accessor->GetProperty("sampleRate"));
 			Assert::IsFalse((bool)accessor->GetProperty("simulation"));

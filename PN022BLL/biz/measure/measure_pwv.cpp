@@ -42,7 +42,7 @@ bool BizFemoral2CuffDistance::Validate()
 {
 	bool isValid = false;
 
-	if (distance >= MIN_FEMORAL_TO_CUFF_DISTANCE && distance <= MAX_FEMORAL_TO_CUFF_DISTANCE)
+	if (distance >= PWV_FEMORAL_TO_CUFF_DISTANCE_MIN && distance <= PWV_FEMORAL_TO_CUFF_DISTANCE_MAX)
 	{
 		isValid = true;
 	} else
@@ -77,7 +77,7 @@ bool BizCarotidDistance::Validate()
 {
 	bool isValid = false;
 
-	if (distance >= MIN_PWV_DISTANCE && distance <= MAX_PWV_DISTANCE)
+	if (distance >= PWV_DISTANCE_MIN && distance <= PWV_DISTANCE_MAX)
 	{
 		isValid = true;
 	} else
@@ -112,7 +112,7 @@ bool BizCuffDistance::Validate()
 {
 	bool isValid = false;
 
-	if (distance >= MIN_PWV_DISTANCE && distance <= MAX_PWV_DISTANCE)
+	if (distance >= PWV_DISTANCE_MIN && distance <= PWV_DISTANCE_MAX)
 	{
 		isValid = true;
 	} else
@@ -147,7 +147,7 @@ bool BizPWVDirectDistance::Validate()
 {
 	bool isValid = false;
 
-	if (distance >= MIN_PWV_DISTANCE && distance <= MAX_PWV_DISTANCE)
+	if (distance >= PWV_DISTANCE_MIN && distance <= PWV_DISTANCE_MAX)
 	{
 		isValid = true;
 	} else
@@ -177,67 +177,44 @@ RETURN
 
 */	
 BizPWV::BizPWV(void)
+{
+	// TBD: need to check the Height & Weight Unit from the config
+	// then instantiate the right object, i.e. metric or imperial
+	if (AtCor::Scor::CrossCutting::Configuration::CrxConfigManager::Instance->
+		GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_METRIC)
 	{
-		// TBD: need to check the Height & Weight Unit from the config
-		// then instantiate the right object, i.e. metric or imperial
-		if (AtCor::Scor::CrossCutting::Configuration::CrxConfigManager::Instance->
-			GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_METRIC)
-		{
-			myHeight = gcnew BizHeightCM;
-			myWeight = gcnew BizWeightKG;
-		} else 
-		{
-			myHeight = gcnew BizHeightInch;
-			myWeight = gcnew BizWeightLB;
-		}
-		// Instantiate BP object - default SP+DP
-		myBP = gcnew BizSPAndDP;
+		myHeight = gcnew BizHeightCM;
+		myWeight = gcnew BizWeightKG;
+	} else 
+	{
+		myHeight = gcnew BizHeightInch;
+		myWeight = gcnew BizWeightLB;
+	}
+	// Instantiate BP object - default SP+DP
+	myBP = gcnew BizSPAndDP;
 
-		// Instantiate some PWV distance objects
-		myCarotidDistance = gcnew BizCarotidDistance;
-		myCuffDistance = gcnew BizCuffDistance;
-		myPWVDirectDistance = gcnew BizPWVDirectDistance;
-		myFemoral2CuffDistance = gcnew BizFemoral2CuffDistance;
-		BizBuffer^ tonometerBuffer = gcnew BizCircularBuffer((captureTime + 
-									BusinessLogic::CAPTURE_EXTRA_FOR_HANDSHAKE) * 
-									sampleRate);
+	// Instantiate some PWV distance objects
+	myCarotidDistance = gcnew BizCarotidDistance;
+	myCuffDistance = gcnew BizCuffDistance;
+	myPWVDirectDistance = gcnew BizPWVDirectDistance;
+	myFemoral2CuffDistance = gcnew BizFemoral2CuffDistance;
 
-		// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
-		tonometerDataObserver = gcnew BizTonometerDataCapture( tonometerBuffer );
-		tonometerDataObserver->Reset();
+	// Initialise other properties
+	carotidSignal = gcnew BizSignal;
+	femoralSignal = gcnew BizSignal;
 
-		cuffPulseObserver = gcnew BizCuffPulseCapture(
-			gcnew BizCircularBuffer((captureTime + 
-									BusinessLogic::CAPTURE_EXTRA_FOR_HANDSHAKE) * 
-									sampleRate));
-		cuffPulseObserver->Reset();
+	pulseWaveVelocity = gcnew array<BizDelta^>(MAX_ONSETS);
+	for (int i = 0; i < MAX_ONSETS; i++)
+	{
+		pulseWaveVelocity[i] = gcnew BizDelta;
+	}
+	
+	// Allocate Signals
+	carotidSignal->Allocate(MAX_SIGNAL_LENGTH, MAX_ONSETS);
+	femoralSignal->Allocate(MAX_SIGNAL_LENGTH, MAX_ONSETS);
 
-		// Carotid quality is calculated from the captured tonometer data
-		carotidQualityObserver = gcnew BizCarotidQuality( tonometerBuffer, sampleRate );
-
-		// Countdown data from DAL are captured here for PWV measurement.
-		// Only one last countdown data is needed to be captured.
-		countdownTimerObserver = gcnew BizCountdownTimerCapture(gcnew BizCircularBuffer(1));
-		countdownTimerObserver->Reset();
-
-		cuffObserver = gcnew BizCuff;
-
-		// Initialise other properties
-		carotidSignal = gcnew BizSignal;
-		femoralSignal = gcnew BizSignal;
-
-		pulseWaveVelocity = gcnew array<BizDelta^>(MAX_ONSETS);
-		for (int i = 0; i < MAX_ONSETS; i++)
-		{
-			pulseWaveVelocity[i] = gcnew BizDelta;
-		}
-		
-		// Allocate Signals
-		carotidSignal->Allocate(MAX_SIGNAL_LENGTH, MAX_ONSETS);
-		femoralSignal->Allocate(MAX_SIGNAL_LENGTH, MAX_ONSETS);
-
-		// Initialise
-		Initialise();
+	// Initialise
+	Initialise();
 }
 /**
 ValidatePWVDistance
@@ -445,11 +422,35 @@ void BizPWV::DispatchCaptureData()
 */
 void BizPWV::Initialise()
 {
-	myCarotidDistance->distance = DEFAULT_VALUE;
-	myCuffDistance->distance = DEFAULT_VALUE;
+	BizBuffer^ tonometerBuffer = gcnew BizCircularBuffer((captureTime + 
+									BusinessLogic::BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE) * 
+									sampleRate);
+
+	// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
+	tonometerDataObserver = gcnew BizTonometerDataCapture( tonometerBuffer );
+	tonometerDataObserver->Reset();
+
+	cuffPulseObserver = gcnew BizCuffPulseCapture(
+		gcnew BizCircularBuffer((captureTime + 
+								BusinessLogic::BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE) * 
+								sampleRate));
+	cuffPulseObserver->Reset();
+
+	// Carotid quality is calculated from the captured tonometer data
+	carotidQualityObserver = gcnew BizCarotidQuality( tonometerBuffer, sampleRate );
+
+	// Countdown data from DAL are captured here for PWV measurement.
+	// Only one last countdown data is needed to be captured.
+	countdownTimerObserver = gcnew BizCountdownTimerCapture(gcnew BizCircularBuffer(1));
+	countdownTimerObserver->Reset();
+
+	cuffObserver = gcnew BizCuff;
+		
+	myCarotidDistance->distance = BizConstants::DEFAULT_VALUE;
+	myCuffDistance->distance = BizConstants::DEFAULT_VALUE;
 	myFemoral2CuffDistance->distance = DEFAULT_FEMORAL_TO_CUFF_DISTANCE;
-	myPWVDirectDistance->distance = DEFAULT_VALUE;
-	calculatedDistance = DEFAULT_VALUE;
+	myPWVDirectDistance->distance = BizConstants::DEFAULT_VALUE;
+	calculatedDistance = BizConstants::DEFAULT_VALUE;
 	correctionTime = DEFAULT_CORRECTION_TIME;					
 	
 	// Initialise cannot return false because sampleRate is hard-coded
@@ -475,10 +476,10 @@ void BizPWV::Initialise()
 */
 void BizPWV::SetDefaults()
 {
-	meanDeltaTime = DEFAULT_VALUE;					
-	meanCorrectedTime = DEFAULT_VALUE;
-	meanPulseWaveVelocity = DEFAULT_VALUE;			
-	standardDeviation = DEFAULT_VALUE;
+	meanDeltaTime = BizConstants::DEFAULT_VALUE;					
+	meanCorrectedTime = BizConstants::DEFAULT_VALUE;
+	meanPulseWaveVelocity = BizConstants::DEFAULT_VALUE;			
+	standardDeviation = BizConstants::DEFAULT_VALUE;
 	
 	numberOfDeltas = 0;
 	numberOfValidDeltas = 0;
@@ -486,7 +487,7 @@ void BizPWV::SetDefaults()
 	isCarotidSignalValid = false;
 	isFemoralSignalValid = false;
 	isStandardDeviationValid = false;
-	heartRate = DEFAULT_VALUE;
+	heartRate = BizConstants::DEFAULT_VALUE;
 
     carotidSignal->SetDefaults();
     femoralSignal->SetDefaults();
@@ -498,9 +499,9 @@ void BizPWV::SetDefaults()
 }
 void BizDelta::SetDefaults()
 {
-	deltaTime = DEFAULT_FLOAT_VALUE;
-	correctedTime = DEFAULT_FLOAT_VALUE;
-	pulseWaveVelocity = DEFAULT_FLOAT_VALUE;
+	deltaTime = BizConstants::DEFAULT_FLOAT_VALUE;
+	correctedTime = BizConstants::DEFAULT_FLOAT_VALUE;
+	pulseWaveVelocity = BizConstants::DEFAULT_FLOAT_VALUE;
 	isValid = false;
 }
 
@@ -697,7 +698,7 @@ bool BizPWV::CalculateAndValidateDistance()
 
 	// Validate the distance first as it may be negative and -
 	// calculatedDistance is unsigned
-	if (distance < MIN_PWV_DISTANCE || distance > MAX_PWV_DISTANCE)
+	if (distance < PWV_DISTANCE_MIN || distance > PWV_DISTANCE_MAX)
 	{
 		/* TBD: CrxMessageFacade::Instance()->Message(TraceEventType::Notification,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
@@ -861,7 +862,7 @@ bool BizPWV::CalculateHeartRate()
 			CrxMessageFacade::Instance()->messageResources->GetString(L"PWV_INVALID_HEART_RATE", CultureInfo::CurrentUICulture)
 			+ Convert::ToString(heartRate, CultureInfo::CurrentUICulture), 
 			"");*/
-		heartRate = DEFAULT_VALUE;
+		heartRate = BizConstants::DEFAULT_VALUE;
 		return false;
 	}
 

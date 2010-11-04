@@ -46,10 +46,10 @@ BizSignal::BizSignal()
 
 	_readyToCapture = false;
 
-	pulseHeight = (float) DEFAULT_VALUE; 
-	pulseHeightVariation = (float) DEFAULT_VALUE;
-	pulseLengthVariation = (float) DEFAULT_VALUE;
-	pulseBaselineVariation = (float) DEFAULT_VALUE;
+	pulseHeight = (float) BizConstants::DEFAULT_VALUE; 
+	pulseHeightVariation = (float) BizConstants::DEFAULT_VALUE;
+	pulseLengthVariation = (float) BizConstants::DEFAULT_VALUE;
+	pulseBaselineVariation = (float) BizConstants::DEFAULT_VALUE;
 }
 
 /**
@@ -117,7 +117,7 @@ bool BizSignal::Allocate(const unsigned short inputMaximumSignalLength,
 */
 bool BizSignal::Initialise(const unsigned short inputSampleRate)
 {
-	if (inputSampleRate >= DEFAULT_VALUE)
+	if (inputSampleRate >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -156,16 +156,16 @@ void BizSignal::SetDefaults()
 	// Initialisation
 	_readyToCapture = false;
 
-	pulseHeight = (float) DEFAULT_VALUE;
-	pulseHeightVariation = (float) DEFAULT_VALUE;
-	pulseLengthVariation = (float) DEFAULT_VALUE;
-	pulseBaselineVariation = (float) DEFAULT_VALUE;
+	pulseHeight = (float) BizConstants::DEFAULT_VALUE;
+	pulseHeightVariation = (float) BizConstants::DEFAULT_VALUE;
+	pulseLengthVariation = (float) BizConstants::DEFAULT_VALUE;
+	pulseBaselineVariation = (float) BizConstants::DEFAULT_VALUE;
 
 	// Onsets initialisation
 	onsetsLength = 0;
 	for (int i = 0; i < maximumOnsetsLength; i++)
 	{
-		floatOnsets[i] = DEFAULT_FLOAT_VALUE;
+		floatOnsets[i] = BizConstants::DEFAULT_FLOAT_VALUE;
 	}
 }
 
@@ -373,7 +373,7 @@ bool BizSignal::ValidateSignalLength(const unsigned short minimumSignalLength)
 	}
 	
 	// Validate sample rate
-	if (sampleRate <= 0 || sampleRate >= DEFAULT_VALUE)
+	if (sampleRate <= 0 || sampleRate >= BizConstants::DEFAULT_VALUE)
 	{
 #if 0 // TBD: Use a suitable CRX API
 		CrxMessageFacade::Instance()->Message(TraceEventType::Error,
@@ -416,7 +416,7 @@ bool BizSignal::ValidateSignalHeight(const unsigned short minimumSignalHeight)
 	{
 		return false;
 	}
-	if (minimumSignalHeight >= DEFAULT_VALUE)
+	if (minimumSignalHeight >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}
@@ -509,10 +509,10 @@ bool BizSignal::CalculateQualityControls()
 	short index;
 	
 	// Initialisation
-	pulseHeight = DEFAULT_VALUE;
-	pulseHeightVariation = DEFAULT_VALUE;
-	pulseLengthVariation = DEFAULT_VALUE;
-	pulseBaselineVariation = DEFAULT_VALUE;
+	pulseHeight = BizConstants::DEFAULT_VALUE;
+	pulseHeightVariation = BizConstants::DEFAULT_VALUE;
+	pulseLengthVariation = BizConstants::DEFAULT_VALUE;
+	pulseBaselineVariation = BizConstants::DEFAULT_VALUE;
 
 	array<const float>^ subset = gcnew array<const float>((short) signalLength);
 
@@ -790,7 +790,7 @@ bool BizSignal::FindOnsets()
 	// Initialise Onsets
 	for (short i = 0; i < maximumOnsetsLength; i++)
 	{
-		floatOnsets[i] = DEFAULT_FLOAT_VALUE;
+		floatOnsets[i] = BizConstants::DEFAULT_FLOAT_VALUE;
 	}
 	onsetsLength = 0;
 	
@@ -1094,7 +1094,7 @@ bool BizCorTangentAlgorithm(const float maximumFirstDerivative, unsigned short s
 bool BizSignal::TangentAlgorithm(const float maximumFirstDerivative)
 {
 	// Validate Input
-	if (maximumFirstDerivative <= -DEFAULT_VALUE || maximumFirstDerivative >= DEFAULT_VALUE)
+	if (maximumFirstDerivative <= -BizConstants::DEFAULT_VALUE || maximumFirstDerivative >= BizConstants::DEFAULT_VALUE)
 	{
 		return false;
 	}

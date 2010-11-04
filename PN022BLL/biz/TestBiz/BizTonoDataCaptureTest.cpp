@@ -96,6 +96,7 @@ namespace TestBiz {
 				// Update the observer with data read from circular buffer
 				target->Dispatch();
 				Assert::AreEqual(lastData, actualUpdate);
+				BizEventContainer::Instance->OnBizTonometerDataEvent -= gcnew BizTonometerDataEventHandler(this, &BizTonometerDataCaptureTest::Update);
 			}
 			/// <summary>
 			///A test for Update
