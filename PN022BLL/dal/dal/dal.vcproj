@@ -216,6 +216,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalSimulationFileStub.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalSimulationHandler.cpp"
 				>
 			</File>
@@ -247,6 +251,10 @@
 			>
 			<File
 				RelativePath=".\dal_facade_stub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\dal_stub.h"
 				>
 			</File>
 			<File

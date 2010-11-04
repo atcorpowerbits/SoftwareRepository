@@ -100,6 +100,7 @@ void BizCuff::Update( Object^ sender, DalCuffStatusEventArgs^ e )
 		ChangeState(BizCuffDeflating::Instance());
 		break;
 	default:
+		// Throw excepting for unknown cuff status?
 		break;
 	}
 }

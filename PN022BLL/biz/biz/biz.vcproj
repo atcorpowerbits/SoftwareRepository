@@ -229,6 +229,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\capture\electronic_module.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\capture\electronic_module_state.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\facade\facade.cpp"
 				>
 			</File>
@@ -316,6 +324,14 @@
 			</File>
 			<File
 				RelativePath="..\events\data_events.h"
+				>
+			</File>
+			<File
+				RelativePath="..\capture\electronic_module.h"
+				>
+			</File>
+			<File
+				RelativePath="..\capture\electronic_module_state.h"
 				>
 			</File>
 			<File

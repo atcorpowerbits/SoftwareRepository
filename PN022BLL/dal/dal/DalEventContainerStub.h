@@ -51,6 +51,31 @@ namespace AtCor{
 				};
 
 				/**
+				* @class DalModuleErrorAlarmEventArgs
+				* @brief Class to contain arguments for OnDalModuleErrorAlarmEvent.
+				*/
+				public ref class DalModuleErrorAlarmEventArgs: public EventArgs
+				{
+					public:
+						/**
+						* Data for the event.
+						*/
+						property unsigned short state;
+						property String^ source;
+
+						/**
+						* Constructor for the class.
+						*
+						* @param[in] state	The state of the last event (error/alarm/none).						
+						* @param[in] source	The source of the last event (source id).						
+						*/
+						DalModuleErrorAlarmEventArgs(unsigned short state, unsigned short source);
+					private:
+						String^ MapErrorSourceToString(unsigned short source);
+						String^ MapAlarmSourceToString(unsigned short source);
+				};
+
+				/**
 				* Delegate for countdown timer event
 				*/
 				public delegate void DalCountdownTimerEventHandler(Object^ sender, DalCountdownTimerEventArgs ^ args);
@@ -59,6 +84,11 @@ namespace AtCor{
 				* Delegate for cuff status event
 				*/
 				public delegate void DalCuffStatusEventHandler(Object^ sender, DalCuffStatusEventArgs ^ args);
+
+				/**
+				* Delegate for cuff status event
+				*/
+				public delegate void DalModuleErrorAlarmEventHandler(Object^ sender, DalModuleErrorAlarmEventArgs ^ args);
 
 				/**
 				* @class DalEventContainerStub
@@ -74,6 +104,7 @@ namespace AtCor{
 
 						DalCountdownTimerEventHandler^ _dalCountdownTimerEventHandler;
 						DalCuffStatusEventHandler^ _dalCuffStatusEventHandler;
+						DalModuleErrorAlarmEventHandler^ _dalModuleErrorAlarmEventHandler;
 
 					public:
 						/**
@@ -132,6 +163,30 @@ namespace AtCor{
 							{
 								if(_dalCuffStatusEventHandler)
 									_dalCuffStatusEventHandler->Invoke(sender, args);
+							}
+						}
+
+						/**
+						* Module Status event.
+						*/
+						event DalModuleErrorAlarmEventHandler^ OnDalModuleErrorAlarmEvent
+						{
+							void add(DalModuleErrorAlarmEventHandler^ handler)
+							{
+								lock lockEvents(this);
+								_dalModuleErrorAlarmEventHandler += handler;
+							}
+
+							void remove(DalModuleErrorAlarmEventHandler^ handler)
+							{
+								lock lockEvents(this);
+								_dalModuleErrorAlarmEventHandler -= handler;
+							}
+
+							void raise(Object^ sender, DalModuleErrorAlarmEventArgs ^ args)
+							{
+								if(_dalModuleErrorAlarmEventHandler)
+									_dalModuleErrorAlarmEventHandler->Invoke(sender, args);
 							}
 						}
 

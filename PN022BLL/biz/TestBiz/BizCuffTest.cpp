@@ -81,7 +81,7 @@ namespace TestBiz {
 				bool rc = false;
 
 				// Update BizCuff with cuff status
-				e = gcnew DalCuffStatusEventArgs( 3 ); // TODO: Initialize to an appropriate value
+				e = gcnew DalCuffStatusEventArgs( 0x0400 ); // TODO: Initialize to an appropriate value
 				accessor->Invoke("Update", this, e);
 	
 				// Setup a delegate (observer) to whom data is updated by BizCuff during dispatch
@@ -115,32 +115,27 @@ namespace TestBiz {
 				bool rc = false;
 
 				// Update BizCuff with cuff status
-				e = gcnew DalCuffStatusEventArgs( 1 ); // TODO: Initialize to an appropriate value
+				e = gcnew DalCuffStatusEventArgs( 0x2000 ); // TODO: Initialize to an appropriate value
 				accessor->Invoke("Update", this, e);
 				// Verify BizCuff cuff state
 				Assert::AreEqual("Disconnected", target->currentState->internalName);
 				// Update BizCuff with cuff status
-				e = gcnew DalCuffStatusEventArgs( 2 ); // TODO: Initialize to an appropriate value
+				e = gcnew DalCuffStatusEventArgs( 0x0100 ); // TODO: Initialize to an appropriate value
 				accessor->Invoke("Update", this, e);
 				// Verify BizCuff cuff state
 				Assert::AreEqual("Deflated", target->currentState->internalName);
 				// Update BizCuff with cuff status
-				e = gcnew DalCuffStatusEventArgs( 3 ); // TODO: Initialize to an appropriate value
+				e = gcnew DalCuffStatusEventArgs( 0x0400 ); // TODO: Initialize to an appropriate value
 				accessor->Invoke("Update", this, e);
 				// Verify BizCuff cuff state
 				Assert::AreEqual("Inflating", target->currentState->internalName);
 				// Update BizCuff with cuff status
-				e = gcnew DalCuffStatusEventArgs( 4 ); // TODO: Initialize to an appropriate value
+				e = gcnew DalCuffStatusEventArgs( 0x0900 ); // TODO: Initialize to an appropriate value
 				accessor->Invoke("Update", this, e);
 				// Verify BizCuff cuff state
 				Assert::AreEqual("Inflated", target->currentState->internalName);
 				// Update BizCuff with cuff status
-				e = gcnew DalCuffStatusEventArgs( 5 ); // TODO: Initialize to an appropriate value
-				accessor->Invoke("Update", this, e);
-				// Verify BizCuff cuff state
-				Assert::AreEqual("Deflating", target->currentState->internalName);
-				// Update BizCuff with cuff status
-				e = gcnew DalCuffStatusEventArgs( 6 ); // TODO: Initialize to an appropriate value
+				e = gcnew DalCuffStatusEventArgs( 0x0200 ); // TODO: Initialize to an appropriate value
 				accessor->Invoke("Update", this, e);
 				// Verify BizCuff cuff state
 				Assert::AreEqual("Deflating", target->currentState->internalName);

@@ -52,6 +52,7 @@ private:
 	static short countDown;
 	static short cuffPressure;
 	static short status;
+	static short source;
 
 	static DalFacade^ _instance;
 //	DalModuleStub^ _module;

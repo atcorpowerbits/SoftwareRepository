@@ -77,12 +77,13 @@
   <TestList name="BizCaptureXXX" id="497b610f-b759-4e0a-b7c0-b872a1f0c5ab" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
     <TestLinks>
       <TestLink id="eea2178d-fa83-66a8-8983-79fc52d3e55f" name="BizCountdownCaptureDispatchTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
-      <TestLink id="1131bcf0-c2c3-641e-5a4b-f15eb38b346e" name="BizTonometerDataCaptureDispatchTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
-      <TestLink id="3ae09faa-c390-fb7b-7494-855c299ec5a5" name="BizCountdownCaptureUpdateTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="e9af49c7-344f-9dfd-4f9e-fe842e33e44e" name="BizCarotidQualityConstructorTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="b7550dda-89d8-45c0-f5c5-c40c1da6edc7" name="BizCuffPulseCaptureDispatchZeroTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="3ae09faa-c390-fb7b-7494-855c299ec5a5" name="BizCountdownCaptureUpdateTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="56b95edd-1431-ebde-3c8e-5dd73d0d8420" name="BizTonometerDataCaptureUpdateTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="636ff616-55af-3677-c7ab-d5125d50efca" name="ResetTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="d4baf6ad-9f62-0407-8a51-ea740d6f13d5" name="BizCarotidQualityUpdateTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
-      <TestLink id="56b95edd-1431-ebde-3c8e-5dd73d0d8420" name="BizTonometerDataCaptureUpdateTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="1131bcf0-c2c3-641e-5a4b-f15eb38b346e" name="BizTonometerDataCaptureDispatchTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="643495df-6b37-8597-13e0-3bb1d8e36ff2" name="BizCuffPulseCaptureUpdateTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="4d6e3800-eaa4-038b-e452-848f86b0778a" name="BizCuffPulseCaptureDispatchTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
     </TestLinks>
@@ -102,6 +103,16 @@
   </TestList>
   <TestList name="Lists of Tests" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
     <RunConfiguration id="c74d9c15-705c-4840-9d86-d3aad6609adf" name="Local Test Run" storage="localtestrun.testrunconfig" type="Microsoft.VisualStudio.TestTools.Common.TestRunConfiguration, Microsoft.VisualStudio.QualityTools.Common,   PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestList>
+  <TestList name="BizElectronicModule" id="a5b555ff-ba17-4678-bf82-0c16d77bbe27" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <TestLinks>
+      <TestLink id="d9658f2c-b3b6-67da-90e2-73b8a6eb4f3a" name="BizElectronicModuleChangeStateTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="424edaef-fd1c-7db4-63ed-ea19d5b8e20a" name="BizElectronicModuleNormalInstanceTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="7cdd902c-c3fb-50a5-ee14-73c5649c3f7e" name="BizElectronicModuleAbnormalReceiveNormalTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="25fd8c78-83a5-a069-a8d0-d6a87eb99fe7" name="BizElectronicModuleNormalReceiveErrorTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="45313bbc-8f57-e9f8-2e13-b185c5e690af" name="BizElectronicModuleNormalReceiveAlarmTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="c751e79b-8a1e-3829-e56d-a42f7927d642" name="BizElectronicModuleAbnormalInstanceTest" storage="debug\testbiz.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
   </TestList>
   <TestList name="BizPWV" id="ca6a526e-1840-4cac-bf0f-551921034e12" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
     <TestLinks>

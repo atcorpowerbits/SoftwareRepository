@@ -18,6 +18,9 @@ BizSession::BizSession(void)
 {
 	// TBD: create a measurement object wrt current mode
 	measurement = gcnew BizPWV;
+
+	// aggregate the BizElectronicModule object in BizSession
+	module = gcnew BizElectronicModule;
 }
 BizSession^ BizSession::Instance()
 {

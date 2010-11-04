@@ -66,6 +66,16 @@ namespace AtCor{
 									*
 									*/									
 									bool GetNextValues(signed int *value1, signed int *value2, signed int *value3);
+
+									/**
+									* Reads a line from the simlation file and returns four integer values.
+									* @param[out] value1 Unsigned integer value from the first column in the file.
+									* @param[out] value2 Unsigned integer value from the second column in the file.
+									* @param[out] value3 Unsigned integer value from the third column in the file.
+									* @param[out] value4 Unsigned integer value from the fourth column in the file.
+									*
+									*/									
+									bool GetNextValues(signed int *value1, signed int *value2, signed int *value3, signed int *value4);
 								};
 		}
 	}

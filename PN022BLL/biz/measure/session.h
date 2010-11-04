@@ -10,6 +10,7 @@
 
 #pragma once
 #include <measure.h>
+#include <electronic_module.h>
 #include <biz_namespace.h>
 
 using namespace System;
@@ -24,6 +25,7 @@ public:
 	void DispatchCaptureData();
 	void ClearMeasurement();
 	property BizMeasure^ measurement;
+	property BizElectronicModule^ module;
 protected:
 	BizSession(void);
 private:

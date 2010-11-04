@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\projects\PN022BLL\biz\measure;C:\Projects\PN022BLL\biz\biz"
+				AdditionalIncludeDirectories="C:\projects\PN022BLL\biz\measure;C:\Projects\PN022BLL\biz\biz;C:\Projects\PN022BLL\dal\dal"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -207,6 +207,21 @@
 			AssemblyName="System.Drawing, Version=2.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
+		<AssemblyReference
+			RelativePath="..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
+			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath="..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
+			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath="..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
+			AssemblyName="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="131072"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -284,6 +299,18 @@
 			</File>
 			<File
 				RelativePath=".\BizDPTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizElectronicModuleAbnormalTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizElectronicModuleNormalTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizElectronicModuleTest.cpp"
 				>
 			</File>
 			<File

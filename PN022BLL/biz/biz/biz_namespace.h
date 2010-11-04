@@ -30,4 +30,5 @@
 #define DAL_NAMESPACE AtCor::THE_PRODUCT::DataAccess
 #define CRX_CONFIG_NAMESPACE AtCor::THE_PRODUCT::CrossCutting::Configuration
 #define CRX_MSG_NAMESPACE AtCor::THE_PRODUCT::CrossCutting::Messaging
+#define CRX_LOG_NAMESPACE AtCor::THE_PRODUCT::CrossCutting::Logging
 
