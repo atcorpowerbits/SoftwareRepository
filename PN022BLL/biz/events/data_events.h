@@ -153,8 +153,8 @@ public:
 	  this->signalStrengthColor = signalStrengthColor;
 	  this->enableOkayButton = enableOkayButton;
    }
-   property unsigned short signalMinimum;	// Signal maximum, used to calculate signal strength
-   property unsigned short signalMaximum;	// Signal minimum, used to calculate signal strength
+   property unsigned short signalMinimum;	// Signal maximum, used to calculate signal strength and scale the display
+   property unsigned short signalMaximum;	// Signal minimum, used to calculate signal strength and scale the display
    property Color signalStrengthColor;		// Colour to be displayed on the quality indicator
    property bool enableOkayButton;			// Can the user calculate a report or not
 };

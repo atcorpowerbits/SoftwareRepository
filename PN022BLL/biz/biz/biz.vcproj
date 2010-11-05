@@ -257,6 +257,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\patient\patient.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\capture\quality.cpp"
 				>
 			</File>
@@ -352,6 +356,10 @@
 			</File>
 			<File
 				RelativePath="..\measure\measure_pwv.h"
+				>
+			</File>
+			<File
+				RelativePath="..\patient\patient.h"
 				>
 			</File>
 			<File

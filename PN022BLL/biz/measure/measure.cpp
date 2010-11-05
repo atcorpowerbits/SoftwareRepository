@@ -94,9 +94,10 @@ void BizMeasure::Initialise()
 	
 	simulation = false;
 
-	reasonForChange = "";
+	/*reasonForChange = "";
 	auditChange = AUDIT_ORIGINAL;
 	auditDateTime = DateTime::Now;	
+	*/
 }
 
 /**

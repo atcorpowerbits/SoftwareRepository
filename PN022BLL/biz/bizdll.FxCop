@@ -39,6 +39,34 @@
   <Settings />
  </Rules>
  <FxCopReport Version="1.35">
+  <Namespaces>
+   <Namespace Name="AtCor.Scor.BusinessLogic">
+    <Messages>
+     <Message Id="Cor" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-11-05 03:19:11Z">
+      <Issue Name="Namespace">
+       <Item>Cor</Item>
+       <Item>AtCor.Scor.BusinessLogic</Item>
+      </Issue>
+      <Notes>
+       <User Name="paul">
+        <Note Id="12" />
+       </User>
+      </Notes>
+     </Message>
+     <Message Id="Scor" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-11-05 03:19:11Z">
+      <Issue Name="Namespace">
+       <Item>Scor</Item>
+       <Item>AtCor.Scor.BusinessLogic</Item>
+      </Issue>
+      <Notes>
+       <User Name="paul">
+        <Note Id="13" />
+       </User>
+      </Notes>
+     </Message>
+    </Messages>
+   </Namespace>
+  </Namespaces>
   <Targets>
    <Target Name="$(ProjectDir)/Debug/biz.dll">
     <Modules>
@@ -194,6 +222,106 @@
               <Notes>
                <User Name="victora">
                 <Note Id="54" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizConstants">
+          <Members>
+           <Member Name="CAPTURE_EXTRA_FOR_HANDSHAKE">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>CAPTURE_EXTRA_FOR_HANDSHAKE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue>
+               <Item>CAPTURE_EXTRA_FOR_HANDSHAKE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="DEFAULT_FLOAT_VALUE">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>DEFAULT_FLOAT_VALUE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue>
+               <Item>DEFAULT_FLOAT_VALUE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="DEFAULT_VALUE">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>DEFAULT_VALUE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue>
+               <Item>DEFAULT_VALUE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="PATIENT_INITIAL_DATE">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>PATIENT_INITIAL_DATE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="14" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue>
+               <Item>PATIENT_INITIAL_DATE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="15" />
                </User>
               </Notes>
              </Message>
@@ -741,34 +869,6 @@
          </Type>
          <Type Name="BizMeasure">
           <Members>
-           <Member Name="auditChange">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>auditChange</Item>
-              </Issue>
-              <Notes>
-               <User Name="paul">
-                <Note Id="2" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="auditDateTime">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>auditDateTime</Item>
-              </Issue>
-              <Notes>
-               <User Name="paul">
-                <Note Id="2" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="bodyMassIndex">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -951,20 +1051,6 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="reasonForChange">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>reasonForChange</Item>
-              </Issue>
-              <Notes>
-               <User Name="paul">
-                <Note Id="2" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="sampleRate">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -1002,6 +1088,122 @@
               <Notes>
                <User Name="paul">
                 <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizPatient">
+          <Members>
+           <Member Name="dateOfBirth">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>dateOfBirth</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="firstName">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>firstName</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="gender">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>gender</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="groupStudyId">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>groupStudyId</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="lastName">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>lastName</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="patientId">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>patientId</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="patientNumber">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>patientNumber</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="systemId">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-05 03:19:11Z">
+              <Issue Name="Member">
+               <Item>systemId</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="16" />
                </User>
               </Notes>
              </Message>
@@ -2031,6 +2233,11 @@
     <Note Id="9" Modified="2010-11-03 05:50:04Z">Added an empty private constructor is not necessary</Note>
     <Note Id="10" Modified="2010-11-03 05:55:40Z">Could not compile EventHandler in C++ so using delegates instead</Note>
     <Note Id="11" Modified="2010-11-03 05:56:17Z">input is validated in the ValidateArray function</Note>
+    <Note Id="12" Modified="2010-11-05 03:19:24Z">This is the company name</Note>
+    <Note Id="13" Modified="2010-11-05 03:19:32Z">This is the product name</Note>
+    <Note Id="14" Modified="2010-11-05 03:20:08Z">This is a constant</Note>
+    <Note Id="15" Modified="2010-11-05 03:20:25Z">It is constant?</Note>
+    <Note Id="16" Modified="2010-11-05 03:21:35Z">This is a property not a method</Note>
    </User>
    <User Name="victora">
     <Note Id="0" Modified="2010-10-29 03:47:21Z">not a method but a property</Note>
@@ -2071,8 +2278,12 @@
    </Rule>
    <Rule TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704">
     <Resolution Name="Member">Correct the spelling of the unrecognized token '{0}' in member name '{1}'.</Resolution>
+    <Resolution Name="Namespace">Correct the spelling of the unrecognized token '{0}' in namespace '{1}'.</Resolution>
     <Resolution Name="Parameter">In method {0}, correct the spelling of the unrecognized token '{1}' in parameter name '{2}' or strip it entirely if it represents any sort of hungarian notation.</Resolution>
     <Resolution Name="Type">Correct the spelling of the unrecognized token '{0}' in type name '{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707">
+    <Resolution Name="Member">Remove all underscores from member '{0}'.</Resolution>
    </Rule>
    <Rule TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705">
     <Resolution Name="Member">Correct the capitalization of member name '{0}'.</Resolution>
@@ -2080,6 +2291,9 @@
    </Rule>
    <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
     <Resolution Name="Default">The 'this' parameter (or 'Me' in VB) of {0} is never used. Mark the member as static (or Shared in VB) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
+   </Rule>
+   <Rule TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211">
+    <Resolution Name="Default">Consider making '{0}' non-public or a constant.</Resolution>
    </Rule>
    <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
     <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>

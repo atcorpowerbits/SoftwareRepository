@@ -25,8 +25,8 @@ DESCRIPTION
 
 INPUT
 
-	buffer,
-	sampleRate. 
+	buffer - incoming carotid data buffer,
+	sampleRate - timing of the carotid data. 
 
 OUTPUT
 
@@ -64,18 +64,15 @@ INPUT
 
 	sender - Subject which is sending the update event,
 	e - Event arguments where tonometer data is passed,
-	buffer,
-	bufferSize,
-	startIndex,
-	endIndex,
-	sampleRate.
+	BizCarotidQuality::buffer - incoming carotid data buffer,
+	BizCarotidQuality::sampleRate - timing of the carotid data.
 
 OUTPUT
 
-	signalMinimum,
-	signalMaximum,
-	signalStrengthColor,
-	enableOkayButton.
+	BizCarotidQualityEventHandler::signalMinimum - signal maximum, used to calculate signal strength and scale the display
+	BizCarotidQualityEventHandler::signalMaximum - signal minimum, used to calculate signal strength and scale the display
+	BizCarotidQualityEventHandler::signalStrengthColor - colour to be displayed on the quality indicator
+	BizCarotidQualityEventHandler::enableOkayButton - can the user calculate a report or not.
 
 RETURN
 
@@ -95,7 +92,8 @@ void BizCarotidQuality::Update( Object^ sender, BizTonometerDataEventArgs^ e )
 	Color signalStrengthColor = Color( Color::Red );
 	bool enableOkayButton = false;
 	
-	// Update the counter first so we ignore the first sample
+	// Update the counter first so we ignore the first interval and send the -
+	// first notification once we have meaningful information to send
 	counter++;
 	
 	// Calculate the quality every second. There's no need to update every sample

@@ -102,6 +102,7 @@ namespace AtCor.Scor.Presentation
             int data = e.data;
             //            listBoxTonoData.Items.Add(data.ToString());
             radLabelTonoData.Text = data.ToString();
+            //chartControl1.
         }
 
         private void UpdateCarotidQuality(Object sender, BizCarotidQualityEventArgs e)

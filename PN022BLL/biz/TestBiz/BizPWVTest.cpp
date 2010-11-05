@@ -263,9 +263,6 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned short) DEFAULT_CAPTURE_TIME, accessor->GetProperty("captureTime"));
 			Assert::AreEqual((unsigned short) DEFAULT_SAMPLE_RATE, accessor->GetProperty("sampleRate"));
 			Assert::IsFalse((bool)accessor->GetProperty("simulation"));
-			Assert::AreEqual((String^) "", accessor->GetProperty("reasonForChange"));
-			Assert::AreEqual((int) AUDIT_ORIGINAL, (int)accessor->GetProperty("auditChange"));
-			Assert::IsNotNull(accessor->GetProperty("auditDateTime"));
 		}
 		/// <summary>
 		///A test for ValidateSignals

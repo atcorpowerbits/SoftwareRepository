@@ -215,8 +215,11 @@ array<unsigned short>^ BizCircularBuffer::ReadBuffer(unsigned int% bufferSize,
 									unsigned short% startIndex,
 									unsigned short% endIndex)
 {
+	// Should be thread safe
+	_lockData.WaitOne();
 	bufferSize = this->bufferSize;
 	startIndex = _startIndex;
 	endIndex = _endIndex;
+	_lockData.ReleaseMutex();
 	return _buffer;
 }

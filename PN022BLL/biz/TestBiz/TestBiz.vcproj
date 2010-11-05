@@ -346,6 +346,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BizPatientTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BizPWVDirectDistanceTest.cpp"
 				>
 			</File>

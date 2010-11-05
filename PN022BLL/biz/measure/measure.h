@@ -156,11 +156,11 @@ public:
 	property unsigned short		sampleRate;				// Rate of measurement in Hz.
 	property bool				simulation;				// Indicates a Simulated report
 	
-	// CFR11 data members
+	/* CFR11 data members
 	property String^			reasonForChange;		// notes for changing this measurement
 	property auditChangeType	auditChange;			// The type of change to this measurement
 	property DateTime			auditDateTime;			// The date and time of the change to this measurement
-
+	*/
 	virtual bool Validate();
 
 	// Initialse the members of the measure class
