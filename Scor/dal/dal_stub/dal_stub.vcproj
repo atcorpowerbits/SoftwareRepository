@@ -4,7 +4,7 @@
 	Version="9.00"
 	Name="dal_stub"
 	ProjectGUID="{4279925F-9003-4B54-B76F-4994E1DC7C9E}"
-	RootNamespace="dal_stub"
+	RootNamespace="dal"
 	Keyword="ManagedCProj"
 	TargetFrameworkVersion="196613"
 	>
@@ -42,6 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="D:\SVN\ATCOR\src\trunk\Scor\crx\crx"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -60,10 +61,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(NoInherit)"
+				OutputFile="$(OutDir)\dal.dll"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
+				KeyFile="dal_key.snk"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -186,7 +189,35 @@
 				>
 			</File>
 			<File
-				RelativePath=".\dal_stub.cpp"
+				RelativePath=".\dal.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dal_facade_stub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalDeviceHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalEventContainer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalEventContainerStub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalModule.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalSimulationFile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalSimulationHandler.cpp"
 				>
 			</File>
 			<File
@@ -216,7 +247,39 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\dal_stub.h"
+				RelativePath=".\dal_facade_stub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCommon.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalDeviceHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalEventContainer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalEventContainerStub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalModule.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalSimulationFile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalSimulationHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IDalHandler.h"
 				>
 			</File>
 			<File
@@ -242,6 +305,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\ClassDiagram1.cd"
+			>
+		</File>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

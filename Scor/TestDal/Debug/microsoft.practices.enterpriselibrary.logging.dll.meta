@@ -1,0 +1,2053 @@
+  Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.DesignResources.resources - Embedded, ContainedInManifestFile, 
+  Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+  Microsoft.Practices.EnterpriseLibrary.Logging.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly System.Management, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Messaging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.EnterpriseServices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Configuration.Install, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.EnterpriseLibrary.Logging.InternalAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Management.Instrumentation.IgnoreMemberAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.InstrumentationTypeAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Management.Instrumentation.InstrumentationClassAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Struct Microsoft.Practices.EnterpriseLibrary.Logging.CategoryFilterMode: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Logging.CategoryFilterMode AllowAllExceptDenied = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.CategoryFilterMode DenyAllExceptAllowed = 1 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FormatterData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.BinaryLogFormatterData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FormatterData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogFilterData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CategoryFilterData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogFilterData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CategoryFilterEntry], Microsoft.Practices.EnterpriseLibrary.Logging.CategoryFilterMode): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CategoryFilterEntry], Microsoft.Practices.EnterpriseLibrary.Logging.CategoryFilterMode): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Logging.CategoryFilterMode CategoryFilterMode 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CategoryFilterEntry] CategoryFilters 'get set' : 
+  Methods:
+    get_CategoryFilterMode(): PrivateScope, Public, HideBySig, SpecialName
+    set_CategoryFilterMode(CategoryFilterMode): PrivateScope, Public, HideBySig, SpecialName
+    get_CategoryFilters(): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CategoryFilterEntry: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type ListenerDataType 'get set' : 
+    System.String ListenerDataTypeName 'get set' : 
+    System.Diagnostics.TraceOptions TraceOutputOptions 'get set' : 
+    System.Diagnostics.SourceLevels Filter 'get set' : 
+  Methods:
+    get_ListenerDataType(): PrivateScope, Public, HideBySig, SpecialName
+    set_ListenerDataType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_ListenerDataTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ListenerDataTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TraceOutputOptions(): PrivateScope, Public, HideBySig, SpecialName
+    set_TraceOutputOptions(TraceOptions): PrivateScope, Public, HideBySig, SpecialName
+    get_Filter(): PrivateScope, Public, HideBySig, SpecialName
+    set_Filter(SourceLevels): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.BasicCustomTraceListenerData: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String, System.Diagnostics.TraceOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.Diagnostics.TraceOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.BasicCustomTraceListenerData]
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData
+  Properties:
+    System.Collections.Specialized.NameValueCollection Attributes 'get ' : 
+    System.String InitData 'get set' : 
+  Methods:
+    SetAttributeValue(String, String): PrivateScope, Public, HideBySig
+    get_Attributes(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_InitData(): PrivateScope, Public, HideBySig, SpecialName
+    set_InitData(String): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomFormatterData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FormatterData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomFormatterData]
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData
+  Properties:
+    System.String TypeName 'get set' : 
+    System.Collections.Specialized.NameValueCollection Attributes 'get ' : 
+  Methods:
+    SetAttributeValue(String, String): PrivateScope, Public, HideBySig
+    get_TypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Attributes(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomLogFilterData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogFilterData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomLogFilterData]
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData
+  Properties:
+    System.String TypeName 'get set' : 
+    System.Collections.Specialized.NameValueCollection Attributes 'get ' : 
+  Methods:
+    get_TypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    SetAttributeValue(String, String): PrivateScope, Public, HideBySig
+    get_Attributes(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomTraceListenerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.BasicCustomTraceListenerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String, System.Diagnostics.TraceOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.Diagnostics.TraceOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Formatter 'get set' : 
+    System.String TypeName 'get set' : 
+  Methods:
+    get_Formatter(): PrivateScope, Public, HideBySig, SpecialName
+    set_Formatter(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.Filters.CategoryFilterDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CategoryFilterData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String CategoryFilterModePropertyName = categoryFilterMode : Public, Static, Literal, HasDefault
+    System.String CategoryFiltersKeyName = categoryFilters : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.Filters.CustomLogFilterDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.CustomProviderDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomLogFilterData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String AttributesPropertyName = attributes : Public, Static, Literal, HasDefault
+    System.String TypePropertyName = type : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.Filters.LogEnabledFilterDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogEnabledFilterData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String EnabledPropertyName = enabled : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.Filters.PriorityFilterDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.PriorityFilterData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String MaximumPriorityPropertyName = maximumPriority : Public, Static, Literal, HasDefault
+    System.String MinimumPriorityPropertyName = minimumPriority : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.Formatters.BinaryLogFormatterDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.BinaryLogFormatterData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.Formatters.CustomFormatterDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.CustomProviderDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomFormatterData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String AttributesPropertyName = attributes : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.Formatters.TextFormatterDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TextFormatterData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String TemplatePropertyName = template : Public, Static, Literal, HasDefault
+  Methods:
+    EscapeString(String): PrivateScope, Public, Static, HideBySig
+    UnescapeString(String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.LoggingSettingsManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProviderBase`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings]
+    Void .ctor(System.Collections.Generic.IDictionary`2[System.Type,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProvider]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String DefaultCategoryPropertyName = defaultCategory : Public, Static, Literal, HasDefault
+    System.String TracingEnabledPropertyName = tracingEnabled : Public, Static, Literal, HasDefault
+    System.String LogWarningOnNoMatchPropertyName = logWarningsWhenNoCategoriesMatch : Public, Static, Literal, HasDefault
+    System.String RevertImpersonationPropertyName = revertImpersonation : Public, Static, Literal, HasDefault
+    System.String CategorySourcesKeyName = categorySources : Public, Static, Literal, HasDefault
+    System.String SpecialSourcesKeyName = specialSources : Public, Static, Literal, HasDefault
+    System.String SpecialSourcesAllEventsKeyName = allEvents : Public, Static, Literal, HasDefault
+    System.String SpecialSourcesErrorsKeyName = errors : Public, Static, Literal, HasDefault
+    System.String SpecialSourcesNotProcessedKeyName = notProcessed : Public, Static, Literal, HasDefault
+    System.String SourceDefaultLevelPropertyName = switchValue : Public, Static, Literal, HasDefault
+    System.String SourceAutoFlushPropertyName = autoFlush : Public, Static, Literal, HasDefault
+    System.String SourceTraceListenersPropertyName = listeners : Public, Static, Literal, HasDefault
+    System.String SourceKindCategory = Category : Public, Static, Literal, HasDefault
+    System.String SourceKindAllEvents = All events : Public, Static, Literal, HasDefault
+    System.String SourceKindErrors = Errors : Public, Static, Literal, HasDefault
+    System.String SourceKindNotProcessed = Not processed : Public, Static, Literal, HasDefault
+    System.String LogFiltersKeyName = logFilters : Public, Static, Literal, HasDefault
+    System.String LogFormattersKeyName = formatters : Public, Static, Literal, HasDefault
+    System.String TraceListenersKeyName = listeners : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.BasicCustomTraceListenerDataManageabilityProvider`1[T]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.BasicCustomTraceListenerData
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.CustomProviderDataManageabilityProvider`1[T]
+  Fields:
+    System.String InitDataPropertyName = initializeData : Public, Static, Literal, HasDefault
+    System.String TraceOutputOptionsPropertyName = traceOutputOptions : Public, Static, Literal, HasDefault
+    System.String FilterPropertyName = filter : Public, Static, Literal, HasDefault
+    System.String AttributesPropertyName = attributes : Public, Static, Literal, HasDefault
+    System.String ProviderTypePropertyName = type : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.TraceListenerDataManageabilityProvider`1[T]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1[T]
+  Fields:
+    System.String FormatterPropertyName = formatter : Public, Static, Literal, HasDefault
+    System.String TraceOutputOptionsPropertyName = traceOutputOptions : Public, Static, Literal, HasDefault
+    System.String FilterPropertyName = filter : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.XmlTraceListenerDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.TraceListenerDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.XmlTraceListenerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String FileNamePropertyName = fileName : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.RollingFlatFileTraceListenerDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.TraceListenerDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.RollingFlatFileTraceListenerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String FileNamePropertyName = fileName : Public, Static, Literal, HasDefault
+    System.String FooterPropertyName = footer : Public, Static, Literal, HasDefault
+    System.String HeaderPropertyName = header : Public, Static, Literal, HasDefault
+    System.String RollFileExistsBehaviorPropertyName = rollFileExistsBehavior : Public, Static, Literal, HasDefault
+    System.String RollIntervalPropertyName = rollInterval : Public, Static, Literal, HasDefault
+    System.String RollSizeKBPropertyName = rollSizeKB : Public, Static, Literal, HasDefault
+    System.String TimeStampPatternPropertyName = timeStampPattern : Public, Static, Literal, HasDefault
+    System.String MaxArchivedFilesPropertyName = maxArchivedFiles : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.CustomTraceListenerDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.BasicCustomTraceListenerDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomTraceListenerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String FormatterPropertyName = formatter : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.EmailTraceListenerDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.TraceListenerDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.EmailTraceListenerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String FromAddressPropertyName = fromAddress : Public, Static, Literal, HasDefault
+    System.String SmtpPortPropertyName = smtpPort : Public, Static, Literal, HasDefault
+    System.String SmtpServerPropertyName = smtpServer : Public, Static, Literal, HasDefault
+    System.String SubjectLineEnderPropertyName = subjectLineEnder : Public, Static, Literal, HasDefault
+    System.String SubjectLineStarterPropertyName = subjectLineStarter : Public, Static, Literal, HasDefault
+    System.String ToAddressPropertyName = toAddress : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.FlatFileTraceListenerDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.TraceListenerDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FlatFileTraceListenerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String FileNamePropertyName = fileName : Public, Static, Literal, HasDefault
+    System.String FooterPropertyName = footer : Public, Static, Literal, HasDefault
+    System.String HeaderPropertyName = header : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.FormattedEventLogTraceListenerDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.TraceListenerDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FormattedEventLogTraceListenerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String LogPropertyName = log : Public, Static, Literal, HasDefault
+    System.String MachineNamePropertyName = machineName : Public, Static, Literal, HasDefault
+    System.String SourcePropertyName = source : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.MsmqTraceListenerDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.TraceListenerDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.MsmqTraceListenerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String MessagePriorityPropertyName = messagePriority : Public, Static, Literal, HasDefault
+    System.String QueuePathPropertyName = queuePath : Public, Static, Literal, HasDefault
+    System.String RecoverablePropertyName = recoverable : Public, Static, Literal, HasDefault
+    System.String TimeToBeReceivedPropertyName = timeToBeReceived : Public, Static, Literal, HasDefault
+    System.String TimeToReachQueuePropertyName = timeToReachQueue : Public, Static, Literal, HasDefault
+    System.String TransactionTypePropertyName = transactionType : Public, Static, Literal, HasDefault
+    System.String UseAuthenticationPropertyName = useAuthentication : Public, Static, Literal, HasDefault
+    System.String UseDeadLetterQueuePropertyName = useDeadLetterQueue : Public, Static, Literal, HasDefault
+    System.String UseEncryptionPropertyName = useEncryption : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.SystemDiagnosticsTraceListenerDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.BasicCustomTraceListenerDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.SystemDiagnosticsTraceListenerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.WmiTraceListenerDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Manageability.TraceListeners.TraceListenerDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.WmiTraceListenerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.RollingFlatFileTraceListenerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, Int32, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollFileExistsBehavior, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval, System.Diagnostics.TraceOptions, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, Int32, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollFileExistsBehavior, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval, System.Diagnostics.TraceOptions, System.String, System.Diagnostics.SourceLevels): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String FileName 'get set' : 
+    System.String Footer 'get set' : 
+    System.String Formatter 'get set' : 
+    System.String Header 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollFileExistsBehavior RollFileExistsBehavior 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval RollInterval 'get set' : 
+    Int32 RollSizeKB 'get set' : 
+    System.String TimeStampPattern 'get set' : 
+    Int32 MaxArchivedFiles 'get set' : 
+  Methods:
+    get_FileName(): PrivateScope, Public, HideBySig, SpecialName
+    set_FileName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Footer(): PrivateScope, Public, HideBySig, SpecialName
+    set_Footer(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Formatter(): PrivateScope, Public, HideBySig, SpecialName
+    set_Formatter(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Header(): PrivateScope, Public, HideBySig, SpecialName
+    set_Header(String): PrivateScope, Public, HideBySig, SpecialName
+    get_RollFileExistsBehavior(): PrivateScope, Public, HideBySig, SpecialName
+    set_RollFileExistsBehavior(RollFileExistsBehavior): PrivateScope, Public, HideBySig, SpecialName
+    get_RollInterval(): PrivateScope, Public, HideBySig, SpecialName
+    set_RollInterval(RollInterval): PrivateScope, Public, HideBySig, SpecialName
+    get_RollSizeKB(): PrivateScope, Public, HideBySig, SpecialName
+    set_RollSizeKB(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_TimeStampPattern(): PrivateScope, Public, HideBySig, SpecialName
+    set_TimeStampPattern(String): PrivateScope, Public, HideBySig, SpecialName
+    get_MaxArchivedFiles(): PrivateScope, Public, HideBySig, SpecialName
+    set_MaxArchivedFiles(Int32): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.SystemDiagnosticsTraceListenerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.BasicCustomTraceListenerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String, System.Diagnostics.TraceOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TypeName 'get set' : 
+  Methods:
+    get_TypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.EmailMessage: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.EmailTraceListenerData, Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, Int32, Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, Int32, Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailAuthenticationMode, System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, Int32, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, Int32, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailAuthenticationMode, System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Send(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    SendMessage(MailMessage): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.EmailTraceListenerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, Int32, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, System.String, Int32, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, System.String, Int32, System.String, System.Diagnostics.TraceOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, System.String, Int32, System.String, System.Diagnostics.TraceOptions, System.Diagnostics.SourceLevels): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, System.String, Int32, System.String, System.Diagnostics.TraceOptions, System.Diagnostics.SourceLevels, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailAuthenticationMode, System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String ToAddress 'get set' : 
+    System.String FromAddress 'get set' : 
+    System.String SubjectLineStarter 'get set' : 
+    System.String SubjectLineEnder 'get set' : 
+    System.String SmtpServer 'get set' : 
+    Int32 SmtpPort 'get set' : 
+    System.String Formatter 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailAuthenticationMode AuthenticationMode 'get set' : 
+    Boolean UseSSL 'get set' : 
+    System.String UserName 'get set' : 
+    System.String Password 'get set' : 
+  Methods:
+    get_ToAddress(): PrivateScope, Public, HideBySig, SpecialName
+    set_ToAddress(String): PrivateScope, Public, HideBySig, SpecialName
+    get_FromAddress(): PrivateScope, Public, HideBySig, SpecialName
+    set_FromAddress(String): PrivateScope, Public, HideBySig, SpecialName
+    get_SubjectLineStarter(): PrivateScope, Public, HideBySig, SpecialName
+    set_SubjectLineStarter(String): PrivateScope, Public, HideBySig, SpecialName
+    get_SubjectLineEnder(): PrivateScope, Public, HideBySig, SpecialName
+    set_SubjectLineEnder(String): PrivateScope, Public, HideBySig, SpecialName
+    get_SmtpServer(): PrivateScope, Public, HideBySig, SpecialName
+    set_SmtpServer(String): PrivateScope, Public, HideBySig, SpecialName
+    get_SmtpPort(): PrivateScope, Public, HideBySig, SpecialName
+    set_SmtpPort(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Formatter(): PrivateScope, Public, HideBySig, SpecialName
+    set_Formatter(String): PrivateScope, Public, HideBySig, SpecialName
+    get_AuthenticationMode(): PrivateScope, Public, HideBySig, SpecialName
+    set_AuthenticationMode(EmailAuthenticationMode): PrivateScope, Public, HideBySig, SpecialName
+    get_UseSSL(): PrivateScope, Public, HideBySig, SpecialName
+    set_UseSSL(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_UserName(): PrivateScope, Public, HideBySig, SpecialName
+    set_UserName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Password(): PrivateScope, Public, HideBySig, SpecialName
+    set_Password(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogEnabledFilterData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogFilterData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean Enabled 'get set' : 
+  Methods:
+    get_Enabled(): PrivateScope, Public, HideBySig, SpecialName
+    set_Enabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.MsmqTraceListenerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.Messaging.MessagePriority, Boolean, System.TimeSpan, System.TimeSpan, Boolean, Boolean, Boolean, System.Messaging.MessageQueueTransactionType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.Messaging.MessagePriority, Boolean, System.TimeSpan, System.TimeSpan, Boolean, Boolean, Boolean, System.Messaging.MessageQueueTransactionType, System.Diagnostics.TraceOptions, System.Diagnostics.SourceLevels): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.TimeSpan DefaultTimeToReachQueue : Public, Static, InitOnly
+    System.TimeSpan DefaultTimeToBeReceived : Public, Static, InitOnly
+    System.Messaging.MessagePriority DefaultPriority = 3 : Public, Static, Literal, HasDefault
+    Boolean DefaultRecoverable = False : Public, Static, Literal, HasDefault
+    Boolean DefaultUseAuthentication = False : Public, Static, Literal, HasDefault
+    Boolean DefaultUseDeadLetter = False : Public, Static, Literal, HasDefault
+    Boolean DefaultUseEncryption = False : Public, Static, Literal, HasDefault
+    System.Messaging.MessageQueueTransactionType DefaultTransactionType = 0 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String QueuePath 'get set' : 
+    System.String Formatter 'get set' : 
+    System.Messaging.MessagePriority MessagePriority 'get set' : 
+    System.TimeSpan TimeToReachQueue 'get set' : 
+    System.TimeSpan TimeToBeReceived 'get set' : 
+    Boolean Recoverable 'get set' : 
+    Boolean UseAuthentication 'get set' : 
+    Boolean UseDeadLetterQueue 'get set' : 
+    Boolean UseEncryption 'get set' : 
+    System.Messaging.MessageQueueTransactionType TransactionType 'get set' : 
+  Methods:
+    get_QueuePath(): PrivateScope, Public, HideBySig, SpecialName
+    set_QueuePath(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Formatter(): PrivateScope, Public, HideBySig, SpecialName
+    set_Formatter(String): PrivateScope, Public, HideBySig, SpecialName
+    get_MessagePriority(): PrivateScope, Public, HideBySig, SpecialName
+    set_MessagePriority(MessagePriority): PrivateScope, Public, HideBySig, SpecialName
+    get_TimeToReachQueue(): PrivateScope, Public, HideBySig, SpecialName
+    set_TimeToReachQueue(TimeSpan): PrivateScope, Public, HideBySig, SpecialName
+    get_TimeToBeReceived(): PrivateScope, Public, HideBySig, SpecialName
+    set_TimeToBeReceived(TimeSpan): PrivateScope, Public, HideBySig, SpecialName
+    get_Recoverable(): PrivateScope, Public, HideBySig, SpecialName
+    set_Recoverable(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_UseAuthentication(): PrivateScope, Public, HideBySig, SpecialName
+    set_UseAuthentication(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_UseDeadLetterQueue(): PrivateScope, Public, HideBySig, SpecialName
+    set_UseDeadLetterQueue(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_UseEncryption(): PrivateScope, Public, HideBySig, SpecialName
+    set_UseEncryption(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_TransactionType(): PrivateScope, Public, HideBySig, SpecialName
+    set_TransactionType(MessageQueueTransactionType): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FlatFileTraceListenerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, System.Diagnostics.TraceOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String, System.String, System.Diagnostics.TraceOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String FileName 'get set' : 
+    System.String Header 'get set' : 
+    System.String Footer 'get set' : 
+    System.String Formatter 'get set' : 
+  Methods:
+    get_FileName(): PrivateScope, Public, HideBySig, SpecialName
+    set_FileName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Header(): PrivateScope, Public, HideBySig, SpecialName
+    set_Header(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Footer(): PrivateScope, Public, HideBySig, SpecialName
+    set_Footer(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Formatter(): PrivateScope, Public, HideBySig, SpecialName
+    set_Formatter(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SerializableConfigurationSection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ITypeRegistrationsProvider
+  Fields:
+    System.String SectionName = loggingConfiguration : Public, Static, Literal, HasDefault
+  Properties:
+    Boolean TracingEnabled 'get set' : 
+    System.String Name 'get set' : 
+    System.String DefaultCategory 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerDataCollection TraceListeners 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElementCollection`2[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FormatterData,Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomFormatterData] Formatters 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElementCollection`2[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogFilterData,Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.CustomLogFilterData] LogFilters 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceSourceData] TraceSources 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.SpecialTraceSourcesData SpecialTraceSources 'get set' : 
+    Boolean LogWarningWhenNoCategoriesMatch 'get set' : 
+    Boolean RevertImpersonation 'get set' : 
+  Methods:
+    GetLoggingSettings(IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    get_TracingEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    set_TracingEnabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_DefaultCategory(): PrivateScope, Public, HideBySig, SpecialName
+    set_DefaultCategory(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TraceListeners(): PrivateScope, Public, HideBySig, SpecialName
+    get_Formatters(): PrivateScope, Public, HideBySig, SpecialName
+    get_LogFilters(): PrivateScope, Public, HideBySig, SpecialName
+    get_TraceSources(): PrivateScope, Public, HideBySig, SpecialName
+    get_SpecialTraceSources(): PrivateScope, Public, HideBySig, SpecialName
+    set_SpecialTraceSources(SpecialTraceSourcesData): PrivateScope, Public, HideBySig, SpecialName
+    get_LogWarningWhenNoCategoriesMatch(): PrivateScope, Public, HideBySig, SpecialName
+    set_LogWarningWhenNoCategoriesMatch(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_RevertImpersonation(): PrivateScope, Public, HideBySig, SpecialName
+    set_RevertImpersonation(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetUpdatedRegistrations(IConfigurationSource): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.PriorityFilterData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogFilterData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 MinimumPriority 'get set' : 
+    Int32 MaximumPriority 'get set' : 
+  Methods:
+    get_MinimumPriority(): PrivateScope, Public, HideBySig, SpecialName
+    set_MinimumPriority(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_MaximumPriority(): PrivateScope, Public, HideBySig, SpecialName
+    set_MaximumPriority(Int32): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.SpecialTraceSourcesData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceSourceData, Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceSourceData, Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceSourceData): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceSourceData AllEventsTraceSource 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceSourceData NotProcessedTraceSource 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceSourceData ErrorsTraceSource 'get set' : 
+  Methods:
+    get_AllEventsTraceSource(): PrivateScope, Public, HideBySig, SpecialName
+    set_AllEventsTraceSource(TraceSourceData): PrivateScope, Public, HideBySig, SpecialName
+    get_NotProcessedTraceSource(): PrivateScope, Public, HideBySig, SpecialName
+    set_NotProcessedTraceSource(TraceSourceData): PrivateScope, Public, HideBySig, SpecialName
+    get_ErrorsTraceSource(): PrivateScope, Public, HideBySig, SpecialName
+    set_ErrorsTraceSource(TraceSourceData): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Unity.LoggingBlockExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit (Obsolete)
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryBlockExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.WmiTraceListenerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Diagnostics.TraceOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Diagnostics.TraceOptions, System.Diagnostics.SourceLevels): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.XmlTraceListenerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String FileName 'get set' : 
+  Methods:
+    get_FileName(): PrivateScope, Public, HideBySig, SpecialName
+    set_FileName(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.ContextItems: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String CallContextSlotName = EntLibLoggerContextItems : Public, Static, Literal, HasDefault
+  Methods:
+    SetContextItem(Object, Object): PrivateScope, Public, HideBySig, HasSecurity
+    FlushContextItems(): PrivateScope, Public, HideBySig, HasSecurity
+    ProcessContextItems(LogEntry): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FormattedEventLogTraceListenerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, System.Diagnostics.TraceOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Source 'get set' : 
+    System.String Formatter 'get set' : 
+    System.String Log 'get set' : 
+    System.String MachineName 'get set' : 
+  Methods:
+    get_Source(): PrivateScope, Public, HideBySig, SpecialName
+    set_Source(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Formatter(): PrivateScope, Public, HideBySig, SpecialName
+    set_Formatter(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Log(): PrivateScope, Public, HideBySig, SpecialName
+    set_Log(String): PrivateScope, Public, HideBySig, SpecialName
+    get_MachineName(): PrivateScope, Public, HideBySig, SpecialName
+    set_MachineName(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerDataCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.PolymorphicConfigurationElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerReferenceData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceSourceData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Diagnostics.SourceLevels): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Diagnostics.SourceLevels, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Diagnostics.SourceLevels DefaultLevel 'get set' : 
+    Boolean AutoFlush 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerReferenceData] TraceListeners 'get ' : 
+  Methods:
+    get_DefaultLevel(): PrivateScope, Public, HideBySig, SpecialName
+    set_DefaultLevel(SourceLevels): PrivateScope, Public, HideBySig, SpecialName
+    get_AutoFlush(): PrivateScope, Public, HideBySig, SpecialName
+    set_AutoFlush(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_TraceListeners(): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.ExceptionFormatter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Specialized.NameValueCollection, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String Header : Public, Static
+  Methods:
+    GetMessage(Exception): PrivateScope, Public, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.IExtraInformationProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    PopulateDictionary(IDictionary`2): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.ComPlusInformationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.IExtraInformationProvider
+  Properties:
+    System.String OriginalCallerAccountName 'get ' : 
+    System.String DirectCallerAccountName 'get ' : 
+    System.String TransactionId 'get ' : 
+    System.String ApplicationId 'get ' : 
+    System.String ActivityId 'get ' : 
+  Methods:
+    PopulateDictionary(IDictionary`2): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_OriginalCallerAccountName(): PrivateScope, Public, HideBySig, SpecialName
+    get_DirectCallerAccountName(): PrivateScope, Public, HideBySig, SpecialName
+    get_TransactionId(): PrivateScope, Public, HideBySig, SpecialName
+    get_ApplicationId(): PrivateScope, Public, HideBySig, SpecialName
+    get_ActivityId(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.DebugInformationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.Helpers.IDebugUtils): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.IExtraInformationProvider
+  Methods:
+    PopulateDictionary(IDictionary`2): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.Helpers.IContextUtils: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    GetActivityId(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetApplicationId(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetTransactionId(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetDirectCallerAccountName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetOriginalCallerAccountName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.Helpers.IDebugUtils: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    GetStackTraceWithSourceInfo(StackTrace): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.ManagedSecurityContextInformationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.IExtraInformationProvider
+  Properties:
+    System.String AuthenticationType 'get ' : 
+    System.String IdentityName 'get ' : 
+    Boolean IsAuthenticated 'get ' : 
+  Methods:
+    PopulateDictionary(IDictionary`2): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_AuthenticationType(): PrivateScope, Public, HideBySig, SpecialName
+    get_IdentityName(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsAuthenticated(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.UnmanagedSecurityContextInformationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.ExtraInformation.IExtraInformationProvider
+  Properties:
+    System.String CurrentUser 'get ' : 
+    System.String ProcessAccountName 'get ' : 
+  Methods:
+    PopulateDictionary(IDictionary`2): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_CurrentUser(): PrivateScope, Public, HideBySig, SpecialName
+    get_ProcessAccountName(): PrivateScope, Public, HideBySig, SpecialName, HasSecurity
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilterErrorHandler: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    FilterCheckingFailed(Exception, LogEntry, ILogFilter): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    System.String Name 'get ' : 
+  Methods:
+    Filter(LogEntry): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Filters.LogFilter: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter
+  Properties:
+    System.String Name 'get ' : 
+  Methods:
+    Filter(LogEntry): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_Name(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Filters.LogEnabledFilter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Filters.LogFilter
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean Enabled 'get set' : 
+  Methods:
+    Filter(LogEntry): PrivateScope, Public, Virtual, HideBySig
+    get_Enabled(): PrivateScope, Public, HideBySig, SpecialName
+    set_Enabled(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    Format(LogEntry): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.LogFormatter: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter
+  Methods:
+    Format(LogEntry): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.BinaryLogFormatter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.LogFormatter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Format(LogEntry): PrivateScope, Public, Virtual, HideBySig
+    Deserialize(String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.XmlLogFormatter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.LogFormatter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Format(LogEntry): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.DefaultLoggingEventLogger: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationListener
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    LogConfigurationError(Exception): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.TracerPerformanceCounter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.EnterpriseLibraryPerformanceCounter
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    IncrementBy(String, Int64): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.LoggingException: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.LogWriterStructureHolder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Logging.LogSource], Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, System.String, Boolean, Boolean, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], System.Collections.Generic.IEnumerable`1[System.String], System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource], Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, System.String, Boolean, Boolean, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter] Filters 'get ' : 
+    System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Logging.LogSource] TraceSources 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.LogSource AllEventsTraceSource 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.LogSource NotProcessedTraceSource 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.LogSource ErrorsTraceSource 'get ' : 
+    System.String DefaultCategory 'get ' : 
+    Boolean TracingEnabled 'get ' : 
+    Boolean LogWarningsWhenNoCategoriesMatch 'get ' : 
+    Boolean RevertImpersonation 'get ' : 
+  Methods:
+    get_Filters(): PrivateScope, Public, HideBySig, SpecialName
+    get_TraceSources(): PrivateScope, Public, HideBySig, SpecialName
+    get_AllEventsTraceSource(): PrivateScope, Public, HideBySig, SpecialName
+    get_NotProcessedTraceSource(): PrivateScope, Public, HideBySig, SpecialName
+    get_ErrorsTraceSource(): PrivateScope, Public, HideBySig, SpecialName
+    get_DefaultCategory(): PrivateScope, Public, HideBySig, SpecialName
+    get_TracingEnabled(): PrivateScope, Public, HideBySig, SpecialName
+    get_LogWarningsWhenNoCategoriesMatch(): PrivateScope, Public, HideBySig, SpecialName
+    get_RevertImpersonation(): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.LogWriterFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ContainerBasedInstanceFactory`1[Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.ServiceLocation.IServiceLocator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Create(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.ProjectInstaller: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Management.Instrumentation.DefaultManagementProjectInstaller
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListenerFilter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetAvailableTraceListeners(IEnumerable`1): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.CustomTraceListener: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :System.Diagnostics.TraceListener
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter Formatter 'get set' : 
+  Methods:
+    get_Formatter(): PrivateScope, Public, HideBySig, SpecialName
+    set_Formatter(ILogFormatter): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedTraceListenerBase: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :System.Diagnostics.TraceListener
+  Properties:
+    Boolean IsThreadSafe 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter Formatter 'get set' : 
+  Methods:
+    get_IsThreadSafe(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Formatter(): PrivateScope, Public, HideBySig, SpecialName
+    set_Formatter(ILogFormatter): PrivateScope, Public, HideBySig, SpecialName
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailTraceListener: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedTraceListenerBase
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, Int32, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, Int32, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailAuthenticationMode, System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, System.String, System.String, Int32, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailAuthenticationMode, System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Write(String): PrivateScope, Public, Virtual, HideBySig
+    WriteLine(String): PrivateScope, Public, Virtual, HideBySig
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EntLibLoggingProxyTraceListener: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Diagnostics.TraceListener
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Collections.Generic.IList`1[System.String] CategoriesXPathQueries 'get ' : 
+    Boolean IsThreadSafe 'get ' : 
+    System.Xml.XmlNamespaceManager NamespaceManager 'get ' : 
+  Methods:
+    get_CategoriesXPathQueries(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsThreadSafe(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_NamespaceManager(): PrivateScope, Public, HideBySig, SpecialName
+    SplitNamespacesString(String): PrivateScope, Public, Static, HideBySig
+    SplitXPathQueriesString(String): PrivateScope, Public, Static, HideBySig
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+    TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[]): PrivateScope, Public, Virtual, HideBySig
+    TraceEvent(TraceEventCache, String, TraceEventType, Int32, String): PrivateScope, Public, Virtual, HideBySig
+    TraceTransfer(TraceEventCache, String, Int32, String, Guid): PrivateScope, Public, Virtual, HideBySig
+    Write(String): PrivateScope, Public, Virtual, HideBySig
+    WriteLine(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EnvironmentHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    ReplaceEnvironmentVariables(String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedTextWriterTraceListener: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Diagnostics.TextWriterTraceListener
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.Stream, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.Stream): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.TextWriter, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.TextWriter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.Stream, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.Stream, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.TextWriter, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.TextWriter, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter Formatter 'get set' : 
+  Methods:
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+    get_Formatter(): PrivateScope, Public, HideBySig, SpecialName
+    set_Formatter(ILogFormatter): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FlatFileTraceListener: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedTextWriterTraceListener
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.FileStream, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.FileStream): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.StreamWriter, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.StreamWriter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.FileStream, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.FileStream, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.StreamWriter, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.StreamWriter, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ILoggingInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    FireLockAcquisitionError(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FireConfigurationFailureEvent(Exception): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FireFailureLoggingErrorEvent(String, Exception): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FireLogEventRaised(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FireTraceListenerEntryWrittenEvent(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FireReconfigurationErrorEvent(Exception): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.LoggingInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationListener
+    Void .ctor(Boolean, Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean, Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ILoggingInstrumentationProvider
+  Methods:
+    FireTraceListenerEntryWrittenEvent(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireReconfigurationErrorEvent(Exception): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireFailureLoggingErrorEvent(String, Exception): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireConfigurationFailureEvent(Exception): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireLogEventRaised(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireLockAcquisitionError(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Struct Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollFileExistsBehavior: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollFileExistsBehavior Overwrite = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollFileExistsBehavior Increment = 1 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFileTraceListener: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FlatFileTraceListener
+    Void .ctor(System.String, System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter, Int32, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollFileExistsBehavior, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter, Int32, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollFileExistsBehavior, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    StreamWriterRollingHelper RollingHelper 'get ' : 
+  Methods:
+    get_RollingHelper(): PrivateScope, Public, HideBySig, SpecialName
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFileTraceListener+DateTimeProvider: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.DateTime CurrentDateTime 'get ' : 
+  Methods:
+    get_CurrentDateTime(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFileTraceListener+StreamWriterRollingHelper: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFileTraceListener): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    DateTimeProvider DateTimeProvider 'set' : 
+    System.Nullable`1[System.DateTime] NextRollDateTime 'get ' : 
+  Methods:
+    set_DateTimeProvider(DateTimeProvider): PrivateScope, Public, HideBySig, SpecialName
+    get_NextRollDateTime(): PrivateScope, Public, HideBySig, SpecialName
+    CalculateNextRollDate(DateTime): PrivateScope, Public, HideBySig
+    CheckIsRollNecessary(): PrivateScope, Public, HideBySig
+    ComputeArchiveFileName(String, DateTime): PrivateScope, Public, HideBySig
+    FindMaxSequenceNumber(String, String, String): PrivateScope, Public, Static, HideBySig
+    PerformRoll(DateTime): PrivateScope, Public, HideBySig
+    RollIfNecessary(): PrivateScope, Public, HideBySig
+    UpdateRollingInformationIfNecessary(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFileTraceListener+TallyKeepingFileStreamWriter: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.IO.StreamWriter
+    Void .ctor(System.IO.FileStream): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.FileStream, System.Text.Encoding): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int64 Tally 'get ' : 
+  Methods:
+    get_Tally(): PrivateScope, Public, HideBySig, SpecialName
+    Write(Char): PrivateScope, Public, Virtual, HideBySig
+    Write(Char[]): PrivateScope, Public, Virtual, HideBySig
+    Write(Char[], Int32, Int32): PrivateScope, Public, Virtual, HideBySig
+    Write(String): PrivateScope, Public, Virtual, HideBySig
+Struct Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval None = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval Minute = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval Hour = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval Day = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval Week = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval Month = 5 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval Year = 6 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollInterval Midnight = 7 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.WmiTraceListener: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Diagnostics.TraceListener
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Write(String): PrivateScope, Public, Virtual, HideBySig
+    WriteLine(String): PrivateScope, Public, Virtual, HideBySig
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.IMsmqSendInterface: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Boolean Transactional 'get ' : 
+  Methods:
+    Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Send(Message, MessageQueueTransactionType): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_Transactional(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.IMsmqSendInterfaceFactory: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    CreateMsmqInterface(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.MsmqSendInterfaceFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.IMsmqSendInterfaceFactory
+  Methods:
+    CreateMsmqInterface(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.MsmqTraceListener: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedTraceListenerBase
+    Void .ctor(System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter, System.Messaging.MessagePriority, Boolean, System.TimeSpan, System.TimeSpan, Boolean, Boolean, Boolean, System.Messaging.MessageQueueTransactionType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter, System.Messaging.MessagePriority, Boolean, System.TimeSpan, System.TimeSpan, Boolean, Boolean, Boolean, System.Messaging.MessageQueueTransactionType, Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.IMsmqSendInterfaceFactory): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String QueuePath 'get ' : 
+  Methods:
+    get_QueuePath(): PrivateScope, Public, HideBySig, SpecialName
+    CreateMessage(LogEntry): PrivateScope, Public, HideBySig
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+    Write(String): PrivateScope, Public, Virtual, HideBySig
+    WriteLine(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.XmlTraceListener: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Diagnostics.XmlWriterTraceListener
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ITracerInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter LogWriter 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ITracerInstrumentationProvider InstrumentationProvider 'get ' : 
+  Methods:
+    get_LogWriter(): PrivateScope, Public, HideBySig, SpecialName
+    get_InstrumentationProvider(): PrivateScope, Public, HideBySig, SpecialName
+    StartTrace(String): PrivateScope, Public, HideBySig
+    StartTrace(String, Guid): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Tracer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Guid): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, Microsoft.Practices.ServiceLocation.IServiceLocator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.ServiceLocation.IServiceLocator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Guid, Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Guid, Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, Microsoft.Practices.ServiceLocation.IServiceLocator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    Int32 priority = 5 : Public, Static, Literal, HasDefault
+    Int32 eventId = 1 : Public, Static, Literal, HasDefault
+    System.String startTitle = TracerEnter : Public, Static, Literal, HasDefault
+    System.String endTitle = TracerExit : Public, Static, Literal, HasDefault
+    System.String ActivityIdPropertyKey = TracerActivityId : Public, Static, Literal, HasDefault
+  Methods:
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    IsTracingEnabled(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Filters.CategoryFilter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Filters.LogFilter
+    Void .ctor(System.String, System.Collections.Generic.ICollection`1[System.String], Microsoft.Practices.EnterpriseLibrary.Logging.CategoryFilterMode): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Collections.Generic.ICollection`1[System.String] CategoryFilters 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.CategoryFilterMode CategoryFilterMode 'get set' : 
+  Methods:
+    Filter(LogEntry): PrivateScope, Public, Virtual, HideBySig
+    ShouldLog(IEnumerable`1): PrivateScope, Public, HideBySig
+    ShouldLog(String): PrivateScope, Public, HideBySig
+    get_CategoryFilters(): PrivateScope, Public, HideBySig, SpecialName
+    get_CategoryFilterMode(): PrivateScope, Public, HideBySig, SpecialName
+    set_CategoryFilterMode(CategoryFilterMode): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Filters.LogFilterHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilterErrorHandler): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CheckFilters(LogEntry): PrivateScope, Public, HideBySig
+    GetFilter(): PrivateScope, Public, HideBySig
+    GetFilter(String): PrivateScope, Public, HideBySig
+    GetFilter(String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Filters.PriorityFilter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Filters.LogFilter
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 MinimumPriority 'get ' : 
+    Int32 MaximumPriority 'get ' : 
+  Methods:
+    Filter(LogEntry): PrivateScope, Public, Virtual, HideBySig
+    ShouldLog(Int32): PrivateScope, Public, HideBySig
+    get_MinimumPriority(): PrivateScope, Public, HideBySig, SpecialName
+    get_MaximumPriority(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Logger: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter Writer 'get ' : 
+  Methods:
+    SetContextItem(Object, Object): PrivateScope, Public, Static, HideBySig
+    FlushContextItems(): PrivateScope, Public, Static, HideBySig
+    Write(Object): PrivateScope, Public, Static, HideBySig
+    Write(Object, String): PrivateScope, Public, Static, HideBySig
+    Write(Object, String, Int32): PrivateScope, Public, Static, HideBySig
+    Write(Object, String, Int32, Int32): PrivateScope, Public, Static, HideBySig
+    Write(Object, String, Int32, Int32, TraceEventType): PrivateScope, Public, Static, HideBySig
+    Write(Object, String, Int32, Int32, TraceEventType, String): PrivateScope, Public, Static, HideBySig
+    Write(Object, IDictionary`2): PrivateScope, Public, Static, HideBySig
+    Write(Object, String, IDictionary`2): PrivateScope, Public, Static, HideBySig
+    Write(Object, String, Int32, IDictionary`2): PrivateScope, Public, Static, HideBySig
+    Write(Object, String, Int32, Int32, TraceEventType, String, IDictionary`2): PrivateScope, Public, Static, HideBySig
+    Write(Object, ICollection`1): PrivateScope, Public, Static, HideBySig
+    Write(Object, ICollection`1, Int32): PrivateScope, Public, Static, HideBySig
+    Write(Object, ICollection`1, Int32, Int32): PrivateScope, Public, Static, HideBySig
+    Write(Object, ICollection`1, Int32, Int32, TraceEventType): PrivateScope, Public, Static, HideBySig
+    Write(Object, ICollection`1, Int32, Int32, TraceEventType, String): PrivateScope, Public, Static, HideBySig
+    Write(Object, ICollection`1, IDictionary`2): PrivateScope, Public, Static, HideBySig
+    Write(Object, ICollection`1, Int32, IDictionary`2): PrivateScope, Public, Static, HideBySig
+    Write(Object, ICollection`1, Int32, Int32, TraceEventType, String, IDictionary`2): PrivateScope, Public, Static, HideBySig
+    Write(LogEntry): PrivateScope, Public, Static, HideBySig
+    GetFilter(): PrivateScope, Public, Static, HideBySig
+    GetFilter(String): PrivateScope, Public, Static, HideBySig
+    GetFilter(String): PrivateScope, Public, Static, HideBySig
+    IsLoggingEnabled(): PrivateScope, Public, Static, HideBySig
+    ShouldLog(LogEntry): PrivateScope, Public, Static, HideBySig
+    Reset(): PrivateScope, Public, Static, HideBySig
+    get_Writer(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Fields:
+    Int32 LogWriterFailureEventID = 6352 : Public, Static, Literal, HasDefault
+  Properties:
+    System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Logging.LogSource] TraceSources 'get ' : 
+  Methods:
+    get_TraceSources(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FlushContextItems(): PrivateScope, Public, HideBySig
+    GetFilter(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetFilter(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetFilter(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetMatchingTraceSources(LogEntry): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    IsLoggingEnabled(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    IsTracingEnabled(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ResetLockTimeouts(): PrivateScope, Public, Static, HideBySig
+    SetContextItem(Object, Object): PrivateScope, Public, HideBySig
+    ShouldLog(LogEntry): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Write(Object): PrivateScope, Public, HideBySig
+    Write(Object, String): PrivateScope, Public, HideBySig
+    Write(Object, String, Int32): PrivateScope, Public, HideBySig
+    Write(Object, String, Int32, Int32): PrivateScope, Public, HideBySig
+    Write(Object, String, Int32, Int32, TraceEventType): PrivateScope, Public, HideBySig
+    Write(Object, String, Int32, Int32, TraceEventType, String): PrivateScope, Public, HideBySig
+    Write(Object, IDictionary`2): PrivateScope, Public, HideBySig
+    Write(Object, String, IDictionary`2): PrivateScope, Public, HideBySig
+    Write(Object, String, Int32, IDictionary`2): PrivateScope, Public, HideBySig
+    Write(Object, String, Int32, Int32, TraceEventType, String, IDictionary`2): PrivateScope, Public, HideBySig
+    Write(Object, IEnumerable`1): PrivateScope, Public, HideBySig
+    Write(Object, IEnumerable`1, Int32): PrivateScope, Public, HideBySig
+    Write(Object, IEnumerable`1, Int32, Int32): PrivateScope, Public, HideBySig
+    Write(Object, IEnumerable`1, Int32, Int32, TraceEventType): PrivateScope, Public, HideBySig
+    Write(Object, IEnumerable`1, Int32, Int32, TraceEventType, String): PrivateScope, Public, HideBySig
+    Write(Object, IEnumerable`1, IDictionary`2): PrivateScope, Public, HideBySig
+    Write(Object, IEnumerable`1, Int32, IDictionary`2): PrivateScope, Public, HideBySig
+    Write(Object, IEnumerable`1, Int32, Int32, TraceEventType, String, IDictionary`2): PrivateScope, Public, HideBySig
+    Write(LogEntry): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedTraceListenerWrapperBase: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedTraceListenerBase
+  Properties:
+    System.Diagnostics.TraceListener InnerListener 'get ' : 
+  Methods:
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object[]): PrivateScope, Public, Virtual, HideBySig
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+    TraceEvent(TraceEventCache, String, TraceEventType, Int32, String): PrivateScope, Public, Virtual, HideBySig
+    TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[]): PrivateScope, Public, Virtual, HideBySig
+    Write(String): PrivateScope, Public, Virtual, HideBySig
+    WriteLine(String): PrivateScope, Public, Virtual, HideBySig
+    get_InnerListener(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedEventLogTraceListener: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FormattedTraceListenerWrapperBase
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Diagnostics.EventLog): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Diagnostics.EventLog, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ILogFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String DefaultLogName =  : Public, Static, Literal, HasDefault
+    System.String DefaultMachineName = . : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TextFormatterData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FormatterData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String DefaultTemplate = Timestamp: {timestamp}{newline}
+Message: {message}{newline}
+Category: {category}{newline}
+Priority: {priority}{newline}
+EventId: {eventid}{newline}
+Severity: {severity}{newline}
+Title:{title}{newline}
+Machine: {localMachine}{newline}
+App Domain: {localAppDomain}{newline}
+ProcessId: {localProcessId}{newline}
+Process Name: {localProcessName}{newline}
+Thread Name: {threadName}{newline}
+Win32 ThreadId:{win32ThreadId}{newline}
+Extended Properties: {dictionary({key} - {value}{newline})} : Public, Static, Literal, HasDefault
+  Properties:
+    System.String Template 'get set' : 
+  Methods:
+    get_Template(): PrivateScope, Public, HideBySig, SpecialName
+    set_Template(String): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TextFormatter: AutoLayout, AnsiClass, Class, Public
+  :Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.LogFormatter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Template 'get set' : 
+    System.String DefaultTextFormat 'get ' : 
+  Methods:
+    FormatFixedIsoDate(DateTime): PrivateScope, Public, Static, HideBySig
+    FormatFixedUSDate(DateTime): PrivateScope, Public, Static, HideBySig
+    FormatFixedTime(DateTime): PrivateScope, Public, Static, HideBySig
+    get_Template(): PrivateScope, Public, HideBySig, SpecialName
+    set_Template(String): PrivateScope, Public, HideBySig, SpecialName
+    Format(LogEntry): PrivateScope, Public, Virtual, HideBySig
+    FormatCategoriesCollection(ICollection`1): PrivateScope, Public, Static, HideBySig
+    get_DefaultTextFormat(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TokenFunction: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit (Obsolete)
+  Methods:
+    Format(StringBuilder, LogEntry): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    FormatToken(String, LogEntry): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Object, System.String, Int32, Int32, System.Diagnostics.TraceEventType, System.String, System.Collections.Generic.IDictionary`2[System.String,System.Object]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Object, System.Collections.Generic.ICollection`1[System.String], Int32, Int32, System.Diagnostics.TraceEventType, System.String, System.Collections.Generic.IDictionary`2[System.String,System.Object]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.ICloneable
+  Properties:
+    System.String Message 'get set' : 
+    System.Collections.Generic.ICollection`1[System.String] Categories 'get set' : 
+    Int32 Priority 'get set' : 
+    Int32 EventId 'get set' : 
+    System.Diagnostics.TraceEventType Severity 'get set' : 
+    System.String LoggedSeverity 'get ' : 
+    System.String Title 'get set' : 
+    System.DateTime TimeStamp 'get set' : 
+    System.String MachineName 'get set' : 
+    System.String AppDomainName 'get set' : 
+    System.String ProcessId 'get set' : 
+    System.String ProcessName 'get set' : 
+    System.String ManagedThreadName 'get set' : 
+    System.String Win32ThreadId 'get set' : 
+    System.Collections.Generic.IDictionary`2[System.String,System.Object] ExtendedProperties 'get set' : 
+    System.String TimeStampString 'get ' : 
+    System.Guid ActivityId 'get set' : 
+    System.Nullable`1[System.Guid] RelatedActivityId 'get set' : 
+    System.String ErrorMessages 'get ' : 
+    System.String ActivityIdString 'get ' : 
+    System.String[] CategoriesStrings 'get ' : 
+  Methods:
+    get_Message(): PrivateScope, Public, HideBySig, SpecialName
+    set_Message(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Categories(): PrivateScope, Public, HideBySig, SpecialName
+    set_Categories(ICollection`1): PrivateScope, Public, HideBySig, SpecialName
+    get_Priority(): PrivateScope, Public, HideBySig, SpecialName
+    set_Priority(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_EventId(): PrivateScope, Public, HideBySig, SpecialName
+    set_EventId(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Severity(): PrivateScope, Public, HideBySig, SpecialName
+    set_Severity(TraceEventType): PrivateScope, Public, HideBySig, SpecialName
+    get_LoggedSeverity(): PrivateScope, Public, HideBySig, SpecialName
+    get_Title(): PrivateScope, Public, HideBySig, SpecialName
+    set_Title(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TimeStamp(): PrivateScope, Public, HideBySig, SpecialName
+    set_TimeStamp(DateTime): PrivateScope, Public, HideBySig, SpecialName
+    get_MachineName(): PrivateScope, Public, HideBySig, SpecialName
+    set_MachineName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_AppDomainName(): PrivateScope, Public, HideBySig, SpecialName
+    set_AppDomainName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ProcessId(): PrivateScope, Public, HideBySig, SpecialName
+    set_ProcessId(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ProcessName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ProcessName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ManagedThreadName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ManagedThreadName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Win32ThreadId(): PrivateScope, Public, HideBySig, SpecialName
+    set_Win32ThreadId(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ExtendedProperties(): PrivateScope, Public, HideBySig, SpecialName
+    set_ExtendedProperties(IDictionary`2): PrivateScope, Public, HideBySig, SpecialName
+    get_TimeStampString(): PrivateScope, Public, HideBySig, SpecialName
+    get_ActivityId(): PrivateScope, Public, HideBySig, SpecialName
+    set_ActivityId(Guid): PrivateScope, Public, HideBySig, SpecialName
+    get_RelatedActivityId(): PrivateScope, Public, HideBySig, SpecialName
+    set_RelatedActivityId(Nullable`1): PrivateScope, Public, HideBySig, SpecialName
+    Clone(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    AddErrorMessage(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    get_ErrorMessages(): PrivateScope, Public, HideBySig, SpecialName
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    GetProcessName(): PrivateScope, Public, Static, HideBySig
+    get_ActivityIdString(): PrivateScope, Public, HideBySig, SpecialName
+    get_CategoriesStrings(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.LogSource: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Diagnostics.SourceLevels): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[System.Diagnostics.TraceListener], System.Diagnostics.SourceLevels): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[System.Diagnostics.TraceListener], System.Diagnostics.SourceLevels, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[System.Diagnostics.TraceListener], System.Diagnostics.SourceLevels, Boolean, Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ILoggingInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    Boolean DefaultAutoFlushProperty = True : Public, Static, Literal, HasDefault
+  Properties:
+    System.String Name 'get ' : 
+    System.Collections.Generic.IList`1[System.Diagnostics.TraceListener] Listeners 'get ' : 
+    System.Diagnostics.SourceLevels Level 'get ' : 
+    Boolean AutoFlush 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_Listeners(): PrivateScope, Public, HideBySig, SpecialName
+    get_Level(): PrivateScope, Public, HideBySig, SpecialName
+    get_AutoFlush(): PrivateScope, Public, HideBySig, SpecialName
+    set_AutoFlush(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    TraceData(TraceEventType, Int32, LogEntry): PrivateScope, Public, HideBySig
+    TraceData(TraceEventType, Int32, LogEntry, TraceListenerFilter): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.XmlLogEntry: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Object, System.Collections.Generic.ICollection`1[System.String], Int32, Int32, System.Diagnostics.TraceEventType, System.String, System.Collections.Generic.IDictionary`2[System.String,System.Object]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Xml.XPath.XPathNavigator Xml 'get set' : 
+  Methods:
+    get_Xml(): PrivateScope, Public, HideBySig, SpecialName
+    set_Xml(XPathNavigator): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogCallHandlerCategoryEntry: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogCallHandlerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CallHandlerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.HandlerLogBehavior LogBehavior 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LogCallHandlerCategoryEntry] Categories 'get set' : 
+    System.String BeforeMessage 'get set' : 
+    System.String AfterMessage 'get set' : 
+    Int32 EventId 'get set' : 
+    Boolean IncludeParameterValues 'get set' : 
+    Boolean IncludeCallStack 'get set' : 
+    Boolean IncludeCallTime 'get set' : 
+    Int32 Priority 'get set' : 
+    System.Diagnostics.TraceEventType Severity 'get set' : 
+  Methods:
+    get_LogBehavior(): PrivateScope, Public, HideBySig, SpecialName
+    set_LogBehavior(HandlerLogBehavior): PrivateScope, Public, HideBySig, SpecialName
+    get_Categories(): PrivateScope, Public, HideBySig, SpecialName
+    set_Categories(NamedElementCollection`1): PrivateScope, Public, HideBySig, SpecialName
+    get_BeforeMessage(): PrivateScope, Public, HideBySig, SpecialName
+    set_BeforeMessage(String): PrivateScope, Public, HideBySig, SpecialName
+    get_AfterMessage(): PrivateScope, Public, HideBySig, SpecialName
+    set_AfterMessage(String): PrivateScope, Public, HideBySig, SpecialName
+    get_EventId(): PrivateScope, Public, HideBySig, SpecialName
+    set_EventId(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_IncludeParameterValues(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncludeParameterValues(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncludeCallStack(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncludeCallStack(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncludeCallTime(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncludeCallTime(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_Priority(): PrivateScope, Public, HideBySig, SpecialName
+    set_Priority(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Severity(): PrivateScope, Public, HideBySig, SpecialName
+    set_Severity(TraceEventType): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Struct Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.HandlerLogBehavior: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.HandlerLogBehavior BeforeAndAfter = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.HandlerLogBehavior Before = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.HandlerLogBehavior After = 2 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.CategoryFormatter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.ReplacementFormatter
+    Void .ctor(System.Reflection.MethodBase): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    FormatCategory(String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.LogCallHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, Int32, Boolean, Boolean, System.String, System.String, Boolean, Boolean, Boolean, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter, Int32, Boolean, Boolean, System.String, System.String, Boolean, Boolean, Boolean, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.ICallHandler
+  Properties:
+    Int32 EventId 'get set' : 
+    Boolean LogBeforeCall 'get set' : 
+    Boolean LogAfterCall 'get set' : 
+    System.String BeforeMessage 'get set' : 
+    System.String AfterMessage 'get set' : 
+    System.Collections.Generic.List`1[System.String] Categories 'get set' : 
+    Boolean IncludeParameters 'get set' : 
+    Boolean IncludeCallStack 'get set' : 
+    Boolean IncludeCallTime 'get set' : 
+    Int32 Priority 'get set' : 
+    System.Diagnostics.TraceEventType Severity 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter LogWriter 'get ' : 
+    Int32 Order 'get set' : 
+  Methods:
+    get_EventId(): PrivateScope, Public, HideBySig, SpecialName
+    set_EventId(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_LogBeforeCall(): PrivateScope, Public, HideBySig, SpecialName
+    set_LogBeforeCall(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_LogAfterCall(): PrivateScope, Public, HideBySig, SpecialName
+    set_LogAfterCall(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_BeforeMessage(): PrivateScope, Public, HideBySig, SpecialName
+    set_BeforeMessage(String): PrivateScope, Public, HideBySig, SpecialName
+    get_AfterMessage(): PrivateScope, Public, HideBySig, SpecialName
+    set_AfterMessage(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Categories(): PrivateScope, Public, HideBySig, SpecialName
+    set_Categories(List`1): PrivateScope, Public, HideBySig, SpecialName
+    get_IncludeParameters(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncludeParameters(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncludeCallStack(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncludeCallStack(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncludeCallTime(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncludeCallTime(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_Priority(): PrivateScope, Public, HideBySig, SpecialName
+    set_Priority(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Severity(): PrivateScope, Public, HideBySig, SpecialName
+    set_Severity(TraceEventType): PrivateScope, Public, HideBySig, SpecialName
+    get_LogWriter(): PrivateScope, Public, HideBySig, SpecialName
+    get_Order(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Order(Int32): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Invoke(IMethodInvocation, GetNextHandlerDelegate): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.LogCallHandlerDefaults: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    System.String BeforeMessage : Public, Static, InitOnly
+    System.String AfterMessage : Public, Static, InitOnly
+    System.String Title : Public, Static, InitOnly
+    Int32 Order = 0 : Public, Static, Literal, HasDefault
+    Int32 EventId = 0 : Public, Static, Literal, HasDefault
+    Boolean LogBeforeCall = True : Public, Static, Literal, HasDefault
+    Boolean LogAfterCall = True : Public, Static, Literal, HasDefault
+    Boolean IncludeParameters = True : Public, Static, Literal, HasDefault
+    Boolean IncludeCallStack = False : Public, Static, Literal, HasDefault
+    Boolean IncludeCallTime = True : Public, Static, Literal, HasDefault
+    Int32 Priority = -1 : Public, Static, Literal, HasDefault
+    System.Diagnostics.TraceEventType Severity = 8 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.LogCallHandlerAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.HandlerAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String[] Categories 'get set' : 
+    Int32 EventId 'get set' : 
+    Boolean LogBeforeCall 'get set' : 
+    Boolean LogAfterCall 'get set' : 
+    System.String BeforeMessage 'get set' : 
+    System.String AfterMessage 'get set' : 
+    Boolean IncludeParameters 'get set' : 
+    Boolean IncludeCallStack 'get set' : 
+    Boolean IncludeCallTime 'get set' : 
+    Int32 Priority 'get set' : 
+    System.Diagnostics.TraceEventType Severity 'get set' : 
+  Methods:
+    get_Categories(): PrivateScope, Public, HideBySig, SpecialName
+    set_Categories(String[]): PrivateScope, Public, HideBySig, SpecialName
+    get_EventId(): PrivateScope, Public, HideBySig, SpecialName
+    set_EventId(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_LogBeforeCall(): PrivateScope, Public, HideBySig, SpecialName
+    set_LogBeforeCall(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_LogAfterCall(): PrivateScope, Public, HideBySig, SpecialName
+    set_LogAfterCall(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_BeforeMessage(): PrivateScope, Public, HideBySig, SpecialName
+    set_BeforeMessage(String): PrivateScope, Public, HideBySig, SpecialName
+    get_AfterMessage(): PrivateScope, Public, HideBySig, SpecialName
+    set_AfterMessage(String): PrivateScope, Public, HideBySig, SpecialName
+    get_IncludeParameters(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncludeParameters(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncludeCallStack(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncludeCallStack(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncludeCallTime(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncludeCallTime(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_Priority(): PrivateScope, Public, HideBySig, SpecialName
+    set_Priority(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Severity(): PrivateScope, Public, HideBySig, SpecialName
+    set_Severity(TraceEventType): PrivateScope, Public, HideBySig, SpecialName
+    CreateHandler(IUnityContainer): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.PolicyInjection.TraceLogEntry: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Object, System.String, Int32, Int32, System.Diagnostics.TraceEventType, System.String, System.Collections.Generic.IDictionary`2[System.String,System.Object], System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Object, System.Collections.Generic.ICollection`1[System.String], Int32, Int32, System.Diagnostics.TraceEventType, System.String, System.Collections.Generic.IDictionary`2[System.String,System.Object], System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TypeName 'get set' : 
+    System.String MethodName 'get set' : 
+    System.String ReturnValue 'get set' : 
+    System.String CallStack 'get set' : 
+    System.String Exception 'get set' : 
+    System.Nullable`1[System.TimeSpan] CallTime 'get set' : 
+    System.TimeSpan ElapsedTime 'get ' : 
+  Methods:
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_MethodName(): PrivateScope, Public, HideBySig, SpecialName
+    set_MethodName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ReturnValue(): PrivateScope, Public, HideBySig, SpecialName
+    set_ReturnValue(String): PrivateScope, Public, HideBySig, SpecialName
+    get_CallStack(): PrivateScope, Public, HideBySig, SpecialName
+    set_CallStack(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Exception(): PrivateScope, Public, HideBySig, SpecialName
+    set_Exception(String): PrivateScope, Public, HideBySig, SpecialName
+    get_CallTime(): PrivateScope, Public, HideBySig, SpecialName
+    set_CallTime(Nullable`1): PrivateScope, Public, HideBySig, SpecialName
+    get_ElapsedTime(): PrivateScope, Public, HideBySig, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IFormatterBuilder: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    GetFormatterData(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.BinaryFormatterBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IFormatterBuilder
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.BinaryFormatterBuilderExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    BinaryFormatterNamed(FormatterBuilder, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CategoryFilterBuilderExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    FilterOnCategory(ILoggingConfigurationOptions, String): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSpecialSources SpecialSources 'get ' : 
+  Methods:
+    LogToCategoryNamed(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_SpecialSources(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationOptions: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    DisableTracing(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    DoNotRevertImpersonation(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    DoNotLogWarningsWhenNoCategoryExists(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationExtension: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationOptions LoggingOptions 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings LoggingSettings 'get ' : 
+  Methods:
+    get_LoggingOptions(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_LoggingSettings(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.LoggingConfigurationExtension: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationOptions
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationExtension
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationFilterOnCategory: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    AllowAllCategoriesExcept(String[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    DenyAllCategoriesExcept(String[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.CustomFormatterBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IFormatterBuilder
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendTo SendTo 'get ' : 
+  Methods:
+    get_SendTo(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryOptions: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    ToSourceLevels(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    DoNotAutoFlushEntries(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryStart: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryOptions WithOptions 'get ' : 
+  Methods:
+    get_WithOptions(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCustomCategoryOptions: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    ToSourceLevels(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    DoNotAutoFlushEntries(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SetAsDefaultCategory(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCustomCategoryStart: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCustomCategoryOptions WithOptions 'get ' : 
+  Methods:
+    get_WithOptions(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CustomFilterBuilderExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    FilterCustom(ILoggingConfigurationOptions, String): PrivateScope, Public, Static, HideBySig
+    FilterCustom(ILoggingConfigurationOptions, String, Type): PrivateScope, Public, Static, HideBySig
+    FilterCustom(ILoggingConfigurationOptions, String, NameValueCollection): PrivateScope, Public, Static, HideBySig
+    FilterCustom(ILoggingConfigurationOptions, String, Type, NameValueCollection): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationFilterLogEnabled: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationOptions
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    Enable(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationFilterOnPriority: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationOptions
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    StartingWithPriority(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UpToPriority(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendToCustomTraceListener: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    FormatWith(IFormatterBuilder): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWithSharedFormatter(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Filter(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithTraceOptions(TraceOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UsingInitData(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendToEmailTraceListener: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    UsingSmtpServer(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UsingSmtpServerPort(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    To(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    From(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithSubjectStart(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithSubjectEnd(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWith(IFormatterBuilder): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWithSharedFormatter(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Filter(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithTraceOptions(TraceOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UseSSL(Boolean): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Unauthenticated(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithWindowsCredentials(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithUserNameAndPassword(String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendToEventLogTraceListener: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    ToLog(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ToMachine(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UsingEventLogSource(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWith(IFormatterBuilder): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWithSharedFormatter(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Filter(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithTraceOptions(TraceOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendToFlatFileTraceListener: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    ToFile(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithFooter(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithHeader(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWith(IFormatterBuilder): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWithSharedFormatter(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Filter(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithTraceOptions(TraceOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendToMsmqTraceListener: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    WithTransactionType(MessageQueueTransactionType): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SetTimeToReachQueue(TimeSpan): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SetTimeToBeReceived(TimeSpan): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    AsRecoverable(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UseQueue(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UseDeadLetterQueue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UseEncryption(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UseAuthentication(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWith(IFormatterBuilder): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWithSharedFormatter(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Filter(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithTraceOptions(TraceOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Prioritize(MessagePriority): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendToRollingFileTraceListener: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    RollEvery(RollInterval): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WhenRollFileExists(RollFileExistsBehavior): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    RollAfterSize(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UseTimeStampPattern(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithFooter(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithHeader(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ToFile(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWith(IFormatterBuilder): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FormatWithSharedFormatter(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Filter(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithTraceOptions(TraceOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    CleanUpArchivedFilesWhenMoreThan(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendToSystemDiagnosticsTraceListener: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    ForTraceListenerType(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ForTraceListenerType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UsingInitData(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Filter(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithTraceOptions(TraceOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendToWmiTraceListener: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    Filter(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithTraceOptions(TraceOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendToXmlTraceListener: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    ToFile(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Filter(SourceLevels): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithTraceOptions(TraceOptions): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSpecialSources: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryStart LoggingErrorsAndWarningsCategory 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryStart UnprocessedCategory 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryStart AllEventsCategory 'get ' : 
+  Methods:
+    get_LoggingErrorsAndWarningsCategory(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_UnprocessedCategory(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_AllEventsCategory(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ITextFormatterBuilder: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IFormatterBuilder
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    UsingTemplate(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.PriorityFilterBuilderExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    FilterOnPriority(ILoggingConfigurationOptions, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.LogEnabledFilterBuilderExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    FilterEnableOrDisable(ILoggingConfigurationOptions, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CustomFormatterBuilderExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    CustomFormatterNamed(FormatterBuilder, String): PrivateScope, Public, Static, HideBySig
+    CustomFormatterNamed(FormatterBuilder, String, Type): PrivateScope, Public, Static, HideBySig
+    CustomFormatterNamed(FormatterBuilder, String, NameValueCollection): PrivateScope, Public, Static, HideBySig
+    CustomFormatterNamed(FormatterBuilder, String, Type, NameValueCollection): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.FormatterBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendToExtension: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationExtension
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd LoggingCategoryContd 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceSourceData CurrentTraceSource 'get ' : 
+  Methods:
+    get_LoggingCategoryContd(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_CurrentTraceSource(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationSendTo: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    SharedListenerNamed(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SendToCustomTraceListenerExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Custom(ILoggingConfigurationSendTo, String, Type): PrivateScope, Public, Static, HideBySig
+    Custom(ILoggingConfigurationSendTo, String): PrivateScope, Public, Static, HideBySig
+    Custom(ILoggingConfigurationSendTo, String, NameValueCollection): PrivateScope, Public, Static, HideBySig
+    Custom(ILoggingConfigurationSendTo, String, Type, NameValueCollection): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.SendToTraceListenerExtension: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationCategoryContd
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings LoggingSettings 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceSourceData CurrentTraceSource 'get ' : 
+  Methods:
+    get_LoggingSettings(): PrivateScope, Public, HideBySig, SpecialName
+    get_CurrentTraceSource(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SendToEmailTraceListenerExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Email(ILoggingConfigurationSendTo, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SendToFormattedEventLogTraceListenerExtension: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    EventLog(ILoggingConfigurationSendTo, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SendToFlatFileTraceListenerExtension: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    FlatFile(ILoggingConfigurationSendTo, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SendToMsmqTraceListenerExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Msmq(ILoggingConfigurationSendTo, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SendToRollingFileTraceListenerExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    RollingFile(ILoggingConfigurationSendTo, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SendToSystemDiagnosticsTraceListenerExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    SystemDiagnosticsListener(ILoggingConfigurationSendTo, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SendToWmiTraceListenerExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Wmi(ILoggingConfigurationSendTo, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SendToXmlTraceListenerExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    XmlFile(ILoggingConfigurationSendTo, String): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationStart: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationContd
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ILoggingConfigurationOptions WithOptions 'get ' : 
+  Methods:
+    get_WithOptions(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.LoggingConfigurationSourceBuilderExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ConfigureLogging(IConfigurationSourceBuilder): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.TextFormatterBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ITextFormatterBuilder
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IFormatterBuilder
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    UsingTemplate(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.TextFormatterBuilderExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    TextFormatterNamed(FormatterBuilder, String): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.ILoggingUpdateCoordinator: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    RegisterLoggingUpdateHandler(ILoggingUpdateHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UnregisterLoggingUpdateHandler(ILoggingUpdateHandler): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExecuteReadOperation(Action): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExecuteWriteOperation(Action): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.ILoggingUpdateHandler: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    PrepareForUpdate(IServiceLocator): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    CommitUpdate(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Logging.LoggingUpdateCoordinator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ConfigurationChangeEventSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ConfigurationChangeEventSource, Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ILoggingInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.ILoggingUpdateCoordinator
+    System.IDisposable
+  Methods:
+    RegisterLoggingUpdateHandler(ILoggingUpdateHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    UnregisterLoggingUpdateHandler(ILoggingUpdateHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ExecuteReadOperation(Action): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ExecuteWriteOperation(Action): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.LogWriterImpl: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Logging.LogSource], Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Logging.LogSource], Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, System.String, Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ILoggingInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Logging.LogSource], Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, System.String, Boolean, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Logging.LogSource], Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, System.String, Boolean, Boolean, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Logging.LogSource], Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, System.String, Boolean, Boolean, Boolean, Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ILoggingInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource], Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource], Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, System.String, Boolean, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilter], System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Logging.LogSource], Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, Microsoft.Practices.EnterpriseLibrary.Logging.LogSource, System.String, Boolean, Boolean, Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ILoggingInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Logging.LogWriterStructureHolder, Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ILoggingInstrumentationProvider, Microsoft.Practices.EnterpriseLibrary.Logging.ILoggingUpdateCoordinator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Filters.ILogFilterErrorHandler
+    Microsoft.Practices.EnterpriseLibrary.Logging.ILoggingUpdateHandler
+  Properties:
+    System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Logging.LogSource] TraceSources 'get ' : 
+  Methods:
+    get_TraceSources(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    FilterCheckingFailed(Exception, LogEntry, ILogFilter): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetFilter(): PrivateScope, Public, Virtual, HideBySig
+    GetFilter(String): PrivateScope, Public, Virtual, HideBySig
+    GetFilter(String): PrivateScope, Public, Virtual, HideBySig
+    GetMatchingTraceSources(LogEntry): PrivateScope, Public, Virtual, HideBySig
+    IsLoggingEnabled(): PrivateScope, Public, Virtual, HideBySig
+    IsTracingEnabled(): PrivateScope, Public, Virtual, HideBySig
+    ShouldLog(LogEntry): PrivateScope, Public, Virtual, HideBySig
+    Write(LogEntry): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.TraceListenerWrapper: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :System.Diagnostics.TraceListener
+  Properties:
+    System.Diagnostics.TraceListener InnerTraceListener 'get ' : 
+    Boolean IsThreadSafe 'get ' : 
+  Methods:
+    get_InnerTraceListener(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Close(): PrivateScope, Public, Virtual, HideBySig
+    Fail(String): PrivateScope, Public, Virtual, HideBySig
+    Fail(String, String): PrivateScope, Public, Virtual, HideBySig
+    Flush(): PrivateScope, Public, Virtual, HideBySig
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object): PrivateScope, Public, Virtual, HideBySig
+    TraceData(TraceEventCache, String, TraceEventType, Int32, Object[]): PrivateScope, Public, Virtual, HideBySig
+    TraceEvent(TraceEventCache, String, TraceEventType, Int32): PrivateScope, Public, Virtual, HideBySig
+    TraceEvent(TraceEventCache, String, TraceEventType, Int32, String, Object[]): PrivateScope, Public, Virtual, HideBySig
+    TraceEvent(TraceEventCache, String, TraceEventType, Int32, String): PrivateScope, Public, Virtual, HideBySig
+    TraceTransfer(TraceEventCache, String, Int32, String, Guid): PrivateScope, Public, Virtual, HideBySig
+    Write(String): PrivateScope, Public, Virtual, HideBySig
+    WriteLine(String): PrivateScope, Public, Virtual, HideBySig
+    Write(Object): PrivateScope, Public, Virtual, HideBySig
+    Write(Object, String): PrivateScope, Public, Virtual, HideBySig
+    Write(String, String): PrivateScope, Public, Virtual, HideBySig
+    WriteLine(Object): PrivateScope, Public, Virtual, HideBySig
+    WriteLine(Object, String): PrivateScope, Public, Virtual, HideBySig
+    WriteLine(String, String): PrivateScope, Public, Virtual, HideBySig
+    get_IsThreadSafe(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.AttributeSettingTraceListenerWrapper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.TraceListenerWrapper
+    Void .ctor(System.Diagnostics.TraceListener, System.Collections.Specialized.NameValueCollection): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Diagnostics.TraceListener InnerTraceListener 'get ' : 
+    System.String Name 'get set' : 
+  Methods:
+    get_InnerTraceListener(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.GenericTextFormatter`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+    Void .ctor(System.String, System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TokenHandler`1[T]]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CreateSimpleTokenHandler(String): PrivateScope, Public, Static, HideBySig
+    CreateSimpleTokenHandler(Formatter`1): PrivateScope, Public, Static, HideBySig
+    CreateParameterizedTokenHandler(ParameterizedFormatterFactory`1): PrivateScope, Public, Static, HideBySig
+    Format(T, StringBuilder): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.TokenHandler`1[T]: AutoLayout, AnsiClass, Class, Public, Sealed
+  Type parameter: T
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(String, Int32&): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(String, Int32&, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(Int32&, IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.Formatter`1[T]: AutoLayout, AnsiClass, Class, Public, Sealed
+  Type parameter: T
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(T): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(T, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Formatters.ParameterizedFormatterFactory`1[T]: AutoLayout, AnsiClass, Class, Public, Sealed
+  Type parameter: T
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(String, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ITracerInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    FireTraceOperationEnded(String, Int64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FireTraceOperationStarted(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.NullLoggingInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ILoggingInstrumentationProvider
+  Methods:
+    FireLockAcquisitionError(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireConfigurationFailureEvent(Exception): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireFailureLoggingErrorEvent(String, Exception): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireLogEventRaised(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireTraceListenerEntryWrittenEvent(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireReconfigurationErrorEvent(Exception): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.NullTracerInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ITracerInstrumentationProvider
+  Methods:
+    FireTraceOperationEnded(String, Int64): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireTraceOperationStarted(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.TracerInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationListener
+    Void .ctor(Boolean, Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.Instrumentation.ITracerInstrumentationProvider
+  Fields:
+    System.String TotalTraceOperationsStartedCounterName = Total Trace Operations Started : Public, Static, Literal, HasDefault
+    System.String counterCategoryName = Enterprise Library Logging Counters : Public, Static, Literal, HasDefault
+  Methods:
+    FireTraceOperationStarted(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireTraceOperationEnded(String, Int64): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Struct Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailAuthenticationMode: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailAuthenticationMode None = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailAuthenticationMode WindowsCredentials = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.EmailAuthenticationMode UserNameAndPassword = 2 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.ReconfigurableTraceListenerWrapper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.TraceListenerWrapper
+    Void .ctor(System.Diagnostics.TraceListener, Microsoft.Practices.EnterpriseLibrary.Logging.ILoggingUpdateCoordinator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Logging.ILoggingUpdateHandler
+  Properties:
+    System.Diagnostics.TraceListener InnerTraceListener 'get ' : 
+  Methods:
+    get_InnerTraceListener(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    PrepareForUpdate(IServiceLocator): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    CommitUpdate(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.RollingFlatFilePurger: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Purge(): PrivateScope, Public, HideBySig
+    GetSequence(String): PrivateScope, Public, Static, HideBySig

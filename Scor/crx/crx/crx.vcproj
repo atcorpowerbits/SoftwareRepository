@@ -64,6 +64,7 @@
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
+				KeyFile="crx_key.snk"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -220,7 +221,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crx_config_stub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_message_stub.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CrxConfiguration.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crxCrossCutting.cpp"
 				>
 			</File>
 			<File
@@ -262,7 +275,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crx_config_stub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_message_stub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_namespace.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CrxConfiguration.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crxCrossCutting.h"
 				>
 			</File>
 			<File
@@ -293,6 +322,37 @@
 			</File>
 			<File
 				RelativePath=".\app.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\ErrorMessages.resx"
+				SubType="Designer"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCManagedResourceCompilerTool"
+						ResourceFileName="..\..\gui\gui\bin\$(IntDir)\System\Resources\$(SolutionName).ErrorMessages.resources"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\GUIMessages.resx"
+				SubType="Designer"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCManagedResourceCompilerTool"
+						ResourceFileName="..\..\gui\gui\bin\$(IntDir)\System\Resources\$(SolutionName).GUIMessages.resources"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\messages.resx"
+				SubType="Designer"
 				>
 			</File>
 		</Filter>
