@@ -60,6 +60,7 @@ public:
 public ref class BizDelta
 {
 public:
+	property float heartRate;			// Heart rate of the Femoral signal (in bpm)
 	property float deltaTime;			// Pulse onset time difference (in ms) between pulse traces of each pulse
 	property float correctedTime;		// Pulse onset time difference (in ms) corrected for cuff to femoral distance
 	property float pulseWaveVelocity;	// Pulse wave velocity (in m/s)
@@ -97,7 +98,7 @@ public:
 	property unsigned short numberOfDeltas;         // Actual number of BizDelta values
 	property unsigned short numberOfValidDeltas;	// Actual number of valid BizDelta values
 
-	property float heartRate;						// Heart rate of the ECG (in bpm)
+	property float heartRate;						// Heart rate of the Femoral signal (in bpm)
 	
 	property float meanDeltaTime;					// Mean pulse onset time difference (in ms) between pulse traces
 	property float meanCorrectedTime;				// Mean Carotid-Femoral time difference (in ms) between pulse traces

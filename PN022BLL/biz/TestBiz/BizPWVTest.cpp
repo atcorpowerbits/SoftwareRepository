@@ -157,7 +157,7 @@ namespace TestBiz {
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 				CrxConfigFacade::Instance()->SetDistanceMethod(true);
 				accessor->SetProperty("systemId", Convert::ToString(testContextInstance->DataRow["SystemID"]));
-				accessor->SetProperty("patientNumber", Convert::ToUInt16(testContextInstance->DataRow["PatientNumber"]));
+				accessor->SetProperty("patientNumber", Convert::ToUInt32(testContextInstance->DataRow["PatientNumber"]));
 				accessor->SetProperty("measurementDateTime", Convert::ToDateTime(testContextInstance->DataRow["MeasurementDateTime"]));
 				accessor->SetProperty("dataRevision", Convert::ToUInt16(testContextInstance->DataRow["DataRevision"]));
 				accessor->SetProperty("sampleRate", Convert::ToUInt16(testContextInstance->DataRow["SampleRate"]));
@@ -251,7 +251,7 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->calculatedDistance);
 			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
 			Assert::AreEqual((String^) "", accessor->GetProperty("systemId"));
-			Assert::AreEqual((unsigned short) 0, (unsigned short) accessor->GetProperty("patientNumber"));
+			Assert::AreEqual((unsigned int) 0, (unsigned int) accessor->GetProperty("patientNumber"));
 			Assert::AreEqual((String^) "", accessor->GetProperty("groupStudyId"));
 			Assert::IsNotNull(accessor->GetProperty("measurementDateTime"));
 			Assert::AreEqual((unsigned short) DATA_REVISION, accessor->GetProperty("dataRevision"));
@@ -440,7 +440,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			BizPWV^  target = (gcnew BizPWV());
 			PrivateObject^ accessor = gcnew PrivateObject(target);
 			accessor->SetProperty("systemId", "00050");
-			accessor->SetProperty("patientNumber", (unsigned short) 1);
+			accessor->SetProperty("patientNumber", (unsigned int) 1);
 			target->PrepareToCaptureSignal();
 			unsigned short signalLength = Convert::ToUInt16(testContextInstance->DataRow[L"SignalLength"]);
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidSignal"]);
@@ -522,7 +522,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			PrivateObject^ accessor = gcnew PrivateObject(target);
 			CrxConfigFacade::Instance()->SetDistanceMethod(false);
 			accessor->SetProperty("systemId", "00050");
-			accessor->SetProperty("patientNumber", Convert::ToUInt16(testContextInstance->DataRow["PatientNumber"]));
+			accessor->SetProperty("patientNumber", Convert::ToUInt32(testContextInstance->DataRow["PatientNumber"]));
 			target->myPWVDirectDistance->distance = (unsigned short) 600;
 			target->meanPulseWaveVelocity = Convert::ToUInt16(testContextInstance->DataRow[L"MeanPulseWaveVelocity"]);
 			target->standardDeviation = Convert::ToUInt16(testContextInstance->DataRow[L"StandardDeviation"]);

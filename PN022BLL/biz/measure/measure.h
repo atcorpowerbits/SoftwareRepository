@@ -140,7 +140,7 @@ public:
 
 	property String^			systemId;				// Customer System ID
 	property String^			groupStudyId;			// User defined group/study
-	property unsigned short		patientNumber;			// Internal patient number
+	property unsigned int		patientNumber;			// Internal patient number
 
 	property DateTime			measurementDateTime;    // date and time of measurement
 	property unsigned short		dataRevision;			// data revision number
