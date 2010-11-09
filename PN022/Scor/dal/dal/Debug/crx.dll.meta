@@ -1,6 +1,4 @@
-  Scor.ErrorMessages.resources - Embedded, ContainedInManifestFile, 
-  Scor.GUIMessages.resources - Embedded, ContainedInManifestFile, 
-  crx.messages.resources - Embedded, ContainedInManifestFile, 
+  Scor.ApplicationMessages.resources - Embedded, ContainedInManifestFile, 
 Assembly crx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05: 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
@@ -116,5 +114,5 @@ Class AtCor.Scor.CrossCutting.Messaging.CrxMessagingManager: AutoLayout, AnsiCla
     AtCor.Scor.CrossCutting.Messaging.CrxMessagingManager Instance 'get ' : 
   Methods:
     get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
-    GetMessage(String, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    GetMessage(String): PrivateScope, Public, HideBySig
     GetMessage(Int32): PrivateScope, Public, HideBySig

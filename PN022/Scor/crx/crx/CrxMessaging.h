@@ -7,9 +7,8 @@
  
      Description  :      Declaration for Cross-cutting Messaging namespace
 */
-#pragma once
 
-//#include "CrxCrossCutting.h"
+#include "CrxCrossCutting.h"
 
 using namespace System;
 using namespace System::Collections;
@@ -20,8 +19,6 @@ using namespace System::Resources;
 using namespace System::Globalization;
 using namespace System::Threading;
 using namespace System::Reflection;
-
-//using namespace AtCor::Scor::CrossCutting;
 
 /**
  * @namespace	CrxMessaging
@@ -35,21 +32,16 @@ namespace AtCor {
 			
 			public ref class CrxMessagingManager
 			{
-				private:
+				private:					
 					
-					//Declaring Static variables names for GUI number validation
-					static const int GUIMGR_ERRORMSGS_MIN_NUMBER = 10000;
-					static const int GUIMGR_ERRORMSGS_MAX_NUMBER = 14999;
-
 					//singleton instance
 					static CrxMessagingManager^ _instance = gcnew CrxMessagingManager(); /**< Instance to implement singleton. */
 					
 					// holds the location of the configuration file
-					static String^ _nameOfErrorResxfile = L".\\system\\resources\\Scor.ErrorMessages.resources";
-					static String^ _nameOfGUIResxfile = L".\\system\\resources\\Scor.GUIMessages.resources";
+					static String^ _nameOfAppResxfile = L".\\system\\resources\\Scor.ApplicationMessages.resources";
 					
-					ResourceManager^ errRsrcErrMsg;
-					ResourceManager^ errRsrcGUIMsg;
+					//Create Resource manager object
+					ResourceManager^ errRsrcMsg;
 
 					/**
 					* Default constructor.
@@ -71,24 +63,7 @@ namespace AtCor {
 						 return this;
 					} 
 
-					/**
-					* Returns an error message corresponding to the specified integer error code.
-					*
-					* @return The error message for the specified code.
-					*
-					* @param[in] errorCode	The error code for which message is required.
-					*/
-					String ^GetErrorMessages(String^ stringCode); //Method to pass an error code as an string and obtain corresponding error message
-
-					/**
-					* Returns an error message corresponding to the specified integer error code.
-					*
-					* @return The error message for the specified code.
-					*
-					* @param[in] errorCode	The error code for which message is required.
-					*/
-					String ^GetGUIMessages(String^ stringCode); //Method to pass an error code as an string and obtain corresponding error message
-
+					
 				public:
 					/**
 					* Property with overriden get method to supply instance
@@ -115,9 +90,8 @@ namespace AtCor {
 					* @return The error message for the specified code
 					*
 					* @param[in] StringCode	The error string for which message is required.
-					* @param[in] fileCode	The resx file to be used.
 					*/
-					String ^GetMessage(String^ stringCode , bool fileCode); //Method to pass an error Stringcode as a string and obtain corresponding error message
+					String ^GetMessage(String^ stringCode); //Method to pass an error Stringcode as a string and obtain corresponding error message
 
 			};
 
