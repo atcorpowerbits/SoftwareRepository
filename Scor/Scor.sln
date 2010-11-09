@@ -5,6 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 		Scor.vsmdi = Scor.vsmdi
+		Scor1.vsmdi = Scor1.vsmdi
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dal", "dal\dal\dal.vcproj", "{E274BA19-F920-40C0-8747-214688D2ABB3}"
@@ -21,9 +22,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCrx", "TestCrx\TestCrx.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestDal", "TestDal\TestDal.vcproj", "{13B17B92-45A6-43EB-B0E7-2DBCED1DB844}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "crx_stub", "crx\crx_stub\crx_stub.vcproj", "{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}"
-EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Scor1.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -83,16 +85,6 @@ Global
 		{13B17B92-45A6-43EB-B0E7-2DBCED1DB844}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{13B17B92-45A6-43EB-B0E7-2DBCED1DB844}.Release|Win32.ActiveCfg = Release|Win32
 		{13B17B92-45A6-43EB-B0E7-2DBCED1DB844}.Release|Win32.Build.0 = Release|Win32
-		{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}.Debug|Win32.Build.0 = Debug|Win32
-		{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}.Release|Any CPU.ActiveCfg = Release|Win32
-		{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}.Release|Win32.ActiveCfg = Release|Win32
-		{0C1E1E5A-1904-43C4-9DC9-F4BEB1335C5D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

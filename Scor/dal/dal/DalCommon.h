@@ -19,7 +19,7 @@ namespace AtCor{
 			{
 				public:
 					static const unsigned int DataSamplingInterval      = 4; // in msec
-					static const unsigned int SimulationTimerInterval   = 300; // in msec
+					static const unsigned int SimulationTimerInterval   = 4; // in msec
 			};
 
 								/**

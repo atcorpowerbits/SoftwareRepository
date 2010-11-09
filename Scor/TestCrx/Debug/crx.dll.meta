@@ -1,6 +1,5 @@
-  Scor.ErrorMessages.resources - Embedded, ContainedInManifestFile, 
-  Scor.GUIMessages.resources - Embedded, ContainedInManifestFile, 
-Assembly crx, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+  Scor.ApplicationMessages.resources - Embedded, ContainedInManifestFile, 
+Assembly crx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05: 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=SHA1, flags=None
@@ -26,10 +25,32 @@ Assembly System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b
 	hash=SHA1, flags=None
 Assembly System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=SHA1, flags=None
-Assembly dal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05: 
-	hash=SHA1, flags=None
 Assembly Microsoft.VisualC, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
 	hash=SHA1, flags=None
+Class AtCor.Scor.CrossCutting.Class1: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class AtCor.Scor.CrossCutting.Configuration.CrxConfigConstants: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean GENERAL_PATIENT_PRIVACY IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_UNIT_METRIC IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_UNIT_IMPERIAL IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_BP_ENTRY_SPDP IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_BP_ENTRY_SPMP IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_BP_ENTRY_MPDP IsConst : Public, Static, HasDefault
+Class AtCor.Scor.CrossCutting.Configuration.CrxConfigFacade: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Methods:
+    Instance(): PrivateScope, Public, Static, HideBySig
+    isSubtractingMethod(): PrivateScope, Public, HideBySig
+    GetCaptureTime(): PrivateScope, Public, HideBySig
+    SetDistanceMethod(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SetCaptureTime(UInt16): PrivateScope, Public, HideBySig
+Class AtCor.Scor.CrossCutting.Messaging.CrxMessageFacade: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Fields:
+    System.Resources.ResourceManager messageResources : Public, Static
+  Methods:
+    Instance(): PrivateScope, Public, Static, HideBySig
+    Message(TraceEventType, String, String, String): PrivateScope, Public, HideBySig
 Class AtCor.Scor.CrossCutting.Configuration.CrxStructGeneralSetting: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -93,5 +114,5 @@ Class AtCor.Scor.CrossCutting.Messaging.CrxMessagingManager: AutoLayout, AnsiCla
     AtCor.Scor.CrossCutting.Messaging.CrxMessagingManager Instance 'get ' : 
   Methods:
     get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
-    GetMessage(String, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    GetMessage(String): PrivateScope, Public, HideBySig
     GetMessage(Int32): PrivateScope, Public, HideBySig
