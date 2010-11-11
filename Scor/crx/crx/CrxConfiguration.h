@@ -21,6 +21,21 @@ using namespace System::Xml;
  */
 namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configuration
 {	
+	//Declaring global static numbers for structure variables
+	static const int CRX_GEN_HEIGHTWEIGHT_METRIC	= 0;
+	static const int CRX_GEN_HEIGHTWEIGHT_IMPERIAL	= 1;
+	static const int CRX_GEN_BP_OPT_SPANDDP			= 0;
+	static const int CRX_GEN_BP_OPT_SPANDMP			= 1;
+	static const int CRX_GEN_BP_OPT_MPANDDP			= 2;
+
+	static const int CRX_PWV_DIST_UNITS_MM			= 0;
+	static const int CRX_PWV_DIST_UNITS_CM			= 1;
+	static const int CRX_PWV_DIST_METHOD_SUBSTRACT	= 0;
+	static const int CRX_PWV_DIST_METHOD_DIRECT		= 1;
+	static const int CRX_PWV_CAPTURE_5SECONDS		= 0;
+	static const int CRX_PWV_CAPTURE_10SECONDS		= 1;
+	static const int CRX_PWV_CAPTURE_20SECONDS		= 2;	
+
 	// Creating CrxStructSetting Structure and variables
 	/**
 	 * Container for general configuration settings. 
@@ -227,6 +242,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			
 
 	public:
+			
+			
 			/**
 			* Singleton Instance property with Only Get accessor
 			*/
