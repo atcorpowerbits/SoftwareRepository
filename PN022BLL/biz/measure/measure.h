@@ -19,6 +19,21 @@ using namespace DAL_NAMESPACE;
 START_BIZ_NAMESPACE
 
 // Abstract height with validation
+public ref class BizHeightAndWeight
+{
+public:
+	property unsigned short heightInCentimetres;
+	property unsigned short heightInInches;
+	property unsigned short weightInKilograms;
+	property unsigned short weightInPounds;
+	property float bodyMassIndex;			// body mass index
+	
+	BizHeightAndWeight();
+	void Initialise();
+	bool ValidateAndCalculate();
+};
+
+// Abstract height with validation
 public ref class BizHeight abstract
 {
 public:
@@ -68,10 +83,11 @@ public:
 public ref class BizPressureReading abstract
 {
 public:
-	property unsigned int Reading;
+	property unsigned short Reading;
 	virtual bool Validate();
 protected:
-	BizPressureReading() {};
+	BizPressureReading();
+	void Initialise();
 };
 // Systolic blood pressure reading with validation
 public ref class BizSP : BizPressureReading
@@ -134,9 +150,10 @@ public:
 	virtual bool StopCapture() { return false; };
 	virtual void DispatchCaptureData() {};
 
-	property BizBloodPressure^	myBP;				// patient blood pressure
-	property BizHeight^		myHeight;				// patient height 
-	property BizWeight^		myWeight;				// patient weight
+	property BizBloodPressure^	bloodPressure;				// patient blood pressure
+	//property BizHeight^		myHeight;				// patient height 
+	//property BizWeight^		myWeight;				// patient weight
+	property BizHeightAndWeight^	heightAndWeight;
 
 	property String^			systemId;				// Customer System ID
 	property String^			groupStudyId;			// User defined group/study
@@ -144,8 +161,6 @@ public:
 
 	property DateTime			measurementDateTime;    // date and time of measurement
 	property unsigned short		dataRevision;			// data revision number
-
-	property float				bodyMassIndex;			// body mass index
 
 	property String^			medication;				// notes regarding medication for this patient
 	property String^			notes;					// miscellaneous notes for this measurement

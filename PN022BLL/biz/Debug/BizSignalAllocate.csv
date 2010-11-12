@@ -1,11 +1,11 @@
 Expected,InputMaxSignalLength,MaxSignalLength,InputMaxOnsetsLength,MaxOnsetsLength
-true,5120,5120,67,67
+true,5120,5120,74,74
 true,1280,1280,2,2
-false,5121,0,67,0
-false,1279,0,67,0
-false,5120,0,68,0
+false,5121,0,74,0
+false,1279,0,74,0
+false,5120,0,75,0
 false,5120,0,1,0
-false,65535,0,67,0
-false,0,0,67,0
+false,65535,0,74,0
+false,0,0,74,0
 false,5120,0,65535,0
 false,5120,0,0,0

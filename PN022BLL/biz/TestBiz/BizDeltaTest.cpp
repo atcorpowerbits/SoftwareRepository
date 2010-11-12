@@ -3,7 +3,7 @@
 #include <biz.h>
 
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
-using namespace Biz;
+using namespace BIZ_NAMESPACE;
 namespace TestBiz {
     using namespace System;
     ref class BizDeltaTest;
@@ -67,13 +67,13 @@ namespace TestBiz {
 			///A test for SetDefaults
 			///</summary>
 	public: [TestMethod]
-			void SetDefaultsTest()
+			void BizDeltaSetDefaultsTest()
 			{
 				BizDelta^  target = (gcnew BizDelta()); // TODO: Initialize to an appropriate value
 				target->SetDefaults();
-				Assert::AreEqual((float) DEFAULT_FLOAT_VALUE, target->deltaTime);
-				Assert::AreEqual((float) DEFAULT_FLOAT_VALUE, target->correctedTime);
-				Assert::AreEqual((float) DEFAULT_FLOAT_VALUE, target->pulseWaveVelocity);
+				Assert::AreEqual((float) BizConstants::DEFAULT_FLOAT_VALUE, target->deltaTime);
+				Assert::AreEqual((float) BizConstants::DEFAULT_FLOAT_VALUE, target->correctedTime);
+				Assert::AreEqual((float) BizConstants::DEFAULT_FLOAT_VALUE, target->pulseWaveVelocity);
 				Assert::IsFalse(target->isValid);
 			}
 	};

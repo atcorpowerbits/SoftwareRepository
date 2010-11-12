@@ -178,21 +178,6 @@ RETURN
 */	
 BizPWV::BizPWV(void)
 {
-	// TBD: need to check the Height & Weight Unit from the config
-	// then instantiate the right object, i.e. metric or imperial
-	if (AtCor::Scor::CrossCutting::Configuration::CrxConfigManager::Instance->
-		GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_METRIC)
-	{
-		myHeight = gcnew BizHeightCM;
-		myWeight = gcnew BizWeightKG;
-	} else 
-	{
-		myHeight = gcnew BizHeightInch;
-		myWeight = gcnew BizWeightLB;
-	}
-	// Instantiate BP object - default SP+DP
-	myBP = gcnew BizSPAndDP;
-
 	// Instantiate some PWV distance objects
 	myCarotidDistance = gcnew BizCarotidDistance;
 	myCuffDistance = gcnew BizCuffDistance;
@@ -409,19 +394,25 @@ void BizPWV::DispatchCaptureData()
  ** Initialise()
  **
  ** DESCRIPTION:
+ **
  **  Initialse the members of the PWV class.
 
  ** INPUT:
+ **
  **	 SampleRate.
 
  ** OUTPUT:
+ **
  **  none.
 
  ** RETURN:
+ **
  **  none.
 */
 void BizPWV::Initialise()
 {
+	BizMeasure::Initialise();
+	
 	BizBuffer^ tonometerBuffer = gcnew BizCircularBuffer((captureTime + 
 									BusinessLogic::BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE) * 
 									sampleRate);
@@ -463,15 +454,19 @@ void BizPWV::Initialise()
  ** SetDefaults()
  **
  ** DESCRIPTION:
+ **
  **  Set default values for calculated variables.
 
  ** INPUT:
+ **
  **  none.
 
  ** OUTPUT:
+ **
  **  none.
 
  ** RETURN:
+ **
  **  none.
 */
 void BizPWV::SetDefaults()
@@ -487,7 +482,7 @@ void BizPWV::SetDefaults()
 	isCarotidSignalValid = false;
 	isFemoralSignalValid = false;
 	isStandardDeviationValid = false;
-	heartRate = BizConstants::DEFAULT_VALUE;
+	meanHeartRate = BizConstants::DEFAULT_VALUE;
 
     carotidSignal->SetDefaults();
     femoralSignal->SetDefaults();
@@ -499,6 +494,7 @@ void BizPWV::SetDefaults()
 }
 void BizDelta::SetDefaults()
 {
+	heartRate = BizConstants::DEFAULT_FLOAT_VALUE;
 	deltaTime = BizConstants::DEFAULT_FLOAT_VALUE;
 	correctedTime = BizConstants::DEFAULT_FLOAT_VALUE;
 	pulseWaveVelocity = BizConstants::DEFAULT_FLOAT_VALUE;
@@ -584,11 +580,12 @@ INPUT
 	femoralSignal->signal.
 
 OUTPUT
+
 	calculatedDistance,
 	carotidSignal->floatOnsets,
 	femoralSignal->floatOnsets,
 	QualityControl - TBD,
-	heartRate,
+	meanHeartRate,
 	pulseWaveVelocity array,
 	numberOfDeltas,
 	numberOfValidDeltas,
@@ -635,19 +632,19 @@ bool BizPWV::Calculate()
 	// Cannot return false if FindOnsets returns true
 	CalculateQualityControls();
 
-	// Calculate heart rate
+	/* Calculate heart rate
 	if (!CalculateHeartRate())
 	{
 		return false;
-	}
+	}*/
 
-	// Calculate the array of pulse wave velocities
+	// Calculate the array of heart rates and pulse wave velocities
 	if (!CalculateBizDeltaArray())
 	{
 		return false;
 	}
 
-	// Mean and standardDeviation
+	// Calculate means and standardDeviation
 	if (!CalculateFeatures())
 	{
 		return false;
@@ -719,15 +716,19 @@ bool BizPWV::CalculateAndValidateDistance()
  ** PrepareToCaptureSignal()
  **
  ** DESCRIPTION
+ **
  **  Prepares the PWV class to store new signals.
 
  ** INPUT
+ **
  **  none.
 
  ** OUTPUT
+ **
  **  none.
 
  ** RETURN
+ **
  **  none.
 */
 void BizPWV::PrepareToCaptureSignal()
@@ -774,15 +775,19 @@ bool BizPWV::SaveToFile()
  ** ValidateSignals()
  **
  ** DESCRIPTION
+ **
  **  Validate the properties of the PWV class signals.
 
  ** INPUT
+ **
  **  Signal class members.
 
  ** OUTPUT
+ **
  **   none.
 
  ** RETURN
+ **
  **  boolean success or not.
 */
 bool BizPWV::ValidateSignals()
@@ -797,19 +802,23 @@ bool BizPWV::ValidateSignals()
  ** CalculateHeartRate()
  **
  ** DESCRIPTION
+ **
  **  Calculate heart rate from the Femoral Cuff Onsets.
 
  ** INPUT
+ **
  **  Signal class members,
  **  sampleRate.
 
  ** OUTPUT
+ **
  **  none.
 
  ** RETURN
+ **
  **  boolean success or not
 */
-bool BizPWV::CalculateHeartRate()
+/*bool BizPWV::CalculateHeartRate()
 {
 	// Initialisation
 	unsigned short index;
@@ -846,29 +855,29 @@ bool BizPWV::CalculateHeartRate()
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			GetCurrentMeasureDetails()\n\n +
 			CrxMessageFacade::Instance()->messageResources->GetString(L"PWV_SIGNAL_TOO_BAD", CultureInfo::CurrentUICulture), 
-			"");*/
+			"");
 		return false;
 	}
 
 	// Calculate heartRate
-	heartRate = (60 * sampleRate) / (sum / numberOfValidPulses);
+	meanHeartRate = (60 * sampleRate) / (sum / numberOfValidPulses);
 
-	// Validate heartRate
-	if (heartRate < MIN_HEART_RATE || heartRate > MAX_HEART_RATE)
+	// Validate meanHeartRate
+	if (meanHeartRate < MIN_HEART_RATE || meanHeartRate > MAX_HEART_RATE)
 	{
 		/* TBD: CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
 			GetCurrentMeasureDetails()\n\n +
 			CrxMessageFacade::Instance()->messageResources->GetString(L"PWV_INVALID_HEART_RATE", CultureInfo::CurrentUICulture)
-			+ Convert::ToString(heartRate, CultureInfo::CurrentUICulture), 
-			"");*/
-		heartRate = BizConstants::DEFAULT_VALUE;
+			+ Convert::ToString(meanHeartRate, CultureInfo::CurrentUICulture), 
+			"");
+		meanHeartRate = BizConstants::DEFAULT_VALUE;
 		return false;
 	}
 
 	// Success
 	return true;
-}
+}*/
 /**
 CalculateBizDeltaArray()
 
@@ -900,6 +909,8 @@ bool BizPWV::CalculateBizDeltaArray()
 	unsigned short index;
 	unsigned short carotidIndex = 0;
 	unsigned short femoralIndex = 0;
+	unsigned short previousFemoralIndex = 0;
+	unsigned short previousCarotidIndex = 0;
 	
 	// Mark all onsets as negatives, which indicates an invalid onset
 	for (index = 0; index < carotidSignal->onsetsLength; index++)
@@ -925,26 +936,53 @@ bool BizPWV::CalculateBizDeltaArray()
 			// Check additional carotidOnset before femoralOnset
 			if (carotidIndex == carotidSignal->onsetsLength - 1 || femoralOnset < Math::Abs(carotidSignal->floatOnsets[carotidIndex + 1]))
 			{
-				pulseWaveVelocity[numberOfDeltas]->deltaTime = (femoralOnset - carotidOnset) * 1000 / sampleRate;
-				pulseWaveVelocity[numberOfDeltas]->correctedTime = pulseWaveVelocity[numberOfDeltas]->deltaTime - correctionTime;
-
-				// Validate the corrected time
-				if (pulseWaveVelocity[numberOfDeltas]->correctedTime > 0)
+				// Calculate heart rate of the previous delta once the next delta is found.
+				// Ignored onsets can only be noise and so are not considered when calculating -
+				// heart rate.
+				if ( numberOfDeltas > 0 )
 				{
-					// Calculate and validate the pulse wave velocity
-					pulseWaveVelocity[numberOfDeltas]->pulseWaveVelocity = (float) calculatedDistance / pulseWaveVelocity[numberOfDeltas]->correctedTime;
-					if (pulseWaveVelocity[numberOfDeltas]->pulseWaveVelocity <= MAX_PWV &&
-						pulseWaveVelocity[numberOfDeltas]->pulseWaveVelocity >= MIN_PWV)
+					pulseWaveVelocity[numberOfDeltas - 1]->heartRate = (60 * sampleRate) / 
+						(femoralOnset - Math::Abs(femoralSignal->floatOnsets[previousFemoralIndex]));
+					
+					// Validate the heart rate if the delta was considered valid
+					if (pulseWaveVelocity[numberOfDeltas - 1]->isValid &&
+						(pulseWaveVelocity[numberOfDeltas - 1]->heartRate > MAX_HEART_RATE ||
+						pulseWaveVelocity[numberOfDeltas - 1]->heartRate < MIN_HEART_RATE))
 					{
-						// Add valid deltas
-						pulseWaveVelocity[numberOfDeltas]->isValid = true;
-						femoralSignal->floatOnsets[femoralIndex] = Math::Abs(femoralSignal->floatOnsets[femoralIndex]);
-						carotidSignal->floatOnsets[carotidIndex] = Math::Abs(carotidSignal->floatOnsets[carotidIndex]);
-						numberOfValidDeltas++;
+						// Mark the delta and onsets as invalid
+						pulseWaveVelocity[numberOfDeltas - 1]->isValid = false;
+						femoralSignal->floatOnsets[previousFemoralIndex] = -Math::Abs(femoralSignal->floatOnsets[previousFemoralIndex]);
+						carotidSignal->floatOnsets[previousCarotidIndex] = -Math::Abs(carotidSignal->floatOnsets[previousCarotidIndex]);
+						numberOfValidDeltas--;
 					}
 				}
-				// Ignore invalid deltas
-				numberOfDeltas++;
+					
+				// Ignore the last delta as we cannot verify the heart rate
+				if (carotidIndex != carotidSignal->onsetsLength - 1 && femoralIndex != femoralSignal->onsetsLength - 1)
+				{
+					pulseWaveVelocity[numberOfDeltas]->deltaTime = (femoralOnset - carotidOnset) * 1000 / sampleRate;
+					pulseWaveVelocity[numberOfDeltas]->correctedTime = pulseWaveVelocity[numberOfDeltas]->deltaTime - correctionTime;
+
+					// Validate the corrected time
+					if (pulseWaveVelocity[numberOfDeltas]->correctedTime > 0)
+					{
+						// Calculate and validate the pulse wave velocity
+						pulseWaveVelocity[numberOfDeltas]->pulseWaveVelocity = (float) calculatedDistance / pulseWaveVelocity[numberOfDeltas]->correctedTime;
+						if (pulseWaveVelocity[numberOfDeltas]->pulseWaveVelocity <= MAX_PWV &&
+							pulseWaveVelocity[numberOfDeltas]->pulseWaveVelocity >= MIN_PWV)
+						{
+							// Add valid deltas
+							pulseWaveVelocity[numberOfDeltas]->isValid = true;
+							femoralSignal->floatOnsets[femoralIndex] = femoralOnset;
+							carotidSignal->floatOnsets[carotidIndex] = carotidOnset;
+							numberOfValidDeltas++;
+						}
+					}
+					// Ignore invalid deltas
+					numberOfDeltas++;
+					previousFemoralIndex = femoralIndex;
+					previousCarotidIndex = carotidIndex;
+				}
 				femoralIndex++;
 				carotidIndex++;
 			}
@@ -990,7 +1028,7 @@ CalculateFeatures()
 
 DESCRIPTION
 
-	Calculate pulseWaveVelocity average and its standard deviation.
+	Calculate average heart rate, average pulseWaveVelocity and its standard deviation.
 
 INPUT
 
@@ -999,6 +1037,8 @@ INPUT
 	pulseWaveVelocity array.
 
 OUTPUT
+	
+	meanHeartRate,
 	meanDeltaTime,
 	meanCorrectedTime,
 	meanPulseWaveVelocity,
@@ -1013,6 +1053,7 @@ bool BizPWV::CalculateFeatures()
 {	
 	// Initialisation
 	unsigned short index;
+	float sumHeartRate = 0;
 	float sumDeltaTime = 0;
 	float sumCorrectedTime = 0;
 	float sumPulseWaveVelocity = 0;
@@ -1023,6 +1064,7 @@ bool BizPWV::CalculateFeatures()
 	{
 		if (pulseWaveVelocity[index]->isValid)
 		{
+			sumHeartRate += pulseWaveVelocity[index]->heartRate;
 			sumDeltaTime += pulseWaveVelocity[index]->deltaTime;
 			sumCorrectedTime += pulseWaveVelocity[index]->correctedTime;
 			sumPulseWaveVelocity += pulseWaveVelocity[index]->pulseWaveVelocity;
@@ -1030,6 +1072,7 @@ bool BizPWV::CalculateFeatures()
 	}
 
 	// Averaging
+	meanHeartRate = sumHeartRate / numberOfValidDeltas;
 	meanDeltaTime = sumDeltaTime / numberOfValidDeltas;
 	meanCorrectedTime = sumCorrectedTime / numberOfValidDeltas;
 	meanPulseWaveVelocity = sumPulseWaveVelocity / numberOfValidDeltas;

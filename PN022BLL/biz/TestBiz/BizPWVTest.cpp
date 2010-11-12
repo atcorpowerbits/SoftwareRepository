@@ -180,30 +180,7 @@ namespace TestBiz {
 			{
 				// Metric Test
 				BizPWV^  target = (gcnew BizPWV());
-				PrivateObject^ accessor = gcnew PrivateObject(target);
 				Assert::IsNotNull(target);
-				Assert::IsNotNull(accessor->GetProperty("myHeight"));
-				Assert::IsNotNull(accessor->GetProperty("myWeight"));
-				Assert::IsNotNull(accessor->GetProperty("myBP"));
-				Assert::IsNotNull(target->myCarotidDistance);
-				Assert::IsNotNull(target->myCuffDistance);
-				Assert::IsNotNull(target->myPWVDirectDistance);
-				Assert::IsNotNull(target->myFemoral2CuffDistance);
-				Assert::IsNotNull(target->tonometerDataObserver);
-				Assert::IsNotNull(target->cuffPulseObserver);
-				Assert::IsNotNull(target->countdownTimerObserver);
-				Assert::IsNotNull(target->carotidSignal);
-				Assert::IsNotNull(target->femoralSignal);
-				Assert::IsNotNull(target->pulseWaveVelocity);
-				
-				// Imperial Test
-				CrxConfigManager::Instance->GeneralSettings->HeightandWeightUnit = CrxConfigConstants::GENERAL_UNIT_IMPERIAL;
-				target = (gcnew BizPWV());
-				accessor = gcnew PrivateObject(target);
-				Assert::IsNotNull(target);
-				Assert::IsNotNull(accessor->GetProperty("myHeight"));
-				Assert::IsNotNull(accessor->GetProperty("myWeight"));
-				Assert::IsNotNull(accessor->GetProperty("myBP"));
 				Assert::IsNotNull(target->myCarotidDistance);
 				Assert::IsNotNull(target->myCuffDistance);
 				Assert::IsNotNull(target->myPWVDirectDistance);
@@ -233,7 +210,7 @@ public: [TestMethod]
 			Assert::IsFalse(target->isCarotidSignalValid);
 			Assert::IsFalse(target->isFemoralSignalValid);
 			Assert::IsFalse(target->isStandardDeviationValid);	
-			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->heartRate);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->meanHeartRate);
 		}
 		/// <summary>
 		///A test for Initialise
@@ -242,7 +219,8 @@ public: [TestMethod]
 		void InitialiseTest()
 		{
 			BizPWV^  target = (gcnew BizPWV());
-			PrivateObject^ accessor = gcnew PrivateObject(target);
+			// MPDP Test
+			CrxConfigManager::Instance->GeneralSettings->BloodPressureEntryOptions = CrxConfigConstants::GENERAL_BP_ENTRY_MPDP;
 			target->Initialise();
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myCarotidDistance->distance);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myCuffDistance->distance);
@@ -250,19 +228,83 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myPWVDirectDistance->distance);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->calculatedDistance);
 			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
-			Assert::AreEqual((String^) "", accessor->GetProperty("systemId"));
-			Assert::AreEqual((unsigned int) 0, (unsigned int) accessor->GetProperty("patientNumber"));
-			Assert::AreEqual((String^) "", accessor->GetProperty("groupStudyId"));
-			Assert::IsNotNull(accessor->GetProperty("measurementDateTime"));
-			Assert::AreEqual((unsigned short) DATA_REVISION, accessor->GetProperty("dataRevision"));
-			Assert::AreEqual((String^) "", accessor->GetProperty("medication"));
-			Assert::AreEqual((String^) "", accessor->GetProperty("notes"));
-			Assert::AreEqual((String^) "", accessor->GetProperty("operatorId"));
-			Assert::AreEqual((String^) "", accessor->GetProperty("interpretation"));
-			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, accessor->GetProperty("bodyMassIndex"));
-			Assert::AreEqual((unsigned short) DEFAULT_CAPTURE_TIME, accessor->GetProperty("captureTime"));
-			Assert::AreEqual((unsigned short) DEFAULT_SAMPLE_RATE, accessor->GetProperty("sampleRate"));
-			Assert::IsFalse((bool)accessor->GetProperty("simulation"));
+			Assert::AreEqual((String^) "", target->systemId);
+			Assert::AreEqual((unsigned int) 0, target->patientNumber);
+			Assert::AreEqual((String^) "", target->groupStudyId);
+			Assert::IsNotNull(target->measurementDateTime);
+			Assert::AreEqual((unsigned short) DATA_REVISION, target->dataRevision);
+			Assert::AreEqual((String^) "", target->medication);
+			Assert::AreEqual((String^) "", target->notes);
+			Assert::AreEqual((String^) "", target->operatorId);
+			Assert::AreEqual((String^) "", target->interpretation);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->heightAndWeight->bodyMassIndex);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->heightInCentimetres);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->heightInInches);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInKilograms);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInPounds);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->MP->Reading);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->DP->Reading);
+			Assert::AreEqual((unsigned short) DEFAULT_CAPTURE_TIME, target->captureTime);
+			Assert::AreEqual((unsigned short) DEFAULT_SAMPLE_RATE, target->sampleRate);
+			Assert::IsFalse(target->simulation);
+
+			// SPDP Test
+			CrxConfigManager::Instance->GeneralSettings->BloodPressureEntryOptions = CrxConfigConstants::GENERAL_BP_ENTRY_SPDP;
+			target->Initialise();
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myCarotidDistance->distance);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myCuffDistance->distance);
+			Assert::AreEqual((unsigned short) DEFAULT_FEMORAL_TO_CUFF_DISTANCE, target->myFemoral2CuffDistance->distance);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myPWVDirectDistance->distance);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->calculatedDistance);
+			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
+			Assert::AreEqual((String^) "", target->systemId);
+			Assert::AreEqual((unsigned int) 0, target->patientNumber);
+			Assert::AreEqual((String^) "", target->groupStudyId);
+			Assert::IsNotNull(target->measurementDateTime);
+			Assert::AreEqual((unsigned short) DATA_REVISION, target->dataRevision);
+			Assert::AreEqual((String^) "", target->medication);
+			Assert::AreEqual((String^) "", target->notes);
+			Assert::AreEqual((String^) "", target->operatorId);
+			Assert::AreEqual((String^) "", target->interpretation);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->heightAndWeight->bodyMassIndex);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->heightInCentimetres);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->heightInInches);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInKilograms);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInPounds);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->SP->Reading);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->DP->Reading);
+			Assert::AreEqual((unsigned short) DEFAULT_CAPTURE_TIME, target->captureTime);
+			Assert::AreEqual((unsigned short) DEFAULT_SAMPLE_RATE, target->sampleRate);
+			Assert::IsFalse(target->simulation);
+
+			// SPMP Test
+			CrxConfigManager::Instance->GeneralSettings->BloodPressureEntryOptions = CrxConfigConstants::GENERAL_BP_ENTRY_SPMP;
+			target->Initialise();
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myCarotidDistance->distance);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myCuffDistance->distance);
+			Assert::AreEqual((unsigned short) DEFAULT_FEMORAL_TO_CUFF_DISTANCE, target->myFemoral2CuffDistance->distance);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myPWVDirectDistance->distance);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->calculatedDistance);
+			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
+			Assert::AreEqual((String^) "", target->systemId);
+			Assert::AreEqual((unsigned int) 0, target->patientNumber);
+			Assert::AreEqual((String^) "", target->groupStudyId);
+			Assert::IsNotNull(target->measurementDateTime);
+			Assert::AreEqual((unsigned short) DATA_REVISION, target->dataRevision);
+			Assert::AreEqual((String^) "", target->medication);
+			Assert::AreEqual((String^) "", target->notes);
+			Assert::AreEqual((String^) "", target->operatorId);
+			Assert::AreEqual((String^) "", target->interpretation);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->heightAndWeight->bodyMassIndex);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->heightInCentimetres);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->heightInInches);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInKilograms);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInPounds);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->MP->Reading);
+			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->SP->Reading);
+			Assert::AreEqual((unsigned short) DEFAULT_CAPTURE_TIME, target->captureTime);
+			Assert::AreEqual((unsigned short) DEFAULT_SAMPLE_RATE, target->sampleRate);
+			Assert::IsFalse(target->simulation);
 		}
 		/// <summary>
 		///A test for ValidateSignals
@@ -310,7 +352,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		/// <summary>
 		///A test for CalculateHeartRate
 		///</summary>
-public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculateHeartRate.csv", L"BizPWVCalculateHeartRate#csv", DataAccessMethod::Sequential),
+/*public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculateHeartRate.csv", L"BizPWVCalculateHeartRate#csv", DataAccessMethod::Sequential),
 			TestMethod]
 		
 		void CalculateHeartRateTest()
@@ -325,13 +367,13 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			array<String^>^ valuesArray = values->Split(',');
 			cli::array< float >^ floatOnsets = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			femoralAccessor->SetProperty("floatOnsets", floatOnsets);
-			float heartRateExpected = Convert::ToSingle(testContextInstance->DataRow[L"HeartRateExpected"]);
+			float meanHeartRateExpected = Convert::ToSingle(testContextInstance->DataRow[L"HeartRateExpected"]);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 			bool actual;
 			actual = (bool) accessor->Invoke("CalculateHeartRate");
 			Assert::AreEqual(expected, actual);
-			Assert::AreEqual(heartRateExpected, target->heartRate);
-		}
+			Assert::AreEqual(meanHeartRateExpected, target->meanHeartRate);
+		}*/
 		/// <summary>
 		///A test for CalculateBizDeltaArray
 		///</summary>
@@ -359,6 +401,9 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			valuesArray = values->Split(',');
 			floatOnsets = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			carotidAccessor->SetProperty("floatOnsets", floatOnsets);
+			values = Convert::ToString(testContextInstance->DataRow[L"HeartRate"]);
+			valuesArray = values->Split(',');
+			cli::array< float >^ heartRateExpected = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			values = Convert::ToString(testContextInstance->DataRow[L"DeltaTime"]);
 			valuesArray = values->Split(',');
 			cli::array< float >^ deltaTimeExpected = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
@@ -379,6 +424,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			Assert::AreEqual(numberOfValidDeltasExpected, target->numberOfValidDeltas);
 			for (int i = 0; i < numberOfDeltasExpected; i++)
 			{
+				Assert::AreEqual(heartRateExpected[i], target->pulseWaveVelocity[i]->heartRate);
 				Assert::AreEqual(deltaTimeExpected[i], target->pulseWaveVelocity[i]->deltaTime);
 				Assert::AreEqual(correctedTimeExpected[i], target->pulseWaveVelocity[i]->correctedTime);
 				Assert::AreEqual(pulseWaveVelocityExpected[i], target->pulseWaveVelocity[i]->pulseWaveVelocity);
@@ -396,8 +442,11 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			PrivateObject^ accessor = gcnew PrivateObject(target);
 			target->numberOfDeltas = Convert::ToUInt16(testContextInstance->DataRow[L"NumberOfDeltas"]);
 			target->numberOfValidDeltas = Convert::ToUInt16(testContextInstance->DataRow[L"NumberOfValidDeltas"]);
-			String^ values = Convert::ToString(testContextInstance->DataRow[L"DeltaTime"]);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"HeartRate"]);
 			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^ heartRateInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			values = Convert::ToString(testContextInstance->DataRow[L"DeltaTime"]);
+			valuesArray = values->Split(',');
 			cli::array< float >^ deltaTimeInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			values = Convert::ToString(testContextInstance->DataRow[L"CorrectedTime"]);
 			valuesArray = values->Split(',');
@@ -410,11 +459,13 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			cli::array< bool >^ isValidInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, bool>(Convert::ToBoolean));
 			for (int i = 0; i < target->numberOfDeltas; i++)
 			{
+				target->pulseWaveVelocity[i]->heartRate = heartRateInput[i];
 				target->pulseWaveVelocity[i]->deltaTime = deltaTimeInput[i];
 				target->pulseWaveVelocity[i]->correctedTime = correctedTimeInput[i];
 				target->pulseWaveVelocity[i]->pulseWaveVelocity = pulseWaveVelocityInput[i];
 				target->pulseWaveVelocity[i]->isValid = isValidInput[i];
 			}
+			float meanHeartRateExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanHeartRate"]);
 			float meanDeltaTimeExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanDeltaTime"]);
 			float meanCorrectedTimeExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanCorrectedTime"]);
 			float meanPulseWaveVelocityExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanPulseWaveVelocity"]);
@@ -424,6 +475,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			bool actual;
 			actual = (bool) accessor->Invoke("CalculateFeatures");
 			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(meanHeartRateExpected, target->meanHeartRate);
 			Assert::AreEqual(meanDeltaTimeExpected, target->meanDeltaTime);
 			Assert::AreEqual(meanCorrectedTimeExpected, target->meanCorrectedTime);
 			Assert::AreEqual(meanPulseWaveVelocityExpected, target->meanPulseWaveVelocity);
@@ -442,6 +494,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			accessor->SetProperty("systemId", "00050");
 			accessor->SetProperty("patientNumber", (unsigned int) 1);
 			target->PrepareToCaptureSignal();
+			CrxConfigFacade::Instance()->SetDistanceMethod(false);
 			unsigned short signalLength = Convert::ToUInt16(testContextInstance->DataRow[L"SignalLength"]);
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidSignal"]);
 			array<String^>^ valuesArray = values->Split(',');
@@ -452,7 +505,8 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			target->carotidSignal->CaptureSignal(carotidSignal, signalLength);
 			target->femoralSignal->CaptureSignal(femoralSignal, signalLength);
 			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
-			float heartRateExpected = Convert::ToSingle(testContextInstance->DataRow[L"HeartRate"]);
+			target->correctionTime = Convert::ToSingle(testContextInstance->DataRow["CorrectionTime"]);
+			float meanHeartRateExpected = Convert::ToSingle(testContextInstance->DataRow[L"HeartRate"]);
 			float meanDeltaTimeExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanDeltaTime"]);
 			float meanCorrectedTimeExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanCorrectedTime"]);
 			float meanPulseWaveVelocityExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanPulseWaveVelocity"]);
@@ -462,7 +516,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			bool actual;
 			actual = target->Calculate();
 			Assert::AreEqual(expected, actual);
-			Assert::AreEqual(heartRateExpected, target->heartRate);
+			Assert::AreEqual(meanHeartRateExpected, target->meanHeartRate);
 			Assert::AreEqual(meanDeltaTimeExpected, target->meanDeltaTime);
 			Assert::AreEqual(meanCorrectedTimeExpected, target->meanCorrectedTime);
 			Assert::AreEqual(meanPulseWaveVelocityExpected, target->meanPulseWaveVelocity);

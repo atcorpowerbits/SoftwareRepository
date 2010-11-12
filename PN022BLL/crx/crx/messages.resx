@@ -152,7 +152,7 @@
     <value>#306 The Standard Deviation is greater than the Pulse Wave Velocity.\nThis could be as a result of a poor quality measurement.\n\nPulse Wave Velocity = {0} m/s and Standard Deviation = {1} m/s</value>
   </data>
   <data name="PWV_INVALID" xml:space="preserve">
-    <value>#305 The value for Pulse Wave Velocity is out of range.\n\nThe allowed range =({0} - {1}) m/s.\n\nPlease repeat the measurement and ensure the Pulse Wave Velocity Distance was entered correctly.</value>
+    <value>#305 The value for Pulse Wave Velocity is out of range.\n\nPlease repeat the measurement and ensure the Pulse Wave Velocity Distance was entered correctly.</value>
   </data>
   <data name="PWV_INVALID_ADULT" xml:space="preserve">
     <value>#307 The value for Pulse Wave Velocity is outside the normal adult range.\n\nPulse Wave Velocity = {0} m/s and the adult range = ({1} - {2}) m/s.\n\nWould you like to continue and calculate a report?</value>

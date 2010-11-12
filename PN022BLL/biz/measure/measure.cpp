@@ -10,6 +10,7 @@
 
 #include "StdAfx.h"
 #include <measure.h>
+#include <math_library.h>
 
 using namespace CRX_CONFIG_NAMESPACE;
 using namespace BIZ_NAMESPACE;
@@ -33,7 +34,7 @@ BizMeasure::BizMeasure()
 {
 	// TBD: need to check the Height & Weight Unit from the config
 	// then instantiate the right object, i.e. metric or imperial
-	if (AtCor::Scor::CrossCutting::Configuration::CrxConfigManager::Instance->
+	/*if (AtCor::Scor::CrossCutting::Configuration::CrxConfigManager::Instance->
 		GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_METRIC)
 	{
 		myHeight = gcnew BizHeightCM;
@@ -42,9 +43,7 @@ BizMeasure::BizMeasure()
 	{
 		myHeight = gcnew BizHeightInch;
 		myWeight = gcnew BizWeightLB;
-	}
-	// Instantiate BP object - default SP+DP
-	myBP = gcnew BizSPAndDP;
+	}*/
 	
 	Initialise();
 }
@@ -81,14 +80,26 @@ void BizMeasure::Initialise()
 	operatorId = "";       
 	interpretation = ""; 
 
-	//myHeight->Height = BizConstants::DEFAULT_VALUE; 
-	//myWeight->Weight = BizConstants::DEFAULT_VALUE; 
-	bodyMassIndex = BizConstants::DEFAULT_VALUE;    
-
-	//myBP->SP = BizConstants::DEFAULT_VALUE;
-	//myBP->MP = BizConstants::DEFAULT_VALUE;
-	//myBP->DP = BizConstants::DEFAULT_VALUE;
-
+	heightAndWeight = gcnew BizHeightAndWeight;
+	
+	if (CrxConfigManager::Instance->
+		GeneralSettings->BloodPressureEntryOptions == CrxConfigConstants::GENERAL_BP_ENTRY_MPDP)
+	{
+		bloodPressure = gcnew BizMPAndDP;
+	} 
+	else if (CrxConfigManager::Instance->
+		GeneralSettings->BloodPressureEntryOptions == CrxConfigConstants::GENERAL_BP_ENTRY_SPDP)
+	
+	{
+		bloodPressure = gcnew BizSPAndDP;
+	}
+	else if (CrxConfigManager::Instance->
+		GeneralSettings->BloodPressureEntryOptions == CrxConfigConstants::GENERAL_BP_ENTRY_SPMP)
+	
+	{
+		bloodPressure = gcnew BizSPAndMP;
+	}	
+	
 	captureTime = CrxConfigFacade::Instance()->GetCaptureTime(); // DEFAULT_CAPTURE_TIME
 	sampleRate = 1024 / DalConstants::DATA_SAMPLING_INTERVAL; //DEFAULT_SAMPLE_RATE;  
 	
@@ -139,7 +150,7 @@ bool BizMeasure::Validate()
 	{
 		return false;
 	} 
-	else if (!myBP->Validate())
+	else if (!bloodPressure->Validate())
 	{
 		return false;
 	}*/ 
@@ -227,6 +238,152 @@ bool BizMeasure::Validate()
 
 	return true;
 }
+
+/**
+ ** Constructor()
+ **
+ ** DESCRIPTION:
+
+ **  Constructor for height and weight class.
+
+ ** INPUT:
+
+ **	 none.
+
+ ** OUTPUT:
+
+ **  none.
+
+ ** RETURN:
+
+ **  none.
+*/
+BizHeightAndWeight::BizHeightAndWeight()
+{
+	Initialise();
+}
+
+/**
+ ** Initialise()
+ **
+ ** DESCRIPTION:
+
+ **  Initialse the members of the height and weight class.
+
+ ** INPUT:
+
+ **	 none.
+
+ ** OUTPUT:
+
+ **  none.
+
+ ** RETURN:
+
+ **  none.
+*/
+void BizHeightAndWeight::Initialise()
+{
+	heightInCentimetres = BizConstants::DEFAULT_VALUE;
+	heightInInches = BizConstants::DEFAULT_VALUE;
+	weightInKilograms = BizConstants::DEFAULT_VALUE;
+	weightInPounds = BizConstants::DEFAULT_VALUE;
+	bodyMassIndex = BizConstants::DEFAULT_VALUE;	
+}
+
+/**
+ValidateAndCalculate
+
+DESCRIPTION
+
+	Validate and calculate the height and weight before calculation.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	true  - height and weight is valid.
+
+	false - height and weight is not valid.
+
+*/
+bool BizHeightAndWeight::ValidateAndCalculate()
+{
+	if (CrxConfigManager::Instance->
+		GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_METRIC)
+	{
+		// Check if the user has entered a value
+		if ( heightInCentimetres != BizConstants::DEFAULT_VALUE )
+		{
+			if (heightInCentimetres < MEA_HEIGHT_CM_MIN || heightInCentimetres > MEA_HEIGHT_CM_MAX)
+			{
+				//TBD: Inform user "Height is not within the valid range between ... cm and ... cm"
+				return false;
+			}
+			// Calculate heightInInches. 
+			// Cannot return false as heightInCentimetres has already been validated
+			BizMath::Round( heightInCentimetres / CONVERT_INCH_TO_CM, (short) heightInInches );
+		}
+		
+		// Check if the user has entered a value
+		if ( weightInKilograms != BizConstants::DEFAULT_VALUE )
+		{
+			if (weightInKilograms < MEA_WEIGHT_KG_MIN || weightInKilograms > MEA_WEIGHT_KG_MAX)
+			{
+				//TBD: Inform user "Weight is not within the valid range between ... kg and ... kg"
+				return false;
+			}
+			// Calculate weightInPounds. 
+			// Cannot return false as weightInKilograms has already been validated
+			BizMath::Round( weightInKilograms / CONVERT_POUND_TO_KILO, (short) weightInPounds );
+		}
+	}
+	else if (CrxConfigManager::Instance->
+		GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_IMPERIAL)
+	{
+		// Check if the user has entered a value
+		if ( heightInInches != BizConstants::DEFAULT_VALUE )
+		{
+			if (heightInInches < MEA_HEIGHT_INCH_MIN || heightInInches > MEA_HEIGHT_INCH_MAX)
+			{
+				//TBD: Inform user "Height is not within the valid range between ... in and ... in"
+				return false;
+			}
+			// Calculate heightInCentimetres. 
+			// Cannot return false as heightInInches has already been validated
+			BizMath::Round( heightInInches * CONVERT_INCH_TO_CM, (short) heightInCentimetres );
+		}
+		
+		// Check if the user has entered a value
+		if ( weightInPounds != BizConstants::DEFAULT_VALUE )
+		{
+			if (weightInPounds < MEA_WEIGHT_LB_MIN || weightInPounds > MEA_WEIGHT_LB_MAX)
+			{
+				//TBD: Inform user "Weight is not within the valid range between ... lb and ... lb"
+				return false;
+			}
+			// Calculate weightInKilograms. 
+			// Cannot return false as weightInPounds has already been validated
+			BizMath::Round( weightInPounds * CONVERT_POUND_TO_KILO, (short) weightInKilograms );
+		}
+	}
+
+	// Calculate BMI if the user entered height and weight
+	if ( heightInCentimetres != BizConstants::DEFAULT_VALUE 
+		&& weightInKilograms != BizConstants::DEFAULT_VALUE )
+	{
+		bodyMassIndex = (float) weightInKilograms / 
+			(float) heightInCentimetres * (float) heightInCentimetres;
+	}
+	return true;
+}
+
 /**
 Validate
 
@@ -361,6 +518,45 @@ bool BizWeightLB::Validate()
 		isValid = false;
 	}
 	return isValid;
+}
+/**
+ ** Constructor()
+ **
+ ** DESCRIPTION:
+ **  Constructor for pressure reading class.
+
+ ** INPUT:
+ **	 none.
+
+ ** OUTPUT:
+ **  none.
+
+ ** RETURN:
+ **  none.
+*/
+BizPressureReading::BizPressureReading()
+{
+	Initialise();
+}
+
+/**
+ ** Initialise()
+ **
+ ** DESCRIPTION:
+ **  Initialse the members of the pressure reading class.
+
+ ** INPUT:
+ **	 none.
+
+ ** OUTPUT:
+ **  none.
+
+ ** RETURN:
+ **  none.
+*/
+void BizPressureReading::Initialise()
+{
+	Reading = BizConstants::DEFAULT_VALUE;	
 }
 /**
 xyz

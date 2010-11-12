@@ -51,7 +51,7 @@ namespace Configuration {
 			}
 		}
 	};
-
+	
 	// Creating CrxStructSetting Structure and variables
 	/**
 	 * Container for general configuration settings. 

@@ -485,7 +485,7 @@
               </Issue>
               <Notes>
                <User Name="paul">
-                <Note Id="2" />
+                <Note Id="19" />
                </User>
               </Notes>
              </Message>
@@ -555,6 +555,20 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="heartRate">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
+              <Issue Name="Member">
+               <Item>heartRate</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="20" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="isValid">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -596,6 +610,24 @@
               <Notes>
                <User Name="paul">
                 <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizElectronicModule">
+          <Members>
+           <Member Name="currentState">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
+              <Issue Name="Member">
+               <Item>currentState</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="20" />
                </User>
               </Notes>
              </Message>
@@ -665,6 +697,94 @@
               <Issue>
                <Item>BizFacade.StopCaptureSimulation():Void</Item>
               </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizHeightAndWeight">
+          <Members>
+           <Member Name="bodyMassIndex">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
+              <Issue Name="Member">
+               <Item>bodyMassIndex</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="17" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="heightInCentimetres">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
+              <Issue Name="Member">
+               <Item>heightInCentimetres</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="17" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="heightInInches">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
+              <Issue Name="Member">
+               <Item>heightInInches</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="17" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="ValidateAndCalculate():System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Excluded" Created="2010-11-12 02:54:36Z" FixCategory="Breaking">
+              <Issue>
+               <Item>BizHeightAndWeight.ValidateAndCalculate():Boolean</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="18" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="weightInKilograms">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
+              <Issue Name="Member">
+               <Item>weightInKilograms</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="17" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="weightInPounds">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
+              <Issue Name="Member">
+               <Item>weightInPounds</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="17" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -869,15 +989,15 @@
          </Type>
          <Type Name="BizMeasure">
           <Members>
-           <Member Name="bodyMassIndex">
+           <Member Name="bloodPressure">
             <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
               <Issue Name="Member">
-               <Item>bodyMassIndex</Item>
+               <Item>bloodPressure</Item>
               </Issue>
               <Notes>
                <User Name="paul">
-                <Note Id="2" />
+                <Note Id="20" />
                </User>
               </Notes>
              </Message>
@@ -925,6 +1045,20 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="heightAndWeight">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
+              <Issue Name="Member">
+               <Item>heightAndWeight</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="20" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="interpretation">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -958,48 +1092,6 @@
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
               <Issue Name="Member">
                <Item>medication</Item>
-              </Issue>
-              <Notes>
-               <User Name="paul">
-                <Note Id="2" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="myBP">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>myBP</Item>
-              </Issue>
-              <Notes>
-               <User Name="paul">
-                <Note Id="2" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="myHeight">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>myHeight</Item>
-              </Issue>
-              <Notes>
-               <User Name="paul">
-                <Note Id="2" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="myWeight">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>myWeight</Item>
               </Issue>
               <Notes>
                <User Name="paul">
@@ -1337,20 +1429,6 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="heartRate">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>heartRate</Item>
-              </Issue>
-              <Notes>
-               <User Name="paul">
-                <Note Id="2" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="isCarotidSignalValid">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -1416,6 +1494,20 @@
               <Notes>
                <User Name="paul">
                 <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="meanHeartRate">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
+              <Issue Name="Member">
+               <Item>meanHeartRate</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="17" />
                </User>
               </Notes>
              </Message>
@@ -1704,6 +1796,20 @@
               <Notes>
                <User Name="paul">
                 <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="module">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-12 02:54:36Z">
+              <Issue Name="Member">
+               <Item>module</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="20" />
                </User>
               </Notes>
              </Message>
@@ -2238,6 +2344,10 @@
     <Note Id="14" Modified="2010-11-05 03:20:08Z">This is a constant</Note>
     <Note Id="15" Modified="2010-11-05 03:20:25Z">It is constant?</Note>
     <Note Id="16" Modified="2010-11-05 03:21:35Z">This is a property not a method</Note>
+    <Note Id="17" Modified="2010-11-12 02:55:22Z">This is a property not a method</Note>
+    <Note Id="18" Modified="2010-11-12 02:56:23Z">method not implemented yet</Note>
+    <Note Id="19" Modified="2010-11-12 03:28:58Z">This is a property not a method</Note>
+    <Note Id="20" Modified="2010-11-12 03:29:07Z">This is a property not a method</Note>
    </User>
    <User Name="victora">
     <Note Id="0" Modified="2010-10-29 03:47:21Z">not a method but a property</Note>

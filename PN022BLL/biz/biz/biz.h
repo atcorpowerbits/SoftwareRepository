@@ -49,6 +49,8 @@ static const unsigned int MEA_BP_MAX = 250;
 static const unsigned int MEA_SP2DP_DIFF_MIN = 10;
 static const unsigned int MEA_MP2DP_DIFF_MIN = 5;
 static const unsigned int MEA_SP2MP_DIFF_MIN = 5;
+static const float CONVERT_INCH_TO_CM = (float) 2.54;
+static const float CONVERT_POUND_TO_KILO = (float) 0.4536;
 
 typedef enum
 {
@@ -86,7 +88,7 @@ static const unsigned short MINIMUM_TONOMETER_SIGNAL_STRENGTH = 80;						// Indi
 static const unsigned short MINIMUM_TONOMETER_BASELINE = 120;								// Indicates a valid signal baseline
 
 // Signal Class
-static const unsigned short MAX_HEART_RATE = 200;													// 200 bpm
+static const unsigned short MAX_HEART_RATE = 220;													// 200 bpm
 static const unsigned short MIN_HEART_RATE = 30;													// 30 bpm
 static const unsigned short MAX_SIGNAL_LENGTH = MAX_CAPTURE_TIME * DEFAULT_SAMPLE_RATE;	// 20 seconds * sampleRate
 static const unsigned short MIN_SIGNAL_LENGTH = MIN_CAPTURE_TIME * DEFAULT_SAMPLE_RATE;	// 5 seconds * sampleRate

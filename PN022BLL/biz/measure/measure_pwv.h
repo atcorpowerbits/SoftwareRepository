@@ -98,7 +98,7 @@ public:
 	property unsigned short numberOfDeltas;         // Actual number of BizDelta values
 	property unsigned short numberOfValidDeltas;	// Actual number of valid BizDelta values
 
-	property float heartRate;						// Heart rate of the Femoral signal (in bpm)
+	property float meanHeartRate;						// Heart rate of the Femoral signal (in bpm)
 	
 	property float meanDeltaTime;					// Mean pulse onset time difference (in ms) between pulse traces
 	property float meanCorrectedTime;				// Mean Carotid-Femoral time difference (in ms) between pulse traces
@@ -164,7 +164,7 @@ private:
 	bool CalculateQualityControls();
 	
 	// Calculate Heart rate on the base of ECG Onsets
-	bool CalculateHeartRate();
+	//bool CalculateHeartRate();
 	
 	// Calculate the BizDelta array between the femoral and carotid signals
 	bool CalculateBizDeltaArray();

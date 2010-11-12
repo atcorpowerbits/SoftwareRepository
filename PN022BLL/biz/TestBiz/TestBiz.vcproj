@@ -298,6 +298,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BizDeltaTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BizDPTest.cpp"
 				>
 			</File>
