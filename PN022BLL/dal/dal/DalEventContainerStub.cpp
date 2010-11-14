@@ -17,20 +17,20 @@ namespace AtCor{
 			{
 				switch (data)
 				{
-				case DalConstants::CUFF_DISCONNECTED_STATUS_BITS:
-					this->data = DalConstants::CUFF_STATE_DISCONNECTED;
+				case DalConstantsStub::CUFF_DISCONNECTED_STATUS_BITS:
+					this->data = DalConstantsStub::CUFF_STATE_DISCONNECTED;
 					break;
-				case DalConstants::CUFF_INFLATING_STATUS_BITS:
-					this->data = DalConstants::CUFF_STATE_INFLATING;
+				case DalConstantsStub::CUFF_INFLATING_STATUS_BITS:
+					this->data = DalConstantsStub::CUFF_STATE_INFLATING;
 					break;
-				case DalConstants::CUFF_INFLATED_STATUS_BITS:
-					this->data = DalConstants::CUFF_STATE_INFLATED;
+				case DalConstantsStub::CUFF_INFLATED_STATUS_BITS:
+					this->data = DalConstantsStub::CUFF_STATE_INFLATED;
 					break;
-				case DalConstants::CUFF_DEFLATING_STATUS_BITS:
-					this->data = DalConstants::CUFF_STATE_DEFLATING;
+				case DalConstantsStub::CUFF_DEFLATING_STATUS_BITS:
+					this->data = DalConstantsStub::CUFF_STATE_DEFLATING;
 					break;
-				case DalConstants::CUFF_DEFLATED_STATUS_BITS:
-					this->data = DalConstants::CUFF_STATE_DEFLATED;
+				case DalConstantsStub::CUFF_DEFLATED_STATUS_BITS:
+					this->data = DalConstantsStub::CUFF_STATE_DEFLATED;
 					break;
 				default:
 					this->data = 0;
@@ -43,15 +43,15 @@ namespace AtCor{
 				switch (state)
 				{
 				case DataAccess::NoErrorAlarm:
-					this->state = DataAccess::DalConstants::NormalState;
+					this->state = DataAccess::DalConstantsStub::NormalState;
 					this->source = "No Error or Alarm";
 					break;
 				case DataAccess::ErrorState:
-					this->state = DataAccess::DalConstants::UnrecoverableState;
+					this->state = DataAccess::DalConstantsStub::UnrecoverableState;
 					this->source = MapErrorSourceToString(source);
 					break;
 				case DataAccess::AlarmState:
-					this->state = DataAccess::DalConstants::RecoverableState;
+					this->state = DataAccess::DalConstantsStub::RecoverableState;
 					this->source = MapAlarmSourceToString(source);
 					break;
 				default:

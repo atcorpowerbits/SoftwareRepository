@@ -100,8 +100,8 @@ void BizMeasure::Initialise()
 		bloodPressure = gcnew BizSPAndMP;
 	}	
 	
-	captureTime = CrxConfigFacade::Instance()->GetCaptureTime(); // DEFAULT_CAPTURE_TIME
-	sampleRate = 1024 / DalConstants::DATA_SAMPLING_INTERVAL; //DEFAULT_SAMPLE_RATE;  
+	captureTime = DEFAULT_CAPTURE_TIME; //TBD: Why is capture time from PWV setting needed in generic measure class?
+	sampleRate = 1024 / DalConstants::DataSamplingInterval; //DEFAULT_SAMPLE_RATE;  
 	
 	simulation = false;
 

@@ -43,7 +43,7 @@ BizTonometerDataCapture::BizTonometerDataCapture(BizBuffer^ buffer)
 	this->buffer = buffer;
 
 	// Attach the handler to observe tonometer data event from DAL
-	DalEventContainer::Instance->OnDalTonometerDataEvent += gcnew DalTonometerDataEventHandler(this, &BizTonometerDataCapture::Update);
+	DalEventContainer::Instance->OnDalTonometerDataEvent += gcnew DalTonoMeterDataEventHandler(this, &BizTonometerDataCapture::Update);
 
 	// Create a tonometer business data subject
 //	tonometerDataBiz = gcnew BizTonometerDataEvent;

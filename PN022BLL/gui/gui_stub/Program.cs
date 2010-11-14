@@ -3,25 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace AtCor
+namespace Atcor.Scor.Presentation
 {
-    namespace Scor
+    static class Program
     {
-        namespace Presentation
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
-            static class Program
-            {
-                /// <summary>
-                /// The main entry point for the application.
-                /// </summary>
-                [STAThread]
-                static void Main()
-                {
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new DefaultWindow());
-                }
-            }
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new DefaultWindow());
         }
     }
 }

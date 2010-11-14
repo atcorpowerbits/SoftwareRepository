@@ -126,7 +126,8 @@ namespace TestBiz {
 				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
 				bool expected = Convert::ToBoolean(testContextInstance->DataRow["Expected"]); // TODO: Initialize to an appropriate value
 				bool actual;
-				CrxConfigFacade::Instance()->SetDistanceMethod(Convert::ToBoolean(testContextInstance->DataRow["Method"]));
+//				CrxConfigFacade::Instance()->SetDistanceMethod(Convert::ToBoolean(testContextInstance->DataRow["Method"]));
+				CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = Convert::ToUInt16(testContextInstance->DataRow["Method"]);
 				target->myCarotidDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Carotid"]);
 				target->myCuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Cuff"]);
 				target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["PWVDist"]);
@@ -155,7 +156,8 @@ namespace TestBiz {
 			{
 				BizPWV^  target = (gcnew BizPWV());
 				PrivateObject^ accessor = gcnew PrivateObject(target);
-				CrxConfigFacade::Instance()->SetDistanceMethod(true);
+//				CrxConfigFacade::Instance()->SetDistanceMethod(true);
+				CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 0; // TBD: Replace magic number for subtracting method
 				accessor->SetProperty("systemId", Convert::ToString(testContextInstance->DataRow["SystemID"]));
 				accessor->SetProperty("patientNumber", Convert::ToUInt32(testContextInstance->DataRow["PatientNumber"]));
 				accessor->SetProperty("measurementDateTime", Convert::ToDateTime(testContextInstance->DataRow["MeasurementDateTime"]));
@@ -337,7 +339,8 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		{
 			BizPWV^  target = (gcnew BizPWV());
 			PrivateObject^ accessor = gcnew PrivateObject(target);
-			CrxConfigFacade::Instance()->SetDistanceMethod(Convert::ToBoolean(testContextInstance->DataRow["Method"]));
+//			CrxConfigFacade::Instance()->SetDistanceMethod(Convert::ToBoolean(testContextInstance->DataRow["Method"]));
+			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = Convert::ToUInt16(testContextInstance->DataRow["Method"]);
 			target->myCarotidDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Carotid"]);
 			target->myCuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Cuff"]);
 			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
@@ -494,7 +497,8 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			accessor->SetProperty("systemId", "00050");
 			accessor->SetProperty("patientNumber", (unsigned int) 1);
 			target->PrepareToCaptureSignal();
-			CrxConfigFacade::Instance()->SetDistanceMethod(false);
+//			CrxConfigFacade::Instance()->SetDistanceMethod(false);
+			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
 			unsigned short signalLength = Convert::ToUInt16(testContextInstance->DataRow[L"SignalLength"]);
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidSignal"]);
 			array<String^>^ valuesArray = values->Split(',');
@@ -574,7 +578,8 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		{
 			BizPWV^  target = (gcnew BizPWV());
 			PrivateObject^ accessor = gcnew PrivateObject(target);
-			CrxConfigFacade::Instance()->SetDistanceMethod(false);
+//			CrxConfigFacade::Instance()->SetDistanceMethod(false);
+			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
 			accessor->SetProperty("systemId", "00050");
 			accessor->SetProperty("patientNumber", Convert::ToUInt32(testContextInstance->DataRow["PatientNumber"]));
 			target->myPWVDirectDistance->distance = (unsigned short) 600;

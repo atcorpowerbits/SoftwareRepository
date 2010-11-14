@@ -333,12 +333,10 @@ void BizInfo::GetModuleConfigName(String^ %info, unsigned short length)
 	switch (configValue)
 	{
 	case CONFIG_ID_PWV:
-		configName = CrxMessageFacade::Instance()->messageResources->
-			GetString(L"CONFIG_NAME_PWV", CultureInfo::CurrentUICulture);
+		configName = CrxMessagingManager::Instance->GetMessage("CONFIG_NAME_PWV");
 		break;
 	default:
-		configName = CrxMessageFacade::Instance()->messageResources->
-			GetString(L"CONFIG_NAME_INVALID", CultureInfo::CurrentUICulture);
+		configName = CrxMessagingManager::Instance->GetMessage("CONFIG_NAME_INVALID");
 		break;
 	}
 	if (configName->Length > length) 
@@ -409,10 +407,7 @@ RETURN
 */
 BizInfo::BizInfo(void)
 {
-	company = CrxMessageFacade::Instance()->messageResources->
-		GetString(L"COMPANY_NAME", CultureInfo::CurrentUICulture);
-	appVersion = CrxMessageFacade::Instance()->messageResources->
-		GetString(L"APP_VERSION", CultureInfo::CurrentUICulture);
-	copyRight = CrxMessageFacade::Instance()->messageResources->
-		GetString(L"COMPANY_COPYRIGHT", CultureInfo::CurrentUICulture);
+	company = CrxMessagingManager::Instance->GetMessage("COMPANY_NAME");
+	appVersion = CrxMessagingManager::Instance->GetMessage("APP_VERSION");
+	copyRight = CrxMessagingManager::Instance->GetMessage("COMPANY_COPYRIGHT");
 }

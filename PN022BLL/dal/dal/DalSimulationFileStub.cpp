@@ -21,10 +21,10 @@ bool DalSimulationFile::GetNextValues(signed int *value1, signed int *value2, si
 	}
 	singleLine = reader->ReadLine();
 	DataStrings = singleLine->Split('\t', 4); //three substrings
-	*value1 = (short)Single::Parse(DataStrings[0]);
-	*value2 = (short)Single::Parse(DataStrings[1]);
+	*value1 = Int16::Parse(DataStrings[0]);
+	*value2 = Int16::Parse(DataStrings[1]);
 	*value3 = Int16::Parse(DataStrings[2], System::Globalization::NumberStyles::AllowHexSpecifier);
-	*value4 = (short)Single::Parse(DataStrings[3]);
+	*value4 = Int16::Parse(DataStrings[3]);
 
 	return false;
 }

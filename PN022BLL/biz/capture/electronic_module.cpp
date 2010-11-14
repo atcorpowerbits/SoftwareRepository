@@ -18,7 +18,7 @@ using namespace CRX_LOG_NAMESPACE;
 BizElectronicModule::BizElectronicModule(void) 
 {
 	currentState = BizElectronicModuleNormal::Instance();
-	oldDalModuleState = DalConstants::NormalState;
+	oldDalModuleState = DalConstantsStub::NormalState;
 
 	// Attach the handler to observe state event from DAL
 	DalEventContainerStub::Instance->OnDalModuleErrorAlarmEvent += gcnew DalModuleErrorAlarmEventHandler(this, &BizElectronicModule::Update);
@@ -74,13 +74,13 @@ RETURN
 */		
 void BizElectronicModule::Update( Object^ sender, DalModuleErrorAlarmEventArgs^ e )
 {
-	if (e->state == DalConstants::NormalState && oldDalModuleState != e->state)
+	if (e->state == DalConstantsStub::NormalState && oldDalModuleState != e->state)
 	{
 		CrossCutting::Logging::CrxLogger::Instance->Write(e->source);
 		ChangeState(BizElectronicModuleNormal::Instance());
 	}
-	else if (e->state == DalConstants::RecoverableState ||
-	         e->state == DalConstants::UnrecoverableState)
+	else if (e->state == DalConstantsStub::RecoverableState ||
+	         e->state == DalConstantsStub::UnrecoverableState)
 	{
 		CrossCutting::Logging::CrxLogger::Instance->Write(e->source);
 		ChangeState(BizElectronicModuleAbnormal::Instance());

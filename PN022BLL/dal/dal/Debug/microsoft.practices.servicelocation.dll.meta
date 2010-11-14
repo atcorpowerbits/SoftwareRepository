@@ -1,0 +1,47 @@
+  Microsoft.Practices.ServiceLocation.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.ServiceLocation.ActivationException: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.ServiceLocation.IServiceLocator: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IServiceProvider
+  Methods:
+    GetInstance(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetInstance(Type, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetAllInstances(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetInstance(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetInstance(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetAllInstances(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ServiceLocation.ServiceLocator: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    Microsoft.Practices.ServiceLocation.IServiceLocator Current 'get ' : 
+  Methods:
+    get_Current(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SetLocatorProvider(ServiceLocatorProvider): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.ServiceLocation.ServiceLocatorImplBase: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.ServiceLocation.IServiceLocator
+    System.IServiceProvider
+  Methods:
+    GetService(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetInstance(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetInstance(Type, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetAllInstances(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetInstance(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetInstance(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetAllInstances(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ServiceLocation.ServiceLocatorProvider: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask

@@ -1,6 +1,12 @@
+#pragma once
+
 #include "stdafx.h"
 #include "DalCommon.h"
 #include "IDalHandler.h"
+#include "DalDeviceHandler.h"
+#include "DalEventContainer.h"
+#include "DalSimulationFile.h"
+#include "DalSimulationHandler.h"
 
 using namespace System;
 
@@ -15,13 +21,20 @@ namespace AtCor{
 			public ref class DalModule
 			{
 			private:
+                // constant declarations
+                static const unsigned int DAL_NULLCOMMPORT_ERR      = 303; 
+                static const unsigned int DAL_SIMULATION            = 10056; 
+
 				static DalModule^ _instance = gcnew DalModule();
 				DalModule();
 				DalModule(const DalModule^);
 				DalModule^ operator= (const DalModule);
+
 				IDalHandler^ _currentDevice;
 				CaptureType _captureDataType;
+				
 			public:
+				
 				/**
 				* Returns the current singleton instance.
 				*/
@@ -64,9 +77,17 @@ namespace AtCor{
 				* @param[in]	deviceConfigItem	The configuration item to be obtained
 				* @param[in,out]	deviceConfigInfo	The structure to return the configuration info into.
 				*/
-				bool GetConfigurationInfo(DalDeviceConfigUseageEnum deviceConfigItem, 
+				bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
 											DalDeviceConfigUsageStruct ^deviceConfigInfo ); 
 
+				/**
+				* Stub method. Returns the name of the first comm port on which the EM4 device is connected. @n
+				* Should only be used for DalDeviceHandler
+				*
+				* @return	The name of the first comm port where the electronic device is connected.
+				* 
+				* @warning	This method has not been implemented. It is a stub.
+				*/
 				String^ FindModule();
 			};
 		}

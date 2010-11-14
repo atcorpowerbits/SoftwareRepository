@@ -17,8 +17,12 @@ namespace AtCor{
 								private ref class DalSimulationFile
 								{
 								private:
-									StreamReader ^reader;
-									String^ filePath;
+									// constant declarations
+                                    static const unsigned int DAL_FILENOTSET_ERR      = 301; 
+                                    static const unsigned int DAL_FILENOTFOUND_ERR    = 302; 
+
+                                    String^ filePath;	//path of the file on the disk
+									StreamReader ^reader; //variable to store the File stream reader
 								public:
 									/**
 									* Opens the file specified by @c DalSimulationFile::filePath.
@@ -31,7 +35,7 @@ namespace AtCor{
 									bool CloseFile();
 
 									/**
-									* Constructor for the class.
+									* Constructor for the class. @n
 									* Opens a file if specified in @c DalSimulationFile::filePath
 									*/
 									DalSimulationFile(); 
@@ -54,7 +58,9 @@ namespace AtCor{
 									* @param[out] value1 Unsigned integer value from the first column in the file.
 									* @param[out] value2 Unsigned integer value from the second column in the file.
 									*
-									* @see bool GetNextValues(signed int *value1, signed int *value2, signed int value3)
+									* @return the status of the operation: true if successful
+									*
+									* @see GetNextValues(signed int *value1, signed int *value2, signed int value3)
 									*/
 									bool GetNextValues(signed int *value1, signed int *value2);
 									
@@ -64,6 +70,9 @@ namespace AtCor{
 									* @param[out] value2 Unsigned integer value from the second column in the file.
 									* @param[out] value3 Unsigned integer value from the third column in the file.
 									*
+									* @return the status of the operation: true if successful
+									*
+									* @see GetNextValues(signed int *value1, signed int *value2);
 									*/									
 									bool GetNextValues(signed int *value1, signed int *value2, signed int *value3);
 
@@ -76,6 +85,13 @@ namespace AtCor{
 									*
 									*/									
 									bool GetNextValues(signed int *value1, signed int *value2, signed int *value3, signed int *value4);
+
+									/**
+									* Resets the simulation source file to point to begining of file.
+									*
+									* @return  true if the operation was successful.
+									*/
+									bool ResetFileStreamPosition();
 								};
 		}
 	}

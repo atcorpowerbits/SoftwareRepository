@@ -226,12 +226,13 @@ RETURN
 bool BizPWV::ValidatePWVDistance()
 {
 	bool isValid = false;
+	CrxStructPwvSetting^ pwvSetting = CrxConfigManager::Instance->PwvSettings;
 
-	// TBD: check PWV distance method
-	if (CrxConfigFacade::Instance()->isSubtractingMethod())
+	if (pwvSetting->PWVDistanceMethod == 0) // TBD: replace magic number for subtracting method
 	{
 		isValid = myCarotidDistance->Validate() && myCuffDistance->Validate();
-	} else
+	}
+	else if (pwvSetting->PWVDistanceMethod == 1) // TBD: replace magic number for direct method
 	{
 		isValid = myPWVDirectDistance->Validate();
 	}
@@ -683,8 +684,9 @@ bool BizPWV::CalculateAndValidateDistance()
 	short distance;
 	bool isValid = false;
 	
-	// TBD: check PWV distance method
-	if (CrxConfigFacade::Instance()->isSubtractingMethod())
+	CrxStructPwvSetting^ pwvSetting = CrxConfigManager::Instance->PwvSettings;
+
+	if (pwvSetting->PWVDistanceMethod == 0) // TBD: replace magic number for subtracting method
 	{
 		distance = myCuffDistance->distance - myCarotidDistance->distance - myFemoral2CuffDistance->distance;
 	} 

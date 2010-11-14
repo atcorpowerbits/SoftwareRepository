@@ -221,15 +221,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crx_config_stub.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\crx_message_stub.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\CrxConfiguration.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crxCrossCutting.cpp"
 				>
 			</File>
 			<File
@@ -271,15 +267,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crx_config_stub.h"
-				>
-			</File>
-			<File
-				RelativePath=".\crx_message_stub.h"
+				RelativePath=".\crx_namespace.h"
 				>
 			</File>
 			<File
 				RelativePath=".\CrxConfiguration.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crxCrossCutting.h"
 				>
 			</File>
 			<File
@@ -313,8 +309,17 @@
 				>
 			</File>
 			<File
-				RelativePath=".\messages.resx"
+				RelativePath=".\ApplicationMessages.resx"
+				SubType="Designer"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCManagedResourceCompilerTool"
+						ResourceFileName="..\..\gui\gui\bin\$(IntDir)\System\Resources\$(SolutionName).ApplicationMessages.resources"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<File

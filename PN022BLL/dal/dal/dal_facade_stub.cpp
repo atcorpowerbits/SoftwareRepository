@@ -107,7 +107,7 @@ void DalFacade::SimulateCaptureData()
 
 	// Create a new Timer with Interval set in milliseconds.
 	// e.g. ~4 ms for 256 samples/sec
-	captureTimer = gcnew Timer(DalConstants::SIMULATION_TIMER_INTERVAL);
+	captureTimer = gcnew Timer(DalConstants::SimulationTimerInterval);
 
 	// Hook up the Elapsed event for the timer.
 	switch (captureDataType) // TBD: get DalModule::Instance->_captureDataType
@@ -175,7 +175,7 @@ void DalFacade::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 		gcnew DalModuleErrorAlarmEventArgs((DalFacade::Instance()->status & 0x0028), DalFacade::Instance()->source));
 
 	// Countdown the timer by the amount of simulation interval
-	DalFacade::Instance()->countDown -= DalConstants::SIMULATION_TIMER_INTERVAL;
+	DalFacade::Instance()->countDown -= DalConstants::SimulationTimerInterval;
 }
 
 void DalFacade::StopCaptureSimulation() 

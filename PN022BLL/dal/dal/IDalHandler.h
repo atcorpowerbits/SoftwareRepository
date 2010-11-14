@@ -1,3 +1,5 @@
+#pragma once
+
 #include "stdafx.h"
 #include "DalCommon.h"
 #include "DalSimulationFile.h"
@@ -11,6 +13,8 @@ namespace AtCor{
 			/**
 			* @interface IDalHandler
 			* @brief Interface class to implement managers for EM4 and simulation devices.
+			*
+			* @see DalSimulationHanlder, DalDeviceHandler
 			*/
 			private interface class IDalHandler 
 			{
@@ -18,11 +22,10 @@ namespace AtCor{
 					void StartCapture();
 					void StopCapture();
 					bool GetConnectionStatus();
-					bool GetConfigurationInfo(DalDeviceConfigUseageEnum deviceConfigItem, 
-											  DalDeviceConfigUsageStruct deviceConfigInfo );
+					bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
+											  DalDeviceConfigUsageStruct ^deviceConfigInfo );
 			};
 
-			
 
 
 		}

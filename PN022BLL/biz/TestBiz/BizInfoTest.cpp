@@ -7,6 +7,7 @@ using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace System::Globalization;
 namespace TestBiz {
     using namespace System;
+	using namespace System::IO;
     ref class BizInfoTest;
     
     
@@ -285,6 +286,7 @@ public: [TestMethod]
 			String^  moduleCalibrationDate = L"1234567"; // TODO: Initialize to an appropriate value
 			String^  moduleCalibrationDateExpected = DateTime::Today.Date.ToString(culture)->Substring(0, 7); // TODO: Initialize to an appropriate value
 			int len = moduleCalibrationDate->Length; // TODO: Initialize to an appropriate value
+			Directory::SetCurrentDirectory("C:\\Projects\\PN022BLL\\gui\\gui\\bin\\Debug"); //where the resource file is read by CRX
 			BizInfo::Instance()->GetModuleCalibrationDate(moduleCalibrationDate, len);
 			Assert::AreEqual(moduleCalibrationDateExpected, moduleCalibrationDate);
 		}
