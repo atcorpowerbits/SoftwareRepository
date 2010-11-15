@@ -326,6 +326,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BizHeightAndWeightTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BizHeightCMTest.cpp"
 				>
 			</File>

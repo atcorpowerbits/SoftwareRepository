@@ -100,6 +100,18 @@ namespace TestBiz {
 				target->MP->Reading = 100;
 				actual = target->Validate();
 				Assert::AreEqual(false, actual);
+
+				// MP not entered
+				target->SP->Reading = 120;
+				target->MP->Reading = 9999;
+				actual = target->Validate();
+				Assert::AreEqual(true, actual);
+
+				// SP not entered
+				target->SP->Reading = 9999;
+				target->MP->Reading = 70;
+				actual = target->Validate();
+				Assert::AreEqual(true, actual);
 			}
 	};
 }

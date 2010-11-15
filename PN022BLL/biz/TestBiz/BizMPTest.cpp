@@ -90,6 +90,10 @@ namespace TestBiz {
 				target->Reading = MEA_BP_MAX + 1; // beyond max boundary test
 				actual = target->Validate();
 				Assert::AreEqual(false, actual);
+
+				target->Reading = 9999; // not entered test
+				actual = target->Validate();
+				Assert::AreEqual(true, actual);
 			}
 	};
 }

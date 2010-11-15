@@ -315,9 +315,18 @@ RETURN
 */
 bool BizHeightAndWeight::ValidateAndCalculate()
 {
+	short output;
+
+	// Ignore previous BMI calculation
+	bodyMassIndex = BizConstants::DEFAULT_VALUE;
+	
 	if (CrxConfigManager::Instance->
 		GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_METRIC)
 	{
+		// Ignore previous imperial values
+		heightInInches = BizConstants::DEFAULT_VALUE;
+		weightInPounds = BizConstants::DEFAULT_VALUE;
+		
 		// Check if the user has entered a value
 		if ( heightInCentimetres != BizConstants::DEFAULT_VALUE )
 		{
@@ -328,7 +337,8 @@ bool BizHeightAndWeight::ValidateAndCalculate()
 			}
 			// Calculate heightInInches. 
 			// Cannot return false as heightInCentimetres has already been validated
-			BizMath::Round( heightInCentimetres / CONVERT_INCH_TO_CM, (short) heightInInches );
+			BizMath::Round( heightInCentimetres / CONVERT_INCH_TO_CM, output );
+			heightInInches = output;
 		}
 		
 		// Check if the user has entered a value
@@ -341,12 +351,17 @@ bool BizHeightAndWeight::ValidateAndCalculate()
 			}
 			// Calculate weightInPounds. 
 			// Cannot return false as weightInKilograms has already been validated
-			BizMath::Round( weightInKilograms / CONVERT_POUND_TO_KILO, (short) weightInPounds );
+			BizMath::Round( weightInKilograms / CONVERT_POUND_TO_KILO, output );
+			weightInPounds = output;
 		}
 	}
 	else if (CrxConfigManager::Instance->
 		GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_IMPERIAL)
 	{
+		// Ignore previous metric values
+		heightInCentimetres = BizConstants::DEFAULT_VALUE;
+		weightInKilograms = BizConstants::DEFAULT_VALUE;
+		
 		// Check if the user has entered a value
 		if ( heightInInches != BizConstants::DEFAULT_VALUE )
 		{
@@ -357,7 +372,8 @@ bool BizHeightAndWeight::ValidateAndCalculate()
 			}
 			// Calculate heightInCentimetres. 
 			// Cannot return false as heightInInches has already been validated
-			BizMath::Round( heightInInches * CONVERT_INCH_TO_CM, (short) heightInCentimetres );
+			BizMath::Round( heightInInches * CONVERT_INCH_TO_CM, output );
+			heightInCentimetres = output;
 		}
 		
 		// Check if the user has entered a value
@@ -370,16 +386,17 @@ bool BizHeightAndWeight::ValidateAndCalculate()
 			}
 			// Calculate weightInKilograms. 
 			// Cannot return false as weightInPounds has already been validated
-			BizMath::Round( weightInPounds * CONVERT_POUND_TO_KILO, (short) weightInKilograms );
+			BizMath::Round( weightInPounds * CONVERT_POUND_TO_KILO, output );
+			weightInKilograms = output;
 		}
 	}
 
-	// Calculate BMI if the user entered height and weight
+	// Calculate BMI (kg/m^2) if the user entered height and weight
 	if ( heightInCentimetres != BizConstants::DEFAULT_VALUE 
 		&& weightInKilograms != BizConstants::DEFAULT_VALUE )
 	{
-		bodyMassIndex = (float) weightInKilograms / 
-			(float) heightInCentimetres * (float) heightInCentimetres;
+		bodyMassIndex = 100 * 100 * (float) weightInKilograms / 
+			((float) heightInCentimetres * (float) heightInCentimetres);
 	}
 	return true;
 }
@@ -586,15 +603,15 @@ INPUT
 	*/		
 	bool BizPressureReading::Validate()
 	{
-		bool isValid;
-		if (Reading >= MEA_BP_MIN && Reading <= MEA_BP_MAX)
+		// Check if the user has entered a value
+		if ( Reading != BizConstants::DEFAULT_VALUE)
 		{
-			isValid = true;
-		} else
-		{
-			isValid = false;
+			if (Reading < MEA_BP_MIN || Reading > MEA_BP_MAX)
+			{
+				return false;
+			}
 		}
-		return isValid;
+		return true;
 	}
 	/**
 xyz
@@ -738,22 +755,27 @@ INPUT
 	*/		
 	bool BizSPAndDP::Validate()
 	{
-		bool isValid;
 		if (!SP->Validate())
 		{
-			isValid = false;
-		} else if (!DP->Validate())
+			return false;
+		} 
+
+		if (!DP->Validate())
 		{
-			isValid = false;
-		} else if (SP->Reading < (DP->Reading + MEA_SP2DP_DIFF_MIN))
-		{
-			//TBD: Inform user "Diff bet SP and DP should be ... mmHg"
-			isValid = false;
-		} else 
-		{
-			isValid = true;
+			return false;
+		} 
+		
+		// Check if the user has entered both values
+		if ( SP->Reading != BizConstants::DEFAULT_VALUE
+			&& DP->Reading != BizConstants::DEFAULT_VALUE)
+		{ 
+			if (SP->Reading < (DP->Reading + MEA_SP2DP_DIFF_MIN))
+			{
+				//TBD: Inform user "Diff bet SP and DP should be ... mmHg"
+				return false;
+			} 
 		}
-		return isValid;
+		return true;
 	}
 	/**
 xyz
@@ -783,22 +805,27 @@ INPUT
 	*/		
 	bool BizMPAndDP::Validate()
 	{
-		bool isValid;
 		if (!MP->Validate())
 		{
-			isValid = false;
-		} else if (!DP->Validate())
+			return false;
+		} 
+
+		if (!DP->Validate())
 		{
-			isValid = false;
-		} else if (MP->Reading < (DP->Reading + MEA_MP2DP_DIFF_MIN))
-		{
-			//TBD: Inform user "Diff bet MP and DP should be ... mmHg"
-			isValid = false;
-		} else 
-		{
-			isValid = true;
+			return false;
+		} 
+		
+		// Check if the user has entered both values
+		if ( MP->Reading != BizConstants::DEFAULT_VALUE
+			&& DP->Reading != BizConstants::DEFAULT_VALUE)
+		{ 
+			if (MP->Reading < (DP->Reading + MEA_MP2DP_DIFF_MIN))
+			{
+				//TBD: Inform user "Diff bet MP and DP should be ... mmHg"
+				return false;
+			} 
 		}
-		return isValid;
+		return true;
 	}
 	/**
 xyz
@@ -828,20 +855,25 @@ INPUT
 	*/		
 	bool BizSPAndMP::Validate()
 	{
-		bool isValid;
 		if (!SP->Validate())
 		{
-			isValid = false;
-		} else if (!MP->Validate())
+			return false;
+		} 
+
+		if (!MP->Validate())
 		{
-			isValid = false;
-		} else if (SP->Reading < (MP->Reading + MEA_SP2MP_DIFF_MIN))
-		{
-			//TBD: Inform user "Diff bet SP and MP should be ... mmHg"
-			isValid = false;
-		} else 
-		{
-			isValid = true;
+			return false;
+		} 
+		
+		// Check if the user has entered both values
+		if ( SP->Reading != BizConstants::DEFAULT_VALUE
+			&& MP->Reading != BizConstants::DEFAULT_VALUE)
+		{ 
+			if (SP->Reading < (MP->Reading + MEA_SP2MP_DIFF_MIN))
+			{
+				//TBD: Inform user "Diff bet SP and MP should be ... mmHg"
+				return false;
+			} 
 		}
-		return isValid;
+		return true;
 	}
