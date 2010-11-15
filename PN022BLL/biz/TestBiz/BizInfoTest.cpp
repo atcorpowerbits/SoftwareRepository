@@ -53,10 +53,11 @@ namespace TestBiz {
 			//}
 			//
 			//Use TestInitialize to run code before running each test
-			//public: [TestInitialize]
-			//System::Void MyTestInitialize()
-			//{
-			//}
+			public: [TestInitialize]
+			System::Void MyTestInitialize()
+			{
+				Directory::SetCurrentDirectory("C:\\Projects\\PN022BLL\\gui\\gui\\bin\\Debug"); //where the resource file is read by CRX
+			}
 			//
 			//Use TestCleanup to run code after each test has run
 			//public: [TestCleanup]
@@ -286,7 +287,6 @@ public: [TestMethod]
 			String^  moduleCalibrationDate = L"1234567"; // TODO: Initialize to an appropriate value
 			String^  moduleCalibrationDateExpected = DateTime::Today.Date.ToString(culture)->Substring(0, 7); // TODO: Initialize to an appropriate value
 			int len = moduleCalibrationDate->Length; // TODO: Initialize to an appropriate value
-			Directory::SetCurrentDirectory("C:\\Projects\\PN022BLL\\gui\\gui\\bin\\Debug"); //where the resource file is read by CRX
 			BizInfo::Instance()->GetModuleCalibrationDate(moduleCalibrationDate, len);
 			Assert::AreEqual(moduleCalibrationDateExpected, moduleCalibrationDate);
 		}
