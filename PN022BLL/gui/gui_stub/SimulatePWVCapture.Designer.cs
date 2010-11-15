@@ -228,7 +228,7 @@ namespace AtCor.Scor.Presentation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1063, 735);
+            this.ClientSize = new System.Drawing.Size(592, 372);
             this.Controls.Add(this.radLabelCarotidEnable);
             this.Controls.Add(this.radLabel6);
             this.Controls.Add(this.radLabelCarotidColor);

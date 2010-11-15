@@ -63,25 +63,15 @@
     <Reference Include="TelerikCommon, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DefaultWindow.Designer.cs">
-      <DependentUpon>DefaultWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DefaultWindow.resx">
-      <DependentUpon>DefaultWindow.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsWindow.resx">
-      <DependentUpon>SettingsWindow.cs</DependentUpon>
+    <EmbeddedResource Include="SimulateMainWindow.resx">
+      <DependentUpon>SimulateMainWindow.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SimulatePWVCapture.resx">
@@ -102,11 +92,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SettingsWindow.cs">
+    <Compile Include="SimulateMainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsWindow.Designer.cs">
-      <DependentUpon>SettingsWindow.cs</DependentUpon>
+    <Compile Include="SimulateMainWindow.Designer.cs">
+      <DependentUpon>SimulateMainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="SimulatePWVCapture.cs">
       <SubType>Form</SubType>
