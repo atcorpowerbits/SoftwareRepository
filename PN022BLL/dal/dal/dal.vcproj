@@ -264,6 +264,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\dal_stub_constants.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DalCommon.h"
 				>
 			</File>

@@ -4,7 +4,7 @@
 
 using namespace AtCor::Scor::DataAccess;
 
-bool DalSimulationFile::GetNextValues(signed int *value1, signed int *value2, signed int *value3, signed int *value4  )
+bool DalSimulationFile::GetNextValues(unsigned int *value1, unsigned int *value2, unsigned int *value3, unsigned long *value4  )
 {
 	String ^singleLine;
 	array<String^> ^DataStrings;
@@ -24,7 +24,8 @@ bool DalSimulationFile::GetNextValues(signed int *value1, signed int *value2, si
 	*value1 = Int16::Parse(DataStrings[0]);
 	*value2 = Int16::Parse(DataStrings[1]);
 	*value3 = Int16::Parse(DataStrings[2], System::Globalization::NumberStyles::AllowHexSpecifier);
-	*value4 = Int16::Parse(DataStrings[3]);
+	*value4 = Int32::Parse(DataStrings[3], System::Globalization::NumberStyles::AllowHexSpecifier);
+//	*value4 = Int32::Parse(DataStrings[3]);
 
 	return false;
 }

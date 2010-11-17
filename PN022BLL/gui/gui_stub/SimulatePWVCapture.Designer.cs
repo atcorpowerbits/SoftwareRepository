@@ -48,6 +48,8 @@ namespace AtCor.Scor.Presentation
             this.radLabel10 = new Telerik.WinControls.UI.RadLabel();
             this.radLabelCarotidMaximum = new Telerik.WinControls.UI.RadLabel();
             this.radLabel12 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabelAlertMessage = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel5 = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabelTonoData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
@@ -66,6 +68,8 @@ namespace AtCor.Scor.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabelCarotidMaximum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelAlertMessage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -103,7 +107,7 @@ namespace AtCor.Scor.Presentation
             // 
             // radLabel3
             // 
-            this.radLabel3.Location = new System.Drawing.Point(53, 154);
+            this.radLabel3.Location = new System.Drawing.Point(53, 148);
             this.radLabel3.Name = "radLabel3";
             this.radLabel3.Size = new System.Drawing.Size(55, 18);
             this.radLabel3.TabIndex = 4;
@@ -119,7 +123,7 @@ namespace AtCor.Scor.Presentation
             // 
             // radLabel4
             // 
-            this.radLabel4.Location = new System.Drawing.Point(53, 218);
+            this.radLabel4.Location = new System.Drawing.Point(53, 201);
             this.radLabel4.Name = "radLabel4";
             this.radLabel4.Size = new System.Drawing.Size(90, 18);
             this.radLabel4.TabIndex = 6;
@@ -127,7 +131,7 @@ namespace AtCor.Scor.Presentation
             // 
             // radLabelCountdownTimer
             // 
-            this.radLabelCountdownTimer.Location = new System.Drawing.Point(147, 218);
+            this.radLabelCountdownTimer.Location = new System.Drawing.Point(147, 201);
             this.radLabelCountdownTimer.Name = "radLabelCountdownTimer";
             this.radLabelCountdownTimer.Size = new System.Drawing.Size(28, 18);
             this.radLabelCountdownTimer.TabIndex = 7;
@@ -135,7 +139,7 @@ namespace AtCor.Scor.Presentation
             // 
             // radButtonPWVCapture
             // 
-            this.radButtonPWVCapture.Location = new System.Drawing.Point(274, 302);
+            this.radButtonPWVCapture.Location = new System.Drawing.Point(274, 321);
             this.radButtonPWVCapture.Name = "radButtonPWVCapture";
             this.radButtonPWVCapture.Size = new System.Drawing.Size(130, 24);
             this.radButtonPWVCapture.TabIndex = 8;
@@ -144,7 +148,7 @@ namespace AtCor.Scor.Presentation
             // 
             // radButtonPWVStop
             // 
-            this.radButtonPWVStop.Location = new System.Drawing.Point(411, 301);
+            this.radButtonPWVStop.Location = new System.Drawing.Point(411, 320);
             this.radButtonPWVStop.Name = "radButtonPWVStop";
             this.radButtonPWVStop.Size = new System.Drawing.Size(130, 24);
             this.radButtonPWVStop.TabIndex = 9;
@@ -224,11 +228,29 @@ namespace AtCor.Scor.Presentation
             this.radLabel12.TabIndex = 10;
             this.radLabel12.Text = "Carotid Maximum";
             // 
+            // radLabelAlertMessage
+            // 
+            this.radLabelAlertMessage.Location = new System.Drawing.Point(147, 256);
+            this.radLabelAlertMessage.Name = "radLabelAlertMessage";
+            this.radLabelAlertMessage.Size = new System.Drawing.Size(65, 18);
+            this.radLabelAlertMessage.TabIndex = 18;
+            this.radLabelAlertMessage.Text = "<message>";
+            // 
+            // radLabel5
+            // 
+            this.radLabel5.Location = new System.Drawing.Point(53, 256);
+            this.radLabel5.Name = "radLabel5";
+            this.radLabel5.Size = new System.Drawing.Size(50, 18);
+            this.radLabel5.TabIndex = 19;
+            this.radLabel5.Text = "Message";
+            // 
             // SimulatePWVCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 372);
+            this.Controls.Add(this.radLabel5);
+            this.Controls.Add(this.radLabelAlertMessage);
             this.Controls.Add(this.radLabelCarotidEnable);
             this.Controls.Add(this.radLabel6);
             this.Controls.Add(this.radLabelCarotidColor);
@@ -273,6 +295,8 @@ namespace AtCor.Scor.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabelCarotidMaximum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelAlertMessage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -300,6 +324,8 @@ namespace AtCor.Scor.Presentation
         private Telerik.WinControls.UI.RadLabel radLabel10;
         private Telerik.WinControls.UI.RadLabel radLabelCarotidMaximum;
         private Telerik.WinControls.UI.RadLabel radLabel12;
+        private Telerik.WinControls.UI.RadLabel radLabelAlertMessage;
+        private Telerik.WinControls.UI.RadLabel radLabel5;
     }
 }
 

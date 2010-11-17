@@ -82,7 +82,12 @@ namespace AtCor.Scor.Presentation
 
             // Attach the handler to observe carotid quality event from Biz
             BizEventContainer.Instance.OnBizCarotidQualityEvent += new BizCarotidQualityEventHandler(UpdateCarotidQuality);
-            
+
+            // Attach the handler to observe information, warning and error events from Biz
+            BizEventContainer.Instance.OnBizInformationEvent += new BizInformationEventHandler(UpdateInformationMessage);
+            BizEventContainer.Instance.OnBizWarningEvent += new BizWarningEventHandler(UpdateWarningMessage);
+            BizEventContainer.Instance.OnBizErrorEvent += new BizErrorEventHandler(UpdateErrorMessage);
+
             // Attach the handler to observe cuff pulse event from Biz
             cuffPulse.CuffPulseEvent += new BizCuffPulseEvent.BizCuffPulseEventHandler(UpdateCuffPulse);
 
@@ -130,6 +135,21 @@ namespace AtCor.Scor.Presentation
         private void UpdateCuffState(Object sender, BizCuffStateEventArgs e)
         {
             radLabelCuffState.Text = e.data;
+        }
+
+        private void UpdateInformationMessage(Object sender, BizInformationEventArgs e)
+        {
+            radLabelAlertMessage.Text = e.data;
+        }
+
+        private void UpdateWarningMessage(Object sender, BizWarningEventArgs e)
+        {
+            radLabelAlertMessage.Text = e.data;
+        }
+
+        private void UpdateErrorMessage(Object sender, BizErrorEventArgs e)
+        {
+            radLabelAlertMessage.Text = e.data;
         }
 
     }

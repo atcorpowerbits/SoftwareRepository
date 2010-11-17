@@ -8,53 +8,54 @@ namespace AtCor{
 namespace Scor { 
 namespace DataAccess{
 
-	public enum ModuleErrorAlarmState
+#if 1
+	public enum ModuleErrorAlarmStatus
 	{
-		NoErrorAlarm = 0x0000,
-		ErrorState = 0x0020,
-		AlarmState = 0x0008,
-		ErrorAndAlarmState = 0x0028
-	};
-
-#if 0
-	public enum ModuleState
-	{
-		NormalState = 0,
-		RecoverableState,
-		UnrecoverableState,
+		NoErrorAlarm = 0x0000, //0
+		ErrorStatus = 0x0020,   //32
+		AlarmStatus = 0x0008,   //8
+		ErrorAndAlarmStatus = 0x0028 // 40
 	};
 #endif
 
-	public ref class DalConstantsStub
+	// Byte  3  2 | 1  0
+	//      Alarm | Error
+	// 0x00000001 Power up
+	// 0x00000002 High inflation rate
+	// 0x00000004 Cuff motor power
+	// 0x00000008 Cuff leak
+	// 0x00000010 High deflation rate 
+	// 0x00000020 Dual sensor
+	// 0x00000040 Temperature
+	// 0x00000080 Low pump speed
+	// 0x00000100 Power rail
+	// 0x00000200 (Power rail source xxx1)
+	// 0x00000400 ditto
+	// 0x00000800 ditto
+	// 0x00001000 Spare
+	// 0x00002000 Low deflation rate
+	// 0x00004000 r2
+	// 0x00008000 r3
+	//
+	// 0x00010000 TA Over pressure
+	// 0x00020000 TA Over time over pressure
+	// 0x00040000 TA Overtime
+	// 0x00080000 Short wait
+	// 0x00100000 r
+	// 0x00200000 r
+	// 0x00400000 r
+	// 0x00800000 r 
+
+	public enum ModuleErrorSource
 	{
-	public:
-		static const unsigned int DATA_TONOMETER = 1;
-		static const unsigned int DATA_CUFF_PULSE_COMBO = 2;
-		static const unsigned int DATA_TONOMETER_AND_CUFF_PULSE_COMBO = 3;
-		static const unsigned int DATA_CUFF_ABS_PRESSURE = 4;
-		static const unsigned int DATA_CUFF_NIBP = 5;
-		static const unsigned int DATA_CUFF_PULSE = 6;
-
-		static const unsigned int CONFIG_MODULE_TYPE = 1;
-		static const unsigned int CONFIG_MODULE_CAPABILITY = 2;
-		static const unsigned int CONFIG_MODULE_SN = 3;
-		static const unsigned int CONFIG_MODULE_MAIN_FW_VERSION = 4;
-		static const unsigned int CONFIG_MODULE_CALIBRATION_DATE = 5;
-
-		static const unsigned int CUFF_STATE_DISCONNECTED = 1;
-		static const unsigned int CUFF_STATE_DEFLATED = 2;
-		static const unsigned int CUFF_STATE_INFLATING = 3;
-		static const unsigned int CUFF_STATE_INFLATED = 4;
-		static const unsigned int CUFF_STATE_DEFLATING = 5;
-
-		static const unsigned int CUFF_DISCONNECTED_STATUS_BITS = 0x2000; //00100000;
-		static const unsigned int CUFF_DEFLATED_STATUS_BITS     = 0x0100; //00000001;
-		static const unsigned int CUFF_INFLATING_STATUS_BITS    = 0x0400; //00000100;
-		static const unsigned int CUFF_INFLATED_STATUS_BITS     = 0x0900; //00001001;
-		static const unsigned int CUFF_DEFLATING_STATUS_BITS    = 0x0200; //00000010;
-
-		static unsigned int const NormalState = 0;
-		static unsigned int const RecoverableState = 1;
-		static const unsigned int UnrecoverableState = 2;
+		CuffLeak   = 0x0008,
+		DualSensor = 0x0020
 	};
+
+	public enum ModuleAlarmSource
+	{
+		OverPressure     = 0x0001,
+		InflatedOverTime = 0x0004
+	};
+
 }}}

@@ -84,7 +84,7 @@ namespace AtCor{
 									* @param[out] value4 Unsigned integer value from the fourth column in the file.
 									*
 									*/									
-									bool GetNextValues(signed int *value1, signed int *value2, signed int *value3, signed int *value4);
+									bool GetNextValues(unsigned int *value1, unsigned int *value2, unsigned int *value3, unsigned long *value4);
 
 									/**
 									* Resets the simulation source file to point to begining of file.

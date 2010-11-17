@@ -180,11 +180,53 @@ public:
 
 };*/
 
+// BizInformationEventArgs: a custom event inherited from EventArgs.
+public ref class BizInformationEventArgs: public EventArgs
+{
+public:
+   BizInformationEventArgs( String^ data )
+   {
+	  this->data = data;
+   }
+   property String^ data;
+};
+
+// BizWarningEventArgs: a custom event inherited from EventArgs.
+public ref class BizWarningEventArgs: public EventArgs
+{
+public:
+   BizWarningEventArgs( String^ data )
+   {
+	  this->data = data;
+   }
+   property String^ data;
+};
+
+// BizErrorEventArgs: a custom event inherited from EventArgs.
+public ref class BizErrorEventArgs: public EventArgs
+{
+public:
+   BizErrorEventArgs( String^ data )
+   {
+	  this->data = data;
+   }
+   property String^ data;
+};
+
 // Delegate for tonometer data event
 public delegate void BizTonometerDataEventHandler(Object^ sender, BizTonometerDataEventArgs ^ e);
 
 // Delegate for carotid quality event
 public delegate void BizCarotidQualityEventHandler(Object^ sender, BizCarotidQualityEventArgs ^ e);
+
+// Delegate for information event
+public delegate void BizInformationEventHandler(Object^ sender, BizInformationEventArgs ^ e);
+
+// Delegate for warning event
+public delegate void BizWarningEventHandler(Object^ sender, BizWarningEventArgs ^ e);
+
+// Delegate for error event
+public delegate void BizErrorEventHandler(Object^ sender, BizErrorEventArgs ^ e);
 
 // Container for all BizXXXEvent handlers
 public ref class BizEventContainer
@@ -197,6 +239,9 @@ public ref class BizEventContainer
 
 		BizTonometerDataEventHandler^ _bizTonometerDataEventHandler;
 		BizCarotidQualityEventHandler^ _bizCarotidQualityEventHandler;
+		BizInformationEventHandler^ _bizInformationEventHandler;
+		BizWarningEventHandler^ _bizWarningEventHandler;
+		BizErrorEventHandler^ _bizErrorEventHandler;
 
 	public:
 		static property BizEventContainer^ Instance
@@ -246,6 +291,69 @@ public ref class BizEventContainer
 			{
 				if(_bizCarotidQualityEventHandler)
 					_bizCarotidQualityEventHandler->Invoke(sender, e);
+			}
+		}
+
+		event BizInformationEventHandler^ OnBizInformationEvent
+		{
+			void add(BizInformationEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizInformationEventHandler += handler;
+			}
+
+			void remove(BizInformationEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizInformationEventHandler -= handler;
+			}
+
+			void raise(Object^ sender, BizInformationEventArgs ^ e)
+			{
+				if(_bizInformationEventHandler)
+					_bizInformationEventHandler->Invoke(sender, e);
+			}
+		}
+
+		event BizWarningEventHandler^ OnBizWarningEvent
+		{
+			void add(BizWarningEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizWarningEventHandler += handler;
+			}
+
+			void remove(BizWarningEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizWarningEventHandler -= handler;
+			}
+
+			void raise(Object^ sender, BizWarningEventArgs ^ e)
+			{
+				if(_bizWarningEventHandler)
+					_bizWarningEventHandler->Invoke(sender, e);
+			}
+		}
+
+		event BizErrorEventHandler^ OnBizErrorEvent
+		{
+			void add(BizErrorEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizErrorEventHandler += handler;
+			}
+
+			void remove(BizErrorEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizErrorEventHandler -= handler;
+			}
+
+			void raise(Object^ sender, BizErrorEventArgs ^ e)
+			{
+				if(_bizErrorEventHandler)
+					_bizErrorEventHandler->Invoke(sender, e);
 			}
 		}
 };

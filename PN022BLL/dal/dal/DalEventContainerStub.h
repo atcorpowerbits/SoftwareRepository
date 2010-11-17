@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "dal_stub.h"
+#include "dal_stub_constants.h"
 #include "DalCommon.h"
 #include <msclr\lock.h>
 
@@ -60,8 +62,8 @@ namespace AtCor{
 						/**
 						* Data for the event.
 						*/
-						property unsigned short state;
-						property String^ source;
+						property unsigned short errorAlarmStatus;
+//						property String^ source;
 
 						/**
 						* Constructor for the class.
@@ -69,10 +71,11 @@ namespace AtCor{
 						* @param[in] state	The state of the last event (error/alarm/none).						
 						* @param[in] source	The source of the last event (source id).						
 						*/
-						DalModuleErrorAlarmEventArgs(unsigned short state, unsigned short source);
+//						DalModuleErrorAlarmEventArgs(unsigned short state, unsigned int source);
+						DalModuleErrorAlarmEventArgs(unsigned short state);
 					private:
-						String^ MapErrorSourceToString(unsigned short source);
-						String^ MapAlarmSourceToString(unsigned short source);
+//						String^ MapErrorSourceToString(unsigned short source);
+//						String^ MapAlarmSourceToString(unsigned short source);
 				};
 
 				/**

@@ -18,7 +18,7 @@ using namespace CRX_LOG_NAMESPACE;
 BizElectronicModule::BizElectronicModule(void) 
 {
 	currentState = BizElectronicModuleNormal::Instance();
-	oldDalModuleState = DalConstantsStub::NormalState;
+	prevErrorAlarmStatus = DalConstantsStub::ActiveStatus;
 
 	// Attach the handler to observe state event from DAL
 	DalEventContainerStub::Instance->OnDalModuleErrorAlarmEvent += gcnew DalModuleErrorAlarmEventHandler(this, &BizElectronicModule::Update);
@@ -46,6 +46,7 @@ RETURN
 */		
 void BizElectronicModule::ChangeState(BizElectronicModuleState^ state)
 {
+	previousState = currentState;
 	currentState = state;
 }
 
@@ -74,16 +75,45 @@ RETURN
 */		
 void BizElectronicModule::Update( Object^ sender, DalModuleErrorAlarmEventArgs^ e )
 {
-	if (e->state == DalConstantsStub::NormalState && oldDalModuleState != e->state)
+	// No need to change state if it's the same as before.
+	// In real DAL, DAL should not delegate this event if EM4 is in the same state.
+	if (e->errorAlarmStatus != prevErrorAlarmStatus)
 	{
-		CrossCutting::Logging::CrxLogger::Instance->Write(e->source);
-		ChangeState(BizElectronicModuleNormal::Instance());
+		currentState->ReceiveNewStatus(this, e->errorAlarmStatus);		
+		prevErrorAlarmStatus = e->errorAlarmStatus;
 	}
-	else if (e->state == DalConstantsStub::RecoverableState ||
-	         e->state == DalConstantsStub::UnrecoverableState)
+}
+
+/**
+Dispatch
+
+DESCRIPTION
+
+	Dispatch the current state of the electronic module.
+	Let individual state to dispatch its own state.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	None.
+
+*/		
+void BizElectronicModule::Dispatch()
+{
+	// Dispatch only once when there's a change of state
+	if (currentState != previousState && currentState != dispatchedState)
 	{
-		CrossCutting::Logging::CrxLogger::Instance->Write(e->source);
-		ChangeState(BizElectronicModuleAbnormal::Instance());
+		source = DalFacade::Instance()->GetErrorAlarmSource();
+		// Comment out logging before running UT BizElectronicModuleDispatchTest
+		CrossCutting::Logging::CrxLogger::Instance->Write(source);
+		currentState->Dispatch(source);
+		dispatchedState = currentState;
 	}
-	oldDalModuleState = e->state;
 }

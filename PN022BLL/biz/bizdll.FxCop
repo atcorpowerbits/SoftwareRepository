@@ -633,7 +633,67 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="dispatchedState">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-17 01:28:23Z">
+              <Issue Name="Member">
+               <Item>dispatchedState</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="4" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="previousState">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-17 01:28:23Z">
+              <Issue Name="Member">
+               <Item>previousState</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="5" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
           </Members>
+         </Type>
+         <Type Name="BizErrorEventArgs">
+          <Members>
+           <Member Name="data">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-17 01:28:23Z">
+              <Issue Name="Member">
+               <Item>data</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="6" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizErrorEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-11-17 01:28:23Z">
+            <Issue>
+             <Item>AtCor.Scor.BusinessLogic.BizErrorEventHandler</Item>
+            </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="9" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
          </Type>
          <Type Name="BizFacade">
           <Members>
@@ -891,6 +951,38 @@
             </Messages>
            </Member>
           </Members>
+         </Type>
+         <Type Name="BizInformationEventArgs">
+          <Members>
+           <Member Name="data">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-17 01:28:23Z">
+              <Issue Name="Member">
+               <Item>data</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="7" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizInformationEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-11-17 01:28:23Z">
+            <Issue>
+             <Item>AtCor.Scor.BusinessLogic.BizInformationEventHandler</Item>
+            </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="10" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
          </Type>
          <Type Name="BizMath">
           <Messages>
@@ -2149,6 +2241,38 @@
            </Message>
           </Messages>
          </Type>
+         <Type Name="BizWarningEventArgs">
+          <Members>
+           <Member Name="data">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-17 01:28:23Z">
+              <Issue Name="Member">
+               <Item>data</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="8" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizWarningEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-11-17 01:28:23Z">
+            <Issue>
+             <Item>AtCor.Scor.BusinessLogic.BizWarningEventHandler</Item>
+            </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="11" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
         </Types>
        </Namespace>
        <Namespace Name="msclr">
@@ -2354,6 +2478,14 @@
     <Note Id="1" Modified="2010-10-29 03:47:30Z">not a method but a property</Note>
     <Note Id="2" Modified="2010-10-29 03:48:20Z">tonometer is a technical term.</Note>
     <Note Id="3" Modified="2010-10-29 03:48:39Z">not a method but a property.</Note>
+    <Note Id="4" Modified="2010-11-17 01:41:30Z">not a member identifier but a property. camel-casing allowed.</Note>
+    <Note Id="5" Modified="2010-11-17 01:41:35Z">not a member identifier but a property. camel-casing allowed.</Note>
+    <Note Id="6" Modified="2010-11-17 01:41:41Z">not a member identifier but a property. camel-casing allowed.</Note>
+    <Note Id="7" Modified="2010-11-17 01:42:20Z">not a member identifier but a property. camel-casing allowed.</Note>
+    <Note Id="8" Modified="2010-11-17 01:42:25Z">not a member identifier but a property. camel-casing allowed.</Note>
+    <Note Id="9" Modified="2010-11-17 01:43:01Z">EventHandler&lt;T&gt; didn't compile in C++</Note>
+    <Note Id="10" Modified="2010-11-17 01:43:07Z">EventHandler&lt;T&gt; didn't compile in C++</Note>
+    <Note Id="11" Modified="2010-11-17 01:43:10Z">EventHandler&lt;T&gt; didn't compile in C++</Note>
     <Note Id="54" Modified="2010-10-29 02:12:48Z">Identifier was auto generated.</Note>
     <Note Id="55" Modified="2010-10-29 02:13:23Z">not a member but a property.</Note>
    </User>

@@ -42,7 +42,8 @@ bool BizSession::StopCapture(void)
 }
 void BizSession::DispatchCaptureData(void)
 {
-	return measurement->DispatchCaptureData();
+	module->Dispatch(); // dispatch any alarm, error from the electronic module
+	measurement->DispatchCaptureData();
 }
 void BizSession::ClearMeasurement(void)
 {

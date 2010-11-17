@@ -1,5 +1,6 @@
 ﻿
 #include "StdAfx.h"
+#include "dal_stub.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::BusinessLogic;
 using namespace AtCor::Scor::DataAccess;
@@ -62,13 +63,11 @@ namespace TestBiz {
 			//}
 			//
 			//actual data received via an event
-			unsigned short actualState;
-			String^ actualSource;
+			static String^ actualSource;
 
-			void Update(Object^ sender, DalModuleErrorAlarmEventArgs^ e)
+			static void Update(Object^ sender, BizWarningEventArgs^ e)
 			{
-				actualState = e->state;
-				actualSource = e->source;
+				actualSource = e->data;
 			}
 #pragma endregion
 			/// <summary>
@@ -78,14 +77,13 @@ namespace TestBiz {
 			void BizElectronicModuleChangeStateTest()
 			{
 				BizElectronicModule^  target = (gcnew BizElectronicModule()); // TODO: Initialize to an appropriate value
-				BizElectronicModuleState^  expected = BizElectronicModuleAbnormal::Instance(); // TODO: Initialize to an appropriate value
+				BizElectronicModuleState^  expected = BizElectronicModuleError::Instance(); // TODO: Initialize to an appropriate value
 				target->ChangeState(expected);
 				Assert::AreEqual(expected, target->currentState);
 			}
 			/// <summary>
 			///A test for Update
 			///</summary>
-#if 0 // Seeing Exception: InvalidOperationException - The type LogWriter cannot be constructed. You must configure the container to supply this value.
 	public: [TestMethod]
 			void BizElectronicModuleUpdateTest()
 			{
@@ -93,16 +91,39 @@ namespace TestBiz {
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 				unsigned short^ actual = gcnew unsigned short; // = gcnew unsigned short; // TODO: Initialize to an appropriate value
 				DalModuleErrorAlarmEventArgs^  e;
-				bool rc = false;
 
 				// Update BizElectronicModule with module error / alarm
-				e = gcnew DalModuleErrorAlarmEventArgs( 8 /* Why can't use AtCor::Scor::DataAccess::AlarmState */, 1); // TODO: Initialize to an appropriate value
+				e = gcnew DalModuleErrorAlarmEventArgs(AtCor::Scor::DataAccess::AlarmStatus); // TODO: Initialize to an appropriate value
 				accessor->Invoke("Update", this, e);
 				// Verify BizElectronicModule abnormal state
-				Assert::AreEqual(AtCor::Scor::DataAccess::DalConstants::RecoverableState, actualState);
-				Assert::AreEqual("Over Pressure Alarm", actualSource);
+				Assert::AreEqual(BizElectronicModuleWarning::Instance(), target->currentState);
 			}
-#endif
+			/// <summary>
+			///A test for Dispatch
+			///</summary>
+	public: [TestMethod]
+			void BizElectronicModuleDispatchTest()
+			{
+				BizElectronicModule^  target = (gcnew BizElectronicModule()); // TODO: Initialize to an appropriate value
+
+				target->previousState = BizElectronicModuleNormal::Instance();
+				target->currentState = BizElectronicModuleNormal::Instance();
+				target->dispatchedState = BizElectronicModuleNormal::Instance();
+				target->Dispatch();
+				Assert::AreNotEqual("Over pressure alarm", actualSource); // TBD: get the string from crx string resource
+
+				target->currentState = BizElectronicModuleError::Instance();
+				target->dispatchedState = BizElectronicModuleError::Instance();
+				target->Dispatch();
+				Assert::AreNotEqual("Over pressure alarm", actualSource); // TBD: get the string from crx string resource
+
+				target->currentState = BizElectronicModuleWarning::Instance();
+				DalFacade::Instance()->status = AlarmStatus; //0x0008; // simulate alarm status;
+				DalFacade::Instance()->source = OverPressure << 16; //0x10000; // simulate over pressure alarm source;
+				BizEventContainer::Instance->OnBizWarningEvent += gcnew BizWarningEventHandler(&BizElectronicModuleTest::Update);
+				target->Dispatch(); //TBD: Waiting for advice from TM on CrxLogger exception durijg logging to be resolved.
+				Assert::AreEqual("Over pressure alarm", actualSource); // TBD: get the string from crx string resource
+			}
 	};
 }
 namespace TestBiz {

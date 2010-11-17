@@ -11,6 +11,7 @@
 #pragma once
 
 #include <biz_namespace.h>
+#include <data_events.h>
 
 using namespace System;
 using namespace DAL_NAMESPACE;
@@ -24,15 +25,21 @@ public ref class BizElectronicModule
 public:
 	void ChangeState(BizElectronicModuleState^ state);
 
+	// Dispatch information / warning / error message to be handled by an observer
+	//e.g. Presentation Layer
+	void Dispatch();
+
 	property BizElectronicModuleState^ currentState;
+	property BizElectronicModuleState^ previousState;
+	property BizElectronicModuleState^ dispatchedState;
 
 	// Constructor
 	BizElectronicModule(void);
 
 private:
-	unsigned short oldDalModuleState;
+	unsigned short prevErrorAlarmStatus; // TBD: move it to DAL to filter it earlier in DAL
+	String^ source;
 
 	void Update(Object^ sender, DalModuleErrorAlarmEventArgs^ e);
-//	DalElectronicModuleStatusEvent^ cuffStatusSubject; // to observe cuff state event from DAL
 };
 END_BIZ_NAMESPACE
