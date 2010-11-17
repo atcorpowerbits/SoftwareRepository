@@ -118,8 +118,8 @@ namespace TestBiz {
 				Assert::AreNotEqual("Over pressure alarm", actualSource); // TBD: get the string from crx string resource
 
 				target->currentState = BizElectronicModuleWarning::Instance();
-				DalFacade::Instance()->status = AlarmStatus; //0x0008; // simulate alarm status;
-				DalFacade::Instance()->source = OverPressure << 16; //0x10000; // simulate over pressure alarm source;
+				DalFacade::Instance()->status = AlarmStatus; // simulate alarm status;
+				DalFacade::Instance()->source = OverPressure << 16; // simulate alarm source;
 				BizEventContainer::Instance->OnBizWarningEvent += gcnew BizWarningEventHandler(&BizElectronicModuleTest::Update);
 				target->Dispatch(); //TBD: Waiting for advice from TM on CrxLogger exception durijg logging to be resolved.
 				Assert::AreEqual("Over pressure alarm", actualSource); // TBD: get the string from crx string resource

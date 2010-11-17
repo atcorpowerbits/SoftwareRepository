@@ -1,7 +1,9 @@
 ﻿
 #include "StdAfx.h"
+#include "dal_stub.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::BusinessLogic;
+using namespace AtCor::Scor::DataAccess;
 namespace TestBiz {
     using namespace System;
     ref class BizElectronicModuleNormalTest;
@@ -60,33 +62,14 @@ namespace TestBiz {
 			//{
 			//}
 			//
+			//actual data received via an event
+			static String^ actualSource;
+
+			static void Update(Object^ sender, BizInformationEventArgs^ e)
+			{
+				actualSource = e->data;
+			}
 #pragma endregion
-			/// <summary>
-			///A test for ReceiveError
-			///</summary>
-	public: [TestMethod]
-			void BizElectronicModuleNormalReceiveErrorTest()
-			{
-				BizElectronicModuleNormal^  target = BizElectronicModuleNormal::Instance(); // TODO: Initialize to an appropriate value
-				BizElectronicModule^  client = gcnew BizElectronicModule; // TODO: Initialize to an appropriate value
-				BizElectronicModuleState^ destinationState = BizElectronicModuleAbnormal::Instance();
-				client->ChangeState(target);
-				target->ReceiveError(client);
-				Assert::AreEqual(destinationState, client->currentState);
-			}
-			/// <summary>
-			///A test for ReceiveAlarm
-			///</summary>
-	public: [TestMethod]
-			void BizElectronicModuleNormalReceiveAlarmTest()
-			{
-				BizElectronicModuleNormal^  target = BizElectronicModuleNormal::Instance(); // TODO: Initialize to an appropriate value
-				BizElectronicModule^  client = gcnew BizElectronicModule; // TODO: Initialize to an appropriate value
-				BizElectronicModuleState^ destinationState = BizElectronicModuleAbnormal::Instance();
-				client->ChangeState(target);
-				target->ReceiveAlarm(client);
-				Assert::AreEqual(destinationState, client->currentState);
-			}
 			/// <summary>
 			///A test for Instance
 			///</summary>
@@ -100,6 +83,46 @@ namespace TestBiz {
 				expected = actual;
 				actual = BizElectronicModuleNormal::Instance();
 				Assert::AreEqual(expected, actual);
+			}
+			/// <summary>
+			///A test for ReceiveNewStatus
+			///</summary>
+	public: [TestMethod]
+			void BizElectronicModuleNormalReceiveNewStatusTest()
+			{
+				BizElectronicModuleNormal^  target = BizElectronicModuleNormal::Instance(); // TODO: Initialize to an appropriate value
+				BizElectronicModule^  client = gcnew BizElectronicModule; // TODO: Initialize to an appropriate value
+				BizElectronicModuleState^ destinationState = BizElectronicModuleNormal::Instance();
+				unsigned short newStatus = DalConstantsStub::ActiveStatus; // TODO: Initialize to an appropriate value
+				client->ChangeState(target);
+				target->ReceiveNewStatus(client, newStatus);
+				Assert::AreEqual(destinationState, client->currentState);
+
+				destinationState = BizElectronicModuleError::Instance();
+				newStatus = DalConstantsStub::UnrecoverableStatus; // TODO: Initialize to an appropriate value
+				client->ChangeState(target);
+				target->ReceiveNewStatus(client, newStatus);
+				Assert::AreEqual(destinationState, client->currentState);
+
+				destinationState = BizElectronicModuleWarning::Instance();
+				newStatus = DalConstantsStub::RecoverableStatus; // TODO: Initialize to an appropriate value
+				client->ChangeState(target);
+				target->ReceiveNewStatus(client, newStatus);
+				Assert::AreEqual(destinationState, client->currentState);
+			}
+			/// <summary>
+			///A test for Dispatch
+			///</summary>
+	public: [TestMethod]
+			void BizElectronicModuleNormalDispatchTest()
+			{
+				BizElectronicModule^  target = (gcnew BizElectronicModule()); // TODO: Initialize to an appropriate value
+				target->currentState = BizElectronicModuleNormal::Instance();
+				DalFacade::Instance()->status = NoErrorAlarm; // simulate normal status;
+				DalFacade::Instance()->source = 0; // simulate alarm source;
+				BizEventContainer::Instance->OnBizInformationEvent += gcnew BizInformationEventHandler(&BizElectronicModuleNormalTest::Update);
+				target->Dispatch(); //TBD: Waiting for advice from TM on CrxLogger exception durijg logging to be resolved.
+				Assert::AreEqual("Module active", actualSource); // TBD: get the string from crx string resource
 			}
 	};
 }

@@ -48,8 +48,8 @@ namespace DataAccess{
 
 	public enum ModuleErrorSource
 	{
-		CuffLeak   = 0x0008,
-		DualSensor = 0x0020
+		CuffLeak    = 0x0008,
+		DualSensors = 0x0020
 	};
 
 	public enum ModuleAlarmSource

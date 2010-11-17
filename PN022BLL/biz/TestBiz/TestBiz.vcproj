@@ -306,7 +306,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\BizElectronicModuleAbnormalTest.cpp"
+				RelativePath=".\BizElectronicModuleErrorTest.cpp"
 				>
 			</File>
 			<File
@@ -315,6 +315,10 @@
 			</File>
 			<File
 				RelativePath=".\BizElectronicModuleTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BizElectronicModuleWarningTest.cpp"
 				>
 			</File>
 			<File

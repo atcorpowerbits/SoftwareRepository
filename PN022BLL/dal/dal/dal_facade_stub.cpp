@@ -29,7 +29,7 @@ void DalFacade::SimulateCaptureOneShot()
 	DalEventContainerStub::Instance->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(0x0100));
 
 	status = ErrorStatus; //AlarmStatus;   // simulate alarm or error
-	source = DualSensor; //OverPressure; // source to be read interpretted when GetErrorAlarmSource is called
+	source = DualSensors; //OverPressure; // source to be read interpretted when GetErrorAlarmSource is called
 	DalEventContainerStub::Instance->OnDalModuleErrorAlarmEvent(
 		DalEventContainerStub::Instance, 
 		gcnew DalModuleErrorAlarmEventArgs(status));
@@ -149,7 +149,7 @@ String^ DalFacade::MapErrorSourceToString(unsigned short errorSource)
 	// TBD: map to real errors using string resource
 	switch (errorSource)
 	{
-	case DualSensor:
+	case DualSensors:
 		sourceText = "Dual sensors error"; // TBD: get the string from crx string resource
 		break;
 	case CuffLeak:
