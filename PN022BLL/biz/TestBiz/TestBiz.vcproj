@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\projects\PN022BLL\biz\measure;C:\Projects\PN022BLL\biz\biz;C:\Projects\PN022BLL\dal\dal"
+				AdditionalIncludeDirectories="&quot;$(SolutionDir)\measure&quot;;&quot;$(SolutionDir)\biz&quot;;&quot;$(SolutionDir)\..\dal\dal&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -194,12 +194,12 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName=""
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			AssemblyName=""
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
