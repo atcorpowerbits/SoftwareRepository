@@ -1,22 +1,22 @@
 ========================================================================
-    DYNAMIC LINK LIBRARY : dal_stub Project Overview
+    DYNAMIC LINK LIBRARY : dal Project Overview
 ========================================================================
 
-AppWizard has created this dal_stub DLL for you.  
+AppWizard has created this dal DLL for you.  
 
 This file contains a summary of what you will find in each of the files that
-make up your dal_stub application.
+make up your dal application.
 
-dal_stub.vcproj
+dal.vcproj
     This is the main project file for VC++ projects generated using an Application Wizard. 
     It contains information about the version of Visual C++ that generated the file, and 
     information about the platforms, configurations, and project features selected with the
     Application Wizard.
 
-dal_stub.cpp
+dal.cpp
     This is the main DLL source file.
 
-dal_stub.h
+dal.h
     This file contains a class declaration.
 
 AssemblyInfo.cpp

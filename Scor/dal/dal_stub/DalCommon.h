@@ -11,6 +11,17 @@ namespace AtCor{
 		*/
 		namespace DataAccess{
 
+			/**
+			* @class DalConstants
+			* @brief THis class stores all constants needed for the dal layer.
+			*/
+			public ref class DalConstants
+			{
+				public:
+					static const unsigned int DataSamplingInterval      = 4; // in msec
+					static const unsigned int SimulationTimerInterval   = 4; // in msec
+			};
+
 								/**
 								* @enum	CaptureType
 								* @brief	The type of data capture .	
@@ -26,19 +37,19 @@ namespace AtCor{
 												  }; // End CaptureType
 
 								/**
-								* @enum	DalDeviceConfigUseageEnum
+								* @enum	DalDeviceConfigUsageEnum
 								* @brief	The configuration information item requested in DalDeviceConfigUsageStruct
 								*/
-								public enum DalDeviceConfigUseageEnum
+								public enum DalDeviceConfigUsageEnum
 								{
 									ModuleType, /**< Module type of the device */
 									ModuleSerialNumber, /**< Serial number of the device */
 									ModuleMainFirmwareVersion, /**< Firmware version */
-									ModuleConfigID, /**< Config ID */
+									ModuleConfigId, /**< Config ID */
 									ModuleConfigDate, /**< Configuation Date */
 									ModuleCalibrationDate /**< Last calibration date */
 
-								}; // End DalDeviceConfigUseageEnum
+								}; // End DalDeviceConfigUsageEnum
 
 								/**
 								* @struct DalDeviceConfigUsageStruct
@@ -47,12 +58,12 @@ namespace AtCor{
 								public ref struct DalDeviceConfigUsageStruct
 								{
 									public:
-										property String^ moduleType;
-										property String^ moduleSN;
-										property String^ moduleMainFWVersion;
-										property unsigned short moduleConfigID;
-										property DateTime moduleConfigDate;
-										property DateTime moduleCalibrationDate;
+										property String^ ModuleType; /**< Module type of the device */
+										property String^ ModuleSerialNumber; /**< Serial number of the device */
+										property String^ ModuleMainFWVersion; /**< Firmware version */
+										property unsigned short ModuleConfigId; /**< Config ID */
+										property DateTime ModuleConfigDate; /**< Configuation Date */
+										property DateTime ModuleCalibrationDate; /**< Last calibration date */
 
 								}; // End DalDeviceConfigUsageStruct
 
@@ -63,18 +74,40 @@ namespace AtCor{
 								public ref class DalException:Exception
 								{
 								private:
-									int _errCode;
+									int         _errCode;
+                                    String^		_errMsg;
+                                    Exception^	_eObj;
 								public: 
 									/**
 									* Default constructor
 									*/
-									DalException(): _errCode(0) { }
+									DalException(): _errCode(0), _errMsg(""), _eObj(nullptr) { }
 									
 									/**
 									* Overloaded constructor
 									* @param[in]	exError	The error code to intitialize this constructor with.
 									*/
-									DalException(int exError): _errCode(exError) { }
+									DalException(int exError): _errCode(exError), _errMsg(""), _eObj(nullptr) { }
+
+                                    /**
+				                    * Overloaded constructor for Exception object
+				                    * @param[in]	eExp	The Unknown (System) Exception object to intitialize this constructor with.
+				                    */
+                                    DalException(Exception^ eExp): _errCode(0), _errMsg(eExp->Message), _eObj(eExp) { }
+
+                                    /**
+				                    /* Overloaded constructor for String
+				                    * @param[in]	errExpStr	The String to intitialize this constructor with.
+				                    */
+				                    DalException(String^ errExpStr): _errCode(0), _errMsg(errExpStr), _eObj(nullptr) { }
+
+                                    /**
+				                    /* Overloaded constructor for String
+                                    * @param[in]	exError	The error code to intitialize this constructor with.
+				                    * @param[in]	errExpStr	The String to intitialize this constructor with.
+                                    * @param[in]	eExp	The Unknown (System) Exception object to intitialize this constructor with.
+				                    */
+				                    DalException(int exError, String^ errExpStr, Exception^ eExp): _errCode(exError), _errMsg(errExpStr), _eObj(eExp) { }
 									
 									/**
 									* Error code property of the exception.
@@ -91,6 +124,33 @@ namespace AtCor{
 											_errCode = exError;
 										}
 									}
+
+                                    /**
+				                    * Error code String property of the exception
+				                    */ 
+				                    property String^ ErrorString
+				                    {
+					                    String^ get()
+					                    {
+						                    return _errMsg;
+					                    }
+
+					                    void set(String^ exError)
+					                    {
+						                    _errMsg = exError;
+					                    }
+				                    }
+
+                                    /**
+			                        * Exception Object property of the exception
+			                        */ 
+			                        property Exception^ ExceptionObject
+			                        {
+				                        Exception^ get()
+				                        {
+					                        return _eObj;
+				                        }
+			                        }
 								}; // End DalException
 
 		} // End Namespace DataAccess
