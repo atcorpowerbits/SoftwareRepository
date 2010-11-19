@@ -10,9 +10,13 @@
 
 #include "StdAfx.h"
 #include <measure_pwv.h>
+#include <patient.h>
+#include <session.h>
 #include <biz.h>
 
+using namespace System::Globalization;
 using namespace CRX_CONFIG_NAMESPACE;
+using namespace CRX_LOG_NAMESPACE;
 using namespace DAL_NAMESPACE;
 using namespace BIZ_NAMESPACE;
 
@@ -313,10 +317,13 @@ RETURN
 */		
 bool BizPWV::StartCapture()
 {
+	CrxLogger::Instance->Write("Start PWV capture");
 	tonometerDataObserver->Reset();
 	cuffPulseObserver->Reset();
 	carotidQualityObserver->Reset();
 //	return DalFacade::Instance()->StartCapture(DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
+	LogSetupData(); // TBD: remove after TM Sprint-3 integration?
+
 	try {
 		DalModule::Instance->StartCapture();
 		return true;
@@ -350,6 +357,7 @@ RETURN
 */		
 bool BizPWV::StopCapture()
 {
+	CrxLogger::Instance->Write("Stop PWV capture");
 //	return DalFacade::Instance()->StopCapture();
 	try {
 		DalModule::Instance->StopCapture();
@@ -357,7 +365,7 @@ bool BizPWV::StopCapture()
 	}
 	catch (Exception^) {
 //		throw gcnew BizException(???); //Failed to stop PWV capture
-		return true;
+		return false;
 	}
 }
 /**
@@ -1157,4 +1165,49 @@ bool BizPWV::CalculateQualityControls()
 	}
 
 	return true;
+}
+
+// Log current patient and measurement data
+void BizPWV::LogSetupData()
+{
+	String^ logMesasge;
+	array<String^> ^dateString;
+
+	// Collect and log current patient data
+	logMesasge = "PWV current patient:";
+	logMesasge += "\npatientId=" + BizPatient::Instance()->patientId;
+	logMesasge += " firstName=" + BizPatient::Instance()->firstName;
+	logMesasge += " lastName=" + BizPatient::Instance()->lastName;
+	logMesasge += " groupStudyId=" + BizPatient::Instance()->groupStudyId;
+	// TBD: find out why dateOfBirth.Date is also returning the time
+	dateString = BizPatient::Instance()->dateOfBirth.Date.ToString()->Split();
+	logMesasge += " dob=" + dateString[0];
+	logMesasge += " gender=" + BizPatient::Instance()->gender;
+	CrxLogger::Instance->Write(logMesasge);
+
+	// Collect and log PWV measurement data
+	logMesasge = "PWV measurement data:";
+	logMesasge += "\nh(cm)=" + heightAndWeight->heightInCentimetres;
+	logMesasge += " w(kg)=" + heightAndWeight->weightInKilograms;
+	logMesasge += " h(in)=" + heightAndWeight->heightInInches;
+	logMesasge += " w(lb)=" + heightAndWeight->weightInPounds;
+	logMesasge += " op=" + BizSession::Instance()->measurement->operatorId;
+	logMesasge += " notes=" + BizSession::Instance()->measurement->notes;
+	if (BizSession::Instance()->measurement->bloodPressure->SP) 
+	{
+		logMesasge += " SP=" + BizSession::Instance()->measurement->bloodPressure->SP->Reading.ToString();
+	}
+	if (BizSession::Instance()->measurement->bloodPressure->DP) 
+	{
+		logMesasge += " DP=" + BizSession::Instance()->measurement->bloodPressure->DP->Reading.ToString();
+	}
+	if (BizSession::Instance()->measurement->bloodPressure->MP) 
+	{
+		logMesasge += " MP=" + BizSession::Instance()->measurement->bloodPressure->MP->Reading.ToString();
+	}
+	logMesasge += " carotid=" + myCarotidDistance->distance;
+	logMesasge += " cuff=" + myCuffDistance->distance;
+	logMesasge += " femoral2cuff=" + myFemoral2CuffDistance->distance;
+	logMesasge += " pwv distance=" + myPWVDirectDistance->distance;
+	CrxLogger::Instance->Write(logMesasge);
 }

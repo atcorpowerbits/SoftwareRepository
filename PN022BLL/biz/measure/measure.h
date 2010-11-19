@@ -125,7 +125,8 @@ protected:
 public ref class BizSPAndDP : BizBloodPressure
 {
 public:
-	BizSPAndDP(void) { SP = gcnew BizSP; DP = gcnew BizDP; };
+	// MP is also needed internally for PWV Ref range chart reporting
+	BizSPAndDP(void) { SP = gcnew BizSP; DP = gcnew BizDP; MP = gcnew BizMP; };
 	virtual bool Validate() override;
 };
 // Blood pressure measurement in MP & DP with validation
@@ -184,6 +185,10 @@ protected:
 
 	// Initialse the members of the measure class
 	void Initialise();
+
+private:
+	// Log current patient and measurement data
+	void LogSetupData() {};
 
 };
 

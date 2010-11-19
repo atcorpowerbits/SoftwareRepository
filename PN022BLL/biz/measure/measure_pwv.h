@@ -172,6 +172,10 @@ private:
 	// Save arrays if an error occurs while calculating
 	bool SaveToFile();
     
+private:
+	// Log current patient and measurement data
+	void LogSetupData();
+
 };
 
 END_BIZ_NAMESPACE

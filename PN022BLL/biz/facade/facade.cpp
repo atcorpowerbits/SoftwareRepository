@@ -191,7 +191,9 @@ START_BIZ_NAMESPACE
 	*/
 	void BizFacade::SimulateCaptureData()
 	{
-		DalFacade::Instance()->SimulateCaptureData();
+//		BizSession::Instance()->measurement->LogSetupData();
+//		DalFacade::Instance()->SimulateCaptureData();
+		BizSession::Instance()->StartCapture();
 	}
 	/**
 	StopSimulation
@@ -215,7 +217,8 @@ START_BIZ_NAMESPACE
 	*/
 	void BizFacade::StopCaptureSimulation(void)
 	{
-		return DalFacade::Instance()->StopCaptureSimulation();
+//		return DalFacade::Instance()->StopCaptureSimulation();
+		BizSession::Instance()->StopCapture();
 	}
 	/**
 	FindTonometerDataEvent
