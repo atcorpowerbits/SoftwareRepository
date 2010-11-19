@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="biz, Version=0.2.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+    <Reference Include="biz, Version=0.3.2.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Debug\biz.dll</HintPath>
     </Reference>
