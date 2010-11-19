@@ -93,8 +93,10 @@ namespace TestBiz {
 			void ClearMeasurementTest()
 			{
 				BizSession^  target = BizSession::Instance(); // TODO: Initialize to an appropriate value
+				PrivateObject^ accessor = gcnew PrivateObject(target);
 				BizMeasure^ old = target->measurement;
-				target->ClearMeasurement();
+//				target->ClearMeasurement();
+				accessor->Invoke("ClearMeasurement");
 				Assert::AreNotEqual(old, target->measurement);
 			}
 	};

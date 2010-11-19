@@ -148,7 +148,7 @@ public ref class BizMeasure abstract
 public:
 	virtual bool StartCapture() { return false; };
 	virtual bool StopCapture() { return false; };
-	virtual void DispatchCaptureData() {};
+	virtual void DispatchCaptureData() = 0;
 
 	property BizBloodPressure^	bloodPressure;				// patient blood pressure
 	//property BizHeight^		myHeight;				// patient height 
@@ -178,12 +178,13 @@ public:
 	*/
 	virtual bool Validate();
 
-	// Initialse the members of the measure class
-	void Initialise();
-
 protected:
 	// Constructor
 	BizMeasure(void);
+
+	// Initialse the members of the measure class
+	void Initialise();
+
 };
 
 END_BIZ_NAMESPACE

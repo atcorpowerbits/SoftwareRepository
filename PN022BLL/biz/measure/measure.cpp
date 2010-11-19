@@ -116,14 +116,13 @@ Validate
 
 DESCRIPTION
 
-	Validate the measurement before calculation including:
-		height,
-		weight,
-		BP,
-		measurementDateTime,
-		dataRevision,
-		sampleRate,
-		captureTime.
+	Validate the measurement before calculation that:
+	    system ID is not null or empty,
+		internal patient number is not zero or negative,
+		measurement date time is not in the future,
+		data revision matches math revision,
+		sample rate is within the range,
+		capture time is within the range.
 
 INPUT
 
@@ -437,11 +436,11 @@ bool BizHeightCM::Validate()
 	return isValid;
 }
 /**
-xyz
+Validate
 
 DESCRIPTION
 
-	xyz
+	Validate the height object is within the valid range in inches.
 
 INPUT
 
@@ -453,7 +452,9 @@ OUTPUT
 
 RETURN
 
-	None.
+	true - Height is valid.
+
+	false - Height is not valid.
 
 */		
 bool BizHeightInch::Validate()
@@ -471,11 +472,11 @@ bool BizHeightInch::Validate()
 	return isValid;
 }
 /**
-xyz
+Validate
 
 DESCRIPTION
 
-	xyz
+	Validate the weight object is within the valid range in kilograms.
 
 INPUT
 
@@ -487,7 +488,9 @@ OUTPUT
 
 RETURN
 
-	None.
+	true - Weight is valid.
+
+	false - Weight is not valid.
 
 */		
 bool BizWeightKG::Validate()
@@ -504,11 +507,11 @@ bool BizWeightKG::Validate()
 	return isValid;
 }
 /**
-xyz
+Validate
 
 DESCRIPTION
 
-	xyz
+	Validate the weight object is within the valid range in pounds.
 
 INPUT
 
@@ -520,7 +523,9 @@ OUTPUT
 
 RETURN
 
-	None.
+	true - Weight is valid.
+
+	false - Weight is not valid.
 
 */		
 bool BizWeightLB::Validate()
@@ -576,304 +581,276 @@ void BizPressureReading::Initialise()
 	Reading = BizConstants::DEFAULT_VALUE;	
 }
 /**
-xyz
+Validate
 
 DESCRIPTION
 
-	Validate
+	Validate pressure reading.
 
 INPUT
 
-		Validate pressure reading.
+	None.
 
-	INPUT
-	
-		None.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		true - valid
+OUTPUT
 
-		false - invalid
-	
-	*/		
-	bool BizPressureReading::Validate()
+	None.
+
+RETURN
+
+	true - valid
+
+	false - invalid
+
+*/		
+bool BizPressureReading::Validate()
+{
+	// Check if the user has entered a value
+	if ( Reading != BizConstants::DEFAULT_VALUE)
 	{
-		// Check if the user has entered a value
-		if ( Reading != BizConstants::DEFAULT_VALUE)
-		{
-			if (Reading < MEA_BP_MIN || Reading > MEA_BP_MAX)
-			{
-				return false;
-			}
-		}
-		return true;
-	}
-	/**
-xyz
-
-DESCRIPTION
-
-	Validate
-
-INPUT
-
-		Validate SP.
-
-	INPUT
-	
-		None.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		true - valid
-
-		false - invalid
-	
-	*/		
-	bool BizSP::Validate()
-	{
-		bool isValid;
-		if (BizPressureReading::Validate())
-		{
-			isValid = true;
-		} else {
-			//TBD: Inform user "SP is not within the valid range between ... and ... mmHg"
-			isValid = false;
-		}
-		return isValid;
-	}
-	/**
-xyz
-
-DESCRIPTION
-
-	Validate
-
-INPUT
-
-		Validate DP.
-
-	INPUT
-	
-		None.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		true - valid
-
-		false - invalid
-	
-	*/		
-	bool BizDP::Validate()
-	{
-		bool isValid;
-		if (BizPressureReading::Validate())
-		{
-			isValid = true;
-		} else {
-			//TBD: Inform user "DP is not within the valid range between ... and ... mmHg"
-			isValid = false;
-		}
-		return isValid;
-	}
-	/**
-xyz
-
-DESCRIPTION
-
-	Validate
-
-INPUT
-
-		Validate MP.
-
-	INPUT
-	
-		None.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		true - valid
-
-		false - invalid
-	
-	*/		
-	bool BizMP::Validate()
-	{
-		bool isValid;
-		if (BizPressureReading::Validate())
-		{
-			isValid = true;
-		} else {
-			//TBD: Inform user "MP is not within the valid range between ... and ... mmHg"
-			isValid = false;
-		}
-		return isValid;
-	}
-	/**
-xyz
-
-DESCRIPTION
-
-	Validate
-
-INPUT
-
-		Validate SP and DP blood pressure.
-
-	INPUT
-	
-		None.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		true - valid
-
-		false - invalid
-	
-	*/		
-	bool BizSPAndDP::Validate()
-	{
-		if (!SP->Validate())
+		if (Reading < MEA_BP_MIN || Reading > MEA_BP_MAX)
 		{
 			return false;
-		} 
-
-		if (!DP->Validate())
-		{
-			return false;
-		} 
-		
-		// Check if the user has entered both values
-		if ( SP->Reading != BizConstants::DEFAULT_VALUE
-			&& DP->Reading != BizConstants::DEFAULT_VALUE)
-		{ 
-			if (SP->Reading < (DP->Reading + MEA_SP2DP_DIFF_MIN))
-			{
-				//TBD: Inform user "Diff bet SP and DP should be ... mmHg"
-				return false;
-			} 
 		}
-		return true;
 	}
-	/**
-xyz
+	return true;
+}
+/**
+Validate
 
 DESCRIPTION
 
-	Validate
+	Validate SP.
 
 INPUT
 
-		Validate MP and DP blood pressure.
+	None.
 
-	INPUT
-	
-		None.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		true - valid
+OUTPUT
 
-		false - invalid
-	
-	*/		
-	bool BizMPAndDP::Validate()
+	None.
+
+RETURN
+
+	true - valid
+
+	false - invalid
+
+*/		
+bool BizSP::Validate()
+{
+	bool isValid;
+	if (BizPressureReading::Validate())
 	{
-		if (!MP->Validate())
-		{
-			return false;
-		} 
-
-		if (!DP->Validate())
-		{
-			return false;
-		} 
-		
-		// Check if the user has entered both values
-		if ( MP->Reading != BizConstants::DEFAULT_VALUE
-			&& DP->Reading != BizConstants::DEFAULT_VALUE)
-		{ 
-			if (MP->Reading < (DP->Reading + MEA_MP2DP_DIFF_MIN))
-			{
-				//TBD: Inform user "Diff bet MP and DP should be ... mmHg"
-				return false;
-			} 
-		}
-		return true;
+		isValid = true;
+	} else {
+		//TBD: Inform user "SP is not within the valid range between ... and ... mmHg"
+		isValid = false;
 	}
-	/**
-xyz
+	return isValid;
+}
+/**
+Validate
 
 DESCRIPTION
 
-	Validate
+	Validate DP.
 
 INPUT
 
-		Validate SP and MP blood pressure.
+	None.
 
-	INPUT
-	
-		None.
-	
-	OUTPUT
-	
-		None.
-	
-	RETURN
-	
-		true - valid
+OUTPUT
 
-		false - invalid
-	
-	*/		
-	bool BizSPAndMP::Validate()
+	None.
+
+RETURN
+
+	true - valid
+
+	false - invalid
+
+*/		
+bool BizDP::Validate()
+{
+	bool isValid;
+	if (BizPressureReading::Validate())
 	{
-		if (!SP->Validate())
-		{
-			return false;
-		} 
-
-		if (!MP->Validate())
-		{
-			return false;
-		} 
-		
-		// Check if the user has entered both values
-		if ( SP->Reading != BizConstants::DEFAULT_VALUE
-			&& MP->Reading != BizConstants::DEFAULT_VALUE)
-		{ 
-			if (SP->Reading < (MP->Reading + MEA_SP2MP_DIFF_MIN))
-			{
-				//TBD: Inform user "Diff bet SP and MP should be ... mmHg"
-				return false;
-			} 
-		}
-		return true;
+		isValid = true;
+	} else {
+		//TBD: Inform user "DP is not within the valid range between ... and ... mmHg"
+		isValid = false;
 	}
+	return isValid;
+}
+/**
+Validate
+
+DESCRIPTION
+
+	Validate MP.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	true - valid
+
+	false - invalid
+
+*/		
+bool BizMP::Validate()
+{
+	bool isValid;
+	if (BizPressureReading::Validate())
+	{
+		isValid = true;
+	} else {
+		//TBD: Inform user "MP is not within the valid range between ... and ... mmHg"
+		isValid = false;
+	}
+	return isValid;
+}
+/**
+Validate
+
+DESCRIPTION
+
+	Validate SP and DP blood pressure.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	true - valid
+
+	false - invalid
+
+*/		
+bool BizSPAndDP::Validate()
+{
+	if (!SP->Validate())
+	{
+		return false;
+	} 
+
+	if (!DP->Validate())
+	{
+		return false;
+	} 
+	
+	// Check if the user has entered both values
+	if ( SP->Reading != BizConstants::DEFAULT_VALUE
+		&& DP->Reading != BizConstants::DEFAULT_VALUE)
+	{ 
+		if (SP->Reading < (DP->Reading + MEA_SP2DP_DIFF_MIN))
+		{
+			//TBD: Inform user "Diff bet SP and DP should be ... mmHg"
+			return false;
+		} 
+	}
+	return true;
+}
+/**
+Validate
+
+DESCRIPTION
+
+	Validate MP and DP blood pressure.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	true - valid
+
+	false - invalid
+
+*/		
+bool BizMPAndDP::Validate()
+{
+	if (!MP->Validate())
+	{
+		return false;
+	} 
+
+	if (!DP->Validate())
+	{
+		return false;
+	} 
+	
+	// Check if the user has entered both values
+	if ( MP->Reading != BizConstants::DEFAULT_VALUE
+		&& DP->Reading != BizConstants::DEFAULT_VALUE)
+	{ 
+		if (MP->Reading < (DP->Reading + MEA_MP2DP_DIFF_MIN))
+		{
+			//TBD: Inform user "Diff bet MP and DP should be ... mmHg"
+			return false;
+		} 
+	}
+	return true;
+}
+/**
+Validate
+
+DESCRIPTION
+
+	Validate SP and MP blood pressure.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	true - valid
+
+	false - invalid
+
+*/		
+bool BizSPAndMP::Validate()
+{
+	if (!SP->Validate())
+	{
+		return false;
+	} 
+
+	if (!MP->Validate())
+	{
+		return false;
+	} 
+	
+	// Check if the user has entered both values
+	if ( SP->Reading != BizConstants::DEFAULT_VALUE
+		&& MP->Reading != BizConstants::DEFAULT_VALUE)
+	{ 
+		if (SP->Reading < (MP->Reading + MEA_SP2MP_DIFF_MIN))
+		{
+			//TBD: Inform user "Diff bet SP and MP should be ... mmHg"
+			return false;
+		} 
+	}
+	return true;
+}

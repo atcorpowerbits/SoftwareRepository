@@ -23,12 +23,12 @@ public:
 	bool StartCapture();
 	bool StopCapture();
 	void DispatchCaptureData();
-	void ClearMeasurement();
 	property BizMeasure^ measurement;
-	property BizElectronicModule^ module;
 protected:
 	BizSession(void);
+	property BizElectronicModule^ module;
 private:
 	static BizSession^ _instance;
+	void ClearMeasurement();
 };
 END_BIZ_NAMESPACE

@@ -161,7 +161,7 @@ BizPWV
 
 DESCRIPTION
 
-	Constructor.
+	Constructor where distance and signal objects are aggregated.
 
 INPUT
 
@@ -244,7 +244,8 @@ Validate
 DESCRIPTION
 
 	Validate the PWV measurement before calculation including:
-		Distance
+	    Basic measurement parameters in BizMeasure
+		PWV Distance
 		Femoral to Cuff Distance
 		Calculated Distance
 
@@ -368,8 +369,9 @@ DESCRIPTION
 	PWV measurement data inclucde:
 	-Tonometer data
 	-Cuff pulse data
-	-Cuff pressure data
+	-Cuff pressure data (future)
 	-Count down timer
+	-Cuff state
 
 INPUT
 

@@ -150,9 +150,6 @@ public:
 	// Validate Signal class properties
 	bool ValidateSignals();
     
-	// Save arrays if an error occurs while calculating
-	bool SaveToFile();
-    
 private:
 	// Set default values for calculated variables
 	void SetDefaults();
@@ -172,6 +169,9 @@ private:
 	// Calculate PWV, MeanDt, standardDeviation for this measurement
 	bool CalculateFeatures();
 
+	// Save arrays if an error occurs while calculating
+	bool SaveToFile();
+    
 };
 
 END_BIZ_NAMESPACE
