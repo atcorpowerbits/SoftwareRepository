@@ -154,6 +154,16 @@ bool BizMeasure::Validate()
 		return false;
 	}*/ 
 	
+	if (!heightAndWeight->ValidateAndCalculate())
+	{
+		return false;
+	}
+
+	if (!bloodPressure->Validate())
+	{
+		return false;
+	}
+
 	// GroupStudyID can be blank, so no need to validate
 	// Validate Customer System ID
 	if (String::IsNullOrEmpty(systemId))
