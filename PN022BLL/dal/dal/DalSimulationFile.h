@@ -20,9 +20,12 @@ namespace AtCor{
 									// constant declarations
                                     static const unsigned int DAL_FILENOTSET_ERR      = 301; 
                                     static const unsigned int DAL_FILENOTFOUND_ERR    = 302; 
+                                    static const unsigned int DAL_FAILTOCREATE_ERR    = 303; 
+                                    static const unsigned int DAL_FAILTOWRITE_ERR     = 304; 
 
                                     String^ filePath;	//path of the file on the disk
 									StreamReader ^reader; //variable to store the File stream reader
+									StreamWriter ^writer; //variable to store the File stream writer
 								public:
 									/**
 									* Opens the file specified by @c DalSimulationFile::filePath.
@@ -92,6 +95,9 @@ namespace AtCor{
 									* @return  true if the operation was successful.
 									*/
 									bool ResetFileStreamPosition();
+
+									bool CreateFile(String^ outputFilePath);
+									bool SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse);
 								};
 		}
 	}

@@ -32,6 +32,13 @@ using namespace AtCor::Scor::DataAccess;
 			reader = nullptr;
 			return true;
 		}
+		if (writer != nullptr)
+		{
+			//close streamreader
+			writer->Close();
+			writer = nullptr;
+			return true;
+		}
 		//false if there was some problem
 		return false;
 	}

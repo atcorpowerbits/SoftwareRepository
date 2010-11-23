@@ -120,6 +120,8 @@ public:
 
 private:
 	array<BizDelta^>^			_pulseWaveVelocity;
+	BizBuffer^ tonometerBuffer;
+	BizBuffer^ cuffBuffer;
 
 public:
 	// Member functions:
@@ -131,6 +133,7 @@ public:
 	virtual bool StartCapture() override;
 	virtual bool StopCapture() override;
 	virtual void DispatchCaptureData() override;
+	virtual bool SaveCaptureData() override; // save captured data as simulation file
 
 	// Validate PWV class properties
 	virtual bool Validate() override;
@@ -172,9 +175,9 @@ private:
 	// Save arrays if an error occurs while calculating
 	bool SaveToFile();
     
-private:
+protected:
 	// Log current patient and measurement data
-	void LogSetupData();
+	virtual void LogSetupData() override;
 
 };
 

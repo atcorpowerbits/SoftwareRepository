@@ -150,6 +150,7 @@ public:
 	virtual bool StartCapture() { return false; };
 	virtual bool StopCapture() { return false; };
 	virtual void DispatchCaptureData() = 0;
+	virtual bool SaveCaptureData() = 0; // save captured data as simulation file
 
 	property BizBloodPressure^	bloodPressure;				// patient blood pressure
 	//property BizHeight^		myHeight;				// patient height 
@@ -186,9 +187,8 @@ protected:
 	// Initialse the members of the measure class
 	void Initialise();
 
-private:
 	// Log current patient and measurement data
-	void LogSetupData() {};
+	virtual void LogSetupData() {};
 
 };
 

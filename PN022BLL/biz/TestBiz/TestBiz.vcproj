@@ -194,12 +194,12 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\crx.dll"
-			AssemblyName=""
+			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\dal.dll"
-			AssemblyName=""
+			AssemblyName="dal, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference

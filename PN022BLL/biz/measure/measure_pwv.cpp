@@ -422,20 +422,18 @@ void BizPWV::DispatchCaptureData()
 */
 void BizPWV::Initialise()
 {
+	unsigned int bufferSize = (captureTime + BusinessLogic::BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE) * sampleRate;
+
 	BizMeasure::Initialise();
 	
-	BizBuffer^ tonometerBuffer = gcnew BizCircularBuffer((captureTime + 
-									BusinessLogic::BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE) * 
-									sampleRate);
+	tonometerBuffer = gcnew BizCircularBuffer(bufferSize);
+	cuffBuffer = gcnew BizCircularBuffer(bufferSize);
 
 	// Tonometer and cuff pulse data from DAL are captured here for PWV measurement.
 	tonometerDataObserver = gcnew BizTonometerDataCapture( tonometerBuffer );
 	tonometerDataObserver->Reset();
 
-	cuffPulseObserver = gcnew BizCuffPulseCapture(
-		gcnew BizCircularBuffer((captureTime + 
-								BusinessLogic::BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE) * 
-								sampleRate));
+	cuffPulseObserver = gcnew BizCuffPulseCapture( cuffBuffer );
 	cuffPulseObserver->Reset();
 
 	// Carotid quality is calculated from the captured tonometer data
@@ -1210,4 +1208,48 @@ void BizPWV::LogSetupData()
 	logMesasge += " femoral2cuff=" + myFemoral2CuffDistance->distance;
 	logMesasge += " pwv distance=" + myPWVDirectDistance->distance;
 	CrxLogger::Instance->Write(logMesasge);
+}
+
+/**
+SaveCaptureData()
+
+DESCRIPTION
+
+	Save the captured carotid tonometer and femoral cuff data in the simulation file format:
+	<carotid tonometer data>TAB<femoral cuff data>
+
+	It's assumed that same amount of data had been captured in parallel 
+	in carotid tonometer and femoral cuff data buffers.
+
+INPUT
+
+	carotidSignal,
+	femoralSignal.
+
+OUTPUT
+	isCarotidSignalValid,
+	isFemoralSignalValid.
+
+RETURN
+
+	boolean success or not.
+*/
+bool BizPWV::SaveCaptureData()
+{
+	array< unsigned short >^ tonometerData;
+	array< unsigned short >^ cuffPulse;
+	unsigned short startIndex; 
+	unsigned short endIndex; 
+	unsigned int bufferSize;
+
+	tonometerData = tonometerBuffer->ReadBuffer(bufferSize, startIndex, endIndex);
+	cuffPulse = cuffBuffer->ReadBuffer(bufferSize, startIndex, endIndex);
+
+	// If the buffer is not full, calculate up to the last sample
+	if ( startIndex != endIndex )
+	{
+		bufferSize = endIndex;
+	}
+	
+	return DalFacade::Instance()->SaveCaptureData(tonometerData, cuffPulse, bufferSize);
 }

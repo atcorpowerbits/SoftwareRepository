@@ -1,11 +1,14 @@
 ﻿
 #include "StdAfx.h"
 #include <biz.h>
+#include "StdAfx.h"
+using namespace AtCor::Scor::BusinessLogic;
 using namespace BIZ_NAMESPACE;
 using namespace CRX_CONFIG_NAMESPACE;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 namespace TestBiz {
     using namespace System;
+	using namespace System::IO;
     ref class BizPWVTest;
     
 #define USHRT_MAX 0xffff
@@ -590,5 +593,43 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			actual = target->ValidateBeforeStore();
 			Assert::AreEqual(expected, actual);
 		}
-};
+		/// <summary>
+		///A test for SaveCaptureData
+		///</summary>
+public: [TestMethod]
+		void SaveCaptureDataTest()
+		{
+			BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
+#if 0
+			PrivateObject^ accessorTonometerObserver = gcnew PrivateObject(target->tonometerDataObserver);
+			PrivateObject^ accessorCuffPulseObserver = gcnew PrivateObject(target->tonometerDataObserver);
+			BizBuffer^ tonometerBuffer;
+			BizBuffer^ cuffBuffer;
+
+			accessorTonometerObserver->GetProperty("buffer", tonometerBuffer); 
+			accessorCuffPulseObserver->GetProperty("buffer", cuffBuffer); 
+
+			tonometerBuffer->Append(1);
+			tonometerBuffer->Append(2);
+			tonometerBuffer->Append(3);
+			tonometerBuffer->Append(4);
+			tonometerBuffer->Append(5);
+			cuffBuffer->Append(6);
+			cuffBuffer->Append(7);
+			cuffBuffer->Append(8);
+			cuffBuffer->Append(9);
+			cuffBuffer->Append(10);
+#endif
+			BizFacade::Instance()->SimulateCaptureOneShot();
+			BizFacade::Instance()->SimulateCaptureOneShot();
+			BizFacade::Instance()->SimulateCaptureOneShot();
+			BizFacade::Instance()->SimulateCaptureOneShot();
+			BizFacade::Instance()->SimulateCaptureOneShot();
+		
+			Directory::SetCurrentDirectory("C:\\Projects\\PN022BLL\\gui\\gui\\bin\\Debug"); //where the resource file is read by CRX
+			bool expected = target->SaveCaptureData();
+			Assert::AreEqual(expected, true);
+			// Also inspect ./simulation/pwv/<date tiem now>.dat file which is written with above simulated data
+		}
+	};
 }

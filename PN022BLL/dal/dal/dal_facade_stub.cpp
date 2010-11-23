@@ -182,3 +182,30 @@ String^ DalFacade::MapAlarmSourceToString(unsigned short alarmSource)
 	return sourceText;
 }
 
+bool DalFacade::SaveCaptureData(
+	array< unsigned short >^ tonometerData, 
+	array< unsigned short >^ cuffPulse, 
+	unsigned short bufferSize)
+{
+	DalSimulationFile^ simulationOutputFile; //Pointer to first simulation file
+	unsigned short index = 0;
+	bool saved = false;
+
+    // construct the simulation file path, based on the file name selected
+    // by user in "system - settings - PWV Settings - simulation type"
+    String^ tempFilePath = ".\\simulation\\pwv\\";
+    String^ tempFileExt = ".dat";
+	simulationOutputFile = gcnew DalSimulationFile();
+	if (simulationOutputFile->CreateFile(tempFilePath + "pwv-20101122-1700" + tempFileExt))
+	{
+		while (index < bufferSize)
+		{
+			simulationOutputFile->SaveCurrentValues(tonometerData[index], cuffPulse[index]);
+			index++;
+		}
+		saved = true;
+		simulationOutputFile->CloseFile();
+	}
+	return saved;
+}
+

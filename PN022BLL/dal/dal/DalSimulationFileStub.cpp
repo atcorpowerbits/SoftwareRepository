@@ -30,3 +30,36 @@ bool DalSimulationFile::GetNextValues(unsigned int *value1, unsigned int *value2
 	return false;
 }
 
+bool DalSimulationFile::CreateFile(String^ outputFilePath)
+{
+	filePath = outputFilePath;
+	String^ currentDir = Directory::GetCurrentDirectory();
+
+	try
+	{
+		//Create the file and pass it to new streamwiter.
+		writer = File::CreateText(filePath);
+//		writer = gcnew StreamWriter(File::CreateText(filePath));
+//		writer = gcnew StreamWriter(filePath);
+		return true;
+	}
+	catch(System::Exception^ eObj)
+	{
+		throw gcnew DalException(DAL_FAILTOCREATE_ERR); //File could not be created.
+	}
+}
+
+bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse)
+{
+	String ^singleLine = tonometerData.ToString() + "\t" + cuffPulse.ToString();
+
+	try
+	{
+		writer->WriteLine(singleLine);
+		return true;
+	}
+	catch(System::Exception^)
+	{
+		throw gcnew DalException(DAL_FAILTOWRITE_ERR); //File could not be written.
+	}
+}

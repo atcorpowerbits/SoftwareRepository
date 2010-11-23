@@ -25,6 +25,7 @@ public:
 	String^ DalFacade::GetErrorAlarmSource();
 	String^ MapErrorSourceToString(unsigned short errorSource);
 	String^ MapAlarmSourceToString(unsigned short alarmSource);
+	bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
 	// needs status & source as publicfor unit testing BizElectronicModule
 	static unsigned short status;
 	static unsigned long source; // need 4 butes: alarm (2) & error (2)

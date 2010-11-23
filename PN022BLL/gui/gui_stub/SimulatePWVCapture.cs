@@ -60,6 +60,13 @@ namespace AtCor.Scor.Presentation
 
             // Enable the Capture button.
             radButtonPWVCapture.Enabled = true;
+
+            // Save the captured data as simulation file
+            BizPWV pwvObj = (BizPWV)BizSession.Instance().measurement;
+            if (!pwvObj.SaveCaptureData())
+            {
+                MessageBox.Show("Failed to save captured data as simulation file");
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
