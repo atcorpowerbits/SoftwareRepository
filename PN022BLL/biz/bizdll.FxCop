@@ -329,38 +329,6 @@
            </Member>
           </Members>
          </Type>
-         <Type Name="BizCountdownTimerCapture">
-          <Members>
-           <Member Name="countdownTimerBiz">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>countdownTimerBiz</Item>
-              </Issue>
-              <Notes>
-               <User Name="paul">
-                <Note Id="2" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="BizCountdownTimerEvent+BizCountdownTimerEventHandler">
-          <Messages>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-10-29 02:05:19Z">
-            <Issue>
-             <Item>AtCor.Scor.BusinessLogic.BizCountdownTimerEvent+BizCountdownTimerEventHandler</Item>
-            </Issue>
-            <Notes>
-             <User Name="paul">
-              <Note Id="10" />
-             </User>
-            </Notes>
-           </Message>
-          </Messages>
-         </Type>
          <Type Name="BizCountdownTimerEventArgs">
           <Members>
            <Member Name="data">
@@ -379,22 +347,22 @@
            </Member>
           </Members>
          </Type>
+         <Type Name="BizCountdownTimerEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-11-24 04:39:16Z">
+            <Issue>
+             <Item>AtCor.Scor.BusinessLogic.BizCountdownTimerEventHandler</Item>
+            </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="12" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
+         </Type>
          <Type Name="BizCuff">
           <Members>
-           <Member Name="cuffStateBiz">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>cuffStateBiz</Item>
-              </Issue>
-              <Notes>
-               <User Name="paul">
-                <Note Id="2" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="currentState">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -425,38 +393,6 @@
            </Member>
           </Members>
          </Type>
-         <Type Name="BizCuffPulseCapture">
-          <Members>
-           <Member Name="cuffPulseBiz">
-            <Messages>
-             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue Name="Member">
-               <Item>cuffPulseBiz</Item>
-              </Issue>
-              <Notes>
-               <User Name="victora">
-                <Note Id="0" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="BizCuffPulseEvent+BizCuffPulseEventHandler">
-          <Messages>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-10-29 02:05:19Z">
-            <Issue>
-             <Item>AtCor.Scor.BusinessLogic.BizCuffPulseEvent+BizCuffPulseEventHandler</Item>
-            </Issue>
-            <Notes>
-             <User Name="paul">
-              <Note Id="10" />
-             </User>
-            </Notes>
-           </Message>
-          </Messages>
-         </Type>
          <Type Name="BizCuffPulseEventArgs">
           <Members>
            <Member Name="data">
@@ -474,6 +410,20 @@
             </Messages>
            </Member>
           </Members>
+         </Type>
+         <Type Name="BizCuffPulseEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-11-24 04:39:16Z">
+            <Issue>
+             <Item>AtCor.Scor.BusinessLogic.BizCuffPulseEventHandler</Item>
+            </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="13" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
          </Type>
          <Type Name="BizCuffState">
           <Members>
@@ -493,20 +443,6 @@
            </Member>
           </Members>
          </Type>
-         <Type Name="BizCuffStateEvent+BizCuffStateEventHandler">
-          <Messages>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-10-29 02:05:19Z">
-            <Issue>
-             <Item>AtCor.Scor.BusinessLogic.BizCuffStateEvent+BizCuffStateEventHandler</Item>
-            </Issue>
-            <Notes>
-             <User Name="paul">
-              <Note Id="10" />
-             </User>
-            </Notes>
-           </Message>
-          </Messages>
-         </Type>
          <Type Name="BizCuffStateEventArgs">
           <Members>
            <Member Name="data">
@@ -524,6 +460,20 @@
             </Messages>
            </Member>
           </Members>
+         </Type>
+         <Type Name="BizCuffStateEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-11-24 04:39:16Z">
+            <Issue>
+             <Item>AtCor.Scor.BusinessLogic.BizCuffStateEventHandler</Item>
+            </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="14" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
          </Type>
          <Type Name="BizDelta">
           <Members>
@@ -695,6 +645,50 @@
            </Message>
           </Messages>
          </Type>
+         <Type Name="BizEventContainer">
+          <Members>
+           <Member Name=".ctor(AtCor.Scor.BusinessLogic.BizEventContainer)">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Excluded" Created="2010-11-24 04:39:16Z">
+              <Issue>
+               <Item>BizEventContainer.BizEventContainer(BizEventContainer)</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="16" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Status="Excluded" Created="2010-11-24 04:39:16Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item />
+               <Item>BizEventContainer.BizEventContainer(BizEventContainer)</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="15" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="op_Assign(AtCor.Scor.BusinessLogic.BizEventContainer):AtCor.Scor.BusinessLogic.BizEventContainer">
+            <Messages>
+             <Message TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Status="Excluded" Created="2010-11-24 04:39:16Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item />
+               <Item>BizEventContainer.op_Assign(BizEventContainer):BizEventContainer</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="17" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
          <Type Name="BizFacade">
           <Members>
            <Member Name="FindBizInfo():AtCor.Scor.BusinessLogic.BizInfo">
@@ -702,33 +696,6 @@
              <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
               <Issue>
                <Item>BizFacade.FindBizInfo():BizInfo</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="FindCountdownTimerEvent():AtCor.Scor.BusinessLogic.BizCountdownTimerEvent">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizFacade.FindCountdownTimerEvent():BizCountdownTimerEvent</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="FindCuffPulseEvent():AtCor.Scor.BusinessLogic.BizCuffPulseEvent">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizFacade.FindCuffPulseEvent():BizCuffPulseEvent</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="FindCuffStateEvent():AtCor.Scor.BusinessLogic.BizCuffStateEvent">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizFacade.FindCuffStateEvent():BizCuffStateEvent</Item>
               </Issue>
              </Message>
             </Messages>
@@ -761,6 +728,80 @@
             </Messages>
            </Member>
           </Members>
+         </Type>
+         <Type Name="BizFemoralQualityEventArgs">
+          <Members>
+           <Member Name="enableOkayButton">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-24 23:15:18Z">
+              <Issue Name="Member">
+               <Item>enableOkayButton</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="18" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="signalMaximum">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-24 23:15:18Z">
+              <Issue Name="Member">
+               <Item>signalMaximum</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="19" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="signalMinimum">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-24 23:15:18Z">
+              <Issue Name="Member">
+               <Item>signalMinimum</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="20" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="signalStrengthIsGood">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-24 23:15:18Z">
+              <Issue Name="Member">
+               <Item>signalStrengthIsGood</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="21" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="BizFemoralQualityEventHandler">
+          <Messages>
+           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-11-24 23:15:18Z">
+            <Issue>
+             <Item>AtCor.Scor.BusinessLogic.BizFemoralQualityEventHandler</Item>
+            </Issue>
+            <Notes>
+             <User Name="victora">
+              <Note Id="22" />
+             </User>
+            </Notes>
+           </Message>
+          </Messages>
          </Type>
          <Type Name="BizHeightAndWeight">
           <Members>
@@ -1513,6 +1554,20 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="femoralQualityObserver">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-24 23:15:18Z">
+              <Issue Name="Member">
+               <Item>femoralQualityObserver</Item>
+              </Issue>
+              <Notes>
+               <User Name="victora">
+                <Note Id="0" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="femoralSignal">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -2217,46 +2272,6 @@
            </Message>
           </Messages>
          </Type>
-         <Type Name="BizTonometerDataEvent">
-          <Messages>
-           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-29 02:05:19Z">
-            <Issue Name="Type">
-             <Item>Tonometer</Item>
-             <Item>AtCor.Scor.BusinessLogic.BizTonometerDataEvent</Item>
-            </Issue>
-            <Notes>
-             <User Name="paul">
-              <Note Id="3" />
-             </User>
-            </Notes>
-           </Message>
-          </Messages>
-         </Type>
-         <Type Name="BizTonometerDataEvent+BizTonometerDataEventHandler">
-          <Messages>
-           <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-29 02:05:19Z">
-            <Issue Name="Type">
-             <Item>Tonometer</Item>
-             <Item>AtCor.Scor.BusinessLogic.BizTonometerDataEvent+BizTonometerDataEventHandler</Item>
-            </Issue>
-            <Notes>
-             <User Name="paul">
-              <Note Id="3" />
-             </User>
-            </Notes>
-           </Message>
-           <Message TypeName="UseGenericEventHandlerInstances" Category="Microsoft.Design" CheckId="CA1003" Status="Excluded" Created="2010-10-29 02:05:19Z">
-            <Issue>
-             <Item>AtCor.Scor.BusinessLogic.BizTonometerDataEvent+BizTonometerDataEventHandler</Item>
-            </Issue>
-            <Notes>
-             <User Name="paul">
-              <Note Id="10" />
-             </User>
-            </Notes>
-           </Message>
-          </Messages>
-         </Type>
          <Type Name="BizTonometerDataEventArgs">
           <Messages>
            <Message Id="Tonometer" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -2546,7 +2561,7 @@
     <Note Id="20" Modified="2010-11-12 03:29:07Z">This is a property not a method</Note>
    </User>
    <User Name="victora">
-    <Note Id="0" Modified="2010-10-29 03:47:21Z">not a method but a property</Note>
+    <Note Id="0" Modified="2010-11-24 23:16:04Z">This is a property not a method</Note>
     <Note Id="1" Modified="2010-10-29 03:47:30Z">not a method but a property</Note>
     <Note Id="2" Modified="2010-10-29 03:48:20Z">tonometer is a technical term.</Note>
     <Note Id="3" Modified="2010-10-29 03:48:39Z">not a method but a property.</Note>
@@ -2558,6 +2573,17 @@
     <Note Id="9" Modified="2010-11-17 01:43:01Z">EventHandler&lt;T&gt; didn't compile in C++</Note>
     <Note Id="10" Modified="2010-11-17 01:43:07Z">EventHandler&lt;T&gt; didn't compile in C++</Note>
     <Note Id="11" Modified="2010-11-17 01:43:10Z">EventHandler&lt;T&gt; didn't compile in C++</Note>
+    <Note Id="12" Modified="2010-11-24 04:40:57Z">EventHandler&lt;T&gt; didn't compile in C++</Note>
+    <Note Id="13" Modified="2010-11-24 04:41:02Z">EventHandler&lt;T&gt; didn't compile in C++</Note>
+    <Note Id="14" Modified="2010-11-24 04:41:07Z">EventHandler&lt;T&gt; didn't compile in C++</Note>
+    <Note Id="15" Modified="2010-11-24 04:43:22Z">do nothing copy constructor for effective C++ practice</Note>
+    <Note Id="16" Modified="2010-11-24 04:43:29Z">do nothing copy constructor for effective C++ practice</Note>
+    <Note Id="17" Modified="2010-11-24 04:43:46Z">do nothing assignment operator for effective C++ practice</Note>
+    <Note Id="18" Modified="2010-11-24 23:16:21Z">This is a property not a method</Note>
+    <Note Id="19" Modified="2010-11-24 23:16:26Z">This is a property not a method</Note>
+    <Note Id="20" Modified="2010-11-24 23:16:30Z">This is a property not a method</Note>
+    <Note Id="21" Modified="2010-11-24 23:16:35Z">This is a property not a method</Note>
+    <Note Id="22" Modified="2010-11-24 23:16:39Z">This is a property not a method</Note>
     <Note Id="54" Modified="2010-10-29 02:12:48Z">Identifier was auto generated.</Note>
     <Note Id="55" Modified="2010-10-29 02:13:23Z">not a member but a property.</Note>
    </User>
@@ -2614,6 +2640,9 @@
    </Rule>
    <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
     <Resolution Name="Default">{0} declares a local, '{1}', of type {2}, which is never used or is only assigned to. Use this local or remove it.</Resolution>
+   </Rule>
+   <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
+    <Resolution Name="Default">Parameter '{0}' of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
    </Rule>
    <Rule TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305">
     <Resolution Name="Default">{0} makes a call to {1} that does not explicitly provide an IFormatProvider. This should be replaced with a call to {2}.</Resolution>

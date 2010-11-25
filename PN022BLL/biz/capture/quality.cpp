@@ -164,3 +164,139 @@ void BizCarotidQuality::Reset()
 {
 	counter = 0;
 }
+
+/**
+BizFemoralQuality
+
+DESCRIPTION
+
+	Constructor
+
+INPUT
+
+	buffer - incoming cuff pulse data buffer,
+	sampleRate - timing of the cuff pulse data. 
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	None.
+
+*/		
+BizFemoralQuality::BizFemoralQuality(BizBuffer^ buffer, unsigned short sampleRate)
+{
+	this->buffer = buffer;
+	this->sampleRate = sampleRate;
+
+	// Attach the handler to observe cuff pulse data event from Biz
+	BizEventContainer::Instance->OnBizCuffPulseEvent += gcnew BizCuffPulseEventHandler(this, &BizFemoralQuality::Update);
+
+	BizFemoralQuality::Reset();
+}
+/**
+Update
+
+DESCRIPTION
+
+	Process the femoral quality update,
+	Notify the femoral quality event when the quality changes.
+
+INPUT
+
+	sender - Subject which is sending the update event,
+	e - Event arguments where cuff pulse data is passed,
+	BizFemoralQuality::buffer - incoming femoral data buffer,
+	BizFemoralQuality::sampleRate - timing of the femoral data.
+
+OUTPUT
+
+	BizFemoralQualityEventHandler::signalMinimum - signal maximum, used to calculate signal strength and scale the display
+	BizFemoralQualityEventHandler::signalMaximum - signal minimum, used to calculate signal strength and scale the display
+	BizFemoralQualityEventHandler::enableOkayButton - can the user calculate a report or not.
+
+RETURN
+
+	None.
+
+*/		
+void BizFemoralQuality::Update( Object^ sender, BizCuffPulseEventArgs^ e )
+{
+	unsigned int bufferSize;
+	array< unsigned short >^ signal;
+	unsigned short startIndex; 
+	unsigned short endIndex; 
+	unsigned short signalMinimum;
+	unsigned short signalMaximum;
+	unsigned short signalHeight;		
+	
+	bool signalStrengthIsGood = false;
+	bool enableOkayButton = false;
+	
+	// Update the counter first so we ignore the first interval and send the -
+	// first notification once we have meaningful information to send
+	counter++;
+	
+	// Calculate the quality every second. There's no need to update every sample
+	counter %= QUALITY_UPDATE_INTERVAL * sampleRate;
+	if ( counter == 0 )
+	{
+		// Read the femoral signal buffer 
+		signal = buffer->ReadBuffer( bufferSize, startIndex, endIndex );
+		
+		// If the buffer is not full, calculate up to the last sample
+		if ( startIndex != endIndex )
+		{
+			bufferSize = endIndex;
+		}
+		
+		// Calculate the range
+		BizMath::MinimumMaximumInArray( signal, bufferSize, signalMinimum, signalMaximum );
+		signalHeight = signalMaximum - signalMinimum;
+		
+		// If the minimum is below the baseline, the signal is not valid (the cuff may -
+		// have been disconnected or deflated)
+		if ( signalMinimum > MINIMUM_CUFF_BASELINE )
+		{
+			// Determine the quality indicator colour
+			if ( signalHeight >= TONOMETER_SIGNAL_STRENGTH_GOOD )
+			{
+				signalStrengthIsGood = true;
+			}		
+			// Enable the Okay button if the buffer is full and the range is above the minimum
+			if ( startIndex == endIndex && 
+				signalHeight > MINIMUM_CUFF_SIGNAL_STRENGTH )
+			{
+				enableOkayButton = true;
+			}
+		}
+		BizEventContainer::Instance->OnBizFemoralQualityEvent(this, gcnew BizFemoralQualityEventArgs( signalMinimum, signalMaximum, signalStrengthIsGood, enableOkayButton ));
+	}
+}
+
+/**
+Reset
+
+DESCRIPTION
+
+	Reset the quality data.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	None.
+
+*/		
+void BizFemoralQuality::Reset()
+{
+	counter = 0;
+}

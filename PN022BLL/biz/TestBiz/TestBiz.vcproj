@@ -330,6 +330,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BizFemoralQualityTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BizHeightAndWeightTest.cpp"
 				>
 			</File>

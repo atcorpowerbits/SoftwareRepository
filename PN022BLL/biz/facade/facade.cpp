@@ -265,12 +265,14 @@ START_BIZ_NAMESPACE
 		BizCuffPulseEvent^ - Handle to cuff pulse data event in the business logic.
 	
 	*/
+/*
 	BizCuffPulseEvent^ BizFacade::FindCuffPulseEvent() 
 	{ 
 		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
 
 		return measurePWV->cuffPulseObserver->cuffPulseBiz; 
 	}
+*/
 	/**
 	FindCountdownTimerEvent
 
@@ -291,12 +293,14 @@ START_BIZ_NAMESPACE
 		BizCountdownTimerEvent^ - Handle to countdown timer event in the business logic.
 	
 	*/
+/*
 	BizCountdownTimerEvent^ BizFacade::FindCountdownTimerEvent() 
 	{ 
 		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
 
 		return measurePWV->countdownTimerObserver->countdownTimerBiz; 
 	}
+*/
 	/**
 	FindCuffStateEvent
 
@@ -317,12 +321,14 @@ START_BIZ_NAMESPACE
 		BizCuffStateEvent^ - Handle to cuff state event in the business logic.
 	
 	*/
+/*
 	BizCuffStateEvent^ BizFacade::FindCuffStateEvent() 
 	{ 
 		BizPWV^ measurePWV = (BizPWV^)BizSession::Instance()->measurement;
 
 		return measurePWV->cuffObserver->cuffStateBiz; 
 	}
+*/
 	/**
 	SimulateCaptureOneShot
 

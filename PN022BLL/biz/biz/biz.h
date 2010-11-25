@@ -86,6 +86,9 @@ static const unsigned short TONOMETER_SIGNAL_STRENGTH_POOR = 200;							// Indic
 static const unsigned short TONOMETER_SIGNAL_STRENGTH_GOOD = 300;							// Indicates a good signal
 static const unsigned short MINIMUM_TONOMETER_SIGNAL_STRENGTH = 80;						// Indicates a valid signal strength
 static const unsigned short MINIMUM_TONOMETER_BASELINE = 120;								// Indicates a valid signal baseline
+static const unsigned short CUFF_SIGNAL_STRENGTH_GOOD = 300;							    // Indicates a good signal
+static const unsigned short MINIMUM_CUFF_SIGNAL_STRENGTH = 80;						        // Indicates a valid signal strength
+static const unsigned short MINIMUM_CUFF_BASELINE = 120;								        // Indicates a valid signal baseline
 
 // Signal Class
 static const unsigned short MAX_HEART_RATE = 220;													// 200 bpm

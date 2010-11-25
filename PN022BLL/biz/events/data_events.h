@@ -30,27 +30,6 @@ public:
    property unsigned short data;
 };
 
-// Class with a function that creates the eventargs and initiates the event
-public ref class BizTonometerDataEvent
-{
-public:
-   // Events are handled with delegates, so we must establish a handler
-   // as a delegate. FxCop suggested to use EventHandler<T> to eliminate
-   // custom delegate like this but unit test couldn't be compiled.
-   delegate void BizTonometerDataEventHandler(Object^ sender, BizTonometerDataEventArgs^ e );
-
-   // Now, create a public event whose type is our handler delegate. 
-   event BizTonometerDataEventHandler^ TonometerDataEvent;
-   /* FxCop suggested to use EventHandler<T> to replace above above but it didn't comiple as explained above.
-   event EventHandler<BizTonometerDataEventArgs^>^ TonometerDataEvent;
-   */
-
-   // This will be the starting point of our event-- it will create data args,
-   // and then raise the event, passing the args. 
-   void Notify( unsigned int data );
-
-};
-
 // BizCuffPulseEventArgs: a custom event inherited from EventArgs.
 public ref class BizCuffPulseEventArgs: public EventArgs
 {
@@ -62,22 +41,6 @@ public:
    property unsigned short data;
 };
 
-// Class with a function that creates the eventargs and initiates the event
-public ref class BizCuffPulseEvent
-{
-public:
-   // Events are handled with delegates, so we must establish a handler
-   // as a delegate:
-   delegate void BizCuffPulseEventHandler(Object^ sender, BizCuffPulseEventArgs^ e );
-
-   // Now, create a public event whose type is our handler delegate. 
-   event BizCuffPulseEventHandler^ CuffPulseEvent;
-
-   // This will be the starting point of our event-- it will create data args,
-   // and then raise the event, passing the args. 
-   void Notify( unsigned int data );
-
-};
 // BizCountdownTimerEventArgs: a custom event inherited from EventArgs.
 public ref class BizCountdownTimerEventArgs: public EventArgs
 {
@@ -89,22 +52,6 @@ public:
    property unsigned short data;
 };
 
-// Class with a function that creates the eventargs and initiates the event
-public ref class BizCountdownTimerEvent
-{
-public:
-   // Events are handled with delegates, so we must establish a handler
-   // as a delegate:
-   delegate void BizCountdownTimerEventHandler(Object^ sender, BizCountdownTimerEventArgs^ e );
-
-   // Now, create a public event whose type is our handler delegate. 
-   event BizCountdownTimerEventHandler^ CountdownTimerEvent;
-
-   // This will be the starting point of our event-- it will create data args,
-   // and then raise the event, passing the args. 
-   void Notify( unsigned int data );
-
-};
 // BizCuffStateEventArgs: a custom event inherited from EventArgs.
 public ref class BizCuffStateEventArgs: public EventArgs
 {
@@ -114,30 +61,6 @@ public:
 	  this->data = data;
    }
    property String^ data;
-};
-
-// Class with a function that creates the eventargs and initiates the event
-public ref class BizCuffStateEvent
-{
-public:
-   // Events are handled with delegates, so we must establish a handler
-   // as a delegate:
-   delegate void BizCuffStateEventHandler(Object^ sender, BizCuffStateEventArgs^ e );
-
-   // Now, create a public event whose type is our handler delegate. 
-   event BizCuffStateEventHandler^ CuffStateEvent;
-
-   // This will be the starting point of our event-- it will create data args,
-   // and then raise the event, passing the args. 
-   // Possible cuff states are:
-   // -Disconnected
-   // -Deflated
-   // -Inflating
-   // -Inflated
-   // -Deflating
-   // -Resting
-   void Notify( String^ data );
-
 };
 
 // BizCarotidQualityEventArgs: a custom event inherited from EventArgs.
@@ -159,26 +82,24 @@ public:
    property bool enableOkayButton;			// Can the user calculate a report or not
 };
 
-/* Class with a function that creates the eventargs and initiates the event
-public ref class BizCarotidQualityEvent
+// BizFemoralQualityEventArgs: a custom event inherited from EventArgs.
+public ref class BizFemoralQualityEventArgs: public EventArgs
 {
 public:
-   // Events are handled with delegates, so we must establish a handler
-   // as a delegate. FxCop suggested to use EventHandler<T> to eliminate
-   // custom delegate like this but unit test couldn't be compiled.
-   delegate void BizCarotidQualityEventHandler(Object^ sender, BizCarotidQualityEventArgs^ e );
-
-   // Now, create a public event whose type is our handler delegate. 
-   event BizCarotidQualityEventHandler^ CarotidQualityEvent;
-   // FxCop suggested to use EventHandler<T> to replace above above but it didn't comiple as explained above.
-   //event EventHandler<BizTonometerDataEventArgs^>^ TonometerDataEvent;
-   
-
-   // This will be the starting point of our event-- it will create data args,
-   // and then raise the event, passing the args. 
-   void Notify( unsigned short signalMinimum, unsigned short signalMaximum, Color signalStrengthColor, bool enableOkayButton );
-
-};*/
+	
+   BizFemoralQualityEventArgs( unsigned short signalMinimum, unsigned short signalMaximum, 
+								bool signalStrengthIsGood, bool enableOkayButton )
+   {
+	  this->signalMinimum = signalMinimum;
+	  this->signalMaximum = signalMaximum;
+	  this->signalStrengthIsGood = signalStrengthIsGood;
+	  this->enableOkayButton = enableOkayButton;
+   }
+   property unsigned short signalMinimum;	// Signal maximum, used to calculate signal strength and scale the display
+   property unsigned short signalMaximum;	// Signal minimum, used to calculate signal strength and scale the display
+   property bool signalStrengthIsGood;		// Good (true) or Bad (false) quality to be displayed on the quality indicator
+   property bool enableOkayButton;			// Can the user calculate a report or not
+};
 
 // BizInformationEventArgs: a custom event inherited from EventArgs.
 public ref class BizInformationEventArgs: public EventArgs
@@ -216,8 +137,20 @@ public:
 // Delegate for tonometer data event
 public delegate void BizTonometerDataEventHandler(Object^ sender, BizTonometerDataEventArgs ^ e);
 
+// Delegate for cuff pulse event
+public delegate void BizCuffPulseEventHandler(Object^ sender, BizCuffPulseEventArgs ^ e);
+
+// Delegate for countdown timer event
+public delegate void BizCountdownTimerEventHandler(Object^ sender, BizCountdownTimerEventArgs ^ e);
+
+// Delegate for cuff state event
+public delegate void BizCuffStateEventHandler(Object^ sender, BizCuffStateEventArgs ^ e);
+
 // Delegate for carotid quality event
 public delegate void BizCarotidQualityEventHandler(Object^ sender, BizCarotidQualityEventArgs ^ e);
+
+// Delegate for femoral quality event
+public delegate void BizFemoralQualityEventHandler(Object^ sender, BizFemoralQualityEventArgs ^ e);
 
 // Delegate for information event
 public delegate void BizInformationEventHandler(Object^ sender, BizInformationEventArgs ^ e);
@@ -234,11 +167,15 @@ public ref class BizEventContainer
 	private:
 		static BizEventContainer^ _instance = gcnew BizEventContainer();
 		BizEventContainer() {};
-		//BizEventContainer(const BizEventContainer^) {};
-		//BizEventContainer^ operator= (const BizEventContainer) { return this; };
+		BizEventContainer(const BizEventContainer^) {};
+		BizEventContainer^ operator= (const BizEventContainer) { return this; };
 
 		BizTonometerDataEventHandler^ _bizTonometerDataEventHandler;
+		BizCuffPulseEventHandler^ _bizCuffPulseEventHandler;
+		BizCountdownTimerEventHandler^ _bizCountdownTimerEventHandler;
+		BizCuffStateEventHandler^ _bizCuffStateEventHandler;
 		BizCarotidQualityEventHandler^ _bizCarotidQualityEventHandler;
+		BizFemoralQualityEventHandler^ _bizFemoralQualityEventHandler;
 		BizInformationEventHandler^ _bizInformationEventHandler;
 		BizWarningEventHandler^ _bizWarningEventHandler;
 		BizErrorEventHandler^ _bizErrorEventHandler;
@@ -273,6 +210,69 @@ public ref class BizEventContainer
 			}
 		}
 
+		event BizCuffPulseEventHandler^ OnBizCuffPulseEvent
+		{
+			void add(BizCuffPulseEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizCuffPulseEventHandler += handler;
+			}
+
+			void remove(BizCuffPulseEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizCuffPulseEventHandler -= handler;
+			}
+
+			void raise(Object^ sender, BizCuffPulseEventArgs ^ e)
+			{
+				if(_bizCuffPulseEventHandler)
+					_bizCuffPulseEventHandler->Invoke(sender, e);
+			}
+		}
+
+		event BizCountdownTimerEventHandler^ OnBizCountdownTimerEvent
+		{
+			void add(BizCountdownTimerEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizCountdownTimerEventHandler += handler;
+			}
+
+			void remove(BizCountdownTimerEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizCountdownTimerEventHandler -= handler;
+			}
+
+			void raise(Object^ sender, BizCountdownTimerEventArgs ^ e)
+			{
+				if(_bizCountdownTimerEventHandler)
+					_bizCountdownTimerEventHandler->Invoke(sender, e);
+			}
+		}
+
+		event BizCuffStateEventHandler^ OnBizCuffStateEvent
+		{
+			void add(BizCuffStateEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizCuffStateEventHandler += handler;
+			}
+
+			void remove(BizCuffStateEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizCuffStateEventHandler -= handler;
+			}
+
+			void raise(Object^ sender, BizCuffStateEventArgs ^ e)
+			{
+				if(_bizCuffStateEventHandler)
+					_bizCuffStateEventHandler->Invoke(sender, e);
+			}
+		}
+
 		event BizCarotidQualityEventHandler^ OnBizCarotidQualityEvent
 		{
 			void add(BizCarotidQualityEventHandler^ handler)
@@ -291,6 +291,27 @@ public ref class BizEventContainer
 			{
 				if(_bizCarotidQualityEventHandler)
 					_bizCarotidQualityEventHandler->Invoke(sender, e);
+			}
+		}
+
+		event BizFemoralQualityEventHandler^ OnBizFemoralQualityEvent
+		{
+			void add(BizFemoralQualityEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizFemoralQualityEventHandler += handler;
+			}
+
+			void remove(BizFemoralQualityEventHandler^ handler)
+			{
+				lock lockEvents(this);
+				_bizFemoralQualityEventHandler -= handler;
+			}
+
+			void raise(Object^ sender, BizFemoralQualityEventArgs ^ e)
+			{
+				if(_bizFemoralQualityEventHandler)
+					_bizFemoralQualityEventHandler->Invoke(sender, e);
 			}
 		}
 

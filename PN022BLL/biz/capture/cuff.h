@@ -26,7 +26,7 @@ public:
 	void ChangeState(BizCuffState^ state);
 	void Dispatch();
 
-	property BizCuffStateEvent^ cuffStateBiz; //cuff state event to be passed to obesrserve
+//	property BizCuffStateEvent^ cuffStateBiz; //cuff state event to be passed to obesrserve
 
 	// Keep previous and current cuff states
 	property BizCuffState^ previousState;

@@ -63,9 +63,9 @@ namespace TestBiz {
 			//{
 			//}
 			//
-			unsigned int actualUpdate; //actual data received via an event
+			static unsigned int actualUpdate; //actual data received via an event
 
-			void Update(Object^ sender, BizCountdownTimerEventArgs^ e)
+			static void Update(Object^ sender, BizCountdownTimerEventArgs^ e)
 			{
 				actualUpdate = e->data;
 			}
@@ -90,7 +90,7 @@ namespace TestBiz {
 				}
 
 				// Setup a delegate (observer) to whom data is updated by BizCountdownCapture during dispatch
-				target->countdownTimerBiz->CountdownTimerEvent += gcnew BizCountdownTimerEvent::BizCountdownTimerEventHandler( this, &BizCountdownCaptureTest::Update );
+				BizEventContainer::Instance->OnBizCountdownTimerEvent += gcnew BizCountdownTimerEventHandler(&BizCountdownCaptureTest::Update);
 
 				// Update the observer with data read from circular buffer
 				target->Dispatch();

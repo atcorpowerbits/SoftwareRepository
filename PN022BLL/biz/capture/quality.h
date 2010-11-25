@@ -40,4 +40,15 @@ private:
 	property unsigned short counter;					// To keep track of when to dispatch quality data
 };
 
+// A class to monitor femoral cuff data quality
+public ref class BizFemoralQuality : BizQuality
+{
+public:
+	BizFemoralQuality(BizBuffer^ buffer, unsigned short sampleRate);
+	virtual void Reset() override;
+
+private:
+	void Update(Object^ sender, BizCuffPulseEventArgs^ e);
+	property unsigned short counter;					// To keep track of when to dispatch quality data
+};
 END_BIZ_NAMESPACE

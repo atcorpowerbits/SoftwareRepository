@@ -26,9 +26,6 @@ BizCuff::BizCuff(void)
 //	cuffStatusSubject->CuffStatusEvent += 
 //		gcnew DalCuffStatusEvent::DalCuffStatusEventHandler( this, &BizCuff::Update );
 	DalEventContainerStub::Instance->OnDalCuffStatusEvent += gcnew DalCuffStatusEventHandler(this, &BizCuff::Update);
-
-	// Create a cuff state business data subject
-	cuffStateBiz = gcnew BizCuffStateEvent;
 };
 
 /**
@@ -130,7 +127,7 @@ void BizCuff::Dispatch()
 	if (previousState != currentState)
 	{
 		// Inform observers about the cuff state change
-		cuffStateBiz->Notify(currentState->internalName);
+		BizEventContainer::Instance->OnBizCuffStateEvent(this, gcnew BizCuffStateEventArgs(currentState->internalName));	
 
 		// Remember the current state as a previous state
 		previousState = currentState;

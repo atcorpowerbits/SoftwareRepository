@@ -46,7 +46,7 @@ public ref class BizCuffPulseCapture : BizCapture
 public:
 	BizCuffPulseCapture(BizBuffer^ buffer);
 
-	property BizCuffPulseEvent^ cuffPulseBiz; //cuff pulse data to be dispatched
+//	property BizCuffPulseEvent^ cuffPulseBiz; //cuff pulse data to be dispatched
 	virtual void Dispatch() override;
 
 private:
@@ -58,7 +58,7 @@ public ref class BizCountdownTimerCapture : BizCapture
 public:
 	BizCountdownTimerCapture(BizBuffer^ buffer);
 
-	 property BizCountdownTimerEvent^ countdownTimerBiz; //countdown data to be dispatched
+//	 property BizCountdownTimerEvent^ countdownTimerBiz; //countdown data to be dispatched
 	virtual void Dispatch() override;
 
 private:

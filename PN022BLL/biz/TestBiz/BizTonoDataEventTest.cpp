@@ -62,9 +62,9 @@ namespace TestBiz {
 			//}
 			//
 	public:
-			unsigned int actualUpdate; //actual data received via BizTonometerDataEvent
+			static unsigned int actualUpdate; //actual data received via BizTonometerDataEvent
 
-			void Update(Object^ sender, BizTonometerDataEventArgs^ e)
+			static void Update(Object^ sender, BizTonometerDataEventArgs^ e)
 			{
 				actualUpdate = e->data;
 			}
@@ -75,16 +75,14 @@ namespace TestBiz {
 	public: [TestMethod]
 			void BizTonometerDataEventNotifyTest()
 			{
-				BizTonometerDataEvent^  target = (gcnew BizTonometerDataEvent()); // TODO: Initialize to an appropriate value
-				target->TonometerDataEvent += gcnew BizTonometerDataEvent::BizTonometerDataEventHandler( this, &BizTonometerDataEventTest::Update );
-				/* FxCop suggested to use Event<T> but unit test frame work doesn't like it
-				target->TonometerDataEvent += gcnew EventHandler<BizTonometerDataEventArgs^(&BizTonometerDataEventTest::Update);
-				*/
 				unsigned int data = 12345; // TODO: Initialize to an appropriate value
-				target->Notify(data);
+				// add the handler
+				BizEventContainer::Instance->OnBizTonometerDataEvent += gcnew BizTonometerDataEventHandler(&BizTonometerDataEventTest::Update);
+				// raise the event with the data
+				BizEventContainer::Instance->OnBizTonometerDataEvent(this, gcnew BizTonometerDataEventArgs(data));	
 				Assert::AreEqual(data, actualUpdate);
 				// remove the handler
-				target->TonometerDataEvent -= gcnew BizTonometerDataEvent::BizTonometerDataEventHandler( this, &BizTonometerDataEventTest::Update );
+				BizEventContainer::Instance->OnBizTonometerDataEvent -= gcnew BizTonometerDataEventHandler(&BizTonometerDataEventTest::Update);
 			}
 	};
 }

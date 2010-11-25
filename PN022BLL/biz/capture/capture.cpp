@@ -44,9 +44,6 @@ BizTonometerDataCapture::BizTonometerDataCapture(BizBuffer^ buffer)
 
 	// Attach the handler to observe tonometer data event from DAL
 	DalEventContainer::Instance->OnDalTonometerDataEvent += gcnew DalTonoMeterDataEventHandler(this, &BizTonometerDataCapture::Update);
-
-	// Create a tonometer business data subject
-//	tonometerDataBiz = gcnew BizTonometerDataEvent;
 }
 /**
 Update
@@ -104,7 +101,6 @@ void BizTonometerDataCapture::Dispatch()
 	// dispatch tonometer data as many as arrived.
 	while (buffer->ReadNext(readData))
 	{
-//		tonometerDataBiz->Notify(readData);
 		BizEventContainer::Instance->OnBizTonometerDataEvent(this, gcnew BizTonometerDataEventArgs(readData));	
 	}
 }
@@ -135,9 +131,6 @@ BizCuffPulseCapture::BizCuffPulseCapture(BizBuffer^ buffer)
 
 	// Attach the handler to observe cuff pulse data event from DAL
 	DalEventContainer::Instance->OnDalCuffPulseEvent += gcnew DalCuffPulseEventHandler(this, &BizCuffPulseCapture::Update);
-
-	// Create a cuff pulse business data subject
-	cuffPulseBiz = gcnew BizCuffPulseEvent;
 }
 
 /**
@@ -203,7 +196,8 @@ void BizCuffPulseCapture::Dispatch()
 		{
 			readData = 0;
 		}
-		cuffPulseBiz->Notify(readData);
+		// Inform observers with the cuff pulse data
+		BizEventContainer::Instance->OnBizCuffPulseEvent(this, gcnew BizCuffPulseEventArgs(readData));	
 	}
 }
 
@@ -233,9 +227,6 @@ BizCountdownTimerCapture::BizCountdownTimerCapture(BizBuffer^ buffer)
 
 	// Attach the handler to observe countdown data event from DAL
 	DalEventContainerStub::Instance->OnDalCountdownTimerEvent += gcnew DalCountdownTimerEventHandler(this, &BizCountdownTimerCapture::Update);
-
-	// Create a countdown business data subject
-	countdownTimerBiz = gcnew BizCountdownTimerEvent;
 }
 
 /**
@@ -295,8 +286,8 @@ void BizCountdownTimerCapture::Dispatch()
 	// dispatch countdown data as many as arrived.
 	while (buffer->ReadNext(readData))
 	{
-		// round to seconds
-		countdownTimerBiz->Notify(readData);
+		// Inform observers with countdown timer data
+		BizEventContainer::Instance->OnBizCountdownTimerEvent(this, gcnew BizCountdownTimerEventArgs(readData));	
 	}
 }
 END_BIZ_NAMESPACE

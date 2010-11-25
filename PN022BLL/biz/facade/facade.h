@@ -29,9 +29,9 @@ public:
 //	void Dispatch();
 //	bool CalculateReport();
 //	BizTonometerDataEvent^ FindTonometerDataEvent();
-	BizCuffPulseEvent^ FindCuffPulseEvent();
-	BizCountdownTimerEvent^ FindCountdownTimerEvent();
-	BizCuffStateEvent^ FindCuffStateEvent();
+//	BizCuffPulseEvent^ FindCuffPulseEvent();
+//	BizCountdownTimerEvent^ FindCountdownTimerEvent();
+//	BizCuffStateEvent^ FindCuffStateEvent();
 
 protected:
 	BizFacade(void);

@@ -62,9 +62,9 @@ namespace TestBiz {
 			//}
 			//
 	public:
-			String^ actualUpdate; //actual data received via BizTonometerDataEvent
+			static String^ actualUpdate; //actual data received via BizCuffStateEvent
 
-			void Update(Object^ sender, BizCuffStateEventArgs^ e)
+			static void Update(Object^ sender, BizCuffStateEventArgs^ e)
 			{
 				actualUpdate = e->data;
 			}
@@ -75,16 +75,14 @@ namespace TestBiz {
 	public: [TestMethod]
 			void BizCuffStateEventNotifyTest()
 			{
-				BizCuffStateEvent^  target = (gcnew BizCuffStateEvent()); // TODO: Initialize to an appropriate value
-				target->CuffStateEvent += gcnew BizCuffStateEvent::BizCuffStateEventHandler( this, &BizCuffStateEventTest::Update );
-				/* FxCop suggested to use Event<T> but unit test frame work doesn't like it
-				target->CuffStateEvent += gcnew EventHandler<BizCuffStateEventArgs^(&BizCuffStateEventTest::Update);
-				*/
 				String^ data = "Resting"; // TODO: Initialize to an appropriate value
-				target->Notify(data);
+				// add the handler
+				BizEventContainer::Instance->OnBizCuffStateEvent += gcnew BizCuffStateEventHandler(&BizCuffStateEventTest::Update);
+				// raise the event with the data
+				BizEventContainer::Instance->OnBizCuffStateEvent(this, gcnew BizCuffStateEventArgs(data));	
 				Assert::AreEqual(data, actualUpdate);
 				// remove the handler
-				target->CuffStateEvent -= gcnew BizCuffStateEvent::BizCuffStateEventHandler( this, &BizCuffStateEventTest::Update );
+				BizEventContainer::Instance->OnBizCuffStateEvent -= gcnew BizCuffStateEventHandler(&BizCuffStateEventTest::Update);
 			}
 	};
 }

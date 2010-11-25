@@ -50,6 +50,14 @@ namespace AtCor.Scor.Presentation
             this.radLabel12 = new Telerik.WinControls.UI.RadLabel();
             this.radLabelAlertMessage = new Telerik.WinControls.UI.RadLabel();
             this.radLabel5 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabelFemoralEnable = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel9 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabelFemoralQuality = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel13 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabelFemoralMinimum = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel15 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabelFemoralMaximum = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel17 = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabelTonoData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
@@ -70,6 +78,14 @@ namespace AtCor.Scor.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabelAlertMessage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelFemoralEnable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelFemoralQuality)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelFemoralMinimum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelFemoralMaximum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -244,17 +260,94 @@ namespace AtCor.Scor.Presentation
             this.radLabel5.TabIndex = 19;
             this.radLabel5.Text = "Message";
             // 
+            // radLabelFemoralEnable
+            // 
+            this.radLabelFemoralEnable.Location = new System.Drawing.Point(748, 218);
+            this.radLabelFemoralEnable.Name = "radLabelFemoralEnable";
+            this.radLabelFemoralEnable.Size = new System.Drawing.Size(78, 18);
+            this.radLabelFemoralEnable.TabIndex = 25;
+            this.radLabelFemoralEnable.Text = "femoralEnable";
+            // 
+            // radLabel9
+            // 
+            this.radLabel9.Location = new System.Drawing.Point(614, 218);
+            this.radLabel9.Name = "radLabel9";
+            this.radLabel9.Size = new System.Drawing.Size(105, 18);
+            this.radLabel9.TabIndex = 24;
+            this.radLabel9.Text = "Enable Okay Button";
+            // 
+            // radLabelFemoralQuality
+            // 
+            this.radLabelFemoralQuality.ForeColor = System.Drawing.Color.Black;
+            this.radLabelFemoralQuality.Location = new System.Drawing.Point(748, 154);
+            this.radLabelFemoralQuality.Name = "radLabelFemoralQuality";
+            // 
+            // 
+            // 
+            this.radLabelFemoralQuality.RootElement.ForeColor = System.Drawing.Color.Black;
+            this.radLabelFemoralQuality.Size = new System.Drawing.Size(80, 18);
+            this.radLabelFemoralQuality.TabIndex = 23;
+            this.radLabelFemoralQuality.Text = "femoralQuality";
+            // 
+            // radLabel13
+            // 
+            this.radLabel13.Location = new System.Drawing.Point(614, 154);
+            this.radLabel13.Name = "radLabel13";
+            this.radLabel13.Size = new System.Drawing.Size(85, 18);
+            this.radLabel13.TabIndex = 22;
+            this.radLabel13.Text = "Femoral Quality";
+            // 
+            // radLabelFemoralMinimum
+            // 
+            this.radLabelFemoralMinimum.Location = new System.Drawing.Point(748, 88);
+            this.radLabelFemoralMinimum.Name = "radLabelFemoralMinimum";
+            this.radLabelFemoralMinimum.Size = new System.Drawing.Size(92, 18);
+            this.radLabelFemoralMinimum.TabIndex = 21;
+            this.radLabelFemoralMinimum.Text = "femoralMinimum";
+            // 
+            // radLabel15
+            // 
+            this.radLabel15.Location = new System.Drawing.Point(614, 88);
+            this.radLabel15.Name = "radLabel15";
+            this.radLabel15.Size = new System.Drawing.Size(98, 18);
+            this.radLabel15.TabIndex = 20;
+            this.radLabel15.Text = "Femoral Minimum";
+            // 
+            // radLabelFemoralMaximum
+            // 
+            this.radLabelFemoralMaximum.Location = new System.Drawing.Point(748, 37);
+            this.radLabelFemoralMaximum.Name = "radLabelFemoralMaximum";
+            this.radLabelFemoralMaximum.Size = new System.Drawing.Size(94, 18);
+            this.radLabelFemoralMaximum.TabIndex = 19;
+            this.radLabelFemoralMaximum.Text = "femoralMaximum";
+            // 
+            // radLabel17
+            // 
+            this.radLabel17.Location = new System.Drawing.Point(614, 37);
+            this.radLabel17.Name = "radLabel17";
+            this.radLabel17.Size = new System.Drawing.Size(99, 18);
+            this.radLabel17.TabIndex = 18;
+            this.radLabel17.Text = "Femoral Maximum";
+            // 
             // SimulatePWVCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(592, 372);
+            this.ClientSize = new System.Drawing.Size(890, 372);
+            this.Controls.Add(this.radLabelFemoralEnable);
             this.Controls.Add(this.radLabel5);
+            this.Controls.Add(this.radLabel9);
             this.Controls.Add(this.radLabelAlertMessage);
+            this.Controls.Add(this.radLabelFemoralQuality);
             this.Controls.Add(this.radLabelCarotidEnable);
+            this.Controls.Add(this.radLabel13);
             this.Controls.Add(this.radLabel6);
+            this.Controls.Add(this.radLabelFemoralMinimum);
             this.Controls.Add(this.radLabelCarotidColor);
+            this.Controls.Add(this.radLabel15);
             this.Controls.Add(this.radLabel8);
+            this.Controls.Add(this.radLabelFemoralMaximum);
+            this.Controls.Add(this.radLabel17);
             this.Controls.Add(this.radLabelCarotidMinimum);
             this.Controls.Add(this.radLabel10);
             this.Controls.Add(this.radLabelCarotidMaximum);
@@ -297,6 +390,14 @@ namespace AtCor.Scor.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabelAlertMessage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelFemoralEnable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelFemoralQuality)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelFemoralMinimum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabelFemoralMaximum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -326,6 +427,14 @@ namespace AtCor.Scor.Presentation
         private Telerik.WinControls.UI.RadLabel radLabel12;
         private Telerik.WinControls.UI.RadLabel radLabelAlertMessage;
         private Telerik.WinControls.UI.RadLabel radLabel5;
+        private Telerik.WinControls.UI.RadLabel radLabelFemoralEnable;
+        private Telerik.WinControls.UI.RadLabel radLabel9;
+        private Telerik.WinControls.UI.RadLabel radLabelFemoralQuality;
+        private Telerik.WinControls.UI.RadLabel radLabel13;
+        private Telerik.WinControls.UI.RadLabel radLabelFemoralMinimum;
+        private Telerik.WinControls.UI.RadLabel radLabel15;
+        private Telerik.WinControls.UI.RadLabel radLabelFemoralMaximum;
+        private Telerik.WinControls.UI.RadLabel radLabel17;
     }
 }
 

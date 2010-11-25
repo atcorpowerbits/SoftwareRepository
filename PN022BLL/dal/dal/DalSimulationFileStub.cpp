@@ -43,7 +43,7 @@ bool DalSimulationFile::CreateFile(String^ outputFilePath)
 //		writer = gcnew StreamWriter(filePath);
 		return true;
 	}
-	catch(System::Exception^ eObj)
+	catch(Exception^)
 	{
 		throw gcnew DalException(DAL_FAILTOCREATE_ERR); //File could not be created.
 	}

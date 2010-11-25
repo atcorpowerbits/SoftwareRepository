@@ -25,6 +25,7 @@ namespace AtCor.Scor.Presentation
 
         private void radRibbonBarGroup1Shot_Click(object sender, EventArgs e)
         {
+            BizSession.Instance(); // to instantiate BizSession to setup event delegates
             BizFacade.Instance().SimulateCaptureOneShot();
         }
 

@@ -61,9 +61,9 @@ namespace TestBiz {
 			//{
 			//}
 			//
-			unsigned int actualUpdate; //actual data received via BizCuffPulseEvent
+			static unsigned int actualUpdate; //actual data received via BizCuffPulseEvent
 
-			void Update(Object^ sender, BizCuffPulseEventArgs^ e)
+			static void Update(Object^ sender, BizCuffPulseEventArgs^ e)
 			{
 				actualUpdate = e->data;
 			}
@@ -74,13 +74,14 @@ namespace TestBiz {
 	public: [TestMethod]
 			void BizCuffPulseEventNotifyTest()
 			{
-				BizCuffPulseEvent^  target = (gcnew BizCuffPulseEvent()); // TODO: Initialize to an appropriate value
-				target->CuffPulseEvent += gcnew BizCuffPulseEvent::BizCuffPulseEventHandler( this, &BizCuffPulseEventTest::Update );
 				unsigned int data = 12345; // TODO: Initialize to an appropriate value
-				target->Notify(data);
+				// add the handler
+				BizEventContainer::Instance->OnBizCuffPulseEvent += gcnew BizCuffPulseEventHandler(&BizCuffPulseEventTest::Update);
+				// raise the event with the data
+				BizEventContainer::Instance->OnBizCuffPulseEvent(this, gcnew BizCuffPulseEventArgs(data));	
 				Assert::AreEqual(data, actualUpdate);
 				// remove the handler
-				target->CuffPulseEvent -= gcnew BizCuffPulseEvent::BizCuffPulseEventHandler( this, &BizCuffPulseEventTest::Update );
+				BizEventContainer::Instance->OnBizCuffPulseEvent -= gcnew BizCuffPulseEventHandler(&BizCuffPulseEventTest::Update);
 			}
 	};
 }

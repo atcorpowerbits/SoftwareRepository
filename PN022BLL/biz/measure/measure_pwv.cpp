@@ -439,6 +439,9 @@ void BizPWV::Initialise()
 	// Carotid quality is calculated from the captured tonometer data
 	carotidQualityObserver = gcnew BizCarotidQuality( tonometerBuffer, sampleRate );
 
+	// Femoral quality is calculated from the captured cuff pulse data
+	femoralQualityObserver = gcnew BizFemoralQuality( cuffBuffer, sampleRate );
+
 	// Countdown data from DAL are captured here for PWV measurement.
 	// Only one last countdown data is needed to be captured.
 	countdownTimerObserver = gcnew BizCountdownTimerCapture(gcnew BizCircularBuffer(1));

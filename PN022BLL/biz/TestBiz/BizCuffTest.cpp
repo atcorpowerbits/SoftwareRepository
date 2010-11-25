@@ -62,9 +62,9 @@ namespace TestBiz {
 			//{
 			//}
 			//
-			String^ actualUpdate; //actual data received via an event
+			static String^ actualUpdate; //actual data received via an event
 
-			void Update(Object^ sender, BizCuffStateEventArgs^ e)
+			static void Update(Object^ sender, BizCuffStateEventArgs^ e)
 			{
 				actualUpdate = e->data;
 			}
@@ -85,7 +85,7 @@ namespace TestBiz {
 				accessor->Invoke("Update", this, e);
 	
 				// Setup a delegate (observer) to whom data is updated by BizCuff during dispatch
-				target->cuffStateBiz->CuffStateEvent += gcnew BizCuffStateEvent::BizCuffStateEventHandler( this, &BizCuffTest::Update );
+				BizEventContainer::Instance->OnBizCuffStateEvent += gcnew BizCuffStateEventHandler(&BizCuffTest::Update);
 
 				// Update the observer with data read from circular buffer
 				target->Dispatch();

@@ -62,9 +62,9 @@ namespace TestBiz {
 			//}
 			//
 	public:
-			unsigned int actualUpdate; //actual data received via BizCountdownEvent
+			static unsigned int actualUpdate; //actual data received via BizCountdownEvent
 
-			void Update(Object^ sender, BizCountdownTimerEventArgs^ e)
+			static void Update(Object^ sender, BizCountdownTimerEventArgs^ e)
 			{
 				actualUpdate = e->data;
 			}
@@ -75,13 +75,14 @@ namespace TestBiz {
 	public: [TestMethod]
 			void BizCountdownEventNotifyTest()
 			{
-				BizCountdownTimerEvent^  target = (gcnew BizCountdownTimerEvent()); // TODO: Initialize to an appropriate value
-				target->CountdownTimerEvent += gcnew BizCountdownTimerEvent::BizCountdownTimerEventHandler( this, &BizCountdownEventTest::Update );
 				unsigned int data = 12345; // TODO: Initialize to an appropriate value
-				target->Notify(data);
+				// add the handler
+				BizEventContainer::Instance->OnBizCountdownTimerEvent += gcnew BizCountdownTimerEventHandler(&BizCountdownEventTest::Update);
+				// raise the event with the data
+				BizEventContainer::Instance->OnBizCountdownTimerEvent(this, gcnew BizCountdownTimerEventArgs(data));	
 				Assert::AreEqual(data, actualUpdate);
 				// remove the handler
-				target->CountdownTimerEvent -= gcnew BizCountdownTimerEvent::BizCountdownTimerEventHandler( this, &BizCountdownEventTest::Update );
+				BizEventContainer::Instance->OnBizCountdownTimerEvent -= gcnew BizCountdownTimerEventHandler(&BizCountdownEventTest::Update);
 			}
 	};
 }

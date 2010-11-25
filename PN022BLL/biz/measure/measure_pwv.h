@@ -89,6 +89,7 @@ public:
 	property BizCountdownTimerCapture^ countdownTimerObserver;
 	property BizCuff^ cuffObserver;
 	property BizQuality^ carotidQualityObserver;
+	property BizQuality^ femoralQualityObserver;
 
 	property BizSignal^ carotidSignal;				// Carotid Tonometer signal
 	property BizSignal^ femoralSignal;				// Femoral Cuff signal

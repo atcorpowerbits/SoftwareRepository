@@ -26,7 +26,7 @@ void DalFacade::SimulateCaptureOneShot()
 	DalEventContainer::Instance->OnDalTonometerDataEvent(this, gcnew DalTonometerDataEventArgs(1234));
 	DalEventContainer::Instance->OnDalCuffPulseEvent(this, gcnew DalCuffPulseEventArgs(5678));
 	DalEventContainerStub::Instance->OnDalCountdownTimerEvent(this, gcnew DalCountdownTimerEventArgs(9000));
-	DalEventContainerStub::Instance->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(0x0100));
+	DalEventContainerStub::Instance->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(0x0900));
 
 	status = ErrorStatus; //AlarmStatus;   // simulate alarm or error
 	source = DualSensors; //OverPressure; // source to be read interpretted when GetErrorAlarmSource is called

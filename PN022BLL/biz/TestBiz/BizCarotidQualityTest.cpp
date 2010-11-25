@@ -97,7 +97,7 @@ namespace TestBiz {
 			///A test for Reset
 			///</summary>
 	public: [TestMethod]
-			void ResetTest()
+			void BizCarotidQualityResetTest()
 			{
 				BizBuffer^  buffer = gcnew BizCircularBuffer(10);
 				//BizTonometerDataEvent^  carotidData = gcnew BizTonometerDataEvent();
