@@ -53,7 +53,7 @@ Class ThisAssembly: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldI
     System.String DefaultAlias = System.ServiceModel.dll : Assembly, Static, Literal, HasDefault
     System.String Copyright = © Microsoft Corporation.  All rights reserved. : Assembly, Static, Literal, HasDefault
     System.String Version = 3.0.0.0 : Assembly, Static, Literal, HasDefault
-    System.String InformationalVersion = 3.0.4506.4926 : Assembly, Static, Literal, HasDefault
+    System.String InformationalVersion = 3.0.4506.3636 : Assembly, Static, Literal, HasDefault
     Int32 DailyBuildNumber = 4506 : Assembly, Static, Literal, HasDefault
 Class AssemblyRef: AutoLayout, AnsiClass, Class, Abstract, Sealed, BeforeFieldInit
   Fields:
@@ -121,8 +121,6 @@ Class System.ServiceModel.SRCategoryAttribute: AutoLayout, AnsiClass, Class, Sea
 Class System.ServiceModel.SR: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
   Fields:
-    System.String SecurityStateEncoderDecodingFailure = SecurityStateEncoderDecodingFailure : Assembly, Static, Literal, HasDefault
-    System.String SecurityStateEncoderEncodingFailure = SecurityStateEncoderEncodingFailure : Assembly, Static, Literal, HasDefault
     System.String NoIPEndpointsFoundForHost = NoIPEndpointsFoundForHost : Assembly, Static, Literal, HasDefault
     System.String DnsResolveFailed = DnsResolveFailed : Assembly, Static, Literal, HasDefault
     System.String RequiredAttributeMissing = RequiredAttributeMissing : Assembly, Static, Literal, HasDefault
@@ -140,6 +138,8 @@ Class System.ServiceModel.SR: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldI
     System.String PrimarySignatureWasNotSignedByDerivedWrappedKey = PrimarySignatureWasNotSignedByDerivedWrappedKey : Assembly, Static, Literal, HasDefault
     System.String MessageWasNotEncryptedByDerivedWrappedKey = MessageWasNotEncryptedByDerivedWrappedKey : Assembly, Static, Literal, HasDefault
     System.String MessageWasNotEncryptedByDerivedEncryptionToken = MessageWasNotEncryptedByDerivedEncryptionToken : Assembly, Static, Literal, HasDefault
+    System.String SecurityStateEncoderDecodingFailure = SecurityStateEncoderDecodingFailure : Assembly, Static, Literal, HasDefault
+    System.String SecurityStateEncoderEncodingFailure = SecurityStateEncoderEncodingFailure : Assembly, Static, Literal, HasDefault
     System.String TokenAuthenticatorRequiresSecurityBindingElement = TokenAuthenticatorRequiresSecurityBindingElement : Assembly, Static, Literal, HasDefault
     System.String TokenProviderRequiresSecurityBindingElement = TokenProviderRequiresSecurityBindingElement : Assembly, Static, Literal, HasDefault
     System.String UnexpectedSecuritySessionCloseResponse = UnexpectedSecuritySessionCloseResponse : Assembly, Static, Literal, HasDefault
@@ -463,8 +463,6 @@ Class System.ServiceModel.SR: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldI
     System.String Hosting_CompilationResultEmpty = Hosting_CompilationResultEmpty : Assembly, Static, Literal, HasDefault
     System.String Hosting_CompilationResultInvalid = Hosting_CompilationResultInvalid : Assembly, Static, Literal, HasDefault
     System.String Hosting_EnvironmentShuttingDown = Hosting_EnvironmentShuttingDown : Assembly, Static, Literal, HasDefault
-    System.String Hosting_ExtendedProtectionFlagsNotSupport = Hosting_ExtendedProtectionFlagsNotSupport : Assembly, Static, Literal, HasDefault
-    System.String Hosting_ExtendedProtectionDotlessSpnNotEnabled = Hosting_ExtendedProtectionDotlessSpnNotEnabled : Assembly, Static, Literal, HasDefault
     System.String Hosting_ListenerNotFoundForActivation = Hosting_ListenerNotFoundForActivation : Assembly, Static, Literal, HasDefault
     System.String Hosting_ListenerNotFoundForActivationInRecycling = Hosting_ListenerNotFoundForActivationInRecycling : Assembly, Static, Literal, HasDefault
     System.String Hosting_MetabaseAccessError = Hosting_MetabaseAccessError : Assembly, Static, Literal, HasDefault
@@ -493,9 +491,13 @@ Class System.ServiceModel.SR: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldI
     System.String Hosting_ServiceTypeNotResolved = Hosting_ServiceTypeNotResolved : Assembly, Static, Literal, HasDefault
     System.String Hosting_ServiceHostBaseIsNull = Hosting_ServiceHostBaseIsNull : Assembly, Static, Literal, HasDefault
     System.String Hosting_ServiceCannotBeActivated = Hosting_ServiceCannotBeActivated : Assembly, Static, Literal, HasDefault
-    System.String Hosting_VirtualPathExtenstionCanNotBeDetached = Hosting_VirtualPathExtenstionCanNotBeDetached : Assembly, Static, Literal, HasDefault
+    System.String Hosting_ExtendedProtectionFlagsNotSupport = Hosting_ExtendedProtectionFlagsNotSupport : Assembly, Static, Literal, HasDefault
+    System.String Hosting_ExtendedProtectionSpnFormatError = Hosting_ExtendedProtectionSpnFormatError : Assembly, Static, Literal, HasDefault
+    System.String Hosting_ExtendedProtectionDotlessSpnNotEnabled = Hosting_ExtendedProtectionDotlessSpnNotEnabled : Assembly, Static, Literal, HasDefault
     System.String Hosting_ExtendedProtectionPoliciesMustMatch = Hosting_ExtendedProtectionPoliciesMustMatch : Assembly, Static, Literal, HasDefault
     System.String Hosting_ExtendedProtectionSPNListNotSubset = Hosting_ExtendedProtectionSPNListNotSubset : Assembly, Static, Literal, HasDefault
+    System.String Hosting_UnrecognizedTokenCheckingValue = Hosting_UnrecognizedTokenCheckingValue : Assembly, Static, Literal, HasDefault
+    System.String Hosting_VirtualPathExtenstionCanNotBeDetached = Hosting_VirtualPathExtenstionCanNotBeDetached : Assembly, Static, Literal, HasDefault
     System.String SharedEndpointReadDenied = SharedEndpointReadDenied : Assembly, Static, Literal, HasDefault
     System.String SharedEndpointReadNotFound = SharedEndpointReadNotFound : Assembly, Static, Literal, HasDefault
     System.String SharedManagerBase = SharedManagerBase : Assembly, Static, Literal, HasDefault
@@ -1069,8 +1071,8 @@ Class System.ServiceModel.SR: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldI
     System.String ExtendedProtectionPolicyEnforcementMismatch = ExtendedProtectionPolicyEnforcementMismatch : Assembly, Static, Literal, HasDefault
     System.String ExtendedProtectionPolicyScenarioMismatch = ExtendedProtectionPolicyScenarioMismatch : Assembly, Static, Literal, HasDefault
     System.String ExtendedProtectionPolicyCustomChannelBindingMismatch = ExtendedProtectionPolicyCustomChannelBindingMismatch : Assembly, Static, Literal, HasDefault
-    System.String ExtendedProtectionPolicyBasicAuthNotSupported = ExtendedProtectionPolicyBasicAuthNotSupported : Assembly, Static, Literal, HasDefault
     System.String ExtendedProtectionPolicyCustomChannelBindingNotSupported = ExtendedProtectionPolicyCustomChannelBindingNotSupported : Assembly, Static, Literal, HasDefault
+    System.String ExtendedProtectionPolicyBasicAuthNotSupported = ExtendedProtectionPolicyBasicAuthNotSupported : Assembly, Static, Literal, HasDefault
     System.String AcksToMustBeSameAsRemoteAddress = AcksToMustBeSameAsRemoteAddress : Assembly, Static, Literal, HasDefault
     System.String AcksToMustBeSameAsRemoteAddressReason = AcksToMustBeSameAsRemoteAddressReason : Assembly, Static, Literal, HasDefault
     System.String AssertionNotSupported = AssertionNotSupported : Assembly, Static, Literal, HasDefault
@@ -2355,6 +2357,7 @@ Class System.ServiceModel.SR: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldI
     System.String TraceCodeWebHostProtocolMisconfigured = TraceCodeWebHostProtocolMisconfigured : Assembly, Static, Literal, HasDefault
     System.String TraceCodeWebHostServiceActivated = TraceCodeWebHostServiceActivated : Assembly, Static, Literal, HasDefault
     System.String TraceCodeWebHostServiceCloseFailed = TraceCodeWebHostServiceCloseFailed : Assembly, Static, Literal, HasDefault
+    System.String TraceCodeWebHostNoCBTSupport = TraceCodeWebHostNoCBTSupport : Assembly, Static, Literal, HasDefault
     System.String TraceCodeWmiPut = TraceCodeWmiPut : Assembly, Static, Literal, HasDefault
     System.String TraceCodeWsmexNonCriticalWsdlExportError = TraceCodeWsmexNonCriticalWsdlExportError : Assembly, Static, Literal, HasDefault
     System.String TraceCodeWsmexNonCriticalWsdlImportError = TraceCodeWsmexNonCriticalWsdlImportError : Assembly, Static, Literal, HasDefault
@@ -3146,14 +3149,7 @@ Class System.ServiceModel.Channels.ChannelBuilder: AutoLayout, AnsiClass, Class,
     CanBuildChannelListener(): PrivateScope, Public, HideBySig
 Class System.ServiceModel.Channels.ChannelDemuxer: AutoLayout, AnsiClass, Class, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    System.TimeSpan PeekTimeout 'get set' : 
-    Int32 MaxPendingSessions 'get set' : 
   Methods:
-    get_PeekTimeout(): PrivateScope, Public, HideBySig, SpecialName
-    set_PeekTimeout(TimeSpan): PrivateScope, Public, HideBySig, SpecialName
-    get_MaxPendingSessions(): PrivateScope, Public, HideBySig, SpecialName
-    set_MaxPendingSessions(Int32): PrivateScope, Public, HideBySig, SpecialName
     BuildChannelListener(BindingContext): PrivateScope, Public, HideBySig
     BuildChannelListener(BindingContext, ChannelDemuxerFilter): PrivateScope, Public, HideBySig
 Class System.ServiceModel.Channels.TypedChannelDemuxer: AutoLayout, AnsiClass, Class, Abstract, BeforeFieldInit
@@ -3364,7 +3360,7 @@ Class System.ServiceModel.Channels.SessionChannelDemuxer`2[TInnerChannel,TInnerI
   Type parameter: TInnerChannel, System.ServiceModel.Channels.IChannel,  ReferenceType
   Type parameter: TInnerItem, System.IDisposable,  ReferenceType
   :System.ServiceModel.Channels.TypedChannelDemuxer
-    Void .ctor(System.ServiceModel.Channels.BindingContext, System.TimeSpan, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.ServiceModel.Channels.BindingContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
     System.ServiceModel.Channels.IChannelDemuxer
   Methods:
@@ -3378,7 +3374,7 @@ Class System.ServiceModel.Channels.SessionChannelDemuxer`2[TInnerChannel,TInnerI
     OnEndOuterListenerClose(IAsyncResult): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
 Class System.ServiceModel.Channels.InputSessionChannelDemuxer: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.ServiceModel.Channels.SessionChannelDemuxer`2[System.ServiceModel.Channels.IInputSessionChannel,System.ServiceModel.Channels.Message]
-    Void .ctor(System.ServiceModel.Channels.BindingContext, System.TimeSpan, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.ServiceModel.Channels.BindingContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class System.ServiceModel.Channels.LayeredChannel`1[TInnerChannel]: AutoLayout, AnsiClass, Class, Abstract, BeforeFieldInit
   Type parameter: TInnerChannel, System.ServiceModel.Channels.IChannel,  ReferenceType
   :System.ServiceModel.Channels.ChannelBase
@@ -3421,7 +3417,7 @@ Class System.ServiceModel.Channels.InputSessionChannelWrapper: AutoLayout, AnsiC
     get_Session(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
 Class System.ServiceModel.Channels.DuplexSessionChannelDemuxer: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.ServiceModel.Channels.SessionChannelDemuxer`2[System.ServiceModel.Channels.IDuplexSessionChannel,System.ServiceModel.Channels.Message]
-    Void .ctor(System.ServiceModel.Channels.BindingContext, System.TimeSpan, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.ServiceModel.Channels.BindingContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class System.ServiceModel.Channels.DuplexSessionChannelWrapper: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.ServiceModel.Channels.InputChannelWrapper
     Void .ctor(System.ServiceModel.Channels.ChannelManagerBase, System.ServiceModel.Channels.IDuplexSessionChannel, System.ServiceModel.Channels.Message): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -3445,7 +3441,7 @@ Class System.ServiceModel.Channels.DuplexSessionChannelWrapper: AutoLayout, Ansi
     EndSend(IAsyncResult): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
 Class System.ServiceModel.Channels.ReplySessionChannelDemuxer: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.ServiceModel.Channels.SessionChannelDemuxer`2[System.ServiceModel.Channels.IReplySessionChannel,System.ServiceModel.Channels.RequestContext]
-    Void .ctor(System.ServiceModel.Channels.BindingContext, System.TimeSpan, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.ServiceModel.Channels.BindingContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class System.ServiceModel.Channels.ReplyChannelWrapper: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.ServiceModel.Channels.ChannelWrapper`2[System.ServiceModel.Channels.IReplyChannel,System.ServiceModel.Channels.RequestContext]
     Void .ctor(System.ServiceModel.Channels.ChannelManagerBase, System.ServiceModel.Channels.IReplyChannel, System.ServiceModel.Channels.RequestContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -3490,14 +3486,7 @@ Class System.ServiceModel.Channels.ChannelDemuxerBindingElement: AutoLayout, Ans
   :System.ServiceModel.Channels.BindingElement
     Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
     Void .ctor(System.ServiceModel.Channels.ChannelDemuxerBindingElement): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    System.TimeSpan PeekTimeout 'get set' : 
-    Int32 MaxPendingSessions 'get set' : 
   Methods:
-    get_PeekTimeout(): PrivateScope, Public, HideBySig, SpecialName
-    set_PeekTimeout(TimeSpan): PrivateScope, Public, HideBySig, SpecialName
-    get_MaxPendingSessions(): PrivateScope, Public, HideBySig, SpecialName
-    set_MaxPendingSessions(Int32): PrivateScope, Public, HideBySig, SpecialName
     BuildChannelFactory(BindingContext): PrivateScope, Public, Virtual, HideBySig
     BuildChannelListener(BindingContext): PrivateScope, Public, Virtual, HideBySig
     CanBuildChannelFactory(BindingContext): PrivateScope, Public, Virtual, HideBySig
@@ -3922,6 +3911,7 @@ Class System.ServiceModel.Channels.RequestContextBase: AutoLayout, AnsiClass, Cl
     Boolean Aborted 'get ' : 
     System.TimeSpan DefaultCloseTimeout 'get ' : 
     System.TimeSpan DefaultSendTimeout 'get ' : 
+    System.ServiceModel.Channels.Message InternalRequestMessage 'get ' : 
   Methods:
     get_RequestMessage(): PrivateScope, Public, Virtual, HideBySig, SpecialName
     get_Aborted(): PrivateScope, Public, HideBySig, SpecialName
@@ -3935,6 +3925,7 @@ Class System.ServiceModel.Channels.RequestContextBase: AutoLayout, AnsiClass, Cl
     EndReply(IAsyncResult): PrivateScope, Public, Virtual, HideBySig
     Reply(Message): PrivateScope, Public, Virtual, HideBySig
     Reply(Message, TimeSpan): PrivateScope, Public, Virtual, HideBySig
+    get_InternalRequestMessage(): PrivateScope, Assembly, HideBySig, SpecialName
 Class System.ServiceModel.Channels.RequestContextMessageProperty: AutoLayout, AnsiClass, Class, BeforeFieldInit
     Void .ctor(System.ServiceModel.Channels.RequestContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
@@ -4631,16 +4622,20 @@ Class System.ServiceModel.Channels.ChannelBindingUtility: AutoLayout, AnsiClass,
   Properties:
     System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy DisabledPolicy 'get ' : 
     System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy DefaultPolicy 'get ' : 
+    Boolean OSSupportsExtendedProtection 'get ' : 
   Methods:
     get_DisabledPolicy(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_DefaultPolicy(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_OSSupportsExtendedProtection(): PrivateScope, Public, Static, HideBySig, SpecialName
     IsDefaultPolicy(ExtendedProtectionPolicy): PrivateScope, Public, Static, HideBySig
     CopyFrom(ExtendedProtectionPolicyElement, ExtendedProtectionPolicyElement): PrivateScope, Public, Static, HideBySig
     InitializeFrom(ExtendedProtectionPolicy, ExtendedProtectionPolicyElement): PrivateScope, Public, Static, HideBySig
     BuildPolicy(ExtendedProtectionPolicyElement): PrivateScope, Public, Static, HideBySig
     GetToken(SslStream): PrivateScope, Public, Static, HideBySig
+    DuplicateToken(ChannelBinding): PrivateScope, Public, Static, HideBySig
+    TryAddToMessage(ChannelBinding, Message, Boolean): PrivateScope, Public, Static, HideBySig
     GetToken(TransportContext): PrivateScope, Public, Static, HideBySig
-    ValidatePolicies(ExtendedProtectionPolicy, ExtendedProtectionPolicy, Exception&(Out)): PrivateScope, Public, Static, HideBySig
+    ValidatePolicies(ExtendedProtectionPolicy, ExtendedProtectionPolicy, Boolean): PrivateScope, Public, Static, HideBySig
     IsSubset(ServiceNameCollection, ServiceNameCollection): PrivateScope, Public, Static, HideBySig
 Interface System.ServiceModel.Channels.IChannelBindingProvider: AutoLayout, AnsiClass, Class, ClassSemanticsMask, Abstract
   Properties:
@@ -4648,6 +4643,15 @@ Interface System.ServiceModel.Channels.IChannelBindingProvider: AutoLayout, Ansi
   Methods:
     EnableChannelBindingSupport(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
     get_IsChannelBindingSupportEnabled(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class System.ServiceModel.Channels.ChannelBindingProviderHelper: AutoLayout, AnsiClass, Class, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.ServiceModel.Channels.IChannelBindingProvider
+  Properties:
+    Boolean IsChannelBindingSupportEnabled 'get set' : 
+  Methods:
+    EnableChannelBindingSupport(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_IsChannelBindingSupportEnabled(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
 Interface System.ServiceModel.Channels.IStreamUpgradeChannelBindingProvider: AutoLayout, AnsiClass, Class, ClassSemanticsMask, Abstract
   Interfaces:
     System.ServiceModel.Channels.IChannelBindingProvider
@@ -5748,6 +5752,7 @@ Class System.ServiceModel.Activation.HostedHttpRequestAsyncResult: AutoLayout, A
     System.Threading.WaitCallback WaitOnBeginRequestWithFlow 'get ' : 
     System.Threading.ContextCallback ContextOnBeginRequest 'get ' : 
     System.AsyncCallback ProcessRequestCompleteCallback 'get ' : 
+    Boolean IISSupportsExtendedProtection 'get ' : 
     System.Security.Principal.WindowsIdentity LogonUserIdentity 'get ' : 
     System.ServiceModel.Activation.HostedImpersonationContext ImpersonationContext 'get ' : 
     System.ServiceModel.Activation.HostedThreadData HostedThreadData 'get ' : 
@@ -5760,6 +5765,7 @@ Class System.ServiceModel.Activation.HostedHttpRequestAsyncResult: AutoLayout, A
     get_WaitOnBeginRequestWithFlow(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_ContextOnBeginRequest(): PrivateScope, Public, Static, HideBySig, SpecialName
     get_ProcessRequestCompleteCallback(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_IISSupportsExtendedProtection(): PrivateScope, Public, HideBySig, SpecialName
     ExecuteSynchronous(HttpApplication, Boolean): PrivateScope, Public, Static, HideBySig
     get_LogonUserIdentity(): PrivateScope, Public, HideBySig, SpecialName
     get_ImpersonationContext(): PrivateScope, Public, HideBySig, SpecialName
@@ -5967,8 +5973,6 @@ Class System.ServiceModel.Activation.Iis7Helper: AutoLayout, AnsiClass, Class, A
   Methods:
     get_IisVersion(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_IsIis7(): PrivateScope, Assembly, Static, HideBySig, SpecialName
-    ExtendedProtectionFlagsNotSupportThrowHelper(Object): PrivateScope, Assembly, Static, HideBySig
-    ExtendedProtectionDotlessSpnNotEnabledThrowHelper(Object): PrivateScope, Assembly, Static, HideBySig
 Class System.ServiceModel.Activation.MessageReceivedCallback: AutoLayout, AnsiClass, Class, Sealed
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -6000,6 +6004,8 @@ Class System.ServiceModel.Activation.MetabaseReader: AutoLayout, AnsiClass, Clas
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
 Class System.ServiceModel.Activation.MetabaseSettings: AutoLayout, AnsiClass, Class, Abstract, BeforeFieldInit
   Fields:
+    Char AboPathDelimiter = / : Assembly, Static, Literal, HasDefault
+    System.String DotDelimiter = . : Assembly, Static, Literal, HasDefault
     System.String LocalMachine = localhost : Assembly, Static, Literal, HasDefault
   Methods:
     GetRealm(String): PrivateScope, Assembly, Virtual, HideBySig, VtableLayoutMask, CheckAccessOnOverride, Abstract
@@ -7293,6 +7299,7 @@ Class System.ServiceModel.Channels.HttpRequestMessageProperty: AutoLayout, AnsiC
     set_QueryString(String): PrivateScope, Public, HideBySig, SpecialName
     get_SuppressEntityBody(): PrivateScope, Public, HideBySig, SpecialName
     set_SuppressEntityBody(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    MakeRequestContainerNull(): PrivateScope, Assembly, HideBySig
 Class System.ServiceModel.Channels.HttpResponseMessageProperty: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
     Void .ctor(System.Net.WebHeaderCollection): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -7314,8 +7321,6 @@ Class System.ServiceModel.Channels.HttpResponseMessageProperty: AutoLayout, Ansi
 Class System.ServiceModel.Channels.HttpsChannelFactory: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.ServiceModel.Channels.HttpChannelFactory
     Void .ctor(System.ServiceModel.Channels.HttpsTransportBindingElement, System.ServiceModel.Channels.BindingContext): PrivateScope, Assembly, HideBySig, SpecialName, RTSpecialName
-  Interfaces:
-    System.ServiceModel.Channels.IChannelBindingProvider
   Properties:
     System.String Scheme 'get ' : 
     Boolean RequireClientCertificate 'get ' : 
@@ -7324,14 +7329,11 @@ Class System.ServiceModel.Channels.HttpsChannelFactory: AutoLayout, AnsiClass, C
     get_Scheme(): PrivateScope, Public, Virtual, HideBySig, SpecialName
     get_RequireClientCertificate(): PrivateScope, Public, HideBySig, SpecialName
     get_IsChannelBindingSupportEnabled(): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    EnableChannelBindingSupport(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     GetProperty(): PrivateScope, Public, Virtual, HideBySig
     CreateReplySecurityProperty(HttpWebRequest, HttpWebResponse): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
 Class System.ServiceModel.Channels.HttpsChannelListener: AutoLayout, AnsiClass, Class, BeforeFieldInit
   :System.ServiceModel.Channels.HttpChannelListener
     Void .ctor(System.ServiceModel.Channels.HttpsTransportBindingElement, System.ServiceModel.Channels.BindingContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Interfaces:
-    System.ServiceModel.Channels.IChannelBindingProvider
   Properties:
     Boolean RequireClientCertificate 'get ' : 
     System.String Scheme 'get ' : 
@@ -7342,7 +7344,6 @@ Class System.ServiceModel.Channels.HttpsChannelListener: AutoLayout, AnsiClass, 
     get_Scheme(): PrivateScope, Public, Virtual, HideBySig, SpecialName
     get_IsChannelBindingSupportEnabled(): PrivateScope, Public, Virtual, HideBySig, SpecialName
     get_TransportManagerTable(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride, SpecialName
-    EnableChannelBindingSupport(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     GetProperty(): PrivateScope, Public, Virtual, HideBySig
     ApplyHostedContext(VirtualPathExtension, Boolean): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
     CreateTransportManagerRegistration(Uri): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride
@@ -14497,7 +14498,6 @@ Class System.ServiceModel.Configuration.ClientSection: AutoLayout, AnsiClass, Cl
     get_Metadata(): PrivateScope, Public, HideBySig, SpecialName
     GetSection(): PrivateScope, Assembly, Static, HideBySig
     UnsafeGetSection(): PrivateScope, Assembly, Static, HideBySig
-    UnsafeGetSection(ContextInformation): PrivateScope, Assembly, Static, HideBySig
 Class System.ServiceModel.Configuration.CallbackTimeoutsElement: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.ServiceModel.Configuration.BehaviorExtensionElement
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -14613,7 +14613,6 @@ Class System.ServiceModel.Configuration.ConfigurationHelpers: AutoLayout, AnsiCl
     GetSection(String): PrivateScope, Assembly, Static, HideBySig
     UnsafeGetSection(String): PrivateScope, Assembly, Static, HideBySig
     UnsafeGetSectionFromWebConfigurationManager(String): PrivateScope, Assembly, Static, HideBySig, HasSecurity
-    UnsafeGetSectionFromContext(ContextInformation, String): PrivateScope, Assembly, Static, HideBySig, HasSecurity
     GetSectionPath(String): PrivateScope, Assembly, Static, HideBySig
     SetIsPresent(ConfigurationElement): PrivateScope, Assembly, Static, HideBySig
     GetEvaluationContext(IConfigurationContextProviderInternal): PrivateScope, Assembly, Static, HideBySig
@@ -15372,7 +15371,7 @@ Class System.ServiceModel.Configuration.HttpTransportSecurityElement: AutoLayout
   Properties:
     System.ServiceModel.HttpClientCredentialType ClientCredentialType 'get set' : 
     System.ServiceModel.HttpProxyCredentialType ProxyCredentialType 'get set' : 
-    System.Security.Authentication.ExtendedProtection.Configuration.ExtendedProtectionPolicyElement ExtendedProtectionPolicy 'get ' : 
+    System.Security.Authentication.ExtendedProtection.Configuration.ExtendedProtectionPolicyElement ExtendedProtectionPolicy 'get set' : 
     System.String Realm 'get set' : 
   Methods:
     get_ClientCredentialType(): PrivateScope, Public, HideBySig, SpecialName
@@ -16732,7 +16731,7 @@ Class System.ServiceModel.Configuration.TcpTransportElement: AutoLayout, AnsiCla
     Boolean PortSharingEnabled 'get set' : 
     Boolean TeredoEnabled 'get set' : 
     System.ServiceModel.Configuration.TcpConnectionPoolSettingsElement ConnectionPoolSettings 'get set' : 
-    System.Security.Authentication.ExtendedProtection.Configuration.ExtendedProtectionPolicyElement ExtendedProtectionPolicy 'get ' : 
+    System.Security.Authentication.ExtendedProtection.Configuration.ExtendedProtectionPolicyElement ExtendedProtectionPolicy 'get set' : 
   Methods:
     ApplyConfiguration(BindingElement): PrivateScope, Public, Virtual, HideBySig
     get_BindingElementType(): PrivateScope, Public, Virtual, HideBySig, SpecialName
@@ -16752,7 +16751,7 @@ Class System.ServiceModel.Configuration.TcpTransportSecurityElement: AutoLayout,
   Properties:
     System.ServiceModel.TcpClientCredentialType ClientCredentialType 'get set' : 
     System.Net.Security.ProtectionLevel ProtectionLevel 'get set' : 
-    System.Security.Authentication.ExtendedProtection.Configuration.ExtendedProtectionPolicyElement ExtendedProtectionPolicy 'get ' : 
+    System.Security.Authentication.ExtendedProtection.Configuration.ExtendedProtectionPolicyElement ExtendedProtectionPolicy 'get set' : 
   Methods:
     get_ClientCredentialType(): PrivateScope, Public, HideBySig, SpecialName
     set_ClientCredentialType(TcpClientCredentialType): PrivateScope, Public, HideBySig, SpecialName
@@ -17522,7 +17521,7 @@ Class System.ServiceModel.Configuration.WSHttpTransportSecurityElement: AutoLayo
   Properties:
     System.ServiceModel.HttpClientCredentialType ClientCredentialType 'get set' : 
     System.ServiceModel.HttpProxyCredentialType ProxyCredentialType 'get set' : 
-    System.Security.Authentication.ExtendedProtection.Configuration.ExtendedProtectionPolicyElement ExtendedProtectionPolicy 'get ' : 
+    System.Security.Authentication.ExtendedProtection.Configuration.ExtendedProtectionPolicyElement ExtendedProtectionPolicy 'get set' : 
     System.String Realm 'get set' : 
   Methods:
     get_ClientCredentialType(): PrivateScope, Public, HideBySig, SpecialName
@@ -18510,7 +18509,9 @@ Class System.ServiceModel.Administration.AdministrationStrings: AutoLayout, Ansi
     System.String Contract = Contract : Assembly, Static, Literal, HasDefault
     System.String ContractName = ContractName : Assembly, Static, Literal, HasDefault
     System.String CounterInstanceName = CounterInstanceName : Assembly, Static, Literal, HasDefault
+    System.String CustomChannelBinding = CustomChannelBinding : Assembly, Static, Literal, HasDefault
     System.String CustomDeadLetterQueue = CustomDeadLetterQueue : Assembly, Static, Literal, HasDefault
+    System.String CustomServiceNames = CustomServiceNames : Assembly, Static, Literal, HasDefault
     System.String Custom = Custom : Assembly, Static, Literal, HasDefault
     System.String DeadLetterQueue = DeadLetterQueue : Assembly, Static, Literal, HasDefault
     System.String DefaultAlgorithmSuite = DefaultAlgorithmSuite : Assembly, Static, Literal, HasDefault
@@ -18525,6 +18526,7 @@ Class System.ServiceModel.Administration.AdministrationStrings: AutoLayout, Ansi
     System.String Endpoints = Endpoints : Assembly, Static, Literal, HasDefault
     System.String Encoding = Encoding : Assembly, Static, Literal, HasDefault
     System.String ExactlyOnce = ExactlyOnce : Assembly, Static, Literal, HasDefault
+    System.String ExtendedProtectionPolicy = ExtendedProtectionPolicy : Assembly, Static, Literal, HasDefault
     System.String Extensions = Extensions : Assembly, Static, Literal, HasDefault
     System.String ExternalMetadataLocation = ExternalMetadataLocation : Assembly, Static, Literal, HasDefault
     System.String FlowControlEnabled = FlowControlEnabled : Assembly, Static, Literal, HasDefault
@@ -18638,6 +18640,7 @@ Class System.ServiceModel.Administration.AdministrationStrings: AutoLayout, Ansi
     System.String PeerTransportSecuritySettings = PeerTransportSecuritySettings : Assembly, Static, Literal, HasDefault
     System.String PeerResolver = Resolver : Assembly, Static, Literal, HasDefault
     System.String PerformanceCounters = PerformanceCounters : Assembly, Static, Literal, HasDefault
+    System.String PolicyEnforcement = PolicyEnforcement : Assembly, Static, Literal, HasDefault
     System.String PolicyVersion = PolicyVersion : Assembly, Static, Literal, HasDefault
     System.String Port = Port : Assembly, Static, Literal, HasDefault
     System.String PortSharingEnabled = PortSharingEnabled : Assembly, Static, Literal, HasDefault
@@ -18645,6 +18648,7 @@ Class System.ServiceModel.Administration.AdministrationStrings: AutoLayout, Ansi
     System.String PrivacyNoticeVersion = PrivacyNoticeVersion : Assembly, Static, Literal, HasDefault
     System.String ProcessId = ProcessId : Assembly, Static, Literal, HasDefault
     System.String ProtectionLevel = ProtectionLevel : Assembly, Static, Literal, HasDefault
+    System.String ProtectionScenario = ProtectionScenario : Assembly, Static, Literal, HasDefault
     System.String ProxyAddress = ProxyAddress : Assembly, Static, Literal, HasDefault
     System.String ProxyAuthenticationScheme = ProxyAuthenticationScheme : Assembly, Static, Literal, HasDefault
     System.String QueuedDeliveryRequirements = QueuedDeliveryRequirements : Assembly, Static, Literal, HasDefault
@@ -22144,6 +22148,14 @@ Class System.ServiceModel.Security.CommunicationObjectSecurityTokenProvider: Aut
     OnOpen(TimeSpan): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
     OnOpened(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
     OnOpening(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class System.ServiceModel.ClientCredentialsSecurityTokenManager+KerberosSecurityTokenProviderWrapper: AutoLayout, AnsiClass, Class, NestedAssembly, BeforeFieldInit
+  :System.ServiceModel.Security.CommunicationObjectSecurityTokenProvider
+    Void .ctor(System.IdentityModel.Selectors.KerberosSecurityTokenProvider, System.IdentityModel.SafeFreeCredentials): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    OnOpening(): PrivateScope, Public, Virtual, HideBySig
+    OnClose(TimeSpan): PrivateScope, Public, Virtual, HideBySig
+    OnAbort(): PrivateScope, Public, Virtual, HideBySig
+    GetToken(TimeSpan, ChannelBinding): PrivateScope, Assembly, HideBySig
 Class System.ServiceModel.Security.InfoCardChannelParameter: AutoLayout, AnsiClass, Class, BeforeFieldInit
     Void .ctor(System.IdentityModel.Tokens.SecurityToken, System.Uri, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -26076,7 +26088,7 @@ Interface System.ServiceModel.Security.ISspiNegotiation: AutoLayout, AnsiClass, 
     get_KeyEncryptionAlgorithm(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     Decrypt(Byte[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
     Encrypt(Byte[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-    GetOutgoingBlob(Byte[], IExtendedProtectionSupport): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetOutgoingBlob(Byte[], ChannelBinding, ExtendedProtectionPolicy): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
     GetRemoteIdentityName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
 Class System.ServiceModel.Security.CommunicationObjectSecurityTokenAuthenticator: AutoLayout, AnsiClass, Class, Abstract, BeforeFieldInit
   :System.IdentityModel.Selectors.SecurityTokenAuthenticator
@@ -26413,21 +26425,16 @@ Class System.ServiceModel.Security.SecurityNegotiationException: AutoLayout, Ans
     Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class System.ServiceModel.Security.SspiNegotiationTokenAuthenticator: AutoLayout, AnsiClass, Class, Abstract, BeforeFieldInit
   :System.ServiceModel.Security.NegotiationTokenAuthenticator`1[System.ServiceModel.Security.SspiNegotiationTokenAuthenticatorState]
-  Interfaces:
-    System.IdentityModel.Selectors.IExtendedProtectionSupport
   Properties:
-    System.Xml.XmlDictionaryString NegotiationValueType 'get ' : 
-    System.Security.Authentication.ExtendedProtection.ChannelBinding ChannelBinding 'get set' : 
     System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy ExtendedProtectionPolicy 'get set' : 
     System.String DefaultServiceBinding 'get set' : 
+    System.Xml.XmlDictionaryString NegotiationValueType 'get ' : 
   Methods:
-    get_NegotiationValueType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    get_ChannelBinding(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    set_ChannelBinding(ChannelBinding): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    get_ExtendedProtectionPolicy(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    set_ExtendedProtectionPolicy(ExtendedProtectionPolicy): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_ExtendedProtectionPolicy(): PrivateScope, Public, HideBySig, SpecialName
+    set_ExtendedProtectionPolicy(ExtendedProtectionPolicy): PrivateScope, Public, HideBySig, SpecialName
     get_DefaultServiceBinding(): PrivateScope, Public, HideBySig, SpecialName
     set_DefaultServiceBinding(String): PrivateScope, Public, HideBySig, SpecialName
+    get_NegotiationValueType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
 Class System.ServiceModel.Security.SpnegoTokenAuthenticator: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
   :System.ServiceModel.Security.SspiNegotiationTokenAuthenticator
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -26449,22 +26456,14 @@ Class System.ServiceModel.Security.SpnegoTokenAuthenticator: AutoLayout, AnsiCla
     OnAbort(): PrivateScope, Public, Virtual, HideBySig
 Class System.ServiceModel.Security.SspiNegotiationTokenProvider: AutoLayout, AnsiClass, Class, Abstract, BeforeFieldInit
   :System.ServiceModel.Security.NegotiationTokenProvider`1[System.ServiceModel.Security.SspiNegotiationTokenProviderState]
-  Interfaces:
-    System.IdentityModel.Selectors.IExtendedProtectionSupport
   Properties:
     Boolean NegotiateTokenOnOpen 'get set' : 
     System.Xml.XmlDictionaryString NegotiationValueType 'get ' : 
-    System.Security.Authentication.ExtendedProtection.ChannelBinding ChannelBinding 'get set' : 
-    System.Security.Authentication.ExtendedProtection.ExtendedProtectionPolicy ExtendedProtectionPolicy 'get set' : 
   Methods:
     get_NegotiateTokenOnOpen(): PrivateScope, Public, HideBySig, SpecialName
     set_NegotiateTokenOnOpen(Boolean): PrivateScope, Public, HideBySig, SpecialName
     get_NegotiationValueType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     OnOpen(TimeSpan): PrivateScope, Public, Virtual, HideBySig
-    get_ChannelBinding(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    set_ChannelBinding(ChannelBinding): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    get_ExtendedProtectionPolicy(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    set_ExtendedProtectionPolicy(ExtendedProtectionPolicy): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
 Interface System.ServiceModel.Security.ISspiNegotiationInfo: AutoLayout, AnsiClass, Class, ClassSemanticsMask, Abstract
   Properties:
     System.ServiceModel.Security.ISspiNegotiation SspiNegotiation 'get ' : 
@@ -26636,7 +26635,7 @@ Class System.ServiceModel.Security.TlsSspiNegotiation: AutoLayout, AnsiClass, Cl
     Decrypt(Byte[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     Encrypt(Byte[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
-    GetOutgoingBlob(Byte[], IExtendedProtectionSupport): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetOutgoingBlob(Byte[], ChannelBinding, ExtendedProtectionPolicy): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     DecryptInPlace(Byte[], Int32&(Out), Int32&(Out)): PrivateScope, Assembly, HideBySig
     EncryptInPlace(Byte[], Int32, Int32, Int32&(Out)): PrivateScope, Assembly, HideBySig
     TryGetContextIdentity(WindowsIdentity&(Out)): PrivateScope, Assembly, HideBySig
@@ -26672,7 +26671,7 @@ Class System.ServiceModel.Security.WindowsSspiNegotiation: AutoLayout, AnsiClass
     Decrypt(Byte[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     Encrypt(Byte[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
-    GetOutgoingBlob(Byte[], IExtendedProtectionSupport): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetOutgoingBlob(Byte[], ChannelBinding, ExtendedProtectionPolicy): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     ImpersonateContext(): PrivateScope, Public, HideBySig
     CloseContext(): PrivateScope, Assembly, HideBySig
     GetContextToken(): PrivateScope, Assembly, HideBySig
@@ -28048,6 +28047,14 @@ Class System.ServiceModel.Security.ServiceCredentialsSecurityTokenManager: AutoL
     CreateSecurityTokenAuthenticator(SecurityTokenRequirement, SecurityTokenResolver&(Out)): PrivateScope, Public, Virtual, HideBySig
     CreateSecurityTokenProvider(SecurityTokenRequirement): PrivateScope, Public, Virtual, HideBySig
     GetIdentityOfSelf(SecurityTokenRequirement): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class System.ServiceModel.Security.ServiceCredentialsSecurityTokenManager+KerberosSecurityTokenAuthenticatorWrapper: AutoLayout, AnsiClass, Class, NestedAssembly, BeforeFieldInit
+  :System.ServiceModel.Security.CommunicationObjectSecurityTokenAuthenticator
+    Void .ctor(System.IdentityModel.Selectors.KerberosSecurityTokenAuthenticator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    OnOpening(): PrivateScope, Public, Virtual, HideBySig
+    OnClose(TimeSpan): PrivateScope, Public, Virtual, HideBySig
+    OnAbort(): PrivateScope, Public, Virtual, HideBySig
+    ValidateToken(SecurityToken, ChannelBinding, ExtendedProtectionPolicy): PrivateScope, Assembly, HideBySig
 Class System.ServiceModel.Description.ServiceAuthorizationBehavior: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
@@ -29075,16 +29082,13 @@ Class System.ServiceModel.ChannelFactory: AutoLayout, AnsiClass, Class, Public, 
     System.ServiceModel.Description.ClientCredentials Credentials 'get ' : 
     System.ServiceModel.Description.ServiceEndpoint Endpoint 'get ' : 
     System.ServiceModel.Channels.IChannelFactory InnerFactory 'get ' : 
-    Boolean IsSharable 'get ' : 
   Methods:
     get_Credentials(): PrivateScope, Public, HideBySig, SpecialName
     get_Endpoint(): PrivateScope, Public, HideBySig, SpecialName
     get_InnerFactory(): PrivateScope, Assembly, HideBySig, SpecialName
-    get_IsSharable(): PrivateScope, Assembly, HideBySig, SpecialName
     CreateEndpointAddress(ServiceEndpoint): PrivateScope, Assembly, HideBySig
     GetProperty(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     HasDuplexOperations(): PrivateScope, Assembly, HideBySig
-    InitializeEndpoint(String, EndpointAddress, Configuration): PrivateScope, Assembly, HideBySig
 Class System.ServiceModel.ChannelFactory`1[TChannel]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   Type parameter: TChannel
   :System.ServiceModel.ChannelFactory
@@ -29124,10 +29128,6 @@ Class System.ServiceModel.ChannelFactory`1[TChannel]: AutoLayout, AnsiClass, Cla
     CreateChannel(Binding, EndpointAddress): PrivateScope, Public, Static, HideBySig
     CreateChannel(Binding, EndpointAddress, Uri): PrivateScope, Public, Static, HideBySig
     SetFactoryToAutoClose(TChannel): PrivateScope, Assembly, Static, HideBySig
-Class System.ServiceModel.Configuration.ConfigurationChannelFactory`1[TChannel]: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
-  Type parameter: TChannel
-  :System.ServiceModel.ChannelFactory`1[TChannel]
-    Void .ctor(System.String, System.Configuration.Configuration, System.ServiceModel.EndpointAddress): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class System.ServiceModel.EndpointTrait`1[TChannel]: AutoLayout, AnsiClass, Class, Sealed, BeforeFieldInit
   Type parameter: TChannel,  ReferenceType
     Void .ctor(System.String, System.ServiceModel.EndpointAddress, System.ServiceModel.InstanceContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -29435,7 +29435,6 @@ Class System.ServiceModel.DuplexChannelFactory`1[TChannel]: AutoLayout, AnsiClas
     Void .ctor(System.Object, System.ServiceModel.Channels.Binding, System.ServiceModel.EndpointAddress): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
     Void .ctor(System.Object, System.ServiceModel.Description.ServiceEndpoint): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
-    CheckAndAssignCallbackInstance(Object): PrivateScope, Assembly, HideBySig
     CreateChannel(InstanceContext): PrivateScope, Public, HideBySig
     CreateChannel(InstanceContext, EndpointAddress): PrivateScope, Public, HideBySig
     CreateChannel(EndpointAddress, Uri): PrivateScope, Public, Virtual, HideBySig
@@ -29446,10 +29445,6 @@ Class System.ServiceModel.DuplexChannelFactory`1[TChannel]: AutoLayout, AnsiClas
     CreateChannel(InstanceContext, String): PrivateScope, Public, Static, HideBySig
     CreateChannel(InstanceContext, Binding, EndpointAddress): PrivateScope, Public, Static, HideBySig
     CreateChannel(InstanceContext, Binding, EndpointAddress, Uri): PrivateScope, Public, Static, HideBySig
-Class System.ServiceModel.Configuration.ConfigurationDuplexChannelFactory`1[TChannel]: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
-  Type parameter: TChannel
-  :System.ServiceModel.DuplexChannelFactory`1[TChannel]
-    Void .ctor(System.Object, System.String, System.ServiceModel.EndpointAddress, System.Configuration.Configuration): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class System.ServiceModel.ExceptionDetail: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -32713,7 +32708,6 @@ Class System.ServiceModel.Description.ClientClassGenerator: AutoLayout, AnsiClas
     GetClientClassName(String): PrivateScope, Assembly, Static, HideBySig
 Class System.ServiceModel.Description.ConfigLoader: AutoLayout, AnsiClass, Class, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(System.Configuration.ContextInformation): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
     Void .ctor(System.ServiceModel.Description.IContractResolver): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
     LoadIdentity(IdentityElement): PrivateScope, Assembly, Static, HideBySig
@@ -40696,3 +40690,19 @@ Class System.ServiceModel.WSAtomicTransaction11Protocol: AutoLayout, AnsiClass, 
   Methods:
     get_Instance(): PrivateScope, Assembly, Static, HideBySig, SpecialName
     get_Name(): PrivateScope, Assembly, Virtual, HideBySig, CheckAccessOnOverride, SpecialName
+Class <PrivateImplementationDetails>{63909443-08BD-4886-937D-30AD9C565E82}: NotPublic
+  Fields:
+    __StaticArrayInitTypeSize=5 $$method0x6007178-1 : Assembly, Static, HasFieldRVA
+    __StaticArrayInitTypeSize=5 $$method0x6007179-1 : Assembly, Static, HasFieldRVA
+    __StaticArrayInitTypeSize=5 $$method0x600717b-1 : Assembly, Static, HasFieldRVA
+    __StaticArrayInitTypeSize=5 $$method0x600717d-1 : Assembly, Static, HasFieldRVA
+    Int64 $$method0x6001814-1 : Assembly, Static, HasFieldRVA
+    System.Collections.Generic.Dictionary`2[System.String,System.Int32] $$method0x600209f-1 : Assembly, Static
+    System.Collections.Generic.Dictionary`2[System.String,System.Int32] $$method0x60020a4-1 : Assembly, Static
+    System.Collections.Generic.Dictionary`2[System.String,System.Int32] $$method0x600255b-1 : Assembly, Static
+    __StaticArrayInitTypeSize=42 $$method0x600722c-1 : Assembly, Static, HasFieldRVA
+    System.Collections.Generic.Dictionary`2[System.String,System.Int32] $$method0x6004bf5-1 : Assembly, Static
+    System.Collections.Generic.Dictionary`2[System.String,System.Int32] $$method0x6004bfa-1 : Assembly, Static
+    __StaticArrayInitTypeSize=5 $$method0x60073c1-1 : Assembly, Static, HasFieldRVA
+    __StaticArrayInitTypeSize=13 $$method0x60073c1-2 : Assembly, Static, HasFieldRVA
+    __StaticArrayInitTypeSize=9 $$method0x60073c1-3 : Assembly, Static, HasFieldRVA

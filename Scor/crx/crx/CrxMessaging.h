@@ -89,9 +89,9 @@ namespace AtCor {
 					*
 					* @return The error message for the specified code
 					*
-					* @param[in] StringCode	The error string for which message is required.
+					* @param[in] StrCode	The error string for which message is required.
 					*/
-					String ^GetMessage(String^ stringCode); //Method to pass an error Stringcode as a string and obtain corresponding error message
+					String ^GetMessage(String^ strCode); //Method to pass an error Stringcode as a string and obtain corresponding error message
 
 			};
 

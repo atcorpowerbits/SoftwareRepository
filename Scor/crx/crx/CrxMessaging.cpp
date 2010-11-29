@@ -1,3 +1,12 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+     Filename     :      CrxMessaging.cpp
+        
+	 Author       :      Smarajit Mishra
+ 
+     Description  :      Functionality implementation for messaging manager
+*/
 #include "stdafx.h"
 #include "CrxMessaging.h"
 
@@ -34,12 +43,12 @@ String ^CrxMessagingManager::GetMessage(int errorCode)
 }
 
 //Returns an error message corresponding to the specified errorcode.
-String ^CrxMessagingManager::GetMessage(String^ stringCode) 
+String ^CrxMessagingManager::GetMessage(String^ strCode) 
 {
 	String^	errorString		= nullptr;//Get error string and return, set to null
 	
 	try
-	{	
+	{			
 		//Check whether default resource file is exists or not
 		if(!File::Exists(_nameOfAppResxfile))
 		{ 
@@ -47,7 +56,7 @@ String ^CrxMessagingManager::GetMessage(String^ stringCode)
 		}
 
 		//Get the message string through resource manager object
-		errorString = errRsrcMsg->GetString(stringCode);
+		errorString = errRsrcMsg->GetString(strCode);
 
 		//validation to check string is returned or not, 
 		//if string length is equals to zero then send the string "Error Code not found"

@@ -176,17 +176,17 @@
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\..\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
+			RelativePath="d:\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\..\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
+			RelativePath="d:\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\..\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
+			RelativePath="d:\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
 			AssemblyName="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
@@ -204,6 +204,11 @@
 			RelativePath="System.Windows.Forms.dll"
 			AssemblyName="System.Windows.Forms, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
+		/>
+		<AssemblyReference
+			RelativePath="d:\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Data.dll"
+			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
 		/>
 	</References>
 	<Files>
@@ -233,7 +238,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crxCrossCutting.cpp"
+				RelativePath=".\CrxCrossCutting.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxDatabase.cpp"
 				>
 			</File>
 			<File
@@ -291,7 +300,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crxCrossCutting.h"
+				RelativePath=".\CrxCrossCutting.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxDatabase.h"
 				>
 			</File>
 			<File

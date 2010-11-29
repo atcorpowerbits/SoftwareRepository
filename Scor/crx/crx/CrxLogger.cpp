@@ -1,4 +1,12 @@
-// This is the main DLL file.
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+     Filename     :      CrxLogger.cpp
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      Functionality implementation for Logger
+*/
 
 #include "stdafx.h"
 

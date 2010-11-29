@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Gui.Atcor.Scor.Presentation
+namespace AtCor.Scor.Gui.Presentation
 {
     static class Program
     {

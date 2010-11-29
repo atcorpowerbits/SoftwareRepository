@@ -119,6 +119,6 @@ namespace AtCor
 
 			};
 
-		} // End crosscutting
-	} // End Scor
-} // End AtCor
+		}
+	}
+}

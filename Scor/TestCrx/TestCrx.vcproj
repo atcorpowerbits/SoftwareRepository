@@ -184,7 +184,7 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3959.33807, processorArchitecture=x86"
+			AssemblyName="crx, Version=1.0.3981.20664, processorArchitecture=x86"
 			MinFrameworkVersion="196613"
 		/>
 		<ProjectReference
@@ -222,13 +222,28 @@
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
-			RelativePath=".\crx_Accessor.dll"
-			AssemblyName="crx_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
+			RelativePath="..\..\..\..\..\1. Program files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Data.dll"
+			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath="Microsoft.SqlServer.ConnectionInfo.dll"
+			AssemblyName="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
 			MinFrameworkVersion="0"
 		/>
 		<AssemblyReference
-			RelativePath="..\Debug\dal.dll"
-			AssemblyName="dal, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			RelativePath="..\..\..\..\..\1. Program files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.dll"
+			AssemblyName="Microsoft.Practices.Unity, Version=2.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath="..\..\..\..\..\1. Program files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.Interception.dll"
+			AssemblyName="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath=".\crx_Accessor.dll"
+			AssemblyName="crx_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
 			MinFrameworkVersion="0"
 		/>
 	</References>
@@ -251,6 +266,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CrxDBManagerTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CrxExceptionTest.cpp"
 				>
 			</File>
@@ -264,6 +283,14 @@
 			</File>
 			<File
 				RelativePath=".\CrxStructGeneralSettingTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxStructPatientDemographicDataTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxStructPWVMeasurementDataTest.cpp"
 				>
 			</File>
 			<File
@@ -289,6 +316,10 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\TestLoggerMessaging.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter

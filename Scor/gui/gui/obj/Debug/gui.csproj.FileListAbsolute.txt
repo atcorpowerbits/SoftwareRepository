@@ -34,53 +34,58 @@ D:\Atcor_SVN\src\trunk\Scor\gui\gui\obj\Debug\scor.exe
 D:\Atcor_SVN\src\trunk\Scor\gui\gui\obj\Debug\scor.pdb
 D:\Atcor_SVN\src\trunk\Scor\gui\gui\bin\Debug\dal.dll
 D:\Atcor_SVN\src\trunk\Scor\gui\gui\bin\Debug\dal.pdb
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\scor.exe.config
-C:\Codes\TM_Sprint2\Scor\gui\gui\obj\Debug\scor.exe
-C:\Codes\TM_Sprint2\Scor\gui\gui\obj\Debug\scor.pdb
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\scor.exe
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\scor.pdb
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\biz.dll
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\crx.dll
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\crx.pdb
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
-C:\Codes\TM_Sprint2\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
-C:\Codes\TM_Sprint2\Scor\gui\gui\obj\Debug\Gui.Atcor.Scor.Presentation.DefaultWindow.resources
-C:\Codes\TM_Sprint2\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
-C:\Codes\TM_Sprint2\Scor\gui\gui\obj\Debug\Gui.Atcor.Scor.Presentation.frmSettingsWindow.resources
-C:\Codes\TM_Sprint2\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\dal.dll
-C:\Codes\TM_Sprint2\Scor\gui\gui\bin\Debug\dal.pdb
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.exe.config
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.exe
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.pdb
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\biz.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\crx.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\crx.pdb
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
-C:\Projects\PN022\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
-C:\Projects\PN022\Scor\gui\gui\obj\Debug\Gui.Atcor.Scor.Presentation.DefaultWindow.resources
-C:\Projects\PN022\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
-C:\Projects\PN022\Scor\gui\gui\obj\Debug\Gui.Atcor.Scor.Presentation.frmSettingsWindow.resources
-C:\Projects\PN022\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
-C:\Projects\PN022\Scor\gui\gui\obj\Debug\scor.exe
-C:\Projects\PN022\Scor\gui\gui\obj\Debug\scor.pdb
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\dal.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\dal.pdb
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\scor.exe.config
+D:\Vibhuti_new\Scor\gui\gui\obj\Debug\scor.exe
+D:\Vibhuti_new\Scor\gui\gui\obj\Debug\scor.pdb
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\scor.exe
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\scor.pdb
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\biz.dll
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\crx.dll
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\crx.pdb
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+D:\Vibhuti_new\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+D:\Vibhuti_new\Scor\gui\gui\obj\Debug\Gui.Atcor.Scor.Presentation.DefaultWindow.resources
+D:\Vibhuti_new\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+D:\Vibhuti_new\Scor\gui\gui\obj\Debug\Gui.Atcor.Scor.Presentation.frmSettingsWindow.resources
+D:\Vibhuti_new\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\dal.dll
+D:\Vibhuti_new\Scor\gui\gui\bin\Debug\dal.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\scor.exe.config
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\scor.exe
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\scor.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\biz.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\crx.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\crx.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\scor.exe
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\scor.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\dal.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\dal.pdb
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\TelerikData.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources

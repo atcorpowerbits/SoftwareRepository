@@ -1,4 +1,12 @@
-// CrxConfiguration.cpp : main project file.
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      CrxConfiguration.cpp
+        
+     Author       :		 Smarajit Mishra
+ 
+     Description  :      Functionality implementation for configuration manager
+*/
 
 #include "stdafx.h"
 #include "CrxConfiguration.h"
@@ -80,7 +88,7 @@ void CrxConfigManager::SetSettings(String^ Section, String^ SubSection, CrxStruc
 		//Check whether file is exists or not
 		if(!File::Exists(_nameOfFile))
 		{ 
-			throw gcnew CrxException(CRXERR_FILE_NOT_EXIST); // File not found
+			throw gcnew CrxException("CRX_ERR_FILE_NOT_EXIST"); // File not found
 		}		
 		
 		//Check whether File Access is provided or not
@@ -90,13 +98,13 @@ void CrxConfigManager::SetSettings(String^ Section, String^ SubSection, CrxStruc
 		}
 		catch(Exception^)
 		{
-			throw gcnew CrxException(CRXERR_FILE_NOT_ACCESS); // File not accessable
+			throw gcnew CrxException("CRX_ERR_FILE_CANNOT_ACCESS"); // File not accessable
 		}
 
 		//Check whether have the access to write or not
 		if(!fs->CanWrite)
 		{
-			throw gcnew CrxException(CRXERR_FILE_NOT_ACCESS); // File not accessable
+			throw gcnew CrxException("CRX_ERR_FILE_CANNOT_ACCESS"); // File not accessable
 		}
 		
 		//Close the file Access Object
@@ -124,12 +132,13 @@ void CrxConfigManager::SetSettings(String^ Section, String^ SubSection, CrxStruc
 		
 		
 		doc->Save(_nameOfFile);	
-
+		
 	}
 	catch (XmlException^) 
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE); // any xml exception is rethrown as corrupt file exception
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT"); // any xml exception is rethrown as corrupt file exception
 	}
+	
 	finally 
 	{
 		//Close the file Access Object
@@ -156,7 +165,7 @@ void CrxConfigManager::SetSettingsNode(String^ Section, String^ SubSection, CrxS
 	//Check if node is empty or not, if empty throw exception
 	if (node == nullptr)
 	{
-		throw gcnew CrxException(101);
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");
 	}
 
 	//Processes each node for values
@@ -198,7 +207,7 @@ void CrxConfigManager::SetSettingsNode(String^ Section, String^ SubSection, CrxS
 	}
 	if (startflag == false)
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 }
 
@@ -245,7 +254,7 @@ void CrxConfigManager::SetGeneralSettingsNode(CrxStructGeneralSetting^ gs, XmlNo
 	}
 	else
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file		
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file		
 	}
 }
 
@@ -292,7 +301,7 @@ void CrxConfigManager::SetPwvSettingsNode(CrxStructPwvSetting^ ps, XmlNode^ node
 	}
 	else
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file		
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file		
 	}
 }
 
@@ -314,7 +323,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 		//Check whether file is exists or not
 		if(!File::Exists(_nameOfFile))
 		{
-			throw gcnew CrxException(CRXERR_FILE_NOT_EXIST); // File not found
+			throw gcnew CrxException("CRX_ERR_FILE_NOT_EXIST"); // File not found
 		}
 	
 		//Reads the XML data from filepath and store in reader object
@@ -340,7 +349,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 					//Validate if the Element name is valid or not, if not, throws exception
 					if(!configXMLElements->Contains("'" + GetXMLSection + "'"))
 					{
-						throw gcnew CrxException(CRXERR_CORRUPT_FILE); //corrupt file
+						throw gcnew CrxException("CRX_ERR_FILE_CORRUPT"); //corrupt file
 					}
 
 					if(Section == GetXMLSection)
@@ -355,7 +364,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 					//Check if the Element is Empty or not, if yes, throws exception
                     if (reader->IsEmptyElement) 
 					{
-						throw gcnew CrxException(CRXERR_CORRUPT_FILE); //corrupt file
+						throw gcnew CrxException("CRX_ERR_FILE_CORRUPT"); //corrupt file
 					}
 					break; 
 
@@ -400,7 +409,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 	catch (XmlException^) 
 	{
 		//Throws again an exception
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE); // any xml exception is rethrown as corrupt file exception
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT"); // any xml exception is rethrown as corrupt file exception
 	}
 	//Finally stage to close all open files
 	finally 
@@ -472,7 +481,7 @@ void CrxConfigManager::GetGeneralSettingsNode(String^ SubSection, String^ SubSec
 	//If none of the node element matches then throw exception
 	else
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 }
 void CrxConfigManager::GetPwvSettingsNode(String^ SubSection, String^ SubSectionNode , String^ ReaderValue)
@@ -517,7 +526,7 @@ void CrxConfigManager::GetPwvSettingsNode(String^ SubSection, String^ SubSection
 	}	
 	else
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 }
 
@@ -538,7 +547,7 @@ void CrxConfigManager::GetPatientPrivacy(String^ SubSection, String^ ReaderValue
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 	PatientPrivacyValue = (tempValue == "YES");
 
@@ -565,7 +574,7 @@ void CrxConfigManager::GetHeightWeight(String^ SubSection, String^ ReaderValue)
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 
 	HeightWeight = (tempValue == "METRIC" ? 0 : 1);
@@ -606,7 +615,7 @@ void CrxConfigManager::GetBloodPressureOption(String^ SubSection, String^ Reader
 	}
 	else
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 
 	if(SubSection == "DEFAULT")
@@ -632,7 +641,7 @@ void CrxConfigManager::GetCommsPort(String^ SubSection, String^ ReaderValue)
 	}	
 	else
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 }
 
@@ -649,7 +658,7 @@ void CrxConfigManager::GetReportTitle(String^ SubSection, String^ ReaderValue)
 	}
 	else
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 }
 
@@ -666,7 +675,7 @@ void CrxConfigManager::GetReportLogoPath(String^ SubSection, String^ ReaderValue
 	}
 	else
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 }
 //***********************************************************************
@@ -685,7 +694,7 @@ void CrxConfigManager::GetFemoralToCuff(String^ SubSection, String^ ReaderValue)
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 	FemoralCuff = (tempValue == "YES");
 
@@ -711,7 +720,7 @@ void CrxConfigManager::GetReferenceRange(String^ SubSection, String^ ReaderValue
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 	RefRange = (tempValue == "YES");
 
@@ -737,7 +746,7 @@ void CrxConfigManager::GetPwvDistanceUnits(String^ SubSection, String^ ReaderVal
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 
 	DistanceUnits = (tempValue == "MM" ? 0 : 1);
@@ -763,7 +772,7 @@ void CrxConfigManager::GetPwvDistanceMethods(String^ SubSection, String^ ReaderV
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 
 	DistanceMethods = (tempValue == "SUBTRACTING" ? 0 : 1);
@@ -803,7 +812,7 @@ void CrxConfigManager::GetCaptureTime(String^ SubSection, String^ ReaderValue)
 	}
 	else
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 
 	if(SubSection == "DEFAULT")
@@ -829,7 +838,7 @@ void CrxConfigManager::GetSimulationType(String^ SubSection, String^ ReaderValue
 	}
 	else
 	{
-		throw gcnew CrxException(CRXERR_CORRUPT_FILE);//corrupt file
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 }
 //********************************************
