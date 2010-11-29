@@ -3803,3 +3803,41 @@ h(cm)=9999 w(kg)=9999 h(in)=9999 w(lb)=9999 op= notes= SP=9999 MP=9999 carotid=9
 11/26/2010 6:37:49 PM	Stop PWV capture
 
 ----------------------------------------
+----------------------------------------
+29/11/2010 5:14:08 PM	A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 26 - Error Locating Server/Instance Specified)
+
+----------------------------------------
+----------------------------------------
+29/11/2010 5:14:27 PM	A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 26 - Error Locating Server/Instance Specified)
+
+----------------------------------------
+----------------------------------------
+29/11/2010 5:14:27 PM	Scor application loaded successfully.
+
+----------------------------------------
+----------------------------------------
+29/11/2010 5:22:51 PM	Scor application loaded successfully.
+
+----------------------------------------
+----------------------------------------
+29/11/2010 5:32:55 PM	Scor application loaded successfully.
+
+----------------------------------------
+----------------------------------------
+29/11/2010 5:33:45 PM	Start PWV capture
+
+----------------------------------------
+----------------------------------------
+29/11/2010 5:33:45 PM	PWV current patient:
+patientId= firstName= lastName= groupStudyId= dob=1/01/1900 gender=
+
+----------------------------------------
+----------------------------------------
+29/11/2010 5:33:45 PM	PWV measurement data:
+h(cm)=9999 w(kg)=9999 h(in)=9999 w(lb)=9999 op= notes= SP=9999 MP=9999 carotid=9999 cuff=9999 femoral2cuff=200 pwv distance=9999
+
+----------------------------------------
+----------------------------------------
+29/11/2010 5:33:45 PM	Module active
+
+----------------------------------------

@@ -97,7 +97,8 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 dbMagr = CrxDBManager.Instance;
-                dbMagr.SetConnection(@"MUM-9638\SQLEXPRESS", "SQLCLIENT");   
+//TM original                dbMagr.SetConnection(@"MUM-9638\SQLEXPRESS", "SQLCLIENT");
+                dbMagr.SetConnection(@"PC48\MSSQLX", "SQLCLIENT");   // for SQL Express on Victor's PC
 
                 // initialize class level variables                
                 isDirectClose = false;
