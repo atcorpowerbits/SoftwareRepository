@@ -117,236 +117,248 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="0" xml:space="preserve">
+  <data name="ERR_UNKNOWN_ERROR" xml:space="preserve">
     <value>Unknown Error.</value>
   </data>
-  <data name="100" xml:space="preserve">
+  <data name="CRX_ERR_FILE_NOT_EXIST" xml:space="preserve">
     <value>File does not exist.</value>
   </data>
-  <data name="10000" xml:space="preserve">
+  <data name="STARTSTR" xml:space="preserve">
     <value>Scor application loaded successfully.</value>
   </data>
-  <data name="10001" xml:space="preserve">
+  <data name="EXITSTR" xml:space="preserve">
     <value>Application exited successfully.</value>
   </data>
-  <data name="10002" xml:space="preserve">
+  <data name="RIBBIONBAR_TEXT" xml:space="preserve">
     <value>Scor</value>
   </data>
-  <data name="10003" xml:space="preserve">
+  <data name="MENU_HELP" xml:space="preserve">
     <value>Help</value>
   </data>
-  <data name="10004" xml:space="preserve">
+  <data name="BTN_SETTINGS" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="10005" xml:space="preserve">
+  <data name="BTN_FINDMODULE" xml:space="preserve">
     <value>Find Module</value>
   </data>
-  <data name="10006" xml:space="preserve">
+  <data name="BTN_PRINTERSETUP" xml:space="preserve">
     <value>Printer Setup</value>
   </data>
-  <data name="10007" xml:space="preserve">
+  <data name="BTN_EXIT" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="10008" xml:space="preserve">
+  <data name="LBL_TONOMETER" xml:space="preserve">
     <value>Carotid Tonometer</value>
   </data>
-  <data name="10009" xml:space="preserve">
+  <data name="LBL_FEMORALCUFF" xml:space="preserve">
     <value>Femoral Cuff</value>
   </data>
-  <data name="10010" xml:space="preserve">
+  <data name="LBL_TIMESTATUS" xml:space="preserve">
     <value>Time to Deflation</value>
   </data>
-  <data name="10011" xml:space="preserve">
+  <data name="LBL_PATIENTNAME" xml:space="preserve">
     <value>Default Patient</value>
   </data>
-  <data name="10012" xml:space="preserve">
-    <value>scor</value>
-  </data>
-  <data name="10013" xml:space="preserve">
+  <data name="APP_MSG" xml:space="preserve">
     <value>Another instance already running, cannot continue.</value>
   </data>
-  <data name="10014" xml:space="preserve">
+  <data name="EXEC_ERROR" xml:space="preserve">
     <value>Scor Execution Error</value>
   </data>
-  <data name="10015" xml:space="preserve">
+  <data name="SYSTEM_ERROR" xml:space="preserve">
     <value>Scor System Error</value>
   </data>
-  <data name="10016" xml:space="preserve">
+  <data name="MSG_DESERT" xml:space="preserve">
     <value>Desert</value>
   </data>
-  <data name="10017" xml:space="preserve">
+  <data name="MSG_SAVE_CHANGE" xml:space="preserve">
     <value>Do you want to save changes?</value>
   </data>
-  <data name="10018" xml:space="preserve">
+  <data name="MSG_SAVE_SETTINGS" xml:space="preserve">
     <value>Save Settings</value>
   </data>
-  <data name="10019" xml:space="preserve">
+  <data name="GRP_SETUP_SCREEN" xml:space="preserve">
     <value>Setup Screen</value>
   </data>
-  <data name="10020" xml:space="preserve">
+  <data name="GRP_HEIGHT_WEIGHT_UNITS" xml:space="preserve">
     <value>Height and Weight Units</value>
   </data>
-  <data name="10021" xml:space="preserve">
+  <data name="RAD_METRIC" xml:space="preserve">
     <value>Metric</value>
   </data>
-  <data name="10022" xml:space="preserve">
+  <data name="RAD_IMPERIAL" xml:space="preserve">
     <value>Imperial</value>
   </data>
-  <data name="10023" xml:space="preserve">
+  <data name="GRP_BLOOD_PRESSURE" xml:space="preserve">
     <value>Blood Pressures</value>
   </data>
-  <data name="10024" xml:space="preserve">
+  <data name="RAD_SP_DP" xml:space="preserve">
     <value>SP and DP</value>
   </data>
-  <data name="10025" xml:space="preserve">
+  <data name="RAD_SP_MP" xml:space="preserve">
     <value>SP and MP</value>
   </data>
-  <data name="10026" xml:space="preserve">
+  <data name="RAD_MP_DP" xml:space="preserve">
     <value>MP and DP</value>
   </data>
-  <data name="10027" xml:space="preserve">
+  <data name="GRP_COMMS_PORT" xml:space="preserve">
     <value>Comms Port</value>
   </data>
-  <data name="10028" xml:space="preserve">
+  <data name="GRP_REPORTS" xml:space="preserve">
     <value>Reports</value>
   </data>
-  <data name="10029" xml:space="preserve">
+  <data name="LBL_REPORT_TITLE" xml:space="preserve">
     <value>Report Title</value>
   </data>
-  <data name="10030" xml:space="preserve">
+  <data name="LBL_REPORT_LOGO" xml:space="preserve">
     <value>Report Logo</value>
   </data>
-  <data name="10031" xml:space="preserve">
+  <data name="BTN_CHANGE" xml:space="preserve">
     <value>Change</value>
   </data>
-  <data name="10032" xml:space="preserve">
+  <data name="BTN_SAVE" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="10033" xml:space="preserve">
+  <data name="BTN_CANCEL" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="10034" xml:space="preserve">
+  <data name="BTN_DEFAULTS" xml:space="preserve">
     <value>Defaults</value>
   </data>
-  <data name="10035" xml:space="preserve">
+  <data name="DOC_PWV_SETTINGS" xml:space="preserve">
     <value>PWV Settings</value>
   </data>
-  <data name="10036" xml:space="preserve">
+  <data name="GRP_PWV_DISTANCE_METHOD" xml:space="preserve">
     <value>PWV Distance Method</value>
   </data>
-  <data name="10037" xml:space="preserve">
+  <data name="RAD_SUBTRACTING" xml:space="preserve">
     <value>Subtracting (sternal notch to cuff – sternal notch to carotid)</value>
   </data>
-  <data name="10038" xml:space="preserve">
+  <data name="RAD_DIRECT" xml:space="preserve">
     <value>Direct (carotid to cuff)</value>
   </data>
-  <data name="10039" xml:space="preserve">
+  <data name="GRP_CUFF_LOCATION" xml:space="preserve">
     <value>Cuff Location</value>
   </data>
-  <data name="10040" xml:space="preserve">
+  <data name="CHK_FEMORAL_CUFF" xml:space="preserve">
     <value>Femoral To Cuff</value>
   </data>
-  <data name="10041" xml:space="preserve">
+  <data name="GRP_SIMULATION_FILES" xml:space="preserve">
     <value>Simulation Types</value>
   </data>
-  <data name="10042" xml:space="preserve">
+  <data name="GRP_REPORT_SCREEN" xml:space="preserve">
     <value>Report Screen</value>
   </data>
-  <data name="10043" xml:space="preserve">
+  <data name="CHK_REFERENCE_RANGE" xml:space="preserve">
     <value>Reference Range</value>
   </data>
-  <data name="10044" xml:space="preserve">
+  <data name="GRP_PWV_DISTANCE_UNITS" xml:space="preserve">
     <value>PWV Distance Units</value>
   </data>
-  <data name="10045" xml:space="preserve">
+  <data name="RAD_MM" xml:space="preserve">
     <value>mm</value>
   </data>
-  <data name="10046" xml:space="preserve">
+  <data name="RAD_CM" xml:space="preserve">
     <value>cm</value>
   </data>
-  <data name="10047" xml:space="preserve">
+  <data name="GRP_CAPTURE_TIME" xml:space="preserve">
     <value>Capture Time</value>
   </data>
-  <data name="10048" xml:space="preserve">
+  <data name="RAD_5_SEC" xml:space="preserve">
     <value>5 seconds</value>
   </data>
-  <data name="10049" xml:space="preserve">
+  <data name="RAD_10_SEC" xml:space="preserve">
     <value>10 seconds</value>
   </data>
-  <data name="10050" xml:space="preserve">
+  <data name="RAD_20_SEC" xml:space="preserve">
     <value>20 seconds</value>
   </data>
-  <data name="10051" xml:space="preserve">
+  <data name="SYS_SIM_FILE_WILDCARD" xml:space="preserve">
     <value>.\\simulation\PWV\*.dat</value>
   </data>
-  <data name="10052" xml:space="preserve">
+  <data name="SYS_SIM_FILE_PATH" xml:space="preserve">
     <value>.\\simulation\PWV</value>
   </data>
-  <data name="10053" xml:space="preserve">
+  <data name="SYS_DEFAULT_UPPERCASE" xml:space="preserve">
     <value>DEFAULT</value>
   </data>
-  <data name="10054" xml:space="preserve">
+  <data name="SYS_DEFAULT_LOWCASE" xml:space="preserve">
     <value>Default</value>
   </data>
-  <data name="10055" xml:space="preserve">
+  <data name="FILE_NOT_FOUND" xml:space="preserve">
     <value>No files with .dat extension were found.</value>
   </data>
-  <data name="10056" xml:space="preserve">
+  <data name="COMPORT_SIMULATION" xml:space="preserve">
     <value>Simulation</value>
   </data>
-  <data name="10057" xml:space="preserve">
+  <data name="SYS_SIM_FILE_PATH_DEBUG" xml:space="preserve">
     <value>D:\Atcor_SVN\src\trunk\Scor\gui\gui\bin\Debug\Simulation\PWV</value>
   </data>
-  <data name="10058" xml:space="preserve">
+  <data name="SYS_IMAGE_FILE_WILDCARD" xml:space="preserve">
     <value>jpg files (*.jpg)|*.jpg|bmp files(*.bmp)|*.bmp</value>
   </data>
-  <data name="10059" xml:space="preserve">
+  <data name="MSG_SELECT_LOGO" xml:space="preserve">
     <value>Select a Report Logo</value>
   </data>
-  <data name="10060" xml:space="preserve">
+  <data name="MENU_SYSTEM" xml:space="preserve">
     <value>System</value>
   </data>
-  <data name="10061" xml:space="preserve">
+  <data name="MENU_DATABASE" xml:space="preserve">
     <value>Database</value>
   </data>
-  <data name="10062" xml:space="preserve">
+  <data name="TAB_SETUP" xml:space="preserve">
     <value>Setup</value>
   </data>
-  <data name="10063" xml:space="preserve">
+  <data name="TAB_CAPTURE" xml:space="preserve">
     <value>Capture</value>
   </data>
-  <data name="10064" xml:space="preserve">
+  <data name="TAB_REPORT" xml:space="preserve">
     <value>Report</value>
   </data>
-  <data name="10065" xml:space="preserve">
+  <data name="CHK_PATIENT_PRIVACY" xml:space="preserve">
     <value>Patient Privacy</value>
   </data>
-  <data name="10066" xml:space="preserve">
+  <data name="DOC_GENERAL_SETTINGS" xml:space="preserve">
     <value>General Settings</value>
   </data>
-  <data name="10067" xml:space="preserve">
+  <data name="PWV_SETTINGS" xml:space="preserve">
     <value>PWV Settings</value>
   </data>
-  <data name="10068" xml:space="preserve">
+  <data name="C_DRIVE" xml:space="preserve">
     <value>C:</value>
   </data>
-  <data name="10069" xml:space="preserve">
+  <data name="CAPTURE_FAILED" xml:space="preserve">
     <value>Capture not complete,Do you want to abort Capture?</value>
   </data>
-  <data name="10070" xml:space="preserve">
+  <data name="INFORMATION" xml:space="preserve">
     <value>Information</value>
   </data>
-  <data name="101" xml:space="preserve">
+  <data name="CRX_ERR_FILE_CORRUPTEDT" xml:space="preserve">
     <value>File corrupted.</value>
   </data>
-  <data name="102" xml:space="preserve">
+  <data name="CRX_ERR_FILE_CANNOT_ACCESS" xml:space="preserve">
     <value>File cannot be accessed.</value>
   </data>
-  <data name="200" xml:space="preserve">
+  <data name="CRX_ERR_MESSAGING_GENERAL" xml:space="preserve">
     <value>An exception occured in Messaging component.</value>
   </data>
-  <data name="201" xml:space="preserve">
+  <data name="CRX_ERR_MESSAGING_CANNOT_ACCESS_RESORUCE_FILE" xml:space="preserve">
     <value>An errour occured while trying to access the resource file.</value>
+  </data>
+  <data name="CRX_ERR_DBMGR_TRANS_FAILED" xml:space="preserve">
+    <value>Transaction Failed</value>
+  </data>
+  <data name="CRX_ERR_DBMGR_NO_PROVIDER" xml:space="preserve">
+    <value>Unable to establish connection</value>
+  </data>
+  <data name="CRX_ERR_DBMGR_NO_SERVER_NAME" xml:space="preserve">
+    <value>Server name is blank</value>
+  </data>
+  <data name="CRX_ERR_DBMGR_NO_SOURCE_NAME" xml:space="preserve">
+    <value>Source name is blank</value>
+  </data>
+  <data name="APP_NAME" xml:space="preserve">
+    <value>scor</value>
   </data>
   <data name="APP_VERSION" xml:space="preserve">
     <value>Version 10.0.0.0</value>
@@ -424,5 +436,224 @@
   <data name="VALIDATION_ERROR" xml:space="preserve">
     <value>Validation Error</value>
     <comment>Title</comment>
+  </data>
+  <data name="APPLICATION_MESSAGE" xml:space="preserve">
+    <value>Application message</value>
+  </data>
+  <data name="APR_CONDITION" xml:space="preserve">
+    <value>apr</value>
+  </data>
+  <data name="AUG_CONDITION" xml:space="preserve">
+    <value>aug</value>
+  </data>
+  <data name="BTN_CAPTURE" xml:space="preserve">
+    <value>Capture</value>
+  </data>
+  <data name="CM" xml:space="preserve">
+    <value>cm</value>
+  </data>
+  <data name="DAY" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="DEC_CONDITION" xml:space="preserve">
+    <value>dec</value>
+  </data>
+  <data name="DELETE_PATEINT" xml:space="preserve">
+    <value>Do you want to delete the selected patient?</value>
+  </data>
+  <data name="DIRECT" xml:space="preserve">
+    <value>Direct</value>
+  </data>
+  <data name="DIRECT_METHOD" xml:space="preserve">
+    <value>Direct method</value>
+  </data>
+  <data name="DP" xml:space="preserve">
+    <value>DP</value>
+  </data>
+  <data name="EDIT_MODE" xml:space="preserve">
+    <value>Edit Mode</value>
+  </data>
+  <data name="ENTER_LAST_NAME" xml:space="preserve">
+    <value>Enter last name</value>
+  </data>
+  <data name="ERROR_VALIDATING" xml:space="preserve">
+    <value>Error while validating Measurement details.</value>
+  </data>
+  <data name="EXPANDER_INITAL" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="FEB_CONDITION" xml:space="preserve">
+    <value>feb</value>
+  </data>
+  <data name="FEET" xml:space="preserve">
+    <value>ft</value>
+  </data>
+  <data name="HIDE_CAPS" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="HIDE_SMALL" xml:space="preserve">
+    <value>hide</value>
+  </data>
+  <data name="INSERT_MODE" xml:space="preserve">
+    <value>Insert Mode</value>
+  </data>
+  <data name="JAN_CONDITION" xml:space="preserve">
+    <value>jan</value>
+  </data>
+  <data name="JUL_CONDITION" xml:space="preserve">
+    <value>jul</value>
+  </data>
+  <data name="JUN_CONDITION" xml:space="preserve">
+    <value>jun</value>
+  </data>
+  <data name="KG" xml:space="preserve">
+    <value>kg</value>
+  </data>
+  <data name="LABEL_CAROTID" xml:space="preserve">
+    <value>Carotid*:</value>
+  </data>
+  <data name="LABEL_CUFF" xml:space="preserve">
+    <value>Cuff*:</value>
+  </data>
+  <data name="LABEL_DIRECT" xml:space="preserve">
+    <value>Direct*:</value>
+  </data>
+  <data name="LABEL_DP" xml:space="preserve">
+    <value>DP:</value>
+  </data>
+  <data name="LABEL_FEMORAL_CUFF" xml:space="preserve">
+    <value>Femoral To Cuff:</value>
+  </data>
+  <data name="LABEL_PWV_DISTANCE" xml:space="preserve">
+    <value>PWV Distance:</value>
+  </data>
+  <data name="LABEL_SP" xml:space="preserve">
+    <value>SP:</value>
+  </data>
+  <data name="LABEL_SUBTRACTING" xml:space="preserve">
+    <value>Subtracting Method:</value>
+  </data>
+  <data name="LBL_DOB" xml:space="preserve">
+    <value>Date of Birth*:</value>
+  </data>
+  <data name="LBL_FIRST_NAME" xml:space="preserve">
+    <value>First Name:</value>
+  </data>
+  <data name="LBL_GENDER" xml:space="preserve">
+    <value>Gender*:</value>
+  </data>
+  <data name="LBL_GROUP" xml:space="preserve">
+    <value>Group:</value>
+  </data>
+  <data name="LBL_HEIGHT" xml:space="preserve">
+    <value>Height:</value>
+  </data>
+  <data name="LBL_INCHES" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="LBL_LAST_NAME" xml:space="preserve">
+    <value>Last Name*:</value>
+  </data>
+  <data name="LBL_NOTES" xml:space="preserve">
+    <value>Medications/Notes:</value>
+  </data>
+  <data name="LBL_OPERATOR" xml:space="preserve">
+    <value>Operator:</value>
+  </data>
+  <data name="LBL_PATEINTS" xml:space="preserve">
+    <value>Patients</value>
+  </data>
+  <data name="LBL_PATIENT_ID" xml:space="preserve">
+    <value>Patient Id:</value>
+  </data>
+  <data name="LBL_WEIGHT" xml:space="preserve">
+    <value>Weight:</value>
+  </data>
+  <data name="LBS" xml:space="preserve">
+    <value>lbs</value>
+  </data>
+  <data name="MAR_CONDITION" xml:space="preserve">
+    <value>mar</value>
+  </data>
+  <data name="MAY_CONDITION" xml:space="preserve">
+    <value>may</value>
+  </data>
+  <data name="MESSAGE" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="MM" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="MONTH" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="MP" xml:space="preserve">
+    <value>MP</value>
+  </data>
+  <data name="NOV_CONDITION" xml:space="preserve">
+    <value>nov</value>
+  </data>
+  <data name="OCT_CONDITION" xml:space="preserve">
+    <value>oct</value>
+  </data>
+  <data name="PATIENT_ADDED" xml:space="preserve">
+    <value>Patient record added successfully.</value>
+  </data>
+  <data name="PATIENT_ALREADY_EXIST" xml:space="preserve">
+    <value>Patient ID already exists.Do you want to continue?</value>
+  </data>
+  <data name="PATIENT_ALREADY_EXISTS" xml:space="preserve">
+    <value>Patient record already exists.</value>
+  </data>
+  <data name="PATIENT_NOT_SAVED" xml:space="preserve">
+    <value>Patient record not saved.</value>
+  </data>
+  <data name="SEARCH_MODE" xml:space="preserve">
+    <value>Search Mode</value>
+  </data>
+  <data name="SELECT_CAPS" xml:space="preserve">
+    <value>--Select--</value>
+  </data>
+  <data name="SELECT_DOB" xml:space="preserve">
+    <value>Select date of birth</value>
+  </data>
+  <data name="SELECT_GENDER" xml:space="preserve">
+    <value>Select gender</value>
+  </data>
+  <data name="SELECT_SMALL" xml:space="preserve">
+    <value>--select--</value>
+  </data>
+  <data name="SEP_CONDITION" xml:space="preserve">
+    <value>sep</value>
+  </data>
+  <data name="SHOW_CAPS" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="SHOW_SMALL" xml:space="preserve">
+    <value>show</value>
+  </data>
+  <data name="SP" xml:space="preserve">
+    <value>SP</value>
+  </data>
+  <data name="SUBTRACTING_METHOD" xml:space="preserve">
+    <value>Subtracting method</value>
+  </data>
+  <data name="TRANSFER_PATIENT" xml:space="preserve">
+    <value>Would you like to transfer the patient’s existing records to this group?</value>
+  </data>
+  <data name="YEAR" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="GROUPNAME_EMPTY" xml:space="preserve">
+    <value>Group name is empty</value>
+  </data>
+  <data name="GROUPNAME_EXISTS" xml:space="preserve">
+    <value>Select a valid group name from list.</value>
+  </data>
+  <data name="NO_RECORDS_TO_DELETE" xml:space="preserve">
+    <value>There are no records to delete.</value>
+  </data>
+  <data name="NO_RECORDS_TO_EDIT" xml:space="preserve">
+    <value>There are no records to edit.</value>
   </data>
 </root>

@@ -78,11 +78,10 @@ namespace TestCrx {
 			{
 				CrxMessagingManager^  actual;
 				actual = CrxMessagingManager::Instance;
-				///Assert::Inconclusive(L"Verify the correctness of this test method.");
+				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
-// This tests the assigment operator which is private and blank implmentation
+			// This tests the assigment operator which is private and blank implmentation
 // we do not need to test this as of now: 11/02/2010: Smarajit Mishra
-
 	//		/// <summary>
 	//		///A test for op_Assign
 	//		///</summary>
@@ -98,22 +97,20 @@ namespace TestCrx {
 	//			Assert::AreEqual(expected, actual);
 	//			Assert::Inconclusive(L"Verify the correctness of this test method.");
 	//		}
-			/// <summary>
-			///A test for GetMessage
-			///</summary>
-	public: [TestMethod]
-			void GetMessageTest1()
-			{
-				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
-				int errorCode = 0; // TODO: Initialize to an appropriate value
-				//String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
-				//Smarajit
-				String^  expected =	L"Unknown Error.";
-				String^  actual;
-				actual = target->GetMessage(errorCode);
-				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
-			}
+	//		/// <summary>
+	//		///A test for GetMessage
+	//		///</summary>
+	//public: [TestMethod]
+	//		void GetMessageTest1()
+	//		{
+	//			CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			int errorCode = 0; // TODO: Initialize to an appropriate value
+	//			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+	//			String^  actual;
+	//			actual = target->GetMessage(errorCode);
+	//			Assert::AreEqual(expected, actual);
+	//			Assert::Inconclusive(L"Verify the correctness of this test method.");
+	//		}
 			/// <summary>
 			///A test for GetMessage
 			///</summary>
@@ -121,53 +118,13 @@ namespace TestCrx {
 			void GetMessageTest()
 			{
 				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//To pass the code value to generate string
-				//String^  stringCode = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  stringCode = L"101";
-				bool fileCode = false; // TODO: Initialize to an appropriate value
+				//String^  strCode = System::String::Empty; // TODO: Initialize to an appropriate value
 				//String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  expected = L"File corrupted.";
+				String^  strCode = "CRX_ERR_FILE_NOT_EXIST";
+				String^ expected = "File does not exist.";
 				String^  actual;
-				actual = target->GetMessage(stringCode, fileCode);
-				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
-			}
-			/// <summary>
-			///A test for GetGUIMessages
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void GetGUIMessagesTest()
-			{
-				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//To pass the code value to generate string
-				//String^  stringCode = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  stringCode = L"10000";
-				//String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  expected = L"Scor application loaded successfully.";
-				String^  actual;
-				actual = target->GetGUIMessages(stringCode);
-				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
-			}
-			/// <summary>
-			///A test for GetErrorMessages
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void GetErrorMessagesTest()
-			{
-				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//To pass the code value to generate string
-				//String^  stringCode = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  stringCode = L"100";
-				//String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  expected = L"File does not exist.";
-				String^  actual;
-				actual = target->GetErrorMessages(stringCode);
+				CrxMessagingManagerTest::SetPath();
+				actual = target->GetMessage(strCode);
 				Assert::AreEqual(expected, actual);
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
@@ -190,11 +147,7 @@ namespace TestCrx {
 			void CrxMessagingManagerConstructorTest()
 			{
 				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor());
-				//Smarajit
-				target->_nameOfErrorResxfile = L"D:\\Atcor_2008\\Deepak\\Sprint1-Scor-Code\\Scor\\TestResults\\system\\Resources\\Scor.ErrorMessages.resources";
-				target->_nameOfGUIResxfile = L"D:\\Atcor_2008\\Deepak\\Sprint1-Scor-Code\\Scor\\TestResults\\system\\Resources\\Scor.GUIMessages.resources";
 				//Assert::Inconclusive(L"TODO: Implement code to verify target");
-
 			}
 	};
 }

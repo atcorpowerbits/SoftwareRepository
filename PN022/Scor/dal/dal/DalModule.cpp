@@ -45,7 +45,7 @@ namespace AtCor{
                 CrxMessagingManager ^oMsg = CrxMessagingManager::Instance;
 
 				//Compare with the "simulation" string CrxMessaging
-                if (commPort->Replace(" ","")->ToUpper() == oMsg->GetMessage(DAL_SIMULATION)->ToUpper())
+                if (commPort->Replace(" ","")->ToUpper() == oMsg->GetMessage("COMPORT_SIMULATION")->ToUpper())
 				{
 					//if config manager returns "simulation" initialize the DalSimulationHander
 					_currentDevice = nullptr;

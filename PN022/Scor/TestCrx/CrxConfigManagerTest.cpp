@@ -6,9 +6,6 @@ using namespace System::IO;// For FileStream
 using namespace System::Xml;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting::Configuration;
-using namespace AtCor::Scor::CrossCutting;
-using namespace AtCor::Scor::DataAccess;
-
 namespace TestCrx {
     using namespace System;
     ref class CrxConfigManagerTest;
@@ -55,7 +52,7 @@ namespace TestCrx {
 			//public: [ClassInitialize]
 			//static System::Void MyClassInitialize(TestContext^  testContext)
 			//{
-			//}	
+			//}
 			//
 			//Use ClassCleanup to run code after all tests in a class have run
 			//public: [ClassCleanup]
@@ -114,99 +111,112 @@ namespace TestCrx {
 				Assert::AreEqual(expected, actual);
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
-			/// <summary>
-			///A test for SetSimulationType
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetSimulationTypeTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//target->SetSimulationType(ps, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
+	//		/// <summary>
+	//		///A test for SetSimulationType
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetSimulationTypeTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//target->SetSimulationType(ps, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings/SetGeneralSettings
 			/// <summary>
 			///A test for SetSettingsNode
 			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetSettingsNodeTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				String^  Section = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
-				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-				CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetSettingsNode(Section, SubSection, gs, ps, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetSettings
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetSettingsTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				String^  Section = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
-				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-				CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetSettings(Section, SubSection, gs, ps);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetReportTitle
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetReportTitleTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetReportTitle(gs, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetReportLogoPath
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetReportLogoPathTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetReportLogoPath(gs, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetReferenceRange
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetReferenceRangeTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetReferenceRange(ps, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
+	/*public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]*/
+			//void SetSettingsNodeTest()
+			//{
+			//	CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			//	String^  Section = System::String::Empty; // TODO: Initialize to an appropriate value
+			//	String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			//	CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+			//	CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+			//	XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+			//	//Smarajit Mishra
+			//	//Remove the set functionality becuase we don't have the proper node object for XML
+			//	//target->SetSettingsNode(Section, SubSection, gs, ps, node);
+			//	//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			//}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings/SetGeneralSettings
+	//		/// <summary>
+	//		///A test for SetSettings
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetSettingsTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			String^  Section = System::String::Empty; // TODO: Initialize to an appropriate value
+	//			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetSettings(Section, SubSection, gs, ps);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetGeneralSettings
+	//		/// <summary>
+	//		///A test for SetReportTitle
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetReportTitleTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetReportTitle(gs, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetGeneralSettings
+
+	//		/// <summary>
+	//		///A test for SetReportLogoPath
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetReportLogoPathTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetReportLogoPath(gs, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
+	//		/// <summary>
+	//		///A test for SetReferenceRange
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetReferenceRangeTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetReferenceRange(ps, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
 			/// <summary>
 			///A test for SetPwvUserSettings
 			///</summary>
@@ -228,81 +238,106 @@ namespace TestCrx {
 				ps->SimulationType = "Default";
 
 				target->SetPwvUserSettings(ps);
+
+				target->GetPwvUserSettings();
+
+				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceMethod);
+				Assert::AreEqual(true, target->_instance->PwvSettings->FemoralToCuff);
+				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceUnits);
+				Assert::AreEqual(0, target->_instance->PwvSettings->CaptureTime);
+				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
+				Assert::AreEqual("Default", target->_instance->PwvSettings->SimulationType);
+
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
-			/// <summary>
-			///A test for SetPwvSettingsNode
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetPwvSettingsNodeTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructPwvSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetPwvSettingsNode(gs, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetPwvDistanceUnits
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetPwvDistanceUnitsTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetPwvDistanceUnits(ps, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetPwvDistanceMethods
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetPwvDistanceMethodsTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetPwvDistanceMethods(ps, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetPatientPrivacy
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetPatientPrivacyTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetPatientPrivacy(gs, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetHeightWeight
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetHeightWeightTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//target->SetHeightWeight(gs, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
+
+	//		/// <summary>
+	//		///A test for SetPwvSettingsNode
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetPwvSettingsNodeTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructPwvSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetPwvSettingsNode(gs, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
+
+	//		/// <summary>
+	//		///A test for SetPwvDistanceUnits
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetPwvDistanceUnitsTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetPwvDistanceUnits(ps, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
+
+	//		/// <summary>
+	//		///A test for SetPwvDistanceMethods
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetPwvDistanceMethodsTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetPwvDistanceMethods(ps, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetGeneralUserSettings
+
+	//		/// <summary>
+	//		///A test for SetPatientPrivacy
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetPatientPrivacyTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetPatientPrivacy(gs, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetGeneralUserSettings
+
+	//		/// <summary>
+	//		///A test for SetHeightWeight
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetHeightWeightTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//target->SetHeightWeight(gs, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
 			/// <summary>
 			///A test for SetGeneralUserSettings
 			///</summary>
@@ -324,83 +359,107 @@ namespace TestCrx {
 				gs->ReportTitle = "REPORT DEM TESTFORme";
 
 				target->SetGeneralUserSettings(gs);
+
+				target->GetGeneralUserSettings();
+
+				Assert::AreEqual(1, target->_instance->GeneralSettings->BloodPressureEntryOptions);
+				Assert::AreEqual(1, target->_instance->GeneralSettings->HeightandWeightUnit);
+				Assert::AreEqual(false, target->_instance->GeneralSettings->PatientPrivacy);
+				Assert::AreEqual("Simulation", target->_instance->GeneralSettings->CommsPort);
+				Assert::AreEqual("REPORT DEM TESTFORme", target->_instance->GeneralSettings->ReportTitle);
+				Assert::AreEqual("D:\\EXTRA_DESKTOP\\ERROR.JPG", target->_instance->GeneralSettings->ReportLogoPath);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
-			/// <summary>
-			///A test for SetGeneralSettingsNode
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetGeneralSettingsNodeTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetGeneralSettingsNode(gs, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetFemoralToCuff
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetFemoralToCuffTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetFemoralToCuff(ps, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetCommsPort
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetCommsPortTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetCommsPort(gs, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetCaptureTime
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetCaptureTimeTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				///target->SetCaptureTime(ps, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
-			/// <summary>
-			///A test for SetBloodPressureOption
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void SetBloodPressureOptionTest()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-				//Smarajit Mishra
-				//Remove the set functionality becuase we don't have the proper node object for XML
-				//target->SetBloodPressureOption(gs, node);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetGeneralUserSettings
+
+	//		/// <summary>
+	//		///A test for SetGeneralSettingsNode
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetGeneralSettingsNodeTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetGeneralSettingsNode(gs, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
+
+	//		/// <summary>
+	//		///A test for SetFemoralToCuff
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetFemoralToCuffTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetFemoralToCuff(ps, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetGeneralUserSettings
+
+	//		/// <summary>
+	//		///A test for SetCommsPort
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetCommsPortTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetCommsPort(gs, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
+
+	//		/// <summary>
+	//		///A test for SetCaptureTime
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetCaptureTimeTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			///target->SetCaptureTime(ps, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+			//Smarajit Mishra
+			//This method don't need to be called,as is will be covered in the method SetGeneralUserSettings
+
+	//		/// <summary>
+	//		///A test for SetBloodPressureOption
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetBloodPressureOptionTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			//Smarajit Mishra
+	//			//Remove the set functionality becuase we don't have the proper node object for XML
+	//			//target->SetBloodPressureOption(gs, node);
+	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
 // This tests the assigment operator which is private and blank implmentation
 // we do not need to test this as of now: 11/02/2010: Smarajit Mishra
 
@@ -435,7 +494,7 @@ namespace TestCrx {
 
 				target->GetSimulationType("USER", "Simulation1");
 				Assert::AreEqual("Simulation1", target->_instance->PwvSettings->SimulationType);
-				
+
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
@@ -842,22 +901,9 @@ namespace TestCrx {
 			void CrxConfigManagerConstructorTest()
 			{
 				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor());
+				Assert::IsNotNull(target->_generalSettings);
 				//Smarajit Mishra				
-				target->_nameOfFile = L"D:\\Atcor_2008\\Deepak\\Sprint1-Scor-Code\\Scor\\TestResults\\system\\config\\scor.config";
-				//target->_nameOfFile = L"D:\\Atcor_2008\\Deepak\\Sprint1-Scor-Code\\Scor\\TestResults";
-
-				//Create instance General Settings Structure
-				target->_generalSettings = gcnew CrxStructGeneralSetting();
-				
-				//Create instance PWV Settings Structure
-				target->_pwvSettings = gcnew CrxStructPwvSetting();
-
-				//Create internal instance General Settings Structure
-				target->_gSetInternal = gcnew CrxStructGeneralSetting();
-
-				//Create internal instance PWV Settings Structure
-				target->_pSetInternal = gcnew CrxStructPwvSetting();
-			
+						
 			}
 	};
 }

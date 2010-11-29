@@ -4,7 +4,7 @@
 	Version="9.00"
 	Name="TestDal"
 	ProjectTypes="{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}"
-	ProjectGUID="{13B17B92-45A6-43EB-B0E7-2DBCED1DB844}"
+	ProjectGUID="{B230F6FB-6587-4DC1-9648-952B52A42FE4}"
 	RootNamespace="TestDal"
 	Keyword="ManagedCProj"
 	TargetFrameworkVersion="0"
@@ -182,20 +182,6 @@
 			AssemblyName="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
-		<ProjectReference
-			ReferencedProjectIdentifier="{E274BA19-F920-40C0-8747-214688D2ABB3}"
-			RelativePathToProject=".\dal.vcproj"
-		/>
-		<AssemblyReference
-			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
-			MinFrameworkVersion="196613"
-		/>
-		<AssemblyReference
-			RelativePath=".\dal_Accessor.dll"
-			AssemblyName="dal_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
-			MinFrameworkVersion="0"
-		/>
 	</References>
 	<Files>
 		<Filter
@@ -205,50 +191,6 @@
 			>
 			<File
 				RelativePath=".\AssemblyInfo.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalConstantsTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalCuffPulseEventArgsTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalDeviceConfigUsageStructTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalDeviceHandlerTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalEventContainerTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalExceptionTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalModuleTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalSimulationFileTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalSimulationHandlerTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalTonometerDataEventArgsTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IDalHandlerTest.cpp"
 				>
 			</File>
 			<File
@@ -270,6 +212,10 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\UnitTest1.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
@@ -297,14 +243,6 @@
 			</File>
 			<File
 				RelativePath=".\app.rc"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Test References"
-			>
-			<File
-				RelativePath=".\dal_Accessor.dll"
 				>
 			</File>
 		</Filter>

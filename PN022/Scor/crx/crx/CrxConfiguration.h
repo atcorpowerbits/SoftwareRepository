@@ -21,6 +21,7 @@ using namespace System::Xml;
  */
 namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configuration
 {	
+//public:
 	//Declaring global static numbers for structure variables
 	static const int CRX_GEN_HEIGHTWEIGHT_METRIC	= 0;
 	static const int CRX_GEN_HEIGHTWEIGHT_IMPERIAL	= 1;

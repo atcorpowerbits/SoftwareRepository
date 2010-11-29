@@ -3,11 +3,10 @@
 #include "stdafx.h"
 
 #include "dal_stub.h"
+#include "dal_stub_constants.h"
 #include "dal_facade_stub.h"
-//#include "dal_meter_stub.h"
 #include "DalEventContainer.h"
 #include "DalEventContainerStub.h"
-//#include "dal_module_cmd_stub.h"
 
 using namespace AtCor::Scor::DataAccess;
 
@@ -22,74 +21,19 @@ DalFacade^ DalFacade::Instance()
 DalFacade::DalFacade(void)
 {
 }
-#if 0
-DalTonometerDataEvent^ DalFacade::FindTonometerDataEvent() 
-{ 
-	return DalMeter::Instance()->tonometerDataEvent; 
-}
-DalCuffPulseEvent^ DalFacade::FindCuffPulseEvent() 
-{ 
-	return DalMeter::Instance()->cuffPulseEvent; 
-}
-DalCuffPressureEvent^ DalFacade::FindCuffPressureEvent() 
-{ 
-	return DalMeter::Instance()->cuffPressureEvent; 
-}
-DalCountdownTimerEvent^ DalFacade::FindCountdownTimerEvent() 
-{ 
-	return DalMeter::Instance()->countdownTimerEvent; 
-}
-DalCuffStatusEvent^ DalFacade::FindCuffStatusEvent() 
-{ 
-	return DalMeter::Instance()->cuffStatusEvent; 
-}
-bool DalFacade::StartCapture(unsigned int captureDataType)
-{
-	this->captureDataType = captureDataType;
-
-	return true; 
-}
-bool DalFacade::StopCapture()
-{
-	_module->StopCapture();
-	return true; 
-}
-DalModuleInfo^ DalFacade::FindModuleInfo()
-{
-	return DalModuleInfo::Instance();
-}
-String^ DalFacade::GetFWConfig(unsigned int configType)
-{
-	switch (configType)
-	{
-	case DalConstants::CONFIG_MODULE_TYPE:
-			return L"EM4 (stub)"; 
-		case DalConstants::CONFIG_MODULE_CAPABILITY:
-			return L"xxx (stub)"; 
-		case DalConstants::CONFIG_MODULE_SN:
-			return L"1234567890 (stub)"; 
-		case DalConstants::CONFIG_MODULE_MAIN_FW_VERSION:
-			return L"0.1 (stub)"; 
-		case DalConstants::CONFIG_MODULE_CALIBRATION_DATE:
-			return L"(stub)"; 
-		default:
-			return L"cannot get undefined config"; 
-	}
-}
-#endif
 
 void DalFacade::SimulateCaptureOneShot() 
 {
-#if 0
-	DalMeter::Instance()->tonometerDataEvent->Notify(1234); 
-	DalMeter::Instance()->cuffPulseEvent->Notify(5678); 
-	DalMeter::Instance()->cuffStatusEvent->Notify(DalConstants::CUFF_DEFLATED_STATUS_BITS);
-	DalMeter::Instance()->cuffPressureEvent->Notify(70);
-#endif
 	DalEventContainer::Instance->OnDalTonometerDataEvent(this, gcnew DalTonometerDataEventArgs(1234));
 	DalEventContainer::Instance->OnDalCuffPulseEvent(this, gcnew DalCuffPulseEventArgs(5678));
 	DalEventContainerStub::Instance->OnDalCountdownTimerEvent(this, gcnew DalCountdownTimerEventArgs(9000));
-	DalEventContainerStub::Instance->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(1));
+	DalEventContainerStub::Instance->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(0x0100));
+
+	status = ErrorStatus; //AlarmStatus;   // simulate alarm or error
+	source = DualSensors; //OverPressure; // source to be read interpretted when GetErrorAlarmSource is called
+	DalEventContainerStub::Instance->OnDalModuleErrorAlarmEvent(
+		DalEventContainerStub::Instance, 
+		gcnew DalModuleErrorAlarmEventArgs(status));
 }
 void DalFacade::SimulateCaptureData() 
 {
@@ -105,7 +49,7 @@ void DalFacade::SimulateCaptureData()
 
 	// Create a new Timer with Interval set in milliseconds.
 	// e.g. ~4 ms for 256 samples/sec
-	captureTimer = gcnew Timer(DalConstantsStub::SIMULATION_TIMER_INTERVAL);
+	captureTimer = gcnew Timer(DalConstants::SimulationTimerInterval);
 
 	// Hook up the Elapsed event for the timer.
 	switch (captureDataType) // TBD: get DalModule::Instance->_captureDataType
@@ -132,9 +76,10 @@ void DalFacade::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 {
 	int tonometerData;
 	int cuffPulse;
-	int newPressure;
-	int newStatus;
-	int newCountdown;
+	unsigned int newPressure;
+	unsigned int newStatus;
+	unsigned int newCountdown;
+	unsigned long newSource;
 
 	// Read new timer data if it's counted down to zero
 	if (DalFacade::Instance()->countDown <= 0) 
@@ -142,10 +87,12 @@ void DalFacade::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 		DalFacade::Instance()->timerFile->GetNextValues(
 			&newCountdown,
 			&newPressure,
-			&newStatus);
-		DalFacade::Instance()->countDown = newCountdown * 1000;
+			&newStatus, 
+			&newSource);
+		DalFacade::Instance()->countDown = newCountdown;
 		DalFacade::Instance()->cuffPressure = newPressure;
 		DalFacade::Instance()->status = newStatus;
+		DalFacade::Instance()->source = newSource;
 	}
 	// Read PWV simulation data
 	DalFacade::Instance()->dataFile->GetNextValues(
@@ -153,21 +100,17 @@ void DalFacade::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 		&cuffPulse);
 
 	// Notify observers to generate corresponding events
-#if 0
-	DalMeter::Instance()->tonometerDataEvent->Notify(tonometerData);
-	DalMeter::Instance()->cuffPulseEvent->Notify(cuffPulse);
-	DalMeter::Instance()->countdownTimerEvent->Notify(DalModule::Instance()->countDown);
-	DalMeter::Instance()->cuffStatusEvent->Notify(DalModule::Instance()->status & 0x2F);
-	DalMeter::Instance()->cuffPressureEvent->Notify(DalModule::Instance()->cuffPressure);
-#endif
 	DalEventContainer::Instance->OnDalTonometerDataEvent(DalEventContainer::Instance, gcnew DalTonometerDataEventArgs(tonometerData));
 	DalEventContainer::Instance->OnDalCuffPulseEvent(DalEventContainer::Instance, gcnew DalCuffPulseEventArgs(cuffPulse));
 	DalEventContainerStub::Instance->OnDalCountdownTimerEvent(DalEventContainerStub::Instance, gcnew DalCountdownTimerEventArgs(DalFacade::Instance()->countDown));
-	DalEventContainerStub::Instance->OnDalCuffStatusEvent(DalEventContainerStub::Instance, gcnew DalCuffStatusEventArgs(DalFacade::Instance()->status & 0x2F));
-//	DalEventContainer::Instance->OnDalCuffPressureEvent(DalEventContainer::Instance, gcnew DalCuffPressureEventArgs(cuffPulse));
-
+	DalEventContainerStub::Instance->OnDalCuffStatusEvent(DalEventContainerStub::Instance, 
+		gcnew DalCuffStatusEventArgs(DalFacade::Instance()->status & 0x2F00));
+//	DalEventContainer::Instance->OnDalCuffPressureEvent(DalEventContainer::Instance, gcnew DalCuffPressureEventArgs(newPressure));
+	DalEventContainerStub::Instance->OnDalModuleErrorAlarmEvent(
+		DalEventContainerStub::Instance, 
+		gcnew DalModuleErrorAlarmEventArgs(DalFacade::Instance()->status & 0x0028));
 	// Countdown the timer by the amount of simulation interval
-	DalFacade::Instance()->countDown -= DalConstantsStub::SIMULATION_TIMER_INTERVAL;
+	DalFacade::Instance()->countDown -= DalConstants::SimulationTimerInterval;
 }
 
 void DalFacade::StopCaptureSimulation() 
@@ -176,3 +119,67 @@ void DalFacade::StopCaptureSimulation()
 	dataFile->CloseFile();
 	timerFile->CloseFile();
 }
+
+// Return the error & alarm source 
+String^ DalFacade::GetErrorAlarmSource()
+{
+	String^ sourceText;
+
+	switch (status & 0x0028)
+	{
+	case DataAccess::NoErrorAlarm:
+		sourceText = "Module active"; // TBD: get the string from crx string resource
+		break;
+	case DataAccess::ErrorStatus:
+		sourceText = MapErrorSourceToString(source & 0x0000FFFF);
+		break;
+	case DataAccess::AlarmStatus:
+		sourceText = MapAlarmSourceToString((source >> 16) & 0x0000FFFF);
+		break;
+	default:
+		sourceText = "Unknown module status " + status.ToString(); // TBD: get the string from crx string resource
+		break;
+	}
+	return sourceText;
+}
+
+String^ DalFacade::MapErrorSourceToString(unsigned short errorSource)
+{
+	String^ sourceText;
+
+	// TBD: map to real errors using string resource
+	switch (errorSource)
+	{
+	case DualSensors:
+		sourceText = "Dual sensors error"; // TBD: get the string from crx string resource
+		break;
+	case CuffLeak:
+		sourceText = "Cuff leak error"; // TBD: get the string from crx string resource
+		break;
+	default:
+		sourceText = "Unknown error" + errorSource.ToString(); // TBD: get the string from crx string resource
+		break;
+	}
+	return sourceText;
+}
+
+String^ DalFacade::MapAlarmSourceToString(unsigned short alarmSource)
+{
+	String^ sourceText;
+
+	// TBD: map to real alarms using string resource
+	switch (alarmSource)
+	{
+	case OverPressure:
+		sourceText = "Over pressure alarm"; // TBD: get the string from crx string resource
+		break;
+	case InflatedOverTime:
+		sourceText = "Inflated over time alarm"; // TBD: get the string from crx string resource
+		break;
+	default:
+		sourceText = "Unknown alarm " + alarmSource.ToString(); // TBD: get the string from crx string resource
+		break;
+	}
+	return sourceText;
+}
+

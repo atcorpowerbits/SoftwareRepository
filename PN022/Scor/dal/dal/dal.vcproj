@@ -46,7 +46,7 @@
 				AdditionalUsingDirectories="&quot;D:\My Docs\Visual Studio 2008\Projects\DalTEster\Debug&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="1"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -202,6 +202,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\dal_stub.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalDeviceHandler.cpp"
 				>
 			</File>
@@ -222,28 +226,16 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalSimulationFileStub.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalSimulationHandler.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\Stdafx.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -252,11 +244,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\dal.h"
+				>
+			</File>
+			<File
 				RelativePath=".\dal_facade_stub.h"
 				>
 			</File>
 			<File
 				RelativePath=".\dal_stub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\dal_stub_constants.h"
 				>
 			</File>
 			<File

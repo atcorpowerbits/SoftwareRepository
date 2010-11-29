@@ -7,21 +7,17 @@
  
      Description  :      Declaration for Cross-cutting Logger namespace
 */
-
-#pragma once
-
+ 
 #include "CrxCrossCutting.h"
 // CrxLogger.h
 
-
+#pragma once
 
 //Include namespaces from Enterprise library.
 using namespace System;
 using namespace System::Configuration;
 using namespace Microsoft::Practices::EnterpriseLibrary::Logging;
 using namespace Microsoft::Practices::EnterpriseLibrary::Common::Configuration;
-
-//using namespace AtCor::Scor::CrossCutting;
 
 //Namepsace CrxLogging to include all Logging realted functionalities
 /**
