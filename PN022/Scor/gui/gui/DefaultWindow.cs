@@ -1795,8 +1795,8 @@ namespace AtCor.Scor.Gui.Presentation
                 if (!obj.Validate())
                 {
                     RadMessageBox.Show(this, oMsgMgr.GetMessage("ERROR_VALIDATING"), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                    guiradbtnCapture.Visible = false;
-                    return;
+//sprint3                    guiradbtnCapture.Visible = false;
+//sprint3                    return; // TBD: Commented to fall through to StartCapture (for TM Sprint-3) where patient details and measurement data are logged. Remove "sprint3" comments when BizPWV Validation is truly functional.
                 }
 
                 // save the measurement data into the bizsession object.            

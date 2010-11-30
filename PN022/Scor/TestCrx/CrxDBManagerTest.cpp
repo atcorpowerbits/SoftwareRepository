@@ -33,7 +33,8 @@ namespace TestCrx {
 				}
 			}
 
-			static String^  serverName = "MUM-9638\\SQLEXPRESS";
+//TM			static String^  serverName = "MUM-9638\\SQLEXPRESS";
+			static String^  serverName = "PC48\\MSSQLX";
 			static String^  sourceName = "SQLCLieNT";
 
 #pragma region Additional test attributes
