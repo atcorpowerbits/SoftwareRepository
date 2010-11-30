@@ -38,7 +38,8 @@ namespace TestCrx {
 			void SetPath()
 			{
 				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Atcor_2008\\Deepak\\Sprint1-Scor-Code\\Scor\\TestResults");
+//TM				Directory::SetCurrentDirectory("D:\\Atcor_2008\\Deepak\\Sprint1-Scor-Code\\Scor\\TestResults");
+				Directory::SetCurrentDirectory("C:\\Projects\\PN022\\Scor\\TestResults");
 			}
 
 #pragma region Additional test attributes

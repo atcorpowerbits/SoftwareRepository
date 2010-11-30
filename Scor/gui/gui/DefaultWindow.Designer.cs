@@ -1530,7 +1530,7 @@
             this.radlblTimeStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radlblTimeStatus.Location = new System.Drawing.Point(366, 3);
             this.radlblTimeStatus.Name = "radlblTimeStatus";
-            this.radlblTimeStatus.Size = new System.Drawing.Size(357, 25);
+            this.radlblTimeStatus.Size = new System.Drawing.Size(231, 27);
             this.radlblTimeStatus.TabIndex = 5;
             this.radlblTimeStatus.Text = "Time to Deflation 1:30";
             // 
