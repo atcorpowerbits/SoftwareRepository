@@ -1834,20 +1834,6 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="SaveToFile():System.Boolean">
-            <Messages>
-             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2010-11-23 05:04:05Z">
-              <Issue>
-               <Item>BizPWV.SaveToFile():Boolean</Item>
-              </Issue>
-             </Message>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2010-10-29 02:05:19Z" FixCategory="Breaking">
-              <Issue>
-               <Item>BizPWV.SaveToFile():Boolean</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="standardDeviation">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">

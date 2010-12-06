@@ -496,11 +496,9 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		void CalculateTest()
 		{
 			BizPWV^  target = (gcnew BizPWV());
-			PrivateObject^ accessor = gcnew PrivateObject(target);
-			accessor->SetProperty("systemId", "00050");
-			accessor->SetProperty("patientNumber", (unsigned int) 1);
+			target->systemId = "00050";
+			target->patientNumber = 1;
 			target->PrepareToCaptureSignal();
-//			CrxConfigFacade::Instance()->SetDistanceMethod(false);
 			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
 			unsigned short signalLength = Convert::ToUInt16(testContextInstance->DataRow[L"SignalLength"]);
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidSignal"]);

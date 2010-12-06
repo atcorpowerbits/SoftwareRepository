@@ -1,7 +1,7 @@
 /*
     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
 
-    Filename	 :	measure.cpp
+    Filename	 :	measure_pwv.cpp
 	
 	Author       :  Victor Aung
 
@@ -504,6 +504,25 @@ void BizPWV::SetDefaults()
 		pulseWaveVelocity[i]->SetDefaults();
     }
 }
+/**
+ ** SetDefaults()
+ **
+ ** DESCRIPTION:
+ **
+ **  Set default values for calculated variables.
+
+ ** INPUT:
+ **
+ **  none.
+
+ ** OUTPUT:
+ **
+ **  none.
+
+ ** RETURN:
+ **
+ **  none.
+*/
 void BizDelta::SetDefaults()
 {
 	heartRate = BizConstants::DEFAULT_FLOAT_VALUE;
@@ -540,10 +559,10 @@ RETURN
 bool BizPWV::ValidateBeforeStore()
 {
 	// Validate input parameters
-	if (!Validate())
-	{
-		return false;
-	}
+	//if (!Validate())
+	//{
+	//	return false;
+	//}
 
 	// Validate PWV against the adult range
 	if (meanPulseWaveVelocity < MIN_ADULT_PWV)
@@ -643,12 +662,6 @@ bool BizPWV::Calculate()
 	// Calculate quality control information -
 	// Cannot return false if FindOnsets returns true
 	CalculateQualityControls();
-
-	/* Calculate heart rate
-	if (!CalculateHeartRate())
-	{
-		return false;
-	}*/
 
 	// Calculate the array of heart rates and pulse wave velocities
 	if (!CalculateBizDeltaArray())
@@ -754,36 +767,6 @@ void BizPWV::PrepareToCaptureSignal()
   femoralSignal->PrepareToCapture();
 }
 
-bool BizPWV::SaveToFile()
-{
-  /*PATIENT_RECORD_TYPE  pat;
-  if (patient_get(&pat))
-  {
-    String lFileName = ExtractFilePath(Application->ExeName) + EXPORT_SUBDIR + "pwv_session_" +
-                        pat.surname + "_" + DateTime.FormatString("ddmmmyyyy") + ".txt";
-
-    DeleteFile(lFileName);
-    int lFileHandle = FileCreate(lFileName);
-
-    // Validation
-    if (lFileHandle <= 0)
-    {
-        MsgBox(LoadStr(MSG_COMMS_NO_FILE) + lFileName + "\n\n" +
-                LoadStr(MSG_COMMS_CHECK_FILENAME), SWARNING, MB_ICONSTOP);
-        return false;
-    }
-    // Printing arrays
-    if (ExportArrays(lFileHandle) == false)
-    {
-        return false;
-    }
-
-    FileClose(lFileHandle);
-    return true;
-  }*/
-  return false;
-}
-
 /**
  ** ValidateSignals()
  **
@@ -805,10 +788,15 @@ bool BizPWV::SaveToFile()
 */
 bool BizPWV::ValidateSignals()
 {
-	bool ret1 = carotidSignal->ValidateSignal(MIN_SIGNAL_LENGTH, TONOMETER_MIN_SIGNAL_HEIGHT);
-	bool ret2 = femoralSignal->ValidateSignal(MIN_SIGNAL_LENGTH, CUFF_MIN_SIGNAL_HEIGHT);
-	bool ret = ret1 & ret2;
-	return ret;
+	if (!carotidSignal->ValidateSignal(MIN_SIGNAL_LENGTH, TONOMETER_MIN_SIGNAL_HEIGHT))
+	{
+		return false;
+	}
+	if(!femoralSignal->ValidateSignal(MIN_SIGNAL_LENGTH, CUFF_MIN_SIGNAL_HEIGHT))
+	{
+		return false;
+	}
+	return true;
 }
 
 /**
@@ -952,6 +940,8 @@ bool BizPWV::CalculateBizDeltaArray()
 				// Calculate heart rate of the previous delta once the next delta is found.
 				// Ignored onsets can only be noise and so are not considered when calculating -
 				// heart rate.
+				// Heart rate is calculated from the Femoral signal as it is considered to be -
+				// more reliable.
 				if ( numberOfDeltas > 0 )
 				{
 					pulseWaveVelocity[numberOfDeltas - 1]->heartRate = (60 * sampleRate) / 

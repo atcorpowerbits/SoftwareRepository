@@ -56,11 +56,11 @@ public:
 	virtual bool Validate() override;
 };
 
-// Pulse Wave Velocity array class
+// Delta class for each Carotid - Femoral pressure pulse pair
 public ref class BizDelta
 {
 public:
-	property float heartRate;			// Heart rate of the Femoral signal (in bpm)
+	property float heartRate;			// Heart rate (in bpm)
 	property float deltaTime;			// Pulse onset time difference (in ms) between pulse traces of each pulse
 	property float correctedTime;		// Pulse onset time difference (in ms) corrected for cuff to femoral distance
 	property float pulseWaveVelocity;	// Pulse wave velocity (in m/s)
@@ -164,18 +164,12 @@ private:
 	// Calculate quality control members
 	bool CalculateQualityControls();
 	
-	// Calculate Heart rate on the base of ECG Onsets
-	//bool CalculateHeartRate();
-	
 	// Calculate the BizDelta array between the femoral and carotid signals
 	bool CalculateBizDeltaArray();
 
 	// Calculate PWV, MeanDt, standardDeviation for this measurement
 	bool CalculateFeatures();
 
-	// Save arrays if an error occurs while calculating
-	bool SaveToFile();
-    
 protected:
 	// Log current patient and measurement data
 	virtual void LogSetupData() override;
