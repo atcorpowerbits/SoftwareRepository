@@ -1136,6 +1136,20 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="bloodPressureEntryOption">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-12-07 05:46:37Z">
+              <Issue Name="Member">
+               <Item>bloodPressureEntryOption</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="23" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="captureTime">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -1257,6 +1271,20 @@
               <Notes>
                <User Name="paul">
                 <Note Id="2" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="patientAge">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-12-07 05:46:37Z">
+              <Issue Name="Member">
+               <Item>patientAge</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="22" />
                </User>
               </Notes>
              </Message>
@@ -1554,6 +1582,20 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="distanceMethod">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-12-07 05:53:01Z">
+              <Issue Name="Member">
+               <Item>distanceMethod</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="24" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="femoralQualityObserver">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-24 23:15:18Z">
@@ -1576,7 +1618,7 @@
               </Issue>
               <Notes>
                <User Name="paul">
-                <Note Id="2" />
+                <Note Id="21" />
                </User>
               </Notes>
              </Message>
@@ -2545,6 +2587,10 @@
     <Note Id="18" Modified="2010-11-12 02:56:23Z">method not implemented yet</Note>
     <Note Id="19" Modified="2010-11-12 03:28:58Z">This is a property not a method</Note>
     <Note Id="20" Modified="2010-11-12 03:29:07Z">This is a property not a method</Note>
+    <Note Id="21" Modified="2010-12-07 05:50:09Z">This is a property not a method</Note>
+    <Note Id="22" Modified="2010-12-07 05:50:20Z">This is a property not a method</Note>
+    <Note Id="23" Modified="2010-12-07 05:50:24Z">This is a property not a method</Note>
+    <Note Id="24" Modified="2010-12-07 05:53:12Z">This is a property not a method</Note>
    </User>
    <User Name="victora">
     <Note Id="0" Modified="2010-11-24 23:16:04Z">This is a property not a method</Note>

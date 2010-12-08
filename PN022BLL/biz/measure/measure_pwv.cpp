@@ -232,12 +232,14 @@ bool BizPWV::ValidatePWVDistance()
 	bool isValid = false;
 	CrxStructPwvSetting^ pwvSetting = CrxConfigManager::Instance->PwvSettings;
 
-	if (pwvSetting->PWVDistanceMethod == 0) // TBD: replace magic number for subtracting method
+	if (pwvSetting->PWVDistanceMethod == 0)			// TBD: replace magic number for subtracting method
 	{
+		distanceMethod = 0;						// TBD: replace magic number for subtracting method
 		isValid = myCarotidDistance->Validate() && myCuffDistance->Validate();
 	}
-	else if (pwvSetting->PWVDistanceMethod == 1) // TBD: replace magic number for direct method
+	else if (pwvSetting->PWVDistanceMethod == 1)	// TBD: replace magic number for direct method
 	{
+		distanceMethod = 1;						// TBD: replace magic number for direct method
 		isValid = myPWVDirectDistance->Validate();
 	}
 	return isValid;
@@ -558,12 +560,6 @@ RETURN
 */
 bool BizPWV::ValidateBeforeStore()
 {
-	// Validate input parameters
-	//if (!Validate())
-	//{
-	//	return false;
-	//}
-
 	// Validate PWV against the adult range
 	if (meanPulseWaveVelocity < MIN_ADULT_PWV)
 	{
@@ -607,15 +603,16 @@ INPUT
 
 	User input distances,
 	correctionTime,
+	BizPatient->DateOfBirth,
 	carotidSignal->signal,
 	femoralSignal->signal.
 
 OUTPUT
 
 	calculatedDistance,
+	patientAge,
 	carotidSignal->floatOnsets,
 	femoralSignal->floatOnsets,
-	QualityControl - TBD,
 	meanHeartRate,
 	pulseWaveVelocity array,
 	numberOfDeltas,
@@ -639,6 +636,12 @@ bool BizPWV::Calculate()
     
 	// Validate input members and calculate distance
     if (!Validate())
+    {
+       return false;
+    }
+
+	// Calculate the patient's age
+	if (!CalculateAge())
     {
        return false;
     }
@@ -708,9 +711,7 @@ bool BizPWV::CalculateAndValidateDistance()
 	short distance;
 	bool isValid = false;
 	
-	CrxStructPwvSetting^ pwvSetting = CrxConfigManager::Instance->PwvSettings;
-
-	if (pwvSetting->PWVDistanceMethod == 0) // TBD: replace magic number for subtracting method
+	if (distanceMethod == 0) // TBD: replace magic number for subtracting method
 	{
 		distance = myCuffDistance->distance - myCarotidDistance->distance - myFemoral2CuffDistance->distance;
 	} 

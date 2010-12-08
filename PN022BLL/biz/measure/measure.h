@@ -150,12 +150,11 @@ public:
 	virtual bool StartCapture() { return false; };
 	virtual bool StopCapture() { return false; };
 	virtual void DispatchCaptureData() = 0;
-	virtual bool SaveCaptureData() = 0; // save captured data as simulation file
+	virtual bool SaveCaptureData() = 0;					// save captured data as simulation file
 
-	property BizBloodPressure^	bloodPressure;				// patient blood pressure
-	//property BizHeight^		myHeight;				// patient height 
-	//property BizWeight^		myWeight;				// patient weight
-	property BizHeightAndWeight^	heightAndWeight;
+	property BizBloodPressure^	bloodPressure;			// patient blood pressure
+	property unsigned short bloodPressureEntryOption;	// Blood pressure option selected when the object was calculated
+	property BizHeightAndWeight^ heightAndWeight;		// patient height, weight and BMI
 
 	property String^			systemId;				// Customer System ID
 	property String^			groupStudyId;			// User defined group/study
@@ -163,6 +162,7 @@ public:
 
 	property DateTime			measurementDateTime;    // date and time of measurement
 	property unsigned short		dataRevision;			// data revision number
+	property unsigned short		patientAge;
 
 	property String^			medication;				// notes regarding medication for this patient
 	property String^			notes;					// miscellaneous notes for this measurement
@@ -190,6 +190,8 @@ protected:
 	// Log current patient and measurement data
 	virtual void LogSetupData() {};
 
+	// Calculate the patient's age on the date of the measurement
+	bool CalculateAge();
 };
 
 END_BIZ_NAMESPACE

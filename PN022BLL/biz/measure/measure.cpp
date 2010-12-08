@@ -11,6 +11,7 @@
 #include "StdAfx.h"
 #include <measure.h>
 #include <math_library.h>
+#include <patient.h>
 
 using namespace CRX_CONFIG_NAMESPACE;
 using namespace BIZ_NAMESPACE;
@@ -32,19 +33,6 @@ using namespace BIZ_NAMESPACE;
 */
 BizMeasure::BizMeasure()
 {
-	// TBD: need to check the Height & Weight Unit from the config
-	// then instantiate the right object, i.e. metric or imperial
-	/*if (AtCor::Scor::CrossCutting::Configuration::CrxConfigManager::Instance->
-		GeneralSettings->HeightandWeightUnit == CrxConfigConstants::GENERAL_UNIT_METRIC)
-	{
-		myHeight = gcnew BizHeightCM;
-		myWeight = gcnew BizWeightKG;
-	} else 
-	{
-		myHeight = gcnew BizHeightInch;
-		myWeight = gcnew BizWeightLB;
-	}*/
-	
 	Initialise();
 }
 
@@ -71,7 +59,8 @@ void BizMeasure::Initialise()
 	systemId = "";
 	patientNumber = 0;                          
 	groupStudyId = "";
-	measurementDateTime = DateTime::Now;                        
+	measurementDateTime = DateTime::Now;     
+	patientAge = 0;
 	
 	dataRevision = DATA_REVISION;           
 
@@ -85,18 +74,21 @@ void BizMeasure::Initialise()
 	if (CrxConfigManager::Instance->
 		GeneralSettings->BloodPressureEntryOptions == CrxConfigConstants::GENERAL_BP_ENTRY_MPDP)
 	{
+		bloodPressureEntryOption = CrxConfigConstants::GENERAL_BP_ENTRY_MPDP;
 		bloodPressure = gcnew BizMPAndDP;
 	} 
 	else if (CrxConfigManager::Instance->
 		GeneralSettings->BloodPressureEntryOptions == CrxConfigConstants::GENERAL_BP_ENTRY_SPDP)
 	
 	{
+		bloodPressureEntryOption = CrxConfigConstants::GENERAL_BP_ENTRY_SPDP;
 		bloodPressure = gcnew BizSPAndDP;
 	}
 	else if (CrxConfigManager::Instance->
 		GeneralSettings->BloodPressureEntryOptions == CrxConfigConstants::GENERAL_BP_ENTRY_SPMP)
 	
 	{
+		bloodPressureEntryOption = CrxConfigConstants::GENERAL_BP_ENTRY_SPMP;
 		bloodPressure = gcnew BizSPAndMP;
 	}	
 	
@@ -117,6 +109,8 @@ Validate
 DESCRIPTION
 
 	Validate the measurement before calculation that:
+		height and weight are within the range (if entered),
+		blood pressures are within the range (if entered),
 	    system ID is not null or empty,
 		internal patient number is not zero or negative,
 		measurement date time is not in the future,
@@ -140,25 +134,15 @@ RETURN
 
 */
 bool BizMeasure::Validate()
-{
-	/*if (!myHeight->Validate())
-	{
-		return false;
-	} 
-	else if (!myWeight->Validate())
-	{
-		return false;
-	} 
-	else if (!bloodPressure->Validate())
-	{
-		return false;
-	}*/ 
-	
+{	
+	// Validate height and weight (if entered) and calculate metric or imperial equivalents -
+	// and the BMI
 	if (!heightAndWeight->ValidateAndCalculate())
 	{
 		return false;
 	}
 
+	// Validate blood pressures (if entered)
 	if (!bloodPressure->Validate())
 	{
 		return false;
@@ -245,6 +229,62 @@ bool BizMeasure::Validate()
 		return false;
 	}
 
+	return true;
+}
+/**
+CalculateAge()
+
+DESCRIPTION
+
+	Calculate the patient's age on the date of the measurement.
+
+INPUT
+
+	measurementDateTime,
+	BizPatient->dateOfBirth.
+
+OUTPUT
+
+	patientAge.
+
+RETURN
+
+	boolean success or not.
+*/
+bool BizMeasure::CalculateAge()
+{
+	// Check if the user has entered a date of birth
+	if ( BizPatient::Instance()->dateOfBirth <= BizConstants::PATIENT_INITIAL_DATE )
+	{
+	   /* TBD: CrxMessageFacade::Instance()->Message(TraceEventType::Error,
+			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
+			GetCurrentMeasureDetails() +
+			CrxMessageFacade::Instance()->messageResources->GetString(L"MEASURE_NO_DATE_OF_BIRTH", CultureInfo::CurrentUICulture), 
+			"");*/
+	   return false;
+	}
+
+	// Check if the age will be greater than 0
+	if ( measurementDateTime.Year <= BizPatient::Instance()->dateOfBirth.Year )
+	{
+		/* TBD: CrxMessageFacade::Instance()->Message(TraceEventType::Error,
+			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
+			GetCurrentMeasureDetails() +
+			CrxMessageFacade::Instance()->messageResources->GetString(L"MEASURE_INVALID_DATE_OF_BIRTH", CultureInfo::CurrentUICulture), 
+			"");*/
+		patientAge = 0;
+		return false;
+	}	
+
+	// Calculate age
+	patientAge = measurementDateTime.Year - BizPatient::Instance()->dateOfBirth.Year;
+   
+	// If the patient's birthday hasn't occured this year, then deduct 1 year
+	if ( BizPatient::Instance()->dateOfBirth.DayOfYear > measurementDateTime.DayOfYear )
+	{
+		patientAge--;
+	}
+	
 	return true;
 }
 

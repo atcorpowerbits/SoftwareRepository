@@ -1,7 +1,6 @@
 ﻿
 #include "StdAfx.h"
 #include <biz.h>
-#include "StdAfx.h"
 using namespace AtCor::Scor::BusinessLogic;
 using namespace BIZ_NAMESPACE;
 using namespace CRX_CONFIG_NAMESPACE;
@@ -126,8 +125,9 @@ namespace TestBiz {
 				TestMethod]
 			void ValidatePWVDistanceTest()
 			{
-				BizPWV^  target = (gcnew BizPWV()); // TODO: Initialize to an appropriate value
-				bool expected = Convert::ToBoolean(testContextInstance->DataRow["Expected"]); // TODO: Initialize to an appropriate value
+				BizPWV^  target = (gcnew BizPWV()); 
+				unsigned short methodExpected = Convert::ToUInt16(testContextInstance->DataRow["MethodExpected"]);
+				bool expected = Convert::ToBoolean(testContextInstance->DataRow["Expected"]); 
 				bool actual;
 //				CrxConfigFacade::Instance()->SetDistanceMethod(Convert::ToBoolean(testContextInstance->DataRow["Method"]));
 				CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = Convert::ToUInt16(testContextInstance->DataRow["Method"]);
@@ -136,6 +136,7 @@ namespace TestBiz {
 				target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["PWVDist"]);
 				actual = target->ValidatePWVDistance();
 				Assert::AreEqual(expected, actual);
+				Assert::AreEqual(methodExpected, target->distanceMethod);
 			}
 			/// <summary>
 			///A test for Validate
@@ -157,10 +158,14 @@ namespace TestBiz {
 				TestMethod]
 			void ValidateTest()
 			{
+				CrxConfigManager::Instance->GeneralSettings->BloodPressureEntryOptions = CrxConfigConstants::GENERAL_BP_ENTRY_SPDP;
 				BizPWV^  target = (gcnew BizPWV());
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 //				CrxConfigFacade::Instance()->SetDistanceMethod(true);
 				CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 0; // TBD: Replace magic number for subtracting method
+				CrxConfigManager::Instance->GeneralSettings->HeightandWeightUnit = CrxConfigConstants::GENERAL_UNIT_METRIC;
+				target->heightAndWeight->heightInCentimetres = Convert::ToUInt16(testContextInstance->DataRow["HeightInCentimetres"]);
+				target->bloodPressure->SP->Reading = Convert::ToUInt16(testContextInstance->DataRow["SP"]);;
 				accessor->SetProperty("systemId", Convert::ToString(testContextInstance->DataRow["SystemID"]));
 				accessor->SetProperty("patientNumber", Convert::ToUInt32(testContextInstance->DataRow["PatientNumber"]));
 				accessor->SetProperty("measurementDateTime", Convert::ToDateTime(testContextInstance->DataRow["MeasurementDateTime"]));
@@ -237,6 +242,7 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned int) 0, target->patientNumber);
 			Assert::AreEqual((String^) "", target->groupStudyId);
 			Assert::IsNotNull(target->measurementDateTime);
+			Assert::AreEqual((unsigned short) 0, target->patientAge);
 			Assert::AreEqual((unsigned short) DATA_REVISION, target->dataRevision);
 			Assert::AreEqual((String^) "", target->medication);
 			Assert::AreEqual((String^) "", target->notes);
@@ -247,6 +253,7 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->heightInInches);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInKilograms);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInPounds);
+			Assert::AreEqual((unsigned short) CrxConfigConstants::GENERAL_BP_ENTRY_MPDP, target->bloodPressureEntryOption);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->MP->Reading);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->DP->Reading);
 			Assert::AreEqual((unsigned short) DEFAULT_CAPTURE_TIME, target->captureTime);
@@ -276,6 +283,7 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->heightInInches);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInKilograms);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInPounds);
+			Assert::AreEqual((unsigned short) CrxConfigConstants::GENERAL_BP_ENTRY_SPDP, target->bloodPressureEntryOption);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->SP->Reading);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->DP->Reading);
 			Assert::AreEqual((unsigned short) DEFAULT_CAPTURE_TIME, target->captureTime);
@@ -305,6 +313,7 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->heightInInches);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInKilograms);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->heightAndWeight->weightInPounds);
+			Assert::AreEqual((unsigned short) CrxConfigConstants::GENERAL_BP_ENTRY_SPMP, target->bloodPressureEntryOption);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->MP->Reading);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->bloodPressure->SP->Reading);
 			Assert::AreEqual((unsigned short) DEFAULT_CAPTURE_TIME, target->captureTime);
@@ -342,8 +351,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		{
 			BizPWV^  target = (gcnew BizPWV());
 			PrivateObject^ accessor = gcnew PrivateObject(target);
-//			CrxConfigFacade::Instance()->SetDistanceMethod(Convert::ToBoolean(testContextInstance->DataRow["Method"]));
-			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = Convert::ToUInt16(testContextInstance->DataRow["Method"]);
+			target->distanceMethod = Convert::ToUInt16(testContextInstance->DataRow["Method"]);
 			target->myCarotidDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Carotid"]);
 			target->myCuffDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["Cuff"]);
 			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
@@ -511,6 +519,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			target->femoralSignal->CaptureSignal(femoralSignal, signalLength);
 			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
 			target->correctionTime = Convert::ToSingle(testContextInstance->DataRow["CorrectionTime"]);
+			BizPatient::Instance()->dateOfBirth = Convert::ToDateTime(testContextInstance->DataRow["DateOfBirth"]);
 			float meanHeartRateExpected = Convert::ToSingle(testContextInstance->DataRow[L"HeartRate"]);
 			float meanDeltaTimeExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanDeltaTime"]);
 			float meanCorrectedTimeExpected = Convert::ToSingle(testContextInstance->DataRow[L"MeanCorrectedTime"]);
@@ -628,6 +637,24 @@ public: [TestMethod]
 			bool expected = target->SaveCaptureData();
 			Assert::AreEqual(expected, true);
 			// Also inspect ./simulation/pwv/<date tiem now>.dat file which is written with above simulated data
+		}
+		/// <summary>
+		///A test for CalculateAge
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculateAge.csv", L"BizPWVCalculateAge#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void CalculateAgeTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			BizPatient::Instance()->dateOfBirth = Convert::ToDateTime(testContextInstance->DataRow["DateOfBirth"]);
+			target->measurementDateTime = Convert::ToDateTime(testContextInstance->DataRow["MeasurementDateTime"]);
+			unsigned short patientAgeExpected = Convert::ToUInt16(testContextInstance->DataRow[L"PatientAgeExpected"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = (bool) accessor->Invoke("CalculateAge");
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(patientAgeExpected, target->patientAge);
 		}
 	};
 }

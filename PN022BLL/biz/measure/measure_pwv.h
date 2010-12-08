@@ -81,7 +81,8 @@ public:
 	property BizFemoral2CuffDistance^ myFemoral2CuffDistance;
 	property BizPWVDirectDistance^ myPWVDirectDistance;
 	property unsigned short calculatedDistance;		// Distance used to calculate pulse wave velocity - must be in mm
-
+	property unsigned short distanceMethod;		// Distance method selected when the object was calculated
+		
 	property float correctionTime;					// Correction factor to convert Carotid-Cuff time to Carotid-Femoral time
 	
 	property BizTonometerDataCapture^ tonometerDataObserver;
