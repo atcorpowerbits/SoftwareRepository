@@ -204,10 +204,10 @@ namespace TestBiz {
 public: [TestMethod]
 		void ReadBufferTest()
 		{
-			unsigned int bufferSize = 10; 
+			unsigned short bufferSize = 10; 
 			BizCircularBuffer^  target = (gcnew BizCircularBuffer(bufferSize)); 
 			cli::array< unsigned short >^  buffer; 
-			unsigned int bufferSizeExpected = 10; 
+			unsigned short bufferSizeExpected = 10; 
 			bufferSize = 0;
 			unsigned short startIndexExpected = 0; 
 			unsigned short startIndex = 0; 

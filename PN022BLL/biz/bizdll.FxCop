@@ -239,7 +239,7 @@
               </Issue>
               <Notes>
                <User Name="paul">
-                <Note Id="14" />
+                <Note Id="27" />
                </User>
               </Notes>
              </Message>
@@ -297,7 +297,127 @@
               </Issue>
               <Notes>
                <User Name="paul">
-                <Note Id="15" />
+                <Note Id="29" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="MAXIMUM_REFERENCE_RANGE_AGE">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue Name="Member">
+               <Item>MAXIMUM_REFERENCE_RANGE_AGE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue>
+               <Item>MAXIMUM_REFERENCE_RANGE_AGE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="30" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="MAXIMUM_REFERENCE_RANGE_PWV">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue Name="Member">
+               <Item>MAXIMUM_REFERENCE_RANGE_PWV</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue>
+               <Item>MAXIMUM_REFERENCE_RANGE_PWV</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="30" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="MINIMUM_REFERENCE_RANGE_AGE">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue Name="Member">
+               <Item>MINIMUM_REFERENCE_RANGE_AGE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue>
+               <Item>MINIMUM_REFERENCE_RANGE_AGE</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="30" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="MINIMUM_REFERENCE_RANGE_PWV">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue Name="Member">
+               <Item>MINIMUM_REFERENCE_RANGE_PWV</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue>
+               <Item>MINIMUM_REFERENCE_RANGE_PWV</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="30" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="NUMBER_OF_REFERENCE_RANGES">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldNotContainUnderscores" Category="Microsoft.Naming" CheckId="CA1707" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue Name="Member">
+               <Item>NUMBER_OF_REFERENCE_RANGES</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="28" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="NonConstantFieldsShouldNotBeVisible" Category="Microsoft.Usage" CheckId="CA2211" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue>
+               <Item>NUMBER_OF_REFERENCE_RANGES</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="30" />
                </User>
               </Notes>
              </Message>
@@ -1150,6 +1270,34 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="bloodPressureRange">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-12-15 01:08:57Z">
+              <Issue Name="Member">
+               <Item>bloodPressureRange</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="34" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="bloodPressureRangeTitle">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-12-15 01:04:31Z">
+              <Issue Name="Member">
+               <Item>bloodPressureRangeTitle</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="33" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="captureTime">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -1498,6 +1646,24 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="CaptureSignals():System.Boolean">
+            <Messages>
+             <Message Id="cuffSignal" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-15 22:20:11Z">
+              <Issue>
+               <Item>BizPWV.CaptureSignals():Boolean</Item>
+               <Item>cuffSignal</Item>
+               <Item>System.UInt16[]</Item>
+              </Issue>
+             </Message>
+             <Message Id="tonometerSignal" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-15 22:20:11Z">
+              <Issue>
+               <Item>BizPWV.CaptureSignals():Boolean</Item>
+               <Item>tonometerSignal</Item>
+               <Item>System.UInt16[]</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="carotidQualityObserver">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-11-03 04:10:59Z">
@@ -1824,6 +1990,30 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="normalRange">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue Name="Member">
+               <Item>normalRange</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="32" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue>
+               <Item>BizPWV.normalRange:Single[]</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="6" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="numberOfDeltas">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -1860,7 +2050,7 @@
               </Issue>
               <Notes>
                <User Name="paul">
-                <Note Id="2" />
+                <Note Id="25" />
                </User>
               </Notes>
              </Message>
@@ -1870,7 +2060,59 @@
               </Issue>
               <Notes>
                <User Name="paul">
+                <Note Id="31" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="referenceRange">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue Name="Member">
+               <Item>referenceRange</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="26" />
+               </User>
+              </Notes>
+             </Message>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue>
+               <Item>BizPWV.referenceRange:Single[]</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
                 <Note Id="6" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="referenceRangeDistance">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue Name="Member">
+               <Item>referenceRangeDistance</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="26" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="referenceRangePulseWaveVelocity">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-12-14 22:32:20Z">
+              <Issue Name="Member">
+               <Item>referenceRangePulseWaveVelocity</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="26" />
                </User>
               </Notes>
              </Message>
@@ -2572,7 +2814,7 @@
     <Note Id="3" Modified="2010-11-03 05:34:40Z">Tonometer is spelled correctly</Note>
     <Note Id="4" Modified="2010-11-03 05:35:14Z">Color is spelt the US way</Note>
     <Note Id="5" Modified="2010-11-03 05:35:24Z">Extremum is correctly spelled</Note>
-    <Note Id="6" Modified="2010-11-03 05:45:11Z">The set method is private to protect the array, which makes cloning the array unnecessary and maintains efficiency.</Note>
+    <Note Id="6" Modified="2010-12-14 22:35:15Z">The set method is private to protect the array, which makes cloning the array unnecessary and maintains efficiency.</Note>
     <Note Id="7" Modified="2010-11-03 05:45:19Z">The set method is private to protect the array, which makes cloning the array unnecessary and maintains efficiency.</Note>
     <Note Id="8" Modified="2010-11-03 05:46:33Z">This is not our code</Note>
     <Note Id="9" Modified="2010-11-03 05:50:04Z">Added an empty private constructor is not necessary</Note>
@@ -2591,6 +2833,16 @@
     <Note Id="22" Modified="2010-12-07 05:50:20Z">This is a property not a method</Note>
     <Note Id="23" Modified="2010-12-07 05:50:24Z">This is a property not a method</Note>
     <Note Id="24" Modified="2010-12-07 05:53:12Z">This is a property not a method</Note>
+    <Note Id="25" Modified="2010-12-14 22:32:52Z">This is a property not a method</Note>
+    <Note Id="26" Modified="2010-12-14 22:33:08Z">This is a property not a method</Note>
+    <Note Id="27" Modified="2010-12-14 22:33:35Z">This is a constant</Note>
+    <Note Id="28" Modified="2010-12-14 22:33:44Z">This is a constant</Note>
+    <Note Id="29" Modified="2010-12-14 22:34:16Z">It is constant?</Note>
+    <Note Id="30" Modified="2010-12-14 22:34:51Z">It is constant?</Note>
+    <Note Id="31" Modified="2010-12-14 22:35:07Z">The set method is private to protect the array, which makes cloning the array unnecessary and maintains efficiency.</Note>
+    <Note Id="32" Modified="2010-12-15 01:05:05Z">This is a property not a method</Note>
+    <Note Id="33" Modified="2010-12-15 01:05:11Z">This is a property not a method</Note>
+    <Note Id="34" Modified="2010-12-15 01:09:21Z">This is a property not a method</Note>
    </User>
    <User Name="victora">
     <Note Id="0" Modified="2010-11-24 23:16:04Z">This is a property not a method</Note>

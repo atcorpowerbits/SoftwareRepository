@@ -100,13 +100,16 @@ public:
 	property unsigned short numberOfDeltas;         // Actual number of BizDelta values
 	property unsigned short numberOfValidDeltas;	// Actual number of valid BizDelta values
 
-	property float meanHeartRate;						// Heart rate of the Femoral signal (in bpm)
+	property float meanHeartRate;					// Heart rate of the Femoral signal (in bpm)
 	
 	property float meanDeltaTime;					// Mean pulse onset time difference (in ms) between pulse traces
 	property float meanCorrectedTime;				// Mean Carotid-Femoral time difference (in ms) between pulse traces
 	property float meanPulseWaveVelocity;			// Mean pulse wave velocity (in m/s)
 	property float standardDeviation;				// standard deviation (in m/s) of pulse wave velocity
 	property bool isStandardDeviationValid;			// Indicate to operator whether standard deviation quality is satisfactory
+
+	property float referenceRangeDistance;			// Distance used to calculate the reference range pulse wave velocity - must be in mm
+	property float referenceRangePulseWaveVelocity; // Pulse wave velocity to be displayed on the reference range graph (in m/s)
 
 	property array<BizDelta^>^ pulseWaveVelocity	// Time differences and pulse wave velocities
 	{
@@ -120,11 +123,63 @@ public:
 		}
 	}
 
+	property array<float>^ normalRange				// Upper limit of normal PWV range for display
+	{
+		array<float>^ get() 
+		{
+			return _normalRange;
+		}
+	private: void set(array<float>^ input) 
+		{
+			_normalRange = input;
+		}
+	}
+
+	property array<float>^ referenceRange			// Upper limit of reference PWV range for display
+	{
+		array<float>^ get() 
+		{
+			return _referenceRange;
+		}
+	private: void set(array<float>^ input) 
+		{
+			_referenceRange = input;
+		}
+	}
+
 private:
-	array<BizDelta^>^			_pulseWaveVelocity;
+	array<BizDelta^>^ _pulseWaveVelocity;
+	array<float>^ _normalRange;
+	array<float>^ _referenceRange;
 	BizBuffer^ tonometerBuffer;
 	BizBuffer^ cuffBuffer;
 
+	// TBD: Hide these arrays by making them unmanaged code
+	static array<const float>^ _referenceRangeCoefficient1 =
+	{
+		(float) 0.001,
+		(float) 0.0021,
+		(float) 0.0017,
+		(float) 0.0016,
+		(float) -0.0007
+	};
+	static array<const float>^ _referenceRangeCoefficient2 =
+	{
+		(float) 0.0313,
+		(float) -0.0503,
+		(float) 0.0054,
+		(float) 0.0071,
+		(float) 0.2492
+	};
+	static array<const float>^ _referenceRangeCoefficient3 =
+	{
+		(float) 6.29,
+		(float) 7.79,
+		(float) 6.85,
+		(float) 8.02,
+		(float) 4.34
+	};
+	
 public:
 	// Member functions:
 	BizPWV(void);	
@@ -146,14 +201,14 @@ public:
 	// Do all mathematics for this measurement
 	bool Calculate();
 
-	// Prepare PWV class to store signals
-	void PrepareToCaptureSignal();
-    
 	// Validate the PWV measurement before storing
 	bool ValidateBeforeStore();
 
 	// Validate Signal class properties
 	bool ValidateSignals();
+
+	// Store signals from the circular buffers into the PWV class
+	bool CaptureSignals();
     
 private:
 	// Set default values for calculated variables
@@ -170,6 +225,12 @@ private:
 
 	// Calculate PWV, MeanDt, standardDeviation for this measurement
 	bool CalculateFeatures();
+
+	// Calculate the normalRange array
+	void CalculateNormalRange();
+
+	// Calculate the referenceRange array
+	bool CalculateReferenceRange();
 
 protected:
 	// Log current patient and measurement data

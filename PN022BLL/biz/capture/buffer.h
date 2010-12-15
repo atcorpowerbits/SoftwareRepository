@@ -30,7 +30,7 @@ public:
 	virtual bool Append(unsigned short data) { return false; };
 	virtual bool ReadNext(unsigned short% data) { return false; };
 	virtual void Reset() = 0;
-	virtual array<unsigned short>^ ReadBuffer(unsigned int% bufferSize,
+	virtual array<unsigned short>^ ReadBuffer(unsigned short% bufferSize,
 									unsigned short% startIndex,
 									unsigned short% endIndex) = 0;
 protected:
@@ -45,7 +45,7 @@ public:
 	virtual bool Append(unsigned short data) override;
 	virtual bool ReadNext(unsigned short% data) override;
 	virtual void Reset() override sealed;
-	virtual array<unsigned short>^ ReadBuffer(unsigned int% bufferSize,
+	virtual array<unsigned short>^ ReadBuffer(unsigned short% bufferSize,
 									unsigned short% startIndex,
 									unsigned short% endIndex) override;
 private:

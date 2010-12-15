@@ -44,8 +44,6 @@ BizSignal::BizSignal()
 	floatOnsets = nullptr;
 	firstDerivative = nullptr;
 
-	_readyToCapture = false;
-
 	pulseHeight = (float) BizConstants::DEFAULT_VALUE; 
 	pulseHeightVariation = (float) BizConstants::DEFAULT_VALUE;
 	pulseLengthVariation = (float) BizConstants::DEFAULT_VALUE;
@@ -154,8 +152,6 @@ bool BizSignal::Initialise(const unsigned short inputSampleRate)
 void BizSignal::SetDefaults()
 {
 	// Initialisation
-	_readyToCapture = false;
-
 	pulseHeight = (float) BizConstants::DEFAULT_VALUE;
 	pulseHeightVariation = (float) BizConstants::DEFAULT_VALUE;
 	pulseLengthVariation = (float) BizConstants::DEFAULT_VALUE;
@@ -251,25 +247,6 @@ bool BizSignal::ValidateBeforeStore(const unsigned short minimumSignalLength,
 }
 
 /**
- ** PrepareToCapture()
- **
- ** DESCRIPTION:
- **  Allow signal capture.
-
- ** INPUT:
- **  none.
-
- ** OUTPUT:
- **	 _readyToCapture - true.
-
- ** RETURN:
- **  none.
-*/
-void BizSignal::PrepareToCapture()
-{
-	_readyToCapture = true;
-}
-/**
  ** CaptureSignal()
  **
  ** DESCRIPTION:
@@ -279,7 +256,6 @@ void BizSignal::PrepareToCapture()
  **  input							- integer signal,
  **  size							- length of input,
  **  BizSignal::maximumSignalLength - Maximum accounted points in signal,
- **  BizSignal::_readyToCapture.
 
  ** OUTPUT:
  **	 signalLength					- Number of accounted points in signal,
@@ -293,10 +269,6 @@ bool BizSignal::CaptureSignal(array<const unsigned short>^ input,
 {
 	// Validation
 	if (!BizMath::ValidateArray(input, size))
-	{
-		return false;
-	}
-	if (!_readyToCapture)
 	{
 		return false;
 	}

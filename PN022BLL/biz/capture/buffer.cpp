@@ -211,7 +211,7 @@ RETURN
 	buffer - reference to the buffer array.
 
 */
-array<unsigned short>^ BizCircularBuffer::ReadBuffer(unsigned int% bufferSize,
+array<unsigned short>^ BizCircularBuffer::ReadBuffer(unsigned short% bufferSize,
 									unsigned short% startIndex,
 									unsigned short% endIndex)
 {

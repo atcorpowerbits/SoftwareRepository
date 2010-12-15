@@ -71,14 +71,13 @@ public: [TestMethod]
 			BizSignal^ target = gcnew BizSignal();
 			PrivateObject^ accessor = gcnew PrivateObject(target);
 			accessor->SetProperty("maximumOnsetsLength", MAX_ONSETS);
-			array<float>^ floatOnsetsExpected = gcnew array<float>(MAX_ONSETS);;
+			array<float>^ floatOnsetsExpected = gcnew array<float>(MAX_ONSETS);
 			for (int i = 0; i < MAX_ONSETS; i++)
 			{
 				floatOnsetsExpected[i] = BizConstants::DEFAULT_FLOAT_VALUE;
 			}
 			accessor->SetProperty("floatOnsets", gcnew array<float>(MAX_ONSETS));
 			target->SetDefaults();
-			Assert::AreEqual(false, (bool) accessor->GetProperty("_readyToCapture"));
 			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseHeight);
 			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseHeightVariation);
 			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseLengthVariation);
@@ -154,7 +153,6 @@ public: [TestMethod]
 			Assert::IsNull(target->signal);
 			Assert::IsNull(target->floatOnsets);
 			Assert::IsNull(target->firstDerivative);
-			Assert::AreEqual(false, (bool) accessor->GetProperty("_readyToCapture"));
 			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseHeight);
 			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseHeightVariation);
 			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->pulseLengthVariation);
@@ -177,33 +175,16 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 				array<String^>^ valuesArray = values->Split(',');
 				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
 			}
-			bool _readyToCapture = Convert::ToBoolean(testContextInstance->DataRow[L"ReadyToCapture"]);
-			if (_readyToCapture)
-			{
-				accessor->SetProperty("maximumSignalLength", size);
-				accessor->SetProperty("signal", gcnew array<unsigned short>(size));
-				accessor->SetProperty("_readyToCapture", true);
-			}
+			accessor->SetProperty("maximumSignalLength", size);
+			accessor->SetProperty("signal", gcnew array<unsigned short>(size));
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 			bool actual;
 			actual = target->CaptureSignal(input, size);
 			if (expected)
 			{
-				//cli::array<float>^ signalExpected = Array::ConvertAll(input, gcnew Converter<short, float>(Convert::ToSingle));
 				CollectionAssert::AreEqual(target->signal, input);
 			}
 			Assert::AreEqual(expected, actual);
-		}
-		/// <summary>
-		///A test for PrepareToCapture
-		///</summary>
-public: [TestMethod]
-		void PrepareToCaptureTest()
-		{
-			BizSignal^ target = gcnew BizSignal();
-			PrivateObject^ accessor = gcnew PrivateObject(target);
-			target->PrepareToCapture();
-			Assert::IsTrue((bool) accessor->GetProperty("_readyToCapture"));
 		}
 		/// <summary>
 		///A test for ValidateSignalLength

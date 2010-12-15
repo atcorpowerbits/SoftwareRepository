@@ -81,7 +81,7 @@ RETURN
 */		
 void BizCarotidQuality::Update( Object^ sender, BizTonometerDataEventArgs^ e )
 {
-	unsigned int bufferSize;
+	unsigned short bufferSize;
 	array< unsigned short >^ signal;
 	unsigned short startIndex; 
 	unsigned short endIndex; 
@@ -224,7 +224,7 @@ RETURN
 */		
 void BizFemoralQuality::Update( Object^ sender, BizCuffPulseEventArgs^ e )
 {
-	unsigned int bufferSize;
+	unsigned short bufferSize;
 	array< unsigned short >^ signal;
 	unsigned short startIndex; 
 	unsigned short endIndex; 

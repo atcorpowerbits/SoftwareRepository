@@ -4,7 +4,7 @@
 
 #include <biz_namespace.h>
 
-//using namespace System;
+using namespace System;
 
 START_BIZ_NAMESPACE
 
@@ -68,27 +68,49 @@ static const unsigned short PWV_DISTANCE_MAX = 2200;
 static const unsigned short PWV_FEMORAL_TO_CUFF_DISTANCE_MIN = 10;
 static const unsigned short PWV_FEMORAL_TO_CUFF_DISTANCE_MAX = 700;
 static const float MIN_VALID_PULSELENGTH_PERCENT = (float) 0.70;							// Pulse is invalid if PulseLength percent -
-static const float MAX_VALID_PULSELENGTH_PERCENT = (float) 1.3;							// of Average < 0.7 or > 1.3
+static const float MAX_VALID_PULSELENGTH_PERCENT = (float) 1.3;								// of Average < 0.7 or > 1.3
 static const float DEFAULT_CORRECTION_TIME = (float) 40;									// 40ms correction from cuff to femoral artery
 static const unsigned short MIN_NUMBER_OF_DELTAS = 3;										// Minimal number of Valid pulse differences
 static const float MAX_PWV  = (float) 25;													// 25 m/s is the maximum calculated Pulse Wave Velocity
-static const float MIN_PWV = (float) 1;													// 1 m/s is the minimum calculated Pulse Wave Velocity
+static const float MIN_PWV = (float) 1;														// 1 m/s is the minimum calculated Pulse Wave Velocity
 static const float MIN_ADULT_PWV = (float) 4;												// 4 m/s is the minimum calculated Pulse Wave Velocity for an adult (>18 y.o.)
 static const float VALID_STANDARD_DEVIATION = (float) 0.1;									// A valid standard deviation is considered to be <= 10% of the Pulse Wave Velocity
 static const float HIGH_STANDARD_DEVIATION = (float) 0.30;									// A standard deviation > 30% of the Pulse Wave Velocity is considered high
-static const float	VALID_CAROTID_PULSE_HEIGHT = (float) 300;								// A valid carotid signal has an average pulse height above 300 digital units
-static const float	VALID_CAROTID_PULSE_HEIGHT_VARIATION = (float) 5;						// A valid carotid signal has an average pulse height variation below 5%
-static const float	VALID_FEMORAL_PULSE_HEIGHT = (float) 300;								// A valid femoral signal has an average pulse height above 300 digital units
+static const float VALID_CAROTID_PULSE_HEIGHT = (float) 300;								// A valid carotid signal has an average pulse height above 300 digital units
+static const float VALID_CAROTID_PULSE_HEIGHT_VARIATION = (float) 5;						// A valid carotid signal has an average pulse height variation below 5%
+static const float VALID_FEMORAL_PULSE_HEIGHT = (float) 300;								// A valid femoral signal has an average pulse height above 300 digital units
+static const float NORMAL_RANGE_COEFFICIENT_1 = (float) 0.0013;								// Coefficients of the polynomial equation for the normal range
+static const float NORMAL_RANGE_COEFFICIENT_2 = (float) -0.034;
+static const float NORMAL_RANGE_COEFFICIENT_3 = (float) 5.7;
+static const float NORMAL_RANGE_CONFIDENCE_OFFSET = (float) 2.078;
 
+public enum BloodPressureEnumeration														// Blood pressure categories based on SP
+{
+	BLOOD_PRESSURE_OPTIMAL,
+	BLOOD_PRESSURE_NORMAL,
+	BLOOD_PRESSURE_HIGH_NORMAL,
+	BLOOD_PRESSURE_GRADE_I,
+	BLOOD_PRESSURE_GRADE_II_III
+};
+
+static const unsigned short BLOOD_PRESSURE_OPTIMAL_LIMIT = 120;								// Defines the optimal blood pressure range (mmHg)
+static const unsigned short BLOOD_PRESSURE_NORMAL_LIMIT = 130;								// Defines the normal blood pressure range (mmHg)
+static const unsigned short BLOOD_PRESSURE_HIGH_NORMAL_LIMIT = 140;							// Defines the high normal blood pressure range (mmHg)
+static const unsigned short BLOOD_PRESSURE_GRADE_I_LIMIT = 160;								// Defines the grade I blood pressure range (mmHg)
+static const float SUBRACTING_DISTANCE_CONVERSION_FACTOR = (float) 0.45;					// Used to calculate the reference range distance (mm)
+static const float HEIGHT_CONVERSION_FACTOR = (float) 2.1;									// Used to calculate the reference range distance (mm)
+static const float SUBRACTING_DISTANCE_CONVERSION_OFFSET = (float) 80;						// Used to calculate the reference range distance (mm)
+static const float PULSE_WAVE_VELOCITY_CONVERSION_FACTOR = (float) 0.8;						// Used to calculate the reference range pulse wave velocity (m/s)
+	
 // Quality Class
 static const unsigned short QUALITY_UPDATE_INTERVAL = 1;									// Update quality information every 1 second
 static const unsigned short TONOMETER_SIGNAL_STRENGTH_POOR = 200;							// Indicates a poor signal
 static const unsigned short TONOMETER_SIGNAL_STRENGTH_GOOD = 300;							// Indicates a good signal
-static const unsigned short MINIMUM_TONOMETER_SIGNAL_STRENGTH = 80;						// Indicates a valid signal strength
+static const unsigned short MINIMUM_TONOMETER_SIGNAL_STRENGTH = 80;							// Indicates a valid signal strength
 static const unsigned short MINIMUM_TONOMETER_BASELINE = 120;								// Indicates a valid signal baseline
 static const unsigned short CUFF_SIGNAL_STRENGTH_GOOD = 300;							    // Indicates a good signal
 static const unsigned short MINIMUM_CUFF_SIGNAL_STRENGTH = 80;						        // Indicates a valid signal strength
-static const unsigned short MINIMUM_CUFF_BASELINE = 120;								        // Indicates a valid signal baseline
+static const unsigned short MINIMUM_CUFF_BASELINE = 120;								     // Indicates a valid signal baseline
 
 // Signal Class
 static const unsigned short MAX_HEART_RATE = 220;													// 200 bpm

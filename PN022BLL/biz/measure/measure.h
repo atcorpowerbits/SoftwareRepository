@@ -154,6 +154,8 @@ public:
 
 	property BizBloodPressure^	bloodPressure;			// patient blood pressure
 	property unsigned short bloodPressureEntryOption;	// Blood pressure option selected when the object was calculated
+	property String^ bloodPressureRangeTitle;			// Blood pressure category to be displayed
+
 	property BizHeightAndWeight^ heightAndWeight;		// patient height, weight and BMI
 
 	property String^			systemId;				// Customer System ID
@@ -181,6 +183,8 @@ public:
 	virtual bool Validate();
 
 protected:
+	property BloodPressureEnumeration bloodPressureRange;	// Blood pressure category
+	
 	// Constructor
 	BizMeasure(void);
 
@@ -192,6 +196,19 @@ protected:
 
 	// Calculate the patient's age on the date of the measurement
 	bool CalculateAge();
+
+	// Calculate the blood pressure range
+	bool CalculateBloodPressureRange();
+
+private:
+	static array<String^>^ _bloodPressureRangeTitles =
+	{
+		"Optimal",
+		"Normal",
+		"High Normal",
+		"Grade I",
+		"Grade II & III"
+	};
 };
 
 END_BIZ_NAMESPACE

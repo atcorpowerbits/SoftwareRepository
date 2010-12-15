@@ -1,6 +1,8 @@
 ﻿
 #include "StdAfx.h"
 #include <biz.h>
+#include "StdAfx.h"
+#include "StdAfx.h"
 using namespace AtCor::Scor::BusinessLogic;
 using namespace BIZ_NAMESPACE;
 using namespace CRX_CONFIG_NAMESPACE;
@@ -201,6 +203,8 @@ namespace TestBiz {
 				Assert::IsNotNull(target->carotidSignal);
 				Assert::IsNotNull(target->femoralSignal);
 				Assert::IsNotNull(target->pulseWaveVelocity);
+				Assert::IsNotNull(target->normalRange);
+				Assert::IsNotNull(target->referenceRange);
 			}
 			/// <summary>
 			///A test for SetDefaults
@@ -221,6 +225,18 @@ public: [TestMethod]
 			Assert::IsFalse(target->isFemoralSignalValid);
 			Assert::IsFalse(target->isStandardDeviationValid);	
 			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->meanHeartRate);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->referenceRangeDistance);
+			Assert::AreEqual((float) BizConstants::DEFAULT_VALUE, target->referenceRangePulseWaveVelocity);
+			Assert::AreEqual((String^) "", target->bloodPressureRangeTitle);
+			array<float>^ normalRangeExpected = gcnew array<float>(BizConstants::NUMBER_OF_REFERENCE_RANGES);;
+			array<float>^ referenceRangeExpected = gcnew array<float>(BizConstants::NUMBER_OF_REFERENCE_RANGES);;
+			for (unsigned short i = 0; i < BizConstants::NUMBER_OF_REFERENCE_RANGES; i++)
+			{
+				normalRangeExpected[i] = BizConstants::DEFAULT_FLOAT_VALUE;
+				referenceRangeExpected[i] = BizConstants::DEFAULT_FLOAT_VALUE;
+			}
+			CollectionAssert::AreEqual(normalRangeExpected, target->normalRange);
+			CollectionAssert::AreEqual(referenceRangeExpected, target->referenceRange);
 		}
 		/// <summary>
 		///A test for Initialise
@@ -328,8 +344,6 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		void ValidateSignalsTest()
 		{
 			BizPWV^  target = (gcnew BizPWV());
-			target->carotidSignal->PrepareToCapture();
-			target->femoralSignal->PrepareToCapture();
 			unsigned short carotidSignalLength = Convert::ToUInt16(testContextInstance->DataRow[L"CarotidSignalLength"]);
 			unsigned short femoralSignalLength = Convert::ToUInt16(testContextInstance->DataRow[L"FemoralSignalLength"]);
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Signal"]);
@@ -506,7 +520,6 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			BizPWV^  target = (gcnew BizPWV());
 			target->systemId = "00050";
 			target->patientNumber = 1;
-			target->PrepareToCaptureSignal();
 			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
 			unsigned short signalLength = Convert::ToUInt16(testContextInstance->DataRow[L"SignalLength"]);
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidSignal"]);
@@ -656,5 +669,65 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			Assert::AreEqual(expected, actual);
 			Assert::AreEqual(patientAgeExpected, target->patientAge);
 		}
-	};
+		/// <summary>
+		///A test for CalculateNormalRange
+		///</summary>
+public: [TestMethod]
+		void CalculateNormalRangeTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			array<float>^ normalRangeExpected = {(float) 7.6180000,(float) 7.6373000,(float) 7.6591997,(float) 7.6836996,(float) 7.7107997,
+												(float) 7.7405000,(float) 7.7728000,(float) 7.8076997,(float) 7.8452001,(float) 7.8852997,
+												(float) 7.9280000,(float) 7.9733000,(float) 8.0212002,(float) 8.0717001,(float) 8.1247997,
+												(float) 8.1805000,(float) 8.2388000,(float) 8.2996998,(float) 8.3632002,(float) 8.4292994,
+												(float) 8.4980001,(float) 8.5692997,(float) 8.6431999,(float) 8.7196999,(float) 8.7987995,
+												(float) 8.8804998,(float) 8.9647999,(float) 9.0516996,(float) 9.1412001,(float) 9.2333002,
+												(float) 9.3280001,(float) 9.4252996,(float) 9.5251999,(float) 9.6276999,(float) 9.7327995,
+												(float) 9.8404999,(float) 9.9507999,(float) 10.063700,(float) 10.179200,(float) 10.297299,
+												(float) 10.418000,(float) 10.541300,(float) 10.667200,(float) 10.795700,(float) 10.926800,
+												(float) 11.060500,(float) 11.196800,(float) 11.335700,(float) 11.477200,(float) 11.621300,
+												(float) 11.768000,(float) 11.917300,(float) 12.069200,(float) 12.223700,(float) 12.380799,
+												(float) 12.540500,(float) 12.702800,(float) 12.867700,(float) 13.035200,(float) 13.205299,
+												(float) 13.377999,(float) 13.553300,(float) 13.731200,(float) 13.911699,(float) 14.094800,
+												(float) 14.280499,(float) 14.468800,(float) 14.659699,(float) 14.853200,(float) 15.049300,(float) 15.248000};
+			accessor->Invoke("CalculateNormalRange");
+			CollectionAssert::AreEqual(normalRangeExpected, target->normalRange);
+		}
+		/// <summary>
+		///A test for CalculateReferenceRange
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculateReferenceRange.csv", L"BizPWVCalculateReferenceRange#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void CalculateReferenceRangeTest()
+		{
+			CrxConfigManager::Instance->GeneralSettings->BloodPressureEntryOptions = Convert::ToUInt16(testContextInstance->DataRow[L"BloodPressureEntryOption"]);
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			target->meanCorrectedTime = 50;
+			if ( CrxConfigManager::Instance->GeneralSettings->BloodPressureEntryOptions != CrxConfigConstants::GENERAL_BP_ENTRY_MPDP )
+			{
+				target->bloodPressure->SP->Reading = Convert::ToUInt16(testContextInstance->DataRow[L"SP"]);
+			}
+			target->distanceMethod = Convert::ToUInt16(testContextInstance->DataRow[L"DistanceMethod"]);
+			target->calculatedDistance = Convert::ToUInt16(testContextInstance->DataRow["CalculatedDistance"]);
+			target->heightAndWeight->heightInCentimetres = Convert::ToUInt16(testContextInstance->DataRow["HeightInCentimetres"]);
+			String^ bloodPressureRangeExpected = Convert::ToString(testContextInstance->DataRow[L"BloodPressureRangeExpected"]);
+			float referenceRangeDistanceExpected = Convert::ToSingle(testContextInstance->DataRow[L"ReferenceRangeDistanceExpected"]);
+			float referenceRangePulseWaveVelocityExpected = Convert::ToSingle(testContextInstance->DataRow[L"ReferenceRangePulseWaveVelocityExpected"]);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"ReferenceRangeExpected"]);
+			array<String^>^ valuesArray = values->Split(',');
+			cli::array< float >^ referenceRangeExpected = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual = (bool) accessor->Invoke("CalculateReferenceRange");
+			array<double>^ doubleArray = Array::ConvertAll(target->referenceRange, gcnew Converter<float, double>(Convert::ToDouble));
+			array<String^>^ testArray = Array::ConvertAll(doubleArray, gcnew Converter<double, String^>(Convert::ToString));
+			String^ test = String::Join(",", testArray);
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(bloodPressureRangeExpected, target->bloodPressureRangeTitle);
+			Assert::AreEqual(referenceRangeDistanceExpected, target->referenceRangeDistance);
+			Assert::AreEqual(referenceRangePulseWaveVelocityExpected, target->referenceRangePulseWaveVelocity);
+			CollectionAssert::AreEqual(referenceRangeExpected, target->referenceRange);
+		}
+};
 }

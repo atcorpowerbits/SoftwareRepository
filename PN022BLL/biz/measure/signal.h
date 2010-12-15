@@ -68,7 +68,6 @@ public:
 	}
 
 private:
-	property bool			_readyToCapture;		
 	array<unsigned short>^	_signal;
 	array<float>^			_floatOnsets;	
 	array<float>^			_firstDerivative;
@@ -93,9 +92,6 @@ public:
 	// Store whole signal in Signal array
 	bool CaptureSignal(array<const unsigned short>^ input, const unsigned short size);
 
-	// Allow signal capture
-	void PrepareToCapture();
-	
 	// Validate Signal length
 	bool ValidateSignalLength(const unsigned short minimumSignalLength);
 

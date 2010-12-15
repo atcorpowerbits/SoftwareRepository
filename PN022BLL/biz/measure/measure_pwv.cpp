@@ -198,6 +198,9 @@ BizPWV::BizPWV(void)
 		pulseWaveVelocity[i] = gcnew BizDelta;
 	}
 	
+	normalRange = gcnew array<float>(BizConstants::NUMBER_OF_REFERENCE_RANGES);
+	referenceRange = gcnew array<float>(BizConstants::NUMBER_OF_REFERENCE_RANGES);
+	
 	// Allocate Signals
 	carotidSignal->Allocate(MAX_SIGNAL_LENGTH, MAX_ONSETS);
 	femoralSignal->Allocate(MAX_SIGNAL_LENGTH, MAX_ONSETS);
@@ -501,9 +504,19 @@ void BizPWV::SetDefaults()
     carotidSignal->SetDefaults();
     femoralSignal->SetDefaults();
     
-    for (int i = 0; i < MAX_ONSETS; i++)
+    for (unsigned short i = 0; i < MAX_ONSETS; i++)
     {
 		pulseWaveVelocity[i]->SetDefaults();
+    }
+
+	referenceRangeDistance = BizConstants::DEFAULT_VALUE;
+	referenceRangePulseWaveVelocity = BizConstants::DEFAULT_VALUE;
+	bloodPressureRangeTitle = "";
+
+	for (unsigned short i = 0; i < BizConstants::NUMBER_OF_REFERENCE_RANGES; i++)
+    {
+		normalRange[i] = BizConstants::DEFAULT_FLOAT_VALUE;
+    	referenceRange[i] = BizConstants::DEFAULT_FLOAT_VALUE;
     }
 }
 /**
@@ -678,6 +691,13 @@ bool BizPWV::Calculate()
 		return false;
 	}
 
+	// Calculate the normalRange array
+	CalculateNormalRange();
+
+	// Calculate the referenceRange array
+	// If it fails, a message will be displayed to the user, but calculation should continue
+	CalculateReferenceRange();
+
 	return true;
 }
 /**
@@ -740,11 +760,11 @@ bool BizPWV::CalculateAndValidateDistance()
 }
 
 /**
- ** PrepareToCaptureSignal()
+ ** CaptureSignals()
  **
  ** DESCRIPTION
  **
- **  Prepares the PWV class to store new signals.
+ **  Store signals from the circular buffers into the PWV class.
 
  ** INPUT
  **
@@ -758,14 +778,41 @@ bool BizPWV::CalculateAndValidateDistance()
  **
  **  none.
 */
-void BizPWV::PrepareToCaptureSignal()
+bool BizPWV::CaptureSignals()
 {
-  // Reset calculated members
-  SetDefaults();
-  
-  // Set up ready flags for Signals
-  carotidSignal->PrepareToCapture();
-  femoralSignal->PrepareToCapture();
+	// Reset calculated members
+	SetDefaults();
+
+	array< unsigned short >^ tonometerSignal;
+	array< unsigned short >^ cuffSignal;
+	unsigned short startIndex; 
+	unsigned short endIndex; 
+	unsigned short bufferSize;
+
+	tonometerSignal = tonometerBuffer->ReadBuffer(bufferSize, startIndex, endIndex);
+	
+	// The buffer must be full
+	if ( startIndex != endIndex )
+	{
+		return false;
+	}
+	endIndex = endIndex - ( sampleRate * BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE );
+	if ( endIndex < 0 )
+	{
+		endIndex = endIndex + bufferSize;
+	}
+	//carotidSignal->CaptureSignal(tonometerSignal, bufferSize, startIndex, endIndex);
+	
+	cuffSignal = cuffBuffer->ReadBuffer(bufferSize, startIndex, endIndex);
+
+	// The buffer must be full
+	if ( startIndex != endIndex )
+	{
+		return false;
+	}
+
+	//femoralSignal->CaptureSignal(femoralSignal, signalLength);
+	return true;
 }
 
 /**
@@ -1159,6 +1206,106 @@ bool BizPWV::CalculateQualityControls()
 	return true;
 }
 
+/**
+CalculateNormalRange()
+
+DESCRIPTION
+
+	Calculate the normal range array for display.
+
+INPUT
+
+	none.
+
+OUTPUT
+	normalRange.
+
+RETURN
+
+	none.
+*/
+void BizPWV::CalculateNormalRange()
+{	
+	// Calculate the upper normal range limit. That is, 90% of the normal poplulation -
+	// have PWV's below this range. Above this range is not healthy
+	unsigned short age = BizConstants::MINIMUM_REFERENCE_RANGE_AGE;
+	for ( unsigned short index = 0; index < BizConstants::NUMBER_OF_REFERENCE_RANGES; index++ )
+	{
+		normalRange[index] = (NORMAL_RANGE_COEFFICIENT_1 * (age * age)) + (NORMAL_RANGE_COEFFICIENT_2 * age) + NORMAL_RANGE_COEFFICIENT_3 + NORMAL_RANGE_CONFIDENCE_OFFSET,
+		age++;
+	}
+}
+
+/**
+CalculateReferenceRange()
+
+DESCRIPTION
+
+	Calculate the blood pressure range and reference range array for display.
+
+INPUT
+
+	bloodPressure->SP->Reading,
+	distanceMethod,
+	calculatedDistance,
+	heightAndWeight->heightInCentimetres (subtracting method only),
+	meanCorrectedTime.
+
+OUTPUT
+	referenceRangeDistance,
+	referenceRangePulseWaveVelocity,
+	bloodPressureRangeTitle,
+	referenceRange.
+
+RETURN
+
+	boolean success or not.
+*/
+bool BizPWV::CalculateReferenceRange()
+{	
+	// Reference range can only be calculated if the blood pressure range can be determined
+	if ( !CalculateBloodPressureRange() )
+	{
+		return false;
+	}
+
+	// Calculate the upper reference range limit. That is, 90% of the reference poplulation -
+	// have PWV's below this range. Above this range is at risk
+	unsigned short age = BizConstants::MINIMUM_REFERENCE_RANGE_AGE;
+	for ( unsigned short index = 0; index < BizConstants::NUMBER_OF_REFERENCE_RANGES; index++ )
+	{
+		referenceRange[index] = (_referenceRangeCoefficient1[bloodPressureRange] * (age * age)) + 
+								(_referenceRangeCoefficient2[bloodPressureRange] * age) + 
+								_referenceRangeCoefficient3[bloodPressureRange];
+		age++;
+	}
+
+	// Calculate the reference range distance
+	if ( distanceMethod == 0 )
+	{
+		// The height must be entered to convert a subtracting distance
+		if ( heightAndWeight->heightInCentimetres == DEFAULT_VALUE )
+		{
+			// TBD: Display status bar message of the form "Height is required to display the -
+			//		reference range when using the subtracting method"
+			return false;
+		}
+		referenceRangeDistance = SUBRACTING_DISTANCE_CONVERSION_FACTOR * calculatedDistance + 
+								( HEIGHT_CONVERSION_FACTOR * heightAndWeight->heightInCentimetres) + 
+								SUBRACTING_DISTANCE_CONVERSION_OFFSET;
+	}
+	else
+	{
+		referenceRangeDistance = (float) calculatedDistance;
+	}
+
+	// Calculate the reference range pulse wave velocity
+	referenceRangePulseWaveVelocity = PULSE_WAVE_VELOCITY_CONVERSION_FACTOR * referenceRangeDistance / meanCorrectedTime;
+
+	// Reference range array and pulse wave velocity were calculated successfully
+	return true;
+}
+
 // Log current patient and measurement data
 void BizPWV::LogSetupData()
 {
@@ -1234,7 +1381,7 @@ bool BizPWV::SaveCaptureData()
 	array< unsigned short >^ cuffPulse;
 	unsigned short startIndex; 
 	unsigned short endIndex; 
-	unsigned int bufferSize;
+	unsigned short bufferSize;
 
 	tonometerData = tonometerBuffer->ReadBuffer(bufferSize, startIndex, endIndex);
 	cuffPulse = cuffBuffer->ReadBuffer(bufferSize, startIndex, endIndex);

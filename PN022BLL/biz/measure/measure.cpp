@@ -289,6 +289,64 @@ bool BizMeasure::CalculateAge()
 }
 
 /**
+CalculateBloodPressureRange()
+
+DESCRIPTION
+
+	Calculate the blood pressure range.
+
+INPUT
+
+	bloodPressure->SP->Reading.
+
+OUTPUT
+
+	bloodPressureRange,
+	bloodPressureRangeTitle.
+
+RETURN
+
+	boolean success or not.
+*/
+bool BizMeasure::CalculateBloodPressureRange()
+{	
+	// Blood Pressure range can only be calculated if SP has been entered
+	if ( bloodPressureEntryOption == CrxConfigConstants::GENERAL_BP_ENTRY_MPDP ||
+		bloodPressure->SP->Reading == BizConstants::DEFAULT_VALUE )
+	{
+		// TBD: Display status bar message of the form "SP is required to display the reference range"
+		return false;
+	}
+
+	// Calculate the blood pressure range
+	if ( bloodPressure->SP->Reading < BLOOD_PRESSURE_OPTIMAL_LIMIT )
+	{
+		bloodPressureRange = BLOOD_PRESSURE_OPTIMAL;
+	}
+	else if ( bloodPressure->SP->Reading < BLOOD_PRESSURE_NORMAL_LIMIT )
+	{
+		bloodPressureRange = BLOOD_PRESSURE_NORMAL;
+	}
+	else if ( bloodPressure->SP->Reading < BLOOD_PRESSURE_HIGH_NORMAL_LIMIT )
+	{
+		bloodPressureRange = BLOOD_PRESSURE_HIGH_NORMAL;
+	}
+	else if ( bloodPressure->SP->Reading < BLOOD_PRESSURE_GRADE_I_LIMIT )
+	{
+		bloodPressureRange = BLOOD_PRESSURE_GRADE_I;
+	}
+	else
+	{
+		bloodPressureRange = BLOOD_PRESSURE_GRADE_II_III;
+	}
+
+	bloodPressureRangeTitle = _bloodPressureRangeTitles[bloodPressureRange];
+
+	// Blood pressure range was calculated successfully
+	return true;
+}
+
+/**
  ** Constructor()
  **
  ** DESCRIPTION:
