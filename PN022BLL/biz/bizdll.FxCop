@@ -1626,7 +1626,7 @@
             </Issue>
             <Notes>
              <User Name="paul">
-              <Note Id="0" />
+              <Note Id="35" />
              </User>
             </Notes>
            </Message>
@@ -1646,21 +1646,17 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="CaptureSignals():System.Boolean">
+           <Member Name="CalculatePWVReport(AtCor.Scor.CrossCutting.DatabaseManager.CrxStructPWVMeasurementData):System.Boolean">
             <Messages>
-             <Message Id="cuffSignal" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-15 22:20:11Z">
-              <Issue>
-               <Item>BizPWV.CaptureSignals():Boolean</Item>
-               <Item>cuffSignal</Item>
-               <Item>System.UInt16[]</Item>
+             <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Status="Excluded" Created="2010-12-21 03:42:07Z">
+              <Issue Name="Member">
+               <Item>BizPWV.CalculatePWVReport(CrxStructPWVMeasurementData):Boolean</Item>
               </Issue>
-             </Message>
-             <Message Id="tonometerSignal" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2010-12-15 22:20:11Z">
-              <Issue>
-               <Item>BizPWV.CaptureSignals():Boolean</Item>
-               <Item>tonometerSignal</Item>
-               <Item>System.UInt16[]</Item>
-              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="36" />
+               </User>
+              </Notes>
              </Message>
             </Messages>
            </Member>
@@ -2066,6 +2062,20 @@
              </Message>
             </Messages>
            </Member>
+           <Member Name="RecalculatePWVReport(AtCor.Scor.CrossCutting.DatabaseManager.CrxStructPWVMeasurementData):System.Boolean">
+            <Messages>
+             <Message Id="Member" TypeName="LongAcronymsShouldBePascalCased" Category="Microsoft.Naming" CheckId="CA1705" Status="Excluded" Created="2010-12-21 03:42:07Z">
+              <Issue Name="Member">
+               <Item>BizPWV.RecalculatePWVReport(CrxStructPWVMeasurementData):Boolean</Item>
+              </Issue>
+              <Notes>
+               <User Name="paul">
+                <Note Id="0" />
+               </User>
+              </Notes>
+             </Message>
+            </Messages>
+           </Member>
            <Member Name="referenceRange">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-12-14 22:32:20Z">
@@ -2308,25 +2318,6 @@
          </Type>
          <Type Name="BizSignal">
           <Members>
-           <Member Name="CaptureSignal(System.optional(IsConst) UInt16[],System.UInt16):System.Boolean">
-            <Messages>
-             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Status="Excluded" Created="2010-10-29 02:05:19Z">
-              <Issue>
-               <Item>'input'</Item>
-               <Item>BizSignal.CaptureSignal(optional(IsConst) UInt16[], UInt16):Boolean</Item>
-              </Issue>
-              <Issue>
-               <Item>'input'</Item>
-               <Item>BizSignal.CaptureSignal(optional(IsConst) UInt16[], UInt16):Boolean</Item>
-              </Issue>
-              <Notes>
-               <User Name="paul">
-                <Note Id="11" />
-               </User>
-              </Notes>
-             </Message>
-            </Messages>
-           </Member>
            <Member Name="firstDerivative">
             <Messages>
              <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2010-10-29 02:05:19Z">
@@ -2808,7 +2799,7 @@
   </Targets>
   <Notes>
    <User Name="paul">
-    <Note Id="0" Modified="2010-11-03 04:13:07Z">The acronym PWV is acceptable</Note>
+    <Note Id="0" Modified="2010-12-21 03:42:44Z">The acronym PWV is acceptable</Note>
     <Note Id="1" Modified="2010-11-03 04:13:29Z">The acronym PWV is acceptable</Note>
     <Note Id="2" Modified="2010-11-03 05:33:43Z">This is a property not a method</Note>
     <Note Id="3" Modified="2010-11-03 05:34:40Z">Tonometer is spelled correctly</Note>
@@ -2843,6 +2834,8 @@
     <Note Id="32" Modified="2010-12-15 01:05:05Z">This is a property not a method</Note>
     <Note Id="33" Modified="2010-12-15 01:05:11Z">This is a property not a method</Note>
     <Note Id="34" Modified="2010-12-15 01:09:21Z">This is a property not a method</Note>
+    <Note Id="35" Modified="2010-12-21 03:42:35Z">The acronym PWV is acceptable</Note>
+    <Note Id="36" Modified="2010-12-21 03:42:51Z">The acronym PWV is acceptable</Note>
    </User>
    <User Name="victora">
     <Note Id="0" Modified="2010-11-24 23:16:04Z">This is a property not a method</Note>

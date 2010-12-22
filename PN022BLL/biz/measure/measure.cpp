@@ -56,7 +56,7 @@ BizMeasure::BizMeasure()
 */
 void BizMeasure::Initialise()
 {
-	systemId = "";
+	systemId = 0;
 	patientNumber = 0;                          
 	groupStudyId = "";
 	measurementDateTime = DateTime::Now;     
@@ -92,7 +92,7 @@ void BizMeasure::Initialise()
 		bloodPressure = gcnew BizSPAndMP;
 	}	
 	
-	captureTime = DEFAULT_CAPTURE_TIME; //TBD: Why is capture time from PWV setting needed in generic measure class?
+	captureTime = CrxConfigManager::Instance->PwvSettings->CaptureTime; //TBD: Why is capture time from PWV setting needed in generic measure class? -
 	sampleRate = 1024 / DalConstants::DataSamplingInterval; //DEFAULT_SAMPLE_RATE;  
 	
 	simulation = false;
@@ -150,7 +150,7 @@ bool BizMeasure::Validate()
 
 	// GroupStudyID can be blank, so no need to validate
 	// Validate Customer System ID
-	if (String::IsNullOrEmpty(systemId))
+	if ( systemId <=0 )
 	{
 		/* TBD: CrxMessageFacade::Instance()->Message(TraceEventType::Error,
 			CrxMessageFacade::Instance()->messageResources->GetString(L"VALIDATION_ERROR", CultureInfo::CurrentUICulture), 
@@ -311,8 +311,7 @@ RETURN
 bool BizMeasure::CalculateBloodPressureRange()
 {	
 	// Blood Pressure range can only be calculated if SP has been entered
-	if ( bloodPressureEntryOption == CrxConfigConstants::GENERAL_BP_ENTRY_MPDP ||
-		bloodPressure->SP->Reading == BizConstants::DEFAULT_VALUE )
+	if ( bloodPressure->SP->Reading == BizConstants::DEFAULT_VALUE )
 	{
 		// TBD: Display status bar message of the form "SP is required to display the reference range"
 		return false;
@@ -960,5 +959,250 @@ bool BizSPAndMP::Validate()
 			return false;
 		} 
 	}
+	return true;
+}
+
+/**
+Populate()
+
+DESCRIPTION
+
+	Populate the BizMeasure class from a database structure.
+
+INPUT
+
+	CrxStructPWVMeasurementData.
+
+OUTPUT
+	
+	BizMeasure class members.
+
+RETURN
+
+	Boolean success or not.
+*/
+bool BizMeasure::Populate( CrxStructPWVMeasurementData^ record )
+{
+	// Validate
+	if ( record == nullptr )
+	{
+		return false;
+	}
+	
+	// Populate the Measure class properties
+	// Cannot return false because the record has already been validated
+	bloodPressure->Populate( record );
+	bloodPressureEntryOption = record->BloodPressureEntryOption;
+	bloodPressureRangeTitle = record->BloodPressureRange;
+
+	// Cannot return false because the record has already been validated
+	heightAndWeight->Populate( record );
+
+	systemId = record->SystemIdentifier;
+	groupStudyId = record->GroupIdentifier;
+	patientNumber = record->PatientNumberInternal;
+
+	measurementDateTime = record->StudyDateTime;
+	dataRevision = record->DataRevision;
+	patientAge = record->Age;
+
+	notes = record->Notes;
+	operatorId = record->Operator;
+	
+	captureTime = record->CaptureTime;
+	sampleRate = record->SampleRate;
+	simulation = record->Simulation;
+
+	return true;
+}
+
+/**
+Store()
+
+DESCRIPTION
+
+	Store the BizMeasure class into a database structure.
+
+INPUT
+
+	BizMeasure class members.
+
+OUTPUT
+	
+	CrxStructPWVMeasurementData.
+
+RETURN
+
+	Boolean success or not.
+*/
+bool BizMeasure::Store( CrxStructPWVMeasurementData^ record )
+{
+	// Validate
+	if ( record == nullptr )
+	{
+		return false;
+	}
+	
+	// Cannot return false because the record has already been validated
+	bloodPressure->Store( record );
+	record->BloodPressureEntryOption = bloodPressureEntryOption;
+	record->BloodPressureRange = bloodPressureRangeTitle;
+
+	// Cannot return false because the record has already been validated
+	heightAndWeight->Store( record );
+
+	record->SystemIdentifier = systemId;
+	record->GroupIdentifier = groupStudyId;
+	record->PatientNumberInternal = patientNumber;
+
+	record->StudyDateTime = measurementDateTime;
+	record->DataRevision = dataRevision;
+	record->Age = patientAge;
+
+	record->Notes = notes;
+	record->Operator = operatorId;
+	
+	record->CaptureTime = captureTime;
+	record->SampleRate = sampleRate;
+	record->Simulation = simulation;
+
+	return true;
+}
+/**
+Populate()
+
+DESCRIPTION
+
+	Populate the BizBloodPressure class from a database structure.
+
+INPUT
+
+	CrxStructPWVMeasurementData.
+
+OUTPUT
+	
+	BizBloodPressure class members.
+
+RETURN
+
+	Boolean success or not.
+*/
+bool BizBloodPressure::Populate( CrxStructPWVMeasurementData^ record )
+{
+	// Validate
+	if ( record == nullptr )
+	{
+		return false;
+	}
+	
+	SP->Reading = record->SP;
+	DP->Reading = record->DP;
+	MP->Reading = record->MP;
+
+	return true;
+}
+
+/**
+Store()
+
+DESCRIPTION
+
+	Store the BizBloodPressure class into a database structure.
+
+INPUT
+
+	BizBloodPressure class members.
+
+OUTPUT
+	
+	CrxStructPWVMeasurementData.
+
+RETURN
+
+	Boolean success or not.
+*/
+bool BizBloodPressure::Store( CrxStructPWVMeasurementData^ record )
+{
+	// Validate
+	if ( record == nullptr )
+	{
+		return false;
+	}
+	
+	record->SP = SP->Reading;
+	record->DP = DP->Reading;
+	record->MP = MP->Reading;
+
+	return true;
+}
+/**
+Populate()
+
+DESCRIPTION
+
+	Populate the BizHeightAndWeight class from a database structure.
+
+INPUT
+
+	CrxStructPWVMeasurementData.
+
+OUTPUT
+	
+	BizHeightAndWeight class members.
+
+RETURN
+
+	Boolean success or not.
+*/
+bool BizHeightAndWeight::Populate( CrxStructPWVMeasurementData^ record )
+{
+	// Validate
+	if ( record == nullptr )
+	{
+		return false;
+	}
+	
+	heightInCentimetres = record->HeightInCentimetres;
+	heightInInches = record->HeightInInches;
+	weightInKilograms = record->WeightInKilograms;
+	weightInPounds = record->WeightInPounds;
+	bodyMassIndex = record->BodyMassIndex;
+
+	return true;
+}
+
+/**
+Store()
+
+DESCRIPTION
+
+	Store the BizHeightAndWeight class into a database structure.
+
+INPUT
+
+	BizHeightAndWeight class members.
+
+OUTPUT
+	
+	CrxStructPWVMeasurementData.
+
+RETURN
+
+	Boolean success or not.
+*/
+bool BizHeightAndWeight::Store( CrxStructPWVMeasurementData^ record )
+{
+	// Validate
+	if ( record == nullptr )
+	{
+		return false;
+	}
+	
+	record->HeightInCentimetres = heightInCentimetres;
+	record->HeightInInches = heightInInches;
+	record->WeightInKilograms = weightInKilograms;
+	record->WeightInPounds = weightInPounds;
+	record->BodyMassIndex = bodyMassIndex;
+
 	return true;
 }

@@ -175,4 +175,5 @@ void BizSession::ClearMeasurement(void)
 	// TBD: Default to PWV but create a measurement object wrt current mode later.
 	measurement = gcnew BizPWV;
 }
+
 END_BIZ_NAMESPACE

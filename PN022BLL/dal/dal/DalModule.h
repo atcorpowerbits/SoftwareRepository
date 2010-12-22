@@ -89,6 +89,15 @@ namespace AtCor{
 				* @warning	This method has not been implemented. It is a stub.
 				*/
 				String^ FindModule();
+
+				// Returns the PWV measurement counter stored in the firmware
+				bool GetPWVMeasurementCounter( unsigned short% count);
+
+				// Sets the PWV measurement counter stored in the firmware
+				bool SetPWVMeasurementCounter( unsigned short count);
+
+				// For testing only
+				property bool measurementCounterTest;
 			};
 		}
 	}

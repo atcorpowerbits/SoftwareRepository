@@ -15,6 +15,7 @@
 
 using namespace System;
 using namespace DAL_NAMESPACE;
+using namespace CRX_DATABASE_MANAGER_NAMESPACE;
 
 START_BIZ_NAMESPACE
 
@@ -31,6 +32,12 @@ public:
 	BizHeightAndWeight();
 	void Initialise();
 	bool ValidateAndCalculate();
+	
+	// Store the BizHeightAndWeight class into a database structure
+	bool Store( CrxStructPWVMeasurementData^ record );
+    
+	// Populate the BizHeightAndWeight class from a database structure
+	bool Populate( CrxStructPWVMeasurementData^ record );
 };
 
 // Abstract height with validation
@@ -118,29 +125,35 @@ public:
 	property BizDP^ DP;
 	property BizMP^ MP;
 	virtual bool Validate() = 0;
+
+	// Store the BizBloodPressure class into a database structure
+	bool Store( CrxStructPWVMeasurementData^ record );
+    
+	// Populate the BizBloodPressure class from a database structure
+	bool Populate( CrxStructPWVMeasurementData^ record );
 protected:
-	BizBloodPressure() {};
+	// Always initialise the blood pressures to simplify storing and populating
+	BizBloodPressure() { SP = gcnew BizSP; DP = gcnew BizDP; MP = gcnew BizMP; };
 };
 // Blood pressure measurement in SP & DP with validation
 public ref class BizSPAndDP : BizBloodPressure
 {
 public:
-	// MP is also needed internally for PWV Ref range chart reporting
-	BizSPAndDP(void) { SP = gcnew BizSP; DP = gcnew BizDP; MP = gcnew BizMP; };
+	BizSPAndDP(void) {};
 	virtual bool Validate() override;
 };
 // Blood pressure measurement in MP & DP with validation
 public ref class BizMPAndDP : BizBloodPressure
 {
 public:
-	BizMPAndDP(void) { DP = gcnew BizDP; MP = gcnew BizMP; };
+	BizMPAndDP(void) {};
 	virtual bool Validate() override;
 };
 // Blood pressure measurement in SP & MP with validation
 public ref class BizSPAndMP : BizBloodPressure
 {
 public:
-	BizSPAndMP(void) { SP = gcnew BizSP; MP = gcnew BizMP; };
+	BizSPAndMP(void) {};
 	virtual bool Validate() override;
 };
 // Abstract measurement
@@ -158,7 +171,7 @@ public:
 
 	property BizHeightAndWeight^ heightAndWeight;		// patient height, weight and BMI
 
-	property String^			systemId;				// Customer System ID
+	property unsigned int		systemId;				// Customer System ID
 	property String^			groupStudyId;			// User defined group/study
 	property unsigned int		patientNumber;			// Internal patient number
 
@@ -182,6 +195,11 @@ public:
 	*/
 	virtual bool Validate();
 
+	// Store the Measure class into a database structure
+	bool Store( CrxStructPWVMeasurementData^ record );
+    
+	// Populate the Measure class from a database structure
+	bool Populate( CrxStructPWVMeasurementData^ record );
 protected:
 	property BloodPressureEnumeration bloodPressureRange;	// Blood pressure category
 	
@@ -199,7 +217,6 @@ protected:
 
 	// Calculate the blood pressure range
 	bool CalculateBloodPressureRange();
-
 private:
 	static array<String^>^ _bloodPressureRangeTitles =
 	{

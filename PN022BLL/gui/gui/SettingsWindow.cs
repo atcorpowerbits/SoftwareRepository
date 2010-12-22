@@ -917,15 +917,15 @@ PATH_SIMUALTION_FILES);
                     pwvSettingsStruct.PWVDistanceUnits = 0;
                 }
 
-                pwvSettingsStruct.CaptureTime = 0;
+                pwvSettingsStruct.CaptureTime = 5;
 
                 if (rad10Seconds.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                 {
-                    pwvSettingsStruct.CaptureTime = 1;
+                    pwvSettingsStruct.CaptureTime = 10;
                 }
                 else if (rad20Seconds.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                 {
-                    pwvSettingsStruct.CaptureTime = 2;
+                    pwvSettingsStruct.CaptureTime = 20;
                 }
 
                 pwvSettingsStruct.SimulationType = comboSimulationFiles.Text;

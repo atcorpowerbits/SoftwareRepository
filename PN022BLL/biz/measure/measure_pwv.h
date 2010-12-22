@@ -19,6 +19,7 @@
 
 using namespace System;
 using namespace DAL_NAMESPACE;
+using namespace CRX_DATABASE_MANAGER_NAMESPACE;
 
 START_BIZ_NAMESPACE
 	
@@ -157,27 +158,27 @@ private:
 	// TBD: Hide these arrays by making them unmanaged code
 	static array<const float>^ _referenceRangeCoefficient1 =
 	{
-		(float) 0.001,
-		(float) 0.0021,
-		(float) 0.0017,
-		(float) 0.0016,
-		(float) -0.0007
+		(float) 0,
+		(float) 0,
+		(float) 0,
+		(float) 0,
+		(float) 0
 	};
 	static array<const float>^ _referenceRangeCoefficient2 =
 	{
-		(float) 0.0313,
-		(float) -0.0503,
-		(float) 0.0054,
-		(float) 0.0071,
-		(float) 0.2492
+		(float) 0.2,
+		(float) 0.2,
+		(float) 0.2,
+		(float) 0.2,
+		(float) 0.2
 	};
 	static array<const float>^ _referenceRangeCoefficient3 =
 	{
-		(float) 6.29,
-		(float) 7.79,
-		(float) 6.85,
-		(float) 8.02,
-		(float) 4.34
+		(float) 0,
+		(float) 0,
+		(float) 0,
+		(float) 0,
+		(float) 0
 	};
 	
 public:
@@ -209,7 +210,21 @@ public:
 
 	// Store signals from the circular buffers into the PWV class
 	bool CaptureSignals();
+
+	// Store the PWV class into a database structure
+	bool Store( CrxStructPWVMeasurementData^ record );
     
+	// Populate the PWV class from a database structure
+	bool Populate( CrxStructPWVMeasurementData^ record );
+    
+	// Increment the measurement counter by 1 in the firmware
+	static bool IncrementMeasurementCounter();
+
+	// Calculate and store a PWV report into a database record
+	bool CalculatePWVReport( CrxStructPWVMeasurementData^ record );
+
+	// Recalculate and store a PWV report into a database record
+	bool RecalculatePWVReport( CrxStructPWVMeasurementData^ record );
 private:
 	// Set default values for calculated variables
 	void SetDefaults();

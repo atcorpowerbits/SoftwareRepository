@@ -15,6 +15,7 @@
 #include <biz_namespace.h>
 
 using namespace System::Runtime::InteropServices;
+using namespace CRX_DATABASE_MANAGER_NAMESPACE;
 
 START_BIZ_NAMESPACE
 
@@ -84,13 +85,17 @@ public:
 	
 	// Initialise properties
 	bool Initialise(const unsigned short inputSampleRate);
-	bool Allocate(const unsigned short inputMaximumSignalLength, const unsigned short inputMaximumOnsetsLength);
+	bool Allocate(const unsigned short inputMaximumSignalLength, 
+					const unsigned short inputMaximumOnsetsLength);
 
 	// Set default values for onsets not touching Signal
 	void SetDefaults();
 
 	// Store whole signal in Signal array
-	bool CaptureSignal(array<const unsigned short>^ input, const unsigned short size);
+	bool CaptureSignal(array<const unsigned short>^ input, 
+						const unsigned short size,
+						const unsigned short startIndex,
+						const unsigned short endIndex);
 
 	// Validate Signal length
 	bool ValidateSignalLength(const unsigned short minimumSignalLength);
@@ -99,14 +104,16 @@ public:
 	bool ValidateSignalHeight(const unsigned short minimumSignalHeight);
 
 	// Validate signal record before storing in Database
-	bool ValidateBeforeStore(const unsigned short minimumSignalLength, const unsigned short minimumOnsetsLength,
-							 const unsigned short minimumSignalHeight);
+	bool ValidateBeforeStore(const unsigned short minimumSignalLength, 
+								const unsigned short minimumOnsetsLength,
+								const unsigned short minimumSignalHeight);
 
 	// Calculate Quality Control parameters for a Signal
 	bool CalculateQualityControls();
 
 	// Validate Signal
-	bool ValidateSignal(const unsigned short minimumSignalLength, const unsigned short minimumSignalHeight);
+	bool ValidateSignal(const unsigned short minimumSignalLength, 
+						const unsigned short minimumSignalHeight);
 
 	// Find Trigger points for TSignal signal
 	bool FindOnsets();
@@ -114,7 +121,12 @@ public:
 	// Find onsets using tangent algorithm (crossing of
 	// pulse foot line by tangent at point of maximum dP/dt
 	//bool TangentAlgorithm(const float maximumFirstDerivative);
-	
+
+	// Store the BizSignal class into a database structure
+	bool Store( CrxStructPWVMeasurementData^ record, SignalTypeEnumeration signalType );
+    
+	// Populate the BizSignal class from a database structure
+	bool Populate( CrxStructPWVMeasurementData^ record, SignalTypeEnumeration signalType );	
 };
 END_BIZ_NAMESPACE
 

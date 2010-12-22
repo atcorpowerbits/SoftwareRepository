@@ -427,10 +427,10 @@ void BizPWV::DispatchCaptureData()
 */
 void BizPWV::Initialise()
 {
+	BizMeasure::Initialise();
+		
 	unsigned int bufferSize = (captureTime + BusinessLogic::BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE) * sampleRate;
 
-	BizMeasure::Initialise();
-	
 	tonometerBuffer = gcnew BizCircularBuffer(bufferSize);
 	cuffBuffer = gcnew BizCircularBuffer(bufferSize);
 
@@ -768,11 +768,14 @@ bool BizPWV::CalculateAndValidateDistance()
 
  ** INPUT
  **
- **  none.
+ **  tonometerBuffer,
+	 cuffBuffer,
+	 sampleRate.
 
  ** OUTPUT
  **
- **  none.
+ **  carotidSignal,
+	 femoralSignal.
 
  ** RETURN
  **
@@ -780,38 +783,60 @@ bool BizPWV::CalculateAndValidateDistance()
 */
 bool BizPWV::CaptureSignals()
 {
-	// Reset calculated members
-	SetDefaults();
+	array< unsigned short >^ carotidInputSignal;
+	unsigned short carotidStartIndex; 
+	unsigned short carotidEndIndex; 
+	unsigned short carotidBufferSize;
 
-	array< unsigned short >^ tonometerSignal;
-	array< unsigned short >^ cuffSignal;
-	unsigned short startIndex; 
-	unsigned short endIndex; 
-	unsigned short bufferSize;
-
-	tonometerSignal = tonometerBuffer->ReadBuffer(bufferSize, startIndex, endIndex);
+	// Read the circular buffers
+	carotidInputSignal = tonometerBuffer->ReadBuffer(carotidBufferSize, carotidStartIndex, carotidEndIndex);
 	
 	// The buffer must be full
-	if ( startIndex != endIndex )
-	{
-		return false;
-	}
-	endIndex = endIndex - ( sampleRate * BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE );
-	if ( endIndex < 0 )
-	{
-		endIndex = endIndex + bufferSize;
-	}
-	//carotidSignal->CaptureSignal(tonometerSignal, bufferSize, startIndex, endIndex);
-	
-	cuffSignal = cuffBuffer->ReadBuffer(bufferSize, startIndex, endIndex);
-
-	// The buffer must be full
-	if ( startIndex != endIndex )
+	if ( carotidStartIndex != carotidEndIndex )
 	{
 		return false;
 	}
 
-	//femoralSignal->CaptureSignal(femoralSignal, signalLength);
+	// Trim the signal making sure to wrap the endIndex if necessary
+	if ( carotidEndIndex < ( sampleRate * BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE ) )
+	{
+		carotidEndIndex = carotidEndIndex + carotidBufferSize;
+	}
+	carotidEndIndex = carotidEndIndex - ( sampleRate * BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE );
+	
+	// Capture the signal in the Signal class
+	if ( !carotidSignal->CaptureSignal(carotidInputSignal, carotidBufferSize, carotidStartIndex, carotidEndIndex) )
+	{
+		return false;
+	}
+	
+	array< unsigned short >^ femoralInputSignal;
+	unsigned short femoralStartIndex; 
+	unsigned short femoralEndIndex; 
+	unsigned short femoralBufferSize;
+
+	// Read the circular buffers
+	femoralInputSignal = cuffBuffer->ReadBuffer(femoralBufferSize, femoralStartIndex, femoralEndIndex);
+	
+	// The buffer must be full
+	if ( femoralStartIndex != femoralEndIndex )
+	{
+		return false;
+	}
+
+	// Trim the signal making sure to wrap the endIndex if necessary
+	if ( femoralEndIndex < ( sampleRate * BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE ) )
+	{
+		femoralEndIndex = femoralEndIndex + femoralBufferSize;
+	}
+	femoralEndIndex = femoralEndIndex - ( sampleRate * BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE );
+	
+	// Capture the signal in the Signal class
+	if ( !femoralSignal->CaptureSignal(femoralInputSignal, femoralBufferSize, femoralStartIndex, femoralEndIndex) )
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -1393,4 +1418,272 @@ bool BizPWV::SaveCaptureData()
 	}
 	
 	return DalFacade::Instance()->SaveCaptureData(tonometerData, cuffPulse, bufferSize);
+}
+
+/**
+Populate()
+
+DESCRIPTION
+
+	Populate the PWV class from a database structure.
+
+INPUT
+
+	CrxStructPWVMeasurementData.
+
+OUTPUT
+	
+	PWV class members.
+
+RETURN
+
+	Boolean success or not.
+*/
+bool BizPWV::Populate( CrxStructPWVMeasurementData^ record )
+{
+	// Validate
+	if ( record == nullptr )
+	{
+		return false;
+	}
+
+	// Initialise all the class members, in particular the circular buffers so a measurement -
+	// can be performed
+	Initialise();
+
+	// Populate the Measure class properties
+	// Cannot return false because the record has already been validated
+	BizMeasure::Populate( record );
+	
+	// Populate the PWV class properties
+	myCarotidDistance->distance = record->Carotid;
+	myCuffDistance->distance = record->Cuff;
+	myFemoral2CuffDistance->distance = record->FemoraltoCuff;
+	myPWVDirectDistance->distance = record->Direct;
+	calculatedDistance = record->PWVDistance;
+	distanceMethod = record->PWVDistanceMethod;
+		
+	correctionTime = record->CorrectionTime;
+	
+	// Cannot return false because the record has already been validated
+	carotidSignal->Populate( record, CAROTID_SIGNAL );
+	femoralSignal->Populate( record, FEMORAL_SIGNAL );
+
+	isFemoralSignalValid = record->IsFemoralSignalValid;
+	isCarotidSignalValid = record->IsCarotidSignalValid;
+
+	numberOfDeltas = record->NumberOfDeltas;         
+	numberOfValidDeltas = record->NumberOfValidDeltas;
+
+	meanHeartRate = record->MeanHeartRate;
+
+	meanDeltaTime = record->MeanDeltaTime;
+	meanCorrectedTime = record->MeanCorrectedTime;
+	meanPulseWaveVelocity = record->MeanPulseWaveVelocity;
+	standardDeviation = record->StandardDeviation;
+	isStandardDeviationValid = record->IsStandardDeviationValid;
+
+	referenceRangeDistance = record->ReferenceRangeDistance;
+	referenceRangePulseWaveVelocity = record->ReferenceRangePulseWaveVelocity; 
+
+	normalRange = record->NormalRange;
+	referenceRange = record->ReferenceRange;
+
+	return true;
+}
+
+/**
+Store()
+
+DESCRIPTION
+
+	Store the PWV class into a database structure.
+
+INPUT
+
+	PWV class members.
+
+OUTPUT
+	
+	CrxStructPWVMeasurementData.
+
+RETURN
+
+	Boolean success or not.
+*/
+bool BizPWV::Store( CrxStructPWVMeasurementData^ record )
+{
+	// Validate
+	if ( record == nullptr )
+	{
+		return false;
+	}
+
+	if ( !ValidateBeforeStore() )
+	{
+		return false;
+	}
+
+	// Store the Measure class properties
+	// Cannot return false because the record has already been validated
+	BizMeasure::Store( record );
+	
+	// Store the PWV class properties
+	record->Carotid = myCarotidDistance->distance;
+	record->Cuff = myCuffDistance->distance;
+	record->FemoraltoCuff = myFemoral2CuffDistance->distance;
+	record->Direct = myPWVDirectDistance->distance;
+	record->PWVDistance = calculatedDistance;
+	record->PWVDistanceMethod = distanceMethod;
+		
+	record->CorrectionTime = correctionTime;
+	
+	// Cannot return false because the record has already been validated
+	carotidSignal->Store( record, CAROTID_SIGNAL );
+	femoralSignal->Store( record, FEMORAL_SIGNAL );
+	
+	record->IsFemoralSignalValid = isFemoralSignalValid;
+	record->IsCarotidSignalValid = isCarotidSignalValid;
+
+	record->NumberOfDeltas = numberOfDeltas;         
+	record->NumberOfValidDeltas = numberOfValidDeltas;
+
+	record->MeanHeartRate = meanHeartRate;
+
+	record->MeanDeltaTime = meanDeltaTime;
+	record->MeanCorrectedTime = meanCorrectedTime;
+	record->MeanPulseWaveVelocity = meanPulseWaveVelocity;
+	record->StandardDeviation = standardDeviation;
+	record->IsStandardDeviationValid = isStandardDeviationValid;
+
+	record->ReferenceRangeDistance = referenceRangeDistance;
+	record->ReferenceRangePulseWaveVelocity = referenceRangePulseWaveVelocity; 
+
+	record->NormalRange = normalRange;
+	record->ReferenceRange = referenceRange;
+
+	return true;
+}
+/**
+IncrementMeasurementCounter()
+
+DESCRIPTION
+
+	Increment the measurement counter by 1 in the firmware.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	boolean success or not.
+*/
+bool BizPWV::IncrementMeasurementCounter()
+{
+	unsigned short count;
+
+	if ( !DalModule::Instance->GetPWVMeasurementCounter( count ) )
+	{
+		return false;
+	}
+
+	count ++;
+
+	// This should not return false if getting the PWV measurement counter returned true
+	DalModule::Instance->SetPWVMeasurementCounter( count );
+
+	return true;
+}
+
+/**
+CalculatePWVReport()
+
+DESCRIPTION
+
+	Calculate and store a PWV report into a database record.
+
+INPUT
+
+	systemId,
+	patientNumber,
+	User input distances,
+	BizPatient->DateOfBirth,
+	tonometerBuffer,
+	cuffBuffer.
+
+OUTPUT
+
+	CrxStructPWVMeasurementData.
+
+RETURN
+
+	boolean success or not.
+*/
+bool BizPWV::CalculatePWVReport( CrxStructPWVMeasurementData^ record )
+{
+	if ( !CaptureSignals() )
+	{
+		return false;
+	}
+
+	if ( !Calculate() )
+	{
+		return false;
+	}
+	
+	if ( !Store( record ) )
+	{
+		return false;
+	}
+
+	if ( !IncrementMeasurementCounter() )
+	{
+		return false;
+	}
+
+	return true;
+}
+
+/**
+RecalculatePWVReport()
+
+DESCRIPTION
+
+	Recalculate and store a PWV report into a database record.
+
+INPUT
+
+	systemId,
+	patientNumber,
+	User input distances,
+	BizPatient->DateOfBirth,
+	carotidSignal,
+	femoralSignal.
+
+OUTPUT
+
+	CrxStructPWVMeasurementData.
+
+RETURN
+
+	boolean success or not.
+*/
+bool BizPWV::RecalculatePWVReport( CrxStructPWVMeasurementData^ record )
+{
+	if ( !Calculate() )
+	{
+		return false;
+	}
+	
+	if ( !Store( record ) )
+	{
+		return false;
+	}
+
+	return true;
 }

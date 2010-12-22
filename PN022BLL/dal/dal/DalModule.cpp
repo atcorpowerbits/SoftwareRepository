@@ -15,7 +15,11 @@ namespace AtCor{
 				DalModule::_currentDevice = nullptr;
 				
                 //Call method to set the current device
-				SetDeviceStrategy();
+				// TBD: This method fails
+				//SetDeviceStrategy();
+
+				// For testing only
+				measurementCounterTest = false;
 			}
 
 			DalModule::DalModule(const AtCor::Scor::DataAccess::DalModule ^)
@@ -113,6 +117,61 @@ namespace AtCor{
 				return nullptr;
 			}
 
+			/**
+			GetPWVMeasurementCounter()
+
+			DESCRIPTION
+
+				Returns the PWV measurement counter stored in the firmware.
+
+			INPUT
+
+				None.
+
+			OUTPUT
+
+				count.
+
+			RETURN
+
+				boolean success or not.
+			*/
+			bool DalModule::GetPWVMeasurementCounter( unsigned short% count)
+			{
+				// If the module is not connected return false, otherwise retrieve the count -
+				// value and return true
+
+				count = 0;
+
+				return measurementCounterTest;
+			}
+
+			/**
+			SetPWVMeasurementCounter()
+
+			DESCRIPTION
+
+				Sets the PWV measurement counter stored in the firmware.
+
+			INPUT
+
+				count.
+
+			OUTPUT
+
+				None.
+
+			RETURN
+
+				boolean success or not.
+			*/
+			bool DalModule::SetPWVMeasurementCounter( unsigned short count)
+			{
+				// If the module is not connected return false, otherwise set the count -
+				// value and return true
+
+				return measurementCounterTest;
+			}
 		}
 	}
 }

@@ -73,7 +73,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		bool ReferenceRange;/**< true: if Reference Range is selected, false: if not selcted */
 		int PWVDistanceUnits;/**<0 : if mm is selected, 1: If cm is selected */
 		int PWVDistanceMethod;/**<0 : if substracting is selected, 1: if direct is selected */
-		int CaptureTime;/**<0 : if 5 seconds is selected 1:10 seconds is selected 2:20 seconds is selected */
+		int CaptureTime;/**<5 : if 5 seconds is selected 10:10 seconds is selected 20:20 seconds is selected */
 		String^ SimulationType;/**< Shows the String Selected*/
 		
 		/**
@@ -85,7 +85,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			ReferenceRange		= false;
 			PWVDistanceUnits	= 0;
 			PWVDistanceMethod	= 0;
-			CaptureTime			= 0;
+			CaptureTime			= 5;
 			SimulationType		= nullptr;			
 		}
 	};

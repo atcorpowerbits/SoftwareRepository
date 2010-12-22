@@ -79,10 +79,10 @@ static const float HIGH_STANDARD_DEVIATION = (float) 0.30;									// A standard
 static const float VALID_CAROTID_PULSE_HEIGHT = (float) 300;								// A valid carotid signal has an average pulse height above 300 digital units
 static const float VALID_CAROTID_PULSE_HEIGHT_VARIATION = (float) 5;						// A valid carotid signal has an average pulse height variation below 5%
 static const float VALID_FEMORAL_PULSE_HEIGHT = (float) 300;								// A valid femoral signal has an average pulse height above 300 digital units
-static const float NORMAL_RANGE_COEFFICIENT_1 = (float) 0.0013;								// Coefficients of the polynomial equation for the normal range
-static const float NORMAL_RANGE_COEFFICIENT_2 = (float) -0.034;
-static const float NORMAL_RANGE_COEFFICIENT_3 = (float) 5.7;
-static const float NORMAL_RANGE_CONFIDENCE_OFFSET = (float) 2.078;
+static const float NORMAL_RANGE_COEFFICIENT_1 = (float) 0;								// Coefficients of the polynomial equation for the normal range
+static const float NORMAL_RANGE_COEFFICIENT_2 = (float) 0.2;
+static const float NORMAL_RANGE_COEFFICIENT_3 = (float) 0;
+static const float NORMAL_RANGE_CONFIDENCE_OFFSET = (float) 0;
 
 public enum BloodPressureEnumeration														// Blood pressure categories based on SP
 {
@@ -123,6 +123,12 @@ static const unsigned short MAX_PULSE_LENGTH = 60 * MAX_SAMPLE_RATE / MIN_HEART_
 static const unsigned short MIN_PULSE_LENGTH = 60 * MIN_SAMPLE_RATE / MAX_HEART_RATE;				// Minimum length of a pulse
 static const unsigned short TONOMETER_MIN_SIGNAL_HEIGHT = 40;								// Minimum amplitude in digital units
 static const unsigned short CUFF_MIN_SIGNAL_HEIGHT = 40;									// Minimum amplitude in digital units
+
+public enum SignalTypeEnumeration														// Signal types
+{
+	CAROTID_SIGNAL,
+	FEMORAL_SIGNAL
+};
 
 // Math Class
 static const unsigned short DEFAULT_SPLINE_ORDER = 3;										// Cubic spline is optimal

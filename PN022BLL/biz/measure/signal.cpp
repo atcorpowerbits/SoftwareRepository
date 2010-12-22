@@ -16,6 +16,7 @@ using namespace System::Diagnostics;
 using namespace System::Globalization;
 using namespace BIZ_NAMESPACE;
 using namespace CRX_MSG_NAMESPACE;
+using namespace System::Reflection;
 
 #pragma hdrstop
 
@@ -255,7 +256,8 @@ bool BizSignal::ValidateBeforeStore(const unsigned short minimumSignalLength,
  ** INPUT:
  **  input							- integer signal,
  **  size							- length of input,
- **  BizSignal::maximumSignalLength - Maximum accounted points in signal,
+ **  startIndex						- start of signal in input array,
+ **  endIndex						- end of signal in input array.
 
  ** OUTPUT:
  **	 signalLength					- Number of accounted points in signal,
@@ -265,20 +267,33 @@ bool BizSignal::ValidateBeforeStore(const unsigned short minimumSignalLength,
  **  boolean success or not.
 */
 bool BizSignal::CaptureSignal(array<const unsigned short>^ input, 
-							  const unsigned short size)
+							  const unsigned short size,
+							  const unsigned short startIndex,
+							  const unsigned short endIndex)
 {
 	// Validation
 	if (!BizMath::ValidateArray(input, size))
 	{
 		return false;
 	}
-
-	// Store the input signal
-	signalLength = Math::Min(size, maximumSignalLength);
-	for (int i = 0; i < signalLength; i++)
+	if ( startIndex >= size || endIndex >= size )
 	{
-		signal[i] = input[i];
+		return false;
 	}
+
+	// Store the input signal in the Signal class
+	if ( endIndex > startIndex )
+	{
+		signalLength = endIndex - startIndex;
+		Array::Copy(input, startIndex, signal, 0, signalLength);
+	}
+	else
+	{
+		signalLength = endIndex - startIndex + size;
+		Array::Copy(input, startIndex, signal, 0, size - startIndex);
+		Array::Copy(input, 0, signal, size - startIndex, endIndex);
+	}
+
 	return signalLength > 1;
 }
 
@@ -1185,3 +1200,105 @@ bool BizSignal::TangentAlgorithm(const float maximumFirstDerivative)
 	// return success if the minimum onsets were found
 	return (onsetsLength >= MIN_ONSETS);
 }*/
+#pragma managed
+/**
+Populate()
+
+DESCRIPTION
+
+	Populate the BizSignal class from a database structure.
+
+INPUT
+
+	CrxStructPWVMeasurementData.
+
+OUTPUT
+	
+	BizSignal class members.
+
+RETURN
+
+	Boolean success or not.
+*/
+bool BizSignal::Populate( CrxStructPWVMeasurementData^ record, SignalTypeEnumeration signalType )
+{
+	// Validate
+	if ( record == nullptr )
+	{
+		return false;
+	}
+
+	if ( signalType == CAROTID_SIGNAL )
+	{
+		signalLength = record->CarotidSignalLength;
+		signal = record->CarotidSignal;
+		onsetsLength = record->CarotidSignalOnSetsLength;
+		floatOnsets = record->CarotidSignalFloatOnSets;
+		pulseHeight = record->CarotidSignalPulseHeight;
+		pulseHeightVariation = record->CarotidSignalPulseHeightVariation;
+	}
+	else if ( signalType == FEMORAL_SIGNAL )
+	{
+		signalLength = record->FemoralSignalLength;
+		signal = record->FemoralSignal;
+		onsetsLength = record->FemoralSignalOnSetsLength;
+		floatOnsets = record->FemoralSignalFloatOnSets;
+		pulseHeight = record->FemoralSignalPulseHeight;
+		pulseHeightVariation = record->FemoralSignalPulseHeightVariation;
+	}
+	return true;
+}
+
+/**
+Store()
+
+DESCRIPTION
+
+	Store the BizSignal class into a database structure.
+
+INPUT
+
+	BizSignal class members.
+
+OUTPUT
+	
+	CrxStructPWVMeasurementData.
+
+RETURN
+
+	Boolean success or not.
+*/
+bool BizSignal::Store( CrxStructPWVMeasurementData^ record, SignalTypeEnumeration signalType )
+{
+	// Validate
+	if ( record == nullptr )
+	{
+		return false;
+	}
+	
+	if ( signalType == CAROTID_SIGNAL )
+	{
+		record->CarotidSignalLength = signalLength;				
+		record->CarotidSignal = signal;
+		record->CarotidSignalOnSetsLength = onsetsLength;
+		record->CarotidSignalFloatOnSets = floatOnsets;
+		record->CarotidSignalPulseHeight = pulseHeight;
+		record->CarotidSignalPulseHeightVariation = pulseHeightVariation;
+	}
+	else if ( signalType == FEMORAL_SIGNAL )
+	{
+		record->FemoralSignalLength = signalLength;				
+		record->FemoralSignal = signal;
+		record->FemoralSignalOnSetsLength = onsetsLength;
+		record->FemoralSignalFloatOnSets = floatOnsets;
+		record->FemoralSignalPulseHeight = pulseHeight;
+		record->FemoralSignalPulseHeightVariation = pulseHeightVariation;
+	}
+	return true;
+	/*record->GetType()->GetProperty(signalPrefix + "SignalLength")->SetValue(record, signalLength, nullptr);				
+	record->GetType()->GetProperty(signalPrefix + "Signal")->SetValue(record, signal, nullptr);				
+	record->GetType()->GetProperty(signalPrefix + "SignalOnSetsLength")->SetValue(record, onsetsLength, nullptr);				
+	record->GetType()->GetProperty(signalPrefix + "SignalFloatOnSets")->SetValue(record, floatOnsets, nullptr);				
+	record->GetType()->GetProperty(signalPrefix + "SignalPulseHeight")->SetValue(record, pulseHeight, nullptr);				
+	record->GetType()->GetProperty(signalPrefix + "SignalPulseHeightVariation")->SetValue(record, pulseHeightVariation, nullptr);*/				
+}

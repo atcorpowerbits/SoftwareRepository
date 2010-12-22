@@ -21,7 +21,7 @@ public ref class BizPatient
 public:
 	static BizPatient^ BizPatient::Instance();
 
-	property String^			systemId;			// Customer System ID
+	property unsigned int		systemId;			// Customer System ID
 	property unsigned int		patientNumber;		// Internal patient number
 
 	property String^			groupStudyId;		// User defined group/study

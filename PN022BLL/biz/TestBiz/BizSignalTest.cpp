@@ -168,23 +168,29 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			BizSignal^ target = gcnew BizSignal();
 			PrivateObject^ accessor = gcnew PrivateObject(target);
 			unsigned short size = Convert::ToUInt16(testContextInstance->DataRow[L"Size"]);
+			unsigned short startIndex = Convert::ToUInt16(testContextInstance->DataRow[L"StartIndex"]);
+			unsigned short endIndex = Convert::ToUInt16(testContextInstance->DataRow[L"EndIndex"]);
+			unsigned short signalLengthExpected = Convert::ToUInt16(testContextInstance->DataRow[L"SignalLengthExpected"]);
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Input"]);
+			array<String^>^ valuesArray = values->Split(',');;
 			cli::array< unsigned short >^  input = nullptr;
 			if (values != "nullptr")
 			{
-				array<String^>^ valuesArray = values->Split(',');
 				input = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
 			}
-			accessor->SetProperty("maximumSignalLength", size);
-			accessor->SetProperty("signal", gcnew array<unsigned short>(size));
+			values = Convert::ToString(testContextInstance->DataRow[L"SignalExpected"]);
+			valuesArray = values->Split(',');
+			cli::array< unsigned short >^  signalExpected = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			accessor->SetProperty("signal", gcnew array<unsigned short>(signalLengthExpected));
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 			bool actual;
-			actual = target->CaptureSignal(input, size);
+			actual = target->CaptureSignal(input, size, startIndex, endIndex);
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(signalLengthExpected, target->signalLength);
 			if (expected)
 			{
-				CollectionAssert::AreEqual(target->signal, input);
+				CollectionAssert::AreEqual(target->signal, signalExpected);
 			}
-			Assert::AreEqual(expected, actual);
 		}
 		/// <summary>
 		///A test for ValidateSignalLength

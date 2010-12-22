@@ -69,7 +69,7 @@ namespace TestBiz {
 			{
 				BizPatient^  target = BizPatient::Instance();
 				target->Initialise();
-				Assert::AreEqual((String^) "", target->systemId);
+				Assert::AreEqual((unsigned int) 0, target->systemId);
 				Assert::AreEqual((unsigned int) 0, target->patientNumber);
 				Assert::AreEqual((String^) "", target->groupStudyId);
 				Assert::AreEqual((String^) "", target->patientId);

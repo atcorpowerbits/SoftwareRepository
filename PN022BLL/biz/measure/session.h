@@ -14,6 +14,7 @@
 #include <biz_namespace.h>
 
 using namespace System;
+using namespace CRX_DATABASE_MANAGER_NAMESPACE;
 
 START_BIZ_NAMESPACE
 public ref class BizSession

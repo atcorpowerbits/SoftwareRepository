@@ -3,9 +3,12 @@
 #include <biz.h>
 #include "StdAfx.h"
 #include "StdAfx.h"
+using namespace AtCor::Scor::CrossCutting::DatabaseManager;
 using namespace AtCor::Scor::BusinessLogic;
+using namespace CRX_DATABASE_MANAGER_NAMESPACE;
 using namespace BIZ_NAMESPACE;
 using namespace CRX_CONFIG_NAMESPACE;
+using namespace DAL_NAMESPACE;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 namespace TestBiz {
     using namespace System;
@@ -168,7 +171,7 @@ namespace TestBiz {
 				CrxConfigManager::Instance->GeneralSettings->HeightandWeightUnit = CrxConfigConstants::GENERAL_UNIT_METRIC;
 				target->heightAndWeight->heightInCentimetres = Convert::ToUInt16(testContextInstance->DataRow["HeightInCentimetres"]);
 				target->bloodPressure->SP->Reading = Convert::ToUInt16(testContextInstance->DataRow["SP"]);;
-				accessor->SetProperty("systemId", Convert::ToString(testContextInstance->DataRow["SystemID"]));
+				accessor->SetProperty("systemId", Convert::ToUInt32(testContextInstance->DataRow["SystemID"]));
 				accessor->SetProperty("patientNumber", Convert::ToUInt32(testContextInstance->DataRow["PatientNumber"]));
 				accessor->SetProperty("measurementDateTime", Convert::ToDateTime(testContextInstance->DataRow["MeasurementDateTime"]));
 				accessor->SetProperty("dataRevision", Convert::ToUInt16(testContextInstance->DataRow["DataRevision"]));
@@ -254,7 +257,7 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myPWVDirectDistance->distance);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->calculatedDistance);
 			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
-			Assert::AreEqual((String^) "", target->systemId);
+			Assert::AreEqual((unsigned int) 0, target->systemId);
 			Assert::AreEqual((unsigned int) 0, target->patientNumber);
 			Assert::AreEqual((String^) "", target->groupStudyId);
 			Assert::IsNotNull(target->measurementDateTime);
@@ -285,7 +288,7 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myPWVDirectDistance->distance);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->calculatedDistance);
 			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
-			Assert::AreEqual((String^) "", target->systemId);
+			Assert::AreEqual((unsigned int) 0, target->systemId);
 			Assert::AreEqual((unsigned int) 0, target->patientNumber);
 			Assert::AreEqual((String^) "", target->groupStudyId);
 			Assert::IsNotNull(target->measurementDateTime);
@@ -315,7 +318,7 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->myPWVDirectDistance->distance);
 			Assert::AreEqual((unsigned short) BizConstants::DEFAULT_VALUE, target->calculatedDistance);
 			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
-			Assert::AreEqual((String^) "", target->systemId);
+			Assert::AreEqual((unsigned int) 0, target->systemId);
 			Assert::AreEqual((unsigned int) 0, target->patientNumber);
 			Assert::AreEqual((String^) "", target->groupStudyId);
 			Assert::IsNotNull(target->measurementDateTime);
@@ -349,8 +352,8 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"Signal"]);
 			array<String^>^ valuesArray = values->Split(',');
 			cli::array< unsigned short >^ signal = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
-			target->carotidSignal->CaptureSignal(signal, carotidSignalLength);
-			target->femoralSignal->CaptureSignal(signal, femoralSignalLength);
+			target->carotidSignal->CaptureSignal(signal, carotidSignalLength, 0, 0);
+			target->femoralSignal->CaptureSignal(signal, femoralSignalLength, 0, 0);
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 			bool actual;
 			actual = target->ValidateSignals();
@@ -518,7 +521,7 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		void CalculateTest()
 		{
 			BizPWV^  target = (gcnew BizPWV());
-			target->systemId = "00050";
+			target->systemId = 00050;
 			target->patientNumber = 1;
 			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
 			unsigned short signalLength = Convert::ToUInt16(testContextInstance->DataRow[L"SignalLength"]);
@@ -528,8 +531,8 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			values = Convert::ToString(testContextInstance->DataRow[L"FemoralSignal"]);
 			valuesArray = values->Split(',');
 			cli::array< unsigned short >^ femoralSignal = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
-			target->carotidSignal->CaptureSignal(carotidSignal, signalLength);
-			target->femoralSignal->CaptureSignal(femoralSignal, signalLength);
+			target->carotidSignal->CaptureSignal(carotidSignal, signalLength, 0, 0);
+			target->femoralSignal->CaptureSignal(femoralSignal, signalLength, 0, 0);
 			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
 			target->correctionTime = Convert::ToSingle(testContextInstance->DataRow["CorrectionTime"]);
 			BizPatient::Instance()->dateOfBirth = Convert::ToDateTime(testContextInstance->DataRow["DateOfBirth"]);
@@ -600,11 +603,9 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 		void ValidateBeforeStoreTest()
 		{
 			BizPWV^  target = (gcnew BizPWV());
-			PrivateObject^ accessor = gcnew PrivateObject(target);
-//			CrxConfigFacade::Instance()->SetDistanceMethod(false);
 			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
-			accessor->SetProperty("systemId", "00050");
-			accessor->SetProperty("patientNumber", Convert::ToUInt32(testContextInstance->DataRow["PatientNumber"]));
+			target->systemId = 00050;
+			target->patientNumber =  Convert::ToUInt32(testContextInstance->DataRow["PatientNumber"]);
 			target->myPWVDirectDistance->distance = (unsigned short) 600;
 			target->meanPulseWaveVelocity = Convert::ToUInt16(testContextInstance->DataRow[L"MeanPulseWaveVelocity"]);
 			target->standardDeviation = Convert::ToUInt16(testContextInstance->DataRow[L"StandardDeviation"]);
@@ -720,14 +721,322 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			cli::array< float >^ referenceRangeExpected = Array::ConvertAll(valuesArray, gcnew Converter<String^, float>(Convert::ToSingle));
 			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
 			bool actual = (bool) accessor->Invoke("CalculateReferenceRange");
-			array<double>^ doubleArray = Array::ConvertAll(target->referenceRange, gcnew Converter<float, double>(Convert::ToDouble));
-			array<String^>^ testArray = Array::ConvertAll(doubleArray, gcnew Converter<double, String^>(Convert::ToString));
-			String^ test = String::Join(",", testArray);
 			Assert::AreEqual(expected, actual);
 			Assert::AreEqual(bloodPressureRangeExpected, target->bloodPressureRangeTitle);
 			Assert::AreEqual(referenceRangeDistanceExpected, target->referenceRangeDistance);
 			Assert::AreEqual(referenceRangePulseWaveVelocityExpected, target->referenceRangePulseWaveVelocity);
 			CollectionAssert::AreEqual(referenceRangeExpected, target->referenceRange);
+		}
+		/// <summary>
+		///A test for CaptureSignals
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCaptureSignals.csv", L"BizPWVCaptureSignals#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void CaptureSignalsTest()
+		{
+			BizPWV^ target = gcnew BizPWV();
+			unsigned short carotidSize = Convert::ToUInt16(testContextInstance->DataRow[L"CarotidSize"]);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidInput"]);
+			array<String^>^ valuesArray = values->Split(',');;
+			cli::array< unsigned short >^  carotidInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			for ( unsigned short i = 0; i < carotidSize; i++ )
+			{
+				DalEventContainer::Instance->OnDalTonometerDataEvent(DalEventContainer::Instance, gcnew DalTonometerDataEventArgs(carotidInput[i]));
+			}
+			unsigned short femoralSize = Convert::ToUInt16(testContextInstance->DataRow[L"FemoralSize"]);
+			values = Convert::ToString(testContextInstance->DataRow[L"FemoralInput"]);
+			valuesArray = values->Split(',');;
+			cli::array< unsigned short >^  femoralInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			for ( unsigned short i = 0; i < femoralSize; i++ )
+			{
+				DalEventContainer::Instance->OnDalCuffPulseEvent(DalEventContainer::Instance, gcnew DalCuffPulseEventArgs(femoralInput[i]));
+			}
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = target->CaptureSignals();
+			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for Store
+		///</summary>
+public: [TestMethod]
+		void StoreTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			CrxStructPWVMeasurementData^  record = nullptr; 
+
+			// unsuccessful cases
+			bool expected = false;
+			bool actual = target->Store(record);
+			Assert::AreEqual(expected, actual);
+
+			actual = target->BizMeasure::Store(record);
+			Assert::AreEqual(expected, actual);
+			
+			actual = target->bloodPressure->Store(record);
+			Assert::AreEqual(expected, actual);
+			
+			actual = target->heightAndWeight->Store(record);
+			Assert::AreEqual(expected, actual);
+			
+			actual = target->carotidSignal->Store(record, CAROTID_SIGNAL );
+			Assert::AreEqual(expected, actual);
+			
+			actual = target->femoralSignal->Store(record, FEMORAL_SIGNAL );
+			Assert::AreEqual(expected, actual);
+			
+			record = gcnew CrxStructPWVMeasurementData();
+
+			// unsuccessful case
+			target->meanPulseWaveVelocity = MIN_ADULT_PWV - 1;
+			target->standardDeviation = HIGH_STANDARD_DEVIATION * target->meanPulseWaveVelocity;
+			expected = false;
+			actual = target->Store(record);
+			Assert::AreEqual(expected, actual);
+			
+			// successful case
+			target->meanPulseWaveVelocity = MIN_ADULT_PWV;
+			target->standardDeviation = HIGH_STANDARD_DEVIATION * target->meanPulseWaveVelocity;
+			expected = true;
+			actual = target->Store(record);
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(target->bloodPressure->SP->Reading, (unsigned short) record->SP);
+			Assert::AreEqual(target->bloodPressure->DP->Reading, (unsigned short) record->DP);
+			Assert::AreEqual(target->bloodPressure->MP->Reading, (unsigned short) record->MP);
+			Assert::AreEqual(target->bloodPressureEntryOption, (unsigned short) record->BloodPressureEntryOption);
+			Assert::AreEqual(target->bloodPressureRangeTitle, record->BloodPressureRange);
+			Assert::AreEqual(target->heightAndWeight->heightInCentimetres, (unsigned short) record->HeightInCentimetres);
+			Assert::AreEqual(target->heightAndWeight->heightInInches, (unsigned short) record->HeightInInches);
+			Assert::AreEqual(target->heightAndWeight->weightInKilograms, (unsigned short) record->WeightInKilograms);
+			Assert::AreEqual(target->heightAndWeight->weightInPounds, (unsigned short) record->WeightInPounds);
+			Assert::AreEqual(target->heightAndWeight->bodyMassIndex, record->BodyMassIndex);
+			Assert::AreEqual(target->systemId, (unsigned int) record->SystemIdentifier);
+			Assert::AreEqual(target->groupStudyId, record->GroupIdentifier);
+			Assert::AreEqual(target->patientNumber, (unsigned int) record->PatientNumberInternal);
+			Assert::AreEqual(target->measurementDateTime, record->StudyDateTime);
+			Assert::AreEqual(target->dataRevision, (unsigned short) record->DataRevision);
+			Assert::AreEqual(target->patientAge, (unsigned short) record->Age);
+			Assert::AreEqual(target->notes, record->Notes);
+			Assert::AreEqual(target->operatorId, record->Operator);
+			Assert::AreEqual(target->captureTime, (unsigned short) record->CaptureTime);
+			Assert::AreEqual(target->sampleRate, (unsigned short) record->SampleRate);
+			Assert::AreEqual(target->simulation, record->Simulation);
+			Assert::AreEqual(target->myCarotidDistance->distance, (unsigned short) record->Carotid);
+			Assert::AreEqual(target->myCuffDistance->distance, (unsigned short) record->Cuff);
+			Assert::AreEqual(target->myFemoral2CuffDistance->distance, (unsigned short) record->FemoraltoCuff);
+			Assert::AreEqual(target->myPWVDirectDistance->distance, (unsigned short) record->Direct);
+			Assert::AreEqual(target->calculatedDistance, (unsigned short) record->PWVDistance);
+			Assert::AreEqual(target->distanceMethod, (unsigned short) record->PWVDistanceMethod);
+			Assert::AreEqual(target->correctionTime, record->CorrectionTime);
+			Assert::AreEqual(target->carotidSignal->signalLength, (unsigned short) record->CarotidSignalLength);
+			CollectionAssert::AreEqual(target->carotidSignal->signal, record->CarotidSignal);
+			Assert::AreEqual(target->carotidSignal->onsetsLength, (unsigned short) record->CarotidSignalOnSetsLength);
+			CollectionAssert::AreEqual(target->carotidSignal->floatOnsets, record->CarotidSignalFloatOnSets);
+			Assert::AreEqual(target->carotidSignal->pulseHeight, record->CarotidSignalPulseHeight);
+			Assert::AreEqual(target->carotidSignal->pulseHeightVariation, record->CarotidSignalPulseHeightVariation);
+			Assert::AreEqual(target->femoralSignal->signalLength, (unsigned short) record->FemoralSignalLength);
+			CollectionAssert::AreEqual(target->femoralSignal->signal, record->FemoralSignal);
+			Assert::AreEqual(target->femoralSignal->onsetsLength, (unsigned short) record->FemoralSignalOnSetsLength);
+			CollectionAssert::AreEqual(target->femoralSignal->floatOnsets, record->FemoralSignalFloatOnSets);
+			Assert::AreEqual(target->femoralSignal->pulseHeight, record->FemoralSignalPulseHeight);
+			Assert::AreEqual(target->femoralSignal->pulseHeightVariation, record->FemoralSignalPulseHeightVariation);
+			Assert::AreEqual(target->isFemoralSignalValid, record->IsFemoralSignalValid);
+			Assert::AreEqual(target->isCarotidSignalValid, record->IsCarotidSignalValid);
+			Assert::AreEqual(target->numberOfDeltas, (unsigned short) record->NumberOfDeltas);
+			Assert::AreEqual(target->numberOfValidDeltas, (unsigned short) record->NumberOfValidDeltas);
+			Assert::AreEqual(target->meanHeartRate, record->MeanHeartRate);
+			Assert::AreEqual(target->meanDeltaTime, record->MeanDeltaTime);
+			Assert::AreEqual(target->meanCorrectedTime, record->MeanCorrectedTime);
+			Assert::AreEqual(target->meanPulseWaveVelocity, record->MeanPulseWaveVelocity);
+			Assert::AreEqual(target->standardDeviation, record->StandardDeviation);
+			Assert::AreEqual(target->isStandardDeviationValid, record->IsStandardDeviationValid);
+			Assert::AreEqual(target->referenceRangeDistance, record->ReferenceRangeDistance);
+			Assert::AreEqual(target->referenceRangePulseWaveVelocity, record->ReferenceRangePulseWaveVelocity);
+			CollectionAssert::AreEqual(target->normalRange, record->NormalRange);
+			CollectionAssert::AreEqual(target->referenceRange, record->ReferenceRange);			
+		}
+		/// <summary>
+		///A test for IncrementMeasurementCounter
+		///</summary>
+public: [TestMethod]
+		void IncrementMeasurementCounterTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+
+			// successful case
+			DalModule::Instance->measurementCounterTest = true;
+			bool expected = true;
+			bool actual;
+			actual = target->IncrementMeasurementCounter();
+			Assert::AreEqual(expected, actual);
+
+			// unsuccessful case
+			DalModule::Instance->measurementCounterTest = false;
+			expected = false;
+			actual = target->IncrementMeasurementCounter();
+			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for CalculatePWVReport
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVCalculatePWVReport.csv", L"BizPWVCalculatePWVReport#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void CalculatePWVReportTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			CrxStructPWVMeasurementData^  record = gcnew CrxStructPWVMeasurementData();
+			target->systemId = 00050;
+			target->patientNumber = 1;
+			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
+			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
+			BizPatient::Instance()->dateOfBirth = DateTime(1978, 05, 14);
+			unsigned short carotidSize = Convert::ToUInt16(testContextInstance->DataRow[L"CarotidSize"]);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidInput"]);
+			array<String^>^ valuesArray = values->Split(',');;
+			cli::array< unsigned short >^  carotidInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			for ( unsigned short i = 0; i < carotidSize; i++ )
+			{
+				DalEventContainer::Instance->OnDalTonometerDataEvent(DalEventContainer::Instance, gcnew DalTonometerDataEventArgs(carotidInput[i]));
+			}
+			unsigned short femoralSize = Convert::ToUInt16(testContextInstance->DataRow[L"FemoralSize"]);
+			values = Convert::ToString(testContextInstance->DataRow[L"FemoralInput"]);
+			valuesArray = values->Split(',');;
+			cli::array< unsigned short >^  femoralInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			for ( unsigned short i = 0; i < femoralSize; i++ )
+			{
+				DalEventContainer::Instance->OnDalCuffPulseEvent(DalEventContainer::Instance, gcnew DalCuffPulseEventArgs(femoralInput[i]));
+			}
+			DalModule::Instance->measurementCounterTest = Convert::ToBoolean(testContextInstance->DataRow[L"ModuleConnected"]);
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;
+			actual = target->CalculatePWVReport(record);
+			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for RecalculatePWVReport
+		///</summary>
+public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\projects\\PN022BLL\\biz\\Debug\\BizPWVRecalculatePWVReport.csv", L"BizPWVRecalculatePWVReport#csv", DataAccessMethod::Sequential),
+			TestMethod]
+		void RecalculatePWVReportTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			CrxStructPWVMeasurementData^  record = gcnew CrxStructPWVMeasurementData();
+			target->systemId = 00050;
+			target->patientNumber = 1;
+			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
+			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
+			BizPatient::Instance()->dateOfBirth = DateTime(1978, 05, 14);
+			unsigned short carotidSize = Convert::ToUInt16(testContextInstance->DataRow[L"CarotidSize"]);
+			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidInput"]);
+			array<String^>^ valuesArray = values->Split(',');;
+			cli::array< unsigned short >^  carotidInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			for ( unsigned short i = 0; i < carotidSize; i++ )
+			{
+				DalEventContainer::Instance->OnDalTonometerDataEvent(DalEventContainer::Instance, gcnew DalTonometerDataEventArgs(carotidInput[i]));
+			}
+			unsigned short femoralSize = Convert::ToUInt16(testContextInstance->DataRow[L"FemoralSize"]);
+			values = Convert::ToString(testContextInstance->DataRow[L"FemoralInput"]);
+			valuesArray = values->Split(',');;
+			cli::array< unsigned short >^  femoralInput = Array::ConvertAll(valuesArray, gcnew Converter<String^, unsigned short>(Convert::ToUInt16));
+			for ( unsigned short i = 0; i < femoralSize; i++ )
+			{
+				DalEventContainer::Instance->OnDalCuffPulseEvent(DalEventContainer::Instance, gcnew DalCuffPulseEventArgs(femoralInput[i]));
+			}
+			target->CaptureSignals();
+			bool expected = Convert::ToBoolean(testContextInstance->DataRow[L"Expected"]); 
+			bool actual;actual = target->RecalculatePWVReport(record);
+			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for Populate
+		///</summary>
+public: [TestMethod]
+		void PopulateTest()
+		{
+			BizPWV^  target = (gcnew BizPWV());
+			CrxStructPWVMeasurementData^  record = nullptr; 
+
+			// unsuccessful cases
+			bool expected = false;
+			bool actual = target->Populate(record);
+			Assert::AreEqual(expected, actual);
+
+			actual = target->BizMeasure::Populate(record);
+			Assert::AreEqual(expected, actual);
+			
+			actual = target->bloodPressure->Populate(record);
+			Assert::AreEqual(expected, actual);
+			
+			actual = target->heightAndWeight->Populate(record);
+			Assert::AreEqual(expected, actual);
+			
+			actual = target->carotidSignal->Populate(record, CAROTID_SIGNAL );
+			Assert::AreEqual(expected, actual);
+			
+			actual = target->femoralSignal->Populate(record, FEMORAL_SIGNAL );
+			Assert::AreEqual(expected, actual);
+			
+			record = gcnew CrxStructPWVMeasurementData();
+
+			// successful case
+			expected = true;
+			actual = target->Populate(record);
+			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(target->bloodPressure->SP->Reading, (unsigned short) record->SP);
+			Assert::AreEqual(target->bloodPressure->DP->Reading, (unsigned short) record->DP);
+			Assert::AreEqual(target->bloodPressure->MP->Reading, (unsigned short) record->MP);
+			Assert::AreEqual(target->bloodPressureEntryOption, (unsigned short) record->BloodPressureEntryOption);
+			Assert::AreEqual(target->bloodPressureRangeTitle, record->BloodPressureRange);
+			Assert::AreEqual(target->heightAndWeight->heightInCentimetres, (unsigned short) record->HeightInCentimetres);
+			Assert::AreEqual(target->heightAndWeight->heightInInches, (unsigned short) record->HeightInInches);
+			Assert::AreEqual(target->heightAndWeight->weightInKilograms, (unsigned short) record->WeightInKilograms);
+			Assert::AreEqual(target->heightAndWeight->weightInPounds, (unsigned short) record->WeightInPounds);
+			Assert::AreEqual(target->heightAndWeight->bodyMassIndex, record->BodyMassIndex);
+			Assert::AreEqual(target->systemId, (unsigned int) record->SystemIdentifier);
+			Assert::AreEqual(target->groupStudyId, record->GroupIdentifier);
+			Assert::AreEqual(target->patientNumber, (unsigned int) record->PatientNumberInternal);
+			Assert::AreEqual(target->measurementDateTime, record->StudyDateTime);
+			Assert::AreEqual(target->dataRevision, (unsigned short) record->DataRevision);
+			Assert::AreEqual(target->patientAge, (unsigned short) record->Age);
+			Assert::AreEqual(target->notes, record->Notes);
+			Assert::AreEqual(target->operatorId, record->Operator);
+			Assert::AreEqual(target->captureTime, (unsigned short) record->CaptureTime);
+			Assert::AreEqual(target->sampleRate, (unsigned short) record->SampleRate);
+			Assert::AreEqual(target->simulation, record->Simulation);
+			Assert::AreEqual(target->myCarotidDistance->distance, (unsigned short) record->Carotid);
+			Assert::AreEqual(target->myCuffDistance->distance, (unsigned short) record->Cuff);
+			Assert::AreEqual(target->myFemoral2CuffDistance->distance, (unsigned short) record->FemoraltoCuff);
+			Assert::AreEqual(target->myPWVDirectDistance->distance, (unsigned short) record->Direct);
+			Assert::AreEqual(target->calculatedDistance, (unsigned short) record->PWVDistance);
+			Assert::AreEqual(target->distanceMethod, (unsigned short) record->PWVDistanceMethod);
+			Assert::AreEqual(target->correctionTime, record->CorrectionTime);
+			Assert::AreEqual(target->carotidSignal->signalLength, (unsigned short) record->CarotidSignalLength);
+			CollectionAssert::AreEqual(target->carotidSignal->signal, record->CarotidSignal);
+			Assert::AreEqual(target->carotidSignal->onsetsLength, (unsigned short) record->CarotidSignalOnSetsLength);
+			CollectionAssert::AreEqual(target->carotidSignal->floatOnsets, record->CarotidSignalFloatOnSets);
+			Assert::AreEqual(target->carotidSignal->pulseHeight, record->CarotidSignalPulseHeight);
+			Assert::AreEqual(target->carotidSignal->pulseHeightVariation, record->CarotidSignalPulseHeightVariation);
+			Assert::AreEqual(target->femoralSignal->signalLength, (unsigned short) record->FemoralSignalLength);
+			CollectionAssert::AreEqual(target->femoralSignal->signal, record->FemoralSignal);
+			Assert::AreEqual(target->femoralSignal->onsetsLength, (unsigned short) record->FemoralSignalOnSetsLength);
+			CollectionAssert::AreEqual(target->femoralSignal->floatOnsets, record->FemoralSignalFloatOnSets);
+			Assert::AreEqual(target->femoralSignal->pulseHeight, record->FemoralSignalPulseHeight);
+			Assert::AreEqual(target->femoralSignal->pulseHeightVariation, record->FemoralSignalPulseHeightVariation);
+			Assert::AreEqual(target->isFemoralSignalValid, record->IsFemoralSignalValid);
+			Assert::AreEqual(target->isCarotidSignalValid, record->IsCarotidSignalValid);
+			Assert::AreEqual(target->numberOfDeltas, (unsigned short) record->NumberOfDeltas);
+			Assert::AreEqual(target->numberOfValidDeltas, (unsigned short) record->NumberOfValidDeltas);
+			Assert::AreEqual(target->meanHeartRate, record->MeanHeartRate);
+			Assert::AreEqual(target->meanDeltaTime, record->MeanDeltaTime);
+			Assert::AreEqual(target->meanCorrectedTime, record->MeanCorrectedTime);
+			Assert::AreEqual(target->meanPulseWaveVelocity, record->MeanPulseWaveVelocity);
+			Assert::AreEqual(target->standardDeviation, record->StandardDeviation);
+			Assert::AreEqual(target->isStandardDeviationValid, record->IsStandardDeviationValid);
+			Assert::AreEqual(target->referenceRangeDistance, record->ReferenceRangeDistance);
+			Assert::AreEqual(target->referenceRangePulseWaveVelocity, record->ReferenceRangePulseWaveVelocity);
+			CollectionAssert::AreEqual(target->normalRange, record->NormalRange);
+			CollectionAssert::AreEqual(target->referenceRange, record->ReferenceRange);	
 		}
 };
 }

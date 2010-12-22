@@ -205,6 +205,11 @@
 			AssemblyName="System.Windows.Forms, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
+		<AssemblyReference
+			RelativePath="..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Data.dll"
+			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -226,6 +231,10 @@
 			</File>
 			<File
 				RelativePath=".\crxCrossCutting.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxDatabase.cpp"
 				>
 			</File>
 			<File
@@ -276,6 +285,10 @@
 			</File>
 			<File
 				RelativePath=".\crxCrossCutting.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxDatabase.h"
 				>
 			</File>
 			<File

@@ -780,7 +780,7 @@ void CrxConfigManager::GetCaptureTime(String^ SubSection, String^ ReaderValue)
 {
 	//Get the Get Capture time Details
 	//Temporary variables
-	int CaptureTime = 0;
+	int CaptureTime = 5;
 	String^ tempValue  = nullptr;
 
 	tempValue  = ReaderValue->ToUpper();
@@ -789,17 +789,17 @@ void CrxConfigManager::GetCaptureTime(String^ SubSection, String^ ReaderValue)
 
 	if(tempValue == "5SECONDS")
 	{
-		CaptureTime = 0;
+		CaptureTime = 5;
 	}
 	else 
 	if(tempValue == "10SECONDS")
 	{
-		CaptureTime = 1;
+		CaptureTime = 10;
 	}
 	else 
 	if(tempValue == "20SECONDS")
 	{
-		CaptureTime = 2;
+		CaptureTime = 20;
 	}
 	else
 	{
@@ -963,17 +963,17 @@ void CrxConfigManager::SetPwvDistanceMethods(CrxStructPwvSetting^ ps, XmlNode^ n
 }
 void CrxConfigManager::SetCaptureTime(CrxStructPwvSetting^ ps, XmlNode^ node)
 {
-	if(ps->CaptureTime == 0)
+	if(ps->CaptureTime == 5)
 	{
 		node->InnerText = "5 seconds";								
 	}
 	else
-	if(ps->CaptureTime == 1)
+	if(ps->CaptureTime == 10)
 	{
 		node->InnerText = "10 seconds";
 	}
 	else
-	if(ps->CaptureTime == 2)
+	if(ps->CaptureTime == 20)
 	{
 		node->InnerText = "20 seconds";
 	}

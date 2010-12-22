@@ -31,4 +31,5 @@
 #define CRX_CONFIG_NAMESPACE AtCor::THE_PRODUCT::CrossCutting::Configuration
 #define CRX_MSG_NAMESPACE AtCor::THE_PRODUCT::CrossCutting::Messaging
 #define CRX_LOG_NAMESPACE AtCor::THE_PRODUCT::CrossCutting::Logging
+#define CRX_DATABASE_MANAGER_NAMESPACE AtCor::THE_PRODUCT::CrossCutting::DatabaseManager
 
