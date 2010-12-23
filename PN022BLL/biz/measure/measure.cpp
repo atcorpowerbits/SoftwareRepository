@@ -56,9 +56,9 @@ BizMeasure::BizMeasure()
 */
 void BizMeasure::Initialise()
 {
-	systemId = 0;
-	patientNumber = 0;                          
-	groupStudyId = "";
+	systemId = BizPatient::Instance()->systemId;
+	patientNumber = BizPatient::Instance()->patientNumber;                          
+	groupStudyId = BizPatient::Instance()->groupStudyId;
 	measurementDateTime = DateTime::Now;     
 	patientAge = 0;
 	

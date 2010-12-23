@@ -19,7 +19,7 @@ namespace AtCor{
 				//SetDeviceStrategy();
 
 				// For testing only
-				measurementCounterTest = false;
+				measurementCounterTest = true;
 			}
 
 			DalModule::DalModule(const AtCor::Scor::DataAccess::DalModule ^)

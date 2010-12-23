@@ -247,6 +247,7 @@ public: [TestMethod]
 public: [TestMethod]
 		void InitialiseTest()
 		{
+			BizPatient::Instance()->Initialise();
 			BizPWV^  target = (gcnew BizPWV());
 			// MPDP Test
 			CrxConfigManager::Instance->GeneralSettings->BloodPressureEntryOptions = CrxConfigConstants::GENERAL_BP_ENTRY_MPDP;
@@ -884,13 +885,13 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			TestMethod]
 		void CalculatePWVReportTest()
 		{
+			BizPatient::Instance()->systemId = 00050;
+			BizPatient::Instance()->patientNumber = 1;
+			BizPatient::Instance()->dateOfBirth = DateTime(1978, 05, 14);
+			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
 			BizPWV^  target = (gcnew BizPWV());
 			CrxStructPWVMeasurementData^  record = gcnew CrxStructPWVMeasurementData();
-			target->systemId = 00050;
-			target->patientNumber = 1;
-			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
 			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
-			BizPatient::Instance()->dateOfBirth = DateTime(1978, 05, 14);
 			unsigned short carotidSize = Convert::ToUInt16(testContextInstance->DataRow[L"CarotidSize"]);
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidInput"]);
 			array<String^>^ valuesArray = values->Split(',');;
@@ -920,13 +921,13 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			TestMethod]
 		void RecalculatePWVReportTest()
 		{
+			BizPatient::Instance()->systemId = 00050;
+			BizPatient::Instance()->patientNumber = 1;
+			BizPatient::Instance()->dateOfBirth = DateTime(1978, 05, 14);
+			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
 			BizPWV^  target = (gcnew BizPWV());
 			CrxStructPWVMeasurementData^  record = gcnew CrxStructPWVMeasurementData();
-			target->systemId = 00050;
-			target->patientNumber = 1;
-			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
 			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
-			BizPatient::Instance()->dateOfBirth = DateTime(1978, 05, 14);
 			unsigned short carotidSize = Convert::ToUInt16(testContextInstance->DataRow[L"CarotidSize"]);
 			String^ values = Convert::ToString(testContextInstance->DataRow[L"CarotidInput"]);
 			array<String^>^ valuesArray = values->Split(',');;
