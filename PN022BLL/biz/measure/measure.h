@@ -172,7 +172,7 @@ public:
 	property BizHeightAndWeight^ heightAndWeight;		// patient height, weight and BMI
 
 	property unsigned int		systemId;				// Customer System ID
-	property String^			groupStudyId;			// User defined group/study
+	property unsigned int		groupStudyId;			// Internal group/study ID
 	property unsigned int		patientNumber;			// Internal patient number
 
 	property DateTime			measurementDateTime;    // date and time of measurement

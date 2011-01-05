@@ -24,7 +24,7 @@ public:
 	property unsigned int		systemId;			// Customer System ID
 	property unsigned int		patientNumber;		// Internal patient number
 
-	property String^			groupStudyId;		// User defined group/study
+	property unsigned int		groupStudyId;		// Internal group/study ID
 	property String^			patientId;			// User defined patient ID
 	property String^			lastName;			// User defined last name
 	property String^			firstName;			// User defined first name

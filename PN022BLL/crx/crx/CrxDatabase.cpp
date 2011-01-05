@@ -11,15 +11,22 @@
 #include "stdafx.h"
 #include "CrxDatabase.h"
 #include "CrxCrossCutting.h"
+#include "CrxConfiguration.h"
+#include "CrxMessaging.h"
 
 using namespace System;
 using namespace System::Text;
 
 using namespace System::Data::SqlClient;
+using namespace System::IO;// For FileStream
+using namespace System::Diagnostics;
+using namespace System::ComponentModel;
 
 // Added application specific namespaces
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::DatabaseManager;
+using namespace AtCor::Scor::CrossCutting::Configuration;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 
 //To get patient record from the database as per inputs
 DataSet^ CrxDBManager::GetPatientDemographicRecords(int patientNo , int systemID , int groupID)
@@ -35,7 +42,7 @@ DataSet^ CrxDBManager::GetPatientDemographicRecords(int patientNo , int systemID
 		//Adding input parameters in the DbCommand object to execute stored procedure
 		_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,systemID);
 		_objDB->AddInParameter(addCommand,"@patientNumberInternal",DbType::Int32,patientNo);
-		_objDB->AddInParameter(addCommand,"@GroupIdentifier",DbType::String,groupID);
+		_objDB->AddInParameter(addCommand,"@GroupIdentifier",DbType::Int32,groupID);
 
 		//Execute stored procedure and return Dataset
 		patientdataset = _objDB->ExecuteDataSet(addCommand);	
@@ -159,7 +166,7 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 
 		////Adding input parameters in the DbCommand object to execute stored procedure
 		_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,md->SystemIdentifier);
-		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::String,md->GroupIdentifier);
+		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,md->GroupIdentifier);
 		_objDB->AddInParameter(addCommand,"@PatientNumberInternal",DbType::Int32,md->PatientNumberInternal);
 		_objDB->AddInParameter(addCommand,"@studyDateTime",DbType::DateTime,md->StudyDateTime);
 
@@ -168,12 +175,12 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		
 		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0]["NormalRange"]);
 		len = buffarr->Length/4;
-		md->NormalRange = gcnew array<float>(len);;
+		md->NormalRange = gcnew array<float>(len);
 		md->NormalRange = CommonByteArrtoFloatArr(len,buffarr);
 
 		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0]["ReferenceRange"]);
 		len = buffarr->Length/4;
-		md->ReferenceRange = gcnew array<float>(len);;
+		md->ReferenceRange = gcnew array<float>(len);
 		md->ReferenceRange = CommonByteArrtoFloatArr(len,buffarr);
 
 		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0]["CarotidSignalFloatOnSets"]);
@@ -197,7 +204,7 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		md->FemoralSignal = CommonByteArrtoShortArr(len,buffarr);
 			
 		md->SystemIdentifier			= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0]["SystemIdentifier"]);
-		md->GroupIdentifier				= Convert::ToString(measurementdataset->Tables[0]->Rows[0]["GroupIdentifier"]);
+		md->GroupIdentifier				= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0]["GroupIdentifier"]);
 		md->PatientNumberInternal		= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0]["PatientNumberInternal"]);
 		md->StudyDateTime				= Convert::ToDateTime(measurementdataset->Tables[0]->Rows[0]["StudyDateTime"]);
 		md->Notes						= Convert::ToString(measurementdataset->Tables[0]->Rows[0]["Notes"]);
@@ -282,7 +289,7 @@ int CrxDBManager::SavePatientData(CrxStructPatientDemographicData^ pd)
 		_objDB->AddInParameter(addCommand,"@FirstName",DbType::String,pd->FirstName);
 		_objDB->AddInParameter(addCommand,"@DateOfBirth",DbType::Date,pd->DateOfBirth);
 		_objDB->AddInParameter(addCommand,"@gender",DbType::String,pd->Gender);
-		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::String,pd->GroupIdentifier);
+		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,pd->GroupIdentifier);
 		_objDB->AddInParameter(addCommand,"@groupName",DbType::String,pd->GroupName);
 
 		_objDB->AddOutParameter(addCommand,"@patientInternalId",DbType::Int32,sizeof(int));
@@ -297,7 +304,7 @@ int CrxDBManager::SavePatientData(CrxStructPatientDemographicData^ pd)
 		}
 
 		pd->PatientNumberInternal = Int32::Parse((_objDB->GetParameterValue(addCommand,"@patientInternalId")->ToString()));
-		//pd->GroupIdentifier		  = String::Parse((_objDB->GetParameterValue(addCommand,"@groupId")->ToString()));
+		pd->GroupIdentifier		  = Int32::Parse((_objDB->GetParameterValue(addCommand,"@groupId")->ToString()));
 
 		return result;
 		
@@ -327,7 +334,7 @@ int CrxDBManager::DeletePatientData(CrxStructPatientDemographicData^ pd)
 
 		//Adding input parameters in the DbCommand object to execute stored procedure
 		_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,pd->SystemIdentifier);
-		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::String,pd->GroupIdentifier);
+		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,pd->GroupIdentifier);
 		_objDB->AddInParameter(addCommand,"@PatientNumberInternal",DbType::Int32,pd->PatientNumberInternal);
 		
 		//Execute stored procedure and return int result how many rows affected
@@ -371,7 +378,7 @@ int CrxDBManager::UpdatePatientData(CrxStructPatientDemographicData^ pd, bool sp
 		_objDB->AddInParameter(addCommand,"@FirstName",DbType::String,pd->FirstName);
 		_objDB->AddInParameter(addCommand,"@DateOfBirth",DbType::Date,pd->DateOfBirth);
 		_objDB->AddInParameter(addCommand,"@gender",DbType::String,pd->Gender);
-		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::String,pd->GroupIdentifier);
+		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,pd->GroupIdentifier);
 		_objDB->AddInParameter(addCommand,"@groupName",DbType::String,pd->GroupName);
 		_objDB->AddInParameter(addCommand,"@spValidation",DbType::Boolean,spCheck);
 
@@ -385,7 +392,7 @@ int CrxDBManager::UpdatePatientData(CrxStructPatientDemographicData^ pd, bool sp
 			result = 1;
 		}
 
-		//pd->GroupIdentifier	= String::Parse((_objDB->GetParameterValue(addCommand,"@groupIdentifier_modified")->ToString()));
+		pd->GroupIdentifier	= Int32::Parse((_objDB->GetParameterValue(addCommand,"@groupIdentifier_modified")->ToString()));
 
 		return result;
 		
@@ -422,7 +429,7 @@ int CrxDBManager::PatientRecordExists(CrxStructPatientDemographicData^ pd)
 		_objDB->AddInParameter(addCommand,"@groupname",DbType::String,pd->GroupName);
 
 		//Execute stored procedure and return int value records exist or not
-		//if returns 1 then six field else if returns 2 then five field exist else not exist
+		//if returns 1 then five field exist else not exist
 		result = Int32::Parse((_objDB->ExecuteScalar(addCommand))->ToString());			
 
 		return result;
@@ -525,10 +532,10 @@ int CrxDBManager::SetConnection(String^ serverName, String^ sourceName)
 	String^ ConnStr		= nullptr;//To store the reformated connection string,intializes to nullptr
 	int ConnectionStatus = 0;//return result onnection can be established or not
 
-	ConnStr  = String::Format("server={0};database=AtCor_Test1;Integrated Security=true" , serverName);
+	ConnStr  = String::Format("server={0};database=AtCor;Integrated Security=true" , serverName);
 	
-	_connString = ConnStr;//initialize _connString for further use in the application
-	_dbType		= sourceName;//initialize _dbType for further use in the application
+	ConnString = ConnStr;//initialize _connString for further use in the application
+	DataProviderType = sourceName;//initialize _dbType for further use in the application
 
 	try
 	{
@@ -575,7 +582,7 @@ int CrxDBManager::CheckConnection(String^ serverName, String^ sourceName)
 	String^ ConnStr		= nullptr;//To store the reformated connection string,intializes to nullptr
 	int ConnectionCheck = 0;//return result onnection can be established or not
 	
-	ConnStr  = String::Format("server={0};database=AtCor_Test1;Integrated Security=true" , serverName);
+	ConnStr  = String::Format("server={0};database=AtCor;Integrated Security=true" , serverName);
 
 	try
 	{		
@@ -595,7 +602,6 @@ int CrxDBManager::CheckConnection(String^ serverName, String^ sourceName)
 	}
 	catch(Exception^)
 	{
-		//throw the exception
 		return ConnectionCheck = 1;
 	}
 }
@@ -619,7 +625,7 @@ int CrxDBManager::SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 
 		//Adding input parameters in the DbCommand object to execute stored procedure
 		_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,md->SystemIdentifier);
-		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::String,md->GroupIdentifier);
+		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,md->GroupIdentifier);
 		_objDB->AddInParameter(addCommand,"@PatientNumberInternal",DbType::Int32,md->PatientNumberInternal);
 		_objDB->AddInParameter(addCommand,"@Notes",DbType::String,md->Notes);
 		_objDB->AddInParameter(addCommand,"@SP",DbType::Int16,md->SP);
@@ -796,7 +802,7 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 
 		//Adding input parameters in the DbCommand object to execute stored procedure
 		_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,md->SystemIdentifier);
-		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::String,md->GroupIdentifier);
+		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,md->GroupIdentifier);
 		_objDB->AddInParameter(addCommand,"@PatientNumberInternal",DbType::Int32,md->PatientNumberInternal);
 		_objDB->AddInParameter(addCommand,"@studyDateTime",DbType::DateTime,md->StudyDateTime);
 		_objDB->AddInParameter(addCommand,"@Notes",DbType::String,md->Notes);
@@ -964,23 +970,31 @@ array<Byte>^ CrxDBManager::CommonShortArrtoByteArr(int len, array<unsigned short
 	array<Byte>^ bufferarr;//Temporary byte array object for manipulation
 	array<Byte>^ bufferArrRet;//Temporary byte array object for manipulation and returning
 
-	if(len != 0)
-	{		
-		//initiaze the size of the array
-		bufferArrRet = gcnew array<Byte>(len*sizeof(unsigned short));
-		
-		for(val=0, byt=0; val<len; val++,byt=byt+2)
-		{
-			bufferarr = BitConverter::GetBytes(shrtarr[val]);			
-			bufferArrRet[byt] = bufferarr[0];
-			bufferArrRet[byt+1] = bufferarr[1];
-		}
-	}
-	else
+	try
 	{
-		bufferArrRet = gcnew array<Byte>(len*sizeof(unsigned short));
+		if(len != 0)
+		{		
+			//initiaze the size of the array
+			bufferArrRet = gcnew array<Byte>(len*sizeof(unsigned short));
+			
+			for(val=0, byt=0; val<len; val++,byt=byt+2)
+			{
+				bufferarr = BitConverter::GetBytes(shrtarr[val]);			
+				bufferArrRet[byt] = bufferarr[0];
+				bufferArrRet[byt+1] = bufferarr[1];
+			}
+		}
+		else
+		{
+			bufferArrRet = gcnew array<Byte>(len*sizeof(unsigned short));
+		}
+		return bufferArrRet;
 	}
-	return bufferArrRet;
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew CrxException("CRX_ERR_DBMGR_CONVERSION");
+	} 
 }
 array<Byte>^ CrxDBManager::CommonFloatArrtoByteArr(int len, array<float>^ fltarr)
 {
@@ -990,26 +1004,34 @@ array<Byte>^ CrxDBManager::CommonFloatArrtoByteArr(int len, array<float>^ fltarr
 	array<Byte>^ bufferArrRet;//Temporary byte array object for manipulation and returning
 	float tempflt = 0.0f;//Temporary float vlaue for storing rounded decimal value
 
-	if(len != 0)
-	{		
-		//initiaze the size of the array
-		bufferArrRet = gcnew array<Byte>(len*sizeof(float));
-		
-		for(val=0, byt=0; val<len; val++,byt=byt+4)
-		{
-			tempflt  = Convert::ToSingle(Math::Round(fltarr[val],2));
-			bufferarr = BitConverter::GetBytes(tempflt);			
-			bufferArrRet[byt] = bufferarr[0];
-			bufferArrRet[byt+1] = bufferarr[1];
-			bufferArrRet[byt+2] = bufferarr[2];
-			bufferArrRet[byt+3] = bufferarr[3];
-		}
-	}
-	else
+	try
 	{
-		bufferArrRet = gcnew array<Byte>(len*sizeof(short));
+		if(len != 0)
+		{		
+			//initiaze the size of the array
+			bufferArrRet = gcnew array<Byte>(len*sizeof(float));
+			
+			for(val=0, byt=0; val<len; val++,byt=byt+4)
+			{
+				tempflt  = Convert::ToSingle(Math::Round(fltarr[val],2));
+				bufferarr = BitConverter::GetBytes(tempflt);			
+				bufferArrRet[byt] = bufferarr[0];
+				bufferArrRet[byt+1] = bufferarr[1];
+				bufferArrRet[byt+2] = bufferarr[2];
+				bufferArrRet[byt+3] = bufferarr[3];
+			}
+		}
+		else
+		{
+			bufferArrRet = gcnew array<Byte>(len*sizeof(float));
+		}
+		return bufferArrRet;
 	}
-	return bufferArrRet;
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew CrxException("CRX_ERR_DBMGR_CONVERSION");
+	} 
 }
 
 
@@ -1025,16 +1047,24 @@ array<float>^ CrxDBManager::CommonByteArrtoFloatArr(int len, array<Byte>^ bytear
 	float value =0.0f;//Temporary value for the manipulation	
 	array<float>^  tempbuffer;//Temporary float array object for manipulation and returning
 
-	//initiaze the size of the array
-	tempbuffer = gcnew array<float>(len);
+	try
+	{
+		//initiaze the size of the array
+		tempbuffer = gcnew array<float>(len);
 
-	for(val=0, arr=0; val<len; val++,arr=arr+4 )
-	{		
-		value = BitConverter::ToSingle(bytearr,arr);			
-		tempbuffer[val] = value;
+		for(val=0, arr=0; val<len; val++,arr=arr+4 )
+		{		
+			value = BitConverter::ToSingle(bytearr,arr);			
+			tempbuffer[val] = value;
+		}
+
+		return tempbuffer;
 	}
-
-	return tempbuffer;
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew CrxException("CRX_ERR_DBMGR_CONVERSION");
+	} 
 }
 
 array<unsigned short>^ CrxDBManager::CommonByteArrtoShortArr(int len, array<Byte>^ bytearr)
@@ -1044,14 +1074,104 @@ array<unsigned short>^ CrxDBManager::CommonByteArrtoShortArr(int len, array<Byte
 	short value =0;//Temporary value for the manipulation	
 	array<unsigned short>^  tempbuffer;//Temporary short array object for manipulation and returning
 
-	//initiaze the size of the array
-	tempbuffer = gcnew array<unsigned short>(len);
+	try
+	{
+		//initiaze the size of the array
+		tempbuffer = gcnew array<unsigned short>(len);
 
-	for(val=0, arr=0; val<len; val++,arr=arr+2 )
-	{		
-		value = BitConverter::ToUInt16(bytearr,arr);		
-		tempbuffer[val] = value;
+		for(val=0, arr=0; val<len; val++,arr=arr+2 )
+		{		
+			value = BitConverter::ToUInt16(bytearr,arr);		
+			tempbuffer[val] = value;
+		}
+
+		return tempbuffer;
 	}
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew CrxException("CRX_ERR_DBMGR_CONVERSION");
+	} 
+}
 
-	return tempbuffer;
+int CrxDBManager::DatabaseBackup(System::String ^FilePath)
+{
+	int result = 0;//initializes to 0, if 1 successful else return zero
+	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+
+
+	try
+	{		
+		//get the Stored Procedure query using database object
+		addCommand = _objDB->GetStoredProcCommand("BackUpDatabase");
+
+		_objDB->AddInParameter(addCommand,"@FilePath",DbType::String,FilePath);
+		
+		//Execute stored procedure and return int result backup successful or not
+		result = _objDB->ExecuteNonQuery(addCommand);	
+
+		if(result < 0)
+		{
+			result = 0;
+		}
+
+		return result;
+		
+	}
+	catch(CrxException^ crxObj)
+	{
+		// rethrow the exception
+		throw crxObj;
+	}
+	catch(Exception^ eObj)
+	{
+		// throw the exception
+		throw gcnew CrxException(eObj);
+	}
+}
+int CrxDBManager::DatabaseRestore(System::String ^FilePath)
+{
+	int result = 0;//initializes to 0, if 1 successful else return zero
+	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+	String^ FilePathSet = nullptr; //To store the reformated connection string,intializes to nullptr
+
+	FilePathSet  = String::Format("'{0}'" , FilePath);
+
+	try
+	{		
+		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE AtCor" + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE"+ " RESTORE DATABASE Test_restore FROM DISK = " + FilePathSet + " WITH REPLACE"); 
+
+		result = _objDB->ExecuteNonQuery(addCommand);	
+
+		if(result < 0)
+		{
+			result = 0;
+		}
+
+		return result;
+		
+	}
+	catch(CrxException^ crxObj)
+	{
+		// rethrow the exception
+		throw crxObj;
+	}
+	catch(Exception^ eObj)
+	{		
+		// throw the exception
+		throw gcnew CrxException(eObj);
+	}
+	finally
+	{
+		ResetDatabaseToMultiuser();
+	}
+}
+
+void CrxDBManager::ResetDatabaseToMultiuser()
+{
+	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+	
+	addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE AtCor" + " SET MULTI_USER" + " USE [Test_restore]" ); 
+	
+	_objDB->ExecuteNonQuery(addCommand);
 }

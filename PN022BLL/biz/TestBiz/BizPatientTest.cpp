@@ -71,7 +71,7 @@ namespace TestBiz {
 				target->Initialise();
 				Assert::AreEqual((unsigned int) 0, target->systemId);
 				Assert::AreEqual((unsigned int) 0, target->patientNumber);
-				Assert::AreEqual((String^) "", target->groupStudyId);
+				Assert::AreEqual((unsigned int) 0, target->groupStudyId);
 				Assert::AreEqual((String^) "", target->patientId);
 				Assert::AreEqual((String^) "", target->lastName);
 				Assert::AreEqual((String^) "", target->firstName);

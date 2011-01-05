@@ -260,7 +260,7 @@ public: [TestMethod]
 			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
 			Assert::AreEqual((unsigned int) 0, target->systemId);
 			Assert::AreEqual((unsigned int) 0, target->patientNumber);
-			Assert::AreEqual((String^) "", target->groupStudyId);
+			Assert::AreEqual((unsigned int) 0, target->groupStudyId);
 			Assert::IsNotNull(target->measurementDateTime);
 			Assert::AreEqual((unsigned short) 0, target->patientAge);
 			Assert::AreEqual((unsigned short) DATA_REVISION, target->dataRevision);
@@ -291,7 +291,7 @@ public: [TestMethod]
 			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
 			Assert::AreEqual((unsigned int) 0, target->systemId);
 			Assert::AreEqual((unsigned int) 0, target->patientNumber);
-			Assert::AreEqual((String^) "", target->groupStudyId);
+			Assert::AreEqual((unsigned int) 0, target->groupStudyId);
 			Assert::IsNotNull(target->measurementDateTime);
 			Assert::AreEqual((unsigned short) DATA_REVISION, target->dataRevision);
 			Assert::AreEqual((String^) "", target->medication);
@@ -321,7 +321,7 @@ public: [TestMethod]
 			Assert::AreEqual((float) DEFAULT_CORRECTION_TIME, target->correctionTime);
 			Assert::AreEqual((unsigned int) 0, target->systemId);
 			Assert::AreEqual((unsigned int) 0, target->patientNumber);
-			Assert::AreEqual((String^) "", target->groupStudyId);
+			Assert::AreEqual((unsigned int) 0, target->groupStudyId);
 			Assert::IsNotNull(target->measurementDateTime);
 			Assert::AreEqual((unsigned short) DATA_REVISION, target->dataRevision);
 			Assert::AreEqual((String^) "", target->medication);
@@ -813,7 +813,7 @@ public: [TestMethod]
 			Assert::AreEqual(target->heightAndWeight->weightInPounds, (unsigned short) record->WeightInPounds);
 			Assert::AreEqual(target->heightAndWeight->bodyMassIndex, record->BodyMassIndex);
 			Assert::AreEqual(target->systemId, (unsigned int) record->SystemIdentifier);
-			Assert::AreEqual(target->groupStudyId, record->GroupIdentifier);
+			Assert::AreEqual(target->groupStudyId, (unsigned int) record->GroupIdentifier);
 			Assert::AreEqual(target->patientNumber, (unsigned int) record->PatientNumberInternal);
 			Assert::AreEqual(target->measurementDateTime, record->StudyDateTime);
 			Assert::AreEqual(target->dataRevision, (unsigned short) record->DataRevision);
@@ -995,7 +995,7 @@ public: [TestMethod]
 			Assert::AreEqual(target->heightAndWeight->weightInPounds, (unsigned short) record->WeightInPounds);
 			Assert::AreEqual(target->heightAndWeight->bodyMassIndex, record->BodyMassIndex);
 			Assert::AreEqual(target->systemId, (unsigned int) record->SystemIdentifier);
-			Assert::AreEqual(target->groupStudyId, record->GroupIdentifier);
+			Assert::AreEqual(target->groupStudyId, (unsigned int) record->GroupIdentifier);
 			Assert::AreEqual(target->patientNumber, (unsigned int) record->PatientNumberInternal);
 			Assert::AreEqual(target->measurementDateTime, record->StudyDateTime);
 			Assert::AreEqual(target->dataRevision, (unsigned short) record->DataRevision);

@@ -92,7 +92,7 @@ void BizPatient::Initialise(void)
 	// TBD: systemId will be decrypted from the Key
 	systemId = 0;
 	patientNumber = 0;                          
-	groupStudyId = "";
+	groupStudyId = 0;
 	patientId = "";
 	lastName = "";
 	firstName = "";

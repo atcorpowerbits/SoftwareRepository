@@ -286,7 +286,7 @@
             this.radpgTabCollection.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radpgTabCollection.Location = new System.Drawing.Point(0, 158);
             this.radpgTabCollection.Name = "radpgTabCollection";
-            this.radpgTabCollection.SelectedPage = this.radtabCapture;
+            this.radpgTabCollection.SelectedPage = this.radtabSetup;
             this.radpgTabCollection.Size = new System.Drawing.Size(1014, 540);
             this.radpgTabCollection.TabIndex = 2;
             this.radpgTabCollection.Text = "radPageView1";
