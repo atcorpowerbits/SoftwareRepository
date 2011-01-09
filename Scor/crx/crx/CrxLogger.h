@@ -21,7 +21,7 @@ using namespace Microsoft::Practices::EnterpriseLibrary::Common::Configuration;
 
 //Namepsace CrxLogging to include all Logging realted functionalities
 /**
- * @namespace	CrxLogging
+ * @namespace	AtCor::Scor::CrossCutting::Logging
  * @brief		This namespace implements the cross-cuttinng component for Logging.
  * 
  */

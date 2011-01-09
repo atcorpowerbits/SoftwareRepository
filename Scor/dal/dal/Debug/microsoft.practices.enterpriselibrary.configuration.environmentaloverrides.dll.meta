@@ -1,0 +1,113 @@
+  Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+  Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.DesignResources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.ConfigurationMerger: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentalOverridesSection): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String MergedConfigurationFile 'get ' : 
+  Methods:
+    get_MergedConfigurationFile(): PrivateScope, Public, HideBySig, SpecialName
+    MergeConfiguration(String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentalOverridesSection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationSection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String EnvironmentallyOverriddenProperties = environmentallyOverriddenProperties : Public, Static, Literal, HasDefault
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentalOverridesElementCollection MergeElements 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentOverriddenProtectionProviderElementCollection OverriddenProtectionProviders 'get set' : 
+    System.String EnvironmentName 'get set' : 
+    System.String EnvironmentConfigurationFile 'get set' : 
+  Methods:
+    get_MergeElements(): PrivateScope, Public, HideBySig, SpecialName
+    set_MergeElements(EnvironmentalOverridesElementCollection): PrivateScope, Public, HideBySig, SpecialName
+    get_OverriddenProtectionProviders(): PrivateScope, Public, HideBySig, SpecialName
+    set_OverriddenProtectionProviders(EnvironmentOverriddenProtectionProviderElementCollection): PrivateScope, Public, HideBySig, SpecialName
+    get_EnvironmentName(): PrivateScope, Public, HideBySig, SpecialName
+    set_EnvironmentName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_EnvironmentConfigurationFile(): PrivateScope, Public, HideBySig, SpecialName
+    set_EnvironmentConfigurationFile(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentalOverridesElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElementCollection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IMergeableConfigurationElementCollection
+  Methods:
+    Add(EnvironmentalOverridesElement): PrivateScope, Public, HideBySig
+    Remove(EnvironmentalOverridesElement): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentalOverridesElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String LogicalParentElementPath 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentOverriddenPropertyElementCollection OverriddenProperties 'get set' : 
+  Methods:
+    get_LogicalParentElementPath(): PrivateScope, Public, HideBySig, SpecialName
+    set_LogicalParentElementPath(String): PrivateScope, Public, HideBySig, SpecialName
+    get_OverriddenProperties(): PrivateScope, Public, HideBySig, SpecialName
+    set_OverriddenProperties(EnvironmentOverriddenPropertyElementCollection): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentOverriddenPropertyElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElementCollection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IMergeableConfigurationElementCollection
+  Methods:
+    Add(EnvironmentOverriddenPropertyElement): PrivateScope, Public, HideBySig
+    Remove(EnvironmentOverriddenPropertyElement): PrivateScope, Public, HideBySig
+    Clear(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentOverriddenPropertyElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Attribute 'get set' : 
+    System.String ContainingElementXPath 'get set' : 
+    System.String OverriddenValue 'get set' : 
+    System.String ConfigurationSectionName 'get set' : 
+    System.String ContainingSectionXPath 'get set' : 
+  Methods:
+    get_Attribute(): PrivateScope, Public, HideBySig, SpecialName
+    set_Attribute(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ContainingElementXPath(): PrivateScope, Public, HideBySig, SpecialName
+    set_ContainingElementXPath(String): PrivateScope, Public, HideBySig, SpecialName
+    get_OverriddenValue(): PrivateScope, Public, HideBySig, SpecialName
+    set_OverriddenValue(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ConfigurationSectionName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ConfigurationSectionName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ContainingSectionXPath(): PrivateScope, Public, HideBySig, SpecialName
+    set_ContainingSectionXPath(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentOverriddenProtectionProviderElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElementCollection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IMergeableConfigurationElementCollection
+  Methods:
+    Add(EnvironmentOverriddenProtectionProviderElement): PrivateScope, Public, HideBySig
+    Remove(EnvironmentOverriddenProtectionProviderElement): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides.Configuration.EnvironmentOverriddenProtectionProviderElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String ProtectionProvider 'get set' : 
+    System.String ConfigurationSectionName 'get set' : 
+    System.String ContainingSectionXPath 'get set' : 
+  Methods:
+    get_ProtectionProvider(): PrivateScope, Public, HideBySig, SpecialName
+    set_ProtectionProvider(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ConfigurationSectionName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ConfigurationSectionName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ContainingSectionXPath(): PrivateScope, Public, HideBySig, SpecialName
+    set_ContainingSectionXPath(String): PrivateScope, Public, HideBySig, SpecialName

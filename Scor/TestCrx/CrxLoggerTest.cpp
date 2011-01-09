@@ -138,15 +138,15 @@ namespace TestCrx {
 			/// <summary>
 			///A test for CrxLogger Constructor
 			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void CrxLoggerConstructorTest1()
-			{
-				CrxLogger^  unnamed = nullptr; // TODO: Initialize to an appropriate value
-				CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor(unnamed));
-				Assert::AreEqual(target, unnamed);
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
-			}
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void CrxLoggerConstructorTest1()
+	//		{
+	//			CrxLogger^  unnamed = nullptr; // TODO: Initialize to an appropriate value
+	//			CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor(unnamed));
+	//			Assert::AreEqual(target, unnamed);
+	//			//Assert::Inconclusive(L"TODO: Implement code to verify target");
+	//		}
 			/// <summary>
 			///A test for CrxLogger Constructor
 			///</summary>

@@ -1,0 +1,66 @@
+Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.StatusTextChangedEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String StatusText 'get ' : 
+  Methods:
+    get_StatusText(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.HostAdapterConfiguration: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String PluginDirectory 'get ' : 
+  Methods:
+    get_PluginDirectory(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.SelectionChangedEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(System.ComponentModel.IComponent): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.ComponentModel.IComponent SelectedComponent 'get ' : 
+  Methods:
+    get_SelectedComponent(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.TasksChangedEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.Task]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Collections.Generic.List`1[Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.Task] Tasks 'get ' : 
+  Methods:
+    get_Tasks(): PrivateScope, Public, HideBySig, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.ISingleHierarchyConfigurationUIHostAdapter: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IServiceProvider
+  Properties:
+    System.Windows.Forms.UserControl EditorControl 'get ' : 
+    Boolean IsDirty 'get ' : 
+  Events:
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.SelectionChangedEventArgs] SelectionChanged: 
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.StatusTextChangedEventArgs] StatusTextChanged: 
+    System.EventHandler`1[Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.TasksChangedEventArgs] TasksChanged: 
+    System.EventHandler`1[System.EventArgs] DocumentClosed: 
+  Methods:
+    get_EditorControl(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Load(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Save(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_IsDirty(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Validate(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    add_SelectionChanged(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_SelectionChanged(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    add_StatusTextChanged(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_StatusTextChanged(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    add_TasksChanged(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_TasksChanged(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    add_DocumentClosed(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_DocumentClosed(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    NavigateTask(Task): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter.Task: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    System.String Message 'get ' : 
+  Methods:
+    get_Message(): PrivateScope, Public, HideBySig, SpecialName

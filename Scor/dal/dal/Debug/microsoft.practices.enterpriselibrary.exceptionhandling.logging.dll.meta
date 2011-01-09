@@ -1,0 +1,83 @@
+  Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Configuration.DesignResources.resources - Embedded, ContainedInManifestFile, 
+  Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ExceptionHandlingLoggingConfigurationSourceBuilderExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    LogToCategory(IExceptionConfigurationAddExceptionHandlers, String): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IExceptionConfigurationLoggingProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IExceptionConfigurationForExceptionTypeOrPostHandling
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IExceptionConfigurationGivenPolicyWithName
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IExceptionConfigurationAddExceptionHandlers
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IExceptionConfigurationThenDoPostHandlingAction
+  Methods:
+    UsingTitle(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UsingEventId(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UsingExceptionFormatter(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    UsingExceptionFormatter(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithSeverity(TraceEventType): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WithPriority(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Configuration.LoggingExceptionHandlerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.ExceptionHandlerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Int32, System.Diagnostics.TraceEventType, System.String, System.Type, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Int32, System.Diagnostics.TraceEventType, System.String, System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String LogCategory 'get set' : 
+    Int32 EventId 'get set' : 
+    System.Diagnostics.TraceEventType Severity 'get set' : 
+    System.String Title 'get set' : 
+    System.Type FormatterType 'get set' : 
+    System.String FormatterTypeName 'get set' : 
+    Int32 Priority 'get set' : 
+    Boolean UseDefaultLogger 'get set' :  (Obsolete)
+  Methods:
+    get_LogCategory(): PrivateScope, Public, HideBySig, SpecialName
+    set_LogCategory(String): PrivateScope, Public, HideBySig, SpecialName
+    get_EventId(): PrivateScope, Public, HideBySig, SpecialName
+    set_EventId(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Severity(): PrivateScope, Public, HideBySig, SpecialName
+    set_Severity(TraceEventType): PrivateScope, Public, HideBySig, SpecialName
+    get_Title(): PrivateScope, Public, HideBySig, SpecialName
+    set_Title(String): PrivateScope, Public, HideBySig, SpecialName
+    get_FormatterType(): PrivateScope, Public, HideBySig, SpecialName
+    set_FormatterType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_FormatterTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_FormatterTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Priority(): PrivateScope, Public, HideBySig, SpecialName
+    set_Priority(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_UseDefaultLogger(): PrivateScope, Public, HideBySig, SpecialName
+    set_UseDefaultLogger(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Configuration.Manageability.LoggingExceptionHandlerDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1[Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Configuration.LoggingExceptionHandlerData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String EventIdPropertyName = eventId : Public, Static, Literal, HasDefault
+    System.String FormatterTypePropertyName = formatterType : Public, Static, Literal, HasDefault
+    System.String LogCategoryPropertyName = logCategory : Public, Static, Literal, HasDefault
+    System.String PriorityPropertyName = priority : Public, Static, Literal, HasDefault
+    System.String SeverityPropertyName = severity : Public, Static, Literal, HasDefault
+    System.String TitlePropertyName = title : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.LoggingExceptionHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, Int32, System.Diagnostics.TraceEventType, System.String, Int32, System.Type, Microsoft.Practices.EnterpriseLibrary.Logging.LogWriter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.IExceptionHandler
+  Methods:
+    HandleException(Exception, Guid): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask

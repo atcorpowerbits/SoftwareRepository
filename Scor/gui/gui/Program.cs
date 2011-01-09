@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace AtCor.Scor.Gui.Presentation
 {
-    static class Program
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
@@ -17,5 +18,19 @@ namespace AtCor.Scor.Gui.Presentation
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new DefaultWindow());
         }
+
+
+        public static string GetCurrentCulture()
+        {
+
+            CultureInfo currentCulture = CultureInfo.CurrentCulture;
+
+            string cultureSetting = currentCulture.Name.Substring(0, 2);
+
+            return cultureSetting;
+
+        }
+
     }
+
 }

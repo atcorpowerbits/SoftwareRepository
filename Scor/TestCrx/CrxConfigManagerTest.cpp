@@ -41,8 +41,7 @@ namespace TestCrx {
 			void SetPath()
 			{
 				String^ path = Directory::GetCurrentDirectory(); 
-//TM				Directory::SetCurrentDirectory("D:\\Atcor_2008\\Deepak\\Sprint1-Scor-Code\\Scor\\TestResults");
-				Directory::SetCurrentDirectory("C:\\Projects\\PN022\\Scor\\TestResults");
+				Directory::SetCurrentDirectory("D:\\Atcor_2008\\Deepak\\Sprint1-Scor-Code\\Scor\\TestResults");
 			}
 
 #pragma region Additional test attributes
@@ -358,6 +357,9 @@ namespace TestCrx {
 				gs->PatientPrivacy = false;
 				gs->ReportLogoPath = "D:\\EXTRA_DESKTOP\\ERROR.JPG";
 				gs->ReportTitle = "REPORT DEM TESTFORme";
+				gs->ServerName = "MUM-9638\\SQLEXPRESS";
+				gs->SourceData = "SQLCLIENT";
+				gs->CultureInfo = "EN-en";
 
 				target->SetGeneralUserSettings(gs);
 
@@ -369,6 +371,10 @@ namespace TestCrx {
 				Assert::AreEqual("Simulation", target->_instance->GeneralSettings->CommsPort);
 				Assert::AreEqual("REPORT DEM TESTFORme", target->_instance->GeneralSettings->ReportTitle);
 				Assert::AreEqual("D:\\EXTRA_DESKTOP\\ERROR.JPG", target->_instance->GeneralSettings->ReportLogoPath);
+				Assert::AreEqual("MUM-9638\\SQLEXPRESS", target->_instance->GeneralSettings->ServerName);
+				Assert::AreEqual("SQLCLIENT", target->_instance->GeneralSettings->SourceData);
+				Assert::AreEqual("EN-en", target->_instance->GeneralSettings->CultureInfo);
+				
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			//Smarajit Mishra
@@ -406,6 +412,19 @@ namespace TestCrx {
 	//			//Remove the set functionality becuase we don't have the proper node object for XML
 	//			//target->SetFemoralToCuff(ps, node);
 	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
+	//		/// <summary>
+	//		///A test for SetCultureInfo
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetCultureInfoTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			target->SetCultureInfo(gs, node);
+	//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 	//		}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetGeneralUserSettings
@@ -480,6 +499,22 @@ namespace TestCrx {
 	//			Assert::Inconclusive(L"Verify the correctness of this test method.");
 	//		}
 			/// <summary>
+			///A test for GetSourceData
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void GetSourceDataTest()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+				//String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+				//String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+				
+				target->GetSourceData("USER", "SQLCLIENT");
+				Assert::AreEqual("SQLCLIENT",target->_instance->GeneralSettings->SourceData);
+				//target->GetSourceData(SubSection, ReaderValue);
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			}
+			/// <summary>
 			///A test for GetSimulationType
 			///</summary>
 	public: [TestMethod]
@@ -528,6 +563,23 @@ namespace TestCrx {
 				//target->GetSettings(Section, SubSection);
 				target->GetSettings("GENERAL", "USER");
 
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			}
+			/// <summary>
+			///A test for GetServerName
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void GetServerNameTest()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+				//String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+				//String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+				
+				target->GetServerName("USER", "MUM-9638\\SQLEXPRESS");
+				Assert::AreEqual("MUM-9638\\SQLEXPRESS",target->_instance->GeneralSettings->ServerName);
+
+				//target->GetServerName(SubSection, ReaderValue);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
@@ -820,6 +872,23 @@ namespace TestCrx {
 				target->GetFemoralToCuff("USER", "No");
 				Assert::AreEqual(false,  target->_instance->PwvSettings->FemoralToCuff);
 
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			}
+			/// <summary>
+			///A test for GetCultureInfo
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void GetCultureInfoTest()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+				//String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+				//String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+				
+				target->GetCultureInfo("USER", "EN-en");
+				Assert::AreEqual("EN-en",target->_instance->GeneralSettings->CultureInfo);
+
+				//target->GetCultureInfo(SubSection, ReaderValue);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>

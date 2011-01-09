@@ -184,7 +184,7 @@
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.3981.20664, processorArchitecture=x86"
+			AssemblyName="crx, Version=1.0.4000.34161, processorArchitecture=x86"
 			MinFrameworkVersion="196613"
 		/>
 		<ProjectReference

@@ -46,7 +46,7 @@
 				AdditionalUsingDirectories="&quot;D:\My Docs\Visual Studio 2008\Projects\DalTEster\Debug&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -180,7 +180,7 @@
 		<AssemblyReference
 			RelativePath="..\..\Debug\crx.dll"
 			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
-			MinFrameworkVersion="196613"
+			MinFrameworkVersion="0"
 		/>
 	</References>
 	<Files>
@@ -194,15 +194,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\dal.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\dal_facade_stub.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\dal_stub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalDataBuffer.cpp"
 				>
 			</File>
 			<File
@@ -236,6 +236,22 @@
 			<File
 				RelativePath=".\Stdafx.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -243,10 +259,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\dal.h"
-				>
-			</File>
 			<File
 				RelativePath=".\dal_facade_stub.h"
 				>
@@ -261,6 +273,14 @@
 			</File>
 			<File
 				RelativePath=".\DalCommon.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCommon.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalDataBuffer.h"
 				>
 			</File>
 			<File

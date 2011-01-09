@@ -7,6 +7,7 @@
  
      Description  :     Functionality implemented for Settings window.
 */
+
 using AtCor.Scor.CrossCutting;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.Logging;
@@ -27,14 +28,14 @@ using Telerik.WinControls.UI.Docking;
 using Telerik.WinControls.Enumerations;
 
 /**
- * @namespace	AtCor.Scor.Gui.Presentation
- * @brief		This namespace implements Presentation related classes.
+ * @namespace AtCor.Scor.Gui.Presentation
+ * @brief This namespace implements Presentation related classes.
  * 
  */
 namespace AtCor.Scor.Gui.Presentation
 {         
      /**
-     * @class Setting Window
+     * @class frmSettingsWindow
      * @brief This class is used to set General as well as PWV settings for the application.On this window,all the necessary settings will be done which are required by the user at different stages in the application.
      */    
     public partial class frmSettingsWindow : Telerik.WinControls.UI.RadForm
@@ -96,7 +97,7 @@ namespace AtCor.Scor.Gui.Presentation
         const string SELECT_LOGO = "Select a Report Logo";
 
         #endregion
-
+   
         // Events
         public static event EventHandler OnSettingsChangedEvent;
 
@@ -114,6 +115,12 @@ namespace AtCor.Scor.Gui.Presentation
             objDefaultWindow = objDfltWnd;
         }
 
+        public frmSettingsWindow(GUI_POC objDfltWnd)
+        {
+            InitializeSettingsWindow();
+            guiWindow = objDfltWnd;
+        }
+
         #region Global decalartions
         CrxConfigManager obj;
         OpenFileDialog dialog;
@@ -121,6 +128,7 @@ namespace AtCor.Scor.Gui.Presentation
        
         // Creating object of DefaultWindow.
         private DefaultWindow objDefaultWindow;
+        private GUI_POC guiWindow;
 
         // This variable is used to create a copy of the generalsettings structure which will be used update the 
         // configuration object after the save functionality is implemented.@n
@@ -173,7 +181,7 @@ namespace AtCor.Scor.Gui.Presentation
             // Populate the text value for PWV settings form controls
             SetTextForPwvSettingsTab();            
         }
-
+        
         /**This method sets the test for the labels ,buttons ,group boxes and so on, for the General settings on the GUI.
          */ 
         private void SetTextForGeneralSettingsTab()
@@ -968,6 +976,7 @@ PATH_SIMUALTION_FILES);
                 Thread t2 = new Thread(SaveSettings);
                 t2.Start();
                 defaultBtnClicked = false;
+
                // OnSettingsChangedEvent(this, new EventArgs());
             }
             catch (Exception ex)
@@ -996,15 +1005,17 @@ PATH_SIMUALTION_FILES);
         {
             try
             {
+                // this.guiWindow.Message = "Insert mode";
+                // this.guiWindow.UpdateMessage();
                 obj = CrxConfigManager.Instance;
                 obj.SetGeneralUserSettings(gnrlSettingsStruct);
-                obj.SetPwvUserSettings(pwvSettingsStruct);  
+                obj.SetPwvUserSettings(pwvSettingsStruct);
 
                 obj.GeneralSettings = gnrlSettingsStruct;
                 obj.PwvSettings = pwvSettingsStruct;
-                //OnSettingsChangedEvent(this, new EventArgs());
-                OnSettingsChangedEvent.Invoke(this, new EventArgs());
-             
+
+                // OnSettingsChangedEvent(this, new EventArgs());
+                OnSettingsChangedEvent.Invoke(this, new EventArgs());             
             }
             catch (CrxException cfgExp)
             {
@@ -1160,7 +1171,7 @@ PATH_SIMUALTION_FILES);
     }
 
     /**
-    * @class DisplaySettingEventArgs
+    * @class DisplaySettingsEventArgs
     * @brief This class is written to create user defined args types which are used in events. 
     */
     public class DisplaySettingsEventArgs : EventArgs

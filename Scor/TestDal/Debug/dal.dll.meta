@@ -1,0 +1,186 @@
+Assembly dal, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapterV5, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Security.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Security, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.PolicyInjection, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Validation, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Logging.Database, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly crx, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=None
+Assembly Microsoft.VisualC, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly crx, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=None
+Class AtCor.Scor.DataAccess.DalConstants: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    UInt32 DataSamplingInterval IsConst : Public, Static, HasDefault
+    UInt32 SimulationTimerInterval IsConst : Public, Static, HasDefault
+    UInt32 SimulationWriteTimerInterval IsConst : Public, Static, HasDefault
+    UInt32 SimulationNumberOfReadsPerInterval IsConst : Public, Static, HasDefault
+Class AtCor.Scor.DataAccess.DalDeviceConfigUsageStruct: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.DateTime ModuleCalibrationDate 'get set' : 
+    System.DateTime ModuleConfigDate 'get set' : 
+    UInt16 ModuleConfigId 'get set' : 
+    System.String ModuleMainFWVersion 'get set' : 
+    System.String ModuleSerialNumber 'get set' : 
+    System.String ModuleType 'get set' : 
+  Methods:
+    get_ModuleType(): PrivateScope, Public, HideBySig, SpecialName
+    set_ModuleType(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ModuleSerialNumber(): PrivateScope, Public, HideBySig, SpecialName
+    set_ModuleSerialNumber(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ModuleMainFWVersion(): PrivateScope, Public, HideBySig, SpecialName
+    set_ModuleMainFWVersion(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ModuleConfigId(): PrivateScope, Public, HideBySig, SpecialName
+    set_ModuleConfigId(UInt16): PrivateScope, Public, HideBySig, SpecialName
+    get_ModuleConfigDate(): PrivateScope, Public, HideBySig, SpecialName
+    set_ModuleConfigDate(DateTime): PrivateScope, Public, HideBySig, SpecialName
+    get_ModuleCalibrationDate(): PrivateScope, Public, HideBySig, SpecialName
+    set_ModuleCalibrationDate(DateTime): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalException: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Exception
+    Void .ctor(Int32, System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Exception ExceptionObject 'get ' : 
+    System.String ErrorString 'get set' : 
+    Int32 ErrorCode 'get set' : 
+  Methods:
+    get_ErrorCode(): PrivateScope, Public, HideBySig, SpecialName
+    set_ErrorCode(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_ErrorString(): PrivateScope, Public, HideBySig, SpecialName
+    set_ErrorString(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ExceptionObject(): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalPwvDataStruct: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(AtCor.Scor.DataAccess.DalPwvDataStruct): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int16 tonometerData : Public
+    Int16 cuffPulseData : Public
+    Int16 cuffPressure : Public
+    Int16 countdownTimer : Public
+Class AtCor.Scor.DataAccess.DalDataBuffer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    System.Array DataBuffer 'get ' : 
+    Int32 ArraySize 'get ' : 
+    AtCor.Scor.DataAccess.DalDataBuffer Instance 'get ' : 
+  Methods:
+    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ArraySize(): PrivateScope, Public, HideBySig, SpecialName
+    get_DataBuffer(): PrivateScope, Public, HideBySig, SpecialName
+    CreateBuffer(Int32, Int32): PrivateScope, Public, HideBySig
+    GetAllValues(Int32* IsImplicitlyDereferenced, Int32* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+    GetValueAt(Int32, Int32): PrivateScope, Public, HideBySig
+    WriteDataToBuffer(DalPwvDataStruct IsByValue): PrivateScope, Public, HideBySig
+    GetNextValues(Int32, Int32* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+Struct AtCor.Scor.DataAccess.CaptureType: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+Struct AtCor.Scor.DataAccess.DalDeviceConfigUsageEnum: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+Class AtCor.Scor.DataAccess.DalTonometerDataEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(UInt16): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    UInt16 data 'get set' : 
+  Methods:
+    get_data(): PrivateScope, Public, HideBySig, SpecialName
+    set_data(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalCuffPulseEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(UInt16): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    UInt16 data 'get set' : 
+  Methods:
+    get_data(): PrivateScope, Public, HideBySig, SpecialName
+    set_data(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalTonoMeterDataEventHandler: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, DalTonometerDataEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Object, DalTonometerDataEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class AtCor.Scor.DataAccess.DalCuffPulseEventHandler: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, DalCuffPulseEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Object, DalCuffPulseEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class AtCor.Scor.DataAccess.DalEventContainer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    AtCor.Scor.DataAccess.DalEventContainer Instance 'get ' : 
+  Events:
+    AtCor.Scor.DataAccess.DalCuffPulseEventHandler OnDalCuffPulseEvent: SpecialName
+    AtCor.Scor.DataAccess.DalTonoMeterDataEventHandler OnDalTonometerDataEvent: SpecialName
+  Methods:
+    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnDalTonometerDataEvent(DalTonoMeterDataEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDalTonometerDataEvent(DalTonoMeterDataEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    raise_OnDalTonometerDataEvent(Object, DalTonometerDataEventArgs): PrivateScope, Public, HideBySig, SpecialName
+    add_OnDalCuffPulseEvent(DalCuffPulseEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDalCuffPulseEvent(DalCuffPulseEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    raise_OnDalCuffPulseEvent(Object, DalCuffPulseEventArgs): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalModule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    AtCor.Scor.DataAccess.DalModule Instance 'get ' : 
+  Methods:
+    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SetDeviceStrategy(String): PrivateScope, Public, HideBySig
+    SetDeviceStrategy(): PrivateScope, Public, HideBySig
+    StartCapture(Int32, Int32): PrivateScope, Public, HideBySig
+    StopCapture(): PrivateScope, Public, HideBySig
+    GetConnectionStatus(): PrivateScope, Public, HideBySig
+    GetConfigurationInfo(DalDeviceConfigUsageEnum, DalDeviceConfigUsageStruct): PrivateScope, Public, HideBySig
+    FindModule(): PrivateScope, Public, HideBySig

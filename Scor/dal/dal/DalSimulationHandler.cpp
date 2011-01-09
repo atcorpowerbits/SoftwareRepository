@@ -1,9 +1,22 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalSimulationHandler.cpp
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      code page for DalSimulationHandler class
+*/
+
 #include "stdafx.h"
 #include "DalSimulationHandler.h"
 #include "DalEventContainer.h"
 #include "DalSimulationFile.h"
+#include "DalDataBuffer.h"
+#include "DalModule.h"
 
 using namespace System;
+using namespace System::Threading;
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Configuration;
 
@@ -20,6 +33,8 @@ namespace AtCor{
 				//Make both pointers null.
 				_simulationFile1 = nullptr;
 				_simulationFile2 = nullptr;
+
+				dataBufferObj = DalDataBuffer::Instance;
 
                 try
                 {
@@ -40,7 +55,7 @@ namespace AtCor{
                     throw gcnew DalException(exErr->ErrorCode, exErr->ErrorString, exErr->ExceptionObject);
                 }
                 
-                
+				
 			}
 
 			void DalSimulationHandler::OnTimerGetValuesAndRaiseEvents(Object^ sender, ElapsedEventArgs^ args)
@@ -57,17 +72,64 @@ namespace AtCor{
 				DalEventContainer::Instance->OnDalCuffPulseEvent(sender, gcnew DalCuffPulseEventArgs(cuffPulseData));
 			}
 
-			void DalSimulationHandler::StartCapture()
+			//New method to read n numer of element per interval
+			//At present we will read 256 elements in 1 second
+			void DalSimulationHandler::OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args)
 			{
+				Thread^ simulationWriterThread = gcnew Thread(gcnew ThreadStart(&DalSimulationHandler::ReadMultipleEventsInLoop)); 
+				simulationWriterThread->Start();
+			}
+
+			//new method to be threaded
+			void DalSimulationHandler::ReadMultipleEventsInLoop()
+			{
+				int counter, numberOfReads; 
+				DalPwvDataStruct tempPWVDataVar;
+			
+				//variables to hold the tonometer and cuff pulse readings
+				static signed int tonoData, cuffPulseData;
+
+				//Pick the number of reads from DalConstants
+				numberOfReads = DalConstants::SimulationNumberOfReadsPerInterval;
+				
+				
+				//Read n elements in a loop. 
+				for (counter = 0; counter < numberOfReads ; counter++)
+				{
+					//get the next set of values from the simulation file.
+					_simulationFile1->GetNextValues(&tonoData, &cuffPulseData);
+
+					tempPWVDataVar.tonometerData = tonoData;
+					tempPWVDataVar.cuffPulseData = cuffPulseData;
+
+					//write data to buffer
+					dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
+				}
+			}
+
+			void DalSimulationHandler::StartCapture(int captureTime, int samplingRate)
+			{
+				dataBufferObj = DalDataBuffer::Instance;
+				//create array
+				dataBufferObj->CreateBuffer(captureTime, samplingRate);
+						
 				//move file to start in case it isn't alreay at start.
 				_simulationFile1->ResetFileStreamPosition();
 
-				//The interval should come from a global value
-				//initialize a new timer object
-				captureTimer = gcnew Timers::Timer(DalConstants::SimulationTimerInterval);
+				//No loger necesary. We are not capturing on every timer event.
+				////The interval should come from a global value
+				////initialize a new timer object
+				//captureTimer = gcnew Timers::Timer(DalConstants::SimulationTimerInterval);
+
+				//PWVS-1 create a new timer to tick every 1 ms 
+				captureTimer = gcnew Timers::Timer(DalConstants::SimulationWriteTimerInterval);
 				
+				////specify the event handler to handle timer events
+				//captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerGetValuesAndRaiseEvents); 
+				//
+
 				//specify the event handler to handle timer events
-				captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerGetValuesAndRaiseEvents); 
+				captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerReadMultipleEvents); 
 				
 				//Start the timer.
 				captureTimer->Enabled = true;

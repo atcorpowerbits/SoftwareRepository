@@ -1,0 +1,485 @@
+  Microsoft.Practices.EnterpriseLibrary.Security.Configuration.DesignResources.resources - Embedded, ContainedInManifestFile, 
+  Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Manageability.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+  Microsoft.Practices.EnterpriseLibrary.Security.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.EnterpriseLibrary.Security, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Configuration.Install, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Methods:
+    Evaluate(IPrincipal): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Security.AndOperator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression, Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression Left 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression Right 'get set' : 
+  Methods:
+    get_Left(): PrivateScope, Public, HideBySig, SpecialName
+    set_Left(BooleanExpression): PrivateScope, Public, HideBySig, SpecialName
+    get_Right(): PrivateScope, Public, HideBySig, SpecialName
+    set_Right(BooleanExpression): PrivateScope, Public, HideBySig, SpecialName
+    Evaluate(IPrincipal): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.WordExpression: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Value 'get ' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    Evaluate(IPrincipal): PrivateScope, Public, Virtual, HideBySig
+    Evaluate(IIdentity): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Security.AnonymousExpression: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.WordExpression
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Evaluate(IPrincipal): PrivateScope, Public, Virtual, HideBySig
+    Evaluate(IIdentity): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.AnyExpression: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.WordExpression
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Evaluate(IPrincipal): PrivateScope, Public, Virtual, HideBySig
+    Evaluate(IIdentity): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Security.IAuthorizationProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    Authorize(IPrincipal, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Security.AuthorizationProvider: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Security.IAuthorizationProvider
+  Methods:
+    Authorize(IPrincipal, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Security.AuthorizationRuleProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.AuthorizationProvider
+    Void .ctor(System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Security.IAuthorizationRule]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IDictionary`2[System.String,Microsoft.Practices.EnterpriseLibrary.Security.IAuthorizationRule], Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.IAuthorizationProviderInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Authorize(IPrincipal, String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.AuthorizationCallHandlerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CallHandlerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String AuthorizationProvider 'get set' : 
+    System.String OperationName 'get set' : 
+  Methods:
+    get_AuthorizationProvider(): PrivateScope, Public, HideBySig, SpecialName
+    set_AuthorizationProvider(String): PrivateScope, Public, HideBySig, SpecialName
+    get_OperationName(): PrivateScope, Public, HideBySig, SpecialName
+    set_OperationName(String): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.AuthorizationProviderData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.CustomAuthorizationProviderData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.Configuration.AuthorizationProviderData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[Microsoft.Practices.EnterpriseLibrary.Security.Configuration.CustomAuthorizationProviderData]
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData
+  Properties:
+    System.String TypeName 'get set' : 
+    System.Collections.Specialized.NameValueCollection Attributes 'get ' : 
+  Methods:
+    SetAttributeValue(String, String): PrivateScope, Public, HideBySig
+    get_TypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Attributes(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.SecurityCacheProviderData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.CustomSecurityCacheProviderData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.Configuration.SecurityCacheProviderData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[Microsoft.Practices.EnterpriseLibrary.Security.Configuration.CustomSecurityCacheProviderData]
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData
+  Properties:
+    System.String TypeName 'get set' : 
+    System.Collections.Specialized.NameValueCollection Attributes 'get ' : 
+  Methods:
+    SetAttributeValue(String, String): PrivateScope, Public, HideBySig
+    get_TypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Attributes(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.AuthorizeUsingRuleProviderExtension: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    AuthorizeUsingRuleProviderNamed(IConfigureSecuritySettings, String): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IConfigureSecuritySettingsExtension: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Security.Configuration.SecuritySettings SecuritySettings 'get ' : 
+  Methods:
+    get_SecuritySettings(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ConfigureSecuritySettingsExtension: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IConfigureSecuritySettingsExtension
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IConfigureSecuritySettings: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IAuthorizeUsingRuleProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IConfigureSecuritySettings
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    SetAsDefault(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SpecifyRule(String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.AuthorizeUsingCustomProviderExtension: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    AuthorizeUsingCustomProviderNamed(IConfigureSecuritySettings, String): PrivateScope, Public, Static, HideBySig
+    AuthorizeUsingCustomProviderNamed(IConfigureSecuritySettings, String, Type): PrivateScope, Public, Static, HideBySig
+    AuthorizeUsingCustomProviderNamed(IConfigureSecuritySettings, String, NameValueCollection): PrivateScope, Public, Static, HideBySig
+    AuthorizeUsingCustomProviderNamed(IConfigureSecuritySettings, String, Type, NameValueCollection): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IAuthorizeUsingCustomProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IConfigureSecuritySettings
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    SetAsDefault(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CacheSecurityInCustomStoreExtension: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    CacheSecurityInCustomStoreNamed(IConfigureSecuritySettings, String): PrivateScope, Public, Static, HideBySig
+    CacheSecurityInCustomStoreNamed(IConfigureSecuritySettings, String, Type): PrivateScope, Public, Static, HideBySig
+    CacheSecurityInCustomStoreNamed(IConfigureSecuritySettings, String, NameValueCollection): PrivateScope, Public, Static, HideBySig
+    CacheSecurityInCustomStoreNamed(IConfigureSecuritySettings, String, Type, NameValueCollection): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.ICacheSecurityInCustomStore: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Fluent.IConfigureSecuritySettings
+    Microsoft.Practices.EnterpriseLibrary.Common.IFluentInterface
+  Methods:
+    SetAsDefault(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SecuritySettingsExtension: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ConfigureSecurity(IConfigurationSourceBuilder): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Manageability.AuthorizationRuleProviderDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProviderBase`1[Microsoft.Practices.EnterpriseLibrary.Security.Configuration.AuthorizationRuleProviderData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String RulesPropertyName = rules : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Manageability.CustomAuthorizationProviderDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.CustomProviderDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Security.Configuration.CustomAuthorizationProviderData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Manageability.CustomSecurityCacheProviderDataManageabilityProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.CustomProviderDataManageabilityProvider`1[Microsoft.Practices.EnterpriseLibrary.Security.Configuration.CustomSecurityCacheProviderData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Manageability.SecuritySettingsManageabilityProvider: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationSectionManageabilityProviderBase`1[Microsoft.Practices.EnterpriseLibrary.Security.Configuration.SecuritySettings]
+    Void .ctor(System.Collections.Generic.IDictionary`2[System.Type,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.ConfigurationElementManageabilityProvider]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String DefaultAuthorizationProviderPropertyName = defaultAuthorizationInstance : Public, Static, Literal, HasDefault
+    System.String DefaultSecurityCacheProviderPropertyName = defaultSecurityCacheInstance : Public, Static, Literal, HasDefault
+    System.String AuthorizationProvidersKeyName = authorizationProviders : Public, Static, Literal, HasDefault
+    System.String SecurityCacheProvidersKeyName = securityCacheProviders : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Unity.SecurityBlockExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryBlockExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.IAuthorizationProviderInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    FireAuthorizationCheckFailed(String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    FireAuthorizationCheckPerformed(String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.ISecurityCacheProviderInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    FireSecurityCacheReadPerformed(SecurityEntityType, IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.NullAuthorizationProviderInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.IAuthorizationProviderInstrumentationProvider
+  Methods:
+    FireAuthorizationCheckFailed(String, String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireAuthorizationCheckPerformed(String, String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.NullSecurityCacheProviderInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.ISecurityCacheProviderInstrumentationProvider
+  Methods:
+    FireSecurityCacheReadPerformed(SecurityEntityType, IToken): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.DefaultSecurityEventLogger: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationListener
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String EventLogSourceName = Enterprise Library Security : Public, Static, Literal, HasDefault
+  Methods:
+    LogConfigurationError(String, String, Exception): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.SecurityCacheProviderInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationListener
+    Void .ctor(System.String, Boolean, Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean, Boolean, Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IPerformanceCounterNameFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.ISecurityCacheProviderInstrumentationProvider
+  Fields:
+    System.String SecurityCacheReadPerformedCounterName = Security Cache Reads/sec : Public, Static, Literal, HasDefault
+    System.String TotalSecurityCacheReadPerformedCounterName = Total Security Cache Reads/sec : Public, Static, Literal, HasDefault
+    System.String PerfomanceCountersCategoryName = Enterprise Library Security Counters : Public, Static, Literal, HasDefault
+  Methods:
+    FireSecurityCacheReadPerformed(SecurityEntityType, IToken): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.EnterpriseLibrary.Security.IAuthorizationRule: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    System.String Name 'get ' : 
+    System.String Expression 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Expression(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Security.IdentityExpression: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Security.WordExpression): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Security.WordExpression Word 'get ' : 
+  Methods:
+    get_Word(): PrivateScope, Public, HideBySig, SpecialName
+    Evaluate(IPrincipal): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.LexicalAnalyzer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Current 'get ' : 
+    System.Text.RegularExpressions.Match PreviousMatch 'get ' : 
+    System.Text.RegularExpressions.Match CurrentMatch 'get ' : 
+  Methods:
+    get_Current(): PrivateScope, Public, HideBySig, SpecialName
+    get_PreviousMatch(): PrivateScope, Public, HideBySig, SpecialName
+    get_CurrentMatch(): PrivateScope, Public, HideBySig, SpecialName
+    MoveNext(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.NotOperator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression Expression 'get ' : 
+  Methods:
+    get_Expression(): PrivateScope, Public, HideBySig, SpecialName
+    Evaluate(IPrincipal): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.OrOperator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.AndOperator
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression, Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Evaluate(IPrincipal): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.Parser: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Parse(String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.PolicyInjection.AuthorizationCallHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Security.IAuthorizationProvider, System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.ICallHandler
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Security.IAuthorizationProvider AuthorizationProvider 'get set' : 
+    System.String OperationName 'get set' : 
+    Int32 Order 'get set' : 
+  Methods:
+    Invoke(IMethodInvocation, GetNextHandlerDelegate): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_AuthorizationProvider(): PrivateScope, Public, HideBySig, SpecialName
+    get_OperationName(): PrivateScope, Public, HideBySig, SpecialName
+    set_OperationName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Order(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Order(Int32): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers.AuthorizationCallHandlerAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.HandlerAttribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String OperationName 'get set' : 
+    System.String ProviderName 'get set' : 
+  Methods:
+    get_OperationName(): PrivateScope, Public, HideBySig, SpecialName
+    set_OperationName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ProviderName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ProviderName(String): PrivateScope, Public, HideBySig, SpecialName
+    CreateHandler(IUnityContainer): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.ProjectInstaller: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.Install.Installer
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Security.RoleExpression: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.BooleanExpression
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Security.WordExpression): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Security.WordExpression Word 'get ' : 
+  Methods:
+    get_Word(): PrivateScope, Public, HideBySig, SpecialName
+    Evaluate(IPrincipal): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.AuthorizationProviderInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationListener
+    Void .ctor(System.String, Boolean, Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean, Boolean, Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IPerformanceCounterNameFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Security.Instrumentation.IAuthorizationProviderInstrumentationProvider
+  Fields:
+    System.String AuthorizationCheckPerformedCounterName = Authorization Requests/sec : Public, Static, Literal, HasDefault
+    System.String TotalAuthorizationCheckPerformedCounterName = Total Authorization Requests/sec : Public, Static, Literal, HasDefault
+    System.String AuthorizationCheckFailedCounterName = Authorization Requests Denied/sec : Public, Static, Literal, HasDefault
+    System.String TotalAuthorizationCheckFailedCounterName = Total Authorization Requests Denied/sec : Public, Static, Literal, HasDefault
+    System.String PerformanceCountersCategoryName = Enterprise Library Security Counters : Public, Static, Literal, HasDefault
+  Methods:
+    FireAuthorizationCheckPerformed(String, String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    FireAuthorizationCheckFailed(String, String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Struct Microsoft.Practices.EnterpriseLibrary.Security.SecurityEntityType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Security.SecurityEntityType Identity = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.SecurityEntityType Profile = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.SecurityEntityType Principal = 2 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Security.SyntaxException: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 Index 'get ' : 
+  Methods:
+    get_Index(): PrivateScope, Public, HideBySig, SpecialName
+    GetObjectData(SerializationInfo, StreamingContext): PrivateScope, Public, Virtual, HideBySig, HasSecurity
+Struct Microsoft.Practices.EnterpriseLibrary.Security.TokenType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType InvalidCharacter = -1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType NoToken = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType Or = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType And = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType Identity = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType Role = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType Not = 5 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType Word = 6 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType Any = 7 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType Anonymous = 8 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType LeftParenthesis = 9 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType RightParenthesis = 10 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType QuotedString = 11 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Security.TokenType EndOfFile = 12 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Security.UserNotFoundException: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.Exception
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Security.AuthorizationFactory: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GetAuthorizationProvider(): PrivateScope, Public, Static, HideBySig
+    GetAuthorizationProvider(String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.AuthorizationProviderFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ContainerBasedInstanceFactory`1[Microsoft.Practices.EnterpriseLibrary.Security.IAuthorizationProvider]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.ServiceLocation.IServiceLocator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.AuthorizationRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Security.IAuthorizationRule
+  Properties:
+    System.String Expression 'get set' : 
+  Methods:
+    get_Expression(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Expression(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.AuthorizationRuleProviderData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Security.Configuration.AuthorizationProviderData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Security.Configuration.AuthorizationRuleData] Rules 'get ' : 
+  Methods:
+    get_Rules(): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.Configuration.SecuritySettings: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SerializableConfigurationSection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ITypeRegistrationsProvider
+  Fields:
+    System.String SectionName = securityConfiguration : Public, Static, Literal, HasDefault
+  Properties:
+    System.String DefaultAuthorizationProviderName 'get set' : 
+    System.String DefaultSecurityCacheProviderName 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElementCollection`2[Microsoft.Practices.EnterpriseLibrary.Security.Configuration.AuthorizationProviderData,Microsoft.Practices.EnterpriseLibrary.Security.Configuration.CustomAuthorizationProviderData] AuthorizationProviders 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElementCollection`2[Microsoft.Practices.EnterpriseLibrary.Security.Configuration.SecurityCacheProviderData,Microsoft.Practices.EnterpriseLibrary.Security.Configuration.CustomSecurityCacheProviderData] SecurityCacheProviders 'get ' : 
+  Methods:
+    get_DefaultAuthorizationProviderName(): PrivateScope, Public, HideBySig, SpecialName
+    set_DefaultAuthorizationProviderName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_DefaultSecurityCacheProviderName(): PrivateScope, Public, HideBySig, SpecialName
+    set_DefaultSecurityCacheProviderName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_AuthorizationProviders(): PrivateScope, Public, HideBySig, SpecialName
+    get_SecurityCacheProviders(): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetUpdatedRegistrations(IConfigurationSource): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.EnterpriseLibrary.Security.IToken: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    System.String Value 'get ' : 
+  Methods:
+    get_Value(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Security.GuidToken: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Guid): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Security.IToken
+  Properties:
+    System.String Value 'get ' : 
+  Methods:
+    get_Value(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Security.ISecurityCacheProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    SaveIdentity(IIdentity): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SaveIdentity(IIdentity, IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SavePrincipal(IPrincipal): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SavePrincipal(IPrincipal, IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SaveProfile(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SaveProfile(Object, IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExpireIdentity(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExpirePrincipal(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExpireProfile(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetIdentity(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetPrincipal(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetProfile(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Security.SecurityCacheFactory: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GetSecurityCacheProvider(): PrivateScope, Public, Static, HideBySig
+    GetSecurityCacheProvider(String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Security.SecurityCacheProvider: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Security.ISecurityCacheProvider
+  Methods:
+    SaveIdentity(IIdentity): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SaveIdentity(IIdentity, IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SavePrincipal(IPrincipal): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SavePrincipal(IPrincipal, IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SaveProfile(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SaveProfile(Object, IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExpireIdentity(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExpirePrincipal(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExpireProfile(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetIdentity(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetPrincipal(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetProfile(IToken): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Security.SecurityCacheProviderFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ContainerBasedInstanceFactory`1[Microsoft.Practices.EnterpriseLibrary.Security.ISecurityCacheProvider]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.ServiceLocation.IServiceLocator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

@@ -20,14 +20,14 @@ using namespace System;
 namespace AtCor
 { 
 	/**
-	 * @namespace	Scor
+	 * @namespace	AtCor::Scor
 	 * @brief		Main namespace for SphygmoCor product.
 	 * 
 	 */
 	namespace Scor
 	{ 
 		/**
-		 * @namespace	CrossCutting
+		 * @namespace	AtCor::Scor::CrossCutting
 		 * @brief		Namespace for Cross Cutting Components.
 		 * 
 		 */
@@ -35,7 +35,7 @@ namespace AtCor
 		{
 			/**
 			* @class CrxException
-			* Exception class for CrxConfiguration namespace.
+			* @brief Exception class for CrxConfiguration namespace.
 			*/
 			public ref class CrxException:Exception
 			{
