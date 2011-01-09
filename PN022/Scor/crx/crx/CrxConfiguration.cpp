@@ -33,6 +33,9 @@ void CrxConfigManager::GetGeneralDefaultSettings(CrxStructGeneralSetting^ objGen
 	objGenSettings->CommsPort					= _gSetInternal->CommsPort;
 	objGenSettings->ReportTitle					= _gSetInternal->ReportTitle;
 	objGenSettings->ReportLogoPath				= _gSetInternal->ReportLogoPath;
+	objGenSettings->ServerName					= _gSetInternal->ServerName;
+	objGenSettings->SourceData					= _gSetInternal->SourceData;
+	objGenSettings->CultureInfo					= _gSetInternal->CultureInfo;
 }
 
 //To get User Settings from the file
@@ -247,10 +250,29 @@ void CrxConfigManager::SetGeneralSettingsNode(CrxStructGeneralSetting^ gs, XmlNo
 	{									
 		CrxConfigManager::SetReportTitle(gs, node);
 	}
+	//Calls function if node element is Report Logo Path
 	else
 	if(SubSectionNodeName == "REPORTLOGOPATH")
 	{
 		CrxConfigManager::SetReportLogoPath(gs, node);
+	}
+	//Calls function if node element is Server Name
+	else
+	if(SubSectionNodeName == "SERVERNAME")
+	{
+		CrxConfigManager::SetServerName(gs, node);
+	}
+	//Calls function if node element is Source Data
+	else
+	if(SubSectionNodeName == "SOURCEDATA")
+	{									
+		CrxConfigManager::SetSourceData(gs, node);
+	}
+	//Calls function if node element is Culture Info
+	else
+	if(SubSectionNodeName == "CULTUREINFO")
+	{
+		CrxConfigManager::SetCultureInfo(gs, node);
 	}
 	else
 	{
@@ -316,7 +338,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 	String^ GetXMLSection		= "'";		//Gets the XML section name
 	String^ GetSectionName		= nullptr;  //Store section name to get the value
 	String^ ReaderValue			= nullptr;  //Store XML Node Reader value
-	String^ configXMLElements   = L"'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'REFERENCERANGE', 'SIMULATIONTYPE'";
+	String^ configXMLElements   = L"'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'REFERENCERANGE', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO'";
 
 	try 
 	{
@@ -478,6 +500,26 @@ void CrxConfigManager::GetGeneralSettingsNode(String^ SubSection, String^ SubSec
 	{
 		CrxConfigManager::GetReportLogoPath(SubSection,ReaderValue);
 	}
+	//smarajit
+	//Calls function if node element is Server Name
+	else
+	if(SubSectionNode == "SERVERNAME")
+	{
+		CrxConfigManager::GetServerName(SubSection,ReaderValue);
+	}
+	//Calls function if node element is Source Data
+	else
+	if(SubSectionNode == "SOURCEDATA")
+	{
+		CrxConfigManager::GetSourceData(SubSection,ReaderValue);
+	}
+	//Calls function if node element is CultureInfo
+	else
+	if(SubSectionNode == "CULTUREINFO")
+	{
+		CrxConfigManager::GetCultureInfo(SubSection,ReaderValue);
+	}
+	///////////////////////////////
 	//If none of the node element matches then throw exception
 	else
 	{
@@ -601,17 +643,20 @@ void CrxConfigManager::GetBloodPressureOption(String^ SubSection, String^ Reader
 
 	if(tempValue == "SPANDDP")
 	{
-		BloodPressureValue = 0;
+		//BloodPressureValue = 0;
+		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandDP);
 	}
 	else 
 	if(tempValue == "SPANDMP")
 	{
-		BloodPressureValue = 1;
+		//BloodPressureValue = 1;
+		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandMP);
 	}
 	else 
 	if(tempValue == "MPANDDP")
 	{
-		BloodPressureValue = 2;
+		//BloodPressureValue = 2;
+		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptMPandDP);
 	}
 	else
 	{
@@ -678,6 +723,56 @@ void CrxConfigManager::GetReportLogoPath(String^ SubSection, String^ ReaderValue
 		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 }
+/////Smarajit
+void CrxConfigManager::GetServerName(String^ SubSection, String^ ReaderValue)
+{
+	//Get Report logo path details
+	if(SubSection == "USER")
+	{
+		_instance->_generalSettings->ServerName = ReaderValue;
+	}
+	else if (SubSection == "DEFAULT")
+	{
+		_gSetInternal->ServerName = nullptr;
+	}
+	else
+	{
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+	}
+}
+void CrxConfigManager::GetSourceData(String^ SubSection, String^ ReaderValue)
+{
+	//Get Report logo path details
+	if(SubSection == "USER")
+	{
+		_instance->_generalSettings->SourceData = ReaderValue;
+	}
+	else if (SubSection == "DEFAULT")
+	{
+		_gSetInternal->SourceData = nullptr;
+	}
+	else
+	{
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+	}
+}
+void CrxConfigManager::GetCultureInfo(String^ SubSection, String^ ReaderValue)
+{
+	//Get Report logo path details
+	if(SubSection == "USER")
+	{
+		_instance->_generalSettings->CultureInfo = ReaderValue;
+	}
+	else if (SubSection == "DEFAULT")
+	{
+		_gSetInternal->CultureInfo = nullptr;
+	}
+	else
+	{
+		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+	}
+}
+//smarajit
 //***********************************************************************
 //Get PWV Settings Functions
 //***********************************************************************
@@ -798,17 +893,20 @@ void CrxConfigManager::GetCaptureTime(String^ SubSection, String^ ReaderValue)
 
 	if(tempValue == "5SECONDS")
 	{
-		CaptureTime = 0;
+		//CaptureTime = 0;
+		CaptureTime = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture5Seconds);
 	}
 	else 
 	if(tempValue == "10SECONDS")
 	{
-		CaptureTime = 1;
+		//CaptureTime = 1;
+		CaptureTime = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture10Seconds);
 	}
 	else 
 	if(tempValue == "20SECONDS")
 	{
-		CaptureTime = 2;
+		//CaptureTime = 2;
+		CaptureTime = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture20Seconds);
 	}
 	else
 	{
@@ -858,29 +956,34 @@ void CrxConfigManager::SetPatientPrivacy(CrxStructGeneralSetting^ gs, XmlNode^ n
 }
 void CrxConfigManager::SetHeightWeight(CrxStructGeneralSetting^ gs, XmlNode^ node)
 {
-	if(gs->HeightandWeightUnit == 0)
+	//if(gs->HeightandWeightUnit == 0)
+	if((gs->HeightandWeightUnit == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenHeightWeightMetric)))
 	{
 		node->InnerText = "Metric";								
 	}
 	else
-	if(gs->HeightandWeightUnit == 1)
+	//if(gs->HeightandWeightUnit == 1)
+	if((gs->HeightandWeightUnit == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenHeightWeightImperial)))
 	{
 		node->InnerText = "Imperial";
 	}
 }
 void CrxConfigManager::SetBloodPressureOption(CrxStructGeneralSetting^ gs, XmlNode^ node)
 {
-	if(gs->BloodPressureEntryOptions == 0)
+	//if(gs->BloodPressureEntryOptions == 0)
+	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandDP)))
 	{
 		node->InnerText = "SP and DP";								
 	}
 	else
-	if(gs->BloodPressureEntryOptions == 1)
+	//if(gs->BloodPressureEntryOptions == 1)
+	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandMP)))
 	{
 		node->InnerText = "SP and MP";
 	}
 	else
-	if(gs->BloodPressureEntryOptions == 2)
+	//if(gs->BloodPressureEntryOptions == 2)
+	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptMPandDP)))
 	{
 		node->InnerText = "MP and DP";
 	}
@@ -918,6 +1021,41 @@ void CrxConfigManager::SetReportLogoPath(CrxStructGeneralSetting^ gs, XmlNode^ n
          node->InnerText = " "; 
     }
 }
+////smarajit
+void CrxConfigManager::SetServerName(CrxStructGeneralSetting^ gs, XmlNode^ node)
+{
+	if(gs->ServerName != nullptr) 
+    {
+        node->InnerText = gs->ServerName;
+    }
+    else 
+    {
+         node->InnerText = " "; 
+    }
+}
+void CrxConfigManager::SetSourceData(CrxStructGeneralSetting^ gs, XmlNode^ node)
+{
+	if(gs->SourceData != nullptr) 
+    {
+        node->InnerText = gs->SourceData;
+    }
+    else 
+    {
+         node->InnerText = " "; 
+    }
+}
+void CrxConfigManager::SetCultureInfo(CrxStructGeneralSetting^ gs, XmlNode^ node)
+{
+	if(gs->CultureInfo != nullptr) 
+    {
+        node->InnerText = gs->CultureInfo;
+    }
+    else 
+    {
+         node->InnerText = " "; 
+    }
+}
+//smarajit
 
 //********************************************
 //Set PWV Settings Functions
@@ -948,41 +1086,48 @@ void CrxConfigManager::SetReferenceRange(CrxStructPwvSetting^ ps, XmlNode^ node)
 }
 void CrxConfigManager::SetPwvDistanceUnits(CrxStructPwvSetting^ ps, XmlNode^ node)
 {
-	if(ps->PWVDistanceUnits == 0)
+	//if(ps->PWVDistanceUnits == 0)
+	if((ps->PWVDistanceUnits == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvDistDistUnitsMM)))
 	{
 		node->InnerText = "mm";								
 	}
 	else
-	if(ps->PWVDistanceUnits == 1)
+	//if(ps->PWVDistanceUnits == 1)
+	if((ps->PWVDistanceUnits == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvDistDistUnitsCM)))
 	{
 		node->InnerText = "cm";
 	}
 }
 void CrxConfigManager::SetPwvDistanceMethods(CrxStructPwvSetting^ ps, XmlNode^ node)
 {
-	if(ps->PWVDistanceMethod == 0)
+	//if(ps->PWVDistanceMethod == 0)
+	if((ps->PWVDistanceMethod == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvDistMethodSubStract)))
 	{
 		node->InnerText = "Subtracting";								
 	}
 	else
-	if(ps->PWVDistanceMethod == 1)
+	//if(ps->PWVDistanceMethod == 1)
+	if((ps->PWVDistanceMethod == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvDistMethodDirect)))
 	{
 		node->InnerText = "Direct";
 	}
 }
 void CrxConfigManager::SetCaptureTime(CrxStructPwvSetting^ ps, XmlNode^ node)
 {
-	if(ps->CaptureTime == 0)
+	//if(ps->CaptureTime == 0)
+	if((ps->CaptureTime == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture5Seconds)))
 	{
 		node->InnerText = "5 seconds";								
 	}
 	else
-	if(ps->CaptureTime == 1)
+	//if(ps->CaptureTime == 1)
+	if((ps->CaptureTime == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture10Seconds)))
 	{
 		node->InnerText = "10 seconds";
 	}
 	else
-	if(ps->CaptureTime == 2)
+	//if(ps->CaptureTime == 2)
+	if((ps->CaptureTime == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture20Seconds)))
 	{
 		node->InnerText = "20 seconds";
 	}

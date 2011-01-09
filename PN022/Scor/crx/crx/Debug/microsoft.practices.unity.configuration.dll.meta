@@ -1,0 +1,473 @@
+  Microsoft.Practices.Unity.Configuration.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :System.Configuration.ConfigurationElement
+  Methods:
+    Deserialize(XmlReader): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.Configuration.AliasElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Alias 'get set' : 
+    System.String TypeName 'get set' : 
+  Methods:
+    get_Alias(): PrivateScope, Public, HideBySig, SpecialName
+    set_Alias(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollectionBase`1[TElement]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: TElement, Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+  :System.Configuration.ConfigurationElementCollection
+  Interfaces:
+    System.Collections.Generic.IEnumerable`1[TElement]
+  Properties:
+    TElement Item [Int32] 'get set' : 
+  Methods:
+    get_Item(Int32): PrivateScope, Public, HideBySig, SpecialName
+    set_Item(Int32, TElement): PrivateScope, Public, HideBySig, SpecialName
+    Deserialize(XmlReader): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetEnumerator(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Add(TElement): PrivateScope, Public, HideBySig
+    RemoveAt(Int32): PrivateScope, Public, HideBySig
+    Clear(): PrivateScope, Public, HideBySig
+    SerializeElementContents(XmlWriter, String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollection`1[TElement]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: TElement, Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement,  DefaultConstructor
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollectionBase`1[TElement]
+Class Microsoft.Practices.Unity.Configuration.AliasElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollection`1[Microsoft.Practices.Unity.Configuration.AliasElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Item [System.String] 'get set' : 
+  Methods:
+    get_Item(String): PrivateScope, Public, HideBySig, SpecialName
+    set_Item(String, String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.Configuration.ParameterValueElement: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+  Properties:
+    System.String Key 'get ' : 
+  Methods:
+    get_Key(): PrivateScope, Public, HideBySig, SpecialName
+    GetInjectionParameterValue(IUnityContainer, Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.Configuration.ArrayElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ParameterValueElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TypeName 'get set' : 
+    Microsoft.Practices.Unity.Configuration.ParameterValueElementCollection Values 'get ' : 
+  Methods:
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Values(): PrivateScope, Public, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+    GetInjectionParameterValue(IUnityContainer, Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.NamedElement: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+  Properties:
+    System.String Name 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.AssemblyElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.NamedElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.AssemblyElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollection`1[Microsoft.Practices.Unity.Configuration.AssemblyElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.ConfigurationElementExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ReadUnwrappedElement(ConfigurationElement, XmlReader, DeserializableConfigurationElementCollectionBase`1): PrivateScope, Public, Static, HideBySig
+    ReadElementByType(ConfigurationElement, XmlReader, Type, DeserializableConfigurationElementCollectionBase`1): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.XmlWriterExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    WriteElement(XmlWriter, String, Action`1): PrivateScope, Public, Static, HideBySig
+    WriteAttributeIfNotEmpty(XmlWriter, String, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ContainerConfiguringElement: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+  Properties:
+    System.String Key 'get ' : 
+  Methods:
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DictionaryExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GetOrNull(IDictionary`2, TKey): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.UnknownElementHandlerMap`1[TContainingElement]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TContainingElement, System.Configuration.ConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Collections.Generic.IEnumerable`1[System.Collections.Generic.KeyValuePair`2[System.String,System.Action`2[TContainingElement,System.Xml.XmlReader]]]
+    System.Collections.IEnumerable
+  Methods:
+    Add(String, Action`2): PrivateScope, Public, HideBySig
+    ProcessElement(TContainingElement, String, XmlReader): PrivateScope, Public, HideBySig
+    GetEnumerator(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.ValueElementHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.IValueProvidingElement): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetValue(ParameterValueElement): PrivateScope, Public, Static, HideBySig
+    DeserializeUnrecognizedAttribute(String, String): PrivateScope, Public, HideBySig
+    DeserializeUnknownElement(String, XmlReader): PrivateScope, Public, HideBySig
+    CompleteValueElement(XmlReader): PrivateScope, Public, HideBySig
+    SerializeParameterValueElement(XmlWriter, ParameterValueElement, Boolean): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.Configuration.InjectionMemberElement: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+  Properties:
+    System.String Key 'get ' : 
+    System.String ElementName 'get ' : 
+  Methods:
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    GetInjectionMembers(IUnityContainer, Type, Type, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_ElementName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetMemberElementName(InjectionMemberElement): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ConstructorElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.InjectionMemberElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.Unity.Configuration.ParameterElementCollection Parameters 'get ' : 
+    System.String Key 'get ' : 
+    System.String ElementName 'get ' : 
+  Methods:
+    get_Parameters(): PrivateScope, Public, HideBySig, SpecialName
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_ElementName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+    GetInjectionMembers(IUnityContainer, Type, Type, String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ContainerConfiguringElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollectionBase`1[Microsoft.Practices.Unity.Configuration.ContainerConfiguringElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.ContainerElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get set' : 
+    Microsoft.Practices.Unity.Configuration.RegisterElementCollection Registrations 'get ' : 
+    Microsoft.Practices.Unity.Configuration.InstanceElementCollection Instances 'get ' : 
+    Microsoft.Practices.Unity.Configuration.ContainerExtensionElementCollection Extensions 'get ' : 
+    Microsoft.Practices.Unity.Configuration.ContainerConfiguringElementCollection ConfiguringElements 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Registrations(): PrivateScope, Public, HideBySig, SpecialName
+    get_Instances(): PrivateScope, Public, HideBySig, SpecialName
+    get_Extensions(): PrivateScope, Public, HideBySig, SpecialName
+    get_ConfiguringElements(): PrivateScope, Public, HideBySig, SpecialName
+    Configure(IUnityContainer): PrivateScope, Public, HideBySig (Obsolete)
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ContainerExtensionElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ContainerConfiguringElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TypeName 'get set' : 
+  Methods:
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ContainerExtensionElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollection`1[Microsoft.Practices.Unity.Configuration.ContainerExtensionElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.DependencyElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ParameterValueElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IDictionary`2[System.String,System.String]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.Configuration.IAttributeOnlyElement
+  Properties:
+    System.String Name 'get set' : 
+    System.String TypeName 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+    GetInjectionParameterValue(IUnityContainer, Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ExtensionConfigurationElement: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+  Properties:
+    System.String Key 'get ' : 
+  Methods:
+    get_Key(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.Configuration.ExtensionConfigurationElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollectionBase`1[Microsoft.Practices.Unity.Configuration.ExtensionConfigurationElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.ExtensionElementMap: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Clear(): PrivateScope, Public, Static, HideBySig
+    AddContainerConfiguringElement(String, String, Type): PrivateScope, Public, Static, HideBySig
+    AddInjectionMemberElement(String, String, Type): PrivateScope, Public, Static, HideBySig
+    AddParameterValueElement(String, String, Type): PrivateScope, Public, Static, HideBySig
+    GetContainerConfiguringElementType(String): PrivateScope, Public, Static, HideBySig
+    GetInjectionMemberElementType(String): PrivateScope, Public, Static, HideBySig
+    GetParameterValueElementType(String): PrivateScope, Public, Static, HideBySig
+    GetTagForExtensionElement(ConfigurationElement): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.Configuration.InjectionMemberElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollectionBase`1[Microsoft.Practices.Unity.Configuration.InjectionMemberElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.Unity.Configuration.InjectionMemberElement Item [System.String] 'get ' : 
+  Methods:
+    get_Item(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.Configuration.InstanceElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ContainerConfiguringElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get set' : 
+    System.String Value 'get set' : 
+    System.String TypeName 'get set' : 
+    System.String TypeConverterTypeName 'get set' : 
+    System.String Key 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeConverterTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeConverterTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.InstanceElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollection`1[Microsoft.Practices.Unity.Configuration.InstanceElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.IValueProvidingElement: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Microsoft.Practices.Unity.Configuration.ParameterValueElement Value 'get set' : 
+    System.String DestinationName 'get ' : 
+  Methods:
+    get_Value(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Value(ParameterValueElement): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_DestinationName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.Unity.Configuration.LifetimeElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TypeName 'get set' : 
+    System.String Value 'get set' : 
+    System.String TypeConverterTypeName 'get set' : 
+  Methods:
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeConverterTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeConverterTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    CreateLifetimeManager(): PrivateScope, Public, HideBySig
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.MethodElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.InjectionMemberElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get set' : 
+    Microsoft.Practices.Unity.Configuration.ParameterElementCollection Parameters 'get ' : 
+    System.String Key 'get ' : 
+    System.String ElementName 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Parameters(): PrivateScope, Public, HideBySig, SpecialName
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_ElementName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+    GetInjectionMembers(IUnityContainer, Type, Type, String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.NamespaceElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.NamedElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.NamespaceElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollection`1[Microsoft.Practices.Unity.Configuration.NamespaceElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.OptionalElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ParameterValueElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get set' : 
+    System.String TypeName 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+    GetInjectionParameterValue(IUnityContainer, Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ParameterElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.IValueProvidingElement
+  Properties:
+    System.String Name 'get set' : 
+    System.String TypeName 'get set' : 
+    Microsoft.Practices.Unity.Configuration.ParameterValueElement Value 'get set' : 
+    System.String DestinationName 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(ParameterValueElement): PrivateScope, Public, HideBySig, SpecialName
+    get_DestinationName(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetParameterValue(IUnityContainer, Type): PrivateScope, Public, HideBySig
+    Matches(ParameterInfo): PrivateScope, Public, HideBySig
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ParameterElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollection`1[Microsoft.Practices.Unity.Configuration.ParameterElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.ParameterValueElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollectionBase`1[Microsoft.Practices.Unity.Configuration.ParameterValueElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.PropertyElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.InjectionMemberElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.IValueProvidingElement
+  Properties:
+    System.String Name 'get set' : 
+    System.String Key 'get ' : 
+    Microsoft.Practices.Unity.Configuration.ParameterValueElement Value 'get set' : 
+    System.String DestinationName 'get ' : 
+    System.String ElementName 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(ParameterValueElement): PrivateScope, Public, HideBySig, SpecialName
+    get_DestinationName(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_ElementName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+    GetInjectionMembers(IUnityContainer, Type, Type, String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.RegisterElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ContainerConfiguringElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TypeName 'get set' : 
+    System.String Name 'get set' : 
+    System.String MapToName 'get set' : 
+    Microsoft.Practices.Unity.Configuration.LifetimeElement Lifetime 'get set' : 
+    Microsoft.Practices.Unity.Configuration.InjectionMemberElementCollection InjectionMembers 'get ' : 
+  Methods:
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_MapToName(): PrivateScope, Public, HideBySig, SpecialName
+    set_MapToName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Lifetime(): PrivateScope, Public, HideBySig, SpecialName
+    set_Lifetime(LifetimeElement): PrivateScope, Public, HideBySig, SpecialName
+    get_InjectionMembers(): PrivateScope, Public, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.RegisterElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollection`1[Microsoft.Practices.Unity.Configuration.RegisterElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.SectionExtension: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Methods:
+    AddExtensions(SectionExtensionContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.Configuration.SectionExtensionContext: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Methods:
+    AddAlias(String, Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    AddAlias(String): PrivateScope, Public, HideBySig
+    AddElement(String, Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    AddElement(String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.Configuration.SectionExtensionElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TypeName 'get set' : 
+    System.String Prefix 'get set' : 
+    Microsoft.Practices.Unity.Configuration.SectionExtension ExtensionObject 'get ' : 
+  Methods:
+    get_TypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Prefix(): PrivateScope, Public, HideBySig, SpecialName
+    set_Prefix(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ExtensionObject(): PrivateScope, Public, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Configuration.SectionExtensionElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollection`1[Microsoft.Practices.Unity.Configuration.SectionExtensionElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.TypeResolver: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    SetAliases(UnityConfigurationSection): PrivateScope, Public, Static, HideBySig
+    ResolveType(String): PrivateScope, Public, Static, HideBySig
+    ResolveType(String, Boolean): PrivateScope, Public, Static, HideBySig
+    ResolveTypeWithDefault(String, Type): PrivateScope, Public, Static, HideBySig
+    ResolveTypeWithDefault(String, Type, Boolean): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.TypeResolverImpl: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Collections.Generic.IEnumerable`1[System.Collections.Generic.KeyValuePair`2[System.String,System.String]], System.Collections.Generic.IEnumerable`1[System.String], System.Collections.Generic.IEnumerable`1[System.String]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    ResolveType(String, Boolean): PrivateScope, Public, HideBySig
+    ResolveTypeWithDefault(String, Type, Boolean): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.Configuration.UnityConfigurationSection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationSection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String SectionName = unity : Public, Static, Literal, HasDefault
+    System.String XmlNamespace = http://schemas.microsoft.com/practices/2010/unity : Public, Static, Literal, HasDefault
+  Properties:
+    Microsoft.Practices.Unity.Configuration.UnityConfigurationSection CurrentSection 'get ' : 
+    System.String Xmlns 'get set' : 
+    Microsoft.Practices.Unity.Configuration.ContainerElementCollection Containers 'get ' : 
+    Microsoft.Practices.Unity.Configuration.AliasElementCollection TypeAliases 'get ' : 
+    Microsoft.Practices.Unity.Configuration.SectionExtensionElementCollection SectionExtensions 'get ' : 
+    Microsoft.Practices.Unity.Configuration.NamespaceElementCollection Namespaces 'get ' : 
+    Microsoft.Practices.Unity.Configuration.AssemblyElementCollection Assemblies 'get ' : 
+  Methods:
+    get_CurrentSection(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Xmlns(): PrivateScope, Public, HideBySig, SpecialName
+    set_Xmlns(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Containers(): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeAliases(): PrivateScope, Public, HideBySig, SpecialName
+    get_SectionExtensions(): PrivateScope, Public, HideBySig, SpecialName
+    get_Namespaces(): PrivateScope, Public, HideBySig, SpecialName
+    get_Assemblies(): PrivateScope, Public, HideBySig, SpecialName
+    Configure(IUnityContainer): PrivateScope, Public, HideBySig
+    Configure(IUnityContainer, String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ContainerElementCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ConfigurationHelpers.DeserializableConfigurationElementCollection`1[Microsoft.Practices.Unity.Configuration.ContainerElement]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.Unity.Configuration.ContainerElement Item [System.String] 'get ' : 
+    Microsoft.Practices.Unity.Configuration.ContainerElement Default 'get ' : 
+  Methods:
+    get_Item(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Default(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.Configuration.UnityContainerExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    LoadConfiguration(IUnityContainer, UnityConfigurationSection, String): PrivateScope, Public, Static, HideBySig
+    LoadConfiguration(IUnityContainer, String): PrivateScope, Public, Static, HideBySig
+    LoadConfiguration(IUnityContainer): PrivateScope, Public, Static, HideBySig
+    LoadConfiguration(IUnityContainer, UnityConfigurationSection): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.Configuration.ValueElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ParameterValueElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IDictionary`2[System.String,System.String]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.Configuration.IAttributeOnlyElement
+  Properties:
+    System.String Value 'get set' : 
+    System.String TypeConverterTypeName 'get set' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeConverterTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeConverterTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    SerializeContent(XmlWriter): PrivateScope, Public, Virtual, HideBySig
+    GetInjectionParameterValue(IUnityContainer, Type): PrivateScope, Public, Virtual, HideBySig

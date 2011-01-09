@@ -1,3 +1,13 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalDeviceHandler.cpp
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      DalDeviceHandler class code
+*/
+
 #include "stdafx.h"
 #include "DalDeviceHandler.h"
 
@@ -16,7 +26,8 @@ namespace AtCor{
 				_commPort = commPort;
 			}
 
-			void DalDeviceHandler::StartCapture()
+			//void DalDeviceHandler::StartCapture() //replaced by parametrized method
+			void DalDeviceHandler::StartCapture(int captureTime, int samplingRate)
 			{
 				//Stub method, needs to be implemented
 			}

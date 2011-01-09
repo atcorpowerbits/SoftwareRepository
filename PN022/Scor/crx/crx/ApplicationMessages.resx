@@ -656,4 +656,67 @@
   <data name="NO_RECORDS_TO_EDIT" xml:space="preserve">
     <value>There are no records to edit.</value>
   </data>
+  <data name="DAL_ERR_EMPT_SIMULATION_FILE" xml:space="preserve">
+    <value>The selected simulation file is empty. Please select another simulation file.</value>
+  </data>
+  <data name="DAL_ERR_COMPORT_NOT_SET" xml:space="preserve">
+    <value>A null string was passed when a comm port was expected.</value>
+  </data>
+  <data name="DAL_ERR_FILE_NOT_SET" xml:space="preserve">
+    <value>No simulation file was specified.</value>
+  </data>
+  <data name="DAL_ERR_ARRAY_CREATE_FAILED" xml:space="preserve">
+    <value>Failed to create an array with the specified size.</value>
+  </data>
+  <data name="DAL_ERR_BUFFER_NOT_CREATED" xml:space="preserve">
+    <value>Attempted to access the buffer before it was created.</value>
+  </data>
+  <data name="DAL_ERR_INVALID_ARGS" xml:space="preserve">
+    <value>The specifed arguments are invalid</value>
+  </data>
+  <data name="DAL_ERR_REQUEST_TOO_LARGE" xml:space="preserve">
+    <value>The rquested size of data was too large to be satisfied.</value>
+  </data>
+  <data name="REPORT_ASSESMENTS_FORMAT" xml:space="preserve">
+    <value>StudyDateTime</value>
+  </data>
+  <data name="REPORT_ASSESMENT_RECORD_COUNT" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="REPORT_DATE_TIME_FORMAT" xml:space="preserve">
+    <value>dd/MM/yyyy</value>
+  </data>
+  <data name="REPORT_LBL_DIRECT" xml:space="preserve">
+    <value>Direct</value>
+  </data>
+  <data name="REPORT_LBL_SUBTRACTING" xml:space="preserve">
+    <value>Subtracting</value>
+  </data>
+  <data name="REPORT_LBL_CAROTID" xml:space="preserve">
+    <value>Carotid</value>
+  </data>
+  <data name="SQL_SERVER_CHANGED_TO_DEFAULT" xml:space="preserve">
+    <value>Changed the default server name to SQLCLIENT.</value>
+  </data>
+  <data name="SQL_SERVER_CHANGED_TO_LOCAL" xml:space="preserve">
+    <value>Changed the default server name to computer name.</value>
+  </data>
+  <data name="SQL_SERVER_CONNECTED" xml:space="preserve">
+    <value>Connection established succesfully with server</value>
+  </data>
+  <data name="SQL_SERVER_CONN_FAILED" xml:space="preserve">
+    <value>Failed to establish connection with server</value>
+  </data>
+  <data name="SQL_SERVER_UNABLE_TO_CONNECT" xml:space="preserve">
+    <value>Unable to connect to the server </value>
+  </data>
+  <data name="SQL_EXPRESS" xml:space="preserve">
+    <value>\SQLEXPRESS</value>
+  </data>
+  <data name="SQL_SERVER_FAILED" xml:space="preserve">
+    <value>Connection failed with server</value>
+  </data>
+  <data name="CRX_ERR_DBMGR_CONVERSION" xml:space="preserve">
+    <value>#600 Unable to convert data type.</value>
+  </data>
 </root>

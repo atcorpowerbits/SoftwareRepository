@@ -1,3 +1,13 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalEventContainer.h
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      Header file for Dal events.
+*/
+
 #pragma once
 
 #include "stdafx.h"

@@ -1,3 +1,13 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :		DalCommon.h      
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :		All common elements and constants for DAL layer
+*/
+
 #pragma once
 
 using namespace System;
@@ -6,7 +16,7 @@ using namespace System;
 namespace AtCor{ 
 	namespace Scor { 
 		/**
-		* @namespace DataAccess
+		* @namespace AtCor::Scor::DataAccess
 		* @brief	Namepsace to contain Data Access Layer related classes.
 		*/
 		namespace DataAccess{
@@ -18,8 +28,10 @@ namespace AtCor{
 			public ref class DalConstants
 			{
 				public:
-					static const unsigned int DataSamplingInterval      = 4; // in msec
+					static const unsigned int DataSamplingInterval = 4; // in msec
 					static const unsigned int SimulationTimerInterval   = 4; // in msec
+					static const unsigned int SimulationWriteTimerInterval = 1000; /**< This is to signify the time interval in which the simulation will pick the number of values*/
+					static const unsigned int SimulationNumberOfReadsPerInterval = 256; /**< Number of items to read from tonometer sim file in each interval.*/
 			};
 
 								/**
@@ -69,45 +81,53 @@ namespace AtCor{
 
 								/**
 								* @class DalException
-								* Exception class for DataAccess namespace.
+								* @brief Exception class for DataAccess namespace.
 								*/
 								public ref class DalException:Exception
 								{
 								private:
-									int         _errCode;
+									int _errCode;
                                     String^		_errMsg;
-                                    Exception^	_eObj;
+                                    Exception^	_exceptionObject;
 								public: 
 									/**
 									* Default constructor
 									*/
-									DalException(): _errCode(0), _errMsg(""), _eObj(nullptr) { }
+									DalException(): _errCode(0), _errMsg(""), _exceptionObject(nullptr) { }
 									
 									/**
 									* Overloaded constructor
 									* @param[in]	exError	The error code to intitialize this constructor with.
 									*/
-									DalException(int exError): _errCode(exError), _errMsg(""), _eObj(nullptr) { }
-
-                                    /**
+									DalException(int exError): _errCode(exError), _errMsg(""), _exceptionObject(nullptr) { }
+									
+									/**
 				                    * Overloaded constructor for Exception object
-				                    * @param[in]	eExp	The Unknown (System) Exception object to intitialize this constructor with.
+				                    * @param[in]	errExp	The Unknown (System) Exception object to intitialize this constructor with.
 				                    */
-                                    DalException(Exception^ eExp): _errCode(0), _errMsg(eExp->Message), _eObj(eExp) { }
+                                    //DalException(Exception^ eExp): _errCode(0), _errMsg(eExp->Message), _eObj(eExp) { }//reducing as per FxCop
+									DalException(Exception^ errExp) 
+									{
+										if (errExp != nullptr)
+										{
+											_errMsg= errExp->Message;
+											_exceptionObject = errExp;
+										}
+									}
 
                                     /**
 				                    /* Overloaded constructor for String
 				                    * @param[in]	errExpStr	The String to intitialize this constructor with.
 				                    */
-				                    DalException(String^ errExpStr): _errCode(0), _errMsg(errExpStr), _eObj(nullptr) { }
+				                    DalException(String^ errExpStr):  _errMsg(errExpStr), _exceptionObject(nullptr) { }
 
                                     /**
 				                    /* Overloaded constructor for String
                                     * @param[in]	exError	The error code to intitialize this constructor with.
 				                    * @param[in]	errExpStr	The String to intitialize this constructor with.
-                                    * @param[in]	eExp	The Unknown (System) Exception object to intitialize this constructor with.
+                                    * @param[in]	errExp	The Unknown (System) Exception object to intitialize this constructor with.
 				                    */
-				                    DalException(int exError, String^ errExpStr, Exception^ eExp): _errCode(exError), _errMsg(errExpStr), _eObj(eExp) { }
+				                    DalException(int exError, String^ errExpStr, Exception^ errExp): _errCode(exError), _errMsg(errExpStr), _exceptionObject(errExp) { }
 									
 									/**
 									* Error code property of the exception.
@@ -148,7 +168,7 @@ namespace AtCor{
 			                        {
 				                        Exception^ get()
 				                        {
-					                        return _eObj;
+					                        return _exceptionObject;
 				                        }
 			                        }
 								}; // End DalException

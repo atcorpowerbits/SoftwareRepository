@@ -1,0 +1,1595 @@
+  Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DesignResources.resources - Embedded, ContainedInManifestFile, 
+  Microsoft.Practices.EnterpriseLibrary.Validation.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.EnterpriseLibrary.Validation, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Configuration.Install, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly System.ComponentModel.DataAnnotations, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Methods:
+    CreateValidator(): PrivateScope, Public, HideBySig
+    CreateValidator(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    CreateValidator(Type): PrivateScope, Public, HideBySig
+    CreateValidator(Type, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    ResetCache(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource, Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource ConfigurationSource 'get set' : 
+  Methods:
+    FromConfigurationSource(IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    get_ConfigurationSource(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ConfigurationCultureInfoConverter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.ComponentModel.TypeConverter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CanConvertFrom(ITypeDescriptorContext, Type): PrivateScope, Public, Virtual, HideBySig
+    ConvertFrom(ITypeDescriptorContext, CultureInfo, Object): PrivateScope, Public, Virtual, HideBySig
+    CanConvertTo(ITypeDescriptorContext, Type): PrivateScope, Public, Virtual, HideBySig
+    ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Validation.IValidatorDescriptor: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    CreateValidator(Type, Type, MemberValueAccessBuilder, ValidatorFactory): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatorDescriptor
+  Properties:
+    System.String MessageTemplate 'get set' : 
+    System.String MessageTemplateResourceName 'get set' : 
+    System.String MessageTemplateResourceTypeName 'get set' : 
+    System.String Tag 'get set' : 
+  Methods:
+    get_MessageTemplate(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_MessageTemplate(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_MessageTemplateResourceName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_MessageTemplateResourceName(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_MessageTemplateResourceTypeName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_MessageTemplateResourceTypeName(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Tag(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Tag(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetMessageTemplate(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValueValidatorData: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorData
+  Properties:
+    Boolean Negated 'get set' : 
+  Methods:
+    get_Negated(): PrivateScope, Public, HideBySig, SpecialName
+    set_Negated(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.PropertyComparisonValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValueValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator ComparisonOperator 'get set' : 
+    System.String PropertyToCompare 'get set' : 
+  Methods:
+    get_ComparisonOperator(): PrivateScope, Public, HideBySig, SpecialName
+    set_ComparisonOperator(ComparisonOperator): PrivateScope, Public, HideBySig, SpecialName
+    get_PropertyToCompare(): PrivateScope, Public, HideBySig, SpecialName
+    set_PropertyToCompare(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.InjectionValidationSource: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionMember
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource Source 'get set' : 
+  Methods:
+    get_Source(): PrivateScope, Public, HideBySig, SpecialName
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationBlockExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Unity.EnterpriseLibraryBlockExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationConfigExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.SectionExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AddExtensions(SectionExtensionContext): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSourceElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Configuration.ParameterValueElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String RuleSet 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource ValidationSource 'get set' : 
+  Methods:
+    get_RuleSet(): PrivateScope, Public, HideBySig, SpecialName
+    set_RuleSet(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ValidationSource(): PrivateScope, Public, HideBySig, SpecialName
+    set_ValidationSource(ValidationSpecificationSource): PrivateScope, Public, HideBySig, SpecialName
+    GetInjectionParameterValue(IUnityContainer, Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidationSpecificationSourcePolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource Source 'get set' : 
+  Methods:
+    get_Source(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorCreationStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorDependencyAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.Unity.DependencyResolutionAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String RuleSet 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource ValidationSource 'get set' : 
+  Methods:
+    get_RuleSet(): PrivateScope, Public, HideBySig, SpecialName
+    set_RuleSet(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ValidationSource(): PrivateScope, Public, HideBySig, SpecialName
+    set_ValidationSource(ValidationSpecificationSource): PrivateScope, Public, HideBySig, SpecialName
+    CreateResolver(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionParameterValue
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String, Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String ParameterTypeName 'get ' : 
+  Methods:
+    get_ParameterTypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    MatchesType(Type): PrivateScope, Public, Virtual, HideBySig
+    GetResolverPolicy(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorParameter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.Unity.ValidatorResolver: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    Resolve(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationCallHandlerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CallHandlerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String RuleSet 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource SpecificationSource 'get set' : 
+  Methods:
+    get_RuleSet(): PrivateScope, Public, HideBySig, SpecialName
+    set_RuleSet(String): PrivateScope, Public, HideBySig, SpecialName
+    get_SpecificationSource(): PrivateScope, Public, HideBySig, SpecialName
+    set_SpecificationSource(SpecificationSource): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationTypeRegistrationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ITypeRegistrationsProvider
+  Methods:
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetUpdatedRegistrations(IConfigurationSource): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Validation.DataErrorInfoHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Object, Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Error 'get ' : 
+    System.String Item [System.String] 'get ' : 
+  Methods:
+    get_Error(): PrivateScope, Public, HideBySig, SpecialName
+    get_Item(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ArgumentValidationException: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.ArgumentException
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResults, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResults ValidationResults 'get ' : 
+  Methods:
+    get_ValidationResults(): PrivateScope, Public, HideBySig, SpecialName
+    GetObjectData(SerializationInfo, StreamingContext): PrivateScope, Public, Virtual, HideBySig, HasSecurity
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.ICallHandler
+  Properties:
+    Int32 Order 'get set' : 
+    System.String RuleSet 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory ValidatorFactory 'get ' : 
+  Methods:
+    get_Order(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Order(Int32): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Invoke(IMethodInvocation, GetNextHandlerDelegate): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_RuleSet(): PrivateScope, Public, HideBySig, SpecialName
+    get_ValidatorFactory(): PrivateScope, Public, HideBySig, SpecialName
+Struct Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource Both = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource Attributes = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource Configuration = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource ParameterAttributesOnly = 3 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.ValidationCallHandlerAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.HandlerAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.PolicyInjection.SpecificationSource SpecificationSource 'get set' : 
+  Methods:
+    get_SpecificationSource(): PrivateScope, Public, HideBySig, SpecialName
+    set_SpecificationSource(SpecificationSource): PrivateScope, Public, HideBySig, SpecialName
+    CreateHandler(IUnityContainer): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedElement: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.CompositionType CompositionType 'get ' : 
+    System.String CompositionMessageTemplate 'get ' : 
+    System.String CompositionTag 'get ' : 
+    Boolean IgnoreNulls 'get ' : 
+    System.String IgnoreNullsMessageTemplate 'get ' : 
+    System.String IgnoreNullsTag 'get ' : 
+    System.Reflection.MemberInfo MemberInfo 'get ' : 
+    System.Type TargetType 'get ' : 
+  Methods:
+    GetValidatorDescriptors(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_CompositionType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_CompositionMessageTemplate(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_CompositionTag(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IgnoreNulls(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IgnoreNullsMessageTemplate(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_IgnoreNullsTag(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_MemberInfo(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_TargetType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatedElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Reflection.PropertyInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Reflection.FieldInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedElement
+Interface Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedType: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedElement
+  Methods:
+    GetValidatedProperties(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetValidatedFields(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetValidatedMethods(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetSelfValidationMethods(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatedType: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatedElement
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedType
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorBuilderBase: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.MemberAccessValidatorBuilderFactory, Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CreateValidator(IValidatedType): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorBuilderBase
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.MemberAccessValidatorBuilderFactory, Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CreateValidator(Type): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationInstaller: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.Install.Installer
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    NotifyValidationSucceeded(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    NotifyValidationFailed(Type, ValidationResults): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    NotifyConfigurationFailure(ConfigurationErrorsException): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    NotifyConfigurationCalled(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    NotifyValidationException(Type, String, Exception): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.ValidationInstrumentationProvider: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.InstrumentationListener
+    Void .ctor(Boolean, Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Boolean, Boolean, Microsoft.Practices.EnterpriseLibrary.Common.Instrumentation.IPerformanceCounterNameFormatter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider
+  Methods:
+    FromConfigurationSource(IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    NotifyValidationSucceeded(Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    NotifyValidationFailed(Type, ValidationResults): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    NotifyConfigurationFailure(ConfigurationErrorsException): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    NotifyConfigurationCalled(Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    NotifyValidationException(Type, String, Exception): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.Validation.MemberValueAccessBuilder: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Methods:
+    GetFieldValueAccess(FieldInfo): PrivateScope, Public, HideBySig
+    GetMethodValueAccess(MethodInfo): PrivateScope, Public, HideBySig
+    GetPropertyValueAccess(PropertyInfo): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.MetadataValidatedParameterElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedElement
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.CompositionType CompositionType 'get ' : 
+    System.String CompositionMessageTemplate 'get ' : 
+    System.String CompositionTag 'get ' : 
+    Boolean IgnoreNulls 'get ' : 
+    System.String IgnoreNullsMessageTemplate 'get ' : 
+    System.String IgnoreNullsTag 'get ' : 
+    System.Reflection.MemberInfo MemberInfo 'get ' : 
+    System.Type TargetType 'get ' : 
+  Methods:
+    GetValidatorDescriptors(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_CompositionType(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_CompositionMessageTemplate(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_CompositionTag(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_IgnoreNulls(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_IgnoreNullsMessageTemplate(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_IgnoreNullsTag(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_MemberInfo(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_TargetType(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    UpdateFlyweight(ParameterInfo): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ParameterValidatorFactory: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    CreateValidator(ParameterInfo): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ReflectionMemberValueAccessBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.MemberValueAccessBuilder
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.CompositeValidatorFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider, System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider, Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory, Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider, Microsoft.Practices.EnterpriseLibrary.Validation.AttributeValidatorFactory, Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorFactory, Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    ResetCache(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValidationAttributeValidatorFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValidationReflectionHelper: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GetCustomAttributes(MemberInfo, Type, Boolean): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.BaseValidationAttribute: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :System.ComponentModel.DataAnnotations.ValidationAttribute
+  Properties:
+    System.String Ruleset 'get set' : 
+    System.String MessageTemplate 'get set' : 
+    System.String MessageTemplateResourceName 'get set' : 
+    System.Type MessageTemplateResourceType 'get set' : 
+    System.String Tag 'get set' : 
+  Methods:
+    GetMessageTemplate(): PrivateScope, Public, HideBySig
+    get_Ruleset(): PrivateScope, Public, HideBySig, SpecialName
+    set_Ruleset(String): PrivateScope, Public, HideBySig, SpecialName
+    get_MessageTemplate(): PrivateScope, Public, HideBySig, SpecialName
+    set_MessageTemplate(String): PrivateScope, Public, HideBySig, SpecialName
+    get_MessageTemplateResourceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_MessageTemplateResourceName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_MessageTemplateResourceType(): PrivateScope, Public, HideBySig, SpecialName
+    set_MessageTemplateResourceType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_Tag(): PrivateScope, Public, HideBySig, SpecialName
+    set_Tag(String): PrivateScope, Public, HideBySig, SpecialName
+    IsValid(Object): PrivateScope, Public, Virtual, HideBySig
+Struct Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator Equal = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator NotEqual = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator GreaterThan = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator GreaterThanEqual = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator LessThan = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator LessThanEqual = 5 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Validation.CompositeValidatorBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedElement): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean IgnoreNulls 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.CompositionType CompositionType 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validator BuiltValidator 'get ' : 
+    System.Collections.Generic.IList`1[Microsoft.Practices.EnterpriseLibrary.Validation.Validator] ValueValidators 'get ' : 
+  Methods:
+    GetValidator(): PrivateScope, Public, HideBySig
+    AddValueValidator(Validator): PrivateScope, Public, HideBySig
+    get_IgnoreNulls(): PrivateScope, Public, HideBySig, SpecialName
+    get_CompositionType(): PrivateScope, Public, HideBySig, SpecialName
+    get_BuiltValidator(): PrivateScope, Public, HideBySig, SpecialName
+    get_ValueValidators(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatedElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedFieldReference, System.Reflection.FieldInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedMethodReference, System.Reflection.MethodInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedPropertyReference, System.Reflection.PropertyInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedElement
+  Methods:
+    UpdateFlyweight(ValidatedFieldReference, FieldInfo): PrivateScope, Public, HideBySig
+    UpdateFlyweight(ValidatedMethodReference, MethodInfo): PrivateScope, Public, HideBySig
+    UpdateFlyweight(ValidatedPropertyReference, PropertyInfo): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatedType: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationRulesetData, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedType
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedElement
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ConfigurationValidatorBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorBuilderBase
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings, Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings, Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider, Microsoft.Practices.EnterpriseLibrary.Validation.MemberAccessValidatorBuilderFactory, Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    FromConfiguration(IConfigurationSource, MemberAccessValidatorBuilderFactory, ValidatorFactory): PrivateScope, Public, Static, HideBySig
+    CreateValidator(Type, String): PrivateScope, Public, HideBySig
+    CreateValidator(Type, ValidatedTypeReference, String): PrivateScope, Public, HideBySig
+    CreateValidatorForProperty(Type, ValidatedPropertyReference): PrivateScope, Public, HideBySig
+    CreateValidatorForRule(Type, ValidationRulesetData): PrivateScope, Public, HideBySig
+    CreateValidatorForType(Type, ValidationRulesetData): PrivateScope, Public, HideBySig
+    CreateValidatorForField(Type, ValidatedFieldReference): PrivateScope, Public, HideBySig
+    CreateValidatorForMethod(Type, ValidatedMethodReference): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.AndCompositeValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorDataCollection Validators 'get ' : 
+    System.String MessageTemplate 'get set' : 
+    System.String MessageTemplateResourceName 'get set' : 
+    System.String MessageTemplateResourceTypeName 'get set' : 
+    System.String Tag 'get set' : 
+  Methods:
+    get_Validators(): PrivateScope, Public, HideBySig, SpecialName
+    get_MessageTemplate(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_MessageTemplate(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_MessageTemplateResourceName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_MessageTemplateResourceName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_MessageTemplateResourceTypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_MessageTemplateResourceTypeName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Tag(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Tag(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ContainsCharactersValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValueValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String CharacterSet 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharacters ContainsCharacters 'get set' : 
+  Methods:
+    get_CharacterSet(): PrivateScope, Public, HideBySig, SpecialName
+    set_CharacterSet(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ContainsCharacters(): PrivateScope, Public, HideBySig, SpecialName
+    set_ContainsCharacters(ContainsCharacters): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.RangeValidatorData`1[T]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: T, System.IComparable`1[T]
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValueValidatorData
+  Properties:
+    T LowerBound 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType LowerBoundType 'get set' : 
+    T UpperBound 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType UpperBoundType 'get set' : 
+  Methods:
+    get_LowerBound(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_LowerBound(T): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_LowerBoundType(): PrivateScope, Public, HideBySig, SpecialName
+    set_LowerBoundType(RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBound(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_UpperBound(T): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_UpperBoundType(): PrivateScope, Public, HideBySig, SpecialName
+    set_UpperBoundType(RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DomainConfigurationElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DomainValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValueValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DomainConfigurationElement] Domain 'get ' : 
+  Methods:
+    get_Domain(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.EnumConversionValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValueValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type EnumType 'get set' : 
+    System.String EnumTypeName 'get set' : 
+  Methods:
+    get_EnumType(): PrivateScope, Public, HideBySig, SpecialName
+    set_EnumType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_EnumTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_EnumTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.RelativeDateTimeValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.RangeValidatorData`1[System.Int32]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit LowerUnit 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit UpperUnit 'get set' : 
+  Methods:
+    get_LowerUnit(): PrivateScope, Public, HideBySig, SpecialName
+    set_LowerUnit(DateTimeUnit): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperUnit(): PrivateScope, Public, HideBySig, SpecialName
+    set_UpperUnit(DateTimeUnit): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.TypeConversionValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValueValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TargetTypeName 'get set' : 
+    System.Type TargetType 'get set' : 
+  Methods:
+    get_TargetTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TargetTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TargetType(): PrivateScope, Public, HideBySig, SpecialName
+    set_TargetType(Type): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ObjectCollectionValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type TargetType 'get set' : 
+    System.String TargetTypeName 'get set' : 
+    System.String TargetRuleset 'get set' : 
+  Methods:
+    get_TargetType(): PrivateScope, Public, HideBySig, SpecialName
+    set_TargetType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_TargetTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_TargetTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_TargetRuleset(): PrivateScope, Public, HideBySig, SpecialName
+    set_TargetRuleset(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ObjectValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TargetRuleset 'get set' : 
+    Boolean ValidateActualType 'get set' : 
+  Methods:
+    get_TargetRuleset(): PrivateScope, Public, HideBySig, SpecialName
+    set_TargetRuleset(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ValidateActualType(): PrivateScope, Public, HideBySig, SpecialName
+    set_ValidateActualType(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedMemberReference: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorDataCollection Validators 'get ' : 
+  Methods:
+    get_Validators(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.CustomValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.CustomValidatorData]
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData
+  Properties:
+    System.String TypeName 'get set' : 
+    System.Collections.Specialized.NameValueCollection Attributes 'get ' : 
+  Methods:
+    SetAttributeValue(String, String): PrivateScope, Public, HideBySig
+    get_TypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Attributes(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.RangeValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.RangeValidatorData`1[System.String]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Globalization.CultureInfo Culture 'get set' : 
+  Methods:
+    get_Culture(): PrivateScope, Public, HideBySig, SpecialName
+    set_Culture(CultureInfo): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.DateTimeRangeValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.RangeValidatorData`1[System.DateTime]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.DateTime LowerBound 'get set' : 
+    System.DateTime UpperBound 'get set' : 
+  Methods:
+    get_LowerBound(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_LowerBound(DateTime): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_UpperBound(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_UpperBound(DateTime): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.NotNullValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValueValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.OrCompositeValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorDataCollection Validators 'get ' : 
+  Methods:
+    get_Validators(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.RegexValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValueValidatorData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Pattern 'get set' : 
+    System.Text.RegularExpressions.RegexOptions Options 'get set' : 
+    System.String PatternResourceName 'get set' : 
+    System.String PatternResourceTypeName 'get set' : 
+    System.Type PatternResourceType 'get set' : 
+  Methods:
+    get_Pattern(): PrivateScope, Public, HideBySig, SpecialName
+    set_Pattern(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Options(): PrivateScope, Public, HideBySig, SpecialName
+    set_Options(RegexOptions): PrivateScope, Public, HideBySig, SpecialName
+    get_PatternResourceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_PatternResourceName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_PatternResourceTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_PatternResourceTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_PatternResourceType(): PrivateScope, Public, HideBySig, SpecialName
+    set_PatternResourceType(Type): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.StringLengthValidatorData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.RangeValidatorData`1[System.Int32]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 UpperBound 'get set' : 
+    Int32 LowerBound 'get set' : 
+  Methods:
+    get_UpperBound(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_UpperBound(Int32): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_LowerBound(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_LowerBound(Int32): PrivateScope, Public, Virtual, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedFieldReference: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedMemberReference
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedFieldReferenceCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedFieldReference]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedMethodReference: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedMemberReference
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedMethodReferenceCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedMethodReference]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedPropertyReference: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedMemberReference
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedPropertyReferenceCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedPropertyReference]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationRulesetData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorDataCollection Validators 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedFieldReferenceCollection Fields 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedMethodReferenceCollection Methods 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedPropertyReferenceCollection Properties 'get ' : 
+  Methods:
+    get_Validators(): PrivateScope, Public, HideBySig, SpecialName
+    get_Fields(): PrivateScope, Public, HideBySig, SpecialName
+    get_Methods(): PrivateScope, Public, HideBySig, SpecialName
+    get_Properties(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationRulesetDataCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationRulesetData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationSettings: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SerializableConfigurationSection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String SectionName = validation : Public, Static, Literal, HasDefault
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedTypeReferenceCollection Types 'get ' : 
+  Methods:
+    TryGet(IConfigurationSource, IValidationInstrumentationProvider): PrivateScope, Public, Static, HideBySig
+    get_Types(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedTypeReference: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidationRulesetDataCollection Rulesets 'get ' : 
+    System.String DefaultRuleset 'get set' : 
+    System.String AssemblyName 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Rulesets(): PrivateScope, Public, HideBySig, SpecialName
+    get_DefaultRuleset(): PrivateScope, Public, HideBySig, SpecialName
+    set_DefaultRuleset(String): PrivateScope, Public, HideBySig, SpecialName
+    get_AssemblyName(): PrivateScope, Public, HideBySig, SpecialName
+    set_AssemblyName(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedTypeReferenceCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatedTypeReference]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorDataCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElementCollection`2[Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.ValidatorData,Microsoft.Practices.EnterpriseLibrary.Validation.Configuration.CustomValidatorData]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.EnterpriseLibrary.Validation.Integration.IValidationIntegrationProxy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    System.String Ruleset 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource SpecificationSource 'get ' : 
+    Boolean ProvidesCustomValueConversion 'get ' : 
+    System.String ValidatedPropertyName 'get ' : 
+    System.Type ValidatedType 'get ' : 
+  Methods:
+    PerformCustomValueConversion(ValueConvertEventArgs): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetRawValue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetMemberValueAccessBuilder(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_Ruleset(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_SpecificationSource(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_ProvidesCustomValueConversion(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_ValidatedPropertyName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_ValidatedType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Integration.ValidationIntegrationHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Integration.IValidationIntegrationProxy): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetValidator(): PrivateScope, Public, HideBySig
+    GetValue(Object&(Out), String&(Out)): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Integration.ValueConvertEventArgs: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(System.Object, System.Type, System.Object, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Object ValueToConvert 'get ' : 
+    System.Type TargetType 'get ' : 
+    System.Object ValueSource 'get ' : 
+    System.String SourcePropertyName 'get ' : 
+    System.Object ConvertedValue 'get set' : 
+    System.String ConversionErrorMessage 'get set' : 
+  Methods:
+    get_ValueToConvert(): PrivateScope, Public, HideBySig, SpecialName
+    get_TargetType(): PrivateScope, Public, HideBySig, SpecialName
+    get_ValueSource(): PrivateScope, Public, HideBySig, SpecialName
+    get_SourcePropertyName(): PrivateScope, Public, HideBySig, SpecialName
+    get_ConvertedValue(): PrivateScope, Public, HideBySig, SpecialName
+    set_ConvertedValue(Object): PrivateScope, Public, HideBySig, SpecialName
+    get_ConversionErrorMessage(): PrivateScope, Public, HideBySig, SpecialName
+    set_ConversionErrorMessage(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.MetadataValidatedElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Reflection.FieldInfo, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Reflection.MethodInfo, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Reflection.PropertyInfo, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedElement
+  Methods:
+    UpdateFlyweight(FieldInfo): PrivateScope, Public, HideBySig
+    UpdateFlyweight(MethodInfo): PrivateScope, Public, HideBySig
+    UpdateFlyweight(PropertyInfo): PrivateScope, Public, HideBySig
+    UpdateFlyweight(Type): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.MetadataValidatedType: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.MetadataValidatedElement
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedType
+Class Microsoft.Practices.EnterpriseLibrary.Validation.PropertyValidationFactory: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ResetCaches(): PrivateScope, Public, Static, HideBySig
+    GetPropertyValidator(Type, PropertyInfo, String, ValidationSpecificationSource, MemberValueAccessBuilder): PrivateScope, Public, Static, HideBySig
+    GetPropertyValidator(Type, PropertyInfo, String, ValidationSpecificationSource, MemberAccessValidatorBuilderFactory): PrivateScope, Public, Static, HideBySig
+    GetPropertyValidatorFromAttributes(Type, PropertyInfo, String, MemberAccessValidatorBuilderFactory): PrivateScope, Public, Static, HideBySig
+    GetPropertyValidatorFromConfiguration(Type, PropertyInfo, String, MemberAccessValidatorBuilderFactory): PrivateScope, Public, Static, HideBySig
+    GetPropertyValidatorFromValidationAttributes(Type, PropertyInfo, String, MemberAccessValidatorBuilderFactory): PrivateScope, Public, Static, HideBySig
+Struct Microsoft.Practices.EnterpriseLibrary.Validation.TagFilter: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Validation.TagFilter Include = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.TagFilter Ignore = 1 : Public, Static, Literal, HasDefault
+Struct Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource Attributes = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource Configuration = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource Both = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource DataAnnotations = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidationSpecificationSource All = 7 : Public, Static, Literal, HasDefault
+Struct Microsoft.Practices.EnterpriseLibrary.Validation.CompositionType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Validation.CompositionType And = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.CompositionType Or = 1 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Validation.MemberAccessValidatorBuilderFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.MemberValueAccessBuilder): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.MemberValueAccessBuilder MemberValueAccessBuilder 'get ' : 
+  Methods:
+    GetPropertyValueAccessValidatorBuilder(PropertyInfo, IValidatedElement): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetFieldValueAccessValidatorBuilder(FieldInfo, IValidatedElement): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetMethodValueAccessValidatorBuilder(MethodInfo, IValidatedElement): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetTypeValidatorBuilder(Type, IValidatedElement): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    get_MemberValueAccessBuilder(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validator: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    System.String MessageTemplate 'get set' : 
+    System.String Tag 'get set' : 
+  Methods:
+    Validate(Object): PrivateScope, Public, HideBySig
+    Validate(Object, ValidationResults): PrivateScope, Public, HideBySig
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_MessageTemplate(): PrivateScope, Public, HideBySig, SpecialName
+    set_MessageTemplate(String): PrivateScope, Public, HideBySig, SpecialName
+    get_Tag(): PrivateScope, Public, HideBySig, SpecialName
+    set_Tag(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.AndCompositeValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Validator[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Validation.Validator] Validators 'get ' : 
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+    get_Validators(): PrivateScope, Public, HideBySig, SpecialName
+Struct Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharacters: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharacters Any = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharacters All = 1 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validator`1[T]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator
+  Methods:
+    Validate(T): PrivateScope, Public, HideBySig
+    Validate(T, ValidationResults): PrivateScope, Public, HideBySig
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator`1[T]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator`1[T]
+  Properties:
+    Boolean Negated 'get ' : 
+  Methods:
+    get_Negated(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharactersValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator`1[System.String]
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharacters): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharacters, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharacters, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharacters, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String CharacterSet 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharacters ContainsCharacters 'get ' : 
+  Methods:
+    get_CharacterSet(): PrivateScope, Public, HideBySig, SpecialName
+    get_ContainsCharacters(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.BaseValidationAttribute
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Validation.IValidatorDescriptor
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorAttribute
+  Properties:
+    Boolean Negated 'get set' : 
+  Methods:
+    get_Negated(): PrivateScope, Public, HideBySig, SpecialName
+    set_Negated(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    IsValid(Object): PrivateScope, Public, Virtual, HideBySig
+    FormatErrorMessage(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharactersValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ContainsCharacters): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NullIgnoringValidatorWrapper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Validator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validator WrappedValidator 'get ' : 
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+    get_WrappedValidator(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidationAttributeValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator
+    Void .ctor(System.ComponentModel.DataAnnotations.ValidationAttribute[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[System.ComponentModel.DataAnnotations.ValidationAttribute]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.MemberAccessValidator`1[T]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator`1[T]
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validator Validator 'get set' : 
+    System.String Key 'get ' : 
+  Methods:
+    get_Validator(): PrivateScope, Public, HideBySig, SpecialName
+    get_Key(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.FieldValueValidator`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.MemberAccessValidator`1[T]
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.MethodReturnValueValidator`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.MemberAccessValidator`1[T]
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator
+  Properties:
+    Boolean Negated 'get ' : 
+  Methods:
+    get_Negated(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueAccessComparisonValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator, System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess ValueAccess 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator ComparisonOperator 'get ' : 
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+    get_ValueAccess(): PrivateScope, Public, HideBySig, SpecialName
+    get_ComparisonOperator(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyComparisonValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueAccessComparisonValidator
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyComparisonValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ComparisonOperator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    IsValid(Object): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyValueValidator`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.MemberAccessValidator`1[T]
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Double, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Double, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int64, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int64, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Single, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Single, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.IComparable LowerBound 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType LowerBoundType 'get ' : 
+    System.IComparable UpperBound 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType UpperBoundType 'get ' : 
+  Methods:
+    get_LowerBound(): PrivateScope, Public, HideBySig, SpecialName
+    get_LowerBoundType(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBound(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBoundType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidator`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T, System.IComparable
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator`1[T]
+    Void .ctor(T): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(T, T): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(T, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, T, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(T, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, T, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(T, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, T, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeChecker`1[T] RangeChecker 'get ' : 
+    T LowerBound 'get ' : 
+    T UpperBound 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType LowerBoundType 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType UpperBoundType 'get ' : 
+  Methods:
+    get_RangeChecker(): PrivateScope, Public, HideBySig, SpecialName
+    get_LowerBound(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBound(): PrivateScope, Public, HideBySig, SpecialName
+    get_LowerBoundType(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBoundType(): PrivateScope, Public, HideBySig, SpecialName
+Struct Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit None = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit Second = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit Minute = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit Hour = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit Day = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit Month = 5 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit Year = 6 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DomainValidator`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator`1[T]
+    Void .ctor(System.Collections.Generic.IEnumerable`1[T]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Boolean, T[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, T[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[T], Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[T], System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Collections.Generic.List`1[T] Domain 'get ' : 
+  Methods:
+    get_Domain(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DomainValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Object[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeGenerator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GenerateBoundDateTime(Int32, DateTimeUnit, DateTime): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator`1[System.DateTime]
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 LowerBound 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit LowerUnit 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType LowerBoundType 'get ' : 
+    Int32 UpperBound 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit UpperUnit 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType UpperBoundType 'get ' : 
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+    get_LowerBound(): PrivateScope, Public, HideBySig, SpecialName
+    get_LowerUnit(): PrivateScope, Public, HideBySig, SpecialName
+    get_LowerBoundType(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBound(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperUnit(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBoundType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RelativeDateTimeValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeUnit, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.TypeConversionValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator`1[System.String]
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type TargetType 'get ' : 
+  Methods:
+    get_TargetType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.TypeConversionValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.EnumConversionValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator`1[System.String]
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type EnumType 'get ' : 
+  Methods:
+    get_EnumType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.EnumConversionValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.HasSelfValidationAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeRangeValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidator`1[System.DateTime]
+    Void .ctor(System.DateTime): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime, System.DateTime): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime, System.DateTime, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectCollectionValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type TargetType 'get ' : 
+    System.String TargetRuleset 'get ' : 
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+    get_TargetType(): PrivateScope, Public, HideBySig, SpecialName
+    get_TargetRuleset(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectCollectionValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TargetRuleset 'get set' : 
+  Methods:
+    get_TargetRuleset(): PrivateScope, Public, HideBySig, SpecialName
+    set_TargetRuleset(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type TargetType 'get ' : 
+    System.String TargetRuleset 'get ' : 
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+    get_TargetType(): PrivateScope, Public, HideBySig, SpecialName
+    get_TargetRuleset(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.SelfValidationAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Ruleset 'get set' : 
+  Methods:
+    get_Ruleset(): PrivateScope, Public, HideBySig, SpecialName
+    set_Ruleset(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.SelfValidationValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator
+    Void .ctor(System.Reflection.MethodInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.DateTimeRangeValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime, System.DateTime): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.DateTime, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.GenericValidatorWrapper`1[T]: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator`1[T]
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Validator, Microsoft.Practices.EnterpriseLibrary.Validation.Instrumentation.IValidationInstrumentationProvider): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validator WrappedValidator 'get set' : 
+  Methods:
+    get_WrappedValidator(): PrivateScope, Public, HideBySig, SpecialName
+Struct Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType Ignore = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType Inclusive = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType Exclusive = 2 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeValidator`1[System.IComparable]
+    Void .ctor(System.IComparable): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IComparable, System.IComparable): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IComparable, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.IComparable, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IComparable, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.IComparable, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IComparable, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.IComparable, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IComparable, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.IComparable, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RegexValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator`1[System.String]
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Text.RegularExpressions.RegexOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.Text.RegularExpressions.RegexOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Text.RegularExpressions.RegexOptions, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.Text.RegularExpressions.RegexOptions, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Text.RegularExpressions.RegexOptions, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.Text.RegularExpressions.RegexOptions, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Text.RegularExpressions.RegexOptions, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.Text.RegularExpressions.RegexOptions, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.Type, System.Text.RegularExpressions.RegexOptions, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Pattern 'get ' : 
+    System.Nullable`1[System.Text.RegularExpressions.RegexOptions] Options 'get ' : 
+    System.String PatternResourceName 'get ' : 
+    System.Type PatternResourceType 'get ' : 
+  Methods:
+    GetPattern(): PrivateScope, Public, HideBySig
+    get_Pattern(): PrivateScope, Public, HideBySig, SpecialName
+    get_Options(): PrivateScope, Public, HideBySig, SpecialName
+    get_PatternResourceName(): PrivateScope, Public, HideBySig, SpecialName
+    get_PatternResourceType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RegexValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Text.RegularExpressions.RegexOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, System.Text.RegularExpressions.RegexOptions): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.StringLengthValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator`1[System.String]
+    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 LowerBound 'get ' : 
+    Int32 UpperBound 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType LowerBoundType 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType UpperBoundType 'get ' : 
+  Methods:
+    get_LowerBound(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBound(): PrivateScope, Public, HideBySig, SpecialName
+    get_LowerBoundType(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBoundType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.StringLengthValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, Int32, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ObjectValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean ValidateActualType 'get set' : 
+  Methods:
+    get_ValidateActualType(): PrivateScope, Public, HideBySig, SpecialName
+    set_ValidateActualType(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.IgnoreNullsAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.BaseValidationAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidator
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Boolean, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Properties.Resources: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    System.Resources.ResourceManager ResourceManager 'get ' : 
+    System.Globalization.CultureInfo Culture 'get set' : 
+    System.String BlockName 'get ' : 
+    System.String ConfigurationErrorMessage 'get ' : 
+    System.String ContainsCharactersNegatedDefaultMessageTemplate 'get ' : 
+    System.String ContainsCharactersNonNegatedDefaultMessageTemplate 'get ' : 
+    System.String DomainNegatedDefaultMessageTemplate 'get ' : 
+    System.String DomainNonNegatedDefaultMessageTemplate 'get ' : 
+    System.String EnumConversionNegatedDefaultMessageTemplate 'get ' : 
+    System.String EnumConversionNonNegatedDefaultMessageTemplate 'get ' : 
+    System.String ErrorCannotPerfomDefaultConversion 'get ' : 
+    System.String ErrorValueAccessInvalidType 'get ' : 
+    System.String ErrorValueAccessNull 'get ' : 
+    System.String ExceptionAttemptedValueAccessForInstanceOfInvalidType 'get ' : 
+    System.String ExceptionBoundTypeNotIComparable 'get ' : 
+    System.String ExceptionCannotConvertBound 'get ' : 
+    System.String ExceptionCannotIgnoreBothBoundariesInRange 'get ' : 
+    System.String ExceptionCannotSetResourceBasedMessageTemplatesIfTemplateIsSet 'get ' : 
+    System.String ExceptionCannotSetResourceMessageTemplatesIfResourceTemplateIsSet 'get ' : 
+    System.String ExceptionContainsNullElements 'get ' : 
+    System.String ExceptionIntegrationValidatedPropertyNameNotAvailable 'get ' : 
+    System.String ExceptionIntegrationValidatedPropertyNotExists 'get ' : 
+    System.String ExceptionIntegrationValidatedPropertyNotReadable 'get ' : 
+    System.String ExceptionIntegrationValidatedTypeNotAvailable 'get ' : 
+    System.String ExceptionInvalidDate 'get ' : 
+    System.String ExceptionInvalidField 'get ' : 
+    System.String ExceptionInvalidMethod 'get ' : 
+    System.String ExceptionInvalidProperty 'get ' : 
+    System.String ExceptionInvalidTargetType 'get ' : 
+    System.String ExceptionLowerBoundNull 'get ' : 
+    System.String ExceptionMethodHasNoReturnValue 'get ' : 
+    System.String ExceptionMethodHasParameters 'get ' : 
+    System.String ExceptionObjectCollectionValidatorDataTargetTypeNotSet 'get ' : 
+    System.String ExceptionPartiallyDefinedResourceForMessageTemplate 'get ' : 
+    System.String ExceptionPropertyNotFound 'get ' : 
+    System.String ExceptionPropertyNotReadable 'get ' : 
+    System.String ExceptionPropertyToCompareNotFound 'get ' : 
+    System.String ExceptionPropertyToCompareNull 'get ' : 
+    System.String ExceptionSelfValidationMethodWithInvalidSignature 'get ' : 
+    System.String ExceptionShouldNotCall 'get ' : 
+    System.String ExceptionTypeNotFound 'get ' : 
+    System.String ExceptionTypeOfBoundsMustMatch 'get ' : 
+    System.String ExceptionUpperBoundLowerThanLowerBound 'get ' : 
+    System.String ExceptionUpperBoundNull 'get ' : 
+    System.String ExceptionValidatingNullOnValueType 'get ' : 
+    System.String ExceptionValidationAttributeNotSupported 'get ' : 
+    System.String IgnoreNullsDefaultMessageTemplate 'get ' : 
+    System.String IllegalUseOfInjectionValidationSource 'get ' : 
+    System.String IllegalUseOfValidationDependencyAttribute 'get ' : 
+    System.String InvalidValidationSpecificationSource 'get ' : 
+    System.String InvariantCultureCannotBeUsedToDeserializeConfiguration 'get ' : 
+    System.String MustImplementOperation 'get ' : 
+    System.String NonNullNegatedValidatorDefaultMessageTemplate 'get ' : 
+    System.String NonNullNonNegatedValidatorDefaultMessageTemplate 'get ' : 
+    System.String ObjectCollectionValidatorIncompatibleElementInTargetCollection 'get ' : 
+    System.String ObjectCollectionValidatorTargetNotCollection 'get ' : 
+    System.String ObjectValidatorInvalidTargetType 'get ' : 
+    System.String OrCompositeValidatorDefaultMessageTemplate 'get ' : 
+    System.String RangeValidatorNegatedDefaultMessageTemplate 'get ' : 
+    System.String RangeValidatorNonNegatedDefaultMessageTemplate 'get ' : 
+    System.String RegexValidatorNegatedDefaultMessageTemplate 'get ' : 
+    System.String RegexValidatorNonNegatedDefaultMessageTemplate 'get ' : 
+    System.String RelativeDateTimeNegatedDefaultMessageTemplate 'get ' : 
+    System.String RelativeDateTimeNonNegatedDefaultMessageTemplate 'get ' : 
+    System.String RelativeDateTimeValidatorNotValidDateTimeUnit 'get ' : 
+    System.String SelfValidationMethodThrownMessage 'get ' : 
+    System.String SelfValidationValidatorMessage 'get ' : 
+    System.String StringLengthValidatorNegatedDefaultMessageTemplate 'get ' : 
+    System.String StringLengthValidatorNonNegatedDefaultMessageTemplate 'get ' : 
+    System.String TypeConversionNegatedDefaultMessageTemplate 'get ' : 
+    System.String TypeConversionNonNegatedDefaultMessageTemplate 'get ' : 
+    System.String ValidationAttributeFailed 'get ' : 
+    System.String ValidationFailedMessage 'get ' : 
+    System.String ValidationResultsHeader 'get ' : 
+    System.String ValidationResultTemplate 'get ' : 
+    System.String ValidationResultWithKeyTemplate 'get ' : 
+    System.String ValueAccessComparisonValidatorFailureToRetrieveComparand 'get ' : 
+    System.String ValueAccessComparisonValidatorNegatedDefaultMessageTemplate 'get ' : 
+    System.String ValueAccessComparisonValidatorNonNegatedDefaultMessageTemplate 'get ' : 
+    System.String ValueValidatorDefaultMessageTemplate 'get ' : 
+  Methods:
+    get_ResourceManager(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Culture(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_Culture(CultureInfo): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_BlockName(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ConfigurationErrorMessage(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ContainsCharactersNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ContainsCharactersNonNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DomainNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_DomainNonNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EnumConversionNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_EnumConversionNonNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ErrorCannotPerfomDefaultConversion(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ErrorValueAccessInvalidType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ErrorValueAccessNull(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionAttemptedValueAccessForInstanceOfInvalidType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionBoundTypeNotIComparable(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionCannotConvertBound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionCannotIgnoreBothBoundariesInRange(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionCannotSetResourceBasedMessageTemplatesIfTemplateIsSet(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionCannotSetResourceMessageTemplatesIfResourceTemplateIsSet(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionContainsNullElements(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionIntegrationValidatedPropertyNameNotAvailable(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionIntegrationValidatedPropertyNotExists(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionIntegrationValidatedPropertyNotReadable(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionIntegrationValidatedTypeNotAvailable(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionInvalidDate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionInvalidField(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionInvalidMethod(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionInvalidProperty(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionInvalidTargetType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionLowerBoundNull(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionMethodHasNoReturnValue(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionMethodHasParameters(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionObjectCollectionValidatorDataTargetTypeNotSet(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionPartiallyDefinedResourceForMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionPropertyNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionPropertyNotReadable(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionPropertyToCompareNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionPropertyToCompareNull(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionSelfValidationMethodWithInvalidSignature(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionShouldNotCall(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionTypeNotFound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionTypeOfBoundsMustMatch(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionUpperBoundLowerThanLowerBound(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionUpperBoundNull(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionValidatingNullOnValueType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ExceptionValidationAttributeNotSupported(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_IgnoreNullsDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_IllegalUseOfInjectionValidationSource(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_IllegalUseOfValidationDependencyAttribute(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_InvalidValidationSpecificationSource(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_InvariantCultureCannotBeUsedToDeserializeConfiguration(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MustImplementOperation(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_NonNullNegatedValidatorDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_NonNullNonNegatedValidatorDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ObjectCollectionValidatorIncompatibleElementInTargetCollection(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ObjectCollectionValidatorTargetNotCollection(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ObjectValidatorInvalidTargetType(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_OrCompositeValidatorDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RangeValidatorNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RangeValidatorNonNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RegexValidatorNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RegexValidatorNonNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RelativeDateTimeNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RelativeDateTimeNonNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_RelativeDateTimeValidatorNotValidDateTimeUnit(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SelfValidationMethodThrownMessage(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SelfValidationValidatorMessage(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_StringLengthValidatorNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_StringLengthValidatorNonNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TypeConversionNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TypeConversionNonNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ValidationAttributeFailed(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ValidationFailedMessage(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ValidationResultsHeader(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ValidationResultTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ValidationResultWithKeyTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ValueAccessComparisonValidatorFailureToRetrieveComparand(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ValueAccessComparisonValidatorNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ValueAccessComparisonValidatorNonNegatedDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ValueValidatorDefaultMessageTemplate(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    System.String Key 'get ' : 
+  Methods:
+    GetValue(Object, Object&(Out), String&(Out)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.PropertyValueAccess: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess
+    Void .ctor(System.Reflection.PropertyInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Key 'get ' : 
+    System.Reflection.PropertyInfo PropertyInfo 'get ' : 
+  Methods:
+    GetValue(Object, Object&(Out), String&(Out)): PrivateScope, Public, Virtual, HideBySig
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_PropertyInfo(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeChecker`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T, System.IComparable
+    Void .ctor(T, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType, T, Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    T LowerBound 'get ' : 
+    T UpperBound 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType LowerBoundType 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validators.RangeBoundaryType UpperBoundType 'get ' : 
+  Methods:
+    IsInRange(T): PrivateScope, Public, HideBySig
+    get_LowerBound(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBound(): PrivateScope, Public, HideBySig, SpecialName
+    get_LowerBoundType(): PrivateScope, Public, HideBySig, SpecialName
+    get_UpperBoundType(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.MetadataValidatorBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorBuilderBase
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.MemberAccessValidatorBuilderFactory): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.MemberAccessValidatorBuilderFactory, Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CreateValidator(Type, String): PrivateScope, Public, HideBySig
+    CreateValidatorForType(Type, String): PrivateScope, Public, HideBySig
+    CreateValidatorForProperty(PropertyInfo, String): PrivateScope, Public, HideBySig
+    CreateValidatorForField(FieldInfo, String): PrivateScope, Public, HideBySig
+    CreateValidatorForMethod(MethodInfo, String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValidationFactory: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValidatorFactory DefaultCompositeValidatorFactory 'get ' : 
+  Methods:
+    ResetCaches(): PrivateScope, Public, Static, HideBySig
+    CreateValidator(): PrivateScope, Public, Static, HideBySig
+    CreateValidator(String): PrivateScope, Public, Static, HideBySig
+    CreateValidator(IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidator(String, IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidator(Type): PrivateScope, Public, Static, HideBySig
+    CreateValidator(Type, String): PrivateScope, Public, Static, HideBySig
+    CreateValidator(Type, String, IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidator(ValidationSpecificationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidator(String, ValidationSpecificationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidator(IConfigurationSource, ValidationSpecificationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidator(String, IConfigurationSource, ValidationSpecificationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidator(Type, ValidationSpecificationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidator(Type, String, ValidationSpecificationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidator(Type, String, IConfigurationSource, ValidationSpecificationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidatorFromAttributes(): PrivateScope, Public, Static, HideBySig
+    CreateValidatorFromAttributes(String): PrivateScope, Public, Static, HideBySig
+    CreateValidatorFromAttributes(Type, String): PrivateScope, Public, Static, HideBySig
+    CreateValidatorFromConfiguration(): PrivateScope, Public, Static, HideBySig
+    CreateValidatorFromConfiguration(IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidatorFromConfiguration(String): PrivateScope, Public, Static, HideBySig
+    CreateValidatorFromConfiguration(String, IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    CreateValidatorFromConfiguration(Type, String): PrivateScope, Public, Static, HideBySig
+    CreateValidatorFromConfiguration(Type, String, IConfigurationSource): PrivateScope, Public, Static, HideBySig
+    get_DefaultCompositeValidatorFactory(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResult: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+    Void .ctor(System.String, System.Object, System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Object, System.String, System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validator, System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResult]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Key 'get ' : 
+    System.String Message 'get ' : 
+    System.String Tag 'get ' : 
+    System.Object Target 'get ' : 
+    Microsoft.Practices.EnterpriseLibrary.Validation.Validator Validator 'get ' : 
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResult] NestedValidationResults 'get ' : 
+  Methods:
+    get_Key(): PrivateScope, Public, HideBySig, SpecialName
+    get_Message(): PrivateScope, Public, HideBySig, SpecialName
+    get_Tag(): PrivateScope, Public, HideBySig, SpecialName
+    get_Target(): PrivateScope, Public, HideBySig, SpecialName
+    get_Validator(): PrivateScope, Public, HideBySig, SpecialName
+    get_NestedValidationResults(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResults: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResult]
+    System.Collections.IEnumerable
+  Properties:
+    Boolean IsValid 'get ' : 
+    Int32 Count 'get ' : 
+  Methods:
+    AddResult(ValidationResult): PrivateScope, Public, HideBySig
+    AddAllResults(IEnumerable`1): PrivateScope, Public, HideBySig
+    FindAll(TagFilter, String[]): PrivateScope, Public, HideBySig
+    get_IsValid(): PrivateScope, Public, HideBySig, SpecialName
+    get_Count(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.FieldValueAccess: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess
+    Void .ctor(System.Reflection.FieldInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Key 'get ' : 
+    System.Reflection.FieldInfo FieldInfo 'get ' : 
+  Methods:
+    GetValue(Object, Object&(Out), String&(Out)): PrivateScope, Public, Virtual, HideBySig
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_FieldInfo(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.MethodValueAccess: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess
+    Void .ctor(System.Reflection.MethodInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Key 'get ' : 
+    System.Reflection.MethodInfo MethodInfo 'get ' : 
+  Methods:
+    GetValue(Object, Object&(Out), String&(Out)): PrivateScope, Public, Virtual, HideBySig
+    get_Key(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_MethodInfo(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.OrCompositeValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.Validator[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.EnterpriseLibrary.Validation.Validator[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.Validation.Validator] Validators 'get ' : 
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+    get_Validators(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.NotNullValidatorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueValidatorAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValidatorCompositionAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validators.BaseValidationAttribute
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.CompositionType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validation: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Validate(T): PrivateScope, Public, Static, HideBySig
+    Validate(T, String[]): PrivateScope, Public, Static, HideBySig
+    Validate(T, ValidationSpecificationSource): PrivateScope, Public, Static, HideBySig
+    Validate(T, ValidationSpecificationSource, String[]): PrivateScope, Public, Static, HideBySig
+    ValidateFromAttributes(T): PrivateScope, Public, Static, HideBySig
+    ValidateFromAttributes(T, String[]): PrivateScope, Public, Static, HideBySig
+    ValidateFromConfiguration(T): PrivateScope, Public, Static, HideBySig
+    ValidateFromConfiguration(T, String[]): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.Validation.Validators.ValueAccessValidator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.Validator
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess, Microsoft.Practices.EnterpriseLibrary.Validation.Validator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Key 'get ' : 
+  Methods:
+    DoValidate(Object, Object, String, ValidationResults): PrivateScope, Public, Virtual, HideBySig
+    get_Key(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccessValidatorBuilder: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Validation.CompositeValidatorBuilder
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess, Microsoft.Practices.EnterpriseLibrary.Validation.IValidatedElement): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Validation.ValueAccess ValueAccess 'get ' : 
+  Methods:
+    get_ValueAccess(): PrivateScope, Public, HideBySig, SpecialName

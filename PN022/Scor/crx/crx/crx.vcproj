@@ -176,17 +176,17 @@
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
-			RelativePath="d:\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="d:\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="d:\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
 			AssemblyName="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
@@ -206,8 +206,28 @@
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
-			RelativePath="d:\Setup\EnterpriseLibrary 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Data.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Data.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath="Microsoft.SqlServer.ConnectionInfo.dll"
+			AssemblyName="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
+			MinFrameworkVersion="0"
+		/>
+		<AssemblyReference
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.dll"
+			AssemblyName="Microsoft.Practices.Unity, Version=2.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.Interception.dll"
+			AssemblyName="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime.dll"
+			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 	</References>
@@ -243,6 +263,10 @@
 			</File>
 			<File
 				RelativePath=".\CrxDatabase.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxEventContainer.cpp"
 				>
 			</File>
 			<File
@@ -308,6 +332,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CrxEventContainer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CrxLogger.h"
 				>
 			</File>
@@ -339,7 +367,6 @@
 			</File>
 			<File
 				RelativePath=".\ApplicationMessages.resx"
-				SubType="Designer"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"

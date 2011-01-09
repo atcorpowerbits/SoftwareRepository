@@ -19,16 +19,18 @@ using namespace Microsoft::Practices::EnterpriseLibrary::Common;
 using namespace Microsoft::Practices::EnterpriseLibrary::Common::Configuration;
 
 /**
- * @namespace	CrxDatabase
+ * @namespace	AtCor::Scor::CrossCutting::DatabaseManager
  * @brief		This namespace implements Database related functionality.
  * 
  */
 
 namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseManager
 {	
-	// Creating CrxStructSetting Structure and variables
+	// Creating CrxStructPatientDemographicData Structure and variables
+	
 	/**
-	 * Container for Patient DemographicData settings. 
+	 * @struct CrxStructPatientDemographicData
+	 * @brief Container for patient  Demographic Data. 	
 	 */
 	public ref struct CrxStructPatientDemographicData
 	{
@@ -44,18 +46,69 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 
 	};
 
+	// Creating CrxStructPWVMeasurementData Structure and variables
+	
 	/**
-	 * Container for PWV MeasurementData settings. 
+	 * @struct CrxStructPWVMeasurementData
+	 * @brief Container for PWV measurement data. 	
 	 */
 	public ref struct CrxStructPWVMeasurementData
 	{
-		int SystemIdentifier;
-		int GroupIdentifier;
-		int PatientNumberInternal;
-		String^ StudyDateTime;
-		//Other Variables will be added later
-	};
-
+		bool	IsStandardDeviationValid;
+		bool	IsFemoralSignalValid;
+		bool	IsCarotidSignalValid;
+		bool	Simulation;
+		int		SystemIdentifier;
+		int		GroupIdentifier;
+		int		PatientNumberInternal;		
+		int		SP;
+		int		DP;
+		int		MP;		
+		short	Age;
+		short	PWVDistance;		
+		short	Carotid;
+		short	FemoraltoCuff;
+		short	Cuff;
+		short	Direct;
+		short	CaptureTime;
+		short	SampleRate;		
+		short	WeightInKilograms;
+		short	WeightInPounds;
+		short	HeightInCentimetres;
+		short	HeightInInches;
+		short	CarotidSignalOnSetsLength;
+		short	CarotidSignalLength;
+		short	DataRevision;
+		short	FemoralSignalOnSetsLength;
+		short	FemoralSignalLength;
+		short	NumberOfDeltas;
+		short	NumberOfValidDeltas;	
+		float	MeanCorrectedTime;
+		float	MeanDeltaTime;
+		float	MeanHeartRate;
+		float	MeanPulseWaveVelocity;
+		float	StandardDeviation;
+		float	BodyMassIndex;		
+		float	CarotidSignalPulseHeight;
+		float	CarotidSignalPulseHeightVariation;	
+		float	CorrectionTime;
+		float	FemoralSignalPulseHeight;	
+		String^ Notes;
+		String^ Operator;
+		String^ PWVDistanceMethod;
+		String^	BloodPressureRange;
+		String^ BloodPressureEntryOption;
+		DateTime StudyDateTime;
+		array<short>^ CarotidSignal ;				
+		array<short>^ FemoralSignal;
+		array<float>^ NormalRange;
+		array<float>^ ReferenceRange;		
+		array<float>^ CarotidSignalFloatOnSets;			
+		array<float>^ FemoralSignalFloatOnSets;			
+		
+		//Other Variables will be added later		
+	};	
+	
 	/**
 	* @class CrxDBManager
 	* @brief Class to manage database related functions. @n
@@ -122,9 +175,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		}
 
 		/** 
-		* String DataProvType property with Get & Set accessor
+		* String DataProviderType property with Get & Set accessor
 		*/
-		property String^ DataProvType
+		property String^ DataProviderType
 		{
 			String ^ get() 
 			{ 
@@ -134,8 +187,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 			{ 
 				_dbType = value; 
 			}
-		}
-
+		}		
+	
 	public:		
 		
 		/**
@@ -151,32 +204,41 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		
 		/**
 		* To set the connection as per selection from user in the gui
-		* @param[in] String serverName to set the server to be used
-		* @param[in] String sourceName to set the sourcename to be used 
+		* @return if 0 connection established else return 1
+		* @param[in] serverName to set the server to be used
+		* @param[in] sourceName to set the sourcename to be used 
 		*/
-		void SetConnection(String^ serverName, String^ sourceName);
+		//void SetConnection(String^ serverName, String^ sourceName);
+		int SetConnection(String^ serverName, String^ sourceName);
+		
+		/**
+		* To Check Connection can be established as per selection from user in the gui
+		* @return if 0 connection established else return 1
+		* @param[in] serverName to set the server to be used
+		* @param[in] sourceName to set the sourcename to be used 
+		*/
+		int CheckConnection(String^ serverName, String^ sourceName);
 
 		/**
 		* To check patient record exists or not in Database
 		* @return if 1 five field record exist else no record
-		* @param[in] CrxStructPatientDemographicData handle to Patient Demographic structure
-		* @param[out] int value, if 1 six field record exist if 2 five field record exist else no record
+		* @param[in] pd CrxStructPatientDemographicData handle to Patient Demographic structure
 		*/
 		int PatientRecordExists(CrxStructPatientDemographicData^ pd);
 		
 		/**
 		* To check Group name record exists or not in Database
 		* @return if true record else no record
-		* @param[in] int systemIdentifier of the SystemInstallationID
-		* @param[in] String groupName in Group record for search
+		* @param[in] systemIdentifier Integer system identifier of the SystemInstallationID
+		* @param[in] groupName Group name in Group record for search
 		*/
 		bool GroupRecordExits(int systemIdentifier, String^ groupName);
 		
 		/**
 		* To check specific patient id exists or not in Database
 		* @return if true record else no record
-		* @param[in] int systemIdentifier of the SystemInstallationID
-		* @param[in] int patientIdExternalReference in Patient record for search
+		* @param[in] systemIdentifier Identifier of the SystemInstallationID
+		* @param[in] patientIdExternalReference External reference in Patient record for search
 		*/
 		bool PatientIdExists(int systemIdentifier, String^ patientIdExternalReference);
 		
@@ -189,9 +251,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		/**
 		* Overloaded Function, To get specific patient records from the database
 		* @return Return data related to patient number
-		* @param[in] int patientNumberInternal, patient internal number in database
-		* @param[in] int systemIdentifier, SystemInstallationID in database		
-		* @param[in] int groupIdentifier, Group is related to the patient in database
+		* @param[in] patientNumberInternal Patient internal number in database
+		* @param[in] systemIdentifier SystemInstallationID in database		
+		* @param[in] groupIdentifier Group Identifier is related to the patient in database
 		*/
 		DataSet^ GetPatientDemographicRecords(int patientNumberInternal , int systemIdentifier, int groupIdentifier);
 
@@ -200,39 +262,93 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* @return Return group data
 		*/
 		DataSet^ GetGroupLists();
-
+		
 		/**
-		* To get measurement details from database
+		* To get specific patient measurement details from database by joining the tables Patient,Group,PatientGroupRelation,PWVMeasurement
+		* @return Return One or more than one assessments records related to patient number, group id, system id
+		* @param[in] patientNumberInternal Patient internal number in database
+		* @param[in] systemIdentifier SystemInstallationID in database		
+		* @param[in] groupIdentifier Group Identifier is related to the patient in database
 		*/
 		DataSet^ GetPWVMeasurementDetails(int patientNumberInternal, int groupIdentifier, int systemIdentifier );
 		
 		/**
-		* Overloaded Function,To get measurement details from database
+		* Overloaded Function, To get specific patient measurement details from database by joining the tables Patient,Group,PatientGroupRelation,PWVMeasurement
+		* @return Return one assessment record related to patient number, group id, system id, date time@n
+		*		  Conversion of byte arrays to short/float arrays values from database and store all values in structure
+		* @param[in,out] md CrxStructPWVMeasurementData handle to Measurement Details structure@n	
+		*					As output, handle to Measurement Details structure storing all the values got from the database in proper datatype format.	
 		*/
-		DataSet^ GetPWVMeasurementDetails(int patientNumberInternal, int groupIdentifier , int systemIdentifier,String^ dateTime);
+		DataSet^ GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md);
 
 		/**
 		* To save patient record in the database 
-		* @return if 1 if successfully saved else not successful
-		* @param[in] CrxStructPatientDemographicData handle to Patient Demographic structure
+		* @return 1 if successfully saved else not successful
+		* @param[in,out] pd CrxStructPatientDemographicData handle to Patient Demographic structure@n
+		*				As output, handle updated patient no and group id 
 		*/
 		int SavePatientData(CrxStructPatientDemographicData^ pd);
 		
 		/**
 		* To delete patient record in the database 
 		* @return if 1 if successfully saved else not successful
-		* @param[in] CrxStructPatientDemographicData handle to Patient Demographic structure
+		* @param[in] pd CrxStructPatientDemographicData handle to Patient Demographic structure
 		*/
 		int DeletePatientData(CrxStructPatientDemographicData^ pd);
 
 		/**
 		* To update patient record in the database 
 		* @return if 1 if successfully saved else not successful
-		* @param[in] CrxStructPatientDemographicData handle to Patient Demographic structure
-		* @param[in] bool spCheck to validation of patient record transfer
+		* @param[in,out] pd CrxStructPatientDemographicData handle to Patient Demographic structure@n
+		*				As output, handle updated patient no and group id 
+		* @param[in] spCheck Flag for validation of patient record transfer
 		*/
 		int UpdatePatientData(CrxStructPatientDemographicData^ pd, bool spCheck);
+
+		/**
+		* To save measurement record in the database @n
+		* Conversion of short/float arrays to byte arrays values to store in varbinary type at database
+		* @return if 1 if successfully saved else not successful
+		* @param[in] md CrxStructPWVMeasurementData handle to Measurement Details structure
+		*/
+		int SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md);
 		
+		/**
+		* To update measurement record in the database @n
+		* Conversion of short/float arrays to byte arrays values to store in varbinary type at database
+		* @return if 1 if successfully saved else not successful
+		* @param[in] md CrxStructPWVMeasurementData handle to Measurement Details structure
+		*/
+		int UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md);
+
+		/**
+		* To convert Byte Array to float Array 
+		* @return float array data
+		* @param[in] len Length of the array
+		* @param[in] bytearr Byte array values
+		*/
+		array<float>^ CommonByteArrtoFloatArr(int len, array<Byte>^ bytearr);
+		/**
+		* To convert Byte Array to short Array 
+		* @return short array data
+		* @param[in] len Length of the array
+		* @param[in] bytearr Byte array values
+		*/
+		array<short>^ CommonByteArrtoShortArr(int len, array<Byte>^ bytearr);
+		/**
+		* To convert float Array to Byte Array 
+		* @return Byte array data
+		* @param[in] len Length of the array
+		* @param[in] fltarr Float array values
+		*/
+		array<Byte>^ CommonFloatArrtoByteArr(int len, array<float>^ fltarr);
+		/**
+		* To convert short Array to Byte Array 
+		* @return Byte array data
+		* @param[in] len Length of the array
+		* @param[in] shrtarr Short array values
+		*/
+		array<Byte>^ CommonShortArrtoByteArr(int len, array<short>^ shrtarr);
 
 	};
 }

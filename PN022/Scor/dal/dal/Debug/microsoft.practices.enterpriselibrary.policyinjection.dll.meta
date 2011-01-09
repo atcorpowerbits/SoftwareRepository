@@ -1,0 +1,488 @@
+  Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.DesignResources.resources - Embedded, ContainedInManifestFile, 
+  Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.EnterpriseLibrary.PolicyInjection, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Configuration.Install, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers.PerformanceCounterCallHandler: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Boolean, Boolean, Boolean, Boolean, Boolean, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Boolean, Boolean, Boolean, Boolean, Boolean, Boolean, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.ICallHandler
+  Fields:
+    System.String TotalInstanceName = Total : Public, Static, Literal, HasDefault
+    System.String NumberOfCallsCounterName = # of calls : Public, Static, Literal, HasDefault
+    System.String CallsPerSecondCounterName = # calls / second : Public, Static, Literal, HasDefault
+    System.String AverageCallDurationCounterName = average seconds / call : Public, Static, Literal, HasDefault
+    System.String AverageCallDurationBaseCounterName = average seconds / call base : Public, Static, Literal, HasDefault
+    System.String TotalExceptionsCounterName = # of exceptions : Public, Static, Literal, HasDefault
+    System.String ExceptionsPerSecondCounterName = # exceptions / second : Public, Static, Literal, HasDefault
+  Properties:
+    Boolean UseTotalCounter 'get set' : 
+    Boolean IncrementNumberOfCalls 'get set' : 
+    System.String Category 'get set' : 
+    System.String InstanceName 'get set' : 
+    Boolean IncrementCallsPerSecond 'get set' : 
+    Boolean IncrementAverageCallDuration 'get set' : 
+    Boolean IncrementTotalExceptions 'get set' : 
+    Boolean IncrementExceptionsPerSecond 'get set' : 
+    Int32 Order 'get set' : 
+  Methods:
+    get_UseTotalCounter(): PrivateScope, Public, HideBySig, SpecialName
+    set_UseTotalCounter(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementNumberOfCalls(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementNumberOfCalls(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_Category(): PrivateScope, Public, HideBySig, SpecialName
+    set_Category(String): PrivateScope, Public, HideBySig, SpecialName
+    get_InstanceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_InstanceName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementCallsPerSecond(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementCallsPerSecond(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementAverageCallDuration(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementAverageCallDuration(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementTotalExceptions(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementTotalExceptions(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementExceptionsPerSecond(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementExceptionsPerSecond(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_Order(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Order(Int32): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Invoke(IMethodInvocation, GetNextHandlerDelegate): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers.PerformanceCounterCallHandlerDefaults: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Boolean UseTotalCounter = True : Public, Static, Literal, HasDefault
+    Boolean IncrementNumberOfCalls = True : Public, Static, Literal, HasDefault
+    Boolean IncrementCallsPerSecond = True : Public, Static, Literal, HasDefault
+    Boolean IncrementAverageCallDuration = True : Public, Static, Literal, HasDefault
+    Boolean IncrementTotalExceptions = False : Public, Static, Literal, HasDefault
+    Boolean IncrementExceptionsPerSecond = False : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.CallHandlers.PerformanceCounterCallHandlerAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.HandlerAttribute
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String CategoryName 'get set' : 
+    System.String InstanceName 'get set' : 
+    Boolean IncrementAverageCallDuration 'get set' : 
+    Boolean IncrementCallsPerSecond 'get set' : 
+    Boolean IncrementExceptionsPerSecond 'get set' : 
+    Boolean IncrementNumberOfCalls 'get set' : 
+    Boolean IncrementTotalExceptions 'get set' : 
+    Boolean UseTotalCounter 'get set' : 
+  Methods:
+    get_CategoryName(): PrivateScope, Public, HideBySig, SpecialName
+    set_CategoryName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_InstanceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_InstanceName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementAverageCallDuration(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementAverageCallDuration(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementCallsPerSecond(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementCallsPerSecond(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementExceptionsPerSecond(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementExceptionsPerSecond(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementNumberOfCalls(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementNumberOfCalls(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementTotalExceptions(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementTotalExceptions(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_UseTotalCounter(): PrivateScope, Public, HideBySig, SpecialName
+    set_UseTotalCounter(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    CreateHandler(IUnityContainer): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.AssemblyMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Match 'get set' : 
+  Methods:
+    get_Match(): PrivateScope, Public, HideBySig, SpecialName
+    set_Match(String): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.CustomAttributeMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean SearchInheritanceChain 'get set' : 
+    System.String AttributeTypeName 'get set' : 
+    System.Type AttributeType 'get set' : 
+  Methods:
+    get_SearchInheritanceChain(): PrivateScope, Public, HideBySig, SpecialName
+    set_SearchInheritanceChain(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_AttributeTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_AttributeTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_AttributeType(): PrivateScope, Public, HideBySig, SpecialName
+    set_AttributeType(Type): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.CustomMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IHelperAssistedCustomConfigurationData`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.CustomMatchingRuleData]
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ICustomProviderData
+  Properties:
+    System.String TypeName 'get set' : 
+    System.Collections.Specialized.NameValueCollection Attributes 'get ' : 
+  Methods:
+    SetAttributeValue(String, String): PrivateScope, Public, HideBySig
+    get_TypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_TypeName(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    get_Attributes(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElement
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Match 'get set' : 
+    Boolean IgnoreCase 'get set' : 
+  Methods:
+    get_Match(): PrivateScope, Public, HideBySig, SpecialName
+    set_Match(String): PrivateScope, Public, HideBySig, SpecialName
+    get_IgnoreCase(): PrivateScope, Public, HideBySig, SpecialName
+    set_IgnoreCase(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchDataCollection`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T, Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchData,  DefaultConstructor
+  :System.Configuration.ConfigurationElementCollection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Collections.Generic.IEnumerable`1[T]
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IMergeableConfigurationElementCollection
+  Properties:
+    T Item [Int32] 'get set' : 
+  Methods:
+    Add(T): PrivateScope, Public, HideBySig
+    RemoveAt(Int32): PrivateScope, Public, HideBySig
+    Remove(String): PrivateScope, Public, HideBySig
+    Clear(): PrivateScope, Public, HideBySig
+    get_Item(Int32): PrivateScope, Public, HideBySig, SpecialName
+    set_Item(Int32, T): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MemberNameMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchData]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchDataCollection`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchData] Matches 'get set' : 
+  Methods:
+    get_Matches(): PrivateScope, Public, HideBySig, SpecialName
+    set_Matches(MatchDataCollection`1): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.StringBasedMatchingRuleData: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Match 'get set' : 
+    Boolean IgnoreCase 'get set' : 
+  Methods:
+    get_Match(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Match(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_IgnoreCase(): PrivateScope, Public, HideBySig, SpecialName
+    set_IgnoreCase(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MethodSignatureMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.StringBasedMatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.ParameterTypeElementDataCollection Parameters 'get set' : 
+  Methods:
+    get_Parameters(): PrivateScope, Public, HideBySig, SpecialName
+    set_Parameters(ParameterTypeElementDataCollection): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.ParameterTypeElementDataCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElementCollection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IMergeableConfigurationElementCollection
+  Methods:
+    Add(ParameterTypeElement): PrivateScope, Public, HideBySig
+    Clear(): PrivateScope, Public, HideBySig
+    Get(Int32): PrivateScope, Public, HideBySig
+    RemoveAt(Int32): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.ParameterTypeElement: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Configuration.ConfigurationElement
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get set' : 
+    System.String ParameterTypeName 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    set_Name(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ParameterTypeName(): PrivateScope, Public, HideBySig, SpecialName
+    set_ParameterTypeName(String): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.NamespaceMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchData]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchDataCollection`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchData] Matches 'get set' : 
+  Methods:
+    get_Matches(): PrivateScope, Public, HideBySig, SpecialName
+    set_Matches(MatchDataCollection`1): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.ParameterTypeMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.ParameterTypeMatchData]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchDataCollection`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.ParameterTypeMatchData] Matches 'get set' : 
+  Methods:
+    get_Matches(): PrivateScope, Public, HideBySig, SpecialName
+    set_Matches(MatchDataCollection`1): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.ParameterTypeMatchData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.Unity.InterceptionExtension.ParameterKind): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.Unity.InterceptionExtension.ParameterKind, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.ParameterKind ParameterKind 'get set' : 
+  Methods:
+    get_ParameterKind(): PrivateScope, Public, HideBySig, SpecialName
+    set_ParameterKind(ParameterKind): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PerformanceCounterCallHandlerData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CallHandlerData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String CategoryName 'get set' : 
+    System.String InstanceName 'get set' : 
+    Boolean UseTotalCounter 'get set' : 
+    Boolean IncrementNumberOfCalls 'get set' : 
+    Boolean IncrementCallsPerSecond 'get set' : 
+    Boolean IncrementAverageCallDuration 'get set' : 
+    Boolean IncrementTotalExceptions 'get set' : 
+    Boolean IncrementExceptionsPerSecond 'get set' : 
+  Methods:
+    get_CategoryName(): PrivateScope, Public, HideBySig, SpecialName
+    set_CategoryName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_InstanceName(): PrivateScope, Public, HideBySig, SpecialName
+    set_InstanceName(String): PrivateScope, Public, HideBySig, SpecialName
+    get_UseTotalCounter(): PrivateScope, Public, HideBySig, SpecialName
+    set_UseTotalCounter(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementNumberOfCalls(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementNumberOfCalls(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementCallsPerSecond(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementCallsPerSecond(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementAverageCallDuration(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementAverageCallDuration(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementTotalExceptions(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementTotalExceptions(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_IncrementExceptionsPerSecond(): PrivateScope, Public, HideBySig, SpecialName
+    set_IncrementExceptionsPerSecond(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PolicyData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedConfigurationElement
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElementCollection`2[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData,Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.CustomMatchingRuleData] MatchingRules 'get set' : 
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NameTypeConfigurationElementCollection`2[Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CallHandlerData,Microsoft.Practices.EnterpriseLibrary.Common.Configuration.CustomCallHandlerData] Handlers 'get set' : 
+  Methods:
+    get_MatchingRules(): PrivateScope, Public, HideBySig, SpecialName
+    set_MatchingRules(NameTypeConfigurationElementCollection`2): PrivateScope, Public, HideBySig, SpecialName
+    get_Handlers(): PrivateScope, Public, HideBySig, SpecialName
+    set_Handlers(NameTypeConfigurationElementCollection`2): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PolicyInjectionSettings: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SerializableConfigurationSection
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.ContainerModel.ITypeRegistrationsProvider
+  Fields:
+    System.String SectionName = policyInjection : Public, Static, Literal, HasDefault
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.Common.Configuration.NamedElementCollection`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PolicyData] Policies 'get set' : 
+  Methods:
+    get_Policies(): PrivateScope, Public, HideBySig, SpecialName
+    set_Policies(NamedElementCollection`1): PrivateScope, Public, HideBySig, SpecialName
+    ConfigureContainer(IUnityContainer, IConfigurationSource): PrivateScope, Public, HideBySig
+    GetRegistrations(IConfigurationSource): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetUpdatedRegistrations(IConfigurationSource): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PropertyMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PropertyMatchData]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchDataCollection`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PropertyMatchData] Matches 'get set' : 
+  Methods:
+    get_Matches(): PrivateScope, Public, HideBySig, SpecialName
+    set_Matches(MatchDataCollection`1): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.PropertyMatchData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption MatchOption 'get set' : 
+  Methods:
+    get_MatchOption(): PrivateScope, Public, HideBySig, SpecialName
+    set_MatchOption(PropertyMatchingOption): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.ReturnTypeMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.StringBasedMatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Match 'get set' : 
+  Methods:
+    get_Match(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Match(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.InjectionFriendlyRuleDrivenPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.RuleDrivenPolicy
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule], System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.TagAttributeMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.StringBasedMatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Match 'get set' : 
+  Methods:
+    get_Match(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    set_Match(String): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.TypeMatchingRuleData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchingRuleData
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchData]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchDataCollection`1[Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Configuration.MatchData] Matches 'get set' : 
+  Methods:
+    get_Matches(): PrivateScope, Public, HideBySig, SpecialName
+    set_Matches(MatchDataCollection`1): PrivateScope, Public, HideBySig, SpecialName
+    GetRegistrations(String): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.Installers.PerformanceCountersInstaller: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.EnterpriseLibrary.Common.Configuration.Manageability.Installer
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.InstanceInterceptionPolicySettingInjectionMember: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionMember
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IInstanceInterceptor): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.IInstanceInterceptor Interceptor 'get set' : 
+  Methods:
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig
+    get_Interceptor(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.AssemblyMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.CustomAttributeMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.MemberNameMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.MethodSignatureMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.NamespaceMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.ParameterTypeMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.PropertyMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.ReturnTypeMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.TagAttributeMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.MatchingRules.TypeMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.PolicyInjection: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Create(Object[]): PrivateScope, Public, Static, HideBySig
+    Create(Object[]): PrivateScope, Public, Static, HideBySig
+    Create(Type, Object[]): PrivateScope, Public, Static, HideBySig
+    Create(Type, Type, Object[]): PrivateScope, Public, Static, HideBySig
+    Wrap(Object): PrivateScope, Public, Static, HideBySig
+    Wrap(Type, Object): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.EnterpriseLibrary.PolicyInjection.PolicyInjector: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.ServiceLocation.IServiceLocator): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Methods:
+    Wrap(Object): PrivateScope, Public, HideBySig
+    Wrap(Type, Object): PrivateScope, Public, HideBySig
+    Create(Object[]): PrivateScope, Public, HideBySig
+    Create(Object[]): PrivateScope, Public, HideBySig
+    Create(Type, Object[]): PrivateScope, Public, HideBySig
+    Create(Type, Type, Object[]): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask

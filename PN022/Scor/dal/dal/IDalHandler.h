@@ -1,3 +1,13 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      IDalHandler.h
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      IDalHandler interface header file.
+*/
+
 #pragma once
 
 #include "stdafx.h"
@@ -19,7 +29,9 @@ namespace AtCor{
 			private interface class IDalHandler 
 			{
 				public:
-					void StartCapture();
+					//void StartCapture();
+					void StartCapture(int captureTime, int samplingRate); //new parametrized method
+					
 					void StopCapture();
 					bool GetConnectionStatus();
 					bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 

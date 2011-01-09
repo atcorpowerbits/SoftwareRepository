@@ -1,3 +1,13 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalDeviceHandler.h
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      DalDeviceHandler class header file.
+*/
+
 #pragma once
 
 #include "stdafx.h"
@@ -37,7 +47,8 @@ namespace AtCor{
 					*
 					* @warning This is a stub only. Not yet implemented.
 					*/
-					virtual void StartCapture();
+					//virtual void StartCapture();
+					virtual void StartCapture(int captureTime, int samplingRate);
 
 					/**
 					* Stops an ongoing data capture.

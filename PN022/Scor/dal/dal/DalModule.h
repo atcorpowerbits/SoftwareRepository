@@ -1,4 +1,15 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalModule.h
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      Header file for DalModule class.
+*/
+
 #pragma once
+
 
 #include "stdafx.h"
 #include "DalCommon.h"
@@ -21,10 +32,6 @@ namespace AtCor{
 			public ref class DalModule
 			{
 			private:
-                // constant declarations
-                static const unsigned int DAL_NULLCOMMPORT_ERR      = 303; 
-                static const unsigned int DAL_SIMULATION            = 10056; 
-
 				static DalModule^ _instance = gcnew DalModule();
 				DalModule();
 				DalModule(const DalModule^);
@@ -32,8 +39,9 @@ namespace AtCor{
 
 				IDalHandler^ _currentDevice;
 				CaptureType _captureDataType;
-				
+
 			public:
+
 				
 				/**
 				* Returns the current singleton instance.
@@ -60,7 +68,8 @@ namespace AtCor{
 				/**
 				* Starts the data capture from the selected device.
 				*/
-				void StartCapture();
+				//void StartCapture();
+				void StartCapture(int captureTime, int samplingRate);
 
 				/**
 				* Stops the data capture from the active device.

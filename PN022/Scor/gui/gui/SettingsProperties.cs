@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Gui.Atcor.Scor.Presentation
+namespace AtCor.Scor.Gui.Presentation
 {
     //public delegate void SettingsChangedEventHandler(Object sender,EventArgs  args);
     
    public static class SettingsProperties
     {
-       //public event SettingsChangedEventHandler OnSettingsChangedEvent;
+        //public event SettingsChangedEventHandler OnSettingsChangedEvent;
+
+        #region Child Form Handles
+        public static Telerik.WinControls.UI.RadForm reportChildForm;
+        #endregion
 
         #region General settings private variables
 
         private static bool patient_privacy = false;
         private static int height_weight_units = 0;
         private static int blood_pressure = 0;
+        private static int patientinternalnumber = 0;
+        private static int groupid = 0;
 
         #endregion
 
@@ -25,10 +31,33 @@ namespace Gui.Atcor.Scor.Presentation
         private static int capture_time = 0;
         private static bool cuff_location = false;
         private static bool reference_range = false;
+        private static string pwvcurrentstudydatetime = string.Empty; 
        
         #endregion
 
         #region General settings properties
+        public static int PatientInternalNumber
+        {
+            get
+            {
+                return patientinternalnumber;
+            }
+            set
+            {
+                patientinternalnumber = value;
+            }
+        }
+        public static int GroupID
+        {
+            get
+            {
+                return groupid;
+            }
+            set
+            {
+                groupid = value;
+            }
+        }
         public static int HeightWeightUnits
         {
             get
@@ -68,6 +97,18 @@ namespace Gui.Atcor.Scor.Presentation
         #endregion
 
         #region PWV settings properties
+        public static string PwvCurrentStudyDatetime
+        {
+            get
+            {
+                return pwvcurrentstudydatetime;
+            }
+            set
+            {
+                pwvcurrentstudydatetime = value;
+            }
+        }
+
         public static int PwvDistanceUnits
         {
             get

@@ -182,6 +182,20 @@
 			AssemblyName="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
+		<AssemblyReference
+			RelativePath=".\dal_Accessor.dll"
+			AssemblyName="dal_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
+			MinFrameworkVersion="0"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{E274BA19-F920-40C0-8747-214688D2ABB3}"
+			RelativePathToProject=".\dal\dal\dal.vcproj"
+		/>
+		<AssemblyReference
+			RelativePath="..\Debug\crx.dll"
+			AssemblyName="crx, Version=1.0.4003.30914, processorArchitecture=x86"
+			MinFrameworkVersion="0"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -191,6 +205,14 @@
 			>
 			<File
 				RelativePath=".\AssemblyInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalDataBufferTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalPwvDataStructTest.cpp"
 				>
 			</File>
 			<File
@@ -212,10 +234,6 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\UnitTest1.cpp"
-				>
 			</File>
 		</Filter>
 		<Filter
@@ -243,6 +261,14 @@
 			</File>
 			<File
 				RelativePath=".\app.rc"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Test References"
+			>
+			<File
+				RelativePath=".\dal_Accessor.dll"
 				>
 			</File>
 		</Filter>
