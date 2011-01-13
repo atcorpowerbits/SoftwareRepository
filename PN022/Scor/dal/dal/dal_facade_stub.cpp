@@ -3,7 +3,6 @@
 #include "stdafx.h"
 
 #include "dal_stub.h"
-#include "dal_stub_constants.h"
 #include "dal_facade_stub.h"
 #include "DalEventContainer.h"
 #include "DalEventContainerStub.h"
@@ -27,7 +26,7 @@ void DalFacade::SimulateCaptureOneShot()
 	DalEventContainer::Instance->OnDalTonometerDataEvent(this, gcnew DalTonometerDataEventArgs(1234));
 	DalEventContainer::Instance->OnDalCuffPulseEvent(this, gcnew DalCuffPulseEventArgs(5678));
 	DalEventContainerStub::Instance->OnDalCountdownTimerEvent(this, gcnew DalCountdownTimerEventArgs(9000));
-	DalEventContainerStub::Instance->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(0x0100));
+	DalEventContainerStub::Instance->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(0x0900));
 
 	status = ErrorStatus; //AlarmStatus;   // simulate alarm or error
 	source = DualSensors; //OverPressure; // source to be read interpretted when GetErrorAlarmSource is called
@@ -56,8 +55,8 @@ void DalFacade::SimulateCaptureData()
 	{
 	case TonometerAndCuffPulseCombination:
 		captureTimer->Elapsed += gcnew ElapsedEventHandler( &DalFacade::OnCaptureTimedEvent );
-		dataFile = gcnew DalSimulationFile("./simulation/pwv/Default.dat");
-		timerFile = gcnew DalSimulationFile("./cuff_timer.dat");
+		dataFile = gcnew DalSimulationFile("./simulation/pwv/Simulation_stub.dat");
+		timerFile = gcnew DalSimulationFile("./simulation/pwv/cuff_timer_stub.dat");
 		break;
 	default:
 		return; // nothing to simulate
@@ -74,11 +73,11 @@ void DalFacade::SimulateCaptureData()
 }
 void DalFacade::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 {
-	int tonometerData;
-	int cuffPulse;
-	unsigned int newPressure;
-	unsigned int newStatus;
-	unsigned int newCountdown;
+	unsigned long tonometerData;
+	unsigned long cuffPulse;
+	unsigned long newPressure;
+	unsigned long newStatus;
+	unsigned long newCountdown;
 	unsigned long newSource;
 
 	// Read new timer data if it's counted down to zero
@@ -89,10 +88,10 @@ void DalFacade::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 			&newPressure,
 			&newStatus, 
 			&newSource);
-		DalFacade::Instance()->countDown = newCountdown;
-		DalFacade::Instance()->cuffPressure = newPressure;
-		DalFacade::Instance()->status = newStatus;
-		DalFacade::Instance()->source = newSource;
+		DalFacade::Instance()->countDown = (short)newCountdown;
+		DalFacade::Instance()->cuffPressure = (short)newPressure;
+		DalFacade::Instance()->status = (short)newStatus;
+		DalFacade::Instance()->source = (short)newSource;
 	}
 	// Read PWV simulation data
 	DalFacade::Instance()->dataFile->GetNextValues(
@@ -100,8 +99,8 @@ void DalFacade::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 		&cuffPulse);
 
 	// Notify observers to generate corresponding events
-	DalEventContainer::Instance->OnDalTonometerDataEvent(DalEventContainer::Instance, gcnew DalTonometerDataEventArgs(tonometerData));
-	DalEventContainer::Instance->OnDalCuffPulseEvent(DalEventContainer::Instance, gcnew DalCuffPulseEventArgs(cuffPulse));
+	DalEventContainer::Instance->OnDalTonometerDataEvent(DalEventContainer::Instance, gcnew DalTonometerDataEventArgs((unsigned short)tonometerData));
+	DalEventContainer::Instance->OnDalCuffPulseEvent(DalEventContainer::Instance, gcnew DalCuffPulseEventArgs((unsigned short)cuffPulse));
 	DalEventContainerStub::Instance->OnDalCountdownTimerEvent(DalEventContainerStub::Instance, gcnew DalCountdownTimerEventArgs(DalFacade::Instance()->countDown));
 	DalEventContainerStub::Instance->OnDalCuffStatusEvent(DalEventContainerStub::Instance, 
 		gcnew DalCuffStatusEventArgs(DalFacade::Instance()->status & 0x2F00));
@@ -181,5 +180,32 @@ String^ DalFacade::MapAlarmSourceToString(unsigned short alarmSource)
 		break;
 	}
 	return sourceText;
+}
+
+bool DalFacade::SaveCaptureData(
+	array< unsigned short >^ tonometerData, 
+	array< unsigned short >^ cuffPulse, 
+	unsigned short bufferSize)
+{
+	DalSimulationFile^ simulationOutputFile; //Pointer to first simulation file
+	unsigned short index = 0;
+	bool saved = false;
+
+    // construct the simulation file path, based on the file name selected
+    // by user in "system - settings - PWV Settings - simulation type"
+    String^ tempFilePath = ".\\simulation\\pwv\\";
+    String^ tempFileExt = ".dat";
+	simulationOutputFile = gcnew DalSimulationFile();
+	if (simulationOutputFile->CreateFile(tempFilePath + "pwv-20101122-1700" + tempFileExt))
+	{
+		while (index < bufferSize)
+		{
+			simulationOutputFile->SaveCurrentValues(tonometerData[index], cuffPulse[index]);
+			index++;
+		}
+		saved = true;
+		simulationOutputFile->CloseFile();
+	}
+	return saved;
 }
 

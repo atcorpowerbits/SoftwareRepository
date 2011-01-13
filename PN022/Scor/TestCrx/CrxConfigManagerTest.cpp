@@ -41,7 +41,7 @@ namespace TestCrx {
 			void SetPath()
 			{
 				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Atcor_2008\\Deepak\\Sprint1-Scor-Code\\Scor\\TestResults");
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults");
 			}
 
 #pragma region Additional test attributes
@@ -95,6 +95,7 @@ namespace TestCrx {
 			{
 				CrxConfigManager^  actual;
 				actual = CrxConfigManager::Instance;
+				Assert::IsNotNull(actual);
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
@@ -128,43 +129,93 @@ namespace TestCrx {
 	//		}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings/SetGeneralSettings
-			/// <summary>
+			 ///<summary>
 			///A test for SetSettingsNode
 			///</summary>
-	/*public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]*/
-			//void SetSettingsNodeTest()
-			//{
-			//	CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-			//	String^  Section = System::String::Empty; // TODO: Initialize to an appropriate value
-			//	String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
-			//	CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-			//	CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
-			//	XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-			//	//Smarajit Mishra
-			//	//Remove the set functionality becuase we don't have the proper node object for XML
-			//	//target->SetSettingsNode(Section, SubSection, gs, ps, node);
-			//	//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-			//}
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void SetSettingsNodeTest()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+				String^  Section = System::String::Empty; // TODO: Initialize to an appropriate value
+				String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+				CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+				//Smarajit Mishra
+				int expected = 0; // TODO: Initialize to an appropriate value
+				int actual;
+				Section = "GENERAL";
+				SubSection = "USER";
+				//Remove the set functionality becuase we don't have the proper node object for XML
+				
+				//smarajit				
+				try
+				{
+					XmlDocument^ doc = gcnew XmlDocument;
+
+					doc->LoadXml( "<root>" "<elem>some text<child/>more text</elem>" "</root>" );
+
+					XmlNode^ elem = doc->DocumentElement->FirstChild;
+										
+					target->SetSettingsNode(Section, SubSection, gs, ps, elem);
+				}
+				catch(Exception^)
+				{
+					actual =0;
+				}
+				Assert::AreEqual (expected,actual);
+
+				try
+				{										
+					target->SetSettingsNode(Section, SubSection, gs, ps, node);
+				}
+				catch(Exception^)
+				{
+					actual =0;
+				}
+				Assert::AreEqual (expected,actual);
+				//smarajit			
+
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings/SetGeneralSettings
-	//		/// <summary>
-	//		///A test for SetSettings
-	//		///</summary>
-	//public: [TestMethod]
-	//		[DeploymentItem(L"crx.dll")]
-	//		void SetSettingsTest()
-	//		{
-	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-	//			String^  Section = System::String::Empty; // TODO: Initialize to an appropriate value
-	//			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
-	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-	//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
-	//			//Smarajit Mishra
-	//			//Remove the set functionality becuase we don't have the proper node object for XML
-	//			//target->SetSettings(Section, SubSection, gs, ps);
-	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-	//		}
+			/// <summary>
+			///A test for SetSettings
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void SetSettingsTest()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+				String^  Section = System::String::Empty; // TODO: Initialize to an appropriate value
+				String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+				CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+				
+				Section = "GENERAL";
+				SubSection= "USER";
+				int actual;
+				int expected = 0;
+				String^ path = Directory::GetCurrentDirectory(); 
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\");
+
+				try
+				{
+					target->SetSettings(Section, SubSection, gs, ps);
+				}
+				catch(Exception^)
+				{
+					actual = 0;
+				}
+				Assert::AreEqual(expected,actual);
+				//Assert::AreNotEqual
+				//Smarajit Mishra
+				//Remove the set functionality becuase we don't have the proper node object for XML
+				//target->SetSettings(Section, SubSection, gs, ps);
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetGeneralSettings
 	//		/// <summary>
@@ -233,9 +284,10 @@ namespace TestCrx {
 				ps->PWVDistanceMethod = 0;
 				ps->FemoralToCuff = true;
 				ps->PWVDistanceUnits = 0;
-				ps->CaptureTime = 0;
+				ps->CaptureTime = 5;
 				ps->ReferenceRange = true;
 				ps->SimulationType = "Default";
+			
 
 				target->SetPwvUserSettings(ps);
 
@@ -244,30 +296,85 @@ namespace TestCrx {
 				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceMethod);
 				Assert::AreEqual(true, target->_instance->PwvSettings->FemoralToCuff);
 				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceUnits);
-				Assert::AreEqual(0, target->_instance->PwvSettings->CaptureTime);
+				Assert::AreEqual(5, target->_instance->PwvSettings->CaptureTime);
 				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
 				Assert::AreEqual("Default", target->_instance->PwvSettings->SimulationType);
 
+				ps->PWVDistanceMethod = 1;
+				ps->FemoralToCuff = false;
+				ps->PWVDistanceUnits = 1;
+				ps->CaptureTime = 10;
+				ps->ReferenceRange = false;
+				ps->SimulationType = nullptr;
+			
+
+				target->SetPwvUserSettings(ps);
+
+				target->GetPwvUserSettings();
+
+				Assert::AreEqual(1, target->_instance->PwvSettings->PWVDistanceMethod);
+				Assert::AreEqual(false, target->_instance->PwvSettings->FemoralToCuff);
+				Assert::AreEqual(1, target->_instance->PwvSettings->PWVDistanceUnits);
+				Assert::AreEqual(10, target->_instance->PwvSettings->CaptureTime);
+				Assert::AreEqual(false, target->_instance->PwvSettings->ReferenceRange);
+				
+				ps->CaptureTime = 20;
+
+				target->SetPwvUserSettings(ps);
+				target->GetPwvUserSettings();
+
+				Assert::AreEqual(20, target->_instance->PwvSettings->CaptureTime);
+
+				//************************//
+				ps->PWVDistanceMethod = 0;
+				ps->FemoralToCuff = true;
+				ps->PWVDistanceUnits = 0;
+				ps->CaptureTime = 5;
+				ps->ReferenceRange = true;
+				ps->SimulationType = "Default";
+			
+
+				target->SetPwvUserSettings(ps);
+
+				/************************************/
+				
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
 
-	//		/// <summary>
-	//		///A test for SetPwvSettingsNode
-	//		///</summary>
-	//public: [TestMethod]
-	//		[DeploymentItem(L"crx.dll")]
-	//		void SetPwvSettingsNodeTest()
-	//		{
-	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-	//			CrxStructPwvSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-	//			//Smarajit Mishra
-	//			//Remove the set functionality becuase we don't have the proper node object for XML
-	//			//target->SetPwvSettingsNode(gs, node);
-	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-	//		}
+			/// <summary>
+			///A test for SetPwvSettingsNode
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void SetPwvSettingsNodeTest()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+				CrxStructPwvSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+				int actual;
+				int expected = 0;
+				try
+				{
+					XmlDocument^ doc = gcnew XmlDocument;
+
+					doc->LoadXml( "<root>" "<elem>some text<child/>more text</elem>" "</root>" );
+
+					XmlNode^ elem = doc->DocumentElement->FirstChild;
+										
+					target->SetPwvSettingsNode(gs, elem);
+				}
+				catch(Exception^)
+				{
+					actual =0;
+				}
+				Assert::AreEqual (expected,actual);
+				//Smarajit Mishra
+				//Remove the set functionality becuase we don't have the proper node object for XML
+				//target->SetPwvSettingsNode(gs, node);
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
 
@@ -351,15 +458,39 @@ namespace TestCrx {
 				CrxStructGeneralSetting^  gs = gcnew CrxStructGeneralSetting();
 				CrxConfigManagerTest::SetPath();
 
-				gs->BloodPressureEntryOptions = 1;
+				gs->BloodPressureEntryOptions = 0;
 				gs->CommsPort = "Simulation";
-				gs->HeightandWeightUnit= 1;
-				gs->PatientPrivacy = false;
+				gs->HeightandWeightUnit= 0;
+				gs->PatientPrivacy = true;
 				gs->ReportLogoPath = "D:\\EXTRA_DESKTOP\\ERROR.JPG";
 				gs->ReportTitle = "REPORT DEM TESTFORme";
 				gs->ServerName = "MUM-9638\\SQLEXPRESS";
 				gs->SourceData = "SQLCLIENT";
-				gs->CultureInfo = "EN-en";
+				gs->CultureInfo = "fr-FR";
+
+				target->SetGeneralUserSettings(gs);
+
+				target->GetGeneralUserSettings();
+
+				Assert::AreEqual(0, target->_instance->GeneralSettings->BloodPressureEntryOptions);
+				Assert::AreEqual(0, target->_instance->GeneralSettings->HeightandWeightUnit);
+				Assert::AreEqual(true, target->_instance->GeneralSettings->PatientPrivacy);
+				Assert::AreEqual("Simulation", target->_instance->GeneralSettings->CommsPort);
+				Assert::AreEqual("REPORT DEM TESTFORme", target->_instance->GeneralSettings->ReportTitle);
+				Assert::AreEqual("D:\\EXTRA_DESKTOP\\ERROR.JPG", target->_instance->GeneralSettings->ReportLogoPath);
+				Assert::AreEqual("MUM-9638\\SQLEXPRESS", target->_instance->GeneralSettings->ServerName);
+				Assert::AreEqual("SQLCLIENT", target->_instance->GeneralSettings->SourceData);
+				Assert::AreEqual("fr-FR", target->_instance->GeneralSettings->CultureInfo);
+				
+				gs->BloodPressureEntryOptions = 1;
+				gs->CommsPort = nullptr;
+				gs->HeightandWeightUnit= 1;
+				gs->PatientPrivacy = false;
+				gs->ReportLogoPath = nullptr;
+				gs->ReportTitle = nullptr;
+				gs->ServerName = nullptr;
+				gs->SourceData = nullptr;
+				gs->CultureInfo = nullptr;
 
 				target->SetGeneralUserSettings(gs);
 
@@ -368,33 +499,72 @@ namespace TestCrx {
 				Assert::AreEqual(1, target->_instance->GeneralSettings->BloodPressureEntryOptions);
 				Assert::AreEqual(1, target->_instance->GeneralSettings->HeightandWeightUnit);
 				Assert::AreEqual(false, target->_instance->GeneralSettings->PatientPrivacy);
-				Assert::AreEqual("Simulation", target->_instance->GeneralSettings->CommsPort);
-				Assert::AreEqual("REPORT DEM TESTFORme", target->_instance->GeneralSettings->ReportTitle);
-				Assert::AreEqual("D:\\EXTRA_DESKTOP\\ERROR.JPG", target->_instance->GeneralSettings->ReportLogoPath);
-				Assert::AreEqual("MUM-9638\\SQLEXPRESS", target->_instance->GeneralSettings->ServerName);
-				Assert::AreEqual("SQLCLIENT", target->_instance->GeneralSettings->SourceData);
-				Assert::AreEqual("EN-en", target->_instance->GeneralSettings->CultureInfo);
+				/*Assert::AreEqual(" ", target->_instance->GeneralSettings->CommsPort);
+				Assert::AreEqual(" ", target->_instance->GeneralSettings->ReportTitle);
+				Assert::AreEqual(" ", target->_instance->GeneralSettings->ReportLogoPath);
+				Assert::AreEqual(" ", target->_instance->GeneralSettings->ServerName);
+				Assert::AreEqual(" ", target->_instance->GeneralSettings->SourceData);
+				Assert::AreEqual(" ", target->_instance->GeneralSettings->CultureInfo);*/
 				
+				gs->BloodPressureEntryOptions = 2;
+
+				target->SetGeneralUserSettings(gs);
+
+				target->GetGeneralUserSettings();
+
+				Assert::AreEqual(2, target->_instance->GeneralSettings->BloodPressureEntryOptions);
+
+				//****************************//
+				gs->BloodPressureEntryOptions = 0;
+				gs->CommsPort = "Simulation";
+				gs->HeightandWeightUnit= 0;
+				gs->PatientPrivacy = true;
+				gs->ReportLogoPath = "D:\\EXTRA_DESKTOP\\ERROR.JPG";
+				gs->ReportTitle = "REPORT DEM TESTFORme";
+				gs->ServerName = "MUM-9638\\SQLEXPRESS";
+				gs->SourceData = "SQLCLIENT";
+				gs->CultureInfo = "fr-FR";
+
+				target->SetGeneralUserSettings(gs);
+
+				//*********************************//
+
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetGeneralUserSettings
 
-	//		/// <summary>
-	//		///A test for SetGeneralSettingsNode
-	//		///</summary>
-	//public: [TestMethod]
-	//		[DeploymentItem(L"crx.dll")]
-	//		void SetGeneralSettingsNodeTest()
-	//		{
-	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
-	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
-	//			//Smarajit Mishra
-	//			//Remove the set functionality becuase we don't have the proper node object for XML
-	//			//target->SetGeneralSettingsNode(gs, node);
-	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
-	//		}
+			/// <summary>
+			///A test for SetGeneralSettingsNode
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void SetGeneralSettingsNodeTest()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+				CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+				XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+				//Smarajit Mishra
+				//Remove the set functionality becuase we don't have the proper node object for XML
+				int expected = 0;
+				int actual;
+				try
+				{
+					XmlDocument^ doc = gcnew XmlDocument;
+
+					doc->LoadXml( "<root>" "<elem>some text<child/>more text</elem>" "</root>" );
+
+					XmlNode^ elem = doc->DocumentElement->FirstChild;
+										
+					target->SetGeneralSettingsNode(gs, elem);
+				}
+				catch(Exception^)
+				{
+					actual =0;
+				}
+				Assert::AreEqual (expected,actual);
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
 
@@ -511,6 +681,20 @@ namespace TestCrx {
 				
 				target->GetSourceData("USER", "SQLCLIENT");
 				Assert::AreEqual("SQLCLIENT",target->_instance->GeneralSettings->SourceData);
+
+				target->GetSourceData("DEFAULT", "SQLCLIENT");
+				Assert::AreEqual(nullptr, target->_gSetInternal->SourceData);
+				
+				try
+				{	
+					target->GetSourceData("USER2","XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->SourceData = nullptr;
+				}
+				
+				Assert::AreEqual(nullptr, target->_instance->GeneralSettings->SourceData);
 				//target->GetSourceData(SubSection, ReaderValue);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
@@ -530,6 +714,22 @@ namespace TestCrx {
 
 				target->GetSimulationType("USER", "Simulation1");
 				Assert::AreEqual("Simulation1", target->_instance->PwvSettings->SimulationType);
+
+				target->GetSimulationType("DEFAULT", "Simulation1");
+				Assert::AreEqual("Simulation1", target->_pSetInternal->SimulationType);
+
+			
+				try
+				{	
+					target->GetSimulationType("USER2","XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->PwvSettings->SimulationType = nullptr;
+				}
+				
+				Assert::AreEqual(nullptr, target->_instance->PwvSettings->SimulationType);
+
 
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
@@ -561,7 +761,35 @@ namespace TestCrx {
 				//String^  Section = System::String::Empty; // TODO: Initialize to an appropriate value
 				//String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
 				//target->GetSettings(Section, SubSection);
-				target->GetSettings("GENERAL", "USER");
+
+				String^ path = Directory::GetCurrentDirectory(); 
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code");
+				int actual;
+				int expected = 0;
+				try
+				{
+					target->GetSettings("GENERAL", "USER");
+				}
+				catch(Exception^)
+				{
+					actual = 0 ;
+				}
+
+				Assert::AreEqual(expected,actual);
+
+				CrxConfigManagerTest::SetPath();
+
+				try
+				{
+					target->GetSettings("GENERAL", "USER");
+				}
+				catch(Exception^)
+				{
+					actual = 0 ;
+				}
+
+				Assert::AreEqual(expected,actual);
+
 
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
@@ -578,6 +806,20 @@ namespace TestCrx {
 				
 				target->GetServerName("USER", "MUM-9638\\SQLEXPRESS");
 				Assert::AreEqual("MUM-9638\\SQLEXPRESS",target->_instance->GeneralSettings->ServerName);
+
+				target->GetServerName("DEFAULT", "MUM-9638\\SQLEXPRESS");
+				Assert::AreEqual(nullptr, target->_gSetInternal->ServerName);
+				
+				try
+				{	
+					target->GetServerName("USER2","XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->ServerName = nullptr;
+				}
+				
+				Assert::AreEqual(nullptr, target->_gSetInternal->ServerName);
 
 				//target->GetServerName(SubSection, ReaderValue);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
@@ -600,6 +842,20 @@ namespace TestCrx {
 				target->GetReportTitle("USER", "ReportTitle2");
 				Assert::AreEqual("ReportTitle2", target->_instance->GeneralSettings->ReportTitle);
 				
+				target->GetReportTitle("DEFAULT", "ReportTitle2");
+				Assert::AreEqual(nullptr, target->_gSetInternal->ReportTitle);
+				
+				try
+				{	
+					target->GetReportTitle("USER2","XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->ReportTitle = nullptr;
+				}
+				
+				Assert::AreEqual(nullptr, target->_instance->GeneralSettings->ReportTitle);
+
 				
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
@@ -619,6 +875,20 @@ namespace TestCrx {
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 				target->GetReportLogoPath("USER", "D:\\EXTRA_DESKTOP\\ERROR.JPG");
 				Assert::AreEqual("D:\\EXTRA_DESKTOP\\ERROR.JPG", target->_instance->GeneralSettings->ReportLogoPath);
+
+				target->GetReportLogoPath("DEFAULT", "D:\\EXTRA_DESKTOP\\ERROR.JPG");
+				Assert::AreEqual(nullptr, target->_gSetInternal->ReportLogoPath);
+				
+				try
+				{	
+					target->GetReportLogoPath("USER2","XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->ReportLogoPath = nullptr;
+				}
+				
+				Assert::AreEqual(nullptr, target->_instance->GeneralSettings->ReportLogoPath);
 			}
 			/// <summary>
 			///A test for GetReferenceRange
@@ -641,6 +911,17 @@ namespace TestCrx {
 				target->GetReferenceRange("USER","Yes");
 				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
 
+				try
+				{	
+					target->GetReferenceRange("USER","XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->PwvSettings->ReferenceRange = true;
+				}
+				
+				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
+
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
@@ -658,7 +939,7 @@ namespace TestCrx {
 				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceMethod);
 				Assert::AreEqual(true, target->_instance->PwvSettings->FemoralToCuff);
 				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceUnits);
-				Assert::AreEqual(0, target->_instance->PwvSettings->CaptureTime);
+				Assert::AreEqual(5, target->_instance->PwvSettings->CaptureTime);
 				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
 				Assert::AreEqual("Default", target->_instance->PwvSettings->SimulationType);
 
@@ -675,6 +956,23 @@ namespace TestCrx {
 				String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
 				String^  SubSectionNode = System::String::Empty; // TODO: Initialize to an appropriate value
 				String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+				int actual;
+				int expected = 0;
+				try
+				{
+					XmlDocument^ doc = gcnew XmlDocument;
+
+					doc->LoadXml( "<root>" "<elem>some text<child/>more text</elem>" "</root>" );
+
+					XmlNode^ elem = doc->DocumentElement->FirstChild;
+										
+					target->GetPwvSettingsNode(SubSection, "USER2", ReaderValue);
+				}
+				catch(Exception^)
+				{
+					actual =0;
+				}
+				Assert::AreEqual (expected,actual);
 				//target->GetPwvSettingsNode(SubSection, SubSectionNode, ReaderValue);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
@@ -698,6 +996,19 @@ namespace TestCrx {
 
 				target->GetPwvDistanceUnits("USER","cm");
 				Assert::AreEqual(1, target->_instance->PwvSettings->PWVDistanceUnits);
+				
+				try
+				{
+					target->GetPwvDistanceUnits("USER","cm2");
+				}
+				catch(Exception^)
+				{
+					target->_instance->PwvSettings->PWVDistanceUnits = 2;
+				}
+
+				Assert::AreEqual(2, target->_instance->PwvSettings->PWVDistanceUnits);
+				//Assert::AreEqual(1, target->_instance->PwvSettings->PWVDistanceUnits);
+
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
@@ -720,6 +1031,16 @@ namespace TestCrx {
 
 				target->GetPwvDistanceMethods("USER","DIRECT");
 				Assert::AreEqual(1, target->_instance->PwvSettings->PWVDistanceMethod);
+
+				try
+				{
+					target->GetPwvDistanceMethods("USER","DIRECT2");
+				}
+				catch(Exception^)
+				{
+					target->_instance->PwvSettings->PWVDistanceMethod = 2;
+				}
+				Assert::AreEqual(2, target->_instance->PwvSettings->PWVDistanceMethod);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
@@ -740,7 +1061,7 @@ namespace TestCrx {
 				Assert::AreEqual(0, objPwvSettings->PWVDistanceMethod);
 				Assert::AreEqual(true, objPwvSettings->FemoralToCuff);
 				Assert::AreEqual(0, objPwvSettings->PWVDistanceUnits);
-				Assert::AreEqual(0, objPwvSettings->CaptureTime);
+				Assert::AreEqual(5, objPwvSettings->CaptureTime);
 				Assert::AreEqual(true, objPwvSettings->ReferenceRange);
 				Assert::AreEqual("Default Simulation file", objPwvSettings->SimulationType);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
@@ -766,6 +1087,16 @@ namespace TestCrx {
 				target->GetPatientPrivacy("USER","Yes");
 				Assert::AreEqual(true, target->_instance->GeneralSettings->PatientPrivacy);
 				
+				try
+				{	
+					target->GetPatientPrivacy("USER", "XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->PatientPrivacy = true;
+				}
+				
+				Assert::AreEqual(true, target->_instance->GeneralSettings->PatientPrivacy);
 
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
@@ -789,6 +1120,17 @@ namespace TestCrx {
 				target->GetHeightWeight("USER", "IMPERIAL");
 				Assert::AreEqual(1, target->_instance->GeneralSettings->HeightandWeightUnit);
 
+				try
+				{	
+					target->GetHeightWeight("USER", "IMPERIAL2");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->HeightandWeightUnit = 2;
+				}
+				
+				Assert::AreEqual(2, target->_instance->GeneralSettings->HeightandWeightUnit);
+
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
@@ -804,9 +1146,9 @@ namespace TestCrx {
 				CrxConfigManagerTest::SetPath();
 				target->GetGeneralUserSettings();
 
-				Assert::AreEqual(1, target->_instance->GeneralSettings->BloodPressureEntryOptions);
-				Assert::AreEqual(1, target->_instance->GeneralSettings->HeightandWeightUnit);
-				Assert::AreEqual(false, target->_instance->GeneralSettings->PatientPrivacy);
+				Assert::AreEqual(0, target->_instance->GeneralSettings->BloodPressureEntryOptions);
+				Assert::AreEqual(0, target->_instance->GeneralSettings->HeightandWeightUnit);
+				Assert::AreEqual(true, target->_instance->GeneralSettings->PatientPrivacy);
 				Assert::AreEqual("Simulation", target->_instance->GeneralSettings->CommsPort);
 				Assert::AreEqual("REPORT DEM TESTFORme", target->_instance->GeneralSettings->ReportTitle);
 				Assert::AreEqual("D:\\EXTRA_DESKTOP\\ERROR.JPG", target->_instance->GeneralSettings->ReportLogoPath);
@@ -824,7 +1166,22 @@ namespace TestCrx {
 				String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
 				String^  SubSectionNode = System::String::Empty; // TODO: Initialize to an appropriate value
 				String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
-				//target->GetGeneralSettingsNode(SubSection, SubSectionNode, ReaderValue);
+				
+				int expected = 0; // TODO: Initialize to an appropriate value
+				int actual;
+				SubSection = "USER";
+				SubSectionNode= "X2";
+
+				try
+				{
+					target->GetGeneralSettingsNode(SubSection, SubSectionNode, ReaderValue);
+				}
+				catch(Exception^)
+				{
+					actual = 0;
+				}
+
+				Assert::AreEqual(expected,actual);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
@@ -871,6 +1228,18 @@ namespace TestCrx {
 
 				target->GetFemoralToCuff("USER", "No");
 				Assert::AreEqual(false,  target->_instance->PwvSettings->FemoralToCuff);
+				
+				try
+				{
+					target->GetFemoralToCuff("USER", "XX");
+				}
+				//Catch if any of the exception occurs in XML Reader
+				catch (Exception^) 
+				{
+					target->_instance->PwvSettings->FemoralToCuff = true;
+				}
+				Assert::AreEqual(true, target->_instance->PwvSettings->FemoralToCuff);
+				
 
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
@@ -887,6 +1256,20 @@ namespace TestCrx {
 				
 				target->GetCultureInfo("USER", "EN-en");
 				Assert::AreEqual("EN-en",target->_instance->GeneralSettings->CultureInfo);
+
+				target->GetCultureInfo("DEFAULT", "SQLCLIENT");
+				Assert::AreEqual(nullptr, target->_gSetInternal->CultureInfo);
+				
+				try
+				{	
+					target->GetCultureInfo("USER2","XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->CultureInfo = nullptr;
+				}
+				
+				Assert::AreEqual(nullptr, target->_instance->GeneralSettings->CultureInfo);
 
 				//target->GetCultureInfo(SubSection, ReaderValue);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
@@ -907,6 +1290,21 @@ namespace TestCrx {
 
 				target->GetCommsPort("USER", "COMMS1");
 				Assert::AreEqual("COMMS1",  target->_instance->GeneralSettings->CommsPort);
+
+				target->GetCommsPort("DEFAULT", "COMMS1");
+				Assert::AreEqual(nullptr,  target->_gSetInternal->CommsPort);
+				
+				try
+				{	
+					target->GetCommsPort("USER2", "MPANDXX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->CommsPort = nullptr;
+				}
+				
+				Assert::AreEqual(nullptr, target->_instance->GeneralSettings->CommsPort);
+
 				
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
@@ -925,8 +1323,21 @@ namespace TestCrx {
 				//Pass the required inout to get the expected result
 
 				target->GetCaptureTime("USER", "5SECONDS");
-				Assert::AreEqual(0, target->_instance->PwvSettings->CaptureTime);
+				Assert::AreEqual(5, target->_instance->PwvSettings->CaptureTime);
 
+				target->GetCaptureTime("DEFAULT", "5SECONDS");
+				Assert::AreEqual(5, target->_pSetInternal->CaptureTime);
+
+				try
+				{	
+					target->GetCaptureTime("USER", "MPANDXX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->PwvSettings->CaptureTime = 20;
+				}
+
+				Assert::AreEqual(20, target->_instance->PwvSettings->CaptureTime);
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
@@ -950,6 +1361,17 @@ namespace TestCrx {
 				target->GetBloodPressureOption("USER", "MPANDDP");
 				Assert::AreEqual(2, target->_instance->GeneralSettings->BloodPressureEntryOptions);
 								
+				try
+				{	
+					target->GetBloodPressureOption("USER", "MPANDXX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->PwvSettings->ReferenceRange = true;
+				}
+				
+				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
+
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
@@ -961,6 +1383,7 @@ namespace TestCrx {
 			{
 				CrxConfigManager^  unnamed = nullptr; // TODO: Initialize to an appropriate value
 				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor(unnamed));
+				Assert::IsNotNull(target);
 				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 			/// <summary>

@@ -66,6 +66,7 @@ C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\scor.pdb
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\biz.dll
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\crx.dll
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\TelerikData.dll
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
@@ -80,40 +81,362 @@ C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\scor.exe
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\scor.pdb
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\dal.dll
 C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\dal.pdb
-C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\bin\Debug\TelerikData.dll
-C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
-C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
+C:\Documents and Settings\Nitesh.chhedda\Desktop\vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.MainForm.resources
+D:\Vibhuti\Scor\gui\gui\bin\Debug\scor.exe.config
+D:\Vibhuti\Scor\gui\gui\bin\Debug\scor.exe
+D:\Vibhuti\Scor\gui\gui\bin\Debug\scor.pdb
+D:\Vibhuti\Scor\gui\gui\bin\Debug\biz.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\crx.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\TelerikData.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\dal.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+D:\Vibhuti\Scor\gui\gui\bin\Debug\dal.pdb
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+D:\Vibhuti\Scor\gui\gui\bin\Debug\crx.pdb
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+D:\Vibhuti\Scor\gui\gui\bin\Debug\Interop.AcroPDFLib.dll
+D:\Vibhuti\Scor\gui\gui\bin\Debug\AxInterop.AcroPDFLib.dll
+D:\Vibhuti\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+D:\Vibhuti\Scor\gui\gui\obj\Debug\Interop.AcroPDFLib.dll
+D:\Vibhuti\Scor\gui\gui\obj\Debug\AxInterop.AcroPDFLib.dll
+D:\Vibhuti\Scor\gui\gui\obj\Debug\gui.csproj.ResolveComReference.cache
+D:\Vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
+D:\Vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.GUI_POC.resources
+D:\Vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.MainForm.resources
+D:\Vibhuti\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+D:\Vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
+D:\Vibhuti\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+D:\Vibhuti\Scor\gui\gui\obj\Debug\scor.exe
+D:\Vibhuti\Scor\gui\gui\obj\Debug\scor.pdb
+G:\Vibhuti\Scor\gui\gui\bin\Debug\scor.exe.config
+G:\Vibhuti\Scor\gui\gui\obj\Debug\Interop.AcroPDFLib.dll
+G:\Vibhuti\Scor\gui\gui\obj\Debug\AxInterop.AcroPDFLib.dll
+G:\Vibhuti\Scor\gui\gui\obj\Debug\gui.csproj.ResolveComReference.cache
+G:\Vibhuti\Scor\gui\gui\obj\Debug\scor.exe
+G:\Vibhuti\Scor\gui\gui\obj\Debug\scor.pdb
+G:\Vibhuti\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+G:\Vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
+G:\Vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.GUI_POC.resources
+G:\Vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.MainForm.resources
+G:\Vibhuti\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+G:\Vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
+G:\Vibhuti\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+G:\Vibhuti\Scor\gui\gui\bin\Debug\scor.exe
+G:\Vibhuti\Scor\gui\gui\bin\Debug\scor.pdb
+G:\Vibhuti\Scor\gui\gui\bin\Debug\biz.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\crx.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\TelerikData.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\dal.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+G:\Vibhuti\Scor\gui\gui\bin\Debug\dal.pdb
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+G:\Vibhuti\Scor\gui\gui\bin\Debug\crx.pdb
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Interop.AcroPDFLib.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\AxInterop.AcroPDFLib.dll
+G:\Vibhuti\Scor\gui\gui\obj\Debug\gui.RadForm1.resources
+G:\Vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.SQLInstanceList.resources
+G:\Vibhuti\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Report.resources
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\office.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Vbe.Interop.dll
+G:\Vibhuti\Scor\gui\gui\bin\Debug\office.xml
+G:\Vibhuti\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.xml
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\scor.exe.config
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\Interop.AcroPDFLib.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\AxInterop.AcroPDFLib.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\gui.csproj.ResolveComReference.cache
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\scor.exe
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\scor.pdb
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\scor.exe
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\scor.pdb
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\biz.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\crx.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\TelerikData.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\dal.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\office.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Vbe.Interop.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\dal.pdb
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\office.xml
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\crx.pdb
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.xml
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\Interop.AcroPDFLib.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\bin\Debug\AxInterop.AcroPDFLib.dll
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.GUI_POC.resources
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Report.resources
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.SQLInstanceList.resources
+D:\Atcor\Sprint4\LatestCode\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\scor.exe.config
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\Interop.AcroPDFLib.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\AxInterop.AcroPDFLib.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\gui.csproj.ResolveComReference.cache
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\scor.exe
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\scor.pdb
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\scor.exe
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\scor.pdb
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\biz.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\crx.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\TelerikData.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\dal.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\office.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Vbe.Interop.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\dal.pdb
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\office.xml
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\crx.pdb
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.xml
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\Interop.AcroPDFLib.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\bin\Debug\AxInterop.AcroPDFLib.dll
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.GUI_POC.resources
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Report.resources
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.SQLInstanceList.resources
+D:\Atcor\Sprint4\backup\After demo\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\scor.exe.config
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\Interop.AcroPDFLib.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\AxInterop.AcroPDFLib.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\gui.csproj.ResolveComReference.cache
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\scor.exe
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\scor.pdb
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\scor.exe
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\scor.pdb
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\biz.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\crx.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\TelerikData.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\dal.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\office.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Vbe.Interop.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\dal.pdb
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\office.xml
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\crx.pdb
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.xml
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\Interop.AcroPDFLib.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\bin\Debug\AxInterop.AcroPDFLib.dll
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.GUI_POC.resources
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Report.resources
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.SQLInstanceList.resources
+G:\Vibhuti\Sprint 4Latest code\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+G:\Sprint 5\Scor\gui\gui\bin\Debug\scor.exe.config
+G:\Sprint 5\Scor\gui\gui\bin\Debug\scor.exe
+G:\Sprint 5\Scor\gui\gui\bin\Debug\scor.pdb
+G:\Sprint 5\Scor\gui\gui\bin\Debug\biz.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\crx.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\TelerikData.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\dal.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\office.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Vbe.Interop.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+G:\Sprint 5\Scor\gui\gui\bin\Debug\dal.pdb
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
+G:\Sprint 5\Scor\gui\gui\bin\Debug\office.xml
+G:\Sprint 5\Scor\gui\gui\bin\Debug\crx.pdb
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+G:\Sprint 5\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.xml
+G:\Sprint 5\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+G:\Sprint 5\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
+G:\Sprint 5\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.GUI_POC.resources
+G:\Sprint 5\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+G:\Sprint 5\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Report.resources
+G:\Sprint 5\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
+G:\Sprint 5\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Setup.resources
+G:\Sprint 5\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.SQLInstanceList.resources
+G:\Sprint 5\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+G:\Sprint 5\Scor\gui\gui\obj\Debug\scor.exe
+G:\Sprint 5\Scor\gui\gui\obj\Debug\scor.pdb
+G:\Sprint 5\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Capture.resources
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\scor.exe.config
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\scor.exe
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\scor.pdb
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\scor.exe
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\scor.pdb
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\biz.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\crx.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\dal.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\TelerikData.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\office.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Vbe.Interop.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\dal.pdb
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\office.xml
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\crx.pdb
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.xml
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Capture.resources
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.GUI_POC.resources
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Report.resources
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Setup.resources
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.SQLInstanceList.resources
+D:\Atcor\Sprint 5\MergedCode_Jan4\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\scor.exe.config
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\scor.exe
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\scor.pdb
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\biz.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\crx.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\dal.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\TelerikData.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\office.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Vbe.Interop.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\dal.pdb
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\office.xml
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\crx.pdb
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.xml
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Capture.resources
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.GUI_POC.resources
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Report.resources
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Setup.resources
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.SQLInstanceList.resources
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\scor.exe
+D:\Atcor\Sprint 5\LatestCode\Scor\gui\gui\obj\Debug\scor.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.exe.config
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.exe
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\scor.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\biz.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\crx.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\TelerikData.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\dal.dll
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.dll
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\TelerikData.dll
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.dll
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\dal.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\crx.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
 C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.Unity.pdb
-C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.pdb
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\Microsoft.Office.Interop.Excel.xml
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Capture.resources
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.DefaultWindow.resources
+C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.GUI_POC.resources
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\gui.Properties.Resources.resources
+C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Report.resources
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.frmSettingsWindow.resources
+C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.Setup.resources
+C:\Projects\PN022\Scor\gui\gui\obj\Debug\AtCor.Scor.Gui.Presentation.SQLInstanceList.resources
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\gui.csproj.GenerateResource.Cache
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\scor.exe
 C:\Projects\PN022\Scor\gui\gui\obj\Debug\scor.pdb

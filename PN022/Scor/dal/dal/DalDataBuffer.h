@@ -26,10 +26,10 @@ namespace AtCor{
 			public ref struct DalPwvDataStruct
 			{
 						public:
-							short tonometerData; /**< Tonometer data */
-							short cuffPulseData; /**< Cuff Pulse data */
-							short cuffPressure; /**< Cuff Pressure data */
-							short countdownTimer; /**< Countdown Timer interval */
+							unsigned long tonometerData; /**< Tonometer data */
+							unsigned long cuffPulseData; /**< Cuff Pulse data */
+							unsigned long cuffPressure; /**< Cuff Pressure data */
+							unsigned long countdownTimer; /**< Countdown Timer interval */
 
 							/**
 							* Constructor for the structure. @n
@@ -190,7 +190,7 @@ namespace AtCor{
 										*
 										* @see	GetValueAt()
 										*/
-										int DalDataBuffer::GetNextValues(int requestedValues, int& readStartIndex );
+										int DalDataBuffer::GetNextValues(int requestedValues, int % readStartIndex );
 
 			};
 

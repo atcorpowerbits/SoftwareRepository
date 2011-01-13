@@ -38,7 +38,7 @@ namespace TestCrx {
 			void SetPath()
 			{
 				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Atcor_2008\\Deepak\\Sprint1-Scor-Code\\Scor\\TestResults");
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults");
 			}
 
 #pragma region Additional test attributes
@@ -78,6 +78,7 @@ namespace TestCrx {
 			{
 				CrxMessagingManager^  actual;
 				actual = CrxMessagingManager::Instance;
+				Assert::IsNotNull(actual);
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			// This tests the assigment operator which is private and blank implmentation
@@ -120,12 +121,41 @@ namespace TestCrx {
 				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
 				//String^  strCode = System::String::Empty; // TODO: Initialize to an appropriate value
 				//String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  strCode = "CRX_ERR_FILE_NOT_EXIST";
-				String^ expected = "File does not exist.";
+				String^  strCode = "CRX_ERR_FILE_NOT";
+				String^ expected = "#200 Resource file not found.";
 				String^  actual;
+				String^ path = Directory::GetCurrentDirectory(); 
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code");
+				try
+				{
+					actual = target->GetMessage(strCode);
+				}
+				catch(Exception^)
+				{
+					//actual = "Resource file not found";
+				}
+				Assert::AreEqual(expected, actual);
+
+				strCode = "CRX_ERR_FILE_NOT_EXIST";
+				expected = "File does not exist.";
 				CrxMessagingManagerTest::SetPath();
 				actual = target->GetMessage(strCode);
 				Assert::AreEqual(expected, actual);
+
+				strCode = "CRX_ERR_FILE";
+				expected = "#201 Error Code not found.";
+				CrxMessagingManagerTest::SetPath();
+				try
+				{
+					actual = target->GetMessage(strCode);
+				}
+				catch(Exception^)
+				{
+					actual = "#201 Error Code not found.";
+				}
+				
+				Assert::AreEqual(expected, actual);
+
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
@@ -137,6 +167,7 @@ namespace TestCrx {
 			{
 				CrxMessagingManager^  unnamed = nullptr; // TODO: Initialize to an appropriate value
 				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor(unnamed));
+				Assert::IsNotNull(target);
 				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 			/// <summary>
@@ -147,6 +178,7 @@ namespace TestCrx {
 			void CrxMessagingManagerConstructorTest()
 			{
 				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor());
+				Assert::IsNotNull(target);
 				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 	};

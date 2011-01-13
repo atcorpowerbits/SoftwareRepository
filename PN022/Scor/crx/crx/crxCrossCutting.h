@@ -7,9 +7,16 @@
  
      Description  :      Declaration for namespaces
 */
+
+#include "CrxConfiguration.h"
+
 #pragma once
 
 using namespace System;
+using namespace System::IO;
+using namespace System::Globalization;
+
+using namespace AtCor::Scor::CrossCutting::Configuration;
 
 /**
  * @namespace	AtCor
@@ -33,6 +40,59 @@ namespace AtCor
 		 */
 		namespace CrossCutting
 		{
+			/**
+			* @class CrxCommon
+			* @brief Common class for CrxCommon namespace.
+			*/
+			public ref class CrxCommon
+			{
+			private:					
+
+				//singleton instance
+				static CrxCommon^ _instance = gcnew CrxCommon();
+
+				//Default Constructor, also initializes all the structure references.
+				CrxCommon()
+				{
+					GetCommCultureInfo();
+				}
+
+				/**
+				* Copy Constructor
+				*/
+				CrxCommon(const CrxCommon^)
+				{
+					
+				}
+				
+				/**
+				* Assignment Operator
+				*/
+				CrxCommon^ operator=(const CrxCommon^) 
+				{
+					 return this;
+				}     
+
+				CultureInfo^ GetCommCultureInfo();
+				
+
+			public:
+				
+				/**
+				* Singleton Instance property with Only Get accessor
+				*/
+				static property CrxCommon^ Instance
+				{
+					CrxCommon^ get()
+					{
+						return CrxCommon::_instance;
+					};
+				};
+
+				//holds the culture info name 
+				static CultureInfo^ gCI;				
+			};
+
 			/**
 			* @class CrxException
 			* @brief Exception class for CrxConfiguration namespace.

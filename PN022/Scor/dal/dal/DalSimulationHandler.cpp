@@ -14,12 +14,15 @@
 #include "DalSimulationFile.h"
 #include "DalDataBuffer.h"
 #include "DalModule.h"
+#include "DalCommon.h"
+
 
 using namespace System;
 using namespace System::Threading;
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Configuration;
-
+using namespace AtCor::Scor::CrossCutting::Logging;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 
 namespace AtCor{
 	namespace Scor{
@@ -31,8 +34,21 @@ namespace AtCor{
 			DalSimulationHandler::DalSimulationHandler()
 			{
 				//Make both pointers null.
-				_simulationFile1 = nullptr;
-				_simulationFile2 = nullptr;
+
+				if (_tonometerSimulationFile != nullptr)
+				{
+					_tonometerSimulationFile->CloseFile();
+					_tonometerSimulationFile = nullptr;
+				}
+
+				if (_cuffTimerSimulationFile != nullptr)
+				{
+					_cuffTimerSimulationFile->CloseFile();
+					_cuffTimerSimulationFile = nullptr;
+				}
+
+				_currentErrorAlarmFlags = -1;
+				_currentStatusFlags = -1;
 
 				dataBufferObj = DalDataBuffer::Instance;
 
@@ -47,7 +63,9 @@ namespace AtCor{
                     // by user in "system - settings - PWV Settings - simulation type"
                     String^ tempFilePath = ".\\simulation\\pwv\\";
                     String^ tempFileExt = ".dat";
-                    _simulationFile1 = gcnew DalSimulationFile(tempFilePath + configMgr->PwvSettings->SimulationType + tempFileExt);
+                    _tonometerSimulationFile = gcnew DalSimulationFile(tempFilePath + configMgr->PwvSettings->SimulationType + tempFileExt);
+					_cuffTimerSimulationFile = gcnew DalSimulationFile(tempFilePath + "cuff_timer.dat");
+					
                 }
                 catch(CrxException^ exErr)
                 {
@@ -61,34 +79,57 @@ namespace AtCor{
 			void DalSimulationHandler::OnTimerGetValuesAndRaiseEvents(Object^ sender, ElapsedEventArgs^ args)
 			{
 				//variables to hold the tonometer and cuff pulse readings
-				static signed int tonoData, cuffPulseData;
+				static unsigned long tonoData, cuffPulseData;
 				
 				//get the next set of values from the simulation file.
-				_simulationFile1->GetNextValues(&tonoData, &cuffPulseData);
+				_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
 				
 				//raise the tonometer event
-				DalEventContainer::Instance->OnDalTonometerDataEvent(sender, gcnew DalTonometerDataEventArgs(tonoData));
+				DalEventContainer::Instance->OnDalTonometerDataEvent(sender, gcnew DalTonometerDataEventArgs((unsigned short)tonoData));
 				//raise the cuff event
-				DalEventContainer::Instance->OnDalCuffPulseEvent(sender, gcnew DalCuffPulseEventArgs(cuffPulseData));
+				DalEventContainer::Instance->OnDalCuffPulseEvent(sender, gcnew DalCuffPulseEventArgs((unsigned short)cuffPulseData));
+			}			
+
+			void DalSimulationHandler::StartCapture()
+			{
+				//move file to start in case it isn't alreay at start.
+				_tonometerSimulationFile->ResetFileStreamPosition();
+
+				//The interval should come from a global value
+				//initialize a new timer object
+				captureTimer = gcnew Timers::Timer(DalConstants::SimulationTimerInterval);
+				
+				//specify the event handler to handle timer events
+				captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerGetValuesAndRaiseEvents); 
+				
+				//Start the timer.
+				captureTimer->Enabled = true;
+
 			}
 
 			//New method to read n numer of element per interval
 			//At present we will read 256 elements in 1 second
 			void DalSimulationHandler::OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args)
 			{
-				Thread^ simulationWriterThread = gcnew Thread(gcnew ThreadStart(&DalSimulationHandler::ReadMultipleEventsInLoop)); 
-				simulationWriterThread->Start();
+				//using parametrized threadstart to pass parameter
+				Thread^ simulationWriterThread = gcnew Thread(gcnew ParameterizedThreadStart(DalSimulationHandler::ReadMultipleEventsInLoop)); 
+				simulationWriterThread->Start(sender);
+				
 			}
 
-			//new method to be threaded
-			void DalSimulationHandler::ReadMultipleEventsInLoop()
+			//new method to to read data in a loop 
+			void DalSimulationHandler::ReadMultipleEventsInLoop(Object^ sender)
 			{
 				int counter, numberOfReads; 
 				DalPwvDataStruct tempPWVDataVar;
 			
 				//variables to hold the tonometer and cuff pulse readings
-				static signed int tonoData, cuffPulseData;
-
+				static unsigned long tonoData, cuffPulseData;
+				static unsigned long cuffAbsolutePressure;
+				static unsigned long locCountdownTimer;
+				static unsigned long statusBytes, errorAlarmSourceFlag;
+				static unsigned long cuffStatusBytes, errorAlarmStatusBytes; 
+				
 				//Pick the number of reads from DalConstants
 				numberOfReads = DalConstants::SimulationNumberOfReadsPerInterval;
 				
@@ -96,14 +137,46 @@ namespace AtCor{
 				//Read n elements in a loop. 
 				for (counter = 0; counter < numberOfReads ; counter++)
 				{
-					//get the next set of values from the simulation file.
-					_simulationFile1->GetNextValues(&tonoData, &cuffPulseData);
+					if (locCountdownTimer <=0) 
+					{
+						//get next set of values from the cufff simulation file
+						_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &errorAlarmSourceFlag);
 
+						
+						//First break the status flag down into its two important sets
+						//cuff status related bits
+						cuffStatusBytes = statusBytes &0x2F00;
+						//and Error-Alarm event related bits
+						errorAlarmStatusBytes =statusBytes & 0x0028;
+					
+						 if (CheckStatusFlagsChanged(cuffStatusBytes) ==  true)
+						 {
+							 //map the status bytes to a state flag
+							 //	raise a staus change event and update the new flag.
+							DalEventContainer::Instance->OnDalCuffStatusEvent(sender, gcnew DalCuffStatusEventArgs_ORI(TranslateCuffStatusBits(statusBytes),locCountdownTimer, cuffAbsolutePressure));
+						 }
+
+						 if (CheckErrorAlarmFlagsChanged(errorAlarmStatusBytes) == true)
+						 {
+							 //if a change has occured in the error/alarm bits first raise an event 
+							 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(sender, gcnew DalModuleErrorAlarmEventArgs_ORI(TranslateErrorAlarmStatusBits(errorAlarmStatusBytes)));
+							 
+						}
+					}
+
+					//get the next set of values from the tonometer simulation file.
+					_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
+
+					tempPWVDataVar.countdownTimer = locCountdownTimer;
+					tempPWVDataVar.cuffPressure = cuffAbsolutePressure;
 					tempPWVDataVar.tonometerData = tonoData;
 					tempPWVDataVar.cuffPulseData = cuffPulseData;
 
 					//write data to buffer
 					dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
+
+					//decrement the timer after every write operation
+					locCountdownTimer -= DalConstants::DataSamplingInterval;
 				}
 			}
 
@@ -114,26 +187,16 @@ namespace AtCor{
 				dataBufferObj->CreateBuffer(captureTime, samplingRate);
 						
 				//move file to start in case it isn't alreay at start.
-				_simulationFile1->ResetFileStreamPosition();
-
-				//No loger necesary. We are not capturing on every timer event.
-				////The interval should come from a global value
-				////initialize a new timer object
-				//captureTimer = gcnew Timers::Timer(DalConstants::SimulationTimerInterval);
+				_tonometerSimulationFile->ResetFileStreamPosition();
 
 				//PWVS-1 create a new timer to tick every 1 ms 
 				captureTimer = gcnew Timers::Timer(DalConstants::SimulationWriteTimerInterval);
 				
-				////specify the event handler to handle timer events
-				//captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerGetValuesAndRaiseEvents); 
-				//
-
 				//specify the event handler to handle timer events
 				captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerReadMultipleEvents); 
 				
 				//Start the timer.
 				captureTimer->Enabled = true;
-
 			}
 
 			void DalSimulationHandler::StopCapture()
@@ -142,8 +205,7 @@ namespace AtCor{
 				captureTimer->Enabled = false;
 
 				//reset the filestrea position
-				_simulationFile1->ResetFileStreamPosition();
-
+				_tonometerSimulationFile->ResetFileStreamPosition();
 			}
 
 			/**
@@ -192,7 +254,169 @@ namespace AtCor{
 
 				return true;
 			}
+
+			bool DalSimulationHandler::CheckStatusFlagsChanged(unsigned long newStatusFlags) 
+			{
+				if (newStatusFlags != currentStatusFlags )
+				{
+					//Flags have changed . Assign the new flags 
+					currentStatusFlags = newStatusFlags;
+					return true;
+				}
+				else
+				{
+					//no change
+					return false;
+				}
+				
+			}
+			
+			bool DalSimulationHandler::CheckErrorAlarmFlagsChanged(unsigned long newErrorAlarmFlags) 
+			{
+				if (newErrorAlarmFlags != _currentErrorAlarmFlags  )
+				{
+					//Flags have changed . Assign the new flags 
+					_currentErrorAlarmFlags = newErrorAlarmFlags;
+					return true;
+				}
+				else
+				{
+					//no change
+					return false;
+				}
+			}
+			
+			String^ DalSimulationHandler::MapErrorSourceToString(unsigned long sourceFlags) 
+			{
+				static DalErrorSource  errorSourceEnum;
+				errorSourceEnum = safe_cast<DalErrorSource>(sourceFlags);
+
+				dalErrorAlarmSourceName= "";
+
+				switch( errorSourceEnum)
+				{
+					case DalAlarmSource::OverPressure:
+					case DalAlarmSource::InflatedOverTime:
+						dalErrorAlarmSourceName = Enum::Format(DalErrorSource::typeid, errorSourceEnum, "G");
+						break;
+					default:
+						dalErrorAlarmSourceName = "AlarmSourceUnknown";
+						dalErrorAlarmSourceName = dalErrorAlarmSourceName + sourceFlags.ToString();
+						throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						break;
+				}
+
+				return dalErrorAlarmSourceName;
+			}
+			
+			String^ DalSimulationHandler::MapAlarmSourceToString(unsigned long sourceFlags) 
+			{
+				static DalAlarmSource alarmSourceEnum;
+				alarmSourceEnum = safe_cast<DalAlarmSource>(sourceFlags);
+
+				dalErrorAlarmSourceName= "";
+
+				switch( alarmSourceEnum)
+				{
+					case DalAlarmSource::OverPressure:
+					case DalAlarmSource::InflatedOverTime:
+						dalErrorAlarmSourceName = Enum::Format(DalAlarmSource::typeid, alarmSourceEnum, "G");
+						break;
+					default:
+						dalErrorAlarmSourceName = "AlarmSourceUnknown";
+						dalErrorAlarmSourceName = dalErrorAlarmSourceName + sourceFlags.ToString();
+						throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						break;
+				}
+				return dalErrorAlarmSourceName;
+			}
+
 		
+
+			String^ DalSimulationHandler::GetErrorAlarmSource()
+			{
+				static DalModuleErrorAlarmBitMask sourceFlagsEnum;
+				sourceFlagsEnum = safe_cast<DalModuleErrorAlarmBitMask>(_currentErrorAlarmFlags & 0x00000028);
+
+				dalErrorAlarmSourceName= "";
+
+				switch (sourceFlagsEnum)
+				{
+					case DalModuleErrorAlarmBitMask::NoErrorAlarm:
+						dalErrorAlarmSourceName = Enum::Format(DalModuleErrorAlarmBitMask::typeid, sourceFlagsEnum, "G");
+						break;
+					case DalModuleErrorAlarmBitMask::ErrorStatus:
+						dalErrorAlarmSourceName = MapErrorSourceToString(_currentErrorAlarmFlags & 0x0000FFFF);
+						break;
+					case DalModuleErrorAlarmBitMask::AlarmStatus:
+						dalErrorAlarmSourceName = MapAlarmSourceToString((_currentErrorAlarmFlags >> 16) & 0x0000FFFF);
+						break;
+					default:
+						dalErrorAlarmSourceName = "DALUnknownModuleStatus";
+						dalErrorAlarmSourceName = dalErrorAlarmSourceName + _currentErrorAlarmFlags.ToString();
+						throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						break;
+				}
+				return dalErrorAlarmSourceName;
+			}
+
+			DalCuffStateFlags DalSimulationHandler::TranslateCuffStatusBits(unsigned long statusFlags) 
+			{
+				static DalCuffStateFlags data;
+				data = (DalCuffStateFlags)(statusFlags & 0x2F00);
+	
+				switch (data)
+				{
+				case DalCuffStatusBitMask::CUFF_DISCONNECTED_STATUS_BITS:
+					data = DalCuffStateFlags::CUFF_STATE_DISCONNECTED;
+						break;
+				case DalCuffStatusBitMask::CUFF_INFLATING_STATUS_BITS:
+						data = DalCuffStateFlags::CUFF_STATE_INFLATING;
+						break;
+					case DalCuffStatusBitMask::CUFF_INFLATED_STATUS_BITS:
+						data = DalCuffStateFlags::CUFF_STATE_INFLATED;
+						break;
+					case DalCuffStatusBitMask::CUFF_DEFLATING_STATUS_BITS:
+						data = DalCuffStateFlags::CUFF_STATE_DEFLATING;
+						break;
+					case DalCuffStatusBitMask::CUFF_DEFLATED_STATUS_BITS:
+						data = DalCuffStateFlags::CUFF_STATE_DEFLATED;
+						break;
+					default:
+						data = DalCuffStateFlags::CUFF_STATE_UNKNOWN;
+						throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						break;
+				}
+				return data;
+			}
+
+			DalErrorAlarmStatusFlag DalSimulationHandler::TranslateErrorAlarmStatusBits(unsigned long statusFlags)
+			{
+				static DalModuleErrorAlarmBitMask data;
+				static DalErrorAlarmStatusFlag retAlarmValue;
+				data = (DalModuleErrorAlarmBitMask)(statusFlags & 0x2F00);
+
+				switch (data)
+				{
+					case DalModuleErrorAlarmBitMask::NoErrorAlarm:
+						retAlarmValue = DalErrorAlarmStatusFlag::ActiveStatus;
+						break;
+					case DalModuleErrorAlarmBitMask::ErrorStatus:
+						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
+						break;
+					case DalModuleErrorAlarmBitMask::AlarmStatus:
+						retAlarmValue = DalErrorAlarmStatusFlag::RecoverableStatus;
+						break;
+					case DalModuleErrorAlarmBitMask::ErrorAndAlarmStatus:
+						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
+						break;
+					default:
+						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
+						throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						break; 
+				}
+				return retAlarmValue;
+			}
 		}
 	}
 }

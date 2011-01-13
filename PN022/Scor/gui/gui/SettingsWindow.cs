@@ -35,7 +35,7 @@ using Telerik.WinControls.Enumerations;
 namespace AtCor.Scor.Gui.Presentation
 {         
      /**
-     * @class frmSettingsWindow
+     * @class Setting Window
      * @brief This class is used to set General as well as PWV settings for the application.On this window,all the necessary settings will be done which are required by the user at different stages in the application.
      */    
     public partial class frmSettingsWindow : Telerik.WinControls.UI.RadForm
@@ -150,8 +150,8 @@ namespace AtCor.Scor.Gui.Presentation
 
         private delegate void CloseAfterSaveDelegate();
 
-        private delegate void DisplayMessageBoxDelegate(string message);
-        
+        private delegate void DisplayMessageBoxDelegate(string message);  
+                
         // Declaring events for cross-thread communiction.         
         private event DisplaySettingsDelegate OnDisplayUserSettings;
 
@@ -410,13 +410,13 @@ namespace AtCor.Scor.Gui.Presentation
         {
             switch (value)
             {
-                case 0:
+                case 5:
                     rad5Seconds.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
                     break;
-                case 1:
+                case 10:
                     rad10Seconds.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
                     break;
-                case 2:
+                case 20:
                     rad20Seconds.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
                     break;
                 default:
@@ -873,8 +873,11 @@ PATH_SIMUALTION_FILES);
         private void ReadGeneralSettingsFromGui()
         {
             // Setting the values into the configuration object.
-
-            // set the patient privacy option accordingly.
+            CrxConfigManager config = CrxConfigManager.Instance;
+            config.GetGeneralUserSettings();
+            gnrlSettingsStruct.ServerName = config.GeneralSettings.ServerName;
+            gnrlSettingsStruct.SourceData = config.GeneralSettings.SourceData;
+            //// set the patient privacy option accordingly.
             gnrlSettingsStruct.PatientPrivacy = false;
             if (radchkbxPatientPrivacy != null && radchkbxPatientPrivacy.Checked)
             {
@@ -909,7 +912,7 @@ PATH_SIMUALTION_FILES);
             {
                 radtxtReportTitle.Text = null;
             }
-
+          
             gnrlSettingsStruct.ReportLogoPath = picbxReportLogo.ImageLocation;
         }
 
@@ -942,15 +945,15 @@ PATH_SIMUALTION_FILES);
                     pwvSettingsStruct.PWVDistanceUnits = 0;
                 }
 
-                pwvSettingsStruct.CaptureTime = 0;
+                pwvSettingsStruct.CaptureTime = 5;
 
                 if (rad10Seconds.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                 {
-                    pwvSettingsStruct.CaptureTime = 1;
+                    pwvSettingsStruct.CaptureTime = 10;
                 }
                 else if (rad20Seconds.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                 {
-                    pwvSettingsStruct.CaptureTime = 2;
+                    pwvSettingsStruct.CaptureTime = 20;
                 }
 
                 pwvSettingsStruct.SimulationType = comboSimulationFiles.Text;
@@ -1171,7 +1174,7 @@ PATH_SIMUALTION_FILES);
     }
 
     /**
-    * @class DisplaySettingsEventArgs
+    * @class DisplaySettingEventArgs
     * @brief This class is written to create user defined args types which are used in events. 
     */
     public class DisplaySettingsEventArgs : EventArgs

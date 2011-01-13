@@ -10,6 +10,7 @@
 
 #include "stdafx.h"
 #include "DalDeviceHandler.h"
+#include "DalCommon.h"
 
 namespace AtCor{
 	namespace Scor{
@@ -26,7 +27,11 @@ namespace AtCor{
 				_commPort = commPort;
 			}
 
-			//void DalDeviceHandler::StartCapture() //replaced by parametrized method
+			void DalDeviceHandler::StartCapture()
+			{
+				//Stub method, needs to be implemented
+			}
+
 			void DalDeviceHandler::StartCapture(int captureTime, int samplingRate)
 			{
 				//Stub method, needs to be implemented
@@ -85,6 +90,36 @@ namespace AtCor{
 				return false;
 			}
 
+
+			bool DalDeviceHandler::CheckStatusFlagsChanged(unsigned long newStatusFlags) 
+			{
+				return true;
+			}
+			
+			bool DalDeviceHandler::CheckErrorAlarmFlagsChanged(unsigned long newErrorAlarmFlags) 
+				{
+				return true;
+			}
+			
+			String^ DalDeviceHandler::MapErrorSourceToString(unsigned long sourceFlags) 
+			{
+				return nullptr;
+			}
+			
+			String^ DalDeviceHandler::MapAlarmSourceToString(unsigned long sourceFlags) 
+			{
+				return nullptr;
+			}
+
+			String^ DalDeviceHandler::GetErrorAlarmSource() 
+			{
+				return nullptr;
+			}
+
+			DalCuffStateFlags DalDeviceHandler::TranslateCuffStatusBits(unsigned long statusFlags) 
+			{
+				return DalCuffStateFlags::CUFF_STATE_UNKNOWN;
+			}
 			
 		}
 	}

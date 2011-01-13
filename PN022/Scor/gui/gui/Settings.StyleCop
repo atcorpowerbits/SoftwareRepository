@@ -317,12 +317,14 @@
       </Rules>
       <AnalyzerSettings>
         <CollectionProperty Name="Hungarian">
+          <Value>cr</Value>
           <Value>db</Value>
           <Value>ds</Value>
           <Value>dv</Value>
           <Value>i</Value>
           <Value>o</Value>
           <Value>p</Value>
+          <Value>x</Value>
         </CollectionProperty>
       </AnalyzerSettings>
     </Analyzer>

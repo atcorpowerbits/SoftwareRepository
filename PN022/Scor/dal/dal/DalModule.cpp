@@ -29,6 +29,9 @@ namespace AtCor{
 				
 				//Call method to set the current device
 				SetDeviceStrategy();
+				
+				// For testing only
+				measurementCounterTest = true; //TODO:STUB
 			}
 
 			DalModule::DalModule(const AtCor::Scor::DataAccess::DalModule ^)
@@ -43,7 +46,8 @@ namespace AtCor{
 				CrxConfigManager ^configMgr = CrxConfigManager::Instance;
                 configMgr->GetGeneralUserSettings();
 				//Get the simulation type as set in configuration.
-                SetDeviceStrategy(configMgr->GeneralSettings->CommsPort);
+                SetDeviceStrategy(configMgr->GeneralSettings->CommsPort); //TODO: uncomment after devemopemtn
+				//SetDeviceStrategy("COMPORT_SIMULATION");
 				
 			}
 
@@ -77,6 +81,15 @@ namespace AtCor{
 				//overloaded assignment operator.
 				//used to implement singleton.
 				return this;
+			}
+
+			void DalModule::StartCapture()
+			{
+				if (_currentDevice)
+				{
+					//call the active device method
+					_currentDevice->StartCapture();
+				}
 			}
 
 			void DalModule::StartCapture(int captureTime, int samplingRate)
@@ -126,6 +139,72 @@ namespace AtCor{
 				return nullptr;
 			}
 
+			String^ DalModule::GetErrorAlarmSource()
+			{
+				if (_currentDevice)
+				{
+					//call the active device method
+					return _currentDevice->GetErrorAlarmSource();
+				}
+				return nullptr;
+
+			}
+
+				/**
+			GetPWVMeasurementCounter()
+
+			DESCRIPTION
+
+				Returns the PWV measurement counter stored in the firmware.
+
+			INPUT
+
+				None.
+
+			OUTPUT
+
+				count.
+
+			RETURN
+
+				boolean success or not.
+			*/
+			bool DalModule::GetPWVMeasurementCounter( unsigned short% count)
+			{
+				// If the module is not connected return false, otherwise retrieve the count -
+				// value and return true
+
+				count = 0;
+
+				return measurementCounterTest;
+			}
+
+			/**
+			SetPWVMeasurementCounter()
+
+			DESCRIPTION
+
+				Sets the PWV measurement counter stored in the firmware.
+
+			INPUT
+
+				count.
+
+			OUTPUT
+
+				None.
+
+			RETURN
+
+				boolean success or not.
+			*/
+			bool DalModule::SetPWVMeasurementCounter( unsigned short count)
+			{
+				// If the module is not connected return false, otherwise set the count -
+				// value and return true
+
+				return measurementCounterTest;
+			}
 		}
 	}
 }
