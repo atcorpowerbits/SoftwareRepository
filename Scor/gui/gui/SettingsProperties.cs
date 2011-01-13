@@ -5,14 +5,24 @@ using System.Text;
 
 namespace AtCor.Scor.Gui.Presentation
 {
-    //public delegate void SettingsChangedEventHandler(Object sender,EventArgs  args);
-    
+    // public delegate void SettingsChangedEventHandler(Object sender,EventArgs  args);
+   
    public static class SettingsProperties
     {
-        //public event SettingsChangedEventHandler OnSettingsChangedEvent;
-
+        // public event SettingsChangedEventHandler OnSettingsChangedEvent;
+       #region Global variable declaration
+       public static bool setupToReport = false;
+       public static bool hasMeasurementDetails = false;
+       #endregion
         #region Child Form Handles
         public static Telerik.WinControls.UI.RadForm reportChildForm;
+        public static Telerik.WinControls.UI.RadForm captureChildForm;
+        public static Telerik.WinControls.UI.RadForm setupChildForm;
+        #endregion
+
+        #region Global variable declaration
+
+        public static string gCI = string.Empty;
         #endregion
 
         #region General settings private variables
@@ -22,7 +32,8 @@ namespace AtCor.Scor.Gui.Presentation
         private static int blood_pressure = 0;
         private static int patientinternalnumber = 0;
         private static int groupid = 0;
-
+        private static string groupname = string.Empty;
+              
         #endregion
 
         #region PWV settings private variables
@@ -42,28 +53,46 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 return patientinternalnumber;
             }
+
             set
             {
                 patientinternalnumber = value;
             }
         }
+
         public static int GroupID
         {
             get
             {
                 return groupid;
             }
+
             set
             {
                 groupid = value;
             }
         }
+
+        public static string GroupName
+        {
+            get
+            {
+                return groupname;
+            }
+
+            set
+            {
+                groupname = value;
+            }
+        }
+
         public static int HeightWeightUnits
         {
             get
             {
                 return height_weight_units;
             }
+
             set
             {
                 height_weight_units = value;
@@ -76,6 +105,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 return blood_pressure;
             }
+
             set
             {
                 blood_pressure = value;
@@ -88,6 +118,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 return patient_privacy;
             }
+
             set
             {
                 patient_privacy = value;
@@ -103,6 +134,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 return pwvcurrentstudydatetime;
             }
+
             set
             {
                 pwvcurrentstudydatetime = value;
@@ -115,6 +147,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 return pwv_distance_units;
             }
+
             set
             {
                 pwv_distance_units = value;
@@ -127,6 +160,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 return pwv_distance_method;
             }
+
             set
             {
                 pwv_distance_method = value;
@@ -139,6 +173,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 return capture_time;
             }
+
             set
             {
                 capture_time = value;
@@ -151,6 +186,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 return cuff_location;
             }
+
             set
             {
                 cuff_location = value;
@@ -163,6 +199,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 return reference_range;
             }
+
             set
             {
                 reference_range = value;

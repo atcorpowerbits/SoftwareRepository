@@ -719,4 +719,106 @@
   <data name="CRX_ERR_DBMGR_CONVERSION" xml:space="preserve">
     <value>#600 Unable to convert data type.</value>
   </data>
+  <data name="NoErrorAlarm" xml:space="preserve">
+    <value>No Error or Alarm</value>
+  </data>
+  <data name="ActiveStatus" xml:space="preserve">
+    <value>French -Active Status.</value>
+  </data>
+  <data name="AlarmSourceUnknown" xml:space="preserve">
+    <value>The alarm source was unknown or unhandled.</value>
+  </data>
+  <data name="AlarmStatus" xml:space="preserve">
+    <value>An Alarm event occured.</value>
+  </data>
+  <data name="CuffLeak" xml:space="preserve">
+    <value>Cuff is leaking.</value>
+  </data>
+  <data name="DualSensors" xml:space="preserve">
+    <value>Problem in dual sensors.</value>
+  </data>
+  <data name="ErrorAndAlarmStatus" xml:space="preserve">
+    <value>Error and Alarm occured together.</value>
+  </data>
+  <data name="ErrorSourceUnknown" xml:space="preserve">
+    <value>The error source was unknown or unhandled.</value>
+  </data>
+  <data name="ErrorStatus" xml:space="preserve">
+    <value>An Error occured.</value>
+  </data>
+  <data name="InflatedOverTime" xml:space="preserve">
+    <value>The cuff was inflated for a longer time period than permissible.</value>
+  </data>
+  <data name="OverPressure" xml:space="preserve">
+    <value>The cuff pressure exceeded permisible limit.</value>
+  </data>
+  <data name="RecoverableStatus" xml:space="preserve">
+    <value>Recoverable Status.</value>
+  </data>
+  <data name="UnrecoverableStatus" xml:space="preserve">
+    <value>Unrecoverable Status.</value>
+  </data>
+  <data name="DALUnknownModuleStatus" xml:space="preserve">
+    <value>Unknown or unhandled module status bits.</value>
+  </data>
+  <data name="DAL_ERR_UNKNOWN_BIT_FLAG" xml:space="preserve">
+    <value>The bit flag was unknown or unhandled.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BACKUP_DONE" xml:space="preserve">
+    <value>Backup completed successfully</value>
+  </data>
+  <data name="BACKUP_PROGRESS" xml:space="preserve">
+    <value>Backup is in progress....</value>
+  </data>
+  <data name="BACKUP_TITLE" xml:space="preserve">
+    <value>Database backup</value>
+  </data>
+  <data name="RESTORE_DONE" xml:space="preserve">
+    <value>Database restored successfully</value>
+  </data>
+  <data name="RESTORE_TITLE" xml:space="preserve">
+    <value>Database restore</value>
+  </data>
+  <data name="RESTORE_PROGRESS" xml:space="preserve">
+    <value>Database restore is in progress....</value>
+  </data>
+  <data name="RESTORE_FILE_MSG" xml:space="preserve">
+    <value>Please select .bak file to restore</value>
+  </data>
+  <data name="BACKUP_FAIL" xml:space="preserve">
+    <value>Backup fail</value>
+  </data>
+  <data name="RESTORE_FAIL" xml:space="preserve">
+    <value>Restore fail</value>
+  </data>
+  <data name="CAPTURE_TIME_TO_INFLATION" xml:space="preserve">
+    <value>Time to Inflation </value>
+  </data>
+  <data name="HEARTRATE_UNIT" xml:space="preserve">
+    <value>bpm</value>
+  </data>
+  <data name="PWV_UNIT" xml:space="preserve">
+    <value>m/s</value>
+  </data>
+  <data name="PDF_FILE_ERROR" xml:space="preserve">
+    <value>PDF file does not exists</value>
+  </data>
+  <data name="REPORT_NORMALRANGE_X_AXIS_TITLE" xml:space="preserve">
+    <value>Age (years)</value>
+  </data>
+  <data name="REPORT_NORMALRANGE_Y_AXIS_TITLE" xml:space="preserve">
+    <value>PWV m/s</value>
+  </data>
+  <data name="CRX_ERR_FILE_ALREADY_EXIST" xml:space="preserve">
+    <value>Attempted to create an existing file.</value>
+  </data>
+  <data name="RESTORE_MSG" xml:space="preserve">
+    <value>Restoring backup will delete existing records. Do you want to continue?</value>
+  </data>
+  <data name="LABEL_MP" xml:space="preserve">
+    <value>MP:</value>
+  </data>
 </root>

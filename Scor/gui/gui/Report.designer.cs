@@ -28,21 +28,20 @@ namespace AtCor.Scor.Gui.Presentation
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint19 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(20, 8);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint20 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(55, 10);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint21 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(90, 15);
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint22 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(20, 8);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint23 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(55, 10);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint24 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(90, 15);
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Report));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(55, "7,0");
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(20, 8);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(55, 10);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(90, 15);
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(55, "10,0");
             this.guichartSuperImposedWaveform = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.guichartReferenceRange = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.guichartNormalRange = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.documentContainer1 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
             this.guiraddocwnd = new Telerik.WinControls.UI.Docking.DocumentWindow();
@@ -51,41 +50,48 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradgridReportAssessment = new Telerik.WinControls.UI.RadGridView();
             this.guiradlblReportAssesmentCount = new Telerik.WinControls.UI.RadLabel();
             this.guipnlReportPatientMeasurementDetails = new System.Windows.Forms.Panel();
+            this.guiradlblreportSPdisplay = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportBloodPressure2 = new Telerik.WinControls.UI.RadLabel();
+            this.guiradtxtReportHeight = new Telerik.WinControls.UI.RadTextBox();
+            this.guiradlblReportNotesDisplay = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportOperatordisplay = new Telerik.WinControls.UI.RadLabel();
+            this.guiradpnldisplayPWVDistance = new Telerik.WinControls.UI.RadPanel();
+            this.guiradlblreportpwvdistancedisplay1 = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportPwvDistance1 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel7 = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportPwvDitanceUnits1 = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportPwvDistanceMethod = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportPwvDistanceMethodType = new Telerik.WinControls.UI.RadLabel();
+            this.guiradpnlEditPWVdistance = new Telerik.WinControls.UI.RadPanel();
+            this.guiradlblReportCuff = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportCuffUnits = new Telerik.WinControls.UI.RadLabel();
+            this.guiradtxtReportCuff = new Telerik.WinControls.UI.RadTextBox();
+            this.guiradlblCarotid = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblreportpwvdistancedisplay = new Telerik.WinControls.UI.RadLabel();
+            this.guiradtxtCarotid = new Telerik.WinControls.UI.RadTextBox();
+            this.guiradlblCarotidUnits = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportFemoToCuff = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel11 = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportFemoralCuffUnits = new Telerik.WinControls.UI.RadLabel();
+            this.guiradtxtReportFemoToCuff = new Telerik.WinControls.UI.RadTextBox();
+            this.guiradlblReportPwvDistance = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblPWVDistance = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportPwvDitanceUnits = new Telerik.WinControls.UI.RadLabel();
+            this.guiradtxtReportHeightInches = new Telerik.WinControls.UI.RadTextBox();
+            this.guiradlblReportHeightInches = new Telerik.WinControls.UI.RadLabel();
             this.guiradtxtReportOperator = new Telerik.WinControls.UI.RadTextBox();
             this.guiradtxtReportBloodPressure1 = new Telerik.WinControls.UI.RadTextBox();
             this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblreportpwvdistancedisplay = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblreportSPdisplay = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportWeightdisplay = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportHeightDisplay = new Telerik.WinControls.UI.RadLabel();
-            this.guiradtxtReportHeight = new Telerik.WinControls.UI.RadTextBox();
             this.guiradbtnreportedit = new Telerik.WinControls.UI.RadButton();
             this.guiradbtnreportcancel = new Telerik.WinControls.UI.RadButton();
             this.guiradbtnreportsave = new Telerik.WinControls.UI.RadButton();
             this.guiradlblReportBmiValue = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblCarotidUnits = new Telerik.WinControls.UI.RadLabel();
-            this.guiradtxtCarotid = new Telerik.WinControls.UI.RadTextBox();
-            this.guiradlblCarotid = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblBloodPressure2 = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportPwvDistanceMethodType = new Telerik.WinControls.UI.RadLabel();
-            this.guiradtxtReportFemoToCuff = new Telerik.WinControls.UI.RadTextBox();
-            this.guiradtxtReportCuff = new Telerik.WinControls.UI.RadTextBox();
-            this.guiradtxtReportHeightInches = new Telerik.WinControls.UI.RadTextBox();
-            this.guiradlblReportHeightInches = new Telerik.WinControls.UI.RadLabel();
             this.guiradtxtReportWeight = new Telerik.WinControls.UI.RadTextBox();
             this.guiradtxtReportBloodPressure2 = new Telerik.WinControls.UI.RadTextBox();
-            this.guiradlblReportBloodPressure2 = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportFemoToCuff = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel11 = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportFemoralCuffUnits = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportPwvDitanceUnits = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportPwvDistance = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblPWVDistance = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportCuffUnits = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportPwvDistanceMethod = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportBloodPressure1 = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportCuff = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportBmiUnits = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportBmi = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportOperator = new Telerik.WinControls.UI.RadLabel();
@@ -95,7 +101,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportHeightUnits = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportheightWeight = new Telerik.WinControls.UI.RadLabel();
             this.guiradtxtReportNotes = new Telerik.WinControls.UI.RadTextBox();
-            this.guiradlblReportNotesDisplay = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblNotes = new Telerik.WinControls.UI.RadLabel();
             this.guipnlReportPatientDemographicDetails = new System.Windows.Forms.Panel();
             this.guilblReportGenderValue = new Telerik.WinControls.UI.RadLabel();
@@ -126,17 +131,18 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnDelete = new Telerik.WinControls.UI.RadButton();
             this.guiradlblReportFemoral = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportCarotid = new Telerik.WinControls.UI.RadLabel();
-            this.radlblcuffQuality = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportCarotidImage = new Telerik.WinControls.UI.RadLabel();
+            this.guiimagelistTickCross = new System.Windows.Forms.ImageList(this.components);
+            this.guiradlblReportFemoralImage = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblStdDeviationImage = new Telerik.WinControls.UI.RadLabel();
             this.guiradAnalysisChartHeading = new Telerik.WinControls.UI.RadLabel();
             this.object_d8495bf2_fcb6_44f3_a0c6_f870f11db869 = new Telerik.WinControls.RootRadElement();
             this.guiradbtnRepeat = new Telerik.WinControls.UI.RadButton();
             this.object_45a62884_0e91_4302_a1b0_a0476635197c = new Telerik.WinControls.RootRadElement();
             this.object_2861adea_5b4c_4e2f_b90d_eaa64c34536e = new Telerik.WinControls.RootRadElement();
+            this.guichartNormalRange = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.guichartReferenceRange = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.guichartSuperImposedWaveform)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guichartReferenceRange)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guichartNormalRange)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).BeginInit();
             this.documentContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
@@ -146,46 +152,54 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradgridReportAssessment.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportAssesmentCount)).BeginInit();
             this.guipnlReportPatientMeasurementDetails.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportOperatordisplay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportOperator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportBloodPressure1)).BeginInit();
-            this.guiradtxtReportBloodPressure1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportpwvdistancedisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportSPdisplay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportWeightdisplay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportHeightDisplay)).BeginInit();
-            this.guiradlblReportHeightDisplay.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnreportedit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnreportcancel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnreportsave)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBmiValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidUnits)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtCarotid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblBloodPressure2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethodType)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportFemoToCuff)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportCuff)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportHeightInches)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportHeightInches)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportWeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportBloodPressure2)).BeginInit();
-            this.guiradtxtReportBloodPressure2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBloodPressure2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportNotesDisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportOperatordisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradpnldisplayPWVDistance)).BeginInit();
+            this.guiradpnldisplayPWVDistance.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportpwvdistancedisplay1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistance1)).BeginInit();
+            this.guiradlblReportPwvDistance1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethodType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradpnlEditPWVdistance)).BeginInit();
+            this.guiradpnlEditPWVdistance.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuffUnits)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportCuff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportpwvdistancedisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtCarotid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidUnits)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportFemoToCuff)).BeginInit();
             this.guiradlblReportFemoToCuff.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportFemoralCuffUnits)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportFemoToCuff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistance)).BeginInit();
             this.guiradlblReportPwvDistance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWVDistance)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuffUnits)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportHeightInches)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportHeightInches)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportOperator)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportBloodPressure1)).BeginInit();
+            this.guiradtxtReportBloodPressure1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportWeightdisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportHeightDisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnreportedit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnreportcancel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnreportsave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBmiValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblBloodPressure2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportWeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportBloodPressure2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBloodPressure1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBmiUnits)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBmi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportOperator)).BeginInit();
@@ -195,8 +209,6 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportHeightUnits)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportheightWeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportNotes)).BeginInit();
-            this.guiradtxtReportNotes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportNotesDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblNotes)).BeginInit();
             this.guipnlReportPatientDemographicDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guilblReportGenderValue)).BeginInit();
@@ -221,122 +233,33 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnDelete)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportFemoral)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCarotid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radlblcuffQuality)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCarotidImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportFemoralImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblStdDeviationImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradAnalysisChartHeading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnRepeat)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guichartNormalRange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guichartReferenceRange)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // guichartSuperImposedWaveform
             // 
             this.guichartSuperImposedWaveform.BackColor = System.Drawing.Color.Black;
-            chartArea10.BackColor = System.Drawing.Color.Black;
-            chartArea10.InnerPlotPosition.Auto = false;
-            chartArea10.InnerPlotPosition.Height = 100F;
-            chartArea10.InnerPlotPosition.Width = 100F;
-            chartArea10.Name = "ChartArea1";
-            chartArea10.Position.Auto = false;
-            chartArea10.Position.Height = 100F;
-            chartArea10.Position.Width = 100F;
-            this.guichartSuperImposedWaveform.ChartAreas.Add(chartArea10);
-            this.guichartSuperImposedWaveform.Location = new System.Drawing.Point(329, 33);
+            chartArea1.BackColor = System.Drawing.Color.Black;
+            chartArea1.InnerPlotPosition.Auto = false;
+            chartArea1.InnerPlotPosition.Height = 100F;
+            chartArea1.InnerPlotPosition.Width = 100F;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.guichartSuperImposedWaveform.ChartAreas.Add(chartArea1);
+            this.guichartSuperImposedWaveform.Location = new System.Drawing.Point(370, 33);
             this.guichartSuperImposedWaveform.Name = "guichartSuperImposedWaveform";
-            this.guichartSuperImposedWaveform.Size = new System.Drawing.Size(583, 165);
+            this.guichartSuperImposedWaveform.Size = new System.Drawing.Size(542, 165);
             this.guichartSuperImposedWaveform.TabIndex = 72;
             this.guichartSuperImposedWaveform.Text = "chart1";
-            // 
-            // guichartReferenceRange
-            // 
-            this.guichartReferenceRange.BackColor = System.Drawing.Color.Transparent;
-            chartArea11.AxisX.Interval = 35;
-            chartArea11.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea11.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea11.AxisX.IsStartedFromZero = false;
-            chartArea11.AxisX.MajorGrid.Enabled = false;
-            chartArea11.AxisX.Maximum = 90;
-            chartArea11.AxisX.Minimum = 20;
-            chartArea11.AxisX.ScaleView.MinSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea11.AxisX.ScaleView.SmallScrollMinSize = 0;
-            chartArea11.AxisY.Interval = 5;
-            chartArea11.AxisY.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea11.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea11.AxisY.IsStartedFromZero = false;
-            chartArea11.AxisY.MajorGrid.Enabled = false;
-            chartArea11.AxisY.Maximum = 20;
-            chartArea11.AxisY.Minimum = 5;
-            chartArea11.AxisY2.Interval = 5;
-            chartArea11.AxisY2.MajorGrid.Enabled = false;
-            chartArea11.AxisY2.Maximum = 20;
-            chartArea11.AxisY2.Minimum = 5;
-            chartArea11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(75)))), ((int)(((byte)(58)))));
-            chartArea11.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
-            chartArea11.Name = "ChartArea1";
-            chartArea11.Position.Auto = false;
-            chartArea11.Position.Height = 100F;
-            chartArea11.Position.Width = 100F;
-            this.guichartReferenceRange.ChartAreas.Add(chartArea11);
-            this.guichartReferenceRange.Location = new System.Drawing.Point(674, 232);
-            this.guichartReferenceRange.Name = "guichartReferenceRange";
-            series7.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
-            series7.BorderColor = System.Drawing.Color.Black;
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area;
-            series7.Color = System.Drawing.Color.Green;
-            series7.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series7.Name = "Series2";
-            series7.Points.Add(dataPoint19);
-            series7.Points.Add(dataPoint20);
-            series7.Points.Add(dataPoint21);
-            series7.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.guichartReferenceRange.Series.Add(series7);
-            this.guichartReferenceRange.Size = new System.Drawing.Size(306, 170);
-            this.guichartReferenceRange.TabIndex = 75;
-            this.guichartReferenceRange.Text = "chart1";
-            // 
-            // guichartNormalRange
-            // 
-            this.guichartNormalRange.BackColor = System.Drawing.Color.Transparent;
-            chartArea12.AxisX.Interval = 35;
-            chartArea12.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea12.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea12.AxisX.IsStartedFromZero = false;
-            chartArea12.AxisX.MajorGrid.Enabled = false;
-            chartArea12.AxisX.Maximum = 90;
-            chartArea12.AxisX.Minimum = 20;
-            chartArea12.AxisX.ScaleView.MinSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea12.AxisX.ScaleView.SmallScrollMinSize = 0;
-            chartArea12.AxisY.Interval = 5;
-            chartArea12.AxisY.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea12.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea12.AxisY.IsStartedFromZero = false;
-            chartArea12.AxisY.MajorGrid.Enabled = false;
-            chartArea12.AxisY.Maximum = 20;
-            chartArea12.AxisY.Minimum = 5;
-            chartArea12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(75)))), ((int)(((byte)(58)))));
-            chartArea12.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
-            chartArea12.Name = "ChartArea1";
-            chartArea12.Position.Auto = false;
-            chartArea12.Position.Height = 100F;
-            chartArea12.Position.Width = 100F;
-            this.guichartNormalRange.ChartAreas.Add(chartArea12);
-            this.guichartNormalRange.Location = new System.Drawing.Point(339, 231);
-            this.guichartNormalRange.Name = "guichartNormalRange";
-            series8.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
-            series8.BorderColor = System.Drawing.Color.Black;
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area;
-            series8.Color = System.Drawing.Color.Green;
-            series8.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series8.Name = "Series2";
-            series8.Points.Add(dataPoint22);
-            series8.Points.Add(dataPoint23);
-            series8.Points.Add(dataPoint24);
-            this.guichartNormalRange.Series.Add(series8);
-            this.guichartNormalRange.Size = new System.Drawing.Size(306, 170);
-            this.guichartNormalRange.TabIndex = 74;
-            this.guichartNormalRange.Text = "chart2";
             // 
             // documentContainer1
             // 
@@ -432,7 +355,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradgridReportAssessment.ShowGroupPanel = false;
             this.guiradgridReportAssessment.ShowNoDataText = false;
             this.guiradgridReportAssessment.ShowRowErrors = false;
-            this.guiradgridReportAssessment.Size = new System.Drawing.Size(312, 127);
+            this.guiradgridReportAssessment.Size = new System.Drawing.Size(312, 120);
             this.guiradgridReportAssessment.TabIndex = 67;
             this.guiradgridReportAssessment.Text = "radGridView1";
             this.guiradgridReportAssessment.ValueChanged += new System.EventHandler(this.guiradgridReportAssessment_ValueChanged);
@@ -451,35 +374,27 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // guipnlReportPatientMeasurementDetails
             // 
+            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblreportSPdisplay);
+            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportBloodPressure2);
+            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradtxtReportHeight);
+            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportNotesDisplay);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportOperatordisplay);
+            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradpnldisplayPWVDistance);
+            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradpnlEditPWVdistance);
+            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradtxtReportHeightInches);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportHeightInches);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradtxtReportOperator);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradtxtReportBloodPressure1);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblreportpwvdistancedisplay);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblreportSPdisplay);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportWeightdisplay);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportHeightDisplay);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradbtnreportedit);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradbtnreportcancel);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradbtnreportsave);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportBmiValue);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblCarotidUnits);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradtxtCarotid);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblCarotid);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblBloodPressure2);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportPwvDistanceMethodType);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradtxtReportFemoToCuff);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradtxtReportCuff);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradtxtReportWeight);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradtxtReportBloodPressure2);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportFemoToCuff);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportFemoralCuffUnits);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportPwvDitanceUnits);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportPwvDistance);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportCuffUnits);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportPwvDistanceMethod);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportBloodPressure1);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportCuff);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportBmiUnits);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportBmi);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportOperator);
@@ -496,260 +411,229 @@ namespace AtCor.Scor.Gui.Presentation
             this.guipnlReportPatientMeasurementDetails.Size = new System.Drawing.Size(317, 295);
             this.guipnlReportPatientMeasurementDetails.TabIndex = 18;
             // 
-            // guiradlblReportOperatordisplay
-            // 
-            this.guiradlblReportOperatordisplay.AutoSize = false;
-            this.guiradlblReportOperatordisplay.BackColor = System.Drawing.Color.White;
-            this.guiradlblReportOperatordisplay.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportOperatordisplay.Location = new System.Drawing.Point(149, 50);
-            this.guiradlblReportOperatordisplay.Name = "guiradlblReportOperatordisplay";
-            this.guiradlblReportOperatordisplay.Size = new System.Drawing.Size(160, 19);
-            this.guiradlblReportOperatordisplay.TabIndex = 77;
-            this.guiradlblReportOperatordisplay.Text = "operator";
-            // 
-            // guiradtxtReportOperator
-            // 
-            this.guiradtxtReportOperator.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtReportOperator.Location = new System.Drawing.Point(149, 50);
-            this.guiradtxtReportOperator.Name = "guiradtxtReportOperator";
-            this.guiradtxtReportOperator.Size = new System.Drawing.Size(120, 19);
-            this.guiradtxtReportOperator.TabIndex = 107;
-            this.guiradtxtReportOperator.TabStop = false;
-            // 
-            // guiradtxtReportBloodPressure1
-            // 
-            this.guiradtxtReportBloodPressure1.Controls.Add(this.radLabel3);
-            this.guiradtxtReportBloodPressure1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtReportBloodPressure1.Location = new System.Drawing.Point(85, 156);
-            this.guiradtxtReportBloodPressure1.Name = "guiradtxtReportBloodPressure1";
-            this.guiradtxtReportBloodPressure1.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportBloodPressure1.TabIndex = 109;
-            this.guiradtxtReportBloodPressure1.TabStop = false;
-            // 
-            // radLabel3
-            // 
-            this.radLabel3.AutoSize = false;
-            this.radLabel3.Location = new System.Drawing.Point(0, 0);
-            this.radLabel3.Name = "radLabel3";
-            this.radLabel3.Size = new System.Drawing.Size(45, 19);
-            this.radLabel3.TabIndex = 1;
-            // 
-            // guiradlblreportpwvdistancedisplay
-            // 
-            this.guiradlblreportpwvdistancedisplay.AutoSize = false;
-            this.guiradlblreportpwvdistancedisplay.BackColor = System.Drawing.Color.White;
-            this.guiradlblreportpwvdistancedisplay.Location = new System.Drawing.Point(149, 249);
-            this.guiradlblreportpwvdistancedisplay.Name = "guiradlblreportpwvdistancedisplay";
-            this.guiradlblreportpwvdistancedisplay.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblreportpwvdistancedisplay.TabIndex = 1;
-            // 
             // guiradlblreportSPdisplay
             // 
             this.guiradlblreportSPdisplay.AutoSize = false;
             this.guiradlblreportSPdisplay.BackColor = System.Drawing.Color.White;
-            this.guiradlblreportSPdisplay.Location = new System.Drawing.Point(85, 156);
+            this.guiradlblreportSPdisplay.Location = new System.Drawing.Point(81, 6);
             this.guiradlblreportSPdisplay.Name = "guiradlblreportSPdisplay";
             this.guiradlblreportSPdisplay.Size = new System.Drawing.Size(45, 19);
             this.guiradlblreportSPdisplay.TabIndex = 1;
             this.guiradlblreportSPdisplay.Text = "sppp";
             // 
-            // guiradlblReportWeightdisplay
+            // guiradlblReportBloodPressure2
             // 
-            this.guiradlblReportWeightdisplay.AutoSize = false;
-            this.guiradlblReportWeightdisplay.BackColor = System.Drawing.Color.White;
-            this.guiradlblReportWeightdisplay.Location = new System.Drawing.Point(81, 26);
-            this.guiradlblReportWeightdisplay.Name = "guiradlblReportWeightdisplay";
-            this.guiradlblReportWeightdisplay.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblReportWeightdisplay.TabIndex = 1;
-            // 
-            // guiradlblReportHeightDisplay
-            // 
-            this.guiradlblReportHeightDisplay.AutoSize = false;
-            this.guiradlblReportHeightDisplay.BackColor = System.Drawing.Color.White;
-            this.guiradlblReportHeightDisplay.Controls.Add(this.guiradtxtReportHeight);
-            this.guiradlblReportHeightDisplay.Location = new System.Drawing.Point(82, 4);
-            this.guiradlblReportHeightDisplay.Name = "guiradlblReportHeightDisplay";
-            this.guiradlblReportHeightDisplay.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblReportHeightDisplay.TabIndex = 0;
+            this.guiradlblReportBloodPressure2.AutoSize = false;
+            this.guiradlblReportBloodPressure2.BackColor = System.Drawing.Color.White;
+            this.guiradlblReportBloodPressure2.Location = new System.Drawing.Point(206, 8);
+            this.guiradlblReportBloodPressure2.Name = "guiradlblReportBloodPressure2";
+            this.guiradlblReportBloodPressure2.Size = new System.Drawing.Size(45, 19);
+            this.guiradlblReportBloodPressure2.TabIndex = 1;
             // 
             // guiradtxtReportHeight
             // 
             this.guiradtxtReportHeight.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtReportHeight.Location = new System.Drawing.Point(0, 3);
+            this.guiradtxtReportHeight.Location = new System.Drawing.Point(81, 29);
             this.guiradtxtReportHeight.Name = "guiradtxtReportHeight";
             this.guiradtxtReportHeight.Size = new System.Drawing.Size(45, 19);
             this.guiradtxtReportHeight.TabIndex = 104;
             this.guiradtxtReportHeight.TabStop = false;
             // 
-            // guiradbtnreportedit
+            // guiradlblReportNotesDisplay
             // 
-            this.guiradbtnreportedit.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradbtnreportedit.Image = ((System.Drawing.Image)(resources.GetObject("guiradbtnreportedit.Image")));
-            this.guiradbtnreportedit.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.guiradbtnreportedit.Location = new System.Drawing.Point(207, 268);
-            this.guiradbtnreportedit.Name = "guiradbtnreportedit";
-            this.guiradbtnreportedit.Size = new System.Drawing.Size(60, 25);
-            this.guiradbtnreportedit.TabIndex = 116;
-            this.guiradbtnreportedit.Click += new System.EventHandler(this.guiradbtnreportedit_Click);
+            this.guiradlblReportNotesDisplay.AutoSize = false;
+            this.guiradlblReportNotesDisplay.BackColor = System.Drawing.Color.White;
+            this.guiradlblReportNotesDisplay.Location = new System.Drawing.Point(4, 123);
+            this.guiradlblReportNotesDisplay.Name = "guiradlblReportNotesDisplay";
+            this.guiradlblReportNotesDisplay.Size = new System.Drawing.Size(317, 40);
+            this.guiradlblReportNotesDisplay.TabIndex = 18;
+            this.guiradlblReportNotesDisplay.Text = "radLabel9";
             // 
-            // guiradbtnreportcancel
+            // guiradlblReportOperatordisplay
             // 
-            this.guiradbtnreportcancel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradbtnreportcancel.Image = ((System.Drawing.Image)(resources.GetObject("guiradbtnreportcancel.Image")));
-            this.guiradbtnreportcancel.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.guiradbtnreportcancel.Location = new System.Drawing.Point(127, 269);
-            this.guiradbtnreportcancel.Name = "guiradbtnreportcancel";
-            this.guiradbtnreportcancel.Size = new System.Drawing.Size(60, 25);
-            this.guiradbtnreportcancel.TabIndex = 115;
-            this.guiradbtnreportcancel.Visible = false;
-            this.guiradbtnreportcancel.Click += new System.EventHandler(this.guiradbtnreportcancel_Click);
+            this.guiradlblReportOperatordisplay.AutoSize = false;
+            this.guiradlblReportOperatordisplay.BackColor = System.Drawing.Color.White;
+            this.guiradlblReportOperatordisplay.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportOperatordisplay.Location = new System.Drawing.Point(149, 79);
+            this.guiradlblReportOperatordisplay.Name = "guiradlblReportOperatordisplay";
+            this.guiradlblReportOperatordisplay.Size = new System.Drawing.Size(160, 19);
+            this.guiradlblReportOperatordisplay.TabIndex = 77;
+            this.guiradlblReportOperatordisplay.Text = "operator";
             // 
-            // guiradbtnreportsave
+            // guiradpnldisplayPWVDistance
             // 
-            this.guiradbtnreportsave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradbtnreportsave.Image = ((System.Drawing.Image)(resources.GetObject("guiradbtnreportsave.Image")));
-            this.guiradbtnreportsave.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.guiradbtnreportsave.Location = new System.Drawing.Point(45, 269);
-            this.guiradbtnreportsave.Name = "guiradbtnreportsave";
-            this.guiradbtnreportsave.Size = new System.Drawing.Size(60, 25);
-            this.guiradbtnreportsave.TabIndex = 114;
-            this.guiradbtnreportsave.Visible = false;
-            this.guiradbtnreportsave.Click += new System.EventHandler(this.guiradbtnreportsave_Click);
+            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblreportpwvdistancedisplay1);
+            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDistance1);
+            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDitanceUnits1);
+            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDistanceMethod);
+            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDistanceMethodType);
+            this.guiradpnldisplayPWVDistance.Font = new System.Drawing.Font("Verdana", 8F);
+            this.guiradpnldisplayPWVDistance.Location = new System.Drawing.Point(5, 167);
+            this.guiradpnldisplayPWVDistance.Name = "guiradpnldisplayPWVDistance";
+            this.guiradpnldisplayPWVDistance.Size = new System.Drawing.Size(305, 100);
+            this.guiradpnldisplayPWVDistance.TabIndex = 109;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradpnldisplayPWVDistance.GetChildAt(0).GetChildAt(1))).Width = 0F;
             // 
-            // guiradlblReportBmiValue
+            // guiradlblreportpwvdistancedisplay1
             // 
-            this.guiradlblReportBmiValue.AutoSize = false;
-            this.guiradlblReportBmiValue.BackColor = System.Drawing.Color.White;
-            this.guiradlblReportBmiValue.Location = new System.Drawing.Point(205, 28);
-            this.guiradlblReportBmiValue.Name = "guiradlblReportBmiValue";
-            this.guiradlblReportBmiValue.Size = new System.Drawing.Size(40, 15);
-            this.guiradlblReportBmiValue.TabIndex = 113;
+            this.guiradlblreportpwvdistancedisplay1.AutoSize = false;
+            this.guiradlblreportpwvdistancedisplay1.BackColor = System.Drawing.Color.White;
+            this.guiradlblreportpwvdistancedisplay1.Location = new System.Drawing.Point(148, 58);
+            this.guiradlblreportpwvdistancedisplay1.Name = "guiradlblreportpwvdistancedisplay1";
+            this.guiradlblreportpwvdistancedisplay1.Size = new System.Drawing.Size(45, 19);
+            this.guiradlblreportpwvdistancedisplay1.TabIndex = 109;
             // 
-            // guiradlblCarotidUnits
+            // guiradlblReportPwvDistance1
             // 
-            this.guiradlblCarotidUnits.AutoSize = false;
-            this.guiradlblCarotidUnits.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblCarotidUnits.Location = new System.Drawing.Point(259, 206);
-            this.guiradlblCarotidUnits.Name = "guiradlblCarotidUnits";
-            this.guiradlblCarotidUnits.Size = new System.Drawing.Size(40, 19);
-            this.guiradlblCarotidUnits.TabIndex = 112;
-            this.guiradlblCarotidUnits.Text = "mm";
+            this.guiradlblReportPwvDistance1.AutoSize = false;
+            this.guiradlblReportPwvDistance1.Controls.Add(this.radLabel7);
+            this.guiradlblReportPwvDistance1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportPwvDistance1.Location = new System.Drawing.Point(-2, 57);
+            this.guiradlblReportPwvDistance1.Name = "guiradlblReportPwvDistance1";
+            this.guiradlblReportPwvDistance1.Size = new System.Drawing.Size(150, 19);
+            this.guiradlblReportPwvDistance1.TabIndex = 110;
+            this.guiradlblReportPwvDistance1.Text = "PWV Distance:";
+            this.guiradlblReportPwvDistance1.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // guiradtxtCarotid
+            // radLabel7
             // 
-            this.guiradtxtCarotid.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtCarotid.Location = new System.Drawing.Point(208, 205);
-            this.guiradtxtCarotid.Name = "guiradtxtCarotid";
-            this.guiradtxtCarotid.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtCarotid.TabIndex = 112;
-            this.guiradtxtCarotid.TabStop = false;
-            this.guiradtxtCarotid.TextChanged += new System.EventHandler(this.guiradtxtCarotid_TextChanged);
+            this.radLabel7.AutoSize = false;
+            this.radLabel7.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radLabel7.Location = new System.Drawing.Point(150, 3);
+            this.radLabel7.Name = "radLabel7";
+            this.radLabel7.Size = new System.Drawing.Size(45, 21);
+            this.radLabel7.TabIndex = 90;
             // 
-            // guiradlblCarotid
+            // guiradlblReportPwvDitanceUnits1
             // 
-            this.guiradlblCarotid.AutoSize = false;
-            this.guiradlblCarotid.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblCarotid.Location = new System.Drawing.Point(155, 204);
-            this.guiradlblCarotid.Name = "guiradlblCarotid";
-            this.guiradlblCarotid.Size = new System.Drawing.Size(55, 19);
-            this.guiradlblCarotid.TabIndex = 110;
-            this.guiradlblCarotid.Text = "Carotid:";
-            this.guiradlblCarotid.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.guiradlblReportPwvDitanceUnits1.AutoSize = false;
+            this.guiradlblReportPwvDitanceUnits1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportPwvDitanceUnits1.Location = new System.Drawing.Point(197, 59);
+            this.guiradlblReportPwvDitanceUnits1.Name = "guiradlblReportPwvDitanceUnits1";
+            this.guiradlblReportPwvDitanceUnits1.Size = new System.Drawing.Size(50, 19);
+            this.guiradlblReportPwvDitanceUnits1.TabIndex = 111;
+            this.guiradlblReportPwvDitanceUnits1.Text = "mm";
             // 
-            // guiradlblBloodPressure2
+            // guiradlblReportPwvDistanceMethod
             // 
-            this.guiradlblBloodPressure2.AutoSize = false;
-            this.guiradlblBloodPressure2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblBloodPressure2.Location = new System.Drawing.Point(155, 158);
-            this.guiradlblBloodPressure2.Name = "guiradlblBloodPressure2";
-            this.guiradlblBloodPressure2.Size = new System.Drawing.Size(50, 19);
-            this.guiradlblBloodPressure2.TabIndex = 109;
-            this.guiradlblBloodPressure2.Text = "DP:";
-            this.guiradlblBloodPressure2.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.guiradlblReportPwvDistanceMethod.AutoSize = false;
+            this.guiradlblReportPwvDistanceMethod.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportPwvDistanceMethod.Location = new System.Drawing.Point(-2, 28);
+            this.guiradlblReportPwvDistanceMethod.Name = "guiradlblReportPwvDistanceMethod";
+            this.guiradlblReportPwvDistanceMethod.Size = new System.Drawing.Size(150, 19);
+            this.guiradlblReportPwvDistanceMethod.TabIndex = 86;
+            this.guiradlblReportPwvDistanceMethod.Text = "PWV Method:";
+            this.guiradlblReportPwvDistanceMethod.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // guiradlblReportPwvDistanceMethodType
             // 
             this.guiradlblReportPwvDistanceMethodType.AutoSize = false;
             this.guiradlblReportPwvDistanceMethodType.BackColor = System.Drawing.Color.White;
             this.guiradlblReportPwvDistanceMethodType.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportPwvDistanceMethodType.Location = new System.Drawing.Point(149, 182);
+            this.guiradlblReportPwvDistanceMethodType.Location = new System.Drawing.Point(148, 30);
             this.guiradlblReportPwvDistanceMethodType.Name = "guiradlblReportPwvDistanceMethodType";
             this.guiradlblReportPwvDistanceMethodType.Size = new System.Drawing.Size(100, 19);
             this.guiradlblReportPwvDistanceMethodType.TabIndex = 108;
             this.guiradlblReportPwvDistanceMethodType.Text = "Subtracting";
             // 
-            // guiradtxtReportFemoToCuff
+            // guiradpnlEditPWVdistance
             // 
-            this.guiradtxtReportFemoToCuff.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtReportFemoToCuff.Location = new System.Drawing.Point(148, 227);
-            this.guiradtxtReportFemoToCuff.Name = "guiradtxtReportFemoToCuff";
-            this.guiradtxtReportFemoToCuff.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportFemoToCuff.TabIndex = 113;
-            this.guiradtxtReportFemoToCuff.TabStop = false;
-            this.guiradtxtReportFemoToCuff.TextChanged += new System.EventHandler(this.guiradtxtReportFemoToCuff_TextChanged);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblReportCuff);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblReportCuffUnits);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradtxtReportCuff);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblCarotid);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblreportpwvdistancedisplay);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradtxtCarotid);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblCarotidUnits);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblReportFemoToCuff);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblReportFemoralCuffUnits);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradtxtReportFemoToCuff);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblReportPwvDistance);
+            this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblReportPwvDitanceUnits);
+            this.guiradpnlEditPWVdistance.Font = new System.Drawing.Font("Verdana", 8F);
+            this.guiradpnlEditPWVdistance.Location = new System.Drawing.Point(6, 168);
+            this.guiradpnlEditPWVdistance.Name = "guiradpnlEditPWVdistance";
+            this.guiradpnlEditPWVdistance.Size = new System.Drawing.Size(305, 100);
+            this.guiradpnlEditPWVdistance.TabIndex = 98;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradpnlEditPWVdistance.GetChildAt(0).GetChildAt(1))).Width = 0F;
+            // 
+            // guiradlblReportCuff
+            // 
+            this.guiradlblReportCuff.AutoSize = false;
+            this.guiradlblReportCuff.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportCuff.Location = new System.Drawing.Point(90, 4);
+            this.guiradlblReportCuff.Name = "guiradlblReportCuff";
+            this.guiradlblReportCuff.Size = new System.Drawing.Size(55, 19);
+            this.guiradlblReportCuff.TabIndex = 90;
+            this.guiradlblReportCuff.Text = "Cuff:";
+            this.guiradlblReportCuff.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradlblReportCuffUnits
+            // 
+            this.guiradlblReportCuffUnits.AutoSize = false;
+            this.guiradlblReportCuffUnits.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportCuffUnits.Location = new System.Drawing.Point(195, 6);
+            this.guiradlblReportCuffUnits.Name = "guiradlblReportCuffUnits";
+            this.guiradlblReportCuffUnits.Size = new System.Drawing.Size(40, 19);
+            this.guiradlblReportCuffUnits.TabIndex = 91;
+            this.guiradlblReportCuffUnits.Text = "mm";
             // 
             // guiradtxtReportCuff
             // 
             this.guiradtxtReportCuff.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtReportCuff.Location = new System.Drawing.Point(63, 205);
+            this.guiradtxtReportCuff.Location = new System.Drawing.Point(146, 5);
             this.guiradtxtReportCuff.Name = "guiradtxtReportCuff";
             this.guiradtxtReportCuff.Size = new System.Drawing.Size(45, 19);
             this.guiradtxtReportCuff.TabIndex = 111;
             this.guiradtxtReportCuff.TabStop = false;
             this.guiradtxtReportCuff.TextChanged += new System.EventHandler(this.guiradtxtReportCuff_TextChanged);
             // 
-            // guiradtxtReportHeightInches
+            // guiradlblCarotid
             // 
-            this.guiradtxtReportHeightInches.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtReportHeightInches.Location = new System.Drawing.Point(164, 127);
-            this.guiradtxtReportHeightInches.Name = "guiradtxtReportHeightInches";
-            this.guiradtxtReportHeightInches.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportHeightInches.TabIndex = 105;
-            this.guiradtxtReportHeightInches.TabStop = false;
+            this.guiradlblCarotid.AutoSize = false;
+            this.guiradlblCarotid.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblCarotid.Location = new System.Drawing.Point(92, 28);
+            this.guiradlblCarotid.Name = "guiradlblCarotid";
+            this.guiradlblCarotid.Size = new System.Drawing.Size(55, 19);
+            this.guiradlblCarotid.TabIndex = 110;
+            this.guiradlblCarotid.Text = "Carotid:";
+            this.guiradlblCarotid.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // guiradlblReportHeightInches
+            // guiradlblreportpwvdistancedisplay
             // 
-            this.guiradlblReportHeightInches.AutoSize = false;
-            this.guiradlblReportHeightInches.BackColor = System.Drawing.Color.White;
-            this.guiradlblReportHeightInches.Location = new System.Drawing.Point(163, 4);
-            this.guiradlblReportHeightInches.Name = "guiradlblReportHeightInches";
-            this.guiradlblReportHeightInches.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblReportHeightInches.TabIndex = 1;
+            this.guiradlblreportpwvdistancedisplay.AutoSize = false;
+            this.guiradlblreportpwvdistancedisplay.BackColor = System.Drawing.Color.White;
+            this.guiradlblreportpwvdistancedisplay.Location = new System.Drawing.Point(146, 77);
+            this.guiradlblreportpwvdistancedisplay.Name = "guiradlblreportpwvdistancedisplay";
+            this.guiradlblreportpwvdistancedisplay.Size = new System.Drawing.Size(45, 19);
+            this.guiradlblreportpwvdistancedisplay.TabIndex = 1;
             // 
-            // guiradtxtReportWeight
+            // guiradtxtCarotid
             // 
-            this.guiradtxtReportWeight.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtReportWeight.Location = new System.Drawing.Point(81, 26);
-            this.guiradtxtReportWeight.Name = "guiradtxtReportWeight";
-            this.guiradtxtReportWeight.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportWeight.TabIndex = 106;
-            this.guiradtxtReportWeight.TabStop = false;
+            this.guiradtxtCarotid.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtCarotid.Location = new System.Drawing.Point(145, 29);
+            this.guiradtxtCarotid.Name = "guiradtxtCarotid";
+            this.guiradtxtCarotid.Size = new System.Drawing.Size(45, 19);
+            this.guiradtxtCarotid.TabIndex = 112;
+            this.guiradtxtCarotid.TabStop = false;
+            this.guiradtxtCarotid.TextChanged += new System.EventHandler(this.guiradtxtCarotid_TextChanged);
             // 
-            // guiradtxtReportBloodPressure2
+            // guiradlblCarotidUnits
             // 
-            this.guiradtxtReportBloodPressure2.Controls.Add(this.guiradlblReportBloodPressure2);
-            this.guiradtxtReportBloodPressure2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtReportBloodPressure2.Location = new System.Drawing.Point(206, 158);
-            this.guiradtxtReportBloodPressure2.Name = "guiradtxtReportBloodPressure2";
-            this.guiradtxtReportBloodPressure2.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportBloodPressure2.TabIndex = 110;
-            this.guiradtxtReportBloodPressure2.TabStop = false;
-            // 
-            // guiradlblReportBloodPressure2
-            // 
-            this.guiradlblReportBloodPressure2.AutoSize = false;
-            this.guiradlblReportBloodPressure2.BackColor = System.Drawing.Color.White;
-            this.guiradlblReportBloodPressure2.Location = new System.Drawing.Point(0, 0);
-            this.guiradlblReportBloodPressure2.Name = "guiradlblReportBloodPressure2";
-            this.guiradlblReportBloodPressure2.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblReportBloodPressure2.TabIndex = 1;
+            this.guiradlblCarotidUnits.AutoSize = false;
+            this.guiradlblCarotidUnits.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblCarotidUnits.Location = new System.Drawing.Point(196, 30);
+            this.guiradlblCarotidUnits.Name = "guiradlblCarotidUnits";
+            this.guiradlblCarotidUnits.Size = new System.Drawing.Size(40, 19);
+            this.guiradlblCarotidUnits.TabIndex = 112;
+            this.guiradlblCarotidUnits.Text = "mm";
             // 
             // guiradlblReportFemoToCuff
             // 
             this.guiradlblReportFemoToCuff.AutoSize = false;
             this.guiradlblReportFemoToCuff.Controls.Add(this.radLabel11);
             this.guiradlblReportFemoToCuff.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportFemoToCuff.Location = new System.Drawing.Point(19, 227);
+            this.guiradlblReportFemoToCuff.Location = new System.Drawing.Point(17, 53);
             this.guiradlblReportFemoToCuff.Name = "guiradlblReportFemoToCuff";
             this.guiradlblReportFemoToCuff.Size = new System.Drawing.Size(130, 20);
             this.guiradlblReportFemoToCuff.TabIndex = 96;
@@ -769,28 +653,28 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblReportFemoralCuffUnits.AutoSize = false;
             this.guiradlblReportFemoralCuffUnits.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportFemoralCuffUnits.Location = new System.Drawing.Point(197, 228);
+            this.guiradlblReportFemoralCuffUnits.Location = new System.Drawing.Point(195, 54);
             this.guiradlblReportFemoralCuffUnits.Name = "guiradlblReportFemoralCuffUnits";
             this.guiradlblReportFemoralCuffUnits.Size = new System.Drawing.Size(40, 19);
             this.guiradlblReportFemoralCuffUnits.TabIndex = 94;
             this.guiradlblReportFemoralCuffUnits.Text = "mm";
             // 
-            // guiradlblReportPwvDitanceUnits
+            // guiradtxtReportFemoToCuff
             // 
-            this.guiradlblReportPwvDitanceUnits.AutoSize = false;
-            this.guiradlblReportPwvDitanceUnits.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportPwvDitanceUnits.Location = new System.Drawing.Point(198, 250);
-            this.guiradlblReportPwvDitanceUnits.Name = "guiradlblReportPwvDitanceUnits";
-            this.guiradlblReportPwvDitanceUnits.Size = new System.Drawing.Size(50, 19);
-            this.guiradlblReportPwvDitanceUnits.TabIndex = 89;
-            this.guiradlblReportPwvDitanceUnits.Text = "mm";
+            this.guiradtxtReportFemoToCuff.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtReportFemoToCuff.Location = new System.Drawing.Point(146, 53);
+            this.guiradtxtReportFemoToCuff.Name = "guiradtxtReportFemoToCuff";
+            this.guiradtxtReportFemoToCuff.Size = new System.Drawing.Size(45, 19);
+            this.guiradtxtReportFemoToCuff.TabIndex = 113;
+            this.guiradtxtReportFemoToCuff.TabStop = false;
+            this.guiradtxtReportFemoToCuff.TextChanged += new System.EventHandler(this.guiradtxtReportFemoToCuff_TextChanged);
             // 
             // guiradlblReportPwvDistance
             // 
             this.guiradlblReportPwvDistance.AutoSize = false;
             this.guiradlblReportPwvDistance.Controls.Add(this.guiradlblPWVDistance);
             this.guiradlblReportPwvDistance.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportPwvDistance.Location = new System.Drawing.Point(-1, 248);
+            this.guiradlblReportPwvDistance.Location = new System.Drawing.Point(-4, 76);
             this.guiradlblReportPwvDistance.Name = "guiradlblReportPwvDistance";
             this.guiradlblReportPwvDistance.Size = new System.Drawing.Size(150, 19);
             this.guiradlblReportPwvDistance.TabIndex = 88;
@@ -806,54 +690,180 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWVDistance.Size = new System.Drawing.Size(45, 21);
             this.guiradlblPWVDistance.TabIndex = 90;
             // 
-            // guiradlblReportCuffUnits
+            // guiradlblReportPwvDitanceUnits
             // 
-            this.guiradlblReportCuffUnits.AutoSize = false;
-            this.guiradlblReportCuffUnits.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportCuffUnits.Location = new System.Drawing.Point(112, 206);
-            this.guiradlblReportCuffUnits.Name = "guiradlblReportCuffUnits";
-            this.guiradlblReportCuffUnits.Size = new System.Drawing.Size(40, 19);
-            this.guiradlblReportCuffUnits.TabIndex = 91;
-            this.guiradlblReportCuffUnits.Text = "mm";
+            this.guiradlblReportPwvDitanceUnits.AutoSize = false;
+            this.guiradlblReportPwvDitanceUnits.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportPwvDitanceUnits.Location = new System.Drawing.Point(195, 78);
+            this.guiradlblReportPwvDitanceUnits.Name = "guiradlblReportPwvDitanceUnits";
+            this.guiradlblReportPwvDitanceUnits.Size = new System.Drawing.Size(50, 19);
+            this.guiradlblReportPwvDitanceUnits.TabIndex = 89;
+            this.guiradlblReportPwvDitanceUnits.Text = "mm";
             // 
-            // guiradlblReportPwvDistanceMethod
+            // guiradtxtReportHeightInches
             // 
-            this.guiradlblReportPwvDistanceMethod.AutoSize = false;
-            this.guiradlblReportPwvDistanceMethod.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportPwvDistanceMethod.Location = new System.Drawing.Point(-1, 180);
-            this.guiradlblReportPwvDistanceMethod.Name = "guiradlblReportPwvDistanceMethod";
-            this.guiradlblReportPwvDistanceMethod.Size = new System.Drawing.Size(150, 19);
-            this.guiradlblReportPwvDistanceMethod.TabIndex = 86;
-            this.guiradlblReportPwvDistanceMethod.Text = "PWV Method:";
-            this.guiradlblReportPwvDistanceMethod.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.guiradtxtReportHeightInches.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtReportHeightInches.Location = new System.Drawing.Point(206, 33);
+            this.guiradtxtReportHeightInches.Name = "guiradtxtReportHeightInches";
+            this.guiradtxtReportHeightInches.Size = new System.Drawing.Size(45, 19);
+            this.guiradtxtReportHeightInches.TabIndex = 105;
+            this.guiradtxtReportHeightInches.TabStop = false;
+            // 
+            // guiradlblReportHeightInches
+            // 
+            this.guiradlblReportHeightInches.AutoSize = false;
+            this.guiradlblReportHeightInches.BackColor = System.Drawing.Color.White;
+            this.guiradlblReportHeightInches.Location = new System.Drawing.Point(206, 33);
+            this.guiradlblReportHeightInches.Name = "guiradlblReportHeightInches";
+            this.guiradlblReportHeightInches.Size = new System.Drawing.Size(45, 19);
+            this.guiradlblReportHeightInches.TabIndex = 1;
+            // 
+            // guiradtxtReportOperator
+            // 
+            this.guiradtxtReportOperator.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtReportOperator.Location = new System.Drawing.Point(149, 79);
+            this.guiradtxtReportOperator.Name = "guiradtxtReportOperator";
+            this.guiradtxtReportOperator.Size = new System.Drawing.Size(160, 19);
+            this.guiradtxtReportOperator.TabIndex = 107;
+            this.guiradtxtReportOperator.TabStop = false;
+            // 
+            // guiradtxtReportBloodPressure1
+            // 
+            this.guiradtxtReportBloodPressure1.Controls.Add(this.radLabel3);
+            this.guiradtxtReportBloodPressure1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtReportBloodPressure1.Location = new System.Drawing.Point(81, 6);
+            this.guiradtxtReportBloodPressure1.Name = "guiradtxtReportBloodPressure1";
+            this.guiradtxtReportBloodPressure1.Size = new System.Drawing.Size(45, 19);
+            this.guiradtxtReportBloodPressure1.TabIndex = 109;
+            this.guiradtxtReportBloodPressure1.TabStop = false;
+            // 
+            // radLabel3
+            // 
+            this.radLabel3.AutoSize = false;
+            this.radLabel3.Location = new System.Drawing.Point(0, 0);
+            this.radLabel3.Name = "radLabel3";
+            this.radLabel3.Size = new System.Drawing.Size(45, 19);
+            this.radLabel3.TabIndex = 1;
+            // 
+            // guiradlblReportWeightdisplay
+            // 
+            this.guiradlblReportWeightdisplay.AutoSize = false;
+            this.guiradlblReportWeightdisplay.BackColor = System.Drawing.Color.White;
+            this.guiradlblReportWeightdisplay.Location = new System.Drawing.Point(81, 54);
+            this.guiradlblReportWeightdisplay.Name = "guiradlblReportWeightdisplay";
+            this.guiradlblReportWeightdisplay.Size = new System.Drawing.Size(45, 19);
+            this.guiradlblReportWeightdisplay.TabIndex = 1;
+            // 
+            // guiradlblReportHeightDisplay
+            // 
+            this.guiradlblReportHeightDisplay.AutoSize = false;
+            this.guiradlblReportHeightDisplay.BackColor = System.Drawing.Color.White;
+            this.guiradlblReportHeightDisplay.Location = new System.Drawing.Point(81, 29);
+            this.guiradlblReportHeightDisplay.Name = "guiradlblReportHeightDisplay";
+            this.guiradlblReportHeightDisplay.Size = new System.Drawing.Size(45, 19);
+            this.guiradlblReportHeightDisplay.TabIndex = 0;
+            // 
+            // guiradbtnreportedit
+            // 
+            this.guiradbtnreportedit.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradbtnreportedit.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.guiradbtnreportedit.Location = new System.Drawing.Point(207, 269);
+            this.guiradbtnreportedit.Name = "guiradbtnreportedit";
+            this.guiradbtnreportedit.Size = new System.Drawing.Size(80, 25);
+            this.guiradbtnreportedit.TabIndex = 116;
+            this.guiradbtnreportedit.Text = "Edit";
+            this.guiradbtnreportedit.Click += new System.EventHandler(this.guiradbtnreportedit_Click);
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnreportedit.GetChildAt(0))).ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnreportedit.GetChildAt(0))).Text = "Edit";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnreportedit.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(171)))), ((int)(((byte)(231)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnreportedit.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            // 
+            // guiradbtnreportcancel
+            // 
+            this.guiradbtnreportcancel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradbtnreportcancel.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.guiradbtnreportcancel.Location = new System.Drawing.Point(111, 269);
+            this.guiradbtnreportcancel.Name = "guiradbtnreportcancel";
+            this.guiradbtnreportcancel.Size = new System.Drawing.Size(80, 25);
+            this.guiradbtnreportcancel.TabIndex = 115;
+            this.guiradbtnreportcancel.Text = "Cancel";
+            this.guiradbtnreportcancel.Visible = false;
+            this.guiradbtnreportcancel.Click += new System.EventHandler(this.guiradbtnreportcancel_Click);
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnreportcancel.GetChildAt(0))).ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnreportcancel.GetChildAt(0))).Text = "Cancel";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnreportcancel.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(171)))), ((int)(((byte)(231)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnreportcancel.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            // 
+            // guiradbtnreportsave
+            // 
+            this.guiradbtnreportsave.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradbtnreportsave.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.guiradbtnreportsave.Location = new System.Drawing.Point(16, 269);
+            this.guiradbtnreportsave.Name = "guiradbtnreportsave";
+            this.guiradbtnreportsave.Size = new System.Drawing.Size(80, 25);
+            this.guiradbtnreportsave.TabIndex = 114;
+            this.guiradbtnreportsave.Text = "Save";
+            this.guiradbtnreportsave.Visible = false;
+            this.guiradbtnreportsave.Click += new System.EventHandler(this.guiradbtnreportsave_Click);
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnreportsave.GetChildAt(0))).ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnreportsave.GetChildAt(0))).Text = "Save";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnreportsave.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(171)))), ((int)(((byte)(231)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnreportsave.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            // 
+            // guiradlblReportBmiValue
+            // 
+            this.guiradlblReportBmiValue.AutoSize = false;
+            this.guiradlblReportBmiValue.BackColor = System.Drawing.Color.White;
+            this.guiradlblReportBmiValue.Location = new System.Drawing.Point(206, 56);
+            this.guiradlblReportBmiValue.Name = "guiradlblReportBmiValue";
+            this.guiradlblReportBmiValue.Size = new System.Drawing.Size(45, 17);
+            this.guiradlblReportBmiValue.TabIndex = 113;
+            // 
+            // guiradlblBloodPressure2
+            // 
+            this.guiradlblBloodPressure2.AutoSize = false;
+            this.guiradlblBloodPressure2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblBloodPressure2.Location = new System.Drawing.Point(155, 8);
+            this.guiradlblBloodPressure2.Name = "guiradlblBloodPressure2";
+            this.guiradlblBloodPressure2.Size = new System.Drawing.Size(50, 19);
+            this.guiradlblBloodPressure2.TabIndex = 109;
+            this.guiradlblBloodPressure2.Text = "DP:";
+            this.guiradlblBloodPressure2.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradtxtReportWeight
+            // 
+            this.guiradtxtReportWeight.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtReportWeight.Location = new System.Drawing.Point(81, 54);
+            this.guiradtxtReportWeight.Name = "guiradtxtReportWeight";
+            this.guiradtxtReportWeight.Size = new System.Drawing.Size(45, 19);
+            this.guiradtxtReportWeight.TabIndex = 106;
+            this.guiradtxtReportWeight.TabStop = false;
+            // 
+            // guiradtxtReportBloodPressure2
+            // 
+            this.guiradtxtReportBloodPressure2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtReportBloodPressure2.Location = new System.Drawing.Point(206, 8);
+            this.guiradtxtReportBloodPressure2.Name = "guiradtxtReportBloodPressure2";
+            this.guiradtxtReportBloodPressure2.Size = new System.Drawing.Size(45, 19);
+            this.guiradtxtReportBloodPressure2.TabIndex = 110;
+            this.guiradtxtReportBloodPressure2.TabStop = false;
             // 
             // guiradlblReportBloodPressure1
             // 
             this.guiradlblReportBloodPressure1.AutoSize = false;
             this.guiradlblReportBloodPressure1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportBloodPressure1.Location = new System.Drawing.Point(29, 156);
+            this.guiradlblReportBloodPressure1.Location = new System.Drawing.Point(30, 6);
             this.guiradlblReportBloodPressure1.Name = "guiradlblReportBloodPressure1";
             this.guiradlblReportBloodPressure1.Size = new System.Drawing.Size(50, 19);
             this.guiradlblReportBloodPressure1.TabIndex = 82;
             this.guiradlblReportBloodPressure1.Text = "SP:";
             this.guiradlblReportBloodPressure1.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // guiradlblReportCuff
-            // 
-            this.guiradlblReportCuff.AutoSize = false;
-            this.guiradlblReportCuff.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportCuff.Location = new System.Drawing.Point(7, 204);
-            this.guiradlblReportCuff.Name = "guiradlblReportCuff";
-            this.guiradlblReportCuff.Size = new System.Drawing.Size(55, 19);
-            this.guiradlblReportCuff.TabIndex = 90;
-            this.guiradlblReportCuff.Text = "Cuff:";
-            this.guiradlblReportCuff.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // guiradlblReportBmiUnits
             // 
             this.guiradlblReportBmiUnits.AutoSize = false;
             this.guiradlblReportBmiUnits.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportBmiUnits.Location = new System.Drawing.Point(246, 28);
+            this.guiradlblReportBmiUnits.Location = new System.Drawing.Point(254, 59);
             this.guiradlblReportBmiUnits.Name = "guiradlblReportBmiUnits";
             this.guiradlblReportBmiUnits.Size = new System.Drawing.Size(50, 15);
             this.guiradlblReportBmiUnits.TabIndex = 80;
@@ -863,7 +873,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblReportBmi.AutoSize = false;
             this.guiradlblReportBmi.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportBmi.Location = new System.Drawing.Point(155, 28);
+            this.guiradlblReportBmi.Location = new System.Drawing.Point(155, 56);
             this.guiradlblReportBmi.Name = "guiradlblReportBmi";
             this.guiradlblReportBmi.Size = new System.Drawing.Size(50, 15);
             this.guiradlblReportBmi.TabIndex = 79;
@@ -874,7 +884,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblReportOperator.AutoSize = false;
             this.guiradlblReportOperator.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportOperator.Location = new System.Drawing.Point(39, 50);
+            this.guiradlblReportOperator.Location = new System.Drawing.Point(39, 79);
             this.guiradlblReportOperator.Name = "guiradlblReportOperator";
             this.guiradlblReportOperator.Size = new System.Drawing.Size(110, 19);
             this.guiradlblReportOperator.TabIndex = 78;
@@ -885,7 +895,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblReportWeightUnits.AutoSize = false;
             this.guiradlblReportWeightUnits.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportWeightUnits.Location = new System.Drawing.Point(130, 28);
+            this.guiradlblReportWeightUnits.Location = new System.Drawing.Point(130, 56);
             this.guiradlblReportWeightUnits.Name = "guiradlblReportWeightUnits";
             this.guiradlblReportWeightUnits.Size = new System.Drawing.Size(22, 19);
             this.guiradlblReportWeightUnits.TabIndex = 76;
@@ -895,7 +905,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblReportWeight.AutoSize = false;
             this.guiradlblReportWeight.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportWeight.Location = new System.Drawing.Point(9, 24);
+            this.guiradlblReportWeight.Location = new System.Drawing.Point(10, 52);
             this.guiradlblReportWeight.Name = "guiradlblReportWeight";
             this.guiradlblReportWeight.Size = new System.Drawing.Size(70, 19);
             this.guiradlblReportWeight.TabIndex = 75;
@@ -906,7 +916,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblheightinchec.AutoSize = false;
             this.guiradlblheightinchec.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblheightinchec.Location = new System.Drawing.Point(215, 4);
+            this.guiradlblheightinchec.Location = new System.Drawing.Point(254, 34);
             this.guiradlblheightinchec.Name = "guiradlblheightinchec";
             this.guiradlblheightinchec.Size = new System.Drawing.Size(30, 19);
             this.guiradlblheightinchec.TabIndex = 73;
@@ -917,7 +927,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblReportHeightUnits.AutoSize = false;
             this.guiradlblReportHeightUnits.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportHeightUnits.Location = new System.Drawing.Point(130, 5);
+            this.guiradlblReportHeightUnits.Location = new System.Drawing.Point(130, 32);
             this.guiradlblReportHeightUnits.Name = "guiradlblReportHeightUnits";
             this.guiradlblReportHeightUnits.Size = new System.Drawing.Size(30, 19);
             this.guiradlblReportHeightUnits.TabIndex = 72;
@@ -927,7 +937,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblReportheightWeight.AutoSize = false;
             this.guiradlblReportheightWeight.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportheightWeight.Location = new System.Drawing.Point(5, 5);
+            this.guiradlblReportheightWeight.Location = new System.Drawing.Point(5, 32);
             this.guiradlblReportheightWeight.Name = "guiradlblReportheightWeight";
             this.guiradlblReportheightWeight.Size = new System.Drawing.Size(75, 19);
             this.guiradlblReportheightWeight.TabIndex = 70;
@@ -936,9 +946,8 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // guiradtxtReportNotes
             // 
-            this.guiradtxtReportNotes.Controls.Add(this.guiradlblReportNotesDisplay);
             this.guiradtxtReportNotes.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtReportNotes.Location = new System.Drawing.Point(4, 93);
+            this.guiradtxtReportNotes.Location = new System.Drawing.Point(4, 123);
             this.guiradtxtReportNotes.Multiline = true;
             this.guiradtxtReportNotes.Name = "guiradtxtReportNotes";
             // 
@@ -946,25 +955,15 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtReportNotes.RootElement.StretchVertically = true;
             this.guiradtxtReportNotes.ShowItemToolTips = false;
-            this.guiradtxtReportNotes.Size = new System.Drawing.Size(305, 57);
+            this.guiradtxtReportNotes.Size = new System.Drawing.Size(317, 40);
             this.guiradtxtReportNotes.TabIndex = 108;
             this.guiradtxtReportNotes.TabStop = false;
-            // 
-            // guiradlblReportNotesDisplay
-            // 
-            this.guiradlblReportNotesDisplay.AutoSize = false;
-            this.guiradlblReportNotesDisplay.BackColor = System.Drawing.Color.White;
-            this.guiradlblReportNotesDisplay.Location = new System.Drawing.Point(0, 0);
-            this.guiradlblReportNotesDisplay.Name = "guiradlblReportNotesDisplay";
-            this.guiradlblReportNotesDisplay.Size = new System.Drawing.Size(305, 57);
-            this.guiradlblReportNotesDisplay.TabIndex = 18;
-            this.guiradlblReportNotesDisplay.Text = "radLabel9";
             // 
             // guiradlblNotes
             // 
             this.guiradlblNotes.AutoSize = false;
             this.guiradlblNotes.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblNotes.Location = new System.Drawing.Point(2, 71);
+            this.guiradlblNotes.Location = new System.Drawing.Point(2, 101);
             this.guiradlblNotes.Name = "guiradlblNotes";
             this.guiradlblNotes.Size = new System.Drawing.Size(182, 19);
             this.guiradlblNotes.TabIndex = 44;
@@ -985,7 +984,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guipnlReportPatientDemographicDetails.Controls.Add(this.guiradlblReportPatientName);
             this.guipnlReportPatientDemographicDetails.Controls.Add(this.guiradlblReportDOB);
             this.guipnlReportPatientDemographicDetails.Controls.Add(this.guiradlblReportPatientId);
-            this.guipnlReportPatientDemographicDetails.Controls.Add(this.guiradtxtReportHeightInches);
             this.guipnlReportPatientDemographicDetails.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guipnlReportPatientDemographicDetails.Location = new System.Drawing.Point(-6, -3);
             this.guipnlReportPatientDemographicDetails.Name = "guipnlReportPatientDemographicDetails";
@@ -1169,7 +1167,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblReportReferenceRange.AutoSize = false;
             this.guiradlblReportReferenceRange.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportReferenceRange.Location = new System.Drawing.Point(683, 207);
+            this.guiradlblReportReferenceRange.Location = new System.Drawing.Point(714, 207);
             this.guiradlblReportReferenceRange.Name = "guiradlblReportReferenceRange";
             this.guiradlblReportReferenceRange.Size = new System.Drawing.Size(150, 20);
             this.guiradlblReportReferenceRange.TabIndex = 78;
@@ -1180,7 +1178,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlbReportNormalRange.AutoSize = false;
             this.guiradlbReportNormalRange.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlbReportNormalRange.Location = new System.Drawing.Point(369, 207);
+            this.guiradlbReportNormalRange.Location = new System.Drawing.Point(438, 207);
             this.guiradlbReportNormalRange.Name = "guiradlbReportNormalRange";
             this.guiradlbReportNormalRange.Size = new System.Drawing.Size(150, 20);
             this.guiradlbReportNormalRange.TabIndex = 77;
@@ -1195,7 +1193,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportPWVValue.Name = "guiradlblReportPWVValue";
             this.guiradlblReportPWVValue.Size = new System.Drawing.Size(100, 21);
             this.guiradlblReportPWVValue.TabIndex = 84;
-            this.guiradlblReportPWVValue.Text = "9.5 m/s";
             this.guiradlblReportPWVValue.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guiradlblReportHeartRateValue
@@ -1206,7 +1203,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportHeartRateValue.Name = "guiradlblReportHeartRateValue";
             this.guiradlblReportHeartRateValue.Size = new System.Drawing.Size(100, 21);
             this.guiradlblReportHeartRateValue.TabIndex = 83;
-            this.guiradlblReportHeartRateValue.Text = "75 bpm";
             this.guiradlblReportHeartRateValue.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // radLabel6
@@ -1246,7 +1242,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guipnlSeperator2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
             this.guipnlSeperator2.Enabled = false;
-            this.guipnlSeperator2.Location = new System.Drawing.Point(334, 404);
+            this.guipnlSeperator2.Location = new System.Drawing.Point(334, 407);
             this.guipnlSeperator2.Name = "guipnlSeperator2";
             this.guipnlSeperator2.Size = new System.Drawing.Size(665, 1);
             this.guipnlSeperator2.TabIndex = 85;
@@ -1254,20 +1250,26 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradbtnPrint
             // 
             this.guiradbtnPrint.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradbtnPrint.Location = new System.Drawing.Point(784, 571);
+            this.guiradbtnPrint.Location = new System.Drawing.Point(795, 562);
             this.guiradbtnPrint.Name = "guiradbtnPrint";
-            this.guiradbtnPrint.Size = new System.Drawing.Size(100, 25);
+            this.guiradbtnPrint.Size = new System.Drawing.Size(80, 25);
             this.guiradbtnPrint.TabIndex = 87;
             this.guiradbtnPrint.Text = "Print";
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnPrint.GetChildAt(0))).Text = "Print";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnPrint.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(171)))), ((int)(((byte)(231)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnPrint.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
             // 
             // guiradbtnDelete
             // 
             this.guiradbtnDelete.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradbtnDelete.Location = new System.Drawing.Point(890, 571);
+            this.guiradbtnDelete.Location = new System.Drawing.Point(890, 562);
             this.guiradbtnDelete.Name = "guiradbtnDelete";
-            this.guiradbtnDelete.Size = new System.Drawing.Size(100, 25);
+            this.guiradbtnDelete.Size = new System.Drawing.Size(80, 25);
             this.guiradbtnDelete.TabIndex = 88;
             this.guiradbtnDelete.Text = "Delete";
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnDelete.GetChildAt(0))).Text = "Delete";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnDelete.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(171)))), ((int)(((byte)(231)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnDelete.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
             // 
             // guiradlblReportFemoral
             // 
@@ -1291,32 +1293,40 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportCarotid.Text = "Carotid";
             this.guiradlblReportCarotid.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // radlblcuffQuality
+            // guiradlblReportCarotidImage
             // 
-            this.radlblcuffQuality.AutoSize = false;
-            this.radlblcuffQuality.Image = ((System.Drawing.Image)(resources.GetObject("radlblcuffQuality.Image")));
-            this.radlblcuffQuality.Location = new System.Drawing.Point(920, 59);
-            this.radlblcuffQuality.Name = "radlblcuffQuality";
-            this.radlblcuffQuality.Size = new System.Drawing.Size(50, 50);
-            this.radlblcuffQuality.TabIndex = 91;
+            this.guiradlblReportCarotidImage.AutoSize = false;
+            this.guiradlblReportCarotidImage.ImageList = this.guiimagelistTickCross;
+            this.guiradlblReportCarotidImage.Location = new System.Drawing.Point(920, 59);
+            this.guiradlblReportCarotidImage.Name = "guiradlblReportCarotidImage";
+            this.guiradlblReportCarotidImage.Size = new System.Drawing.Size(50, 50);
+            this.guiradlblReportCarotidImage.TabIndex = 91;
             // 
-            // radLabel1
+            // guiimagelistTickCross
             // 
-            this.radLabel1.AutoSize = false;
-            this.radLabel1.Image = ((System.Drawing.Image)(resources.GetObject("radLabel1.Image")));
-            this.radLabel1.Location = new System.Drawing.Point(920, 143);
-            this.radLabel1.Name = "radLabel1";
-            this.radLabel1.Size = new System.Drawing.Size(50, 50);
-            this.radLabel1.TabIndex = 92;
+            this.guiimagelistTickCross.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("guiimagelistTickCross.ImageStream")));
+            this.guiimagelistTickCross.TransparentColor = System.Drawing.Color.Transparent;
+            this.guiimagelistTickCross.Images.SetKeyName(0, "cross-mark.gif");
+            this.guiimagelistTickCross.Images.SetKeyName(1, "new green-tick-mark.jpg");
             // 
-            // radLabel2
+            // guiradlblReportFemoralImage
             // 
-            this.radLabel2.AutoSize = false;
-            this.radLabel2.Image = ((System.Drawing.Image)(resources.GetObject("radLabel2.Image")));
-            this.radLabel2.Location = new System.Drawing.Point(846, 456);
-            this.radLabel2.Name = "radLabel2";
-            this.radLabel2.Size = new System.Drawing.Size(50, 50);
-            this.radLabel2.TabIndex = 93;
+            this.guiradlblReportFemoralImage.AutoSize = false;
+            this.guiradlblReportFemoralImage.BackColor = System.Drawing.Color.Transparent;
+            this.guiradlblReportFemoralImage.ImageList = this.guiimagelistTickCross;
+            this.guiradlblReportFemoralImage.Location = new System.Drawing.Point(920, 143);
+            this.guiradlblReportFemoralImage.Name = "guiradlblReportFemoralImage";
+            this.guiradlblReportFemoralImage.Size = new System.Drawing.Size(50, 50);
+            this.guiradlblReportFemoralImage.TabIndex = 92;
+            // 
+            // guiradlblStdDeviationImage
+            // 
+            this.guiradlblStdDeviationImage.AutoSize = false;
+            this.guiradlblStdDeviationImage.ImageList = this.guiimagelistTickCross;
+            this.guiradlblStdDeviationImage.Location = new System.Drawing.Point(846, 456);
+            this.guiradlblStdDeviationImage.Name = "guiradlblStdDeviationImage";
+            this.guiradlblStdDeviationImage.Size = new System.Drawing.Size(50, 50);
+            this.guiradlblStdDeviationImage.TabIndex = 93;
             // 
             // guiradAnalysisChartHeading
             // 
@@ -1338,11 +1348,14 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradbtnRepeat
             // 
             this.guiradbtnRepeat.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradbtnRepeat.Location = new System.Drawing.Point(674, 571);
+            this.guiradbtnRepeat.Location = new System.Drawing.Point(699, 562);
             this.guiradbtnRepeat.Name = "guiradbtnRepeat";
-            this.guiradbtnRepeat.Size = new System.Drawing.Size(100, 25);
+            this.guiradbtnRepeat.Size = new System.Drawing.Size(80, 25);
             this.guiradbtnRepeat.TabIndex = 97;
             this.guiradbtnRepeat.Text = "Repeat";
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnRepeat.GetChildAt(0))).Text = "Repeat";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnRepeat.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(171)))), ((int)(((byte)(231)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnRepeat.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
             // 
             // object_45a62884_0e91_4302_a1b0_a0476635197c
             // 
@@ -1356,16 +1369,130 @@ namespace AtCor.Scor.Gui.Presentation
             this.object_2861adea_5b4c_4e2f_b90d_eaa64c34536e.StretchHorizontally = true;
             this.object_2861adea_5b4c_4e2f_b90d_eaa64c34536e.StretchVertically = true;
             // 
+            // guichartNormalRange
+            // 
+            this.guichartNormalRange.BackColor = System.Drawing.Color.Transparent;
+            chartArea2.AxisX.Interval = 35;
+            chartArea2.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea2.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea2.AxisX.IsStartedFromZero = false;
+            chartArea2.AxisX.MajorGrid.Enabled = false;
+            chartArea2.AxisX.Maximum = 90;
+            chartArea2.AxisX.Minimum = 20;
+            chartArea2.AxisX.ScaleView.MinSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea2.AxisX.ScaleView.SmallScrollMinSize = 0;
+            chartArea2.AxisX.Title = "Age (years)";
+            chartArea2.AxisY.Interval = 5;
+            chartArea2.AxisY.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea2.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea2.AxisY.IsLabelAutoFit = false;
+            chartArea2.AxisY.IsStartedFromZero = false;
+            chartArea2.AxisY.LabelStyle.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea2.AxisY.MajorGrid.Enabled = false;
+            chartArea2.AxisY.Maximum = 20;
+            chartArea2.AxisY.Minimum = 5;
+            chartArea2.AxisY.Title = "P W V m/s";
+            chartArea2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(75)))), ((int)(((byte)(58)))));
+            chartArea2.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 100F;
+            this.guichartNormalRange.ChartAreas.Add(chartArea2);
+            this.guichartNormalRange.Location = new System.Drawing.Point(331, 232);
+            this.guichartNormalRange.Name = "guichartNormalRange";
+            series1.BackImageTransparentColor = System.Drawing.Color.White;
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bubble;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(171)))), ((int)(((byte)(231)))));
+            series1.CustomProperties = "BubbleMaxSize=15";
+            series1.MarkerBorderWidth = 3;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.Name = "Series3";
+            series1.Points.Add(dataPoint1);
+            series1.ShadowColor = System.Drawing.Color.DimGray;
+            series1.ShadowOffset = 5;
+            series1.YValuesPerPoint = 2;
+            this.guichartNormalRange.Series.Add(series1);
+            this.guichartNormalRange.Size = new System.Drawing.Size(306, 170);
+            this.guichartNormalRange.TabIndex = 98;
+            this.guichartNormalRange.Text = "chart2";
+            // 
+            // guichartReferenceRange
+            // 
+            this.guichartReferenceRange.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.AxisX.Interval = 35;
+            chartArea3.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea3.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea3.AxisX.IsStartedFromZero = false;
+            chartArea3.AxisX.MajorGrid.Enabled = false;
+            chartArea3.AxisX.Maximum = 90;
+            chartArea3.AxisX.Minimum = 20;
+            chartArea3.AxisX.ScaleView.MinSizeType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea3.AxisX.ScaleView.SmallScrollMinSize = 0;
+            chartArea3.AxisX.Title = "Age (years)";
+            chartArea3.AxisY.Interval = 5;
+            chartArea3.AxisY.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea3.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea3.AxisY.IsStartedFromZero = false;
+            chartArea3.AxisY.LabelStyle.Enabled = false;
+            chartArea3.AxisY.MajorGrid.Enabled = false;
+            chartArea3.AxisY.Maximum = 20;
+            chartArea3.AxisY.Minimum = 5;
+            chartArea3.AxisY2.Interval = 5;
+            chartArea3.AxisY2.MajorGrid.Enabled = false;
+            chartArea3.AxisY2.Maximum = 20;
+            chartArea3.AxisY2.Minimum = 5;
+            chartArea3.AxisY2.Title = "P W V m/s";
+            chartArea3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(75)))), ((int)(((byte)(58)))));
+            chartArea3.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
+            chartArea3.Name = "ChartArea1";
+            chartArea3.Position.Auto = false;
+            chartArea3.Position.Height = 100F;
+            chartArea3.Position.Width = 100F;
+            this.guichartReferenceRange.ChartAreas.Add(chartArea3);
+            this.guichartReferenceRange.Location = new System.Drawing.Point(650, 235);
+            this.guichartReferenceRange.Name = "guichartReferenceRange";
+            series2.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
+            series2.BorderColor = System.Drawing.Color.Black;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area;
+            series2.Color = System.Drawing.Color.Green;
+            series2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series2.Name = "Series2";
+            series2.Points.Add(dataPoint2);
+            series2.Points.Add(dataPoint3);
+            series2.Points.Add(dataPoint4);
+            series2.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series3.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bubble;
+            series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(171)))), ((int)(((byte)(231)))));
+            series3.Name = "Series3";
+            dataPoint5.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series3.Points.Add(dataPoint5);
+            series3.ShadowColor = System.Drawing.Color.DimGray;
+            series3.ShadowOffset = 5;
+            series3.YValuesPerPoint = 2;
+            this.guichartReferenceRange.Series.Add(series2);
+            this.guichartReferenceRange.Series.Add(series3);
+            this.guichartReferenceRange.Size = new System.Drawing.Size(306, 170);
+            this.guichartReferenceRange.TabIndex = 99;
+            this.guichartReferenceRange.Text = "chart1";
+            // 
             // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(992, 599);
+            this.Controls.Add(this.guichartReferenceRange);
+            this.Controls.Add(this.guichartNormalRange);
             this.Controls.Add(this.guiradbtnRepeat);
             this.Controls.Add(this.guiradAnalysisChartHeading);
-            this.Controls.Add(this.radLabel2);
-            this.Controls.Add(this.radLabel1);
-            this.Controls.Add(this.radlblcuffQuality);
+            this.Controls.Add(this.guiradlblStdDeviationImage);
+            this.Controls.Add(this.guiradlblReportFemoralImage);
+            this.Controls.Add(this.guiradlblReportCarotidImage);
             this.Controls.Add(this.guiradlblReportFemoral);
             this.Controls.Add(this.guiradlblReportCarotid);
             this.Controls.Add(this.guiradbtnDelete);
@@ -1380,8 +1507,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.Controls.Add(this.guiradlblReportReferenceRange);
             this.Controls.Add(this.guiradlbReportNormalRange);
             this.Controls.Add(this.guiraddock);
-            this.Controls.Add(this.guichartReferenceRange);
-            this.Controls.Add(this.guichartNormalRange);
             this.Controls.Add(this.guichartSuperImposedWaveform);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Report";
@@ -1393,10 +1518,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.Text = "Report";
             this.ThemeName = "ControlDefault";
             this.Load += new System.EventHandler(this.Report_Load);
-            this.Leave += new System.EventHandler(this.Report_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.guichartSuperImposedWaveform)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guichartReferenceRange)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guichartNormalRange)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).EndInit();
             this.documentContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
@@ -1407,49 +1529,56 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportAssesmentCount)).EndInit();
             this.guipnlReportPatientMeasurementDetails.ResumeLayout(false);
             this.guipnlReportPatientMeasurementDetails.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportSPdisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBloodPressure2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportNotesDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportOperatordisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradpnldisplayPWVDistance)).EndInit();
+            this.guiradpnldisplayPWVDistance.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportpwvdistancedisplay1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistance1)).EndInit();
+            this.guiradlblReportPwvDistance1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethod)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethodType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradpnlEditPWVdistance)).EndInit();
+            this.guiradpnlEditPWVdistance.ResumeLayout(false);
+            this.guiradpnlEditPWVdistance.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuffUnits)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportCuff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportpwvdistancedisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtCarotid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidUnits)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportFemoToCuff)).EndInit();
+            this.guiradlblReportFemoToCuff.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportFemoralCuffUnits)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportFemoToCuff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistance)).EndInit();
+            this.guiradlblReportPwvDistance.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWVDistance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportHeightInches)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportHeightInches)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportOperator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportBloodPressure1)).EndInit();
             this.guiradtxtReportBloodPressure1.ResumeLayout(false);
             this.guiradtxtReportBloodPressure1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportpwvdistancedisplay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportSPdisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportWeightdisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportHeightDisplay)).EndInit();
-            this.guiradlblReportHeightDisplay.ResumeLayout(false);
-            this.guiradlblReportHeightDisplay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnreportedit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnreportcancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnreportsave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBmiValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidUnits)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtCarotid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblBloodPressure2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethodType)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportFemoToCuff)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportCuff)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportHeightInches)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportHeightInches)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportWeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportBloodPressure2)).EndInit();
-            this.guiradtxtReportBloodPressure2.ResumeLayout(false);
-            this.guiradtxtReportBloodPressure2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBloodPressure2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportFemoToCuff)).EndInit();
-            this.guiradlblReportFemoToCuff.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportFemoralCuffUnits)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistance)).EndInit();
-            this.guiradlblReportPwvDistance.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWVDistance)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuffUnits)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethod)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBloodPressure1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBmiUnits)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportBmi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportOperator)).EndInit();
@@ -1459,12 +1588,8 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportHeightUnits)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportheightWeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportNotes)).EndInit();
-            this.guiradtxtReportNotes.ResumeLayout(false);
-            this.guiradtxtReportNotes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportNotesDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblNotes)).EndInit();
             this.guipnlReportPatientDemographicDetails.ResumeLayout(false);
-            this.guipnlReportPatientDemographicDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guilblReportGenderValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportGender)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportAge)).EndInit();
@@ -1487,11 +1612,13 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnDelete)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportFemoral)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCarotid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radlblcuffQuality)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCarotidImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportFemoralImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblStdDeviationImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradAnalysisChartHeading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnRepeat)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guichartNormalRange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guichartReferenceRange)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1501,8 +1628,6 @@ namespace AtCor.Scor.Gui.Presentation
         #endregion
 
         private System.Windows.Forms.DataVisualization.Charting.Chart guichartSuperImposedWaveform;
-        private System.Windows.Forms.DataVisualization.Charting.Chart guichartReferenceRange;
-        private System.Windows.Forms.DataVisualization.Charting.Chart guichartNormalRange;
         private Telerik.WinControls.UI.Docking.DocumentContainer documentContainer1;
         private Telerik.WinControls.UI.Docking.ToolWindow toolWindow1;
         private Telerik.WinControls.UI.Docking.RadDock guiraddock;
@@ -1536,8 +1661,8 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadButton guiradbtnDelete;
         private Telerik.WinControls.UI.RadLabel guiradlblReportFemoral;
         private Telerik.WinControls.UI.RadLabel guiradlblReportCarotid;
-        private Telerik.WinControls.UI.RadLabel radlblcuffQuality;
-        private Telerik.WinControls.UI.RadLabel radLabel1;
+        private Telerik.WinControls.UI.RadLabel guiradlblReportCarotidImage;
+        private Telerik.WinControls.UI.RadLabel guiradlblReportFemoralImage;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel guipnlSeperator3;
         private System.Windows.Forms.Panel guipnlReportPatientMeasurementDetails;
@@ -1569,7 +1694,7 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadTextBox guiradtxtReportNotes;
         private Telerik.WinControls.UI.RadLabel guiradlblReportNotesDisplay;
         private Telerik.WinControls.UI.RadLabel guiradlblNotes;
-        private Telerik.WinControls.UI.RadLabel radLabel2;
+        private Telerik.WinControls.UI.RadLabel guiradlblStdDeviationImage;
         private Telerik.WinControls.UI.RadLabel guiradAnalysisChartHeading;
         private Telerik.WinControls.UI.RadLabel guiradlblReportPwvDistanceMethodType;
         private Telerik.WinControls.UI.RadLabel guiradlblBloodPressure2;
@@ -1587,13 +1712,22 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadLabel guiradlblReportHeightDisplay;
         private Telerik.WinControls.UI.RadLabel guiradlblReportHeightInches;
         private Telerik.WinControls.UI.RadLabel guiradlblReportWeightdisplay;
-        private Telerik.WinControls.UI.RadLabel guiradlblreportSPdisplay;
         private Telerik.WinControls.UI.RadLabel guiradlblReportBloodPressure2;
         private Telerik.WinControls.UI.RadLabel guiradlblreportpwvdistancedisplay;
         private Telerik.WinControls.UI.RadTextBox guiradtxtReportBloodPressure1;
-        private Telerik.WinControls.UI.RadLabel radLabel3;
         private Telerik.WinControls.UI.RadTextBox guiradtxtReportOperator;
         private Telerik.WinControls.UI.RadLabel guilblReportGenderValue;
+        private Telerik.WinControls.UI.RadLabel radLabel3;
+        private Telerik.WinControls.UI.RadLabel guiradlblreportSPdisplay;
+        private Telerik.WinControls.UI.RadPanel guiradpnlEditPWVdistance;
+        private Telerik.WinControls.UI.RadPanel guiradpnldisplayPWVDistance;
+        private Telerik.WinControls.UI.RadLabel guiradlblreportpwvdistancedisplay1;
+        private Telerik.WinControls.UI.RadLabel guiradlblReportPwvDistance1;
+        private Telerik.WinControls.UI.RadLabel radLabel7;
+        private Telerik.WinControls.UI.RadLabel guiradlblReportPwvDitanceUnits1;
+        private System.Windows.Forms.ImageList guiimagelistTickCross;
+        private System.Windows.Forms.DataVisualization.Charting.Chart guichartNormalRange;
+        private System.Windows.Forms.DataVisualization.Charting.Chart guichartReferenceRange;
     }
 }
 

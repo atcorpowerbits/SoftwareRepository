@@ -27,8 +27,15 @@ namespace AtCor{
 								private ref class DalSimulationFile
 								{
 								private:
+									// constant declarations
+                                    static const unsigned int DAL_FILENOTSET_ERR      = 301;  //TODO:STUB
+                                    static const unsigned int DAL_FILENOTFOUND_ERR    = 302; //TODO:STUB
+                                    static const unsigned int DAL_FAILTOCREATE_ERR    = 303; //TODO:STUB
+                                    static const unsigned int DAL_FAILTOWRITE_ERR     = 304; //TODO:STUB
+
 									String^ filePath;	//path of the file on the disk
 									StreamReader ^reader; //variable to store the File stream reader
+									StreamWriter ^writer; //variable to store the File stream writer //TODO:STUB
 								public:
 									/**
 									* Opens the file specified by @c DalSimulationFile::filePath.
@@ -68,7 +75,7 @@ namespace AtCor{
 									*
 									* @see GetNextValues(signed int *value1, signed int *value2, signed int value3)
 									*/
-									bool GetNextValues(signed int *value1, signed int *value2);
+									bool GetNextValues(unsigned long *value1, unsigned long *value2);
 									
 									/**
 									* Reads a line from the simlation file and returns three integer values.
@@ -80,7 +87,21 @@ namespace AtCor{
 									*
 									* @see GetNextValues(signed int *value1, signed int *value2);
 									*/									
-									bool GetNextValues(signed int *value1, signed int *value2, signed int *value3);
+									//bool GetNextValues(signed int *value1, signed int *value2, signed int *value3); //commented out as it is no longer needed. 
+
+									/**
+									* Reads a line from the simlation file and returns four values.
+									* @param[out] value1 Unsigned integer value from the first column in the file.
+									* @param[out] value2 Unsigned integer value from the second column in the file.
+									* @param[out] value3 Unsigned long value from the third column in the file.
+									* @param[out] value4 Unsigned long value from the third column in the file.
+									*
+									* @return the status of the operation: true if successful
+									*
+									* @see GetNextValues(signed int *value1, signed int *value2);
+									*/									
+									bool GetNextValues(unsigned long  *value1, unsigned long *value2, unsigned long *value3, unsigned long *value4 );
+									
 									
 									/**
 									* Resets the simulation source file to point to begining of file.
@@ -89,9 +110,8 @@ namespace AtCor{
 									*/
 									bool ResetFileStreamPosition();
 
-									//for stub only
-									bool GetNextValues(unsigned int *value1, unsigned int *value2, unsigned int *value3, unsigned long *value4  );
-
+									bool CreateFile(String^ outputFilePath);//TODO:STUB
+									bool SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse); //TODO:STUB
 								};
 		}
 	}

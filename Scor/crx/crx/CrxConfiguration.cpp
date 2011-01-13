@@ -500,7 +500,6 @@ void CrxConfigManager::GetGeneralSettingsNode(String^ SubSection, String^ SubSec
 	{
 		CrxConfigManager::GetReportLogoPath(SubSection,ReaderValue);
 	}
-	//smarajit
 	//Calls function if node element is Server Name
 	else
 	if(SubSectionNode == "SERVERNAME")
@@ -519,7 +518,6 @@ void CrxConfigManager::GetGeneralSettingsNode(String^ SubSection, String^ SubSec
 	{
 		CrxConfigManager::GetCultureInfo(SubSection,ReaderValue);
 	}
-	///////////////////////////////
 	//If none of the node element matches then throw exception
 	else
 	{
@@ -723,7 +721,7 @@ void CrxConfigManager::GetReportLogoPath(String^ SubSection, String^ ReaderValue
 		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 }
-/////Smarajit
+
 void CrxConfigManager::GetServerName(String^ SubSection, String^ ReaderValue)
 {
 	//Get Report logo path details
@@ -772,7 +770,7 @@ void CrxConfigManager::GetCultureInfo(String^ SubSection, String^ ReaderValue)
 		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
 	}
 }
-//smarajit
+
 //***********************************************************************
 //Get PWV Settings Functions
 //***********************************************************************
@@ -884,7 +882,7 @@ void CrxConfigManager::GetCaptureTime(String^ SubSection, String^ ReaderValue)
 {
 	//Get the Get Capture time Details
 	//Temporary variables
-	int CaptureTime = 0;
+	int CaptureTime = 5;
 	String^ tempValue  = nullptr;
 
 	tempValue  = ReaderValue->ToUpper();
@@ -1021,7 +1019,7 @@ void CrxConfigManager::SetReportLogoPath(CrxStructGeneralSetting^ gs, XmlNode^ n
          node->InnerText = " "; 
     }
 }
-////smarajit
+
 void CrxConfigManager::SetServerName(CrxStructGeneralSetting^ gs, XmlNode^ node)
 {
 	if(gs->ServerName != nullptr) 
@@ -1055,7 +1053,7 @@ void CrxConfigManager::SetCultureInfo(CrxStructGeneralSetting^ gs, XmlNode^ node
          node->InnerText = " "; 
     }
 }
-//smarajit
+
 
 //********************************************
 //Set PWV Settings Functions

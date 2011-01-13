@@ -52,7 +52,9 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 		//Check whether default resource file is exists or not
 		if(!File::Exists(_nameOfAppResxfile))
 		{ 
-			throw gcnew CrxException(L"Resource file not found"); // File not found
+			//throw gcnew CrxException(L"Resource file not found"); // File not found
+			errorString = "#200 Resource file not found.";
+			return errorString;
 		}
 
 		//Get the message string through resource manager object
@@ -62,7 +64,7 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 		//if string length is equals to zero then send the string "Error Code not found"
 		if(errorString->Length == 0)
 		{
-			errorString = L"Error Code not found";
+			errorString = "#201 Error Code not found.";
 		}
 
 		return errorString;

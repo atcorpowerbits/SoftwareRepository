@@ -76,7 +76,23 @@ namespace TestCrx {
 				Assert::IsNotNull(actual);
 
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
-			}	
+			}
+			/// <summary>
+			///A test for DataProviderType
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void DataProviderTypeTest()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				//String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+				String^  expected = "SQLEXPRESS";
+				String^  actual;
+				target->DataProviderType = expected;
+				actual = target->DataProviderType;
+				Assert::AreEqual(expected, actual);
+				//Assert::Inconclusive(L"Verify the correctness of this test method.");
+			}
 			/// <summary>
 			///A test for ConnString
 			///</summary>
@@ -108,14 +124,14 @@ namespace TestCrx {
 				md->SystemIdentifier = 31256;
                 md->GroupIdentifier = 4;
                 md->PatientNumberInternal = 6;
-				md->StudyDateTime = Convert::ToDateTime("2010-12-17 11:58:12");
+				md->StudyDateTime = Convert::ToDateTime("2011-01-05 18:49:16");
 				md->Notes = "CheckOut";
 				md->Carotid = 111;
 				md->WeightInKilograms = 75;
 				md->HeightInCentimetres = 175;
-				md->CarotidSignal = gcnew array<short>(1);
+				md->CarotidSignal = gcnew array<unsigned short>(1);
 				md->CarotidSignal[0] = 1244;
-				md->FemoralSignal = gcnew array<short>(1);
+				md->FemoralSignal = gcnew array<unsigned short>(1);
 				md->FemoralSignal[0] = 1344;
 				md->CarotidSignalFloatOnSets = gcnew array<float>(1);
 				md->CarotidSignalFloatOnSets[0] = 1234.12f;
@@ -128,6 +144,28 @@ namespace TestCrx {
 				expected  = 1;
 				actual = target->UpdatePWVMeasurementDetails(md);
 				Assert::AreEqual(expected, actual);
+
+				target->SetConnection(serverName, sourceName);
+				md = gcnew CrxStructPWVMeasurementData();
+				md->SystemIdentifier = 31256;
+                md->GroupIdentifier = 4;
+                md->PatientNumberInternal = 6;
+				md->StudyDateTime = Convert::ToDateTime("2011-01-05 18:49:16");
+				md->Notes = "CheckOut";
+				md->Carotid = 111;
+				md->WeightInKilograms = 75;
+				md->HeightInCentimetres = 175;
+				expected  = 0;
+				try
+				{
+					actual = target->UpdatePWVMeasurementDetails(md);
+				}
+				catch(Exception^)
+				{
+					actual = 0;
+				}
+				Assert::AreEqual(expected, actual);
+
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
@@ -174,10 +212,33 @@ namespace TestCrx {
 				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
 				String^  serverName = System::String::Empty; // TODO: Initialize to an appropriate value
 				String^  sourceName = System::String::Empty; // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
+				int expected = 1; // TODO: Initialize to an appropriate value
 				int actual;
-				actual = target->SetConnection(serverName, sourceName);
+				String^ serverNameTest = "MUM-9696\\SQLEXPRESS";
+				String^  sourceNameTest = "SQLCLIENT";
+				try
+				{
+					actual = target->SetConnection(serverNameTest, sourceNameTest);
+				}
+				catch(Exception^)
+				{
+
+				}
 				Assert::AreEqual(expected, actual);
+				serverNameTest = "MUM-9696\\SQLEXPRESS";
+				sourceNameTest = "ORACLECLIENT";
+				try
+				{
+					actual = target->SetConnection(serverNameTest, sourceNameTest);
+				}
+				catch(Exception^)
+				{
+					actual = 0;
+				}
+				expected = 0;
+				Assert::AreEqual(expected, actual);
+
+
 				///Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
@@ -201,9 +262,9 @@ namespace TestCrx {
 				md->Carotid = 111;
 				md->WeightInKilograms = 75;
 				md->HeightInCentimetres = 175;
-				md->CarotidSignal = gcnew array<short>(1);
+				md->CarotidSignal = gcnew array<unsigned short>(1);
 				md->CarotidSignal[0] = 1244;
-				md->FemoralSignal = gcnew array<short>(1);
+				md->FemoralSignal = gcnew array<unsigned short>(1);
 				md->FemoralSignal[0] = 1344;
 				md->CarotidSignalFloatOnSets = gcnew array<float>(1);
 				md->CarotidSignalFloatOnSets[0] = 1234.12f;
@@ -251,6 +312,18 @@ namespace TestCrx {
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
+			///A test for ResetDatabaseToMultiuser
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void ResetDatabaseToMultiuserTest()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				target->SetConnection(serverName, sourceName);
+				target->ResetDatabaseToMultiuser();
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			}
+			/// <summary>
 			///A test for PatientRecordExists
 			///</summary>
 	public: [TestMethod]
@@ -275,7 +348,7 @@ namespace TestCrx {
 				pd->DateOfBirth = Convert::ToDateTime(date);
 				pd->GroupName = "Dr8";
                 pd->FirstName = "Final234erer";
-                pd->Gender = "Male"; 
+                pd->Gender = "Female"; 
 
 				expected = 1;
 
@@ -394,7 +467,7 @@ namespace TestCrx {
 				md->SystemIdentifier = 31256;
                 md->GroupIdentifier = 4;
                 md->PatientNumberInternal = 6;
-				md->StudyDateTime = Convert::ToDateTime("2010-12-15 14:23:47");
+				md->StudyDateTime = Convert::ToDateTime("2011-01-04 19:51:15");
 				
 				//smarajit
 				int expectStr = md->PatientNumberInternal;
@@ -531,6 +604,78 @@ namespace TestCrx {
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
+			///A test for DatabaseRestore
+			///</summary>
+	public: [TestMethod]
+			void DatabaseRestoreTest()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				//String^  FilePath = System::String::Empty; // TODO: Initialize to an appropriate value
+				String^  FilePath = "\\\\MUM-9638\\Atcor_Backup\\Test_For120110105.BAK";
+				int expected = 0; // TODO: Initialize to an appropriate value
+				int actual;
+				//input parameters to call method
+				target->SetConnection(serverName, sourceName);
+
+				actual = target->DatabaseRestore(FilePath);
+				Assert::AreEqual(expected, actual);
+
+				FilePath = "\\\\MUM-9638\\Atcor_2009\\Test_For120110105.BAK";
+				//expected = 0; // TODO: Initialize to an appropriate value
+				//int actual;
+				//input parameters to call method
+				try
+				{
+					actual = target->DatabaseRestore(FilePath);
+				}
+				catch(Exception^)
+				{
+					expected =0;
+				}
+				Assert::AreEqual(expected, actual);
+				//Assert::Inconclusive(L"Verify the correctness of this test method.");
+			}
+			/// <summary>
+			///A test for DatabaseBackup
+			///</summary>
+	public: [TestMethod]
+			void DatabaseBackupTest()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				//String^  FilePath = System::String::Empty; // TODO: Initialize to an appropriate value
+				String^  FilePath = "\\\\MUM-9638\\Atcor_Backup\\Test_For120110105.BAK";
+				int expected = 0; // TODO: Initialize to an appropriate value
+				int actual;
+				//input parameters to call method
+				target->SetConnection(serverName, sourceName);
+				try
+				{
+
+					actual = target->DatabaseBackup(FilePath);
+				}
+				catch(Exception^ e)
+				{
+					String^ check = e->Message;
+				}
+				Assert::AreEqual(expected, actual);
+
+				//String^  FilePath = "\\\\MUM-9638\\Atcor_2008\\Test_For120110105.BAK";
+				//int expected = 0; // TODO: Initialize to an appropriate value
+				//int actual;
+				//input parameters to call method
+				FilePath = "\\\\MUM-9638\\Atcor_2009\\Test_For120110105.BAK";
+				try
+				{
+					actual = target->DatabaseBackup(FilePath);
+				}
+				catch(Exception^)
+				{
+					expected =0;
+				}
+				Assert::AreEqual(expected, actual);
+				//Assert::Inconclusive(L"Verify the correctness of this test method.");
+			}
+			/// <summary>
 			///A test for CommonShortArrtoByteArr
 			///</summary>
 	public: [TestMethod]
@@ -538,14 +683,14 @@ namespace TestCrx {
 			{
 				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
 				int len = 0; // TODO: Initialize to an appropriate value
-				cli::array< short >^  shrtarr = nullptr; // TODO: Initialize to an appropriate value
+				cli::array< unsigned short >^  shrtarr = nullptr; // TODO: Initialize to an appropriate value
 				//cli::array< unsigned char >^  expected = nullptr; // TODO: Initialize to an appropriate value
 				//cli::array< unsigned char >^  actual;
 				cli::array< Byte >^  expected = nullptr;
 				cli::array< Byte >^  actual;
 				//smarajit
 				//array<Byte>^ bufferArrRet;
-				shrtarr = gcnew array<short> (1);
+				shrtarr = gcnew array<unsigned short> (1);
 				   shrtarr[0] = 21212;
 				len = shrtarr->Length;
 				array<Byte>^ bufferarr;
@@ -557,6 +702,25 @@ namespace TestCrx {
 				actual = target->CommonShortArrtoByteArr(len, shrtarr);
 				///actual = target->CommonShortArrtoByteArr(len, shrtarr);
 				Assert::AreEqual(expected[0], actual[0]);
+
+
+				len = 0 ;
+				actual =  gcnew array<Byte> (len*2);
+				actual = target->CommonShortArrtoByteArr(len, shrtarr);
+				expected =  gcnew array<Byte>(len*2);
+
+				int actualTest;
+				try
+				{
+					actual =  gcnew array<Byte> (2);
+					actual = target->CommonShortArrtoByteArr(2, shrtarr);
+				}					
+				catch(Exception^)
+				{
+					actualTest = 0;
+				}
+				int expectedTest = 0;
+				Assert::AreEqual(expectedTest,actualTest);
 				//Assert::AreSame(expected,actual);
 				//Assert::AreNotEqual(expected,actual);
 				//smarajit
@@ -593,6 +757,27 @@ namespace TestCrx {
 
 				actual = target->CommonFloatArrtoByteArr(len, fltarr);
 				Assert::AreEqual(expected[0], actual[0]);
+
+				len = 0 ;
+				actual =  gcnew array<Byte> (len*4);
+				actual = target->CommonFloatArrtoByteArr(len, fltarr);
+				expected =  gcnew array<Byte>(len*4);
+				//Assert::AreEqual(expected[0], actual[0]);
+				
+				int actualTest;
+				try
+				{
+					actual =  gcnew array<Byte> (4);
+					actual = target->CommonFloatArrtoByteArr(2, fltarr);
+				}				
+				
+				catch(Exception^)
+				{
+					actualTest = 0;
+				}
+				int expectedTest = 0;
+				Assert::AreEqual(expectedTest,actualTest);
+
 				//Assert::AreSame(expected,actual);
 				//Assert::AreNotEqual(expected,actual);
 
@@ -610,11 +795,11 @@ namespace TestCrx {
 				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
 				int len = 0; // TODO: Initialize to an appropriate value
 				cli::array< unsigned char >^  bytearr = nullptr; // TODO: Initialize to an appropriate value
-				cli::array< short >^  expected = nullptr; // TODO: Initialize to an appropriate value
-				cli::array< short >^  actual;
+				cli::array< unsigned short >^  expected = nullptr; // TODO: Initialize to an appropriate value
+				cli::array< unsigned short >^  actual;
 				///Smarajit
 
-				array< short >^ shrtarr = gcnew array<short> (1);
+				array< unsigned short >^ shrtarr = gcnew array<unsigned short> (1);
 				   shrtarr[0] = 21212;
 				len = shrtarr->Length;
 				array<Byte>^ bufferarr;
@@ -622,12 +807,33 @@ namespace TestCrx {
 				bufferarr = BitConverter::GetBytes(shrtarr[0]);
 				bytearr[0] = bufferarr[0];
 				bytearr[1] = bufferarr[1];
-				expected = gcnew array<short>(len);
+				expected = gcnew array<unsigned short>(len);
 				short value = BitConverter::ToInt16(bytearr,0);		
 				expected[0] = value;
 				//smarajit
 				actual = target->CommonByteArrtoShortArr(len, bytearr);
 				Assert::AreEqual(expected[0], actual[0]);
+
+				bytearr =  gcnew array<Byte> (2);
+				bufferarr = BitConverter::GetBytes(shrtarr[0]);
+				bytearr[0] = bufferarr[0];
+				bytearr[1] = bufferarr[1];
+				expected = gcnew array<unsigned short>(len);
+				value = BitConverter::ToInt16(bytearr,0);		
+				expected[0] = value;
+				len =0;
+				int actualTest;
+				try
+				{
+					actual = target->CommonByteArrtoShortArr(2, bytearr);
+				}
+				
+				catch(Exception^)
+				{
+					actualTest = 0;
+				}
+				int expectedTest = 0;
+				Assert::AreEqual(expectedTest,actualTest);
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
@@ -657,6 +863,31 @@ namespace TestCrx {
 				//smarajit
 				actual = target->CommonByteArrtoFloatArr(len, bytearr);
 				Assert::AreEqual(expected[0], actual[0]);
+
+				//array<Byte>^ bufferarr;
+				bytearr =  gcnew array<Byte> (4);
+				bufferarr = BitConverter::GetBytes(fltarr[0]);
+				bytearr[0] = bufferarr[0];
+				bytearr[1] = bufferarr[1];
+				expected = gcnew array<float>(len);
+				value = BitConverter::ToSingle(bytearr,0);		
+				expected[0] = value;
+				len  =0;
+				int actualTest;
+				try
+				{
+					actual = target->CommonByteArrtoFloatArr(2, bytearr);
+				}
+				
+				catch(Exception^)
+				{
+					actualTest = 0;
+				}
+				int expectedTest = 0;
+				Assert::AreEqual(expectedTest,actualTest);
+				
+				
+
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
@@ -668,9 +899,19 @@ namespace TestCrx {
 				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
 				String^  serverName = System::String::Empty; // TODO: Initialize to an appropriate value
 				String^  sourceName = System::String::Empty; // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
+				int expected = 1; // TODO: Initialize to an appropriate value
 				int actual;
-				actual = target->CheckConnection(serverName, sourceName);
+				String^ serverNameTest = "MUM-9696\\SQLEXPRESS";
+				String^  sourceNameTest = "SQLCLIENT";
+				try
+				{
+					actual = target->CheckConnection(serverNameTest, sourceNameTest);
+				}
+				catch(Exception^)
+				{
+					
+				}
+				//actual = target->CheckConnection(serverName, sourceName);
 				Assert::AreEqual(expected, actual);
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
@@ -683,6 +924,7 @@ namespace TestCrx {
 			{
 				CrxDBManager^  unnamed = nullptr; // TODO: Initialize to an appropriate value
 				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor(unnamed));
+				Assert::IsNotNull(target);
 				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 			/// <summary>
@@ -693,6 +935,7 @@ namespace TestCrx {
 			void CrxDBManagerConstructorTest()
 			{
 				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor());
+				Assert::IsNotNull(target);
 				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 	};

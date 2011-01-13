@@ -61,9 +61,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		int		SystemIdentifier;
 		int		GroupIdentifier;
 		int		PatientNumberInternal;		
-		int		SP;
-		int		DP;
-		int		MP;		
+		short	SP;
+		short	DP;
+		short	MP;		
 		short	Age;
 		short	PWVDistance;		
 		short	Carotid;
@@ -92,15 +92,18 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		float	CarotidSignalPulseHeight;
 		float	CarotidSignalPulseHeightVariation;	
 		float	CorrectionTime;
-		float	FemoralSignalPulseHeight;	
+		float	FemoralSignalPulseHeight;
+		float	FemoralSignalPulseHeightVariation;	
+		float	ReferenceRangeDistance;	
+		float	ReferenceRangePulseWaveVelocity;	
 		String^ Notes;
 		String^ Operator;
-		String^ PWVDistanceMethod;
+		short	PWVDistanceMethod;
 		String^	BloodPressureRange;
-		String^ BloodPressureEntryOption;
+		short	BloodPressureEntryOption;
 		DateTime StudyDateTime;
-		array<short>^ CarotidSignal ;				
-		array<short>^ FemoralSignal;
+		array<unsigned short>^ CarotidSignal;				
+		array<unsigned short>^ FemoralSignal;
 		array<float>^ NormalRange;
 		array<float>^ ReferenceRange;		
 		array<float>^ CarotidSignalFloatOnSets;			
@@ -187,8 +190,13 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 			{ 
 				_dbType = value; 
 			}
-		}		
-	
+		}	
+
+		/**
+		* To reset database permission, set to multiuser  
+		*/
+		void ResetDatabaseToMultiuser();
+		
 	public:		
 		
 		/**
@@ -334,7 +342,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* @param[in] len Length of the array
 		* @param[in] bytearr Byte array values
 		*/
-		array<short>^ CommonByteArrtoShortArr(int len, array<Byte>^ bytearr);
+		array<unsigned short>^ CommonByteArrtoShortArr(int len, array<Byte>^ bytearr);
 		/**
 		* To convert float Array to Byte Array 
 		* @return Byte array data
@@ -348,7 +356,21 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* @param[in] len Length of the array
 		* @param[in] shrtarr Short array values
 		*/
-		array<Byte>^ CommonShortArrtoByteArr(int len, array<short>^ shrtarr);
+		array<Byte>^ CommonShortArrtoByteArr(int len, array<unsigned short>^ shrtarr);
+
+		/**
+		* To take backup of the database 
+		* @return if 0 if successfully saved else not successful
+		* @param[in] FilePath to store the backup file
+		*/
+		int DatabaseBackup(String^ filePath);
+		
+		/**
+		* To restore back file to database 
+		* @return if 0 if successfully saved else not successful
+		* @param[in] FilePath to get the backup file
+		*/
+		int DatabaseRestore(String^ filePath);
 
 	};
 }

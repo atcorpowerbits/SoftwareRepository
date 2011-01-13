@@ -210,26 +210,6 @@
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
-		<AssemblyReference
-			RelativePath="Microsoft.SqlServer.ConnectionInfo.dll"
-			AssemblyName="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
-			MinFrameworkVersion="0"
-		/>
-		<AssemblyReference
-			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.dll"
-			AssemblyName="Microsoft.Practices.Unity, Version=2.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-			MinFrameworkVersion="196613"
-		/>
-		<AssemblyReference
-			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.Interception.dll"
-			AssemblyName="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-			MinFrameworkVersion="196613"
-		/>
-		<AssemblyReference
-			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime.dll"
-			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-			MinFrameworkVersion="196613"
-		/>
 	</References>
 	<Files>
 		<Filter
@@ -367,6 +347,7 @@
 			</File>
 			<File
 				RelativePath=".\ApplicationMessages.resx"
+				SubType="Designer"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"

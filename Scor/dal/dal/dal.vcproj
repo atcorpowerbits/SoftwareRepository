@@ -180,7 +180,7 @@
 		<AssemblyReference
 			RelativePath="..\..\Debug\crx.dll"
 			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
-			MinFrameworkVersion="0"
+			MinFrameworkVersion="196613"
 		/>
 	</References>
 	<Files>
@@ -194,11 +194,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\dal_facade_stub.cpp"
+				RelativePath=".\dal.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\dal_stub.cpp"
+				RelativePath=".\dal_facade_stub.cpp"
 				>
 			</File>
 			<File
@@ -269,10 +269,6 @@
 			</File>
 			<File
 				RelativePath=".\dal_stub_constants.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DalCommon.h"
 				>
 			</File>
 			<File

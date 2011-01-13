@@ -9,6 +9,10 @@ Assembly System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561
 	hash=SHA1, flags=None
 Assembly System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
 Assembly Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
 	hash=SHA1, flags=None
 Assembly Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
@@ -22,38 +26,6 @@ Assembly System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b
 Assembly System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=SHA1, flags=None
 Assembly Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapterV5, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Security.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Security, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.PolicyInjection, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Validation, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Logging.Database, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
 	hash=SHA1, flags=None
 Assembly Microsoft.VisualC, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
 	hash=SHA1, flags=None
@@ -119,6 +91,13 @@ Class AtCor.Scor.CrossCutting.Configuration.CrxConfigManager: AutoLayout, AnsiCl
     GetPwvDefaultSettings(CrxStructPwvSetting): PrivateScope, Public, HideBySig
     GetPwvUserSettings(): PrivateScope, Public, HideBySig
     SetPwvUserSettings(CrxStructPwvSetting): PrivateScope, Public, HideBySig
+Class AtCor.Scor.CrossCutting.CrxCommon: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Fields:
+    System.Globalization.CultureInfo gCI : Public, Static
+  Properties:
+    AtCor.Scor.CrossCutting.CrxCommon Instance 'get ' : 
+  Methods:
+    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class AtCor.Scor.CrossCutting.CrxException: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Exception
     Void .ctor(Int32, System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -140,9 +119,9 @@ Struct AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue: AutoLayout, AnsiCla
   :System.Enum
   Fields:
     Int32 value__ : Public, SpecialName, RTSpecialName
-    AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxPwvCapture20Seconds = 2 : Public, Static, Literal, HasDefault
-    AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxPwvCapture10Seconds = 1 : Public, Static, Literal, HasDefault
-    AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxPwvCapture5Seconds = 0 : Public, Static, Literal, HasDefault
+    AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxPwvCapture20Seconds = 20 : Public, Static, Literal, HasDefault
+    AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxPwvCapture10Seconds = 10 : Public, Static, Literal, HasDefault
+    AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxPwvCapture5Seconds = 5 : Public, Static, Literal, HasDefault
     AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxPwvDistMethodDirect = 1 : Public, Static, Literal, HasDefault
     AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxPwvDistMethodSubStract = 0 : Public, Static, Literal, HasDefault
     AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxPwvDistDistUnitsCM = 1 : Public, Static, Literal, HasDefault
@@ -152,6 +131,13 @@ Struct AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue: AutoLayout, AnsiCla
     AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxGenBPOptSPandDP = 0 : Public, Static, Literal, HasDefault
     AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxGenHeightWeightImperial = 1 : Public, Static, Literal, HasDefault
     AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxGenHeightWeightMetric = 0 : Public, Static, Literal, HasDefault
+Class AtCor.Scor.CrossCutting.Messaging.CrxMessagingManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    AtCor.Scor.CrossCutting.Messaging.CrxMessagingManager Instance 'get ' : 
+  Methods:
+    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
+    GetMessage(String): PrivateScope, Public, HideBySig
+    GetMessage(Int32): PrivateScope, Public, HideBySig
 Class AtCor.Scor.CrossCutting.DatabaseManager.CrxStructPatientDemographicData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -174,9 +160,9 @@ Class AtCor.Scor.CrossCutting.DatabaseManager.CrxStructPWVMeasurementData: AutoL
     Int32 SystemIdentifier : Public
     Int32 GroupIdentifier : Public
     Int32 PatientNumberInternal : Public
-    Int32 SP : Public
-    Int32 DP : Public
-    Int32 MP : Public
+    Int16 SP : Public
+    Int16 DP : Public
+    Int16 MP : Public
     Int16 Age : Public
     Int16 PWVDistance : Public
     Int16 Carotid : Public
@@ -206,14 +192,17 @@ Class AtCor.Scor.CrossCutting.DatabaseManager.CrxStructPWVMeasurementData: AutoL
     Single CarotidSignalPulseHeightVariation : Public
     Single CorrectionTime : Public
     Single FemoralSignalPulseHeight : Public
+    Single FemoralSignalPulseHeightVariation : Public
+    Single ReferenceRangeDistance : Public
+    Single ReferenceRangePulseWaveVelocity : Public
     System.String Notes : Public
     System.String Operator : Public
-    System.String PWVDistanceMethod : Public
+    Int16 PWVDistanceMethod : Public
     System.String BloodPressureRange : Public
-    System.String BloodPressureEntryOption : Public
+    Int16 BloodPressureEntryOption : Public
     System.DateTime StudyDateTime : Public
-    Int16[] CarotidSignal : Public
-    Int16[] FemoralSignal : Public
+    UInt16[] CarotidSignal : Public
+    UInt16[] FemoralSignal : Public
     Single[] NormalRange : Public
     Single[] ReferenceRange : Public
     Single[] CarotidSignalFloatOnSets : Public
@@ -241,7 +230,9 @@ Class AtCor.Scor.CrossCutting.DatabaseManager.CrxDBManager: AutoLayout, AnsiClas
     CommonByteArrtoFloatArr(Int32, Byte[]): PrivateScope, Public, HideBySig
     CommonByteArrtoShortArr(Int32, Byte[]): PrivateScope, Public, HideBySig
     CommonFloatArrtoByteArr(Int32, Single[]): PrivateScope, Public, HideBySig
-    CommonShortArrtoByteArr(Int32, Int16[]): PrivateScope, Public, HideBySig
+    CommonShortArrtoByteArr(Int32, UInt16[]): PrivateScope, Public, HideBySig
+    DatabaseBackup(String): PrivateScope, Public, HideBySig
+    DatabaseRestore(String): PrivateScope, Public, HideBySig
 Class AtCor.Scor.CrossCutting.CommsPortEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.EventArgs
     Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -273,10 +264,3 @@ Class AtCor.Scor.CrossCutting.Logging.CrxLogger: AutoLayout, AnsiClass, Class, P
   Methods:
     Write(String): PrivateScope, Public, HideBySig
     get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
-Class AtCor.Scor.CrossCutting.Messaging.CrxMessagingManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  Properties:
-    AtCor.Scor.CrossCutting.Messaging.CrxMessagingManager Instance 'get ' : 
-  Methods:
-    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
-    GetMessage(String): PrivateScope, Public, HideBySig
-    GetMessage(Int32): PrivateScope, Public, HideBySig

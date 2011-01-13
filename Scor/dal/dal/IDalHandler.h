@@ -28,15 +28,23 @@ namespace AtCor{
 			*/
 			private interface class IDalHandler 
 			{
-				public:
-					//void StartCapture();
+			
+			
+			public:
+					static property unsigned long currentStatusFlags;
+					static property unsigned long currentErrorAlarmFlags;
+			
 					void StartCapture(int captureTime, int samplingRate); //new parametrized method
 					
+					void StartCapture();//TODO:STUB
 					void StopCapture();
 					bool GetConnectionStatus();
 					bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
 											  DalDeviceConfigUsageStruct ^deviceConfigInfo );
-			};
+					String^ GetErrorAlarmSource();
+
+
+				};
 
 
 

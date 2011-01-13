@@ -146,7 +146,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.docWndGeneralSettings;
+            this.radDock1.ActiveWindow = this.docWndPWVSettings;
             this.radDock1.Controls.Add(this.documentContainer1);
             this.radDock1.DocumentManager.DocumentInsertOrder = Telerik.WinControls.UI.Docking.DockWindowInsertOrder.InFront;
             this.radDock1.IsCleanUpTarget = true;
@@ -490,7 +490,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 0;
+            this.documentTabStrip1.SelectedIndex = 1;
             this.documentTabStrip1.ShowItemToolTips = false;
             this.documentTabStrip1.Size = new System.Drawing.Size(542, 370);
             this.documentTabStrip1.TabIndex = 0;
@@ -499,7 +499,6 @@ namespace AtCor.Scor.Gui.Presentation
             ((Telerik.WinControls.UI.TabLayoutPanel)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0))).AutoSize = true;
             ((Telerik.WinControls.Layouts.BoxLayout)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0))).StretchVertically = false;
             ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).Text = "General Settings";
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.BottomLeft;
             ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).StretchHorizontally = false;
             ((Telerik.WinControls.UI.RadButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(0))).Enabled = false;

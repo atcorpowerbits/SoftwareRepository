@@ -70,7 +70,7 @@ namespace AtCor.Scor.Gui.Presentation
                 //page.Text = "Page " + (radPageView1.Pages.Count + 1).ToString();
                 page.Controls.Add(childForm);
 
-                //radPageView1.Pages.Add(page);
+                // radPageView1.Pages.Add(page);
                 childForm.Show();
             }
             else

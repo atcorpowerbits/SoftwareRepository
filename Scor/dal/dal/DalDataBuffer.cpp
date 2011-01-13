@@ -152,7 +152,7 @@ namespace AtCor{
 
 
 			//retun the requested rannge of values.
-			int DalDataBuffer::GetNextValues(int requestedValues, int& readStartIndex )
+			int DalDataBuffer::GetNextValues(int requestedValues, int % readStartIndex )
 			{
 				int returnedvalues = -1; //to singnal unready
 

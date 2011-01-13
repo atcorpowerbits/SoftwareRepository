@@ -37,14 +37,14 @@ namespace AtCor.Scor.Gui.Presentation
     */
     public partial class SQLInstanceList : Telerik.WinControls.UI.RadForm
     {
+        public static int IsCancel = 0;
         private const int CP_NOCLOSE_BUTTON = 0x200;
         SqlDataSourceEnumerator getCurInst = SqlDataSourceEnumerator.Instance;
         CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
         CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         CrxLogger oLogObject = CrxLogger.Instance;
         DataTable dt;
-        CrxDBManager dbMagr;
-        public static int isCancel = 0;
+        CrxDBManager dbMagr;        
 
         /**Constructor to initialize the components and diable the close icon on the title bar.
         */
@@ -96,7 +96,7 @@ namespace AtCor.Scor.Gui.Presentation
         */
         private void guiradbtnCancel_Click(object sender, EventArgs e)
         {
-            isCancel = 1;
+            IsCancel = 1;
             this.Close();            
         }
 
@@ -117,11 +117,8 @@ namespace AtCor.Scor.Gui.Presentation
             }
             else
             {
-                oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + crxMgrObject.GeneralSettings.ServerName);
-                CrxStructGeneralSetting gnrlSettingsStruct = new CrxStructGeneralSetting();
-                gnrlSettingsStruct.ServerName = crxMgrObject.GeneralSettings.ServerName;
-                gnrlSettingsStruct.SourceData = crxMgrObject.GeneralSettings.SourceData;
-                crxMgrObject.SetGeneralUserSettings(gnrlSettingsStruct);
+                oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + crxMgrObject.GeneralSettings.ServerName);                
+                crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);  
                 this.Close();
             }
         }

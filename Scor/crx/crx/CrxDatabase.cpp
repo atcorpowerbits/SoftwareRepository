@@ -11,15 +11,22 @@
 #include "stdafx.h"
 #include "CrxDatabase.h"
 #include "CrxCrossCutting.h"
+#include "CrxConfiguration.h"
+#include "CrxMessaging.h"
 
 using namespace System;
 using namespace System::Text;
 
 using namespace System::Data::SqlClient;
+using namespace System::IO;// For FileStream
+using namespace System::Diagnostics;
+using namespace System::ComponentModel;
 
 // Added application specific namespaces
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::DatabaseManager;
+using namespace AtCor::Scor::CrossCutting::Configuration;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 
 //To get patient record from the database as per inputs
 DataSet^ CrxDBManager::GetPatientDemographicRecords(int patientNo , int systemID , int groupID)
@@ -168,12 +175,12 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		
 		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0]["NormalRange"]);
 		len = buffarr->Length/4;
-		md->NormalRange = gcnew array<float>(len);;
+		md->NormalRange = gcnew array<float>(len);
 		md->NormalRange = CommonByteArrtoFloatArr(len,buffarr);
 
 		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0]["ReferenceRange"]);
 		len = buffarr->Length/4;
-		md->ReferenceRange = gcnew array<float>(len);;
+		md->ReferenceRange = gcnew array<float>(len);
 		md->ReferenceRange = CommonByteArrtoFloatArr(len,buffarr);
 
 		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0]["CarotidSignalFloatOnSets"]);
@@ -188,12 +195,12 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 
 		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0]["CarotidSignal"]);
 		len = buffarr->Length/2;
-		md->CarotidSignal = gcnew array<short>(len);
+		md->CarotidSignal = gcnew array<unsigned short>(len);
 		md->CarotidSignal = CommonByteArrtoShortArr(len,buffarr);
 
 		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0]["FemoralSignal"]);
 		len = buffarr->Length/2;
-		md->FemoralSignal = gcnew array<short>(len);
+		md->FemoralSignal = gcnew array<unsigned short>(len);
 		md->FemoralSignal = CommonByteArrtoShortArr(len,buffarr);
 			
 		md->SystemIdentifier			= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0]["SystemIdentifier"]);
@@ -201,19 +208,19 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		md->PatientNumberInternal		= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0]["PatientNumberInternal"]);
 		md->StudyDateTime				= Convert::ToDateTime(measurementdataset->Tables[0]->Rows[0]["StudyDateTime"]);
 		md->Notes						= Convert::ToString(measurementdataset->Tables[0]->Rows[0]["Notes"]);
-		md->SP							= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0]["SP"]);
-		md->DP							= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0]["DP"]);
-		md->MP							= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0]["MP"]);
+		md->SP							= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0]["SP"]);
+		md->DP							= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0]["DP"]);
+		md->MP							= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0]["MP"]);
 		md->Operator					= Convert::ToString(measurementdataset->Tables[0]->Rows[0]["Operator"]);
 
 		md->PWVDistance					= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0]["PWVDistance"]);
-		md->PWVDistanceMethod			= Convert::ToString(measurementdataset->Tables[0]->Rows[0]["PWVDistanceMethod"]);
+		md->PWVDistanceMethod			= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0]["PWVDistanceMethod"]);
 		md->Carotid						= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0]["Carotid"]);
 		md->FemoraltoCuff				= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0]["FemoraltoCuff"]);
 		md->Cuff						= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0]["Cuff"]);
 		md->Simulation					= Convert::ToBoolean(measurementdataset->Tables[0]->Rows[0]["Simulation"]);
 		md->BloodPressureRange			= Convert::ToString(measurementdataset->Tables[0]->Rows[0]["BloodPressureRange"]);
-		md->BloodPressureEntryOption	= Convert::ToString(measurementdataset->Tables[0]->Rows[0]["BloodPressureEntryOption"]);
+		md->BloodPressureEntryOption	= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0]["BloodPressureEntryOption"]);
 
 		md->Age							= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0]["Age"]);
 		md->IsStandardDeviationValid	= Convert::ToBoolean(measurementdataset->Tables[0]->Rows[0]["IsStandardDeviationValid"]);
@@ -422,7 +429,7 @@ int CrxDBManager::PatientRecordExists(CrxStructPatientDemographicData^ pd)
 		_objDB->AddInParameter(addCommand,"@groupname",DbType::String,pd->GroupName);
 
 		//Execute stored procedure and return int value records exist or not
-		//if returns 1 then six field else if returns 2 then five field exist else not exist
+		//if returns 1 then five field exist else not exist
 		result = Int32::Parse((_objDB->ExecuteScalar(addCommand))->ToString());			
 
 		return result;
@@ -621,19 +628,19 @@ int CrxDBManager::SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,md->GroupIdentifier);
 		_objDB->AddInParameter(addCommand,"@PatientNumberInternal",DbType::Int32,md->PatientNumberInternal);
 		_objDB->AddInParameter(addCommand,"@Notes",DbType::String,md->Notes);
-		_objDB->AddInParameter(addCommand,"@SP",DbType::Int32,md->SP);
-		_objDB->AddInParameter(addCommand,"@DP",DbType::Int32,md->DP);
-		_objDB->AddInParameter(addCommand,"@MP",DbType::Int32,md->MP);
+		_objDB->AddInParameter(addCommand,"@SP",DbType::Int16,md->SP);
+		_objDB->AddInParameter(addCommand,"@DP",DbType::Int16,md->DP);
+		_objDB->AddInParameter(addCommand,"@MP",DbType::Int16,md->MP);
 		_objDB->AddInParameter(addCommand,"@Operator",DbType::String,md->Operator);
 		_objDB->AddInParameter(addCommand,"@PWVDistance",DbType::Int16,md->PWVDistance);
-		_objDB->AddInParameter(addCommand,"@PWVDistanceMethod",DbType::String,md->PWVDistanceMethod);
+		_objDB->AddInParameter(addCommand,"@PWVDistanceMethod",DbType::Int16,md->PWVDistanceMethod);
 		_objDB->AddInParameter(addCommand,"@Carotid",DbType::Int16,md->Carotid);
 		_objDB->AddInParameter(addCommand,"@FemoraltoCuff",DbType::Int16,md->FemoraltoCuff);
 		_objDB->AddInParameter(addCommand,"@Cuff",DbType::Int16,md->Cuff);
 
 		_objDB->AddInParameter(addCommand,"@simulation",DbType::Boolean,md->Simulation);
 		_objDB->AddInParameter(addCommand,"@bloodPressureRange",DbType::String,md->BloodPressureRange);
-		_objDB->AddInParameter(addCommand,"@bloodPressureEntryOption",DbType::String,md->BloodPressureEntryOption);
+		_objDB->AddInParameter(addCommand,"@bloodPressureEntryOption",DbType::Int16,md->BloodPressureEntryOption);
 		
 		//get the length of array
 		len = md->NormalRange->Length;
@@ -702,7 +709,7 @@ int CrxDBManager::SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		//get the length of array
 		len = md->CarotidSignal->Length;
 		//initiaze the size of the array
-		buffarr = gcnew array<Byte>(len*sizeof(short));
+		buffarr = gcnew array<Byte>(len*sizeof(unsigned short));
 		//Calling common function convert to byte array
 		buffarr = CommonShortArrtoByteArr(len,md->CarotidSignal);
 		//initializing sqlparameter object to pass the parameter value
@@ -737,7 +744,7 @@ int CrxDBManager::SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		//get the length of array
 		len = md->FemoralSignal->Length;
 		//initiaze the size of the array
-		buffarr = gcnew array<Byte>(len*sizeof(short));
+		buffarr = gcnew array<Byte>(len*sizeof(unsigned short));
 		//Calling common function convert to byte array
 		buffarr = CommonShortArrtoByteArr(len,md->FemoralSignal);
 		//initializing sqlparameter object to pass the parameter value
@@ -799,19 +806,19 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		_objDB->AddInParameter(addCommand,"@PatientNumberInternal",DbType::Int32,md->PatientNumberInternal);
 		_objDB->AddInParameter(addCommand,"@studyDateTime",DbType::DateTime,md->StudyDateTime);
 		_objDB->AddInParameter(addCommand,"@Notes",DbType::String,md->Notes);
-		_objDB->AddInParameter(addCommand,"@SP",DbType::Int32,md->SP);
-		_objDB->AddInParameter(addCommand,"@DP",DbType::Int32,md->DP);
-		_objDB->AddInParameter(addCommand,"@MP",DbType::Int32,md->MP);
+		_objDB->AddInParameter(addCommand,"@SP",DbType::Int16,md->SP);
+		_objDB->AddInParameter(addCommand,"@DP",DbType::Int16,md->DP);
+		_objDB->AddInParameter(addCommand,"@MP",DbType::Int16,md->MP);
 		_objDB->AddInParameter(addCommand,"@Operator",DbType::String,md->Operator);
 		_objDB->AddInParameter(addCommand,"@PWVDistance",DbType::Int16,md->PWVDistance);
-		_objDB->AddInParameter(addCommand,"@PWVDistanceMethod",DbType::String,md->PWVDistanceMethod);
+		_objDB->AddInParameter(addCommand,"@PWVDistanceMethod",DbType::Int16,md->PWVDistanceMethod);
 		_objDB->AddInParameter(addCommand,"@Carotid",DbType::Int16,md->Carotid);
 		_objDB->AddInParameter(addCommand,"@FemoraltoCuff",DbType::Int16,md->FemoraltoCuff);
 		_objDB->AddInParameter(addCommand,"@Cuff",DbType::Int16,md->Cuff);
 
 		_objDB->AddInParameter(addCommand,"@simulation",DbType::Boolean,md->Simulation);
 		_objDB->AddInParameter(addCommand,"@bloodPressureRange",DbType::String,md->BloodPressureRange);
-		_objDB->AddInParameter(addCommand,"@bloodPressureEntryOption",DbType::String,md->BloodPressureEntryOption);
+		_objDB->AddInParameter(addCommand,"@bloodPressureEntryOption",DbType::Int16,md->BloodPressureEntryOption);
 		
 		//get the length of array
 		len = md->NormalRange->Length;
@@ -880,7 +887,7 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		//get the length of array
 		len = md->CarotidSignal->Length;
 		//initiaze the size of the array
-		buffarr = gcnew array<Byte>(len*sizeof(short));
+		buffarr = gcnew array<Byte>(len*sizeof(unsigned short));
 		//Calling common function convert to byte array
 		buffarr = CommonShortArrtoByteArr(len,md->CarotidSignal);
 		//initializing sqlparameter object to pass the parameter value
@@ -915,7 +922,7 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		//get the length of array
 		len = md->FemoralSignal->Length;
 		//initiaze the size of the array
-		buffarr = gcnew array<Byte>(len*sizeof(short));
+		buffarr = gcnew array<Byte>(len*sizeof(unsigned short));
 		//Calling common function convert to byte array
 		buffarr = CommonShortArrtoByteArr(len,md->FemoralSignal);
 		//initializing sqlparameter object to pass the parameter value
@@ -956,7 +963,7 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 
 //*********************************************//
 //Byte array function
-array<Byte>^ CrxDBManager::CommonShortArrtoByteArr(int len, array<short>^ shrtarr)
+array<Byte>^ CrxDBManager::CommonShortArrtoByteArr(int len, array<unsigned short>^ shrtarr)
 {
 	int val =0;//value to run number of loops
 	int byt =0;//value to store data in array location	
@@ -968,7 +975,7 @@ array<Byte>^ CrxDBManager::CommonShortArrtoByteArr(int len, array<short>^ shrtar
 		if(len != 0)
 		{		
 			//initiaze the size of the array
-			bufferArrRet = gcnew array<Byte>(len*sizeof(short));
+			bufferArrRet = gcnew array<Byte>(len*sizeof(unsigned short));
 			
 			for(val=0, byt=0; val<len; val++,byt=byt+2)
 			{
@@ -979,7 +986,7 @@ array<Byte>^ CrxDBManager::CommonShortArrtoByteArr(int len, array<short>^ shrtar
 		}
 		else
 		{
-			bufferArrRet = gcnew array<Byte>(len*sizeof(short));
+			bufferArrRet = gcnew array<Byte>(len*sizeof(unsigned short));
 		}
 		return bufferArrRet;
 	}
@@ -1016,7 +1023,7 @@ array<Byte>^ CrxDBManager::CommonFloatArrtoByteArr(int len, array<float>^ fltarr
 		}
 		else
 		{
-			bufferArrRet = gcnew array<Byte>(len*sizeof(short));
+			bufferArrRet = gcnew array<Byte>(len*sizeof(float));
 		}
 		return bufferArrRet;
 	}
@@ -1060,21 +1067,21 @@ array<float>^ CrxDBManager::CommonByteArrtoFloatArr(int len, array<Byte>^ bytear
 	} 
 }
 
-array<short>^ CrxDBManager::CommonByteArrtoShortArr(int len, array<Byte>^ bytearr)
+array<unsigned short>^ CrxDBManager::CommonByteArrtoShortArr(int len, array<Byte>^ bytearr)
 {
 	int val = 0;//value to run number of loops
 	int arr = 0;//value to get data in array location
 	short value =0;//Temporary value for the manipulation	
-	array<short>^  tempbuffer;//Temporary short array object for manipulation and returning
+	array<unsigned short>^  tempbuffer;//Temporary short array object for manipulation and returning
 
 	try
 	{
 		//initiaze the size of the array
-		tempbuffer = gcnew array<short>(len);
+		tempbuffer = gcnew array<unsigned short>(len);
 
 		for(val=0, arr=0; val<len; val++,arr=arr+2 )
 		{		
-			value = BitConverter::ToInt16(bytearr,arr);		
+			value = BitConverter::ToUInt16(bytearr,arr);		
 			tempbuffer[val] = value;
 		}
 
@@ -1085,4 +1092,86 @@ array<short>^ CrxDBManager::CommonByteArrtoShortArr(int len, array<Byte>^ bytear
 		// throw the exception
 		throw gcnew CrxException("CRX_ERR_DBMGR_CONVERSION");
 	} 
+}
+
+int CrxDBManager::DatabaseBackup(System::String ^filePath)
+{
+	int result = 0;//initializes to 0, if 1 successful else return zero
+	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+
+
+	try
+	{		
+		//get the Stored Procedure query using database object
+		addCommand = _objDB->GetStoredProcCommand("BackUpDatabase");
+
+		_objDB->AddInParameter(addCommand,"@FilePath",DbType::String,filePath);
+		
+		//Execute stored procedure and return int result backup successful or not
+		result = _objDB->ExecuteNonQuery(addCommand);	
+
+		if(result < 0)
+		{
+			result = 0;
+		}
+
+		return result;
+		
+	}
+	catch(CrxException^ crxObj)
+	{
+		// rethrow the exception
+		throw crxObj;
+	}
+	catch(Exception^ eObj)
+	{
+		// throw the exception
+		throw gcnew CrxException(eObj);
+	}
+}
+int CrxDBManager::DatabaseRestore(System::String ^filePath)
+{
+	int result = 0;//initializes to 0, if 1 successful else return zero
+	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+	String^ filePathSet = nullptr; //To store the reformated connection string,intializes to nullptr
+
+	filePathSet  = String::Format("'{0}'" , filePath);
+
+	try
+	{		
+		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE AtCor" + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE"+ " RESTORE DATABASE AtCor FROM DISK = " + filePathSet + " WITH REPLACE"); 
+
+		result = _objDB->ExecuteNonQuery(addCommand);	
+
+		if(result < 0)
+		{
+			result = 0;
+		}
+
+		return result;
+		
+	}
+	catch(CrxException^ crxObj)
+	{
+		// rethrow the exception
+		throw crxObj;
+	}
+	catch(Exception^ eObj)
+	{		
+		// throw the exception
+		throw gcnew CrxException(eObj);
+	}
+	finally
+	{
+		ResetDatabaseToMultiuser();
+	}
+}
+
+void CrxDBManager::ResetDatabaseToMultiuser()
+{
+	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+	
+	addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE AtCor" + " SET MULTI_USER" + " USE [AtCor]" ); 
+	
+	_objDB->ExecuteNonQuery(addCommand);
 }

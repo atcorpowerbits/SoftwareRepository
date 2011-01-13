@@ -32,6 +32,10 @@ namespace AtCor{
 			public ref class DalModule
 			{
 			private:
+                // constant declarations
+                static const unsigned int DAL_NULLCOMMPORT_ERR      = 303;  //TODO:STUB
+                static const unsigned int DAL_SIMULATION            = 10056;  //TODO:STUB
+
 				static DalModule^ _instance = gcnew DalModule();
 				DalModule();
 				DalModule(const DalModule^);
@@ -68,7 +72,7 @@ namespace AtCor{
 				/**
 				* Starts the data capture from the selected device.
 				*/
-				//void StartCapture();
+				void StartCapture(); //TODO:STUB
 				void StartCapture(int captureTime, int samplingRate);
 
 				/**
@@ -98,6 +102,16 @@ namespace AtCor{
 				* @warning	This method has not been implemented. It is a stub.
 				*/
 				String^ FindModule();
+
+				// Returns the PWV measurement counter stored in the firmware
+				bool GetPWVMeasurementCounter( unsigned short% count); //TODO:STUB
+
+				// Sets the PWV measurement counter stored in the firmware
+				bool SetPWVMeasurementCounter( unsigned short count); //TODO:STUB
+
+				property bool measurementCounterTest;
+
+				String^ GetErrorAlarmSource(); 
 			};
 		}
 	}
