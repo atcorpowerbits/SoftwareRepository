@@ -1,4 +1,4 @@
-namespace Gui.Atcor.Scor.Presentation
+namespace AtCor.Scor.Gui.Presentation
 {
     partial class frmSettingsWindow
     {
@@ -174,6 +174,7 @@ namespace Gui.Atcor.Scor.Presentation
             this.docWndGeneralSettings.Controls.Add(this.radgrpbxHeightWeightUnits);
             this.docWndGeneralSettings.Controls.Add(this.radgrpbxSetupScreen);
             this.docWndGeneralSettings.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.docWndGeneralSettings.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.docWndGeneralSettings.Location = new System.Drawing.Point(6, 30);
             this.docWndGeneralSettings.Name = "docWndGeneralSettings";
             this.docWndGeneralSettings.Size = new System.Drawing.Size(530, 334);
@@ -182,7 +183,7 @@ namespace Gui.Atcor.Scor.Presentation
             // radgrpbxReports
             // 
             this.radgrpbxReports.Controls.Add(this.tableLayoutPanel5);
-            this.radgrpbxReports.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxReports.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpbxReports.FooterImageIndex = -1;
             this.radgrpbxReports.FooterImageKey = "";
             this.radgrpbxReports.HeaderImageIndex = -1;
@@ -196,7 +197,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // 
             this.radgrpbxReports.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxReports.Size = new System.Drawing.Size(235, 234);
+            this.radgrpbxReports.Size = new System.Drawing.Size(243, 234);
             this.radgrpbxReports.TabIndex = 6;
             this.radgrpbxReports.Text = "Reports";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxReports.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
@@ -224,10 +225,10 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radlblReportLogo
             // 
-            this.radlblReportLogo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radlblReportLogo.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radlblReportLogo.Location = new System.Drawing.Point(3, 52);
             this.radlblReportLogo.Name = "radlblReportLogo";
-            this.radlblReportLogo.Size = new System.Drawing.Size(79, 19);
+            this.radlblReportLogo.Size = new System.Drawing.Size(82, 18);
             this.radlblReportLogo.TabIndex = 1;
             this.radlblReportLogo.Text = "Report Logo";
             // 
@@ -243,10 +244,10 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radlblReportTitle
             // 
-            this.radlblReportTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radlblReportTitle.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radlblReportTitle.Location = new System.Drawing.Point(3, 3);
             this.radlblReportTitle.Name = "radlblReportTitle";
-            this.radlblReportTitle.Size = new System.Drawing.Size(75, 19);
+            this.radlblReportTitle.Size = new System.Drawing.Size(79, 18);
             this.radlblReportTitle.TabIndex = 0;
             this.radlblReportTitle.Text = "Report Title";
             // 
@@ -265,19 +266,18 @@ namespace Gui.Atcor.Scor.Presentation
             // radbtnChange
             // 
             this.radbtnChange.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.radbtnChange.AutoSize = true;
-            this.radbtnChange.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radbtnChange.Location = new System.Drawing.Point(147, 170);
+            this.radbtnChange.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radbtnChange.Location = new System.Drawing.Point(145, 170);
             this.radbtnChange.Name = "radbtnChange";
-            this.radbtnChange.Size = new System.Drawing.Size(69, 21);
+            this.radbtnChange.Size = new System.Drawing.Size(71, 21);
             this.radbtnChange.TabIndex = 7;
-            this.radbtnChange.Text = "  Change  ";
+            this.radbtnChange.Text = " Change ";
             this.radbtnChange.Click += new System.EventHandler(this.radbtnChange_Click);
             // 
             // radgrpbxCommsPort
             // 
             this.radgrpbxCommsPort.Controls.Add(this.comboBoxCommsPort);
-            this.radgrpbxCommsPort.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxCommsPort.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpbxCommsPort.FooterImageIndex = -1;
             this.radgrpbxCommsPort.FooterImageKey = "";
             this.radgrpbxCommsPort.HeaderImageIndex = -1;
@@ -291,7 +291,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // 
             this.radgrpbxCommsPort.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxCommsPort.Size = new System.Drawing.Size(235, 70);
+            this.radgrpbxCommsPort.Size = new System.Drawing.Size(243, 70);
             this.radgrpbxCommsPort.TabIndex = 1;
             this.radgrpbxCommsPort.Text = "Comms Port";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCommsPort.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
@@ -309,14 +309,14 @@ namespace Gui.Atcor.Scor.Presentation
             // radgrpbxBloodPressure
             // 
             this.radgrpbxBloodPressure.Controls.Add(this.tableLayoutPanel1);
-            this.radgrpbxBloodPressure.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxBloodPressure.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpbxBloodPressure.FooterImageIndex = -1;
             this.radgrpbxBloodPressure.FooterImageKey = "";
             this.radgrpbxBloodPressure.HeaderImageIndex = -1;
             this.radgrpbxBloodPressure.HeaderImageKey = "";
             this.radgrpbxBloodPressure.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpbxBloodPressure.HeaderText = "Blood Pressures";
-            this.radgrpbxBloodPressure.Location = new System.Drawing.Point(13, 201);
+            this.radgrpbxBloodPressure.Location = new System.Drawing.Point(12, 201);
             this.radgrpbxBloodPressure.Name = "radgrpbxBloodPressure";
             this.radgrpbxBloodPressure.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
@@ -347,7 +347,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radradiobtnMPandDP
             // 
-            this.radradiobtnMPandDP.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiobtnMPandDP.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radradiobtnMPandDP.Location = new System.Drawing.Point(3, 45);
             this.radradiobtnMPandDP.Name = "radradiobtnMPandDP";
             this.radradiobtnMPandDP.Size = new System.Drawing.Size(110, 16);
@@ -357,7 +357,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radradiobtnSPandDP
             // 
-            this.radradiobtnSPandDP.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiobtnSPandDP.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radradiobtnSPandDP.Location = new System.Drawing.Point(3, 3);
             this.radradiobtnSPandDP.Name = "radradiobtnSPandDP";
             this.radradiobtnSPandDP.Size = new System.Drawing.Size(110, 15);
@@ -367,7 +367,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radradiobtnSPandMP
             // 
-            this.radradiobtnSPandMP.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiobtnSPandMP.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radradiobtnSPandMP.Location = new System.Drawing.Point(3, 24);
             this.radradiobtnSPandMP.Name = "radradiobtnSPandMP";
             this.radradiobtnSPandMP.Size = new System.Drawing.Size(110, 15);
@@ -378,14 +378,14 @@ namespace Gui.Atcor.Scor.Presentation
             // radgrpbxHeightWeightUnits
             // 
             this.radgrpbxHeightWeightUnits.Controls.Add(this.tableLayoutPanel2);
-            this.radgrpbxHeightWeightUnits.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxHeightWeightUnits.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpbxHeightWeightUnits.FooterImageIndex = -1;
             this.radgrpbxHeightWeightUnits.FooterImageKey = "";
             this.radgrpbxHeightWeightUnits.HeaderImageIndex = -1;
             this.radgrpbxHeightWeightUnits.HeaderImageKey = "";
             this.radgrpbxHeightWeightUnits.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpbxHeightWeightUnits.HeaderText = "Height and Weight Units";
-            this.radgrpbxHeightWeightUnits.Location = new System.Drawing.Point(13, 91);
+            this.radgrpbxHeightWeightUnits.Location = new System.Drawing.Point(11, 91);
             this.radgrpbxHeightWeightUnits.Name = "radgrpbxHeightWeightUnits";
             this.radgrpbxHeightWeightUnits.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
@@ -414,7 +414,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radradiobtnImperial
             // 
-            this.radradiobtnImperial.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiobtnImperial.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radradiobtnImperial.Location = new System.Drawing.Point(3, 25);
             this.radradiobtnImperial.Name = "radradiobtnImperial";
             this.radradiobtnImperial.Size = new System.Drawing.Size(110, 18);
@@ -424,7 +424,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radradiobtnMeric
             // 
-            this.radradiobtnMeric.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiobtnMeric.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radradiobtnMeric.Location = new System.Drawing.Point(3, 3);
             this.radradiobtnMeric.Name = "radradiobtnMeric";
             this.radradiobtnMeric.Size = new System.Drawing.Size(110, 16);
@@ -435,14 +435,14 @@ namespace Gui.Atcor.Scor.Presentation
             // radgrpbxSetupScreen
             // 
             this.radgrpbxSetupScreen.Controls.Add(this.radchkbxPatientPrivacy);
-            this.radgrpbxSetupScreen.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxSetupScreen.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpbxSetupScreen.FooterImageIndex = -1;
             this.radgrpbxSetupScreen.FooterImageKey = "";
             this.radgrpbxSetupScreen.HeaderImageIndex = -1;
             this.radgrpbxSetupScreen.HeaderImageKey = "";
             this.radgrpbxSetupScreen.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpbxSetupScreen.HeaderText = "Setup Screen";
-            this.radgrpbxSetupScreen.Location = new System.Drawing.Point(13, 4);
+            this.radgrpbxSetupScreen.Location = new System.Drawing.Point(10, 4);
             this.radgrpbxSetupScreen.Name = "radgrpbxSetupScreen";
             this.radgrpbxSetupScreen.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
@@ -457,10 +457,10 @@ namespace Gui.Atcor.Scor.Presentation
             // radchkbxPatientPrivacy
             // 
             this.radchkbxPatientPrivacy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
-            this.radchkbxPatientPrivacy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radchkbxPatientPrivacy.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radchkbxPatientPrivacy.Location = new System.Drawing.Point(11, 37);
             this.radchkbxPatientPrivacy.Name = "radchkbxPatientPrivacy";
-            this.radchkbxPatientPrivacy.Size = new System.Drawing.Size(107, 19);
+            this.radchkbxPatientPrivacy.Size = new System.Drawing.Size(113, 18);
             this.radchkbxPatientPrivacy.TabIndex = 1;
             this.radchkbxPatientPrivacy.Text = "Patient Privacy";
             this.radchkbxPatientPrivacy.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
@@ -516,6 +516,7 @@ namespace Gui.Atcor.Scor.Presentation
             this.docWndPWVSettings.Controls.Add(this.radgrpCuffLocation);
             this.docWndPWVSettings.Controls.Add(this.radgrpbxPwvDistanceMethod);
             this.docWndPWVSettings.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.docWndPWVSettings.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.docWndPWVSettings.Location = new System.Drawing.Point(6, 30);
             this.docWndPWVSettings.Name = "docWndPWVSettings";
             this.docWndPWVSettings.Size = new System.Drawing.Size(530, 334);
@@ -524,14 +525,14 @@ namespace Gui.Atcor.Scor.Presentation
             // radgrpSimulationFiles
             // 
             this.radgrpSimulationFiles.Controls.Add(this.comboSimulationFiles);
-            this.radgrpSimulationFiles.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpSimulationFiles.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpSimulationFiles.FooterImageIndex = -1;
             this.radgrpSimulationFiles.FooterImageKey = "";
             this.radgrpSimulationFiles.HeaderImageIndex = -1;
             this.radgrpSimulationFiles.HeaderImageKey = "";
             this.radgrpSimulationFiles.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpSimulationFiles.HeaderText = "Simulation Types";
-            this.radgrpSimulationFiles.Location = new System.Drawing.Point(19, 183);
+            this.radgrpSimulationFiles.Location = new System.Drawing.Point(10, 183);
             this.radgrpSimulationFiles.Name = "radgrpSimulationFiles";
             this.radgrpSimulationFiles.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
@@ -555,21 +556,21 @@ namespace Gui.Atcor.Scor.Presentation
             // radgrpCaptureTime
             // 
             this.radgrpCaptureTime.Controls.Add(this.tableLayoutPanel4);
-            this.radgrpCaptureTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpCaptureTime.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpCaptureTime.FooterImageIndex = -1;
             this.radgrpCaptureTime.FooterImageKey = "";
             this.radgrpCaptureTime.HeaderImageIndex = -1;
             this.radgrpCaptureTime.HeaderImageKey = "";
             this.radgrpCaptureTime.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpCaptureTime.HeaderText = "Capture Time";
-            this.radgrpCaptureTime.Location = new System.Drawing.Point(280, 209);
+            this.radgrpCaptureTime.Location = new System.Drawing.Point(277, 209);
             this.radgrpCaptureTime.Name = "radgrpCaptureTime";
             this.radgrpCaptureTime.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
             // 
             // 
             this.radgrpCaptureTime.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpCaptureTime.Size = new System.Drawing.Size(227, 121);
+            this.radgrpCaptureTime.Size = new System.Drawing.Size(243, 121);
             this.radgrpCaptureTime.TabIndex = 4;
             this.radgrpCaptureTime.Text = "Capture Time";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpCaptureTime.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
@@ -593,7 +594,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // rad5Seconds
             // 
-            this.rad5Seconds.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rad5Seconds.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rad5Seconds.Location = new System.Drawing.Point(3, 3);
             this.rad5Seconds.Name = "rad5Seconds";
             this.rad5Seconds.Size = new System.Drawing.Size(110, 14);
@@ -603,7 +604,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // rad10Seconds
             // 
-            this.rad10Seconds.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rad10Seconds.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rad10Seconds.Location = new System.Drawing.Point(3, 23);
             this.rad10Seconds.Name = "rad10Seconds";
             this.rad10Seconds.Size = new System.Drawing.Size(110, 14);
@@ -613,7 +614,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // rad20Seconds
             // 
-            this.rad20Seconds.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rad20Seconds.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rad20Seconds.Location = new System.Drawing.Point(3, 43);
             this.rad20Seconds.Name = "rad20Seconds";
             this.rad20Seconds.Size = new System.Drawing.Size(110, 14);
@@ -624,14 +625,14 @@ namespace Gui.Atcor.Scor.Presentation
             // radgrpReportScreen
             // 
             this.radgrpReportScreen.Controls.Add(this.radchkReferenceRange);
-            this.radgrpReportScreen.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpReportScreen.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpReportScreen.FooterImageIndex = -1;
             this.radgrpReportScreen.FooterImageKey = "";
             this.radgrpReportScreen.HeaderImageIndex = -1;
             this.radgrpReportScreen.HeaderImageKey = "";
             this.radgrpReportScreen.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpReportScreen.HeaderText = "Report Screen";
-            this.radgrpReportScreen.Location = new System.Drawing.Point(19, 270);
+            this.radgrpReportScreen.Location = new System.Drawing.Point(11, 270);
             this.radgrpReportScreen.Name = "radgrpReportScreen";
             this.radgrpReportScreen.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
@@ -645,10 +646,10 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radchkReferenceRange
             // 
-            this.radchkReferenceRange.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radchkReferenceRange.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radchkReferenceRange.Location = new System.Drawing.Point(14, 28);
             this.radchkReferenceRange.Name = "radchkReferenceRange";
-            this.radchkReferenceRange.Size = new System.Drawing.Size(118, 19);
+            this.radchkReferenceRange.Size = new System.Drawing.Size(126, 18);
             this.radchkReferenceRange.TabIndex = 0;
             this.radchkReferenceRange.Text = "Reference Range";
             this.radchkReferenceRange.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
@@ -656,21 +657,21 @@ namespace Gui.Atcor.Scor.Presentation
             // radgrpPwvDistanceUnits
             // 
             this.radgrpPwvDistanceUnits.Controls.Add(this.tableLayoutPanel6);
-            this.radgrpPwvDistanceUnits.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpPwvDistanceUnits.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpPwvDistanceUnits.FooterImageIndex = -1;
             this.radgrpPwvDistanceUnits.FooterImageKey = "";
             this.radgrpPwvDistanceUnits.HeaderImageIndex = -1;
             this.radgrpPwvDistanceUnits.HeaderImageKey = "";
             this.radgrpPwvDistanceUnits.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpPwvDistanceUnits.HeaderText = "PWV Distance Units";
-            this.radgrpPwvDistanceUnits.Location = new System.Drawing.Point(280, 104);
+            this.radgrpPwvDistanceUnits.Location = new System.Drawing.Point(277, 104);
             this.radgrpPwvDistanceUnits.Name = "radgrpPwvDistanceUnits";
             this.radgrpPwvDistanceUnits.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
             // 
             // 
             this.radgrpPwvDistanceUnits.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpPwvDistanceUnits.Size = new System.Drawing.Size(227, 87);
+            this.radgrpPwvDistanceUnits.Size = new System.Drawing.Size(243, 87);
             this.radgrpPwvDistanceUnits.TabIndex = 2;
             this.radgrpPwvDistanceUnits.Text = "PWV Distance Units";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpPwvDistanceUnits.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
@@ -692,7 +693,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radmm
             // 
-            this.radmm.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radmm.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radmm.Location = new System.Drawing.Point(3, 3);
             this.radmm.Name = "radmm";
             this.radmm.Size = new System.Drawing.Size(110, 16);
@@ -702,7 +703,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radcm
             // 
-            this.radcm.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radcm.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radcm.Location = new System.Drawing.Point(3, 25);
             this.radcm.Name = "radcm";
             this.radcm.Size = new System.Drawing.Size(110, 14);
@@ -713,14 +714,14 @@ namespace Gui.Atcor.Scor.Presentation
             // radgrpCuffLocation
             // 
             this.radgrpCuffLocation.Controls.Add(this.radchkFemoralToCuff);
-            this.radgrpCuffLocation.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpCuffLocation.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpCuffLocation.FooterImageIndex = -1;
             this.radgrpCuffLocation.FooterImageKey = "";
             this.radgrpCuffLocation.HeaderImageIndex = -1;
             this.radgrpCuffLocation.HeaderImageKey = "";
             this.radgrpCuffLocation.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpCuffLocation.HeaderText = "Cuff Location";
-            this.radgrpCuffLocation.Location = new System.Drawing.Point(19, 104);
+            this.radgrpCuffLocation.Location = new System.Drawing.Point(9, 104);
             this.radgrpCuffLocation.Name = "radgrpCuffLocation";
             this.radgrpCuffLocation.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
@@ -734,10 +735,10 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radchkFemoralToCuff
             // 
-            this.radchkFemoralToCuff.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radchkFemoralToCuff.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radchkFemoralToCuff.Location = new System.Drawing.Point(14, 30);
             this.radchkFemoralToCuff.Name = "radchkFemoralToCuff";
-            this.radchkFemoralToCuff.Size = new System.Drawing.Size(114, 19);
+            this.radchkFemoralToCuff.Size = new System.Drawing.Size(120, 18);
             this.radchkFemoralToCuff.TabIndex = 0;
             this.radchkFemoralToCuff.Text = "Femoral To Cuff";
             this.radchkFemoralToCuff.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
@@ -745,21 +746,21 @@ namespace Gui.Atcor.Scor.Presentation
             // radgrpbxPwvDistanceMethod
             // 
             this.radgrpbxPwvDistanceMethod.Controls.Add(this.tblPWVDistanceMethod);
-            this.radgrpbxPwvDistanceMethod.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxPwvDistanceMethod.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpbxPwvDistanceMethod.FooterImageIndex = -1;
             this.radgrpbxPwvDistanceMethod.FooterImageKey = "";
             this.radgrpbxPwvDistanceMethod.HeaderImageIndex = -1;
             this.radgrpbxPwvDistanceMethod.HeaderImageKey = "";
             this.radgrpbxPwvDistanceMethod.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpbxPwvDistanceMethod.HeaderText = "PWV Distance Method";
-            this.radgrpbxPwvDistanceMethod.Location = new System.Drawing.Point(20, 3);
+            this.radgrpbxPwvDistanceMethod.Location = new System.Drawing.Point(9, 3);
             this.radgrpbxPwvDistanceMethod.Name = "radgrpbxPwvDistanceMethod";
             this.radgrpbxPwvDistanceMethod.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
             // 
             // 
             this.radgrpbxPwvDistanceMethod.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxPwvDistanceMethod.Size = new System.Drawing.Size(488, 87);
+            this.radgrpbxPwvDistanceMethod.Size = new System.Drawing.Size(510, 87);
             this.radgrpbxPwvDistanceMethod.TabIndex = 0;
             this.radgrpbxPwvDistanceMethod.Text = "PWV Distance Method";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxPwvDistanceMethod.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
@@ -781,7 +782,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radDirect
             // 
-            this.radDirect.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radDirect.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radDirect.Location = new System.Drawing.Point(3, 26);
             this.radDirect.Name = "radDirect";
             this.radDirect.Size = new System.Drawing.Size(178, 18);
@@ -791,7 +792,7 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             // radSubtracting
             // 
-            this.radSubtracting.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radSubtracting.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radSubtracting.Location = new System.Drawing.Point(3, 3);
             this.radSubtracting.Name = "radSubtracting";
             this.radSubtracting.Size = new System.Drawing.Size(391, 17);
@@ -802,37 +803,34 @@ namespace Gui.Atcor.Scor.Presentation
             // radbtnDefaults
             // 
             this.radbtnDefaults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radbtnDefaults.AutoSize = true;
-            this.radbtnDefaults.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radbtnDefaults.Location = new System.Drawing.Point(456, 405);
+            this.radbtnDefaults.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radbtnDefaults.Location = new System.Drawing.Point(468, 403);
             this.radbtnDefaults.Name = "radbtnDefaults";
-            this.radbtnDefaults.Size = new System.Drawing.Size(74, 21);
+            this.radbtnDefaults.Size = new System.Drawing.Size(72, 21);
             this.radbtnDefaults.TabIndex = 2;
-            this.radbtnDefaults.Text = "  Defaults  ";
+            this.radbtnDefaults.Text = "Defaults";
             this.radbtnDefaults.Click += new System.EventHandler(this.radbtnDefaults_Click);
             // 
             // radbtnCancel
             // 
             this.radbtnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.radbtnCancel.AutoSize = true;
-            this.radbtnCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radbtnCancel.Location = new System.Drawing.Point(382, 405);
+            this.radbtnCancel.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radbtnCancel.Location = new System.Drawing.Point(382, 403);
             this.radbtnCancel.Name = "radbtnCancel";
-            this.radbtnCancel.Size = new System.Drawing.Size(66, 21);
+            this.radbtnCancel.Size = new System.Drawing.Size(71, 21);
             this.radbtnCancel.TabIndex = 1;
-            this.radbtnCancel.Text = "  Cancel   ";
+            this.radbtnCancel.Text = "Cancel";
             this.radbtnCancel.Click += new System.EventHandler(this.radbtnCancel_Click);
             // 
             // radbtnSave
             // 
             this.radbtnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.radbtnSave.AutoSize = true;
-            this.radbtnSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radbtnSave.Location = new System.Drawing.Point(300, 405);
+            this.radbtnSave.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radbtnSave.Location = new System.Drawing.Point(296, 403);
             this.radbtnSave.Name = "radbtnSave";
-            this.radbtnSave.Size = new System.Drawing.Size(73, 21);
+            this.radbtnSave.Size = new System.Drawing.Size(71, 21);
             this.radbtnSave.TabIndex = 0;
-            this.radbtnSave.Text = "     Save     ";
+            this.radbtnSave.Text = " Save ";
             this.radbtnSave.Click += new System.EventHandler(this.radbtnSave_Click);
             // 
             // tableLayoutPanel3
@@ -869,11 +867,12 @@ namespace Gui.Atcor.Scor.Presentation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(561, 434);
+            this.ClientSize = new System.Drawing.Size(570, 434);
             this.Controls.Add(this.radbtnDefaults);
             this.Controls.Add(this.radDock1);
             this.Controls.Add(this.radbtnCancel);
             this.Controls.Add(this.radbtnSave);
+            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -954,7 +953,6 @@ namespace Gui.Atcor.Scor.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radRadioButton3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

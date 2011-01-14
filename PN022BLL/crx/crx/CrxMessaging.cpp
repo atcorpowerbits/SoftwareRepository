@@ -1,3 +1,12 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+     Filename     :      CrxMessaging.cpp
+        
+	 Author       :      Smarajit Mishra
+ 
+     Description  :      Functionality implementation for messaging manager
+*/
 #include "stdafx.h"
 #include "CrxMessaging.h"
 
@@ -13,7 +22,6 @@ using namespace System::IO;// For FileStream
 CrxMessagingManager::CrxMessagingManager()
 {
 	// Initialize the resource managers with appropriate resource files
-//	errRsrcMsg = gcnew ResourceManager("Scor.ApplicationMessages", Assembly::GetExecutingAssembly());
 	errRsrcMsg = gcnew ResourceManager("biz.ApplicationMessages", Assembly::GetExecutingAssembly());
 
 }
@@ -35,28 +43,28 @@ String ^CrxMessagingManager::GetMessage(int errorCode)
 }
 
 //Returns an error message corresponding to the specified errorcode.
-String ^CrxMessagingManager::GetMessage(String^ stringCode) 
+String ^CrxMessagingManager::GetMessage(String^ strCode) 
 {
 	String^	errorString		= nullptr;//Get error string and return, set to null
 	
-	String^ dirString = Directory::GetCurrentDirectory();//VA: REMOVE
-
 	try
-	{	
+	{			
 		//Check whether default resource file is exists or not
 		if(!File::Exists(_nameOfAppResxfile))
 		{ 
-			throw gcnew CrxException(L"Resource file not found"); // File not found
+			//throw gcnew CrxException(L"Resource file not found"); // File not found
+			errorString = "#200 Resource file not found.";
+			return errorString;
 		}
 
 		//Get the message string through resource manager object
-		errorString = errRsrcMsg->GetString(stringCode);
+		errorString = errRsrcMsg->GetString(strCode);
 
 		//validation to check string is returned or not, 
 		//if string length is equals to zero then send the string "Error Code not found"
 		if(errorString->Length == 0)
 		{
-			errorString = L"Error Code not found";
+			errorString = "#201 Error Code not found.";
 		}
 
 		return errorString;

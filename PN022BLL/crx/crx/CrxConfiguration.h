@@ -15,30 +15,35 @@ using namespace System::Xml;
 
 
 /**
- * @namespace	CrxConfiguration
+ * @namespace	AtCor::Scor::CrossCutting::Configuration
  * @brief		This namespace implements configuration related functionality.
  * 
  */
 namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configuration
 {	
-	//Declaring global static numbers for structure variables
-	static const int CRX_GEN_HEIGHTWEIGHT_METRIC	= 0;
-	static const int CRX_GEN_HEIGHTWEIGHT_IMPERIAL	= 1;
-	static const int CRX_GEN_BP_OPT_SPANDDP			= 0;
-	static const int CRX_GEN_BP_OPT_SPANDMP			= 1;
-	static const int CRX_GEN_BP_OPT_MPANDDP			= 2;
 
-	static const int CRX_PWV_DIST_UNITS_MM			= 0;
-	static const int CRX_PWV_DIST_UNITS_CM			= 1;
-	static const int CRX_PWV_DIST_METHOD_SUBSTRACT	= 0;
-	static const int CRX_PWV_DIST_METHOD_DIRECT		= 1;
-	static const int CRX_PWV_CAPTURE_5SECONDS		= 0;
-	static const int CRX_PWV_CAPTURE_10SECONDS		= 1;
-	static const int CRX_PWV_CAPTURE_20SECONDS		= 2;	
+	//Declaring global static numbers for structure variables
+	public enum class CrxGenPwvValue
+	{
+		CrxGenHeightWeightMetric		= 0,
+		CrxGenHeightWeightImperial		= 1,
+		CrxGenBPOptSPandDP				= 0,
+		CrxGenBPOptSPandMP				= 1,
+		CrxGenBPOptMPandDP				= 2,		
+		CrxPwvDistDistUnitsMM			= 0,
+		CrxPwvDistDistUnitsCM			= 1,		
+		CrxPwvDistMethodSubStract		= 0,
+		CrxPwvDistMethodDirect			= 1,		
+		CrxPwvCapture5Seconds			= 5,
+		CrxPwvCapture10Seconds			= 10,
+		CrxPwvCapture20Seconds			= 20,
+		
+	};	
 
 	// Creating CrxStructSetting Structure and variables
 	/**
-	 * Container for general configuration settings. 
+	* @struct CrxStructGeneralSetting
+	 * @brief Container for general configuration settings. 
 	 */
 	public ref struct CrxStructGeneralSetting
 	{
@@ -48,6 +53,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		String^ CommsPort; /**< Shows the string selected */
 		String^ ReportTitle;	/**< Shows the report title */
 		String^ ReportLogoPath; /**< Shows the report logo path */
+		String^ ServerName; /**< Shows the server name selected */
+		String^ SourceData;	/**< Shows the source data selected */
+		String^ CultureInfo; /**< Shows the culture info */
 
 		/**
 		* Default constructor to initialize the structure members
@@ -60,11 +68,15 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			CommsPort					= nullptr;
 			ReportTitle					= nullptr;
 			ReportLogoPath				= nullptr;
+			ServerName					= nullptr;
+			SourceData					= nullptr;
+			CultureInfo					= nullptr;
 		}
 	};
 
 	/**
-	 * Container for PWV configuration settings. 
+	 * @struct CrxStructPwvSetting
+	 * @brief Container for PWV configuration settings. 
 	 */
 	public ref struct CrxStructPwvSetting
 	{
@@ -93,7 +105,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 	/**
 	* @class CrxConfigManager
 	* @brief Class to manage configuration related functions. @n
-	* This Class is mainly responsible for maintaining scor.config file located in “system\config” folder. @n
+	* This Class is mainly responsible for maintaining scor.config file located in \“system\\config\” folder. @n
 	* It has methods that enable read and write in to specific sections of configuration file.
 	*/
 	public ref class CrxConfigManager
@@ -197,6 +209,12 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetReportTitle(String^ SubSection, String^ ReaderValue);
 			//Get Report Logo Path from config file
 			void GetReportLogoPath(String^ SubSection, String^ ReaderValue);
+			//Get Server Name from config file
+			void GetServerName(String^ SubSection, String^ ReaderValue);
+			//Get Source Data from config file
+			void GetSourceData(String^ SubSection, String^ ReaderValue);
+			//Get CultureInfo from config file
+			void GetCultureInfo(String^ SubSection, String^ ReaderValue);
 	
 			//-------------------Set General Setting User Values-------------------
 			//Set Patient Privacy value in config file
@@ -211,6 +229,12 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void SetReportTitle(CrxStructGeneralSetting^ gs, XmlNode^ node);
 			//Set Report Logo Path in config file
 			void SetReportLogoPath(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			//Set Server Name from config file
+			void SetServerName(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			//Set Source Data from config file
+			void SetSourceData(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			//Set CultureInfo from config file
+			void SetCultureInfo(CrxStructGeneralSetting^ gs, XmlNode^ node);
 
 			//-------------------Get PWV Setting Values-------------------
 			//Get Femoral Cuff value from config file
@@ -289,7 +313,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 
 		/**
 		* To get General Default Settings from file
-		* @param[out] CrxStructGeneralSetting handle to General Settings structure
+		* @param[out] objGenSettings CrxStructGeneralSetting handle to General Settings structure
 		*/
 		void GetGeneralDefaultSettings(CrxStructGeneralSetting^ objGenSettings);
 		
@@ -300,13 +324,13 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		
 		/**
 		* To Set General User Setting 
-		* @param[in] CrxStructGeneralSetting Handle to the general setting structure
+		* @param[in] gs CrxStructGeneralSetting Handle to the general setting structure
 		*/
 		void SetGeneralUserSettings(CrxStructGeneralSetting^ gs);	
 		
 		/**
 		* To get PWV Default Settings from file
-		* @param[out] CrxStructPwvSetting handle to PWV Settings structure
+		* @param[out] objPwvSettings CrxStructPwvSetting handle to PWV Settings structure
 		*/
 		void GetPwvDefaultSettings(CrxStructPwvSetting^ objPwvSettings);
 		
@@ -317,7 +341,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		
 		/**
 		* To Set PWV User Setting 
-		* @param[in] CrxStructPwvSetting Handle to the PWV setting structure
+		* @param[in] ps CrxStructPwvSetting Handle to the PWV setting structure
 		*/
 		void SetPwvUserSettings(CrxStructPwvSetting^ ps);	
 		

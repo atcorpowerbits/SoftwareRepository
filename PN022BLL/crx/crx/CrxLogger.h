@@ -1,31 +1,32 @@
 /*
      Copyright (C) ATCOR MEDICAL PTY LTD, 2010
  
-    Filename     :      facade.h
+    Filename     :      CrxLogger.h
         
         Author       :  Deepak D'Souza
  
      Description  :      Declaration for Cross-cutting Logger namespace
 */
-
-#pragma once
-
+ 
 #include "CrxCrossCutting.h"
 // CrxLogger.h
 
-
+#pragma once
 
 //Include namespaces from Enterprise library.
 using namespace System;
 using namespace System::Configuration;
 using namespace Microsoft::Practices::EnterpriseLibrary::Logging;
 using namespace Microsoft::Practices::EnterpriseLibrary::Common::Configuration;
+using namespace Microsoft::Practices::EnterpriseLibrary::Logging::Configuration;
+using namespace Microsoft::Practices::EnterpriseLibrary::Logging::Formatters;
+using namespace Microsoft::Practices::EnterpriseLibrary::Logging::TraceListeners;
+using namespace System::Diagnostics; //Needed for custom trace listener attributes
 
-//using namespace AtCor::Scor::CrossCutting;
 
 //Namepsace CrxLogging to include all Logging realted functionalities
 /**
- * @namespace	CrxLogging
+ * @namespace	AtCor::Scor::CrossCutting::Logging
  * @brief		This namespace implements the cross-cuttinng component for Logging.
  * 
  */
@@ -42,6 +43,9 @@ namespace AtCor {
 									private:
 										
 										LogWriter ^CrxLogWriter; /**< Variable to point to LogWriter instance.*/
+										int entryLineNumber;
+										
+
 										/**
 										* Constructor for this class. @n
 										* Made it private so that the user cannot instantiate directly.
@@ -68,7 +72,19 @@ namespace AtCor {
 										  CrxLogger^ operator=(const CrxLogger^) 
 										  {
 												 return this;
-										  }     
+										  }  
+
+										  /**
+										  * Takes the last line nuber number from the current rolling file.
+										  */
+										  void GetLastWrittenLineNumber();
+										  
+											/**
+											* Archives the current log file and creates a fresh current file.
+											*/
+										  bool RollLogFile();
+
+										  
 
 									public:
 										/**
@@ -97,7 +113,6 @@ namespace AtCor {
 										};
 								};
 
-							
 
 }
 }

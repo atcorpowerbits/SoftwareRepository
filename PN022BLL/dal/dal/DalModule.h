@@ -1,4 +1,15 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalModule.h
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      Header file for DalModule class.
+*/
+
 #pragma once
+
 
 #include "stdafx.h"
 #include "DalCommon.h"
@@ -22,8 +33,8 @@ namespace AtCor{
 			{
 			private:
                 // constant declarations
-                static const unsigned int DAL_NULLCOMMPORT_ERR      = 303; 
-                static const unsigned int DAL_SIMULATION            = 10056; 
+                static const unsigned int DAL_NULLCOMMPORT_ERR      = 303;  //TODO:STUB
+                static const unsigned int DAL_SIMULATION            = 10056;  //TODO:STUB
 
 				static DalModule^ _instance = gcnew DalModule();
 				DalModule();
@@ -32,8 +43,9 @@ namespace AtCor{
 
 				IDalHandler^ _currentDevice;
 				CaptureType _captureDataType;
-				
+
 			public:
+
 				
 				/**
 				* Returns the current singleton instance.
@@ -60,7 +72,8 @@ namespace AtCor{
 				/**
 				* Starts the data capture from the selected device.
 				*/
-				void StartCapture();
+				void StartCapture(); //TODO:STUB
+				void StartCapture(int captureTime, int samplingRate);
 
 				/**
 				* Stops the data capture from the active device.
@@ -91,13 +104,14 @@ namespace AtCor{
 				String^ FindModule();
 
 				// Returns the PWV measurement counter stored in the firmware
-				bool GetPWVMeasurementCounter( unsigned short% count);
+				bool GetPWVMeasurementCounter( unsigned short% count); //TODO:STUB
 
 				// Sets the PWV measurement counter stored in the firmware
-				bool SetPWVMeasurementCounter( unsigned short count);
+				bool SetPWVMeasurementCounter( unsigned short count); //TODO:STUB
 
-				// For testing only
 				property bool measurementCounterTest;
+
+				String^ GetErrorAlarmSource(); 
 			};
 		}
 	}

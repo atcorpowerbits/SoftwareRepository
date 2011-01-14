@@ -1094,7 +1094,7 @@ array<unsigned short>^ CrxDBManager::CommonByteArrtoShortArr(int len, array<Byte
 	} 
 }
 
-int CrxDBManager::DatabaseBackup(System::String ^FilePath)
+int CrxDBManager::DatabaseBackup(System::String ^filePath)
 {
 	int result = 0;//initializes to 0, if 1 successful else return zero
 	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
@@ -1105,7 +1105,7 @@ int CrxDBManager::DatabaseBackup(System::String ^FilePath)
 		//get the Stored Procedure query using database object
 		addCommand = _objDB->GetStoredProcCommand("BackUpDatabase");
 
-		_objDB->AddInParameter(addCommand,"@FilePath",DbType::String,FilePath);
+		_objDB->AddInParameter(addCommand,"@FilePath",DbType::String,filePath);
 		
 		//Execute stored procedure and return int result backup successful or not
 		result = _objDB->ExecuteNonQuery(addCommand);	
@@ -1129,17 +1129,17 @@ int CrxDBManager::DatabaseBackup(System::String ^FilePath)
 		throw gcnew CrxException(eObj);
 	}
 }
-int CrxDBManager::DatabaseRestore(System::String ^FilePath)
+int CrxDBManager::DatabaseRestore(System::String ^filePath)
 {
 	int result = 0;//initializes to 0, if 1 successful else return zero
 	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
-	String^ FilePathSet = nullptr; //To store the reformated connection string,intializes to nullptr
+	String^ filePathSet = nullptr; //To store the reformated connection string,intializes to nullptr
 
-	FilePathSet  = String::Format("'{0}'" , FilePath);
+	filePathSet  = String::Format("'{0}'" , filePath);
 
 	try
 	{		
-		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE AtCor" + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE"+ " RESTORE DATABASE Test_restore FROM DISK = " + FilePathSet + " WITH REPLACE"); 
+		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE AtCor" + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE"+ " RESTORE DATABASE AtCor FROM DISK = " + filePathSet + " WITH REPLACE"); 
 
 		result = _objDB->ExecuteNonQuery(addCommand);	
 
@@ -1171,7 +1171,7 @@ void CrxDBManager::ResetDatabaseToMultiuser()
 {
 	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
 	
-	addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE AtCor" + " SET MULTI_USER" + " USE [Test_restore]" ); 
+	addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE AtCor" + " SET MULTI_USER" + " USE [AtCor]" ); 
 	
 	_objDB->ExecuteNonQuery(addCommand);
 }

@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Globalization;
+using System.Xml;
+using System.IO;
+using AtCor.Scor.CrossCutting.Configuration;  
 
-namespace Gui.Atcor.Scor.Presentation
+namespace AtCor.Scor.Gui.Presentation
 {
-    static class Program
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
@@ -13,9 +17,24 @@ namespace Gui.Atcor.Scor.Presentation
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DefaultWindow());
+            try
+            {                
+                System.Diagnostics.EventLog.WriteEntry("Scor", "Entry Point");
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new DefaultWindow());
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.EventLog.WriteEntry("Scor error", ex.Message);
+            }
+        }
+        
+        public static string GetCurrentCulture()
+        {
+            CultureInfo currentCulture = CultureInfo.CurrentCulture;            
+            string cultureSetting = currentCulture.Name.Substring(0, 2);
+            return cultureSetting;
         }
     }
 }

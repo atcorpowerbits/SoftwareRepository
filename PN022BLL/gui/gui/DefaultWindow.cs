@@ -8,12 +8,15 @@
     Description  :      This is the Default Window on Application load.
 */
 using AtCor.Scor.CrossCutting;
-using AtCor.Scor.CrossCutting.Configuration;
+using AtCor.Scor.CrossCutting.Configuration;  
 using AtCor.Scor.CrossCutting.Logging;
-using AtCor.Scor.CrossCutting.Messaging;
+using AtCor.Scor.CrossCutting.DatabaseManager;  
+using AtCor.Scor.CrossCutting.Messaging; 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Text;
@@ -24,66 +27,68 @@ using Telerik.Charting;
 using Telerik.WinControls.UI;
 using Telerik.WinControls;
 using Telerik.WinControls.Primitives;
+using Telerik.WinControls.Enumerations;
+using Telerik.WinControls.UI.Docking;
+using Telerik.WinControls.Themes.Design;
 using AtCor.Scor.BusinessLogic;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Globalization;
+using Microsoft.Win32;
+using System.IO;
 
-namespace Gui.Atcor.Scor.Presentation
+/**
+ * @namespace AtCor.Scor.Gui.Presentation
+ * @brief This namespace implements Presentation related classes.
+ * 
+ */
+namespace AtCor.Scor.Gui.Presentation
 {
      /**
      * @class Class for Default Window when the application loads.
      * @brief This class will handle displaying of the default window controls.It will also check for multiple instances of the application,exception handling and logging of events.
      */   
-    public partial class DefaultWindow : Telerik.WinControls.UI.RadRibbonForm
+    public partial class DefaultWindow : Telerik.WinControls.UI.RadForm
     {
         #region Set constant values
-        //RIBBION BAR
-        const int RIBBIONBAR_TEXT = 10002;
-        const int MENU_SYSTEM = 10060;
-        const int MENU_DATABASE = 10061;
-        const int MENU_HELP = 10003;
-        const int BTN_SETTINGS = 10004;
-        const int BTN_FINDMODULE = 10005;
-        const int BTN_PRINTERSETUP = 10006;
-        const int BTN_EXIT = 10007;
-        const int TAB_SETUP = 10062;
-        const int TAB_CAPTURE = 10063;
-        const int TAB_REPORT = 10064;
-
-        //CAPTURE TAB
-        const int LBL_TONOMETER = 10008;
-        const int LBL_FEMORALCUFF = 10009;
-        const int LBL_TIMESTATUS = 10010;
-        const int LBL_PATIENTNAME = 10011;
-
-        //Used to set message codes.
-        //set message codes.All messages will come from messaging meanager and hence from resource file.        
-        const int EXITSTR = 10001;
-        const int STARTSTR = 10000;
-        const int SYSTEM_ERROR = 10015;
-        const int APP_NAME = 10012;
-        const int APP_MSG = 10013;
-        const int CAPTURE_FAILED = 10069;
-        const int INFORMATION = 10070;
+    
         const double HandShakePeriod = 2;
-        #endregion        
+        const int TonometerHeight = 4096;
+        const int QualityIndicatorHeight = 500;
+        const double ChartAreaMinimumY = 0.96;
+        const double ChartAreaMaximumY = 1.04;
+        #endregion 
+        
+        const string BackupFileExt = ".bak"; // vibhuti: to be placed in common file as global variable
+        static int count = 0;
+        
+        CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
+        
+        CrxDBManager dbMagr;
+        string currentpath = string.Empty; // vibhuti : to be placed in common file as global variable
+        
+        string dbOperation = string.Empty; // vibhuti: to be placed in common file as global variable
+                        
+        // private delegate void ThreadException(Exception ex);
+       // private event ThreadException OnThreadExceptionEvent;        
+        public static event EventHandler OnRestoreCompleteSuccess;
 
-        Series newSeries;        
-        double screenwidth;
-        double signalStrength;        
-        ProgressBarPrimitive prim1;
-                
+        // Event to indicate completion of database backup process
+        private event EventHandler OnDBBackupAndRestoreCompleteEvent;  
+
+        private delegate void DisplayMessageBoxDelegate(string message, Exception ex);
+       
         #region Global declarations
-      
-        int ticks = 0;
-        bool isDirectClose; //Flag set to check if there are multiple instances of the application.         
-
-        //object of Config Manager         
+                     
+        bool isDirectClose; // Flag set to check if there are multiple instances of the application.        
+        bool isFormDataChanged = false; // flag to check if any form data is changed before closing the form
+        
+        // object of Config Manager         
         CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
 
         // sets message on the status bar of the main window.
         public void SetMessage(string message)
         {
-            this.radlblMessage.Text = message;
+            this.radlblMessage.Text = message;            
         }
 
         #endregion
@@ -92,67 +97,141 @@ namespace Gui.Atcor.Scor.Presentation
         *It will call IsProcessOpen method which will check if there is any other instance is running.
         */
         public DefaultWindow()
-        {            
+        {
             try
             {
-                //initialize class level variables                
+                // initialize class level variables                
                 isDirectClose = false;
 
-                //Logic to check multiple instances of the application.                 
-                if (IsProcessOpen(oMsgMgr.GetMessage(APP_NAME)))
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write("check for instance");
+
+                // Logic to check multiple instances of the application.                 
+                if (IsProcessOpen(oMsgMgr.GetMessage("APP_NAME")))
                 {
+                    oLogObject.Write("instance exists");
                     isDirectClose = true;
-                    DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(APP_MSG), oMsgMgr.GetMessage(10014), MessageBoxButtons.OK, RadMessageIcon.Error);
+                    DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("APP_MSG"), oMsgMgr.GetMessage("EXEC_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                     this.Close();
+                    Process.GetCurrentProcess().Kill();
+                    return;
                 }
 
-                InitializeComponent();
-                
-                // Set the text for  Capture Tab form controls
-                SetTextForRibbionControl();                
+                oLogObject.Write("scor loading.......");
+                crxMgrObject.GetGeneralUserSettings();
 
-                // Set the text for  Capture Tab form controls
-                SetTextForCaptureTab();                
+                // set the global culture variable with value from scor.config & pass it to current culture
+                SettingsProperties.gCI = string.IsNullOrEmpty(crxMgrObject.GeneralSettings.CultureInfo) ? ConfigurationManager.AppSettings["DefaultCulture"].ToString() : crxMgrObject.GeneralSettings.CultureInfo.Trim();
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(SettingsProperties.gCI); // allows to format the appearance of numbers, dates..etc
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(SettingsProperties.gCI); // to work with resource files that are dynamically loaded in the windows form
+                              
+                currentpath = Directory.GetCurrentDirectory();
+                if (currentpath.Equals(@"g:\Sprint 5\Scor\gui\gui\bin\debug", StringComparison.CurrentCultureIgnoreCase))
+                { 
+                    // sjdsac
+                }
+
+                // crxMgrObject.GeneralSettings = gnrlSettingsStruct;
+                if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.ServerName))
+                {
+                    crxMgrObject.GeneralSettings.ServerName = SystemInformation.ComputerName + @"\SQLEXPRESS";
+                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CHANGED_TO_LOCAL"));
+                }
+
+                if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.SourceData))
+                {
+                    crxMgrObject.GeneralSettings.SourceData = "SQLCLIENT";
+                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CHANGED_TO_DEFAULT"));
+                }
+               
+                int result = 0;
+                dbMagr = CrxDBManager.Instance;
+                result = dbMagr.SetConnection(crxMgrObject.GeneralSettings.ServerName, crxMgrObject.GeneralSettings.SourceData);
+
+                // log message on connection status.
+                if (result.Equals(0))
+                {                   
+                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + crxMgrObject.GeneralSettings.ServerName);
+                    crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);
+                }
+
+                if (result.Equals(1))
+                {
+                    // CrxLogger oLogObject = CrxLogger.Instance;
+                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONN_FAILED") + crxMgrObject.GeneralSettings.ServerName);
+                    SQLInstanceList frmObject = new SQLInstanceList();
+                    frmObject.ShowDialog();
+                    frmObject.ShowInTaskbar = false;
+                }
+                
+                if (SQLInstanceList.IsCancel == 1)
+                {
+                    SQLInstanceList.IsCancel = 0;
+                    this.Close();
+                    Process.GetCurrentProcess().Kill();
+                }
+                
+                    InitializeComponent();
+
+                    // Set the text for  Capture Tab form controls
+                    SetTextForRibbionControl();
+
+                    // Initialize setup screen
+                    InitializeSetupScreen();                    
+            }
+            catch (CrxException crxex)
+            {
+                RadMessageBox.Show(this, oMsgMgr.GetMessage(crxex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);                
             }
         }
+
+        /**This method is called to disable the right clicking on the Gridview.
+        */
+        private void menuService_ContextMenuDisplaying(object sender, ContextMenuDisplayingEventArgs e)
+        {
+            // the menu request is associated with a valid DockWindow instance, which resides within a DocumentTabStrip
+              
+            // remove the "Close" menu items
+            for (int i = 0; i < e.MenuItems.Count; i++)
+            {
+                RadMenuItemBase menuItem = e.MenuItems[i];
+                {
+                    // In case you just want to disable to option you can set Enabled false
+                    // menuItem.Enabled = false;
+                    menuItem.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+                }
+            }
+        }        
         
+        /**This method is called to set the text for the controls in the ribbon bar.The text is read from the resource file.
+        */  
         private void SetTextForRibbionControl()
         {
-            radRibbonBar.Text = oMsgMgr.GetMessage(RIBBIONBAR_TEXT);
-            rbnTabSystem.Text = oMsgMgr.GetMessage(MENU_SYSTEM);
-            rbnTabDatabase.Text = oMsgMgr.GetMessage(MENU_DATABASE);
-            rbnTabHelp.Text = oMsgMgr.GetMessage(MENU_HELP);
-            radButtonElementSettings.Text = oMsgMgr.GetMessage(BTN_SETTINGS); 
-            radButtonElementFindModule.Text = oMsgMgr.GetMessage(BTN_FINDMODULE);
-            radButtonElementPrinterSetup.Text = oMsgMgr.GetMessage(BTN_PRINTERSETUP);
-            radButtonElementExit.Text = oMsgMgr.GetMessage(BTN_EXIT);
-            radtabSetup.Text = oMsgMgr.GetMessage(TAB_SETUP);
-            radtabCapture.Text = oMsgMgr.GetMessage(TAB_CAPTURE);
-            radtabReport.Text = oMsgMgr.GetMessage(TAB_REPORT);
+            // rbnTabSystem.Text = oMsgMgr.GetMessage("MENU_SYSTEM");
+            // rbnTabDatabase.Text = oMsgMgr.GetMessage("MENU_DATABASE");
+           // rbnTabHelp.Text = oMsgMgr.GetMessage("MENU_HELP");
+            // radButtonElementSettings.Text = oMsgMgr.GetMessage("BTN_SETTINGS"); 
+            // radButtonElementFindModule.Text = oMsgMgr.GetMessage("BTN_FINDMODULE");
+            // radButtonElementPrinterSetup.Text = oMsgMgr.GetMessage("BTN_PRINTERSETUP");
+            // radButtonElementExit.Text = oMsgMgr.GetMessage("BTN_EXIT");
+            guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage("TAB_SETUP");
+            radtabCapture.Text = oMsgMgr.GetMessage("TAB_CAPTURE");
+            radtabReport.Text = oMsgMgr.GetMessage("TAB_REPORT");
         }
-
-        private void SetTextForCaptureTab()
-        {
-            radlblTonometer.Text = oMsgMgr.GetMessage(LBL_TONOMETER);
-            radlblFemoralCuff.Text = oMsgMgr.GetMessage(LBL_FEMORALCUFF);
-            radlblTimeStatus.Text = oMsgMgr.GetMessage(LBL_TIMESTATUS);
-            radlblPatientName.Text = oMsgMgr.GetMessage(LBL_PATIENTNAME);
-            //radlblCaptureTime.Text= oMsgMgr.GetMessage(10002);
-        }
-
+        
         /**This method is invoked on the click of the Exit button under System menu.
          * It will close the main window.
          */
         private void radButtonElementExit_Click(object sender, EventArgs e)
         {  
-            //Close the application on click of Exit button under System menu.
-            this.Close();
+            // Close the application on click of Exit button under System menu.
+            this.Close();                    
         }
 
         /**This event is fired when window is closed.
@@ -162,124 +241,107 @@ namespace Gui.Atcor.Scor.Presentation
         {
             try
             {
-                //On form closing a confirmation is asked to the user to Save the unsaved data.             
+                // On form closing a confirmation is asked to the user to Save the unsaved data.                                       
                 if (!isDirectClose)
                 {
-                    RadMessageBox.SetThemeName(oMsgMgr.GetMessage(10016));
-                    DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(10017), oMsgMgr.GetMessage(10018), MessageBoxButtons.YesNoCancel, RadMessageIcon.Question);
-
-                    //Keeping Yes and No separate for future use.                     
-                    if (ds == DialogResult.Yes)
+                    if (isFormDataChanged)
                     {
-                        //Save data then exit.Application exited
-                        CrxLogger oLogObject = CrxLogger.Instance;
-                        oLogObject.Write(oMsgMgr.GetMessage(EXITSTR));
-                    }
+                        RadMessageBox.SetThemeName(oMsgMgr.GetMessage("MSG_DESERT"));
+                        DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("MSG_SAVE_CHANGE"), oMsgMgr.GetMessage("MSG_SAVE_SETTINGS"), MessageBoxButtons.YesNoCancel, RadMessageIcon.Question);
 
-                    if (ds == DialogResult.No)
-                    {
-                        //DO NOT Save data then exit.                         
-                        CrxLogger oLogObject = CrxLogger.Instance;
-                        oLogObject.Write(oMsgMgr.GetMessage(EXITSTR));
-                    }
+                        // Keeping Yes and No separate for future use.                     
+                        if (ds == DialogResult.Yes)
+                        {
+                            // Save data then exit.Application exited
+                            CrxLogger oLogObject = CrxLogger.Instance;
+                            oLogObject.Write(oMsgMgr.GetMessage("EXITSTR"));
+                        }
 
-                    if (ds == DialogResult.Cancel)
-                    {
-                        //Cancel the close event.                         
-                        e.Cancel = true;
+                        if (ds == DialogResult.No)
+                        {
+                            // DO NOT Save data then exit.                         
+                            CrxLogger oLogObject = CrxLogger.Instance;
+                            oLogObject.Write(oMsgMgr.GetMessage("EXITSTR"));
+                        }
+
+                        if (ds == DialogResult.Cancel)
+                        {
+                            // Cancel the close event.                         
+                            e.Cancel = true;
+                        }
                     }
                 }
+
+                Process.GetCurrentProcess().Kill();
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);               
             }
         }
         
-        /**This is onvoked on the load of the window.
+        /**This is invoked on the load of the window.
          *Once the application is launched it will log the event into the log file.
          */
         private void DefaultWindow_Load(object sender, EventArgs e)
-        {
+        {  
             try
-            {                
-                radpgTabCollection.SelectedPage = radtabSetup;
-
-                //check if we can access the configuration file by reading general setting from config manager object.   
+            {
+                // fills day, month & year, loads group names & patient list
+                radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod; 
+               
+                EnableMenuBarControls(); 
+                
+                // check if we can access the configuration file by reading general setting from config manager object.   
                 CrxConfigManager oConfigMgr = CrxConfigManager.Instance;
                 oConfigMgr.GetGeneralUserSettings();              
 
-                //On windows load set the windows size to maximum.                 
+                // On windows load set the windows size to maximum.                 
                 WindowState = FormWindowState.Maximized;
 
-                //Log the event on successful load of the application.                 
+                // Log the event on successful load of the application.                 
                 CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(oMsgMgr.GetMessage(STARTSTR));
+                oLogObject.Write(oMsgMgr.GetMessage("STARTSTR"));
 
                 // Disable the pateint name and Capture time labels
                 radlblCaptureTime.Enabled = false;
                 radlblPatientName.Enabled = false;                
 
-                // Code for assigning the handler.
+                // set waiting bar
+                guiWaitingStatusBar.WaitingStep = 10;
+                guiWaitingStatusBar.WaitingSpeed = 50;
+                guiWaitingStatusBar.Visible = false;
 
-                BizEventContainer.Instance.OnBizTonometerDataEvent += new BizTonometerDataEventHandler(UpdateTonoData);
-
-                BizEventContainer.Instance.OnBizCarotidQualityEvent += new BizCarotidQualityEventHandler(qualityIndicator_CarotidQualityEvent);                
-
-                // Quality indicator ProgressBarSetup
-                prim1 = (ProgressBarPrimitive)this.radProgressBarQualityIndicator.ProgressBarElement.Children[1];
-                radProgressBarQualityIndicator.Minimum = 0;
-                radProgressBarQualityIndicator.Maximum = 500;
-                prim1.BackColor = prim1.BackColor2 = prim1.BackColor3 = prim1.BackColor4 = Color.Red;
-                radbtnTick.Enabled = false;
+                OnDBBackupAndRestoreCompleteEvent += new EventHandler(DisplayStatusComplete);                
             }
             catch (CrxException cfgExp)
             {
-                //Exception if any will be logged and displayed(appropiate message) to the user.                  
+                // Exception if any will be logged and displayed(appropiate message) to the user.                  
                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
                 string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);
+                
+                // show error on screen                 
+                RadMessageBox.Show(this, oMsgMgr.GetMessage(cfgExp.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
 
-                //show error on screen                 
-                RadMessageBox.Show(this, errorMessage, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
-
-                //write message in log file                
+                // write message in log file                
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(errorMessage);
 
-                //close the application.
-                //do not ask question to save data.                 
+                // close the application.
+                // do not ask question to save data.                 
                 isDirectClose = true;
                 this.Close();
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);
             }
         }
-
-        /**This method is called when the event handler of BizCarotidQualityEvent is executed.
-         * Here depending upon the signal strength the progress bar color is displayed and the Tick button is enabled.
-        */
-        void qualityIndicator_CarotidQualityEvent(object sender, BizCarotidQualityEventArgs e)
-        {
-            chartTonometer.ChartAreas[0].AxisY.Minimum = e.signalMinimum * 0.96;
-            chartTonometer.ChartAreas[0].AxisY.Maximum = e.signalMaximum * 1.04;
-            signalStrength = e.signalMaximum - e.signalMinimum;
-            if (signalStrength > 500)
-            {
-                signalStrength = 500;
-            }            
-
-            radbtnTick.Enabled = e.enableOkayButton;
-            
-            prim1.BackColor = prim1.BackColor2 = prim1.BackColor3 = prim1.BackColor4 = e.signalStrengthColor;
-            radProgressBarQualityIndicator.Value1 = (int)signalStrength;            
-        }
-
+              
         #region Code to check multiple instance of application.
         private bool IsProcessOpen(string name)
         {
@@ -295,6 +357,8 @@ namespace Gui.Atcor.Scor.Presentation
                     }
                 }
 
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write("instances = " + count.ToString());
                 if (count > 1)
                 {
                     return true;
@@ -304,146 +368,61 @@ namespace Gui.Atcor.Scor.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, "Scor System Error", MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);
+
                 return false;
             }
         } 
         #endregion
 
-        /**This method is invoked when Settings button under System tab is clicked.
-         */ 
-        private void radButtonElementSettings_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //Open the settings dialog box.                 
-                frmSettingsWindow settingWinObject = new frmSettingsWindow(this);
-                settingWinObject.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);             
-            }
-        }
-
+        /**This method is called when the user clicks on the cross button during the capture.
+        */  
         private void radbtnCross_Click(object sender, EventArgs e)
-        {
-           // timer1.Enabled = true;           
+        {           
             CrossButtonAction();
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
+        }                    
+     
+        /** This method loads setup form
+         * */
+        void InitializeSetupScreen()
         {
-            ticks++;
-            radProgressBarQualityIndicator.Value1 = ticks;
-            radProgressBar.Value1 = ticks;
-            if (ticks == 100)
+            // if (InvokeRequired)
+            // {
+            //    this.Invoke(new ReloadForm(InitializeSetupScreen));
+            //    return;
+            // }
+            if (!guiradgrpbxPwvDistanceMethod.Enabled)
             {
-                timer1.Enabled = false;
-                ticks = 0;
+                return;
             }
-        }
-
-        /**This method is called when the event handler of BizTonometerDataEventHandler is called is executed.
-       * Here the plotting of points for the tonometer is done.
-      */
-        private void UpdateTonoData(Object sender, BizTonometerDataEventArgs e)
-        {
-            try
+          
+            // open setup form under setup tab
+            if (SettingsProperties.setupChildForm != null)
             {
-                int data = e.data;
-                DateTime timeStamp = DateTime.Now;
-
-                // set the maximum y-axis,if the incoming data has a point greater than the existing y-axis value then set the new data point as the y-axix maximum.
-                if (data > chartTonometer.ChartAreas[0].AxisY.Maximum)
-                {
-                    chartTonometer.ChartAreas[0].AxisY.Maximum = data * 1.04;
-                }
-
-                // Add new data point to its series.
-                newSeries.Points.AddXY(timeStamp.ToOADate(), data);
-
-                // remove all points from the source series older than 7 seconds.
-                double removeBefore = timeStamp.AddSeconds((double)((screenwidth)) * (-1)).ToOADate();   
-
-                //remove oldest values to maintain a constant number of data points
-                while (newSeries.Points[0].XValue < removeBefore)
-                {
-                    newSeries.Points.RemoveAt(0);
-                }
-
-                // set the x axis's minimum and maximum values.
-                chartTonometer.ChartAreas[0].AxisX.Minimum = newSeries.Points[0].XValue;
-                //chartTonometer.ChartAreas[0].AxisX.Maximum = DateTime.FromOADate(newSeries.Points[0].XValue).AddSeconds(7).ToOADate();
-                chartTonometer.ChartAreas[0].AxisX.Maximum = DateTime.FromOADate(newSeries.Points[0].XValue).AddSeconds(screenwidth).ToOADate();
-
-                chartTonometer.Invalidate();
+                SettingsProperties.setupChildForm.Close();
+                SettingsProperties.setupChildForm = null;
             }
-            catch (Exception ex)
-            {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
-            }
-        }
-
-        /**This method is called when the Setup, Capture or Report tab is selected.
-        */ 
-        private void radpgTabCollection_Click(object sender, EventArgs e)
-        {            
-            chartTonometer.Series.Clear();  
-            //read the coms port and simulation type from??? 
-            if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(TAB_CAPTURE)))
-            {                
-                SetTonometerWaveformProperties();
-                radtabSetup.Enabled = false;
-                radtabReport.Enabled = false;
-                radRibbonBar.Enabled = false;
-                radlblPatientName.Enabled = true;
-                radlblPatientName.Text = "Default Patient"; //Hardcoding since this will be removed in coming sprints as the patient name will be coming from the session/patient object.
-                radlblCaptureTime.Enabled = true;
-                radlblCaptureTime.Text = BizSession.Instance().measurement.captureTime.ToString();
-                radlblMessage.Text = "Simulation Mode"; //Hardcoding since this will be removed in coming sprints as it will be coming from the biz.dll                      
-                BizSession.Instance().StartCapture();
-                timer2.Enabled = true;
-            }
-
-            // get data from biz layer
-            //BizSession.Instance().StartCapture();
-            //timer2.Enabled = true;
-        }
-
-        private void SetTonometerWaveformProperties()
-        {
-            screenwidth = BizSession.Instance().measurement.captureTime + HandShakePeriod;
             
-            //replace minValue with VerticalMin and VerticalMax.
-            DateTime minValue = DateTime.Now;
-            DateTime maxValue = minValue.AddSeconds(screenwidth);
+            SettingsProperties.setupChildForm = new Setup(this);
+            SettingsProperties.setupChildForm.TopLevel = false;
+            SettingsProperties.setupChildForm.Dock = DockStyle.Fill;
+            SettingsProperties.setupChildForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            
+            // adds report form under parent window control
+            var page = radpgTabCollection.Pages[0];
+            SettingsProperties.setupChildForm.Parent = page;
+            page.Controls.Add(SettingsProperties.setupChildForm);
+            SettingsProperties.setupChildForm.Show(); 
+        }
 
-            // Reset number of series in the chart.
-            chartTonometer.Series.Clear();
-
-            //set y axis
-            chartTonometer.ChartAreas[0].AxisY.Minimum = 0;
-            chartTonometer.ChartAreas[0].AxisY.Maximum = 4096;
-            signalStrength = 0;
-
-            // set x axis
-            chartTonometer.ChartAreas[0].AxisX.Minimum = minValue.ToOADate();
-            chartTonometer.ChartAreas[0].AxisX.Maximum = maxValue.ToOADate();
-
-            // give name (for internal use) to the series used for plotting the points,its chart type and the color of the graph.
-            newSeries = new Series("Tonometer");
-            newSeries.ChartType = SeriesChartType.Spline;
-            newSeries.Color = Color.White;
-
-            // Add the series to the chart.
-            chartTonometer.Series.Add(newSeries); 
+         /** This method is used to start the capture for tonometer waveform.
+        */ 
+        private void StartCarotidTonometerCapture()
+        {
+            // Start the capture of data points.
+            BizSession.Instance().StartCapture();
         }
 
         /**This method is called when the user clicks on the Tick button.
@@ -457,9 +436,9 @@ namespace Gui.Atcor.Scor.Presentation
         */ 
         private void TickButtonAction()
         {
-            radtabSetup.Enabled = true;
+            guiradgrpbxPwvDistanceMethod.Enabled = true;
             radtabReport.Enabled = true;
-            radRibbonBar.Enabled = true;
+
             radpgTabCollection.SelectedPage = radtabReport;   
         }
 
@@ -467,28 +446,25 @@ namespace Gui.Atcor.Scor.Presentation
         */ 
         private void CrossButtonAction()
         {
-            //timer2.Enabled = false; 
-            DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(CAPTURE_FAILED), oMsgMgr.GetMessage(INFORMATION), MessageBoxButtons.YesNo, RadMessageIcon.Info);
+            DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("CAPTURE_FAILED"), oMsgMgr.GetMessage("INFORMATION"), MessageBoxButtons.YesNo, RadMessageIcon.Info);
            if (ds == DialogResult.Yes)
            {
-               radtabSetup.Enabled = true;
+               Thread stopCarotidTonometerCapture = new Thread(StopCarotidTonometerCapture);
+               stopCarotidTonometerCapture.Start();               
+               guiradgrpbxPwvDistanceMethod.Enabled = true;
                radtabReport.Enabled = true;
-               radRibbonBar.Enabled = true;
-               radpgTabCollection.SelectedPage = radtabSetup;
-           }            
+
+               // radRibbonBar.Enabled = true;
+               radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
+               radlblMessage.Text = string.Empty;
+           }             
         }
 
-        /**This method is called when the user clicks Spacebar from the keyboard.
-        */
-        private void radbtnTick_KeyDown(object sender, KeyEventArgs e)
+        /** This method is used to stop the tonometer data capture.
+        */  
+        private void StopCarotidTonometerCapture()
         {
-            if (radbtnTick.Enabled)
-            {
-                if (e.KeyCode == Keys.Space)
-                {
-                    TickButtonAction();
-                }
-            }
+            BizSession.Instance().StopCapture();
         }
 
         /**This method is called when the user clicks Escape from the keyboard.
@@ -510,21 +486,529 @@ namespace Gui.Atcor.Scor.Presentation
 
         private void DefaultWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(TAB_CAPTURE)))
+            // if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_CAPTURE")))
+            // {
+            //    if (e.KeyCode == Keys.Escape)
+            //    {
+            //        CrossButtonAction();
+            //    }                
+            // }
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            count++;
+            radlblCaptureTime.Text = count.ToString();
+        }
+
+        /** This method disables tab other than the parameter passed
+         */ 
+        private void DisableTabs(string currentTab)
+        {
+            // disables all the tabs except the currentTab
+            for (int pageCount = 0; pageCount < radpgTabCollection.Pages.Count; pageCount++)
             {
-                if (e.KeyCode == Keys.Escape)
+                if (radpgTabCollection.Pages[pageCount].Text.ToLower() != currentTab)
                 {
-                    CrossButtonAction();
+                    radpgTabCollection.Pages[pageCount].Enabled = false;
+                }
+            }
+        }    
+      
+        /** This event is fired when the user clicks tried to click on the OperatorGuide option on the menu bar.
+        */
+        private void guiradmnuitemOperatorGuide_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(ConfigurationManager.AppSettings["OperatorGuidePath"].Replace("{culture}", Program.GetCurrentCulture())))
+                {
+                    System.Diagnostics.Process.Start(Path.GetFullPath(ConfigurationManager.AppSettings["OperatorGuidePath"].Replace("{culture}", Program.GetCurrentCulture())));
+                }
+                else
+                {
+                    RadMessageBox.Show(this, oMsgMgr.GetMessage("PDF_FILE_ERROR"), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+            }         
+        }
+
+        /** This event is fired when the user clicks tried to click on the Service Manual option on the menu bar.
+        */
+        private void guiradmnuitemServiceManual_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(ConfigurationManager.AppSettings["ServiceManualPath"].Replace("{culture}", Program.GetCurrentCulture())))
+                {
+                  System.Diagnostics.Process.Start(Path.GetFullPath(ConfigurationManager.AppSettings["ServiceManualPath"].Replace("{culture}", Program.GetCurrentCulture())));
+                }
+                else
+                {
+                    RadMessageBox.Show(this, oMsgMgr.GetMessage("PDF_FILE_ERROR"), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);                
+            }
+        }
+
+        /** This event is fired when the user clicks tries to click on the Website option on the menu bar.
+       */
+        private void guiradmnuitemWebsite_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(ConfigurationManager.AppSettings["SupportURL"].ToString());
+        }
+
+        /** This method is called to Enable the menu controls.
+         */ 
+        private void EnableMenuBarControls()
+        {
+            guiradmnuScor.MenuElement.SystemButtons.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            guiradmnuScor.MenuElement.CloseButton.Click += new EventHandler(CloseButton_Click);
+            guiradmnuScor.MenuElement.MinimizeButton.Click += new EventHandler(MinimizeButton_Click);
+        }
+
+        /** This event is fired when the user clicks on the close button.
+         */ 
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+                this.Close();
+        }
+
+        /** This event is fired when the user clicks on the minimze button on the title bar.
+         */ 
+        private void MinimizeButton_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        /** This method is used to set the capture time in the status bar.
+         */ 
+        private void SetCaptureTimeInStatusBar()
+        {
+            switch (crxMgrObject.PwvSettings.CaptureTime)
+            {
+                case 0:
+                    radlblCaptureTime.Text = oMsgMgr.GetMessage("GRP_CAPTURE_TIME") + " " + oMsgMgr.GetMessage("RAD_5_SEC");
+                    break;
+                case 1:
+                    radlblCaptureTime.Text = oMsgMgr.GetMessage("GRP_CAPTURE_TIME") + " " + oMsgMgr.GetMessage("RAD_10_SEC");
+                    break;
+                case 2:
+                    radlblCaptureTime.Text = oMsgMgr.GetMessage("GRP_CAPTURE_TIME") + " " + oMsgMgr.GetMessage("RAD_20_SEC");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /**This method is invoked when Settings button under System tab is clicked. 
+         * It opens setting window
+         */ 
+        private void guiradmnuSettings_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Open the settings dialog box.                 
+                frmSettingsWindow settingWinObject = new frmSettingsWindow(this);
+                settingWinObject.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(ex.Message);
+            }
+        }
+
+        /** This event fires on backup button click of menu bar.
+         * Open dialog box to select location to save database backup
+         * */
+        private void guiradmenuBackup_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                radlblMessage.Text = string.Empty;
+
+                // opens folder dialog box to select location
+                saveFileDialog1.FileName = ConfigurationManager.AppSettings["DBDefaultFileName"].ToString() + ConfigurationManager.AppSettings["DBVersionNumber"].ToString() + BackupFileExt;
+                saveFileDialog1.Title = oMsgMgr.GetMessage("BACKUP_TITLE");
+                DialogResult result = saveFileDialog1.ShowDialog(); // folderBrowserDialog1.ShowDialog()
+
+                if (result == DialogResult.OK)
+                {
+                    Directory.SetCurrentDirectory(currentpath);
+                    dbOperation = oMsgMgr.GetMessage("BACKUP_TITLE");
+                    
+                    // save backup operation started on separate thread
+                    Thread startDBBackup = new Thread(SaveBackupFile);
+                    startDBBackup.Start();
+
+                    // start waiting progress bar on main thread
+                    guiWaitingStatusBar.Visible = true;
+                    guiWaitingStatusBar.StartWaiting();
+
+                    // disable menu & tab page while backup is on
+                    guiradmnuScor.Enabled = false;
+                    radpgTabCollection.Enabled = false;
+                }                
+            }
+            catch (CrxException ex)
+            {
+                RadMessageBox.Show(this, oMsgMgr.GetMessage(ex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(ex.ErrorString);
+                radlblMessage.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(ex.Message);
+                radlblMessage.Text = string.Empty;
+            }
+        }
+      
+        /** This method truncates invalid file extensions and saves backup of database to location specified
+         * */
+        private void SaveBackupFile()
+        {
+            try
+            {
+                string path = saveFileDialog1.FileName;
+
+                // int success = 0;
+                // set current directory path for resource file
+                Directory.SetCurrentDirectory(currentpath); // shri: make part of global class
+
+                // log backup start process
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(oMsgMgr.GetMessage("BACKUP_PROGRESS"));
+
+                DoBackup(path);               
+            }
+            catch (CrxException ex)
+            {
+                if (this.InvokeRequired)
+                {
+                    dbOperation = oMsgMgr.GetMessage("BACKUP_FAIL");
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+
+                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    this.Invoke(messageBox, oMsgMgr.GetMessage(ex.ErrorString), ex);                   
                 }
 
-                if (radbtnTick.Enabled)
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(ex.ErrorString);
+            }
+            catch (Exception ex)
+            {
+                if (this.InvokeRequired)
                 {
-                    if (e.KeyCode == Keys.Space)
+                    dbOperation = oMsgMgr.GetMessage("BACKUP_FAIL");
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+
+                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    this.Invoke(messageBox, ex.Message, ex);                   
+                }
+
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(ex.Message);
+            }            
+        }
+
+        /** This method saves database backup at selected location
+         * */
+        void DoBackup(string path)
+        {
+            int success = 0;
+
+            // save backup at selected location in shared folder
+            if (!Path.GetExtension(path).ToLower().Equals(BackupFileExt))
+            {
+                success = dbMagr.DatabaseBackup(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) + BackupFileExt : path + BackupFileExt); // folderBrowserDialog1.SelectedPath);
+            }
+            else
+            {
+                success = dbMagr.DatabaseBackup(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) : path); // folderBrowserDialog1.SelectedPath);
+            }
+
+            // on backup success invoke event to display status message
+            if (success == 0)
+            {
+                OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+            }
+        }
+
+        /** This event shows backup & restore status messages after its completion & stops waiting bar
+         * */
+        private void DisplayStatusComplete(object sender, EventArgs e)
+        {
+            // if invoked from other thread call the appropriate method
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(DisplayStatusComplete));
+                return;
+            }
+
+            // end waiting status bar
+            guiWaitingStatusBar.EndWaiting();
+            guiWaitingStatusBar.Visible = false;
+
+            // enable menu & tab page controls
+            guiradmnuScor.Enabled = true;
+            radpgTabCollection.Enabled = true;
+
+            // show status message for restore & backup
+            if (dbOperation.Equals(oMsgMgr.GetMessage("BACKUP_TITLE")))
+            {
+                radlblMessage.Text = oMsgMgr.GetMessage("BACKUP_DONE");
+
+                // log the message
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(oMsgMgr.GetMessage("BACKUP_DONE"));
+            }
+            else if (dbOperation.Equals(oMsgMgr.GetMessage("RESTORE_TITLE")))
+            {
+                radlblMessage.Text = oMsgMgr.GetMessage("RESTORE_DONE");
+                ////this.Refresh();
+                ////InitializeSetupScreen();
+                ////Setup d = new Setup(this);
+                ////d.LoadSetupScreen();
+                ////d.Refresh();
+
+                // log the message
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(oMsgMgr.GetMessage("RESTORE_DONE"));
+            }           
+        }
+
+        /**This method is called when the Setup, Capture or Report tab is selected.
+       */ 
+        private void radpgTabCollection_SelectedPageChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                guiradmnuitemSettings.Enabled = true;
+
+                // read the coms port and simulation type.
+                if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_CAPTURE")))
+                {
+                    if (!radtabCapture.Enabled)
                     {
-                        TickButtonAction();
+                        return;
+                    }
+                    
+                    if (SettingsProperties.captureChildForm != null)
+                    {
+                        SettingsProperties.captureChildForm.Close();
+                       //// SettingsProperties.captureChildForm.Dispose();
+                    }
+
+                    SettingsProperties.captureChildForm = new Capture(this);
+                    SettingsProperties.captureChildForm.TopLevel = false;
+                    SettingsProperties.captureChildForm.Dock = DockStyle.Fill;
+                    SettingsProperties.captureChildForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+
+                    // adds report form under parent window control
+                    var page = radpgTabCollection.Pages[1];
+                    SettingsProperties.captureChildForm.Parent = page;
+                    page.Controls.Clear();
+                    
+                    page.Controls.Add(SettingsProperties.captureChildForm);
+                    SettingsProperties.captureChildForm.Show();
+                }
+                else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_REPORT")))
+                {
+                    if (!radtabReport.Enabled)
+                    {
+                        return;
+                    }
+
+                    // open report form under report tab
+                    if (SettingsProperties.reportChildForm != null)
+                    {
+                        SettingsProperties.reportChildForm.Close();
+                        SettingsProperties.reportChildForm.Dispose();
+                    }
+
+                    SettingsProperties.reportChildForm = new Report();
+                    SettingsProperties.reportChildForm.TopLevel = false;
+                    SettingsProperties.reportChildForm.Dock = DockStyle.Fill;
+                    SettingsProperties.reportChildForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+
+                    // adds report form under parent window control
+                    var page = radpgTabCollection.Pages[2];
+                    SettingsProperties.reportChildForm.Parent = page;
+                    page.Controls.Add(SettingsProperties.reportChildForm);
+                    SettingsProperties.reportChildForm.Show();
+
+                    // disable setting tab on menu bar
+                    guiradmnuitemSettings.Enabled = false;
+                    radtabCapture.Enabled = false;
+                }
+                else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_SETUP")))
+                {
+                    // InitializeSetupScreen(); 
+                    if (SettingsProperties.hasMeasurementDetails)
+                    {
+                        radtabCapture.Enabled = true;
                     }
                 }
             }
-        }   
+            catch (Exception ex)
+            {
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(ex.Message);
+            }
+        }
+
+        /** This event fires when restore button is clicked on menu bar
+         * */
+        private void guiradmenuRestore_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                radlblMessage.Text = string.Empty;
+
+                // prompt user before restoring backup
+                DialogResult dg = RadMessageBox.Show(this, oMsgMgr.GetMessage("RESTORE_MSG"), oMsgMgr.GetMessage("APPLICATION_MESSAGE"), MessageBoxButtons.YesNo, RadMessageIcon.Info);
+
+                if (dg == DialogResult.Yes)
+                {
+                    // continue with restore backup
+                    // sets title for dialog box
+                    openFileDialog1.Title = oMsgMgr.GetMessage("RESTORE_TITLE");
+                    DialogResult result = openFileDialog1.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        Directory.SetCurrentDirectory(currentpath);
+
+                        // check for .bak file extension and restore backup
+                        if (Path.GetExtension(openFileDialog1.FileName).ToLower().Equals(BackupFileExt))
+                        {
+                            // restore backup operation on separate thread
+                            Thread startDBRestore = new Thread(RestoreBackupFile);
+                            startDBRestore.Start();
+
+                            // start waiting progress bar on main thread
+                            guiWaitingStatusBar.Visible = true;
+                            guiWaitingStatusBar.StartWaiting();
+
+                            // disable menu & tab page while restore is on
+                            guiradmnuScor.Enabled = false;
+                            radpgTabCollection.Enabled = false;
+                        }
+                        else
+                        {
+                            RadMessageBox.Show(this, oMsgMgr.GetMessage("RESTORE_FILE_MSG"), oMsgMgr.GetMessage("EXEC_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (CrxException ex)
+            {
+                RadMessageBox.Show(this, oMsgMgr.GetMessage(ex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(ex.ErrorString);
+                radlblMessage.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(ex.Message);
+                radlblMessage.Text = string.Empty;
+            }
+        }
+
+        /** This method restores databse backup
+         * */
+        private void RestoreBackupFile()
+        {
+            try
+            {
+                string path = openFileDialog1.FileName;
+                int success = 0;
+
+                // set current directory for resource file
+                Directory.SetCurrentDirectory(currentpath); // shri: make part of global class
+                dbOperation = oMsgMgr.GetMessage("RESTORE_TITLE");
+                        
+                // log message for restore started
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(oMsgMgr.GetMessage("RESTORE_PROGRESS"));
+
+                // restore database
+                success = dbMagr.DatabaseRestore(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) : path);
+
+                // on success of restore invoke event to show message
+                if (success == 0)
+                {                  
+                  // Invoke methods to stop progressbasr & reload setup screen
+                   OnRestoreCompleteSuccess.Invoke(this, new EventArgs());
+                   OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+                }
+            }
+            catch (CrxException ex)
+            {
+                if (this.InvokeRequired)
+                {
+                    dbOperation = oMsgMgr.GetMessage("RESTORE_FAIL");
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+
+                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    this.Invoke(messageBox, oMsgMgr.GetMessage(ex.ErrorString), ex);
+                }
+                
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(ex.ErrorString);               
+            }
+            catch (Exception ex)
+            {
+                if (this.InvokeRequired)
+                {
+                    dbOperation = oMsgMgr.GetMessage("RESTORE_FAIL");
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+
+                    // ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    // this.Invoke(handle,ex,this);
+                    // GUIExceptionHandler.HandleException(ex, this);
+                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    this.Invoke(messageBox, ex.Message, ex);                   
+                }
+                
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(ex.Message);
+            }
+        }
+
+        /**This event fires when Atcor Homepage menu item is selected
+      */
+        private void guiradmenuahomepage_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(ConfigurationManager.AppSettings["AtcorHomepage"].ToString());
+        }
+
+        /**This method will display the error message using the message box.
+       */
+        private void DisplayErrorMessage(string errorMessage, Exception ex)
+        {
+            if (ex.GetType() == typeof(CrxException))
+            {
+                RadMessageBox.Show(this, errorMessage, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+            }
+            else
+            {
+                RadMessageBox.Show(this, oMsgMgr.GetMessage(errorMessage), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+            }
+        }
+        }
     }
-}

@@ -1,27 +1,54 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalSimulationFile.cpp
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      Header file for DalSimulationFile class
+*/
+
 #include "stdafx.h"
 #include "DalSimulationFile.h"
 //#include "AtCor.h"
 
 using namespace AtCor::Scor::DataAccess;
+using namespace AtCor::Scor::CrossCutting::Logging;
 
 
 	bool DalSimulationFile::OpenFile()
 	{
-        //check if the filePath varaible has been entered
+
+		FileStream ^ openFileStream;
+
+		//check if the filePath varaible has been entered
 		if (filePath == nullptr)
-			throw gcnew DalException(DAL_FILENOTSET_ERR); //File not specified
+		{
+			throw gcnew DalException("DAL_ERR_FILE_NOT_SET"); //File not specified
+		}
 
 		try
 		{
+			openFileStream = File::Open(filePath, FileMode::Open);
+		}
+		catch(Exception^ )
+		{
+			throw gcnew DalException("CRX_ERR_FILE_NOT_EXIST"); //File does not exist or could not open file.
+			
+		}
+		if(openFileStream->Length  == 0)
+		{
+			throw gcnew DalException("DAL_ERR_EMPT_SIMULATION_FILE"); //"The selected simulation file is empty. Please select another simulation file."
+			
+		}
+		else
+		{
 			//Open the file and pass it to new streamreader.
-			reader = gcnew StreamReader(File::Open(filePath, FileMode::Open));
+			reader = gcnew StreamReader(openFileStream);
 			return true;
 		}
-		catch(System::Exception^)
-		{
-			throw gcnew DalException(DAL_FILENOTFOUND_ERR); //File does not exist or could not open file.
-		}
 	}
+
 	
 	bool DalSimulationFile::CloseFile()
 	{
@@ -32,7 +59,7 @@ using namespace AtCor::Scor::DataAccess;
 			reader = nullptr;
 			return true;
 		}
-		if (writer != nullptr)
+		if (writer != nullptr) //TODO:STUB
 		{
 			//close streamreader
 			writer->Close();
@@ -64,15 +91,15 @@ using namespace AtCor::Scor::DataAccess;
 		reader->Close();
 	}
 	
-	//Todo: The common code needs to be seperated into another inline function
-	bool DalSimulationFile::GetNextValues(signed int *value1, signed int *value2)
+	bool DalSimulationFile::GetNextValues(unsigned long *value1, unsigned long *value2)
 	{
 		String ^singleLine; //temporary variable to store string
 		array<String^> ^DataStrings; //string array to store the returned numbers
 
 		if (reader == nullptr)
 		{
-			throw gcnew DalException(DAL_FILENOTFOUND_ERR); //Simulation file has not been opened before attempting to read
+			throw gcnew DalException("CRX_ERR_FILE_CANNOT_ACC"); //Simulation file has not been opened before attempting to read
+			
 		}
 		
 		//Check if we have reached end of file and reset pointer to the start.
@@ -86,19 +113,21 @@ using namespace AtCor::Scor::DataAccess;
 		//return values to calling function
 		*value1 = (short)Single::Parse(DataStrings[0]);
 		*value2 = (short)Single::Parse(DataStrings[1]);
-		
+		//TODO: these variables must be bigger to accomodate any other changes
 		//successful
 		return true;
 	}
 
-	bool DalSimulationFile::GetNextValues(signed int *value1, signed int *value2, signed int *value3 )
+
+	bool DalSimulationFile::GetNextValues(unsigned long *value1, unsigned long *value2, unsigned long *value3, unsigned long *value4) 
 	{
 		String ^singleLine; //temporary variable to store string
 		array<String^> ^DataStrings; //string array to store the returned numbers
 
 		if (reader == nullptr)
 		{
-			throw gcnew DalException(DAL_FILENOTFOUND_ERR); //Simulation file has not been opened before attempting to read
+			throw gcnew DalException("CRX_ERR_FILE_CANNOT_ACC"); //Simulation file has not been opened before attempting to read
+		
 		}
 		
 		//Check if we have reached end of file and reset pointer to the start
@@ -111,13 +140,14 @@ using namespace AtCor::Scor::DataAccess;
 		singleLine = reader->ReadLine();
 
 		//extract three substrings from this file
-		DataStrings = singleLine->Split('\t', 3); //three substrings
+		DataStrings = singleLine->Split('\t', 4); //four substrings
 
 		//parse individual values 
 		*value1 = (short)Single::Parse(DataStrings[0]);
 		*value2 = (short)Single::Parse(DataStrings[1]);
-		*value3 = (short)Single::Parse(DataStrings[2]);
-
+		*value3 = Int32::Parse(DataStrings[2], System::Globalization::NumberStyles::AllowHexSpecifier);
+		*value4 = Int32::Parse(DataStrings[3], System::Globalization::NumberStyles::AllowHexSpecifier);
+				
 		return true;
 	}
 

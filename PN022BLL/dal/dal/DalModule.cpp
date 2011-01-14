@@ -1,7 +1,20 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalModule.h
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      Code file for DalModule class
+*/
+
 #include "stdafx.h"
 #include "DalModule.h"
 
+
+using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Configuration;
+
 using namespace AtCor::Scor::CrossCutting::Messaging;
 
 namespace AtCor{ 
@@ -14,12 +27,11 @@ namespace AtCor{
 				DalModule::_captureDataType = TonometerAndCuffPulseCombination;
 				DalModule::_currentDevice = nullptr;
 				
-                //Call method to set the current device
-				// TBD: This method fails
-				//SetDeviceStrategy();
-
+				//Call method to set the current device
+				SetDeviceStrategy();
+				
 				// For testing only
-				measurementCounterTest = true;
+				measurementCounterTest = true; //TODO:STUB
 			}
 
 			DalModule::DalModule(const AtCor::Scor::DataAccess::DalModule ^)
@@ -33,9 +45,9 @@ namespace AtCor{
 				//obtain the setting from config manager.
 				CrxConfigManager ^configMgr = CrxConfigManager::Instance;
                 configMgr->GetGeneralUserSettings();
-
 				//Get the simulation type as set in configuration.
-                SetDeviceStrategy(configMgr->GeneralSettings->CommsPort);
+                SetDeviceStrategy(configMgr->GeneralSettings->CommsPort); //TODO: uncomment after devemopemtn
+				//SetDeviceStrategy("COMPORT_SIMULATION");
 				
 			}
 
@@ -43,13 +55,14 @@ namespace AtCor{
 			{
 				if (commPort == nullptr)
 				{
-					throw gcnew DalException(DAL_NULLCOMMPORT_ERR); //A null string was passed when a comm port was expected
+					throw gcnew DalException("DAL_ERR_COMPORT_NOT_SET"); //A null string was passed when a comm port was expected.
 				}
                 
                 CrxMessagingManager ^oMsg = CrxMessagingManager::Instance;
 
 				//Compare with the "simulation" string CrxMessaging
-                if (commPort->Replace(" ","")->ToUpper() == oMsg->GetMessage(DAL_SIMULATION)->ToUpper())
+               // if (commPort->Replace(" ","")->ToUpper() == oMsg->GetMessage("COMPORT_SIMULATION")->ToUpper()) //as per FxCop
+				if (String::Compare(commPort->Replace(" ",""), oMsg->GetMessage("COMPORT_SIMULATION"), false) == 0)
 				{
 					//if config manager returns "simulation" initialize the DalSimulationHander
 					_currentDevice = nullptr;
@@ -76,6 +89,15 @@ namespace AtCor{
 				{
 					//call the active device method
 					_currentDevice->StartCapture();
+				}
+			}
+
+			void DalModule::StartCapture(int captureTime, int samplingRate)
+			{
+				if (_currentDevice)
+				{
+					//call the active device method
+					_currentDevice->StartCapture(captureTime, samplingRate);
 				}
 			}
 
@@ -117,7 +139,18 @@ namespace AtCor{
 				return nullptr;
 			}
 
-			/**
+			String^ DalModule::GetErrorAlarmSource()
+			{
+				if (_currentDevice)
+				{
+					//call the active device method
+					return _currentDevice->GetErrorAlarmSource();
+				}
+				return nullptr;
+
+			}
+
+				/**
 			GetPWVMeasurementCounter()
 
 			DESCRIPTION

@@ -1,3 +1,13 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalDeviceHandler.h
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      DalDeviceHandler class header file.
+*/
+
 #pragma once
 
 #include "stdafx.h"
@@ -18,6 +28,37 @@ namespace AtCor{
 			{
 				private:
 					String ^_commPort; //The current comm port name. Can be a real port or simulation
+					unsigned long _currentStatusFlags;
+					unsigned long _currentErrorAlarmFlags;
+				
+			
+				public:
+					property unsigned long currentStatusFlags 
+					{
+						virtual unsigned long get()
+						{
+							return _currentStatusFlags;
+						}
+
+						virtual void set(unsigned long value)
+						{
+							_currentStatusFlags= value;
+						}
+					};
+
+					property unsigned long currentErrorAlarmFlags 
+					{
+						virtual unsigned long get()
+						{
+							return _currentErrorAlarmFlags;
+						}
+
+						virtual void set(unsigned long value)
+						{
+							_currentErrorAlarmFlags= value;
+						}
+					};
+
 				public:
 					/**
 					* Constructor for the class.
@@ -37,7 +78,8 @@ namespace AtCor{
 					*
 					* @warning This is a stub only. Not yet implemented.
 					*/
-					virtual void StartCapture();
+					virtual void StartCapture(); //TODO:STUB
+					virtual void StartCapture(int captureTime, int samplingRate);
 
 					/**
 					* Stops an ongoing data capture.
@@ -62,6 +104,13 @@ namespace AtCor{
 					*/
 					virtual bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
 											  DalDeviceConfigUsageStruct ^deviceConfigInfo );
+
+					virtual bool CheckStatusFlagsChanged(unsigned long newStatusFlags); 
+					virtual bool CheckErrorAlarmFlagsChanged(unsigned long newErrorAlarmFlags); 
+					virtual String^ MapErrorSourceToString(unsigned long sourceFlags); 
+					virtual String^ MapAlarmSourceToString(unsigned long sourceFlags); 
+					virtual String^ GetErrorAlarmSource(); 
+					virtual DalCuffStateFlags TranslateCuffStatusBits(unsigned long statusFlags); 
 			};
 		}
 	}

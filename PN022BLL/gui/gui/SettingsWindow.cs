@@ -7,6 +7,7 @@
  
      Description  :     Functionality implemented for Settings window.
 */
+
 using AtCor.Scor.CrossCutting;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.Logging;
@@ -26,7 +27,12 @@ using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Docking;
 using Telerik.WinControls.Enumerations;
 
-namespace Gui.Atcor.Scor.Presentation
+/**
+ * @namespace AtCor.Scor.Gui.Presentation
+ * @brief This namespace implements Presentation related classes.
+ * 
+ */
+namespace AtCor.Scor.Gui.Presentation
 {         
      /**
      * @class Setting Window
@@ -35,7 +41,8 @@ namespace Gui.Atcor.Scor.Presentation
     public partial class frmSettingsWindow : Telerik.WinControls.UI.RadForm
     {
         #region Set constant values
-        //GeneralSettings
+/*
+        // GeneralSettings
         const int DOC_GENERAL_SETTINGS = 10066;
         const int GRP_SETUP_SCREEN = 10019;
         const int CHK_PATIENT_PRIVACY = 10065;
@@ -55,7 +62,7 @@ namespace Gui.Atcor.Scor.Presentation
         const int BTN_CANCEL = 10033;
         const int BTN_DEFAULTS = 10034;
 
-        //PWV SETTINGS
+        // PWV SETTINGS
         const int DOC_PWV_SETTINGS = 10035;
         const int GRP_PWV_DISTANCE_METHOD = 10036;
         const int RAD_SUBTRACTING = 10037;
@@ -72,13 +79,14 @@ namespace Gui.Atcor.Scor.Presentation
         const int RAD_5_SEC = 10048;
         const int RAD_10_SEC = 10049;
         const int RAD_20_SEC = 10050;
-
-        //error messages
+        const int COMPORT_SIMULATION = 10056;
+        // error messages
         const int SYSTEM_ERROR = 10015;
         const int FILE_NOT_FOUND = 10055;
         const int INFORMATION = 10070;
+*/
 
-        //STRINGS
+        // STRINGS
         const string DAT_FILES = @".\\simulation\PWV\*.dat";
         const string PATH_SIMUALTION_FILES = @".\\simulation\pwv";
         const string FILE_DEFAULT = "DEFAULT";
@@ -89,25 +97,49 @@ namespace Gui.Atcor.Scor.Presentation
         const string SELECT_LOGO = "Select a Report Logo";
 
         #endregion
+   
+        // Events
+        public static event EventHandler OnSettingsChangedEvent;
+
+        // Constructor of the form,initializes all the controls and the structure for General as well as PWV settings.       
+        public frmSettingsWindow()
+        {
+            InitializeSettingsWindow();
+        }
+
+        /**Parameterized constructor to display messages in the Message Bay of the DefaultWindow.
+        */
+        public frmSettingsWindow(DefaultWindow objDfltWnd)
+        {
+            InitializeSettingsWindow();
+            objDefaultWindow = objDfltWnd;
+        }
+
+        public frmSettingsWindow(GUI_POC objDfltWnd)
+        {
+            InitializeSettingsWindow();
+            guiWindow = objDfltWnd;
+        }
 
         #region Global decalartions
         CrxConfigManager obj;
         OpenFileDialog dialog;
         CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
        
-        //Creating object of DefaultWindow.
+        // Creating object of DefaultWindow.
         private DefaultWindow objDefaultWindow;
+        private GUI_POC guiWindow;
 
-        //This variable is used to create a copy of the generalsettings structure which will be used update the 
-        //configuration object after the save functionality is implemented.@n
-        //This variable plays an important role in retriving the current values for the settings if Save fails.
+        // This variable is used to create a copy of the generalsettings structure which will be used update the 
+        // configuration object after the save functionality is implemented.@n
+        // This variable plays an important role in retriving the current values for the settings if Save fails.
         CrxStructGeneralSetting gnrlSettingsStruct;
         CrxStructPwvSetting pwvSettingsStruct;
 
-        //Flag set when default button is clicked.
+        // Flag set when default button is clicked.
         bool defaultBtnClicked = false;       
-
-        //Declaring delegates to implement cross-thread communication and for control assignment.
+         
+        // Declaring delegates to implement cross-thread communication and for control assignment.
         private delegate void ReadConfigObject();
 
         private delegate void DisplaySettingsDelegate(object sender, DisplaySettingsEventArgs e);
@@ -118,39 +150,26 @@ namespace Gui.Atcor.Scor.Presentation
 
         private delegate void CloseAfterSaveDelegate();
 
-        private delegate void DisplayMessageBoxDelegate(string message);
-        
-        //Declaring events for cross-thread communiction.         
+        private delegate void DisplayMessageBoxDelegate(string message);  
+                
+        // Declaring events for cross-thread communiction.         
         private event DisplaySettingsDelegate OnDisplayUserSettings;
 
         private event DisplaySettingsDelegate OnDefaultGeneralSettings;
         #endregion
-
-        //Constructor of the form,initializes all the controls and the structure for General as well as PWV settings.       
-        public frmSettingsWindow()
-        {
-            InitializeSettingsWindow();
-        }
-
-        /**Parameterized constructor to display messages in the Message Bay of the DefaultWindow.
-        */ 
-        public frmSettingsWindow(DefaultWindow objDfltWnd)
-        {
-            InitializeSettingsWindow();
-            objDefaultWindow = objDfltWnd;
-        }
-
+               
         /**This method is called when the constructor is initialized.It sets up the Settings screen.                */ 
         private void InitializeSettingsWindow()
         {
             InitializeComponent();
             gnrlSettingsStruct = new CrxStructGeneralSetting();
             pwvSettingsStruct = new CrxStructPwvSetting();
-            //To prevent docking of the tabstrip.
+
+            // To prevent docking of the tabstrip.
             DragDropService service = this.radDock1.GetService<DragDropService>();
             service.Starting += new StateServiceStartingEventHandler(Service_Starting);
 
-            //To disable right clicking on the tabstrip.
+            // To disable right clicking on the tabstrip.
             ContextMenuService menuService = this.radDock1.GetService<ContextMenuService>();
             menuService.ContextMenuDisplaying += menuService_ContextMenuDisplaying;  
             this.MaximumSize = this.Size;
@@ -162,52 +181,52 @@ namespace Gui.Atcor.Scor.Presentation
             // Populate the text value for PWV settings form controls
             SetTextForPwvSettingsTab();            
         }
-
+        
         /**This method sets the test for the labels ,buttons ,group boxes and so on, for the General settings on the GUI.
          */ 
         private void SetTextForGeneralSettingsTab()
         {
-            //frmSettingsWindow=User Settings
-            docWndGeneralSettings.Text = oMsgMgr.GetMessage(DOC_GENERAL_SETTINGS);
-            radchkbxPatientPrivacy.Text = oMsgMgr.GetMessage(CHK_PATIENT_PRIVACY);
-            radgrpbxSetupScreen.Text = oMsgMgr.GetMessage(GRP_SETUP_SCREEN);
-            radgrpbxHeightWeightUnits.Text = oMsgMgr.GetMessage(GRP_HEIGHT_WEIGHT_UNITS);
-            radradiobtnMeric.Text = oMsgMgr.GetMessage(RAD_METRIC);
-            radradiobtnImperial.Text = oMsgMgr.GetMessage(RAD_IMPERIAL);
-            radgrpbxBloodPressure.Text = oMsgMgr.GetMessage(GRP_BLOOD_PRESSURE);
-            radradiobtnSPandDP.Text = oMsgMgr.GetMessage(RAD_SP_DP);
-            radradiobtnSPandMP.Text = oMsgMgr.GetMessage(RAD_SP_MP);
-            radradiobtnMPandDP.Text = oMsgMgr.GetMessage(RAD_MP_DP);
-            radgrpbxCommsPort.Text = oMsgMgr.GetMessage(GRP_COMMS_PORT);
-            radgrpbxReports.Text = oMsgMgr.GetMessage(GRP_REPORTS);
-            radlblReportTitle.Text = oMsgMgr.GetMessage(LBL_REPORT_TITLE);
-            radlblReportLogo.Text = oMsgMgr.GetMessage(LBL_REPORT_LOGO);
-            radbtnChange.Text = oMsgMgr.GetMessage(BTN_CHANGE);
-            radbtnSave.Text = oMsgMgr.GetMessage(BTN_SAVE);
-            radbtnCancel.Text = oMsgMgr.GetMessage(BTN_CANCEL);
-            radbtnDefaults.Text = oMsgMgr.GetMessage(BTN_DEFAULTS);
+            // frmSettingsWindow=User Settings
+            docWndGeneralSettings.Text = oMsgMgr.GetMessage("DOC_GENERAL_SETTINGS");
+            radchkbxPatientPrivacy.Text = oMsgMgr.GetMessage("CHK_PATIENT_PRIVACY");
+            radgrpbxSetupScreen.Text = oMsgMgr.GetMessage("GRP_SETUP_SCREEN");
+            radgrpbxHeightWeightUnits.Text = oMsgMgr.GetMessage("GRP_HEIGHT_WEIGHT_UNITS");
+            radradiobtnMeric.Text = oMsgMgr.GetMessage("RAD_METRIC");
+            radradiobtnImperial.Text = oMsgMgr.GetMessage("RAD_IMPERIAL");
+            radgrpbxBloodPressure.Text = oMsgMgr.GetMessage("GRP_BLOOD_PRESSURE");
+            radradiobtnSPandDP.Text = oMsgMgr.GetMessage("RAD_SP_DP");
+            radradiobtnSPandMP.Text = oMsgMgr.GetMessage("RAD_SP_MP");
+            radradiobtnMPandDP.Text = oMsgMgr.GetMessage("RAD_MP_DP");
+            radgrpbxCommsPort.Text = oMsgMgr.GetMessage("GRP_COMMS_PORT");
+            radgrpbxReports.Text = oMsgMgr.GetMessage("GRP_REPORTS");
+            radlblReportTitle.Text = oMsgMgr.GetMessage("LBL_REPORT_TITLE");
+            radlblReportLogo.Text = oMsgMgr.GetMessage("LBL_REPORT_LOGO");
+            radbtnChange.Text = oMsgMgr.GetMessage("BTN_CHANGE");
+            radbtnSave.Text = oMsgMgr.GetMessage("BTN_SAVE");
+            radbtnCancel.Text = oMsgMgr.GetMessage("BTN_CANCEL");
+            radbtnDefaults.Text = oMsgMgr.GetMessage("BTN_DEFAULTS");
         }
         
         /**This method sets the test for the labels ,buttons ,group boxes and so on, for the PWV settings on the GUI.
          */ 
         private void SetTextForPwvSettingsTab()
         {
-            docWndPWVSettings.Text = oMsgMgr.GetMessage(DOC_PWV_SETTINGS);
-            radgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage(GRP_PWV_DISTANCE_METHOD);
-            radSubtracting.Text = oMsgMgr.GetMessage(RAD_SUBTRACTING);
-            radDirect.Text = oMsgMgr.GetMessage(RAD_DIRECT);
-            radgrpCuffLocation.Text = oMsgMgr.GetMessage(GRP_CUFF_LOCATION);
-            radchkFemoralToCuff.Text = oMsgMgr.GetMessage(CHK_FEMORAL_CUFF);
-            radgrpSimulationFiles.Text = oMsgMgr.GetMessage(GRP_SIMULATION_FILES);
-            radgrpReportScreen.Text = oMsgMgr.GetMessage(GRP_REPORT_SCREEN);
-            radchkReferenceRange.Text = oMsgMgr.GetMessage(CHK_REFERENCE_RANGE);
-            radgrpPwvDistanceUnits.Text = oMsgMgr.GetMessage(GRP_PWV_DISTANCE_UNITS);
-            radmm.Text = oMsgMgr.GetMessage(RAD_MM);
-            radcm.Text = oMsgMgr.GetMessage(RAD_CM);
-            radgrpCaptureTime.Text = oMsgMgr.GetMessage(GRP_CAPTURE_TIME);
-            rad5Seconds.Text = oMsgMgr.GetMessage(RAD_5_SEC);
-            rad10Seconds.Text = oMsgMgr.GetMessage(RAD_10_SEC);
-            rad20Seconds.Text = oMsgMgr.GetMessage(RAD_20_SEC);
+            docWndPWVSettings.Text = oMsgMgr.GetMessage("DOC_PWV_SETTINGS");
+            radgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage("GRP_PWV_DISTANCE_METHOD");
+            radSubtracting.Text = oMsgMgr.GetMessage("RAD_SUBTRACTING");
+            radDirect.Text = oMsgMgr.GetMessage("RAD_DIRECT");
+            radgrpCuffLocation.Text = oMsgMgr.GetMessage("GRP_CUFF_LOCATION");
+            radchkFemoralToCuff.Text = oMsgMgr.GetMessage("CHK_FEMORAL_CUFF");
+            radgrpSimulationFiles.Text = oMsgMgr.GetMessage("GRP_SIMULATION_FILES");
+            radgrpReportScreen.Text = oMsgMgr.GetMessage("GRP_REPORT_SCREEN");
+            radchkReferenceRange.Text = oMsgMgr.GetMessage("CHK_REFERENCE_RANGE");
+            radgrpPwvDistanceUnits.Text = oMsgMgr.GetMessage("GRP_PWV_DISTANCE_UNITS");
+            radmm.Text = oMsgMgr.GetMessage("RAD_MM");
+            radcm.Text = oMsgMgr.GetMessage("RAD_CM");
+            radgrpCaptureTime.Text = oMsgMgr.GetMessage("GRP_CAPTURE_TIME");
+            rad5Seconds.Text = oMsgMgr.GetMessage("RAD_5_SEC");
+            rad10Seconds.Text = oMsgMgr.GetMessage("RAD_10_SEC");
+            rad20Seconds.Text = oMsgMgr.GetMessage("RAD_20_SEC");
         }
 
         /**This method is used to prevents the user from rearranging the tabs horizontally and vertically.
@@ -221,17 +240,17 @@ namespace Gui.Atcor.Scor.Presentation
         */
         private void menuService_ContextMenuDisplaying(object sender, ContextMenuDisplayingEventArgs e)
         {
-            //the menu request is associated with a valid DockWindow instance, which resides within a DocumentTabStrip
+            // the menu request is associated with a valid DockWindow instance, which resides within a DocumentTabStrip
             if (e.MenuType == ContextMenuType.DockWindow &&
                 e.DockWindow.DockTabStrip is DocumentTabStrip)
             {
-                //remove the "Close" menu items
+                // remove the "Close" menu items
                 for (int i = 0; i < e.MenuItems.Count; i++)
                 {
                     RadMenuItemBase menuItem = e.MenuItems[i];                    
                     {
                         // In case you just want to disable to option you can set Enabled false
-                        //menuItem.Enabled = false;
+                        // menuItem.Enabled = false;
                         menuItem.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
                     }
                 }
@@ -247,22 +266,23 @@ namespace Gui.Atcor.Scor.Presentation
         {
             try
             {
-                //On windows load set the windows size to maximum.                 
+                // On windows load set the windows size to maximum.                 
                 MinimizeBox = false;
                 MaximizeBox = false;
                 radbtnSave.Enabled = false;
                 documentTabStrip1.AllowDrop = false;                
 
-                //Below line of code will,always set the focus on General Settings tab,everytime Settings window is loaded. 
+                // Below line of code will,always set the focus on General Settings tab,everytime Settings window is loaded. 
                 docWndGeneralSettings.Select(); 
 
-                //look for ports and list them in dropdown.                 
+                // look for ports and list them in dropdown.                 
                 SearchPorts();
-                PopulateSimulationType();                
-                //Event to read Scor.config file containing the General User Settings.                 
+                PopulateSimulationType();            
+    
+                // Event to read Scor.config file containing the General User Settings.                 
                 OnDisplayUserSettings += new DisplaySettingsDelegate(DisplaySetings);
 
-                //Thread for I/O operation.                          
+                // Thread for I/O operation.                          
                 Thread t1 = new Thread(ReadUserSettings);
                 t1.Start();
 
@@ -270,7 +290,7 @@ namespace Gui.Atcor.Scor.Presentation
             }            
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);
             }
@@ -283,49 +303,49 @@ namespace Gui.Atcor.Scor.Presentation
          */
         private void SetUserSettings(CrxStructGeneralSetting genStructObj, CrxStructPwvSetting pwvStructObj)
         {
-            //Setting the settings on the controls in the form.             
+            // Setting the settings on the controls in the form.             
             try
             {              
-                //Set General Tab fields
+                // Set General Tab fields
                 if (genStructObj != null)
                 {
                     radchkbxPatientPrivacy.Checked = genStructObj.PatientPrivacy;
 
-                    //This method is used to set the height weight units value to the corresponding GUI control.      
+                    // This method is used to set the height weight units value to the corresponding GUI control.      
                     SetHeightWeightUnits(genStructObj.HeightandWeightUnit);
 
-                    //This method is used to set the blood pressure value to the corresponding GUI control.    
+                    // This method is used to set the blood pressure value to the corresponding GUI control.    
                     SetBloodPressure(genStructObj.BloodPressureEntryOptions);
 
                     if (!defaultBtnClicked)
                     {
-                        //This method is used to set the comm port value to the corresponding GUI control. 
+                        // This method is used to set the comm port value to the corresponding GUI control. 
                         SetCommPort(genStructObj.CommsPort);
 
-                        //This method is used to set the report title value to the corresponding GUI control.     
+                        // This method is used to set the report title value to the corresponding GUI control.     
                         SetReportTitle(genStructObj.ReportTitle);
 
-                        //This method is used to set the report logo path value to the corresponding GUI control.         
+                        // This method is used to set the report logo path value to the corresponding GUI control.         
                         SetReportLogo(genStructObj.ReportLogoPath);
                     }
                 }                
 
-                //Set PWV tab fields
+                // Set PWV tab fields
                 if (pwvStructObj != null)
                 {
                     radchkFemoralToCuff.Checked = pwvStructObj.FemoralToCuff;
                     radchkReferenceRange.Checked = pwvStructObj.ReferenceRange;
 
-                    //This method is used to set the PWV distance method value to the corresponding GUI control.       
+                    // This method is used to set the PWV distance method value to the corresponding GUI control.       
                     SetPwvDistanceMethod(pwvStructObj.PWVDistanceMethod);
 
-                    //This method is used to set the PWV distance units to the corresponding GUI control.                   
+                    // This method is used to set the PWV distance units to the corresponding GUI control.                   
                     SetPwvDistanceUnits(pwvStructObj.PWVDistanceUnits);
 
-                    //This method is used to set the Capture time to the corresponding GUI control.                    
+                    // This method is used to set the Capture time to the corresponding GUI control.                    
                     SetCaptureTime(pwvStructObj.CaptureTime);
 
-                    //This method is used to set the Simulation type value to the corresponding GUI control.   
+                    // This method is used to set the Simulation type value to the corresponding GUI control.   
                     SetSimulationType(pwvStructObj.SimulationType);
                 }                
             }
@@ -342,7 +362,7 @@ namespace Gui.Atcor.Scor.Presentation
             }
             finally
             {
-                //disable save button                 
+                // disable save button                 
                 if (!defaultBtnClicked)
                 {
                     radbtnSave.Enabled = false;                   
@@ -390,13 +410,13 @@ namespace Gui.Atcor.Scor.Presentation
         {
             switch (value)
             {
-                case 0:
+                case 5:
                     rad5Seconds.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
                     break;
-                case 1:
+                case 10:
                     rad10Seconds.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
                     break;
-                case 2:
+                case 20:
                     rad20Seconds.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
                     break;
                 default:
@@ -408,7 +428,7 @@ namespace Gui.Atcor.Scor.Presentation
         */
         private void SetSimulationType(string value)
         {
-            //Logic to fill the dropdown.
+            // Logic to fill the dropdown.
             try
             {
                 List<string> fileList = new List<string>();
@@ -441,8 +461,9 @@ PATH_SIMUALTION_FILES);
                         comboSimulationFiles.Items.Remove(FILE_Default);
                         comboSimulationFiles.Items.Insert(0, FILE_Default);
                         comboSimulationFiles.SelectedIndex = 0;
-                        //this.objDefaultWindow.ChildMessage = "Since user selected file was not found,hence showing the Default simulation file.";
-                        //this.objDefaultWindow.UpdateMessage();
+
+                        // this.objDefaultWindow.ChildMessage = "Since user selected file was not found,hence showing the Default simulation file.";
+                        // this.objDefaultWindow.UpdateMessage();
                         return;
                     }
 
@@ -453,12 +474,12 @@ PATH_SIMUALTION_FILES);
                 else
                 {
                     // get the parent form object.
-                    objDefaultWindow.SetMessage(oMsgMgr.GetMessage(FILE_NOT_FOUND));
+                    objDefaultWindow.SetMessage(oMsgMgr.GetMessage("FILE_NOT_FOUND"));
                 }                
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);
             } 
@@ -545,11 +566,11 @@ PATH_SIMUALTION_FILES);
          */
         private void DisplaySetings(object sender, DisplaySettingsEventArgs e)      
         {
-            //Reading the settings from the configuration object.             
+            // Reading the settings from the configuration object.             
             try
             {                
-                //Settings the user settings on the controls.Since we cannot assign values to the controls in different 
-                //thread therefore invoking the parent thread.                 
+                // Settings the user settings on the controls.Since we cannot assign values to the controls in different 
+                // thread therefore invoking the parent thread.                 
                 if (radchkbxPatientPrivacy.InvokeRequired || radgrpPwvDistanceUnits.InvokeRequired || radgrpCaptureTime.InvokeRequired)
                 {
                     SetUserSettingsDelegate userSettings = new SetUserSettingsDelegate(SetUserSettings);
@@ -558,7 +579,7 @@ PATH_SIMUALTION_FILES);
             }
             catch (CrxException cfgExp)
             {
-                //Exception if any will be logged and displayed(appropiate message) to the user.                 
+                // Exception if any will be logged and displayed(appropiate message) to the user.                 
                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
                 string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);
                 
@@ -592,7 +613,7 @@ PATH_SIMUALTION_FILES);
          */
         private void ReadUserSettings()
         {
-            //Logic to read General user settings from the configuration object.             
+            // Logic to read General user settings from the configuration object.             
             try
             {                
                 obj = CrxConfigManager.Instance;
@@ -604,12 +625,12 @@ PATH_SIMUALTION_FILES);
                 args.GenObj = obj.GeneralSettings;
                 args.PwvObj = obj.PwvSettings;                
 
-                //Calling the event which displays the general settings on the GUI.                
+                // Calling the event which displays the general settings on the GUI.                
                 OnDisplayUserSettings(this, args);
             }
             catch (CrxException cfgExp)
             {
-                //Exception if any will be logged and displayed(appropiate message) to the user.                 
+                // Exception if any will be logged and displayed(appropiate message) to the user.                 
                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
                 string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);
                 
@@ -652,7 +673,7 @@ PATH_SIMUALTION_FILES);
          */
         private void ReadDefaultSettings()
         {
-            //Logic to read Default General Settings from the configuration object.             
+            // Logic to read Default General Settings from the configuration object.             
             DisplaySettingsEventArgs args = new DisplaySettingsEventArgs();
             try
             {          
@@ -661,32 +682,32 @@ PATH_SIMUALTION_FILES);
                 
                 if (index.Equals(0))
                 {
-                    //Read default general settings.
+                    // Read default general settings.
                     obj.GetGeneralDefaultSettings(gnrlSettingsStruct);
 
-                    //Copying the general settings value from the configuration object into the user-defined args parameter 
-                    //created.                                        
+                    // Copying the general settings value from the configuration object into the user-defined args parameter 
+                    // created.                                        
                     args.GenObj = gnrlSettingsStruct;
                     args.PwvObj = null;                    
                 }
 
                 if (index.Equals(1))
                 {
-                    //Read default Pwv settings.
+                    // Read default Pwv settings.
                     obj.GetPwvDefaultSettings(pwvSettingsStruct);
                     
-                    //Copying the general settings value from the configuration object into the user-defined args parameter 
-                    //created.                                        
+                    // Copying the general settings value from the configuration object into the user-defined args parameter 
+                    // created.                                        
                     args.PwvObj = pwvSettingsStruct;
                     args.GenObj = null;                    
                 }
 
-                //Calling the event which displays the default general settings on the GUI.                
+                // Calling the event which displays the default general settings on the GUI.                
                 OnDefaultGeneralSettings(this, args);
            }
             catch (CrxException cfgExp)
            {
-               //Exception if any will be logged and displayed(appropiate message) to the user.                
+               // Exception if any will be logged and displayed(appropiate message) to the user.                
                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
                 string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);               
                 if (this.InvokeRequired)
@@ -722,18 +743,18 @@ PATH_SIMUALTION_FILES);
             {
                 string[] ports = SerialPort.GetPortNames();
 
-                //Append the port into the comboBox.                 
+                // Append the port into the comboBox.                 
                 foreach (string port in ports)
                 {
                     comboBoxCommsPort.Items.Add(port);
                 }
 
-                comboBoxCommsPort.Items.Add("Simulation");
+                comboBoxCommsPort.Items.Add(oMsgMgr.GetMessage("COMPORT_SIMULATION"));
                 comboBoxCommsPort.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);
             }
@@ -749,7 +770,7 @@ PATH_SIMUALTION_FILES);
         {
             try
             {
-                DirectoryInfo dirInfo = new DirectoryInfo(@"D:\Atcor_SVN\src\trunk\Scor\gui\gui\bin\Debug\Simulation\PWV");
+                DirectoryInfo dirInfo = new DirectoryInfo(PATH_SIMUALTION_FILES);
 
                 foreach (System.IO.FileInfo file in dirInfo.GetFiles())
                 {
@@ -760,7 +781,7 @@ PATH_SIMUALTION_FILES);
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);
             }
@@ -772,7 +793,7 @@ PATH_SIMUALTION_FILES);
          */
         private void radbtnCancel_Click(object sender, EventArgs e)
         {
-             //Close the settings window on Cancel click.
+             // Close the settings window on Cancel click.
              this.Close();
         }
 
@@ -786,7 +807,7 @@ PATH_SIMUALTION_FILES);
         {
             try
             {
-                //Get the main application path and save the same to restore it back                 
+                // Get the main application path and save the same to restore it back                 
                 string appPath = Directory.GetCurrentDirectory();
 
                 dialog = new OpenFileDialog();
@@ -804,7 +825,7 @@ PATH_SIMUALTION_FILES);
 
                 if (radtxtReportTitle.ToString() == String.Empty)
                 {
-                    return; //user didn't select a file to open
+                    return; // user didn't select a file to open
                 }
 
                 radbtnSave.Enabled = true;
@@ -814,7 +835,7 @@ PATH_SIMUALTION_FILES);
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);
             }
@@ -833,29 +854,34 @@ PATH_SIMUALTION_FILES);
                 Thread t2 = new Thread(ReadDefaultSettings);
                 t2.Start();
 
-                //Enabling the Save button.
+                // Enabling the Save button.
                 radbtnSave.Enabled = true;
 
-                //Flag set,indicate save button is enabled.
+                // Flag set,indicate save button is enabled.
                 defaultBtnClicked = true;
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message,  oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message,  oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);
             }
         }
 
+        /**This method is called for reading General settings values from the GUI and store it in the general settings structure.
+        */ 
         private void ReadGeneralSettingsFromGui()
         {
-            //Setting the values into the configuration object.
-
-            //set the patient privacy option accordingly.
+            // Setting the values into the configuration object.
+            CrxConfigManager config = CrxConfigManager.Instance;
+            config.GetGeneralUserSettings();
+            gnrlSettingsStruct.ServerName = config.GeneralSettings.ServerName;
+            gnrlSettingsStruct.SourceData = config.GeneralSettings.SourceData;
+            //// set the patient privacy option accordingly.
             gnrlSettingsStruct.PatientPrivacy = false;
             if (radchkbxPatientPrivacy != null && radchkbxPatientPrivacy.Checked)
             {
-                //set the patient privacy option accordingly.
+                // set the patient privacy option accordingly.
                 gnrlSettingsStruct.PatientPrivacy = true;
             }
 
@@ -886,10 +912,12 @@ PATH_SIMUALTION_FILES);
             {
                 radtxtReportTitle.Text = null;
             }
-
+          
             gnrlSettingsStruct.ReportLogoPath = picbxReportLogo.ImageLocation;
         }
 
+        /**This method is called for reading PWV settings values from the GUI and store it in the PWV settings structure.
+        */ 
         private void ReadPwvSetingsFromGui()
         {
                  pwvSettingsStruct.FemoralToCuff = false;
@@ -941,16 +969,18 @@ PATH_SIMUALTION_FILES);
         {
             try
             {            
-                //Reading General Settings values from GUI into the General settings structure.
+                // Reading General Settings values from GUI into the General settings structure.
                 ReadGeneralSettingsFromGui();
                 
-                //Reading PWV settings values from GUI into the PWV settings structure.
+                // Reading PWV settings values from GUI into the PWV settings structure.
                 ReadPwvSetingsFromGui();
 
-                //Calling another thread to Save the User Settings.
+                // Calling another thread to Save the User Settings.
                 Thread t2 = new Thread(SaveSettings);
                 t2.Start();
                 defaultBtnClicked = false;
+
+               // OnSettingsChangedEvent(this, new EventArgs());
             }
             catch (Exception ex)
             {
@@ -978,12 +1008,17 @@ PATH_SIMUALTION_FILES);
         {
             try
             {
+                // this.guiWindow.Message = "Insert mode";
+                // this.guiWindow.UpdateMessage();
                 obj = CrxConfigManager.Instance;
                 obj.SetGeneralUserSettings(gnrlSettingsStruct);
-                obj.SetPwvUserSettings(pwvSettingsStruct);  
+                obj.SetPwvUserSettings(pwvSettingsStruct);
 
                 obj.GeneralSettings = gnrlSettingsStruct;
-                obj.PwvSettings = pwvSettingsStruct;                 
+                obj.PwvSettings = pwvSettingsStruct;
+
+                // OnSettingsChangedEvent(this, new EventArgs());
+                OnSettingsChangedEvent.Invoke(this, new EventArgs());             
             }
             catch (CrxException cfgExp)
             {
@@ -1012,7 +1047,7 @@ PATH_SIMUALTION_FILES);
          */ 
         private void DisplayErrorMessage(string errorMessage)
         {
-            RadMessageBox.Show(this, errorMessage, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+            RadMessageBox.Show(this, errorMessage, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
         }
 
         /**This is a common function for Blood pessure ,Pateint privacy and height weight units,Femoral to cuff,Reference 
@@ -1040,9 +1075,11 @@ PATH_SIMUALTION_FILES);
             radbtnSave.Enabled = true;
         }
 
+        /**Enable save button when user selects a value from the drop down list
+       */ 
         private void radbtnPwvCancel_Click(object sender, EventArgs e)
         {
-            //Close the settings window on Cancel click.
+            // Close the settings window on Cancel click.
             this.Close();
         }        
 
@@ -1052,7 +1089,7 @@ PATH_SIMUALTION_FILES);
         {
             if (this.comboSimulationFiles.GetItemText(this.comboSimulationFiles.SelectedItem).Length.Equals(0))
             {
-                RadMessageBox.Show(this, "Please select a Simulation File.", oMsgMgr.GetMessage(INFORMATION), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, "Please select a Simulation File.", oMsgMgr.GetMessage("INFORMATION"), MessageBoxButtons.OK, RadMessageIcon.Error);
             }
             else
             {
@@ -1073,15 +1110,15 @@ PATH_SIMUALTION_FILES);
                 Thread t3 = new Thread(ReadDefaultPWVSettings);
                 t3.Start();
                  
-                //Enabling the Save button.
-                //radbtnPwvSave.Enabled = true;
+                // Enabling the Save button.
+                // radbtnPwvSave.Enabled = true;
 
-                //Flag set,indicate save button is enabled.
+                // Flag set,indicate save button is enabled.
                 defaultBtnClicked = true;
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage(SYSTEM_ERROR), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);
             }
@@ -1100,17 +1137,17 @@ PATH_SIMUALTION_FILES);
                 obj = CrxConfigManager.Instance;
                 obj.GetPwvDefaultSettings(pwvSettingsStruct);                  
 
-                //Copying the general settings value from the configuration object into the user-defined args parameter 
-                //created.                
+                // Copying the general settings value from the configuration object into the user-defined args parameter 
+                // created.                
                 DisplaySettingsEventArgs args = new DisplaySettingsEventArgs();               
                 args.PwvObj = pwvSettingsStruct;
 
-                //Calling the event which displays the default general settings on the GUI.                
+                // Calling the event which displays the default general settings on the GUI.                
                 OnDefaultGeneralSettings(this, args);
             }
             catch (CrxException cfgExp)
             {
-                //Exception if any will be logged and displayed(appropiate message) to the user.                 
+                // Exception if any will be logged and displayed(appropiate message) to the user.                 
                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
                 string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);
                 if (this.InvokeRequired)

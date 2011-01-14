@@ -176,17 +176,17 @@
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
 			AssemblyName="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
@@ -206,7 +206,7 @@
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Data.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Data.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
@@ -226,15 +226,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crx_config_stub.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_message_stub.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CrxConfiguration.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\crxCrossCutting.cpp"
+				RelativePath=".\CrxCrossCutting.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\CrxDatabase.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxEventContainer.cpp"
 				>
 			</File>
 			<File
@@ -276,6 +288,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crx_config_stub.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crx_message_stub.h"
+				>
+			</File>
+			<File
 				RelativePath=".\crx_namespace.h"
 				>
 			</File>
@@ -284,11 +304,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crxCrossCutting.h"
+				RelativePath=".\CrxCrossCutting.h"
 				>
 			</File>
 			<File
 				RelativePath=".\CrxDatabase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxEventContainer.h"
 				>
 			</File>
 			<File

@@ -363,14 +363,14 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* @return if 0 if successfully saved else not successful
 		* @param[in] FilePath to store the backup file
 		*/
-		int DatabaseBackup(String^ FilePath);
+		int DatabaseBackup(String^ filePath);
 		
 		/**
 		* To restore back file to database 
 		* @return if 0 if successfully saved else not successful
 		* @param[in] FilePath to get the backup file
 		*/
-		int DatabaseRestore(String^ FilePath);
+		int DatabaseRestore(String^ filePath);
 
 	};
 }

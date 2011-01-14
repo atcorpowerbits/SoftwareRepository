@@ -55,8 +55,8 @@ void DalFacade::SimulateCaptureData()
 	{
 	case TonometerAndCuffPulseCombination:
 		captureTimer->Elapsed += gcnew ElapsedEventHandler( &DalFacade::OnCaptureTimedEvent );
-		dataFile = gcnew DalSimulationFile("./simulation/pwv/Default.dat");
-		timerFile = gcnew DalSimulationFile("./cuff_timer.dat");
+		dataFile = gcnew DalSimulationFile("./simulation/pwv/Simulation_stub.dat");
+		timerFile = gcnew DalSimulationFile("./simulation/pwv/cuff_timer_stub.dat");
 		break;
 	default:
 		return; // nothing to simulate
@@ -73,11 +73,11 @@ void DalFacade::SimulateCaptureData()
 }
 void DalFacade::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 {
-	int tonometerData;
-	int cuffPulse;
-	unsigned int newPressure;
-	unsigned int newStatus;
-	unsigned int newCountdown;
+	unsigned long tonometerData;
+	unsigned long cuffPulse;
+	unsigned long newPressure;
+	unsigned long newStatus;
+	unsigned long newCountdown;
 	unsigned long newSource;
 
 	// Read new timer data if it's counted down to zero
@@ -88,10 +88,10 @@ void DalFacade::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 			&newPressure,
 			&newStatus, 
 			&newSource);
-		DalFacade::Instance()->countDown = newCountdown;
-		DalFacade::Instance()->cuffPressure = newPressure;
-		DalFacade::Instance()->status = newStatus;
-		DalFacade::Instance()->source = newSource;
+		DalFacade::Instance()->countDown = (short)newCountdown;
+		DalFacade::Instance()->cuffPressure = (short)newPressure;
+		DalFacade::Instance()->status = (short)newStatus;
+		DalFacade::Instance()->source = (short)newSource;
 	}
 	// Read PWV simulation data
 	DalFacade::Instance()->dataFile->GetNextValues(
@@ -99,8 +99,8 @@ void DalFacade::OnCaptureTimedEvent( Object^ source, ElapsedEventArgs^ e )
 		&cuffPulse);
 
 	// Notify observers to generate corresponding events
-	DalEventContainer::Instance->OnDalTonometerDataEvent(DalEventContainer::Instance, gcnew DalTonometerDataEventArgs(tonometerData));
-	DalEventContainer::Instance->OnDalCuffPulseEvent(DalEventContainer::Instance, gcnew DalCuffPulseEventArgs(cuffPulse));
+	DalEventContainer::Instance->OnDalTonometerDataEvent(DalEventContainer::Instance, gcnew DalTonometerDataEventArgs((unsigned short)tonometerData));
+	DalEventContainer::Instance->OnDalCuffPulseEvent(DalEventContainer::Instance, gcnew DalCuffPulseEventArgs((unsigned short)cuffPulse));
 	DalEventContainerStub::Instance->OnDalCountdownTimerEvent(DalEventContainerStub::Instance, gcnew DalCountdownTimerEventArgs(DalFacade::Instance()->countDown));
 	DalEventContainerStub::Instance->OnDalCuffStatusEvent(DalEventContainerStub::Instance, 
 		gcnew DalCuffStatusEventArgs(DalFacade::Instance()->status & 0x2F00));
