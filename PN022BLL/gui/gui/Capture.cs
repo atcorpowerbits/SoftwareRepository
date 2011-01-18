@@ -723,6 +723,12 @@ namespace AtCor.Scor.Gui.Presentation
             // generateReport.Start();
 
             // Calculate PWV report ,if it returns true then go to report else show message and go to Setup.
+            // vibhuti: CalculatePWVReport called when tick is enabled
+            CrxStructPWVMeasurementData crxpwv = new CrxStructPWVMeasurementData(); // vibhuti
+
+            // if CalculatePWVReport returns true navigate to report screen else go back to setup
+            // if (bizObj.CalculatePWVReport(crxpwv)) // VA:TM can't call it yet. BLL needs to change to use signal buffers in DAL
+            // { //VA:See above
             guichartFemoralCuff.Series.Clear();
             guichartFemoralCuff.Series.Remove(femoralCuffSeries);
 
@@ -772,6 +778,7 @@ namespace AtCor.Scor.Gui.Presentation
             BizSession.Instance().StopCapture();
             BizFacade.Instance().StopCaptureSimulation(); // ################# TO BE REMOVED
             StopTimers();
+            // } // VA:See a comment above by VA; TM also needs to handle if CalculatePWVReport failed.
         }
 
         private void GeneratePwvReport()

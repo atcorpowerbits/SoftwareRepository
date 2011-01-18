@@ -517,6 +517,7 @@ namespace AtCor.Scor.Gui.Presentation
                     // intialize bizpatient object with selected record
                     string dob = guicmbDay.GetItemText(guicmbDay.SelectedItem) + "/" + guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem) + "/" + guicmbxYear.GetItemText(guicmbxYear.SelectedItem);
                     BizPatient patientObj = BizPatient.Instance();
+                    patientObj.systemId = (uint)systemIdentifier;
                     patientObj.dateOfBirth = DateTime.Parse(dob);
                     patientObj.firstName = guiradtxtFirstName.Text.Trim();
                     patientObj.gender = guicmbxGender.SelectedItem.ToString();
@@ -1915,8 +1916,12 @@ namespace AtCor.Scor.Gui.Presentation
             obj.isFemoralSignalValid = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["IsFemoralSignalValid"].ToString()) ? false : bool.Parse(dsPWV.Tables[0].Rows[0]["IsFemoralSignalValid"].ToString());
 
             // commented : vibhuti as resets value to 9999 after initialising
-            // obj.Validate(); // calculates metric or imperial equivalents for height and weight and the body mass index.
-            // obj.Calculate(); // It will calculate all the members of the BizPWV class, including distanceMethod and patientAge                                     
+            //VA: TM should check and handle if Validate() failed!!!
+            obj.Validate(); // calculates metric or imperial equivalents for height and weight and the body mass index.
+
+            //VA: TM should not call obj.Calculate() here; There's no valid signals to calculate yet.
+            //VA: TM should calculate patient age in FillDemographicDetailsReport(). See example there.
+            //obj.Calculate(); // It will calculate all the members of the BizPWV class, including distanceMethod and patientAge                                     
         }
 
         /** This method is used calculate the conversion for height and weight.

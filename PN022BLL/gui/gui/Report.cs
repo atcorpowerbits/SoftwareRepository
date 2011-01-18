@@ -98,6 +98,9 @@ namespace AtCor.Scor.Gui.Presentation
             guiradbtnreportedit.Visible = true;
             guiradbtnreportsave.Visible = false;
 
+            // vibhuti: initialize crx when user moves from setup to report... call populate method
+            InitializeCrxOnLoad(); // vibhuti
+
             // fill demographic & pwv measurement details & bring the LHS to browse mode
             FillDemographicDetailsReport();
 
@@ -305,6 +308,8 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblReportPatientIdValue.Text = patientObj.patientId;
                 guilblReportDobValue.Text = patientObj.dateOfBirth.ToString("dd/MM/yyyy"); // used for internal use.
                 
+                //VA:TM can calculate patient's age here with biz.dll 0.5.2
+                obj.CalculateAge();
                 guilblReportAgeValue.Text = obj.patientAge.ToString();
                 guilblReportGenderValue.Text = patientObj.gender;
             }
@@ -666,13 +671,14 @@ namespace AtCor.Scor.Gui.Presentation
       * */
         void InitializeCrxOnLoad()
         {
-            if (SettingsProperties.setupToReport)
+            if (SettingsProperties.setupToReport) //VA:TM didn't set setupToReport to true when user goes from setup to report
             {
                 DataSet dsPWV = new DataSet();
                 dsPWV = dbMagr.GetPWVMeasurementDetails(int.Parse(patientObj.patientNumber.ToString()), int.Parse(patientObj.groupStudyId.ToString()), bobj);
 
                 if (dsPWV.Tables[0].Rows.Count > 0)
                 {
+                    obj = (BizPWV)BizSession.Instance().measurement;
                     crxPWV.StudyDateTime = DateTime.Parse(dsPWV.Tables[0].Rows[0]["Studydatetime"].ToString());
 
                     application = new Microsoft.Office.Interop.Excel.ApplicationClass();
@@ -694,7 +700,7 @@ namespace AtCor.Scor.Gui.Presentation
                     carotidValuesArray = carotid.Split(',');
                     ushort[] carotidSignal = Array.ConvertAll(carotidValuesArray, new Converter<string, ushort>(Convert.ToUInt16));
                     obj.carotidSignal.CaptureSignal(carotidSignal, (ushort)signalLength, 0, (ushort)(signalLength - 1));
-                    bool status = obj.Calculate();
+                    bool status = obj.Calculate(); //VA:TM should check status and handle if false
 
                     ushort[] femoralSignalToPlot = obj.femoralSignal.signal;
                     float[] femoralOnSetPoints = obj.femoralSignal.floatOnsets;
@@ -1052,7 +1058,7 @@ namespace AtCor.Scor.Gui.Presentation
                 carotidValuesArray = carotid.Split(',');
                 ushort[] carotidSignal = Array.ConvertAll(carotidValuesArray, new Converter<string, ushort>(Convert.ToUInt16));
                 obj1.carotidSignal.CaptureSignal(carotidSignal, (ushort)signalLength, 0, (ushort)(signalLength - 1));
-                bool status = obj1.Calculate();
+                bool status = obj1.Calculate(); //VA:TM should check status and handle if false
 
                 ushort[] femoralSignalToPlot = obj1.femoralSignal.signal;
                 float[] femoralOnSetPoints = obj1.femoralSignal.floatOnsets;

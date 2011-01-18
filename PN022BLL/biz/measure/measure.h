@@ -200,6 +200,11 @@ public:
     
 	// Populate the Measure class from a database structure
 	bool Populate( CrxStructPWVMeasurementData^ record );
+
+	// Calculate the patient's age on the date of the measurement
+	// Declared as a public method so it can be called from GUI layer
+	bool CalculateAge();
+
 protected:
 	property BloodPressureEnumeration bloodPressureRange;	// Blood pressure category
 	
@@ -211,9 +216,6 @@ protected:
 
 	// Log current patient and measurement data
 	virtual void LogSetupData() {};
-
-	// Calculate the patient's age on the date of the measurement
-	bool CalculateAge();
 
 	// Calculate the blood pressure range
 	bool CalculateBloodPressureRange();
