@@ -9,6 +9,10 @@ Assembly System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561
 	hash=SHA1, flags=None
 Assembly System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
 Assembly Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
 	hash=SHA1, flags=None
 Assembly Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
@@ -23,40 +27,32 @@ Assembly System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=
 	hash=SHA1, flags=None
 Assembly Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
 	hash=SHA1, flags=None
-Assembly Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapterV5, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Security.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Security, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.PolicyInjection, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Validation, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Logging.Database, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
 Assembly Microsoft.VisualC, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
 	hash=SHA1, flags=None
+Class AtCor.Scor.CrossCutting.Class1: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class AtCor.Scor.CrossCutting.Configuration.CrxConfigConstants: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean GENERAL_PATIENT_PRIVACY IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_UNIT_METRIC IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_UNIT_IMPERIAL IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_BP_ENTRY_SPDP IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_BP_ENTRY_SPMP IsConst : Public, Static, HasDefault
+    UInt16 GENERAL_BP_ENTRY_MPDP IsConst : Public, Static, HasDefault
+Class AtCor.Scor.CrossCutting.Configuration.CrxConfigFacade: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Methods:
+    Instance(): PrivateScope, Public, Static, HideBySig
+    isSubtractingMethod(): PrivateScope, Public, HideBySig
+    GetCaptureTime(): PrivateScope, Public, HideBySig
+    SetDistanceMethod(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SetCaptureTime(UInt16): PrivateScope, Public, HideBySig
+Class AtCor.Scor.CrossCutting.Messaging.CrxMessageFacade: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Fields:
+    System.Resources.ResourceManager messageResources : Public, Static
+  Methods:
+    Instance(): PrivateScope, Public, Static, HideBySig
+    Message(TraceEventType, String, String, String): PrivateScope, Public, HideBySig
 Class AtCor.Scor.CrossCutting.Configuration.CrxStructGeneralSetting: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:

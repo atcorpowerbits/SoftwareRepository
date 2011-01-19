@@ -1,7 +1,15 @@
 ﻿
 #include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting::Logging;
+using namespace System::IO;
 namespace TestCrx {
     using namespace System;
     ref class CrxLoggerTest;
@@ -30,6 +38,14 @@ namespace TestCrx {
 				{
 					testContextInstance = value;
 				}
+			}
+
+			void SetPath()
+			{
+				String^ path = Directory::GetCurrentDirectory(); 
+				//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults");
+				Directory::SetCurrentDirectory("D:\\Deepak Share\\Sprint 5\\Scor\\TestResults");
+				//Directory::SetCurrentDirectory("D:\\Deepak\\Scor\\TestResults");
 			}
 
 #pragma region Additional test attributes
@@ -69,8 +85,7 @@ namespace TestCrx {
 			{
 				CrxLogger^  actual;
 				actual = CrxLogger::Instance;
-				Assert::IsNull(actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
+				Assert::IsNotNull(actual);
 			}
 			/// <summary>
 			///A test for Write
@@ -78,10 +93,23 @@ namespace TestCrx {
 	public: [TestMethod]
 			void WriteTest()
 			{
-				CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor()); // TODO: Initialize to an appropriate value
-				String^  message = System::String::Empty; // TODO: Initialize to an appropriate value
+				//SetPath();
+				//File::Delete("system\\logs\\scor.log");
+				CrxLogger^  target = CrxLogger::Instance ; // TODO: Initialize to an appropriate value
+				String^  message = "ThisIsForTestOnly"; // TODO: Initialize to an appropriate value
 				target->Write(message);
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+				
+				//delete target;
+				StreamReader ^curLogFileFileStream;
+				String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
+				File::Copy(path+"scor.log",path+"scor_test.log"); 
+				curLogFileFileStream =gcnew StreamReader(File::Open(path+"scor_test.log", FileMode::Open,FileAccess::Read,FileShare::Read ));
+				String ^fileStr = curLogFileFileStream->ReadToEnd();
+	
+				String ^lastLine = fileStr->Substring(fileStr->LastIndexOf('\n',(fileStr->Length) - 5) + 1);
+				lastLine = lastLine->Trim();
+				lastLine= lastLine->Substring(lastLine->LastIndexOf('\t')+1); 
+				Assert::AreEqual(lastLine, message);
 			}
 	//		/// <summary>
 	//		///A test for op_Assign
@@ -105,9 +133,10 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void GetLastWrittenLineNumberTest()
 			{
-				CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor()); // TODO: Initialize to an appropriate value
+				delete CrxLogger::Instance;
+				CrxLogger_Accessor^  target = gcnew CrxLogger_Accessor(); 
 				target->GetLastWrittenLineNumber();
-				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+				Assert::AreEqual(target->entryLineNumber, 0);
 			}
 			/// <summary>
 			///A test for CrxLogger Constructor
@@ -116,10 +145,9 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void CrxLoggerConstructorTest1()
 			{
-				CrxLogger^  unnamed = nullptr; // TODO: Initialize to an appropriate value
+				CrxLogger^  unnamed = CrxLogger::Instance ; // TODO: Initialize to an appropriate value
 				CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor(unnamed));
 				Assert::IsNotNull(target);
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 			/// <summary>
 			///A test for CrxLogger Constructor
@@ -128,11 +156,120 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void CrxLoggerConstructorTest()
 			{
+				delete CrxLogger::Instance;
 				CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor());
 				Assert::IsNotNull(target);
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
-	};
+			/// <summary>
+			///A test for Instance
+			///</summary>
+public: [TestMethod]
+		void InstanceTest1()
+		{
+			CrxLogger^  actual;
+			actual = CrxLogger::Instance;
+			//Assert::Inconclusive(L"Verify the correctness of this test method.");
+			Assert::IsNotNull(actual);
+		}
+
+
+		//Deepak: There is an existring write test
+//		/// <summary>
+//		///A test for Write
+//		///</summary>
+//public: [TestMethod]
+//		void WriteTest1()
+//		{
+//			CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor()); // TODO: Initialize to an appropriate value
+//			String^  message = System::String::Empty; // TODO: Initialize to an appropriate value
+//			target->Write(message);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for RollLogFile
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void RollLogFileTest()
+		{
+			DateTime nowDateTime;
+	  		CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor()); // TODO: Initialize to an appropriate value
+			bool expected = true; // TODO: Initialize to an appropriate value
+			bool actual;
+			target->Write("TestLine");
+			actual = target->RollLogFile();
+			Assert::AreEqual(expected, actual);
+			nowDateTime = System::DateTime::Now;
+			String  ^ nowDateTimeStr = nowDateTime.ToString("yyyyMMMddHHmm"); //seconds are not incuded because this will definetley fail due to time difference.
+
+			String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
+			array<String^> ^filesInPath = Directory::GetFiles(path, "scor*.log");
+			for each (String ^indiFile in filesInPath)
+			{
+				if (indiFile->Contains("scor_"+ nowDateTimeStr))
+				{
+					Assert::IsTrue(indiFile->Contains("scor_"+ nowDateTimeStr));
+				}
+
+				
+			}
+			//Assert::IsTrue(File::Exists(path+"scor" + nowDateTimeStr + ".log"));	
+		}
+		/// <summary>
+		///A test for op_Assign
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void op_AssignTest()
+		{
+			CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor()); // TODO: Initialize to an appropriate value
+			CrxLogger_Accessor^  unnamed = nullptr; // TODO: Initialize to an appropriate value
+			CrxLogger_Accessor^  expected = target; // TODO: Initialize to an appropriate value
+			CrxLogger_Accessor^  actual;
+			actual = (unnamed = target);
+			Assert::AreEqual(expected, actual);
+			
+		}
+
+//		/// <summary>
+//		///A test for GetLastWrittenLineNumber
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetLastWrittenLineNumberTest1()
+//		{
+//			CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor()); // TODO: Initialize to an appropriate value
+//			target->GetLastWrittenLineNumber();
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+
+		//Deepak: This test wont succeed 
+//		/// <summary>
+//		///A test for CrxLogger Constructor
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void CrxLoggerConstructorTest3()
+//		{
+//			CrxLogger_Accessor^  unnamed = gcnew CrxLogger_Accessor() ; // TODO: Initialize to an appropriate value
+//			CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor(unnamed));
+//			Assert::AreEqual(unnamed, target);
+//		}
+
+
+		/// <summary>
+		///A test for CrxLogger Constructor
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void CrxLoggerConstructorTest2()
+		{
+			delete CrxLogger_Accessor::Instance;
+			CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor());
+			//Assert::Inconclusive(L"TODO: Implement code to verify target");
+			Assert::IsNotNull(target);
+		}
+};
 }
 namespace TestCrx {
     
