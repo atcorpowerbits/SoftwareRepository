@@ -1,4 +1,4 @@
-Assembly dal, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+Assembly dal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05: 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=SHA1, flags=None
@@ -20,37 +20,9 @@ Assembly Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Cultu
 	hash=SHA1, flags=None
 Assembly Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
 	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.Design.HostAdapterV5, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Security.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Security, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.EnvironmentalOverrides, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.PolicyInjection, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Validation, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Logging.Database, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly Microsoft.Practices.EnterpriseLibrary.Configuration.DesignTime, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
-	hash=SHA1, flags=None
-Assembly crx, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+Assembly crx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05: 
 	hash=SHA1, flags=None
 Assembly Microsoft.VisualC, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
-	hash=SHA1, flags=None
-Assembly crx, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
 	hash=SHA1, flags=None
 Class AtCor.Scor.DataAccess.DalConstants: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -98,45 +70,21 @@ Class AtCor.Scor.DataAccess.DalException: AutoLayout, AnsiClass, Class, Public, 
     get_ErrorString(): PrivateScope, Public, HideBySig, SpecialName
     set_ErrorString(String): PrivateScope, Public, HideBySig, SpecialName
     get_ExceptionObject(): PrivateScope, Public, HideBySig, SpecialName
-Class AtCor.Scor.DataAccess.DalPwvDataStruct: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-    Void .ctor(AtCor.Scor.DataAccess.DalPwvDataStruct): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class AtCor.Scor.DataAccess.DalFacade: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   Fields:
-    Int16 tonometerData : Public
-    Int16 cuffPulseData : Public
-    Int16 cuffPressure : Public
-    Int16 countdownTimer : Public
-Class AtCor.Scor.DataAccess.DalDataBuffer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  Properties:
-    System.Array DataBuffer 'get ' : 
-    Int32 ArraySize 'get ' : 
-    AtCor.Scor.DataAccess.DalDataBuffer Instance 'get ' : 
+    System.Timers.Timer captureTimer : Public, Static
+    UInt16 status : Public, Static
+    UInt32 source IsLong : Public, Static
   Methods:
-    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_ArraySize(): PrivateScope, Public, HideBySig, SpecialName
-    get_DataBuffer(): PrivateScope, Public, HideBySig, SpecialName
-    CreateBuffer(Int32, Int32): PrivateScope, Public, HideBySig
-    GetAllValues(Int32* IsImplicitlyDereferenced, Int32* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
-    GetValueAt(Int32, Int32): PrivateScope, Public, HideBySig
-    WriteDataToBuffer(DalPwvDataStruct IsByValue): PrivateScope, Public, HideBySig
-    GetNextValues(Int32, Int32* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
-Struct AtCor.Scor.DataAccess.CaptureType: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
-  :System.Enum
-  Fields:
-    Int32 value__ : Public, SpecialName, RTSpecialName
-Struct AtCor.Scor.DataAccess.DalDeviceConfigUsageEnum: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
-  :System.Enum
-  Fields:
-    Int32 value__ : Public, SpecialName, RTSpecialName
+    Instance(): PrivateScope, Public, Static, HideBySig
+    SimulateCaptureData(): PrivateScope, Public, HideBySig
+    StopCaptureSimulation(): PrivateScope, Public, HideBySig
+    SimulateCaptureOneShot(): PrivateScope, Public, HideBySig
+    GetErrorAlarmSource(): PrivateScope, Public, HideBySig
+    MapErrorSourceToString(UInt16): PrivateScope, Public, HideBySig
+    MapAlarmSourceToString(UInt16): PrivateScope, Public, HideBySig
+    SaveCaptureData(UInt16[], UInt16[], UInt16): PrivateScope, Public, HideBySig
 Class AtCor.Scor.DataAccess.DalTonometerDataEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :System.EventArgs
-    Void .ctor(UInt16): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    UInt16 data 'get set' : 
-  Methods:
-    get_data(): PrivateScope, Public, HideBySig, SpecialName
-    set_data(UInt16): PrivateScope, Public, HideBySig, SpecialName
-Class AtCor.Scor.DataAccess.DalCuffPulseEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.EventArgs
     Void .ctor(UInt16): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -151,6 +99,14 @@ Class AtCor.Scor.DataAccess.DalTonoMeterDataEventHandler: AutoLayout, AnsiClass,
     Invoke(Object, DalTonometerDataEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     BeginInvoke(Object, DalTonometerDataEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class AtCor.Scor.DataAccess.DalCuffPulseEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(UInt16): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    UInt16 data 'get set' : 
+  Methods:
+    get_data(): PrivateScope, Public, HideBySig, SpecialName
+    set_data(UInt16): PrivateScope, Public, HideBySig, SpecialName
 Class AtCor.Scor.DataAccess.DalCuffPulseEventHandler: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
@@ -158,10 +114,48 @@ Class AtCor.Scor.DataAccess.DalCuffPulseEventHandler: AutoLayout, AnsiClass, Cla
     Invoke(Object, DalCuffPulseEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     BeginInvoke(Object, DalCuffPulseEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
     EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class AtCor.Scor.DataAccess.DalCuffStatusEventArgs_ORI: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(AtCor.Scor.DataAccess.DalCuffStateFlags, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 cuffPressure 'get set' IsLong : 
+    Int32 countDownTimerValue 'get set' IsLong : 
+    AtCor.Scor.DataAccess.DalCuffStateFlags CuffStateFlag 'get set' : 
+  Methods:
+    get_CuffStateFlag(): PrivateScope, Public, HideBySig, SpecialName
+    set_CuffStateFlag(DalCuffStateFlags): PrivateScope, Public, HideBySig, SpecialName
+    get_countDownTimerValue(): PrivateScope, Public, HideBySig, SpecialName
+    set_countDownTimerValue(Int32 IsLong): PrivateScope, Public, HideBySig, SpecialName
+    get_cuffPressure(): PrivateScope, Public, HideBySig, SpecialName
+    set_cuffPressure(Int32 IsLong): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalCuffStatusEventHandler_ORI: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, DalCuffStatusEventArgs_ORI): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Object, DalCuffStatusEventArgs_ORI, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class AtCor.Scor.DataAccess.DalModuleErrorAlarmEventArgs_ORI: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(AtCor.Scor.DataAccess.DalErrorAlarmStatusFlag): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    AtCor.Scor.DataAccess.DalErrorAlarmStatusFlag ErrorAlarmStatus 'get set' : 
+  Methods:
+    get_ErrorAlarmStatus(): PrivateScope, Public, HideBySig, SpecialName
+    set_ErrorAlarmStatus(DalErrorAlarmStatusFlag): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalModuleErrorAlarmEventHandler_ORI: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, DalModuleErrorAlarmEventArgs_ORI): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Object, DalModuleErrorAlarmEventArgs_ORI, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
 Class AtCor.Scor.DataAccess.DalEventContainer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   Properties:
     AtCor.Scor.DataAccess.DalEventContainer Instance 'get ' : 
   Events:
+    AtCor.Scor.DataAccess.DalModuleErrorAlarmEventHandler_ORI OnDalModuleErrorAlarmEvent: SpecialName
+    AtCor.Scor.DataAccess.DalCuffStatusEventHandler_ORI OnDalCuffStatusEvent: SpecialName
     AtCor.Scor.DataAccess.DalCuffPulseEventHandler OnDalCuffPulseEvent: SpecialName
     AtCor.Scor.DataAccess.DalTonoMeterDataEventHandler OnDalTonometerDataEvent: SpecialName
   Methods:
@@ -172,15 +166,213 @@ Class AtCor.Scor.DataAccess.DalEventContainer: AutoLayout, AnsiClass, Class, Pub
     add_OnDalCuffPulseEvent(DalCuffPulseEventHandler): PrivateScope, Public, HideBySig, SpecialName
     remove_OnDalCuffPulseEvent(DalCuffPulseEventHandler): PrivateScope, Public, HideBySig, SpecialName
     raise_OnDalCuffPulseEvent(Object, DalCuffPulseEventArgs): PrivateScope, Public, HideBySig, SpecialName
+    add_OnDalCuffStatusEvent(DalCuffStatusEventHandler_ORI): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDalCuffStatusEvent(DalCuffStatusEventHandler_ORI): PrivateScope, Public, HideBySig, SpecialName
+    raise_OnDalCuffStatusEvent(Object, DalCuffStatusEventArgs_ORI): PrivateScope, Public, HideBySig, SpecialName
+    add_OnDalModuleErrorAlarmEvent(DalModuleErrorAlarmEventHandler_ORI): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDalModuleErrorAlarmEvent(DalModuleErrorAlarmEventHandler_ORI): PrivateScope, Public, HideBySig, SpecialName
+    raise_OnDalModuleErrorAlarmEvent(Object, DalModuleErrorAlarmEventArgs_ORI): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalConstantsStub: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    UInt32 DATA_TONOMETER IsConst : Public, Static, HasDefault
+    UInt32 DATA_CUFF_PULSE_COMBO IsConst : Public, Static, HasDefault
+    UInt32 DATA_TONOMETER_AND_CUFF_PULSE_COMBO IsConst : Public, Static, HasDefault
+    UInt32 DATA_CUFF_ABS_PRESSURE IsConst : Public, Static, HasDefault
+    UInt32 DATA_CUFF_NIBP IsConst : Public, Static, HasDefault
+    UInt32 DATA_CUFF_PULSE IsConst : Public, Static, HasDefault
+    UInt32 CONFIG_MODULE_TYPE IsConst : Public, Static, HasDefault
+    UInt32 CONFIG_MODULE_CAPABILITY IsConst : Public, Static, HasDefault
+    UInt32 CONFIG_MODULE_SN IsConst : Public, Static, HasDefault
+    UInt32 CONFIG_MODULE_MAIN_FW_VERSION IsConst : Public, Static, HasDefault
+    UInt32 CONFIG_MODULE_CALIBRATION_DATE IsConst : Public, Static, HasDefault
+    UInt32 CUFF_STATE_DISCONNECTED IsConst : Public, Static, HasDefault
+    UInt32 CUFF_STATE_DEFLATED IsConst : Public, Static, HasDefault
+    UInt32 CUFF_STATE_INFLATING IsConst : Public, Static, HasDefault
+    UInt32 CUFF_STATE_INFLATED IsConst : Public, Static, HasDefault
+    UInt32 CUFF_STATE_DEFLATING IsConst : Public, Static, HasDefault
+    UInt32 CUFF_DISCONNECTED_STATUS_BITS IsConst : Public, Static, HasDefault
+    UInt32 CUFF_DEFLATED_STATUS_BITS IsConst : Public, Static, HasDefault
+    UInt32 CUFF_INFLATING_STATUS_BITS IsConst : Public, Static, HasDefault
+    UInt32 CUFF_INFLATED_STATUS_BITS IsConst : Public, Static, HasDefault
+    UInt32 CUFF_DEFLATING_STATUS_BITS IsConst : Public, Static, HasDefault
+    UInt32 ActiveStatus IsConst : Public, Static, HasDefault
+    UInt32 RecoverableStatus IsConst : Public, Static, HasDefault
+    UInt32 UnrecoverableStatus IsConst : Public, Static, HasDefault
+    UInt16 NoErrorAlarm : Public, Static
+    UInt16 ErrorStatus : Public, Static
+    UInt16 AlarmStatus : Public, Static
+    UInt16 ErrorAndAlarmStatus : Public, Static
+Class AtCor.Scor.DataAccess.DalCountdownTimerEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(UInt16): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    UInt16 data 'get set' : 
+  Methods:
+    get_data(): PrivateScope, Public, HideBySig, SpecialName
+    set_data(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalCuffStatusEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(UInt16): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    UInt16 data 'get set' : 
+  Methods:
+    get_data(): PrivateScope, Public, HideBySig, SpecialName
+    set_data(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalModuleErrorAlarmEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(UInt16): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    UInt16 errorAlarmStatus 'get set' : 
+  Methods:
+    get_errorAlarmStatus(): PrivateScope, Public, HideBySig, SpecialName
+    set_errorAlarmStatus(UInt16): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.DataAccess.DalCountdownTimerEventHandler: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, DalCountdownTimerEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Object, DalCountdownTimerEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class AtCor.Scor.DataAccess.DalCuffStatusEventHandler: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, DalCuffStatusEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Object, DalCuffStatusEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class AtCor.Scor.DataAccess.DalModuleErrorAlarmEventHandler: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Object, DalModuleErrorAlarmEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Object, DalModuleErrorAlarmEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class AtCor.Scor.DataAccess.DalEventContainerStub: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    AtCor.Scor.DataAccess.DalEventContainerStub Instance 'get ' : 
+  Events:
+    AtCor.Scor.DataAccess.DalModuleErrorAlarmEventHandler OnDalModuleErrorAlarmEvent: SpecialName
+    AtCor.Scor.DataAccess.DalCuffStatusEventHandler OnDalCuffStatusEvent: SpecialName
+    AtCor.Scor.DataAccess.DalCountdownTimerEventHandler OnDalCountdownTimerEvent: SpecialName
+  Methods:
+    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnDalCountdownTimerEvent(DalCountdownTimerEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDalCountdownTimerEvent(DalCountdownTimerEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    raise_OnDalCountdownTimerEvent(Object, DalCountdownTimerEventArgs): PrivateScope, Public, HideBySig, SpecialName
+    add_OnDalCuffStatusEvent(DalCuffStatusEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDalCuffStatusEvent(DalCuffStatusEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    raise_OnDalCuffStatusEvent(Object, DalCuffStatusEventArgs): PrivateScope, Public, HideBySig, SpecialName
+    add_OnDalModuleErrorAlarmEvent(DalModuleErrorAlarmEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDalModuleErrorAlarmEvent(DalModuleErrorAlarmEventHandler): PrivateScope, Public, HideBySig, SpecialName
+    raise_OnDalModuleErrorAlarmEvent(Object, DalModuleErrorAlarmEventArgs): PrivateScope, Public, HideBySig, SpecialName
+Struct AtCor.Scor.DataAccess.ModuleErrorAlarmStatus: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+Struct AtCor.Scor.DataAccess.ModuleErrorSource: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+Struct AtCor.Scor.DataAccess.ModuleAlarmSource: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+Struct AtCor.Scor.DataAccess.CaptureType: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+Struct AtCor.Scor.DataAccess.DalDeviceConfigUsageEnum: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+Struct AtCor.Scor.DataAccess.DalCuffStatusBitMask: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    AtCor.Scor.DataAccess.DalCuffStatusBitMask CUFF_DEFLATING_STATUS_BITS = 512 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalCuffStatusBitMask CUFF_INFLATED_STATUS_BITS = 2304 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalCuffStatusBitMask CUFF_INFLATING_STATUS_BITS = 1024 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalCuffStatusBitMask CUFF_DEFLATED_STATUS_BITS = 256 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalCuffStatusBitMask CUFF_DISCONNECTED_STATUS_BITS = 8192 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalCuffStatusBitMask CUFF_STATUS_BITS_UNKNOWN = 0 : Public, Static, Literal, HasDefault
+Struct AtCor.Scor.DataAccess.DalCuffStateFlags: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    AtCor.Scor.DataAccess.DalCuffStateFlags CUFF_STATE_DEFLATING = 5 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalCuffStateFlags CUFF_STATE_INFLATED = 4 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalCuffStateFlags CUFF_STATE_INFLATING = 3 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalCuffStateFlags CUFF_STATE_DEFLATED = 2 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalCuffStateFlags CUFF_STATE_DISCONNECTED = 1 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalCuffStateFlags CUFF_STATE_UNKNOWN = 0 : Public, Static, Literal, HasDefault
+Struct AtCor.Scor.DataAccess.DalModuleErrorAlarmBitMask: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    AtCor.Scor.DataAccess.DalModuleErrorAlarmBitMask ErrorAndAlarmStatus = 40 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalModuleErrorAlarmBitMask AlarmStatus = 8 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalModuleErrorAlarmBitMask ErrorStatus = 32 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalModuleErrorAlarmBitMask NoErrorAlarm = 0 : Public, Static, Literal, HasDefault
+Struct AtCor.Scor.DataAccess.DalErrorAlarmStatusFlag: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    AtCor.Scor.DataAccess.DalErrorAlarmStatusFlag UnrecoverableStatus = 2 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalErrorAlarmStatusFlag RecoverableStatus = 1 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalErrorAlarmStatusFlag ActiveStatus = 0 : Public, Static, Literal, HasDefault
+Struct AtCor.Scor.DataAccess.DalErrorSource: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    AtCor.Scor.DataAccess.DalErrorSource DualSensors = 32 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalErrorSource CuffLeak = 8 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalErrorSource ErrorSourceUnknown = 0 : Public, Static, Literal, HasDefault
+Struct AtCor.Scor.DataAccess.DalAlarmSource: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    AtCor.Scor.DataAccess.DalAlarmSource InflatedOverTime = 4 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalAlarmSource OverPressure = 1 : Public, Static, Literal, HasDefault
+    AtCor.Scor.DataAccess.DalAlarmSource AlarmSourceUnknown = 0 : Public, Static, Literal, HasDefault
+Class AtCor.Scor.DataAccess.DalPwvDataStruct: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(AtCor.Scor.DataAccess.DalPwvDataStruct): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    UInt32 tonometerData IsLong : Public
+    UInt32 cuffPulseData IsLong : Public
+    UInt32 cuffPressure IsLong : Public
+    UInt32 countdownTimer IsLong : Public
+Class AtCor.Scor.DataAccess.DalDataBuffer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    System.Array DataBuffer 'get ' : 
+    Int32 ArraySize 'get ' : 
+    AtCor.Scor.DataAccess.DalDataBuffer Instance 'get ' : 
+  Methods:
+    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ArraySize(): PrivateScope, Public, HideBySig, SpecialName
+    get_DataBuffer(): PrivateScope, Public, HideBySig, SpecialName
+    CreateBuffer(Int32, Int32): PrivateScope, Public, HideBySig
+    GetAllValues(Int32* IsImplicitlyDereferenced, Int32* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+    GetValueAt(Int32, Int32): PrivateScope, Public, HideBySig
+    WriteDataToBuffer(DalPwvDataStruct IsByValue): PrivateScope, Public, HideBySig
+    GetNextValues(Int32, Int32&): PrivateScope, Public, HideBySig
 Class AtCor.Scor.DataAccess.DalModule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   Properties:
+    Boolean measurementCounterTest 'get set' : 
     AtCor.Scor.DataAccess.DalModule Instance 'get ' : 
   Methods:
     get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
     SetDeviceStrategy(String): PrivateScope, Public, HideBySig
     SetDeviceStrategy(): PrivateScope, Public, HideBySig
     StartCapture(Int32, Int32): PrivateScope, Public, HideBySig
+    StartCapture(): PrivateScope, Public, HideBySig
     StopCapture(): PrivateScope, Public, HideBySig
     GetConnectionStatus(): PrivateScope, Public, HideBySig
     GetConfigurationInfo(DalDeviceConfigUsageEnum, DalDeviceConfigUsageStruct): PrivateScope, Public, HideBySig
     FindModule(): PrivateScope, Public, HideBySig
+    GetPWVMeasurementCounter(UInt16&): PrivateScope, Public, HideBySig
+    SetPWVMeasurementCounter(UInt16): PrivateScope, Public, HideBySig
+    get_measurementCounterTest(): PrivateScope, Public, HideBySig, SpecialName
+    set_measurementCounterTest(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    GetErrorAlarmSource(): PrivateScope, Public, HideBySig
