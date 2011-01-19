@@ -12,9 +12,9 @@ using namespace System::Runtime::InteropServices;
 [assembly:AssemblyTitleAttribute("TestDal")];
 [assembly:AssemblyDescriptionAttribute("")];
 [assembly:AssemblyConfigurationAttribute("")];
-[assembly:AssemblyCompanyAttribute("")];
+[assembly:AssemblyCompanyAttribute("Lionbridge")];
 [assembly:AssemblyProductAttribute("TestDal")];
-[assembly:AssemblyCopyrightAttribute("Copyright (c)  2010")];
+[assembly:AssemblyCopyrightAttribute("Copyright (c) Lionbridge 2011")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];
 

@@ -182,19 +182,14 @@
 			AssemblyName="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
-		<AssemblyReference
-			RelativePath=".\dal_Accessor.dll"
-			AssemblyName="dal_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
-			MinFrameworkVersion="0"
-		/>
 		<ProjectReference
 			ReferencedProjectIdentifier="{E274BA19-F920-40C0-8747-214688D2ABB3}"
 			RelativePathToProject=".\dal\dal\dal.vcproj"
 		/>
 		<AssemblyReference
 			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.4003.30914, processorArchitecture=x86"
-			MinFrameworkVersion="0"
+			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+			MinFrameworkVersion="196613"
 		/>
 	</References>
 	<Files>
@@ -208,11 +203,59 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalConstantsTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCountdownTimerEventArgsTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCuffStatusEventArgs_ORITest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCuffStatusEventArgsTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalDataBufferTest.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\DalDeviceConfigUsageStructTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalDeviceHandlerTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalEventContainerTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalExceptionTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalModuleErrorAlarmEventArgs_ORITest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalModuleTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalPwvDataStructTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalSimulationFileTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IDalHandlerTest.cpp"
 				>
 			</File>
 			<File
@@ -267,15 +310,7 @@
 		<Filter
 			Name="Test References"
 			>
-			<File
-				RelativePath=".\dal_Accessor.dll"
-				>
-			</File>
 		</Filter>
-		<File
-			RelativePath=".\AuthoringTests.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
