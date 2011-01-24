@@ -23,6 +23,7 @@ public ref class BizCapture abstract
 public:
 	virtual void Reset() { buffer->Reset(); };
 	virtual void Dispatch() = 0;
+	virtual bool Append(unsigned short data) { return false; };
 
 protected:
 	BizCapture() {};
@@ -36,6 +37,7 @@ public:
 
 //	property BizTonometerDataEvent^ tonometerDataBiz; //tonometer data to be dispatched
 	virtual void Dispatch() override;
+	virtual bool Append(unsigned short data) override;
 
 private:
 	void Update(Object^ sender, DalTonometerDataEventArgs^ e);
@@ -48,6 +50,7 @@ public:
 
 //	property BizCuffPulseEvent^ cuffPulseBiz; //cuff pulse data to be dispatched
 	virtual void Dispatch() override;
+	virtual bool Append(unsigned short data) override;
 
 private:
 	void Update(Object^ sender, DalCuffPulseEventArgs^ e);

@@ -5,6 +5,7 @@ using namespace BIZ_NAMESPACE;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 namespace TestBiz {
     using namespace System;
+	using namespace System::IO;
     ref class BizSessionTest;
     
     
@@ -51,9 +52,10 @@ namespace TestBiz {
 			//
 			//Use TestInitialize to run code before running each test
 			//public: [TestInitialize]
-			//System::Void MyTestInitialize()
-			//{
-			//}
+			System::Void MyTestInitialize()
+			{
+				Directory::SetCurrentDirectory("C:\\Projects\\PN022BLL\\gui\\gui\\bin\\Debug"); //where the resource file is read by CRX
+			}
 			//
 			//Use TestCleanup to run code after each test has run
 			//public: [TestCleanup]
@@ -71,6 +73,7 @@ namespace TestBiz {
 				BizSession^  target = BizSession::Instance(); // TODO: Initialize to an appropriate value
 				bool expected = true; // TODO: Initialize to an appropriate value
 				bool actual;
+				MyTestInitialize();
 				actual = target->StartCapture();
 				Assert::AreEqual(expected, actual);
 			}

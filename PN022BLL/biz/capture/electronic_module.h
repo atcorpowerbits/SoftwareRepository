@@ -37,9 +37,11 @@ public:
 	BizElectronicModule(void);
 
 private:
-	unsigned short prevErrorAlarmStatus; // TBD: move it to DAL to filter it earlier in DAL
+//	unsigned short prevErrorAlarmStatus; // TBD: move it to DAL to filter it earlier in DAL
+	DataAccess::DalErrorAlarmStatusFlag prevErrorAlarmStatus; // TBD: move it to DAL to filter it earlier in DAL
 	String^ source;
 
-	void Update(Object^ sender, DalModuleErrorAlarmEventArgs^ e);
+//	void Update(Object^ sender, DalModuleErrorAlarmEventArgs^ e);
+	void Update_ORI(Object^ sender, DalModuleErrorAlarmEventArgs_ORI^ e); // _ORI prefix'es were introduced in DAL by TM during Sprint-5
 };
 END_BIZ_NAMESPACE

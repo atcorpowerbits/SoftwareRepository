@@ -6,6 +6,7 @@
 #include "dal_facade_stub.h"
 #include "DalEventContainer.h"
 #include "DalEventContainerStub.h"
+#include "DalCommon.h"
 
 using namespace AtCor::Scor::DataAccess;
 
@@ -26,13 +27,17 @@ void DalFacade::SimulateCaptureOneShot()
 	DalEventContainer::Instance->OnDalTonometerDataEvent(this, gcnew DalTonometerDataEventArgs(1234));
 	DalEventContainer::Instance->OnDalCuffPulseEvent(this, gcnew DalCuffPulseEventArgs(5678));
 	DalEventContainerStub::Instance->OnDalCountdownTimerEvent(this, gcnew DalCountdownTimerEventArgs(9000));
-	DalEventContainerStub::Instance->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(0x0900));
+//	DalEventContainerStub::Instance->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(0x0900));
+	DalEventContainer::Instance->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs_ORI(DalCuffStateFlags::CUFF_STATE_INFLATED, 0, 0));
 
 	status = ErrorStatus; //AlarmStatus;   // simulate alarm or error
 	source = DualSensors; //OverPressure; // source to be read interpretted when GetErrorAlarmSource is called
-	DalEventContainerStub::Instance->OnDalModuleErrorAlarmEvent(
-		DalEventContainerStub::Instance, 
-		gcnew DalModuleErrorAlarmEventArgs(status));
+//	DalEventContainerStub::Instance->OnDalModuleErrorAlarmEvent(
+//		DalEventContainerStub::Instance, 
+//		gcnew DalModuleErrorAlarmEventArgs(status));
+	DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(
+		DalEventContainer::Instance, 
+		gcnew DalModuleErrorAlarmEventArgs_ORI(DalErrorAlarmStatusFlag::UnrecoverableStatus));
 }
 void DalFacade::SimulateCaptureData() 
 {

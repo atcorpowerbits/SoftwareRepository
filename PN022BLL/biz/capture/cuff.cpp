@@ -19,13 +19,15 @@ BizCuff::BizCuff(void)
 	// TBD: Confirm if cuff can be assumed "not connected" first.
 	currentState = BizCuffDisconnected::Instance();
 	previousState = currentState;
+	deflationTime = CUFF_DEFLATION_TIME_EST;
 
 //	cuffStatusSubject = DalFacade::Instance()->FindCuffStatusEvent();
 
 	// Attach the handler to observe cuff state event from DAL
 //	cuffStatusSubject->CuffStatusEvent += 
 //		gcnew DalCuffStatusEvent::DalCuffStatusEventHandler( this, &BizCuff::Update );
-	DalEventContainerStub::Instance->OnDalCuffStatusEvent += gcnew DalCuffStatusEventHandler(this, &BizCuff::Update);
+//	DalEventContainerStub::Instance->OnDalCuffStatusEvent += gcnew DalCuffStatusEventHandler(this, &BizCuff::Update);
+	DalEventContainer::Instance->OnDalCuffStatusEvent += gcnew DalCuffStatusEventHandler_ORI(this, &BizCuff::Update_ORI);
 };
 
 /**
@@ -102,6 +104,34 @@ void BizCuff::Update( Object^ sender, DalCuffStatusEventArgs^ e )
 	}
 }
 
+void BizCuff::Update_ORI( Object^ sender, DalCuffStatusEventArgs_ORI^ e )
+{
+	// Map DAL cuff state event into 
+//	if (e->CuffStateFlag == DataAccess::DalCuffStateFlags::CUFF_STATE_DISCONNECTED)
+//	{
+	switch (e->CuffStateFlag)
+	{
+	case DataAccess::DalCuffStateFlags::CUFF_STATE_DISCONNECTED:
+		ChangeState(BizCuffDisconnected::Instance());
+		break;
+	case DataAccess::DalCuffStateFlags::CUFF_STATE_DEFLATED:
+		ChangeState(BizCuffDeflated::Instance());
+		break;
+	case DataAccess::DalCuffStateFlags::CUFF_STATE_INFLATING:
+		ChangeState(BizCuffInflating::Instance());
+		break;
+	case DataAccess::DalCuffStateFlags::CUFF_STATE_INFLATED:
+		ChangeState(BizCuffInflated::Instance());
+		break;
+	case DataAccess::DalCuffStateFlags::CUFF_STATE_DEFLATING:
+		ChangeState(BizCuffDeflating::Instance());
+		break;
+	default:
+		// TBD: Throw excepting for unknown cuff status?
+		break;
+	}
+}
+
 /**
 Dispatch
 
@@ -127,7 +157,7 @@ void BizCuff::Dispatch()
 	if (previousState != currentState)
 	{
 		// Inform observers about the cuff state change
-		BizEventContainer::Instance->OnBizCuffStateEvent(this, gcnew BizCuffStateEventArgs(currentState->internalName));	
+		BizEventContainer::Instance->OnBizCuffStateEvent(this, gcnew BizCuffStateEventArgs(currentState->internalName, deflationTime));	
 
 		// Remember the current state as a previous state
 		previousState = currentState;

@@ -14,6 +14,7 @@
 #include <biz_constants.h>
 
 using namespace System;
+using namespace System::Timers;
 using namespace DAL_NAMESPACE;
 using namespace CRX_DATABASE_MANAGER_NAMESPACE;
 
@@ -207,6 +208,7 @@ public:
 
 protected:
 	property BloodPressureEnumeration bloodPressureRange;	// Blood pressure category
+	Timers::Timer^ qualityIndicatorTimer;  //Timer to refresh quality indicators
 	
 	// Constructor
 	BizMeasure(void);
@@ -219,6 +221,7 @@ protected:
 
 	// Calculate the blood pressure range
 	bool CalculateBloodPressureRange();
+
 private:
 	static array<String^>^ _bloodPressureRangeTitles =
 	{

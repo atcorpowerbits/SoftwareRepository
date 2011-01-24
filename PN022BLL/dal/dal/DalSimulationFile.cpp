@@ -29,6 +29,7 @@ using namespace AtCor::Scor::CrossCutting::Logging;
 
 		try
 		{
+			String^ dir = Directory::GetCurrentDirectory();
 			openFileStream = File::Open(filePath, FileMode::Open);
 		}
 		catch(Exception^ )

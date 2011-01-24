@@ -15,6 +15,7 @@
 #include <biz.h>
 
 using namespace System::Globalization;
+using namespace CRX_NAMESPACE;
 using namespace CRX_CONFIG_NAMESPACE;
 using namespace CRX_LOG_NAMESPACE;
 using namespace DAL_NAMESPACE;
@@ -205,9 +206,19 @@ BizPWV::BizPWV(void)
 	carotidSignal->Allocate(MAX_SIGNAL_LENGTH, MAX_ONSETS);
 	femoralSignal->Allocate(MAX_SIGNAL_LENGTH, MAX_ONSETS);
 
+	//specify the event handler to handle quality indicator refresh timer
+	qualityIndicatorTimer->Elapsed += gcnew ElapsedEventHandler(&BizPWV::OnTimerQualityIndicatorEvents); 
+				
 	// Initialise
 	Initialise();
 }
+void BizPWV::OnTimerQualityIndicatorEvents(Object^ sender, ElapsedEventArgs^ args)
+{
+	BizPWV^ pwvObject = (BizPWV^)BizSession::Instance()->measurement;
+	pwvObject->carotidQualityObserver->Update();
+	pwvObject->femoralQualityObserver->Update();
+}
+
 /**
 ValidatePWVDistance
 
@@ -235,14 +246,14 @@ bool BizPWV::ValidatePWVDistance()
 	bool isValid = false;
 	CrxStructPwvSetting^ pwvSetting = CrxConfigManager::Instance->PwvSettings;
 
-	if (pwvSetting->PWVDistanceMethod == 0)			// TBD: replace magic number for subtracting method
+	if (pwvSetting->PWVDistanceMethod == (int)CrxGenPwvValue::CrxPwvDistMethodSubtract)
 	{
-		distanceMethod = 0;						// TBD: replace magic number for subtracting method
+		distanceMethod = (unsigned short)CrxGenPwvValue::CrxPwvDistMethodSubtract;
 		isValid = myCarotidDistance->Validate() && myCuffDistance->Validate();
 	}
-	else if (pwvSetting->PWVDistanceMethod == 1)	// TBD: replace magic number for direct method
+	else if (pwvSetting->PWVDistanceMethod == (int)CrxGenPwvValue::CrxPwvDistMethodDirect)
 	{
-		distanceMethod = 1;						// TBD: replace magic number for direct method
+		distanceMethod = (unsigned short)CrxGenPwvValue::CrxPwvDistMethodDirect;
 		isValid = myPWVDirectDistance->Validate();
 	}
 	return isValid;
@@ -322,20 +333,27 @@ RETURN
 */		
 bool BizPWV::StartCapture()
 {
-	CrxLogger::Instance->Write("Start PWV capture");
 	tonometerDataObserver->Reset();
 	cuffPulseObserver->Reset();
 	carotidQualityObserver->Reset();
-//	return DalFacade::Instance()->StartCapture(DalConstants::DATA_TONOMETER_AND_CUFF_PULSE_COMBO);
-	LogSetupData(); // TBD: remove after TM Sprint-3 integration?
+	femoralQualityObserver->Reset();
+//	LogSetupData(); // TBD: remove after TM Sprint-3 integration?
 
 	try {
-		DalModule::Instance->StartCapture();
+		CrxConfigManager^ configManager = CrxConfigManager::Instance;
+		configManager->GetPwvUserSettings();
+		DalModule::Instance->StartCapture(configManager->PwvSettings->CaptureTime, 
+										  DEFAULT_SAMPLE_RATE);
+		CrxLogger::Instance->Write("BLL_START_CAPTURE");
+
+		// start quality indicator refresh timer
+		qualityIndicatorTimer->Enabled = true;
+
 		return true;
 	}
 	catch (Exception^) {
 //		throw gcnew BizException(???); //Failed to start PWV capture
-		return true;
+		return false;
 	}
 }
 /**
@@ -362,10 +380,13 @@ RETURN
 */		
 bool BizPWV::StopCapture()
 {
-	CrxLogger::Instance->Write("Stop PWV capture");
-//	return DalFacade::Instance()->StopCapture();
 	try {
 		DalModule::Instance->StopCapture();
+		CrxLogger::Instance->Write("BLL_STOP_CAPTURE");
+
+		// stop quality indicator refresh timer
+		qualityIndicatorTimer->Enabled = false;
+
 		return true;
 	}
 	catch (Exception^) {
@@ -401,9 +422,6 @@ RETURN
 */		
 void BizPWV::DispatchCaptureData()
 {
-	tonometerDataObserver->Dispatch();
-	cuffPulseObserver->Dispatch();
-	countdownTimerObserver->Dispatch();
 	cuffObserver->Dispatch();
 }
 /**
@@ -428,6 +446,7 @@ void BizPWV::DispatchCaptureData()
 void BizPWV::Initialise()
 {
 	BizMeasure::Initialise();
+	qualityIndicatorTimer->Enabled = false;
 		
 	unsigned int bufferSize = (captureTime + BusinessLogic::BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE) * sampleRate;
 
@@ -460,6 +479,7 @@ void BizPWV::Initialise()
 	myPWVDirectDistance->distance = BizConstants::DEFAULT_VALUE;
 	calculatedDistance = BizConstants::DEFAULT_VALUE;
 	correctionTime = DEFAULT_CORRECTION_TIME;					
+	deflationTime = DEFAULT_DEFLATION_TIME;					
 	
 	// Initialise cannot return false because sampleRate is hard-coded
 	carotidSignal->Initialise(sampleRate);
@@ -731,7 +751,7 @@ bool BizPWV::CalculateAndValidateDistance()
 	short distance;
 	bool isValid = false;
 	
-	if (distanceMethod == 0) // TBD: replace magic number for subtracting method
+	if (distanceMethod == (unsigned short)CrxGenPwvValue::CrxPwvDistMethodSubtract) // TBD: replace magic number for subtracting method
 	{
 		distance = myCuffDistance->distance - myCarotidDistance->distance - myFemoral2CuffDistance->distance;
 	} 
@@ -1687,3 +1707,20 @@ bool BizPWV::RecalculatePWVReport( CrxStructPWVMeasurementData^ record )
 
 	return true;
 }
+
+// Keep raw (captured) PWV data from tonometer & cuff pulse in BLL internal circular buffers
+void BizPWV::Append(unsigned short tonometerData, unsigned short cuffPulseData)
+{
+	if (!tonometerDataObserver->Append(tonometerData))
+	{
+		//TBD: log error details
+		throw gcnew CrxException("BLL_ERR_TONOMETER_DATA_APPEND"); //TBD: Define the proper string resource
+	}
+	if (!cuffPulseObserver->Append(cuffPulseData))
+	{
+		//TBD: log error details
+		throw gcnew CrxException("BLL_ERR_CUFF_DATA_APPEND"); //TBD: Define the proper string resource
+	}
+}
+
+

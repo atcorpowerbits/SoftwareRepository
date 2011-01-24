@@ -85,6 +85,8 @@ public:
 	property unsigned short distanceMethod;		// Distance method selected when the object was calculated
 		
 	property float correctionTime;					// Correction factor to convert Carotid-Cuff time to Carotid-Femoral time
+	property unsigned short deflationTime;			// To be subtracted from time to deflation countdown timer to adjust 
+													// countdown timer to reach zero when cuff starts to deflate
 	
 	property BizTonometerDataCapture^ tonometerDataObserver;
 	property BizCuffPulseCapture^ cuffPulseObserver;
@@ -199,6 +201,9 @@ public:
 	// Initialise properties
 	void Initialise();
 
+	// Keep raw (captured) PWV data from tonometer & cuff pulse in BLL internal circular buffers
+	void Append(unsigned short tonometerData, unsigned short cuffPulseData);
+
 	// Do all mathematics for this measurement
 	bool Calculate();
 
@@ -246,6 +251,9 @@ private:
 
 	// Calculate the referenceRange array
 	bool CalculateReferenceRange();
+
+	// Handle quality indicator referesh timer event
+	static void OnTimerQualityIndicatorEvents(Object^ sender, ElapsedEventArgs^ args);
 
 protected:
 	// Log current patient and measurement data

@@ -22,7 +22,7 @@ public ref class BizElectronicModuleState abstract
 {
 public:
 	virtual void Dispatch(String^ source) {};
-	virtual void ReceiveNewStatus(BizElectronicModule^ const client, unsigned short newStatus) {};
+	virtual void ReceiveNewStatus(BizElectronicModule^ const client, DalErrorAlarmStatusFlag newStatus) {};
 
 protected:
 	BizElectronicModuleState() {};
@@ -35,7 +35,7 @@ public ref class BizElectronicModuleNormal : BizElectronicModuleState
 public:
 	static BizElectronicModuleNormal^ Instance();
 	virtual void Dispatch(String^ source) override;
-	virtual void ReceiveNewStatus(BizElectronicModule^ const client, unsigned short newStatus) override;
+	virtual void ReceiveNewStatus(BizElectronicModule^ const client, DalErrorAlarmStatusFlag newStatus) override;
 
 private:
 	static BizElectronicModuleNormal^ _instance;
@@ -47,7 +47,7 @@ public ref class BizElectronicModuleWarning : BizElectronicModuleState
 public:
 	static BizElectronicModuleWarning^ Instance();
 	virtual void Dispatch(String^ source) override;
-	virtual void ReceiveNewStatus(BizElectronicModule^ const client, unsigned short newStatus) override;
+	virtual void ReceiveNewStatus(BizElectronicModule^ const client, DalErrorAlarmStatusFlag newStatus) override;
 
 private:
 	static BizElectronicModuleWarning^ _instance;
@@ -59,7 +59,7 @@ public ref class BizElectronicModuleError : BizElectronicModuleState
 public:
 	static BizElectronicModuleError^ Instance();
 	virtual void Dispatch(String^ source) override;
-	virtual void ReceiveNewStatus(BizElectronicModule^ const client, unsigned short newStatus) override;
+	virtual void ReceiveNewStatus(BizElectronicModule^ const client, DalErrorAlarmStatusFlag newStatus) override;
 
 private:
 	static BizElectronicModuleError^ _instance;

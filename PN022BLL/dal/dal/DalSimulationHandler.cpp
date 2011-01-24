@@ -47,7 +47,7 @@ namespace AtCor{
 					_cuffTimerSimulationFile = nullptr;
 				}
 
-				_currentErrorAlarmFlags = -1;
+				_currentErrorAlarmFlags = 0; //-1;
 				_currentStatusFlags = -1;
 
 				dataBufferObj = DalDataBuffer::Instance;

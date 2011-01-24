@@ -81,6 +81,20 @@ RETURN
 */		
 void BizCarotidQuality::Update( Object^ sender, BizTonometerDataEventArgs^ e )
 {
+	// Update the counter first so we ignore the first interval and send the -
+	// first notification once we have meaningful information to send
+	counter++;
+	
+	// Calculate the quality every second. There's no need to update every sample
+	counter %= QUALITY_UPDATE_INTERVAL * sampleRate;
+	if ( counter == 0 )
+	{
+		Update();
+	}
+}
+
+void BizCarotidQuality::Update()
+{
 	unsigned short bufferSize;
 	array< unsigned short >^ signal;
 	unsigned short startIndex; 
@@ -92,13 +106,6 @@ void BizCarotidQuality::Update( Object^ sender, BizTonometerDataEventArgs^ e )
 	Color signalStrengthColor = Color( Color::Red );
 	bool enableOkayButton = false;
 	
-	// Update the counter first so we ignore the first interval and send the -
-	// first notification once we have meaningful information to send
-	counter++;
-	
-	// Calculate the quality every second. There's no need to update every sample
-	counter %= QUALITY_UPDATE_INTERVAL * sampleRate;
-	if ( counter == 0 )
 	{
 		// Read the carotid signal buffer 
 		signal = buffer->ReadBuffer( bufferSize, startIndex, endIndex );
@@ -224,6 +231,20 @@ RETURN
 */		
 void BizFemoralQuality::Update( Object^ sender, BizCuffPulseEventArgs^ e )
 {
+	// Update the counter first so we ignore the first interval and send the -
+	// first notification once we have meaningful information to send
+	counter++;
+	
+	// Calculate the quality every second. There's no need to update every sample
+	counter %= QUALITY_UPDATE_INTERVAL * sampleRate;
+	if ( counter == 0 )
+	{
+		Update();
+	}
+}
+
+void BizFemoralQuality::Update( )
+{
 	unsigned short bufferSize;
 	array< unsigned short >^ signal;
 	unsigned short startIndex; 
@@ -235,13 +256,6 @@ void BizFemoralQuality::Update( Object^ sender, BizCuffPulseEventArgs^ e )
 	bool signalStrengthIsGood = false;
 	bool enableOkayButton = false;
 	
-	// Update the counter first so we ignore the first interval and send the -
-	// first notification once we have meaningful information to send
-	counter++;
-	
-	// Calculate the quality every second. There's no need to update every sample
-	counter %= QUALITY_UPDATE_INTERVAL * sampleRate;
-	if ( counter == 0 )
 	{
 		// Read the femoral signal buffer 
 		signal = buffer->ReadBuffer( bufferSize, startIndex, endIndex );

@@ -56,11 +56,15 @@ public:
 public ref class BizCuffStateEventArgs: public EventArgs
 {
 public:
-   BizCuffStateEventArgs( String^ data )
+   BizCuffStateEventArgs( String^ data,  unsigned short deflationTime)
    {
 	  this->data = data;
+	  this->deflationTime = deflationTime;
    }
    property String^ data;
+   // When cuff is in inflated state, subtract deflationTime from the countdown timer
+   // to adjust countdown timer so it would countdown to zero when cuff starts to deflate
+   property unsigned short deflationTime;
 };
 
 // BizCarotidQualityEventArgs: a custom event inherited from EventArgs.

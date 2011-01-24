@@ -22,6 +22,7 @@ ref class BizCuffState; // needed for forward declaration
 
 public ref class BizCuff
 {
+	static const unsigned short CUFF_DEFLATION_TIME_EST = 7; // estimated sec to deflate cuff
 public:
 	void ChangeState(BizCuffState^ state);
 	void Dispatch();
@@ -37,6 +38,9 @@ public:
 
 private:
 	void Update(Object^ sender, DalCuffStatusEventArgs^ e);
+	void Update_ORI(Object^ sender, DalCuffStatusEventArgs_ORI^ e);
+
+	unsigned short deflationTime;
 //	DalCuffStatusEvent^ cuffStatusSubject; // to observe cuff state event from DAL
 };
 END_BIZ_NAMESPACE

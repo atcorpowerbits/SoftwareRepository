@@ -32,7 +32,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		CrxGenBPOptMPandDP				= 2,		
 		CrxPwvDistDistUnitsMM			= 0,
 		CrxPwvDistDistUnitsCM			= 1,		
-		CrxPwvDistMethodSubStract		= 0,
+		CrxPwvDistMethodSubtract		= 0,
 		CrxPwvDistMethodDirect			= 1,		
 		CrxPwvCapture5Seconds			= 5,
 		CrxPwvCapture10Seconds			= 10,

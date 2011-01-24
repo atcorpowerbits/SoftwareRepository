@@ -21,6 +21,8 @@ public ref class BizQuality abstract
 {
 public:
 	virtual void Reset() {};
+	virtual void Update() {};
+
 protected:
 	BizQuality() {};
 	property BizBuffer^ buffer;							// A buffer strategy to buffer the captured data
@@ -32,6 +34,7 @@ public ref class BizCarotidQuality : BizQuality
 public:
 	BizCarotidQuality(BizBuffer^ buffer, unsigned short sampleRate);
 	virtual void Reset() override;
+	virtual void Update() override;
 	//property BizCarotidQualityEvent^ carotidQualityBiz; // Quality data to be dispatched
 
 private:
@@ -46,6 +49,7 @@ public ref class BizFemoralQuality : BizQuality
 public:
 	BizFemoralQuality(BizBuffer^ buffer, unsigned short sampleRate);
 	virtual void Reset() override;
+	virtual void Update() override;
 
 private:
 	void Update(Object^ sender, BizCuffPulseEventArgs^ e);

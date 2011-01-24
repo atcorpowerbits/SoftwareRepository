@@ -79,19 +79,19 @@ namespace TestBiz {
 				BizElectronicModuleError^  target = BizElectronicModuleError::Instance(); // TODO: Initialize to an appropriate value
 				BizElectronicModule^  client = gcnew BizElectronicModule; // TODO: Initialize to an appropriate value
 				BizElectronicModuleState^ destinationState = BizElectronicModuleNormal::Instance();
-				unsigned short newStatus = DalConstantsStub::ActiveStatus; // TODO: Initialize to an appropriate value
+				DalErrorAlarmStatusFlag newStatus = DalErrorAlarmStatusFlag::ActiveStatus; // TODO: Initialize to an appropriate value
 				client->ChangeState(target);
 				target->ReceiveNewStatus(client, newStatus);
 				Assert::AreEqual(destinationState, client->currentState);
 
 				destinationState = BizElectronicModuleWarning::Instance();
-				newStatus = DalConstantsStub::RecoverableStatus; // TODO: Initialize to an appropriate value
+				newStatus = DalErrorAlarmStatusFlag::RecoverableStatus; // TODO: Initialize to an appropriate value
 				client->ChangeState(target);
 				target->ReceiveNewStatus(client, newStatus);
 				Assert::AreEqual(destinationState, client->currentState);
 
 				destinationState = BizElectronicModuleError::Instance();
-				newStatus = DalConstantsStub::UnrecoverableStatus; // TODO: Initialize to an appropriate value
+				newStatus = DalErrorAlarmStatusFlag::UnrecoverableStatus; // TODO: Initialize to an appropriate value
 				client->ChangeState(target);
 				target->ReceiveNewStatus(client, newStatus);
 				Assert::AreEqual(destinationState, client->currentState);
@@ -122,7 +122,7 @@ namespace TestBiz {
 				DalFacade::Instance()->source = DualSensors; // simulate error source;
 				BizEventContainer::Instance->OnBizErrorEvent += gcnew BizErrorEventHandler(&BizElectronicModuleErrorTest::Update);
 				target->Dispatch(); //TBD: Waiting for advice from TM on CrxLogger exception durijg logging to be resolved.
-				Assert::AreEqual("Dual sensors error", actualSource); // TBD: get the string from crx string resource
+				Assert::AreEqual("DualSensors", actualSource); // TBD: get the string from crx string resource
 			}
 	};
 }

@@ -58,6 +58,9 @@ namespace AtCor.Scor.Presentation
             this.radLabel15 = new Telerik.WinControls.UI.RadLabel();
             this.radLabelFemoralMaximum = new Telerik.WinControls.UI.RadLabel();
             this.radLabel17 = new Telerik.WinControls.UI.RadLabel();
+            this.radButtonSimDalBuffer = new Telerik.WinControls.UI.RadButton();
+            this.radButtonStopDalBuffer = new Telerik.WinControls.UI.RadButton();
+            this.radButtonReadDalBuffer = new Telerik.WinControls.UI.RadButton();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabelTonoData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
@@ -86,6 +89,9 @@ namespace AtCor.Scor.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radLabel15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabelFemoralMaximum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButtonSimDalBuffer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButtonStopDalBuffer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButtonReadDalBuffer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -155,20 +161,20 @@ namespace AtCor.Scor.Presentation
             // 
             // radButtonPWVCapture
             // 
-            this.radButtonPWVCapture.Location = new System.Drawing.Point(274, 321);
+            this.radButtonPWVCapture.Location = new System.Drawing.Point(550, 321);
             this.radButtonPWVCapture.Name = "radButtonPWVCapture";
-            this.radButtonPWVCapture.Size = new System.Drawing.Size(130, 24);
+            this.radButtonPWVCapture.Size = new System.Drawing.Size(155, 24);
             this.radButtonPWVCapture.TabIndex = 8;
-            this.radButtonPWVCapture.Text = "Simulate";
+            this.radButtonPWVCapture.Text = "Simulate (old data events)";
             this.radButtonPWVCapture.Click += new System.EventHandler(this.radButtonPWVCapture_Click);
             // 
             // radButtonPWVStop
             // 
-            this.radButtonPWVStop.Location = new System.Drawing.Point(411, 320);
+            this.radButtonPWVStop.Location = new System.Drawing.Point(712, 320);
             this.radButtonPWVStop.Name = "radButtonPWVStop";
             this.radButtonPWVStop.Size = new System.Drawing.Size(130, 24);
             this.radButtonPWVStop.TabIndex = 9;
-            this.radButtonPWVStop.Text = "Stop";
+            this.radButtonPWVStop.Text = "Stop (old data events)";
             this.radButtonPWVStop.Click += new System.EventHandler(this.radButtonPWVStop_Click);
             // 
             // timer1
@@ -329,11 +335,45 @@ namespace AtCor.Scor.Presentation
             this.radLabel17.TabIndex = 18;
             this.radLabel17.Text = "Femoral Maximum";
             // 
+            // radButtonSimDalBuffer
+            // 
+            this.radButtonSimDalBuffer.Location = new System.Drawing.Point(53, 289);
+            this.radButtonSimDalBuffer.Name = "radButtonSimDalBuffer";
+            // 
+            // 
+            // 
+            this.radButtonSimDalBuffer.RootElement.Text = "";
+            this.radButtonSimDalBuffer.Size = new System.Drawing.Size(147, 24);
+            this.radButtonSimDalBuffer.TabIndex = 26;
+            this.radButtonSimDalBuffer.Text = "Simulate (new DAL buffer)";
+            this.radButtonSimDalBuffer.Click += new System.EventHandler(this.radButtonSimDalBuffer_Click);
+            // 
+            // radButtonStopDalBuffer
+            // 
+            this.radButtonStopDalBuffer.Location = new System.Drawing.Point(207, 319);
+            this.radButtonStopDalBuffer.Name = "radButtonStopDalBuffer";
+            this.radButtonStopDalBuffer.Size = new System.Drawing.Size(130, 24);
+            this.radButtonStopDalBuffer.TabIndex = 27;
+            this.radButtonStopDalBuffer.Text = "Stop (new Dal buffer)";
+            this.radButtonStopDalBuffer.Click += new System.EventHandler(this.radButtonStopDalBuffer_Click);
+            // 
+            // radButtonReadDalBuffer
+            // 
+            this.radButtonReadDalBuffer.Location = new System.Drawing.Point(53, 319);
+            this.radButtonReadDalBuffer.Name = "radButtonReadDalBuffer";
+            this.radButtonReadDalBuffer.Size = new System.Drawing.Size(147, 24);
+            this.radButtonReadDalBuffer.TabIndex = 28;
+            this.radButtonReadDalBuffer.Text = "Read (new DAL buffer)";
+            this.radButtonReadDalBuffer.Click += new System.EventHandler(this.radButtonReadDalBuffer_Click);
+            // 
             // SimulatePWVCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(890, 372);
+            this.Controls.Add(this.radButtonReadDalBuffer);
+            this.Controls.Add(this.radButtonStopDalBuffer);
+            this.Controls.Add(this.radButtonSimDalBuffer);
             this.Controls.Add(this.radLabelFemoralEnable);
             this.Controls.Add(this.radLabel5);
             this.Controls.Add(this.radLabel9);
@@ -398,6 +438,9 @@ namespace AtCor.Scor.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radLabel15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabelFemoralMaximum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButtonSimDalBuffer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButtonStopDalBuffer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButtonReadDalBuffer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -435,6 +478,9 @@ namespace AtCor.Scor.Presentation
         private Telerik.WinControls.UI.RadLabel radLabel15;
         private Telerik.WinControls.UI.RadLabel radLabelFemoralMaximum;
         private Telerik.WinControls.UI.RadLabel radLabel17;
+        private Telerik.WinControls.UI.RadButton radButtonSimDalBuffer;
+        private Telerik.WinControls.UI.RadButton radButtonStopDalBuffer;
+        private Telerik.WinControls.UI.RadButton radButtonReadDalBuffer;
     }
 }
 

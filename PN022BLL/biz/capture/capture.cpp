@@ -74,6 +74,13 @@ void BizTonometerDataCapture::Update( Object^ sender, DalTonometerDataEventArgs^
 	buffer->Append(e->data);
 
 }
+
+bool BizTonometerDataCapture::Append(unsigned short data)
+{
+	// Keep it in the buffer
+	return buffer->Append(data);
+}
+
 /**
 Dispatch
 
@@ -161,6 +168,12 @@ void BizCuffPulseCapture::Update( Object^ sender, DalCuffPulseEventArgs^ e )
 	// Keep it in the buffer
 	buffer->Append(e->data);
 
+}
+
+bool BizCuffPulseCapture::Append(unsigned short data)
+{
+	// Keep it in the buffer
+	return buffer->Append(data);
 }
 
 /**

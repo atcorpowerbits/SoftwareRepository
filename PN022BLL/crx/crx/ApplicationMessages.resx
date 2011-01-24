@@ -821,4 +821,10 @@
   <data name="LABEL_MP" xml:space="preserve">
     <value>MP:</value>
   </data>
+  <data name="BLL_START_CAPTURE" xml:space="preserve">
+    <value>Start capture</value>
+  </data>
+  <data name="BLL_STOP_CAPTURE" xml:space="preserve">
+    <value>Stop capture</value>
+  </data>
 </root>

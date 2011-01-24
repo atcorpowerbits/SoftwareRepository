@@ -117,13 +117,13 @@ RETURN
 	None.
 
 */
-void BizElectronicModuleNormal::ReceiveNewStatus(BizElectronicModule^ const client, unsigned short newStatus)
+void BizElectronicModuleNormal::ReceiveNewStatus(BizElectronicModule^ const client, DalErrorAlarmStatusFlag newStatus)
 {
-	if (newStatus == DalConstantsStub::RecoverableStatus)
+	if (newStatus == DataAccess::DalErrorAlarmStatusFlag::RecoverableStatus)
 	{
 		ChangeState(client, BizElectronicModuleWarning::Instance());
 	}
-	else if (newStatus == DalConstantsStub::UnrecoverableStatus)
+	else if (newStatus == DataAccess::DalErrorAlarmStatusFlag::UnrecoverableStatus)
 	{
 		ChangeState(client, BizElectronicModuleError::Instance());
 	}
@@ -204,13 +204,13 @@ RETURN
 	None.
 
 */
-void BizElectronicModuleWarning::ReceiveNewStatus(BizElectronicModule^ const client, unsigned short newStatus)
+void BizElectronicModuleWarning::ReceiveNewStatus(BizElectronicModule^ const client, DalErrorAlarmStatusFlag newStatus)
 {
-	if (newStatus == DalConstantsStub::ActiveStatus)
+	if (newStatus == DataAccess::DalErrorAlarmStatusFlag::ActiveStatus)
 	{
 		ChangeState(client, BizElectronicModuleNormal::Instance());
 	}
-	else if (newStatus == DalConstantsStub::UnrecoverableStatus)
+	else if (newStatus == DataAccess::DalErrorAlarmStatusFlag::UnrecoverableStatus)
 	{
 		ChangeState(client, BizElectronicModuleError::Instance());
 	}
@@ -290,13 +290,13 @@ RETURN
 	None.
 
 */
-void BizElectronicModuleError::ReceiveNewStatus(BizElectronicModule^ const client, unsigned short newStatus)
+void BizElectronicModuleError::ReceiveNewStatus(BizElectronicModule^ const client, DalErrorAlarmStatusFlag newStatus)
 {
-	if (newStatus == DalConstantsStub::ActiveStatus)
+	if (newStatus == DataAccess::DalErrorAlarmStatusFlag::ActiveStatus)
 	{
 		ChangeState(client, BizElectronicModuleNormal::Instance());
 	}
-	else if (newStatus == DalConstantsStub::RecoverableStatus)
+	else if (newStatus == DataAccess::DalErrorAlarmStatusFlag::RecoverableStatus)
 	{
 		ChangeState(client, BizElectronicModuleWarning::Instance());
 	}

@@ -79,7 +79,7 @@ namespace TestBiz {
 				// add the handler
 				BizEventContainer::Instance->OnBizCuffStateEvent += gcnew BizCuffStateEventHandler(&BizCuffStateEventTest::Update);
 				// raise the event with the data
-				BizEventContainer::Instance->OnBizCuffStateEvent(this, gcnew BizCuffStateEventArgs(data));	
+				BizEventContainer::Instance->OnBizCuffStateEvent(this, gcnew BizCuffStateEventArgs(data, 0));	
 				Assert::AreEqual(data, actualUpdate);
 				// remove the handler
 				BizEventContainer::Instance->OnBizCuffStateEvent -= gcnew BizCuffStateEventHandler(&BizCuffStateEventTest::Update);

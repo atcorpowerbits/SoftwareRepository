@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using AtCor.Scor.BusinessLogic;
+using AtCor.Scor.CrossCutting.Logging;
 
 namespace AtCor.Scor.Presentation
 {
@@ -14,6 +15,7 @@ namespace AtCor.Scor.Presentation
     {
         public SimulateMainWindow()
         {
+            CrxLogger oLogObject = CrxLogger.Instance;
             InitializeComponent();
         }
 

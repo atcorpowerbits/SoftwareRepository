@@ -94,7 +94,7 @@ namespace TestBiz {
 
 				// Update BizElectronicModule with module error / alarm
 				e = gcnew DalModuleErrorAlarmEventArgs(AtCor::Scor::DataAccess::AlarmStatus); // TODO: Initialize to an appropriate value
-				accessor->Invoke("Update", this, e);
+				accessor->Invoke("Update_ORI", this, e);
 				// Verify BizElectronicModule abnormal state
 				Assert::AreEqual(BizElectronicModuleWarning::Instance(), target->currentState);
 			}
@@ -110,19 +110,19 @@ namespace TestBiz {
 				target->currentState = BizElectronicModuleNormal::Instance();
 				target->dispatchedState = BizElectronicModuleNormal::Instance();
 				target->Dispatch();
-				Assert::AreNotEqual("Over pressure alarm", actualSource); // TBD: get the string from crx string resource
+				Assert::AreNotEqual("OverPressure", actualSource); // TBD: get the string from crx string resource
 
 				target->currentState = BizElectronicModuleError::Instance();
 				target->dispatchedState = BizElectronicModuleError::Instance();
 				target->Dispatch();
-				Assert::AreNotEqual("Over pressure alarm", actualSource); // TBD: get the string from crx string resource
+				Assert::AreNotEqual("OverPressure", actualSource); // TBD: get the string from crx string resource
 
 				target->currentState = BizElectronicModuleWarning::Instance();
 				DalFacade::Instance()->status = AlarmStatus; // simulate alarm status;
 				DalFacade::Instance()->source = OverPressure << 16; // simulate alarm source;
 				BizEventContainer::Instance->OnBizWarningEvent += gcnew BizWarningEventHandler(&BizElectronicModuleTest::Update);
 				target->Dispatch(); //TBD: Waiting for advice from TM on CrxLogger exception durijg logging to be resolved.
-				Assert::AreEqual("Over pressure alarm", actualSource); // TBD: get the string from crx string resource
+				Assert::AreEqual("OverPressure", actualSource); // TBD: get the string from crx string resource
 			}
 	};
 }

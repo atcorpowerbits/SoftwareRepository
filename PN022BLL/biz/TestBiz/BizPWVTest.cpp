@@ -59,10 +59,11 @@ namespace TestBiz {
 			//}
 			//
 			//Use TestInitialize to run code before running each test
-			//public: [TestInitialize]
-			//System::Void MyTestInitialize()
-			//{
-			//}
+			public: [TestInitialize]
+			System::Void MyTestInitialize()
+			{
+				Directory::SetCurrentDirectory("C:\\Projects\\PN022BLL\\gui\\gui\\bin\\Debug"); //where the resource file is read by CRX
+			}
 			//
 			//Use TestCleanup to run code after each test has run
 			//public: [TestCleanup]
@@ -885,10 +886,17 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			TestMethod]
 		void CalculatePWVReportTest()
 		{
+			MyTestInitialize();
 			BizPatient::Instance()->systemId = 00050;
 			BizPatient::Instance()->patientNumber = 1;
 			BizPatient::Instance()->dateOfBirth = DateTime(1978, 05, 14);
-			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
+
+			CrxConfigManager::Instance->GetPwvUserSettings();
+			CrxStructPwvSetting^ pwvSetting = CrxConfigManager::Instance->PwvSettings;
+			pwvSetting->PWVDistanceMethod = (int)CrxGenPwvValue::CrxPwvDistMethodDirect;
+			pwvSetting->CaptureTime = 5; // test data only good enough for 5 sec capture time 
+			CrxConfigManager::Instance->SetPwvUserSettings(pwvSetting); // Save the PWV config for the test
+
 			BizPWV^  target = (gcnew BizPWV());
 			CrxStructPWVMeasurementData^  record = gcnew CrxStructPWVMeasurementData();
 			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
@@ -921,10 +929,18 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			TestMethod]
 		void RecalculatePWVReportTest()
 		{
+			MyTestInitialize();
 			BizPatient::Instance()->systemId = 00050;
 			BizPatient::Instance()->patientNumber = 1;
 			BizPatient::Instance()->dateOfBirth = DateTime(1978, 05, 14);
-			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 1; // TBD: Replace magic number for direct method
+//			CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = (int)CrxGenPwvValue::CrxPwvDistMethodDirect; // TBD: Replace magic number for direct method
+
+			CrxConfigManager::Instance->GetPwvUserSettings();
+			CrxStructPwvSetting^ pwvSetting = CrxConfigManager::Instance->PwvSettings;
+			pwvSetting->PWVDistanceMethod = (int)CrxGenPwvValue::CrxPwvDistMethodDirect;
+			pwvSetting->CaptureTime = 5; // test data only good enough for 5 sec capture time 
+			CrxConfigManager::Instance->SetPwvUserSettings(pwvSetting); // Save the PWV config for the test
+
 			BizPWV^  target = (gcnew BizPWV());
 			CrxStructPWVMeasurementData^  record = gcnew CrxStructPWVMeasurementData();
 			target->myPWVDirectDistance->distance = Convert::ToUInt16(testContextInstance->DataRow["DirectDistance"]);
