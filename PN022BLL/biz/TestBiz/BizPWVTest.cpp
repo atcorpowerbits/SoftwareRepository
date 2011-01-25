@@ -241,6 +241,15 @@ public: [TestMethod]
 			}
 			CollectionAssert::AreEqual(normalRangeExpected, target->normalRange);
 			CollectionAssert::AreEqual(referenceRangeExpected, target->referenceRange);
+
+			CrxStructPWVMeasurementData^ measData = gcnew CrxStructPWVMeasurementData();
+			// set invalid reference range to force error
+			measData->ReferenceRange = gcnew array<float>(BizConstants::NUMBER_OF_REFERENCE_RANGES - 10);  
+			target->Populate(measData);
+			accessor = gcnew PrivateObject(target);
+			bool actual;
+			actual = (bool) accessor->Invoke("SetDefaults");
+			Assert::AreEqual(false, actual);
 		}
 		/// <summary>
 		///A test for Initialise
@@ -554,6 +563,15 @@ public: [DataSource(L"Microsoft.VisualStudio.TestTools.DataSource.CSV", L"C:\\pr
 			Assert::AreEqual(meanPulseWaveVelocityExpected, target->meanPulseWaveVelocity);
 			Assert::AreEqual(standardDeviationExpected, target->standardDeviation);
 			Assert::AreEqual(isStandardDeviationValidExpected, target->isStandardDeviationValid);
+
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			CrxStructPWVMeasurementData^ measData = gcnew CrxStructPWVMeasurementData();
+			// set invalid reference range to force error
+			measData->ReferenceRange = gcnew array<float>(BizConstants::NUMBER_OF_REFERENCE_RANGES - 10);  
+			target->Populate(measData);
+			accessor = gcnew PrivateObject(target);
+			actual = (bool) accessor->Invoke("Calculate");
+			Assert::AreEqual(false, actual);
 		}
 		/// <summary>
 		///A test for CalculateQualityControls
@@ -1054,6 +1072,14 @@ public: [TestMethod]
 			Assert::AreEqual(target->referenceRangePulseWaveVelocity, record->ReferenceRangePulseWaveVelocity);
 			CollectionAssert::AreEqual(target->normalRange, record->NormalRange);
 			CollectionAssert::AreEqual(target->referenceRange, record->ReferenceRange);	
+
+			PrivateObject^ accessor = gcnew PrivateObject(target);
+			CrxStructPWVMeasurementData^ measData = gcnew CrxStructPWVMeasurementData();
+			// set invalid reference range to force error
+			measData->ReferenceRange = gcnew array<float>(BizConstants::NUMBER_OF_REFERENCE_RANGES - 10);  
+			actual = (bool) target->Populate(measData);
+			Assert::AreEqual(false, actual);
+
 		}
 };
 }
