@@ -19,7 +19,7 @@ BizCuff::BizCuff(void)
 	// TBD: Confirm if cuff can be assumed "not connected" first.
 	currentState = BizCuffDisconnected::Instance();
 	previousState = currentState;
-	deflationTime = CUFF_DEFLATION_TIME_EST;
+	deflationTime = 0; //TBD: 0 for simulation, use CUFF_DEFLATION_TIME_EST for EM4;
 
 //	cuffStatusSubject = DalFacade::Instance()->FindCuffStatusEvent();
 

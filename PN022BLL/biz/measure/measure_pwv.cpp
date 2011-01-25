@@ -207,7 +207,7 @@ BizPWV::BizPWV(void)
 	femoralSignal->Allocate(MAX_SIGNAL_LENGTH, MAX_ONSETS);
 
 	//specify the event handler to handle quality indicator refresh timer
-	qualityIndicatorTimer->Elapsed += gcnew ElapsedEventHandler(&BizPWV::OnTimerQualityIndicatorEvents); 
+//	qualityIndicatorTimer->Elapsed += gcnew ElapsedEventHandler(&BizPWV::OnTimerQualityIndicatorEvents); 
 				
 	// Initialise
 	Initialise();
@@ -347,7 +347,7 @@ bool BizPWV::StartCapture()
 		CrxLogger::Instance->Write("BLL_START_CAPTURE");
 
 		// start quality indicator refresh timer
-		qualityIndicatorTimer->Enabled = true;
+//		qualityIndicatorTimer->Enabled = true;
 
 		return true;
 	}
@@ -385,7 +385,7 @@ bool BizPWV::StopCapture()
 		CrxLogger::Instance->Write("BLL_STOP_CAPTURE");
 
 		// stop quality indicator refresh timer
-		qualityIndicatorTimer->Enabled = false;
+//		qualityIndicatorTimer->Enabled = false;
 
 		return true;
 	}
@@ -423,6 +423,8 @@ RETURN
 void BizPWV::DispatchCaptureData()
 {
 	cuffObserver->Dispatch();
+	carotidQualityObserver->Dispatch();
+	femoralQualityObserver->Dispatch();
 }
 /**
  ** Initialise()
@@ -446,7 +448,7 @@ void BizPWV::DispatchCaptureData()
 bool BizPWV::Initialise()
 {
 	BizMeasure::Initialise();
-	qualityIndicatorTimer->Enabled = false;
+//	qualityIndicatorTimer->Enabled = false;
 		
 	unsigned int bufferSize = (captureTime + BusinessLogic::BizConstants::CAPTURE_EXTRA_FOR_HANDSHAKE) * sampleRate;
 
@@ -479,7 +481,6 @@ bool BizPWV::Initialise()
 	myPWVDirectDistance->distance = BizConstants::DEFAULT_VALUE;
 	calculatedDistance = BizConstants::DEFAULT_VALUE;
 	correctionTime = DEFAULT_CORRECTION_TIME;					
-	deflationTime = DEFAULT_DEFLATION_TIME;					
 	
 	// Initialise cannot return false because sampleRate is hard-coded
 	carotidSignal->Initialise(sampleRate);

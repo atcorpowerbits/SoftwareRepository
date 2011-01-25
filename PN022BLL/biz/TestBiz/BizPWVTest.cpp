@@ -168,7 +168,7 @@ namespace TestBiz {
 				BizPWV^  target = (gcnew BizPWV());
 				PrivateObject^ accessor = gcnew PrivateObject(target);
 //				CrxConfigFacade::Instance()->SetDistanceMethod(true);
-				CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = 0; // TBD: Replace magic number for subtracting method
+				CrxConfigManager::Instance->PwvSettings->PWVDistanceMethod = (int)CrxGenPwvValue::CrxPwvDistMethodSubtract;
 				CrxConfigManager::Instance->GeneralSettings->HeightandWeightUnit = CrxConfigConstants::GENERAL_UNIT_METRIC;
 				target->heightAndWeight->heightInCentimetres = Convert::ToUInt16(testContextInstance->DataRow["HeightInCentimetres"]);
 				target->bloodPressure->SP->Reading = Convert::ToUInt16(testContextInstance->DataRow["SP"]);;

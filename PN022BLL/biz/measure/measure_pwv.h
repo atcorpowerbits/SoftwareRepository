@@ -85,8 +85,6 @@ public:
 	property unsigned short distanceMethod;		// Distance method selected when the object was calculated
 		
 	property float correctionTime;					// Correction factor to convert Carotid-Cuff time to Carotid-Femoral time
-	property unsigned short deflationTime;			// To be subtracted from time to deflation countdown timer to adjust 
-													// countdown timer to reach zero when cuff starts to deflate
 	
 	property BizTonometerDataCapture^ tonometerDataObserver;
 	property BizCuffPulseCapture^ cuffPulseObserver;

@@ -105,6 +105,7 @@ static const float SUBRACTING_DISTANCE_CONVERSION_OFFSET = (float) 80;						// U
 static const float PULSE_WAVE_VELOCITY_CONVERSION_FACTOR = (float) 0.8;						// Used to calculate the reference range pulse wave velocity (m/s)
 	
 // Quality Class
+static const unsigned short GUI_DISPATCH_RATE = 8;											// Rate per sec when GUI calls BLL to dispatch capture related data 
 static const unsigned short QUALITY_UPDATE_INTERVAL = 1;									// Update quality information every 1 second
 static const unsigned short TONOMETER_SIGNAL_STRENGTH_POOR = 200;							// Indicates a poor signal
 static const unsigned short TONOMETER_SIGNAL_STRENGTH_GOOD = 300;							// Indicates a good signal

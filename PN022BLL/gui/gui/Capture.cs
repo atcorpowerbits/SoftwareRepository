@@ -436,7 +436,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                DalModule dalModuleObj = DalModule.Instance;
+//                DalModule dalModuleObj = DalModule.Instance;
 
                 // ########################################################################
                 // ------------TO DO ----------- 
@@ -444,9 +444,10 @@ namespace AtCor.Scor.Gui.Presentation
                 // should call this method to set device strategy based on the saved config settings
                 // dalModuleObj.SetDeviceStrategy("Simulation");
                 // ########################################################################
-                dalModuleObj.StartCapture(obj.PwvSettings.CaptureTime, SampleRate);
+//                dalModuleObj.StartCapture(obj.PwvSettings.CaptureTime, SampleRate);
                 
-                dalDataBufferObj = DalDataBuffer.Instance;
+//                dalDataBufferObj = DalDataBuffer.Instance;
+                BizSession.Instance().StartCapture();
                 timer1.Enabled = true;
             }
             catch (DalException ex)
@@ -475,6 +476,8 @@ namespace AtCor.Scor.Gui.Presentation
                 int returnedValues = -1;
                 DalPwvDataStruct structData;
                 DalDataBuffer dbuff = DalDataBuffer.Instance;
+                short femoralCuffData;
+                BizPWV pwvObj = (BizPWV)BizSession.Instance().measurement;
 
                 returnedValues = dbuff.GetNextValues(32, ref startIndex);
 
@@ -505,9 +508,17 @@ namespace AtCor.Scor.Gui.Presentation
                             radlblTimeStatus.Text = oMsgMgr.GetMessage("LBL_TIMESTATUS") + " " + minutes.ToString() + ":" + ((seconds >= 10) ? string.Empty : "0") + seconds.ToString();
                         }
 
-                        short femoralCuffData = (short)structData.cuffPulseData;
-                        PlotFemoralCuffData(femoralCuffData);
+                        femoralCuffData = (short)structData.cuffPulseData;
                     }
+                    else
+                    {
+                        // to draw a flat line but not working; let TM to do 
+                        femoralCuffData = 100; // should be less than MINIMUM_CUFF_BASELINE;
+                    }
+                    PlotFemoralCuffData(femoralCuffData);
+
+                    // pass data to BLL
+                    pwvObj.Append((ushort)structData.tonometerData, (ushort)femoralCuffData);
                 }
             }
             catch (DalException ex)
@@ -565,10 +576,10 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                if (femoralPlotSwitch == false)
-                {
-                    return;
-                }
+//                if (femoralPlotSwitch == false)
+//                {
+//                    return;
+//                }
 
                 int data = femoralCuffData;
 

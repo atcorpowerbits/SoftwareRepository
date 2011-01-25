@@ -34,7 +34,7 @@ using namespace BIZ_NAMESPACE;
 BizMeasure::BizMeasure()
 {
 	//create a timer to refresh quality indicators
-	qualityIndicatorTimer = gcnew Timers::Timer(QUALITY_REFRESH_INTERVAL);
+//	qualityIndicatorTimer = gcnew Timers::Timer(QUALITY_REFRESH_INTERVAL);
 		
 	Initialise();
 }

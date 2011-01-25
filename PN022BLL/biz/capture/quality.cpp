@@ -17,6 +17,66 @@ using namespace System::Threading;
 using namespace BIZ_NAMESPACE;
 
 /**
+Reset
+
+DESCRIPTION
+
+	Reset the quality data.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	None.
+
+*/		
+void BizQuality::Reset()
+{
+	counter = 0;
+}
+
+/**
+Dispatch
+
+DESCRIPTION
+
+	Dispatch quality data every second, 
+	i.e. on every 8th call assuming it's called every 125 milliseconds from GUI.
+
+INPUT
+
+	None.
+
+OUTPUT
+
+	None.
+
+RETURN
+
+	None.
+
+*/		
+void BizQuality::Dispatch()
+{
+	// Update the counter first so we ignore the first interval and send the -
+	// first notification once we have meaningful information to send
+	counter++;
+	
+	// Calculate the quality every second. There's no need to update every sample
+	counter %= QUALITY_UPDATE_INTERVAL * GUI_DISPATCH_RATE;
+	if ( counter == 0 )
+	{
+		Update();
+	}
+}
+
+/**
 BizCarotidQuality
 
 DESCRIPTION
@@ -148,31 +208,6 @@ void BizCarotidQuality::Update()
 }
 
 /**
-Reset
-
-DESCRIPTION
-
-	Reset the quality data.
-
-INPUT
-
-	None.
-
-OUTPUT
-
-	None.
-
-RETURN
-
-	None.
-
-*/		
-void BizCarotidQuality::Reset()
-{
-	counter = 0;
-}
-
-/**
 BizFemoralQuality
 
 DESCRIPTION
@@ -208,8 +243,8 @@ Update
 
 DESCRIPTION
 
-	Process the femoral quality update,
-	Notify the femoral quality event when the quality changes.
+	Process the femoral quality update.
+	Notify the femoral quality event observers when the quality changes.
 
 INPUT
 
@@ -243,6 +278,30 @@ void BizFemoralQuality::Update( Object^ sender, BizCuffPulseEventArgs^ e )
 	}
 }
 
+/**
+Update
+
+DESCRIPTION
+
+	Process the femoral quality update.
+	Notify the femoral quality event observers when the quality changes.
+
+INPUT
+
+	BizFemoralQuality::buffer - incoming femoral data buffer,
+	BizFemoralQuality::sampleRate - timing of the femoral data.
+
+OUTPUT
+
+	BizFemoralQualityEventHandler::signalMinimum - signal maximum, used to calculate signal strength and scale the display
+	BizFemoralQualityEventHandler::signalMaximum - signal minimum, used to calculate signal strength and scale the display
+	BizFemoralQualityEventHandler::enableOkayButton - can the user calculate a report or not.
+
+RETURN
+
+	None.
+
+*/		
 void BizFemoralQuality::Update( )
 {
 	unsigned short bufferSize;
@@ -290,27 +349,3 @@ void BizFemoralQuality::Update( )
 	}
 }
 
-/**
-Reset
-
-DESCRIPTION
-
-	Reset the quality data.
-
-INPUT
-
-	None.
-
-OUTPUT
-
-	None.
-
-RETURN
-
-	None.
-
-*/		
-void BizFemoralQuality::Reset()
-{
-	counter = 0;
-}

@@ -208,7 +208,7 @@ public:
 
 protected:
 	property BloodPressureEnumeration bloodPressureRange;	// Blood pressure category
-	Timers::Timer^ qualityIndicatorTimer;  //Timer to refresh quality indicators
+//	Timers::Timer^ qualityIndicatorTimer;  //Timer to refresh quality indicators
 	
 	// Constructor
 	BizMeasure(void);

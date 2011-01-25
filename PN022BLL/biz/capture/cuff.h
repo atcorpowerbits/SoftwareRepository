@@ -40,7 +40,8 @@ private:
 	void Update(Object^ sender, DalCuffStatusEventArgs^ e);
 	void Update_ORI(Object^ sender, DalCuffStatusEventArgs_ORI^ e);
 
-	unsigned short deflationTime;
+	unsigned short deflationTime;	// To be subtracted from EM4 deflation countdown timer to adjust 
+									// countdown timer to reach zero when cuff starts to deflate
 //	DalCuffStatusEvent^ cuffStatusSubject; // to observe cuff state event from DAL
 };
 END_BIZ_NAMESPACE
