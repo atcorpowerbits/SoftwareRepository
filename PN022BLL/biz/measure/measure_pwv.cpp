@@ -508,36 +508,46 @@ void BizPWV::Initialise()
 */
 void BizPWV::SetDefaults()
 {
-	meanDeltaTime = BizConstants::DEFAULT_VALUE;					
-	meanCorrectedTime = BizConstants::DEFAULT_VALUE;
-	meanPulseWaveVelocity = BizConstants::DEFAULT_VALUE;			
-	standardDeviation = BizConstants::DEFAULT_VALUE;
-	
-	numberOfDeltas = 0;
-	numberOfValidDeltas = 0;
-    
-	isCarotidSignalValid = false;
-	isFemoralSignalValid = false;
-	isStandardDeviationValid = false;
-	meanHeartRate = BizConstants::DEFAULT_VALUE;
+	try
+	{
+		meanDeltaTime = BizConstants::DEFAULT_VALUE;					
+		meanCorrectedTime = BizConstants::DEFAULT_VALUE;
+		meanPulseWaveVelocity = BizConstants::DEFAULT_VALUE;			
+		standardDeviation = BizConstants::DEFAULT_VALUE;
+		
+		numberOfDeltas = 0;
+		numberOfValidDeltas = 0;
+        
+		isCarotidSignalValid = false;
+		isFemoralSignalValid = false;
+		isStandardDeviationValid = false;
+		meanHeartRate = BizConstants::DEFAULT_VALUE;
 
-    carotidSignal->SetDefaults();
-    femoralSignal->SetDefaults();
-    
-    for (unsigned short i = 0; i < MAX_ONSETS; i++)
-    {
-		pulseWaveVelocity[i]->SetDefaults();
-    }
+        carotidSignal->SetDefaults();
+        femoralSignal->SetDefaults();
+        
+        for (unsigned short i = 0; i < MAX_ONSETS; i++)
+        {
+			pulseWaveVelocity[i]->SetDefaults();
+        }
 
-	referenceRangeDistance = BizConstants::DEFAULT_VALUE;
-	referenceRangePulseWaveVelocity = BizConstants::DEFAULT_VALUE;
-	bloodPressureRangeTitle = "";
+		referenceRangeDistance = BizConstants::DEFAULT_VALUE;
+		referenceRangePulseWaveVelocity = BizConstants::DEFAULT_VALUE;
+		bloodPressureRangeTitle = "";
 
-	for (unsigned short i = 0; i < BizConstants::NUMBER_OF_REFERENCE_RANGES; i++)
-    {
-		normalRange[i] = BizConstants::DEFAULT_FLOAT_VALUE;
-    	referenceRange[i] = BizConstants::DEFAULT_FLOAT_VALUE;
-    }
+		for (unsigned short i = 0; i < BizConstants::NUMBER_OF_REFERENCE_RANGES; i++)
+        {
+			normalRange[i] = BizConstants::DEFAULT_FLOAT_VALUE;
+        	referenceRange[i] = BizConstants::DEFAULT_FLOAT_VALUE;
+        }
+	}
+	catch(Exception^ eObj)
+	{
+		// PWVSW-68 Biz.dll Version: 0.5.2, Throws exception "Array Index out of bounds", on calling BizPWV::Populate
+		// When BizException is implemented throw an exception specific for this error
+		// throw gcnew BizException(???);  // Failed setting patient default data
+		throw eObj;  // until BizException is implemented rethrow the exception
+	}
 }
 /**
  ** SetDefaults()
