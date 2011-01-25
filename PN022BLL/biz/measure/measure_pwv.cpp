@@ -443,7 +443,7 @@ void BizPWV::DispatchCaptureData()
  **
  **  none.
 */
-void BizPWV::Initialise()
+bool BizPWV::Initialise()
 {
 	BizMeasure::Initialise();
 	qualityIndicatorTimer->Enabled = false;
@@ -485,7 +485,7 @@ void BizPWV::Initialise()
 	carotidSignal->Initialise(sampleRate);
 	femoralSignal->Initialise(sampleRate);
 
-	SetDefaults();
+	return SetDefaults();
 }
 /**
  ** SetDefaults()
@@ -506,7 +506,7 @@ void BizPWV::Initialise()
  **
  **  none.
 */
-void BizPWV::SetDefaults()
+bool BizPWV::SetDefaults()
 {
 	try
 	{
@@ -540,13 +540,12 @@ void BizPWV::SetDefaults()
 			normalRange[i] = BizConstants::DEFAULT_FLOAT_VALUE;
         	referenceRange[i] = BizConstants::DEFAULT_FLOAT_VALUE;
         }
+		return true;
 	}
-	catch(Exception^ eObj)
+	catch(Exception^)
 	{
-		// PWVSW-68 Biz.dll Version: 0.5.2, Throws exception "Array Index out of bounds", on calling BizPWV::Populate
-		// When BizException is implemented throw an exception specific for this error
-		// throw gcnew BizException(???);  // Failed setting patient default data
-		throw eObj;  // until BizException is implemented rethrow the exception
+		//TBD: log error details
+		return false;
 	}
 }
 /**
@@ -675,7 +674,10 @@ RETURN
 bool BizPWV::Calculate()
 {
 	// Default values for calculated members
-    SetDefaults();
+    if( !SetDefaults())
+	{
+		return false;
+	}
     
 	// Validate input members and calculate distance
     if (!Validate())
@@ -1519,7 +1521,7 @@ bool BizPWV::Populate( CrxStructPWVMeasurementData^ record )
 	normalRange = record->NormalRange;
 	referenceRange = record->ReferenceRange;
 
-	return true;
+	return Validate();
 }
 
 /**

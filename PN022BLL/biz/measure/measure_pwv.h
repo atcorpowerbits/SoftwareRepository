@@ -199,7 +199,7 @@ public:
 	virtual bool Validate() override;
 	
 	// Initialise properties
-	void Initialise();
+	bool Initialise();
 
 	// Keep raw (captured) PWV data from tonometer & cuff pulse in BLL internal circular buffers
 	void Append(unsigned short tonometerData, unsigned short cuffPulseData);
@@ -232,7 +232,7 @@ public:
 	bool RecalculatePWVReport( CrxStructPWVMeasurementData^ record );
 private:
 	// Set default values for calculated variables
-	void SetDefaults();
+	bool SetDefaults();
 
 	// Calculate and validate distance
 	bool CalculateAndValidateDistance();
