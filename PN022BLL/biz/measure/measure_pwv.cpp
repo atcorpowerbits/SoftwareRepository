@@ -1522,7 +1522,7 @@ bool BizPWV::Populate( CrxStructPWVMeasurementData^ record )
 	normalRange = record->NormalRange;
 	referenceRange = record->ReferenceRange;
 
-	return Validate();
+	return true;
 }
 
 /**
