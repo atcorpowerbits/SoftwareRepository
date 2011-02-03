@@ -44,14 +44,19 @@ namespace AtCor.Scor.Gui.Presentation
         CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         CrxLogger oLogObject = CrxLogger.Instance;
         DataTable dt;
-        CrxDBManager dbMagr;        
+        CrxDBManager dbMagr;
+        string serverNameString = string.Empty;
+
+        public delegate void InitializationMessage(string message);
+
+        public static event InitializationMessage OnInitializationProcess;
 
         /**Constructor to initialize the components and diable the close icon on the title bar.
         */
         public SQLInstanceList()
         {
             InitializeComponent();
-
+            serverNameString = SettingsProperties.ServerNameString(); // crxMgrObject.GeneralSettings.MachineName.Trim() + "\\" + crxMgrObject.GeneralSettings.ServerName.Trim();
             // Disable the close button of the window.
             this.FormElement.TitleBar.CloseButton.Enabled = false;
         }       
@@ -73,7 +78,7 @@ namespace AtCor.Scor.Gui.Presentation
             DisplayAndLogMessage();
             this.AcceptButton = guiradbtnConnect;
             this.CancelButton = guiradbtnCancel;
-
+            
             // log status of database connection.
             try
             {
@@ -83,12 +88,11 @@ namespace AtCor.Scor.Gui.Presentation
 
                 guicmbxSqlServerList.DataSource = dt;
                 guicmbxSqlServerList.DisplayMember = "ServerName";
+                OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }            
         }
 
@@ -104,20 +108,23 @@ namespace AtCor.Scor.Gui.Presentation
         */
         private void guiradbtnConnect_Click(object sender, EventArgs e)
         {
-            int result = 0;
+                int result = 0;
 
-            // guiradlblMessage.Text = string.Empty;
-            crxMgrObject.GeneralSettings.ServerName = guicmbxSqlServerList.Text + @"\SQLEXPRESS";
+                // guiradlblMessage.Text = string.Empty;
+                crxMgrObject.GeneralSettings.MachineName = guicmbxSqlServerList.Text;
+                crxMgrObject.GeneralSettings.ServerName = "SQLEXPRESS";
+                serverNameString = SettingsProperties.ServerNameString(); // crxMgrObject.GeneralSettings.MachineName.Trim() + crxMgrObject.GeneralSettings.ServerName.Trim();
+ 
             crxMgrObject.GeneralSettings.SourceData = "SQLCLIENT";
             dbMagr = CrxDBManager.Instance;
-            result = dbMagr.SetConnection(crxMgrObject.GeneralSettings.ServerName, crxMgrObject.GeneralSettings.SourceData);
+            result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData);
             if (result.Equals(1))
             {
                 DisplayAndLogMessage();
             }
             else
             {
-                oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + crxMgrObject.GeneralSettings.ServerName);                
+                oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + serverNameString);                
                 crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);  
                 this.Close();
             }
@@ -127,8 +134,8 @@ namespace AtCor.Scor.Gui.Presentation
         */
         private void DisplayAndLogMessage()
         {
-            guiradlblMessage.Text = oMsgMgr.GetMessage("SQL_SERVER_UNABLE_TO_CONNECT") + crxMgrObject.GeneralSettings.ServerName + ",select another server from the below list.";
-            oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_FAILED") + crxMgrObject.GeneralSettings.ServerName); 
+            guiradlblMessage.Text = oMsgMgr.GetMessage("SQL_SERVER_UNABLE_TO_CONNECT") + serverNameString + ",select another server from the below list.";
+            oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_FAILED") + serverNameString); 
         }
 
         /**This event is fired when the selection in the drop down is changed.

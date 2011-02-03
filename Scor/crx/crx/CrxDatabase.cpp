@@ -13,6 +13,8 @@
 #include "CrxCrossCutting.h"
 #include "CrxConfiguration.h"
 #include "CrxMessaging.h"
+#include "CrxLogger.h"
+#include "ScorException.h"
 
 using namespace System;
 using namespace System::Text;
@@ -21,12 +23,15 @@ using namespace System::Data::SqlClient;
 using namespace System::IO;// For FileStream
 using namespace System::Diagnostics;
 using namespace System::ComponentModel;
+using namespace System::Data::OleDb;
 
 // Added application specific namespaces
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::DatabaseManager;
 using namespace AtCor::Scor::CrossCutting::Configuration;
 using namespace AtCor::Scor::CrossCutting::Messaging;
+using namespace AtCor::Scor::CrossCutting::Logging;
+
 
 //To get patient record from the database as per inputs
 DataSet^ CrxDBManager::GetPatientDemographicRecords(int patientNo , int systemID , int groupID)
@@ -49,7 +54,7 @@ DataSet^ CrxDBManager::GetPatientDemographicRecords(int patientNo , int systemID
 
 		return patientdataset;	
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -57,7 +62,7 @@ DataSet^ CrxDBManager::GetPatientDemographicRecords(int patientNo , int systemID
 	catch(Exception^ eObj)
 	{
 		// rethrow the wrapped exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 }
 
@@ -78,7 +83,7 @@ DataSet^ CrxDBManager::GetPatientDemographicRecords()
 		return patientdataset;
 
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -86,7 +91,7 @@ DataSet^ CrxDBManager::GetPatientDemographicRecords()
 	catch(Exception^ eObj)
 	{
 		//throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 }
 //Get the whole Group lists in the Group table
@@ -106,7 +111,7 @@ DataSet^ CrxDBManager::GetGroupLists()
 		return groupdataset;
 
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -114,14 +119,14 @@ DataSet^ CrxDBManager::GetGroupLists()
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}	
 }
 
 DataSet^ CrxDBManager::GetPWVMeasurementDetails(int patientNo, int groupID, int systemIdentifier)
 {
-	DataSet^ measurementdataset = nullptr; // patientdataset object to return measurement data
-	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+	DataSet^ measurementdataset = nullptr;	// patientdataset object to return measurement data
+	DbCommand^ addCommand = nullptr;		// store the stored procedure in addCommand object
 	
 	try
 	{
@@ -140,7 +145,7 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(int patientNo, int groupID, int 
 		return measurementdataset;
 
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -148,16 +153,16 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(int patientNo, int groupID, int 
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}		
 }
 //DataSet^ CrxDBManager::GetPWVMeasurementDetails(int patientNo, int groupID , int systemIdentifier, String^ dateTime)
 DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 {
-	DataSet^		measurementdataset = nullptr; // patientdataset object to return measurement data
-	DbCommand^		addCommand		   = nullptr; // store the stored procedure in addCommand object
-	int				len				   = 0;//Gets the length of the array
-	array<Byte>^	buffarr; //Temporary byte array object for manipulation
+	DataSet^		measurementdataset = nullptr;	// patientdataset object to return measurement data
+	DbCommand^		addCommand		   = nullptr;	// store the stored procedure in addCommand object
+	int				len				   = 0;			//Gets the length of the array
+	array<Byte>^	buffarr;						//Temporary byte array object for manipulation
 
 	try
 	{		
@@ -258,7 +263,7 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		return measurementdataset;
 
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -266,7 +271,7 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}		
 }
 
@@ -274,8 +279,8 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 //Add Patient Record in the database
 int CrxDBManager::SavePatientData(CrxStructPatientDemographicData^ pd)
 {
-	int result			  = 0;//initializes to 0, if 1 successful else return zero
-	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+	int result			  = 0;			//initializes to 0, if 1 successful else return zero
+	DbCommand^ addCommand = nullptr;	// store the stored procedure in addCommand object
 	
 	try
 	{		
@@ -309,7 +314,7 @@ int CrxDBManager::SavePatientData(CrxStructPatientDemographicData^ pd)
 		return result;
 		
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -317,15 +322,15 @@ int CrxDBManager::SavePatientData(CrxStructPatientDemographicData^ pd)
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 	
 }
 //Delete Patient Record in the database
 int CrxDBManager::DeletePatientData(CrxStructPatientDemographicData^ pd)
 {
-	int result            = 0;//initializes to 0, if 1 successful else return zero
-	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+	int result            = 0;			//initializes to 0, if 1 successful else return zero
+	DbCommand^ addCommand = nullptr;	// store the stored procedure in addCommand object
 
 	try
 	{		
@@ -348,7 +353,7 @@ int CrxDBManager::DeletePatientData(CrxStructPatientDemographicData^ pd)
 		return result;
 		
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -356,14 +361,14 @@ int CrxDBManager::DeletePatientData(CrxStructPatientDemographicData^ pd)
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 }
 
 int CrxDBManager::UpdatePatientData(CrxStructPatientDemographicData^ pd, bool spCheck)
 {
-	int result			  = 0;//initializes to 0, if 1 successful else return zero
-	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+	int result			  = 0;			//initializes to 0, if 1 successful else return zero
+	DbCommand^ addCommand = nullptr;	// store the stored procedure in addCommand object
 
 	try
 	{		
@@ -397,7 +402,7 @@ int CrxDBManager::UpdatePatientData(CrxStructPatientDemographicData^ pd, bool sp
 		return result;
 		
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -405,14 +410,14 @@ int CrxDBManager::UpdatePatientData(CrxStructPatientDemographicData^ pd, bool sp
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 }
 
 int CrxDBManager::PatientRecordExists(CrxStructPatientDemographicData^ pd)
 {
-	int result				= 0;//initializes to 0, if 1 six field exists, if 2 five field exists
-	DbCommand^ addCommand	= nullptr; // store the stored procedure in addCommand object
+	int result				= 0;		//initializes to 0, if 1 six field exists, if 2 five field exists
+	DbCommand^ addCommand	= nullptr;	// store the stored procedure in addCommand object
 
 	try
 	{
@@ -435,7 +440,7 @@ int CrxDBManager::PatientRecordExists(CrxStructPatientDemographicData^ pd)
 		return result;
 
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -443,15 +448,15 @@ int CrxDBManager::PatientRecordExists(CrxStructPatientDemographicData^ pd)
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 }
 
 bool CrxDBManager::GroupRecordExits(int systemIdentifier, String^ groupName)
 {
-	int result				= 0;//initializes to 0, if 1 group name exist
-	bool check				= false;//initializes to false, if true exist else not exist
-	DbCommand^ addCommand	= nullptr; // store the stored procedure in addCommand object
+	int result				= 0;		//initializes to 0, if 1 group name exist
+	bool check				= false;	//initializes to false, if true exist else not exist
+	DbCommand^ addCommand	= nullptr;	// store the stored procedure in addCommand object
 
 	try
 	{
@@ -474,7 +479,7 @@ bool CrxDBManager::GroupRecordExits(int systemIdentifier, String^ groupName)
 		return check;
 
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -482,15 +487,15 @@ bool CrxDBManager::GroupRecordExits(int systemIdentifier, String^ groupName)
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 }
 
 bool CrxDBManager::PatientIdExists(int systemIdentifier, String^ patientIdExternalReference)
 {
-	int result				= 0;//initializes to 0, if 1 successful
-	bool check				= false;//initializes to false, if true exist else not exist
-	DbCommand^ addCommand	= nullptr; // store the stored procedure in addCommand object
+	int result				= 0;		//initializes to 0, if 1 successful
+	bool check				= false;	//initializes to false, if true exist else not exist
+	DbCommand^ addCommand	= nullptr;	// store the stored procedure in addCommand object
 
 	try
 	{
@@ -513,7 +518,7 @@ bool CrxDBManager::PatientIdExists(int systemIdentifier, String^ patientIdExtern
 		return check;
 
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -521,7 +526,7 @@ bool CrxDBManager::PatientIdExists(int systemIdentifier, String^ patientIdExtern
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 }
 
@@ -529,10 +534,10 @@ bool CrxDBManager::PatientIdExists(int systemIdentifier, String^ patientIdExtern
 //void CrxDBManager::SetConnection(String^ serverName, String^ sourceName)
 int CrxDBManager::SetConnection(String^ serverName, String^ sourceName)
 {
-	String^ ConnStr		= nullptr;//To store the reformated connection string,intializes to nullptr
-	int ConnectionStatus = 0;//return result onnection can be established or not
+	String^ ConnStr			= nullptr;	//To store the reformated connection string,intializes to nullptr
+	int ConnectionStatus	= 0;		//return result onnection can be established or not
 
-	ConnStr  = String::Format("server={0};database=AtCor;Integrated Security=true" , serverName);
+	ConnStr  = String::Format("server={0};database={1};Integrated Security=true" , serverName, DBname);
 	
 	ConnString = ConnStr;//initialize _connString for further use in the application
 	DataProviderType = sourceName;//initialize _dbType for further use in the application
@@ -572,20 +577,22 @@ int CrxDBManager::SetConnection(String^ serverName, String^ sourceName)
 	catch(Exception^)
 	{
 		//throw the exception
-		throw gcnew CrxException("CRX_ERR_DBMGR_NO_PROVIDER");		
+		throw gcnew ScorException(CRX_ERR_DBMGR_NO_PROVIDER, "CRX_ERR_DBMGR_NO_PROVIDER", ErrorSeverity::Exception);
 	}
 	
 }
 //Check Connection can be established as per provided string and source name
 int CrxDBManager::CheckConnection(String^ serverName, String^ sourceName)
 {
-	String^ ConnStr		= nullptr;//To store the reformated connection string,intializes to nullptr
-	int ConnectionCheck = 0;//return result onnection can be established or not
+	String^ ConnStr		= nullptr;	//To store the reformated connection string,intializes to nullptr
+	int ConnectionCheck = 0;		//return result onnection can be established or not
 	
-	ConnStr  = String::Format("server={0};database=AtCor;Integrated Security=true" , serverName);
+	ConnStr  = String::Format("server={0};database={1};Integrated Security=true" , serverName, DBname);
 
 	try
-	{		
+	{	
+		sourceName = sourceName->ToUpper();
+
 		if(sourceName->Equals("SQLCLIENT"))
 		{
 			//Create Connection object to check connection
@@ -610,9 +617,9 @@ int CrxDBManager::CheckConnection(String^ serverName, String^ sourceName)
 int CrxDBManager::SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 {
 	int result				 = 0;		//initializes to 0, if 1 successful else return zero
+	int len					 = 0;		//Get the length of the array
 	DbCommand^ addCommand	 = nullptr; // store the stored procedure in addCommand object
 	SqlParameter^ parameter;			//creating sqlparameter object to pass parameter values
-	int len					 = 0;		//Get the length of the array
 	array<Byte>^	buffarr;			//Temporary byte array object for manipulation
 
 	try
@@ -770,7 +777,7 @@ int CrxDBManager::SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		return result;
 		
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -778,7 +785,7 @@ int CrxDBManager::SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 	
 }
@@ -786,11 +793,11 @@ int CrxDBManager::SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 //Add Measurement Record in the database
 int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 {
-	int result			  = 0;//initializes to 0, if 1 successful else return zero
-	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
-	SqlParameter^ parameter;//creating sqlparameter object to pass parameter values
-	int len					 = 0;		//Get the length of the array
-	array<Byte>^	buffarr;			//Temporary byte array object for manipulation
+	int result						= 0;		//initializes to 0, if 1 successful else return zero
+	int len							= 0;		//Get the length of the array
+	DbCommand^ addCommand			= nullptr;	// store the stored procedure in addCommand object
+	SqlParameter^ parameter;					//creating sqlparameter object to pass parameter values
+	array<Byte>^	buffarr;					//Temporary byte array object for manipulation
 
 	try
 	{			
@@ -937,6 +944,50 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		_objDB->AddInParameter(addCommand,"@numberOfDeltas",DbType::Int16,md->NumberOfDeltas);
 		_objDB->AddInParameter(addCommand,"@numberOfValidDeltas",DbType::Int16,md->NumberOfValidDeltas);
 
+		_objDB->AddOutParameter(addCommand,"@returnStudyDatetime",DbType::DateTime,sizeof(DateTime));
+
+		//Execute stored procedure and return int result how many rows affected
+		result = _objDB->ExecuteNonQuery(addCommand);	
+
+		if(result > 0)
+		{
+			result = 1;
+		}
+
+		md->StudyDateTime = Convert::ToDateTime((_objDB->GetParameterValue(addCommand,"returnStudyDatetime")));
+
+		return result;
+		
+	}
+	catch(ScorException^ crxObj)
+	{
+		// rethrow the exception
+		throw crxObj;
+	}
+	catch(Exception^ eObj)
+	{
+		// throw the exception
+		throw gcnew ScorException(eObj);
+	}
+	
+}
+
+int CrxDBManager::DeletePWVMeasurementDetails(CrxStructPWVMeasurementData^ md, String^ studyDateTimeArrStr)
+{
+	int result			  = 0;			//initializes to 0, if 1 successful else return zero
+	DbCommand^ addCommand = nullptr;	// store the stored procedure in addCommand object
+	 
+	try
+	{
+		//get the Stored Procedure query using database object
+		addCommand = _objDB->GetStoredProcCommand("DeleteMeasurementDetails");
+
+		//Adding input parameters in the DbCommand object to execute stored procedure
+		_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,md->SystemIdentifier);
+		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,md->GroupIdentifier);
+		_objDB->AddInParameter(addCommand,"@PatientNumberInternal",DbType::Int32,md->PatientNumberInternal);
+		_objDB->AddInParameter(addCommand,"@studyDateTimeArrStr",DbType::String,studyDateTimeArrStr);
+		
 		//Execute stored procedure and return int result how many rows affected
 		result = _objDB->ExecuteNonQuery(addCommand);	
 
@@ -946,9 +997,9 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		}
 
 		return result;
-		
 	}
-	catch(CrxException^ crxObj)
+
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -956,19 +1007,18 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
-	
 }
 
 //*********************************************//
 //Byte array function
 array<Byte>^ CrxDBManager::CommonShortArrtoByteArr(int len, array<unsigned short>^ shrtarr)
 {
-	int val =0;//value to run number of loops
-	int byt =0;//value to store data in array location	
-	array<Byte>^ bufferarr;//Temporary byte array object for manipulation
-	array<Byte>^ bufferArrRet;//Temporary byte array object for manipulation and returning
+	int val						=	0;	//value to run number of loops
+	int byt						=	0;	//value to store data in array location	
+	array<Byte>^ bufferarr;				//Temporary byte array object for manipulation
+	array<Byte>^ bufferArrRet;			//Temporary byte array object for manipulation and returning
 
 	try
 	{
@@ -993,16 +1043,16 @@ array<Byte>^ CrxDBManager::CommonShortArrtoByteArr(int len, array<unsigned short
 	catch(Exception^)
 	{
 		// throw the exception
-		throw gcnew CrxException("CRX_ERR_DBMGR_CONVERSION");
+		throw gcnew ScorException(CRX_ERR_DBMGR_CONVERSION, "CRX_ERR_DBMGR_CONVERSION", ErrorSeverity::Exception);
 	} 
 }
 array<Byte>^ CrxDBManager::CommonFloatArrtoByteArr(int len, array<float>^ fltarr)
 {
-	int val =0;//value to run number of loops
-	int byt =0;//value to store data in array location	
-	array<Byte>^ bufferarr;//Temporary byte array object for manipulation
-	array<Byte>^ bufferArrRet;//Temporary byte array object for manipulation and returning
-	float tempflt = 0.0f;//Temporary float vlaue for storing rounded decimal value
+	int val						=	0;	//value to run number of loops
+	int byt						=	0;	//value to store data in array location	
+	array<Byte>^ bufferarr;				//Temporary byte array object for manipulation
+	array<Byte>^ bufferArrRet;			//Temporary byte array object for manipulation and returning
+	float tempflt				= 0.0f;	//Temporary float vlaue for storing rounded decimal value
 
 	try
 	{
@@ -1030,7 +1080,7 @@ array<Byte>^ CrxDBManager::CommonFloatArrtoByteArr(int len, array<float>^ fltarr
 	catch(Exception^)
 	{
 		// throw the exception
-		throw gcnew CrxException("CRX_ERR_DBMGR_CONVERSION");
+		throw gcnew ScorException(CRX_ERR_DBMGR_CONVERSION, "CRX_ERR_DBMGR_CONVERSION", ErrorSeverity::Exception);
 	} 
 }
 
@@ -1042,10 +1092,10 @@ array<Byte>^ CrxDBManager::CommonFloatArrtoByteArr(int len, array<float>^ fltarr
 
 array<float>^ CrxDBManager::CommonByteArrtoFloatArr(int len, array<Byte>^ bytearr)
 {
-	int val = 0;//value to run number of loops
-	int arr = 0;//value to get data in array location
-	float value =0.0f;//Temporary value for the manipulation	
-	array<float>^  tempbuffer;//Temporary float array object for manipulation and returning
+	int val						= 0;	//value to run number of loops
+	int arr						= 0;	//value to get data in array location
+	float value					= 0.0f;	//Temporary value for the manipulation	
+	array<float>^  tempbuffer;			//Temporary float array object for manipulation and returning
 
 	try
 	{
@@ -1063,16 +1113,16 @@ array<float>^ CrxDBManager::CommonByteArrtoFloatArr(int len, array<Byte>^ bytear
 	catch(Exception^)
 	{
 		// throw the exception
-		throw gcnew CrxException("CRX_ERR_DBMGR_CONVERSION");
+		throw gcnew ScorException(CRX_ERR_DBMGR_CONVERSION, "CRX_ERR_DBMGR_CONVERSION", ErrorSeverity::Exception);
 	} 
 }
 
 array<unsigned short>^ CrxDBManager::CommonByteArrtoShortArr(int len, array<Byte>^ bytearr)
 {
-	int val = 0;//value to run number of loops
-	int arr = 0;//value to get data in array location
-	short value =0;//Temporary value for the manipulation	
-	array<unsigned short>^  tempbuffer;//Temporary short array object for manipulation and returning
+	int val								= 0;	//value to run number of loops
+	int arr								= 0;	//value to get data in array location
+	short value							= 0;	//Temporary value for the manipulation	
+	array<unsigned short>^  tempbuffer;		//Temporary short array object for manipulation and returning
 
 	try
 	{
@@ -1090,14 +1140,14 @@ array<unsigned short>^ CrxDBManager::CommonByteArrtoShortArr(int len, array<Byte
 	catch(Exception^)
 	{
 		// throw the exception
-		throw gcnew CrxException("CRX_ERR_DBMGR_CONVERSION");
+		throw gcnew ScorException(CRX_ERR_DBMGR_CONVERSION, "CRX_ERR_DBMGR_CONVERSION", ErrorSeverity::Exception);
 	} 
 }
 
 int CrxDBManager::DatabaseBackup(System::String ^filePath)
 {
-	int result = 0;//initializes to 0, if 1 successful else return zero
-	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
+	int result				= 0;//initializes to 0, if 1 successful else return zero
+	DbCommand^ addCommand	= nullptr; // store the stored procedure in addCommand object
 
 
 	try
@@ -1118,7 +1168,7 @@ int CrxDBManager::DatabaseBackup(System::String ^filePath)
 		return result;
 		
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -1126,20 +1176,20 @@ int CrxDBManager::DatabaseBackup(System::String ^filePath)
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 }
 int CrxDBManager::DatabaseRestore(System::String ^filePath)
 {
-	int result = 0;//initializes to 0, if 1 successful else return zero
-	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
-	String^ filePathSet = nullptr; //To store the reformated connection string,intializes to nullptr
+	int result				= 0;		//initializes to 0, if 1 successful else return zero
+	DbCommand^ addCommand	= nullptr;  // store the stored procedure in addCommand object
+	String^ filePathSet		= nullptr;  //To store the reformated connection string,intializes to nullptr
 
 	filePathSet  = String::Format("'{0}'" , filePath);
 
 	try
 	{		
-		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE AtCor" + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE"+ " RESTORE DATABASE AtCor FROM DISK = " + filePathSet + " WITH REPLACE"); 
+		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE " + DBname + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE"+ " RESTORE DATABASE " + DBname + " FROM DISK = " + filePathSet + " WITH REPLACE"); 
 
 		result = _objDB->ExecuteNonQuery(addCommand);	
 
@@ -1151,7 +1201,7 @@ int CrxDBManager::DatabaseRestore(System::String ^filePath)
 		return result;
 		
 	}
-	catch(CrxException^ crxObj)
+	catch(ScorException^ crxObj)
 	{
 		// rethrow the exception
 		throw crxObj;
@@ -1159,7 +1209,7 @@ int CrxDBManager::DatabaseRestore(System::String ^filePath)
 	catch(Exception^ eObj)
 	{		
 		// throw the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 	finally
 	{
@@ -1171,7 +1221,184 @@ void CrxDBManager::ResetDatabaseToMultiuser()
 {
 	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
 	
-	addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE AtCor" + " SET MULTI_USER" + " USE [AtCor]" ); 
+	addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE " + DBname +  " SET MULTI_USER" + " USE [" + DBname + "]" ); 
 	
 	_objDB->ExecuteNonQuery(addCommand);
+}
+
+int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
+{
+	//Variables Declaration
+	OleDbConnection^ conn		= nullptr; // Object to store connection
+	OleDbCommand^ cmd			= nullptr; // Object to store execute command
+	OleDbDataReader^ rdr		= nullptr; // Object to store data reader value
+	CrxLogger^ objLog			= nullptr; // Object used to access logger class
+	DbCommand^ addCommand		= nullptr; // store the stored procedure in addCommand object
+	
+	int result					= 0 ; // returns result value
+	int totresult				= 0; // stores total patient migrated
+	int totskipresult			= 0; // stores total patient skipped
+	
+	String^ strFName			= nullptr; // stores the patient first name
+	String^ strLName			= nullptr; // stores the patient last name
+	String^ strPatientExtName	= nullptr; // stores patient external name
+	String^ filePathSet			= nullptr; // stores the formatted file path location
+	String^ details				= nullptr; // stores the patient header details
+	String^ strGender			= nullptr; // stores the gender value
+	String^ totDetailsMigrated	= nullptr; // stores the total patient migrated header
+	String^ totDetailsSkipped	= nullptr; // stores the total patient skipped header
+	String^ patDetails			= nullptr; // stores the skipped patient details
+	String^ srtDate				= nullptr; // stores short date
+	
+	DateTime strDOB;						// stores the date of birth of patient
+
+	try
+	{
+		//Check whether file is exists or not
+		if(!File::Exists(_nameOfAccessFile))
+		{ 
+			throw gcnew ScorException(CRX_ERR_MSACCESS_FILE_NOT_EXIST, "CRX_ERR_MSACCESS_FILE_NOT_EXIST", ErrorSeverity::Exception);// File not found
+		}
+		
+		//Check whether old file is exists or not
+		if(File::Exists(_nameOfAccessFileNew))
+		{ 
+			File::Delete(_nameOfAccessFileNew);
+		}
+
+		//Set the path for MS-Access Connection path
+		filePathSet  = String::Format("PROVIDER=Microsoft.Jet.OLEDB.4.0;Data Source={0}" , _nameOfAccessFile);
+		
+		//Create logger object
+		objLog = CrxLogger::Instance;
+
+		//Create an Connection object
+		conn = gcnew OleDbConnection(filePathSet);
+
+		//Open the connection
+		conn->Open();
+
+		//Create an OleDbCommand object and
+		//pass it the SQL command and the OleDbConnection
+		//object to use to connect to the database
+		cmd = gcnew OleDbCommand("Select * from patient",conn);
+		
+		//Create the reader object
+		rdr = cmd->ExecuteReader();
+		
+		objLog->Write("Migration started.");
+		details = String::Format("Patients skipped : Id         First Name                Last Name                 Gender DOB ");
+		objLog->Write(details);
+		details = nullptr;
+
+		//Keep reading records in the forward direction
+		while (rdr->Read())
+		{		   
+		   //Reinitialize the values
+			strFName			= nullptr;
+			strLName			= nullptr;
+			strPatientExtName	= nullptr;
+			filePathSet			= nullptr;
+			strGender			= nullptr;
+			patDetails			= nullptr;
+			srtDate				= nullptr;
+			result				= 0;
+			
+			strPatientExtName	= rdr->GetValue(DBMGR_COLUMN_PAT_EXT_NAME)->ToString();
+			strLName			= rdr->GetValue(DBMGR_COLUMN_PAT_LAST_NAME)->ToString();
+			strFName			= rdr->GetValue(DBMGR_COLUMN_PAT_FIRST_NAME)->ToString();
+			strDOB				= Convert::ToDateTime(rdr->GetValue(DBMGR_COLUMN_PAT_DOB));
+			strGender			= rdr->GetValue(DBMGR_COLUMN_PAT_GENDER)->ToString();		
+			
+			//get the Stored Procedure query using database object
+			addCommand = _objDB->GetStoredProcCommand("MigratePatientDetails");
+
+			_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,systemIdentifier);
+			_objDB->AddInParameter(addCommand,"@patientIDExternalReference",DbType::String,strPatientExtName);
+			_objDB->AddInParameter(addCommand,"@LastName",DbType::String,strLName);
+			_objDB->AddInParameter(addCommand,"@FirstName",DbType::String,strFName);
+			_objDB->AddInParameter(addCommand,"@DateOfBirth",DbType::DateTime,strDOB);
+			_objDB->AddInParameter(addCommand,"@gender",DbType::String,strGender);
+			_objDB->AddInParameter(addCommand,"@groupName",DbType::String,groupName);
+
+			//Execute stored procedure and return positive value if successful
+			result = _objDB->ExecuteNonQuery(addCommand);	
+
+			if(result > 0)
+			{
+				totresult = totresult + 1;
+			}
+			else
+			{
+				//Log the skipped patient details in the scor.log file
+				totskipresult = totskipresult + 1;	
+				srtDate =  strDOB.ToShortDateString();
+				details = "";
+				patDetails = String::Format("{0} {1} {2} {3} {4} {5}" , details->PadRight(18), strPatientExtName->PadRight(10), strFName->PadRight(25), strLName->PadRight(25), strGender->PadRight(6), srtDate);
+				details = nullptr;
+				objLog->Write(patDetails);				
+			}			
+		}
+	
+		//Log total patient migrated and skipped in the scor.log file
+		totDetailsMigrated = String::Format("Total patients migrated: {0}",totresult); 
+		totDetailsSkipped = String::Format("Total patients skipped : {0}",totskipresult); 
+		objLog->Write(totDetailsSkipped);
+		objLog->Write(totDetailsMigrated);	
+
+		objLog->Write("Migration completed.");
+
+		//Close the connection to the MS-Access database
+		conn->Close();
+
+		//Rename the migration file from scor.xyz to scor.xyz.old
+		File::Move(_nameOfAccessFile,_nameOfAccessFileNew);
+
+		return result= 0;
+	}
+	catch(ScorException^ crxObj)
+	{
+		// rethrow the exception
+		throw crxObj;		
+	}
+
+	catch(IOException^ eObj)
+	{
+		objLog->Write("Unable to rename scor.xyz to scor.xyz.old");
+		throw gcnew ScorException(eObj);
+	}
+
+	catch(Exception^ eObj)
+	{
+		objLog->Write("Migration failed.");
+		throw gcnew ScorException(eObj);
+	}
+
+	finally
+	{
+		//Close the connection to the database
+		if(conn)
+		{
+			conn->Close();
+		}		
+	}
+
+}
+bool CrxDBManager::MigrationFileExist()
+{
+	bool result = true;//initializes to true, if true exist else not exist
+
+	try
+	{
+		//Check whether file is exists or not
+		if(!File::Exists(_nameOfAccessFile))
+		{ 
+			result = false;
+		}     
+		return result;
+	}
+	catch(Exception^)
+	{
+		return result = false;
+	}
 }

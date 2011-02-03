@@ -55,8 +55,6 @@
             this.radlblCurrentMode = new Telerik.WinControls.UI.RadLabel();
             this.radStatusBar = new Telerik.WinControls.UI.RadStatusStrip();
             this.object_b537593d_058e_4cff_9f9f_429c5f332e49 = new Telerik.WinControls.RootRadElement();
-            this.tblStatusBar = new System.Windows.Forms.TableLayoutPanel();
-            this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -87,6 +85,7 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.roundRectShape1 = new Telerik.WinControls.RoundRectShape(this.components);
+            this.guiradlblEnvironment = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.radlblCaptureTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radlblMessage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radlblPatientName)).BeginInit();
@@ -94,8 +93,6 @@
             this.radpgTabCollection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radlblCurrentMode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusBar)).BeginInit();
-            this.tblStatusBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradgridReportAssessment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradgridReportAssessment.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
@@ -105,6 +102,7 @@
             this.radPanelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiWaitingStatusBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblEnvironment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,27 +111,28 @@
             this.radlblCaptureTime.AutoSize = false;
             this.radlblCaptureTime.BackColor = System.Drawing.Color.Transparent;
             this.radlblCaptureTime.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radlblCaptureTime.Location = new System.Drawing.Point(710, 14);
+            this.radlblCaptureTime.Location = new System.Drawing.Point(174, 19);
             this.radlblCaptureTime.Name = "radlblCaptureTime";
-            this.radlblCaptureTime.Size = new System.Drawing.Size(114, 23);
+            this.radlblCaptureTime.Size = new System.Drawing.Size(178, 19);
             this.radlblCaptureTime.TabIndex = 3;
             // 
             // radlblMessage
             // 
             this.radlblMessage.BackColor = System.Drawing.Color.Transparent;
             this.radlblMessage.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radlblMessage.Location = new System.Drawing.Point(327, 20);
+            this.radlblMessage.Location = new System.Drawing.Point(367, 20);
             this.radlblMessage.Name = "radlblMessage";
             this.radlblMessage.Size = new System.Drawing.Size(2, 2);
             this.radlblMessage.TabIndex = 0;
             // 
             // radlblPatientName
             // 
+            this.radlblPatientName.AutoSize = false;
             this.radlblPatientName.BackColor = System.Drawing.Color.Transparent;
             this.radlblPatientName.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radlblPatientName.Location = new System.Drawing.Point(35, 19);
             this.radlblPatientName.Name = "radlblPatientName";
-            this.radlblPatientName.Size = new System.Drawing.Size(2, 2);
+            this.radlblPatientName.Size = new System.Drawing.Size(150, 25);
             this.radlblPatientName.TabIndex = 1;
             // 
             // radpgTabCollection
@@ -149,7 +148,7 @@
             // 
             // 
             this.radpgTabCollection.RootElement.AutoSize = false;
-            this.radpgTabCollection.SelectedPage = this.radtabCapture;
+            this.radpgTabCollection.SelectedPage = this.guiradgrpbxPwvDistanceMethod;
             this.radpgTabCollection.Size = new System.Drawing.Size(1014, 637);
             this.radpgTabCollection.TabIndex = 2;
             this.radpgTabCollection.Text = "Report";
@@ -164,9 +163,9 @@
             // guiradgrpbxPwvDistanceMethod
             // 
             this.guiradgrpbxPwvDistanceMethod.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradgrpbxPwvDistanceMethod.Location = new System.Drawing.Point(10, 35);
+            this.guiradgrpbxPwvDistanceMethod.Location = new System.Drawing.Point(9, 34);
             this.guiradgrpbxPwvDistanceMethod.Name = "guiradgrpbxPwvDistanceMethod";
-            this.guiradgrpbxPwvDistanceMethod.Size = new System.Drawing.Size(993, 591);
+            this.guiradgrpbxPwvDistanceMethod.Size = new System.Drawing.Size(995, 593);
             this.guiradgrpbxPwvDistanceMethod.Text = "Setup";
             // 
             // radtabCapture
@@ -180,9 +179,9 @@
             // 
             // radtabReport
             // 
-            this.radtabReport.Location = new System.Drawing.Point(10, 35);
+            this.radtabReport.Location = new System.Drawing.Point(9, 34);
             this.radtabReport.Name = "radtabReport";
-            this.radtabReport.Size = new System.Drawing.Size(993, 591);
+            this.radtabReport.Size = new System.Drawing.Size(995, 593);
             this.radtabReport.Text = "Report";
             // 
             // radlblCurrentMode
@@ -218,40 +217,6 @@
             this.object_b537593d_058e_4cff_9f9f_429c5f332e49.Name = "object_b537593d_058e_4cff_9f9f_429c5f332e49";
             this.object_b537593d_058e_4cff_9f9f_429c5f332e49.StretchHorizontally = true;
             this.object_b537593d_058e_4cff_9f9f_429c5f332e49.StretchVertically = true;
-            // 
-            // tblStatusBar
-            // 
-            this.tblStatusBar.BackColor = System.Drawing.Color.Transparent;
-            this.tblStatusBar.ColumnCount = 6;
-            this.tblStatusBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.99435F));
-            this.tblStatusBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.00565F));
-            this.tblStatusBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 399F));
-            this.tblStatusBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 241F));
-            this.tblStatusBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblStatusBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblStatusBar.Controls.Add(this.radLabel3, 0, 0);
-            this.tblStatusBar.Font = new System.Drawing.Font("Verdana", 8F);
-            this.tblStatusBar.Location = new System.Drawing.Point(26, 745);
-            this.tblStatusBar.Name = "tblStatusBar";
-            this.tblStatusBar.RowCount = 1;
-            this.tblStatusBar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblStatusBar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblStatusBar.Size = new System.Drawing.Size(966, 29);
-            this.tblStatusBar.TabIndex = 9;
-            // 
-            // radLabel3
-            // 
-            this.radLabel3.AutoSize = false;
-            this.radLabel3.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radLabel3.Location = new System.Drawing.Point(3, 3);
-            this.radLabel3.Name = "radLabel3";
-            this.radLabel3.Size = new System.Drawing.Size(20, 20);
-            this.radLabel3.TabIndex = 4;
-            // 
-            // timer2
-            // 
-            this.timer2.Interval = 20;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // object_bbfc195f_e97e_4154_8f63_2eec98f43230
             // 
@@ -509,10 +474,10 @@
             // 
             this.radPanelBottom.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("radPanelBottom.BackgroundImage")));
             this.radPanelBottom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.radPanelBottom.Controls.Add(this.radlblMessage);
             this.radPanelBottom.Controls.Add(this.guiWaitingStatusBar);
             this.radPanelBottom.Controls.Add(this.radLabel4);
             this.radPanelBottom.Controls.Add(this.radlblCaptureTime);
-            this.radPanelBottom.Controls.Add(this.radlblMessage);
             this.radPanelBottom.Controls.Add(this.radlblPatientName);
             this.radPanelBottom.Font = new System.Drawing.Font("Verdana", 8F);
             this.radPanelBottom.Location = new System.Drawing.Point(1, 677);
@@ -524,7 +489,7 @@
             // guiWaitingStatusBar
             // 
             this.guiWaitingStatusBar.BackColor = System.Drawing.Color.Transparent;
-            this.guiWaitingStatusBar.Location = new System.Drawing.Point(327, 15);
+            this.guiWaitingStatusBar.Location = new System.Drawing.Point(391, 15);
             this.guiWaitingStatusBar.Name = "guiWaitingStatusBar";
             // 
             // 
@@ -575,14 +540,23 @@
             this.saveFileDialog1.FileName = "Atcor-Scor10.0.bak";
             this.saveFileDialog1.Filter = "*.bak|";
             this.saveFileDialog1.InitialDirectory = "g:\\vibhuti\\";
+            this.saveFileDialog1.RestoreDirectory = true;
             this.saveFileDialog1.Title = "Database backup";
+            // 
+            // guiradlblEnvironment
+            // 
+            this.guiradlblEnvironment.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblEnvironment.Location = new System.Drawing.Point(945, 56);
+            this.guiradlblEnvironment.Name = "guiradlblEnvironment";
+            this.guiradlblEnvironment.Size = new System.Drawing.Size(2, 2);
+            this.guiradlblEnvironment.TabIndex = 13;
             // 
             // DefaultWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1036, 780);
-            this.Controls.Add(this.tblStatusBar);
+            this.Controls.Add(this.guiradlblEnvironment);
             this.Controls.Add(this.radPanelBottom);
             this.Controls.Add(this.radPanel1);
             this.Controls.Add(this.radlblCurrentMode);
@@ -607,8 +581,6 @@
             this.radpgTabCollection.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radlblCurrentMode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusBar)).EndInit();
-            this.tblStatusBar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradgridReportAssessment.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradgridReportAssessment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).EndInit();
@@ -620,6 +592,7 @@
             this.radPanelBottom.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiWaitingStatusBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblEnvironment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -629,11 +602,9 @@
         #endregion
 
         public Telerik.WinControls.UI.RadLabel radlblMessage;
-        private Telerik.WinControls.UI.RadLabel radlblCaptureTime;
         private Telerik.WinControls.UI.RadLabel radlblCurrentMode;
         private Telerik.WinControls.UI.RadStatusStrip radStatusBar;
         private Telerik.WinControls.RootRadElement object_b537593d_058e_4cff_9f9f_429c5f332e49;
-        private System.Windows.Forms.TableLayoutPanel tblStatusBar;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Timer timer1;
@@ -659,9 +630,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        public Telerik.WinControls.UI.RadLabel radLabel3;
         private Telerik.WinControls.UI.RadLabel radLabel4;
-        private Telerik.WinControls.UI.RadWaitingBar guiWaitingStatusBar;
         private Telerik.WinControls.RoundRectShape roundRectShape1;
         private Telerik.WinControls.UI.RadMenuItem guiradmenuahomepage;
         public Telerik.WinControls.UI.RadPageViewPage radtabCapture;
@@ -670,5 +639,8 @@
         public Telerik.WinControls.UI.RadMenuItem guiradmenuBackup;
         public Telerik.WinControls.UI.RadMenuItem guiradmenuRestore;
         public Telerik.WinControls.UI.RadMenu guiradmnuScor;
+        public Telerik.WinControls.UI.RadLabel radlblCaptureTime;
+        private Telerik.WinControls.UI.RadLabel guiradlblEnvironment;
+        private Telerik.WinControls.UI.RadWaitingBar guiWaitingStatusBar;
     }
 }

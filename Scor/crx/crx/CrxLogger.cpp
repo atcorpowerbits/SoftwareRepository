@@ -11,14 +11,18 @@
 
 #include "stdafx.h"
 #include "CrxLogger.h"
+#include "CrxMessaging.h"
+#include "ScorException.h"
 
 
 using namespace AtCor::Scor::CrossCutting::Logging;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace System::Diagnostics;
 using namespace System;
 using namespace System::Collections::Generic;
 using namespace  Microsoft::Practices::EnterpriseLibrary::Logging;
 using namespace System::IO;
+using namespace AtCor::Scor::CrossCutting;
 
 
 //Constructor for CrxLogger
@@ -38,14 +42,27 @@ void CrxLogger::Write(String^ message)
 
 	if (entryLineNumber == 0)
 	{
+		String^ headerString;
+		CrxMessagingManager ^messageMgr = CrxMessagingManager::Instance;
+
+		String ^headerSeperator = messageMgr->GetMessage("CRX_LOG_FILE_HEADER_SEPERATOR");
+
 		//this is the first line write a header
 		//then proceed to next line
-		String^ headerString = "Line SphygmoCor Log File ~ " + (DateTime::Today).ToString("d") + " ~ " + (DateTime::Now).ToString("HH:mm:ss");
-	
-		LogEntry^ logEnt = gcnew LogEntry();
-		logEnt->Message = headerString;
-		//Write the passed message to the LogWriter
-		CrxLogWriter->Write(logEnt);
+		headerString = messageMgr->GetMessage("CRX_LOG_FILE_HEADER_LINE")+ headerSeperator + (DateTime::Today).ToString("dd/MM/yyyy") + headerSeperator + (DateTime::Now).ToString("HH:mm:ss");
+
+
+		//open a stream writer and log an entry directly.
+		//We cant  use the Loggers methods because it formats a log entry from the string.
+		StreamWriter ^curLogFileFileStream;
+		curLogFileFileStream = gcnew StreamWriter(File::Open("system\\logs\\scor.log", FileMode::Append)); //open in append mode.
+		//write the header line
+		curLogFileFileStream->WriteLine(headerString);
+		//insert a blank line
+		curLogFileFileStream->WriteLine("");
+		//close the filestream.
+		curLogFileFileStream->Close();
+
 	}
 	
 	entryLineNumber++; //Increment the number before we actually write it.
@@ -56,6 +73,7 @@ void CrxLogger::Write(String^ message)
 	logEnt->Title = Convert::ToString(entryLineNumber);
 	//Write the passed message to the LogWriter
 	CrxLogWriter->Write(logEnt);
+
 
   if (entryLineNumber >= 1600) 
   {
@@ -124,7 +142,7 @@ bool CrxLogger::RollLogFile()
 	  }
 	  catch(Exception ^)
 	  {
-		  throw gcnew CrxException("CRX_ERR_FILE_ALREADY_EXIST");
+		  throw gcnew ScorException(CRX_ERR_FILE_ALREADY_EXIST, "CRX_ERR_FILE_ALREADY_EXIST", ErrorSeverity::Exception);
 	  }
 	
 	  //now recreate the log file again . it will begin from scor.log
@@ -134,5 +152,10 @@ bool CrxLogger::RollLogFile()
 		entryLineNumber = 0;
 
 		return true;
+}
+
+CrxLogger::~CrxLogger()
+{
+	delete CrxLogWriter;
 }
 

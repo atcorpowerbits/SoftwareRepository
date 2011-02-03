@@ -258,6 +258,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ScorException.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Stdafx.cpp"
 				>
 				<FileConfiguration
@@ -325,6 +329,10 @@
 			</File>
 			<File
 				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ScorException.h"
 				>
 			</File>
 			<File

@@ -11,6 +11,7 @@
 #include "stdafx.h"
 #include "CrxConfiguration.h"
 #include "CrxCrossCutting.h"
+#include "ScorException.h"
 
 using namespace System;// For String, Console
 using namespace System::Xml;// For XML classes and enums
@@ -36,6 +37,10 @@ void CrxConfigManager::GetGeneralDefaultSettings(CrxStructGeneralSetting^ objGen
 	objGenSettings->ServerName					= _gSetInternal->ServerName;
 	objGenSettings->SourceData					= _gSetInternal->SourceData;
 	objGenSettings->CultureInfo					= _gSetInternal->CultureInfo;
+	objGenSettings->MachineName					= _gSetInternal->MachineName;
+	objGenSettings->StartupMode					= _gSetInternal->StartupMode;
+	objGenSettings->StartupScreen				= _gSetInternal->StartupScreen;
+	objGenSettings->EnvironmentSettings			= "Clinical";
 }
 
 //To get User Settings from the file
@@ -91,7 +96,7 @@ void CrxConfigManager::SetSettings(String^ Section, String^ SubSection, CrxStruc
 		//Check whether file is exists or not
 		if(!File::Exists(_nameOfFile))
 		{ 
-			throw gcnew CrxException("CRX_ERR_FILE_NOT_EXIST"); // File not found
+			throw gcnew ScorException(CRXERR_FILE_NOT_EXIST, "CRX_ERR_FILE_NOT_EXIST", ErrorSeverity::Exception);// File not found
 		}		
 		
 		//Check whether File Access is provided or not
@@ -101,13 +106,13 @@ void CrxConfigManager::SetSettings(String^ Section, String^ SubSection, CrxStruc
 		}
 		catch(Exception^)
 		{
-			throw gcnew CrxException("CRX_ERR_FILE_CANNOT_ACCESS"); // File not accessable
+			throw gcnew ScorException(CRXERR_FILE_NOT_ACCESS, "CRX_ERR_FILE_CANNOT_ACCESS", ErrorSeverity::Exception);// File not accessable
 		}
 
 		//Check whether have the access to write or not
 		if(!fs->CanWrite)
 		{
-			throw gcnew CrxException("CRX_ERR_FILE_CANNOT_ACCESS"); // File not accessable
+			throw gcnew ScorException(CRXERR_FILE_NOT_ACCESS, "CRX_ERR_FILE_CANNOT_ACCESS", ErrorSeverity::Exception);// File not accessable
 		}
 		
 		//Close the file Access Object
@@ -139,7 +144,7 @@ void CrxConfigManager::SetSettings(String^ Section, String^ SubSection, CrxStruc
 	}
 	catch (XmlException^) 
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT"); // any xml exception is rethrown as corrupt file exception
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);// any xml exception is rethrown as corrupt file exception
 	}
 	
 	finally 
@@ -168,7 +173,7 @@ void CrxConfigManager::SetSettingsNode(String^ Section, String^ SubSection, CrxS
 	//Check if node is empty or not, if empty throw exception
 	if (node == nullptr)
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);
 	}
 
 	//Processes each node for values
@@ -210,7 +215,7 @@ void CrxConfigManager::SetSettingsNode(String^ Section, String^ SubSection, CrxS
 	}
 	if (startflag == false)
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);
 	}
 }
 
@@ -274,9 +279,27 @@ void CrxConfigManager::SetGeneralSettingsNode(CrxStructGeneralSetting^ gs, XmlNo
 	{
 		CrxConfigManager::SetCultureInfo(gs, node);
 	}
+	//Calls function if node element is Machine Name
+	else
+	if(SubSectionNodeName == "MACHINENAME")
+	{
+		CrxConfigManager::SetMachineName(gs, node);
+	}
+	//Calls function if node element is StartupMode
+	else
+	if(SubSectionNodeName == "STARTUPMODE")
+	{
+		
+	}
+	//Calls function if node element is StartupScreen
+	else
+	if(SubSectionNodeName == "STARTUPSCREEN")
+	{
+		
+	}
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file		
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
 	}
 }
 
@@ -323,7 +346,7 @@ void CrxConfigManager::SetPwvSettingsNode(CrxStructPwvSetting^ ps, XmlNode^ node
 	}
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file		
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
 	}
 }
 
@@ -338,14 +361,14 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 	String^ GetXMLSection		= "'";		//Gets the XML section name
 	String^ GetSectionName		= nullptr;  //Store section name to get the value
 	String^ ReaderValue			= nullptr;  //Store XML Node Reader value
-	String^ configXMLElements   = L"'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'REFERENCERANGE', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO'";
+	String^ configXMLElements   = L"'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'REFERENCERANGE', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN'";
 
 	try 
 	{
 		//Check whether file is exists or not
 		if(!File::Exists(_nameOfFile))
 		{
-			throw gcnew CrxException("CRX_ERR_FILE_NOT_EXIST"); // File not found
+			throw gcnew ScorException(CRXERR_FILE_NOT_EXIST, "CRX_ERR_FILE_NOT_EXIST", ErrorSeverity::Exception);// File not found
 		}
 	
 		//Reads the XML data from filepath and store in reader object
@@ -371,7 +394,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 					//Validate if the Element name is valid or not, if not, throws exception
 					if(!configXMLElements->Contains("'" + GetXMLSection + "'"))
 					{
-						throw gcnew CrxException("CRX_ERR_FILE_CORRUPT"); //corrupt file
+						throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
 					}
 
 					if(Section == GetXMLSection)
@@ -386,7 +409,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 					//Check if the Element is Empty or not, if yes, throws exception
                     if (reader->IsEmptyElement) 
 					{
-						throw gcnew CrxException("CRX_ERR_FILE_CORRUPT"); //corrupt file
+						throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
 					}
 					break; 
 
@@ -409,7 +432,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 					}
 				
 					//Store the Text value temporarily
-					ReaderValue = reader->Value;
+					ReaderValue = reader->Value->Trim();
 					
 					//Call GetSettingsNode to get value
 					CrxConfigManager::GetSettingsNode(Section, SubSection, GetXMLSection , ReaderValue);
@@ -418,7 +441,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 				
 				//if none of the switch case are valid for node, then default and throw exception
 				default: 
-					throw gcnew CrxException(); //Unknown error with zero error code
+					throw gcnew ScorException(CRXERR_UNKNOWN_EXCEPN, "CRX_UNKNOWN_EXCEPTION", ErrorSeverity::Exception);
 			}
 			if (breakflag) 
 			{
@@ -431,7 +454,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 	catch (XmlException^) 
 	{
 		//Throws again an exception
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT"); // any xml exception is rethrown as corrupt file exception
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);// any xml exception is rethrown as corrupt file exception
 	}
 	//Finally stage to close all open files
 	finally 
@@ -454,7 +477,7 @@ void CrxConfigManager::GetSettingsNode(String^ Section, String^ SubSection, Stri
 	else 
 	if(Section == "PWV")
 	{
-		//Call GetGeneralSettingsNode function to get values of PWV Settings
+		//Call GetPWVSettingsNode function to get values of PWV Settings
 		CrxConfigManager::GetPwvSettingsNode(SubSection,SubSectionNode,ReaderValue);
 	}
 
@@ -518,10 +541,28 @@ void CrxConfigManager::GetGeneralSettingsNode(String^ SubSection, String^ SubSec
 	{
 		CrxConfigManager::GetCultureInfo(SubSection,ReaderValue);
 	}
+	//Calls function if node element is MachineName
+	else
+	if(SubSectionNode == "MACHINENAME")
+	{
+		CrxConfigManager::GetMachineName(SubSection,ReaderValue);
+	}
+	//Calls function if node element is StartupMode
+	else
+	if(SubSectionNode == "STARTUPMODE")
+	{
+		CrxConfigManager::GetStartupMode(SubSection,ReaderValue);
+	}
+	//Calls function if node element is StartupScreen
+	else
+	if(SubSectionNode == "STARTUPSCREEN")
+	{
+		CrxConfigManager::GetStartupScreen(SubSection,ReaderValue);
+	}
 	//If none of the node element matches then throw exception
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
 	}
 }
 void CrxConfigManager::GetPwvSettingsNode(String^ SubSection, String^ SubSectionNode , String^ ReaderValue)
@@ -566,7 +607,7 @@ void CrxConfigManager::GetPwvSettingsNode(String^ SubSection, String^ SubSection
 	}	
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
@@ -587,7 +628,7 @@ void CrxConfigManager::GetPatientPrivacy(String^ SubSection, String^ ReaderValue
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 	PatientPrivacyValue = (tempValue == "YES");
 
@@ -614,7 +655,7 @@ void CrxConfigManager::GetHeightWeight(String^ SubSection, String^ ReaderValue)
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
 	HeightWeight = (tempValue == "METRIC" ? 0 : 1);
@@ -658,7 +699,7 @@ void CrxConfigManager::GetBloodPressureOption(String^ SubSection, String^ Reader
 	}
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
 	if(SubSection == "DEFAULT")
@@ -684,7 +725,7 @@ void CrxConfigManager::GetCommsPort(String^ SubSection, String^ ReaderValue)
 	}	
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
@@ -701,7 +742,7 @@ void CrxConfigManager::GetReportTitle(String^ SubSection, String^ ReaderValue)
 	}
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
@@ -718,7 +759,7 @@ void CrxConfigManager::GetReportLogoPath(String^ SubSection, String^ ReaderValue
 	}
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
@@ -735,7 +776,7 @@ void CrxConfigManager::GetServerName(String^ SubSection, String^ ReaderValue)
 	}
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 void CrxConfigManager::GetSourceData(String^ SubSection, String^ ReaderValue)
@@ -751,7 +792,7 @@ void CrxConfigManager::GetSourceData(String^ SubSection, String^ ReaderValue)
 	}
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 void CrxConfigManager::GetCultureInfo(String^ SubSection, String^ ReaderValue)
@@ -767,7 +808,67 @@ void CrxConfigManager::GetCultureInfo(String^ SubSection, String^ ReaderValue)
 	}
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+}
+
+void CrxConfigManager::GetMachineName(System::String ^SubSection, System::String ^ReaderValue)
+{
+	//Get Report logo path details
+	if(SubSection == "USER")
+	{
+		_instance->_generalSettings->MachineName = ReaderValue;
+	}
+	else if (SubSection == "DEFAULT")
+	{
+		_gSetInternal->MachineName = nullptr;
+	}
+	else
+	{
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+}
+
+void CrxConfigManager::GetStartupMode(System::String ^SubSection, System::String ^ReaderValue)
+{
+	if(SubSection =="USER")
+	{
+		_instance->_generalSettings->StartupMode = ReaderValue;
+	}
+	else if(SubSection == "DEFAULT")
+	{
+		_gSetInternal->StartupMode = ReaderValue;
+	}
+	else
+	{
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+}
+
+void CrxConfigManager::GetStartupScreen(System::String ^SubSection, System::String ^ReaderValue)
+{
+	String^ tempValue  = nullptr;
+	String^ chkVal = nullptr;
+
+	tempValue  = ReaderValue->ToUpper();
+	chkVal = "'SETUP'";
+
+	if(chkVal->Contains("'" + tempValue + "'") == false)
+	{
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+
+	if(SubSection =="USER")
+	{
+		_instance->_generalSettings->StartupScreen = ReaderValue;
+	}
+	else if(SubSection == "DEFAULT")
+	{
+		_gSetInternal->StartupScreen = ReaderValue;
+	}
+	else
+	{
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
@@ -787,7 +888,7 @@ void CrxConfigManager::GetFemoralToCuff(String^ SubSection, String^ ReaderValue)
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 	FemoralCuff = (tempValue == "YES");
 
@@ -813,7 +914,7 @@ void CrxConfigManager::GetReferenceRange(String^ SubSection, String^ ReaderValue
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 	RefRange = (tempValue == "YES");
 
@@ -839,7 +940,7 @@ void CrxConfigManager::GetPwvDistanceUnits(String^ SubSection, String^ ReaderVal
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
 	DistanceUnits = (tempValue == "MM" ? 0 : 1);
@@ -865,7 +966,7 @@ void CrxConfigManager::GetPwvDistanceMethods(String^ SubSection, String^ ReaderV
 
 	if(chkVal->Contains("'" + tempValue + "'") == false)
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
 	DistanceMethods = (tempValue == "SUBTRACTING" ? 0 : 1);
@@ -908,7 +1009,7 @@ void CrxConfigManager::GetCaptureTime(String^ SubSection, String^ ReaderValue)
 	}
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
 	if(SubSection == "DEFAULT")
@@ -934,7 +1035,7 @@ void CrxConfigManager::GetSimulationType(String^ SubSection, String^ ReaderValue
 	}
 	else
 	{
-		throw gcnew CrxException("CRX_ERR_FILE_CORRUPT");//corrupt file
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 //********************************************
@@ -1054,7 +1155,17 @@ void CrxConfigManager::SetCultureInfo(CrxStructGeneralSetting^ gs, XmlNode^ node
     }
 }
 
-
+void CrxConfigManager::SetMachineName(AtCor::Scor::CrossCutting::Configuration::CrxStructGeneralSetting ^gs, System::Xml::XmlNode ^node)
+{
+	if(gs->MachineName != nullptr)
+	{
+		node->InnerText = gs->MachineName;
+	}
+	else
+	{
+		node->InnerText = " ";
+	}
+}
 //********************************************
 //Set PWV Settings Functions
 //********************************************

@@ -87,15 +87,15 @@ namespace AtCor{
 						* Data for the event.
 						*/
 						property DalCuffStateFlags CuffStateFlag;
-						property long countDownTimerValue;
-						property long cuffPressure;
+						/*property long countDownTimerValue;
+						property long cuffPressure;*/
 
 						/**
 						* Constructor for the class.
 						*
-						* @param[in] data	The data for the event (cuff status changed event).						
+						* @param[in] cuffStateFlag	The data for the event (The resolved status flag).						
 						*/
-						DalCuffStatusEventArgs_ORI(DalCuffStateFlags cuffStateFlag, long countDownTimerValue, long cuffPressure);
+						DalCuffStatusEventArgs_ORI(DalCuffStateFlags cuffStateFlag);
 				};
 
 				/**
@@ -377,12 +377,12 @@ namespace AtCor{
 						//		_dalErrorAlarmSourceEventHandler -= handler;
 						//	}
 
-						//	/**
+						//	/*
 						//	* Overloaded raise method.
 						//	* Needed to raise an event.
 						//	*
 						//	* @param[in]	sender	Reference to object that raised the event.
-						//	* @param[in[	args	The arguments for this event. Should be of the type DalErrorAlarmSourceEventArgs.
+						//	* @param[in]	args	The arguments for this event. Should be of the type DalErrorAlarmSourceEventArgs.
 						//	*/
 						//	void raise(Object^ sender, DalErrorAlarmSourceEventArgs ^ args)
 						//	{

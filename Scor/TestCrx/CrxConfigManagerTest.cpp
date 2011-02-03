@@ -41,9 +41,7 @@ namespace TestCrx {
 			void SetPath()
 			{
 				String^ path = Directory::GetCurrentDirectory(); 
-				//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults");
-				Directory::SetCurrentDirectory("D:\\Deepak Share\\Sprint 5\\Scor\\TestResults");
-				//Directory::SetCurrentDirectory("D:\\Deepak\\Scor\\TestResults");
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults");
 			}
 
 #pragma region Additional test attributes
@@ -114,6 +112,19 @@ namespace TestCrx {
 				Assert::AreEqual(expected, actual);
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
+	//		/// <summary>
+	//		///A test for SetSourceData
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetSourceDataTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			target->SetSourceData(gs, node);
+	//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
 	//		/// <summary>
@@ -131,7 +142,7 @@ namespace TestCrx {
 	//		}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings/SetGeneralSettings
-			 ///<summary>
+			///<summary>
 			///A test for SetSettingsNode
 			///</summary>
 	public: [TestMethod]
@@ -431,6 +442,19 @@ namespace TestCrx {
 	//			//target->SetPatientPrivacy(gs, node);
 	//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 	//		}
+	//		/// <summary>
+	//		///A test for SetMachineName
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void SetMachineNameTest()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+	//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+	//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+	//			target->SetMachineName(gs, node);
+	//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+	//		}
 			//Smarajit Mishra
 			//This method don't need to be called,as is will be covered in the method SetGeneralUserSettings
 
@@ -466,9 +490,12 @@ namespace TestCrx {
 				gs->PatientPrivacy = true;
 				gs->ReportLogoPath = "D:\\EXTRA_DESKTOP\\ERROR.JPG";
 				gs->ReportTitle = "REPORT DEM TESTFORme";
-				gs->ServerName = "MUM-9638\\SQLEXPRESS";
+				gs->ServerName = "SQLEXPRESS";
 				gs->SourceData = "SQLCLIENT";
 				gs->CultureInfo = "fr-FR";
+				gs->MachineName = "MUM-9638";
+				gs->StartupMode = "PWV";
+				gs->StartupScreen = "Setup";
 
 				target->SetGeneralUserSettings(gs);
 
@@ -480,10 +507,14 @@ namespace TestCrx {
 				Assert::AreEqual("Simulation", target->_instance->GeneralSettings->CommsPort);
 				Assert::AreEqual("REPORT DEM TESTFORme", target->_instance->GeneralSettings->ReportTitle);
 				Assert::AreEqual("D:\\EXTRA_DESKTOP\\ERROR.JPG", target->_instance->GeneralSettings->ReportLogoPath);
-				Assert::AreEqual("MUM-9638\\SQLEXPRESS", target->_instance->GeneralSettings->ServerName);
+				Assert::AreEqual("SQLEXPRESS", target->_instance->GeneralSettings->ServerName);
 				Assert::AreEqual("SQLCLIENT", target->_instance->GeneralSettings->SourceData);
 				Assert::AreEqual("fr-FR", target->_instance->GeneralSettings->CultureInfo);
 				
+				Assert::AreEqual("MUM-9638", target->_instance->GeneralSettings->MachineName);
+				Assert::AreEqual("PWV", target->_instance->GeneralSettings->StartupMode);
+				Assert::AreEqual("Setup", target->_instance->GeneralSettings->StartupScreen);
+
 				gs->BloodPressureEntryOptions = 1;
 				gs->CommsPort = nullptr;
 				gs->HeightandWeightUnit= 1;
@@ -493,6 +524,10 @@ namespace TestCrx {
 				gs->ServerName = nullptr;
 				gs->SourceData = nullptr;
 				gs->CultureInfo = nullptr;
+				gs->MachineName = nullptr;
+				gs->StartupMode = nullptr;
+				gs->StartupScreen = nullptr;
+
 
 				target->SetGeneralUserSettings(gs);
 
@@ -508,6 +543,7 @@ namespace TestCrx {
 				Assert::AreEqual(" ", target->_instance->GeneralSettings->SourceData);
 				Assert::AreEqual(" ", target->_instance->GeneralSettings->CultureInfo);*/
 				
+
 				gs->BloodPressureEntryOptions = 2;
 
 				target->SetGeneralUserSettings(gs);
@@ -523,9 +559,12 @@ namespace TestCrx {
 				gs->PatientPrivacy = true;
 				gs->ReportLogoPath = "D:\\EXTRA_DESKTOP\\ERROR.JPG";
 				gs->ReportTitle = "REPORT DEM TESTFORme";
-				gs->ServerName = "MUM-9638\\SQLEXPRESS";
+				gs->ServerName = "SQLEXPRESS";
 				gs->SourceData = "SQLCLIENT";
 				gs->CultureInfo = "fr-FR";
+				gs->MachineName = "MUM-9638";
+				gs->StartupMode = "PWV";
+				gs->StartupScreen = "Setup";
 
 				target->SetGeneralUserSettings(gs);
 
@@ -670,6 +709,67 @@ namespace TestCrx {
 	//			Assert::AreEqual(expected, actual);
 	//			Assert::Inconclusive(L"Verify the correctness of this test method.");
 	//		}
+			/// <summary>
+			///A test for GetStartupScreen
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void GetStartupScreenTest()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+				String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+				String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+				 //target->GetStartupScreen(SubSection, ReaderValue);
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			
+				target->GetStartupScreen("USER","Setup");
+				Assert::AreEqual("Setup", target->_instance->GeneralSettings->StartupScreen);
+
+				target->GetStartupScreen("DEFAULT", "Setup");
+				Assert::AreEqual("Setup", target->_gSetInternal->StartupScreen);
+				
+				try
+				{	
+					target->GetStartupScreen("USER2","XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->StartupScreen = nullptr;
+				}
+				
+				Assert::AreEqual(nullptr, target->_instance->GeneralSettings->StartupScreen);
+
+			}
+			/// <summary>
+			///A test for GetStartupMode
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void GetStartupModeTest()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+				String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+				String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+				//target->GetStartupMode(SubSection, ReaderValue);
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			
+				target->GetStartupMode("USER","PWV");
+				Assert::AreEqual("PWV", target->_instance->GeneralSettings->StartupMode);
+
+				target->GetStartupMode("DEFAULT", "Smar");
+				Assert::AreEqual("Smar", target->_gSetInternal->StartupMode);
+				
+				try
+				{	
+					target->GetStartupMode("USER2","XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->StartupMode = nullptr;
+				}
+				
+				Assert::AreEqual(nullptr, target->_instance->GeneralSettings->StartupMode);
+			}
 			/// <summary>
 			///A test for GetSourceData
 			///</summary>
@@ -1103,6 +1203,37 @@ namespace TestCrx {
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
+			///A test for GetMachineName
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void GetMachineNameTest()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+				String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+				String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+				//target->GetMachineName(SubSection, ReaderValue);
+				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+			
+				target->GetMachineName("USER","MUM-Temp");
+				Assert::AreEqual("MUM-Temp", target->_instance->GeneralSettings->MachineName);
+
+				target->GetMachineName("DEFAULT", "Alok");
+				Assert::AreEqual(nullptr, target->_gSetInternal->MachineName);
+				
+				try
+				{	
+					target->GetMachineName("USER2","XX");
+				}
+				catch(Exception^)
+				{
+					target->_instance->GeneralSettings->MachineName = nullptr;
+				}
+				
+				Assert::AreEqual(nullptr, target->_instance->GeneralSettings->MachineName);
+			
+			}
+			/// <summary>
 			///A test for GetHeightWeight
 			///</summary>
 	public: [TestMethod]
@@ -1204,6 +1335,9 @@ namespace TestCrx {
 				Assert::AreEqual(0, objGenSettings->BloodPressureEntryOptions);
 				Assert::AreEqual(0, objGenSettings->HeightandWeightUnit);
 				Assert::AreEqual(true, objGenSettings->PatientPrivacy);
+				Assert::AreEqual(nullptr, objGenSettings->MachineName);
+				Assert::AreEqual("PWV", objGenSettings->StartupMode);
+				Assert::AreEqual("Setup", objGenSettings->StartupScreen);
 				Assert::AreEqual(nullptr, objGenSettings->CommsPort);
 				Assert::AreEqual(nullptr, objGenSettings->ReportTitle);
 				Assert::AreEqual(nullptr, objGenSettings->ReportLogoPath);

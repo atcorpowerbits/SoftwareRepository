@@ -20,12 +20,10 @@ namespace AtCor{
 			}
 			
 
-			DalCuffStatusEventArgs_ORI::DalCuffStatusEventArgs_ORI(DalCuffStateFlags cuffStateFlag, long countDownTimerValue, long cuffPressure)
+			DalCuffStatusEventArgs_ORI::DalCuffStatusEventArgs_ORI(DalCuffStateFlags cuffStateFlag)
 			{
 				//assign the parameter to class member
 				this->CuffStateFlag  = cuffStateFlag;
-				this->countDownTimerValue = countDownTimerValue;
-				this->cuffPressure = cuffPressure;
 			}
 
 			DalEventContainer::DalEventContainer()

@@ -1,8 +1,10 @@
 ﻿
 #include "StdAfx.h"
 using namespace System::Data;
+using namespace System::IO;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting::DatabaseManager;
+
 namespace TestCrx {
     using namespace System;
     ref class CrxDBManagerTest;
@@ -33,7 +35,7 @@ namespace TestCrx {
 				}
 			}
 
-			static String^  serverName = "MUM-9638\\SQLEXPRESS";
+			static String^  serverName = "MUM-9696";
 			static String^  sourceName = "SQLCLIENT";
 
 #pragma region Additional test attributes
@@ -124,7 +126,7 @@ namespace TestCrx {
 				md->SystemIdentifier = 31256;
                 md->GroupIdentifier = 4;
                 md->PatientNumberInternal = 6;
-				md->StudyDateTime = Convert::ToDateTime("2011-01-05 18:49:16");
+				md->StudyDateTime = Convert::ToDateTime("2011-01-06 20:35:05");
 				md->Notes = "CheckOut";
 				md->Carotid = 111;
 				md->WeightInKilograms = 75;
@@ -141,6 +143,7 @@ namespace TestCrx {
 				md->ReferenceRange[0] = 3456.34f;
 				md->NormalRange = gcnew array<float>(1);
 				md->NormalRange[0] =  4567.45f;
+
 				expected  = 1;
 				actual = target->UpdatePWVMeasurementDetails(md);
 				Assert::AreEqual(expected, actual);
@@ -150,7 +153,7 @@ namespace TestCrx {
 				md->SystemIdentifier = 31256;
                 md->GroupIdentifier = 4;
                 md->PatientNumberInternal = 6;
-				md->StudyDateTime = Convert::ToDateTime("2011-01-05 18:49:16");
+				md->StudyDateTime = Convert::ToDateTime("2010-12-17 14:57:46");
 				md->Notes = "CheckOut";
 				md->Carotid = 111;
 				md->WeightInKilograms = 75;
@@ -188,16 +191,16 @@ namespace TestCrx {
 				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 
 				pd->SystemIdentifier = 31256;
-				pd->PatientNumberInternal = 130;
+				pd->PatientNumberInternal = 12;
 				pd->PatientIDExternalReference = "P03148";
 				pd->LastName = "Final23";
 				String^ date = "08/09/1984";
 				pd->DateOfBirth = Convert::ToDateTime(date);
-				pd->GroupName = "Dr6";
-				pd->GroupIdentifier = 6;
+				pd->GroupName = "Dr8";
+				pd->GroupIdentifier = 9;
                 pd->FirstName = "Final234erer";
                 pd->Gender = "Male"; 
-				expected = 0;
+				expected = 1;
 
 				actual = target->UpdatePatientData(pd, spCheck);
 				Assert::AreEqual(expected, actual);
@@ -350,7 +353,7 @@ namespace TestCrx {
                 pd->FirstName = "Final234erer";
                 pd->Gender = "Female"; 
 
-				expected = 1;
+				expected = 0;
 
 				actual = target->PatientRecordExists(pd);
 				Assert::AreEqual(expected, actual);
@@ -400,6 +403,67 @@ namespace TestCrx {
 	//			Assert::AreEqual(expected, actual);
 	//			Assert::Inconclusive(L"Verify the correctness of this test method.");
 	//		}
+			/// <summary>
+			///A test for MigrationFileExist
+			///</summary>
+	public: [TestMethod]
+			void MigrationFileExistTest()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				bool expected = false; // TODO: Initialize to an appropriate value
+				bool actual;
+
+				expected = true; 
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");
+				target->SetConnection(serverName, sourceName);
+				actual = target->MigrationFileExist();
+				Assert::AreEqual(expected, actual);
+				
+				String^ path = Directory::GetCurrentDirectory(); 
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\");
+				expected = false; 
+				actual = target->MigrationFileExist();
+				Assert::AreEqual(expected, actual);
+				
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");
+			}
+			/// <summary>
+			///A test for MigrateAtCorData
+			///</summary>
+	public: [TestMethod]
+			void MigrateAtCorDataTest()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
+				String^  groupName = System::String::Empty; // TODO: Initialize to an appropriate value
+				int expected = 0; // TODO: Initialize to an appropriate value
+				int actual;
+				
+				groupName = "Dr.Alok";
+				systemIdentifier = 31256;
+				
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");
+				target->SetConnection(serverName, sourceName);
+
+				actual = target->MigrateAtCorData(systemIdentifier, groupName);
+				Assert::AreEqual(expected, actual);
+				
+				String^ path = Directory::GetCurrentDirectory(); 
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\");
+				expected = 2; 
+				try
+				{
+					groupName = "Dr.Alok";
+					actual = target->MigrateAtCorData(systemIdentifier, groupName);
+				}
+				catch(Exception^ )
+				{
+					actual = 2;
+				}
+				Assert::AreEqual(expected, actual);
+
+				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");				
+			}
 			/// <summary>
 			///A test for GroupRecordExits
 			///</summary>
@@ -465,9 +529,9 @@ namespace TestCrx {
 				target->SetConnection(serverName, sourceName);
 				CrxStructPWVMeasurementData^  md = gcnew CrxStructPWVMeasurementData();
 				md->SystemIdentifier = 31256;
-                md->GroupIdentifier = 4;
-                md->PatientNumberInternal = 6;
-				md->StudyDateTime = Convert::ToDateTime("2011-01-04 19:51:15");
+                md->GroupIdentifier = 3;
+                md->PatientNumberInternal = 2;
+				md->StudyDateTime = Convert::ToDateTime("2010-12-14 14:14:05.000");
 				
 				//smarajit
 				int expectStr = md->PatientNumberInternal;
@@ -577,6 +641,47 @@ namespace TestCrx {
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
+			///A test for DeletePWVMeasurementDetails
+			///</summary>
+	public: [TestMethod]
+			void DeletePWVMeasurementDetailsTest()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				CrxStructPWVMeasurementData^  md = nullptr; // TODO: Initialize to an appropriate value
+				String^  studyDateTimeArrStr = System::String::Empty; // TODO: Initialize to an appropriate value
+				int expected = 0; // TODO: Initialize to an appropriate value
+				int actual;
+				
+				//called the database connection to connect database
+				//input parameters to call method
+				target->SetConnection(serverName, sourceName);
+
+				md = gcnew CrxStructPWVMeasurementData();
+
+				md->SystemIdentifier = 31256;
+				md->GroupIdentifier = 4;
+				md->PatientNumberInternal = 6;
+
+				// Please provide comma(,) after date
+				studyDateTimeArrStr = "2011-01-06 20:21:31,";
+				/*DateTime^ check  =   Convert::ToDateTime(studyDateTimeArrStr);
+				studyDateTimeArrStr = check->ToString();
+*/
+				actual = target->DeletePWVMeasurementDetails(md, studyDateTimeArrStr);
+				expected = 1;
+				Assert::AreEqual(expected, actual);
+				
+				md->SystemIdentifier = 31256;
+				md->GroupIdentifier = 6;
+				md->PatientNumberInternal = 4;
+
+				studyDateTimeArrStr = "2010-01-05 16:02:35,";
+				actual = target->DeletePWVMeasurementDetails(md, studyDateTimeArrStr);
+				expected = 0;
+				Assert::AreEqual(expected, actual);
+
+			}
+			/// <summary>
 			///A test for DeletePatientData
 			///</summary>
 	public: [TestMethod]
@@ -594,8 +699,8 @@ namespace TestCrx {
 				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 				
 				pd->SystemIdentifier = 31256;
-				pd->PatientNumberInternal = 129;			
-				pd->GroupIdentifier = 25;
+				pd->PatientNumberInternal = 52;			
+				pd->GroupIdentifier = 18;
                
 				expected = 0;
 

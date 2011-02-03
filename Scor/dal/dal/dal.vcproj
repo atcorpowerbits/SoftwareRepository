@@ -180,7 +180,7 @@
 		<AssemblyReference
 			RelativePath="..\..\Debug\crx.dll"
 			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
-			MinFrameworkVersion="196613"
+			MinFrameworkVersion="0"
 		/>
 	</References>
 	<Files>

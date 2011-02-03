@@ -2,6 +2,7 @@
 #include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
+using namespace AtCor::Scor::DataAccess;
 namespace TestDal {
     using namespace System;
     ref class DalDataBufferTest;
@@ -82,7 +83,7 @@ namespace TestDal {
 				DalDataBuffer^  target = (DalDataBuffer::Instance); // TODO: Initialize to an appropriate value
 				Array^  actual;
 				actual = target->DataBuffer;
-				Assert::IsNotNull(actual);
+				Assert::IsNull(actual);
 				//Assert::AreEqual(target->ArraySize , -1); //TODO: This test passed when an accessor was created
 			}
 			
@@ -155,7 +156,7 @@ namespace TestDal {
 
 					target->WriteDataToBuffer(dataToWrite);
 				}
-				catch(DalException^ dalExObj)
+				catch(AtCor::Scor::CrossCutting::ScorException^ dalExObj)
 				{
 					Assert::IsTrue(true);
 				}
@@ -239,7 +240,7 @@ namespace TestDal {
 				{
 				target->CreateBuffer(captureTime, samplingRate);
 				}
-				catch(DalException^ dalExcepObj)
+				catch(AtCor::Scor::CrossCutting::ScorException^ scorEx)
 				{
 					Assert::IsTrue(true);
 
@@ -353,7 +354,7 @@ namespace TestDal {
 				{
 					target->GetAllValues(fromIndex, toIndex);
 				}
-				catch(DalException ^ dalExObj)
+				catch(AtCor::Scor::CrossCutting::ScorException ^ dalExObj)
 				{
 					Assert::IsTrue(true);
 				}
@@ -378,7 +379,7 @@ namespace TestDal {
 				{
 					target->GetNextValues(1, readStartIndex);
 				}
-				catch( DalException^ dalExcepObj)
+				catch(AtCor::Scor::CrossCutting::ScorException ^ scorException)
 				{
 					Assert::IsTrue(true);
 				}
@@ -387,7 +388,7 @@ namespace TestDal {
 				{
 					target->GetNextValues(-1, readStartIndex); //test negative parameter
 				}
-				catch( DalException^ dalExcepObj)
+				catch( AtCor::Scor::CrossCutting::ScorException^ scExcepObj)
 				{
 					Assert::IsTrue(true);
 				}
@@ -405,7 +406,8 @@ namespace TestDal {
 				{
 					target->GetNextValues(100, readStartIndex); //test array size too large
 				}
-				catch( DalException^ dalExcepObj)
+				 
+				catch( AtCor::Scor::CrossCutting::ScorException^ scExcepObj)
 				{
 					Assert::IsTrue(true);
 				}

@@ -14,6 +14,7 @@
 
 using namespace AtCor::Scor::DataAccess;
 using namespace AtCor::Scor::CrossCutting::Logging;
+using namespace AtCor::Scor::CrossCutting;
 
 
 	bool DalSimulationFile::OpenFile()
@@ -24,21 +25,26 @@ using namespace AtCor::Scor::CrossCutting::Logging;
 		//check if the filePath varaible has been entered
 		if (filePath == nullptr)
 		{
-			throw gcnew DalException("DAL_ERR_FILE_NOT_SET"); //File not specified
+			//throw gcnew DalException("DAL_ERR_FILE_NOT_SET"); 
+			//File not specified
+			throw gcnew ScorException(1004, "DAL_ERR_FILE_NOT_SET", ErrorSeverity::Exception);
 		}
 
 		try
 		{
 			openFileStream = File::Open(filePath, FileMode::Open);
 		}
-		catch(Exception^ )
+		catch(Exception^ sysExcep)
 		{
-			throw gcnew DalException("CRX_ERR_FILE_NOT_EXIST"); //File does not exist or could not open file.
+			//File does not exist or could not open file.
+			//throw gcnew DalException("CRX_ERR_FILE_NOT_EXIST"); 
+			throw gcnew ScorException(sysExcep);
 			
 		}
 		if(openFileStream->Length  == 0)
 		{
-			throw gcnew DalException("DAL_ERR_EMPT_SIMULATION_FILE"); //"The selected simulation file is empty. Please select another simulation file."
+			//"The selected simulation file is empty. Please select another simulation file."
+			throw gcnew ScorException(1003, "DAL_ERR_EMPT_SIMULATION_FILE", ErrorSeverity::Exception);
 			
 		}
 		else
@@ -98,8 +104,8 @@ using namespace AtCor::Scor::CrossCutting::Logging;
 
 		if (reader == nullptr)
 		{
-			throw gcnew DalException("CRX_ERR_FILE_CANNOT_ACC"); //Simulation file has not been opened before attempting to read
-			
+			 //Simulation file has not been opened before attempting to read
+			throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
 		}
 		
 		//Check if we have reached end of file and reset pointer to the start.
@@ -126,8 +132,8 @@ using namespace AtCor::Scor::CrossCutting::Logging;
 
 		if (reader == nullptr)
 		{
-			throw gcnew DalException("CRX_ERR_FILE_CANNOT_ACC"); //Simulation file has not been opened before attempting to read
-		
+			//Simulation file has not been opened before attempting to read
+			throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
 		}
 		
 		//Check if we have reached end of file and reset pointer to the start

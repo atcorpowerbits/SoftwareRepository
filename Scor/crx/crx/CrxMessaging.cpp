@@ -9,6 +9,7 @@
 */
 #include "stdafx.h"
 #include "CrxMessaging.h"
+#include "ScorException.h"
 
 using namespace System;// For String, Console
 using namespace System::Text; //For String manipulation
@@ -17,6 +18,7 @@ using namespace System::Text; //For String manipulation
 using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace System::Xml;// For XML classes and enums
 using namespace System::IO;// For FileStream
+using namespace AtCor::Scor::CrossCutting;
 
 
 CrxMessagingManager::CrxMessagingManager()
@@ -53,7 +55,7 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 		if(!File::Exists(_nameOfAppResxfile))
 		{ 
 			//throw gcnew CrxException(L"Resource file not found"); // File not found
-			errorString = "#200 Resource file not found.";
+			errorString = "200 Resource file not found.";
 			return errorString;
 		}
 
@@ -64,7 +66,7 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 		//if string length is equals to zero then send the string "Error Code not found"
 		if(errorString->Length == 0)
 		{
-			errorString = "#201 Error Code not found.";
+			errorString = "201 Error Code not found.";
 		}
 
 		return errorString;
@@ -72,7 +74,7 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 	catch(Exception^ eObj)
 	{
 		// rethrow the exception
-		throw gcnew CrxException(eObj);
+		throw gcnew ScorException(eObj);
 	}
 	finally 
 	{

@@ -65,6 +65,10 @@ Class AtCor.Scor.CrossCutting.Configuration.CrxStructGeneralSetting: AutoLayout,
     System.String ServerName : Public
     System.String SourceData : Public
     System.String CultureInfo : Public
+    System.String MachineName : Public
+    System.String StartupMode : Public
+    System.String StartupScreen : Public
+    System.String EnvironmentSettings : Public
 Class AtCor.Scor.CrossCutting.Configuration.CrxStructPwvSetting: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -115,6 +119,20 @@ Class AtCor.Scor.CrossCutting.CrxException: AutoLayout, AnsiClass, Class, Public
     get_ErrorString(): PrivateScope, Public, HideBySig, SpecialName
     set_ErrorString(String): PrivateScope, Public, HideBySig, SpecialName
     get_ExceptionObject(): PrivateScope, Public, HideBySig, SpecialName
+Class AtCor.Scor.CrossCutting.ScorException: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Exception
+    Void .ctor(Int32, System.String, AtCor.Scor.CrossCutting.ErrorSeverity): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Exception ExceptionObject 'get ' : 
+    System.String ErrorMessageKey 'get ' : 
+    AtCor.Scor.CrossCutting.ErrorSeverity ErrorType 'get ' : 
+    Int32 ErrorCode 'get ' : 
+  Methods:
+    get_ErrorCode(): PrivateScope, Public, HideBySig, SpecialName
+    get_ErrorType(): PrivateScope, Public, HideBySig, SpecialName
+    get_ErrorMessageKey(): PrivateScope, Public, HideBySig, SpecialName
+    get_ExceptionObject(): PrivateScope, Public, HideBySig, SpecialName
 Struct AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.Enum
   Fields:
@@ -131,6 +149,13 @@ Struct AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue: AutoLayout, AnsiCla
     AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxGenBPOptSPandDP = 0 : Public, Static, Literal, HasDefault
     AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxGenHeightWeightImperial = 1 : Public, Static, Literal, HasDefault
     AtCor.Scor.CrossCutting.Configuration.CrxGenPwvValue CrxGenHeightWeightMetric = 0 : Public, Static, Literal, HasDefault
+Struct AtCor.Scor.CrossCutting.ErrorSeverity: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    AtCor.Scor.CrossCutting.ErrorSeverity Exception = 2 : Public, Static, Literal, HasDefault
+    AtCor.Scor.CrossCutting.ErrorSeverity Warning = 1 : Public, Static, Literal, HasDefault
+    AtCor.Scor.CrossCutting.ErrorSeverity Information = 0 : Public, Static, Literal, HasDefault
 Class AtCor.Scor.CrossCutting.Messaging.CrxMessagingManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   Properties:
     AtCor.Scor.CrossCutting.Messaging.CrxMessagingManager Instance 'get ' : 
@@ -208,6 +233,8 @@ Class AtCor.Scor.CrossCutting.DatabaseManager.CrxStructPWVMeasurementData: AutoL
     Single[] CarotidSignalFloatOnSets : Public
     Single[] FemoralSignalFloatOnSets : Public
 Class AtCor.Scor.CrossCutting.DatabaseManager.CrxDBManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Fields:
+    System.String DBname : Public, Static
   Properties:
     AtCor.Scor.CrossCutting.DatabaseManager.CrxDBManager Instance 'get ' : 
   Methods:
@@ -227,12 +254,24 @@ Class AtCor.Scor.CrossCutting.DatabaseManager.CrxDBManager: AutoLayout, AnsiClas
     UpdatePatientData(CrxStructPatientDemographicData, Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
     SavePWVMeasurementDetails(CrxStructPWVMeasurementData): PrivateScope, Public, HideBySig
     UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData): PrivateScope, Public, HideBySig
+    DeletePWVMeasurementDetails(CrxStructPWVMeasurementData, String): PrivateScope, Public, HideBySig
     CommonByteArrtoFloatArr(Int32, Byte[]): PrivateScope, Public, HideBySig
     CommonByteArrtoShortArr(Int32, Byte[]): PrivateScope, Public, HideBySig
     CommonFloatArrtoByteArr(Int32, Single[]): PrivateScope, Public, HideBySig
     CommonShortArrtoByteArr(Int32, UInt16[]): PrivateScope, Public, HideBySig
     DatabaseBackup(String): PrivateScope, Public, HideBySig
     DatabaseRestore(String): PrivateScope, Public, HideBySig
+    MigrationFileExist(): PrivateScope, Public, HideBySig
+    MigrateAtCorData(Int32, String): PrivateScope, Public, HideBySig
+Class AtCor.Scor.CrossCutting.Logging.CrxLogger: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Interfaces:
+    System.IDisposable
+  Properties:
+    AtCor.Scor.CrossCutting.Logging.CrxLogger Instance 'get ' : 
+  Methods:
+    Write(String): PrivateScope, Public, HideBySig
+    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
 Class AtCor.Scor.CrossCutting.CommsPortEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.EventArgs
     Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -258,9 +297,3 @@ Class AtCor.Scor.CrossCutting.CrxEventContainer: AutoLayout, AnsiClass, Class, P
     add_OnCommsPortEvent(CommsPortEventHandler): PrivateScope, Public, HideBySig, SpecialName
     remove_OnCommsPortEvent(CommsPortEventHandler): PrivateScope, Public, HideBySig, SpecialName
     raise_OnCommsPortEvent(Object, CommsPortEventArgs): PrivateScope, Public, HideBySig, SpecialName
-Class AtCor.Scor.CrossCutting.Logging.CrxLogger: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  Properties:
-    AtCor.Scor.CrossCutting.Logging.CrxLogger Instance 'get ' : 
-  Methods:
-    Write(String): PrivateScope, Public, HideBySig
-    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName

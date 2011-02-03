@@ -55,7 +55,9 @@ namespace AtCor{
 			{
 				if (commPort == nullptr)
 				{
-					throw gcnew DalException("DAL_ERR_COMPORT_NOT_SET"); //A null string was passed when a comm port was expected.
+					//throw gcnew DalException("DAL_ERR_COMPORT_NOT_SET"); 
+					//A null string was passed when a comm port was expected.
+					throw gcnew ScorException(1002, "DAL_ERR_COMPORT_NOT_SET", ErrorSeverity::Exception);
 				}
                 
                 CrxMessagingManager ^oMsg = CrxMessagingManager::Instance;

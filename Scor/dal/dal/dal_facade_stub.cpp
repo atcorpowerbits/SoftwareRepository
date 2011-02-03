@@ -6,6 +6,7 @@
 #include "dal_facade_stub.h"
 #include "DalEventContainer.h"
 #include "DalEventContainerStub.h"
+#include "DalCommon.h"
 
 using namespace AtCor::Scor::DataAccess;
 
@@ -56,7 +57,8 @@ void DalFacade::SimulateCaptureData()
 	case TonometerAndCuffPulseCombination:
 		captureTimer->Elapsed += gcnew ElapsedEventHandler( &DalFacade::OnCaptureTimedEvent );
 		dataFile = gcnew DalSimulationFile("./simulation/pwv/Simulation_stub.dat");
-		timerFile = gcnew DalSimulationFile("./simulation/pwv/cuff_timer_stub.dat");
+		//timerFile = gcnew DalSimulationFile("./simulation/pwv/cuff_timer_stub.dat");
+		timerFile = gcnew DalSimulationFile("./simulation/cuff_timer/cuff_timer_stub.dat");
 		break;
 	default:
 		return; // nothing to simulate

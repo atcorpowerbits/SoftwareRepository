@@ -97,6 +97,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Available Databases ";
             this.ThemeName = "ControlDefault";
             this.Load += new System.EventHandler(this.SQLInstanceList_Load);

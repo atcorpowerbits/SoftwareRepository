@@ -47,7 +47,7 @@ namespace AtCor{
 					_cuffTimerSimulationFile = nullptr;
 				}
 
-				_currentErrorAlarmFlags = -1;
+				_currentErrorAlarmFlags = 0; //-1;
 				_currentStatusFlags = -1;
 
 				dataBufferObj = DalDataBuffer::Instance;
@@ -64,16 +64,18 @@ namespace AtCor{
                     String^ tempFilePath = ".\\simulation\\pwv\\";
                     String^ tempFileExt = ".dat";
                     _tonometerSimulationFile = gcnew DalSimulationFile(tempFilePath + configMgr->PwvSettings->SimulationType + tempFileExt);
-					_cuffTimerSimulationFile = gcnew DalSimulationFile(tempFilePath + "cuff_timer.dat");
-					
-                }
-                catch(CrxException^ exErr)
+					//_cuffTimerSimulationFile = gcnew DalSimulationFile(tempFilePath + "cuff_timer.dat");
+					//pick the cuff timer sim file from another directory
+					_cuffTimerSimulationFile = gcnew DalSimulationFile(".\\simulation\\cuff_timer\\cuff_timer.dat");
+			    }
+				catch(ScorException^)
+				{
+					throw;
+				}
+                catch(Exception^ sysExObj)
                 {
-                    //rethrow the exception
-                    throw gcnew DalException(exErr->ErrorCode, exErr->ErrorString, exErr->ExceptionObject);
+                    throw gcnew ScorException(sysExObj);
                 }
-                
-				
 			}
 
 			void DalSimulationHandler::OnTimerGetValuesAndRaiseEvents(Object^ sender, ElapsedEventArgs^ args)
@@ -129,6 +131,7 @@ namespace AtCor{
 				static unsigned long locCountdownTimer;
 				static unsigned long statusBytes, errorAlarmSourceFlag;
 				static unsigned long cuffStatusBytes, errorAlarmStatusBytes; 
+				static bool currentCuffStateIsInflated = false;
 				
 				//Pick the number of reads from DalConstants
 				numberOfReads = DalConstants::SimulationNumberOfReadsPerInterval;
@@ -151,9 +154,20 @@ namespace AtCor{
 					
 						 if (CheckStatusFlagsChanged(cuffStatusBytes) ==  true)
 						 {
+							 if (TranslateCuffStatusBits(statusBytes) == DalCuffStateFlags::CUFF_STATE_INFLATED)
+							 {
+								 currentCuffStateIsInflated = true;
+							 }
+							 else
+							 {
+								 currentCuffStateIsInflated = false;
+							 }
+							 //Code to check if the new status is cuff inflated/
+							 //If yes then the countdown timer value should be decremented. If not then return 0.
+
 							 //map the status bytes to a state flag
 							 //	raise a staus change event and update the new flag.
-							DalEventContainer::Instance->OnDalCuffStatusEvent(sender, gcnew DalCuffStatusEventArgs_ORI(TranslateCuffStatusBits(statusBytes),locCountdownTimer, cuffAbsolutePressure));
+							DalEventContainer::Instance->OnDalCuffStatusEvent(sender, gcnew DalCuffStatusEventArgs_ORI(TranslateCuffStatusBits(statusBytes)));
 						 }
 
 						 if (CheckErrorAlarmFlagsChanged(errorAlarmStatusBytes) == true)
@@ -167,7 +181,14 @@ namespace AtCor{
 					//get the next set of values from the tonometer simulation file.
 					_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
 
+					if (currentCuffStateIsInflated == true)
+					{
 					tempPWVDataVar.countdownTimer = locCountdownTimer;
+					}
+					else
+					{
+						tempPWVDataVar.countdownTimer = 0;
+					}
 					tempPWVDataVar.cuffPressure = cuffAbsolutePressure;
 					tempPWVDataVar.tonometerData = tonoData;
 					tempPWVDataVar.cuffPulseData = cuffPulseData;
@@ -302,7 +323,8 @@ namespace AtCor{
 					default:
 						dalErrorAlarmSourceName = "AlarmSourceUnknown";
 						dalErrorAlarmSourceName = dalErrorAlarmSourceName + sourceFlags.ToString();
-						throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						throw gcnew ScorException(1007, "DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning );
 						break;
 				}
 
@@ -325,7 +347,8 @@ namespace AtCor{
 					default:
 						dalErrorAlarmSourceName = "AlarmSourceUnknown";
 						dalErrorAlarmSourceName = dalErrorAlarmSourceName + sourceFlags.ToString();
-						throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
 						break;
 				}
 				return dalErrorAlarmSourceName;
@@ -354,7 +377,8 @@ namespace AtCor{
 					default:
 						dalErrorAlarmSourceName = "DALUnknownModuleStatus";
 						dalErrorAlarmSourceName = dalErrorAlarmSourceName + _currentErrorAlarmFlags.ToString();
-						throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
 						break;
 				}
 				return dalErrorAlarmSourceName;
@@ -384,7 +408,8 @@ namespace AtCor{
 						break;
 					default:
 						data = DalCuffStateFlags::CUFF_STATE_UNKNOWN;
-						throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
 						break;
 				}
 				return data;
@@ -412,7 +437,8 @@ namespace AtCor{
 						break;
 					default:
 						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
-						throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
 						break; 
 				}
 				return retAlarmValue;

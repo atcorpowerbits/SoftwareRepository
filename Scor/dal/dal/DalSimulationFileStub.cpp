@@ -3,6 +3,7 @@
 //#include "AtCor.h"
 
 using namespace AtCor::Scor::DataAccess;
+using namespace AtCor::Scor::CrossCutting;
 
 //bool DalSimulationFile::GetNextValues(unsigned long *value1, unsigned long *value2, unsigned long *value3, unsigned long *value4  )
 //{
@@ -45,7 +46,8 @@ bool DalSimulationFile::CreateFile(String^ outputFilePath)
 	}
 	catch(Exception^)
 	{
-		throw gcnew DalException(DAL_FAILTOCREATE_ERR); //File could not be created.
+		//throw gcnew DalException(DAL_FAILTOCREATE_ERR); //File could not be created.
+			throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
 	}
 }
 
@@ -60,6 +62,7 @@ bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned
 	}
 	catch(System::Exception^)
 	{
-		throw gcnew DalException(DAL_FAILTOWRITE_ERR); //File could not be written.
+		//throw gcnew DalException(DAL_FAILTOWRITE_ERR); //File could not be written.
+		throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
 	}
 }

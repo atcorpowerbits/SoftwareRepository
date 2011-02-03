@@ -4,7 +4,7 @@
 	Version="9.00"
 	Name="TestDal"
 	ProjectTypes="{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}"
-	ProjectGUID="{B230F6FB-6587-4DC1-9648-952B52A42FE4}"
+	ProjectGUID="{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}"
 	RootNamespace="TestDal"
 	Keyword="ManagedCProj"
 	TargetFrameworkVersion="0"

@@ -12,6 +12,7 @@
 #include "DalDataBuffer.h"
 
 using namespace System::Threading;
+using namespace AtCor::Scor::CrossCutting;
 
 namespace AtCor{
 	namespace Scor{
@@ -71,7 +72,9 @@ namespace AtCor{
 				if ((captureTime <=0) || (samplingRate <=0))
 				{
 					//check if either parameter is negative and signall error.
-					throw gcnew DalException("DAL_ERR_INVALID_ARGS"); //Arguements are invalid
+					
+					//Arguements are invalid
+					throw gcnew ScorException(1005, "DAL_ERR_INVALID_ARGS",ErrorSeverity::Exception);
 				}
 				
 				//first clear all variables
@@ -107,7 +110,7 @@ namespace AtCor{
 					_arraySize = arrayLastElementIndex=startIndex= bufferIndex =-1;
 					bufferPointer = nullptr;
 
-					throw gcnew DalException("DAL_ERR_ARRAY_CREATE_FAILED");
+					throw gcnew ScorException(1000, "DAL_ERR_ARRAY_CREATE_FAILED", ErrorSeverity::Exception);
 				}
 
 				return true; //if we reach here then it was successful
@@ -121,7 +124,7 @@ namespace AtCor{
 				if (bufferPointer == nullptr)
 				{
 					//array hasnt been created yet
-					throw gcnew DalException("DAL_ERR_BUFFER_NOT_CREATED");
+					throw gcnew ScorException(1001, "DAL_ERR_BUFFER_NOT_CREATED", ErrorSeverity::Exception);
 				}
 
 				//check if a rollover has happened only once.
@@ -159,19 +162,19 @@ namespace AtCor{
 				if (bufferPointer == nullptr)
 				{
 					//array hasnt been created yet
-					throw gcnew DalException("DAL_ERR_BUFFER_NOT_CREATED");
+					throw gcnew ScorException(1001, "DAL_ERR_BUFFER_NOT_CREATED", ErrorSeverity::Exception);
 				}
 
 				if (requestedValues <=0)
 				{
 					//illegal parameter: the number of requested values must be positive integer
-					throw gcnew DalException("DAL_ERR_INVALID_ARGS");
+					throw gcnew ScorException(1005, "DAL_ERR_INVALID_ARGS",ErrorSeverity::Exception);
 				}
 				
 				if (requestedValues > (_arraySize -1))
 				{
 					//request size is larger than size of array.
-					throw gcnew DalException("DAL_ERR_REQUEST_TOO_LARGE");
+					throw gcnew ScorException(1006, "DAL_ERR_REQUEST_TOO_LARGE", ErrorSeverity::Exception);
 				}
 
 				
@@ -269,7 +272,7 @@ namespace AtCor{
 				if (bufferPointer == nullptr)
 				{
 					//array hasnt been created yet
-					throw gcnew DalException("DAL_ERR_BUFFER_NOT_CREATED");
+					throw gcnew ScorException(1001, "DAL_ERR_BUFFER_NOT_CREATED", ErrorSeverity::Exception);
 				}
 
 				//caclulate aexact index from offset and account for rollover.
@@ -287,7 +290,7 @@ namespace AtCor{
 				if (bufferIndex == -1)
 				{
 					//array hasnt been created yet
-					throw gcnew DalException("DAL_ERR_BUFFER_NOT_CREATED");
+					throw gcnew ScorException(1001, "DAL_ERR_BUFFER_NOT_CREATED", ErrorSeverity::Exception);
 				}
 				
 				lockArray->WaitOne(); //lock the array to prevent simultaneous access.

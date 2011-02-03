@@ -43,10 +43,10 @@ using System.IO;
  */
 namespace AtCor.Scor.Gui.Presentation
 {
-     /**
-     * @class Class for Default Window when the application loads.
-     * @brief This class will handle displaying of the default window controls.It will also check for multiple instances of the application,exception handling and logging of events.
-     */   
+    /**
+    * @class DefaultWindow
+    * @brief This class will handle displaying of the default window controls.It will also check for multiple instances of the application,exception handling and logging of events.
+    */
     public partial class DefaultWindow : Telerik.WinControls.UI.RadForm
     {
         #region Set constant values
@@ -60,23 +60,28 @@ namespace AtCor.Scor.Gui.Presentation
         
         const string BackupFileExt = ".bak"; // vibhuti: to be placed in common file as global variable
         static int count = 0;
-        
+        string serverNameString = string.Empty;
         CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
         
         CrxDBManager dbMagr;
         string currentpath = string.Empty; // vibhuti : to be placed in common file as global variable
-        
         string dbOperation = string.Empty; // vibhuti: to be placed in common file as global variable
-                        
+        
         // private delegate void ThreadException(Exception ex);
-       // private event ThreadException OnThreadExceptionEvent;        
+       // private event ThreadException OnThreadExceptionEvent;  
+        public delegate void InitializationMessage(string message);
+
         public static event EventHandler OnRestoreCompleteSuccess;
 
+        public static event EventHandler OnReportTabClick;
+
+        public static event InitializationMessage OnInitializationProcess;
+
         // Event to indicate completion of database backup process
-        private event EventHandler OnDBBackupAndRestoreCompleteEvent;  
+        private event EventHandler OnDBBackupAndRestoreCompleteEvent; 
 
         private delegate void DisplayMessageBoxDelegate(string message, Exception ex);
-       
+        
         #region Global declarations
                      
         bool isDirectClose; // Flag set to check if there are multiple instances of the application.        
@@ -100,15 +105,20 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                // initialize class level variables                
+                // launches splash screen
+                SplashScreen splsh = new SplashScreen();
+                splsh.Show();
+                splsh.Update();
+                            
                 isDirectClose = false;
-
                 CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write("check for instance");
-
+               
                 // Logic to check multiple instances of the application.                 
                 if (IsProcessOpen(oMsgMgr.GetMessage("APP_NAME")))
                 {
+                    // writes messages on splash screen by invoking OnInitializationProcess
+                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("EXEC_ERROR"));
+                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
                     oLogObject.Write("instance exists");
                     isDirectClose = true;
                     DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("APP_MSG"), oMsgMgr.GetMessage("EXEC_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
@@ -116,79 +126,134 @@ namespace AtCor.Scor.Gui.Presentation
                     Process.GetCurrentProcess().Kill();
                     return;
                 }
-
-                oLogObject.Write("scor loading.......");
+                                
                 crxMgrObject.GetGeneralUserSettings();
-
-                // set the global culture variable with value from scor.config & pass it to current culture
-                SettingsProperties.gCI = string.IsNullOrEmpty(crxMgrObject.GeneralSettings.CultureInfo) ? ConfigurationManager.AppSettings["DefaultCulture"].ToString() : crxMgrObject.GeneralSettings.CultureInfo.Trim();
-                Thread.CurrentThread.CurrentCulture = new CultureInfo(SettingsProperties.gCI); // allows to format the appearance of numbers, dates..etc
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo(SettingsProperties.gCI); // to work with resource files that are dynamically loaded in the windows form
+                if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.StartupScreen))
+                {
+                    // writes messages on splash screen by invoking OnInitializationProcess
+                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SYSTEM_ERROR"));
+                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
+                    RadMessageBox.Show(this, oMsgMgr.GetMessage("CRX_ERR_FILE_CORRUPT"), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                    oLogObject.Write(oMsgMgr.GetMessage("CRX_ERR_FILE_CORRUPT"));
+                    this.Close();
+                    Process.GetCurrentProcess().Kill();
+                    return;
+                }
                               
                 currentpath = Directory.GetCurrentDirectory();
-                if (currentpath.Equals(@"g:\Sprint 5\Scor\gui\gui\bin\debug", StringComparison.CurrentCultureIgnoreCase))
-                { 
-                    // sjdsac
-                }
-
-                // crxMgrObject.GeneralSettings = gnrlSettingsStruct;
-                if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.ServerName))
+               
+                if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.MachineName))
                 {
-                    crxMgrObject.GeneralSettings.ServerName = SystemInformation.ComputerName + @"\SQLEXPRESS";
+                    crxMgrObject.GeneralSettings.MachineName = SystemInformation.ComputerName;
                     oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CHANGED_TO_LOCAL"));
                 }
-
+               
                 if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.SourceData))
                 {
                     crxMgrObject.GeneralSettings.SourceData = "SQLCLIENT";
                     oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CHANGED_TO_DEFAULT"));
                 }
-               
+
+                serverNameString = SettingsProperties.ServerNameString();
                 int result = 0;
                 dbMagr = CrxDBManager.Instance;
-                result = dbMagr.SetConnection(crxMgrObject.GeneralSettings.ServerName, crxMgrObject.GeneralSettings.SourceData);
-
+                result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData.Trim());
+               
                 // log message on connection status.
                 if (result.Equals(0))
-                {                   
-                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + crxMgrObject.GeneralSettings.ServerName);
+                {
+                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + serverNameString);
                     crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);
+
+                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SPLASH_SQL_CONN") + " " + serverNameString);
                 }
 
                 if (result.Equals(1))
                 {
-                    // CrxLogger oLogObject = CrxLogger.Instance;
-                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONN_FAILED") + crxMgrObject.GeneralSettings.ServerName);
+                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SQL_SERVER_CONN_FAILED") + " " + serverNameString);
+                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
+                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONN_FAILED") + serverNameString);
+
                     SQLInstanceList frmObject = new SQLInstanceList();
-                    frmObject.ShowDialog();
                     frmObject.ShowInTaskbar = false;
+                    frmObject.ShowDialog();                    
                 }
                 
                 if (SQLInstanceList.IsCancel == 1)
                 {
+                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
                     SQLInstanceList.IsCancel = 0;
                     this.Close();
                     Process.GetCurrentProcess().Kill();
+                    return;
                 }
-                
-                    InitializeComponent();
 
+                    serverNameString = SettingsProperties.ServerNameString();
+                    InitializeComponent();
+                    
                     // Set the text for  Capture Tab form controls
                     SetTextForRibbionControl();
+                    
+                    SetStartUpModeEnvironmentScreen(); 
+                    
+                    Report.OnReportScreenLoadComplere += new EventHandler(StopWaitingBar);
 
-                    // Initialize setup screen
-                    InitializeSetupScreen();                    
-            }
-            catch (CrxException crxex)
-            {
-                RadMessageBox.Show(this, oMsgMgr.GetMessage(crxex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-            }
+                    // Report.StartWaiting += new EventHandler(StartWaiting);
+                    Report.OnReportInitializationProcess += new Report.InitializationMessage(DisplayMessage);
+                    
+                    // hide splash screen after initialization process
+                    splsh.Hide();                   
+            }         
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);                
+                // show error type on splash screen, error on message box & quit application
+                OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SYSTEM_ERROR"));
+                OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
+                GUIExceptionHandler.HandleException(ex, this);               
+                this.Close();
+                Process.GetCurrentProcess().Kill();
+                return;
             }
+
+            /* catch (CrxException crxex)
+            {
+                // show error type on splash screen, error on message box & quit application
+                OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SYSTEM_ERROR"));
+                OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));                
+                RadMessageBox.Show(this, oMsgMgr.GetMessage(crxex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);                
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(crxex.Message);
+                // close the application if file is corrupted
+                this.Close();
+                Process.GetCurrentProcess().Kill();
+                return;                           
+            } */
+        }
+
+        /** This method sets Startup mode, startup screen & environment variables & initializes setup screen
+         * */
+        void SetStartUpModeEnvironmentScreen()
+        {
+            CrxStructGeneralSetting crxGen = new CrxStructGeneralSetting();
+            crxMgrObject.GetGeneralDefaultSettings(crxGen);
+
+            if (string.IsNullOrEmpty(crxGen.StartupScreen))
+            {
+                OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SYSTEM_ERROR"));
+                OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
+                RadMessageBox.Show(this, oMsgMgr.GetMessage("CRX_ERR_FILE_CORRUPT"), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(oMsgMgr.GetMessage("CRX_ERR_FILE_CORRUPT"));
+                this.Close();
+                Process.GetCurrentProcess().Kill();
+                return;
+            }
+
+            radlblCurrentMode.Text = crxGen.StartupMode;
+            guiradlblEnvironment.Text = crxGen.EnvironmentSettings;           
+            OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SPLASH_INI_MSG") + " " + crxGen.StartupMode + " " + oMsgMgr.GetMessage("MODE"));
+            Thread.Sleep(2000);
+            InitializeSetupScreen();
         }
 
         /**This method is called to disable the right clicking on the Gridview.
@@ -213,13 +278,6 @@ namespace AtCor.Scor.Gui.Presentation
         */  
         private void SetTextForRibbionControl()
         {
-            // rbnTabSystem.Text = oMsgMgr.GetMessage("MENU_SYSTEM");
-            // rbnTabDatabase.Text = oMsgMgr.GetMessage("MENU_DATABASE");
-           // rbnTabHelp.Text = oMsgMgr.GetMessage("MENU_HELP");
-            // radButtonElementSettings.Text = oMsgMgr.GetMessage("BTN_SETTINGS"); 
-            // radButtonElementFindModule.Text = oMsgMgr.GetMessage("BTN_FINDMODULE");
-            // radButtonElementPrinterSetup.Text = oMsgMgr.GetMessage("BTN_PRINTERSETUP");
-            // radButtonElementExit.Text = oMsgMgr.GetMessage("BTN_EXIT");
             guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage("TAB_SETUP");
             radtabCapture.Text = oMsgMgr.GetMessage("TAB_CAPTURE");
             radtabReport.Text = oMsgMgr.GetMessage("TAB_REPORT");
@@ -276,9 +334,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);               
+                GUIExceptionHandler.HandleException(ex, this);            
             }
         }
         
@@ -307,16 +363,29 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // Disable the pateint name and Capture time labels
                 radlblCaptureTime.Enabled = false;
-                radlblPatientName.Enabled = false;                
+                radlblPatientName.Enabled = false;
+
+                // setting initial directory for save file dialog box
+                saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                saveFileDialog1.RestoreDirectory = true;
 
                 // set waiting bar
                 guiWaitingStatusBar.WaitingStep = 10;
                 guiWaitingStatusBar.WaitingSpeed = 50;
                 guiWaitingStatusBar.Visible = false;
 
-                OnDBBackupAndRestoreCompleteEvent += new EventHandler(DisplayStatusComplete);                
+                OnDBBackupAndRestoreCompleteEvent += new EventHandler(DisplayStatusComplete);
+                Migrate.OnMigrationStart += new Migrate.HandleMigration(DoMigration);
+                
+                // call method to check for mdb file to migrate data
+                CheckForDataMigration();
+            }          
+            catch (Exception ex)
+            {
+               GUIExceptionHandler.HandleException(ex, this); 
             }
-            catch (CrxException cfgExp)
+
+            /*  catch (CrxException cfgExp)
             {
                 // Exception if any will be logged and displayed(appropiate message) to the user.                  
                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
@@ -333,13 +402,87 @@ namespace AtCor.Scor.Gui.Presentation
                 // do not ask question to save data.                 
                 isDirectClose = true;
                 this.Close();
+            } */
+        }
+
+        /** This method checks for mdb file & migrates data
+         * */
+        void CheckForDataMigration()
+        {
+            // check if migration file exist & then show popup
+            if (dbMagr.MigrationFileExist())
+            {
+                DialogResult dsResult = RadMessageBox.Show(this, oMsgMgr.GetMessage("MIGRATE_FILE_MSG1") + "\r\n\r\n" + oMsgMgr.GetMessage("MIGRATE_FILE_MSG2"), oMsgMgr.GetMessage("APPLICATION_MESSAGE"), MessageBoxButtons.YesNo, RadMessageIcon.Info);
+
+                if (dsResult == DialogResult.Yes)
+                {
+                    // redirect to migrate screen to select group
+                    Migrate migrt = new Migrate();
+                    migrt.ShowDialog();
+                    migrt.ShowInTaskbar = false;
+
+                    if (Migrate.IsMigrate == 1)
+                    {
+                        // start waiting progress bar on main thread
+                        guiWaitingStatusBar.Visible = true;
+                        guiWaitingStatusBar.StartWaiting();
+
+                        // disable menu & tab page while restore is on
+                        guiradmnuScor.Enabled = false;
+                        radpgTabCollection.Enabled = false;
+                    }
+                }
             }
+        }
+
+        /** This method migrates records
+         * */
+        void DoMigration(string groupname)
+        { 
+            // call method to migrate records 
+            Thread migThread = new Thread(new ParameterizedThreadStart(StartMigration));
+            migThread.Start(groupname);
+        }
+
+        /** This method starts data migration
+         * */
+        void StartMigration(object groupname)
+        {
+           // code to migrate data
+            try
+            {
+                int i = dbMagr.MigrateAtCorData(SettingsProperties.SystemIdentifier, groupname.ToString());
+
+                if (i == 0)
+                {
+                    // successfully migrated data
+                    dbOperation = oMsgMgr.GetMessage("MIGRATION_SUCCESS_MESSAGE");
+
+                    // Invoke methods to stop progressbasr & reload setup screen
+                    OnRestoreCompleteSuccess.Invoke(this, new EventArgs());
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+                }
+                else
+                {
+                    // migration failed
+                    dbOperation = oMsgMgr.GetMessage("MIGRATION_FAIL");
+
+                    // Invoke methods to stop progressbasr & reload setup screen
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());                    
+                }
+            }         
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
-            }
+                // on exception stop waiting bar & show error message
+                if (this.InvokeRequired)
+                {
+                    dbOperation = oMsgMgr.GetMessage("MIGRATION_FAIL");
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+
+                    ExceptionHandler exc = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    this.Invoke(exc, ex, this);
+                }
+            } 
         }
               
         #region Code to check multiple instance of application.
@@ -368,31 +511,16 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
-
+                GUIExceptionHandler.HandleException(ex, this);
                 return false;
             }
         } 
         #endregion
 
-        /**This method is called when the user clicks on the cross button during the capture.
-        */  
-        private void radbtnCross_Click(object sender, EventArgs e)
-        {           
-            CrossButtonAction();
-        }                    
-     
         /** This method loads setup form
          * */
         void InitializeSetupScreen()
         {
-            // if (InvokeRequired)
-            // {
-            //    this.Invoke(new ReloadForm(InitializeSetupScreen));
-            //    return;
-            // }
             if (!guiradgrpbxPwvDistanceMethod.Enabled)
             {
                 return;
@@ -414,93 +542,12 @@ namespace AtCor.Scor.Gui.Presentation
             var page = radpgTabCollection.Pages[0];
             SettingsProperties.setupChildForm.Parent = page;
             page.Controls.Add(SettingsProperties.setupChildForm);
-            SettingsProperties.setupChildForm.Show(); 
+            SettingsProperties.setupChildForm.Show();
+
+            // initialize report screen at the time of application launch
+            InitializeReportScreen();
         }
-
-         /** This method is used to start the capture for tonometer waveform.
-        */ 
-        private void StartCarotidTonometerCapture()
-        {
-            // Start the capture of data points.
-            BizSession.Instance().StartCapture();
-        }
-
-        /**This method is called when the user clicks on the Tick button.
-        */ 
-        private void radbtnTick_Click(object sender, EventArgs e)
-        {
-            TickButtonAction();           
-        }
-
-        /**This method enables the tabs and the ribbion and navigates the user to the Reports tab.          
-        */ 
-        private void TickButtonAction()
-        {
-            guiradgrpbxPwvDistanceMethod.Enabled = true;
-            radtabReport.Enabled = true;
-
-            radpgTabCollection.SelectedPage = radtabReport;   
-        }
-
-        /**This method is called when the user clicks on the Cross button.
-        */ 
-        private void CrossButtonAction()
-        {
-            DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("CAPTURE_FAILED"), oMsgMgr.GetMessage("INFORMATION"), MessageBoxButtons.YesNo, RadMessageIcon.Info);
-           if (ds == DialogResult.Yes)
-           {
-               Thread stopCarotidTonometerCapture = new Thread(StopCarotidTonometerCapture);
-               stopCarotidTonometerCapture.Start();               
-               guiradgrpbxPwvDistanceMethod.Enabled = true;
-               radtabReport.Enabled = true;
-
-               // radRibbonBar.Enabled = true;
-               radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
-               radlblMessage.Text = string.Empty;
-           }             
-        }
-
-        /** This method is used to stop the tonometer data capture.
-        */  
-        private void StopCarotidTonometerCapture()
-        {
-            BizSession.Instance().StopCapture();
-        }
-
-        /**This method is called when the user clicks Escape from the keyboard.
-        */
-        private void radbtnCross_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                CrossButtonAction();
-            }
-        }       
-
-        /**This method will invoke the Capture of tonometer data.
-        */ 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            BizSession.Instance().DispatchCaptureData();
-        }
-
-        private void DefaultWindow_KeyDown(object sender, KeyEventArgs e)
-        {
-            // if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_CAPTURE")))
-            // {
-            //    if (e.KeyCode == Keys.Escape)
-            //    {
-            //        CrossButtonAction();
-            //    }                
-            // }
-        }
-
-        private void timer3_Tick(object sender, EventArgs e)
-        {
-            count++;
-            radlblCaptureTime.Text = count.ToString();
-        }
-
+       
         /** This method disables tab other than the parameter passed
          */ 
         private void DisableTabs(string currentTab)
@@ -532,7 +579,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                GUIExceptionHandler.HandleException(ex, this);                
             }         
         }
 
@@ -553,7 +600,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);                
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -620,9 +667,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -658,20 +703,18 @@ namespace AtCor.Scor.Gui.Presentation
                     radpgTabCollection.Enabled = false;
                 }                
             }
-            catch (CrxException ex)
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+
+           /* catch (CrxException ex)
             {
                 RadMessageBox.Show(this, oMsgMgr.GetMessage(ex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.ErrorString);
                 radlblMessage.Text = string.Empty;
-            }
-            catch (Exception ex)
-            {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
-                radlblMessage.Text = string.Empty;
-            }
+            } */            
         }
       
         /** This method truncates invalid file extensions and saves backup of database to location specified
@@ -691,21 +734,7 @@ namespace AtCor.Scor.Gui.Presentation
                 oLogObject.Write(oMsgMgr.GetMessage("BACKUP_PROGRESS"));
 
                 DoBackup(path);               
-            }
-            catch (CrxException ex)
-            {
-                if (this.InvokeRequired)
-                {
-                    dbOperation = oMsgMgr.GetMessage("BACKUP_FAIL");
-                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
-
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, oMsgMgr.GetMessage(ex.ErrorString), ex);                   
-                }
-
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.ErrorString);
-            }
+            }         
             catch (Exception ex)
             {
                 if (this.InvokeRequired)
@@ -713,12 +742,26 @@ namespace AtCor.Scor.Gui.Presentation
                     dbOperation = oMsgMgr.GetMessage("BACKUP_FAIL");
                     OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
 
+                    ExceptionHandler excep = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    this.Invoke(excep, ex, this);
+                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    ////this.Invoke(messageBox, ex.Message, ex);                   
+                }
+
+                /*   catch (CrxException ex)
+            {
+                if (this.InvokeRequired)
+                {
+                    dbOperation = oMsgMgr.GetMessage("BACKUP_FAIL");
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+
                     DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, ex.Message, ex);                   
+                    this.Invoke(messageBox, ex.ErrorString, ex);                   
                 }
 
                 CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                oLogObject.Write(ex.ErrorString);
+            } */
             }            
         }
 
@@ -728,21 +771,63 @@ namespace AtCor.Scor.Gui.Presentation
         {
             int success = 0;
 
-            // save backup at selected location in shared folder
-            if (!Path.GetExtension(path).ToLower().Equals(BackupFileExt))
+            if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0) 
             {
-                success = dbMagr.DatabaseBackup(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) + BackupFileExt : path + BackupFileExt); // folderBrowserDialog1.SelectedPath);
+              // save backup at selected location in shared folder
+                if (!Path.GetExtension(path).Equals(BackupFileExt, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    success = dbMagr.DatabaseBackup(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) + BackupFileExt : path + BackupFileExt); // folderBrowserDialog1.SelectedPath);
+                }
+                else
+                {
+                    success = dbMagr.DatabaseBackup(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) : path); // folderBrowserDialog1.SelectedPath);
+                }
+
+                // on backup success invoke event to display status message
+                if (success == 0)
+                {
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+                }
             }
             else
             {
-                success = dbMagr.DatabaseBackup(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) : path); // folderBrowserDialog1.SelectedPath);
-            }
-
-            // on backup success invoke event to display status message
-            if (success == 0)
-            {
+                dbOperation = oMsgMgr.GetMessage("BACKUP_FAIL");
                 OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+
+                DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(ShowConnectionError);
+                this.Invoke(messageBox, dbOperation, null); 
             }
+        }
+           
+        /** This method shows network connection failure message for restore & backup operations
+         * */
+        void ShowConnectionError(string message, Exception ex)
+        {
+            // show error message db connection failed
+            DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+            if (result == DialogResult.Retry)
+            {
+                if (dbOperation.Equals(oMsgMgr.GetMessage("BACKUP_FAIL"), StringComparison.CurrentCultureIgnoreCase))
+                {
+                    this.Invoke(new EventHandler(guiradmenuBackup_Click));
+                }
+                else
+                {
+                    this.Invoke(new EventHandler(guiradmenuRestore_Click));
+                }
+            }
+        }
+
+        void StopWaitingBar(object sender, EventArgs e)
+        {
+            ////if (this.InvokeRequired)
+            ////{
+            ////    this.Invoke(new EventHandler(StopWaitingBar));
+            ////    return;
+            ////}
+            ////radguiwaitingbar.Visible = false;
+            ////radguiwaitingbar.EndWaiting();
+            ////radguiwaitingbar.Dispose();
         }
 
         /** This event shows backup & restore status messages after its completion & stops waiting bar
@@ -765,7 +850,7 @@ namespace AtCor.Scor.Gui.Presentation
             radpgTabCollection.Enabled = true;
 
             // show status message for restore & backup
-            if (dbOperation.Equals(oMsgMgr.GetMessage("BACKUP_TITLE")))
+            if (dbOperation.Equals(oMsgMgr.GetMessage("BACKUP_TITLE"), StringComparison.CurrentCultureIgnoreCase))
             {
                 radlblMessage.Text = oMsgMgr.GetMessage("BACKUP_DONE");
 
@@ -773,19 +858,30 @@ namespace AtCor.Scor.Gui.Presentation
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(oMsgMgr.GetMessage("BACKUP_DONE"));
             }
-            else if (dbOperation.Equals(oMsgMgr.GetMessage("RESTORE_TITLE")))
+            else if (dbOperation.Equals(oMsgMgr.GetMessage("RESTORE_TITLE"), StringComparison.CurrentCultureIgnoreCase))
             {
                 radlblMessage.Text = oMsgMgr.GetMessage("RESTORE_DONE");
-                ////this.Refresh();
-                ////InitializeSetupScreen();
-                ////Setup d = new Setup(this);
-                ////d.LoadSetupScreen();
-                ////d.Refresh();
-
+                
                 // log the message
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(oMsgMgr.GetMessage("RESTORE_DONE"));
-            }           
+            }
+            else if (dbOperation.Equals(oMsgMgr.GetMessage("MIGRATION_SUCCESS_MESSAGE"), StringComparison.CurrentCultureIgnoreCase))
+            {
+                radlblMessage.Text = oMsgMgr.GetMessage("MIGRATION_SUCCESS_MESSAGE");
+
+                // log the message
+               // CrxLogger oLogObject = CrxLogger.Instance;
+               // oLogObject.Write(oMsgMgr.GetMessage("MIGRATION_SUCCESS_MESSAGE"));
+            }
+            else if (dbOperation.Equals(oMsgMgr.GetMessage("MIGRATION_FAIL"), StringComparison.CurrentCultureIgnoreCase))
+            {
+                radlblMessage.Text = oMsgMgr.GetMessage("MIGRATION_FAIL");
+
+                // log the message
+               // CrxLogger oLogObject = CrxLogger.Instance;
+               // oLogObject.Write(oMsgMgr.GetMessage("MIGRATION_FAIL"));
+            }  
         }
 
         /**This method is called when the Setup, Capture or Report tab is selected.
@@ -797,7 +893,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradmnuitemSettings.Enabled = true;
 
                 // read the coms port and simulation type.
-                if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_CAPTURE")))
+                if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_CAPTURE"), StringComparison.CurrentCultureIgnoreCase))
                 {
                     if (!radtabCapture.Enabled)
                     {
@@ -823,51 +919,131 @@ namespace AtCor.Scor.Gui.Presentation
                     page.Controls.Add(SettingsProperties.captureChildForm);
                     SettingsProperties.captureChildForm.Show();
                 }
-                else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_REPORT")))
-                {
+                else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_REPORT"), StringComparison.CurrentCultureIgnoreCase))
+                {                    
                     if (!radtabReport.Enabled)
                     {
                         return;
                     }
 
-                    // open report form under report tab
-                    if (SettingsProperties.reportChildForm != null)
+                    // SettingsProperties.reportChildForm.Show(); 
+                    if (SettingsProperties.CaptureToReport)
                     {
-                        SettingsProperties.reportChildForm.Close();
-                        SettingsProperties.reportChildForm.Dispose();
+                        SettingsProperties.SetupToReport = false;
+                    }
+                    else
+                    {
+                        SettingsProperties.SetupToReport = true;
                     }
 
-                    SettingsProperties.reportChildForm = new Report();
-                    SettingsProperties.reportChildForm.TopLevel = false;
-                    SettingsProperties.reportChildForm.Dock = DockStyle.Fill;
-                    SettingsProperties.reportChildForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                   // SettingsProperties.reportChildForm.Update();
+                   // SettingsProperties.reportChildForm.Visible = false;
+                     
+                     ////Thread reportLoad = new Thread(StartWaiting);
+                     ////reportLoad.Priority = ThreadPriority.Highest; 
+                     //// reportLoad.Start();
+                     LoadReportScreen();
+                    
+                    // #####################################################################
+                    // before show the empty screen and start the waiting bar
+                    // Thread rptWaitScr = new Thread(ReportWaitScreen);
+                    // rptWaitScr.Start();
+                    // ReportBlankScreen frmRptBlnk = new ReportBlankScreen();
+                    // frmRptBlnk.Dock = DockStyle.Fill;
 
-                    // adds report form under parent window control
-                    var page = radpgTabCollection.Pages[2];
-                    SettingsProperties.reportChildForm.Parent = page;
-                    page.Controls.Add(SettingsProperties.reportChildForm);
-                    SettingsProperties.reportChildForm.Show();
+                    // frmRptBlnk.Show();
+                    // frmRptBlnk.BringToFront();
+
+                    // #####################################################################  
+                    // #####################################################################
+                    // now close the wait form
+
+                    // SettingsProperties.frmRptBlnk.Close();
+                    // frmRptBlnk.Dispose();
+                    // SettingsProperties.reportChildForm.BringToFront();
+
+                    // #####################################################################
 
                     // disable setting tab on menu bar
                     guiradmnuitemSettings.Enabled = false;
-                    radtabCapture.Enabled = false;
+                    radtabCapture.Enabled = false;                  
                 }
-                else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_SETUP")))
+                else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage("TAB_SETUP"), StringComparison.CurrentCultureIgnoreCase))
                 {
                     // InitializeSetupScreen(); 
-                    if (SettingsProperties.hasMeasurementDetails)
+                    radlblCaptureTime.Text = string.Empty;
+                    if (SettingsProperties.HasMeasurementDetails)
                     {
                         radtabCapture.Enabled = true;
+                        radtabReport.Enabled = true;
                     }
+                    else
+                    {
+                        radtabCapture.Enabled = false;
+                        radtabReport.Enabled = false;
+                    }
+
+                    SettingsProperties.CaptureToReport = false;
                 }
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
+
+        void LoadReportScreen()
+        {
+            OnReportTabClick.Invoke(this, new EventArgs());
+        }
+
+        /** This method starts waiting progress bar
+         * */
+        void StartWaiting()
+        {
+            // radlblMessage.Text = "Report screen loading....";
+            RadWaitingBar radguiwaitingbar = new RadWaitingBar();
+            radguiwaitingbar.Location = new Point(379, 223);
+            radguiwaitingbar.BringToFront();
+            radguiwaitingbar.Visible = true;
+            radguiwaitingbar.StartWaiting();
+        }
+
+        /** This method initialises report screen 
+         * */
+        void InitializeReportScreen()
+        {
+            SettingsProperties.SetupToReport = true;
+
+            // open report form under report tab
+            if (SettingsProperties.reportChildForm != null)
+            {
+                SettingsProperties.reportChildForm.Close();
+                SettingsProperties.reportChildForm.Dispose();
+            }
+
+            SettingsProperties.reportChildForm = new Report(this);
+            SettingsProperties.reportChildForm.TopLevel = false;
+            SettingsProperties.reportChildForm.Dock = DockStyle.Fill;
+            SettingsProperties.reportChildForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+
+            // adds report form under parent window control
+            var page = radpgTabCollection.Pages[2];
+            SettingsProperties.reportChildForm.Parent = page;
+            page.Controls.Add(SettingsProperties.reportChildForm);
+            
+            SettingsProperties.reportChildForm.Show();
+        }
+
+        // private void ReportWaitScreen()
+        // {
+        // SettingsProperties.frmRptBlnk = new ReportBlankScreen();
+        // SettingsProperties.frmRptBlnk.Dock = DockStyle.Fill;
+
+        // SettingsProperties.frmRptBlnk.ShowDialog();
+        // //SettingsProperties.frmRptBlnk.BringToFront();
+            
+        // }
 
         /** This event fires when restore button is clicked on menu bar
          * */
@@ -892,7 +1068,7 @@ namespace AtCor.Scor.Gui.Presentation
                         Directory.SetCurrentDirectory(currentpath);
 
                         // check for .bak file extension and restore backup
-                        if (Path.GetExtension(openFileDialog1.FileName).ToLower().Equals(BackupFileExt))
+                        if (Path.GetExtension(openFileDialog1.FileName).Equals(BackupFileExt, StringComparison.CurrentCultureIgnoreCase))
                         {
                             // restore backup operation on separate thread
                             Thread startDBRestore = new Thread(RestoreBackupFile);
@@ -912,21 +1088,19 @@ namespace AtCor.Scor.Gui.Presentation
                         }
                     }
                 }
-            }
-            catch (CrxException ex)
-            {
-                RadMessageBox.Show(this, oMsgMgr.GetMessage(ex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.ErrorString);
-                radlblMessage.Text = string.Empty;
-            }
+            }         
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
-                radlblMessage.Text = string.Empty;
+                GUIExceptionHandler.HandleException(ex, this);
             }
+
+            /*  catch (CrxException ex)
+           {
+               RadMessageBox.Show(this, oMsgMgr.GetMessage(ex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+               CrxLogger oLogObject = CrxLogger.Instance;
+               oLogObject.Write(ex.ErrorString);
+               radlblMessage.Text = string.Empty;
+           } */
         }
 
         /** This method restores databse backup
@@ -946,18 +1120,45 @@ namespace AtCor.Scor.Gui.Presentation
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(oMsgMgr.GetMessage("RESTORE_PROGRESS"));
 
-                // restore database
-                success = dbMagr.DatabaseRestore(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) : path);
+                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
+                {
+                    // restore database
+                    success = dbMagr.DatabaseRestore(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) : path);
 
-                // on success of restore invoke event to show message
-                if (success == 0)
-                {                  
-                  // Invoke methods to stop progressbasr & reload setup screen
-                   OnRestoreCompleteSuccess.Invoke(this, new EventArgs());
-                   OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+                    // on success of restore invoke event to show message
+                    if (success == 0)
+                    {                  
+                      // Invoke methods to stop progressbasr & reload setup screen
+                       OnRestoreCompleteSuccess.Invoke(this, new EventArgs());
+                       OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+                    }
+                }
+                else
+                {
+                    dbOperation = oMsgMgr.GetMessage("RESTORE_FAIL");
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+
+                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(ShowConnectionError);
+                    this.Invoke(messageBox, dbOperation, null);                        
                 }
             }
-            catch (CrxException ex)
+            catch (Exception ex)
+            {
+                if (this.InvokeRequired)
+                {
+                    dbOperation = oMsgMgr.GetMessage("RESTORE_FAIL");
+                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+
+                    ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    this.Invoke(handle, ex, this);
+
+                    // GUIExceptionHandler.HandleException(ex, this);
+                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    ////this.Invoke(messageBox, ex.Message, ex);                   
+                }
+            }
+
+          /*  catch (CrxException ex)
             {
                 if (this.InvokeRequired)
                 {
@@ -970,24 +1171,7 @@ namespace AtCor.Scor.Gui.Presentation
                 
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.ErrorString);               
-            }
-            catch (Exception ex)
-            {
-                if (this.InvokeRequired)
-                {
-                    dbOperation = oMsgMgr.GetMessage("RESTORE_FAIL");
-                    OnDBBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
-
-                    // ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
-                    // this.Invoke(handle,ex,this);
-                    // GUIExceptionHandler.HandleException(ex, this);
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, ex.Message, ex);                   
-                }
-                
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
-            }
+            } */            
         }
 
         /**This event fires when Atcor Homepage menu item is selected
@@ -1001,14 +1185,20 @@ namespace AtCor.Scor.Gui.Presentation
        */
         private void DisplayErrorMessage(string errorMessage, Exception ex)
         {
-            if (ex.GetType() == typeof(CrxException))
-            {
-                RadMessageBox.Show(this, errorMessage, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-            }
-            else
-            {
-                RadMessageBox.Show(this, oMsgMgr.GetMessage(errorMessage), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-            }
+            // vibhuti: this will be replaced by common exception handling class
+            ////if (ex.GetType() == typeof(CrxException))
+            ////{
+            ////    RadMessageBox.Show(this, errorMessage, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+            ////}
+            ////else
+            ////{
+            ////    RadMessageBox.Show(this, oMsgMgr.GetMessage(errorMessage), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+            ////}
         }
+
+        private void DisplayMessage(string message)
+        {
+            radlblMessage.Text = message;
         }
+        }      
     }

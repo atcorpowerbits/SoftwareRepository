@@ -42,6 +42,9 @@ namespace AtCor {
 								{
 									private:
 										
+										//Declaring static variables names for exception numbers
+										static const int CRX_ERR_FILE_ALREADY_EXIST = 102;
+
 										LogWriter ^CrxLogWriter; /**< Variable to point to LogWriter instance.*/
 										int entryLineNumber;
 										
@@ -83,6 +86,12 @@ namespace AtCor {
 											* Archives the current log file and creates a fresh current file.
 											*/
 										  bool RollLogFile();
+
+											/**
+											* Destructor for the class
+											*/
+										  ~CrxLogger();
+										  
 
 										  
 

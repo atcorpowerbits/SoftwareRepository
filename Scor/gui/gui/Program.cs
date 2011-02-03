@@ -5,7 +5,8 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.Xml;
 using System.IO;
-using AtCor.Scor.CrossCutting.Configuration;  
+using AtCor.Scor.CrossCutting.Configuration;
+using AtCor.Scor.CrossCutting;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -15,11 +16,10 @@ namespace AtCor.Scor.Gui.Presentation
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             try
-            {                
-                System.Diagnostics.EventLog.WriteEntry("Scor", "Entry Point");
+            { 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new DefaultWindow());
@@ -28,13 +28,15 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 System.Diagnostics.EventLog.WriteEntry("Scor error", ex.Message);
             }
-        }
-        
+        }        
+
+        /** This method fetches culture info string from current culture to show PDF files from respective folders
+         * */
         public static string GetCurrentCulture()
         {
             CultureInfo currentCulture = CultureInfo.CurrentCulture;            
             string cultureSetting = currentCulture.Name.Substring(0, 2);
             return cultureSetting;
-        }
+        }       
     }
 }

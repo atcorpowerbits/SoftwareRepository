@@ -126,10 +126,27 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		
 		String^ _connString;
 		String^ _systemIdentityID;
-		String^ _dbType;
+		String^ _dbType;		
 		
 		//Database Object
 		Database^ _objDB;
+
+		// holds the location of the migration file
+        String^ _nameOfAccessFile;
+
+		// holds the location of the new migration file
+		String^ _nameOfAccessFileNew;
+
+		//Declaring static variables names for exception numbers
+		static const int CRX_ERR_MSACCESS_FILE_NOT_EXIST	= 605;
+		static const int CRX_ERR_DBMGR_CONVERSION			= 600;
+		static const int CRX_ERR_DBMGR_NO_PROVIDER			= 601;
+	
+		static const int DBMGR_COLUMN_PAT_LAST_NAME			= 3;
+		static const int DBMGR_COLUMN_PAT_FIRST_NAME		= 4;
+		static const int DBMGR_COLUMN_PAT_GENDER			= 6;
+		static const int DBMGR_COLUMN_PAT_DOB				= 7;
+		static const int DBMGR_COLUMN_PAT_EXT_NAME			= 8;
 
 		/**
 		* Default Constructor
@@ -143,6 +160,13 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 			// with new server name.
 			// Eg. Use "OracleClient" for oracle database, "Odbc" for any data source that can be connected with ODBC, etc.
 			_dbType = "SqlClient";
+			DBname = "AtCor"; 
+
+			//set path of the migration   file, this is hard coded.
+            _nameOfAccessFile = L".\\system\\data\\scor.xyz";
+
+			//set path of the migration   file, this is hard coded.
+            _nameOfAccessFileNew = L".\\system\\data\\scor.xyz.old";
 		}
 
 
@@ -199,6 +223,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		
 	public:		
 		
+		static String^ DBname;
+
 		/**
 		* Singleton Instance property with Only Get accessor
 		*/
@@ -330,6 +356,15 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		int UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md);
 
 		/**
+		* To update measurement record in the database @n
+		* Conversion of short/float arrays to byte arrays values to store in varbinary type at database
+		* @return if 1 if successfully saved else not successful
+		* @param[in] md CrxStructPWVMeasurementData handle to Measurement Details structure
+		* @param[in] studyDateTimeArrStr String to store the study datetime list to be deleted
+		*/
+		int DeletePWVMeasurementDetails(CrxStructPWVMeasurementData^ md, String^ studyDateTimeArrStr);
+
+		/**
 		* To convert Byte Array to float Array 
 		* @return float array data
 		* @param[in] len Length of the array
@@ -361,16 +396,30 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		/**
 		* To take backup of the database 
 		* @return if 0 if successfully saved else not successful
-		* @param[in] FilePath to store the backup file
+		* @param[in] filePath to store the backup file
 		*/
 		int DatabaseBackup(String^ filePath);
 		
 		/**
 		* To restore back file to database 
 		* @return if 0 if successfully saved else not successful
-		* @param[in] FilePath to get the backup file
+		* @param[in] filePath to get the backup file
 		*/
 		int DatabaseRestore(String^ filePath);
+		
+		/**
+		* To check migration file exist in .\\system\\data\\scor.xyz location or not
+		* @return if true file exist
+		*/
+		bool MigrationFileExist();
+
+		/**
+		* To migrate data from .\\system\\data\\scor.xyz to AtCor database
+		* @return if 0 successful else not
+		* @param[in] systemIdentifier Identifier of the SystemInstallationID
+		* @param[in] groupName Group name on which the data will be migrated
+		*/
+		int MigrateAtCorData(int systemIdentifier, String^ groupName);
 
 	};
 }

@@ -33,11 +33,11 @@ using Telerik.WinControls.Enumerations;
  * 
  */
 namespace AtCor.Scor.Gui.Presentation
-{         
-     /**
-     * @class Setting Window
-     * @brief This class is used to set General as well as PWV settings for the application.On this window,all the necessary settings will be done which are required by the user at different stages in the application.
-     */    
+{
+    /**
+    * @class frmSettingsWindow
+    * @brief This class is used to set General as well as PWV settings for the application.On this window,all the necessary settings will be done which are required by the user at different stages in the application.
+    */
     public partial class frmSettingsWindow : Telerik.WinControls.UI.RadForm
     {
         #region Set constant values
@@ -290,9 +290,7 @@ namespace AtCor.Scor.Gui.Presentation
             }            
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
         
@@ -353,12 +351,14 @@ namespace AtCor.Scor.Gui.Presentation
             {                
                 if (this.InvokeRequired)
                 {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, ex.Message);
+                    ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    this.Invoke(handle, ex, this);
+                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    ////this.Invoke(messageBox, ex.Message);
                 }
 
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                ////CrxLogger oLogObject = CrxLogger.Instance;
+                ////oLogObject.Write(ex.Message);
             }
             finally
             {
@@ -479,9 +479,7 @@ PATH_SIMUALTION_FILES);
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             } 
         }
 
@@ -576,8 +574,18 @@ PATH_SIMUALTION_FILES);
                     SetUserSettingsDelegate userSettings = new SetUserSettingsDelegate(SetUserSettings);
                     this.Invoke(userSettings, new object[] { e.GenObj, e.PwvObj });
                 }
-            }
-            catch (CrxException cfgExp)
+            }          
+            catch (Exception ex)
+            {
+                if (this.InvokeRequired)
+                {
+                    ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    this.Invoke(handle, ex, this);
+                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    ////this.Invoke(messageBox, ex.Message);
+                }
+
+                /*  catch (CrxException cfgExp)
             {
                 // Exception if any will be logged and displayed(appropiate message) to the user.                 
                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
@@ -591,17 +599,7 @@ PATH_SIMUALTION_FILES);
 
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(errorMessage);
-            }
-            catch (Exception ex)
-            {
-                if (this.InvokeRequired)
-                {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, ex.Message);
-                }
-
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+            }*/
             }
         } // End DisplaySetings
 
@@ -628,7 +626,19 @@ PATH_SIMUALTION_FILES);
                 // Calling the event which displays the general settings on the GUI.                
                 OnDisplayUserSettings(this, args);
             }
-            catch (CrxException cfgExp)
+            catch (Exception ex)
+            {
+                if (this.InvokeRequired)
+                {
+                    ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    this.Invoke(handle, ex, this);
+
+                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    ////this.Invoke(messageBox, ex.Message);
+                }
+            }
+
+            /* catch (CrxException cfgExp)
             {
                 // Exception if any will be logged and displayed(appropiate message) to the user.                 
                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
@@ -651,18 +661,7 @@ PATH_SIMUALTION_FILES);
                         this.Invoke(closewindow);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                if (this.InvokeRequired)
-                {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, ex.Message);
-                }
-
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);              
-            }
+            } */            
         }
 
         /**This method is called when the thread for reading Default user settings is started.
@@ -704,31 +703,32 @@ PATH_SIMUALTION_FILES);
 
                 // Calling the event which displays the default general settings on the GUI.                
                 OnDefaultGeneralSettings(this, args);
-           }
-            catch (CrxException cfgExp)
-           {
-               // Exception if any will be logged and displayed(appropiate message) to the user.                
-                CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-                string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);               
-                if (this.InvokeRequired)
-                {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, errorMessage);
-                }
-
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(errorMessage);
-            }
+           }           
             catch (Exception ex)
             {
                 if (this.InvokeRequired)
                 {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, ex.Message);
+                    ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    this.Invoke(handle, ex, this);
+
+                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    ////this.Invoke(messageBox, ex.Message);
                 }
 
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                /* catch (CrxException cfgExp)
+            {
+                // Exception if any will be logged and displayed(appropiate message) to the user.                
+                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+                 string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);               
+                 if (this.InvokeRequired)
+                 {
+                     DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                     this.Invoke(messageBox, errorMessage);
+                 }
+
+                 CrxLogger oLogObject = CrxLogger.Instance;
+                 oLogObject.Write(errorMessage);
+             } */
             }
         }
            
@@ -754,9 +754,7 @@ PATH_SIMUALTION_FILES);
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -781,9 +779,7 @@ PATH_SIMUALTION_FILES);
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -835,9 +831,7 @@ PATH_SIMUALTION_FILES);
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
         
@@ -862,9 +856,7 @@ PATH_SIMUALTION_FILES);
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message,  oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -986,12 +978,15 @@ PATH_SIMUALTION_FILES);
             {
                 if (this.InvokeRequired)
                 {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, ex.Message);
+                    ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    this.Invoke(handle, ex, this);
+                    
+                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                    ////this.Invoke(messageBox, ex.Message);
                 }
 
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);              
+                ////CrxLogger oLogObject = CrxLogger.Instance;
+                ////oLogObject.Write(ex.Message);              
             }           
         }
 
@@ -1018,20 +1013,15 @@ PATH_SIMUALTION_FILES);
                 obj.PwvSettings = pwvSettingsStruct;
 
                 // OnSettingsChangedEvent(this, new EventArgs());
-                OnSettingsChangedEvent.Invoke(this, new EventArgs());             
-            }
-            catch (CrxException cfgExp)
+                OnSettingsChangedEvent.Invoke(this, new EventArgs());
+            }            
+            catch (Exception ex)
             {
-                CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-                string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);
                 if (this.InvokeRequired)
                 {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, errorMessage);
-                }
-
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(errorMessage);
+                    ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    this.Invoke(handle, ex, this);
+                }                
             }
             finally
             {
@@ -1040,7 +1030,21 @@ PATH_SIMUALTION_FILES);
                     CloseAfterSaveDelegate closewindow = new CloseAfterSaveDelegate(CloseSettingWindowAfterSave);
                     this.Invoke(closewindow);
                 }
-            }            
+            }
+
+            /*  catch (CrxException cfgExp)
+              {
+                  CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+                  string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);
+                  if (this.InvokeRequired)
+                  {
+                      DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
+                      this.Invoke(messageBox, errorMessage);
+                  }
+
+                  CrxLogger oLogObject = CrxLogger.Instance;
+                  oLogObject.Write(errorMessage);
+              } */
         }
 
         /**This method will display the error message using the message box.
@@ -1118,9 +1122,7 @@ PATH_SIMUALTION_FILES);
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1145,7 +1147,16 @@ PATH_SIMUALTION_FILES);
                 // Calling the event which displays the default general settings on the GUI.                
                 OnDefaultGeneralSettings(this, args);
             }
-            catch (CrxException cfgExp)
+            catch (Exception ex)
+            {
+                if (this.InvokeRequired)
+                {
+                    ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
+                    this.Invoke(handle, ex, this);
+                }
+            }
+
+          /*  catch (CrxException cfgExp)
             {
                 // Exception if any will be logged and displayed(appropiate message) to the user.                 
                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
@@ -1158,18 +1169,7 @@ PATH_SIMUALTION_FILES);
 
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(errorMessage);
-            }
-            catch (Exception ex)
-            {
-                if (this.InvokeRequired)
-                {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, ex.Message);
-                }
-
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
-            }
+            } */           
         }                
     }
 

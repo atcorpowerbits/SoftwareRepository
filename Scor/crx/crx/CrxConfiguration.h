@@ -47,15 +47,20 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 	 */
 	public ref struct CrxStructGeneralSetting
 	{
-		bool PatientPrivacy; /**< true: if patient privacy is selected, false: if not selcted */
-		int HeightandWeightUnit; /**<0 : if metric is selcted, 1: If immperial is selected */
-		int BloodPressureEntryOptions; /**<0 : if SP and DP is selected 1:SP and MP is selected 2:MP and DP is selected */
-		String^ CommsPort; /**< Shows the string selected */
-		String^ ReportTitle;	/**< Shows the report title */
-		String^ ReportLogoPath; /**< Shows the report logo path */
-		String^ ServerName; /**< Shows the server name selected */
-		String^ SourceData;	/**< Shows the source data selected */
-		String^ CultureInfo; /**< Shows the culture info */
+		bool PatientPrivacy;			/**< true: if patient privacy is selected, false: if not selcted */
+		int HeightandWeightUnit;		/**<0 : if metric is selcted, 1: If immperial is selected */
+		int BloodPressureEntryOptions;	/**<0 : if SP and DP is selected 1:SP and MP is selected 2:MP and DP is selected */
+		String^ CommsPort;				/**< Shows the string selected */
+		String^ ReportTitle;			/**< Shows the report title */
+		String^ ReportLogoPath;			/**< Shows the report logo path */
+		String^ ServerName;				/**< Shows the server name selected */
+		String^ SourceData;				/**< Shows the source data selected */
+		String^ CultureInfo;			/**< Shows the culture info */
+		String^ MachineName;			/**< Shows the machine name */
+		String^ StartupMode;			/**< Shows the Startup Mode */
+		String^ StartupScreen;			/**< Shows the Startup Screen */
+		String^ EnvironmentSettings;	/**< Shows the environment Settings  */
+
 
 		/**
 		* Default constructor to initialize the structure members
@@ -71,6 +76,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			ServerName					= nullptr;
 			SourceData					= nullptr;
 			CultureInfo					= nullptr;
+			MachineName					= nullptr;
+			StartupMode					= nullptr;
+			StartupScreen				= nullptr;
+			EnvironmentSettings			= nullptr;
 		}
 	};
 
@@ -81,12 +90,12 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 	public ref struct CrxStructPwvSetting
 	{
 		
-		bool FemoralToCuff;/**< true: if Femoral to Cuff is selected, false: if not selcted */		
-		bool ReferenceRange;/**< true: if Reference Range is selected, false: if not selcted */
-		int PWVDistanceUnits;/**<0 : if mm is selected, 1: If cm is selected */
-		int PWVDistanceMethod;/**<0 : if substracting is selected, 1: if direct is selected */
-		int CaptureTime;/**<5 : if 5 seconds is selected 10:10 seconds is selected 20:20 seconds is selected */
-		String^ SimulationType;/**< Shows the String Selected*/
+		bool FemoralToCuff;		/**< true: if Femoral to Cuff is selected, false: if not selcted */		
+		bool ReferenceRange;	/**< true: if Reference Range is selected, false: if not selcted */
+		int PWVDistanceUnits;	/**<0 : if mm is selected, 1: If cm is selected */
+		int PWVDistanceMethod;	/**<0 : if substracting is selected, 1: if direct is selected */
+		int CaptureTime;		/**<5 : if 5 seconds is selected 10:10 seconds is selected 20:20 seconds is selected */
+		String^ SimulationType;	/**< Shows the String Selected*/
 		
 		/**
 		* Default constructor to initialize the structure members
@@ -113,9 +122,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		private:
 			
 			//Declaring Static variables names for exception numbers
-			static const int CRXERR_FILE_NOT_EXIST = 100;
-			static const int CRXERR_CORRUPT_FILE = 101;
-			static const int CRXERR_FILE_NOT_ACCESS = 102;
+			static const int CRXERR_FILE_NOT_EXIST	= 101;
+			static const int CRXERR_CORRUPT_FILE	= 100;
+			static const int CRXERR_FILE_NOT_ACCESS = 103;
+			static const int CRXERR_UNKNOWN_EXCEPN	= 104;
 
 			//singleton instance
 			static CrxConfigManager^ _instance = gcnew CrxConfigManager();
@@ -215,6 +225,12 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetSourceData(String^ SubSection, String^ ReaderValue);
 			//Get CultureInfo from config file
 			void GetCultureInfo(String^ SubSection, String^ ReaderValue);
+			//Get Machine Name from config file
+			void GetMachineName(String^ SubSection, String^ ReaderValue);
+			//Get Startup Mode from config file
+			void GetStartupMode(String^ SubSection, String^ ReaderValue);
+			//Get Startup Screen from config file
+			void GetStartupScreen(String^ SubSection, String^ ReaderValue);
 	
 			//-------------------Set General Setting User Values-------------------
 			//Set Patient Privacy value in config file
@@ -229,12 +245,14 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void SetReportTitle(CrxStructGeneralSetting^ gs, XmlNode^ node);
 			//Set Report Logo Path in config file
 			void SetReportLogoPath(CrxStructGeneralSetting^ gs, XmlNode^ node);
-			//Set Server Name from config file
+			//Set Server Name in config file
 			void SetServerName(CrxStructGeneralSetting^ gs, XmlNode^ node);
-			//Set Source Data from config file
+			//Set Source Data in config file
 			void SetSourceData(CrxStructGeneralSetting^ gs, XmlNode^ node);
-			//Set CultureInfo from config file
+			//Set CultureInfo in config file
 			void SetCultureInfo(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			//Set Machine Name in config file
+			void SetMachineName(CrxStructGeneralSetting^ gs, XmlNode^ node);
 
 			//-------------------Get PWV Setting Values-------------------
 			//Get Femoral Cuff value from config file
@@ -344,6 +362,5 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		* @param[in] ps CrxStructPwvSetting Handle to the PWV setting structure
 		*/
 		void SetPwvUserSettings(CrxStructPwvSetting^ ps);	
-		
 	};
 }}}} // End Namespace tags

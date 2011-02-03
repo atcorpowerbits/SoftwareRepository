@@ -38,15 +38,15 @@ using System.Globalization;
 namespace AtCor.Scor.Gui.Presentation
 {
     /**
-    * @class Class for Setup screen when the application loads.
+    * @class Setup
     * @brief This class will handle displaying of the setup screen controls.It will also check for exception handling and logging of events.
-    */   
+    */
     public partial class Setup : Telerik.WinControls.UI.RadForm
     {
         int bobj = 31256;
         CrxDBManager dbMagr = CrxDBManager.Instance;
         BizPWV obj;
-        
+        string serverNameString = string.Empty;
         CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
 
         #region Global declarations
@@ -83,20 +83,24 @@ namespace AtCor.Scor.Gui.Presentation
                 ReadSettings();
                 SetTextForSetupTab();
 
-                // subscrive to Settings change event from settings window
+                // subscribe to Settings change event from settings window
                 frmSettingsWindow.OnSettingsChangedEvent += new EventHandler(SettingsChangedEventHandler);
+                DefaultWindow.OnRestoreCompleteSuccess += new EventHandler(Setup_Load);
                 Report.OnPWVMeasurementChangedEvent += new EventHandler(SettingsChangedEventHandler);
-            }
-            catch (CrxException crxex)
-            {
-                RadMessageBox.Show(this, oMsgMgr.GetMessage(crxex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+
+               // AtCor.Scor.Gui.Presentation.Capture.OnAbortInitializeTimer += new EventHandler(StartWaitInterval);
+                // initialize servername string
+                serverNameString = SettingsProperties.ServerNameString();
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
+
+           /* catch (CrxException crxex)
+            {
+                RadMessageBox.Show(this, oMsgMgr.GetMessage(crxex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+            } */          
         }
 
         /**Parameterized Constructor, used to display messages in default window      
@@ -104,8 +108,8 @@ namespace AtCor.Scor.Gui.Presentation
         public Setup(DefaultWindow defWindow)
         { 
             try
-            {
-                 InitializeComponent();
+            {               
+                InitializeComponent();
                 ReadSettings();
                 SetTextForSetupTab();
 
@@ -116,17 +120,20 @@ namespace AtCor.Scor.Gui.Presentation
                 frmSettingsWindow.OnSettingsChangedEvent += new EventHandler(SettingsChangedEventHandler);
                 DefaultWindow.OnRestoreCompleteSuccess += new EventHandler(Setup_Load);
                 Report.OnPWVMeasurementChangedEvent += new EventHandler(SettingsChangedEventHandler);
-            }
-            catch (CrxException crxex)
-            {
-                RadMessageBox.Show(this, oMsgMgr.GetMessage(crxex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+
+                // AtCor.Scor.Gui.Presentation.Capture.OnAbortInitializeTimer += new EventHandler(StartWaitInterval);
+                // initialize servername string
+                serverNameString = SettingsProperties.ServerNameString();
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
+
+           /* catch (CrxException crxex)
+            {
+                RadMessageBox.Show(this, oMsgMgr.GetMessage(crxex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+            } */           
         }
 
         /**This method sets text for labels in patient demographic details region
@@ -159,6 +166,12 @@ namespace AtCor.Scor.Gui.Presentation
             guiradlblPwvDistanceCalculation.Text = oMsgMgr.GetMessage("LABEL_PWV_DISTANCE");
             guiradlblPwvDistanceUnits.Text = oMsgMgr.GetMessage("MM");
             guiradbtnCapture.Text = oMsgMgr.GetMessage("BTN_CAPTURE");
+            guiradbtnNew.Text = oMsgMgr.GetMessage("BTN_NEW");
+            guiradbtnSearch.Text = oMsgMgr.GetMessage("BTN_SEARCH");
+            guiradbtnEdit.Text = oMsgMgr.GetMessage("BTN_EDIT");
+            guiradbtnCancel.Text = oMsgMgr.GetMessage("BTN_CANCEL");
+            guiradbtnSave.Text = oMsgMgr.GetMessage("BTN_SAVE");
+            guiradbtnDelete.Text = oMsgMgr.GetMessage("BTN_DELETE"); 
         }
 
         /**This is Event handler which is called whenever the General settings and PWV settings are chaged in the Settings window.
@@ -207,9 +220,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+               GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -242,8 +253,11 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     this.Invoke(new EventHandler(Setup_Load));
                     return;
-                } 
-  
+                }
+
+                bobj = 31256;
+                SettingsProperties.SystemIdentifier = bobj;
+                
                 if (crxMgrObject.GeneralSettings.PatientPrivacy)
                 {
                     // patient privacy is enabled hide gridview
@@ -257,21 +271,31 @@ namespace AtCor.Scor.Gui.Presentation
                     guiradbtnExpander.Text = oMsgMgr.GetMessage("HIDE_CAPS");
                 }
 
-                guicmbxGender.SelectedIndex = 0;
+                FillGender();
                 FillDay(0);
                 FillMonthAndYear();
                 LoadGroupNames();
                 InitializePatientList();
 
                 // InitializeReportAssessmentList();
-                LoadPatientList();               
+                LoadPatientList();                
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
+        }
+
+        /** This method binds gender values
+         * */
+        void FillGender()
+        {
+            guicmbxGender.Items.Clear();
+            guicmbxGender.Items.Insert(0, oMsgMgr.GetMessage("SELECT_CAPS"));
+            guicmbxGender.Items.Insert(1, oMsgMgr.GetMessage("MALE_TXT"));
+            guicmbxGender.Items.Insert(2, oMsgMgr.GetMessage("FEMALE_TXT"));
+
+            guicmbxGender.SelectedIndex = 0;            
         }
 
         /**This method is used to populate the group names into the combo box from the database using database manager class. 
@@ -281,42 +305,58 @@ namespace AtCor.Scor.Gui.Presentation
             // fetches group name and binds it
             try
             {
-                DataSet ds = new DataSet();
-                ds = dbMagr.GetGroupLists();
+                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
+                {
+                    DataSet ds = new DataSet();
+                    ds = dbMagr.GetGroupLists();
 
-                DataRow dr = ds.Tables[0].NewRow();
-                dr["GroupName"] = oMsgMgr.GetMessage("SELECT_CAPS"); // "--Select--";
-                dr["GroupIdentifier"] = 0;
+                    DataRow dr = ds.Tables[0].NewRow();
+                    dr["GroupName"] = oMsgMgr.GetMessage("SELECT_CAPS"); // "--Select--";
+                    dr["GroupIdentifier"] = 0;
 
-                ds.Tables[0].Rows.InsertAt(dr, 0);
+                    ds.Tables[0].Rows.InsertAt(dr, 0);
 
-                guicmbGroup.DataSource = ds.Tables[0];
-                guicmbGroup.DisplayMember = "GroupName";
+                    guicmbGroup.DataSource = ds.Tables[0];
+                    guicmbGroup.DisplayMember = "GroupName";
 
-                guicmbGroup.SelectedIndex = 0;
-            }
-            catch (CrxException ex)
+                    guicmbGroup.SelectedIndex = 0;
+                }
+                else
+                {
+                    DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                    if (result == DialogResult.Retry)
+                    {
+                        LoadGroupNames();
+                    }
+                }
+            }            
+            catch (Exception ex)
             {
-                if (ex.ExceptionObject != null)
-                {
-                    RadMessageBox.Show(this, ex.ExceptionObject.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                    CrxLogger oLogObject = CrxLogger.Instance;
-                    oLogObject.Write(ex.ExceptionObject.Message);
-                }
-                else if (String.IsNullOrEmpty(ex.ErrorString))
-                {
-                    RadMessageBox.Show(this, oMsgMgr.GetMessage(ex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                    CrxLogger oLogObject = CrxLogger.Instance;
-                    oLogObject.Write(ex.ErrorString);
-                }
+                GUIExceptionHandler.HandleException(ex, this);
             }
-        }
+
+            /* catch (CrxException ex)
+             {
+                 if (ex.ExceptionObject != null)
+                 {
+                     RadMessageBox.Show(this, ex.ExceptionObject.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                     CrxLogger oLogObject = CrxLogger.Instance;
+                     oLogObject.Write(ex.ExceptionObject.Message);
+                 }
+                 else if (String.IsNullOrEmpty(ex.ErrorString))
+                 {
+                     RadMessageBox.Show(this, oMsgMgr.GetMessage(ex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                     CrxLogger oLogObject = CrxLogger.Instance;
+                     oLogObject.Write(ex.ErrorString);
+                 }
+             } */
+        }       
 
         /** This method is used to show the grid view when the Expand button is clicked.
        */ 
         private void guiradbtnExpander_Click(object sender, EventArgs e)
         {
-            if (guiradbtnExpander.Text.ToLower().CompareTo(oMsgMgr.GetMessage("HIDE_SMALL")) == 0)
+            if (string.Compare(guiradbtnExpander.Text, oMsgMgr.GetMessage("HIDE_SMALL"), StringComparison.CurrentCultureIgnoreCase) == 0)
             {
                 ShowHidePatientDetails(oMsgMgr.GetMessage("HIDE_SMALL"));
                 guiradbtnExpander.Text = oMsgMgr.GetMessage("SHOW_CAPS");
@@ -336,13 +376,13 @@ namespace AtCor.Scor.Gui.Presentation
         private void ShowHidePatientDetails(string value)
         {
             // hides patient gridview acoording to show / hide values
-            if (value.ToLower().CompareTo(oMsgMgr.GetMessage("HIDE_SMALL")) == 0)
+            if (value.Equals(oMsgMgr.GetMessage("HIDE_SMALL"), StringComparison.CurrentCultureIgnoreCase))
             {
                 splitContainer1.SplitterDistance = 20;
             }
             else
             {
-                splitContainer1.SplitterDistance = 350;
+                splitContainer1.SplitterDistance = 359;
             }
         }
 
@@ -394,9 +434,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -406,60 +444,88 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                DataSet ds = new DataSet();
-                ds = dbMagr.GetPatientDemographicRecords();
-
-                // Call FetchRecords method from Database Manager
-                guiradgrdPatientList.DataSource = ds.Tables[0];
-
-                if (ds.Tables[0].Rows.Count > 0)
+                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
                 {
-                    mode = CurrentMode.None.ToString(); 
-                    BrowseMode(true);
+                    DataSet ds = new DataSet();
+                    ds = dbMagr.GetPatientDemographicRecords();
 
-                    guiradlblNumberOfPatients.Text = ds.Tables[0].Rows.Count.ToString();
-                    GridViewRowInfo lastRow;
+                    // Call FetchRecords method from Database Manager
+                    guiradgrdPatientList.DataSource = ds.Tables[0];
 
-                    // Display last record details into the demographic fields.
-                    lastRow = guiradgrdPatientList.Rows[guiradgrdPatientList.Rows.Count - 1];
-                    lastRow.IsCurrent = true;
-                    lastRow.IsSelected = true;
-                    int patientIdInternal = 0;
-                    int groupId = 0;
-                    patientIdInternal = int.Parse(lastRow.Cells[1].Value.ToString());
-                    groupId = int.Parse(lastRow.Cells[2].Value.ToString());
-                    radlblpatientinternalnumber.Text = patientIdInternal.ToString();
-                    radlblgroupid.Text = groupId.ToString();                    
-                    DisplayLastRecord(patientIdInternal, groupId);
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        mode = CurrentMode.None.ToString();
+                        BrowseMode(true);
+                        guiradgrdPatientList.Enabled = true;
+                        guiradlblNumberOfPatients.Text = ds.Tables[0].Rows.Count.ToString();
+                        GridViewRowInfo lastRow;
+
+                        // Display last record details into the demographic fields.
+                        lastRow = guiradgrdPatientList.Rows[guiradgrdPatientList.Rows.Count - 1];
+                        lastRow.IsCurrent = true;
+                        lastRow.IsSelected = true;
+                        int patientIdInternal = 0;
+                        int groupId = 0;
+                        patientIdInternal = int.Parse(lastRow.Cells[1].Value.ToString());
+                        groupId = int.Parse(lastRow.Cells[2].Value.ToString());
+                        radlblpatientinternalnumber.Text = patientIdInternal.ToString();
+                        radlblgroupid.Text = groupId.ToString();
+                        DisplayLastRecord(patientIdInternal, groupId);
+                    }
+                    else
+                    {
+                        // no records in table set to insert mode
+                        // guiradlblNumberOfPatients.Text = "0";
+
+                        // disable capture & report tabs
+                        objDefaultWindow.radtabCapture.Enabled = false;
+                        objDefaultWindow.radtabReport.Enabled = false;
+                        objDefaultWindow.radlblPatientName.Text = string.Empty;
+
+                        guiradtxtPatientID.Focus();
+                        guipnlMeasurementDetails.Visible = false;
+
+                        mode = CurrentMode.InsertMode.ToString(); // 1;
+                        ResetFields();
+                        BrowseMode(false);
+
+                        FillDay(0);
+
+                        // radRibbonBar.Enabled = false;
+                        guiradgrdPatientList.Enabled = false;
+
+                        objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage("INSERT_MODE"); // "Insert Mode";
+                    }
                 }
                 else
                 {
-                    // no records in table set to insert mode
-                    ResetFields();
-                    mode = CurrentMode.InsertMode.ToString(); // 1;
-                    BrowseMode(false);
-                    guiradlblNumberOfPatients.Text = "0";
-
-                    // disable capture & report tabs
-                    objDefaultWindow.radtabCapture.Enabled = false;
-                    objDefaultWindow.radtabReport.Enabled = false;
+                    DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                    if (result == DialogResult.Retry)
+                    {
+                        LoadPatientList();
+                    }
                 }
             }
-            catch (CrxException ex)
+            catch (Exception ex)
             {
-                if (ex.ExceptionObject != null)
-                {
-                    RadMessageBox.Show(this, ex.ExceptionObject.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                    CrxLogger oLogObject = CrxLogger.Instance;
-                    oLogObject.Write(ex.ExceptionObject.Message);
-                }
-                else if (String.IsNullOrEmpty(ex.ErrorString))
-                {
-                    RadMessageBox.Show(this, oMsgMgr.GetMessage(ex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                    CrxLogger oLogObject = CrxLogger.Instance;
-                    oLogObject.Write(ex.ErrorString);
-                }
+                GUIExceptionHandler.HandleException(ex, this);
             }
+
+            /* catch (CrxException ex)
+             {
+                 if (ex.ExceptionObject != null)
+                 {
+                     RadMessageBox.Show(this, ex.ExceptionObject.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                     CrxLogger oLogObject = CrxLogger.Instance;
+                     oLogObject.Write(ex.ExceptionObject.Message);
+                 }
+                 else if (String.IsNullOrEmpty(ex.ErrorString))
+                 {
+                     RadMessageBox.Show(this, oMsgMgr.GetMessage(ex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                     CrxLogger oLogObject = CrxLogger.Instance;
+                     oLogObject.Write(ex.ErrorString);
+                 }
+             } */           
         }
 
         /** This method is used to load the demographic details of the last pateint in the Patientlist gridview.
@@ -468,89 +534,98 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                int systemIdentifier = bobj;
-
-                ResetFields();
-                if (mode == CurrentMode.None.ToString())
+                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
                 {
-                    BrowseMode(true);
-                }
-                else
-                {
-                    BrowseMode(false);
-                }
-
-                // BrowseMode(true);
-                DataSet dsPatientDemographicDetails = new DataSet();
-                dsPatientDemographicDetails = dbMagr.GetPatientDemographicRecords(patientNumberInternal, systemIdentifier, groupId);
-                if (dsPatientDemographicDetails.Tables[0].Rows.Count > 0)
-                {
-                    DateTime date = DateTime.Parse(dsPatientDemographicDetails.Tables[0].Rows[0]["DateOfBirth"].ToString());
-
-                    // Populate the patient's demographic details in the form.
-                    guiradtxtPatientID.Text = dsPatientDemographicDetails.Tables[0].Rows[0]["PatientIDExternalReference"].ToString();
-                    guiradtxtFirstName.Text = dsPatientDemographicDetails.Tables[0].Rows[0]["FirstName"].ToString();
-                    guiradtxtLastName.Text = dsPatientDemographicDetails.Tables[0].Rows[0]["LastName"].ToString();
-                    guicmbGroup.Text = dsPatientDemographicDetails.Tables[0].Rows[0]["GroupName"].ToString();
-                    guicmbDay.SelectedItem = date.Day.ToString();
-                    originalgroupname = guicmbGroup.Text;
-                    orgPatientIdExt = guiradtxtPatientID.Text;
-                    guicmbxMonth.SelectedIndex = date.Month;
-                    guicmbxYear.SelectedItem = date.Year.ToString();
-
-                    // guicmbxGender.Text = dsPatientDemographicDetails.Tables[0].Rows[0]["Gender"].ToString();
-                    guicmbxGender.SelectedItem = dsPatientDemographicDetails.Tables[0].Rows[0]["Gender"].ToString();
-
-                    // display patients first & last name at bottom
-                    if (!string.IsNullOrEmpty(guiradtxtFirstName.Text.Trim()))
+                   // int systemIdentifier = bobj;
+                    ResetFields();
+                    if (mode == CurrentMode.None.ToString())
                     {
-                        objDefaultWindow.radlblPatientName.Text = guiradtxtFirstName.Text.Trim() + " " + guiradtxtLastName.Text.Trim();
+                        BrowseMode(true);
                     }
                     else
                     {
-                        objDefaultWindow.radlblPatientName.Text = guiradtxtLastName.Text.Trim();
+                        BrowseMode(false);
                     }
 
-                    radlblpatientinternalnumber.Text = patientNumberInternal.ToString();
-                    radlblgroupid.Text = groupId.ToString();
+                    // BrowseMode(true);
+                    DataSet dsPatientDemographicDetails = new DataSet();
+                    dsPatientDemographicDetails = dbMagr.GetPatientDemographicRecords(patientNumberInternal, bobj, groupId);
+                    if (dsPatientDemographicDetails.Tables[0].Rows.Count > 0)
+                    {
+                        DateTime date = DateTime.Parse(dsPatientDemographicDetails.Tables[0].Rows[0]["DateOfBirth"].ToString());
 
-                    // intialize bizpatient object with selected record
-                    string dob = guicmbDay.GetItemText(guicmbDay.SelectedItem) + "/" + guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem) + "/" + guicmbxYear.GetItemText(guicmbxYear.SelectedItem);
-                    BizPatient patientObj = BizPatient.Instance();
-                    patientObj.dateOfBirth = DateTime.Parse(dob);
-                    patientObj.firstName = guiradtxtFirstName.Text.Trim();
-                    patientObj.gender = guicmbxGender.SelectedItem.ToString();
-                    patientObj.patientNumber = UInt32.Parse(radlblpatientinternalnumber.Text.Trim());
-                    patientObj.groupStudyId = uint.Parse(groupId.ToString());
+                        // Populate the patient's demographic details in the form.
+                        guiradtxtPatientID.Text = dsPatientDemographicDetails.Tables[0].Rows[0]["PatientIDExternalReference"].ToString();
+                        guiradtxtFirstName.Text = dsPatientDemographicDetails.Tables[0].Rows[0]["FirstName"].ToString();
+                        guiradtxtLastName.Text = dsPatientDemographicDetails.Tables[0].Rows[0]["LastName"].ToString();
+                        guicmbGroup.Text = dsPatientDemographicDetails.Tables[0].Rows[0]["GroupName"].ToString();
+                        guicmbDay.SelectedItem = date.Day.ToString();
+                        originalgroupname = guicmbGroup.Text;
+                        orgPatientIdExt = guiradtxtPatientID.Text;
+                        guicmbxMonth.SelectedIndex = date.Month;
+                        guicmbxYear.SelectedItem = date.Year.ToString();
 
-                    // groupstudyId, patientnumber id to be retrieved
-                    patientObj.lastName = guiradtxtLastName.Text.Trim();
-                    patientObj.patientId = guiradtxtPatientID.Text.Trim();
+                        // guicmbxGender.Text = dsPatientDemographicDetails.Tables[0].Rows[0]["Gender"].ToString();
+                        guicmbxGender.SelectedItem = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dsPatientDemographicDetails.Tables[0].Rows[0]["Gender"].ToString().Trim().ToLower());
+                                               
+                        // display patients first & last name at bottom
+                        if (!string.IsNullOrEmpty(guiradtxtFirstName.Text.Trim()))
+                        {
+                            objDefaultWindow.radlblPatientName.Text = guiradtxtFirstName.Text.Trim() + " " + guiradtxtLastName.Text.Trim();
+                        }
+                        else
+                        {
+                            objDefaultWindow.radlblPatientName.Text = guiradtxtLastName.Text.Trim();
+                        }
 
-                    FillSessionObjFromDB();
+                        radlblpatientinternalnumber.Text = patientNumberInternal.ToString();
+                        radlblgroupid.Text = groupId.ToString();
+
+                        // intialize bizpatient object with selected record
+                        string dob = guicmbDay.GetItemText(guicmbDay.SelectedItem) + "/" + guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem) + "/" + guicmbxYear.GetItemText(guicmbxYear.SelectedItem);
+                        BizPatient patientObj = BizPatient.Instance();
+                        patientObj.dateOfBirth = DateTime.Parse(date.ToShortDateString());  // DateTime.Parse(dob);
+                        patientObj.firstName = guiradtxtFirstName.Text.Trim();
+                        patientObj.gender = guicmbxGender.Text.Trim(); // guicmbxGender.SelectedItem.ToString();
+                        patientObj.patientNumber = UInt32.Parse(radlblpatientinternalnumber.Text.Trim());
+                        patientObj.groupStudyId = uint.Parse(groupId.ToString());
+                        patientObj.systemId = uint.Parse(bobj.ToString());
+
+                        // groupstudyId, patientnumber id to be retrieved
+                        patientObj.lastName = guiradtxtLastName.Text.Trim();
+                        patientObj.patientId = guiradtxtPatientID.Text.Trim();
+
+                        FillSessionObjFromDB();
+                    }
                 }
+                else
+                {
+                    DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                    if (result == DialogResult.Retry)
+                    {
+                        DisplayLastRecord(patientNumberInternal, groupId);
+                    }
+                }
+            }           
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
             }
-            catch (CrxException ex)
+
+            /* catch (CrxException ex)
             {
                 // GUIExceptionHandler.GetErrorMessage(ex, this);
                 RadMessageBox.Show(this, ex.ErrorString, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                 CrxLogger oLogObject = CrxLogger.Instance;
                 oLogObject.Write(ex.Message);
-            }
-            catch (Exception ex)
-            {
-               // GUIExceptionHandler.GetErrorMessage(ex, this);
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
-            }
+            } */
         }
 
         /** This method is used to enable & disable buttons based on modes and expand button text
         */
         private void SetButtonsForHideMode()
         {
-            if (guiradbtnExpander.Text.ToLower().CompareTo("show") == 0)
+            if (string.Compare(guiradbtnExpander.Text, oMsgMgr.GetMessage("SHOW_SMALL"), StringComparison.CurrentCultureIgnoreCase) == 0)
             {
                 guiradbtnEdit.Enabled = false;
                 guiradbtnDelete.Enabled = false;
@@ -687,9 +762,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
 
             // Measurement data will be visible.
@@ -699,20 +772,32 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void CheckForPatientIdToAddPatient()
         {
-            // check if patient ID exists and add accordingly
-            if (dbMagr.PatientIdExists(bobj, guiradtxtPatientID.Text.Trim()))
+            // check for db connection
+            if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
             {
-                DialogResult result = RadMessageBox.Show(oMsgMgr.GetMessage("PATIENT_ALREADY_EXIST"), oMsgMgr.GetMessage("MESSAGE"), MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
+                // check if patient ID exists and add accordingly
+                if (dbMagr.PatientIdExists(bobj, guiradtxtPatientID.Text.Trim()))
                 {
-                    // add new patient record with duplicate/existing patient ID
+                    DialogResult result = RadMessageBox.Show(oMsgMgr.GetMessage("PATIENT_ALREADY_EXIST"), oMsgMgr.GetMessage("MESSAGE"), MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        // add new patient record with duplicate/existing patient ID
+                        AddNewPatientDetails();
+                    }
+                }
+                else
+                {
+                    // patient ID does not exists, add record
                     AddNewPatientDetails();
                 }
             }
             else
             {
-                // patient ID does not exists, add record
-                AddNewPatientDetails();
+                DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                if (result == DialogResult.Retry)
+                {
+                    CheckForPatientIdToAddPatient();
+                }
             }
         }
 
@@ -720,29 +805,41 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void CheckForPatientIdToUpdatePatient()
         {
-            // check if old patient ID is changed
-            if (string.Compare(orgPatientIdExt, guiradtxtPatientID.Text.Trim(), true, CultureInfo.CurrentCulture) != 0)
+            // check for db connection
+            if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
             {
-                // check patient ID exists and update record accordingly
-                if (dbMagr.PatientIdExists(bobj, guiradtxtPatientID.Text.Trim()))
+                // check if old patient ID is changed
+                if (string.Compare(orgPatientIdExt, guiradtxtPatientID.Text.Trim(), true, CultureInfo.CurrentCulture) != 0)
                 {
-                    DialogResult result = RadMessageBox.Show(oMsgMgr.GetMessage("PATIENT_ALREADY_EXIST"), oMsgMgr.GetMessage("MESSAGE"), MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
+                    // check patient ID exists and update record accordingly
+                    if (dbMagr.PatientIdExists(bobj, guiradtxtPatientID.Text.Trim()))
                     {
-                        // update patient record with duplicate/existing patient ID
+                        DialogResult result = RadMessageBox.Show(oMsgMgr.GetMessage("PATIENT_ALREADY_EXIST"), oMsgMgr.GetMessage("MESSAGE"), MessageBoxButtons.YesNo);
+                        if (result == DialogResult.Yes)
+                        {
+                            // update patient record with duplicate/existing patient ID
+                            UpdatePatientDetails();
+                        }
+                    }
+                    else
+                    {
+                        // patient ID does not exists, update record
                         UpdatePatientDetails();
                     }
                 }
                 else
                 {
-                    // patient ID does not exists, update record
+                    // patient ID not changed, update record
                     UpdatePatientDetails();
                 }
             }
             else
             {
-                // patient ID not changed, update record
-                UpdatePatientDetails();
+                DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                if (result == DialogResult.Retry)
+                {
+                    CheckForPatientIdToUpdatePatient();
+                }
             }
         }
 
@@ -885,9 +982,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -909,9 +1004,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -922,93 +1015,105 @@ namespace AtCor.Scor.Gui.Presentation
             // saves patient record to database
             int iRow = 0;
 
-            // instantiate struct with values entered
-            CrxStructPatientDemographicData patientData = new CrxStructPatientDemographicData();
-            patientData.FirstName = guiradtxtFirstName.Text.Trim();
-            patientData.Gender = guicmbxGender.GetItemText(guicmbxGender.SelectedItem);
-            patientData.LastName = guiradtxtLastName.Text.Trim();
-            string dob = guicmbDay.GetItemText(guicmbDay.SelectedItem) + "/" + guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem) + "/" + guicmbxYear.GetItemText(guicmbxYear.SelectedItem);
-            patientData.DateOfBirth = Convert.ToDateTime(dob);
-
-            // set groupname to default if not selected
-            patientData.GroupName = string.IsNullOrEmpty(groupname) ? "Default" : (groupname.ToLower().CompareTo(oMsgMgr.GetMessage("SELECT_SMALL")) == 0) ? "Default" : groupname;
-            patientData.SystemIdentifier = bobj;
-            patientData.PatientIDExternalReference = guiradtxtPatientID.Text.Trim();
-
-            // check if patient record exists and save accordingly
-            int recordExists = dbMagr.PatientRecordExists(patientData);
-            if (mode == CurrentMode.InsertMode.ToString())
+            // check for db connection
+            if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
             {
-                // insert new record when patient does not exists
-                switch (recordExists)
-                {
-                    case 0:
-                        iRow = dbMagr.SavePatientData(patientData);
-                        break;
-                    case 1:
-                        RadMessageBox.Show(this, oMsgMgr.GetMessage("PATIENT_ALREADY_EXISTS"), oMsgMgr.GetMessage("APPLICATION_MESSAGE"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                        break;
-                }
-            }
-            else
-            {
-                // update patient record
-                patientData.PatientNumberInternal = int.Parse(radlblpatientinternalnumber.Text);
-                patientData.GroupIdentifier = int.Parse(radlblgroupid.Text); // int.Parse(radlblgroupid.Text) radlblgroupid.Text;;
+                // instantiate struct with values entered
+                CrxStructPatientDemographicData patientData = new CrxStructPatientDemographicData();
+                patientData.FirstName = guiradtxtFirstName.Text.Trim();
+                patientData.Gender = guicmbxGender.Text.Trim(); // guicmbxGender.GetItemText(guicmbxGender.SelectedItem);
+                patientData.LastName = guiradtxtLastName.Text.Trim();
+                string dob = guicmbDay.Text + "/" + guicmbxMonth.Text + "/" + guicmbxYear.Text;
+                patientData.DateOfBirth = Convert.ToDateTime(dob);
 
-                if (string.Compare(originalgroupname, groupnamechange, true, CultureInfo.CurrentCulture) != 0)
+                // set groupname to default if not selected
+                patientData.GroupName = string.IsNullOrEmpty(groupname) ? oMsgMgr.GetMessage("SYS_DEFAULT_LOWCASE") : groupname.Equals(oMsgMgr.GetMessage("SELECT_SMALL"), StringComparison.CurrentCultureIgnoreCase) ? oMsgMgr.GetMessage("SYS_DEFAULT_LOWCASE") : groupname;
+                patientData.SystemIdentifier = bobj;
+                patientData.PatientIDExternalReference = guiradtxtPatientID.Text.Trim();
+
+                // check if patient record exists and save accordingly
+                int recordExists = dbMagr.PatientRecordExists(patientData);
+                if (mode == CurrentMode.InsertMode.ToString())
                 {
-                    // group name changed for existing patient show message box
-                    DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("TRANSFER_PATIENT"), oMsgMgr.GetMessage("APPLICATION_MESSAGE"), MessageBoxButtons.YesNo, RadMessageIcon.Question);
-                    switch (ds)
+                    // insert new record when patient does not exists
+                    switch (recordExists)
                     {
-                        case DialogResult.Yes:
-                            iRow = dbMagr.UpdatePatientData(patientData, true);
+                        case 0:
+                            iRow = dbMagr.SavePatientData(patientData);
                             break;
-                        case DialogResult.No:
-                            iRow = dbMagr.UpdatePatientData(patientData, false);
+                        case 1:
+                            RadMessageBox.Show(this, oMsgMgr.GetMessage("PATIENT_ALREADY_EXISTS"), oMsgMgr.GetMessage("APPLICATION_MESSAGE"), MessageBoxButtons.OK, RadMessageIcon.Error);
                             break;
                     }
                 }
                 else
                 {
-                    // group name not changed update patient details only
-                    iRow = dbMagr.UpdatePatientData(patientData, isMeasurementTransfer);
-                }               
-            }
+                    // update patient record
+                    patientData.PatientNumberInternal = int.Parse(radlblpatientinternalnumber.Text);
+                    patientData.GroupIdentifier = int.Parse(radlblgroupid.Text); // int.Parse(radlblgroupid.Text) radlblgroupid.Text;;
 
-            if (iRow > 0)
-            {
-                // if record added / updated successfully 
-                guipnlMeasurementDetails.Visible = true;
-                SetHeightWeightUnits();
-                SetBloodPressure();
-                SetPwvDistanceMethodAndUnits();
-
-                // SettingsProperties.CuffLocation
-                if (crxMgrObject.PwvSettings.FemoralToCuff)
-                {
-                    guiradtxtFemoralToCuff.ReadOnly = false;
+                    if (string.Compare(originalgroupname, groupnamechange, true, CultureInfo.CurrentCulture) != 0)
+                    {
+                        // group name changed for existing patient show message box
+                        DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("TRANSFER_PATIENT"), oMsgMgr.GetMessage("APPLICATION_MESSAGE"), MessageBoxButtons.YesNo, RadMessageIcon.Question);
+                        switch (ds)
+                        {
+                            case DialogResult.Yes:
+                                iRow = dbMagr.UpdatePatientData(patientData, true);
+                                break;
+                            case DialogResult.No:
+                                iRow = dbMagr.UpdatePatientData(patientData, false);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        // group name not changed update patient details only
+                        iRow = dbMagr.UpdatePatientData(patientData, isMeasurementTransfer);
+                    }
                 }
 
-                LoadPatientList();
-                guiradgrdPatientList.Enabled = true;
+                if (iRow > 0)
+                {
+                    // if record added / updated successfully 
+                    guipnlMeasurementDetails.Visible = true;
+                    SetHeightWeightUnits();
+                    SetBloodPressure();
+                    SetPwvDistanceMethodAndUnits();
 
-                // radRibbonBar.Enabled = true;
-                mode = CurrentMode.None.ToString();
-                BrowseMode(true);
+                    // SettingsProperties.CuffLocation
+                    if (crxMgrObject.PwvSettings.FemoralToCuff)
+                    {
+                        guiradtxtFemoralToCuff.ReadOnly = false;
+                    }
 
-                // after saving add it to Bizpatient object    
-                BizPatient patientObj = BizPatient.Instance();
-                patientObj.dateOfBirth = DateTime.Parse(dob);
-                patientObj.firstName = guiradtxtFirstName.Text.Trim();
-                patientObj.gender = guicmbxGender.SelectedItem.ToString();
-                patientObj.patientNumber = UInt32.Parse(patientData.PatientNumberInternal.ToString());
-                patientObj.groupStudyId = uint.Parse(radlblgroupid.Text);
+                    LoadPatientList();
+                    guiradgrdPatientList.Enabled = true;
 
-                // groupstudyId, patientnumber id to be retrieved
-                patientObj.lastName = guiradtxtLastName.Text.Trim();
-                patientObj.patientId = guiradtxtPatientID.Text.Trim();
+                    // radRibbonBar.Enabled = true;
+                    mode = CurrentMode.None.ToString();
+                    BrowseMode(true);
+
+                    // after saving add it to Bizpatient object    
+                    BizPatient patientObj = BizPatient.Instance();
+                    patientObj.dateOfBirth = DateTime.Parse(dob);
+                    patientObj.firstName = guiradtxtFirstName.Text.Trim();
+                    patientObj.gender = guicmbxGender.Text.Trim(); // guicmbxGender.SelectedItem.ToString();
+                    patientObj.patientNumber = UInt32.Parse(patientData.PatientNumberInternal.ToString());
+                    patientObj.groupStudyId = uint.Parse(radlblgroupid.Text);
+
+                    // groupstudyId, patientnumber id to be retrieved
+                    patientObj.lastName = guiradtxtLastName.Text.Trim();
+                    patientObj.patientId = guiradtxtPatientID.Text.Trim();
+                }
+            }
+            else
+            {
+                DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                if (result == DialogResult.Retry)
+                {
+                    SavePatient(groupname);
+                }
             }
         }
 
@@ -1043,23 +1148,33 @@ namespace AtCor.Scor.Gui.Presentation
             guiradtxtPatientID.Focus();
             try
             {
-                // get the patient record and cached it
-                DataSet ds = new DataSet();
-                ds = dbMagr.GetPatientDemographicRecords();
-                AppDomain.CurrentDomain.SetData("cachePatient", ds);
-                guiradbtnCapture.Visible = false;                
-                objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage("SEARCH_MODE"); // "Search Mode";
-                mode = CurrentMode.SearchMode.ToString();
-                isSearchReset = true;
-                ResetFields();
-                BrowseMode(false);
-                isSearchReset = false;
+                // check for db connection
+                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
+                {
+                    // get the patient record and cached it
+                    DataSet ds = new DataSet();
+                    ds = dbMagr.GetPatientDemographicRecords();
+                    AppDomain.CurrentDomain.SetData("cachePatient", ds);
+                    guiradbtnCapture.Visible = false;
+                    objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage("SEARCH_MODE"); // "Search Mode";
+                    mode = CurrentMode.SearchMode.ToString();
+                    isSearchReset = true;
+                    ResetFields();
+                    BrowseMode(false);
+                    isSearchReset = false;
+                }
+                else
+                {
+                    DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                    if (result == DialogResult.Retry)
+                    {
+                        this.Invoke(new EventHandler(guiradbtnSearch_Click));
+                    }
+                }
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1070,23 +1185,28 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 // list of Month to be fetched from resource file.Need to decide which resource file.
-                guicmbxMonth.Items.Insert(0, oMsgMgr.GetMessage("MONTH"));
-                guicmbxMonth.SelectedIndex = 0;
+                if (!guicmbxMonth.Items.Contains(oMsgMgr.GetMessage("MONTH")))
+                {
+                    guicmbxMonth.Items.Insert(0, oMsgMgr.GetMessage("MONTH"));
+                }
 
+                guicmbxMonth.SelectedIndex = 0;
+                                
                 // reads min year from app.config and binds the drop down
                 for (int year = int.Parse(ConfigurationSettings.AppSettings["MinYearForDOB"].ToString()); year <= DateTime.Now.Year; year++)
                 {
                     guicmbxYear.Items.Add(year.ToString());
                 }
 
-                guicmbxYear.Items.Insert(0, oMsgMgr.GetMessage("YEAR"));
-                guicmbxYear.SelectedIndex = 0;
+                if (!guicmbxYear.Items.Contains(oMsgMgr.GetMessage("YEAR")))
+                {
+                    guicmbxYear.Items.Insert(0, oMsgMgr.GetMessage("YEAR"));
+                    guicmbxYear.SelectedIndex = 0;
+                }
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1133,9 +1253,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1146,7 +1264,7 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 // fetches days for a month according to month selected
-                string methodName = guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).ToLower().CompareTo(oMsgMgr.GetMessage("FEB_CONDITION")) == 0 ? "leapyear" : (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).ToLower().Equals(oMsgMgr.GetMessage("APR_CONDITION")) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).ToLower().Equals(oMsgMgr.GetMessage("JUN_CONDITION")) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).ToLower().Equals(oMsgMgr.GetMessage("SEP_CONDITION")) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).ToLower().Equals(oMsgMgr.GetMessage("NOV_CONDITION"))) ? "30" : "31";
+                string methodName = guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage("FEB_CONDITION"), StringComparison.CurrentCultureIgnoreCase) ? "leapyear" : (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage("APR_CONDITION"), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage("JUN_CONDITION"), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage("SEP_CONDITION"), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage("NOV_CONDITION"), StringComparison.CurrentCultureIgnoreCase)) ? "30" : "31";
 
                 switch (methodName)
                 {
@@ -1171,9 +1289,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1184,7 +1300,7 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 // binds number of days for feb month according to year selected
-                if (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).ToLower().Equals("feb"))
+                if (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals("feb", StringComparison.CurrentCultureIgnoreCase))
                 {
                     FillDayLeapYear();
                 }
@@ -1199,9 +1315,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1230,9 +1344,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1324,10 +1436,25 @@ namespace AtCor.Scor.Gui.Presentation
 
                     if (ds == DialogResult.Yes)
                     {
-                        dbMagr.DeletePatientData(patientDemographicData);
+                        if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
+                        {
+                            dbMagr.DeletePatientData(patientDemographicData);
 
-                        // refresh the db.            
-                        LoadPatientList();
+                            // refresh the db.            
+                            LoadPatientList();
+                        }
+                        else
+                        {
+                            DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                            if (result == DialogResult.Retry)
+                            {
+                               // retry deleting patient details again
+                                dbMagr.DeletePatientData(patientDemographicData);
+
+                                // refresh the db.            
+                                LoadPatientList();
+                            }
+                        }
                     }
                 }
                 else
@@ -1337,9 +1464,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1370,9 +1495,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1406,9 +1529,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1544,9 +1665,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1586,9 +1705,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1639,9 +1756,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show(this, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(ex.Message);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1721,7 +1836,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GetSearchResults();
             }
-
+             
             guilblGender.Text = guicmbxGender.Text;
         }
 
@@ -1798,70 +1913,84 @@ namespace AtCor.Scor.Gui.Presentation
         */
         private void FillSessionObjFromDB()
         {
-            // fetch PWV measurement details for patient & populate Biz session object
-            DataSet dsPWV = new DataSet();
-
-            dsPWV = dbMagr.GetPWVMeasurementDetails(int.Parse(radlblpatientinternalnumber.Text.Trim()), int.Parse(radlblgroupid.Text), bobj);
-                       
-            if (dsPWV.Tables[0].Rows.Count > 0)
+            // check db connection
+            if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
             {
-                SettingsProperties.hasMeasurementDetails = true;
-
-                // record.StudyDateTime = DateTime.Parse(dsPWV.Tables[0].Rows[0]["Studydatetime"].ToString());
-                // DataSet dddd = new DataSet();
-                // dddd =  dbMagr.GetPWVMeasurementDetails(record);// populate session object                    
-                SettingsProperties.GroupID = int.Parse(radlblgroupid.Text);
-                SettingsProperties.GroupName = guicmbGroup.Text;
-                SettingsProperties.PatientInternalNumber = int.Parse(radlblpatientinternalnumber.Text);
-                SettingsProperties.PwvCurrentStudyDatetime = dsPWV.Tables[0].Rows[0]["Studydatetime"].ToString();
-                FillSessionData(dsPWV);
-
-                objDefaultWindow.radtabReport.Enabled = true;
-                objDefaultWindow.radtabCapture.Enabled = true;
-
-                // filling RHS pwv measurement data on setup screen                
-                SetHeightWeightUnits();
-                SetBloodPressure();
-                SetPwvDistanceMethodAndUnits();
-                PerformHeightWeightConversion();
-                
-                guiradtxtOperator.Text = dsPWV.Tables[0].Rows[0]["Operator"].ToString();
-                guiradtxtMedication.Text = dsPWV.Tables[0].Rows[0]["Notes"].ToString();
-
-                switch (crxMgrObject.GeneralSettings.BloodPressureEntryOptions)
-                {
-                    case 0: // SP & DP
-                        guiradtxtSP.Text = dsPWV.Tables[0].Rows[0]["SP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["SP"].ToString();
-                        guiradtxtDP.Text = dsPWV.Tables[0].Rows[0]["DP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["DP"].ToString();
-                        break;
-                    case 1: // SP & MP
-                        guiradtxtSP.Text = dsPWV.Tables[0].Rows[0]["SP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["SP"].ToString();
-                        guiradtxtDP.Text = dsPWV.Tables[0].Rows[0]["MP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["MP"].ToString();
-                        break;
-                    case 2: // MP & DP
-                        guiradtxtSP.Text = dsPWV.Tables[0].Rows[0]["MP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["MP"].ToString();
-                        guiradtxtDP.Text = dsPWV.Tables[0].Rows[0]["DP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["DP"].ToString();
-                        break;
-                    default:
-                        guiradtxtSP.Text = string.Empty;
-                        guiradtxtDP.Text = string.Empty;
-                        break;
-                }
-
-                guiradtxtCuff.Text = dsPWV.Tables[0].Rows[0]["Carotid"].ToString().Equals("9999") ? dsPWV.Tables[0].Rows[0]["direct"].ToString() : dsPWV.Tables[0].Rows[0]["Cuff"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["Cuff"].ToString();
-                guiradtxtCarotid.Text = dsPWV.Tables[0].Rows[0]["Carotid"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["Carotid"].ToString();
-                guiradtxtFemoralToCuff.Text = dsPWV.Tables[0].Rows[0]["FemoraltoCuff"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["FemoraltoCuff"].ToString();
-                guiradlblResult.Text = dsPWV.Tables[0].Rows[0]["PWVDistance"].ToString();
+                // fetch PWV measurement details for patient & populate Biz session object
+                FillPWVDetailsSession();                
             }
             else
             {
-                // disable report and capture tab if measurement data not available for patient
-                objDefaultWindow.radtabReport.Enabled = false;
-                objDefaultWindow.radtabCapture.Enabled = false;
-
-                // resets PWV fields on setup screen RHS
-                ResetPatientMeasurementFields();
+                DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                if (result == DialogResult.Retry)
+                {
+                    FillSessionObjFromDB();
+                }
             }
+        }
+
+        /** This method fills PWV measurement details from DB in Bizsession
+         * */
+        void FillPWVDetailsSession()
+        {
+            DataSet dsPWV = new DataSet();
+
+                    dsPWV = dbMagr.GetPWVMeasurementDetails(int.Parse(radlblpatientinternalnumber.Text.Trim()), int.Parse(radlblgroupid.Text), bobj);
+
+                    if (dsPWV.Tables[0].Rows.Count > 0)
+                    {
+                        SettingsProperties.HasMeasurementDetails = true;
+
+                        SettingsProperties.GroupID = int.Parse(radlblgroupid.Text);
+                        SettingsProperties.GroupName = guicmbGroup.Text;
+                        SettingsProperties.PatientInternalNumber = int.Parse(radlblpatientinternalnumber.Text);
+                        SettingsProperties.PwvCurrentStudyDatetime = dsPWV.Tables[0].Rows[0]["Studydatetime"].ToString();
+                        FillSessionData(dsPWV);
+
+                        // filling RHS pwv measurement data on setup screen                
+                        SetHeightWeightUnits();
+                        SetBloodPressure();
+                        SetPwvDistanceMethodAndUnits();
+                        PerformHeightWeightConversion();
+
+                        guiradtxtOperator.Text = dsPWV.Tables[0].Rows[0]["Operator"].ToString();
+                        guiradtxtMedication.Text = dsPWV.Tables[0].Rows[0]["Notes"].ToString();
+
+                        switch (crxMgrObject.GeneralSettings.BloodPressureEntryOptions)
+                        {
+                            case 0: // SP & DP
+                                guiradtxtSP.Text = dsPWV.Tables[0].Rows[0]["SP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["SP"].ToString();
+                                guiradtxtDP.Text = dsPWV.Tables[0].Rows[0]["DP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["DP"].ToString();
+                                break;
+                            case 1: // SP & MP
+                                guiradtxtSP.Text = dsPWV.Tables[0].Rows[0]["SP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["SP"].ToString();
+                                guiradtxtDP.Text = dsPWV.Tables[0].Rows[0]["MP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["MP"].ToString();
+                                break;
+                            case 2: // MP & DP
+                                guiradtxtSP.Text = dsPWV.Tables[0].Rows[0]["MP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["MP"].ToString();
+                                guiradtxtDP.Text = dsPWV.Tables[0].Rows[0]["DP"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["DP"].ToString();
+                                break;
+                            default:
+                                guiradtxtSP.Text = string.Empty;
+                                guiradtxtDP.Text = string.Empty;
+                                break;
+                        }
+
+                        guiradtxtCuff.Text = dsPWV.Tables[0].Rows[0]["Carotid"].ToString().Equals("9999") ? dsPWV.Tables[0].Rows[0]["direct"].ToString() : dsPWV.Tables[0].Rows[0]["Cuff"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["Cuff"].ToString();
+                        guiradtxtCarotid.Text = dsPWV.Tables[0].Rows[0]["Carotid"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["Carotid"].ToString();
+                        guiradtxtFemoralToCuff.Text = dsPWV.Tables[0].Rows[0]["FemoraltoCuff"].ToString().Equals("9999") ? string.Empty : dsPWV.Tables[0].Rows[0]["FemoraltoCuff"].ToString();
+                        guiradlblResult.Text = dsPWV.Tables[0].Rows[0]["PWVDistance"].ToString();
+                    }
+                    else
+                    {
+                        // disable report and capture tab if measurement data not available for patient
+                        objDefaultWindow.radtabReport.Enabled = false;
+                        objDefaultWindow.radtabCapture.Enabled = false;
+                        SettingsProperties.HasMeasurementDetails = false;
+
+                        // resets PWV fields on setup screen RHS
+                        ResetPatientMeasurementFields();
+                    }
         }
 
         /** This method initializes biz session object each time a patient record is selected/edited/added
@@ -1869,7 +1998,77 @@ namespace AtCor.Scor.Gui.Presentation
         void FillSessionData(DataSet dsPWV)
         {
             obj = (BizPWV)BizSession.Instance().measurement;
-            
+
+            FillSessionWithBloodPressureValues(dsPWV);
+            FillSessionWithOtherValues(dsPWV);
+           
+            // vibhuti: initializing mean heart rate , pulse wave velocity & other statistics as per workaround
+            // ###### no need to populate statistics information here it will be done on report screen
+            ////obj.meanHeartRate = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["MeanHeartRate"].ToString()) ? (float)0 : float.Parse(dsPWV.Tables[0].Rows[0]["MeanHeartRate"].ToString());
+            ////obj.meanPulseWaveVelocity = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["MeanPulseWaveVelocity"].ToString()) ? (float)0 : float.Parse(dsPWV.Tables[0].Rows[0]["MeanPulseWaveVelocity"].ToString());
+            ////obj.isStandardDeviationValid = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["IsStandardDeviationValid"].ToString()) ? false : bool.Parse(dsPWV.Tables[0].Rows[0]["IsStandardDeviationValid"].ToString());
+            ////obj.isCarotidSignalValid = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["IsCarotidSignalValid"].ToString()) ? false : bool.Parse(dsPWV.Tables[0].Rows[0]["IsCarotidSignalValid"].ToString());
+            ////obj.isFemoralSignalValid = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["IsFemoralSignalValid"].ToString()) ? false : bool.Parse(dsPWV.Tables[0].Rows[0]["IsFemoralSignalValid"].ToString());
+            obj.systemId = (uint)bobj;
+            obj.groupStudyId = (uint)SettingsProperties.GroupID;
+
+            // ############## to be removed once validate method starts working
+            objDefaultWindow.radtabCapture.Enabled = true;
+            objDefaultWindow.radtabReport.Enabled = true;
+            obj.patientNumber = (uint)SettingsProperties.PatientInternalNumber;
+
+            // commented : vibhuti as per discussion with Vlad & Victor, not call validate() & calculate() on setup
+          /* if (obj.Validate()) // calculates metric or imperial equivalents for height and weight and the body mass index
+            {
+                // data valid enable capture & report tab
+                objDefaultWindow.radtabCapture.Enabled = true;
+                objDefaultWindow.radtabReport.Enabled = true;
+                guiradbtnCapture.Enabled = true;
+            }
+            else
+            {
+                // data invalid disable capture & report tab
+                objDefaultWindow.radtabCapture.Enabled = false;
+                objDefaultWindow.radtabReport.Enabled = false;
+                guiradbtnCapture.Enabled = false;
+
+                RadMessageBox.Show(this, oMsgMgr.GetMessage("DB_CORRUPT"), oMsgMgr.GetMessage("VALIDATION_ERROR"), MessageBoxButtons.OK);
+
+                // log the error
+                CrxLogger oLogObject = CrxLogger.Instance;
+                oLogObject.Write(oMsgMgr.GetMessage("DB_CORRUPT"));
+            }
+           */
+
+            // obj.Calculate(); // It will calculate all the members of the BizPWV class, including distanceMethod and patientAge                                     
+        }
+
+        /** This method fills session with height & wieght, distance values
+         * */
+        void FillSessionWithOtherValues(DataSet dsPWV)
+        {
+            obj = (BizPWV)BizSession.Instance().measurement;
+            obj.calculatedDistance = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["PWVDistance"].ToString()) ? (ushort)0 : ushort.Parse(dsPWV.Tables[0].Rows[0]["PWVDistance"].ToString());
+            obj.heightAndWeight.heightInCentimetres = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["HeightInCentimetres"].ToString()) ? obj.heightAndWeight.heightInCentimetres : ushort.Parse(dsPWV.Tables[0].Rows[0]["HeightInCentimetres"].ToString());
+            obj.heightAndWeight.heightInInches = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["HeightInInches"].ToString()) ? obj.heightAndWeight.heightInInches : ushort.Parse(dsPWV.Tables[0].Rows[0]["HeightInInches"].ToString());
+            obj.heightAndWeight.weightInKilograms = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["WeightInKilograms"].ToString()) ? obj.heightAndWeight.weightInKilograms : ushort.Parse(dsPWV.Tables[0].Rows[0]["WeightInKilograms"].ToString());
+            obj.heightAndWeight.weightInPounds = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["WeightInPounds"].ToString()) ? obj.heightAndWeight.weightInPounds : ushort.Parse(dsPWV.Tables[0].Rows[0]["WeightInPounds"].ToString());
+            obj.notes = dsPWV.Tables[0].Rows[0]["Notes"].ToString();
+            obj.operatorId = dsPWV.Tables[0].Rows[0]["Operator"].ToString();
+            obj.myCarotidDistance.distance = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["Carotid"].ToString()) ? obj.myCarotidDistance.distance : ushort.Parse(dsPWV.Tables[0].Rows[0]["Carotid"].ToString());
+            obj.myCuffDistance.distance = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["Cuff"].ToString()) ? obj.myCuffDistance.distance : ushort.Parse(dsPWV.Tables[0].Rows[0]["Cuff"].ToString());
+            obj.myFemoral2CuffDistance.distance = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["FemoraltoCuff"].ToString()) ? obj.myFemoral2CuffDistance.distance : ushort.Parse(dsPWV.Tables[0].Rows[0]["FemoraltoCuff"].ToString());
+            obj.myPWVDirectDistance.distance = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["direct"].ToString()) ? obj.myPWVDirectDistance.distance : ushort.Parse(dsPWV.Tables[0].Rows[0]["direct"].ToString());
+            obj.heightAndWeight.bodyMassIndex = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["BodyMassIndex"].ToString()) ? (float)0 : float.Parse(dsPWV.Tables[0].Rows[0]["BodyMassIndex"].ToString());
+            obj.distanceMethod = ushort.Parse(dsPWV.Tables[0].Rows[0]["PWVDistanceMethod"].ToString());          
+        }
+
+        /** This method fills session with blood pressure values
+         * */
+        void FillSessionWithBloodPressureValues(DataSet dsPWV)
+        {
+            obj = (BizPWV)BizSession.Instance().measurement;
+
             obj.bloodPressureEntryOption = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["bloodpressureentryoption"].ToString()) ? (ushort)0 : ushort.Parse(dsPWV.Tables[0].Rows[0]["bloodpressureentryoption"].ToString());
 
             switch (obj.bloodPressureEntryOption)
@@ -1887,36 +2086,6 @@ namespace AtCor.Scor.Gui.Presentation
                     obj.bloodPressure.DP.Reading = ushort.Parse(dsPWV.Tables[0].Rows[0]["DP"].ToString());
                     break;
             }
-
-            obj.calculatedDistance = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["PWVDistance"].ToString()) ? (ushort)0 : ushort.Parse(dsPWV.Tables[0].Rows[0]["PWVDistance"].ToString());
-            obj.heightAndWeight.heightInCentimetres = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["HeightInCentimetres"].ToString()) ? obj.heightAndWeight.heightInCentimetres : ushort.Parse(dsPWV.Tables[0].Rows[0]["HeightInCentimetres"].ToString());
-            obj.heightAndWeight.heightInInches = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["HeightInInches"].ToString()) ? obj.heightAndWeight.heightInInches : ushort.Parse(dsPWV.Tables[0].Rows[0]["HeightInInches"].ToString());
-            obj.heightAndWeight.weightInKilograms = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["WeightInKilograms"].ToString()) ? obj.heightAndWeight.weightInKilograms : ushort.Parse(dsPWV.Tables[0].Rows[0]["WeightInKilograms"].ToString());
-            obj.heightAndWeight.weightInPounds = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["WeightInPounds"].ToString()) ? obj.heightAndWeight.weightInPounds : ushort.Parse(dsPWV.Tables[0].Rows[0]["WeightInPounds"].ToString());
-            obj.notes = dsPWV.Tables[0].Rows[0]["Notes"].ToString();
-            obj.operatorId = dsPWV.Tables[0].Rows[0]["Operator"].ToString();
-            obj.myCarotidDistance.distance = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["Carotid"].ToString()) ? obj.myCarotidDistance.distance : ushort.Parse(dsPWV.Tables[0].Rows[0]["Carotid"].ToString());
-            obj.myCuffDistance.distance = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["Cuff"].ToString()) ? obj.myCuffDistance.distance : ushort.Parse(dsPWV.Tables[0].Rows[0]["Cuff"].ToString());
-            obj.myFemoral2CuffDistance.distance = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["FemoraltoCuff"].ToString()) ? obj.myFemoral2CuffDistance.distance : ushort.Parse(dsPWV.Tables[0].Rows[0]["FemoraltoCuff"].ToString());
-            obj.myPWVDirectDistance.distance = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["direct"].ToString()) ? obj.myPWVDirectDistance.distance : ushort.Parse(dsPWV.Tables[0].Rows[0]["direct"].ToString());
-            obj.heightAndWeight.bodyMassIndex = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["BodyMassIndex"].ToString()) ? (float)0 : float.Parse(dsPWV.Tables[0].Rows[0]["BodyMassIndex"].ToString());
-          /*  byte[] buffer = (byte[])dsPWV.Tables[0].Rows[0]["CarotidSignal"];
-          
-            int len = buffer.Length / 2;
-            ushort[] carotid1 = new ushort[len];
-            carotid1 =  dbMagr.CommonByteArrtoShortArr(len, buffer);
-         */
-           
-            // vibhuti: initializing mean heart rate , pulse wave velocity & other statistics as per workaround
-            obj.meanHeartRate = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["MeanHeartRate"].ToString()) ? (float)0 : float.Parse(dsPWV.Tables[0].Rows[0]["MeanHeartRate"].ToString());
-            obj.meanPulseWaveVelocity = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["MeanPulseWaveVelocity"].ToString()) ? (float)0 : float.Parse(dsPWV.Tables[0].Rows[0]["MeanPulseWaveVelocity"].ToString());
-            obj.isStandardDeviationValid = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["IsStandardDeviationValid"].ToString()) ? false : bool.Parse(dsPWV.Tables[0].Rows[0]["IsStandardDeviationValid"].ToString());
-            obj.isCarotidSignalValid = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["IsCarotidSignalValid"].ToString()) ? false : bool.Parse(dsPWV.Tables[0].Rows[0]["IsCarotidSignalValid"].ToString());
-            obj.isFemoralSignalValid = string.IsNullOrEmpty(dsPWV.Tables[0].Rows[0]["IsFemoralSignalValid"].ToString()) ? false : bool.Parse(dsPWV.Tables[0].Rows[0]["IsFemoralSignalValid"].ToString());
-
-            // commented : vibhuti as resets value to 9999 after initialising
-            // obj.Validate(); // calculates metric or imperial equivalents for height and weight and the body mass index.
-            // obj.Calculate(); // It will calculate all the members of the BizPWV class, including distanceMethod and patientAge                                     
         }
 
         /** This method is used calculate the conversion for height and weight.
@@ -2141,6 +2310,34 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblLastNameDisplay.Visible = true;
                 guilblLastNameDisplay.BringToFront();
             }
+        }
+
+        /** This method enforces wait interval for 30 secs when navigated to report from capture screen
+         * */
+        void StartWaitInterval(object sender, EventArgs e)
+        {
+            ////if (this.InvokeRequired)
+            ////{
+            ////    this.Invoke(new EventHandler(StartWaitInterval));
+            ////    return;
+            ////}
+            ////if (SettingsProperties.CaptureToSetup)
+            ////{
+            ////    // read timer interval from config & start timer to enforce wait interval
+            ////    Setuptimer.Interval = int.Parse(ConfigurationManager.AppSettings["WaitInterval"].ToString());               
+            ////    objDefaultWindow.radtabCapture.Enabled = false;
+            ////    guiradbtnCapture.Enabled = false;
+            ////    Setuptimer.Start();
+            ////}
+        }   
+
+        private void Setuptimer_Tick(object sender, EventArgs e)
+        {
+            ////objDefaultWindow.radtabCapture.Enabled = true;
+            ////SettingsProperties.CaptureToSetup = false;
+            ////guiradbtnCapture.Enabled = true;
+            ////Setuptimer.Stop();
+            ////Setuptimer.Dispose();
         }
     }
 }

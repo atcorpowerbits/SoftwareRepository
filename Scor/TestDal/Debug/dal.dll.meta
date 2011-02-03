@@ -116,18 +116,12 @@ Class AtCor.Scor.DataAccess.DalCuffPulseEventHandler: AutoLayout, AnsiClass, Cla
     EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
 Class AtCor.Scor.DataAccess.DalCuffStatusEventArgs_ORI: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.EventArgs
-    Void .ctor(AtCor.Scor.DataAccess.DalCuffStateFlags, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(AtCor.Scor.DataAccess.DalCuffStateFlags): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
-    Int32 cuffPressure 'get set' IsLong : 
-    Int32 countDownTimerValue 'get set' IsLong : 
     AtCor.Scor.DataAccess.DalCuffStateFlags CuffStateFlag 'get set' : 
   Methods:
     get_CuffStateFlag(): PrivateScope, Public, HideBySig, SpecialName
     set_CuffStateFlag(DalCuffStateFlags): PrivateScope, Public, HideBySig, SpecialName
-    get_countDownTimerValue(): PrivateScope, Public, HideBySig, SpecialName
-    set_countDownTimerValue(Int32 IsLong): PrivateScope, Public, HideBySig, SpecialName
-    get_cuffPressure(): PrivateScope, Public, HideBySig, SpecialName
-    set_cuffPressure(Int32 IsLong): PrivateScope, Public, HideBySig, SpecialName
 Class AtCor.Scor.DataAccess.DalCuffStatusEventHandler_ORI: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
