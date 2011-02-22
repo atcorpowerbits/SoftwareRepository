@@ -43,6 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="D:\Scor_Source_code\dal\dal"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -191,6 +192,11 @@
 			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
 			MinFrameworkVersion="196613"
 		/>
+		<AssemblyReference
+			RelativePath=".\dal_Accessor.dll"
+			AssemblyName="dal_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
+			MinFrameworkVersion="0"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -200,6 +206,14 @@
 			>
 			<File
 				RelativePath=".\AssemblyInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CRC8CalculatorTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCommandInterfaceTest.cpp"
 				>
 			</File>
 			<File
@@ -231,6 +245,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalEM4CommandTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalEventContainerTest.cpp"
 				>
 			</File>
@@ -252,6 +270,14 @@
 			</File>
 			<File
 				RelativePath=".\DalSimulationFileTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalStatusHandlerTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\EM4DataCapturePacketTest.cpp"
 				>
 			</File>
 			<File
@@ -310,6 +336,10 @@
 		<Filter
 			Name="Test References"
 			>
+			<File
+				RelativePath=".\dal_Accessor.dll"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

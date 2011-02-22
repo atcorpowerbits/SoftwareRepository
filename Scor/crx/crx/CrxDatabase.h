@@ -9,14 +9,31 @@
 */
 #pragma once
 
+#include "CrxCrossCutting.h"
+#include "CrxConfiguration.h"
+#include "CrxLogger.h"
+#include "ScorException.h"
+
 using namespace System;
+using namespace System::Text;
 using namespace System::Data;
+
 using namespace System::Data::Common;
+using namespace System::Data::SqlClient;
+using namespace System::IO;
+using namespace System::Diagnostics;
+using namespace System::ComponentModel;
+using namespace System::Data::OleDb;
 
 using namespace Microsoft::Practices::EnterpriseLibrary::Data;
 using namespace Microsoft::Practices::EnterpriseLibrary::Data::Sql;
 using namespace Microsoft::Practices::EnterpriseLibrary::Common;
 using namespace Microsoft::Practices::EnterpriseLibrary::Common::Configuration;
+
+// Added application specific namespaces
+using namespace AtCor::Scor::CrossCutting;
+using namespace AtCor::Scor::CrossCutting::Configuration;
+using namespace AtCor::Scor::CrossCutting::Logging;
 
 /**
  * @namespace	AtCor::Scor::CrossCutting::DatabaseManager
@@ -107,10 +124,24 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		array<float>^ NormalRange;
 		array<float>^ ReferenceRange;		
 		array<float>^ CarotidSignalFloatOnSets;			
-		array<float>^ FemoralSignalFloatOnSets;			
-		
+		array<float>^ FemoralSignalFloatOnSets;		
 		//Other Variables will be added later		
 	};	
+	
+	// Creating CrxStructPWVTrendData Structure and variables
+	
+	/**
+	 * @struct CrxStructPWVTrendData
+	 * @brief Container for PWV trend data. 	
+	 */
+	public ref struct CrxStructPWVTrendData
+	{
+		String^ HeartRateArrStr;
+		String^ PulseWaveVelocityArrStr;
+		String^ StandardDeviationArrStr;
+		String^ IsStdDevValidArrStr;
+	};
+
 	
 	/**
 	* @class CrxDBManager
@@ -141,7 +172,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static const int CRX_ERR_MSACCESS_FILE_NOT_EXIST	= 605;
 		static const int CRX_ERR_DBMGR_CONVERSION			= 600;
 		static const int CRX_ERR_DBMGR_NO_PROVIDER			= 601;
-	
+		static const int CRX_ERR_DBPERMISSION_REFER_MANUAL  = 610;
+		static const int BACKUP_DONE						= 609;
+
 		static const int DBMGR_COLUMN_PAT_LAST_NAME			= 3;
 		static const int DBMGR_COLUMN_PAT_FIRST_NAME		= 4;
 		static const int DBMGR_COLUMN_PAT_GENDER			= 6;
@@ -157,15 +190,18 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 			
 			// Set the database type to SQL, we can change the DB type dynamically,
 			// just by changing the _dbType property, and calling SetConnection again
-			// with new server name.
+			// with new server name. 
+			// As currently application is configured to run only on SQL Express data base, hence _dbType is hardcoded to SqlClient
 			// Eg. Use "OracleClient" for oracle database, "Odbc" for any data source that can be connected with ODBC, etc.
 			_dbType = "SqlClient";
 			DBname = "AtCor"; 
 
-			//set path of the migration   file, this is hard coded.
+			//set path of the migration file, name of the old database file is always "scor.xyz"
+			// and hence this is hard coded.
             _nameOfAccessFile = L".\\system\\data\\scor.xyz";
 
-			//set path of the migration   file, this is hard coded.
+			//set path of the migration file, this is hard coded, as after migration old db file will
+			// always be renamed to .old extension
             _nameOfAccessFileNew = L".\\system\\data\\scor.xyz.old";
 		}
 
@@ -220,6 +256,16 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* To reset database permission, set to multiuser  
 		*/
 		void ResetDatabaseToMultiuser();
+
+		/**
+		* To migrate data from scor.xyz to AtCor database 
+		*/
+		int MigrationInternal(OleDbDataReader^ rdr, CrxLogger^ objLog, int rowNum, int systemIdentifier, String^ groupName);
+		/**
+		* To log final data in the log file  
+		*/
+		void MigrationLogDetail(CrxLogger^ objLog, array<String^>^ skipPatientlog);
+
 		
 	public:		
 		
@@ -420,7 +466,17 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* @param[in] groupName Group name on which the data will be migrated
 		*/
 		int MigrateAtCorData(int systemIdentifier, String^ groupName);
-
+		/**
+		* To get PWV Trend Data from AtCor database
+		* @param[in] patientNumberInternal Patient internal number in database
+		* @param[in] systemIdentifier SystemInstallationID in database		
+		* @param[in] groupIdentifier Group Identifier is related to the patient in database
+		* @param[in] studyDateTimeArrStr String to store the study datetime list
+		* @param[out] heartRateArrStr String to store the meanheartrate list
+		* @param[out] pulseWaveVelocityArrStr String to store the meanpulsewavevelocity list
+		*/
+		void GetPWVTrendData(int patientNumberInternal, int groupIdentifier, int systemIdentifier, String^ studyDateTimeArrStr, CrxStructPWVTrendData^ trendDataStruct);
+	
 	};
 }
 }

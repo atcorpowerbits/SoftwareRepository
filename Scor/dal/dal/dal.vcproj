@@ -202,11 +202,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalCommandInterface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCuffStateMachine.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalDataBuffer.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\DalDeviceHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalEM4Command.cpp"
 				>
 			</File>
 			<File
@@ -231,6 +243,10 @@
 			</File>
 			<File
 				RelativePath=".\DalSimulationHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IDalHandler.cpp"
 				>
 			</File>
 			<File
@@ -272,7 +288,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalCommandInterface.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DalCommon.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCuffStateMachine.h"
 				>
 			</File>
 			<File
@@ -281,6 +305,10 @@
 			</File>
 			<File
 				RelativePath=".\DalDeviceHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalEM4Command.h"
 				>
 			</File>
 			<File

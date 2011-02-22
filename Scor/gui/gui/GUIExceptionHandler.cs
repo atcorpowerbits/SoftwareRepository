@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+     Filename     :     GUIExceptionHandler
+        
+     Author       :     Vibhuti Damania
+ 
+     Description  :     Functionality implemented for common exception handling mechanism 
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +19,9 @@ using Telerik.WinControls.UI;
 using Telerik.WinControls;
 using Telerik.WinControls.Primitives;
 using AtCor.Scor.DataAccess;
+using System.Configuration;
+using System.IO;
+using System.Drawing;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -98,6 +110,16 @@ namespace AtCor.Scor.Gui.Presentation
                    
                     // log error message
                     oLogObject.Write("Warning: " + eMsg);
+
+                    // ###########################################
+                    SettingsProperties.defaultWindowForm.radlblMessage.Text = eMsg;
+                    SettingsProperties.defaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["WarningImage"].ToString()));
+
+                    // ###########################################
+
+                    // Using timer4 to disable image and text shown in status bar
+                    SettingsProperties.defaultWindowForm.guialertmsgTimer.Enabled = true;
+                    SettingsProperties.defaultWindowForm.guialertmsgTimer.Tick += new EventHandler(guialertmsgTimer_Tick);
                 }
                 else if (crEx.ErrorType == ErrorSeverity.Information)
                 {
@@ -109,6 +131,14 @@ namespace AtCor.Scor.Gui.Presentation
                    
                     // log error message
                     oLogObject.Write("Info: " + eMsg);
+
+                    // ###########################################
+                    SettingsProperties.defaultWindowForm.radlblMessage.Text = eMsg;
+                    SettingsProperties.defaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["InfoImage"].ToString()));
+
+                    // Using timer4 to disable image and text shown in status bar
+                    SettingsProperties.defaultWindowForm.guialertmsgTimer.Enabled = true;
+                    SettingsProperties.defaultWindowForm.guialertmsgTimer.Tick += new EventHandler(guialertmsgTimer_Tick);
                 }
             }            
         } // End HandleCRXException
@@ -123,5 +153,14 @@ namespace AtCor.Scor.Gui.Presentation
             // log exception message alongwith stack trace
             oLogObject.Write(ex.Message + "\r\n\r\n" + ex.Source + "\r\n\r\n" + ex.StackTrace);
         } // End HandleGeneralException
+
+        /** This event gets called when alert message timer on default window ticks         
+         * */
+        private static void guialertmsgTimer_Tick(object sender, EventArgs e)
+        {
+            SettingsProperties.defaultWindowForm.guialertmsgTimer.Enabled = false;
+            SettingsProperties.defaultWindowForm.guipictureboxError.Image = null;
+            SettingsProperties.defaultWindowForm.radlblMessage.Text = string.Empty;
+        }
     }
 }

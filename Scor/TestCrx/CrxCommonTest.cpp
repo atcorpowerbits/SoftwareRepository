@@ -109,13 +109,13 @@ namespace TestCrx {
 				Assert::AreEqual(expected, actual);
 
 				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code");
-				expectedOut = "en-US";
+				//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code");
+				expectedOut = "fr-FR";
 				expected = gcnew CultureInfo(expectedOut);
 				actual = target->GetCommCultureInfo();
 				Assert::AreEqual(expected, actual);
 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults");
+				//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults");
 
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}

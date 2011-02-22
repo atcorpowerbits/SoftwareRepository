@@ -47,6 +47,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.tmrDeflationTimer = new System.Windows.Forms.Timer(this.components);
             this.TenSecWaitTmr = new System.Windows.Forms.Timer(this.components);
             this.radProgressBarQualityIndicator = new Telerik.WinControls.UI.RadProgressBar();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartTonometer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidTonometer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guichartFemoralCuff)).BeginInit();
@@ -58,6 +59,7 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradprgbarTimeToInflatioDeflation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radlblTimeStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radProgressBarQualityIndicator)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,7 +121,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.radlblcuffQuality.AutoSize = false;
             this.radlblcuffQuality.Image = ((System.Drawing.Image)(resources.GetObject("radlblcuffQuality.Image")));
-            this.radlblcuffQuality.Location = new System.Drawing.Point(944, 424);
+            this.radlblcuffQuality.Location = new System.Drawing.Point(949, 356);
             this.radlblcuffQuality.Name = "radlblcuffQuality";
             this.radlblcuffQuality.Size = new System.Drawing.Size(50, 50);
             this.radlblcuffQuality.TabIndex = 16;
@@ -311,11 +313,21 @@ namespace AtCor.Scor.Gui.Presentation
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(3))).ForeColor4 = System.Drawing.SystemColors.ControlLight;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(3))).ForeColor = System.Drawing.SystemColors.ControlDark;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(945, 424);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 22;
+            this.pictureBox1.TabStop = false;
+            // 
             // Capture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(992, 599);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.radProgressBarQualityIndicator);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.guichartFemoralCuff);
@@ -332,9 +344,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "  ";
             this.ThemeName = "ControlDefault";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Capture_FormClosed);
             this.Load += new System.EventHandler(this.Capture_Load);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Capture_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Capture_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.chartTonometer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidTonometer)).EndInit();
@@ -348,6 +358,7 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradprgbarTimeToInflatioDeflation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radlblTimeStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radProgressBarQualityIndicator)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -371,6 +382,7 @@ namespace AtCor.Scor.Gui.Presentation
         private System.Windows.Forms.Timer tmrDeflationTimer;
         private System.Windows.Forms.Timer TenSecWaitTmr;
         private Telerik.WinControls.UI.RadProgressBar radProgressBarQualityIndicator;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

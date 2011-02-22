@@ -23,6 +23,8 @@ namespace TestCrx {
 	public ref class CrxLoggerTest
 	{
 
+	private: String^ _currDir;
+
 	private: Microsoft::VisualStudio::TestTools::UnitTesting::TestContext^  testContextInstance;
 			 /// <summary>
 			 ///Gets or sets the test context which provides
@@ -43,11 +45,11 @@ namespace TestCrx {
 			void SetPath()
 			{
 				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults");
-				//Directory::SetCurrentDirectory("D:\\Deepak Share\\Sprint 5\\Scor\\TestResults");
-				//Directory::SetCurrentDirectory("D:\\Deepak\\Scor\\TestResults");
+				int i = path->IndexOf("\\TestResults");
+				path = path->Substring(0,i + 12);
+				Directory::SetCurrentDirectory(path);
+				
 			}
-
 #pragma region Additional test attributes
 			// 
 			//You can use the following additional attributes as you write your tests:
@@ -64,18 +66,19 @@ namespace TestCrx {
 			//{
 			//}
 			//
-			//Use TestInitialize to run code before running each test
-			//public: [TestInitialize]
-			//System::Void MyTestInitialize()
-			//{
-			//}
-			//
+			public: [TestInitialize]
+			System::Void MyTestInitialize()
+			{
+				_currDir = Directory::GetCurrentDirectory(); 
+			}
+			
 			//Use TestCleanup to run code after each test has run
-			//public: [TestCleanup]
-			//System::Void MyTestCleanup()
-			//{
-			//}
-			//
+			public: [TestCleanup]
+			System::Void MyTestCleanup()
+			{
+				Directory::SetCurrentDirectory(_currDir);
+			}
+
 #pragma endregion
 			/// <summary>
 			///A test for Instance

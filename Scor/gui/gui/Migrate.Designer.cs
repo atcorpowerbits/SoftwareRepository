@@ -28,6 +28,7 @@ namespace AtCor.Scor.Gui.Presentation
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Migrate));
             this.guiradlblHeader = new Telerik.WinControls.UI.RadLabel();
             this.guicmbGroupNameList = new System.Windows.Forms.ComboBox();
             this.radbtnMigrate = new Telerik.WinControls.UI.RadButton();
@@ -80,13 +81,13 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(342, 262);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(342, 256);
             this.Controls.Add(this.radbtnCancel);
             this.Controls.Add(this.radbtnMigrate);
             this.Controls.Add(this.guicmbGroupNameList);
             this.Controls.Add(this.guiradlblHeader);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Migrate";
@@ -94,8 +95,6 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
-            this.ShowInTaskbar = false;
-            this.ShowItemToolTips = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Migrate Database";
             this.ThemeName = "ControlDefault";

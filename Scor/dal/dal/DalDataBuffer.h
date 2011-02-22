@@ -26,10 +26,10 @@ namespace AtCor{
 			public ref struct DalPwvDataStruct
 			{
 						public:
-							unsigned long tonometerData; /**< Tonometer data */
-							unsigned long cuffPulseData; /**< Cuff Pulse data */
-							unsigned long cuffPressure; /**< Cuff Pressure data */
-							unsigned long countdownTimer; /**< Countdown Timer interval */
+							unsigned short tonometerData; /**< Tonometer data */   
+							unsigned short cuffPulseData; /**< Cuff Pulse data */
+							unsigned short cuffPressure; /**< Cuff Pressure data */
+							unsigned short countdownTimer; /**< Countdown Timer interval */
 
 							/**
 							* Constructor for the structure. @n

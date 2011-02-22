@@ -1,3 +1,13 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalEventContainer.cpp
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :      DalEventContainer class code
+*/
+
 #include "Stdafx.h"
 #include "DalEventContainer.h"
 
@@ -57,6 +67,13 @@ namespace AtCor{
 				this->ErrorAlarmStatus = data;
 				
 			}
+
+			DalTonometerStatusEventArgs::DalTonometerStatusEventArgs(DalTonometerState tonometerStateFlag)
+			{
+				//assign the parameter to class member
+				this->TonometerStateFlag = tonometerStateFlag;
+			}
+
 
 		}
 	}

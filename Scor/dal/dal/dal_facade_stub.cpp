@@ -7,6 +7,7 @@
 #include "DalEventContainer.h"
 #include "DalEventContainerStub.h"
 #include "DalCommon.h"
+#include "DalModule.h"
 
 using namespace AtCor::Scor::DataAccess;
 
@@ -37,7 +38,7 @@ void DalFacade::SimulateCaptureOneShot()
 }
 void DalFacade::SimulateCaptureData() 
 {
-	int captureDataType = TonometerAndCuffPulseCombination;
+	CaptureType captureDataType = CaptureType::TonometerAndCuffPulseCombination;
 
 	// Normally, the timer is declared at the class level,
 	// so that it stays in scope as long as it is needed.
@@ -49,12 +50,12 @@ void DalFacade::SimulateCaptureData()
 
 	// Create a new Timer with Interval set in milliseconds.
 	// e.g. ~4 ms for 256 samples/sec
-	captureTimer = gcnew Timer(DalConstants::SimulationTimerInterval);
+	captureTimer = gcnew System::Timers::Timer(DalConstants::SimulationTimerInterval);
 
 	// Hook up the Elapsed event for the timer.
 	switch (captureDataType) // TBD: get DalModule::Instance->_captureDataType
 	{
-	case TonometerAndCuffPulseCombination:
+	case CaptureType::TonometerAndCuffPulseCombination:
 		captureTimer->Elapsed += gcnew ElapsedEventHandler( &DalFacade::OnCaptureTimedEvent );
 		dataFile = gcnew DalSimulationFile("./simulation/pwv/Simulation_stub.dat");
 		//timerFile = gcnew DalSimulationFile("./simulation/pwv/cuff_timer_stub.dat");
@@ -184,30 +185,43 @@ String^ DalFacade::MapAlarmSourceToString(unsigned short alarmSource)
 	return sourceText;
 }
 
-bool DalFacade::SaveCaptureData(
+
+//bool DalFacade::SaveCaptureData( 
+//	array< unsigned short >^ tonometerData, 
+//	array< unsigned short >^ cuffPulse, 
+//	unsigned short bufferSize)
+//{
+//	DalSimulationFile^ simulationOutputFile; //Pointer to first simulation file
+//	unsigned short index = 0;
+//	bool saved = false;
+//
+//    // construct the simulation file path, based on the file name selected
+//    // by user in "system - settings - PWV Settings - simulation type"
+//    String^ tempFilePath = ".\\simulation\\pwv\\";
+//    String^ tempFileExt = ".dat";
+//	simulationOutputFile = gcnew DalSimulationFile();
+//	if (simulationOutputFile->CreateFile(tempFilePath + "pwv-20101122-1700" + tempFileExt))
+//	{
+//		while (index < bufferSize)
+//		{
+//			simulationOutputFile->SaveCurrentValues(tonometerData[index], cuffPulse[index]);
+//			index++;
+//		}
+//		saved = true;
+//		simulationOutputFile->CloseFile();
+//	}
+//	return saved;
+//}
+
+//SWRQ040
+
+bool DalFacade::SaveCaptureData( 
 	array< unsigned short >^ tonometerData, 
 	array< unsigned short >^ cuffPulse, 
 	unsigned short bufferSize)
 {
-	DalSimulationFile^ simulationOutputFile; //Pointer to first simulation file
-	unsigned short index = 0;
-	bool saved = false;
 
-    // construct the simulation file path, based on the file name selected
-    // by user in "system - settings - PWV Settings - simulation type"
-    String^ tempFilePath = ".\\simulation\\pwv\\";
-    String^ tempFileExt = ".dat";
-	simulationOutputFile = gcnew DalSimulationFile();
-	if (simulationOutputFile->CreateFile(tempFilePath + "pwv-20101122-1700" + tempFileExt))
-	{
-		while (index < bufferSize)
-		{
-			simulationOutputFile->SaveCurrentValues(tonometerData[index], cuffPulse[index]);
-			index++;
-		}
-		saved = true;
-		simulationOutputFile->CloseFile();
-	}
-	return saved;
+	DalModule::Instance->SaveCaptureData(tonometerData,cuffPulse, bufferSize) ;
+	return false;
+	
 }
-

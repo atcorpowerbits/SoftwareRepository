@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
-using namespace AtCor::Scor::DataAccess;
+
 namespace TestDal {
     using namespace System;
     ref class DalDataBufferTest;

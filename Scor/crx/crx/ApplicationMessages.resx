@@ -888,7 +888,7 @@
     <value>Do you want to generate Report?</value>
   </data>
   <data name="CONTACT_ATCOR_SUPPORT" xml:space="preserve">
-    <value>If the problem persists check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html</value>
+    <value>If the problem persists, check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html</value>
   </data>
   <data name="CONTACT_ATCOR_SUPPORT1" xml:space="preserve">
     <value>Or contact AtCor Medical support http://atcormedical.com/request_support.html</value>
@@ -969,7 +969,7 @@
     <value>Would you like to migrate patient records to the current database?</value>
   </data>
   <data name="REPORT_CAL_FAIL_MSG" xml:space="preserve">
-    <value>Report calculation failed</value>
+    <value>Report calculation failed.</value>
   </data>
   <data name="REPORT_SAVE_ERR" xml:space="preserve">
     <value>Error saving report</value>
@@ -994,5 +994,340 @@
   </data>
   <data name="LBL_REPORT_CUFF_WITHCOLON" xml:space="preserve">
     <value>Cuff:</value>
+  </data>
+  <data name="CONFIGURATION_ID" xml:space="preserve">
+    <value>Configuration ID</value>
+  </data>
+  <data name="MODULE_CAPABILITY" xml:space="preserve">
+    <value>Module Capability</value>
+  </data>
+  <data name="MODULE_CONFIG_ID" xml:space="preserve">
+    <value>Module Config ID</value>
+  </data>
+  <data name="MODULE_SN" xml:space="preserve">
+    <value>Module SN</value>
+  </data>
+  <data name="MODULE_TYPE" xml:space="preserve">
+    <value>Module Type</value>
+  </data>
+  <data name="MODULE_VERSION" xml:space="preserve">
+    <value>Module Version</value>
+  </data>
+  <data name="SYSTEM_ID" xml:space="preserve">
+    <value>System ID</value>
+  </data>
+  <data name="CAPTURE_TIME_OUT_OF_RANGE" xml:space="preserve">
+    <value>Capture time is not within the valid range between %0 and %1</value>
+    <comment>%0=lower range %1=upper range</comment>
+  </data>
+  <data name="CAROTID_DIST_OUT_OF_RANGE" xml:space="preserve">
+    <value>Carotid distance is not within the valid range between %0 and %1 (%2)</value>
+    <comment>%0=lower range %1=upper range %2=unit, e.g. mm, cm</comment>
+  </data>
+  <data name="CAROTID_SIGNAL_BUFFER_NOT_FULL_YET" xml:space="preserve">
+    <value>Carotid signal buffer is not full yet</value>
+  </data>
+  <data name="CAROTID_SIGNAL_CAPTURE_FAILED" xml:space="preserve">
+    <value>Carotid signal capture failed</value>
+  </data>
+  <data name="CUFF_DIST_OUT_OF_RANGE" xml:space="preserve">
+    <value>Cuff distance is not within the valid range between %0 and %1 (%2)</value>
+    <comment>%0=lower range %1=upper range %2=unit, e.g. mm, cm</comment>
+  </data>
+  <data name="DATA_REV_INVALID" xml:space="preserve">
+    <value>Data revision %0 is not valid</value>
+  </data>
+  <data name="DOB_NOT_ENTERED" xml:space="preserve">
+    <value>Date of birth not entered</value>
+  </data>
+  <data name="DP_OUT_OF_RANGE" xml:space="preserve">
+    <value>Diastolic Pressure is not within the valid range between %0 and %1</value>
+    <comment>%0=lower range %1=upper range</comment>
+  </data>
+  <data name="FEMORAL_2_CUFF_OUT_OF_RANGE" xml:space="preserve">
+    <value>Femoral to cuff distance is not within the valid range between %0 and %1 (%2)</value>
+    <comment>%0=lower range %1=upper range %2=unit, e.g. mm, cm</comment>
+  </data>
+  <data name="FEMORAL_SIGNAL_BUFFER_NOT_FULL_YET" xml:space="preserve">
+    <value>Femoral signal buffer is not full yet</value>
+  </data>
+  <data name="FEMORAL_SIGNAL_CAPTURE_FAILED" xml:space="preserve">
+    <value>Femoral signal capture failed</value>
+  </data>
+  <data name="HEIGHT_OUT_OF_RANGE" xml:space="preserve">
+    <value>Height is not within the valid range between %0 and %1 (%2)</value>
+    <comment>%0=lower range %1=upper range %2=unit, e.g. inches, cm</comment>
+  </data>
+  <data name="MEASUREMENT_DATE_IN_FUTURE" xml:space="preserve">
+    <value>Measurement date cannot be in future date</value>
+  </data>
+  <data name="MP_DP_TOO_CLOSE" xml:space="preserve">
+    <value>MP should be higher than DP by %0 mmHg</value>
+  </data>
+  <data name="MP_OUT_OF_RANGE" xml:space="preserve">
+    <value>Mean Pressure is not within the valid range between %0 and %1</value>
+    <comment>%0=lower range %1=upper range</comment>
+  </data>
+  <data name="PATIENT_NUM_INVALID" xml:space="preserve">
+    <value>Patient internal number %0 is not valid</value>
+  </data>
+  <data name="PWV_CALC_DIST_OUT_OF_RANGE" xml:space="preserve">
+    <value>PWV calulated distance is not within the valid range between %0 and %1 (%2)</value>
+    <comment>%0=lower range %1=upper range %2=unit, e.g. mm, cm</comment>
+  </data>
+  <data name="PWV_DIRECT_DIST_OUT_OF_RANGE" xml:space="preserve">
+    <value>PWV direct distance is not within the valid range between %0 and %1 (%2)</value>
+    <comment>%0=lower range %1=upper range %2=unit, e.g. mm, cm</comment>
+  </data>
+  <data name="SAMPLE_RATE_OUT_OF_RANGE" xml:space="preserve">
+    <value>Sample rate is not within the valid range between %0 and %1</value>
+    <comment>%0=lower range %1=upper range</comment>
+  </data>
+  <data name="SP_DP_TOO_CLOSE" xml:space="preserve">
+    <value>SP should be higher than DP by %0 mmHg</value>
+  </data>
+  <data name="SP_MP_TOO_CLOSE" xml:space="preserve">
+    <value>SP should be higher than MP by %0 mmHg</value>
+  </data>
+  <data name="SP_OUT_OF_RANGE" xml:space="preserve">
+    <value>Systolic Pressure is not within the valid range between %0 and %1</value>
+    <comment>%0=lower range %1=upper range</comment>
+  </data>
+  <data name="SP_REQUIRED" xml:space="preserve">
+    <value>SP value required for reference range report</value>
+  </data>
+  <data name="SYSTEM_ID_INVALID" xml:space="preserve">
+    <value>System ID%0 is not valid</value>
+  </data>
+  <data name="WEIGHT_OUT_OF_RANGE" xml:space="preserve">
+    <value>Weight is not within the valid range between %0 and %1 (%2)</value>
+    <comment>%0=lower range %1=upper range %2=unit, e.g. lbs, kg</comment>
+  </data>
+  <data name="ZERO_AGE" xml:space="preserve">
+    <value>Age cannot be zero</value>
+  </data>
+  <data name="SIGNAL_FIND_ONSETS_FAILED" xml:space="preserve">
+    <value>Signal failed to find onsets</value>
+  </data>
+  <data name="SIGNAL_HEIGHT_MIN_MAX_OUT_OF_RANGE" xml:space="preserve">
+    <value>Either signal min or max height is not within the valid range between %0 and %1</value>
+  </data>
+  <data name="SIGNAL_HEIGHT_MIN_TOO_LARGE" xml:space="preserve">
+    <value>Signal height min %0 is too large</value>
+  </data>
+  <data name="SIGNAL_HEIGHT_TOO_SHORT" xml:space="preserve">
+    <value>Signal height %0 is not high enough</value>
+  </data>
+  <data name="SIGNAL_LEN_MIN_MAX_OUT_OF_RANGE" xml:space="preserve">
+    <value>Either signal min or max length is not within the valid range between %0 and %1</value>
+  </data>
+  <data name="SIGNAL_LEN_TOO_SHORT" xml:space="preserve">
+    <value>Signal length %0 is not long enough</value>
+  </data>
+  <data name="CUFF_PULSE_APPEND_FAILED" xml:space="preserve">
+    <value>Failed to append cuff pulse</value>
+  </data>
+  <data name="HEIGHT_REQUIRED" xml:space="preserve">
+    <value>Height value required for reference range report</value>
+  </data>
+  <data name="NULL_MEASUREMENT_RECORD" xml:space="preserve">
+    <value>Null measurement record</value>
+  </data>
+  <data name="PWV_COUNTER_FAILED" xml:space="preserve">
+    <value>PWV counter failed</value>
+  </data>
+  <data name="PWV_DELTAS_NOT_ENOUGH" xml:space="preserve">
+    <value>%0 deltas not enough for PWV</value>
+  </data>
+  <data name="PWV_SET_DEFAULTS_FAILED" xml:space="preserve">
+    <value>PWV failed to set defaults</value>
+  </data>
+  <data name="PWV_STD_DEV_TO_LARGE" xml:space="preserve">
+    <value>PWV standard deviation %0 is too large</value>
+  </data>
+  <data name="PWV_TOO_SMALL_FOR_ADULT" xml:space="preserve">
+    <value>PWV%0 is too small for an adult</value>
+  </data>
+  <data name="PWV_VALID_DELTAS_NOT_ENOUGH" xml:space="preserve">
+    <value>%0 valid deltas not enough for PWV</value>
+  </data>
+  <data name="TONOMETER_DATA_APPEND_FAILED" xml:space="preserve">
+    <value>Failed to append tonometer data</value>
+  </data>
+  <data name="CAPTURE_DEVICE_ERR_MSG" xml:space="preserve">
+    <value>Electronic module not found. Check the electronic module USB port connection</value>
+  </data>
+  <data name="GUI_ABOUT_CALIB_DATE" xml:space="preserve">
+    <value>Last calibration: {n}</value>
+  </data>
+  <data name="GUI_ABOUT_CAPABILITY_TXT" xml:space="preserve">
+    <value>Capability</value>
+  </data>
+  <data name="GUI_ABOUT_CE_MARK" xml:space="preserve">
+    <value>CE Mark: 0120</value>
+  </data>
+  <data name="GUI_ABOUT_COMPANY" xml:space="preserve">
+    <value>AtCor Medical SphygmoCor</value>
+  </data>
+  <data name="GUI_ABOUT_COPYRIGHT" xml:space="preserve">
+    <value>CopyRight [c] 2011 AtCor Medical Pty Ltd. All Rights Reserved.</value>
+  </data>
+  <data name="GUI_ABOUT_FIRM_VERSION" xml:space="preserve">
+    <value>Firmware Version</value>
+  </data>
+  <data name="GUI_ABOUT_INSTALL_ID" xml:space="preserve">
+    <value>Installed options:</value>
+  </data>
+  <data name="GUI_ABOUT_MEASUREMT_PWA" xml:space="preserve">
+    <value>Pulse Wave Analysis ({n}  tonometer)</value>
+  </data>
+  <data name="GUI_ABOUT_MEASUREMT_BP" xml:space="preserve">
+    <value>Blood Pressure ({n} measurements)</value>
+  </data>
+  <data name="GUI_ABOUT_MODULE_TXT" xml:space="preserve">
+    <value>Module: {n1}, Version: {n2}, Serial no: {n3}</value>
+  </data>
+  <data name="GUI_ABOUT_MOD_TYPE" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="GUI_ABOUT_NO_MEASUREMT_PWV" xml:space="preserve">
+    <value>Pulse Wave Velocity ({n} measurements)</value>
+  </data>
+  <data name="GUI_ABOUT_SEC_MODE" xml:space="preserve">
+    <value>Security Mode: {n}</value>
+  </data>
+  <data name="GUI_ABOUT_SERIAL_NO" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="GUI_ABOUT_VERSION" xml:space="preserve">
+    <value>Version: 10.0.2.0 (clinical)</value>
+  </data>
+  <data name="HEARTRATE_LBL_ANALYSIS" xml:space="preserve">
+    <value>Heart Rate(bpm)</value>
+  </data>
+  <data name="PWV_LBL_ANALYSIS" xml:space="preserve">
+    <value>PWV (m/s)</value>
+  </data>
+  <data name="GUI_ELECTRONIC_MOD_FND" xml:space="preserve">
+    <value>Electronic module found</value>
+  </data>
+  <data name="GUI_ELECTRONIC_MOD_FNDPORT" xml:space="preserve">
+    <value>Electronic module found on different port</value>
+  </data>
+  <data name="GUI_ELECTRONIC_MOD_NOTFND" xml:space="preserve">
+    <value>Electronic module not found. Please check device USB and power connection. Search again?</value>
+  </data>
+  <data name="GUI_SEARCH_ELECTRONIC_MOD" xml:space="preserve">
+    <value>Searching for electronic module</value>
+  </data>
+  <data name="ANALYSIS_XAXIS_TITLE" xml:space="preserve">
+    <value>Assessments</value>
+  </data>
+  <data name="TAB_ANALYSIS" xml:space="preserve">
+    <value>Analysis</value>
+  </data>
+  <data name="CRX_ERR_DBPERMISSION_REFER_MANUAL" xml:space="preserve">
+    <value>Failed to restore database.
+If the problem persists, check troubleshooting section in user manual or contact AtCor support _http://atcormedical.com/request_support.html
+Would you like to retry?</value>
+  </data>
+  <data name="GUI_CAPTURE_GENERATING_REPORT" xml:space="preserve">
+    <value>Generating Report.</value>
+  </data>
+  <data name="GUI_CAPTURE_SAVING_REPORT" xml:space="preserve">
+    <value>Saving Report.</value>
+  </data>
+  <data name="GUI_CAPTURE_CUFF_INFLATED" xml:space="preserve">
+    <value>Cuff inflated.</value>
+  </data>
+  <data name="GUI_CAPTURE_DEFLATED_MSG" xml:space="preserve">
+    <value>Please wait,cuff will be inflated again shortly.</value>
+  </data>
+  <data name="GUI_CAPTURE_ERROR" xml:space="preserve">
+    <value>"Error has occured during the Capture process.\r\nClick Yes to generate report.\r\nClick No to abort report generation and go back to Setup screen.\r\nClick Cancel to restart the Capture process."</value>
+  </data>
+  <data name="DAL_ERR_BUFFER_WRITE_FAILED" xml:space="preserve">
+    <value>Could not write data to buffer.</value>
+  </data>
+  <data name="DAL_ERR_COMMAND_FAILED" xml:space="preserve">
+    <value>Failed to issue command to device.</value>
+  </data>
+  <data name="DAL_ERR_COMMD_PACKET_CREATE_FAIL" xml:space="preserve">
+    <value>Failed to create command packet.</value>
+  </data>
+  <data name="DAL_ERR_CONFIG_PORT_NOT_CONNECTED" xml:space="preserve">
+    <value>Device was not found on the port specified in the configuration settings.</value>
+  </data>
+  <data name="DAL_ERR_CRC_CALC_FAILED" xml:space="preserve">
+    <value>Failed to calculate CRC code of given data.</value>
+  </data>
+  <data name="DAL_ERR_CRC_TABLE_FAILED" xml:space="preserve">
+    <value>Failed to create CRC code table.</value>
+  </data>
+  <data name="DAL_ERR_EMPTY_COMMAND" xml:space="preserve">
+    <value>Attempted to transmit an empty or unititialized command.</value>
+  </data>
+  <data name="DAL_ERR_EMPTY_RESPONSE_VALIDATION" xml:space="preserve">
+    <value>Cannot validate an empty response packet.</value>
+  </data>
+  <data name="DAL_ERR_NO_COMMPORT_NAME" xml:space="preserve">
+    <value>Comport name was not provided while trying to create an interface to the device.</value>
+  </data>
+  <data name="DAL_ERR_NO_INTERFACE" xml:space="preserve">
+    <value>Device interface has not been initialized.</value>
+  </data>
+  <data name="DAL_ERR_PORT_NOT_OPEN" xml:space="preserve">
+    <value>Port is not open or connected.</value>
+  </data>
+  <data name="DAL_ERR_PORT_SIMULATION" xml:space="preserve">
+    <value>Port is currently set to simulation.</value>
+  </data>
+  <data name="DAL_ERR_RESPONSE_INVALID" xml:space="preserve">
+    <value>Response packet sent by device was invalid.</value>
+  </data>
+  <data name="DAL_ERR_RESPONSE_RESOLVE_FAILURE" xml:space="preserve">
+    <value>Failed while trying to resolve response from device.</value>
+  </data>
+  <data name="DAL_ERR_TONO_NOT_CONNECTED" xml:space="preserve">
+    <value>Tonometer is not connected. Cannot capture data. Please chek if the tonometer is connected and try again.</value>
+  </data>
+  <data name="GUI_WAVEFORM_SAVE_MSG" xml:space="preserve">
+    <value>Captured waveforms have been stored in:</value>
+  </data>
+  <data name="GUI_ABOUT_MENU" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="GUI_ATCOR_HOMEPAGE_MENU" xml:space="preserve">
+    <value>Atcor HomePage</value>
+  </data>
+  <data name="GUI_BACKUP_MENU" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="GUI_EXIT_MENU" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="GUI_FIND_MODULE_MENU" xml:space="preserve">
+    <value>Find Module</value>
+  </data>
+  <data name="GUI_OPERATOR_GUIDE_MENU" xml:space="preserve">
+    <value>Operator's Guide</value>
+  </data>
+  <data name="GUI_PRINTER_SETUP" xml:space="preserve">
+    <value>Printer Setup</value>
+  </data>
+  <data name="GUI_RESTORE_MENU" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="GUI_SELECT_SIMULATION_FILE" xml:space="preserve">
+    <value>Please select a Simulation File.</value>
+  </data>
+  <data name="GUI_SELECT_SQL_INSTANCE" xml:space="preserve">
+    <value>select another server from the below list.</value>
+  </data>
+  <data name="GUI_SERVICE_MANUAL_MENU" xml:space="preserve">
+    <value>Service Manual</value>
+  </data>
+  <data name="GUI_SETTINGS_MENU" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>

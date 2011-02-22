@@ -4,6 +4,17 @@ using namespace System::Data;
 using namespace System::IO;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting::DatabaseManager;
+using namespace AtCor::Scor::CrossCutting::Logging;
+
+using namespace System;
+using namespace System::Text;
+using namespace System::Data;
+using namespace System::Data::Common;
+using namespace System::Data::SqlClient;
+using namespace System::Data::OleDb;
+
+using namespace Microsoft::Practices::EnterpriseLibrary::Data;
+using namespace Microsoft::Practices::EnterpriseLibrary::Data::Sql;
 
 namespace TestCrx {
     using namespace System;
@@ -18,6 +29,7 @@ namespace TestCrx {
 	public ref class CrxDBManagerTest
 	{
 
+	private: String^ _currDir;
 	private: Microsoft::VisualStudio::TestTools::UnitTesting::TestContext^  testContextInstance;
 			 /// <summary>
 			 ///Gets or sets the test context which provides
@@ -38,6 +50,14 @@ namespace TestCrx {
 			static String^  serverName = "MUM-9696";
 			static String^  sourceName = "SQLCLIENT";
 
+			void SetPath()
+			{
+				String^ path = Directory::GetCurrentDirectory(); 
+				int i = path->IndexOf("\\TestResults");
+				path = path->Substring(0,i + 12);
+				Directory::SetCurrentDirectory(path);
+				
+			}
 #pragma region Additional test attributes
 			// 
 			//You can use the following additional attributes as you write your tests:
@@ -55,17 +75,19 @@ namespace TestCrx {
 			//}
 			//
 			//Use TestInitialize to run code before running each test
-			//public: [TestInitialize]
-			//System::Void MyTestInitialize()
-			//{
-			//}
-			//
+			public: [TestInitialize]
+			System::Void MyTestInitialize()
+			{
+				_currDir = Directory::GetCurrentDirectory(); 
+			}
+			
 			//Use TestCleanup to run code after each test has run
-			//public: [TestCleanup]
-			//System::Void MyTestCleanup()
-			//{
-			//}
-			//
+			public: [TestCleanup]
+			System::Void MyTestCleanup()
+			{
+				Directory::SetCurrentDirectory(_currDir);
+			}
+
 #pragma endregion
 			/// <summary>
 			///A test for Instance
@@ -122,54 +144,66 @@ namespace TestCrx {
 				int expected = 0; // TODO: Initialize to an appropriate value
 				int actual;
 				target->SetConnection(serverName, sourceName);
-				CrxStructPWVMeasurementData^  md = gcnew CrxStructPWVMeasurementData();
-				md->SystemIdentifier = 31256;
-                md->GroupIdentifier = 4;
-                md->PatientNumberInternal = 6;
-				md->StudyDateTime = Convert::ToDateTime("2011-01-06 20:35:05");
-				md->Notes = "CheckOut";
-				md->Carotid = 111;
-				md->WeightInKilograms = 75;
-				md->HeightInCentimetres = 175;
-				md->CarotidSignal = gcnew array<unsigned short>(1);
-				md->CarotidSignal[0] = 1244;
-				md->FemoralSignal = gcnew array<unsigned short>(1);
-				md->FemoralSignal[0] = 1344;
-				md->CarotidSignalFloatOnSets = gcnew array<float>(1);
-				md->CarotidSignalFloatOnSets[0] = 1234.12f;
-				md->FemoralSignalFloatOnSets = gcnew array<float>(1);
-				md->FemoralSignalFloatOnSets[0] = 2345.23f;
-				md->ReferenceRange = gcnew array<float>(1);
-				md->ReferenceRange[0] = 3456.34f;
-				md->NormalRange = gcnew array<float>(1);
-				md->NormalRange[0] =  4567.45f;
 
-				expected  = 1;
-				actual = target->UpdatePWVMeasurementDetails(md);
-				Assert::AreEqual(expected, actual);
-
-				target->SetConnection(serverName, sourceName);
-				md = gcnew CrxStructPWVMeasurementData();
-				md->SystemIdentifier = 31256;
-                md->GroupIdentifier = 4;
-                md->PatientNumberInternal = 6;
-				md->StudyDateTime = Convert::ToDateTime("2010-12-17 14:57:46");
-				md->Notes = "CheckOut";
-				md->Carotid = 111;
-				md->WeightInKilograms = 75;
-				md->HeightInCentimetres = 175;
-				expected  = 0;
+				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
+				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
 				try
 				{
-					actual = target->UpdatePWVMeasurementDetails(md);
+					////preparing test data into database///
+					//-------------------------------------
+					pd->SystemIdentifier = 11111;
+					pd->PatientNumberInternal = 26;
+					pd->LastName = "Test_Patient_Last";
+					pd->FirstName = "Test_Patient_First";
+					pd->DateOfBirth = Convert::ToDateTime("08/09/1985");
+					pd->Gender = "Test";
+					pd->PatientIDExternalReference = "TestER";
+					pd->GroupName = "Test_Group";
+					pd->GroupIdentifier = 24;
+					target->SavePatientData(pd);
+		
+					//----measurement data
+					pwvmd->SystemIdentifier = pd->SystemIdentifier;
+					pwvmd->PatientNumberInternal = pd->PatientNumberInternal;
+					pwvmd->GroupIdentifier = pd->GroupIdentifier;
+					pwvmd->PWVDistance = 50;
+					pwvmd->MeanHeartRate = 150.0000;
+					pwvmd->MeanPulseWaveVelocity = 4.4000;
+					pwvmd->StandardDeviation = 3.300;
+					pwvmd->IsStandardDeviationValid = 1;
+					pwvmd->Notes = "CheckOut";
+					pwvmd->Carotid = 111;
+					pwvmd->WeightInKilograms = 75;
+					pwvmd->HeightInCentimetres = 175;
+					pwvmd->CarotidSignal = gcnew array<unsigned short>(1);
+					pwvmd->CarotidSignal[0] = 1244;
+					pwvmd->FemoralSignal = gcnew array<unsigned short>(1);
+					pwvmd->FemoralSignal[0] = 1344;
+					pwvmd->CarotidSignalFloatOnSets = gcnew array<float>(1);
+					pwvmd->CarotidSignalFloatOnSets[0] = 1234.12f;
+					pwvmd->FemoralSignalFloatOnSets = gcnew array<float>(1);
+					pwvmd->FemoralSignalFloatOnSets[0] = 2345.23f;
+					pwvmd->ReferenceRange = gcnew array<float>(1);
+					pwvmd->ReferenceRange[0] = 3456.34f;
+					pwvmd->NormalRange = gcnew array<float>(1);
+					pwvmd->NormalRange[0] =  4567.45f;
+					int i = target->SavePWVMeasurementDetails(pwvmd);
+
+					DataSet^ msrds = target->GetPWVMeasurementDetails(pwvmd->PatientNumberInternal,pwvmd->GroupIdentifier, pwvmd->SystemIdentifier);
+					pwvmd->StudyDateTime	= Convert::ToDateTime(msrds->Tables[0]->Rows[0]["StudyDateTime"]);
+					String^ studyDateTimeArrStr = Convert::ToString( pwvmd->StudyDateTime) + ",";
+					
+					pwvmd->PWVDistance = 40;
+					actual = target->UpdatePWVMeasurementDetails(pwvmd);
+					msrds = target->GetPWVMeasurementDetails(pwvmd->PatientNumberInternal,pwvmd->GroupIdentifier, pwvmd->SystemIdentifier);
+					
+					Assert::AreEqual(pwvmd->PWVDistance,Convert::ToDateTime(msrds->Tables[0]->Rows[0]["PWVDistance"]));
+					target->DeletePatientData(pd);
 				}
 				catch(Exception^)
 				{
-					actual = 0;
+					target->DeletePatientData(pd);
 				}
-				Assert::AreEqual(expected, actual);
-
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for UpdatePatientData
@@ -322,8 +356,32 @@ namespace TestCrx {
 			void ResetDatabaseToMultiuserTest()
 			{
 				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				target->SetConnection(serverName, sourceName);
-				target->ResetDatabaseToMultiuser();
+
+				try
+				{
+					target->ResetDatabaseToMultiuser();
+					//If in this case no exception occurs, means test case failed
+					Assert::Fail();
+				}
+				catch(Exception^)
+				{
+					//If exception occurs, means test case passed
+					Assert::IsTrue(true);
+				}
+
+				try
+				{
+					target->SetConnection(serverName, sourceName);
+					target->ResetDatabaseToMultiuser();
+					//If in this case exception occurs, means test case failed
+					Assert::IsTrue(true);
+				}
+				catch(Exception^)
+				{
+					//If exception occurs, means test case failed
+					Assert::Fail();
+				}
+
 				//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 			}
 			/// <summary>
@@ -403,6 +461,149 @@ namespace TestCrx {
 	//			Assert::AreEqual(expected, actual);
 	//			Assert::Inconclusive(L"Verify the correctness of this test method.");
 	//		}
+				/// <summary>
+			///A test for MigrationLogDetail
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void MigrationLogDetailTest()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				CrxLogger^  objLog = nullptr; // TODO: Initialize to an appropriate value
+				cli::array< String^  >^  skipPatientlog = gcnew array<String^>(2);; // TODO: Initialize to an appropriate value
+				
+				objLog = CrxLogger::Instance ; // TODO: Initialize to an appropriate value
+				
+				skipPatientlog[0] = "ThisIsForTestOnly";
+				target->MigrationLogDetail(objLog, skipPatientlog);
+
+				StreamReader ^curLogFileFileStream;
+				String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
+				
+				if(!Directory::Exists(path))
+				{
+					Directory::CreateDirectory(path);
+					File::Create(path + "Scor.xyz");
+				}
+
+				if(File::Exists(path+"scor_test.log"))
+				{
+					File::Delete(path+"scor_test.log");	
+				}
+				File::Copy(path+"scor.log",path+"scor_test.log"); 
+				
+				curLogFileFileStream =gcnew StreamReader(File::Open(path+"scor_test.log", FileMode::Open,FileAccess::Read,FileShare::Read ));
+
+				String ^fileStr = curLogFileFileStream->ReadToEnd();
+				String ^lastLine = fileStr->Substring(fileStr->LastIndexOf('\n',(fileStr->Length) - 5) + 1);
+
+				lastLine = lastLine->Trim();
+
+				lastLine= lastLine->Substring(lastLine->LastIndexOf('\t')+1); 
+				Assert::AreEqual(lastLine, skipPatientlog[0]);
+				curLogFileFileStream->Close();
+			}
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void MigrationLogDetailTest1()
+			{
+				///////////Negative test case////////////////
+
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				CrxLogger^  objLog = nullptr; // TODO: Initialize to an appropriate value
+				cli::array< String^  >^  skipPatientlog = gcnew array<String^>(2);; // TODO: Initialize to an appropriate value
+				
+				objLog = CrxLogger::Instance ; // TODO: Initialize to an appropriate value
+				
+				StreamReader ^curLogFileFileStream;
+				objLog = nullptr ; // TODO: Initialize to an appropriate value	
+				skipPatientlog[0] = "";
+				try
+				{
+					target->MigrationLogDetail(objLog, skipPatientlog);
+				}
+				catch(Exception^)
+				{
+					Assert::IsTrue(true);
+				}
+				
+			}
+			/// <summary>
+			///A test for MigrationInternal
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void MigrationInternalTest()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				OleDbDataReader^  rdr = nullptr; // TODO: Initialize to an appropriate value
+				CrxLogger^  objLog = nullptr; // TODO: Initialize to an appropriate value
+				int rowNum = 0; // TODO: Initialize to an appropriate value
+				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
+				String^  groupName = System::String::Empty; // TODO: Initialize to an appropriate value
+				int expected = 0; // TODO: Initialize to an appropriate value
+				int actual;
+
+				/// testing woth no data in rdr
+				objLog = CrxLogger::Instance;
+				systemIdentifier = 11;
+				groupName = "Test";
+				target->SetConnection(serverName, sourceName);
+				// passing OleDbDataReader as null ptr, function is suppose to rollback transaction on this
+				actual = target->MigrationInternal(rdr, objLog, rowNum, systemIdentifier, groupName);
+				Assert::AreEqual(expected, actual);
+				
+			}
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void MigrationInternalTest1()
+			{
+				////To check rest of the scenario, it requires manual intervention during the execution
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				OleDbDataReader^  rdr = nullptr; // TODO: Initialize to an appropriate value
+				CrxLogger^  objLog = nullptr; // TODO: Initialize to an appropriate value
+				int rowNum = 0; // TODO: Initialize to an appropriate value
+				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
+				String^  groupName = System::String::Empty; // TODO: Initialize to an appropriate value
+				int expected = 0; // TODO: Initialize to an appropriate value
+				int actual;
+
+				/// testing woth no data in rdr
+				objLog = CrxLogger::Instance;
+				systemIdentifier = 11;
+				groupName = "Test";
+				target->SetConnection(serverName, sourceName);
+				// passing OleDbDataReader as null ptr, function is suppose to rollback transaction on this
+				actual = target->MigrationInternal(rdr, objLog, rowNum, systemIdentifier, groupName);
+				
+				///testing transaction rollback
+				StreamReader ^curLogFileFileStream;
+				String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
+				if(!Directory::Exists(path))
+				{
+					Directory::CreateDirectory(path);
+				}
+				if(File::Exists(path+"scor_test.log"))
+				{
+					File::Delete(path+"scor_test.log");	
+				}
+				File::Copy(path+"scor.log",path+"scor_test.log"); 
+				
+				curLogFileFileStream =gcnew StreamReader(File::Open(path+"scor_test.log", FileMode::Open,FileAccess::Read,FileShare::Read ));
+
+				String ^fileStr = curLogFileFileStream->ReadToEnd();
+				String ^lastLine = fileStr->Substring(fileStr->LastIndexOf('\n',(fileStr->Length) - 5) + 1);
+
+				lastLine = lastLine->Trim();
+
+				lastLine= lastLine->Substring(lastLine->LastIndexOf('\t')+1); 
+				
+				//Checking that transction rollback execution
+				Assert::IsNotNull(lastLine);
+				//Assert::AreEqual(lastLine, "Migration failed.");
+				curLogFileFileStream->Close();
+
+			}
 			/// <summary>
 			///A test for MigrationFileExist
 			///</summary>
@@ -413,19 +614,28 @@ namespace TestCrx {
 				bool expected = false; // TODO: Initialize to an appropriate value
 				bool actual;
 
-				expected = true; 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");
+				//Alok
+				String^ curDir = Directory::GetCurrentDirectory();
+				String ^ path = curDir + "\\system\\data\\";
 				target->SetConnection(serverName, sourceName);
-				actual = target->MigrationFileExist();
-				Assert::AreEqual(expected, actual);
+				//File not exists, so checking IsFalse
+				if(File::Exists(path + "scor.xyz"))
+				{
+					File::Delete(path + "scor.xyz");
+				}
+				Assert::IsFalse(target->MigrationFileExist());
+
+				//Creating a file
+				if(!Directory::Exists(path))
+				{
+					Directory::CreateDirectory(path);
+				}
+				String^ filePath = path + "scor.xyz";
+				File::Create(filePath);
+				//File exists, so checking IsTrue
+				Assert::IsTrue(target->MigrationFileExist());
+
 				
-				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\");
-				expected = false; 
-				actual = target->MigrationFileExist();
-				Assert::AreEqual(expected, actual);
-				
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");
 			}
 			/// <summary>
 			///A test for MigrateAtCorData
@@ -442,19 +652,25 @@ namespace TestCrx {
 				groupName = "Dr.Alok";
 				systemIdentifier = 31256;
 				
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");
+				SetPath();
+				//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");
 				target->SetConnection(serverName, sourceName);
 
-				actual = target->MigrateAtCorData(systemIdentifier, groupName);
-				Assert::AreEqual(expected, actual);
+				if(File::Exists(Directory::GetCurrentDirectory() + "\\system\\data\\scor.xyz"))
+				{
+					actual = target->MigrateAtCorData(systemIdentifier, groupName);
+					Assert::AreEqual(expected, actual);
+				}
 				
-				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\");
+				Directory::SetCurrentDirectory(_currDir);
 				expected = 2; 
 				try
 				{
-					groupName = "Dr.Alok";
-					actual = target->MigrateAtCorData(systemIdentifier, groupName);
+					if(File::Exists(Directory::GetCurrentDirectory() + "\\system\\data\\scor.xyz"))
+					{
+						groupName = "Dr.Alok";
+						actual = target->MigrateAtCorData(systemIdentifier, groupName);
+					}
 				}
 				catch(Exception^ )
 				{
@@ -462,7 +678,6 @@ namespace TestCrx {
 				}
 				Assert::AreEqual(expected, actual);
 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");				
 			}
 			/// <summary>
 			///A test for GroupRecordExits
@@ -490,6 +705,137 @@ namespace TestCrx {
 				Assert::AreEqual(expected, actual);
 				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
+						/// <summary>
+			///A test for GetPWVTrendData
+			///</summary>
+	public: [TestMethod]
+			void GetPWVTrendDataTest()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+				int patientNumberInternal = 0; // TODO: Initialize to an appropriate value
+				int groupIdentifier = 0; // TODO: Initialize to an appropriate value
+				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
+				String^  studyDateTimeArrStr = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxStructPWVTrendData^  trendDataStruct = gcnew CrxStructPWVTrendData();
+				
+				//Testing without database connection for exception
+				try
+				{
+					target->GetPWVTrendData(patientNumberInternal, groupIdentifier, systemIdentifier, studyDateTimeArrStr, trendDataStruct);
+					//If in this case no exception occurs, means test case failed
+					Assert::Fail();
+				}
+				catch(Exception^)
+				{
+					//If exception occurs, means test case passed
+					Assert::IsTrue(true);
+				}
+
+				// now connect to db
+				target->SetConnection(serverName, sourceName);
+				////preparing test data into database//////
+				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
+				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
+				try
+				{
+					////preparing test data into database///
+					//-------------------------------------
+					pd->SystemIdentifier = 11111;
+					pd->PatientNumberInternal = 26;
+					pd->LastName = "Test_Patient_Last";
+					pd->FirstName = "Test_Patient_First";
+					pd->DateOfBirth = Convert::ToDateTime("08/09/1985");
+					pd->Gender = "Test";
+					pd->PatientIDExternalReference = "TestER";
+					pd->GroupName = "Test_Group";
+					pd->GroupIdentifier = 24;
+					target->SavePatientData(pd);
+		
+					//----measurement data
+					pwvmd->SystemIdentifier = pd->SystemIdentifier;
+					pwvmd->PatientNumberInternal = pd->PatientNumberInternal;
+					pwvmd->GroupIdentifier = pd->GroupIdentifier;
+					pwvmd->PWVDistance = 50;
+					pwvmd->MeanHeartRate = 150.0000;
+					pwvmd->MeanPulseWaveVelocity = 4.4000;
+					pwvmd->StandardDeviation = 3.300;
+					pwvmd->IsStandardDeviationValid = 1;
+					pwvmd->Notes = "CheckOut";
+					pwvmd->Carotid = 111;
+					pwvmd->WeightInKilograms = 75;
+					pwvmd->HeightInCentimetres = 175;
+					pwvmd->CarotidSignal = gcnew array<unsigned short>(1);
+					pwvmd->CarotidSignal[0] = 1244;
+					pwvmd->FemoralSignal = gcnew array<unsigned short>(1);
+					pwvmd->FemoralSignal[0] = 1344;
+					pwvmd->CarotidSignalFloatOnSets = gcnew array<float>(1);
+					pwvmd->CarotidSignalFloatOnSets[0] = 1234.12f;
+					pwvmd->FemoralSignalFloatOnSets = gcnew array<float>(1);
+					pwvmd->FemoralSignalFloatOnSets[0] = 2345.23f;
+					pwvmd->ReferenceRange = gcnew array<float>(1);
+					pwvmd->ReferenceRange[0] = 3456.34f;
+					pwvmd->NormalRange = gcnew array<float>(1);
+					pwvmd->NormalRange[0] =  4567.45f;
+					int i = target->SavePWVMeasurementDetails(pwvmd);
+
+					DataSet^ msrds = target->GetPWVMeasurementDetails(pwvmd->PatientNumberInternal,pwvmd->GroupIdentifier, pwvmd->SystemIdentifier);
+					pwvmd->StudyDateTime	= Convert::ToDateTime(msrds->Tables[0]->Rows[0]["StudyDateTime"]);
+					String^ studyDateTimeArrStr = ( pwvmd->StudyDateTime) + ",";
+
+					//target->DeletePatientData(pd);
+				//	////////////	
+
+					systemIdentifier = pd->SystemIdentifier;
+					patientNumberInternal = pd->PatientNumberInternal;
+					groupIdentifier = pd->GroupIdentifier;
+
+					//Testing with single value
+					target->GetPWVTrendData(patientNumberInternal, groupIdentifier, systemIdentifier, studyDateTimeArrStr, trendDataStruct);
+					Assert::AreEqual(trendDataStruct->HeartRateArrStr	,"150");
+					Assert::AreEqual(trendDataStruct->PulseWaveVelocityArrStr	,"4.4");
+					Assert::AreEqual(trendDataStruct->StandardDeviationArrStr	,"3.3");
+					Assert::AreEqual(trendDataStruct->IsStdDevValidArrStr	,"1");
+
+					//Clearing the structure
+					trendDataStruct->HeartRateArrStr = "";
+					trendDataStruct->PulseWaveVelocityArrStr = "";
+					trendDataStruct->StandardDeviationArrStr = "";
+					trendDataStruct->IsStdDevValidArrStr = "";
+
+					//Testing with double value
+					studyDateTimeArrStr = studyDateTimeArrStr + "2011-01-31 17:46:01,";
+					target->GetPWVTrendData(patientNumberInternal, groupIdentifier, systemIdentifier, studyDateTimeArrStr, trendDataStruct);
+					Assert::AreEqual(trendDataStruct->HeartRateArrStr	,"150");
+					Assert::AreEqual(trendDataStruct->PulseWaveVelocityArrStr	,"4.4");
+					Assert::AreEqual(trendDataStruct->StandardDeviationArrStr	,"3.3");
+					Assert::AreEqual(trendDataStruct->IsStdDevValidArrStr	,"1");
+
+					//Clearing the structure
+					trendDataStruct->HeartRateArrStr = "";
+					trendDataStruct->PulseWaveVelocityArrStr = "";
+					trendDataStruct->StandardDeviationArrStr = "";
+					trendDataStruct->IsStdDevValidArrStr = "";
+
+					//Testing with invalid value
+					patientNumberInternal = 0;
+					groupIdentifier = 3;
+					systemIdentifier = 31256;
+					studyDateTimeArrStr = "2010-12-15 14:23:47,2011-01-31 17:46:01,";
+					target->GetPWVTrendData(patientNumberInternal, groupIdentifier, systemIdentifier, studyDateTimeArrStr, trendDataStruct);
+					Assert::AreEqual(trendDataStruct->HeartRateArrStr	,"");
+					Assert::AreEqual(trendDataStruct->PulseWaveVelocityArrStr	,"");
+					Assert::AreEqual(trendDataStruct->StandardDeviationArrStr	,"");
+					Assert::AreEqual(trendDataStruct->IsStdDevValidArrStr	,"");
+					
+					target->DeletePatientData(pd);
+				}
+				catch(Exception^)
+				{
+					target->DeletePatientData(pd);
+					//exception occur if any assert statement fails - test failed 
+					Assert::Fail();
+				}
+			}
 			/// <summary>
 			///A test for GetPWVMeasurementDetails
 			///</summary>
@@ -504,12 +850,12 @@ namespace TestCrx {
 				DataSet^  actual;
 				//smarajit
 				target->SetConnection(serverName, sourceName);
-				patientNumberInternal = 6;
-				groupIdentifier = 4;
+				patientNumberInternal = 2;
+				groupIdentifier = 3;
 				systemIdentifier = 31256;
        			//smarajit
 				actual = target->GetPWVMeasurementDetails(patientNumberInternal, groupIdentifier, systemIdentifier);
-				int expectStr = 6;
+				int expectStr = patientNumberInternal;
 				int actualStr = Convert::ToInt32(actual->Tables[0]->Rows[0]["PatientNumberInternal"]->ToString());
 				Assert::AreEqual(expectStr, actualStr);
 				//Assert::AreEqual(expected, actual);
@@ -531,7 +877,12 @@ namespace TestCrx {
 				md->SystemIdentifier = 31256;
                 md->GroupIdentifier = 3;
                 md->PatientNumberInternal = 2;
-				md->StudyDateTime = Convert::ToDateTime("2010-12-14 14:14:05.000");
+
+				DataSet^ msrds = target->GetPWVMeasurementDetails(md->PatientNumberInternal,md->GroupIdentifier, md->SystemIdentifier);
+				md->StudyDateTime	= Convert::ToDateTime(msrds->Tables[0]->Rows[0]["StudyDateTime"]);
+				//String^ studyDateTimeArrStr = Convert::ToString( pwvmd->StudyDateTime) + ",";
+
+				//md->StudyDateTime = Convert::ToDateTime("2010-12-14 14:14:05.000");
 				
 				//smarajit
 				int expectStr = md->PatientNumberInternal;
@@ -652,34 +1003,77 @@ namespace TestCrx {
 				int expected = 0; // TODO: Initialize to an appropriate value
 				int actual;
 				
+				///////////////////
 				//called the database connection to connect database
 				//input parameters to call method
-				target->SetConnection(serverName, sourceName);
-
-				md = gcnew CrxStructPWVMeasurementData();
-
-				md->SystemIdentifier = 31256;
-				md->GroupIdentifier = 4;
-				md->PatientNumberInternal = 6;
-
-				// Please provide comma(,) after date
-				studyDateTimeArrStr = "2011-01-06 20:21:31,";
-				/*DateTime^ check  =   Convert::ToDateTime(studyDateTimeArrStr);
-				studyDateTimeArrStr = check->ToString();
-*/
-				actual = target->DeletePWVMeasurementDetails(md, studyDateTimeArrStr);
-				expected = 1;
-				Assert::AreEqual(expected, actual);
 				
-				md->SystemIdentifier = 31256;
-				md->GroupIdentifier = 6;
-				md->PatientNumberInternal = 4;
+				target->SetConnection(serverName, sourceName);
+				////preparing test data into database//////
+				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
+				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
+				try
+				{
+					expected = 1;
+					////preparing test data into database///
+					//-------------------------------------
+					pd->SystemIdentifier = 11111;
+					pd->PatientNumberInternal = 26;
+					pd->LastName = "Test_Patient_Last";
+					pd->FirstName = "Test_Patient_First";
+					pd->DateOfBirth = Convert::ToDateTime("08/09/1985");
+					pd->Gender = "Test";
+					pd->PatientIDExternalReference = "TestER";
+					pd->GroupName = "Test_Group";
+					pd->GroupIdentifier = 24;
+					target->SavePatientData(pd);
+		
+					//----measurement data
+					pwvmd->SystemIdentifier = pd->SystemIdentifier;
+					pwvmd->PatientNumberInternal = pd->PatientNumberInternal;
+					pwvmd->GroupIdentifier = pd->GroupIdentifier;
+					pwvmd->PWVDistance = 50;
+					pwvmd->MeanHeartRate = 150.0000;
+					pwvmd->MeanPulseWaveVelocity = 4.4000;
+					pwvmd->StandardDeviation = 3.300;
+					pwvmd->IsStandardDeviationValid = 1;
+					pwvmd->Notes = "CheckOut";
+					pwvmd->Carotid = 111;
+					pwvmd->WeightInKilograms = 75;
+					pwvmd->HeightInCentimetres = 175;
+					pwvmd->CarotidSignal = gcnew array<unsigned short>(1);
+					pwvmd->CarotidSignal[0] = 1244;
+					pwvmd->FemoralSignal = gcnew array<unsigned short>(1);
+					pwvmd->FemoralSignal[0] = 1344;
+					pwvmd->CarotidSignalFloatOnSets = gcnew array<float>(1);
+					pwvmd->CarotidSignalFloatOnSets[0] = 1234.12f;
+					pwvmd->FemoralSignalFloatOnSets = gcnew array<float>(1);
+					pwvmd->FemoralSignalFloatOnSets[0] = 2345.23f;
+					pwvmd->ReferenceRange = gcnew array<float>(1);
+					pwvmd->ReferenceRange[0] = 3456.34f;
+					pwvmd->NormalRange = gcnew array<float>(1);
+					pwvmd->NormalRange[0] =  4567.45f;
+					int i = target->SavePWVMeasurementDetails(pwvmd);
 
-				studyDateTimeArrStr = "2010-01-05 16:02:35,";
-				actual = target->DeletePWVMeasurementDetails(md, studyDateTimeArrStr);
-				expected = 0;
-				Assert::AreEqual(expected, actual);
+					DataSet^ msrds = target->GetPWVMeasurementDetails(pwvmd->PatientNumberInternal,pwvmd->GroupIdentifier, pwvmd->SystemIdentifier);
+					pwvmd->StudyDateTime	= Convert::ToDateTime(msrds->Tables[0]->Rows[0]["StudyDateTime"]);
+					String^ studyDateTimeArrStr = Convert::ToString( pwvmd->StudyDateTime) + ",";
+					
+					actual = target->DeletePWVMeasurementDetails(pwvmd, studyDateTimeArrStr);
+					Assert::AreEqual(expected, actual);
+					
+					expected = 0 ;
+					//Passing invalid studyDateTimeArrStr, so that procedure will not delete any record 
+					//and return 0
+					actual = target->DeletePWVMeasurementDetails(pwvmd, "2010-01-05 16:02:35,");
+					Assert::AreEqual(expected, actual);
 
+					target->DeletePatientData(pd);
+				}
+				catch(Exception^)
+				{
+					target->DeletePatientData(pd);
+				}
+				///////////////////
 			}
 			/// <summary>
 			///A test for DeletePatientData

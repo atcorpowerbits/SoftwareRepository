@@ -18,19 +18,28 @@
 
 using namespace System;
 using namespace System::Text;
+using namespace System::Data;
 
+using namespace System::Data::Common;
 using namespace System::Data::SqlClient;
-using namespace System::IO;// For FileStream
+using namespace System::IO;
 using namespace System::Diagnostics;
 using namespace System::ComponentModel;
 using namespace System::Data::OleDb;
+using namespace System::Drawing;
+
+using namespace Microsoft::Practices::EnterpriseLibrary::Data;
+using namespace Microsoft::Practices::EnterpriseLibrary::Data::Sql;
+using namespace Microsoft::Practices::EnterpriseLibrary::Common;
+using namespace Microsoft::Practices::EnterpriseLibrary::Common::Configuration;
 
 // Added application specific namespaces
 using namespace AtCor::Scor::CrossCutting;
-using namespace AtCor::Scor::CrossCutting::DatabaseManager;
 using namespace AtCor::Scor::CrossCutting::Configuration;
 using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace AtCor::Scor::CrossCutting::Logging;
+
+using namespace AtCor::Scor::CrossCutting::DatabaseManager;
 
 
 //To get patient record from the database as per inputs
@@ -123,7 +132,7 @@ DataSet^ CrxDBManager::GetGroupLists()
 	}	
 }
 
-DataSet^ CrxDBManager::GetPWVMeasurementDetails(int patientNo, int groupID, int systemIdentifier)
+DataSet^ CrxDBManager::GetPWVMeasurementDetails(int patientNumberInternal, int groupIdentifier, int systemIdentifier)
 {
 	DataSet^ measurementdataset = nullptr;	// patientdataset object to return measurement data
 	DbCommand^ addCommand = nullptr;		// store the stored procedure in addCommand object
@@ -135,8 +144,8 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(int patientNo, int groupID, int 
 
 		//Adding input parameters in the DbCommand object to execute stored procedure
 		_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,systemIdentifier);
-		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,groupID);
-		_objDB->AddInParameter(addCommand,"@PatientNumberInternal",DbType::Int32,patientNo);
+		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,groupIdentifier);
+		_objDB->AddInParameter(addCommand,"@PatientNumberInternal",DbType::Int32,patientNumberInternal);
 		_objDB->AddInParameter(addCommand,"@studyDateTime",DbType::DateTime,nullptr);
 
 		//Execute stored procedure and return Dataset
@@ -156,6 +165,45 @@ DataSet^ CrxDBManager::GetPWVMeasurementDetails(int patientNo, int groupID, int 
 		throw gcnew ScorException(eObj);
 	}		
 }
+void CrxDBManager::GetPWVTrendData(int patientNumberInternal, int groupIdentifier, int systemIdentifier, String^ studyDateTimeArrStr, CrxStructPWVTrendData^ trendDataStruct)
+{
+	DbCommand^ addCommand = nullptr;		// store the stored procedure in addCommand object
+	
+	try
+	{
+		//get the Stored Procedure query using database object
+		addCommand = _objDB->GetStoredProcCommand("GetPWVTrendData");
+
+		//Adding input parameters in the DbCommand object to execute stored procedure
+		_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,systemIdentifier);
+		_objDB->AddInParameter(addCommand,"@groupIdentifier",DbType::Int32,groupIdentifier);
+		_objDB->AddInParameter(addCommand,"@PatientNumberInternal",DbType::Int32,patientNumberInternal);
+		_objDB->AddInParameter(addCommand,"@studyDateTimeArrStr",DbType::String,studyDateTimeArrStr);
+		_objDB->AddOutParameter(addCommand,"@heartRateArrStr",DbType::String,studyDateTimeArrStr->Length);
+		_objDB->AddOutParameter(addCommand,"@pulseWaveVelocityArrStr",DbType::String,studyDateTimeArrStr->Length);
+		_objDB->AddOutParameter(addCommand,"@StandardDeviationArrStr",DbType::String,studyDateTimeArrStr->Length);
+		_objDB->AddOutParameter(addCommand,"@IsStdDevValidArrStr",DbType::String,studyDateTimeArrStr->Length);
+		
+		//Execute stored procedure and return Dataset
+		int result = _objDB->ExecuteNonQuery(addCommand);
+
+		trendDataStruct->HeartRateArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,"@heartRateArrStr"));
+		trendDataStruct->PulseWaveVelocityArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,"@pulseWaveVelocityArrStr"));
+		trendDataStruct->StandardDeviationArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,"@StandardDeviationArrStr"));
+		trendDataStruct->IsStdDevValidArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,"@IsStdDevValidArrStr"));
+	}
+	catch(ScorException^ crxObj)
+	{
+		// rethrow the exception
+		throw crxObj;
+	}
+	catch(Exception^ eObj)
+	{
+		// throw the exception
+		throw gcnew ScorException(eObj);
+	}		
+}
+
 //DataSet^ CrxDBManager::GetPWVMeasurementDetails(int patientNo, int groupID , int systemIdentifier, String^ dateTime)
 DataSet^ CrxDBManager::GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 {
@@ -714,7 +762,9 @@ int CrxDBManager::SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		_objDB->AddInParameter(addCommand,"@carotidSignalPulseHeightVariation",DbType::Single,md->CarotidSignalPulseHeightVariation);
 		
 		//get the length of array
-		len = md->CarotidSignal->Length;
+		//len = md->CarotidSignal->Length;
+		len = md->CarotidSignalLength;
+
 		//initiaze the size of the array
 		buffarr = gcnew array<Byte>(len*sizeof(unsigned short));
 		//Calling common function convert to byte array
@@ -749,7 +799,9 @@ int CrxDBManager::SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		_objDB->AddInParameter(addCommand,"@femoralSignalPulseHeight",DbType::Single,md->FemoralSignalPulseHeight);
 		
 		//get the length of array
-		len = md->FemoralSignal->Length;
+		//len = md->FemoralSignal->Length;
+		len = md->FemoralSignalLength;
+
 		//initiaze the size of the array
 		buffarr = gcnew array<Byte>(len*sizeof(unsigned short));
 		//Calling common function convert to byte array
@@ -892,7 +944,9 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		_objDB->AddInParameter(addCommand,"@carotidSignalPulseHeightVariation",DbType::Single,md->CarotidSignalPulseHeightVariation);
 		
 		//get the length of array
-		len = md->CarotidSignal->Length;
+		//len = md->CarotidSignal->Length;
+		len = md->CarotidSignalLength;
+
 		//initiaze the size of the array
 		buffarr = gcnew array<Byte>(len*sizeof(unsigned short));
 		//Calling common function convert to byte array
@@ -927,7 +981,9 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 		_objDB->AddInParameter(addCommand,"@femoralSignalPulseHeight",DbType::Single,md->FemoralSignalPulseHeight);
 		
 		//get the length of array
-		len = md->FemoralSignal->Length;
+		//len = md->FemoralSignal->Length;
+		len = md->FemoralSignalLength;
+
 		//initiaze the size of the array
 		buffarr = gcnew array<Byte>(len*sizeof(unsigned short));
 		//Calling common function convert to byte array
@@ -954,7 +1010,7 @@ int CrxDBManager::UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md)
 			result = 1;
 		}
 
-		md->StudyDateTime = Convert::ToDateTime((_objDB->GetParameterValue(addCommand,"returnStudyDatetime")));
+		md->StudyDateTime = Convert::ToDateTime((_objDB->GetParameterValue(addCommand,"returnStudyDatetime")),CrxCommon::gCI);
 
 		return result;
 		
@@ -1148,8 +1204,11 @@ int CrxDBManager::DatabaseBackup(System::String ^filePath)
 {
 	int result				= 0;//initializes to 0, if 1 successful else return zero
 	DbCommand^ addCommand	= nullptr; // store the stored procedure in addCommand object
+	CrxLogger^ objLog			= nullptr; // Object used to access logger class
 
-
+	//Create logger object
+	objLog = CrxLogger::Instance;
+	
 	try
 	{		
 		//get the Stored Procedure query using database object
@@ -1164,6 +1223,10 @@ int CrxDBManager::DatabaseBackup(System::String ^filePath)
 		{
 			result = 0;
 		}
+		CrxMessagingManager^ oMsgMgr = CrxMessagingManager::Instance;
+		String^ errorMessage = oMsgMgr->GetMessage("BACKUP_DONE");
+		objLog->Write(errorMessage);
+
 
 		return result;
 		
@@ -1197,9 +1260,8 @@ int CrxDBManager::DatabaseRestore(System::String ^filePath)
 		{
 			result = 0;
 		}
-
+    
 		return result;
-		
 	}
 	catch(ScorException^ crxObj)
 	{
@@ -1219,11 +1281,30 @@ int CrxDBManager::DatabaseRestore(System::String ^filePath)
 
 void CrxDBManager::ResetDatabaseToMultiuser()
 {
-	DbCommand^ addCommand = nullptr; // store the stored procedure in addCommand object
-	
-	addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE " + DBname +  " SET MULTI_USER" + " USE [" + DBname + "]" ); 
-	
-	_objDB->ExecuteNonQuery(addCommand);
+	DbCommand^ addCommand	= nullptr; // store the stored procedure in addCommand object
+	CrxLogger^ objLog		= nullptr; // Object used to access logger class
+
+	//Create logger object
+	objLog = CrxLogger::Instance;
+
+	try
+	{		
+		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE " + DBname +  " SET MULTI_USER" + " USE [" + DBname + "]" ); 
+		
+		_objDB->ExecuteNonQuery(addCommand);
+
+		CrxMessagingManager^ oMsgMgr = CrxMessagingManager::Instance;
+		String^ errorMessage = oMsgMgr->GetMessage("RESTORE_DONE");
+		objLog->Write(errorMessage);
+
+	}
+	catch(Exception^ eObj)
+	{		
+		// throw customised exception
+		throw gcnew ScorException(CRX_ERR_DBPERMISSION_REFER_MANUAL, "CRX_ERR_DBPERMISSION_REFER_MANUAL", ErrorSeverity::Exception);// File not found
+	}
+				
+
 }
 
 int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
@@ -1233,24 +1314,11 @@ int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 	OleDbCommand^ cmd			= nullptr; // Object to store execute command
 	OleDbDataReader^ rdr		= nullptr; // Object to store data reader value
 	CrxLogger^ objLog			= nullptr; // Object used to access logger class
-	DbCommand^ addCommand		= nullptr; // store the stored procedure in addCommand object
 	
-	int result					= 0 ; // returns result value
-	int totresult				= 0; // stores total patient migrated
-	int totskipresult			= 0; // stores total patient skipped
+	int result					= 0;		// returns result value	
+	int rowNum					= 0;		// stores number of rows in the migration file
 	
-	String^ strFName			= nullptr; // stores the patient first name
-	String^ strLName			= nullptr; // stores the patient last name
-	String^ strPatientExtName	= nullptr; // stores patient external name
-	String^ filePathSet			= nullptr; // stores the formatted file path location
-	String^ details				= nullptr; // stores the patient header details
-	String^ strGender			= nullptr; // stores the gender value
-	String^ totDetailsMigrated	= nullptr; // stores the total patient migrated header
-	String^ totDetailsSkipped	= nullptr; // stores the total patient skipped header
-	String^ patDetails			= nullptr; // stores the skipped patient details
-	String^ srtDate				= nullptr; // stores short date
-	
-	DateTime strDOB;						// stores the date of birth of patient
+	String^ filePathSet			= nullptr; // stores the formatted file path location	
 
 	try
 	{
@@ -1281,72 +1349,26 @@ int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 		//Create an OleDbCommand object and
 		//pass it the SQL command and the OleDbConnection
 		//object to use to connect to the database
+
+		//Executing query to get number of records
+		cmd = gcnew OleDbCommand("Select Count(*) from patient",conn);
+
+		//Create the reader object
+		rdr = cmd->ExecuteReader();
+
+		rdr->Read();
+
+		//Get number of rows in the migration file
+		rowNum = Convert::ToInt32(rdr->GetValue(0),CrxCommon::gCI);
+		rdr	= nullptr;
+
+		//Executing query to get number patient records
 		cmd = gcnew OleDbCommand("Select * from patient",conn);
 		
 		//Create the reader object
-		rdr = cmd->ExecuteReader();
-		
-		objLog->Write("Migration started.");
-		details = String::Format("Patients skipped : Id         First Name                Last Name                 Gender DOB ");
-		objLog->Write(details);
-		details = nullptr;
-
-		//Keep reading records in the forward direction
-		while (rdr->Read())
-		{		   
-		   //Reinitialize the values
-			strFName			= nullptr;
-			strLName			= nullptr;
-			strPatientExtName	= nullptr;
-			filePathSet			= nullptr;
-			strGender			= nullptr;
-			patDetails			= nullptr;
-			srtDate				= nullptr;
-			result				= 0;
-			
-			strPatientExtName	= rdr->GetValue(DBMGR_COLUMN_PAT_EXT_NAME)->ToString();
-			strLName			= rdr->GetValue(DBMGR_COLUMN_PAT_LAST_NAME)->ToString();
-			strFName			= rdr->GetValue(DBMGR_COLUMN_PAT_FIRST_NAME)->ToString();
-			strDOB				= Convert::ToDateTime(rdr->GetValue(DBMGR_COLUMN_PAT_DOB));
-			strGender			= rdr->GetValue(DBMGR_COLUMN_PAT_GENDER)->ToString();		
-			
-			//get the Stored Procedure query using database object
-			addCommand = _objDB->GetStoredProcCommand("MigratePatientDetails");
-
-			_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,systemIdentifier);
-			_objDB->AddInParameter(addCommand,"@patientIDExternalReference",DbType::String,strPatientExtName);
-			_objDB->AddInParameter(addCommand,"@LastName",DbType::String,strLName);
-			_objDB->AddInParameter(addCommand,"@FirstName",DbType::String,strFName);
-			_objDB->AddInParameter(addCommand,"@DateOfBirth",DbType::DateTime,strDOB);
-			_objDB->AddInParameter(addCommand,"@gender",DbType::String,strGender);
-			_objDB->AddInParameter(addCommand,"@groupName",DbType::String,groupName);
-
-			//Execute stored procedure and return positive value if successful
-			result = _objDB->ExecuteNonQuery(addCommand);	
-
-			if(result > 0)
-			{
-				totresult = totresult + 1;
-			}
-			else
-			{
-				//Log the skipped patient details in the scor.log file
-				totskipresult = totskipresult + 1;	
-				srtDate =  strDOB.ToShortDateString();
-				details = "";
-				patDetails = String::Format("{0} {1} {2} {3} {4} {5}" , details->PadRight(18), strPatientExtName->PadRight(10), strFName->PadRight(25), strLName->PadRight(25), strGender->PadRight(6), srtDate);
-				details = nullptr;
-				objLog->Write(patDetails);				
-			}			
-		}
+		rdr = cmd->ExecuteReader();		
 	
-		//Log total patient migrated and skipped in the scor.log file
-		totDetailsMigrated = String::Format("Total patients migrated: {0}",totresult); 
-		totDetailsSkipped = String::Format("Total patients skipped : {0}",totskipresult); 
-		objLog->Write(totDetailsSkipped);
-		objLog->Write(totDetailsMigrated);	
-
-		objLog->Write("Migration completed.");
+		result = MigrationInternal(rdr, objLog, rowNum, systemIdentifier, groupName);
 
 		//Close the connection to the MS-Access database
 		conn->Close();
@@ -1354,7 +1376,7 @@ int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 		//Rename the migration file from scor.xyz to scor.xyz.old
 		File::Move(_nameOfAccessFile,_nameOfAccessFileNew);
 
-		return result= 0;
+		return result = 0;
 	}
 	catch(ScorException^ crxObj)
 	{
@@ -1369,8 +1391,7 @@ int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 	}
 
 	catch(Exception^ eObj)
-	{
-		objLog->Write("Migration failed.");
+	{		
 		throw gcnew ScorException(eObj);
 	}
 
@@ -1400,5 +1421,142 @@ bool CrxDBManager::MigrationFileExist()
 	catch(Exception^)
 	{
 		return result = false;
+	}
+}
+
+int CrxDBManager::MigrationInternal(OleDbDataReader ^rdr, CrxLogger^ objLog, int rowNum, int systemIdentifier, System::String ^groupName)
+{
+	DbCommand^ addCommand			= nullptr;	// store the stored procedure in addCommand object
+	DbTransaction^ dbtransaction	= nullptr;	// stores the transaction in the dbtransaction object
+	DbConnection^ dbconnection		= nullptr;	// stores the connection object from database object
+
+	int result						= 0;		// returns result value
+	int totresult					= 0;		// stores total patient migrated
+	int totskipresult				= 0;		// stores total patient skipped	
+
+	
+	String^ strFName				= nullptr;	// stores the patient first name
+	String^ strLName				= nullptr;	// stores the patient last name
+	String^ strPatientExtName		= nullptr;	// stores patient external name
+	String^ filePathSet				= nullptr;	// stores the formatted file path location
+	String^ details					= nullptr;	// stores the patient header details
+	String^ strGender				= nullptr;	// stores the gender value
+	String^ totDetailsMigrated		= nullptr;	// stores the total patient migrated header
+	String^ totDetailsSkipped		= nullptr;	// stores the total patient skipped header
+	String^ patDetails				= nullptr;	// stores the skipped patient details
+	String^ srtDate					= nullptr;	// stores short date
+	
+	DateTime strDOB;							// stores the date of birth of patient
+
+	try
+	{
+		//Create dbConnection
+		dbconnection = _objDB->CreateConnection();
+
+		//Create dbconnection command
+		addCommand = dbconnection->CreateCommand();		
+
+		//Open DBConnection object
+		dbconnection->Open();
+
+		//Create and begin transaction
+		dbtransaction = dbconnection->BeginTransaction();
+
+		objLog->Write("Migration started.");
+		details = String::Format("Patients skipped : Id         First Name                Last Name                 Gender DOB ");
+		objLog->Write(details);
+		details = nullptr;
+
+		array<String^>^ skipPatientlog = gcnew array<String^>(rowNum);
+
+		//Keep reading records in the forward direction
+		while (rdr->Read())
+		{		   
+		   //Reinitialize the values
+			strFName			= nullptr;
+			strLName			= nullptr;
+			strPatientExtName	= nullptr;
+			filePathSet			= nullptr;
+			strGender			= nullptr;
+			patDetails			= nullptr;
+			srtDate				= nullptr;
+			details				= nullptr;
+			result				= 0;
+			
+			strPatientExtName	= rdr->GetValue(DBMGR_COLUMN_PAT_EXT_NAME)->ToString();
+			strLName			= rdr->GetValue(DBMGR_COLUMN_PAT_LAST_NAME)->ToString();
+			strFName			= rdr->GetValue(DBMGR_COLUMN_PAT_FIRST_NAME)->ToString();
+			strDOB				= Convert::ToDateTime(rdr->GetValue(DBMGR_COLUMN_PAT_DOB),CrxCommon::gCI);
+			strGender			= rdr->GetValue(DBMGR_COLUMN_PAT_GENDER)->ToString();		
+			
+			//get the Stored Procedure query using database object
+			addCommand = _objDB->GetStoredProcCommand("MigratePatientDetails");
+
+			_objDB->AddInParameter(addCommand,"@systemIdentifier",DbType::Int32,systemIdentifier);
+			_objDB->AddInParameter(addCommand,"@patientIDExternalReference",DbType::String,strPatientExtName);
+			_objDB->AddInParameter(addCommand,"@LastName",DbType::String,strLName);
+			_objDB->AddInParameter(addCommand,"@FirstName",DbType::String,strFName);
+			_objDB->AddInParameter(addCommand,"@DateOfBirth",DbType::DateTime,strDOB);
+			_objDB->AddInParameter(addCommand,"@gender",DbType::String,strGender);
+			_objDB->AddInParameter(addCommand,"@groupName",DbType::String,groupName);
+
+			//Execute stored procedure and return positive value if successful
+			result = _objDB->ExecuteNonQuery(addCommand,dbtransaction);	
+
+			if(result > 0)
+			{
+				totresult = totresult + 1;
+			}
+			else
+			{
+				//Log the skipped patient details in the scor.log file
+				srtDate =  strDOB.ToShortDateString();
+				details = "";
+				patDetails = String::Format("{0} {1} {2} {3} {4} {5}" , details->PadRight(18), strPatientExtName->PadRight(10), strFName->PadRight(25), strLName->PadRight(25), strGender->PadRight(6), srtDate);
+				skipPatientlog[totskipresult] = patDetails;
+				totskipresult = totskipresult + 1;	
+			}			
+		}	
+		
+		// Commit the transaction.
+		dbtransaction->Commit();
+
+		dbconnection->Close();	
+
+		MigrationLogDetail(objLog, skipPatientlog);
+
+		totDetailsMigrated = String::Format("Total patients migrated: {0}",totresult); 
+		totDetailsSkipped = String::Format("Total patients skipped : {0}",totskipresult); 
+		objLog->Write(totDetailsSkipped);
+		objLog->Write(totDetailsMigrated);	
+
+		objLog->Write("Migration completed.");
+
+		return result;	
+	}
+	catch(Exception^)
+	{
+		// Roll back the transaction.
+		dbtransaction->Rollback();
+
+		objLog->Write("Migration failed.");
+
+		return result;	
+	}
+	finally
+	{			
+		if(dbconnection)
+		{
+			dbconnection->Close();
+		}		
+	}
+}
+
+void CrxDBManager::MigrationLogDetail(CrxLogger^ objLog, array<String^>^ skipPatientlog)
+{
+	//Log total patient migrated and skipped in the scor.log file
+	for(int arr= 0; arr < skipPatientlog->Length; arr++ )
+	{		
+		objLog->Write(skipPatientlog[0]);
 	}
 }

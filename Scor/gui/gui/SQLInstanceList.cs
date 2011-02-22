@@ -56,7 +56,8 @@ namespace AtCor.Scor.Gui.Presentation
         public SQLInstanceList()
         {
             InitializeComponent();
-            serverNameString = SettingsProperties.ServerNameString(); // crxMgrObject.GeneralSettings.MachineName.Trim() + "\\" + crxMgrObject.GeneralSettings.ServerName.Trim();
+            serverNameString = SettingsProperties.ServerNameString(); 
+            
             // Disable the close button of the window.
             this.FormElement.TitleBar.CloseButton.Enabled = false;
         }       
@@ -71,13 +72,17 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        /**This event is fired on the load of the form.It will list down all available server available on the LAN and accordingly the user is able to select the server and connect to it.
+        /**This event is fired on the load of the form.
+         * It will list down all available server available on the LAN 
+         * and accordingly the user is able to select the server and connect to it.
         */
         private void SQLInstanceList_Load(object sender, EventArgs e)
         {
             DisplayAndLogMessage();
             this.AcceptButton = guiradbtnConnect;
             this.CancelButton = guiradbtnCancel;
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
             
             // log status of database connection.
             try
@@ -104,25 +109,31 @@ namespace AtCor.Scor.Gui.Presentation
             this.Close();            
         }
 
-        /**This event is fired when the user clicks on connect after selecting a server from the drop down list.
+        /**This event is fired when the user clicks on connect after selecting a server 
+         * from the drop down list.
         */
         private void guiradbtnConnect_Click(object sender, EventArgs e)
         {
-                int result = 0;
+            int result = 0;
 
-                // guiradlblMessage.Text = string.Empty;
-                crxMgrObject.GeneralSettings.MachineName = guicmbxSqlServerList.Text;
-                crxMgrObject.GeneralSettings.ServerName = "SQLEXPRESS";
-                serverNameString = SettingsProperties.ServerNameString(); // crxMgrObject.GeneralSettings.MachineName.Trim() + crxMgrObject.GeneralSettings.ServerName.Trim();
+            crxMgrObject.GeneralSettings.MachineName = guicmbxSqlServerList.Text;
+
+            serverNameString = SettingsProperties.ServerNameString(); 
  
+            // set the source data settings to SQL as we are listing only SQL servers on the network
             crxMgrObject.GeneralSettings.SourceData = "SQLCLIENT";
+
             dbMagr = CrxDBManager.Instance;
             result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData);
-            if (result.Equals(1))
+
+            // Connection failed
+            if (result.Equals(1)) 
             {
                 DisplayAndLogMessage();
             }
-            else
+
+            // successfully connected
+            else 
             {
                 oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + serverNameString);                
                 crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);  
@@ -134,15 +145,8 @@ namespace AtCor.Scor.Gui.Presentation
         */
         private void DisplayAndLogMessage()
         {
-            guiradlblMessage.Text = oMsgMgr.GetMessage("SQL_SERVER_UNABLE_TO_CONNECT") + serverNameString + ",select another server from the below list.";
+            guiradlblMessage.Text = oMsgMgr.GetMessage("SQL_SERVER_UNABLE_TO_CONNECT") + serverNameString + "," + oMsgMgr.GetMessage("GUI_SELECT_SQL_INSTANCE");
             oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_FAILED") + serverNameString); 
-        }
-
-        /**This event is fired when the selection in the drop down is changed.
-         */ 
-        private void guicmbxSqlServerList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           // guiradlblMessage.Text = string.Empty; 
-        }
+        }        
     }
 }

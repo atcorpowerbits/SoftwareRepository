@@ -210,6 +210,25 @@
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
+		<AssemblyReference
+			RelativePath="Microsoft.SqlServer.ConnectionInfo.dll"
+			AssemblyName="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
+			MinFrameworkVersion="0"
+		/>
+		<AssemblyReference
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.dll"
+			AssemblyName="Microsoft.Practices.Unity, Version=2.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>
+		<AssemblyReference
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.Interception.dll"
+			AssemblyName="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+			MinFrameworkVersion="196613"
+		/>		<AssemblyReference
+			RelativePath="System.Drawing.dll"
+			AssemblyName="System.Drawing, Version=2.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+			MinFrameworkVersion="131072"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -255,6 +274,10 @@
 			</File>
 			<File
 				RelativePath=".\CrxMessaging.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxPrinter.cpp"
 				>
 			</File>
 			<File
@@ -325,6 +348,10 @@
 			</File>
 			<File
 				RelativePath=".\CrxMessaging.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxPrinter.h"
 				>
 			</File>
 			<File

@@ -5,7 +5,7 @@
         
      Author       :		 Deepak D'Souza
  
-     Description  :      Header file for DalSimulationFile class
+     Description  :      source file for DalSimulationFile class
 */
 
 #include "stdafx.h"
@@ -119,7 +119,6 @@ using namespace AtCor::Scor::CrossCutting;
 		//return values to calling function
 		*value1 = (short)Single::Parse(DataStrings[0]);
 		*value2 = (short)Single::Parse(DataStrings[1]);
-		//TODO: these variables must be bigger to accomodate any other changes
 		//successful
 		return true;
 	}
@@ -168,7 +167,38 @@ using namespace AtCor::Scor::CrossCutting;
 			reader->BaseStream->Seek(0, SeekOrigin::Begin);
 			reader->BaseStream->Position = 0;
 		}
-
 		return true;
 	}
+
+bool DalSimulationFile::SaveCurrentValues_ORI(unsigned short tonometerData, unsigned short cuffPulse)
+{
+	String ^singleLine = tonometerData.ToString() + "\t" + cuffPulse.ToString();
+
+	try
+	{
+		writer->WriteLine(singleLine);
+		return true;
+	}
+	catch(System::Exception^)
+	{
+		throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
+	}
+}
+
+//	bool DalSimulationFile::CreateFile_ORI(String^ outputFilePath)
+//{
+//	filePath = outputFilePath;
+//	String^ currentDir = Directory::GetCurrentDirectory();
+//
+//	try
+//	{
+//		//Create the file and pass it to new streamwiter.
+//		writer = File::CreateText(filePath);
+//		return true;
+//	}
+//	catch(Exception^)
+//	{
+//		throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
+//	}
+//}
 

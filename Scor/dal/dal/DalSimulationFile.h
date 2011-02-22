@@ -33,9 +33,11 @@ namespace AtCor{
                                     static const unsigned int DAL_FAILTOCREATE_ERR    = 303; //TODO:STUB
                                     static const unsigned int DAL_FAILTOWRITE_ERR     = 304; //TODO:STUB
 
-									String^ filePath;	//path of the file on the disk
+									
 									StreamReader ^reader; //variable to store the File stream reader
-									StreamWriter ^writer; //variable to store the File stream writer //TODO:STUB
+									StreamWriter ^writer; //variable to store the File stream writer 
+								internal:
+									String^ filePath;	//path of the file on the disk
 								public:
 									/**
 									* Opens the file specified by @c DalSimulationFile::filePath.
@@ -110,8 +112,21 @@ namespace AtCor{
 									*/
 									bool ResetFileStreamPosition();
 
+
 									bool CreateFile(String^ outputFilePath);//TODO:STUB
+									
 									bool SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse); //TODO:STUB
+
+									/**
+									* Writes the values passed to the dump file
+									*
+									* @param[in] tonometerData	Tonometer value
+									* @param[in] cuffPulse	Cuff Pulse value
+									* @return  true if the operation was successful.
+									*/
+									bool SaveCurrentValues_ORI(unsigned short tonometerData, unsigned short cuffPulse); 
+									//The _ORI is used in order to avoid conflict with stub class
+									
 								};
 		}
 	}

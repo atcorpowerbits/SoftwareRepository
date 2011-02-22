@@ -244,6 +244,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnCapture.Size = new System.Drawing.Size(80, 25);
             this.guiradbtnCapture.TabIndex = 40;
             this.guiradbtnCapture.Text = "Capture";
+            this.guiradbtnCapture.Click += new System.EventHandler(this.guiradbtnCapture_Click_1);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnCapture.GetChildAt(0))).Text = "Capture";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnCapture.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(171)))), ((int)(((byte)(231)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnCapture.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
@@ -318,12 +319,14 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtFemoralToCuff.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradtxtFemoralToCuff.Location = new System.Drawing.Point(355, 427);
+            this.guiradtxtFemoralToCuff.MaxLength = 3;
             this.guiradtxtFemoralToCuff.Name = "guiradtxtFemoralToCuff";
             this.guiradtxtFemoralToCuff.ReadOnly = true;
             this.guiradtxtFemoralToCuff.Size = new System.Drawing.Size(50, 18);
             this.guiradtxtFemoralToCuff.TabIndex = 33;
             this.guiradtxtFemoralToCuff.TabStop = false;
             this.guiradtxtFemoralToCuff.Leave += new System.EventHandler(this.guiradtxtFemoralToCuff_Leave);
+            this.guiradtxtFemoralToCuff.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.guiradtxtCuff_KeyPress);
             // 
             // guiradlblFemoralToCuffUnits
             // 
@@ -364,6 +367,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtCarotid.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradtxtCarotid.Location = new System.Drawing.Point(354, 330);
+            this.guiradtxtCarotid.MaxLength = 3;
             this.guiradtxtCarotid.Name = "guiradtxtCarotid";
             // 
             // 
@@ -373,11 +377,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtCarotid.TabIndex = 31;
             this.guiradtxtCarotid.TabStop = false;
             this.guiradtxtCarotid.Leave += new System.EventHandler(this.guiradtxtCarotid_Leave);
+            this.guiradtxtCarotid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.guiradtxtCuff_KeyPress);
             // 
             // guiradtxtCuff
             // 
             this.guiradtxtCuff.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradtxtCuff.Location = new System.Drawing.Point(33, 392);
+            this.guiradtxtCuff.MaxLength = 3;
             this.guiradtxtCuff.Name = "guiradtxtCuff";
             // 
             // 
@@ -387,6 +393,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtCuff.TabIndex = 32;
             this.guiradtxtCuff.TabStop = false;
             this.guiradtxtCuff.Leave += new System.EventHandler(this.guiradtxtCuff_Leave);
+            this.guiradtxtCuff.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.guiradtxtCuff_KeyPress);
             // 
             // guiradlblCuff
             // 
@@ -421,6 +428,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtSP.Size = new System.Drawing.Size(50, 18);
             this.guiradtxtSP.TabIndex = 28;
             this.guiradtxtSP.TabStop = false;
+            this.guiradtxtSP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.guiradtxtCuff_KeyPress);
             // 
             // guiradlblResult
             // 
@@ -610,6 +618,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtDP.Size = new System.Drawing.Size(50, 18);
             this.guiradtxtDP.TabIndex = 29;
             this.guiradtxtDP.TabStop = false;
+            this.guiradtxtDP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.guiradtxtCuff_KeyPress);
             // 
             // guiradlblDP
             // 
@@ -1087,6 +1096,7 @@ namespace AtCor.Scor.Gui.Presentation
             // splitContainer1
             // 
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 21);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -1108,6 +1118,7 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradgrdPatientList
             // 
             this.guiradgrdPatientList.MasterTemplate.AllowAddNewRow = false;
+            this.guiradgrdPatientList.MasterTemplate.AllowRowResize = false;
             this.guiradgrdPatientList.MasterTemplate.AutoGenerateColumns = false;
             this.guiradgrdPatientList.MasterTemplate.ShowRowHeaderColumn = false;
             this.guiradgrdPatientList.Name = "guiradgrdPatientList";
@@ -1118,9 +1129,10 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradgrdPatientList.RootElement.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.guiradgrdPatientList.ShowGroupPanel = false;
-            this.guiradgrdPatientList.Size = new System.Drawing.Size(520, 359);
+            this.guiradgrdPatientList.Size = new System.Drawing.Size(520, 354);
             this.guiradgrdPatientList.TabIndex = 0;
             this.guiradgrdPatientList.Text = "radGridView1";
+            this.guiradgrdPatientList.UseScrollbarsInHierarchy = true;
             this.guiradgrdPatientList.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.guiradgrdPatientList_ContextMenuOpening);
             this.guiradgrdPatientList.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.guiradgrdPatientList_ColumnWidthChanging);
             this.guiradgrdPatientList.CellClick += new Telerik.WinControls.UI.GridViewCellEventHandler(this.guiradgrdPatientList_CellClick);

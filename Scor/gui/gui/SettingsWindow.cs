@@ -33,94 +33,13 @@ using Telerik.WinControls.Enumerations;
  * 
  */
 namespace AtCor.Scor.Gui.Presentation
-{
-    /**
-    * @class frmSettingsWindow
-    * @brief This class is used to set General as well as PWV settings for the application.On this window,all the necessary settings will be done which are required by the user at different stages in the application.
-    */
+{         
+     /**
+     * @class Setting Window
+     * @brief This class is used to set General as well as PWV settings for the application.On this window,all the necessary settings will be done which are required by the user at different stages in the application.
+     */    
     public partial class frmSettingsWindow : Telerik.WinControls.UI.RadForm
     {
-        #region Set constant values
-/*
-        // GeneralSettings
-        const int DOC_GENERAL_SETTINGS = 10066;
-        const int GRP_SETUP_SCREEN = 10019;
-        const int CHK_PATIENT_PRIVACY = 10065;
-        const int GRP_HEIGHT_WEIGHT_UNITS = 10020;
-        const int RAD_METRIC = 10021;
-        const int RAD_IMPERIAL = 10022;
-        const int GRP_BLOOD_PRESSURE = 10023;
-        const int RAD_SP_DP = 10024;
-        const int RAD_SP_MP = 10025;
-        const int RAD_MP_DP = 10026;
-        const int GRP_COMMS_PORT = 10027;
-        const int GRP_REPORTS = 10028;
-        const int LBL_REPORT_TITLE = 10029;
-        const int LBL_REPORT_LOGO = 10030;
-        const int BTN_CHANGE = 10031;
-        const int BTN_SAVE = 10032;
-        const int BTN_CANCEL = 10033;
-        const int BTN_DEFAULTS = 10034;
-
-        // PWV SETTINGS
-        const int DOC_PWV_SETTINGS = 10035;
-        const int GRP_PWV_DISTANCE_METHOD = 10036;
-        const int RAD_SUBTRACTING = 10037;
-        const int RAD_DIRECT = 10038;
-        const int GRP_CUFF_LOCATION = 10039;
-        const int CHK_FEMORAL_CUFF = 10040;
-        const int GRP_SIMULATION_FILES = 10041;
-        const int GRP_REPORT_SCREEN = 10042;
-        const int CHK_REFERENCE_RANGE = 10043;
-        const int GRP_PWV_DISTANCE_UNITS = 10044;
-        const int RAD_MM = 10045;
-        const int RAD_CM = 10046;
-        const int GRP_CAPTURE_TIME = 10047;
-        const int RAD_5_SEC = 10048;
-        const int RAD_10_SEC = 10049;
-        const int RAD_20_SEC = 10050;
-        const int COMPORT_SIMULATION = 10056;
-        // error messages
-        const int SYSTEM_ERROR = 10015;
-        const int FILE_NOT_FOUND = 10055;
-        const int INFORMATION = 10070;
-*/
-
-        // STRINGS
-        const string DAT_FILES = @".\\simulation\PWV\*.dat";
-        const string PATH_SIMUALTION_FILES = @".\\simulation\pwv";
-        const string FILE_DEFAULT = "DEFAULT";
-        const string FILE_Default = "Default";
-        const string MSG_SIMULATION_FILES = "No files with .dat extension were found.";
-        const string LOGO_FILTER = "jpg files (*.jpg)|*.jpg|bmp files(*.bmp)|*.bmp";
-        const string INTIAL_DRIVE = "C:";
-        const string SELECT_LOGO = "Select a Report Logo";
-
-        #endregion
-   
-        // Events
-        public static event EventHandler OnSettingsChangedEvent;
-
-        // Constructor of the form,initializes all the controls and the structure for General as well as PWV settings.       
-        public frmSettingsWindow()
-        {
-            InitializeSettingsWindow();
-        }
-
-        /**Parameterized constructor to display messages in the Message Bay of the DefaultWindow.
-        */
-        public frmSettingsWindow(DefaultWindow objDfltWnd)
-        {
-            InitializeSettingsWindow();
-            objDefaultWindow = objDfltWnd;
-        }
-
-        public frmSettingsWindow(GUI_POC objDfltWnd)
-        {
-            InitializeSettingsWindow();
-            guiWindow = objDfltWnd;
-        }
-
         #region Global decalartions
         CrxConfigManager obj;
         OpenFileDialog dialog;
@@ -128,7 +47,6 @@ namespace AtCor.Scor.Gui.Presentation
        
         // Creating object of DefaultWindow.
         private DefaultWindow objDefaultWindow;
-        private GUI_POC guiWindow;
 
         // This variable is used to create a copy of the generalsettings structure which will be used update the 
         // configuration object after the save functionality is implemented.@n
@@ -157,6 +75,39 @@ namespace AtCor.Scor.Gui.Presentation
 
         private event DisplaySettingsDelegate OnDefaultGeneralSettings;
         #endregion
+
+        #region Set constant values
+        // STRINGS
+
+        // const string DAT_FILES = @".\\simulation\PWV\*.dat";
+        // const string PATH_SIMUALTION_FILES = @".\\simulation\pwv";       
+        // const string MSG_SIMULATION_FILES = "No files with .dat extension were found.";
+        // const string LOGO_FILTER = "jpg files (*.jpg)|*.jpg|bmp files(*.bmp)|*.bmp";
+        // const string INTIAL_DRIVE = "C:";
+        // const string SELECT_LOGO = "Select a Report Logo";
+
+        // used internally.
+        const string FILE_DEFAULT = "DEFAULT";
+        const string FILE_Default = "Default";
+
+        #endregion
+   
+        // Events
+        public static event EventHandler OnSettingsChangedEvent;
+
+        // Constructor of the form,initializes all the controls and the structure for General as well as PWV settings.       
+        public frmSettingsWindow()
+        {
+            InitializeSettingsWindow();
+        }
+
+        /**Parameterized constructor to display messages in the Message Bay of the DefaultWindow.
+        */
+        public frmSettingsWindow(DefaultWindow objDfltWnd)
+        {
+            InitializeSettingsWindow();
+            objDefaultWindow = objDfltWnd;
+        }        
                
         /**This method is called when the constructor is initialized.It sets up the Settings screen.                */ 
         private void InitializeSettingsWindow()
@@ -240,6 +191,8 @@ namespace AtCor.Scor.Gui.Presentation
         */
         private void menuService_ContextMenuDisplaying(object sender, ContextMenuDisplayingEventArgs e)
         {
+            e.Cancel = true;
+
             // the menu request is associated with a valid DockWindow instance, which resides within a DocumentTabStrip
             if (e.MenuType == ContextMenuType.DockWindow &&
                 e.DockWindow.DockTabStrip is DocumentTabStrip)
@@ -353,12 +306,7 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
                     this.Invoke(handle, ex, this);
-                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    ////this.Invoke(messageBox, ex.Message);
-                }
-
-                ////CrxLogger oLogObject = CrxLogger.Instance;
-                ////oLogObject.Write(ex.Message);
+                }                
             }
             finally
             {
@@ -439,10 +387,9 @@ namespace AtCor.Scor.Gui.Presentation
                     return;
                 }
 
-                if (Path.HasExtension(DAT_FILES))
+                if (Path.HasExtension(oMsgMgr.GetMessage("SYS_SIM_FILE_WILDCARD")))
                 {
-                    DirectoryInfo dirInfo = new DirectoryInfo(
-PATH_SIMUALTION_FILES);
+                    DirectoryInfo dirInfo = new DirectoryInfo(oMsgMgr.GetMessage("SYS_SIM_FILE_PATH"));
                     foreach (System.IO.FileInfo file in dirInfo.GetFiles())
                     {
                         fileList.Add(Path.GetFileNameWithoutExtension(file.ToString().ToUpper()));
@@ -461,9 +408,6 @@ PATH_SIMUALTION_FILES);
                         comboSimulationFiles.Items.Remove(FILE_Default);
                         comboSimulationFiles.Items.Insert(0, FILE_Default);
                         comboSimulationFiles.SelectedIndex = 0;
-
-                        // this.objDefaultWindow.ChildMessage = "Since user selected file was not found,hence showing the Default simulation file.";
-                        // this.objDefaultWindow.UpdateMessage();
                         return;
                     }
 
@@ -581,25 +525,7 @@ PATH_SIMUALTION_FILES);
                 {
                     ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
                     this.Invoke(handle, ex, this);
-                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    ////this.Invoke(messageBox, ex.Message);
-                }
-
-                /*  catch (CrxException cfgExp)
-            {
-                // Exception if any will be logged and displayed(appropiate message) to the user.                 
-                CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-                string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);
-                
-                if (this.InvokeRequired)
-                {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, errorMessage);
-                }
-
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(errorMessage);
-            }*/
+                }               
             }
         } // End DisplaySetings
 
@@ -632,36 +558,8 @@ PATH_SIMUALTION_FILES);
                 {
                     ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
                     this.Invoke(handle, ex, this);
-
-                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    ////this.Invoke(messageBox, ex.Message);
                 }
-            }
-
-            /* catch (CrxException cfgExp)
-            {
-                // Exception if any will be logged and displayed(appropiate message) to the user.                 
-                CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-                string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);
-                
-                if (this.InvokeRequired)
-                {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, errorMessage);
-                }
-
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(errorMessage);
-
-                if (cfgExp.ErrorCode == 100)
-                {
-                    if (this.InvokeRequired)
-                    {
-                        CloseAfterSaveDelegate closewindow = new CloseAfterSaveDelegate(CloseSettingWindowAfterSave);
-                        this.Invoke(closewindow);
-                    }
-                }
-            } */            
+            }                       
         }
 
         /**This method is called when the thread for reading Default user settings is started.
@@ -710,25 +608,7 @@ PATH_SIMUALTION_FILES);
                 {
                     ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
                     this.Invoke(handle, ex, this);
-
-                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    ////this.Invoke(messageBox, ex.Message);
-                }
-
-                /* catch (CrxException cfgExp)
-            {
-                // Exception if any will be logged and displayed(appropiate message) to the user.                
-                 CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-                 string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);               
-                 if (this.InvokeRequired)
-                 {
-                     DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                     this.Invoke(messageBox, errorMessage);
-                 }
-
-                 CrxLogger oLogObject = CrxLogger.Instance;
-                 oLogObject.Write(errorMessage);
-             } */
+                }                
             }
         }
            
@@ -768,7 +648,7 @@ PATH_SIMUALTION_FILES);
         {
             try
             {
-                DirectoryInfo dirInfo = new DirectoryInfo(PATH_SIMUALTION_FILES);
+                DirectoryInfo dirInfo = new DirectoryInfo(oMsgMgr.GetMessage("SYS_SIM_FILE_PATH"));
 
                 foreach (System.IO.FileInfo file in dirInfo.GetFiles())
                 {
@@ -807,9 +687,9 @@ PATH_SIMUALTION_FILES);
                 string appPath = Directory.GetCurrentDirectory();
 
                 dialog = new OpenFileDialog();
-                dialog.Filter = LOGO_FILTER;
-                dialog.InitialDirectory = INTIAL_DRIVE;
-                dialog.Title = SELECT_LOGO;
+                dialog.Filter = oMsgMgr.GetMessage("SYS_IMAGE_FILE_WILDCARD");
+                dialog.InitialDirectory = oMsgMgr.GetMessage("C_DRIVE");
+                dialog.Title = oMsgMgr.GetMessage("MSG_SELECT_LOGO");
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     Image image = Image.FromFile(dialog.FileName);
@@ -980,13 +860,7 @@ PATH_SIMUALTION_FILES);
                 {
                     ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
                     this.Invoke(handle, ex, this);
-                    
-                    ////DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    ////this.Invoke(messageBox, ex.Message);
                 }
-
-                ////CrxLogger oLogObject = CrxLogger.Instance;
-                ////oLogObject.Write(ex.Message);              
             }           
         }
 
@@ -1003,8 +877,6 @@ PATH_SIMUALTION_FILES);
         {
             try
             {
-                // this.guiWindow.Message = "Insert mode";
-                // this.guiWindow.UpdateMessage();
                 obj = CrxConfigManager.Instance;
                 obj.SetGeneralUserSettings(gnrlSettingsStruct);
                 obj.SetPwvUserSettings(pwvSettingsStruct);
@@ -1030,21 +902,7 @@ PATH_SIMUALTION_FILES);
                     CloseAfterSaveDelegate closewindow = new CloseAfterSaveDelegate(CloseSettingWindowAfterSave);
                     this.Invoke(closewindow);
                 }
-            }
-
-            /*  catch (CrxException cfgExp)
-              {
-                  CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-                  string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);
-                  if (this.InvokeRequired)
-                  {
-                      DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                      this.Invoke(messageBox, errorMessage);
-                  }
-
-                  CrxLogger oLogObject = CrxLogger.Instance;
-                  oLogObject.Write(errorMessage);
-              } */
+            }           
         }
 
         /**This method will display the error message using the message box.
@@ -1093,7 +951,7 @@ PATH_SIMUALTION_FILES);
         {
             if (this.comboSimulationFiles.GetItemText(this.comboSimulationFiles.SelectedItem).Length.Equals(0))
             {
-                RadMessageBox.Show(this, "Please select a Simulation File.", oMsgMgr.GetMessage("INFORMATION"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show(this, oMsgMgr.GetMessage("GUI_SELECT_SIMULATION_FILE"), oMsgMgr.GetMessage("INFORMATION"), MessageBoxButtons.OK, RadMessageIcon.Error);
             }
             else
             {
@@ -1114,9 +972,6 @@ PATH_SIMUALTION_FILES);
                 Thread t3 = new Thread(ReadDefaultPWVSettings);
                 t3.Start();
                  
-                // Enabling the Save button.
-                // radbtnPwvSave.Enabled = true;
-
                 // Flag set,indicate save button is enabled.
                 defaultBtnClicked = true;
             }
@@ -1154,23 +1009,8 @@ PATH_SIMUALTION_FILES);
                     ExceptionHandler handle = new ExceptionHandler(GUIExceptionHandler.HandleException);
                     this.Invoke(handle, ex, this);
                 }
-            }
-
-          /*  catch (CrxException cfgExp)
-            {
-                // Exception if any will be logged and displayed(appropiate message) to the user.                 
-                CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-                string errorMessage = oMsgMgr.GetMessage(cfgExp.ErrorCode);
-                if (this.InvokeRequired)
-                {
-                    DisplayMessageBoxDelegate messageBox = new DisplayMessageBoxDelegate(DisplayErrorMessage);
-                    this.Invoke(messageBox, errorMessage);
-                }
-
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(errorMessage);
-            } */           
-        }                
+            }                     
+        }                                 
     }
 
     /**

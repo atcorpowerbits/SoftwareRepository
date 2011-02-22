@@ -18,6 +18,7 @@ namespace TestCrx {
 	[TestClass]
 	public ref class CrxConfigManagerTest
 	{
+	private: String^ _currDir;
 
 	private: Microsoft::VisualStudio::TestTools::UnitTesting::TestContext^  testContextInstance;
 			 /// <summary>
@@ -41,7 +42,10 @@ namespace TestCrx {
 			void SetPath()
 			{
 				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults");
+				int i = path->IndexOf("\\TestResults");
+				path = path->Substring(0,i + 12);
+				Directory::SetCurrentDirectory(path);
+				
 			}
 
 #pragma region Additional test attributes
@@ -60,18 +64,19 @@ namespace TestCrx {
 			//{
 			//}
 			//
-			//Use TestInitialize to run code before running each test
-			//public: [TestInitialize]
-			//System::Void MyTestInitialize()
-			//{
-			//}
-			//
+			public: [TestInitialize]
+			System::Void MyTestInitialize()
+			{
+				_currDir = Directory::GetCurrentDirectory(); 
+			}
+			
 			//Use TestCleanup to run code after each test has run
-			//public: [TestCleanup]
-			//System::Void MyTestCleanup()
-			//{
-			//}
-			//
+			public: [TestCleanup]
+			System::Void MyTestCleanup()
+			{
+				Directory::SetCurrentDirectory(_currDir);
+			}
+
 #pragma endregion
 			/// <summary>
 			///A test for PwvSettings
@@ -212,7 +217,7 @@ namespace TestCrx {
 				int actual;
 				int expected = 0;
 				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\");
+				//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\");
 
 				try
 				{
@@ -865,7 +870,7 @@ namespace TestCrx {
 				//target->GetSettings(Section, SubSection);
 
 				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code");
+				//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code");
 				int actual;
 				int expected = 0;
 				try

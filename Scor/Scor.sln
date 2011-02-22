@@ -8,6 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dal", "dal\dal\dal.vcproj", "{E274BA19-F920-40C0-8747-214688D2ABB3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{24748540-BFD1-4293-99F5-D556338366C4} = {24748540-BFD1-4293-99F5-D556338366C4}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "crx", "crx\crx\crx.vcproj", "{24748540-BFD1-4293-99F5-D556338366C4}"
 EndProject

@@ -41,8 +41,12 @@ namespace AtCor{
 				DalModule(const DalModule^);
 				DalModule^ operator= (const DalModule);
 
-				IDalHandler^ _currentDevice;
+				//IDalHandler^ _currentDevice;
 				CaptureType _captureDataType;
+
+			internal:	
+				IDalHandler^ _currentDevice; 
+				DalCuffState^ _currentCuffState; //TODO
 
 			public:
 
@@ -101,7 +105,7 @@ namespace AtCor{
 				* 
 				* @warning	This method has not been implemented. It is a stub.
 				*/
-				String^ FindModule();
+				int FindModule(String^ comPort);
 
 				// Returns the PWV measurement counter stored in the firmware
 				bool GetPWVMeasurementCounter( unsigned short% count); //TODO:STUB
@@ -111,7 +115,28 @@ namespace AtCor{
 
 				property bool measurementCounterTest;
 
+				/**
+				* Returns the name of the last error or alarm source
+				* @return	A string contianing the name of the source
+				*/
 				String^ GetErrorAlarmSource(); 
+
+				/**
+				* Dumps the tonometer and cuff data to a backup file @n
+				* Obtain the name using @c GetSavedFileName
+				* @param[in]	tonometerData	Array with tonometer data values
+				* @param[in]	cuffPulse	Array with cuff pulse data values
+				* @param[in]	bufferSize	The size of the buffer to be dumped
+				* @return	 @c true if the operation was successful
+				*/
+				virtual bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
+
+				/**
+				* Returns the name and filepath of the dump file saved by @c SaveCaptureData
+				* @return	The filepath of the saved file
+				* @see	SaveCaptureData
+				*/
+				String^ GetSavedFilePath();
 			};
 		}
 	}

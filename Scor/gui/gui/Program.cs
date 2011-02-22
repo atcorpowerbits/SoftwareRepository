@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+     Filename     :     Program.cs
+        
+     Author       :     Nitesh Chhedda
+ 
+     Description  :     This class defines entry point for application.
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -7,6 +16,7 @@ using System.Xml;
 using System.IO;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting;
+using Microsoft.VisualBasic.ApplicationServices; // imported to show splash screen
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -18,14 +28,18 @@ namespace AtCor.Scor.Gui.Presentation
         [STAThread]
         static void Main(string[] args)
         {
+            DefaultWindow defWindow = null; 
+            
             try
             { 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new DefaultWindow());
+                defWindow = new DefaultWindow();
+                Application.Run(defWindow);
             }
             catch (Exception ex)
             {
+                GUIExceptionHandler.HandleException(ex, defWindow);
                 System.Diagnostics.EventLog.WriteEntry("Scor error", ex.Message);
             }
         }        
@@ -37,6 +51,29 @@ namespace AtCor.Scor.Gui.Presentation
             CultureInfo currentCulture = CultureInfo.CurrentCulture;            
             string cultureSetting = currentCulture.Name.Substring(0, 2);
             return cultureSetting;
-        }       
+        }
+
+        /** This class is used to display splash screen.
+         * */
+        public class MyApp : WindowsFormsApplicationBase
+        {
+            protected override void OnCreateSplashScreen()
+            {
+                this.SplashScreen = new SplashScreen();
+                this.SplashScreen.ShowInTaskbar = false;
+            }
+
+            protected override void OnCreateMainForm()
+            {
+                // Do your initialization here
+                // ...
+                // System.Threading.Thread.Sleep(3000);  // Test
+
+                // Then create the main form, the splash screen will automatically close
+                this.MainForm = new DefaultWindow();
+                this.HideSplashScreen();
+                this.MainForm.Activate();
+            }
+        }
     }
 }

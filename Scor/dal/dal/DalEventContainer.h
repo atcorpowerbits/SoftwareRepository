@@ -104,36 +104,6 @@ namespace AtCor{
 				public delegate void DalCuffStatusEventHandler_ORI(Object^ sender, DalCuffStatusEventArgs_ORI ^ args);
 
 
-				//Deepak: No event to get EA source. It will be called by method
-				///**
-				//* @class DalErrorAlarmSourceEventArgs
-				//* @brief Class to contain arguments for OnDalErrorAlarmSourceEvent.
-				//*/
-				//public ref class DalErrorAlarmSourceEventArgs: public EventArgs
-				//{
-				//	public:
-				//		/**
-				//		* Data for the event.
-				//		*/
-				//		property String^ ErrorAlarmSource;
-
-
-				//		/**
-				//		* Constructor for the class.
-				//		*
-				//		* @param[in] data	The data for the event (error or alarm source).						
-				//		*/
-				//		DalErrorAlarmSourceEventArgs(String^ data);
-				//};
-
-				//Deepak: No event to get EA source. It will be called by method
-				///**
-				//* Delegate for error or alarm source event.
-				//*/
-				//public delegate void DalErrorAlarmSourceEventHandler(Object^ sender, DalErrorAlarmSourceEventArgs ^ args);
-
-
-
 				/**
 				* @class DalModuleErrorAlarmEventArgs_ORI
 				* @brief Class to contain arguments for OnDalModuleErrorAlarmEvent.
@@ -161,6 +131,32 @@ namespace AtCor{
 
 
 
+				/**
+				* @class DalTonometerStatusEventArgs
+				* @brief Class to contain arguments for OnDalTonometerStatusEvent.
+				*/
+				public ref class DalTonometerStatusEventArgs: public EventArgs
+				{
+					public:
+						/**
+						* Data for the event.
+						*/
+						property DalTonometerState TonometerStateFlag;
+						
+						/**
+						* Constructor for the class.
+						*
+						* @param[in] cuffStateFlag	The data for the event (The resolved status flag).						
+						*/
+						DalTonometerStatusEventArgs(DalTonometerState tonometerStateFlag);
+				};
+
+				/**
+				* Delegate for cuff status changed event
+				*/
+				public delegate void DalTonometerStatusEventHandler(Object^ sender, DalTonometerStatusEventArgs ^args);
+
+
 
 				/**
 				* @class DalEventContainer
@@ -183,9 +179,12 @@ namespace AtCor{
 
 					//	DalModuleErrorAlarmEventHandler^     _dalModuleErrorAlarmEventHandler;
 
-						//Deepak: No event to get EA source. It will be called by method
-						//DalErrorAlarmSourceEventHandler^ _dalErrorAlarmSourceEventHandler; 
+						 
 						DalModuleErrorAlarmEventHandler_ORI^     _dalModuleErrorAlarmEventHandler;
+
+						DalTonometerStatusEventHandler^ _dalTonometerStatusEventHandler; //handler for tonometer status change events
+
+
 
 						
 					public:
@@ -338,9 +337,15 @@ namespace AtCor{
 							*/
 							void raise(Object^ sender, DalCuffStatusEventArgs_ORI ^ args)
 							{
+								if (!args)
+								{
+									return;
+								}
 								//Raise the event.
 								if(_DalCuffStatusEventHandler_ORI)
+								{
 									_DalCuffStatusEventHandler_ORI->Invoke(sender, args);
+								}
 							}
 						}
 
@@ -439,6 +444,60 @@ namespace AtCor{
 									_dalModuleErrorAlarmEventHandler->Invoke(sender, args);
 							}
 						}
+
+						
+						/**
+						* Tonometer status changed event.
+						*/
+						event DalTonometerStatusEventHandler^ OnDalTonometerStatusEvent
+						{
+							/**
+							* Registers specifed handler method as a listener to this event.
+							*
+							* @param[in] handler	The handler method to be registered as a listener. @n
+							*						Should match the signature of DalTonometerStatusEventHandler
+							*/
+							void add(DalTonometerStatusEventHandler^ handler)
+							{
+								lock lockEvents(this);
+								//add the specified handler as listener.
+								_dalTonometerStatusEventHandler += handler;
+							}
+							
+							/**
+							* Removes specifed handler method from the list of listners. @n
+							* The handler can no  longer listen to this event.
+							*
+							* @param[in] handler	The handler method to be de-registered as a listener. @n
+							*						Should be already added as a listener.
+							*/
+							void remove(DalTonometerStatusEventHandler^ handler)
+							{
+								lock lockEvents(this);
+								//Remove the specified handler from the list of listeners
+								_dalTonometerStatusEventHandler -= handler;
+							}
+
+							/**
+							* Overloaded raise method.
+							* Needed to raise an event.
+							*
+							* @param[in]	sender	Reference to object that raised the event.
+							* @param[in[	args	The arguments for this event. Should be of the type DalTonometerStatusEventArgs.
+							*/
+							void raise(Object^ sender, DalTonometerStatusEventArgs ^args)
+							{
+								//Raise the event.
+								if(_dalTonometerStatusEventHandler)
+								{
+									_dalTonometerStatusEventHandler->Invoke(sender, args);
+									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Tonometer event raised in DAL: "+ args->CuffStateFlag.ToString() );
+								}
+							}
+						}
+
+
+
 				}; // End class DalEventContainer
 		}
 	}

@@ -32,7 +32,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		CrxGenBPOptMPandDP				= 2,		
 		CrxPwvDistDistUnitsMM			= 0,
 		CrxPwvDistDistUnitsCM			= 1,		
-		CrxPwvDistMethodSubStract		= 0,
+		CrxPwvDistMethodSubtract		= 0,
 		CrxPwvDistMethodDirect			= 1,		
 		CrxPwvCapture5Seconds			= 5,
 		CrxPwvCapture10Seconds			= 10,
@@ -60,6 +60,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		String^ StartupMode;			/**< Shows the Startup Mode */
 		String^ StartupScreen;			/**< Shows the Startup Screen */
 		String^ EnvironmentSettings;	/**< Shows the environment Settings  */
+		String^ PrinterName;			/**< Shows the printer settings */
 
 
 		/**
@@ -80,6 +81,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			StartupMode					= nullptr;
 			StartupScreen				= nullptr;
 			EnvironmentSettings			= nullptr;
+			PrinterName					= nullptr;
 		}
 	};
 
@@ -149,7 +151,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			//structure references.
 			CrxConfigManager()
 			{
-                //set path of the configuration file, this is hard coded.
+                //set path of the configuration file, this is hard coded as it will always point to system\config folder.
                 _nameOfFile = L".\\system\\config\\scor.config";
 
 				//Create instance General Settings Structure
@@ -231,6 +233,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetStartupMode(String^ SubSection, String^ ReaderValue);
 			//Get Startup Screen from config file
 			void GetStartupScreen(String^ SubSection, String^ ReaderValue);
+			//Get Config Printer from config file
+			void GetConfigPrinter(String^ SubSection, String^ ReaderValue);
 	
 			//-------------------Set General Setting User Values-------------------
 			//Set Patient Privacy value in config file
@@ -253,6 +257,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void SetCultureInfo(CrxStructGeneralSetting^ gs, XmlNode^ node);
 			//Set Machine Name in config file
 			void SetMachineName(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			//Set Printer Name in config file
+			void SetPrinterName(CrxStructGeneralSetting^ gs, XmlNode^ node);
 
 			//-------------------Get PWV Setting Values-------------------
 			//Get Femoral Cuff value from config file

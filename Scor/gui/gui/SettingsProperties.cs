@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+     Filename     :     Settings properties
+        
+     Author       :     Nitesh Chhedda
+ 
+     Description  :     Common class for defining global variables, method, properties etc
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +15,8 @@ using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.CrossCutting.Logging;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.Configuration;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -20,7 +31,10 @@ namespace AtCor.Scor.Gui.Presentation
        ////#endregion
 
        // public enum eEnvironment {Clinical, Research};
-
+       // this dll & method is used to set default printer for application, it even sets network printer as default printer
+       [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
+       public static extern bool SetDefaultPrinter(string name); 
+       
        // public event SettingsChangedEventHandler OnSettingsChangedEvent;
        #region Global variable declaration
        public static bool SetupToReport = false;
@@ -28,10 +42,15 @@ namespace AtCor.Scor.Gui.Presentation
        public static bool CaptureToSetup = false;
        public static bool HasMeasurementDetails = false;
        public static string Environment = string.Empty;
-       
+       public static bool CaptureTabClick = true;
+
+       #region Main / Parent window Handle
+       public static DefaultWindow defaultWindowForm;
+       #endregion      
+
        #endregion
-        #region Child Form Handles
-        public static Telerik.WinControls.UI.RadForm reportChildForm;
+       #region Child Form Handles
+       public static Telerik.WinControls.UI.RadForm reportChildForm;
         public static Telerik.WinControls.UI.RadForm captureChildForm;
         public static Telerik.WinControls.UI.RadForm setupChildForm;
 
@@ -245,15 +264,13 @@ namespace AtCor.Scor.Gui.Presentation
         public static string ServerNameString()
         {
             CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
-          
+
             if (crxMgrObject.GeneralSettings.ServerName == null)
             {
-                return crxMgrObject.GeneralSettings.MachineName.Trim();
+                crxMgrObject.GeneralSettings.ServerName = ConfigurationManager.AppSettings["DefaultInstanceName"].ToString();
             }
-            else
-            {
-                return crxMgrObject.GeneralSettings.MachineName.Trim() + @"\" + crxMgrObject.GeneralSettings.ServerName.Trim();
-            }
+
+            return crxMgrObject.GeneralSettings.MachineName.Trim() + @"\" + crxMgrObject.GeneralSettings.ServerName.Trim();              
         }
 
        /** This method retrieves error message during network connection failure
@@ -295,6 +312,26 @@ namespace AtCor.Scor.Gui.Presentation
             // registyKeyInfo regKey = new registyKeyInfo(oMsgMgr.GetMessage("ENV_CLINICAL_TEXT"));
             Environment = oMsgMgr.GetMessage("ENV_CLINICAL_TEXT");
             return Environment;
+        }
+
+        public static void ViewPrintDialogToSetPrinter(PrintDialog printDialog)
+        {
+            CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
+
+            // read from config file and set default printer
+            if (crxMgrObject.GeneralSettings.PrinterName != null && !string.IsNullOrEmpty(crxMgrObject.GeneralSettings.PrinterName))
+            {
+                // below line sets printername available in config file as default printer and also assigns this name to the current printer dialog
+                SetDefaultPrinter(crxMgrObject.GeneralSettings.PrinterName);
+                printDialog.PrinterSettings.PrinterName = crxMgrObject.GeneralSettings.PrinterName;
+            }
+
+            // opens printer dialog            
+            DialogResult ds = printDialog.ShowDialog();
+                        
+            // store the currently selected printer in config file... this will be done only if apply button is clicked in print dialog box
+            crxMgrObject.GeneralSettings.PrinterName = printDialog.PrinterSettings.PrinterName;
+            crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);
         }
 
         #endregion

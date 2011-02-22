@@ -41,6 +41,7 @@ void CrxConfigManager::GetGeneralDefaultSettings(CrxStructGeneralSetting^ objGen
 	objGenSettings->StartupMode					= _gSetInternal->StartupMode;
 	objGenSettings->StartupScreen				= _gSetInternal->StartupScreen;
 	objGenSettings->EnvironmentSettings			= "Clinical";
+	objGenSettings->PrinterName					= _gSetInternal->PrinterName;
 }
 
 //To get User Settings from the file
@@ -297,6 +298,12 @@ void CrxConfigManager::SetGeneralSettingsNode(CrxStructGeneralSetting^ gs, XmlNo
 	{
 		
 	}
+	//Calls function if node element is Config Printer
+	else
+	if(SubSectionNodeName == "PRINTERNAME")
+	{
+		CrxConfigManager::SetPrinterName(gs, node);
+	}
 	else
 	{
 		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
@@ -361,7 +368,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 	String^ GetXMLSection		= "'";		//Gets the XML section name
 	String^ GetSectionName		= nullptr;  //Store section name to get the value
 	String^ ReaderValue			= nullptr;  //Store XML Node Reader value
-	String^ configXMLElements   = L"'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'REFERENCERANGE', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN'";
+	String^ configXMLElements   = L"'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'REFERENCERANGE', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME'";
 
 	try 
 	{
@@ -558,6 +565,12 @@ void CrxConfigManager::GetGeneralSettingsNode(String^ SubSection, String^ SubSec
 	if(SubSectionNode == "STARTUPSCREEN")
 	{
 		CrxConfigManager::GetStartupScreen(SubSection,ReaderValue);
+	}
+	//Calls function if node element is Config Printer
+	else
+	if(SubSectionNode == "PRINTERNAME")
+	{
+		CrxConfigManager::GetConfigPrinter(SubSection,ReaderValue);
 	}
 	//If none of the node element matches then throw exception
 	else
@@ -765,7 +778,7 @@ void CrxConfigManager::GetReportLogoPath(String^ SubSection, String^ ReaderValue
 
 void CrxConfigManager::GetServerName(String^ SubSection, String^ ReaderValue)
 {
-	//Get Report logo path details
+	//Get Server Name details
 	if(SubSection == "USER")
 	{
 		_instance->_generalSettings->ServerName = ReaderValue;
@@ -781,7 +794,7 @@ void CrxConfigManager::GetServerName(String^ SubSection, String^ ReaderValue)
 }
 void CrxConfigManager::GetSourceData(String^ SubSection, String^ ReaderValue)
 {
-	//Get Report logo path details
+	//Get Source data details
 	if(SubSection == "USER")
 	{
 		_instance->_generalSettings->SourceData = ReaderValue;
@@ -797,7 +810,7 @@ void CrxConfigManager::GetSourceData(String^ SubSection, String^ ReaderValue)
 }
 void CrxConfigManager::GetCultureInfo(String^ SubSection, String^ ReaderValue)
 {
-	//Get Report logo path details
+	//Get Culture Info details
 	if(SubSection == "USER")
 	{
 		_instance->_generalSettings->CultureInfo = ReaderValue;
@@ -814,7 +827,7 @@ void CrxConfigManager::GetCultureInfo(String^ SubSection, String^ ReaderValue)
 
 void CrxConfigManager::GetMachineName(System::String ^SubSection, System::String ^ReaderValue)
 {
-	//Get Report logo path details
+	//Get Machine Name details
 	if(SubSection == "USER")
 	{
 		_instance->_generalSettings->MachineName = ReaderValue;
@@ -871,7 +884,22 @@ void CrxConfigManager::GetStartupScreen(System::String ^SubSection, System::Stri
 		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
-
+void CrxConfigManager::GetConfigPrinter(String^ SubSection, String^ ReaderValue)
+{
+	//Get Config Printer details
+	if(SubSection == "USER")
+	{
+		_instance->_generalSettings->PrinterName = ReaderValue;
+	}
+	else if (SubSection == "DEFAULT")
+	{
+		_gSetInternal->PrinterName = nullptr;
+	}
+	else
+	{
+		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+	}	
+}
 //***********************************************************************
 //Get PWV Settings Functions
 //***********************************************************************
@@ -1166,6 +1194,17 @@ void CrxConfigManager::SetMachineName(AtCor::Scor::CrossCutting::Configuration::
 		node->InnerText = " ";
 	}
 }
+void CrxConfigManager::SetPrinterName(CrxStructGeneralSetting^ gs, XmlNode^ node)
+{
+	if(gs->PrinterName != nullptr)
+	{
+		node->InnerText = gs->PrinterName;
+	}
+	else
+	{
+		node->InnerText = " ";
+	}
+}
 //********************************************
 //Set PWV Settings Functions
 //********************************************
@@ -1210,7 +1249,7 @@ void CrxConfigManager::SetPwvDistanceUnits(CrxStructPwvSetting^ ps, XmlNode^ nod
 void CrxConfigManager::SetPwvDistanceMethods(CrxStructPwvSetting^ ps, XmlNode^ node)
 {
 	//if(ps->PWVDistanceMethod == 0)
-	if((ps->PWVDistanceMethod == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvDistMethodSubStract)))
+	if((ps->PWVDistanceMethod == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvDistMethodSubtract)))
 	{
 		node->InnerText = "Subtracting";								
 	}

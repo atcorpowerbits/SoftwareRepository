@@ -1,3 +1,12 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+     Filename     :     Splash screen
+        
+     Author       :     Vibhuti Damania
+ 
+     Description  :     Functionality implemented for showing splash screen on application launch
+*/
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -24,7 +24,7 @@ namespace AtCor{
 			DalModule::DalModule()
 			{
 				//Set the current capture data type to cuff pulse and tonometer by default.				
-				DalModule::_captureDataType = TonometerAndCuffPulseCombination;
+				DalModule::_captureDataType = CaptureType::TonometerAndCuffPulseCombination;
 				DalModule::_currentDevice = nullptr;
 				
 				//Call method to set the current device
@@ -46,16 +46,18 @@ namespace AtCor{
 				CrxConfigManager ^configMgr = CrxConfigManager::Instance;
                 configMgr->GetGeneralUserSettings();
 				//Get the simulation type as set in configuration.
-                SetDeviceStrategy(configMgr->GeneralSettings->CommsPort); //TODO: uncomment after devemopemtn
+                SetDeviceStrategy(configMgr->GeneralSettings->CommsPort); 
 				//SetDeviceStrategy("COMPORT_SIMULATION");
 				
 			}
 
 			void DalModule::SetDeviceStrategy(System::String ^commPort)
 			{
+
+				
+
 				if (commPort == nullptr)
 				{
-					//throw gcnew DalException("DAL_ERR_COMPORT_NOT_SET"); 
 					//A null string was passed when a comm port was expected.
 					throw gcnew ScorException(1002, "DAL_ERR_COMPORT_NOT_SET", ErrorSeverity::Exception);
 				}
@@ -63,8 +65,7 @@ namespace AtCor{
                 CrxMessagingManager ^oMsg = CrxMessagingManager::Instance;
 
 				//Compare with the "simulation" string CrxMessaging
-               // if (commPort->Replace(" ","")->ToUpper() == oMsg->GetMessage("COMPORT_SIMULATION")->ToUpper()) //as per FxCop
-				if (String::Compare(commPort->Replace(" ",""), oMsg->GetMessage("COMPORT_SIMULATION"), false) == 0)
+              	if (String::Compare(commPort->Replace(" ",""), oMsg->GetMessage("COMPORT_SIMULATION"), false) == 0)
 				{
 					//if config manager returns "simulation" initialize the DalSimulationHander
 					_currentDevice = nullptr;
@@ -74,7 +75,7 @@ namespace AtCor{
 				{
 					//if the config manager retursn a comm port name call DalDeviceHandler
 					_currentDevice = nullptr;
-					_currentDevice = gcnew DalDeviceHandler();
+					_currentDevice = gcnew DalDeviceHandler(commPort);
 				}
 			}
 
@@ -133,12 +134,11 @@ namespace AtCor{
 				return false;
 			}
 
-			String^ DalModule::FindModule()
+			int DalModule::FindModule(String^ comPort)
 			{
 				//This is a stub method.
 				//It is only needed for EM4 device
-				//For the present we will simply return null
-				return nullptr;
+				return _currentDevice->FindModule(comPort);
 			}
 
 			String^ DalModule::GetErrorAlarmSource()
@@ -207,6 +207,18 @@ namespace AtCor{
 
 				return measurementCounterTest;
 			}
+
+			bool DalModule::SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize)
+			{
+				return _currentDevice->SaveCaptureData(tonometerData, cuffPulse, bufferSize);
+			}
+
+			String^ DalModule::GetSavedFilePath()
+			{
+				return _currentDevice->GetSavedFileName();
+			}
+
+
 		}
 	}
 }

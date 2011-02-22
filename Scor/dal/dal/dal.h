@@ -8,6 +8,6 @@ namespace dal {
 
 	public ref class Class1
 	{
-		// TODO: Add your methods for this class here.
+		// : Add your methods for this class here.
 	};
 }

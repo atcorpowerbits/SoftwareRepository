@@ -5,7 +5,7 @@
         
      Author       :		 Deepak D'Souza
  
-     Description  :		All common elements and constants for DAL layer
+     Description  :		All common and public elements and constants for DAL layer
 */
 
 #pragma once
@@ -32,18 +32,24 @@ namespace AtCor{
 										static const unsigned int SimulationTimerInterval   = 4; // in msec
 										static const unsigned int SimulationWriteTimerInterval = 1000; /**< This is to signify the time interval in which the simulation will pick the number of values*/
 										static const unsigned int SimulationNumberOfReadsPerInterval = 256; /**< Number of items to read from tonometer sim file in each interval.*/
+										static const unsigned int EM4NumberofRetires = 3; /**< Default number of retries for a command before failure*/
+										static const unsigned int EM4ResponseTimeout = 50; /**< Default timout to wait for an EM4 response*/
+										static const int PWVCaptureDataSize = 8; /**< Size of data in bytes for data capture in PWV */
+										static const int EM4ZeroDataResponsePacketSize = 5; /**< size of EM4 packet which does not contain data*/
+										static const int EM4SerialPortBaudRate = 115200; /**< Baud rate for serial port for EM4 device */
+										static const int EM4SerialPortBits = 8; /**< Number of bits for Serial port to communicate with EM4*/
 								};
 
 								/**
 								* @enum	CaptureType
 								* @brief	The type of data capture .	
 								*/
-								public enum CaptureType { 
+								public enum class CaptureType { 
 													Tonometer, /**< Tonometer only */
 													CuffPulseCombination, /**< Cuff Pulse combination */
 													TonometerAndCuffPulseCombination, /**< Tonometer and Cuff Pulse  reading combination */
 													CuffAbsPressure, /**< Cuff Absolute pressure */
-													CuffNIBP, /**< Cuff NIBP reading */
+													CuffNibp, /**< Cuff NIBP reading */
 													CuffPulse /**< Cuff Pulse only */
 
 												  }; // End CaptureType
@@ -52,7 +58,7 @@ namespace AtCor{
 								* @enum	DalDeviceConfigUsageEnum
 								* @brief	The configuration information item requested in DalDeviceConfigUsageStruct
 								*/
-								public enum DalDeviceConfigUsageEnum
+								public enum class DalDeviceConfigUsageEnum
 								{
 									ModuleType, /**< Module type of the device */
 									ModuleSerialNumber, /**< Serial number of the device */
@@ -107,7 +113,8 @@ namespace AtCor{
 									CUFF_STATE_DEFLATING = 5
 								};
 
-								//TODO: Make all enumerators ALLCAPS as per Atcor standards
+
+
 								/**
 								* @enum DalModuleErrorAlarmBitMask
 								* @brief	Contains the bit masks against which the error alarm flags will be compared to obtain alarm error status.
@@ -139,7 +146,7 @@ namespace AtCor{
 								* @brief	This enum contains a mapping of bit flags from the Error Alarm Status flag against various error source.
 								*/
 								public enum class DalErrorSource {
-									ErrorSourceUnknown = 0x0000, //TODO
+									ErrorSourceUnknown = 0x0000, 
 									CuffLeak    = 0x0008,
 									DualSensors = 0x0020	
 								};
@@ -248,6 +255,75 @@ namespace AtCor{
 				                        }
 			                        }
 								}; // End DalException
+
+
+								/**
+								* @enum DalReturnValue
+								* @brief Status of failure/succes and reasons
+								*/
+								public enum class DalReturnValue
+								{
+									Failure,
+									Success,
+									Timeout,
+									NoAck
+								};
+
+								/**
+								* @union EM44StatusFlag
+								* @brief Two byte union to translate EM4 status bits into an integer
+								*/
+								private union EM44StatusFlag
+								{
+									unsigned char ucStatusBytes[2];
+									unsigned short ulStatusFlag;
+								};
+
+								/**
+								* @union EM44ErrorAlarmSourceFlag
+								* @brief Four byte union to translate EM4 error alarm source flag into a long integer
+								*/
+								private union EM44ErrorAlarmSourceFlag
+								{
+									unsigned char ucStatusBytes[4];
+									unsigned long ulStatusFlag;
+								};
+
+								/**
+								* @enum EM4CuffBoard
+								* @brief Board to be used to set pressure
+								*/
+								public enum class EM4CuffBoard
+								{
+									MainBoard,
+									SuntechBoard
+								};
+
+								/**
+								* @enum DalTonometerState
+								* @brief Tonometer states indicating whter the device is connected or not
+								*/
+								public enum class DalTonometerState
+								{
+									Disconnected = 1,
+									Connected  = 0
+
+								};
+
+								/**
+								* @enum DalTonometerStatusBitMask
+								* @brief Bit masks to check Tonometer state
+								*/
+								public enum class DalTonometerStatusBitMask
+								{
+									TonometerNotConnectedBits = 0x1000
+
+								};
+
+
+
+
+							
 
 		} // End Namespace DataAccess
 	} // End Namespace Scor

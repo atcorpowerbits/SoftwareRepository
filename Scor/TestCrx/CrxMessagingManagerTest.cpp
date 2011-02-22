@@ -38,7 +38,10 @@ namespace TestCrx {
 			void SetPath()
 			{
 				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults");
+				int i = path->IndexOf("\\TestResults");
+				path = path->Substring(0,i + 12);
+				Directory::SetCurrentDirectory(path);
+				
 			}
 
 #pragma region Additional test attributes
@@ -122,10 +125,10 @@ namespace TestCrx {
 				//String^  strCode = System::String::Empty; // TODO: Initialize to an appropriate value
 				//String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
 				String^  strCode = "CRX_ERR_FILE_NOT";
-				String^ expected = "#200 Resource file not found.";
+				String^ expected = "200 Resource file not found.";
 				String^  actual;
 				String^ path = Directory::GetCurrentDirectory(); 
-				Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code");
+				//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code");
 				try
 				{
 					actual = target->GetMessage(strCode);

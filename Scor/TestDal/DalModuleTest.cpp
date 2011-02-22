@@ -98,12 +98,12 @@ namespace TestDal {
 			{
 				SetPath();
 
-				String^ retValue;
+				String^ commPort = nullptr;
 
 				DalModule^  actual = DalModule::Instance;
 				Assert::IsNotNull(actual);
-				retValue = actual->FindModule();
-				Assert::IsNull(retValue);
+				int returnValue = actual->FindModule(commPort);
+				Assert::AreEqual(returnValue, 1); //TODO: modify this case
 			}
 
 			//cannot resolve compilation issues

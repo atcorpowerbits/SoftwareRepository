@@ -145,23 +145,7 @@ namespace AtCor.Scor.Gui.Presentation
             catch (Exception ex)
             {
                 GUIExceptionHandler.HandleException(ex, this);
-            }
-
-          /*  catch (CrxException ex)
-            {
-                if (ex.ExceptionObject != null)
-                {
-                    RadMessageBox.Show(this, ex.ExceptionObject.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                    CrxLogger oLogObject = CrxLogger.Instance;
-                    oLogObject.Write(ex.ExceptionObject.Message);
-                }
-                else if (String.IsNullOrEmpty(ex.ErrorString))
-                {
-                    RadMessageBox.Show(this, oMsgMgr.GetMessage(ex.ErrorString), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                    CrxLogger oLogObject = CrxLogger.Instance;
-                    oLogObject.Write(ex.ErrorString);
-                }
-            }*/
+            }          
         }
 
         /** This event fires on cancel button click. It closes migrate window

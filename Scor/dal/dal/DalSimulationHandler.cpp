@@ -47,8 +47,9 @@ namespace AtCor{
 					_cuffTimerSimulationFile = nullptr;
 				}
 
-				_currentErrorAlarmFlags = 0; //-1;
-				_currentStatusFlags = -1;
+				_currentEAStatusFlag = 0; //-1;
+				_currentCuffStatusFlag = 0;
+				_currentEAStatusFlag = 0;
 
 				dataBufferObj = DalDataBuffer::Instance;
 
@@ -92,21 +93,35 @@ namespace AtCor{
 				DalEventContainer::Instance->OnDalCuffPulseEvent(sender, gcnew DalCuffPulseEventArgs((unsigned short)cuffPulseData));
 			}			
 
-			void DalSimulationHandler::StartCapture()
+			bool DalSimulationHandler::StartCapture()
 			{
-				//move file to start in case it isn't alreay at start.
-				_tonometerSimulationFile->ResetFileStreamPosition();
+				try
+				{
+					firstReadAfterCaptureStarted = true;
 
-				//The interval should come from a global value
-				//initialize a new timer object
-				captureTimer = gcnew Timers::Timer(DalConstants::SimulationTimerInterval);
-				
-				//specify the event handler to handle timer events
-				captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerGetValuesAndRaiseEvents); 
-				
-				//Start the timer.
-				captureTimer->Enabled = true;
-
+					//move file to start in case it isn't alreay at start.
+					_tonometerSimulationFile->ResetFileStreamPosition();
+					_cuffTimerSimulationFile->ResetFileStreamPosition();
+					
+					//The interval should come from a global value
+					//initialize a new timer object
+					captureTimer = gcnew Timers::Timer(DalConstants::SimulationTimerInterval);
+					
+					//specify the event handler to handle timer events
+					captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerGetValuesAndRaiseEvents); 
+					
+					//Start the timer.
+					captureTimer->Enabled = true;
+					return true;
+				}
+				catch(ScorException^)
+				{
+					throw;
+				}
+                catch(Exception^ sysExObj)
+                {
+                    throw gcnew ScorException(sysExObj);
+                }
 			}
 
 			//New method to read n numer of element per interval
@@ -128,22 +143,40 @@ namespace AtCor{
 				//variables to hold the tonometer and cuff pulse readings
 				static unsigned long tonoData, cuffPulseData;
 				static unsigned long cuffAbsolutePressure;
-				static unsigned long locCountdownTimer;
-				static unsigned long statusBytes, errorAlarmSourceFlag;
+				static unsigned long locCountdownTimer = 0;
+				static unsigned long statusBytes, locEASourceFlag;
 				static unsigned long cuffStatusBytes, errorAlarmStatusBytes; 
 				static bool currentCuffStateIsInflated = false;
+				
+				if (firstReadAfterCaptureStarted == true)
+				{
+					CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString());
+
+					tonoData = cuffPulseData = cuffAbsolutePressure = locCountdownTimer = statusBytes = errorAlarmStatusBytes  = 0;
+					_currentEASourceFlag = 0;
+					_currentEAStatusFlag = 0; 
+					_currentCuffStatusFlag = 0;
+					cuffStatusBytes = errorAlarmStatusBytes = 0;
+					currentCuffStateIsInflated = false;
+
+					firstReadAfterCaptureStarted = false;
+				}
 				
 				//Pick the number of reads from DalConstants
 				numberOfReads = DalConstants::SimulationNumberOfReadsPerInterval;
 				
-				
+				//CrxLogger::Instance->Write(" Inside ReadMultipleEventsInLoop, locCountdownTimer:" + locCountdownTimer);
 				//Read n elements in a loop. 
 				for (counter = 0; counter < numberOfReads ; counter++)
 				{
 					if (locCountdownTimer <=0) 
 					{
 						//get next set of values from the cufff simulation file
-						_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &errorAlarmSourceFlag);
+						_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &locEASourceFlag);
+						//CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X") + " ,locEASourceFlag" + locEASourceFlag.ToString("X"));
+
+						//store the Error/alarm SOURCE in the global variable. If an event is raised we need to retrive the stored value to find the source.
+						_currentEASourceFlag = locEASourceFlag;
 
 						
 						//First break the status flag down into its two important sets
@@ -151,10 +184,13 @@ namespace AtCor{
 						cuffStatusBytes = statusBytes &0x2F00;
 						//and Error-Alarm event related bits
 						errorAlarmStatusBytes =statusBytes & 0x0028;
+						//CrxLogger::Instance->Write("statusBytes:" + statusBytes.ToString("X4") +" cuffStatusBytes:" + cuffStatusBytes.ToString("X4") + " errorAlarmStatusBytes:"+errorAlarmStatusBytes.ToString("X4") );
+						
 					
-						 if (CheckStatusFlagsChanged(cuffStatusBytes) ==  true)
+						 if (CheckCuffStatusFlagsChanged(cuffStatusBytes) ==  true)
 						 {
-							 if (TranslateCuffStatusBits(statusBytes) == DalCuffStateFlags::CUFF_STATE_INFLATED)
+							DalCuffStateFlags currentCuffState = TranslateCuffStatusBits(cuffStatusBytes);
+							 if (currentCuffState == DalCuffStateFlags::CUFF_STATE_INFLATED)
 							 {
 								 currentCuffStateIsInflated = true;
 							 }
@@ -167,13 +203,15 @@ namespace AtCor{
 
 							 //map the status bytes to a state flag
 							 //	raise a staus change event and update the new flag.
-							DalEventContainer::Instance->OnDalCuffStatusEvent(sender, gcnew DalCuffStatusEventArgs_ORI(TranslateCuffStatusBits(statusBytes)));
+							DalEventContainer::Instance->OnDalCuffStatusEvent(sender, gcnew DalCuffStatusEventArgs_ORI(currentCuffState));
+							
 						 }
 
-						 if (CheckErrorAlarmFlagsChanged(errorAlarmStatusBytes) == true)
+						 if (CheckEAStatusFlagChanged(errorAlarmStatusBytes) == true)
 						 {
 							 //if a change has occured in the error/alarm bits first raise an event 
 							 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(sender, gcnew DalModuleErrorAlarmEventArgs_ORI(TranslateErrorAlarmStatusBits(errorAlarmStatusBytes)));
+							 //CrxLogger::Instance->Write("CheckEAStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
 							 
 						}
 					}
@@ -183,15 +221,16 @@ namespace AtCor{
 
 					if (currentCuffStateIsInflated == true)
 					{
-					tempPWVDataVar.countdownTimer = locCountdownTimer;
+						//value is in miliseconds. The device returns it as seconds hece divide by thousand.
+						tempPWVDataVar.countdownTimer = (short)locCountdownTimer/1000;
 					}
 					else
 					{
 						tempPWVDataVar.countdownTimer = 0;
 					}
-					tempPWVDataVar.cuffPressure = cuffAbsolutePressure;
-					tempPWVDataVar.tonometerData = tonoData;
-					tempPWVDataVar.cuffPulseData = cuffPulseData;
+					tempPWVDataVar.cuffPressure = (short)cuffAbsolutePressure;
+					tempPWVDataVar.tonometerData = (short)tonoData;
+					tempPWVDataVar.cuffPulseData = (short)cuffPulseData;
 
 					//write data to buffer
 					dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
@@ -201,32 +240,61 @@ namespace AtCor{
 				}
 			}
 
-			void DalSimulationHandler::StartCapture(int captureTime, int samplingRate)
+			bool DalSimulationHandler::StartCapture(int captureTime, int samplingRate)
 			{
-				dataBufferObj = DalDataBuffer::Instance;
-				//create array
-				dataBufferObj->CreateBuffer(captureTime, samplingRate);
-						
-				//move file to start in case it isn't alreay at start.
-				_tonometerSimulationFile->ResetFileStreamPosition();
+				try
+				{
+					firstReadAfterCaptureStarted = true;
 
-				//PWVS-1 create a new timer to tick every 1 ms 
-				captureTimer = gcnew Timers::Timer(DalConstants::SimulationWriteTimerInterval);
-				
-				//specify the event handler to handle timer events
-				captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerReadMultipleEvents); 
-				
-				//Start the timer.
-				captureTimer->Enabled = true;
+					dataBufferObj = DalDataBuffer::Instance;
+					//create array
+					dataBufferObj->CreateBuffer(captureTime, samplingRate);
+							
+					//move file to start in case it isn't alreay at start.
+					_tonometerSimulationFile->ResetFileStreamPosition();
+					_cuffTimerSimulationFile->ResetFileStreamPosition();
+
+					//PWVS-1 create a new timer to tick every 1 ms 
+					captureTimer = gcnew Timers::Timer(DalConstants::SimulationWriteTimerInterval);
+					
+					//specify the event handler to handle timer events
+					captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerReadMultipleEvents); 
+					
+					//Start the timer.
+					captureTimer->Enabled = true;
+
+					return true;
+				}
+				catch(ScorException^)
+				{
+					throw;
+				}
+                catch(Exception^ sysExObj)
+                {
+                    throw gcnew ScorException(sysExObj);
+                }
 			}
 
-			void DalSimulationHandler::StopCapture()
+			bool DalSimulationHandler::StopCapture()
 			{
-				//Stop the capture timer
-				captureTimer->Enabled = false;
+				try
+				{
+					//Stop the capture timer
+					captureTimer->Enabled = false;
 
-				//reset the filestrea position
-				_tonometerSimulationFile->ResetFileStreamPosition();
+					//reset the filestrea position
+					_tonometerSimulationFile->ResetFileStreamPosition();
+					_cuffTimerSimulationFile->ResetFileStreamPosition();
+					return true;
+				}
+				catch(ScorException^)
+				{
+					throw;
+				}
+                catch(Exception^ sysExObj)
+                {
+                    throw gcnew ScorException(sysExObj);
+                }
 			}
 
 			/**
@@ -250,24 +318,24 @@ namespace AtCor{
 
 				switch (deviceConfigItem)
 				{
-					case ModuleCalibrationDate:
+				case DalDeviceConfigUsageEnum::ModuleCalibrationDate:
 						//set the calliberation date as today's date. Since this is a simulation it doesnt matter.
 						deviceConfigInfo->ModuleCalibrationDate= System::DateTime::Today;
 						break;
-					case ModuleConfigDate:
+					case DalDeviceConfigUsageEnum::ModuleConfigDate:
 						//set to today's date.
 						deviceConfigInfo->ModuleConfigDate= System::DateTime::Today;
 						break;
-					case ModuleConfigId:
+					case DalDeviceConfigUsageEnum::ModuleConfigId:
 						deviceConfigInfo->ModuleConfigId = 123; //dummy value
 						break;
-					case ModuleMainFirmwareVersion:
+					case DalDeviceConfigUsageEnum::ModuleMainFirmwareVersion:
 						deviceConfigInfo->ModuleMainFWVersion = L"Sim - 0.1"; //dummy value for sim device.
 						break;
-					case ModuleSerialNumber:
+					case DalDeviceConfigUsageEnum::ModuleSerialNumber:
 						deviceConfigInfo->ModuleSerialNumber = L"Sim - 1234567890"; //dummy vale
 						break;
-					case ModuleType:
+					case DalDeviceConfigUsageEnum::ModuleType:
 						//lets the  requestor know which device it is.
 						deviceConfigInfo->ModuleType = L"Simulation";
 						break;
@@ -276,172 +344,274 @@ namespace AtCor{
 				return true;
 			}
 
-			bool DalSimulationHandler::CheckStatusFlagsChanged(unsigned long newStatusFlags) 
-			{
-				if (newStatusFlags != currentStatusFlags )
-				{
-					//Flags have changed . Assign the new flags 
-					currentStatusFlags = newStatusFlags;
-					return true;
-				}
-				else
-				{
-					//no change
-					return false;
-				}
-				
-			}
+			//bool DalSimulationHandler::CheckCuffStatusFlagsChanged(unsigned long newCuffStatusFlags) 
+			//{
+			//	CrxLogger::Instance->Write("CheckCuffStatusFlagsChanged currentflag " + _currentCuffStatusFlag.ToString("X") + " newCuffStatusFlags: " + newCuffStatusFlags.ToString("X"));
+			//	if (newCuffStatusFlags != _currentCuffStatusFlag )
+			//	{
+			//		//Flags have changed . Assign the new flags 
+			//		_currentCuffStatusFlag = newCuffStatusFlags;
+			//		return true;
+			//	}
+			//	else
+			//	{
+			//		//no change
+			//		return false;
+			//	}
+			//	
+			//}
 			
-			bool DalSimulationHandler::CheckErrorAlarmFlagsChanged(unsigned long newErrorAlarmFlags) 
-			{
-				if (newErrorAlarmFlags != _currentErrorAlarmFlags  )
-				{
-					//Flags have changed . Assign the new flags 
-					_currentErrorAlarmFlags = newErrorAlarmFlags;
-					return true;
-				}
-				else
-				{
-					//no change
-					return false;
-				}
-			}
+			//bool DalSimulationHandler::CheckEAStatusFlagChanged(unsigned long newEAStatusFlag) 
+			//{
+			//	CrxLogger::Instance->Write("CheckEAStatusFlagChanged _currentEAStatusFlag:" + _currentEAStatusFlag.ToString("X4") + " newEAStatusFlag:"+newEAStatusFlag.ToString("X4") );
+			//			
+			//	if (newEAStatusFlag != _currentEAStatusFlag  )
+			//	{
+			//		CrxLogger::Instance->Write("CheckEAStatusFlagChanged>>>Flags have changed");
+			//		//Flags have changed . Assign the new flags 
+			//		_currentEAStatusFlag = newEAStatusFlag;
+			//		return true;
+			//	}
+			//	else
+			//	{
+			//		//no change
+			//		return false;
+			//	}
+			//}
 			
-			String^ DalSimulationHandler::MapErrorSourceToString(unsigned long sourceFlags) 
-			{
-				static DalErrorSource  errorSourceEnum;
-				errorSourceEnum = safe_cast<DalErrorSource>(sourceFlags);
+			//String^ DalSimulationHandler::MapErrorSourceToString(unsigned long sourceFlags) 
+			//{
+			//	static DalErrorSource  errorSourceEnum;
+			//	errorSourceEnum = safe_cast<DalErrorSource>(sourceFlags);
 
-				dalErrorAlarmSourceName= "";
+			//	CrxLogger::Instance->Write("Deepak>>> MapErrorSourceToString sourceFlags:" + sourceFlags.ToString("X8") + " errorSourceEnum: " + errorSourceEnum.ToString());
 
-				switch( errorSourceEnum)
-				{
-					case DalAlarmSource::OverPressure:
-					case DalAlarmSource::InflatedOverTime:
-						dalErrorAlarmSourceName = Enum::Format(DalErrorSource::typeid, errorSourceEnum, "G");
-						break;
-					default:
-						dalErrorAlarmSourceName = "AlarmSourceUnknown";
-						dalErrorAlarmSourceName = dalErrorAlarmSourceName + sourceFlags.ToString();
-						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-						throw gcnew ScorException(1007, "DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning );
-						break;
-				}
+			//	try
+			//	{
+			//		dalErrorAlarmSourceName= "";
 
-				return dalErrorAlarmSourceName;
-			}
+			//		switch( errorSourceEnum)
+			//		{
+			//			case DalErrorSource::CuffLeak :
+			//			case DalErrorSource::DualSensors :
+			//				dalErrorAlarmSourceName = Enum::Format(DalErrorSource::typeid, errorSourceEnum, "G");
+			//				break;
+			//			default:
+			//				dalErrorAlarmSourceName = "AlarmSourceUnknown";
+			//				dalErrorAlarmSourceName = dalErrorAlarmSourceName + sourceFlags.ToString();
+			//				//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+			//				throw gcnew ScorException(1007, "DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning );
+			//				break;
+			//		}
+			//	}
+			//	catch(ScorException^ )
+			//	{
+			//		throw;
+			//	}
+			//	catch(Exception^ excepObj)
+			//	{
+			//		throw gcnew ScorException(excepObj);
+			//	}
+
+			//	return dalErrorAlarmSourceName;
+			//}
 			
-			String^ DalSimulationHandler::MapAlarmSourceToString(unsigned long sourceFlags) 
-			{
-				static DalAlarmSource alarmSourceEnum;
-				alarmSourceEnum = safe_cast<DalAlarmSource>(sourceFlags);
+			//String^ DalSimulationHandler::MapAlarmSourceToString(unsigned long sourceFlags) 
+			//{
+			//	static DalAlarmSource alarmSourceEnum;
+			//	alarmSourceEnum = safe_cast<DalAlarmSource>(sourceFlags);
 
-				dalErrorAlarmSourceName= "";
+			//	dalErrorAlarmSourceName= "";
+			//	CrxLogger::Instance->Write("Deepak>>> MapAlarmSourceToString sourceFlags:" + sourceFlags.ToString("X8"));
 
-				switch( alarmSourceEnum)
-				{
-					case DalAlarmSource::OverPressure:
-					case DalAlarmSource::InflatedOverTime:
-						dalErrorAlarmSourceName = Enum::Format(DalAlarmSource::typeid, alarmSourceEnum, "G");
-						break;
-					default:
-						dalErrorAlarmSourceName = "AlarmSourceUnknown";
-						dalErrorAlarmSourceName = dalErrorAlarmSourceName + sourceFlags.ToString();
-						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
-						break;
-				}
-				return dalErrorAlarmSourceName;
-			}
+			//	try
+			//	{
+			//		switch( alarmSourceEnum)
+			//		{
+			//			case DalAlarmSource::OverPressure:
+			//			case DalAlarmSource::InflatedOverTime:
+			//				dalErrorAlarmSourceName = Enum::Format(DalAlarmSource::typeid, alarmSourceEnum, "G");
+			//				break;
+			//			default:
+			//				dalErrorAlarmSourceName = "AlarmSourceUnknown";
+			//				dalErrorAlarmSourceName = dalErrorAlarmSourceName + sourceFlags.ToString();
+			//				//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+			//				throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
+			//				break;
+			//		}
+			//	}
+			//	catch(ScorException^ )
+			//	{
+			//		throw;
+			//	}
+			//	catch(Exception^ excepObj)
+			//	{
+			//		throw gcnew ScorException(excepObj);
+			//	}
+
+			//	return dalErrorAlarmSourceName;
+			//}
 
 		
 
-			String^ DalSimulationHandler::GetErrorAlarmSource()
-			{
-				static DalModuleErrorAlarmBitMask sourceFlagsEnum;
-				sourceFlagsEnum = safe_cast<DalModuleErrorAlarmBitMask>(_currentErrorAlarmFlags & 0x00000028);
+			//String^ DalSimulationHandler::GetErrorAlarmSource()
+			//{
+			//	static DalModuleErrorAlarmBitMask sourceFlagsEnum;
+			//	sourceFlagsEnum = safe_cast<DalModuleErrorAlarmBitMask>(_currentEAStatusFlag & 0x00000028);
+			//	CrxLogger::Instance->Write("GetErrorAlarmSource >>>>>>>> _currentEASourceFlag:" + _currentEASourceFlag.ToString("X8") + " sourceFlagsEnum:" + sourceFlagsEnum.ToString());
 
-				dalErrorAlarmSourceName= "";
+			//	dalErrorAlarmSourceName= "";
 
-				switch (sourceFlagsEnum)
-				{
-					case DalModuleErrorAlarmBitMask::NoErrorAlarm:
-						dalErrorAlarmSourceName = Enum::Format(DalModuleErrorAlarmBitMask::typeid, sourceFlagsEnum, "G");
-						break;
-					case DalModuleErrorAlarmBitMask::ErrorStatus:
-						dalErrorAlarmSourceName = MapErrorSourceToString(_currentErrorAlarmFlags & 0x0000FFFF);
-						break;
-					case DalModuleErrorAlarmBitMask::AlarmStatus:
-						dalErrorAlarmSourceName = MapAlarmSourceToString((_currentErrorAlarmFlags >> 16) & 0x0000FFFF);
-						break;
-					default:
-						dalErrorAlarmSourceName = "DALUnknownModuleStatus";
-						dalErrorAlarmSourceName = dalErrorAlarmSourceName + _currentErrorAlarmFlags.ToString();
-						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
-						break;
-				}
-				return dalErrorAlarmSourceName;
-			}
+			//	switch (sourceFlagsEnum)
+			//	{
+			//		case DalModuleErrorAlarmBitMask::NoErrorAlarm:
+			//			dalErrorAlarmSourceName = Enum::Format(DalModuleErrorAlarmBitMask::typeid, sourceFlagsEnum, "G");
+			//			break;
+			//		case DalModuleErrorAlarmBitMask::ErrorStatus:
+			//			dalErrorAlarmSourceName = MapErrorSourceToString(_currentEASourceFlag  & 0x0000FFFF);
+			//			break;
+			//		case DalModuleErrorAlarmBitMask::AlarmStatus:
+			//			dalErrorAlarmSourceName = MapAlarmSourceToString((_currentEASourceFlag >> 16) & 0x0000FFFF);
+			//			break;
+			//		default:
+			//			dalErrorAlarmSourceName = "DALUnknownModuleStatus";
+			//			dalErrorAlarmSourceName = dalErrorAlarmSourceName +":" + _currentEASourceFlag.ToString();
+			//			//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+			//			throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
+			//			break;
+			//	}
+			//	return dalErrorAlarmSourceName;
+			//}
 
-			DalCuffStateFlags DalSimulationHandler::TranslateCuffStatusBits(unsigned long statusFlags) 
-			{
-				static DalCuffStateFlags data;
-				data = (DalCuffStateFlags)(statusFlags & 0x2F00);
+			//DalCuffStateFlags DalSimulationHandler::TranslateCuffStatusBits(unsigned long cuffStatusFlags) 
+			//{
+			//	static DalCuffStateFlags data;
+			//	data = (DalCuffStateFlags)(cuffStatusFlags & 0x2F00);
 	
-				switch (data)
-				{
-				case DalCuffStatusBitMask::CUFF_DISCONNECTED_STATUS_BITS:
-					data = DalCuffStateFlags::CUFF_STATE_DISCONNECTED;
-						break;
-				case DalCuffStatusBitMask::CUFF_INFLATING_STATUS_BITS:
-						data = DalCuffStateFlags::CUFF_STATE_INFLATING;
-						break;
-					case DalCuffStatusBitMask::CUFF_INFLATED_STATUS_BITS:
-						data = DalCuffStateFlags::CUFF_STATE_INFLATED;
-						break;
-					case DalCuffStatusBitMask::CUFF_DEFLATING_STATUS_BITS:
-						data = DalCuffStateFlags::CUFF_STATE_DEFLATING;
-						break;
-					case DalCuffStatusBitMask::CUFF_DEFLATED_STATUS_BITS:
-						data = DalCuffStateFlags::CUFF_STATE_DEFLATED;
-						break;
-					default:
-						data = DalCuffStateFlags::CUFF_STATE_UNKNOWN;
-						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
-						break;
-				}
-				return data;
+			//	switch (data)
+			//	{
+			//	case DalCuffStatusBitMask::CUFF_DISCONNECTED_STATUS_BITS:
+			//		data = DalCuffStateFlags::CUFF_STATE_DISCONNECTED;
+			//			break;
+			//	case DalCuffStatusBitMask::CUFF_INFLATING_STATUS_BITS:
+			//			data = DalCuffStateFlags::CUFF_STATE_INFLATING;
+			//			break;
+			//		case DalCuffStatusBitMask::CUFF_INFLATED_STATUS_BITS:
+			//			data = DalCuffStateFlags::CUFF_STATE_INFLATED;
+			//			break;
+			//		case DalCuffStatusBitMask::CUFF_DEFLATING_STATUS_BITS:
+			//			data = DalCuffStateFlags::CUFF_STATE_DEFLATING;
+			//			break;
+			//		case DalCuffStatusBitMask::CUFF_DEFLATED_STATUS_BITS:
+			//			data = DalCuffStateFlags::CUFF_STATE_DEFLATED;
+			//			break;
+			//		default:
+			//			data = DalCuffStateFlags::CUFF_STATE_UNKNOWN;
+			//			//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+			//			throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
+			//			break;
+			//	}
+			//	//CrxLogger::Instance->Write("Deepak>>> TranslateCuffStatusBits, data = " + data.ToString());
+			//	return data;
+			//}
+
+			//DalErrorAlarmStatusFlag DalSimulationHandler::TranslateErrorAlarmStatusBits(unsigned long statusFlags)
+			//{
+
+			//	static DalModuleErrorAlarmBitMask data;
+			//	static DalErrorAlarmStatusFlag retAlarmValue;
+			//	//This was an error and it has been corrected 0x2F00 > 0x0028
+			//	//data = (DalModuleErrorAlarmBitMask)(statusFlags & 0x2F00);
+			//	data = (DalModuleErrorAlarmBitMask)(statusFlags & 0x0028);
+			//	//errorAlarmStatusBytes =statusBytes & 0x0028;
+			//	
+			//	switch (data)
+			//	{
+			//		case DalModuleErrorAlarmBitMask::NoErrorAlarm:
+			//			retAlarmValue = DalErrorAlarmStatusFlag::ActiveStatus;
+			//			break;
+			//		case DalModuleErrorAlarmBitMask::ErrorStatus:
+			//			retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
+			//			break;
+			//		case DalModuleErrorAlarmBitMask::AlarmStatus:
+			//			retAlarmValue = DalErrorAlarmStatusFlag::RecoverableStatus;
+			//			break;
+			//		case DalModuleErrorAlarmBitMask::ErrorAndAlarmStatus:
+			//			retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
+			//			break;
+			//		default:
+			//			retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
+			//			//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
+			//			throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
+			//			break; 
+			//	}
+
+			//	CrxLogger::Instance->Write("Deepak>>> TranslateErrorAlarmStatusBits>>> statusFlags" + statusFlags.ToString("X4") + " data:" + data.ToString() + " retAlarmValue:" + retAlarmValue.ToString());
+			//	
+			//	return retAlarmValue;
+			//}
+
+			int DalSimulationHandler::FindModule(String^ comPort)
+			{
+				// stub method
+				//return true and make comPort null to signify that the port is avalaiable
+				comPort = nullptr;
+				return true;
+			}
+			bool DalSimulationHandler::CheckIfDeviceIsConnected()
+			{
+				return true;
+				//simulation device will alawys be connected.
 			}
 
-			DalErrorAlarmStatusFlag DalSimulationHandler::TranslateErrorAlarmStatusBits(unsigned long statusFlags)
-			{
-				static DalModuleErrorAlarmBitMask data;
-				static DalErrorAlarmStatusFlag retAlarmValue;
-				data = (DalModuleErrorAlarmBitMask)(statusFlags & 0x2F00);
 
-				switch (data)
+		
+
+
+	bool DalSimulationHandler::SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize)
+	{
+		
+			unsigned short index = 0;
+			bool saved = false;
+
+		// construct the file path, file contains captured waveform data and of same format
+		// as of the simulation file. (capture_DateTime.Dat).
+		String^ tempFilePath = ".\\simulation\\pwv\\";
+		String^ tempCapture = "capture_";
+		String^ tempFileExt = ".dat";
+
+		DateTime currentDateTime;
+		currentDateTime = System::DateTime::Now;
+
+			//create the file name using current date time
+			String  ^ currentDateTimeStr = currentDateTime.ToString("yyyyMMMddHHmmss");
+			currentDateTimeStr = tempFilePath + tempCapture + currentDateTimeStr+ tempFileExt; 
+			
+			DalSimulationFile^ simulationOutputFile; //Pointer to first simulation file
+			simulationOutputFile = gcnew DalSimulationFile();
+
+			if(simulationOutputFile->CreateFile(currentDateTimeStr))
+			{
+				_savedDataFilePath = Directory::GetCurrentDirectory() + simulationOutputFile->filePath->Substring(1);
+
+				while (index < bufferSize)
 				{
-					case DalModuleErrorAlarmBitMask::NoErrorAlarm:
-						retAlarmValue = DalErrorAlarmStatusFlag::ActiveStatus;
-						break;
-					case DalModuleErrorAlarmBitMask::ErrorStatus:
-						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
-						break;
-					case DalModuleErrorAlarmBitMask::AlarmStatus:
-						retAlarmValue = DalErrorAlarmStatusFlag::RecoverableStatus;
-						break;
-					case DalModuleErrorAlarmBitMask::ErrorAndAlarmStatus:
-						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
-						break;
-					default:
-						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
-						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
-						break; 
+					simulationOutputFile->SaveCurrentValues_ORI(tonometerData[index], cuffPulse[index]);
+					index++;
 				}
-				return retAlarmValue;
+			}
+			simulationOutputFile->CloseFile();
+			return saved;
+	}
+
+			bool DalSimulationHandler::SetPressure(int newPressure, EM4CuffBoard cuffBoard)
+			{
+				return false; //not a valid command for simulation
+			}
+
+			String^ DalSimulationHandler::GetSavedFileName()
+			{
+				return _savedDataFilePath;
 			}
 		}
 	}
