@@ -91,17 +91,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Capture.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Capture.Designer.cs">
       <DependentUpon>Capture.cs</DependentUpon>
     </Compile>
     <Compile Include="DefaultWindow.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="DefaultWindow.Designer.cs">
       <DependentUpon>DefaultWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="GUIExceptionHandler.cs" />
     <Compile Include="Migrate.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Migrate.Designer.cs">
       <DependentUpon>Migrate.cs</DependentUpon>
@@ -161,32 +164,38 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="RadAboutBox.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="RadAboutBox.Designer.cs">
       <DependentUpon>RadAboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Report.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Report.designer.cs">
       <DependentUpon>Report.cs</DependentUpon>
     </Compile>
     <Compile Include="SplashScreen.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsProperties.cs" />
     <Compile Include="SettingsWindow.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="SettingsWindow.Designer.cs">
       <DependentUpon>SettingsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Setup.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Setup.Designer.cs">
       <DependentUpon>Setup.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLInstanceList.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="SQLInstanceList.Designer.cs">
       <DependentUpon>SQLInstanceList.cs</DependentUpon>

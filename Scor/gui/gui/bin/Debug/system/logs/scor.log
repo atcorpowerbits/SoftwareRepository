@@ -1,1052 +1,3193 @@
- 07/01/2011 ~ 19:03:46.441 ~ Line SphygmoCor Log File ~ 1/7/2011 ~ 19:03:46
+Line SphygmoCor Log File ~ 22/02/2011 ~ 22:50:16
 
-1 07/01/2011 ~ 19:03:46.473 ~ check for instance
+1 22/02/2011 ~ 22:50:16.141 ~ Time to Deflation 0:21
 
-2 07/01/2011 ~ 19:03:46.598 ~ instances = 1
+2 22/02/2011 ~ 22:50:16.254 ~ Progress Bar Value = 8000
 
-3 07/01/2011 ~ 19:03:46.598 ~ scor loading.......
+3 22/02/2011 ~ 22:50:16.255 ~ Time to Deflation 0:21
 
-4 07/01/2011 ~ 19:03:46.801 ~ Connection established succesfully with serverMUM-9638\SQLEXPRESS
+4 22/02/2011 ~ 22:50:16.256 ~ Progress Bar Value = 8000
 
-5 07/01/2011 ~ 19:03:52.592 ~ Exception of type 'AtCor.Scor.CrossCutting.CrxException' was thrown.
+5 22/02/2011 ~ 22:50:16.257 ~ Time to Deflation 0:21
 
-6 07/01/2011 ~ 19:03:52.623 ~ Scor application loaded successfully.
+6 22/02/2011 ~ 22:50:16.258 ~ Progress Bar Value = 8000
 
-7 07/01/2011 ~ 19:03:56.614 ~ Exception of type 'AtCor.Scor.CrossCutting.CrxException' was thrown.
+7 22/02/2011 ~ 22:50:16.258 ~ Time to Deflation 0:21
 
-8 07/01/2011 ~ 19:03:57.992 ~ Loading Capture Form
+8 22/02/2011 ~ 22:50:16.259 ~ Progress Bar Value = 8000
 
-9 07/01/2011 ~ 19:03:58.007 ~ Reading Configuration Settings
+9 22/02/2011 ~ 22:50:16.259 ~ Time to Deflation 0:21
 
-10 07/01/2011 ~ 19:03:58.023 ~ Subscribing to Events
+10 22/02/2011 ~ 22:50:16.259 ~ Progress Bar Value = 8000
 
-11 07/01/2011 ~ 19:03:58.148 ~ Capture Form Loading DONE
+11 22/02/2011 ~ 22:50:16.260 ~ Time to Deflation 0:21
 
-12 07/01/2011 ~ 19:03:58.226 ~ Module active
+12 22/02/2011 ~ 22:50:16.260 ~ Progress Bar Value = 8000
 
-13 07/01/2011 ~ 19:03:59.072 ~ Inflated Cuff
+13 22/02/2011 ~ 22:50:16.261 ~ Time to Deflation 0:21
 
-14 07/01/2011 ~ 19:03:59.072 ~ Inflated Cuff - args.countDownTimerValue = 30000
+14 22/02/2011 ~ 22:50:16.261 ~ Progress Bar Value = 8000
 
-15 07/01/2011 ~ 19:03:59.197 ~ Progress Bar Value = 48
+15 22/02/2011 ~ 22:50:16.262 ~ Time to Deflation 0:21
 
-16 07/01/2011 ~ 19:03:59.447 ~ Progress Bar Value = 304
+16 22/02/2011 ~ 22:50:16.262 ~ Progress Bar Value = 8000
 
-17 07/01/2011 ~ 19:03:59.698 ~ Progress Bar Value = 560
+17 22/02/2011 ~ 22:50:16.263 ~ Time to Deflation 0:21
 
-18 07/01/2011 ~ 19:03:59.948 ~ Progress Bar Value = 816
+18 22/02/2011 ~ 22:50:16.263 ~ Progress Bar Value = 8000
 
-19 07/01/2011 ~ 19:04:00.198 ~ Progress Bar Value = 1072
+19 22/02/2011 ~ 22:50:16.264 ~ Time to Deflation 0:21
 
-20 07/01/2011 ~ 19:04:00.449 ~ Progress Bar Value = 1328
+20 22/02/2011 ~ 22:50:16.264 ~ Progress Bar Value = 8000
 
-21 07/01/2011 ~ 19:04:00.699 ~ Progress Bar Value = 1584
+21 22/02/2011 ~ 22:50:16.265 ~ Time to Deflation 0:21
 
-22 07/01/2011 ~ 19:04:00.950 ~ Progress Bar Value = 1840
+22 22/02/2011 ~ 22:50:16.265 ~ Progress Bar Value = 8000
 
-23 07/01/2011 ~ 19:04:01.200 ~ Progress Bar Value = 2096
+23 22/02/2011 ~ 22:50:16.265 ~ Time to Deflation 0:21
 
-24 07/01/2011 ~ 19:04:01.451 ~ Progress Bar Value = 2352
+24 22/02/2011 ~ 22:50:16.266 ~ Progress Bar Value = 8000
 
-25 07/01/2011 ~ 19:04:01.701 ~ Progress Bar Value = 2608
+25 22/02/2011 ~ 22:50:16.266 ~ Time to Deflation 0:21
 
-26 07/01/2011 ~ 19:04:01.951 ~ Progress Bar Value = 2864
+26 22/02/2011 ~ 22:50:16.267 ~ Progress Bar Value = 8000
 
-27 07/01/2011 ~ 19:04:02.092 ~ Method getting called.
+27 22/02/2011 ~ 22:50:16.267 ~ Time to Deflation 0:21
 
-28 07/01/2011 ~ 19:04:02.202 ~ Progress Bar Value = 3120
+28 22/02/2011 ~ 22:50:16.267 ~ Progress Bar Value = 8000
 
-29 07/01/2011 ~ 19:04:02.452 ~ Progress Bar Value = 3376
+29 22/02/2011 ~ 22:50:16.268 ~ Time to Deflation 0:21
 
-30 07/01/2011 ~ 19:04:02.703 ~ Progress Bar Value = 3632
+30 22/02/2011 ~ 22:50:16.268 ~ Progress Bar Value = 8000
 
-31 07/01/2011 ~ 19:04:02.953 ~ Progress Bar Value = 3888
+31 22/02/2011 ~ 22:50:16.269 ~ Time to Deflation 0:21
 
-32 07/01/2011 ~ 19:04:03.203 ~ Progress Bar Value = 4144
+32 22/02/2011 ~ 22:50:16.269 ~ Progress Bar Value = 8000
 
-33 07/01/2011 ~ 19:04:03.454 ~ Progress Bar Value = 4400
+33 22/02/2011 ~ 22:50:16.269 ~ Time to Deflation 0:21
 
-34 07/01/2011 ~ 19:04:03.704 ~ Progress Bar Value = 4656
+34 22/02/2011 ~ 22:50:16.270 ~ Progress Bar Value = 8000
 
-35 07/01/2011 ~ 19:04:03.955 ~ Progress Bar Value = 4912
+35 22/02/2011 ~ 22:50:16.270 ~ Time to Deflation 0:21
 
-36 07/01/2011 ~ 19:04:04.205 ~ Progress Bar Value = 5168
+36 22/02/2011 ~ 22:50:16.271 ~ Progress Bar Value = 8000
 
-37 07/01/2011 ~ 19:04:04.456 ~ Progress Bar Value = 5424
+37 22/02/2011 ~ 22:50:16.271 ~ Time to Deflation 0:21
 
-38 07/01/2011 ~ 19:04:04.706 ~ Progress Bar Value = 5680
+38 22/02/2011 ~ 22:50:16.272 ~ Progress Bar Value = 8000
 
-39 07/01/2011 ~ 19:04:05.238 ~ Stop PWV capture
+39 22/02/2011 ~ 22:50:16.272 ~ Time to Deflation 0:21
 
-40 10/01/2011 ~ 11:37:17.160 ~ check for instance
+40 22/02/2011 ~ 22:50:16.273 ~ Progress Bar Value = 8000
 
-41 10/01/2011 ~ 11:37:17.332 ~ instances = 1
+41 22/02/2011 ~ 22:50:16.273 ~ Time to Deflation 0:21
 
-42 10/01/2011 ~ 11:37:17.332 ~ scor loading.......
+42 22/02/2011 ~ 22:50:16.274 ~ Progress Bar Value = 8000
 
-43 10/01/2011 ~ 11:37:17.832 ~ Connection established succesfully with serverMUM-9638\SQLEXPRESS
+43 22/02/2011 ~ 22:50:16.274 ~ Time to Deflation 0:21
 
-44 10/01/2011 ~ 11:37:23.722 ~ Exception of type 'AtCor.Scor.CrossCutting.CrxException' was thrown.
+44 22/02/2011 ~ 22:50:16.274 ~ Progress Bar Value = 8000
 
-45 10/01/2011 ~ 11:37:23.753 ~ Scor application loaded successfully.
+45 22/02/2011 ~ 22:50:16.275 ~ Time to Deflation 0:21
 
-46 10/01/2011 ~ 11:37:27.299 ~ Exception of type 'AtCor.Scor.CrossCutting.CrxException' was thrown.
+46 22/02/2011 ~ 22:50:16.275 ~ Progress Bar Value = 8000
 
-47 10/01/2011 ~ 11:37:30.658 ~ Loading Capture Form
+47 22/02/2011 ~ 22:50:16.275 ~ Time to Deflation 0:21
 
-48 10/01/2011 ~ 11:37:30.674 ~ Reading Configuration Settings
+48 22/02/2011 ~ 22:50:16.276 ~ Progress Bar Value = 8000
 
-49 10/01/2011 ~ 11:37:30.674 ~ Subscribing to Events
+49 22/02/2011 ~ 22:50:16.276 ~ Time to Deflation 0:21
 
-50 10/01/2011 ~ 11:37:30.814 ~ Capture Form Loading DONE
+50 22/02/2011 ~ 22:50:16.277 ~ Progress Bar Value = 8000
 
-51 10/01/2011 ~ 11:37:30.908 ~ Module active
+51 22/02/2011 ~ 22:50:16.277 ~ Time to Deflation 0:21
 
-52 10/01/2011 ~ 11:37:31.783 ~ Inflated Cuff
+52 22/02/2011 ~ 22:50:16.277 ~ Progress Bar Value = 8000
 
-53 10/01/2011 ~ 11:37:31.783 ~ Inflated Cuff - args.countDownTimerValue = 30000
+53 22/02/2011 ~ 22:50:16.278 ~ Time to Deflation 0:21
 
-54 10/01/2011 ~ 11:37:31.877 ~ Progress Bar Value = 48
+54 22/02/2011 ~ 22:50:16.278 ~ Progress Bar Value = 8000
 
-55 10/01/2011 ~ 11:37:32.126 ~ Progress Bar Value = 304
+55 22/02/2011 ~ 22:50:16.279 ~ Time to Deflation 0:21
 
-56 10/01/2011 ~ 11:37:32.376 ~ Progress Bar Value = 560
+56 22/02/2011 ~ 22:50:16.279 ~ Progress Bar Value = 8000
 
-57 10/01/2011 ~ 11:37:32.626 ~ Progress Bar Value = 816
+57 22/02/2011 ~ 22:50:16.279 ~ Time to Deflation 0:21
 
-58 10/01/2011 ~ 11:37:32.876 ~ Progress Bar Value = 1072
+58 22/02/2011 ~ 22:50:16.280 ~ Progress Bar Value = 8000
 
-59 10/01/2011 ~ 11:37:33.126 ~ Progress Bar Value = 1328
+59 22/02/2011 ~ 22:50:16.280 ~ Time to Deflation 0:21
 
-60 10/01/2011 ~ 11:37:33.376 ~ Progress Bar Value = 1584
+60 22/02/2011 ~ 22:50:16.281 ~ Progress Bar Value = 8000
 
-61 10/01/2011 ~ 11:37:33.626 ~ Progress Bar Value = 1840
+61 22/02/2011 ~ 22:50:16.281 ~ Time to Deflation 0:21
 
-62 10/01/2011 ~ 11:37:33.876 ~ Progress Bar Value = 2096
+62 22/02/2011 ~ 22:50:16.281 ~ Progress Bar Value = 8000
 
-63 10/01/2011 ~ 11:37:34.126 ~ Progress Bar Value = 2352
+63 22/02/2011 ~ 22:50:16.282 ~ Time to Deflation 0:21
 
-64 10/01/2011 ~ 11:37:34.376 ~ Progress Bar Value = 2608
+64 22/02/2011 ~ 22:50:16.282 ~ Progress Bar Value = 8000
 
-65 10/01/2011 ~ 11:37:34.626 ~ Progress Bar Value = 2864
+65 22/02/2011 ~ 22:50:16.283 ~ Time to Deflation 0:21
 
-66 10/01/2011 ~ 11:37:34.751 ~ Method getting called.
+66 22/02/2011 ~ 22:50:16.378 ~ Progress Bar Value = 8000
 
-67 10/01/2011 ~ 11:37:34.876 ~ Progress Bar Value = 3120
+67 22/02/2011 ~ 22:50:16.378 ~ Time to Deflation 0:21
 
-68 10/01/2011 ~ 11:37:35.126 ~ Progress Bar Value = 3376
+68 22/02/2011 ~ 22:50:16.379 ~ Progress Bar Value = 8000
 
-69 10/01/2011 ~ 11:37:35.376 ~ Progress Bar Value = 3632
+69 22/02/2011 ~ 22:50:16.379 ~ Time to Deflation 0:21
 
-70 10/01/2011 ~ 11:37:35.626 ~ Progress Bar Value = 3888
+70 22/02/2011 ~ 22:50:16.379 ~ Progress Bar Value = 8000
 
-71 10/01/2011 ~ 11:37:35.891 ~ Progress Bar Value = 4144
+71 22/02/2011 ~ 22:50:16.379 ~ Time to Deflation 0:21
 
-72 10/01/2011 ~ 11:37:36.126 ~ Progress Bar Value = 4400
+72 22/02/2011 ~ 22:50:16.380 ~ Progress Bar Value = 8000
 
-73 10/01/2011 ~ 11:37:36.376 ~ Progress Bar Value = 4656
+73 22/02/2011 ~ 22:50:16.380 ~ Time to Deflation 0:21
 
-74 10/01/2011 ~ 11:37:36.626 ~ Progress Bar Value = 4912
+74 22/02/2011 ~ 22:50:16.380 ~ Progress Bar Value = 8000
 
-75 10/01/2011 ~ 11:37:37.204 ~ Stop PWV capture
+75 22/02/2011 ~ 22:50:16.380 ~ Time to Deflation 0:21
 
-76 01/02/2011 ~ 17:43:22.893 ~ instances = 1
+76 22/02/2011 ~ 22:50:16.380 ~ Progress Bar Value = 8000
 
-77 01/02/2011 ~ 17:43:23.862 ~ Connection established succesfully with serverMUM-9638\SQLEXPRESS
+77 22/02/2011 ~ 22:50:16.381 ~ Time to Deflation 0:21
 
-78 01/02/2011 ~ 17:43:32.049 ~ Scor application loaded successfully.
+78 22/02/2011 ~ 22:50:16.381 ~ Progress Bar Value = 8000
 
-79 01/02/2011 ~ 17:43:49.330 ~ Loading Capture Form
+79 22/02/2011 ~ 22:50:16.381 ~ Time to Deflation 0:21
 
-80 01/02/2011 ~ 17:43:49.346 ~ Reading Configuration Settings
+80 22/02/2011 ~ 22:50:16.381 ~ Progress Bar Value = 8000
 
-81 01/02/2011 ~ 17:43:49.362 ~ Subscribing to Events
+81 22/02/2011 ~ 22:50:16.381 ~ Time to Deflation 0:21
 
-82 01/02/2011 ~ 17:43:49.440 ~ BLL_START_CAPTURE
+82 22/02/2011 ~ 22:50:16.382 ~ Progress Bar Value = 8000
 
-83 01/02/2011 ~ 17:43:49.487 ~ Capture Form Loading DONE
+83 22/02/2011 ~ 22:50:16.382 ~ Time to Deflation 0:21
 
-84 01/02/2011 ~ 17:43:50.205 ~ error alarm source not avaialble yet
+84 22/02/2011 ~ 22:50:16.382 ~ Progress Bar Value = 8000
 
-85 01/02/2011 ~ 17:46:39.597 ~ instances = 1
+85 22/02/2011 ~ 22:50:16.382 ~ Time to Deflation 0:21
 
-86 01/02/2011 ~ 17:46:40.441 ~ Connection established succesfully with serverMUM-9638\SQLEXPRESS
+86 22/02/2011 ~ 22:50:16.383 ~ Progress Bar Value = 8000
 
-87 01/02/2011 ~ 17:46:48.285 ~ Scor application loaded successfully.
+87 22/02/2011 ~ 22:50:16.383 ~ Time to Deflation 0:21
 
-88 01/02/2011 ~ 17:46:54.910 ~ Loading Capture Form
+88 22/02/2011 ~ 22:50:16.383 ~ Progress Bar Value = 8000
 
-89 01/02/2011 ~ 17:46:54.925 ~ Reading Configuration Settings
+89 22/02/2011 ~ 22:50:16.383 ~ Time to Deflation 0:21
 
-90 01/02/2011 ~ 17:46:54.941 ~ Subscribing to Events
+90 22/02/2011 ~ 22:50:16.383 ~ Progress Bar Value = 8000
 
-91 01/02/2011 ~ 17:46:55.004 ~ BLL_START_CAPTURE
+91 22/02/2011 ~ 22:50:16.384 ~ Time to Deflation 0:21
 
-92 01/02/2011 ~ 17:46:55.066 ~ Capture Form Loading DONE
+92 22/02/2011 ~ 22:50:16.384 ~ Progress Bar Value = 8000
 
-93 01/02/2011 ~ 17:46:55.863 ~ error alarm source not avaialble yet
+93 22/02/2011 ~ 22:50:16.384 ~ Time to Deflation 0:21
 
-94 01/02/2011 ~ 17:46:56.050 ~ Inflated Cuff
+94 22/02/2011 ~ 22:50:16.384 ~ Progress Bar Value = 8000
 
-95 01/02/2011 ~ 17:46:56.050 ~ Vibhuti :Inflated Cuff - e.deflationtime = 0
+95 22/02/2011 ~ 22:50:16.384 ~ Time to Deflation 0:21
 
-96 01/02/2011 ~ 17:46:56.457 ~  progress bar maximum value 29872
+96 22/02/2011 ~ 22:50:16.385 ~ Progress Bar Value = 8000
 
-97 01/02/2011 ~ 17:46:56.519 ~ Progress Bar Value = 176
+97 22/02/2011 ~ 22:50:16.385 ~ Time to Deflation 0:21
 
-98 01/02/2011 ~ 17:46:56.769 ~ Progress Bar Value = 432
+98 22/02/2011 ~ 22:50:16.385 ~ Progress Bar Value = 8000
 
-99 01/02/2011 ~ 17:46:56.894 ~ 550
+99 22/02/2011 ~ 22:50:16.385 ~ Time to Deflation 0:21
 
-100 01/02/2011 ~ 17:49:25.520 ~ instances = 1
+100 22/02/2011 ~ 22:50:16.386 ~ Progress Bar Value = 8000
 
-101 01/02/2011 ~ 17:49:26.395 ~ Connection established succesfully with serverMUM-9638\SQLEXPRESS
+101 22/02/2011 ~ 22:50:16.386 ~ Time to Deflation 0:21
 
-102 01/02/2011 ~ 17:49:34.083 ~ Scor application loaded successfully.
+102 22/02/2011 ~ 22:50:16.386 ~ Progress Bar Value = 8000
 
-103 01/02/2011 ~ 17:49:39.364 ~ Loading Capture Form
+103 22/02/2011 ~ 22:50:16.386 ~ Time to Deflation 0:21
 
-104 01/02/2011 ~ 17:49:39.395 ~ Reading Configuration Settings
+104 22/02/2011 ~ 22:50:16.386 ~ Progress Bar Value = 8000
 
-105 01/02/2011 ~ 17:49:39.395 ~ Subscribing to Events
+105 22/02/2011 ~ 22:50:16.387 ~ Time to Deflation 0:21
 
-106 01/02/2011 ~ 17:49:39.473 ~ BLL_START_CAPTURE
+106 22/02/2011 ~ 22:50:16.387 ~ Progress Bar Value = 8000
 
-107 01/02/2011 ~ 17:49:39.520 ~ Capture Form Loading DONE
+107 22/02/2011 ~ 22:50:16.387 ~ Time to Deflation 0:21
 
-108 01/02/2011 ~ 17:49:40.192 ~ error alarm source not avaialble yet
+108 22/02/2011 ~ 22:50:16.387 ~ Progress Bar Value = 8000
 
-109 01/02/2011 ~ 17:49:40.630 ~ Inflated Cuff
+109 22/02/2011 ~ 22:50:16.388 ~ Time to Deflation 0:21
 
-110 01/02/2011 ~ 17:49:40.630 ~ Vibhuti :Inflated Cuff - e.deflationtime = 0
+110 22/02/2011 ~ 22:50:16.388 ~ Progress Bar Value = 8000
 
-111 01/02/2011 ~ 17:49:40.989 ~  progress bar maximum value 29872
+111 22/02/2011 ~ 22:50:16.388 ~ Time to Deflation 0:21
 
-112 01/02/2011 ~ 17:49:41.098 ~ Progress Bar Value = 176
+112 22/02/2011 ~ 22:50:16.388 ~ Progress Bar Value = 8000
 
-113 01/02/2011 ~ 17:49:41.239 ~ 523
+113 22/02/2011 ~ 22:50:16.388 ~ Time to Deflation 0:21
 
-114 01/02/2011 ~ 17:49:41.348 ~ Progress Bar Value = 432
+114 22/02/2011 ~ 22:50:16.389 ~ Progress Bar Value = 8000
 
-115 01/02/2011 ~ 17:49:41.598 ~ Progress Bar Value = 688
+115 22/02/2011 ~ 22:50:16.389 ~ Time to Deflation 0:21
 
-116 01/02/2011 ~ 17:49:41.848 ~ Progress Bar Value = 944
+116 22/02/2011 ~ 22:50:16.389 ~ Progress Bar Value = 8000
 
-117 01/02/2011 ~ 17:49:42.098 ~ Progress Bar Value = 1200
+117 22/02/2011 ~ 22:50:16.389 ~ Time to Deflation 0:21
 
-118 01/02/2011 ~ 17:49:42.223 ~ 550
+118 22/02/2011 ~ 22:50:16.389 ~ Progress Bar Value = 8000
 
-119 01/02/2011 ~ 17:49:42.348 ~ Progress Bar Value = 1456
+119 22/02/2011 ~ 22:50:16.390 ~ Time to Deflation 0:21
 
-120 01/02/2011 ~ 17:49:42.598 ~ Progress Bar Value = 1712
+120 22/02/2011 ~ 22:50:16.390 ~ Progress Bar Value = 8000
 
-121 01/02/2011 ~ 17:49:42.848 ~ Progress Bar Value = 1968
+121 22/02/2011 ~ 22:50:16.390 ~ Time to Deflation 0:21
 
-122 01/02/2011 ~ 17:49:43.098 ~ Progress Bar Value = 2224
+122 22/02/2011 ~ 22:50:16.390 ~ Progress Bar Value = 8000
 
-123 01/02/2011 ~ 17:49:43.223 ~ 550
+123 22/02/2011 ~ 22:50:16.391 ~ Time to Deflation 0:21
 
-124 01/02/2011 ~ 17:49:43.348 ~ Progress Bar Value = 2480
+124 22/02/2011 ~ 22:50:16.391 ~ Progress Bar Value = 8000
 
-125 01/02/2011 ~ 17:49:43.598 ~ Progress Bar Value = 2736
+125 22/02/2011 ~ 22:50:16.391 ~ Time to Deflation 0:21
 
-126 01/02/2011 ~ 17:49:43.848 ~ Progress Bar Value = 2992
+126 22/02/2011 ~ 22:50:16.391 ~ Progress Bar Value = 8000
 
-127 01/02/2011 ~ 17:49:44.098 ~ Progress Bar Value = 3248
+127 22/02/2011 ~ 22:50:16.391 ~ Time to Deflation 0:21
 
-128 01/02/2011 ~ 17:49:44.223 ~ 550
+128 22/02/2011 ~ 22:50:16.392 ~ Progress Bar Value = 8000
 
-129 01/02/2011 ~ 17:49:44.348 ~ Progress Bar Value = 3504
+129 22/02/2011 ~ 22:50:16.392 ~ Time to Deflation 0:21
 
-130 01/02/2011 ~ 17:49:44.598 ~ Progress Bar Value = 3760
+130 22/02/2011 ~ 22:50:16.504 ~ Progress Bar Value = 8000
 
-131 01/02/2011 ~ 17:49:44.848 ~ Progress Bar Value = 4016
+131 22/02/2011 ~ 22:50:16.504 ~ Time to Deflation 0:21
 
-132 01/02/2011 ~ 17:49:45.098 ~ Progress Bar Value = 4272
+132 22/02/2011 ~ 22:50:16.505 ~ Progress Bar Value = 8000
 
-133 01/02/2011 ~ 17:49:45.223 ~ 550
+133 22/02/2011 ~ 22:50:16.505 ~ Time to Deflation 0:21
 
-134 01/02/2011 ~ 17:49:45.348 ~ Progress Bar Value = 4528
+134 22/02/2011 ~ 22:50:16.505 ~ Progress Bar Value = 8000
 
-135 01/02/2011 ~ 17:49:45.598 ~ Progress Bar Value = 4784
+135 22/02/2011 ~ 22:50:16.506 ~ Time to Deflation 0:21
 
-136 01/02/2011 ~ 17:49:45.848 ~ Progress Bar Value = 5040
+136 22/02/2011 ~ 22:50:16.507 ~ Progress Bar Value = 8000
 
-137 01/02/2011 ~ 17:49:46.098 ~ Progress Bar Value = 5296
+137 22/02/2011 ~ 22:50:16.507 ~ Time to Deflation 0:21
 
-138 01/02/2011 ~ 17:49:46.223 ~ 550
+138 22/02/2011 ~ 22:50:16.508 ~ Progress Bar Value = 8000
 
-139 01/02/2011 ~ 17:49:46.348 ~ Progress Bar Value = 5552
+139 22/02/2011 ~ 22:50:16.508 ~ Time to Deflation 0:21
 
-140 01/02/2011 ~ 17:49:46.598 ~ Progress Bar Value = 5808
+140 22/02/2011 ~ 22:50:16.508 ~ Progress Bar Value = 8000
 
-141 01/02/2011 ~ 17:49:46.848 ~ Progress Bar Value = 6064
+141 22/02/2011 ~ 22:50:16.508 ~ Time to Deflation 0:21
 
-142 01/02/2011 ~ 17:49:47.098 ~ Progress Bar Value = 6320
+142 22/02/2011 ~ 22:50:16.509 ~ Progress Bar Value = 8000
 
-143 01/02/2011 ~ 17:49:47.239 ~ 550
+143 22/02/2011 ~ 22:50:16.509 ~ Time to Deflation 0:21
 
-144 01/02/2011 ~ 17:49:47.348 ~ Progress Bar Value = 6576
+144 22/02/2011 ~ 22:50:16.509 ~ Progress Bar Value = 8000
 
-145 01/02/2011 ~ 17:49:47.598 ~ Progress Bar Value = 6832
+145 22/02/2011 ~ 22:50:16.510 ~ Time to Deflation 0:21
 
-146 01/02/2011 ~ 17:49:47.848 ~ Progress Bar Value = 7088
+146 22/02/2011 ~ 22:50:16.510 ~ Progress Bar Value = 8000
 
-147 01/02/2011 ~ 17:49:48.098 ~ Progress Bar Value = 7344
+147 22/02/2011 ~ 22:50:16.511 ~ Time to Deflation 0:21
 
-148 01/02/2011 ~ 17:49:48.223 ~ 550
+148 22/02/2011 ~ 22:50:16.511 ~ Progress Bar Value = 8000
 
-149 01/02/2011 ~ 17:49:48.348 ~ Progress Bar Value = 7600
+149 22/02/2011 ~ 22:50:16.511 ~ Time to Deflation 0:21
 
-150 01/02/2011 ~ 17:49:48.598 ~ Progress Bar Value = 7856
+150 22/02/2011 ~ 22:50:16.511 ~ Progress Bar Value = 8000
 
-151 01/02/2011 ~ 17:49:48.848 ~ Progress Bar Value = 8112
+151 22/02/2011 ~ 22:50:16.512 ~ Time to Deflation 0:21
 
-152 01/02/2011 ~ 17:49:49.098 ~ Progress Bar Value = 8368
+152 22/02/2011 ~ 22:50:16.512 ~ Progress Bar Value = 8000
 
-153 01/02/2011 ~ 17:49:49.223 ~ 550
+153 22/02/2011 ~ 22:50:16.512 ~ Time to Deflation 0:21
 
-154 01/02/2011 ~ 17:49:49.348 ~ Progress Bar Value = 8624
+154 22/02/2011 ~ 22:50:16.512 ~ Progress Bar Value = 8000
 
-155 01/02/2011 ~ 17:49:49.598 ~ Progress Bar Value = 8880
+155 22/02/2011 ~ 22:50:16.512 ~ Time to Deflation 0:21
 
-156 01/02/2011 ~ 17:49:49.848 ~ Progress Bar Value = 9136
+156 22/02/2011 ~ 22:50:16.513 ~ Progress Bar Value = 8000
 
-157 01/02/2011 ~ 17:49:50.098 ~ Progress Bar Value = 9392
+157 22/02/2011 ~ 22:50:16.513 ~ Time to Deflation 0:21
 
-158 01/02/2011 ~ 17:49:50.223 ~ 550
+158 22/02/2011 ~ 22:50:16.513 ~ Progress Bar Value = 8000
 
-159 01/02/2011 ~ 17:49:50.348 ~ Progress Bar Value = 9648
+159 22/02/2011 ~ 22:50:16.513 ~ Time to Deflation 0:21
 
-160 01/02/2011 ~ 17:49:50.598 ~ Progress Bar Value = 9904
+160 22/02/2011 ~ 22:50:16.514 ~ Progress Bar Value = 8000
 
-161 01/02/2011 ~ 17:49:50.848 ~ Progress Bar Value = 10160
+161 22/02/2011 ~ 22:50:16.514 ~ Time to Deflation 0:21
 
-162 01/02/2011 ~ 17:49:51.098 ~ Progress Bar Value = 10416
+162 22/02/2011 ~ 22:50:16.514 ~ Progress Bar Value = 8000
 
-163 01/02/2011 ~ 17:49:51.223 ~ 550
+163 22/02/2011 ~ 22:50:16.514 ~ Time to Deflation 0:21
 
-164 01/02/2011 ~ 17:49:51.348 ~ Progress Bar Value = 10672
+164 22/02/2011 ~ 22:50:16.514 ~ Progress Bar Value = 8000
 
-165 01/02/2011 ~ 17:49:51.598 ~ Progress Bar Value = 10928
+165 22/02/2011 ~ 22:50:16.515 ~ Time to Deflation 0:21
 
-166 01/02/2011 ~ 17:49:51.848 ~ Progress Bar Value = 11184
+166 22/02/2011 ~ 22:50:16.515 ~ Progress Bar Value = 8000
 
-167 01/02/2011 ~ 17:49:52.098 ~ Progress Bar Value = 11440
+167 22/02/2011 ~ 22:50:16.515 ~ Time to Deflation 0:21
 
-168 01/02/2011 ~ 17:49:52.223 ~ 550
+168 22/02/2011 ~ 22:50:16.515 ~ Progress Bar Value = 8000
 
-169 01/02/2011 ~ 17:49:52.348 ~ Progress Bar Value = 11696
+169 22/02/2011 ~ 22:50:16.516 ~ Time to Deflation 0:21
 
-170 01/02/2011 ~ 17:49:52.598 ~ Progress Bar Value = 11952
+170 22/02/2011 ~ 22:50:16.516 ~ Progress Bar Value = 8000
 
-171 01/02/2011 ~ 17:49:52.848 ~ Progress Bar Value = 12208
+171 22/02/2011 ~ 22:50:16.516 ~ Time to Deflation 0:21
 
-172 01/02/2011 ~ 17:49:53.098 ~ Progress Bar Value = 12464
+172 22/02/2011 ~ 22:50:16.516 ~ Progress Bar Value = 8000
 
-173 01/02/2011 ~ 17:49:53.223 ~ 550
+173 22/02/2011 ~ 22:50:16.516 ~ Time to Deflation 0:21
 
-174 01/02/2011 ~ 17:49:53.348 ~ Progress Bar Value = 12720
+174 22/02/2011 ~ 22:50:16.517 ~ Progress Bar Value = 8000
 
-175 01/02/2011 ~ 17:49:53.598 ~ Progress Bar Value = 12976
+175 22/02/2011 ~ 22:50:16.517 ~ Time to Deflation 0:21
 
-176 01/02/2011 ~ 17:49:53.848 ~ Progress Bar Value = 13232
+176 22/02/2011 ~ 22:50:16.517 ~ Progress Bar Value = 8000
 
-177 01/02/2011 ~ 17:49:54.098 ~ Progress Bar Value = 13488
+177 22/02/2011 ~ 22:50:16.517 ~ Time to Deflation 0:21
 
-178 01/02/2011 ~ 17:49:54.223 ~ 550
+178 22/02/2011 ~ 22:50:16.517 ~ Progress Bar Value = 8000
 
-179 01/02/2011 ~ 17:49:54.348 ~ Progress Bar Value = 13744
+179 22/02/2011 ~ 22:50:16.518 ~ Time to Deflation 0:21
 
-180 01/02/2011 ~ 17:49:54.598 ~ Progress Bar Value = 14000
+180 22/02/2011 ~ 22:50:16.518 ~ Progress Bar Value = 8000
 
-181 01/02/2011 ~ 17:49:54.848 ~ Progress Bar Value = 14256
+181 22/02/2011 ~ 22:50:16.518 ~ Time to Deflation 0:21
 
-182 01/02/2011 ~ 17:49:55.098 ~ Progress Bar Value = 14512
+182 22/02/2011 ~ 22:50:16.518 ~ Progress Bar Value = 8000
 
-183 01/02/2011 ~ 17:49:55.223 ~ 550
+183 22/02/2011 ~ 22:50:16.519 ~ Time to Deflation 0:21
 
-184 01/02/2011 ~ 17:49:55.348 ~ Progress Bar Value = 14768
+184 22/02/2011 ~ 22:50:16.519 ~ Progress Bar Value = 8000
 
-185 01/02/2011 ~ 17:49:55.598 ~ Progress Bar Value = 15024
+185 22/02/2011 ~ 22:50:16.519 ~ Time to Deflation 0:21
 
-186 01/02/2011 ~ 17:49:55.848 ~ Progress Bar Value = 15280
+186 22/02/2011 ~ 22:50:16.520 ~ Progress Bar Value = 8000
 
-187 01/02/2011 ~ 17:49:56.098 ~ Progress Bar Value = 15536
+187 22/02/2011 ~ 22:50:16.520 ~ Time to Deflation 0:21
 
-188 01/02/2011 ~ 17:49:56.223 ~ 550
+188 22/02/2011 ~ 22:50:16.520 ~ Progress Bar Value = 8000
 
-189 01/02/2011 ~ 17:49:56.348 ~ Progress Bar Value = 15792
+189 22/02/2011 ~ 22:50:16.520 ~ Time to Deflation 0:21
 
-190 01/02/2011 ~ 17:49:56.598 ~ Progress Bar Value = 16048
+190 22/02/2011 ~ 22:50:16.520 ~ Progress Bar Value = 8000
 
-191 01/02/2011 ~ 17:49:56.848 ~ Progress Bar Value = 16304
+191 22/02/2011 ~ 22:50:16.521 ~ Time to Deflation 0:21
 
-192 01/02/2011 ~ 17:49:57.098 ~ Progress Bar Value = 16560
+192 22/02/2011 ~ 22:50:16.521 ~ Progress Bar Value = 8000
 
-193 01/02/2011 ~ 17:49:57.223 ~ 550
+193 22/02/2011 ~ 22:50:16.521 ~ Time to Deflation 0:21
 
-194 01/02/2011 ~ 17:49:57.348 ~ Progress Bar Value = 16816
+194 22/02/2011 ~ 22:50:16.643 ~ Progress Bar Value = 8000
 
-195 01/02/2011 ~ 17:49:57.598 ~ Progress Bar Value = 17072
+195 22/02/2011 ~ 22:50:16.644 ~ Time to Deflation 0:21
 
-196 01/02/2011 ~ 17:49:57.848 ~ Progress Bar Value = 17328
+196 22/02/2011 ~ 22:50:16.645 ~ Progress Bar Value = 8000
 
-197 01/02/2011 ~ 17:49:58.098 ~ Progress Bar Value = 17584
+197 22/02/2011 ~ 22:50:16.646 ~ Time to Deflation 0:21
 
-198 01/02/2011 ~ 17:49:58.239 ~ 550
+198 22/02/2011 ~ 22:50:16.647 ~ Progress Bar Value = 8000
 
-199 01/02/2011 ~ 17:49:58.348 ~ Progress Bar Value = 17840
+199 22/02/2011 ~ 22:50:16.648 ~ Time to Deflation 0:21
 
-200 01/02/2011 ~ 17:49:58.598 ~ Progress Bar Value = 18096
+200 22/02/2011 ~ 22:50:16.648 ~ Progress Bar Value = 8000
 
-201 01/02/2011 ~ 17:49:58.848 ~ Progress Bar Value = 18352
+201 22/02/2011 ~ 22:50:16.649 ~ Time to Deflation 0:21
 
-202 01/02/2011 ~ 17:49:59.098 ~ Progress Bar Value = 18608
+202 22/02/2011 ~ 22:50:16.649 ~ Progress Bar Value = 8000
 
-203 01/02/2011 ~ 17:49:59.223 ~ 550
+203 22/02/2011 ~ 22:50:16.650 ~ Time to Deflation 0:21
 
-204 01/02/2011 ~ 17:49:59.348 ~ Progress Bar Value = 18864
+204 22/02/2011 ~ 22:50:16.650 ~ Progress Bar Value = 8000
 
-205 01/02/2011 ~ 17:49:59.598 ~ Progress Bar Value = 19120
+205 22/02/2011 ~ 22:50:16.651 ~ Time to Deflation 0:21
 
-206 01/02/2011 ~ 17:49:59.848 ~ Progress Bar Value = 19376
+206 22/02/2011 ~ 22:50:16.651 ~ Progress Bar Value = 8000
 
-207 01/02/2011 ~ 17:50:00.098 ~ Progress Bar Value = 19632
+207 22/02/2011 ~ 22:50:16.652 ~ Time to Deflation 0:21
 
-208 01/02/2011 ~ 17:50:00.223 ~ 550
+208 22/02/2011 ~ 22:50:16.652 ~ Progress Bar Value = 8000
 
-209 01/02/2011 ~ 17:50:00.348 ~ Progress Bar Value = 19888
+209 22/02/2011 ~ 22:50:16.653 ~ Time to Deflation 0:21
 
-210 01/02/2011 ~ 17:50:00.598 ~ Progress Bar Value = 20144
+210 22/02/2011 ~ 22:50:16.653 ~ Progress Bar Value = 8000
 
-211 01/02/2011 ~ 17:50:00.848 ~ Progress Bar Value = 20400
+211 22/02/2011 ~ 22:50:16.654 ~ Time to Deflation 0:21
 
-212 01/02/2011 ~ 17:50:01.098 ~ Progress Bar Value = 20656
+212 22/02/2011 ~ 22:50:16.654 ~ Progress Bar Value = 8000
 
-213 01/02/2011 ~ 17:50:01.223 ~ 550
+213 22/02/2011 ~ 22:50:16.655 ~ Time to Deflation 0:21
 
-214 01/02/2011 ~ 17:50:01.348 ~ Progress Bar Value = 20912
+214 22/02/2011 ~ 22:50:16.655 ~ Progress Bar Value = 8000
 
-215 01/02/2011 ~ 17:50:01.598 ~ Progress Bar Value = 21168
+215 22/02/2011 ~ 22:50:16.656 ~ Time to Deflation 0:21
 
-216 01/02/2011 ~ 17:50:01.848 ~ Progress Bar Value = 21424
+216 22/02/2011 ~ 22:50:16.656 ~ Progress Bar Value = 8000
 
-217 01/02/2011 ~ 17:50:02.098 ~ Progress Bar Value = 21680
+217 22/02/2011 ~ 22:50:16.657 ~ Time to Deflation 0:21
 
-218 01/02/2011 ~ 17:50:02.223 ~ 550
+218 22/02/2011 ~ 22:50:16.657 ~ Progress Bar Value = 8000
 
-219 01/02/2011 ~ 17:50:02.348 ~ Progress Bar Value = 21936
+219 22/02/2011 ~ 22:50:16.657 ~ Time to Deflation 0:21
 
-220 01/02/2011 ~ 17:50:02.598 ~ Progress Bar Value = 22192
+220 22/02/2011 ~ 22:50:16.658 ~ Progress Bar Value = 8000
 
-221 01/02/2011 ~ 17:50:02.848 ~ Progress Bar Value = 22448
+221 22/02/2011 ~ 22:50:16.658 ~ Time to Deflation 0:21
 
-222 01/02/2011 ~ 17:50:03.098 ~ Progress Bar Value = 22704
+222 22/02/2011 ~ 22:50:16.659 ~ Progress Bar Value = 8000
 
-223 01/02/2011 ~ 17:50:03.223 ~ 550
+223 22/02/2011 ~ 22:50:16.659 ~ Time to Deflation 0:21
 
-224 01/02/2011 ~ 17:50:03.348 ~ Progress Bar Value = 22960
+224 22/02/2011 ~ 22:50:16.659 ~ Progress Bar Value = 8000
 
-225 01/02/2011 ~ 17:50:03.598 ~ Progress Bar Value = 23216
+225 22/02/2011 ~ 22:50:16.660 ~ Time to Deflation 0:21
 
-226 01/02/2011 ~ 17:50:03.848 ~ Progress Bar Value = 23472
+226 22/02/2011 ~ 22:50:16.660 ~ Progress Bar Value = 8000
 
-227 01/02/2011 ~ 17:50:04.098 ~ Progress Bar Value = 23728
+227 22/02/2011 ~ 22:50:16.661 ~ Time to Deflation 0:21
 
-228 01/02/2011 ~ 17:50:04.223 ~ 550
+228 22/02/2011 ~ 22:50:16.661 ~ Progress Bar Value = 8000
 
-229 01/02/2011 ~ 17:50:04.348 ~ Progress Bar Value = 23984
+229 22/02/2011 ~ 22:50:16.661 ~ Time to Deflation 0:21
 
-230 01/02/2011 ~ 17:50:04.598 ~ Progress Bar Value = 24240
+230 22/02/2011 ~ 22:50:16.662 ~ Progress Bar Value = 8000
 
-231 01/02/2011 ~ 17:50:04.848 ~ Progress Bar Value = 24496
+231 22/02/2011 ~ 22:50:16.662 ~ Time to Deflation 0:21
 
-232 01/02/2011 ~ 17:50:05.098 ~ Progress Bar Value = 24752
+232 22/02/2011 ~ 22:50:16.663 ~ Progress Bar Value = 8000
 
-233 01/02/2011 ~ 17:50:05.223 ~ 550
+233 22/02/2011 ~ 22:50:16.663 ~ Time to Deflation 0:21
 
-234 01/02/2011 ~ 17:50:05.348 ~ Progress Bar Value = 25008
+234 22/02/2011 ~ 22:50:16.663 ~ Progress Bar Value = 8000
 
-235 01/02/2011 ~ 17:50:05.598 ~ Progress Bar Value = 25264
+235 22/02/2011 ~ 22:50:16.664 ~ Time to Deflation 0:21
 
-236 01/02/2011 ~ 17:50:05.848 ~ Progress Bar Value = 25520
+236 22/02/2011 ~ 22:50:16.664 ~ Progress Bar Value = 8000
 
-237 01/02/2011 ~ 17:50:06.098 ~ Progress Bar Value = 25776
+237 22/02/2011 ~ 22:50:16.665 ~ Time to Deflation 0:21
 
-238 01/02/2011 ~ 17:50:06.223 ~ 550
+238 22/02/2011 ~ 22:50:16.665 ~ Progress Bar Value = 8000
 
-239 01/02/2011 ~ 17:50:06.348 ~ Progress Bar Value = 26032
+239 22/02/2011 ~ 22:50:16.665 ~ Time to Deflation 0:21
 
-240 01/02/2011 ~ 17:50:06.598 ~ Progress Bar Value = 26288
+240 22/02/2011 ~ 22:50:16.666 ~ Progress Bar Value = 8000
 
-241 01/02/2011 ~ 17:50:06.848 ~ Progress Bar Value = 26544
+241 22/02/2011 ~ 22:50:16.666 ~ Time to Deflation 0:21
 
-242 01/02/2011 ~ 17:50:07.099 ~ Progress Bar Value = 26800
+242 22/02/2011 ~ 22:50:16.667 ~ Progress Bar Value = 8000
 
-243 01/02/2011 ~ 17:50:07.224 ~ 550
+243 22/02/2011 ~ 22:50:16.667 ~ Time to Deflation 0:21
 
-244 01/02/2011 ~ 17:50:07.349 ~ Progress Bar Value = 27056
+244 22/02/2011 ~ 22:50:16.668 ~ Progress Bar Value = 8000
 
-245 01/02/2011 ~ 17:50:07.599 ~ Progress Bar Value = 27312
+245 22/02/2011 ~ 22:50:16.668 ~ Time to Deflation 0:21
 
-246 01/02/2011 ~ 17:50:07.849 ~ Progress Bar Value = 27568
+246 22/02/2011 ~ 22:50:16.668 ~ Progress Bar Value = 8000
 
-247 01/02/2011 ~ 17:50:08.099 ~ Progress Bar Value = 27824
+247 22/02/2011 ~ 22:50:16.669 ~ Time to Deflation 0:21
 
-248 01/02/2011 ~ 17:50:08.224 ~ 550
+248 22/02/2011 ~ 22:50:16.669 ~ Progress Bar Value = 8000
 
-249 01/02/2011 ~ 17:50:08.349 ~ Progress Bar Value = 28080
+249 22/02/2011 ~ 22:50:16.669 ~ Time to Deflation 0:21
 
-250 01/02/2011 ~ 17:50:08.599 ~ Progress Bar Value = 28336
+250 22/02/2011 ~ 22:50:16.670 ~ Progress Bar Value = 8000
 
-251 01/02/2011 ~ 17:50:08.849 ~ Progress Bar Value = 28592
+251 22/02/2011 ~ 22:50:16.670 ~ Time to Deflation 0:21
 
-252 01/02/2011 ~ 17:50:09.099 ~ Progress Bar Value = 28848
+252 22/02/2011 ~ 22:50:16.671 ~ Progress Bar Value = 8000
 
-253 01/02/2011 ~ 17:50:09.224 ~ 550
+253 22/02/2011 ~ 22:50:16.671 ~ Time to Deflation 0:21
 
-254 01/02/2011 ~ 17:50:09.349 ~ Progress Bar Value = 29104
+254 22/02/2011 ~ 22:50:16.672 ~ Progress Bar Value = 8000
 
-255 01/02/2011 ~ 17:50:09.474 ~ OTHER THAN - Inflated Cuff
+255 22/02/2011 ~ 22:50:16.672 ~ Time to Deflation 0:21
 
-256 01/02/2011 ~ 17:50:09.474 ~ OTHER THAN - Inflated Cuff - e.deflationtime = 0
+256 22/02/2011 ~ 22:50:16.672 ~ Progress Bar Value = 8000
 
-257 01/02/2011 ~ 17:50:10.224 ~ 550
+257 22/02/2011 ~ 22:50:16.673 ~ Time to Deflation 0:21
 
-258 01/02/2011 ~ 17:50:11.224 ~ 550
+258 22/02/2011 ~ 22:50:16.770 ~ Progress Bar Value = 8000
 
-259 01/02/2011 ~ 17:50:12.224 ~ 550
+259 22/02/2011 ~ 22:50:16.771 ~ Time to Deflation 0:21
 
-260 01/02/2011 ~ 17:50:12.474 ~ OTHER THAN - Inflated Cuff
+260 22/02/2011 ~ 22:50:16.771 ~ Progress Bar Value = 8000
 
-261 01/02/2011 ~ 17:50:12.474 ~ OTHER THAN - Inflated Cuff - e.deflationtime = 0
+261 22/02/2011 ~ 22:50:16.772 ~ Time to Deflation 0:21
 
-262 01/02/2011 ~ 17:50:13.333 ~ BLL_STOP_CAPTURE
+262 22/02/2011 ~ 22:50:16.773 ~ Progress Bar Value = 8000
 
-263 01/02/2011 ~ 17:56:22.273 ~ instances = 1
+263 22/02/2011 ~ 22:50:16.773 ~ Time to Deflation 0:21
 
-264 01/02/2011 ~ 17:56:23.742 ~ Connection established succesfully with serverMUM-9638\SQLEXPRESS
+264 22/02/2011 ~ 22:50:16.774 ~ Progress Bar Value = 8000
 
-265 01/02/2011 ~ 17:56:31.804 ~ Scor application loaded successfully.
+265 22/02/2011 ~ 22:50:16.774 ~ Time to Deflation 0:21
 
-266 01/02/2011 ~ 17:56:38.851 ~ Migration started.
+266 22/02/2011 ~ 22:50:16.775 ~ Progress Bar Value = 8000
 
-267 01/02/2011 ~ 17:56:38.851 ~ Patients skipped : Id         First Name                Last Name                 Gender DOB 
+267 22/02/2011 ~ 22:50:16.775 ~ Time to Deflation 0:21
 
-268 01/02/2011 ~ 17:56:38.960 ~ Total patients skipped : 0
+268 22/02/2011 ~ 22:50:16.775 ~ Progress Bar Value = 8000
 
-269 01/02/2011 ~ 17:56:38.960 ~ Total patients migrated: 2
+269 22/02/2011 ~ 22:50:16.776 ~ Time to Deflation 0:21
 
-270 01/02/2011 ~ 17:56:38.960 ~ Migration completed.
+270 22/02/2011 ~ 22:50:16.776 ~ Progress Bar Value = 8000
 
-271 01/02/2011 ~ 17:57:27.836 ~ Loading Capture Form
+271 22/02/2011 ~ 22:50:16.777 ~ Time to Deflation 0:21
 
-272 01/02/2011 ~ 17:57:27.867 ~ Reading Configuration Settings
+272 22/02/2011 ~ 22:50:16.777 ~ Progress Bar Value = 8000
 
-273 01/02/2011 ~ 17:57:27.883 ~ Subscribing to Events
+273 22/02/2011 ~ 22:50:16.777 ~ Time to Deflation 0:21
 
-274 01/02/2011 ~ 17:57:27.929 ~ BLL_START_CAPTURE
+274 22/02/2011 ~ 22:50:16.778 ~ Progress Bar Value = 8000
 
-275 01/02/2011 ~ 17:57:28.039 ~ Capture Form Loading DONE
+275 22/02/2011 ~ 22:50:16.778 ~ Time to Deflation 0:21
 
-276 01/02/2011 ~ 17:57:28.133 ~ error alarm source not avaialble yet
+276 22/02/2011 ~ 22:50:16.779 ~ Progress Bar Value = 8000
 
-277 01/02/2011 ~ 17:57:28.929 ~ 496
+277 22/02/2011 ~ 22:50:16.779 ~ Time to Deflation 0:21
 
-278 01/02/2011 ~ 17:57:29.054 ~ Inflated Cuff
+278 22/02/2011 ~ 22:50:16.779 ~ Progress Bar Value = 8000
 
-279 01/02/2011 ~ 17:57:29.054 ~ Vibhuti :Inflated Cuff - e.deflationtime = 0
+279 22/02/2011 ~ 22:50:16.780 ~ Time to Deflation 0:21
 
-280 01/02/2011 ~ 17:57:29.179 ~  progress bar maximum value 29872
+280 22/02/2011 ~ 22:50:16.780 ~ Progress Bar Value = 9000
 
-281 01/02/2011 ~ 17:57:29.304 ~ Progress Bar Value = 176
+281 22/02/2011 ~ 22:50:16.781 ~ Time to Deflation 0:20
 
-282 01/02/2011 ~ 17:57:29.554 ~ Progress Bar Value = 432
+282 22/02/2011 ~ 22:50:16.781 ~ Progress Bar Value = 9000
 
-283 01/02/2011 ~ 17:57:29.804 ~ Progress Bar Value = 688
+283 22/02/2011 ~ 22:50:16.782 ~ Time to Deflation 0:20
 
-284 01/02/2011 ~ 17:57:29.929 ~ 550
+284 22/02/2011 ~ 22:50:16.782 ~ Progress Bar Value = 9000
 
-285 01/02/2011 ~ 17:57:30.054 ~ Progress Bar Value = 944
+285 22/02/2011 ~ 22:50:16.782 ~ Time to Deflation 0:20
 
-286 01/02/2011 ~ 17:57:30.304 ~ Progress Bar Value = 1200
+286 22/02/2011 ~ 22:50:16.783 ~ Progress Bar Value = 9000
 
-287 01/02/2011 ~ 17:57:30.554 ~ Progress Bar Value = 1456
+287 22/02/2011 ~ 22:50:16.783 ~ Time to Deflation 0:20
 
-288 01/02/2011 ~ 17:57:30.804 ~ Progress Bar Value = 1712
+288 22/02/2011 ~ 22:50:16.784 ~ Progress Bar Value = 9000
 
-289 01/02/2011 ~ 17:57:30.929 ~ 550
+289 22/02/2011 ~ 22:50:16.784 ~ Time to Deflation 0:20
 
-290 01/02/2011 ~ 17:57:31.054 ~ Progress Bar Value = 1968
+290 22/02/2011 ~ 22:50:16.785 ~ Progress Bar Value = 9000
 
-291 01/02/2011 ~ 17:57:31.304 ~ Progress Bar Value = 2224
+291 22/02/2011 ~ 22:50:16.785 ~ Time to Deflation 0:20
 
-292 01/02/2011 ~ 17:57:31.554 ~ Progress Bar Value = 2480
+292 22/02/2011 ~ 22:50:16.785 ~ Progress Bar Value = 9000
 
-293 01/02/2011 ~ 17:57:31.804 ~ Progress Bar Value = 2736
+293 22/02/2011 ~ 22:50:16.786 ~ Time to Deflation 0:20
 
-294 01/02/2011 ~ 17:57:31.929 ~ 550
+294 22/02/2011 ~ 22:50:16.786 ~ Progress Bar Value = 9000
 
-295 01/02/2011 ~ 17:57:32.054 ~ Progress Bar Value = 2992
+295 22/02/2011 ~ 22:50:16.787 ~ Time to Deflation 0:20
 
-296 01/02/2011 ~ 17:57:32.304 ~ Progress Bar Value = 3248
+296 22/02/2011 ~ 22:50:16.787 ~ Progress Bar Value = 9000
 
-297 01/02/2011 ~ 17:57:32.554 ~ Progress Bar Value = 3504
+297 22/02/2011 ~ 22:50:16.787 ~ Time to Deflation 0:20
 
-298 01/02/2011 ~ 17:57:32.804 ~ Progress Bar Value = 3760
+298 22/02/2011 ~ 22:50:16.788 ~ Progress Bar Value = 9000
 
-299 01/02/2011 ~ 17:57:32.929 ~ 550
+299 22/02/2011 ~ 22:50:16.788 ~ Time to Deflation 0:20
 
-300 01/02/2011 ~ 17:57:33.054 ~ Progress Bar Value = 4016
+300 22/02/2011 ~ 22:50:16.789 ~ Progress Bar Value = 9000
 
-301 01/02/2011 ~ 17:57:33.304 ~ Progress Bar Value = 4272
+301 22/02/2011 ~ 22:50:16.789 ~ Time to Deflation 0:20
 
-302 01/02/2011 ~ 17:57:33.554 ~ Progress Bar Value = 4528
+302 22/02/2011 ~ 22:50:16.790 ~ Progress Bar Value = 9000
 
-303 01/02/2011 ~ 17:57:33.804 ~ Progress Bar Value = 4784
+303 22/02/2011 ~ 22:50:16.790 ~ Time to Deflation 0:20
 
-304 01/02/2011 ~ 17:57:33.929 ~ 550
+304 22/02/2011 ~ 22:50:16.790 ~ Progress Bar Value = 9000
 
-305 01/02/2011 ~ 17:57:34.054 ~ Progress Bar Value = 5040
+305 22/02/2011 ~ 22:50:16.791 ~ Time to Deflation 0:20
 
-306 01/02/2011 ~ 17:57:34.304 ~ Progress Bar Value = 5296
+306 22/02/2011 ~ 22:50:16.791 ~ Progress Bar Value = 9000
 
-307 01/02/2011 ~ 17:57:34.554 ~ Progress Bar Value = 5552
+307 22/02/2011 ~ 22:50:16.791 ~ Time to Deflation 0:20
 
-308 01/02/2011 ~ 17:57:34.804 ~ Progress Bar Value = 5808
+308 22/02/2011 ~ 22:50:16.792 ~ Progress Bar Value = 9000
 
-309 01/02/2011 ~ 17:57:34.929 ~ 550
+309 22/02/2011 ~ 22:50:16.792 ~ Time to Deflation 0:20
 
-310 01/02/2011 ~ 17:57:35.054 ~ Progress Bar Value = 6064
+310 22/02/2011 ~ 22:50:16.793 ~ Progress Bar Value = 9000
 
-311 01/02/2011 ~ 17:57:35.304 ~ Progress Bar Value = 6320
+311 22/02/2011 ~ 22:50:16.793 ~ Time to Deflation 0:20
 
-312 01/02/2011 ~ 17:57:35.554 ~ Progress Bar Value = 6576
+312 22/02/2011 ~ 22:50:16.793 ~ Progress Bar Value = 9000
 
-313 01/02/2011 ~ 17:57:35.804 ~ Progress Bar Value = 6832
+313 22/02/2011 ~ 22:50:16.794 ~ Time to Deflation 0:20
 
-314 01/02/2011 ~ 17:57:35.929 ~ 550
+314 22/02/2011 ~ 22:50:16.794 ~ Progress Bar Value = 9000
 
-315 01/02/2011 ~ 17:57:36.054 ~ Progress Bar Value = 7088
+315 22/02/2011 ~ 22:50:16.795 ~ Time to Deflation 0:20
 
-316 01/02/2011 ~ 17:57:36.305 ~ Progress Bar Value = 7344
+316 22/02/2011 ~ 22:50:16.795 ~ Progress Bar Value = 9000
 
-317 01/02/2011 ~ 17:57:36.555 ~ Progress Bar Value = 7600
+317 22/02/2011 ~ 22:50:16.796 ~ Time to Deflation 0:20
 
-318 01/02/2011 ~ 17:57:36.805 ~ Progress Bar Value = 7856
+318 22/02/2011 ~ 22:50:16.796 ~ Progress Bar Value = 9000
 
-319 01/02/2011 ~ 17:57:36.930 ~ 550
+319 22/02/2011 ~ 22:50:16.796 ~ Time to Deflation 0:20
 
-320 01/02/2011 ~ 17:57:37.055 ~ Progress Bar Value = 8112
+320 22/02/2011 ~ 22:50:16.797 ~ Progress Bar Value = 9000
 
-321 01/02/2011 ~ 17:57:37.305 ~ Progress Bar Value = 8368
+321 22/02/2011 ~ 22:50:16.797 ~ Time to Deflation 0:20
 
-322 01/02/2011 ~ 17:57:37.555 ~ Progress Bar Value = 8624
+322 22/02/2011 ~ 22:50:16.893 ~ Progress Bar Value = 9000
 
-323 01/02/2011 ~ 17:57:37.805 ~ Progress Bar Value = 8880
+323 22/02/2011 ~ 22:50:16.893 ~ Time to Deflation 0:20
 
-324 01/02/2011 ~ 17:57:37.930 ~ 550
+324 22/02/2011 ~ 22:50:16.894 ~ Progress Bar Value = 9000
 
-325 01/02/2011 ~ 17:57:38.055 ~ Progress Bar Value = 9136
+325 22/02/2011 ~ 22:50:16.894 ~ Time to Deflation 0:20
 
-326 01/02/2011 ~ 17:57:38.305 ~ Progress Bar Value = 9392
+326 22/02/2011 ~ 22:50:16.895 ~ Progress Bar Value = 9000
 
-327 01/02/2011 ~ 17:57:38.555 ~ Progress Bar Value = 9648
+327 22/02/2011 ~ 22:50:16.895 ~ Time to Deflation 0:20
 
-328 01/02/2011 ~ 17:57:38.805 ~ Progress Bar Value = 9904
+328 22/02/2011 ~ 22:50:16.896 ~ Progress Bar Value = 9000
 
-329 01/02/2011 ~ 17:57:38.930 ~ 550
+329 22/02/2011 ~ 22:50:16.896 ~ Time to Deflation 0:20
 
-330 01/02/2011 ~ 17:57:39.055 ~ Progress Bar Value = 10160
+330 22/02/2011 ~ 22:50:16.896 ~ Progress Bar Value = 9000
 
-331 01/02/2011 ~ 17:57:39.305 ~ Progress Bar Value = 10416
+331 22/02/2011 ~ 22:50:16.897 ~ Time to Deflation 0:20
 
-332 01/02/2011 ~ 17:57:39.555 ~ Progress Bar Value = 10672
+332 22/02/2011 ~ 22:50:16.897 ~ Progress Bar Value = 9000
 
-333 01/02/2011 ~ 17:57:39.805 ~ Progress Bar Value = 10928
+333 22/02/2011 ~ 22:50:16.898 ~ Time to Deflation 0:20
 
-334 01/02/2011 ~ 17:57:39.930 ~ 550
+334 22/02/2011 ~ 22:50:16.898 ~ Progress Bar Value = 9000
 
-335 01/02/2011 ~ 17:57:40.055 ~ Progress Bar Value = 11184
+335 22/02/2011 ~ 22:50:16.899 ~ Time to Deflation 0:20
 
-336 01/02/2011 ~ 17:57:40.305 ~ Progress Bar Value = 11440
+336 22/02/2011 ~ 22:50:16.899 ~ Progress Bar Value = 9000
 
-337 01/02/2011 ~ 17:57:40.555 ~ Progress Bar Value = 11696
+337 22/02/2011 ~ 22:50:16.900 ~ Time to Deflation 0:20
 
-338 01/02/2011 ~ 17:57:40.805 ~ Progress Bar Value = 11952
+338 22/02/2011 ~ 22:50:16.900 ~ Progress Bar Value = 9000
 
-339 01/02/2011 ~ 17:57:40.930 ~ 550
+339 22/02/2011 ~ 22:50:16.900 ~ Time to Deflation 0:20
 
-340 01/02/2011 ~ 17:57:41.055 ~ Progress Bar Value = 12208
+340 22/02/2011 ~ 22:50:16.901 ~ Progress Bar Value = 9000
 
-341 01/02/2011 ~ 17:57:41.305 ~ Progress Bar Value = 12464
+341 22/02/2011 ~ 22:50:16.901 ~ Time to Deflation 0:20
 
-342 01/02/2011 ~ 17:57:41.555 ~ Progress Bar Value = 12720
+342 22/02/2011 ~ 22:50:16.902 ~ Progress Bar Value = 9000
 
-343 01/02/2011 ~ 17:57:41.805 ~ Progress Bar Value = 12976
+343 22/02/2011 ~ 22:50:16.902 ~ Time to Deflation 0:20
 
-344 01/02/2011 ~ 17:57:41.930 ~ 550
+344 22/02/2011 ~ 22:50:16.902 ~ Progress Bar Value = 9000
 
-345 01/02/2011 ~ 17:57:42.055 ~ Progress Bar Value = 13232
+345 22/02/2011 ~ 22:50:16.903 ~ Time to Deflation 0:20
 
-346 01/02/2011 ~ 17:57:42.305 ~ Progress Bar Value = 13488
+346 22/02/2011 ~ 22:50:16.903 ~ Progress Bar Value = 9000
 
-347 01/02/2011 ~ 17:57:42.555 ~ Progress Bar Value = 13744
+347 22/02/2011 ~ 22:50:16.904 ~ Time to Deflation 0:20
 
-348 01/02/2011 ~ 17:57:42.805 ~ Progress Bar Value = 14000
+348 22/02/2011 ~ 22:50:16.904 ~ Progress Bar Value = 9000
 
-349 01/02/2011 ~ 17:57:42.930 ~ 550
+349 22/02/2011 ~ 22:50:16.904 ~ Time to Deflation 0:20
 
-350 01/02/2011 ~ 17:57:43.055 ~ Progress Bar Value = 14256
+350 22/02/2011 ~ 22:50:16.905 ~ Progress Bar Value = 9000
 
-351 01/02/2011 ~ 17:57:43.305 ~ Progress Bar Value = 14512
+351 22/02/2011 ~ 22:50:16.905 ~ Time to Deflation 0:20
 
-352 01/02/2011 ~ 17:57:43.555 ~ Progress Bar Value = 14768
+352 22/02/2011 ~ 22:50:16.906 ~ Progress Bar Value = 9000
 
-353 01/02/2011 ~ 17:57:43.805 ~ Progress Bar Value = 15024
+353 22/02/2011 ~ 22:50:16.907 ~ Time to Deflation 0:20
 
-354 01/02/2011 ~ 17:57:43.945 ~ 550
+354 22/02/2011 ~ 22:50:16.907 ~ Progress Bar Value = 9000
 
-355 01/02/2011 ~ 17:57:44.055 ~ Progress Bar Value = 15280
+355 22/02/2011 ~ 22:50:16.907 ~ Time to Deflation 0:20
 
-356 01/02/2011 ~ 17:57:44.305 ~ Progress Bar Value = 15536
+356 22/02/2011 ~ 22:50:16.908 ~ Progress Bar Value = 9000
 
-357 01/02/2011 ~ 17:57:44.430 ~ BLL_STOP_CAPTURE
+357 22/02/2011 ~ 22:50:16.908 ~ Time to Deflation 0:20
 
-358 01/02/2011 ~ 18:07:44.506 ~ instances = 1
+358 22/02/2011 ~ 22:50:16.909 ~ Progress Bar Value = 9000
 
-359 01/02/2011 ~ 18:07:45.334 ~ Connection established succesfully with serverMUM-9638\SQLEXPRESS
+359 22/02/2011 ~ 22:50:16.909 ~ Time to Deflation 0:20
 
-360 01/02/2011 ~ 18:07:53.147 ~ Scor application loaded successfully.
+360 22/02/2011 ~ 22:50:16.909 ~ Progress Bar Value = 9000
 
-361 01/02/2011 ~ 18:07:57.491 ~ Loading Capture Form
+361 22/02/2011 ~ 22:50:16.910 ~ Time to Deflation 0:20
 
-362 01/02/2011 ~ 18:07:57.522 ~ Reading Configuration Settings
+362 22/02/2011 ~ 22:50:16.910 ~ Progress Bar Value = 9000
 
-363 01/02/2011 ~ 18:07:57.522 ~ Subscribing to Events
+363 22/02/2011 ~ 22:50:16.910 ~ Time to Deflation 0:20
 
-364 01/02/2011 ~ 18:07:57.600 ~ BLL_START_CAPTURE
+364 22/02/2011 ~ 22:50:16.911 ~ Progress Bar Value = 9000
 
-365 01/02/2011 ~ 18:07:57.647 ~ Capture Form Loading DONE
+365 22/02/2011 ~ 22:50:16.911 ~ Time to Deflation 0:20
 
-366 01/02/2011 ~ 18:07:58.334 ~ error alarm source not avaialble yet
+366 22/02/2011 ~ 22:50:16.912 ~ Progress Bar Value = 9000
 
-367 01/02/2011 ~ 18:07:58.756 ~ Inflated Cuff
+367 22/02/2011 ~ 22:50:16.912 ~ Time to Deflation 0:20
 
-368 01/02/2011 ~ 18:07:58.756 ~ Vibhuti :Inflated Cuff - e.deflationtime = 0
+368 22/02/2011 ~ 22:50:16.913 ~ Progress Bar Value = 9000
 
-369 01/02/2011 ~ 18:07:59.131 ~  progress bar maximum value 29872
+369 22/02/2011 ~ 22:50:16.913 ~ Time to Deflation 0:20
 
-370 01/02/2011 ~ 18:07:59.225 ~ Progress Bar Value = 176
+370 22/02/2011 ~ 22:50:16.913 ~ Progress Bar Value = 9000
 
-371 01/02/2011 ~ 18:07:59.350 ~ 523
+371 22/02/2011 ~ 22:50:16.914 ~ Time to Deflation 0:20
 
-372 01/02/2011 ~ 18:07:59.475 ~ Progress Bar Value = 432
+372 22/02/2011 ~ 22:50:16.914 ~ Progress Bar Value = 9000
 
-373 01/02/2011 ~ 18:07:59.725 ~ Progress Bar Value = 688
+373 22/02/2011 ~ 22:50:16.915 ~ Time to Deflation 0:20
 
-374 01/02/2011 ~ 18:07:59.975 ~ Progress Bar Value = 944
+374 22/02/2011 ~ 22:50:16.915 ~ Progress Bar Value = 9000
 
-375 01/02/2011 ~ 18:08:00.225 ~ Progress Bar Value = 1200
+375 22/02/2011 ~ 22:50:16.915 ~ Time to Deflation 0:20
 
-376 01/02/2011 ~ 18:08:00.350 ~ 550
+376 22/02/2011 ~ 22:50:16.916 ~ Progress Bar Value = 9000
 
-377 01/02/2011 ~ 18:08:00.475 ~ Progress Bar Value = 1456
+377 22/02/2011 ~ 22:50:16.916 ~ Time to Deflation 0:20
 
-378 01/02/2011 ~ 18:08:00.725 ~ Progress Bar Value = 1712
+378 22/02/2011 ~ 22:50:16.916 ~ Progress Bar Value = 9000
 
-379 01/02/2011 ~ 18:08:00.975 ~ Progress Bar Value = 1968
+379 22/02/2011 ~ 22:50:16.916 ~ Time to Deflation 0:20
 
-380 01/02/2011 ~ 18:08:01.225 ~ Progress Bar Value = 2224
+380 22/02/2011 ~ 22:50:16.917 ~ Progress Bar Value = 9000
 
-381 01/02/2011 ~ 18:08:01.350 ~ 550
+381 22/02/2011 ~ 22:50:16.917 ~ Time to Deflation 0:20
 
-382 01/02/2011 ~ 18:08:01.475 ~ Progress Bar Value = 2480
+382 22/02/2011 ~ 22:50:16.917 ~ Progress Bar Value = 9000
 
-383 01/02/2011 ~ 18:08:01.725 ~ Progress Bar Value = 2736
+383 22/02/2011 ~ 22:50:16.917 ~ Time to Deflation 0:20
 
-384 01/02/2011 ~ 18:08:01.975 ~ Progress Bar Value = 2992
+384 22/02/2011 ~ 22:50:16.917 ~ Progress Bar Value = 9000
 
-385 01/02/2011 ~ 18:08:02.225 ~ Progress Bar Value = 3248
+385 22/02/2011 ~ 22:50:16.918 ~ Time to Deflation 0:20
 
-386 01/02/2011 ~ 18:08:02.350 ~ 550
+386 22/02/2011 ~ 22:50:17.033 ~ Progress Bar Value = 9000
 
-387 01/02/2011 ~ 18:08:02.475 ~ Progress Bar Value = 3504
+387 22/02/2011 ~ 22:50:17.033 ~ Time to Deflation 0:20
 
-388 01/02/2011 ~ 18:08:02.725 ~ Progress Bar Value = 3760
+388 22/02/2011 ~ 22:50:17.034 ~ Progress Bar Value = 9000
 
-389 01/02/2011 ~ 18:08:02.975 ~ Progress Bar Value = 4016
+389 22/02/2011 ~ 22:50:17.034 ~ Time to Deflation 0:20
 
-390 01/02/2011 ~ 18:08:03.225 ~ Progress Bar Value = 4272
+390 22/02/2011 ~ 22:50:17.035 ~ Progress Bar Value = 9000
 
-391 01/02/2011 ~ 18:08:03.350 ~ 550
+391 22/02/2011 ~ 22:50:17.035 ~ Time to Deflation 0:20
 
-392 01/02/2011 ~ 18:08:03.475 ~ Progress Bar Value = 4528
+392 22/02/2011 ~ 22:50:17.036 ~ Progress Bar Value = 9000
 
-393 01/02/2011 ~ 18:08:03.725 ~ Progress Bar Value = 4784
+393 22/02/2011 ~ 22:50:17.036 ~ Time to Deflation 0:20
 
-394 01/02/2011 ~ 18:08:03.975 ~ Progress Bar Value = 5040
+394 22/02/2011 ~ 22:50:17.036 ~ Progress Bar Value = 9000
 
-395 01/02/2011 ~ 18:08:04.225 ~ Progress Bar Value = 5296
+395 22/02/2011 ~ 22:50:17.037 ~ Time to Deflation 0:20
 
-396 01/02/2011 ~ 18:08:04.350 ~ 550
+396 22/02/2011 ~ 22:50:17.037 ~ Progress Bar Value = 9000
 
-397 01/02/2011 ~ 18:08:04.475 ~ Progress Bar Value = 5552
+397 22/02/2011 ~ 22:50:17.037 ~ Time to Deflation 0:20
 
-398 01/02/2011 ~ 18:08:04.725 ~ Progress Bar Value = 5808
+398 22/02/2011 ~ 22:50:17.038 ~ Progress Bar Value = 9000
 
-399 01/02/2011 ~ 18:08:04.975 ~ Progress Bar Value = 6064
+399 22/02/2011 ~ 22:50:17.038 ~ Time to Deflation 0:20
 
-400 01/02/2011 ~ 18:08:05.225 ~ Progress Bar Value = 6320
+400 22/02/2011 ~ 22:50:17.039 ~ Progress Bar Value = 9000
 
-401 01/02/2011 ~ 18:08:05.350 ~ 550
+401 22/02/2011 ~ 22:50:17.039 ~ Time to Deflation 0:20
 
-402 01/02/2011 ~ 18:08:05.475 ~ Progress Bar Value = 6576
+402 22/02/2011 ~ 22:50:17.040 ~ Progress Bar Value = 9000
 
-403 01/02/2011 ~ 18:08:05.725 ~ Progress Bar Value = 6832
+403 22/02/2011 ~ 22:50:17.040 ~ Time to Deflation 0:20
 
-404 01/02/2011 ~ 18:08:05.975 ~ Progress Bar Value = 7088
+404 22/02/2011 ~ 22:50:17.040 ~ Progress Bar Value = 9000
 
-405 01/02/2011 ~ 18:08:06.225 ~ Progress Bar Value = 7344
+405 22/02/2011 ~ 22:50:17.044 ~ Time to Deflation 0:20
 
-406 01/02/2011 ~ 18:08:06.350 ~ 550
+406 22/02/2011 ~ 22:50:17.044 ~ Progress Bar Value = 9000
 
-407 01/02/2011 ~ 18:08:06.475 ~ Progress Bar Value = 7600
+407 22/02/2011 ~ 22:50:17.045 ~ Time to Deflation 0:20
 
-408 01/02/2011 ~ 18:08:06.725 ~ Progress Bar Value = 7856
+408 22/02/2011 ~ 22:50:17.045 ~ Progress Bar Value = 9000
 
-409 01/02/2011 ~ 18:08:06.975 ~ Progress Bar Value = 8112
+409 22/02/2011 ~ 22:50:17.046 ~ Time to Deflation 0:20
 
-410 01/02/2011 ~ 18:08:07.225 ~ Progress Bar Value = 8368
+410 22/02/2011 ~ 22:50:17.046 ~ Progress Bar Value = 9000
 
-411 01/02/2011 ~ 18:08:07.350 ~ 550
+411 22/02/2011 ~ 22:50:17.046 ~ Time to Deflation 0:20
 
-412 01/02/2011 ~ 18:08:07.475 ~ Progress Bar Value = 8624
+412 22/02/2011 ~ 22:50:17.047 ~ Progress Bar Value = 9000
 
-413 01/02/2011 ~ 18:08:07.725 ~ Progress Bar Value = 8880
+413 22/02/2011 ~ 22:50:17.047 ~ Time to Deflation 0:20
 
-414 01/02/2011 ~ 18:08:07.975 ~ Progress Bar Value = 9136
+414 22/02/2011 ~ 22:50:17.048 ~ Progress Bar Value = 9000
 
-415 01/02/2011 ~ 18:08:08.226 ~ Progress Bar Value = 9392
+415 22/02/2011 ~ 22:50:17.048 ~ Time to Deflation 0:20
 
-416 01/02/2011 ~ 18:08:08.351 ~ 550
+416 22/02/2011 ~ 22:50:17.048 ~ Progress Bar Value = 9000
 
-417 01/02/2011 ~ 18:08:08.476 ~ Progress Bar Value = 9648
+417 22/02/2011 ~ 22:50:17.049 ~ Time to Deflation 0:20
 
-418 01/02/2011 ~ 18:08:08.726 ~ Progress Bar Value = 9904
+418 22/02/2011 ~ 22:50:17.049 ~ Progress Bar Value = 9000
 
-419 01/02/2011 ~ 18:08:08.976 ~ Progress Bar Value = 10160
+419 22/02/2011 ~ 22:50:17.050 ~ Time to Deflation 0:20
 
-420 01/02/2011 ~ 18:08:09.226 ~ Progress Bar Value = 10416
+420 22/02/2011 ~ 22:50:17.050 ~ Progress Bar Value = 9000
 
-421 01/02/2011 ~ 18:08:09.351 ~ 550
+421 22/02/2011 ~ 22:50:17.050 ~ Time to Deflation 0:20
 
-422 01/02/2011 ~ 18:08:09.476 ~ Progress Bar Value = 10672
+422 22/02/2011 ~ 22:50:17.051 ~ Progress Bar Value = 9000
 
-423 01/02/2011 ~ 18:08:09.726 ~ Progress Bar Value = 10928
+423 22/02/2011 ~ 22:50:17.051 ~ Time to Deflation 0:20
 
-424 01/02/2011 ~ 18:08:09.976 ~ Progress Bar Value = 11184
+424 22/02/2011 ~ 22:50:17.052 ~ Progress Bar Value = 9000
 
-425 01/02/2011 ~ 18:08:10.226 ~ Progress Bar Value = 11440
+425 22/02/2011 ~ 22:50:17.052 ~ Time to Deflation 0:20
 
-426 01/02/2011 ~ 18:08:10.351 ~ 550
+426 22/02/2011 ~ 22:50:17.052 ~ Progress Bar Value = 9000
 
-427 01/02/2011 ~ 18:08:10.476 ~ Progress Bar Value = 11696
+427 22/02/2011 ~ 22:50:17.053 ~ Time to Deflation 0:20
 
-428 01/02/2011 ~ 18:08:10.726 ~ Progress Bar Value = 11952
+428 22/02/2011 ~ 22:50:17.053 ~ Progress Bar Value = 9000
 
-429 01/02/2011 ~ 18:08:10.976 ~ Progress Bar Value = 12208
+429 22/02/2011 ~ 22:50:17.054 ~ Time to Deflation 0:20
 
-430 01/02/2011 ~ 18:08:11.226 ~ Progress Bar Value = 12464
+430 22/02/2011 ~ 22:50:17.054 ~ Progress Bar Value = 9000
 
-431 01/02/2011 ~ 18:08:11.351 ~ 550
+431 22/02/2011 ~ 22:50:17.054 ~ Time to Deflation 0:20
 
-432 01/02/2011 ~ 18:08:11.476 ~ Progress Bar Value = 12720
+432 22/02/2011 ~ 22:50:17.055 ~ Progress Bar Value = 9000
 
-433 01/02/2011 ~ 18:08:11.726 ~ Progress Bar Value = 12976
+433 22/02/2011 ~ 22:50:17.055 ~ Time to Deflation 0:20
 
-434 01/02/2011 ~ 18:08:11.976 ~ Progress Bar Value = 13232
+434 22/02/2011 ~ 22:50:17.056 ~ Progress Bar Value = 9000
 
-435 01/02/2011 ~ 18:08:12.226 ~ Progress Bar Value = 13488
+435 22/02/2011 ~ 22:50:17.056 ~ Time to Deflation 0:20
 
-436 01/02/2011 ~ 18:08:12.351 ~ 550
+436 22/02/2011 ~ 22:50:17.056 ~ Progress Bar Value = 9000
 
-437 01/02/2011 ~ 18:08:12.476 ~ Progress Bar Value = 13744
+437 22/02/2011 ~ 22:50:17.057 ~ Time to Deflation 0:20
 
-438 01/02/2011 ~ 18:08:12.726 ~ Progress Bar Value = 14000
+438 22/02/2011 ~ 22:50:17.057 ~ Progress Bar Value = 9000
 
-439 01/02/2011 ~ 18:08:12.976 ~ Progress Bar Value = 14256
+439 22/02/2011 ~ 22:50:17.058 ~ Time to Deflation 0:20
 
-440 01/02/2011 ~ 18:08:13.226 ~ Progress Bar Value = 14512
+440 22/02/2011 ~ 22:50:17.058 ~ Progress Bar Value = 9000
 
-441 01/02/2011 ~ 18:08:13.351 ~ 550
+441 22/02/2011 ~ 22:50:17.058 ~ Time to Deflation 0:20
 
-442 01/02/2011 ~ 18:08:13.476 ~ Progress Bar Value = 14768
+442 22/02/2011 ~ 22:50:17.059 ~ Progress Bar Value = 9000
 
-443 01/02/2011 ~ 18:08:13.726 ~ Progress Bar Value = 15024
+443 22/02/2011 ~ 22:50:17.059 ~ Time to Deflation 0:20
 
-444 01/02/2011 ~ 18:08:13.976 ~ Progress Bar Value = 15280
+444 22/02/2011 ~ 22:50:17.059 ~ Progress Bar Value = 9000
 
-445 01/02/2011 ~ 18:08:14.226 ~ Progress Bar Value = 15536
+445 22/02/2011 ~ 22:50:17.060 ~ Time to Deflation 0:20
 
-446 01/02/2011 ~ 18:08:14.351 ~ 550
+446 22/02/2011 ~ 22:50:17.060 ~ Progress Bar Value = 9000
 
-447 01/02/2011 ~ 18:08:14.476 ~ Progress Bar Value = 15792
+447 22/02/2011 ~ 22:50:17.061 ~ Time to Deflation 0:20
 
-448 01/02/2011 ~ 18:08:14.726 ~ Progress Bar Value = 16048
+448 22/02/2011 ~ 22:50:17.061 ~ Progress Bar Value = 9000
 
-449 01/02/2011 ~ 18:08:14.976 ~ Progress Bar Value = 16304
+449 22/02/2011 ~ 22:50:17.061 ~ Time to Deflation 0:20
 
-450 01/02/2011 ~ 18:08:15.226 ~ Progress Bar Value = 16560
+450 22/02/2011 ~ 22:50:17.062 ~ 550
 
-451 01/02/2011 ~ 18:08:15.351 ~ 550
+451 22/02/2011 ~ 22:50:17.062 ~ 550
 
-452 01/02/2011 ~ 18:08:15.476 ~ Progress Bar Value = 16816
+452 22/02/2011 ~ 22:50:17.062 ~ 550
 
-453 01/02/2011 ~ 18:08:15.726 ~ Progress Bar Value = 17072
+453 22/02/2011 ~ 22:50:17.160 ~ Progress Bar Value = 9000
 
-454 01/02/2011 ~ 18:08:15.976 ~ Progress Bar Value = 17328
+454 22/02/2011 ~ 22:50:17.160 ~ Time to Deflation 0:20
 
-455 01/02/2011 ~ 18:08:16.226 ~ Progress Bar Value = 17584
+455 22/02/2011 ~ 22:50:17.161 ~ Progress Bar Value = 9000
 
-456 01/02/2011 ~ 18:08:16.351 ~ 550
+456 22/02/2011 ~ 22:50:17.162 ~ Time to Deflation 0:20
 
-457 01/02/2011 ~ 18:08:16.476 ~ Progress Bar Value = 17840
+457 22/02/2011 ~ 22:50:17.162 ~ Progress Bar Value = 9000
 
-458 01/02/2011 ~ 18:08:16.726 ~ Progress Bar Value = 18096
+458 22/02/2011 ~ 22:50:17.162 ~ Time to Deflation 0:20
 
-459 01/02/2011 ~ 18:08:16.976 ~ Progress Bar Value = 18352
+459 22/02/2011 ~ 22:50:17.163 ~ Progress Bar Value = 9000
 
-460 01/02/2011 ~ 18:08:17.226 ~ Progress Bar Value = 18608
+460 22/02/2011 ~ 22:50:17.163 ~ Time to Deflation 0:20
 
-461 01/02/2011 ~ 18:08:17.351 ~ 550
+461 22/02/2011 ~ 22:50:17.164 ~ Progress Bar Value = 9000
 
-462 01/02/2011 ~ 18:08:17.476 ~ Progress Bar Value = 18864
+462 22/02/2011 ~ 22:50:17.164 ~ Time to Deflation 0:20
 
-463 01/02/2011 ~ 18:08:17.726 ~ Progress Bar Value = 19120
+463 22/02/2011 ~ 22:50:17.164 ~ Progress Bar Value = 9000
 
-464 01/02/2011 ~ 18:08:17.976 ~ Progress Bar Value = 19376
+464 22/02/2011 ~ 22:50:17.165 ~ Time to Deflation 0:20
 
-465 01/02/2011 ~ 18:08:18.226 ~ Progress Bar Value = 19632
+465 22/02/2011 ~ 22:50:17.165 ~ Progress Bar Value = 9000
 
-466 01/02/2011 ~ 18:08:18.351 ~ 550
+466 22/02/2011 ~ 22:50:17.165 ~ Time to Deflation 0:20
 
-467 01/02/2011 ~ 18:08:18.476 ~ Progress Bar Value = 19888
+467 22/02/2011 ~ 22:50:17.166 ~ Progress Bar Value = 9000
 
-468 01/02/2011 ~ 18:08:18.726 ~ Progress Bar Value = 20144
+468 22/02/2011 ~ 22:50:17.166 ~ Time to Deflation 0:20
 
-469 01/02/2011 ~ 18:08:18.976 ~ Progress Bar Value = 20400
+469 22/02/2011 ~ 22:50:17.167 ~ Progress Bar Value = 9000
 
-470 01/02/2011 ~ 18:08:19.226 ~ Progress Bar Value = 20656
+470 22/02/2011 ~ 22:50:17.167 ~ Time to Deflation 0:20
 
-471 01/02/2011 ~ 18:08:19.351 ~ 550
+471 22/02/2011 ~ 22:50:17.167 ~ Progress Bar Value = 9000
 
-472 01/02/2011 ~ 18:08:19.476 ~ Progress Bar Value = 20912
+472 22/02/2011 ~ 22:50:17.168 ~ Time to Deflation 0:20
 
-473 01/02/2011 ~ 18:08:19.726 ~ Progress Bar Value = 21168
+473 22/02/2011 ~ 22:50:17.168 ~ Progress Bar Value = 9000
 
-474 01/02/2011 ~ 18:08:19.976 ~ Progress Bar Value = 21424
+474 22/02/2011 ~ 22:50:17.169 ~ Time to Deflation 0:20
 
-475 01/02/2011 ~ 18:08:20.226 ~ Progress Bar Value = 21680
+475 22/02/2011 ~ 22:50:17.169 ~ Progress Bar Value = 9000
 
-476 01/02/2011 ~ 18:08:20.351 ~ 550
+476 22/02/2011 ~ 22:50:17.169 ~ Time to Deflation 0:20
 
-477 01/02/2011 ~ 18:08:20.476 ~ Progress Bar Value = 21936
+477 22/02/2011 ~ 22:50:17.170 ~ Progress Bar Value = 9000
 
-478 01/02/2011 ~ 18:08:20.726 ~ Progress Bar Value = 22192
+478 22/02/2011 ~ 22:50:17.170 ~ Time to Deflation 0:20
 
-479 01/02/2011 ~ 18:08:20.976 ~ Progress Bar Value = 22448
+479 22/02/2011 ~ 22:50:17.171 ~ Progress Bar Value = 9000
 
-480 01/02/2011 ~ 18:08:21.226 ~ Progress Bar Value = 22704
+480 22/02/2011 ~ 22:50:17.171 ~ Time to Deflation 0:20
 
-481 01/02/2011 ~ 18:08:21.351 ~ 550
+481 22/02/2011 ~ 22:50:17.171 ~ Progress Bar Value = 9000
 
-482 01/02/2011 ~ 18:08:21.476 ~ Progress Bar Value = 22960
+482 22/02/2011 ~ 22:50:17.172 ~ Time to Deflation 0:20
 
-483 01/02/2011 ~ 18:08:21.726 ~ Progress Bar Value = 23216
+483 22/02/2011 ~ 22:50:17.172 ~ Progress Bar Value = 9000
 
-484 01/02/2011 ~ 18:08:21.976 ~ Progress Bar Value = 23472
+484 22/02/2011 ~ 22:50:17.172 ~ Time to Deflation 0:20
 
-485 01/02/2011 ~ 18:08:22.226 ~ Progress Bar Value = 23728
+485 22/02/2011 ~ 22:50:17.173 ~ Progress Bar Value = 9000
 
-486 01/02/2011 ~ 18:08:22.351 ~ 550
+486 22/02/2011 ~ 22:50:17.173 ~ Time to Deflation 0:20
 
-487 01/02/2011 ~ 18:08:22.476 ~ Progress Bar Value = 23984
+487 22/02/2011 ~ 22:50:17.174 ~ Progress Bar Value = 9000
 
-488 01/02/2011 ~ 18:08:22.726 ~ Progress Bar Value = 24240
+488 22/02/2011 ~ 22:50:17.174 ~ Time to Deflation 0:20
 
-489 01/02/2011 ~ 18:08:22.976 ~ Progress Bar Value = 24496
+489 22/02/2011 ~ 22:50:17.175 ~ Progress Bar Value = 9000
 
-490 01/02/2011 ~ 18:08:23.226 ~ Progress Bar Value = 24752
+490 22/02/2011 ~ 22:50:17.175 ~ Time to Deflation 0:20
 
-491 01/02/2011 ~ 18:08:23.351 ~ 550
+491 22/02/2011 ~ 22:50:17.175 ~ Progress Bar Value = 9000
 
-492 01/02/2011 ~ 18:08:23.476 ~ Progress Bar Value = 25008
+492 22/02/2011 ~ 22:50:17.176 ~ Time to Deflation 0:20
 
-493 01/02/2011 ~ 18:08:23.726 ~ Progress Bar Value = 25264
+493 22/02/2011 ~ 22:50:17.176 ~ Progress Bar Value = 9000
 
-494 01/02/2011 ~ 18:08:23.976 ~ Progress Bar Value = 25520
+494 22/02/2011 ~ 22:50:17.177 ~ Time to Deflation 0:20
 
-495 01/02/2011 ~ 18:08:24.226 ~ Progress Bar Value = 25776
+495 22/02/2011 ~ 22:50:17.177 ~ Progress Bar Value = 9000
 
-496 01/02/2011 ~ 18:08:24.351 ~ 550
+496 22/02/2011 ~ 22:50:17.177 ~ Time to Deflation 0:20
 
-497 01/02/2011 ~ 18:08:24.476 ~ Progress Bar Value = 26032
+497 22/02/2011 ~ 22:50:17.178 ~ Progress Bar Value = 9000
 
-498 01/02/2011 ~ 18:08:24.726 ~ Progress Bar Value = 26288
+498 22/02/2011 ~ 22:50:17.178 ~ Time to Deflation 0:20
 
-499 01/02/2011 ~ 18:08:24.976 ~ Progress Bar Value = 26544
+499 22/02/2011 ~ 22:50:17.179 ~ Progress Bar Value = 9000
 
-500 01/02/2011 ~ 18:08:25.226 ~ Progress Bar Value = 26800
+500 22/02/2011 ~ 22:50:17.179 ~ Time to Deflation 0:20
 
-501 01/02/2011 ~ 18:08:25.351 ~ 550
+501 22/02/2011 ~ 22:50:17.179 ~ Progress Bar Value = 9000
 
-502 01/02/2011 ~ 18:08:25.476 ~ Progress Bar Value = 27056
+502 22/02/2011 ~ 22:50:17.180 ~ Time to Deflation 0:20
 
-503 01/02/2011 ~ 18:08:25.726 ~ Progress Bar Value = 27312
+503 22/02/2011 ~ 22:50:17.180 ~ Progress Bar Value = 9000
 
-504 01/02/2011 ~ 18:08:25.976 ~ Progress Bar Value = 27568
+504 22/02/2011 ~ 22:50:17.181 ~ Time to Deflation 0:20
 
-505 01/02/2011 ~ 18:08:26.226 ~ Progress Bar Value = 27824
+505 22/02/2011 ~ 22:50:17.181 ~ Progress Bar Value = 9000
 
-506 01/02/2011 ~ 18:08:26.351 ~ 550
+506 22/02/2011 ~ 22:50:17.181 ~ Time to Deflation 0:20
 
-507 01/02/2011 ~ 18:08:26.476 ~ Progress Bar Value = 28080
+507 22/02/2011 ~ 22:50:17.182 ~ Progress Bar Value = 9000
 
-508 01/02/2011 ~ 18:08:26.726 ~ Progress Bar Value = 28336
+508 22/02/2011 ~ 22:50:17.182 ~ Time to Deflation 0:20
 
-509 01/02/2011 ~ 18:08:26.976 ~ Progress Bar Value = 28592
+509 22/02/2011 ~ 22:50:17.183 ~ Progress Bar Value = 9000
 
-510 01/02/2011 ~ 18:08:27.226 ~ Progress Bar Value = 28848
+510 22/02/2011 ~ 22:50:17.183 ~ Time to Deflation 0:20
 
-511 01/02/2011 ~ 18:08:27.351 ~ 550
+511 22/02/2011 ~ 22:50:17.183 ~ Progress Bar Value = 9000
 
-512 01/02/2011 ~ 18:08:27.476 ~ Progress Bar Value = 29104
+512 22/02/2011 ~ 22:50:17.184 ~ Time to Deflation 0:20
 
-513 01/02/2011 ~ 18:08:27.601 ~ OTHER THAN - Inflated Cuff
+513 22/02/2011 ~ 22:50:17.184 ~ Progress Bar Value = 9000
 
-514 01/02/2011 ~ 18:08:27.601 ~ OTHER THAN - Inflated Cuff - e.deflationtime = 0
+514 22/02/2011 ~ 22:50:17.185 ~ Time to Deflation 0:20
 
-515 01/02/2011 ~ 18:08:28.351 ~ 550
+515 22/02/2011 ~ 22:50:17.185 ~ Progress Bar Value = 9000
 
-516 01/02/2011 ~ 18:08:29.351 ~ 550
+516 22/02/2011 ~ 22:50:17.185 ~ Time to Deflation 0:20
 
-517 01/02/2011 ~ 18:08:30.351 ~ 550
+517 22/02/2011 ~ 22:50:17.283 ~ Progress Bar Value = 9000
 
-518 01/02/2011 ~ 18:08:30.601 ~ OTHER THAN - Inflated Cuff
+518 22/02/2011 ~ 22:50:17.284 ~ Time to Deflation 0:20
 
-519 01/02/2011 ~ 18:08:30.601 ~ OTHER THAN - Inflated Cuff - e.deflationtime = 0
+519 22/02/2011 ~ 22:50:17.284 ~ Progress Bar Value = 9000
 
-520 01/02/2011 ~ 18:08:31.351 ~ 550
+520 22/02/2011 ~ 22:50:17.285 ~ Time to Deflation 0:20
 
-521 01/02/2011 ~ 18:08:32.352 ~ 550
+521 22/02/2011 ~ 22:50:17.285 ~ Progress Bar Value = 9000
 
-522 01/02/2011 ~ 18:08:32.727 ~ OTHER THAN - Inflated Cuff
+522 22/02/2011 ~ 22:50:17.285 ~ Time to Deflation 0:20
 
-523 01/02/2011 ~ 18:08:32.727 ~ OTHER THAN - Inflated Cuff - e.deflationtime = 0
+523 22/02/2011 ~ 22:50:17.286 ~ Progress Bar Value = 9000
 
-524 01/02/2011 ~ 18:08:33.352 ~ 550
+524 22/02/2011 ~ 22:50:17.286 ~ Time to Deflation 0:20
 
-525 01/02/2011 ~ 18:08:35.664 ~ BLL_STOP_CAPTURE
+525 22/02/2011 ~ 22:50:17.287 ~ Progress Bar Value = 9000
+
+526 22/02/2011 ~ 22:50:17.287 ~ Time to Deflation 0:20
+
+527 22/02/2011 ~ 22:50:17.287 ~ Progress Bar Value = 9000
+
+528 22/02/2011 ~ 22:50:17.288 ~ Time to Deflation 0:20
+
+529 22/02/2011 ~ 22:50:17.288 ~ Progress Bar Value = 9000
+
+530 22/02/2011 ~ 22:50:17.289 ~ Time to Deflation 0:20
+
+531 22/02/2011 ~ 22:50:17.289 ~ Progress Bar Value = 9000
+
+532 22/02/2011 ~ 22:50:17.290 ~ Time to Deflation 0:20
+
+533 22/02/2011 ~ 22:50:17.290 ~ Progress Bar Value = 9000
+
+534 22/02/2011 ~ 22:50:17.290 ~ Time to Deflation 0:20
+
+535 22/02/2011 ~ 22:50:17.291 ~ Progress Bar Value = 9000
+
+536 22/02/2011 ~ 22:50:17.291 ~ Time to Deflation 0:20
+
+537 22/02/2011 ~ 22:50:17.292 ~ Progress Bar Value = 9000
+
+538 22/02/2011 ~ 22:50:17.292 ~ Time to Deflation 0:20
+
+539 22/02/2011 ~ 22:50:17.293 ~ Progress Bar Value = 9000
+
+540 22/02/2011 ~ 22:50:17.293 ~ Time to Deflation 0:20
+
+541 22/02/2011 ~ 22:50:17.293 ~ Progress Bar Value = 9000
+
+542 22/02/2011 ~ 22:50:17.294 ~ Time to Deflation 0:20
+
+543 22/02/2011 ~ 22:50:17.294 ~ Progress Bar Value = 9000
+
+544 22/02/2011 ~ 22:50:17.295 ~ Time to Deflation 0:20
+
+545 22/02/2011 ~ 22:50:17.295 ~ Progress Bar Value = 9000
+
+546 22/02/2011 ~ 22:50:17.296 ~ Time to Deflation 0:20
+
+547 22/02/2011 ~ 22:50:17.296 ~ Progress Bar Value = 9000
+
+548 22/02/2011 ~ 22:50:17.296 ~ Time to Deflation 0:20
+
+549 22/02/2011 ~ 22:50:17.297 ~ Progress Bar Value = 9000
+
+550 22/02/2011 ~ 22:50:17.297 ~ Time to Deflation 0:20
+
+551 22/02/2011 ~ 22:50:17.298 ~ Progress Bar Value = 9000
+
+552 22/02/2011 ~ 22:50:17.298 ~ Time to Deflation 0:20
+
+553 22/02/2011 ~ 22:50:17.298 ~ Progress Bar Value = 9000
+
+554 22/02/2011 ~ 22:50:17.299 ~ Time to Deflation 0:20
+
+555 22/02/2011 ~ 22:50:17.299 ~ Progress Bar Value = 9000
+
+556 22/02/2011 ~ 22:50:17.300 ~ Time to Deflation 0:20
+
+557 22/02/2011 ~ 22:50:17.301 ~ Progress Bar Value = 9000
+
+558 22/02/2011 ~ 22:50:17.301 ~ Time to Deflation 0:20
+
+559 22/02/2011 ~ 22:50:17.301 ~ Progress Bar Value = 9000
+
+560 22/02/2011 ~ 22:50:17.302 ~ Time to Deflation 0:20
+
+561 22/02/2011 ~ 22:50:17.302 ~ Progress Bar Value = 9000
+
+562 22/02/2011 ~ 22:50:17.303 ~ Time to Deflation 0:20
+
+563 22/02/2011 ~ 22:50:17.303 ~ Progress Bar Value = 9000
+
+564 22/02/2011 ~ 22:50:17.303 ~ Time to Deflation 0:20
+
+565 22/02/2011 ~ 22:50:17.304 ~ Progress Bar Value = 9000
+
+566 22/02/2011 ~ 22:50:17.304 ~ Time to Deflation 0:20
+
+567 22/02/2011 ~ 22:50:17.305 ~ Progress Bar Value = 9000
+
+568 22/02/2011 ~ 22:50:17.305 ~ Time to Deflation 0:20
+
+569 22/02/2011 ~ 22:50:17.305 ~ Progress Bar Value = 9000
+
+570 22/02/2011 ~ 22:50:17.306 ~ Time to Deflation 0:20
+
+571 22/02/2011 ~ 22:50:17.306 ~ Progress Bar Value = 9000
+
+572 22/02/2011 ~ 22:50:17.306 ~ Time to Deflation 0:20
+
+573 22/02/2011 ~ 22:50:17.307 ~ Progress Bar Value = 9000
+
+574 22/02/2011 ~ 22:50:17.307 ~ Time to Deflation 0:20
+
+575 22/02/2011 ~ 22:50:17.308 ~ Progress Bar Value = 9000
+
+576 22/02/2011 ~ 22:50:17.308 ~ Time to Deflation 0:20
+
+577 22/02/2011 ~ 22:50:17.309 ~ Progress Bar Value = 9000
+
+578 22/02/2011 ~ 22:50:17.309 ~ Time to Deflation 0:20
+
+579 22/02/2011 ~ 22:50:17.309 ~ Progress Bar Value = 9000
+
+580 22/02/2011 ~ 22:50:17.310 ~ Time to Deflation 0:20
+
+581 22/02/2011 ~ 22:50:17.423 ~ Progress Bar Value = 9000
+
+582 22/02/2011 ~ 22:50:17.423 ~ Time to Deflation 0:20
+
+583 22/02/2011 ~ 22:50:17.424 ~ Progress Bar Value = 9000
+
+584 22/02/2011 ~ 22:50:17.424 ~ Time to Deflation 0:20
+
+585 22/02/2011 ~ 22:50:17.425 ~ Progress Bar Value = 9000
+
+586 22/02/2011 ~ 22:50:17.425 ~ Time to Deflation 0:20
+
+587 22/02/2011 ~ 22:50:17.426 ~ Progress Bar Value = 9000
+
+588 22/02/2011 ~ 22:50:17.427 ~ Time to Deflation 0:20
+
+589 22/02/2011 ~ 22:50:17.427 ~ Progress Bar Value = 9000
+
+590 22/02/2011 ~ 22:50:17.428 ~ Time to Deflation 0:20
+
+591 22/02/2011 ~ 22:50:17.428 ~ Progress Bar Value = 9000
+
+592 22/02/2011 ~ 22:50:17.429 ~ Time to Deflation 0:20
+
+593 22/02/2011 ~ 22:50:17.429 ~ Progress Bar Value = 9000
+
+594 22/02/2011 ~ 22:50:17.429 ~ Time to Deflation 0:20
+
+595 22/02/2011 ~ 22:50:17.430 ~ Progress Bar Value = 9000
+
+596 22/02/2011 ~ 22:50:17.430 ~ Time to Deflation 0:20
+
+597 22/02/2011 ~ 22:50:17.431 ~ Progress Bar Value = 9000
+
+598 22/02/2011 ~ 22:50:17.431 ~ Time to Deflation 0:20
+
+599 22/02/2011 ~ 22:50:17.431 ~ Progress Bar Value = 9000
+
+600 22/02/2011 ~ 22:50:17.432 ~ Time to Deflation 0:20
+
+601 22/02/2011 ~ 22:50:17.432 ~ Progress Bar Value = 9000
+
+602 22/02/2011 ~ 22:50:17.433 ~ Time to Deflation 0:20
+
+603 22/02/2011 ~ 22:50:17.433 ~ Progress Bar Value = 9000
+
+604 22/02/2011 ~ 22:50:17.433 ~ Time to Deflation 0:20
+
+605 22/02/2011 ~ 22:50:17.434 ~ Progress Bar Value = 9000
+
+606 22/02/2011 ~ 22:50:17.434 ~ Time to Deflation 0:20
+
+607 22/02/2011 ~ 22:50:17.435 ~ Progress Bar Value = 9000
+
+608 22/02/2011 ~ 22:50:17.435 ~ Time to Deflation 0:20
+
+609 22/02/2011 ~ 22:50:17.435 ~ Progress Bar Value = 9000
+
+610 22/02/2011 ~ 22:50:17.436 ~ Time to Deflation 0:20
+
+611 22/02/2011 ~ 22:50:17.436 ~ Progress Bar Value = 9000
+
+612 22/02/2011 ~ 22:50:17.436 ~ Time to Deflation 0:20
+
+613 22/02/2011 ~ 22:50:17.437 ~ Progress Bar Value = 9000
+
+614 22/02/2011 ~ 22:50:17.437 ~ Time to Deflation 0:20
+
+615 22/02/2011 ~ 22:50:17.438 ~ Progress Bar Value = 9000
+
+616 22/02/2011 ~ 22:50:17.438 ~ Time to Deflation 0:20
+
+617 22/02/2011 ~ 22:50:17.439 ~ Progress Bar Value = 9000
+
+618 22/02/2011 ~ 22:50:17.439 ~ Time to Deflation 0:20
+
+619 22/02/2011 ~ 22:50:17.439 ~ Progress Bar Value = 9000
+
+620 22/02/2011 ~ 22:50:17.440 ~ Time to Deflation 0:20
+
+621 22/02/2011 ~ 22:50:17.440 ~ Progress Bar Value = 9000
+
+622 22/02/2011 ~ 22:50:17.440 ~ Time to Deflation 0:20
+
+623 22/02/2011 ~ 22:50:17.441 ~ Progress Bar Value = 9000
+
+624 22/02/2011 ~ 22:50:17.441 ~ Time to Deflation 0:20
+
+625 22/02/2011 ~ 22:50:17.442 ~ Progress Bar Value = 9000
+
+626 22/02/2011 ~ 22:50:17.442 ~ Time to Deflation 0:20
+
+627 22/02/2011 ~ 22:50:17.443 ~ Progress Bar Value = 9000
+
+628 22/02/2011 ~ 22:50:17.443 ~ Time to Deflation 0:20
+
+629 22/02/2011 ~ 22:50:17.444 ~ Progress Bar Value = 9000
+
+630 22/02/2011 ~ 22:50:17.444 ~ Time to Deflation 0:20
+
+631 22/02/2011 ~ 22:50:17.444 ~ Progress Bar Value = 9000
+
+632 22/02/2011 ~ 22:50:17.445 ~ Time to Deflation 0:20
+
+633 22/02/2011 ~ 22:50:17.445 ~ Progress Bar Value = 9000
+
+634 22/02/2011 ~ 22:50:17.446 ~ Time to Deflation 0:20
+
+635 22/02/2011 ~ 22:50:17.446 ~ Progress Bar Value = 9000
+
+636 22/02/2011 ~ 22:50:17.446 ~ Time to Deflation 0:20
+
+637 22/02/2011 ~ 22:50:17.447 ~ Progress Bar Value = 9000
+
+638 22/02/2011 ~ 22:50:17.447 ~ Time to Deflation 0:20
+
+639 22/02/2011 ~ 22:50:17.448 ~ Progress Bar Value = 9000
+
+640 22/02/2011 ~ 22:50:17.448 ~ Time to Deflation 0:20
+
+641 22/02/2011 ~ 22:50:17.448 ~ Progress Bar Value = 9000
+
+642 22/02/2011 ~ 22:50:17.449 ~ Time to Deflation 0:20
+
+643 22/02/2011 ~ 22:50:17.449 ~ Progress Bar Value = 9000
+
+644 22/02/2011 ~ 22:50:17.449 ~ Time to Deflation 0:20
+
+645 22/02/2011 ~ 22:50:17.550 ~ Progress Bar Value = 9000
+
+646 22/02/2011 ~ 22:50:17.550 ~ Time to Deflation 0:20
+
+647 22/02/2011 ~ 22:50:17.551 ~ Progress Bar Value = 9000
+
+648 22/02/2011 ~ 22:50:17.551 ~ Time to Deflation 0:20
+
+649 22/02/2011 ~ 22:50:17.552 ~ Progress Bar Value = 9000
+
+650 22/02/2011 ~ 22:50:17.552 ~ Time to Deflation 0:20
+
+651 22/02/2011 ~ 22:50:17.552 ~ Progress Bar Value = 9000
+
+652 22/02/2011 ~ 22:50:17.553 ~ Time to Deflation 0:20
+
+653 22/02/2011 ~ 22:50:17.553 ~ Progress Bar Value = 9000
+
+654 22/02/2011 ~ 22:50:17.554 ~ Time to Deflation 0:20
+
+655 22/02/2011 ~ 22:50:17.554 ~ Progress Bar Value = 9000
+
+656 22/02/2011 ~ 22:50:17.554 ~ Time to Deflation 0:20
+
+657 22/02/2011 ~ 22:50:17.555 ~ Progress Bar Value = 9000
+
+658 22/02/2011 ~ 22:50:17.555 ~ Time to Deflation 0:20
+
+659 22/02/2011 ~ 22:50:17.556 ~ Progress Bar Value = 9000
+
+660 22/02/2011 ~ 22:50:17.558 ~ Time to Deflation 0:20
+
+661 22/02/2011 ~ 22:50:17.558 ~ Progress Bar Value = 9000
+
+662 22/02/2011 ~ 22:50:17.559 ~ Time to Deflation 0:20
+
+663 22/02/2011 ~ 22:50:17.559 ~ Progress Bar Value = 9000
+
+664 22/02/2011 ~ 22:50:17.560 ~ Time to Deflation 0:20
+
+665 22/02/2011 ~ 22:50:17.560 ~ Progress Bar Value = 9000
+
+666 22/02/2011 ~ 22:50:17.560 ~ Time to Deflation 0:20
+
+667 22/02/2011 ~ 22:50:17.561 ~ Progress Bar Value = 9000
+
+668 22/02/2011 ~ 22:50:17.561 ~ Time to Deflation 0:20
+
+669 22/02/2011 ~ 22:50:17.562 ~ Progress Bar Value = 9000
+
+670 22/02/2011 ~ 22:50:17.562 ~ Time to Deflation 0:20
+
+671 22/02/2011 ~ 22:50:17.563 ~ Progress Bar Value = 9000
+
+672 22/02/2011 ~ 22:50:17.563 ~ Time to Deflation 0:20
+
+673 22/02/2011 ~ 22:50:17.563 ~ Progress Bar Value = 9000
+
+674 22/02/2011 ~ 22:50:17.564 ~ Time to Deflation 0:20
+
+675 22/02/2011 ~ 22:50:17.564 ~ Progress Bar Value = 9000
+
+676 22/02/2011 ~ 22:50:17.565 ~ Time to Deflation 0:20
+
+677 22/02/2011 ~ 22:50:17.565 ~ Progress Bar Value = 9000
+
+678 22/02/2011 ~ 22:50:17.565 ~ Time to Deflation 0:20
+
+679 22/02/2011 ~ 22:50:17.566 ~ Progress Bar Value = 9000
+
+680 22/02/2011 ~ 22:50:17.566 ~ Time to Deflation 0:20
+
+681 22/02/2011 ~ 22:50:17.567 ~ Progress Bar Value = 9000
+
+682 22/02/2011 ~ 22:50:17.567 ~ Time to Deflation 0:20
+
+683 22/02/2011 ~ 22:50:17.568 ~ Progress Bar Value = 9000
+
+684 22/02/2011 ~ 22:50:17.568 ~ Time to Deflation 0:20
+
+685 22/02/2011 ~ 22:50:17.568 ~ Progress Bar Value = 9000
+
+686 22/02/2011 ~ 22:50:17.569 ~ Time to Deflation 0:20
+
+687 22/02/2011 ~ 22:50:17.569 ~ Progress Bar Value = 9000
+
+688 22/02/2011 ~ 22:50:17.570 ~ Time to Deflation 0:20
+
+689 22/02/2011 ~ 22:50:17.570 ~ Progress Bar Value = 9000
+
+690 22/02/2011 ~ 22:50:17.570 ~ Time to Deflation 0:20
+
+691 22/02/2011 ~ 22:50:17.571 ~ Progress Bar Value = 9000
+
+692 22/02/2011 ~ 22:50:17.571 ~ Time to Deflation 0:20
+
+693 22/02/2011 ~ 22:50:17.572 ~ Progress Bar Value = 9000
+
+694 22/02/2011 ~ 22:50:17.572 ~ Time to Deflation 0:20
+
+695 22/02/2011 ~ 22:50:17.572 ~ Progress Bar Value = 9000
+
+696 22/02/2011 ~ 22:50:17.573 ~ Time to Deflation 0:20
+
+697 22/02/2011 ~ 22:50:17.573 ~ Progress Bar Value = 9000
+
+698 22/02/2011 ~ 22:50:17.574 ~ Time to Deflation 0:20
+
+699 22/02/2011 ~ 22:50:17.574 ~ Progress Bar Value = 9000
+
+700 22/02/2011 ~ 22:50:17.574 ~ Time to Deflation 0:20
+
+701 22/02/2011 ~ 22:50:17.575 ~ Progress Bar Value = 9000
+
+702 22/02/2011 ~ 22:50:17.575 ~ Time to Deflation 0:20
+
+703 22/02/2011 ~ 22:50:17.576 ~ Progress Bar Value = 9000
+
+704 22/02/2011 ~ 22:50:17.576 ~ Time to Deflation 0:20
+
+705 22/02/2011 ~ 22:50:17.576 ~ Progress Bar Value = 9000
+
+706 22/02/2011 ~ 22:50:17.577 ~ Time to Deflation 0:20
+
+707 22/02/2011 ~ 22:50:17.577 ~ Progress Bar Value = 9000
+
+708 22/02/2011 ~ 22:50:17.578 ~ Time to Deflation 0:20
+
+709 22/02/2011 ~ 22:50:17.673 ~ Progress Bar Value = 9000
+
+710 22/02/2011 ~ 22:50:17.673 ~ Time to Deflation 0:20
+
+711 22/02/2011 ~ 22:50:17.674 ~ Progress Bar Value = 9000
+
+712 22/02/2011 ~ 22:50:17.674 ~ Time to Deflation 0:20
+
+713 22/02/2011 ~ 22:50:17.675 ~ Progress Bar Value = 9000
+
+714 22/02/2011 ~ 22:50:17.675 ~ Time to Deflation 0:20
+
+715 22/02/2011 ~ 22:50:17.675 ~ Progress Bar Value = 9000
+
+716 22/02/2011 ~ 22:50:17.676 ~ Time to Deflation 0:20
+
+717 22/02/2011 ~ 22:50:17.676 ~ Progress Bar Value = 9000
+
+718 22/02/2011 ~ 22:50:17.677 ~ Time to Deflation 0:20
+
+719 22/02/2011 ~ 22:50:17.677 ~ Progress Bar Value = 9000
+
+720 22/02/2011 ~ 22:50:17.677 ~ Time to Deflation 0:20
+
+721 22/02/2011 ~ 22:50:17.678 ~ Progress Bar Value = 9000
+
+722 22/02/2011 ~ 22:50:17.678 ~ Time to Deflation 0:20
+
+723 22/02/2011 ~ 22:50:17.679 ~ Progress Bar Value = 9000
+
+724 22/02/2011 ~ 22:50:17.679 ~ Time to Deflation 0:20
+
+725 22/02/2011 ~ 22:50:17.679 ~ Progress Bar Value = 9000
+
+726 22/02/2011 ~ 22:50:17.680 ~ Time to Deflation 0:20
+
+727 22/02/2011 ~ 22:50:17.680 ~ Progress Bar Value = 9000
+
+728 22/02/2011 ~ 22:50:17.681 ~ Time to Deflation 0:20
+
+729 22/02/2011 ~ 22:50:17.681 ~ Progress Bar Value = 9000
+
+730 22/02/2011 ~ 22:50:17.682 ~ Time to Deflation 0:20
+
+731 22/02/2011 ~ 22:50:17.682 ~ Progress Bar Value = 9000
+
+732 22/02/2011 ~ 22:50:17.683 ~ Time to Deflation 0:20
+
+733 22/02/2011 ~ 22:50:17.683 ~ Progress Bar Value = 9000
+
+734 22/02/2011 ~ 22:50:17.684 ~ Time to Deflation 0:20
+
+735 22/02/2011 ~ 22:50:17.684 ~ Progress Bar Value = 9000
+
+736 22/02/2011 ~ 22:50:17.684 ~ Time to Deflation 0:20
+
+737 22/02/2011 ~ 22:50:17.685 ~ Progress Bar Value = 9000
+
+738 22/02/2011 ~ 22:50:17.685 ~ Time to Deflation 0:20
+
+739 22/02/2011 ~ 22:50:17.686 ~ Progress Bar Value = 9000
+
+740 22/02/2011 ~ 22:50:17.686 ~ Time to Deflation 0:20
+
+741 22/02/2011 ~ 22:50:17.686 ~ Progress Bar Value = 9000
+
+742 22/02/2011 ~ 22:50:17.687 ~ Time to Deflation 0:20
+
+743 22/02/2011 ~ 22:50:17.687 ~ Progress Bar Value = 9000
+
+744 22/02/2011 ~ 22:50:17.688 ~ Time to Deflation 0:20
+
+745 22/02/2011 ~ 22:50:17.688 ~ Progress Bar Value = 9000
+
+746 22/02/2011 ~ 22:50:17.689 ~ Time to Deflation 0:20
+
+747 22/02/2011 ~ 22:50:17.689 ~ Progress Bar Value = 9000
+
+748 22/02/2011 ~ 22:50:17.689 ~ Time to Deflation 0:20
+
+749 22/02/2011 ~ 22:50:17.690 ~ Progress Bar Value = 9000
+
+750 22/02/2011 ~ 22:50:17.690 ~ Time to Deflation 0:20
+
+751 22/02/2011 ~ 22:50:17.691 ~ Progress Bar Value = 9000
+
+752 22/02/2011 ~ 22:50:17.691 ~ Time to Deflation 0:20
+
+753 22/02/2011 ~ 22:50:17.691 ~ Progress Bar Value = 9000
+
+754 22/02/2011 ~ 22:50:17.692 ~ Time to Deflation 0:20
+
+755 22/02/2011 ~ 22:50:17.692 ~ Progress Bar Value = 9000
+
+756 22/02/2011 ~ 22:50:17.693 ~ Time to Deflation 0:20
+
+757 22/02/2011 ~ 22:50:17.693 ~ Progress Bar Value = 9000
+
+758 22/02/2011 ~ 22:50:17.693 ~ Time to Deflation 0:20
+
+759 22/02/2011 ~ 22:50:17.694 ~ Progress Bar Value = 9000
+
+760 22/02/2011 ~ 22:50:17.694 ~ Time to Deflation 0:20
+
+761 22/02/2011 ~ 22:50:17.695 ~ Progress Bar Value = 9000
+
+762 22/02/2011 ~ 22:50:17.695 ~ Time to Deflation 0:20
+
+763 22/02/2011 ~ 22:50:17.695 ~ Progress Bar Value = 9000
+
+764 22/02/2011 ~ 22:50:17.696 ~ Time to Deflation 0:20
+
+765 22/02/2011 ~ 22:50:17.696 ~ Progress Bar Value = 9000
+
+766 22/02/2011 ~ 22:50:17.696 ~ Time to Deflation 0:20
+
+767 22/02/2011 ~ 22:50:17.696 ~ Progress Bar Value = 9000
+
+768 22/02/2011 ~ 22:50:17.696 ~ Time to Deflation 0:20
+
+769 22/02/2011 ~ 22:50:17.697 ~ Progress Bar Value = 9000
+
+770 22/02/2011 ~ 22:50:17.697 ~ Time to Deflation 0:20
+
+771 22/02/2011 ~ 22:50:17.697 ~ Progress Bar Value = 9000
+
+772 22/02/2011 ~ 22:50:17.697 ~ Time to Deflation 0:20
+
+773 22/02/2011 ~ 22:50:17.813 ~ Progress Bar Value = 9000
+
+774 22/02/2011 ~ 22:50:17.814 ~ Time to Deflation 0:20
+
+775 22/02/2011 ~ 22:50:17.814 ~ Progress Bar Value = 9000
+
+776 22/02/2011 ~ 22:50:17.814 ~ Time to Deflation 0:20
+
+777 22/02/2011 ~ 22:50:17.815 ~ Progress Bar Value = 9000
+
+778 22/02/2011 ~ 22:50:17.815 ~ Time to Deflation 0:20
+
+779 22/02/2011 ~ 22:50:17.816 ~ Progress Bar Value = 9000
+
+780 22/02/2011 ~ 22:50:17.816 ~ Time to Deflation 0:20
+
+781 22/02/2011 ~ 22:50:17.816 ~ Progress Bar Value = 9000
+
+782 22/02/2011 ~ 22:50:17.817 ~ Time to Deflation 0:20
+
+783 22/02/2011 ~ 22:50:17.817 ~ Progress Bar Value = 10000
+
+784 22/02/2011 ~ 22:50:17.818 ~ Time to Deflation 0:19
+
+785 22/02/2011 ~ 22:50:17.818 ~ Progress Bar Value = 10000
+
+786 22/02/2011 ~ 22:50:17.818 ~ Time to Deflation 0:19
+
+787 22/02/2011 ~ 22:50:17.819 ~ Progress Bar Value = 10000
+
+788 22/02/2011 ~ 22:50:17.819 ~ Time to Deflation 0:19
+
+789 22/02/2011 ~ 22:50:17.820 ~ Progress Bar Value = 10000
+
+790 22/02/2011 ~ 22:50:17.820 ~ Time to Deflation 0:19
+
+791 22/02/2011 ~ 22:50:17.820 ~ Progress Bar Value = 10000
+
+792 22/02/2011 ~ 22:50:17.821 ~ Time to Deflation 0:19
+
+793 22/02/2011 ~ 22:50:17.821 ~ Progress Bar Value = 10000
+
+794 22/02/2011 ~ 22:50:17.822 ~ Time to Deflation 0:19
+
+795 22/02/2011 ~ 22:50:17.822 ~ Progress Bar Value = 10000
+
+796 22/02/2011 ~ 22:50:17.822 ~ Time to Deflation 0:19
+
+797 22/02/2011 ~ 22:50:17.823 ~ Progress Bar Value = 10000
+
+798 22/02/2011 ~ 22:50:17.823 ~ Time to Deflation 0:19
+
+799 22/02/2011 ~ 22:50:17.824 ~ Progress Bar Value = 10000
+
+800 22/02/2011 ~ 22:50:17.824 ~ Time to Deflation 0:19
+
+801 22/02/2011 ~ 22:50:17.824 ~ Progress Bar Value = 10000
+
+802 22/02/2011 ~ 22:50:17.825 ~ Time to Deflation 0:19
+
+803 22/02/2011 ~ 22:50:17.825 ~ Progress Bar Value = 10000
+
+804 22/02/2011 ~ 22:50:17.826 ~ Time to Deflation 0:19
+
+805 22/02/2011 ~ 22:50:17.826 ~ Progress Bar Value = 10000
+
+806 22/02/2011 ~ 22:50:17.826 ~ Time to Deflation 0:19
+
+807 22/02/2011 ~ 22:50:17.827 ~ Progress Bar Value = 10000
+
+808 22/02/2011 ~ 22:50:17.827 ~ Time to Deflation 0:19
+
+809 22/02/2011 ~ 22:50:17.828 ~ Progress Bar Value = 10000
+
+810 22/02/2011 ~ 22:50:17.828 ~ Time to Deflation 0:19
+
+811 22/02/2011 ~ 22:50:17.828 ~ Progress Bar Value = 10000
+
+812 22/02/2011 ~ 22:50:17.829 ~ Time to Deflation 0:19
+
+813 22/02/2011 ~ 22:50:17.829 ~ Progress Bar Value = 10000
+
+814 22/02/2011 ~ 22:50:17.830 ~ Time to Deflation 0:19
+
+815 22/02/2011 ~ 22:50:17.830 ~ Progress Bar Value = 10000
+
+816 22/02/2011 ~ 22:50:17.830 ~ Time to Deflation 0:19
+
+817 22/02/2011 ~ 22:50:17.831 ~ Progress Bar Value = 10000
+
+818 22/02/2011 ~ 22:50:17.831 ~ Time to Deflation 0:19
+
+819 22/02/2011 ~ 22:50:17.832 ~ Progress Bar Value = 10000
+
+820 22/02/2011 ~ 22:50:17.832 ~ Time to Deflation 0:19
+
+821 22/02/2011 ~ 22:50:17.832 ~ Progress Bar Value = 10000
+
+822 22/02/2011 ~ 22:50:17.833 ~ Time to Deflation 0:19
+
+823 22/02/2011 ~ 22:50:17.833 ~ Progress Bar Value = 10000
+
+824 22/02/2011 ~ 22:50:17.834 ~ Time to Deflation 0:19
+
+825 22/02/2011 ~ 22:50:17.834 ~ Progress Bar Value = 10000
+
+826 22/02/2011 ~ 22:50:17.834 ~ Time to Deflation 0:19
+
+827 22/02/2011 ~ 22:50:17.835 ~ Progress Bar Value = 10000
+
+828 22/02/2011 ~ 22:50:17.835 ~ Time to Deflation 0:19
+
+829 22/02/2011 ~ 22:50:17.836 ~ Progress Bar Value = 10000
+
+830 22/02/2011 ~ 22:50:17.836 ~ Time to Deflation 0:19
+
+831 22/02/2011 ~ 22:50:17.836 ~ Progress Bar Value = 10000
+
+832 22/02/2011 ~ 22:50:17.837 ~ Time to Deflation 0:19
+
+833 22/02/2011 ~ 22:50:17.837 ~ Progress Bar Value = 10000
+
+834 22/02/2011 ~ 22:50:17.837 ~ Time to Deflation 0:19
+
+835 22/02/2011 ~ 22:50:17.838 ~ Progress Bar Value = 10000
+
+836 22/02/2011 ~ 22:50:17.838 ~ Time to Deflation 0:19
+
+837 22/02/2011 ~ 22:50:17.939 ~ Progress Bar Value = 10000
+
+838 22/02/2011 ~ 22:50:17.940 ~ Time to Deflation 0:19
+
+839 22/02/2011 ~ 22:50:17.940 ~ Progress Bar Value = 10000
+
+840 22/02/2011 ~ 22:50:17.941 ~ Time to Deflation 0:19
+
+841 22/02/2011 ~ 22:50:17.941 ~ Progress Bar Value = 10000
+
+842 22/02/2011 ~ 22:50:17.942 ~ Time to Deflation 0:19
+
+843 22/02/2011 ~ 22:50:17.942 ~ Progress Bar Value = 10000
+
+844 22/02/2011 ~ 22:50:17.942 ~ Time to Deflation 0:19
+
+845 22/02/2011 ~ 22:50:17.943 ~ Progress Bar Value = 10000
+
+846 22/02/2011 ~ 22:50:17.943 ~ Time to Deflation 0:19
+
+847 22/02/2011 ~ 22:50:17.944 ~ Progress Bar Value = 10000
+
+848 22/02/2011 ~ 22:50:17.944 ~ Time to Deflation 0:19
+
+849 22/02/2011 ~ 22:50:17.944 ~ Progress Bar Value = 10000
+
+850 22/02/2011 ~ 22:50:17.945 ~ Time to Deflation 0:19
+
+851 22/02/2011 ~ 22:50:17.945 ~ Progress Bar Value = 10000
+
+852 22/02/2011 ~ 22:50:17.946 ~ Time to Deflation 0:19
+
+853 22/02/2011 ~ 22:50:17.946 ~ Progress Bar Value = 10000
+
+854 22/02/2011 ~ 22:50:17.946 ~ Time to Deflation 0:19
+
+855 22/02/2011 ~ 22:50:17.947 ~ Progress Bar Value = 10000
+
+856 22/02/2011 ~ 22:50:17.947 ~ Time to Deflation 0:19
+
+857 22/02/2011 ~ 22:50:17.948 ~ Progress Bar Value = 10000
+
+858 22/02/2011 ~ 22:50:17.948 ~ Time to Deflation 0:19
+
+859 22/02/2011 ~ 22:50:17.948 ~ Progress Bar Value = 10000
+
+860 22/02/2011 ~ 22:50:17.949 ~ Time to Deflation 0:19
+
+861 22/02/2011 ~ 22:50:17.949 ~ Progress Bar Value = 10000
+
+862 22/02/2011 ~ 22:50:17.950 ~ Time to Deflation 0:19
+
+863 22/02/2011 ~ 22:50:17.950 ~ Progress Bar Value = 10000
+
+864 22/02/2011 ~ 22:50:17.950 ~ Time to Deflation 0:19
+
+865 22/02/2011 ~ 22:50:17.951 ~ Progress Bar Value = 10000
+
+866 22/02/2011 ~ 22:50:17.951 ~ Time to Deflation 0:19
+
+867 22/02/2011 ~ 22:50:17.952 ~ Progress Bar Value = 10000
+
+868 22/02/2011 ~ 22:50:17.952 ~ Time to Deflation 0:19
+
+869 22/02/2011 ~ 22:50:17.952 ~ Progress Bar Value = 10000
+
+870 22/02/2011 ~ 22:50:17.953 ~ Time to Deflation 0:19
+
+871 22/02/2011 ~ 22:50:17.953 ~ Progress Bar Value = 10000
+
+872 22/02/2011 ~ 22:50:17.954 ~ Time to Deflation 0:19
+
+873 22/02/2011 ~ 22:50:17.954 ~ Progress Bar Value = 10000
+
+874 22/02/2011 ~ 22:50:17.954 ~ Time to Deflation 0:19
+
+875 22/02/2011 ~ 22:50:17.955 ~ Progress Bar Value = 10000
+
+876 22/02/2011 ~ 22:50:17.955 ~ Time to Deflation 0:19
+
+877 22/02/2011 ~ 22:50:17.956 ~ Progress Bar Value = 10000
+
+878 22/02/2011 ~ 22:50:17.956 ~ Time to Deflation 0:19
+
+879 22/02/2011 ~ 22:50:17.956 ~ Progress Bar Value = 10000
+
+880 22/02/2011 ~ 22:50:17.957 ~ Time to Deflation 0:19
+
+881 22/02/2011 ~ 22:50:17.957 ~ Progress Bar Value = 10000
+
+882 22/02/2011 ~ 22:50:17.957 ~ Time to Deflation 0:19
+
+883 22/02/2011 ~ 22:50:17.958 ~ Progress Bar Value = 10000
+
+884 22/02/2011 ~ 22:50:17.958 ~ Time to Deflation 0:19
+
+885 22/02/2011 ~ 22:50:17.959 ~ Progress Bar Value = 10000
+
+886 22/02/2011 ~ 22:50:17.959 ~ Time to Deflation 0:19
+
+887 22/02/2011 ~ 22:50:17.960 ~ Progress Bar Value = 10000
+
+888 22/02/2011 ~ 22:50:17.960 ~ Time to Deflation 0:19
+
+889 22/02/2011 ~ 22:50:17.960 ~ Progress Bar Value = 10000
+
+890 22/02/2011 ~ 22:50:17.961 ~ Time to Deflation 0:19
+
+891 22/02/2011 ~ 22:50:17.961 ~ Progress Bar Value = 10000
+
+892 22/02/2011 ~ 22:50:17.961 ~ Time to Deflation 0:19
+
+893 22/02/2011 ~ 22:50:17.962 ~ Progress Bar Value = 10000
+
+894 22/02/2011 ~ 22:50:17.962 ~ Time to Deflation 0:19
+
+895 22/02/2011 ~ 22:50:17.963 ~ Progress Bar Value = 10000
+
+896 22/02/2011 ~ 22:50:17.963 ~ Time to Deflation 0:19
+
+897 22/02/2011 ~ 22:50:17.964 ~ Progress Bar Value = 10000
+
+898 22/02/2011 ~ 22:50:17.964 ~ Time to Deflation 0:19
+
+899 22/02/2011 ~ 22:50:17.964 ~ Progress Bar Value = 10000
+
+900 22/02/2011 ~ 22:50:17.965 ~ Time to Deflation 0:19
+
+901 22/02/2011 ~ 22:50:18.063 ~ Progress Bar Value = 10000
+
+902 22/02/2011 ~ 22:50:18.063 ~ Time to Deflation 0:19
+
+903 22/02/2011 ~ 22:50:18.064 ~ Progress Bar Value = 10000
+
+904 22/02/2011 ~ 22:50:18.064 ~ Time to Deflation 0:19
+
+905 22/02/2011 ~ 22:50:18.065 ~ Progress Bar Value = 10000
+
+906 22/02/2011 ~ 22:50:18.065 ~ Time to Deflation 0:19
+
+907 22/02/2011 ~ 22:50:18.066 ~ Progress Bar Value = 10000
+
+908 22/02/2011 ~ 22:50:18.066 ~ Time to Deflation 0:19
+
+909 22/02/2011 ~ 22:50:18.066 ~ Progress Bar Value = 10000
+
+910 22/02/2011 ~ 22:50:18.067 ~ Time to Deflation 0:19
+
+911 22/02/2011 ~ 22:50:18.067 ~ Progress Bar Value = 10000
+
+912 22/02/2011 ~ 22:50:18.068 ~ Time to Deflation 0:19
+
+913 22/02/2011 ~ 22:50:18.068 ~ Progress Bar Value = 10000
+
+914 22/02/2011 ~ 22:50:18.068 ~ Time to Deflation 0:19
+
+915 22/02/2011 ~ 22:50:18.069 ~ Progress Bar Value = 10000
+
+916 22/02/2011 ~ 22:50:18.069 ~ Time to Deflation 0:19
+
+917 22/02/2011 ~ 22:50:18.070 ~ Progress Bar Value = 10000
+
+918 22/02/2011 ~ 22:50:18.070 ~ Time to Deflation 0:19
+
+919 22/02/2011 ~ 22:50:18.070 ~ Progress Bar Value = 10000
+
+920 22/02/2011 ~ 22:50:18.071 ~ Time to Deflation 0:19
+
+921 22/02/2011 ~ 22:50:18.071 ~ Progress Bar Value = 10000
+
+922 22/02/2011 ~ 22:50:18.071 ~ Time to Deflation 0:19
+
+923 22/02/2011 ~ 22:50:18.072 ~ Progress Bar Value = 10000
+
+924 22/02/2011 ~ 22:50:18.072 ~ Time to Deflation 0:19
+
+925 22/02/2011 ~ 22:50:18.073 ~ Progress Bar Value = 10000
+
+926 22/02/2011 ~ 22:50:18.073 ~ Time to Deflation 0:19
+
+927 22/02/2011 ~ 22:50:18.074 ~ Progress Bar Value = 10000
+
+928 22/02/2011 ~ 22:50:18.074 ~ Time to Deflation 0:19
+
+929 22/02/2011 ~ 22:50:18.075 ~ Progress Bar Value = 10000
+
+930 22/02/2011 ~ 22:50:18.075 ~ Time to Deflation 0:19
+
+931 22/02/2011 ~ 22:50:18.075 ~ Progress Bar Value = 10000
+
+932 22/02/2011 ~ 22:50:18.076 ~ Time to Deflation 0:19
+
+933 22/02/2011 ~ 22:50:18.076 ~ Progress Bar Value = 10000
+
+934 22/02/2011 ~ 22:50:18.077 ~ Time to Deflation 0:19
+
+935 22/02/2011 ~ 22:50:18.077 ~ Progress Bar Value = 10000
+
+936 22/02/2011 ~ 22:50:18.077 ~ Time to Deflation 0:19
+
+937 22/02/2011 ~ 22:50:18.078 ~ Progress Bar Value = 10000
+
+938 22/02/2011 ~ 22:50:18.078 ~ Time to Deflation 0:19
+
+939 22/02/2011 ~ 22:50:18.079 ~ Progress Bar Value = 10000
+
+940 22/02/2011 ~ 22:50:18.079 ~ Time to Deflation 0:19
+
+941 22/02/2011 ~ 22:50:18.079 ~ Progress Bar Value = 10000
+
+942 22/02/2011 ~ 22:50:18.080 ~ Time to Deflation 0:19
+
+943 22/02/2011 ~ 22:50:18.080 ~ Progress Bar Value = 10000
+
+944 22/02/2011 ~ 22:50:18.081 ~ Time to Deflation 0:19
+
+945 22/02/2011 ~ 22:50:18.081 ~ Progress Bar Value = 10000
+
+946 22/02/2011 ~ 22:50:18.081 ~ Time to Deflation 0:19
+
+947 22/02/2011 ~ 22:50:18.082 ~ Progress Bar Value = 10000
+
+948 22/02/2011 ~ 22:50:18.082 ~ Time to Deflation 0:19
+
+949 22/02/2011 ~ 22:50:18.083 ~ Progress Bar Value = 10000
+
+950 22/02/2011 ~ 22:50:18.083 ~ Time to Deflation 0:19
+
+951 22/02/2011 ~ 22:50:18.083 ~ Progress Bar Value = 10000
+
+952 22/02/2011 ~ 22:50:18.084 ~ Time to Deflation 0:19
+
+953 22/02/2011 ~ 22:50:18.084 ~ Progress Bar Value = 10000
+
+954 22/02/2011 ~ 22:50:18.084 ~ Time to Deflation 0:19
+
+955 22/02/2011 ~ 22:50:18.085 ~ Progress Bar Value = 10000
+
+956 22/02/2011 ~ 22:50:18.085 ~ Time to Deflation 0:19
+
+957 22/02/2011 ~ 22:50:18.086 ~ Progress Bar Value = 10000
+
+958 22/02/2011 ~ 22:50:18.086 ~ Time to Deflation 0:19
+
+959 22/02/2011 ~ 22:50:18.086 ~ Progress Bar Value = 10000
+
+960 22/02/2011 ~ 22:50:18.086 ~ Time to Deflation 0:19
+
+961 22/02/2011 ~ 22:50:18.086 ~ Progress Bar Value = 10000
+
+962 22/02/2011 ~ 22:50:18.087 ~ Time to Deflation 0:19
+
+963 22/02/2011 ~ 22:50:18.087 ~ Progress Bar Value = 10000
+
+964 22/02/2011 ~ 22:50:18.087 ~ Time to Deflation 0:19
+
+965 22/02/2011 ~ 22:50:18.087 ~ 550
+
+966 22/02/2011 ~ 22:50:18.087 ~ 550
+
+967 22/02/2011 ~ 22:50:18.088 ~ 550
+
+968 22/02/2011 ~ 22:50:18.203 ~ Progress Bar Value = 10000
+
+969 22/02/2011 ~ 22:50:18.203 ~ Time to Deflation 0:19
+
+970 22/02/2011 ~ 22:50:18.204 ~ Progress Bar Value = 10000
+
+971 22/02/2011 ~ 22:50:18.204 ~ Time to Deflation 0:19
+
+972 22/02/2011 ~ 22:50:18.205 ~ Progress Bar Value = 10000
+
+973 22/02/2011 ~ 22:50:18.205 ~ Time to Deflation 0:19
+
+974 22/02/2011 ~ 22:50:18.206 ~ Progress Bar Value = 10000
+
+975 22/02/2011 ~ 22:50:18.206 ~ Time to Deflation 0:19
+
+976 22/02/2011 ~ 22:50:18.206 ~ Progress Bar Value = 10000
+
+977 22/02/2011 ~ 22:50:18.207 ~ Time to Deflation 0:19
+
+978 22/02/2011 ~ 22:50:18.207 ~ Progress Bar Value = 10000
+
+979 22/02/2011 ~ 22:50:18.208 ~ Time to Deflation 0:19
+
+980 22/02/2011 ~ 22:50:18.208 ~ Progress Bar Value = 10000
+
+981 22/02/2011 ~ 22:50:18.209 ~ Time to Deflation 0:19
+
+982 22/02/2011 ~ 22:50:18.209 ~ Progress Bar Value = 10000
+
+983 22/02/2011 ~ 22:50:18.209 ~ Time to Deflation 0:19
+
+984 22/02/2011 ~ 22:50:18.210 ~ Progress Bar Value = 10000
+
+985 22/02/2011 ~ 22:50:18.210 ~ Time to Deflation 0:19
+
+986 22/02/2011 ~ 22:50:18.211 ~ Progress Bar Value = 10000
+
+987 22/02/2011 ~ 22:50:18.211 ~ Time to Deflation 0:19
+
+988 22/02/2011 ~ 22:50:18.211 ~ Progress Bar Value = 10000
+
+989 22/02/2011 ~ 22:50:18.212 ~ Time to Deflation 0:19
+
+990 22/02/2011 ~ 22:50:18.212 ~ Progress Bar Value = 10000
+
+991 22/02/2011 ~ 22:50:18.213 ~ Time to Deflation 0:19
+
+992 22/02/2011 ~ 22:50:18.213 ~ Progress Bar Value = 10000
+
+993 22/02/2011 ~ 22:50:18.213 ~ Time to Deflation 0:19
+
+994 22/02/2011 ~ 22:50:18.214 ~ Progress Bar Value = 10000
+
+995 22/02/2011 ~ 22:50:18.214 ~ Time to Deflation 0:19
+
+996 22/02/2011 ~ 22:50:18.215 ~ Progress Bar Value = 10000
+
+997 22/02/2011 ~ 22:50:18.215 ~ Time to Deflation 0:19
+
+998 22/02/2011 ~ 22:50:18.215 ~ Progress Bar Value = 10000
+
+999 22/02/2011 ~ 22:50:18.216 ~ Time to Deflation 0:19
+
+1000 22/02/2011 ~ 22:50:18.216 ~ Progress Bar Value = 10000
+
+1001 22/02/2011 ~ 22:50:18.216 ~ Time to Deflation 0:19
+
+1002 22/02/2011 ~ 22:50:18.217 ~ Progress Bar Value = 10000
+
+1003 22/02/2011 ~ 22:50:18.217 ~ Time to Deflation 0:19
+
+1004 22/02/2011 ~ 22:50:18.218 ~ Progress Bar Value = 10000
+
+1005 22/02/2011 ~ 22:50:18.218 ~ Time to Deflation 0:19
+
+1006 22/02/2011 ~ 22:50:18.219 ~ Progress Bar Value = 10000
+
+1007 22/02/2011 ~ 22:50:18.219 ~ Time to Deflation 0:19
+
+1008 22/02/2011 ~ 22:50:18.219 ~ Progress Bar Value = 10000
+
+1009 22/02/2011 ~ 22:50:18.220 ~ Time to Deflation 0:19
+
+1010 22/02/2011 ~ 22:50:18.220 ~ Progress Bar Value = 10000
+
+1011 22/02/2011 ~ 22:50:18.220 ~ Time to Deflation 0:19
+
+1012 22/02/2011 ~ 22:50:18.221 ~ Progress Bar Value = 10000
+
+1013 22/02/2011 ~ 22:50:18.221 ~ Time to Deflation 0:19
+
+1014 22/02/2011 ~ 22:50:18.222 ~ Progress Bar Value = 10000
+
+1015 22/02/2011 ~ 22:50:18.222 ~ Time to Deflation 0:19
+
+1016 22/02/2011 ~ 22:50:18.223 ~ Progress Bar Value = 10000
+
+1017 22/02/2011 ~ 22:50:18.223 ~ Time to Deflation 0:19
+
+1018 22/02/2011 ~ 22:50:18.223 ~ Progress Bar Value = 10000
+
+1019 22/02/2011 ~ 22:50:18.224 ~ Time to Deflation 0:19
+
+1020 22/02/2011 ~ 22:50:18.224 ~ Progress Bar Value = 10000
+
+1021 22/02/2011 ~ 22:50:18.225 ~ Time to Deflation 0:19
+
+1022 22/02/2011 ~ 22:50:18.225 ~ Progress Bar Value = 10000
+
+1023 22/02/2011 ~ 22:50:18.225 ~ Time to Deflation 0:19
+
+1024 22/02/2011 ~ 22:50:18.226 ~ Progress Bar Value = 10000
+
+1025 22/02/2011 ~ 22:50:18.226 ~ Time to Deflation 0:19
+
+1026 22/02/2011 ~ 22:50:18.227 ~ Progress Bar Value = 10000
+
+1027 22/02/2011 ~ 22:50:18.227 ~ Time to Deflation 0:19
+
+1028 22/02/2011 ~ 22:50:18.227 ~ Progress Bar Value = 10000
+
+1029 22/02/2011 ~ 22:50:18.228 ~ Time to Deflation 0:19
+
+1030 22/02/2011 ~ 22:50:18.228 ~ Progress Bar Value = 10000
+
+1031 22/02/2011 ~ 22:50:18.229 ~ Time to Deflation 0:19
+
+1032 22/02/2011 ~ 22:50:18.330 ~ Progress Bar Value = 10000
+
+1033 22/02/2011 ~ 22:50:18.330 ~ Time to Deflation 0:19
+
+1034 22/02/2011 ~ 22:50:18.331 ~ Progress Bar Value = 10000
+
+1035 22/02/2011 ~ 22:50:18.332 ~ Time to Deflation 0:19
+
+1036 22/02/2011 ~ 22:50:18.332 ~ Progress Bar Value = 10000
+
+1037 22/02/2011 ~ 22:50:18.333 ~ Time to Deflation 0:19
+
+1038 22/02/2011 ~ 22:50:18.333 ~ Progress Bar Value = 10000
+
+1039 22/02/2011 ~ 22:50:18.334 ~ Time to Deflation 0:19
+
+1040 22/02/2011 ~ 22:50:18.334 ~ Progress Bar Value = 10000
+
+1041 22/02/2011 ~ 22:50:18.335 ~ Time to Deflation 0:19
+
+1042 22/02/2011 ~ 22:50:18.335 ~ Progress Bar Value = 10000
+
+1043 22/02/2011 ~ 22:50:18.336 ~ Time to Deflation 0:19
+
+1044 22/02/2011 ~ 22:50:18.336 ~ Progress Bar Value = 10000
+
+1045 22/02/2011 ~ 22:50:18.337 ~ Time to Deflation 0:19
+
+1046 22/02/2011 ~ 22:50:18.337 ~ Progress Bar Value = 10000
+
+1047 22/02/2011 ~ 22:50:18.338 ~ Time to Deflation 0:19
+
+1048 22/02/2011 ~ 22:50:18.338 ~ Progress Bar Value = 10000
+
+1049 22/02/2011 ~ 22:50:18.339 ~ Time to Deflation 0:19
+
+1050 22/02/2011 ~ 22:50:18.339 ~ Progress Bar Value = 10000
+
+1051 22/02/2011 ~ 22:50:18.340 ~ Time to Deflation 0:19
+
+1052 22/02/2011 ~ 22:50:18.340 ~ Progress Bar Value = 10000
+
+1053 22/02/2011 ~ 22:50:18.341 ~ Time to Deflation 0:19
+
+1054 22/02/2011 ~ 22:50:18.341 ~ Progress Bar Value = 10000
+
+1055 22/02/2011 ~ 22:50:18.342 ~ Time to Deflation 0:19
+
+1056 22/02/2011 ~ 22:50:18.342 ~ Progress Bar Value = 10000
+
+1057 22/02/2011 ~ 22:50:18.343 ~ Time to Deflation 0:19
+
+1058 22/02/2011 ~ 22:50:18.344 ~ Progress Bar Value = 10000
+
+1059 22/02/2011 ~ 22:50:18.344 ~ Time to Deflation 0:19
+
+1060 22/02/2011 ~ 22:50:18.344 ~ Progress Bar Value = 10000
+
+1061 22/02/2011 ~ 22:50:18.345 ~ Time to Deflation 0:19
+
+1062 22/02/2011 ~ 22:50:18.345 ~ Progress Bar Value = 10000
+
+1063 22/02/2011 ~ 22:50:18.346 ~ Time to Deflation 0:19
+
+1064 22/02/2011 ~ 22:50:18.346 ~ Progress Bar Value = 10000
+
+1065 22/02/2011 ~ 22:50:18.347 ~ Time to Deflation 0:19
+
+1066 22/02/2011 ~ 22:50:18.347 ~ Progress Bar Value = 10000
+
+1067 22/02/2011 ~ 22:50:18.348 ~ Time to Deflation 0:19
+
+1068 22/02/2011 ~ 22:50:18.348 ~ Progress Bar Value = 10000
+
+1069 22/02/2011 ~ 22:50:18.348 ~ Time to Deflation 0:19
+
+1070 22/02/2011 ~ 22:50:18.349 ~ Progress Bar Value = 10000
+
+1071 22/02/2011 ~ 22:50:18.350 ~ Time to Deflation 0:19
+
+1072 22/02/2011 ~ 22:50:18.350 ~ Progress Bar Value = 10000
+
+1073 22/02/2011 ~ 22:50:18.350 ~ Time to Deflation 0:19
+
+1074 22/02/2011 ~ 22:50:18.351 ~ Progress Bar Value = 10000
+
+1075 22/02/2011 ~ 22:50:18.351 ~ Time to Deflation 0:19
+
+1076 22/02/2011 ~ 22:50:18.352 ~ Progress Bar Value = 10000
+
+1077 22/02/2011 ~ 22:50:18.352 ~ Time to Deflation 0:19
+
+1078 22/02/2011 ~ 22:50:18.352 ~ Progress Bar Value = 10000
+
+1079 22/02/2011 ~ 22:50:18.353 ~ Time to Deflation 0:19
+
+1080 22/02/2011 ~ 22:50:18.353 ~ Progress Bar Value = 10000
+
+1081 22/02/2011 ~ 22:50:18.354 ~ Time to Deflation 0:19
+
+1082 22/02/2011 ~ 22:50:18.354 ~ Progress Bar Value = 10000
+
+1083 22/02/2011 ~ 22:50:18.355 ~ Time to Deflation 0:19
+
+1084 22/02/2011 ~ 22:50:18.355 ~ Progress Bar Value = 10000
+
+1085 22/02/2011 ~ 22:50:18.355 ~ Time to Deflation 0:19
+
+1086 22/02/2011 ~ 22:50:18.356 ~ Progress Bar Value = 10000
+
+1087 22/02/2011 ~ 22:50:18.356 ~ Time to Deflation 0:19
+
+1088 22/02/2011 ~ 22:50:18.356 ~ Progress Bar Value = 10000
+
+1089 22/02/2011 ~ 22:50:18.356 ~ Time to Deflation 0:19
+
+1090 22/02/2011 ~ 22:50:18.357 ~ Progress Bar Value = 10000
+
+1091 22/02/2011 ~ 22:50:18.357 ~ Time to Deflation 0:19
+
+1092 22/02/2011 ~ 22:50:18.357 ~ Progress Bar Value = 10000
+
+1093 22/02/2011 ~ 22:50:18.357 ~ Time to Deflation 0:19
+
+1094 22/02/2011 ~ 22:50:18.357 ~ Progress Bar Value = 10000
+
+1095 22/02/2011 ~ 22:50:18.358 ~ Time to Deflation 0:19
+
+1096 22/02/2011 ~ 22:50:18.453 ~ Progress Bar Value = 10000
+
+1097 22/02/2011 ~ 22:50:18.453 ~ Time to Deflation 0:19
+
+1098 22/02/2011 ~ 22:50:18.454 ~ Progress Bar Value = 10000
+
+1099 22/02/2011 ~ 22:50:18.454 ~ Time to Deflation 0:19
+
+1100 22/02/2011 ~ 22:50:18.455 ~ Progress Bar Value = 10000
+
+1101 22/02/2011 ~ 22:50:18.455 ~ Time to Deflation 0:19
+
+1102 22/02/2011 ~ 22:50:18.456 ~ Progress Bar Value = 10000
+
+1103 22/02/2011 ~ 22:50:18.456 ~ Time to Deflation 0:19
+
+1104 22/02/2011 ~ 22:50:18.456 ~ Progress Bar Value = 10000
+
+1105 22/02/2011 ~ 22:50:18.457 ~ Time to Deflation 0:19
+
+1106 22/02/2011 ~ 22:50:18.457 ~ Progress Bar Value = 10000
+
+1107 22/02/2011 ~ 22:50:18.458 ~ Time to Deflation 0:19
+
+1108 22/02/2011 ~ 22:50:18.458 ~ Progress Bar Value = 10000
+
+1109 22/02/2011 ~ 22:50:18.458 ~ Time to Deflation 0:19
+
+1110 22/02/2011 ~ 22:50:18.459 ~ Progress Bar Value = 10000
+
+1111 22/02/2011 ~ 22:50:18.459 ~ Time to Deflation 0:19
+
+1112 22/02/2011 ~ 22:50:18.460 ~ Progress Bar Value = 10000
+
+1113 22/02/2011 ~ 22:50:18.460 ~ Time to Deflation 0:19
+
+1114 22/02/2011 ~ 22:50:18.460 ~ Progress Bar Value = 10000
+
+1115 22/02/2011 ~ 22:50:18.461 ~ Time to Deflation 0:19
+
+1116 22/02/2011 ~ 22:50:18.461 ~ Progress Bar Value = 10000
+
+1117 22/02/2011 ~ 22:50:18.461 ~ Time to Deflation 0:19
+
+1118 22/02/2011 ~ 22:50:18.462 ~ Progress Bar Value = 10000
+
+1119 22/02/2011 ~ 22:50:18.465 ~ Time to Deflation 0:19
+
+1120 22/02/2011 ~ 22:50:18.465 ~ Progress Bar Value = 10000
+
+1121 22/02/2011 ~ 22:50:18.466 ~ Time to Deflation 0:19
+
+1122 22/02/2011 ~ 22:50:18.467 ~ Progress Bar Value = 10000
+
+1123 22/02/2011 ~ 22:50:18.467 ~ Time to Deflation 0:19
+
+1124 22/02/2011 ~ 22:50:18.468 ~ Progress Bar Value = 10000
+
+1125 22/02/2011 ~ 22:50:18.468 ~ Time to Deflation 0:19
+
+1126 22/02/2011 ~ 22:50:18.468 ~ Progress Bar Value = 10000
+
+1127 22/02/2011 ~ 22:50:18.469 ~ Time to Deflation 0:19
+
+1128 22/02/2011 ~ 22:50:18.469 ~ Progress Bar Value = 10000
+
+1129 22/02/2011 ~ 22:50:18.470 ~ Time to Deflation 0:19
+
+1130 22/02/2011 ~ 22:50:18.470 ~ Progress Bar Value = 10000
+
+1131 22/02/2011 ~ 22:50:18.470 ~ Time to Deflation 0:19
+
+1132 22/02/2011 ~ 22:50:18.471 ~ Progress Bar Value = 10000
+
+1133 22/02/2011 ~ 22:50:18.471 ~ Time to Deflation 0:19
+
+1134 22/02/2011 ~ 22:50:18.472 ~ Progress Bar Value = 10000
+
+1135 22/02/2011 ~ 22:50:18.472 ~ Time to Deflation 0:19
+
+1136 22/02/2011 ~ 22:50:18.473 ~ Progress Bar Value = 10000
+
+1137 22/02/2011 ~ 22:50:18.473 ~ Time to Deflation 0:19
+
+1138 22/02/2011 ~ 22:50:18.473 ~ Progress Bar Value = 10000
+
+1139 22/02/2011 ~ 22:50:18.474 ~ Time to Deflation 0:19
+
+1140 22/02/2011 ~ 22:50:18.474 ~ Progress Bar Value = 10000
+
+1141 22/02/2011 ~ 22:50:18.475 ~ Time to Deflation 0:19
+
+1142 22/02/2011 ~ 22:50:18.475 ~ Progress Bar Value = 10000
+
+1143 22/02/2011 ~ 22:50:18.475 ~ Time to Deflation 0:19
+
+1144 22/02/2011 ~ 22:50:18.476 ~ Progress Bar Value = 10000
+
+1145 22/02/2011 ~ 22:50:18.476 ~ Time to Deflation 0:19
+
+1146 22/02/2011 ~ 22:50:18.476 ~ Progress Bar Value = 10000
+
+1147 22/02/2011 ~ 22:50:18.476 ~ Time to Deflation 0:19
+
+1148 22/02/2011 ~ 22:50:18.477 ~ Progress Bar Value = 10000
+
+1149 22/02/2011 ~ 22:50:18.477 ~ Time to Deflation 0:19
+
+1150 22/02/2011 ~ 22:50:18.477 ~ Progress Bar Value = 10000
+
+1151 22/02/2011 ~ 22:50:18.477 ~ Time to Deflation 0:19
+
+1152 22/02/2011 ~ 22:50:18.478 ~ Progress Bar Value = 10000
+
+1153 22/02/2011 ~ 22:50:18.478 ~ Time to Deflation 0:19
+
+1154 22/02/2011 ~ 22:50:18.478 ~ Progress Bar Value = 10000
+
+1155 22/02/2011 ~ 22:50:18.478 ~ Time to Deflation 0:19
+
+1156 22/02/2011 ~ 22:50:18.478 ~ Progress Bar Value = 10000
+
+1157 22/02/2011 ~ 22:50:18.479 ~ Time to Deflation 0:19
+
+1158 22/02/2011 ~ 22:50:18.479 ~ Progress Bar Value = 10000
+
+1159 22/02/2011 ~ 22:50:18.479 ~ Time to Deflation 0:19
+
+1160 22/02/2011 ~ 22:50:18.593 ~ Progress Bar Value = 10000
+
+1161 22/02/2011 ~ 22:50:18.593 ~ Time to Deflation 0:19
+
+1162 22/02/2011 ~ 22:50:18.594 ~ Progress Bar Value = 10000
+
+1163 22/02/2011 ~ 22:50:18.594 ~ Time to Deflation 0:19
+
+1164 22/02/2011 ~ 22:50:18.595 ~ Progress Bar Value = 10000
+
+1165 22/02/2011 ~ 22:50:18.595 ~ Time to Deflation 0:19
+
+1166 22/02/2011 ~ 22:50:18.595 ~ Progress Bar Value = 10000
+
+1167 22/02/2011 ~ 22:50:18.596 ~ Time to Deflation 0:19
+
+1168 22/02/2011 ~ 22:50:18.596 ~ Progress Bar Value = 10000
+
+1169 22/02/2011 ~ 22:50:18.597 ~ Time to Deflation 0:19
+
+1170 22/02/2011 ~ 22:50:18.597 ~ Progress Bar Value = 10000
+
+1171 22/02/2011 ~ 22:50:18.598 ~ Time to Deflation 0:19
+
+1172 22/02/2011 ~ 22:50:18.598 ~ Progress Bar Value = 10000
+
+1173 22/02/2011 ~ 22:50:18.598 ~ Time to Deflation 0:19
+
+1174 22/02/2011 ~ 22:50:18.599 ~ Progress Bar Value = 10000
+
+1175 22/02/2011 ~ 22:50:18.599 ~ Time to Deflation 0:19
+
+1176 22/02/2011 ~ 22:50:18.600 ~ Progress Bar Value = 10000
+
+1177 22/02/2011 ~ 22:50:18.600 ~ Time to Deflation 0:19
+
+1178 22/02/2011 ~ 22:50:18.600 ~ Progress Bar Value = 10000
+
+1179 22/02/2011 ~ 22:50:18.601 ~ Time to Deflation 0:19
+
+1180 22/02/2011 ~ 22:50:18.601 ~ Progress Bar Value = 10000
+
+1181 22/02/2011 ~ 22:50:18.602 ~ Time to Deflation 0:19
+
+1182 22/02/2011 ~ 22:50:18.602 ~ Progress Bar Value = 10000
+
+1183 22/02/2011 ~ 22:50:18.602 ~ Time to Deflation 0:19
+
+1184 22/02/2011 ~ 22:50:18.603 ~ Progress Bar Value = 10000
+
+1185 22/02/2011 ~ 22:50:18.603 ~ Time to Deflation 0:19
+
+1186 22/02/2011 ~ 22:50:18.604 ~ Progress Bar Value = 10000
+
+1187 22/02/2011 ~ 22:50:18.604 ~ Time to Deflation 0:19
+
+1188 22/02/2011 ~ 22:50:18.604 ~ Progress Bar Value = 10000
+
+1189 22/02/2011 ~ 22:50:18.605 ~ Time to Deflation 0:19
+
+1190 22/02/2011 ~ 22:50:18.605 ~ Progress Bar Value = 10000
+
+1191 22/02/2011 ~ 22:50:18.605 ~ Time to Deflation 0:19
+
+1192 22/02/2011 ~ 22:50:18.606 ~ Progress Bar Value = 10000
+
+1193 22/02/2011 ~ 22:50:18.606 ~ Time to Deflation 0:19
+
+1194 22/02/2011 ~ 22:50:18.607 ~ Progress Bar Value = 10000
+
+1195 22/02/2011 ~ 22:50:18.607 ~ Time to Deflation 0:19
+
+1196 22/02/2011 ~ 22:50:18.607 ~ Progress Bar Value = 10000
+
+1197 22/02/2011 ~ 22:50:18.608 ~ Time to Deflation 0:19
+
+1198 22/02/2011 ~ 22:50:18.608 ~ Progress Bar Value = 10000
+
+1199 22/02/2011 ~ 22:50:18.609 ~ Time to Deflation 0:19
+
+1200 22/02/2011 ~ 22:50:18.609 ~ Progress Bar Value = 10000
+
+1201 22/02/2011 ~ 22:50:18.610 ~ Time to Deflation 0:19
+
+1202 22/02/2011 ~ 22:50:18.610 ~ Progress Bar Value = 10000
+
+1203 22/02/2011 ~ 22:50:18.610 ~ Time to Deflation 0:19
+
+1204 22/02/2011 ~ 22:50:18.611 ~ Progress Bar Value = 10000
+
+1205 22/02/2011 ~ 22:50:18.611 ~ Time to Deflation 0:19
+
+1206 22/02/2011 ~ 22:50:18.612 ~ Progress Bar Value = 10000
+
+1207 22/02/2011 ~ 22:50:18.612 ~ Time to Deflation 0:19
+
+1208 22/02/2011 ~ 22:50:18.612 ~ Progress Bar Value = 10000
+
+1209 22/02/2011 ~ 22:50:18.613 ~ Time to Deflation 0:19
+
+1210 22/02/2011 ~ 22:50:18.613 ~ Progress Bar Value = 10000
+
+1211 22/02/2011 ~ 22:50:18.614 ~ Time to Deflation 0:19
+
+1212 22/02/2011 ~ 22:50:18.614 ~ Progress Bar Value = 10000
+
+1213 22/02/2011 ~ 22:50:18.614 ~ Time to Deflation 0:19
+
+1214 22/02/2011 ~ 22:50:18.615 ~ Progress Bar Value = 10000
+
+1215 22/02/2011 ~ 22:50:18.615 ~ Time to Deflation 0:19
+
+1216 22/02/2011 ~ 22:50:18.616 ~ Progress Bar Value = 10000
+
+1217 22/02/2011 ~ 22:50:18.616 ~ Time to Deflation 0:19
+
+1218 22/02/2011 ~ 22:50:18.616 ~ Progress Bar Value = 10000
+
+1219 22/02/2011 ~ 22:50:18.617 ~ Time to Deflation 0:19
+
+1220 22/02/2011 ~ 22:50:18.617 ~ Progress Bar Value = 10000
+
+1221 22/02/2011 ~ 22:50:18.618 ~ Time to Deflation 0:19
+
+1222 22/02/2011 ~ 22:50:18.618 ~ Progress Bar Value = 10000
+
+1223 22/02/2011 ~ 22:50:18.618 ~ Time to Deflation 0:19
+
+1224 22/02/2011 ~ 22:50:18.718 ~ Progress Bar Value = 10000
+
+1225 22/02/2011 ~ 22:50:18.719 ~ Time to Deflation 0:19
+
+1226 22/02/2011 ~ 22:50:18.719 ~ Progress Bar Value = 10000
+
+1227 22/02/2011 ~ 22:50:18.719 ~ Time to Deflation 0:19
+
+1228 22/02/2011 ~ 22:50:18.720 ~ Progress Bar Value = 10000
+
+1229 22/02/2011 ~ 22:50:18.720 ~ Time to Deflation 0:19
+
+1230 22/02/2011 ~ 22:50:18.721 ~ Progress Bar Value = 10000
+
+1231 22/02/2011 ~ 22:50:18.721 ~ Time to Deflation 0:19
+
+1232 22/02/2011 ~ 22:50:18.721 ~ Progress Bar Value = 10000
+
+1233 22/02/2011 ~ 22:50:18.722 ~ Time to Deflation 0:19
+
+1234 22/02/2011 ~ 22:50:18.722 ~ Progress Bar Value = 10000
+
+1235 22/02/2011 ~ 22:50:18.723 ~ Time to Deflation 0:19
+
+1236 22/02/2011 ~ 22:50:18.723 ~ Progress Bar Value = 10000
+
+1237 22/02/2011 ~ 22:50:18.723 ~ Time to Deflation 0:19
+
+1238 22/02/2011 ~ 22:50:18.724 ~ Progress Bar Value = 10000
+
+1239 22/02/2011 ~ 22:50:18.724 ~ Time to Deflation 0:19
+
+1240 22/02/2011 ~ 22:50:18.725 ~ Progress Bar Value = 10000
+
+1241 22/02/2011 ~ 22:50:18.725 ~ Time to Deflation 0:19
+
+1242 22/02/2011 ~ 22:50:18.725 ~ Progress Bar Value = 10000
+
+1243 22/02/2011 ~ 22:50:18.726 ~ Time to Deflation 0:19
+
+1244 22/02/2011 ~ 22:50:18.726 ~ Progress Bar Value = 10000
+
+1245 22/02/2011 ~ 22:50:18.727 ~ Time to Deflation 0:19
+
+1246 22/02/2011 ~ 22:50:18.727 ~ Progress Bar Value = 10000
+
+1247 22/02/2011 ~ 22:50:18.727 ~ Time to Deflation 0:19
+
+1248 22/02/2011 ~ 22:50:18.728 ~ Progress Bar Value = 10000
+
+1249 22/02/2011 ~ 22:50:18.728 ~ Time to Deflation 0:19
+
+1250 22/02/2011 ~ 22:50:18.729 ~ Progress Bar Value = 10000
+
+1251 22/02/2011 ~ 22:50:18.729 ~ Time to Deflation 0:19
+
+1252 22/02/2011 ~ 22:50:18.729 ~ Progress Bar Value = 10000
+
+1253 22/02/2011 ~ 22:50:18.730 ~ Time to Deflation 0:19
+
+1254 22/02/2011 ~ 22:50:18.730 ~ Progress Bar Value = 10000
+
+1255 22/02/2011 ~ 22:50:18.730 ~ Time to Deflation 0:19
+
+1256 22/02/2011 ~ 22:50:18.731 ~ Progress Bar Value = 10000
+
+1257 22/02/2011 ~ 22:50:18.731 ~ Time to Deflation 0:19
+
+1258 22/02/2011 ~ 22:50:18.732 ~ Progress Bar Value = 10000
+
+1259 22/02/2011 ~ 22:50:18.732 ~ Time to Deflation 0:19
+
+1260 22/02/2011 ~ 22:50:18.732 ~ Progress Bar Value = 10000
+
+1261 22/02/2011 ~ 22:50:18.733 ~ Time to Deflation 0:19
+
+1262 22/02/2011 ~ 22:50:18.733 ~ Progress Bar Value = 10000
+
+1263 22/02/2011 ~ 22:50:18.734 ~ Time to Deflation 0:19
+
+1264 22/02/2011 ~ 22:50:18.734 ~ Progress Bar Value = 10000
+
+1265 22/02/2011 ~ 22:50:18.735 ~ Time to Deflation 0:19
+
+1266 22/02/2011 ~ 22:50:18.735 ~ Progress Bar Value = 10000
+
+1267 22/02/2011 ~ 22:50:18.735 ~ Time to Deflation 0:19
+
+1268 22/02/2011 ~ 22:50:18.736 ~ Progress Bar Value = 10000
+
+1269 22/02/2011 ~ 22:50:18.736 ~ Time to Deflation 0:19
+
+1270 22/02/2011 ~ 22:50:18.737 ~ Progress Bar Value = 10000
+
+1271 22/02/2011 ~ 22:50:18.737 ~ Time to Deflation 0:19
+
+1272 22/02/2011 ~ 22:50:18.737 ~ Progress Bar Value = 10000
+
+1273 22/02/2011 ~ 22:50:18.738 ~ Time to Deflation 0:19
+
+1274 22/02/2011 ~ 22:50:18.738 ~ Progress Bar Value = 10000
+
+1275 22/02/2011 ~ 22:50:18.739 ~ Time to Deflation 0:19
+
+1276 22/02/2011 ~ 22:50:18.739 ~ Progress Bar Value = 10000
+
+1277 22/02/2011 ~ 22:50:18.739 ~ Time to Deflation 0:19
+
+1278 22/02/2011 ~ 22:50:18.740 ~ Progress Bar Value = 10000
+
+1279 22/02/2011 ~ 22:50:18.740 ~ Time to Deflation 0:19
+
+1280 22/02/2011 ~ 22:50:18.741 ~ Progress Bar Value = 10000
+
+1281 22/02/2011 ~ 22:50:18.741 ~ Time to Deflation 0:19
+
+1282 22/02/2011 ~ 22:50:18.741 ~ Progress Bar Value = 10000
+
+1283 22/02/2011 ~ 22:50:18.742 ~ Time to Deflation 0:19
+
+1284 22/02/2011 ~ 22:50:18.742 ~ Progress Bar Value = 10000
+
+1285 22/02/2011 ~ 22:50:18.743 ~ Time to Deflation 0:19
+
+1286 22/02/2011 ~ 22:50:18.743 ~ Progress Bar Value = 11000
+
+1287 22/02/2011 ~ 22:50:18.743 ~ Time to Deflation 0:18
+
+1288 22/02/2011 ~ 22:50:18.843 ~ Progress Bar Value = 11000
+
+1289 22/02/2011 ~ 22:50:18.844 ~ Time to Deflation 0:18
+
+1290 22/02/2011 ~ 22:50:18.844 ~ Progress Bar Value = 11000
+
+1291 22/02/2011 ~ 22:50:18.845 ~ Time to Deflation 0:18
+
+1292 22/02/2011 ~ 22:50:18.845 ~ Progress Bar Value = 11000
+
+1293 22/02/2011 ~ 22:50:18.845 ~ Time to Deflation 0:18
+
+1294 22/02/2011 ~ 22:50:18.846 ~ Progress Bar Value = 11000
+
+1295 22/02/2011 ~ 22:50:18.848 ~ Time to Deflation 0:18
+
+1296 22/02/2011 ~ 22:50:18.849 ~ Progress Bar Value = 11000
+
+1297 22/02/2011 ~ 22:50:18.849 ~ Time to Deflation 0:18
+
+1298 22/02/2011 ~ 22:50:18.849 ~ Progress Bar Value = 11000
+
+1299 22/02/2011 ~ 22:50:18.850 ~ Time to Deflation 0:18
+
+1300 22/02/2011 ~ 22:50:18.850 ~ Progress Bar Value = 11000
+
+1301 22/02/2011 ~ 22:50:18.851 ~ Time to Deflation 0:18
+
+1302 22/02/2011 ~ 22:50:18.851 ~ Progress Bar Value = 11000
+
+1303 22/02/2011 ~ 22:50:18.851 ~ Time to Deflation 0:18
+
+1304 22/02/2011 ~ 22:50:18.852 ~ Progress Bar Value = 11000
+
+1305 22/02/2011 ~ 22:50:18.852 ~ Time to Deflation 0:18
+
+1306 22/02/2011 ~ 22:50:18.853 ~ Progress Bar Value = 11000
+
+1307 22/02/2011 ~ 22:50:18.853 ~ Time to Deflation 0:18
+
+1308 22/02/2011 ~ 22:50:18.853 ~ Progress Bar Value = 11000
+
+1309 22/02/2011 ~ 22:50:18.854 ~ Time to Deflation 0:18
+
+1310 22/02/2011 ~ 22:50:18.854 ~ Progress Bar Value = 11000
+
+1311 22/02/2011 ~ 22:50:18.855 ~ Time to Deflation 0:18
+
+1312 22/02/2011 ~ 22:50:18.855 ~ Progress Bar Value = 11000
+
+1313 22/02/2011 ~ 22:50:18.855 ~ Time to Deflation 0:18
+
+1314 22/02/2011 ~ 22:50:18.856 ~ Progress Bar Value = 11000
+
+1315 22/02/2011 ~ 22:50:18.856 ~ Time to Deflation 0:18
+
+1316 22/02/2011 ~ 22:50:18.857 ~ Progress Bar Value = 11000
+
+1317 22/02/2011 ~ 22:50:18.857 ~ Time to Deflation 0:18
+
+1318 22/02/2011 ~ 22:50:18.857 ~ Progress Bar Value = 11000
+
+1319 22/02/2011 ~ 22:50:18.858 ~ Time to Deflation 0:18
+
+1320 22/02/2011 ~ 22:50:18.859 ~ Progress Bar Value = 11000
+
+1321 22/02/2011 ~ 22:50:18.859 ~ Time to Deflation 0:18
+
+1322 22/02/2011 ~ 22:50:18.859 ~ Progress Bar Value = 11000
+
+1323 22/02/2011 ~ 22:50:18.860 ~ Time to Deflation 0:18
+
+1324 22/02/2011 ~ 22:50:18.860 ~ Progress Bar Value = 11000
+
+1325 22/02/2011 ~ 22:50:18.861 ~ Time to Deflation 0:18
+
+1326 22/02/2011 ~ 22:50:18.861 ~ Progress Bar Value = 11000
+
+1327 22/02/2011 ~ 22:50:18.861 ~ Time to Deflation 0:18
+
+1328 22/02/2011 ~ 22:50:18.862 ~ Progress Bar Value = 11000
+
+1329 22/02/2011 ~ 22:50:18.862 ~ Time to Deflation 0:18
+
+1330 22/02/2011 ~ 22:50:18.863 ~ Progress Bar Value = 11000
+
+1331 22/02/2011 ~ 22:50:18.863 ~ Time to Deflation 0:18
+
+1332 22/02/2011 ~ 22:50:18.863 ~ Progress Bar Value = 11000
+
+1333 22/02/2011 ~ 22:50:18.864 ~ Time to Deflation 0:18
+
+1334 22/02/2011 ~ 22:50:18.864 ~ Progress Bar Value = 11000
+
+1335 22/02/2011 ~ 22:50:18.865 ~ Time to Deflation 0:18
+
+1336 22/02/2011 ~ 22:50:18.865 ~ Progress Bar Value = 11000
+
+1337 22/02/2011 ~ 22:50:18.865 ~ Time to Deflation 0:18
+
+1338 22/02/2011 ~ 22:50:18.866 ~ Progress Bar Value = 11000
+
+1339 22/02/2011 ~ 22:50:18.866 ~ Time to Deflation 0:18
+
+1340 22/02/2011 ~ 22:50:18.867 ~ Progress Bar Value = 11000
+
+1341 22/02/2011 ~ 22:50:18.867 ~ Time to Deflation 0:18
+
+1342 22/02/2011 ~ 22:50:18.867 ~ Progress Bar Value = 11000
+
+1343 22/02/2011 ~ 22:50:18.868 ~ Time to Deflation 0:18
+
+1344 22/02/2011 ~ 22:50:18.868 ~ Progress Bar Value = 11000
+
+1345 22/02/2011 ~ 22:50:18.869 ~ Time to Deflation 0:18
+
+1346 22/02/2011 ~ 22:50:18.869 ~ Progress Bar Value = 11000
+
+1347 22/02/2011 ~ 22:50:18.869 ~ Time to Deflation 0:18
+
+1348 22/02/2011 ~ 22:50:18.870 ~ Progress Bar Value = 11000
+
+1349 22/02/2011 ~ 22:50:18.870 ~ Time to Deflation 0:18
+
+1350 22/02/2011 ~ 22:50:18.871 ~ Progress Bar Value = 11000
+
+1351 22/02/2011 ~ 22:50:18.871 ~ Time to Deflation 0:18
+
+1352 22/02/2011 ~ 22:50:18.983 ~ Progress Bar Value = 11000
+
+1353 22/02/2011 ~ 22:50:18.983 ~ Time to Deflation 0:18
+
+1354 22/02/2011 ~ 22:50:18.984 ~ Progress Bar Value = 11000
+
+1355 22/02/2011 ~ 22:50:18.984 ~ Time to Deflation 0:18
+
+1356 22/02/2011 ~ 22:50:18.985 ~ Progress Bar Value = 11000
+
+1357 22/02/2011 ~ 22:50:18.985 ~ Time to Deflation 0:18
+
+1358 22/02/2011 ~ 22:50:18.985 ~ Progress Bar Value = 11000
+
+1359 22/02/2011 ~ 22:50:18.986 ~ Time to Deflation 0:18
+
+1360 22/02/2011 ~ 22:50:18.986 ~ Progress Bar Value = 11000
+
+1361 22/02/2011 ~ 22:50:18.987 ~ Time to Deflation 0:18
+
+1362 22/02/2011 ~ 22:50:18.987 ~ Progress Bar Value = 11000
+
+1363 22/02/2011 ~ 22:50:18.987 ~ Time to Deflation 0:18
+
+1364 22/02/2011 ~ 22:50:18.988 ~ Progress Bar Value = 11000
+
+1365 22/02/2011 ~ 22:50:18.988 ~ Time to Deflation 0:18
+
+1366 22/02/2011 ~ 22:50:18.989 ~ Progress Bar Value = 11000
+
+1367 22/02/2011 ~ 22:50:18.989 ~ Time to Deflation 0:18
+
+1368 22/02/2011 ~ 22:50:18.990 ~ Progress Bar Value = 11000
+
+1369 22/02/2011 ~ 22:50:18.990 ~ Time to Deflation 0:18
+
+1370 22/02/2011 ~ 22:50:18.990 ~ Progress Bar Value = 11000
+
+1371 22/02/2011 ~ 22:50:18.991 ~ Time to Deflation 0:18
+
+1372 22/02/2011 ~ 22:50:18.991 ~ Progress Bar Value = 11000
+
+1373 22/02/2011 ~ 22:50:18.991 ~ Time to Deflation 0:18
+
+1374 22/02/2011 ~ 22:50:18.992 ~ Progress Bar Value = 11000
+
+1375 22/02/2011 ~ 22:50:18.992 ~ Time to Deflation 0:18
+
+1376 22/02/2011 ~ 22:50:18.993 ~ Progress Bar Value = 11000
+
+1377 22/02/2011 ~ 22:50:18.993 ~ Time to Deflation 0:18
+
+1378 22/02/2011 ~ 22:50:18.993 ~ Progress Bar Value = 11000
+
+1379 22/02/2011 ~ 22:50:18.994 ~ Time to Deflation 0:18
+
+1380 22/02/2011 ~ 22:50:18.994 ~ Progress Bar Value = 11000
+
+1381 22/02/2011 ~ 22:50:18.995 ~ Time to Deflation 0:18
+
+1382 22/02/2011 ~ 22:50:18.995 ~ Progress Bar Value = 11000
+
+1383 22/02/2011 ~ 22:50:18.995 ~ Time to Deflation 0:18
+
+1384 22/02/2011 ~ 22:50:18.996 ~ Progress Bar Value = 11000
+
+1385 22/02/2011 ~ 22:50:18.996 ~ Time to Deflation 0:18
+
+1386 22/02/2011 ~ 22:50:18.997 ~ Progress Bar Value = 11000
+
+1387 22/02/2011 ~ 22:50:18.997 ~ Time to Deflation 0:18
+
+1388 22/02/2011 ~ 22:50:18.998 ~ Progress Bar Value = 11000
+
+1389 22/02/2011 ~ 22:50:18.998 ~ Time to Deflation 0:18
+
+1390 22/02/2011 ~ 22:50:18.998 ~ Progress Bar Value = 11000
+
+1391 22/02/2011 ~ 22:50:18.999 ~ Time to Deflation 0:18
+
+1392 22/02/2011 ~ 22:50:18.999 ~ Progress Bar Value = 11000
+
+1393 22/02/2011 ~ 22:50:18.999 ~ Time to Deflation 0:18
+
+1394 22/02/2011 ~ 22:50:19.000 ~ Progress Bar Value = 11000
+
+1395 22/02/2011 ~ 22:50:19.000 ~ Time to Deflation 0:18
+
+1396 22/02/2011 ~ 22:50:19.001 ~ Progress Bar Value = 11000
+
+1397 22/02/2011 ~ 22:50:19.001 ~ Time to Deflation 0:18
+
+1398 22/02/2011 ~ 22:50:19.002 ~ Progress Bar Value = 11000
+
+1399 22/02/2011 ~ 22:50:19.002 ~ Time to Deflation 0:18
+
+1400 22/02/2011 ~ 22:50:19.003 ~ Progress Bar Value = 11000
+
+1401 22/02/2011 ~ 22:50:19.003 ~ Time to Deflation 0:18
+
+1402 22/02/2011 ~ 22:50:19.003 ~ Progress Bar Value = 11000
+
+1403 22/02/2011 ~ 22:50:19.004 ~ Time to Deflation 0:18
+
+1404 22/02/2011 ~ 22:50:19.004 ~ Progress Bar Value = 11000
+
+1405 22/02/2011 ~ 22:50:19.004 ~ Time to Deflation 0:18
+
+1406 22/02/2011 ~ 22:50:19.005 ~ Progress Bar Value = 11000
+
+1407 22/02/2011 ~ 22:50:19.005 ~ Time to Deflation 0:18
+
+1408 22/02/2011 ~ 22:50:19.006 ~ Progress Bar Value = 11000
+
+1409 22/02/2011 ~ 22:50:19.006 ~ Time to Deflation 0:18
+
+1410 22/02/2011 ~ 22:50:19.006 ~ Progress Bar Value = 11000
+
+1411 22/02/2011 ~ 22:50:19.007 ~ Time to Deflation 0:18
+
+1412 22/02/2011 ~ 22:50:19.007 ~ Progress Bar Value = 11000
+
+1413 22/02/2011 ~ 22:50:19.008 ~ Time to Deflation 0:18
+
+1414 22/02/2011 ~ 22:50:19.008 ~ Progress Bar Value = 11000
+
+1415 22/02/2011 ~ 22:50:19.008 ~ Time to Deflation 0:18
+
+1416 22/02/2011 ~ 22:50:19.110 ~ Progress Bar Value = 11000
+
+1417 22/02/2011 ~ 22:50:19.110 ~ Time to Deflation 0:18
+
+1418 22/02/2011 ~ 22:50:19.111 ~ Progress Bar Value = 11000
+
+1419 22/02/2011 ~ 22:50:19.111 ~ Time to Deflation 0:18
+
+1420 22/02/2011 ~ 22:50:19.112 ~ Progress Bar Value = 11000
+
+1421 22/02/2011 ~ 22:50:19.112 ~ Time to Deflation 0:18
+
+1422 22/02/2011 ~ 22:50:19.112 ~ Progress Bar Value = 11000
+
+1423 22/02/2011 ~ 22:50:19.113 ~ Time to Deflation 0:18
+
+1424 22/02/2011 ~ 22:50:19.113 ~ Progress Bar Value = 11000
+
+1425 22/02/2011 ~ 22:50:19.114 ~ Time to Deflation 0:18
+
+1426 22/02/2011 ~ 22:50:19.114 ~ Progress Bar Value = 11000
+
+1427 22/02/2011 ~ 22:50:19.114 ~ Time to Deflation 0:18
+
+1428 22/02/2011 ~ 22:50:19.115 ~ Progress Bar Value = 11000
+
+1429 22/02/2011 ~ 22:50:19.115 ~ Time to Deflation 0:18
+
+1430 22/02/2011 ~ 22:50:19.116 ~ Progress Bar Value = 11000
+
+1431 22/02/2011 ~ 22:50:19.116 ~ Time to Deflation 0:18
+
+1432 22/02/2011 ~ 22:50:19.116 ~ Progress Bar Value = 11000
+
+1433 22/02/2011 ~ 22:50:19.117 ~ Time to Deflation 0:18
+
+1434 22/02/2011 ~ 22:50:19.117 ~ Progress Bar Value = 11000
+
+1435 22/02/2011 ~ 22:50:19.117 ~ Time to Deflation 0:18
+
+1436 22/02/2011 ~ 22:50:19.118 ~ Progress Bar Value = 11000
+
+1437 22/02/2011 ~ 22:50:19.118 ~ Time to Deflation 0:18
+
+1438 22/02/2011 ~ 22:50:19.119 ~ Progress Bar Value = 11000
+
+1439 22/02/2011 ~ 22:50:19.119 ~ Time to Deflation 0:18
+
+1440 22/02/2011 ~ 22:50:19.120 ~ Progress Bar Value = 11000
+
+1441 22/02/2011 ~ 22:50:19.120 ~ Time to Deflation 0:18
+
+1442 22/02/2011 ~ 22:50:19.120 ~ Progress Bar Value = 11000
+
+1443 22/02/2011 ~ 22:50:19.121 ~ Time to Deflation 0:18
+
+1444 22/02/2011 ~ 22:50:19.121 ~ Progress Bar Value = 11000
+
+1445 22/02/2011 ~ 22:50:19.121 ~ Time to Deflation 0:18
+
+1446 22/02/2011 ~ 22:50:19.122 ~ Progress Bar Value = 11000
+
+1447 22/02/2011 ~ 22:50:19.122 ~ Time to Deflation 0:18
+
+1448 22/02/2011 ~ 22:50:19.123 ~ Progress Bar Value = 11000
+
+1449 22/02/2011 ~ 22:50:19.123 ~ Time to Deflation 0:18
+
+1450 22/02/2011 ~ 22:50:19.124 ~ Progress Bar Value = 11000
+
+1451 22/02/2011 ~ 22:50:19.124 ~ Time to Deflation 0:18
+
+1452 22/02/2011 ~ 22:50:19.124 ~ Progress Bar Value = 11000
+
+1453 22/02/2011 ~ 22:50:19.125 ~ Time to Deflation 0:18
+
+1454 22/02/2011 ~ 22:50:19.126 ~ Progress Bar Value = 11000
+
+1455 22/02/2011 ~ 22:50:19.126 ~ Time to Deflation 0:18
+
+1456 22/02/2011 ~ 22:50:19.127 ~ Progress Bar Value = 11000
+
+1457 22/02/2011 ~ 22:50:19.127 ~ Time to Deflation 0:18
+
+1458 22/02/2011 ~ 22:50:19.128 ~ Progress Bar Value = 11000
+
+1459 22/02/2011 ~ 22:50:19.128 ~ Time to Deflation 0:18
+
+1460 22/02/2011 ~ 22:50:19.129 ~ Progress Bar Value = 11000
+
+1461 22/02/2011 ~ 22:50:19.129 ~ Time to Deflation 0:18
+
+1462 22/02/2011 ~ 22:50:19.129 ~ Progress Bar Value = 11000
+
+1463 22/02/2011 ~ 22:50:19.130 ~ Time to Deflation 0:18
+
+1464 22/02/2011 ~ 22:50:19.130 ~ Progress Bar Value = 11000
+
+1465 22/02/2011 ~ 22:50:19.131 ~ Time to Deflation 0:18
+
+1466 22/02/2011 ~ 22:50:19.131 ~ Progress Bar Value = 11000
+
+1467 22/02/2011 ~ 22:50:19.131 ~ Time to Deflation 0:18
+
+1468 22/02/2011 ~ 22:50:19.132 ~ Progress Bar Value = 11000
+
+1469 22/02/2011 ~ 22:50:19.132 ~ Time to Deflation 0:18
+
+1470 22/02/2011 ~ 22:50:19.133 ~ Progress Bar Value = 11000
+
+1471 22/02/2011 ~ 22:50:19.133 ~ Time to Deflation 0:18
+
+1472 22/02/2011 ~ 22:50:19.133 ~ Progress Bar Value = 11000
+
+1473 22/02/2011 ~ 22:50:19.134 ~ Time to Deflation 0:18
+
+1474 22/02/2011 ~ 22:50:19.134 ~ Progress Bar Value = 11000
+
+1475 22/02/2011 ~ 22:50:19.134 ~ Time to Deflation 0:18
+
+1476 22/02/2011 ~ 22:50:19.135 ~ Progress Bar Value = 11000
+
+1477 22/02/2011 ~ 22:50:19.135 ~ Time to Deflation 0:18
+
+1478 22/02/2011 ~ 22:50:19.136 ~ Progress Bar Value = 11000
+
+1479 22/02/2011 ~ 22:50:19.136 ~ Time to Deflation 0:18
+
+1480 22/02/2011 ~ 22:50:19.137 ~ 550
+
+1481 22/02/2011 ~ 22:50:19.137 ~ 550
+
+1482 22/02/2011 ~ 22:50:19.137 ~ 550
+
+1483 22/02/2011 ~ 22:50:19.235 ~ Progress Bar Value = 11000
+
+1484 22/02/2011 ~ 22:50:19.235 ~ Time to Deflation 0:18
+
+1485 22/02/2011 ~ 22:50:19.236 ~ Progress Bar Value = 11000
+
+1486 22/02/2011 ~ 22:50:19.236 ~ Time to Deflation 0:18
+
+1487 22/02/2011 ~ 22:50:19.236 ~ Progress Bar Value = 11000
+
+1488 22/02/2011 ~ 22:50:19.236 ~ Time to Deflation 0:18
+
+1489 22/02/2011 ~ 22:50:19.237 ~ Progress Bar Value = 11000
+
+1490 22/02/2011 ~ 22:50:19.237 ~ Time to Deflation 0:18
+
+1491 22/02/2011 ~ 22:50:19.237 ~ Progress Bar Value = 11000
+
+1492 22/02/2011 ~ 22:50:19.237 ~ Time to Deflation 0:18
+
+1493 22/02/2011 ~ 22:50:19.238 ~ Progress Bar Value = 11000
+
+1494 22/02/2011 ~ 22:50:19.238 ~ Time to Deflation 0:18
+
+1495 22/02/2011 ~ 22:50:19.238 ~ Progress Bar Value = 11000
+
+1496 22/02/2011 ~ 22:50:19.238 ~ Time to Deflation 0:18
+
+1497 22/02/2011 ~ 22:50:19.239 ~ Progress Bar Value = 11000
+
+1498 22/02/2011 ~ 22:50:19.239 ~ Time to Deflation 0:18
+
+1499 22/02/2011 ~ 22:50:19.239 ~ Progress Bar Value = 11000
+
+1500 22/02/2011 ~ 22:50:19.239 ~ Time to Deflation 0:18
+
+1501 22/02/2011 ~ 22:50:19.240 ~ Progress Bar Value = 11000
+
+1502 22/02/2011 ~ 22:50:19.240 ~ Time to Deflation 0:18
+
+1503 22/02/2011 ~ 22:50:19.240 ~ Progress Bar Value = 11000
+
+1504 22/02/2011 ~ 22:50:19.240 ~ Time to Deflation 0:18
+
+1505 22/02/2011 ~ 22:50:19.240 ~ Progress Bar Value = 11000
+
+1506 22/02/2011 ~ 22:50:19.241 ~ Time to Deflation 0:18
+
+1507 22/02/2011 ~ 22:50:19.241 ~ Progress Bar Value = 11000
+
+1508 22/02/2011 ~ 22:50:19.241 ~ Time to Deflation 0:18
+
+1509 22/02/2011 ~ 22:50:19.241 ~ Progress Bar Value = 11000
+
+1510 22/02/2011 ~ 22:50:19.241 ~ Time to Deflation 0:18
+
+1511 22/02/2011 ~ 22:50:19.242 ~ Progress Bar Value = 11000
+
+1512 22/02/2011 ~ 22:50:19.242 ~ Time to Deflation 0:18
+
+1513 22/02/2011 ~ 22:50:19.242 ~ Progress Bar Value = 11000
+
+1514 22/02/2011 ~ 22:50:19.242 ~ Time to Deflation 0:18
+
+1515 22/02/2011 ~ 22:50:19.243 ~ Progress Bar Value = 11000
+
+1516 22/02/2011 ~ 22:50:19.243 ~ Time to Deflation 0:18
+
+1517 22/02/2011 ~ 22:50:19.243 ~ Progress Bar Value = 11000
+
+1518 22/02/2011 ~ 22:50:19.243 ~ Time to Deflation 0:18
+
+1519 22/02/2011 ~ 22:50:19.244 ~ Progress Bar Value = 11000
+
+1520 22/02/2011 ~ 22:50:19.244 ~ Time to Deflation 0:18
+
+1521 22/02/2011 ~ 22:50:19.244 ~ Progress Bar Value = 11000
+
+1522 22/02/2011 ~ 22:50:19.244 ~ Time to Deflation 0:18
+
+1523 22/02/2011 ~ 22:50:19.244 ~ Progress Bar Value = 11000
+
+1524 22/02/2011 ~ 22:50:19.245 ~ Time to Deflation 0:18
+
+1525 22/02/2011 ~ 22:50:19.245 ~ Progress Bar Value = 11000
+
+1526 22/02/2011 ~ 22:50:19.245 ~ Time to Deflation 0:18
+
+1527 22/02/2011 ~ 22:50:19.245 ~ Progress Bar Value = 11000
+
+1528 22/02/2011 ~ 22:50:19.246 ~ Time to Deflation 0:18
+
+1529 22/02/2011 ~ 22:50:19.246 ~ Progress Bar Value = 11000
+
+1530 22/02/2011 ~ 22:50:19.246 ~ Time to Deflation 0:18
+
+1531 22/02/2011 ~ 22:50:19.246 ~ Progress Bar Value = 11000
+
+1532 22/02/2011 ~ 22:50:19.246 ~ Time to Deflation 0:18
+
+1533 22/02/2011 ~ 22:50:19.247 ~ Progress Bar Value = 11000
+
+1534 22/02/2011 ~ 22:50:19.247 ~ Time to Deflation 0:18
+
+1535 22/02/2011 ~ 22:50:19.247 ~ Progress Bar Value = 11000
+
+1536 22/02/2011 ~ 22:50:19.247 ~ Time to Deflation 0:18
+
+1537 22/02/2011 ~ 22:50:19.248 ~ Progress Bar Value = 11000
+
+1538 22/02/2011 ~ 22:50:19.248 ~ Time to Deflation 0:18
+
+1539 22/02/2011 ~ 22:50:19.248 ~ Progress Bar Value = 11000
+
+1540 22/02/2011 ~ 22:50:19.248 ~ Time to Deflation 0:18
+
+1541 22/02/2011 ~ 22:50:19.249 ~ Progress Bar Value = 11000
+
+1542 22/02/2011 ~ 22:50:19.249 ~ Time to Deflation 0:18
+
+1543 22/02/2011 ~ 22:50:19.249 ~ Progress Bar Value = 11000
+
+1544 22/02/2011 ~ 22:50:19.249 ~ Time to Deflation 0:18
+
+1545 22/02/2011 ~ 22:50:19.249 ~ Progress Bar Value = 11000
+
+1546 22/02/2011 ~ 22:50:19.250 ~ Time to Deflation 0:18
+
+1547 22/02/2011 ~ 22:50:21.190 ~ Report calculation failed.
+
+Captured waveforms have been stored in:
+C:\Projects\PN022\Scor\gui\gui\bin\Debug\simulation\pwv\capture_2011Feb22225019.dat
+
+1548 22/02/2011 ~ 22:50:21.190 ~ Warning: 2020 : Carotid distance is not within the valid range between %0 and %1 (%2)
+
+1549 22/02/2011 ~ 22:50:21.192 ~ BLL_STOP_CAPTURE
+
+1550 22/02/2011 ~ 22:51:21.941 ~ Could not find stored procedure 'GetPWVTrendData'.
+
+.Net SqlClient Data Provider
+
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteNonQuery(DbCommand command) in e:\Builds\EntLib\Latest\Source\Blocks\Data\Src\Data\Database.cs:line 443
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteNonQuery(DbCommand command) in e:\Builds\EntLib\Latest\Source\Blocks\Data\Src\Data\Database.cs:line 714
+   at AtCor.Scor.CrossCutting.DatabaseManager.CrxDBManager.GetPWVTrendData(Int32 patientNumberInternal, Int32 groupIdentifier, Int32 systemIdentifier, String studyDateTimeArrStr, CrxStructPWVTrendData trendDataStruct) in c:\projects\pn022\scor\crx\crx\crxdatabase.cpp:line 188
+
+1551 22/02/2011 ~ 23:11:54.909 ~ Could not find stored procedure 'GetPWVTrendData'.
+
+.Net SqlClient Data Provider
+
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteNonQuery(DbCommand command) in e:\Builds\EntLib\Latest\Source\Blocks\Data\Src\Data\Database.cs:line 443
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteNonQuery(DbCommand command) in e:\Builds\EntLib\Latest\Source\Blocks\Data\Src\Data\Database.cs:line 714
+   at AtCor.Scor.CrossCutting.DatabaseManager.CrxDBManager.GetPWVTrendData(Int32 patientNumberInternal, Int32 groupIdentifier, Int32 systemIdentifier, String studyDateTimeArrStr, CrxStructPWVTrendData trendDataStruct) in c:\projects\pn022\scor\crx\crx\crxdatabase.cpp:line 188
+
+1552 22/02/2011 ~ 23:12:08.777 ~ Application exited successfully.
+
+1553 23/02/2011 ~ 07:18:53.117 ~ Running Application Instances found = 1
+
+1554 23/02/2011 ~ 07:18:53.319 ~ Connection established succesfully with serverPC48\SQLEXPRESS
+
+1555 23/02/2011 ~ 07:18:57.735 ~ Scor application loaded successfully.
+
+1556 23/02/2011 ~ 07:19:27.227 ~ Database restore is in progress....
+
+1557 23/02/2011 ~ 07:19:32.746 ~ Database restored successfully
+
+1558 23/02/2011 ~ 07:20:38.544 ~ Cannot open backup device '\\PC48\Projects\PN022\Scor\db_backup\Atcor-Scor10.021Feb2011.bak'. Operating system error 67(failed to retrieve text for this error. Reason: 15100).
+RESTORE DATABASE is terminating abnormally.
+Changed database context to 'master'.
+
+.Net SqlClient Data Provider
+
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteNonQuery(DbCommand command) in e:\Builds\EntLib\Latest\Source\Blocks\Data\Src\Data\Database.cs:line 443
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteNonQuery(DbCommand command) in e:\Builds\EntLib\Latest\Source\Blocks\Data\Src\Data\Database.cs:line 714
+   at AtCor.Scor.CrossCutting.DatabaseManager.CrxDBManager.DatabaseRestore(String filePath) in c:\projects\pn022\scor\crx\crx\crxdatabase.cpp:line 1257
+
+1559 23/02/2011 ~ 07:20:42.898 ~ Application exited successfully.
+
+1560 23/02/2011 ~ 07:20:59.733 ~ Running Application Instances found = 1
+
+1561 23/02/2011 ~ 07:20:59.863 ~ Connection established succesfully with serverPC48\SQLEXPRESS
+
+1562 23/02/2011 ~ 07:21:04.128 ~ Scor application loaded successfully.
+
+1563 23/02/2011 ~ 07:21:21.397 ~ Could not find stored procedure 'GetPWVTrendData'.
+
+.Net SqlClient Data Provider
+
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.DoExecuteNonQuery(DbCommand command) in e:\Builds\EntLib\Latest\Source\Blocks\Data\Src\Data\Database.cs:line 443
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteNonQuery(DbCommand command) in e:\Builds\EntLib\Latest\Source\Blocks\Data\Src\Data\Database.cs:line 714
+   at AtCor.Scor.CrossCutting.DatabaseManager.CrxDBManager.GetPWVTrendData(Int32 patientNumberInternal, Int32 groupIdentifier, Int32 systemIdentifier, String studyDateTimeArrStr, CrxStructPWVTrendData trendDataStruct) in c:\projects\pn022\scor\crx\crx\crxdatabase.cpp:line 188
+
+1564 23/02/2011 ~ 07:21:26.074 ~ Application exited successfully.
 
