@@ -4,15 +4,15 @@ using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
 namespace TestDal {
     using namespace System;
-    ref class DalModuleErrorAlarmEventArgs_ORITest;
+    ref class DalModuleErrorAlarmEventArgsTest;
     
     
     /// <summary>
-///This is a test class for DalModuleErrorAlarmEventArgs_ORITest and is intended
-///to contain all DalModuleErrorAlarmEventArgs_ORITest Unit Tests
+///This is a test class for DalModuleErrorAlarmEventArgsTest and is intended
+///to contain all DalModuleErrorAlarmEventArgsTest Unit Tests
 ///</summary>
 	[TestClass]
-	public ref class DalModuleErrorAlarmEventArgs_ORITest
+	public ref class DalModuleErrorAlarmEventArgsTest
 	{
 
 	private: Microsoft::VisualStudio::TestTools::UnitTesting::TestContext^  testContextInstance;
@@ -68,7 +68,7 @@ namespace TestDal {
 			void ErrorAlarmStatusTest()
 			{
 				DalErrorAlarmStatusFlag data = DalErrorAlarmStatusFlag(); // TODO: Initialize to an appropriate value
-				DalModuleErrorAlarmEventArgs_ORI^  target = (gcnew DalModuleErrorAlarmEventArgs_ORI(data)); // TODO: Initialize to an appropriate value
+				DalModuleErrorAlarmEventArgs^  target = (gcnew DalModuleErrorAlarmEventArgs(data)); // TODO: Initialize to an appropriate value
 				DalErrorAlarmStatusFlag expected = DalErrorAlarmStatusFlag(); // TODO: Initialize to an appropriate value
 				DalErrorAlarmStatusFlag actual;
 				target->ErrorAlarmStatus = expected;
@@ -77,13 +77,13 @@ namespace TestDal {
 			//	Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
-			///A test for DalModuleErrorAlarmEventArgs_ORI Constructor
+			///A test for DalModuleErrorAlarmEventArgs Constructor
 			///</summary>
 	public: [TestMethod]
-			void DalModuleErrorAlarmEventArgs_ORIConstructorTest()
+			void DalModuleErrorAlarmEventArgsConstructorTest()
 			{
 				DalErrorAlarmStatusFlag data = DalErrorAlarmStatusFlag::ActiveStatus ; // TODO: Initialize to an appropriate value
-				DalModuleErrorAlarmEventArgs_ORI^  target = (gcnew DalModuleErrorAlarmEventArgs_ORI(data));
+				DalModuleErrorAlarmEventArgs^  target = (gcnew DalModuleErrorAlarmEventArgs(data));
 				Assert::AreEqual(target->ErrorAlarmStatus, data);
 			}
 	};

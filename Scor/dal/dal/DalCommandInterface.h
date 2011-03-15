@@ -13,12 +13,11 @@
 #include "IDalHandler.h"
 #include "DalCommon.h"
 #include "DalEM4Command.h"
-
-
+#include "DalEM4DataCapturePacket.h"
 
 using namespace System;
 using namespace System::IO::Ports;
-
+using namespace System::Threading;
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -42,15 +41,20 @@ namespace AtCor{
 			private ref class DalCommandInterface: public DalStatusHandler
 			{
 				private:
-					SerialPort ^_serialPort;
-					unsigned char _sentPacketSequenceNumber;
+					
+					static unsigned char _sentPacketSequenceNumber;
 
-					DalCommandInterface();
+					static DalCommandInterface^ _instance = gcnew DalCommandInterface();
+					DalCommandInterface^ operator= (const DalCommandInterface);
 					
 					bool ValidateCommand(DalEM4Command^ serialCommand);
 					DalReturnValue ValidateCommandResult(DalEM4Command^ serialCommand, DalReturnValue responseReturnValue);
+
+					SerialPort ^_serialPort;
+					//static Mutex^ lockAndWriteMutex = gcnew Mutex();
 					
 				internal:
+					
 					DalCommandState _currentState; /**< Current state of the interface. Unused */
 					
 					/**
@@ -109,7 +113,7 @@ namespace AtCor{
 					static DalReturnValue ValidateResponsePacket(DalEM4Command^ serialCommand);
 
 					/**
-					* Validates EM4 DataCapture packet recieved by DataCaptureHandler().
+					* Validates EM4 DataCapture packet recieved by DataCaptureSinglePacketHandler().
 					* @param[in]	capturePacket	The EM4DataCapturePacket recived from the EM4 
 					* @return	DalReturnValue value indiciating status of the operation
 					*/
@@ -121,33 +125,133 @@ namespace AtCor{
 					* @return	status of the operation
 					*/
 					static bool CheckStatusFlag(unsigned long statusBytes);
-					
-				public:
-					/**
-					* Constructor for the DalCommandInterface class
-					* Initializes the object using the specifed port name
-					* @param[in]	em4DevicePortName	The port anme to initilize this instance
-					*/
-					DalCommandInterface(String^ em4DevicePortName);
 
 					/**
-					* Handler for the events raised during data capture
+					* Property to obtain the a sequence number for the EM4 command 
+					* Starts from 0x00 to 0x0F and rolls over.
+					*/
+					static property unsigned char SentPacketSequenceNumber
+					{
+						unsigned char get()
+						{
+							unsigned char returnValue;
+							
+							returnValue = _sentPacketSequenceNumber++;
+							if (_sentPacketSequenceNumber >0x0F)
+							{
+								_sentPacketSequenceNumber = 0x00;
+							}
+							
+							return returnValue;
+						};
+					};
+					
+				public:
+
+					/**
+					* Constructor for the DalCommandInterface class
+					* Initializes the DalCommanInterface but does not set the port
+					*/
+					DalCommandInterface();
+					
+					/**
+					* Handler for the events raised during data capture. @n
+					* Reads multiple events in a loop
 					* @param[in]	sender	Event sender. 
 					* @param[in]	e	Event arguments
 					*/
-					static void DataCaptureHandler(Object^ sender, SerialDataReceivedEventArgs^ e);
+					static void DataCaptureMultiplePacketHandler(Object^ sender, SerialDataReceivedEventArgs^ e);
+			
 
 					/**
-					* Registers the DataCaptureHandler to listen to data caputre packets
+					* Registers the DataCaptureSinglePacketHandler to listen to data caputre packets
 					* @return	status of the operation
 					*/
 					bool InitiateDataCaptureMode();
 
 					/**
-					* De-registers the DataCaptureHandler to listen to data caputre packets
+					* De-registers the DataCaptureSinglePacketHandler to listen to data caputre packets
 					* @return	status of the operation
 					*/
 					bool StopDataCaptureMode();
+
+					//Deepak: uncalled as of now. May need later - FxCop
+					///*
+					//* Sets the current SerialPort Object to the specified parameter
+					//* @param  serialPortObject The serial port object to specify
+					//* @return	status of the operation
+					//*/
+					//bool SetActivePort( SerialPort^ serialPortObject);
+
+					/**
+					* Sets the current SerialPort Object to the specified port name
+					* @param  serialPortName The serial port to set
+					* @return	status of the operation
+					*/
+					bool SetActivePort( String^ serialPortName);
+
+					/**
+					* Sets the port name for the current serial port object.
+					* @param  serialPortName The serial port to set
+					* @return	status of the operation
+					* @warning Check if the serialport instance is not null before calling.
+					*/
+					bool SetActivePortInstance(String^ serialPortName);
+
+					/**
+					* Sets the properties of the internal serialPort object
+					* @return	status of the operation
+					*/
+					bool SetSerialPortProperties();
+
+					bool CreateAndOpenNewSerialPort(String^ newPortName);
+
+					bool CloseActivePort();
+
+					/**
+					* Returns the current singleton instance.
+					*/
+					static property DalCommandInterface^ Instance
+					{
+						DalCommandInterface^ get()
+						{
+							return DalCommandInterface::_instance;
+						};
+					};
+
+					/**
+					* Returns the name of the currently active serial port.
+					* @warning Will return @c null if the current serial port object is not set.
+					*/
+					property String^ ActiveSerialPortName
+					{
+						String^ get()
+						{
+							if (_serialPort)
+							{
+								return _serialPort->PortName;
+							}
+							else
+							{
+								//we will return a null string to indicate that the serialPort object hasnt been initialized.
+								return nullptr;
+							}
+						};
+					}
+
+					
+
+					/** 
+					* Cleans the input buffer and dumps the unread packets into the log file.
+					* Called when there an illegal data packet is recieved @n
+					* cleans the input buffer and dumps the remaining values into the logfile.
+					* @param[in]	serialPort	The serial port object
+					* @param[in]	currentDataPacket	The data packet to be dumped. 
+					*/
+					static bool DumpInputBufferOnFailure(SerialPort^ serialPort, array<unsigned char> ^currentDataPacket);
+					
+
+
 			};
 		}
 	}

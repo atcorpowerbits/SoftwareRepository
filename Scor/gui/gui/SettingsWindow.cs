@@ -10,22 +10,17 @@
 
 using AtCor.Scor.CrossCutting;
 using AtCor.Scor.CrossCutting.Configuration;
-using AtCor.Scor.CrossCutting.Logging;
 using AtCor.Scor.CrossCutting.Messaging;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO.Ports;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Docking;
-using Telerik.WinControls.Enumerations;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -33,12 +28,12 @@ using Telerik.WinControls.Enumerations;
  * 
  */
 namespace AtCor.Scor.Gui.Presentation
-{         
-     /**
-     * @class Setting Window
-     * @brief This class is used to set General as well as PWV settings for the application.On this window,all the necessary settings will be done which are required by the user at different stages in the application.
-     */    
-    public partial class frmSettingsWindow : Telerik.WinControls.UI.RadForm
+{
+    /**
+    * @class frmSettingsWindow
+    * @brief frmSettingsWindow is used to set General as well as PWV settings for the application.On this window,all the necessary settings will be done which are required by the user at different stages in the application.
+    */
+    public partial class frmSettingsWindow : RadForm
     {
         #region Global decalartions
         CrxConfigManager obj;
@@ -58,7 +53,9 @@ namespace AtCor.Scor.Gui.Presentation
         bool defaultBtnClicked = false;       
          
         // Declaring delegates to implement cross-thread communication and for control assignment.
+/*
         private delegate void ReadConfigObject();
+*/
 
         private delegate void DisplaySettingsDelegate(object sender, DisplaySettingsEventArgs e);
                 
@@ -68,7 +65,9 @@ namespace AtCor.Scor.Gui.Presentation
 
         private delegate void CloseAfterSaveDelegate();
 
+/*
         private delegate void DisplayMessageBoxDelegate(string message);  
+*/
                 
         // Declaring events for cross-thread communiction.         
         private event DisplaySettingsDelegate OnDisplayUserSettings;
@@ -117,14 +116,14 @@ namespace AtCor.Scor.Gui.Presentation
             pwvSettingsStruct = new CrxStructPwvSetting();
 
             // To prevent docking of the tabstrip.
-            DragDropService service = this.radDock1.GetService<DragDropService>();
+            DragDropService service = radDock1.GetService<DragDropService>();
             service.Starting += new StateServiceStartingEventHandler(Service_Starting);
 
             // To disable right clicking on the tabstrip.
-            ContextMenuService menuService = this.radDock1.GetService<ContextMenuService>();
+            ContextMenuService menuService = radDock1.GetService<ContextMenuService>();
             menuService.ContextMenuDisplaying += menuService_ContextMenuDisplaying;  
-            this.MaximumSize = this.Size;
-            this.MinimumSize = this.Size;
+            MaximumSize = this.Size;
+            MinimumSize = this.Size;
             
             // Populate the text value for General settings form controls
             SetTextForGeneralSettingsTab();            
@@ -193,21 +192,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             e.Cancel = true;
 
-            // the menu request is associated with a valid DockWindow instance, which resides within a DocumentTabStrip
-            if (e.MenuType == ContextMenuType.DockWindow &&
-                e.DockWindow.DockTabStrip is DocumentTabStrip)
-            {
-                // remove the "Close" menu items
-                for (int i = 0; i < e.MenuItems.Count; i++)
-                {
-                    RadMenuItemBase menuItem = e.MenuItems[i];                    
-                    {
-                        // In case you just want to disable to option you can set Enabled false
-                        // menuItem.Enabled = false;
-                        menuItem.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-                    }
-                }
-            }
+            
         } 
                
         /**This method will be called when Settings option under System tab is clicked.
@@ -390,7 +375,7 @@ namespace AtCor.Scor.Gui.Presentation
                 if (Path.HasExtension(oMsgMgr.GetMessage("SYS_SIM_FILE_WILDCARD")))
                 {
                     DirectoryInfo dirInfo = new DirectoryInfo(oMsgMgr.GetMessage("SYS_SIM_FILE_PATH"));
-                    foreach (System.IO.FileInfo file in dirInfo.GetFiles())
+                    foreach (FileInfo file in dirInfo.GetFiles())
                     {
                         fileList.Add(Path.GetFileNameWithoutExtension(file.ToString().ToUpper()));
                     }
@@ -468,19 +453,20 @@ namespace AtCor.Scor.Gui.Presentation
         */ 
         private void SetCommPort(string value)
         {
-            if (value != null && comboBoxCommsPort.Items.Contains(value))
+            if (value == null || !comboBoxCommsPort.Items.Contains(value))
             {
-                comboBoxCommsPort.Items.Remove(value);
-                comboBoxCommsPort.Items.Insert(0, value);
-                comboBoxCommsPort.SelectedIndex = 0;
+                return;
             }
+            comboBoxCommsPort.Items.Remove(value);
+            comboBoxCommsPort.Items.Insert(0, value);
+            comboBoxCommsPort.SelectedIndex = 0;
         }
 
         /**This method is used to set the report title value to the corresponding GUI control.
         */ 
         private void SetReportTitle(string value)
         {
-            if (value != null && value.Length > 0)
+            if (!string.IsNullOrEmpty(value))
             {
                 radtxtReportTitle.Text = value;
             }
@@ -490,14 +476,15 @@ namespace AtCor.Scor.Gui.Presentation
         */ 
         private void SetReportLogo(string path)
         {
-            if (path != null && path.Length > 0)
+            if (path == null || path.Length <= 0)
             {
-                Image image = Image.FromFile(path);
-                picbxReportLogo.Image = image;
-                picbxReportLogo.ImageLocation = path;
-                picbxReportLogo.Height = image.Height;
-                picbxReportLogo.Width = image.Width;
+                return;
             }
+            Image image = Image.FromFile(path);
+            picbxReportLogo.Image = image;
+            picbxReportLogo.ImageLocation = path;
+            picbxReportLogo.Height = image.Height;
+            picbxReportLogo.Width = image.Width;
         }
 
         /**This method is used to populate the settings value on the controls.
@@ -649,12 +636,17 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 DirectoryInfo dirInfo = new DirectoryInfo(oMsgMgr.GetMessage("SYS_SIM_FILE_PATH"));
-
-                foreach (System.IO.FileInfo file in dirInfo.GetFiles())
+                
+                comboSimulationFiles.Items.Clear();
+                foreach (FileInfo file in dirInfo.GetFiles())
                 {
                     comboSimulationFiles.Items.Add(Path.GetFileNameWithoutExtension(file.ToString()));
                 }
 
+                if (dirInfo.GetFiles().Length.Equals(0))
+                {
+                    return;
+                }
                 comboSimulationFiles.SelectedIndex = 0;
             }
             catch (Exception ex)
@@ -747,6 +739,7 @@ namespace AtCor.Scor.Gui.Presentation
             // Setting the values into the configuration object.
             CrxConfigManager config = CrxConfigManager.Instance;
             config.GetGeneralUserSettings();
+            gnrlSettingsStruct.MachineName = config.GeneralSettings.MachineName;   
             gnrlSettingsStruct.ServerName = config.GeneralSettings.ServerName;
             gnrlSettingsStruct.SourceData = config.GeneralSettings.SourceData;
             //// set the patient privacy option accordingly.
@@ -776,7 +769,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
 
             gnrlSettingsStruct.CommsPort = comboBoxCommsPort.Text;
-            if (radtxtReportTitle.Text != null && radtxtReportTitle.Text.Length > 0)
+            if (!string.IsNullOrEmpty(radtxtReportTitle.Text))
             {
                 gnrlSettingsStruct.ReportTitle = radtxtReportTitle.Text.Trim();
             }
@@ -852,6 +845,11 @@ namespace AtCor.Scor.Gui.Presentation
                 t2.Start();
                 defaultBtnClicked = false;
 
+                if (!comboBoxCommsPort.Text.Equals(obj.GeneralSettings.CommsPort))
+                {
+                    CrxEventContainer.Instance.raise_OnCommsPortEvent(this, new CommsPortEventArgs(comboBoxCommsPort.Text));
+                }
+
                // OnSettingsChangedEvent(this, new EventArgs());
             }
             catch (Exception ex)
@@ -907,10 +905,12 @@ namespace AtCor.Scor.Gui.Presentation
 
         /**This method will display the error message using the message box.
          */ 
+/*
         private void DisplayErrorMessage(string errorMessage)
         {
             RadMessageBox.Show(this, errorMessage, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
         }
+*/
 
         /**This is a common function for Blood pessure ,Pateint privacy and height weight units,Femoral to cuff,Reference 
          * range,Capture time, PWV distance method and PWV distance.On change of any of the     
@@ -938,18 +938,10 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**Enable save button when user selects a value from the drop down list
-       */ 
-        private void radbtnPwvCancel_Click(object sender, EventArgs e)
-        {
-            // Close the settings window on Cancel click.
-            this.Close();
-        }        
-
-        /**Enable save button when user selects a value from the drop down list
         */ 
         private void comboSimulationFiles_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (this.comboSimulationFiles.GetItemText(this.comboSimulationFiles.SelectedItem).Length.Equals(0))
+            if (comboSimulationFiles.GetItemText(comboSimulationFiles.SelectedItem).Length.Equals(0))
             {
                 RadMessageBox.Show(this, oMsgMgr.GetMessage("GUI_SELECT_SIMULATION_FILE"), oMsgMgr.GetMessage("INFORMATION"), MessageBoxButtons.OK, RadMessageIcon.Error);
             }

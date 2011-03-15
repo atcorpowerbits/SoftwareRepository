@@ -46,10 +46,18 @@ namespace TestCrx {
 			{
 				String^ path = Directory::GetCurrentDirectory(); 
 				int i = path->IndexOf("\\TestResults");
-				path = path->Substring(0,i + 12);
-				Directory::SetCurrentDirectory(path);
-				
+				if(i > 0)
+				{
+					path = path->Substring(0,i + 12);
+					Directory::SetCurrentDirectory(path);
+				}
+				else
+				{
+					path  = path + "\\TestResults";
+					Directory::SetCurrentDirectory(path);
+				}
 			}
+
 #pragma region Additional test attributes
 			// 
 			//You can use the following additional attributes as you write your tests:
@@ -202,11 +210,12 @@ public: [TestMethod]
 		void RollLogFileTest()
 		{
 			SetPath();
-				
 			DateTime nowDateTime;
 	  		CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor()); // TODO: Initialize to an appropriate value
 			bool expected = true; // TODO: Initialize to an appropriate value
 			bool actual;
+
+			SetPath();
 			target->Write("TestLine");
 			actual = target->RollLogFile();
 			Assert::AreEqual(expected, actual);

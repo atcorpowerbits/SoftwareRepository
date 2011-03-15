@@ -31,11 +31,9 @@ namespace AtCor.Scor.Gui.Presentation
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Capture));
             this.chartTonometer = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.guiradlblCarotidTonometer = new Telerik.WinControls.UI.RadLabel();
             this.guichartFemoralCuff = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.radlblcuffQuality = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblFemoralCuff = new Telerik.WinControls.UI.RadLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.radbtnTick = new Telerik.WinControls.UI.RadButton();
@@ -43,15 +41,12 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradprgbarTimeToInflatioDeflation = new Telerik.WinControls.UI.RadProgressBar();
             this.radlblTimeStatus = new Telerik.WinControls.UI.RadLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tmrInflationTimer = new System.Windows.Forms.Timer(this.components);
-            this.tmrDeflationTimer = new System.Windows.Forms.Timer(this.components);
-            this.TenSecWaitTmr = new System.Windows.Forms.Timer(this.components);
             this.radProgressBarQualityIndicator = new Telerik.WinControls.UI.RadProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac = new Telerik.WinControls.RootRadElement();
             ((System.ComponentModel.ISupportInitialize)(this.chartTonometer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidTonometer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guichartFemoralCuff)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radlblcuffQuality)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblFemoralCuff)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radbtnTick)).BeginInit();
@@ -81,7 +76,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.chartTonometer.ChartAreas.Add(chartArea1);
             this.chartTonometer.Location = new System.Drawing.Point(4, 30);
             this.chartTonometer.Name = "chartTonometer";
-            this.chartTonometer.Size = new System.Drawing.Size(939, 297);
+            this.chartTonometer.Size = new System.Drawing.Size(935, 297);
             this.chartTonometer.TabIndex = 14;
             this.chartTonometer.Text = "Carotid Tonometer";
             // 
@@ -113,19 +108,9 @@ namespace AtCor.Scor.Gui.Presentation
             this.guichartFemoralCuff.ChartAreas.Add(chartArea2);
             this.guichartFemoralCuff.Location = new System.Drawing.Point(4, 356);
             this.guichartFemoralCuff.Name = "guichartFemoralCuff";
-            this.guichartFemoralCuff.Size = new System.Drawing.Size(939, 186);
+            this.guichartFemoralCuff.Size = new System.Drawing.Size(935, 186);
             this.guichartFemoralCuff.TabIndex = 17;
             this.guichartFemoralCuff.Text = "chart1";
-            // 
-            // radlblcuffQuality
-            // 
-            this.radlblcuffQuality.AutoSize = false;
-            this.radlblcuffQuality.Image = ((System.Drawing.Image)(resources.GetObject("radlblcuffQuality.Image")));
-            this.radlblcuffQuality.Location = new System.Drawing.Point(949, 356);
-            this.radlblcuffQuality.Name = "radlblcuffQuality";
-            this.radlblcuffQuality.Size = new System.Drawing.Size(50, 50);
-            this.radlblcuffQuality.TabIndex = 16;
-            this.radlblcuffQuality.Visible = false;
             // 
             // guiradlblFemoralCuff
             // 
@@ -249,26 +234,12 @@ namespace AtCor.Scor.Gui.Presentation
             this.timer1.Interval = 125;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // tmrInflationTimer
-            // 
-            this.tmrInflationTimer.Interval = 1000;
-            this.tmrInflationTimer.Tick += new System.EventHandler(this.tmrInflationTimer_Tick);
-            // 
-            // tmrDeflationTimer
-            // 
-            this.tmrDeflationTimer.Interval = 1000;
-            this.tmrDeflationTimer.Tick += new System.EventHandler(this.tmrDeflationTimer_Tick);
-            // 
-            // TenSecWaitTmr
-            // 
-            this.TenSecWaitTmr.Interval = 10000;
-            this.TenSecWaitTmr.Tick += new System.EventHandler(this.TenSecWaitTmr_Tick);
-            // 
             // radProgressBarQualityIndicator
             // 
             this.radProgressBarQualityIndicator.Dash = false;
+            this.radProgressBarQualityIndicator.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radProgressBarQualityIndicator.ForeColor = System.Drawing.Color.Black;
-            this.radProgressBarQualityIndicator.Location = new System.Drawing.Point(951, 30);
+            this.radProgressBarQualityIndicator.Location = new System.Drawing.Point(957, 30);
             this.radProgressBarQualityIndicator.Name = "radProgressBarQualityIndicator";
             this.radProgressBarQualityIndicator.ProgressOrientation = Telerik.WinControls.ProgressOrientation.Bottom;
             // 
@@ -276,18 +247,18 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.radProgressBarQualityIndicator.RootElement.ForeColor = System.Drawing.Color.Black;
             this.radProgressBarQualityIndicator.ShowProgressIndicators = true;
-            this.radProgressBarQualityIndicator.Size = new System.Drawing.Size(29, 297);
+            this.radProgressBarQualityIndicator.Size = new System.Drawing.Size(20, 297);
             this.radProgressBarQualityIndicator.SweepAngle = 90;
             this.radProgressBarQualityIndicator.TabIndex = 21;
-            this.radProgressBarQualityIndicator.Text = "0%";
             this.radProgressBarQualityIndicator.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radProgressBarQualityIndicator.Value1 = 40;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).Orientation = Telerik.WinControls.ProgressOrientation.Bottom;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).ShowProgressIndicator = true;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).SweepAngle = 90;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).Dash = false;
-            ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).Value1 = 0;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).Value1 = 40;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).SeparatorColor1 = System.Drawing.SystemColors.ControlLightLight;
-            ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).Text = "0%";
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).Text = "";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.SystemColors.ControlLight;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.SystemColors.ControlLightLight;
@@ -296,14 +267,14 @@ namespace AtCor.Scor.Gui.Presentation
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(0))).GradientPercentage2 = 0.1F;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.SystemColors.ControlLightLight;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(139)))), ((int)(((byte)(232)))));
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(139)))), ((int)(((byte)(232)))));
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).BackColor2 = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).BackColor3 = System.Drawing.Color.Transparent;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).BackColor4 = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).GradientStyle = Telerik.WinControls.GradientStyles.Linear;
             ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).GradientPercentage = 0.5F;
             ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).GradientPercentage2 = 0.5F;
             ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(3))).LeftColor = System.Drawing.SystemColors.ControlLight;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(3))).TopColor = System.Drawing.SystemColors.ControlLight;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radProgressBarQualityIndicator.GetChildAt(0).GetChildAt(3))).RightColor = System.Drawing.SystemColors.ControlLight;
@@ -315,23 +286,30 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(945, 424);
+            this.pictureBox1.Location = new System.Drawing.Point(942, 424);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(50, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
             // 
+            // object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac
+            // 
+            this.object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac.ForeColor = System.Drawing.Color.Black;
+            this.object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac.Name = "object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac";
+            this.object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac.StretchHorizontally = true;
+            this.object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac.StretchVertically = true;
+            // 
             // Capture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(992, 599);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.radProgressBarQualityIndicator);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.guichartFemoralCuff);
-            this.Controls.Add(this.radlblcuffQuality);
             this.Controls.Add(this.guiradlblFemoralCuff);
             this.Controls.Add(this.chartTonometer);
             this.Controls.Add(this.guiradlblCarotidTonometer);
@@ -345,11 +323,11 @@ namespace AtCor.Scor.Gui.Presentation
             this.Text = "  ";
             this.ThemeName = "ControlDefault";
             this.Load += new System.EventHandler(this.Capture_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Capture_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Capture_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.chartTonometer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidTonometer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guichartFemoralCuff)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radlblcuffQuality)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblFemoralCuff)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -370,7 +348,6 @@ namespace AtCor.Scor.Gui.Presentation
         private System.Windows.Forms.DataVisualization.Charting.Chart chartTonometer;
         private Telerik.WinControls.UI.RadLabel guiradlblCarotidTonometer;
         private System.Windows.Forms.DataVisualization.Charting.Chart guichartFemoralCuff;
-        private Telerik.WinControls.UI.RadLabel radlblcuffQuality;
         private Telerik.WinControls.UI.RadLabel guiradlblFemoralCuff;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private Telerik.WinControls.UI.RadLabel radlblTimeStatus;
@@ -378,11 +355,9 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadButton radbtnCross;
         private Telerik.WinControls.UI.RadProgressBar guiradprgbarTimeToInflatioDeflation;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer tmrInflationTimer;
-        private System.Windows.Forms.Timer tmrDeflationTimer;
-        private System.Windows.Forms.Timer TenSecWaitTmr;
         private Telerik.WinControls.UI.RadProgressBar radProgressBarQualityIndicator;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private Telerik.WinControls.RootRadElement object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac;
     }
 }
 

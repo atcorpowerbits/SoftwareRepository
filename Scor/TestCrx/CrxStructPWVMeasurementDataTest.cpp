@@ -68,7 +68,7 @@ namespace TestCrx {
 			void CrxStructPWVMeasurementDataConstructorTest()
 			{
 				CrxStructPWVMeasurementData^  target = (gcnew CrxStructPWVMeasurementData());
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
+				Assert::IsNotNull(target);
 			}
 	};
 }

@@ -41,7 +41,9 @@ namespace AtCor{
 					bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, DalDeviceConfigUsageStruct ^deviceConfigInfo );
 					String^ GetErrorAlarmSource();
 
-					int FindModule(String^ comPort);
+					//It should not be called when device is in simulation.
+					//so we are removing from the interface	
+					//int FindModule(String^ comPort);
 					bool CheckIfDeviceIsConnected();
 					virtual bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
 
@@ -115,6 +117,14 @@ namespace AtCor{
 					* @return	The translated state
 					*/
 					static DalErrorAlarmStatusFlag TranslateErrorAlarmStatusBits(unsigned long statusFlags); 
+
+					/**
+					* Converts the input array into a hexadecimal string representation.
+					* @param	inputArray	The input array
+					* @return	A string representation of the input array
+					*/
+					static String^ ConvertBytesToString(array<unsigned char>^ inputArray);
+					
 			};
 
 		}

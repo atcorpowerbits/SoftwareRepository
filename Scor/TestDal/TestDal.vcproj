@@ -221,14 +221,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DalCountdownTimerEventArgsTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalCuffStatusEventArgs_ORITest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DalCuffStatusEventArgsTest.cpp"
 				>
 			</File>

@@ -24,6 +24,10 @@ using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Configuration;
 using namespace AtCor::Scor::CrossCutting::Logging;
 using namespace AtCor::Scor::CrossCutting::Messaging;
+using namespace System::Text;
+using namespace System::Globalization;
+
+
 
 namespace AtCor{
 	namespace Scor{
@@ -172,10 +176,10 @@ namespace AtCor{
 	
 				switch (data)
 				{
-				case DalCuffStatusBitMask::CUFF_DISCONNECTED_STATUS_BITS:
-					data = DalCuffStateFlags::CUFF_STATE_DISCONNECTED;
+					case DalCuffStatusBitMask::CUFF_DISCONNECTED_STATUS_BITS:
+						data = DalCuffStateFlags::CUFF_STATE_DISCONNECTED;
 						break;
-				case DalCuffStatusBitMask::CUFF_INFLATING_STATUS_BITS:
+					case DalCuffStatusBitMask::CUFF_INFLATING_STATUS_BITS:
 						data = DalCuffStateFlags::CUFF_STATE_INFLATING;
 						break;
 					case DalCuffStatusBitMask::CUFF_INFLATED_STATUS_BITS:
@@ -189,11 +193,9 @@ namespace AtCor{
 						break;
 					default:
 						data = DalCuffStateFlags::CUFF_STATE_UNKNOWN;
-						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
 						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
 						break;
 				}
-				//CrxLogger::Instance->Write("Deepak>>> TranslateCuffStatusBits, data = " + data.ToString());
 				return data;
 			}
 
@@ -233,6 +235,19 @@ namespace AtCor{
 				
 				return retAlarmValue;
 			}
-		}
+
+			String^ DalStatusHandler::ConvertBytesToString(array<unsigned char>^ inputArray)
+					{
+						String ^ packetData = String::Empty ;
+
+						for each (unsigned char singleByte in inputArray)
+						{
+							packetData += singleByte.ToString("X2");
+						}
+
+						return packetData;
+
+					}
+		} //End of DataAccess namespace
 	}
 }

@@ -41,6 +41,7 @@ public ref class ScorException:Exception
 	 ErrorSeverity	_errorType;	//The type of error, severity
 	 String^		_errorKey;	//The string key used to obtains the localized resource from resx file
 	 Exception^		_exceptionObject; //Exception object . Used to contain the system raised exception.
+	 array<String^>^ _errorStringArr; //The string array list. Used to contain the string placeholder list.
 
  public:
 
@@ -89,6 +90,17 @@ public ref class ScorException:Exception
 			return _exceptionObject;
 		}
 	}
+
+	/**
+	* The String Array. Will return the Array values. Read only value.
+	*/
+	property array<String^>^ ErrorStringArr
+	{
+		array<String^>^ get()
+		{
+			return _errorStringArr;
+		}
+	}
 	
 	/**
 	* Constructor to raise wrapped system exceptions.
@@ -107,6 +119,33 @@ public ref class ScorException:Exception
 	* @param errorType	The severity of the error.
 	*/
 	ScorException(int errorCode, String^ errorKey, ErrorSeverity errorType);
+
+	/**
+	* Constructor to raise application exceptions.
+	* Should not be used for system-raised exceptions.
+	*
+	* @param errorCode			Integer error code to uniquely identify this error.
+	* @param errorKey			The key string(Message Format) from resource file corresponding to the error message
+	* @param errorType			The severity of the error.
+	* @param exceptionObject	The system exception to be re-thrown or exception message can also be used as a placeholder if required..
+	* @param arr				The string array list to hold placeholders.
+	*/
+	//Logic of ScorException Constructor arguments handled in GUI as per araguments provided in the constructor
+	
+	//If errorCode is not 0, errorKey is null,  errorType is not null, exceptionObject is not null and arr is not null
+	//then the message will show the combination of errorCode, exceptionObject message, and array string values(string from resource file)
+
+	//If errorCode is not 0, errorKey is null,  errorType is not null, exceptionObject is null and arr is not null
+	//then the message will show the combination of errorCode, and array string values(string from resource file)
+
+	//If errorCode is not 0, errorKey is not null ,  errorType is not null,  exceptionObject is null and arr is null 
+	//then the message will show the combination of errorCode, errorKey(string from resource file)
+		
+	//If errorCode is not 0, errorKey is not null,  errorType is not null, exceptionObject is null and arr is not null
+	//here the errorKey will be considered as string formatter, which will contain placeholder and will be replaced with the array string value provided
+	//then the message will show the combination of errorCode, errorKey(string from resource file), exceptionObject message, and array string values
+
+	ScorException(int errorCode, String ^errorKey, ErrorSeverity errorType, Exception^ exceptionObject, ...array<String^>^ arr );
 
 private:
 	//made private to prevent "empty" exceptions.

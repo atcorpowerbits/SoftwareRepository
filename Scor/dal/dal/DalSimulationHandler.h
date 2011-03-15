@@ -51,22 +51,26 @@ namespace AtCor{
 					//static void ReadMultipleEventsInLoop(); //making non static in order to raise events. static members cannot have this pointer
 					static void ReadMultipleEventsInLoop(Object^ sender);
 					
+					static DalSimulationHandler^ _instance = gcnew DalSimulationHandler();
 
-				
+					/**
+					 * Overloaded assignment Operator. @n
+					 * Returns this pointer to implement singleton.
+					 */
+					DalSimulationHandler^ operator=(const DalSimulationHandler^) 
+					{
+						return this;
+					}  
+
+					DalSimulationHandler(); //Constructor , made private to implement singleton
+					
 				public:
-					DalSimulationHandler(); //Constructor
 					virtual bool StartCapture(); //Start the simulation capture //TODO:STUB
 					virtual bool StartCapture(int captureTime, int samplingRate); //new parametrized method
 					virtual bool StopCapture(); //Stop the simulation capture
 					virtual bool GetConnectionStatus(); //Dummy method to return connection status
 					virtual bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
 											  DalDeviceConfigUsageStruct ^deviceConfigInfo );//Dummy method to return configuration info.
-
-					/**
-					* Returns if the device is found
-					* Always returns true for simulation
-					*/
-					virtual int FindModule(String^ comPort);
 
 					/**
 					* Checks if the device is connected on the port specified in conifg
@@ -96,6 +100,35 @@ namespace AtCor{
 					* @see	SaveCaptureData
 					*/
 					virtual String^ GetSavedFileName();
+
+					/**
+					*Function is to open the selecetd Simulation file from the Config.
+					*
+					* @return The status of the operation
+					*/
+					bool GetFileNameFromConfgAndOpen();
+
+
+					static bool CheckStatusFlag(unsigned long statusBytes, bool %cuffIsInflated);
+
+					/**
+					* Property with custom get method to supply instance.@n
+					* Used to implement singleton
+					*/
+					static property DalSimulationHandler^ Instance
+					{
+
+						/**
+						* Custom get method. @n
+						* Returns a pointer to this singleton instance.
+						*
+						* @return	Pointer to this instance
+						*/
+						DalSimulationHandler^ get()
+						{
+							return DalSimulationHandler::_instance;
+						};
+					};
 
 			};
 		}

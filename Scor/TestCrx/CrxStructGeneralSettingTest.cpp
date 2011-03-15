@@ -68,7 +68,22 @@ namespace TestCrx {
 			void CrxStructGeneralSettingConstructorTest()
 			{
 				CrxStructGeneralSetting^  target = (gcnew CrxStructGeneralSetting());
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
+				Assert::IsNotNull(target);
+
+				Assert::AreEqual(target->PatientPrivacy,false);
+				Assert::AreEqual(target->HeightandWeightUnit, 0);
+				Assert::AreEqual(target->BloodPressureEntryOptions, 0);
+				Assert::IsNull(target->CommsPort);
+				Assert::IsNull(target->ReportTitle);
+				Assert::IsNull(target->ReportLogoPath);
+				Assert::IsNull(target->ServerName);
+				Assert::IsNull(target->SourceData);
+				Assert::IsNull(target->CultureInfo);
+				Assert::IsNull(target->MachineName);
+				Assert::IsNull(target->StartupMode);
+				Assert::IsNull(target->StartupScreen);
+				Assert::IsNull(target->EnvironmentSettings);
+				Assert::IsNull(target->PrinterName);
 			}
 	};
 }

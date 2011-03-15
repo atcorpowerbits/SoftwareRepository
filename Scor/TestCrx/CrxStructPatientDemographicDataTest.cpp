@@ -68,7 +68,7 @@ namespace TestCrx {
 			void CrxStructPatientDemographicDataConstructorTest()
 			{
 				CrxStructPatientDemographicData^  target = (gcnew CrxStructPatientDemographicData());
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
+				Assert::IsNotNull(target);
 			}
 	};
 }

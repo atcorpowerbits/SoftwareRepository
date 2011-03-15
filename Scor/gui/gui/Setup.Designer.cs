@@ -230,7 +230,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guipnlMeasurementDetails.Controls.Add(this.guiradlblSP);
             this.guipnlMeasurementDetails.Controls.Add(this.guiradtxtDP);
             this.guipnlMeasurementDetails.Controls.Add(this.guiradlblDP);
-            this.guipnlMeasurementDetails.Location = new System.Drawing.Point(536, 14);
+            this.guipnlMeasurementDetails.Location = new System.Drawing.Point(533, 14);
             this.guipnlMeasurementDetails.Name = "guipnlMeasurementDetails";
             this.guipnlMeasurementDetails.Size = new System.Drawing.Size(457, 580);
             this.guipnlMeasurementDetails.TabIndex = 0;
@@ -265,7 +265,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtsetupheight.Location = new System.Drawing.Point(211, 12);
             this.guiradtxtsetupheight.Name = "guiradtxtsetupheight";
             this.guiradtxtsetupheight.Size = new System.Drawing.Size(50, 18);
-            this.guiradtxtsetupheight.TabIndex = 38;
+            this.guiradtxtsetupheight.TabIndex = 0;
             this.guiradtxtsetupheight.TabStop = false;
             // 
             // guiradlblPwvDistanceUnits
@@ -311,7 +311,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtImperialHeight.RootElement.AutoSize = false;
             this.guiradtxtImperialHeight.Size = new System.Drawing.Size(50, 18);
-            this.guiradtxtImperialHeight.TabIndex = 34;
+            this.guiradtxtImperialHeight.TabIndex = 1;
             this.guiradtxtImperialHeight.TabStop = false;
             this.guiradtxtImperialHeight.Visible = false;
             // 
@@ -319,11 +319,10 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtFemoralToCuff.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradtxtFemoralToCuff.Location = new System.Drawing.Point(355, 427);
-            this.guiradtxtFemoralToCuff.MaxLength = 3;
             this.guiradtxtFemoralToCuff.Name = "guiradtxtFemoralToCuff";
             this.guiradtxtFemoralToCuff.ReadOnly = true;
             this.guiradtxtFemoralToCuff.Size = new System.Drawing.Size(50, 18);
-            this.guiradtxtFemoralToCuff.TabIndex = 33;
+            this.guiradtxtFemoralToCuff.TabIndex = 10;
             this.guiradtxtFemoralToCuff.TabStop = false;
             this.guiradtxtFemoralToCuff.Leave += new System.EventHandler(this.guiradtxtFemoralToCuff_Leave);
             this.guiradtxtFemoralToCuff.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.guiradtxtCuff_KeyPress);
@@ -367,14 +366,13 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtCarotid.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradtxtCarotid.Location = new System.Drawing.Point(354, 330);
-            this.guiradtxtCarotid.MaxLength = 3;
             this.guiradtxtCarotid.Name = "guiradtxtCarotid";
             // 
             // 
             // 
             this.guiradtxtCarotid.RootElement.AutoSize = false;
             this.guiradtxtCarotid.Size = new System.Drawing.Size(50, 18);
-            this.guiradtxtCarotid.TabIndex = 31;
+            this.guiradtxtCarotid.TabIndex = 9;
             this.guiradtxtCarotid.TabStop = false;
             this.guiradtxtCarotid.Leave += new System.EventHandler(this.guiradtxtCarotid_Leave);
             this.guiradtxtCarotid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.guiradtxtCuff_KeyPress);
@@ -383,14 +381,13 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtCuff.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradtxtCuff.Location = new System.Drawing.Point(33, 392);
-            this.guiradtxtCuff.MaxLength = 3;
             this.guiradtxtCuff.Name = "guiradtxtCuff";
             // 
             // 
             // 
             this.guiradtxtCuff.RootElement.AutoSize = false;
             this.guiradtxtCuff.Size = new System.Drawing.Size(50, 18);
-            this.guiradtxtCuff.TabIndex = 32;
+            this.guiradtxtCuff.TabIndex = 8;
             this.guiradtxtCuff.TabStop = false;
             this.guiradtxtCuff.Leave += new System.EventHandler(this.guiradtxtCuff_Leave);
             this.guiradtxtCuff.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.guiradtxtCuff_KeyPress);
@@ -426,7 +423,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtSP.RootElement.AutoSize = false;
             this.guiradtxtSP.Size = new System.Drawing.Size(50, 18);
-            this.guiradtxtSP.TabIndex = 28;
+            this.guiradtxtSP.TabIndex = 5;
             this.guiradtxtSP.TabStop = false;
             this.guiradtxtSP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.guiradtxtCuff_KeyPress);
             // 
@@ -527,7 +524,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtWeight.RootElement.AutoSize = false;
             this.guiradtxtWeight.Size = new System.Drawing.Size(50, 18);
-            this.guiradtxtWeight.TabIndex = 25;
+            this.guiradtxtWeight.TabIndex = 2;
             this.guiradtxtWeight.TabStop = false;
             // 
             // guiradlblOperator
@@ -551,7 +548,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtMP.RootElement.AutoSize = false;
             this.guiradtxtMP.Size = new System.Drawing.Size(50, 18);
-            this.guiradtxtMP.TabIndex = 30;
+            this.guiradtxtMP.TabIndex = 7;
             this.guiradtxtMP.TabStop = false;
             this.guiradtxtMP.Visible = false;
             // 
@@ -565,7 +562,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtOperator.RootElement.AutoSize = false;
             this.guiradtxtOperator.Size = new System.Drawing.Size(150, 18);
-            this.guiradtxtOperator.TabIndex = 26;
+            this.guiradtxtOperator.TabIndex = 3;
             this.guiradtxtOperator.TabStop = false;
             // 
             // guiradlblMP
@@ -591,7 +588,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtMedication.RootElement.StretchVertically = true;
             this.guiradtxtMedication.Size = new System.Drawing.Size(157, 57);
-            this.guiradtxtMedication.TabIndex = 27;
+            this.guiradtxtMedication.TabIndex = 4;
             this.guiradtxtMedication.TabStop = false;
             // 
             // guiradlblSP
@@ -616,7 +613,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtDP.RootElement.AutoSize = false;
             this.guiradtxtDP.Size = new System.Drawing.Size(50, 18);
-            this.guiradtxtDP.TabIndex = 29;
+            this.guiradtxtDP.TabIndex = 6;
             this.guiradtxtDP.TabStop = false;
             this.guiradtxtDP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.guiradtxtCuff_KeyPress);
             // 
@@ -665,7 +662,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guipnlDemographicDetails.Location = new System.Drawing.Point(0, 449);
             this.guipnlDemographicDetails.Name = "guipnlDemographicDetails";
             this.guipnlDemographicDetails.Size = new System.Drawing.Size(520, 145);
-            this.guipnlDemographicDetails.TabIndex = 0;
+            this.guipnlDemographicDetails.TabIndex = 1;
             // 
             // guiradtxtPatientID
             // 
@@ -679,7 +676,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtPatientID.RootElement.AutoSize = false;
             this.guiradtxtPatientID.RootElement.AutoSizeMode = Telerik.WinControls.RadAutoSizeMode.FitToAvailableSize;
             this.guiradtxtPatientID.Size = new System.Drawing.Size(100, 18);
-            this.guiradtxtPatientID.TabIndex = 10;
+            this.guiradtxtPatientID.TabIndex = 0;
             this.guiradtxtPatientID.TabStop = false;
             this.guiradtxtPatientID.EnabledChanged += new System.EventHandler(this.guiradtxtPatientID_EnabledChanged);
             this.guiradtxtPatientID.TextChanged += new System.EventHandler(this.guiradtxtPatientID_TextChanged);
@@ -704,7 +701,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtFirstName.RootElement.AutoSize = false;
             this.guiradtxtFirstName.Size = new System.Drawing.Size(100, 18);
-            this.guiradtxtFirstName.TabIndex = 11;
+            this.guiradtxtFirstName.TabIndex = 1;
             this.guiradtxtFirstName.TabStop = false;
             this.guiradtxtFirstName.EnabledChanged += new System.EventHandler(this.guiradtxtFirstName_EnabledChanged);
             this.guiradtxtFirstName.TextChanged += new System.EventHandler(this.guiradtxtFirstName_TextChanged);
@@ -734,7 +731,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtLastName.RootElement.AutoSize = true;
             this.guiradtxtLastName.Size = new System.Drawing.Size(100, 18);
-            this.guiradtxtLastName.TabIndex = 12;
+            this.guiradtxtLastName.TabIndex = 2;
             this.guiradtxtLastName.TabStop = false;
             this.guiradtxtLastName.EnabledChanged += new System.EventHandler(this.guiradtxtLastName_EnabledChanged);
             this.guiradtxtLastName.TextChanged += new System.EventHandler(this.guiradtxtLastName_TextChanged);
@@ -796,7 +793,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guicmbGroup.MaxLength = 25;
             this.guicmbGroup.Name = "guicmbGroup";
             this.guicmbGroup.Size = new System.Drawing.Size(177, 21);
-            this.guicmbGroup.TabIndex = 13;
+            this.guicmbGroup.TabIndex = 3;
             this.guicmbGroup.EnabledChanged += new System.EventHandler(this.guicmbGroup_EnabledChanged);
             this.guicmbGroup.SelectedIndexChanged += new System.EventHandler(this.guicmbGroup_SelectedIndexChanged);
             this.guicmbGroup.TextChanged += new System.EventHandler(this.guicmbGroup_TextChanged);
@@ -808,7 +805,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnDelete.Location = new System.Drawing.Point(437, 117);
             this.guiradbtnDelete.Name = "guiradbtnDelete";
             this.guiradbtnDelete.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnDelete.TabIndex = 23;
+            this.guiradbtnDelete.TabIndex = 13;
             this.guiradbtnDelete.Text = "Delete";
             this.guiradbtnDelete.Click += new System.EventHandler(this.guiradbtnDelete_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnDelete.GetChildAt(0))).ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -823,7 +820,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnCancel.Location = new System.Drawing.Point(264, 117);
             this.guiradbtnCancel.Name = "guiradbtnCancel";
             this.guiradbtnCancel.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnCancel.TabIndex = 21;
+            this.guiradbtnCancel.TabIndex = 11;
             this.guiradbtnCancel.Text = "Cancel";
             this.guiradbtnCancel.Click += new System.EventHandler(this.guiradbtnCancel_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnCancel.GetChildAt(0))).ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -838,7 +835,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnSave.Location = new System.Drawing.Point(351, 117);
             this.guiradbtnSave.Name = "guiradbtnSave";
             this.guiradbtnSave.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnSave.TabIndex = 22;
+            this.guiradbtnSave.TabIndex = 12;
             this.guiradbtnSave.Text = "Save";
             this.guiradbtnSave.Click += new System.EventHandler(this.guiradbtnSave_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnSave.GetChildAt(0))).ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -857,7 +854,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradbtnNew.RootElement.AutoSize = false;
             this.guiradbtnNew.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnNew.TabIndex = 18;
+            this.guiradbtnNew.TabIndex = 8;
             this.guiradbtnNew.Text = "New";
             this.guiradbtnNew.Click += new System.EventHandler(this.guiradbtnNew_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnNew.GetChildAt(0))).ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -872,7 +869,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnEdit.Location = new System.Drawing.Point(177, 117);
             this.guiradbtnEdit.Name = "guiradbtnEdit";
             this.guiradbtnEdit.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnEdit.TabIndex = 20;
+            this.guiradbtnEdit.TabIndex = 10;
             this.guiradbtnEdit.Text = "Edit";
             this.guiradbtnEdit.Click += new System.EventHandler(this.guiradbtnEdit_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnEdit.GetChildAt(0))).ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -897,7 +894,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnSearch.Location = new System.Drawing.Point(90, 117);
             this.guiradbtnSearch.Name = "guiradbtnSearch";
             this.guiradbtnSearch.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnSearch.TabIndex = 19;
+            this.guiradbtnSearch.TabIndex = 9;
             this.guiradbtnSearch.Text = "Search";
             this.guiradbtnSearch.Click += new System.EventHandler(this.guiradbtnSearch_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnSearch.GetChildAt(0))).ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -915,7 +912,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guicmbxYear.Location = new System.Drawing.Point(463, 41);
             this.guicmbxYear.Name = "guicmbxYear";
             this.guicmbxYear.Size = new System.Drawing.Size(55, 21);
-            this.guicmbxYear.TabIndex = 16;
+            this.guicmbxYear.TabIndex = 6;
             this.guicmbxYear.EnabledChanged += new System.EventHandler(this.guicmbxYear_EnabledChanged);
             this.guicmbxYear.SelectedIndexChanged += new System.EventHandler(this.guicmbxYear_SelectedIndexChanged);
             // 
@@ -942,7 +939,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guicmbxGender.Location = new System.Drawing.Point(340, 80);
             this.guicmbxGender.Name = "guicmbxGender";
             this.guicmbxGender.Size = new System.Drawing.Size(177, 21);
-            this.guicmbxGender.TabIndex = 17;
+            this.guicmbxGender.TabIndex = 7;
             this.guicmbxGender.EnabledChanged += new System.EventHandler(this.guicmbxGender_EnabledChanged);
             this.guicmbxGender.SelectedIndexChanged += new System.EventHandler(this.guicmbxGender_SelectedIndexChanged);
             // 
@@ -969,7 +966,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guicmbxMonth.Location = new System.Drawing.Point(402, 41);
             this.guicmbxMonth.Name = "guicmbxMonth";
             this.guicmbxMonth.Size = new System.Drawing.Size(55, 21);
-            this.guicmbxMonth.TabIndex = 15;
+            this.guicmbxMonth.TabIndex = 5;
             this.guicmbxMonth.EnabledChanged += new System.EventHandler(this.guicmbxMonth_EnabledChanged);
             this.guicmbxMonth.SelectedIndexChanged += new System.EventHandler(this.guicmbxMonth_SelectedIndexChanged);
             // 
@@ -993,7 +990,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guicmbDay.Location = new System.Drawing.Point(341, 41);
             this.guicmbDay.Name = "guicmbDay";
             this.guicmbDay.Size = new System.Drawing.Size(55, 21);
-            this.guicmbDay.TabIndex = 14;
+            this.guicmbDay.TabIndex = 4;
             this.guicmbDay.EnabledChanged += new System.EventHandler(this.guicmbDay_EnabledChanged);
             this.guicmbDay.SelectedIndexChanged += new System.EventHandler(this.guicmbDay_SelectedIndexChanged);
             // 
@@ -1088,7 +1085,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnExpander.Location = new System.Drawing.Point(417, 390);
             this.guiradbtnExpander.Name = "guiradbtnExpander";
             this.guiradbtnExpander.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnExpander.TabIndex = 21;
+            this.guiradbtnExpander.TabIndex = 0;
             this.guiradbtnExpander.Click += new System.EventHandler(this.guiradbtnExpander_Click);
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnExpander.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(171)))), ((int)(((byte)(231)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnExpander.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
@@ -1118,6 +1115,7 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradgrdPatientList
             // 
             this.guiradgrdPatientList.MasterTemplate.AllowAddNewRow = false;
+            this.guiradgrdPatientList.MasterTemplate.AllowColumnResize = false;
             this.guiradgrdPatientList.MasterTemplate.AllowRowResize = false;
             this.guiradgrdPatientList.MasterTemplate.AutoGenerateColumns = false;
             this.guiradgrdPatientList.MasterTemplate.ShowRowHeaderColumn = false;
@@ -1129,10 +1127,11 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradgrdPatientList.RootElement.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.guiradgrdPatientList.ShowGroupPanel = false;
-            this.guiradgrdPatientList.Size = new System.Drawing.Size(520, 354);
-            this.guiradgrdPatientList.TabIndex = 0;
+            this.guiradgrdPatientList.Size = new System.Drawing.Size(521, 338);
+            this.guiradgrdPatientList.TabIndex = 110;
             this.guiradgrdPatientList.Text = "radGridView1";
             this.guiradgrdPatientList.UseScrollbarsInHierarchy = true;
+            this.guiradgrdPatientList.CurrentRowChanged += new Telerik.WinControls.UI.CurrentRowChangedEventHandler(this.guiradgrdPatientList_CurrentRowChanged);
             this.guiradgrdPatientList.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.guiradgrdPatientList_ContextMenuOpening);
             this.guiradgrdPatientList.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.guiradgrdPatientList_ColumnWidthChanging);
             this.guiradgrdPatientList.CellClick += new Telerik.WinControls.UI.GridViewCellEventHandler(this.guiradgrdPatientList_CellClick);

@@ -86,8 +86,6 @@ namespace TestCrx {
 				CrxPrintManager^  actual;
 				actual = CrxPrintManager::Instance;
 				Assert::IsNotNull(actual);
-
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			
 			// This tests the assigment operator which is private and blank implmentation

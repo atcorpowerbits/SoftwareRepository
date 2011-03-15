@@ -38,6 +38,9 @@ namespace AtCor{
 										static const int EM4ZeroDataResponsePacketSize = 5; /**< size of EM4 packet which does not contain data*/
 										static const int EM4SerialPortBaudRate = 115200; /**< Baud rate for serial port for EM4 device */
 										static const int EM4SerialPortBits = 8; /**< Number of bits for Serial port to communicate with EM4*/
+										static const int EM4LatencyPeriod = 1; /**< Time in ms for which the sending command should sleep before expecting a response. This is not the same as timeout*/
+										static const unsigned int DeviceNumberOfReadsPerInterval = 32; /**< Number of items to read from COM port in each read. This is used to set the Serial Port treshold.*/
+										
 								};
 
 								/**

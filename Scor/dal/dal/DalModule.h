@@ -20,10 +20,12 @@
 #include "DalSimulationHandler.h"
 
 using namespace System;
+using namespace AtCor::Scor::CrossCutting;
 
 namespace AtCor{ 
 	namespace Scor { 
 		namespace DataAccess{
+
 
 			/**
 			* @class DalModule
@@ -44,12 +46,16 @@ namespace AtCor{
 				//IDalHandler^ _currentDevice;
 				CaptureType _captureDataType;
 
+				static void ConfigCommsPortSettingChangeHandler(Object^ sender, CommsPortEventArgs^ args);
+
+
 			internal:	
-				IDalHandler^ _currentDevice; 
+				static IDalHandler^ _currentDevice; 
 				DalCuffState^ _currentCuffState; //TODO
+				//static DalDeviceHandler^ _currentEM4Device = DalDeviceHandler::Instance ; //FxCop
+				//we need one instance ready when dal module is initiated. 
 
 			public:
-
 				
 				/**
 				* Returns the current singleton instance.
@@ -60,23 +66,32 @@ namespace AtCor{
 					{
 						return DalModule::_instance;
 					};
+				
+					
 				};
 
 				/**
 				* Obtains the current com port settig from Configuration and sets the current strategy.
 				*/
-				void SetDeviceStrategy();
+				static void SetDeviceStrategy();
 
 				/**
 				* Obtains the current com port settig from Configuration and sets the current strategy.
 				* @param[in] commPort The Comm port setting.
 				*/
-				void SetDeviceStrategy(String^ commPort);
+				static void SetDeviceStrategy(String^ commPort);
 
 				/**
 				* Starts the data capture from the selected device.
 				*/
 				void StartCapture(); //TODO:STUB
+
+				/**
+				* Starts the data capture from the selected device after creating a 
+				* buffer according to the specified parameters/
+				* @param[in]	captureTime	The capture window time
+				* @param[in]	samplingRate	The number of samples per second.
+				*/
 				void StartCapture(int captureTime, int samplingRate);
 
 				/**
@@ -105,7 +120,7 @@ namespace AtCor{
 				* 
 				* @warning	This method has not been implemented. It is a stub.
 				*/
-				int FindModule(String^ comPort);
+				int FindModule(String ^%deviceFoundPort);
 
 				// Returns the PWV measurement counter stored in the firmware
 				bool GetPWVMeasurementCounter( unsigned short% count); //TODO:STUB
@@ -113,7 +128,7 @@ namespace AtCor{
 				// Sets the PWV measurement counter stored in the firmware
 				bool SetPWVMeasurementCounter( unsigned short count); //TODO:STUB
 
-				property bool measurementCounterTest;
+				property bool measurementCounterTest; //TODO:STUB
 
 				/**
 				* Returns the name of the last error or alarm source
@@ -137,6 +152,22 @@ namespace AtCor{
 				* @see	SaveCaptureData
 				*/
 				String^ GetSavedFilePath();
+
+				/**
+				* Searches all available ports  for the EM4 module
+				* @param[out]	foundPortName	The name of the port on which the EM4 device was located
+				* @param[in]	excludePort	The port to be excluded from the search if it has already been searched.
+				*							@n It can be null
+				* @return	 @c true if the operation was successful
+				*/
+				bool SearchAllPortsforDevice(String ^%foundPortName, String ^excludePort);
+
+
+				/**
+				* Checks if the device is connected on the same port as mentioned in Config
+				* @return	@c true if the device is connected on the same port
+				*/
+				bool CheckIfDeviceIsConnected();
 			};
 		}
 	}

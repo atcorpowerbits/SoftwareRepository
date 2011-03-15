@@ -174,6 +174,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static const int CRX_ERR_DBMGR_NO_PROVIDER			= 601;
 		static const int CRX_ERR_DBPERMISSION_REFER_MANUAL  = 610;
 		static const int BACKUP_DONE						= 609;
+		static const int CRX_ERR_MIGRATION_REFER_MANUAL     = 611;
+		static const int CRX_ERR_RESTORE_REFER_MANUAL		= 612;
 
 		static const int DBMGR_COLUMN_PAT_LAST_NAME			= 3;
 		static const int DBMGR_COLUMN_PAT_FIRST_NAME		= 4;
@@ -252,10 +254,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 			}
 		}	
 
-		/**
-		* To reset database permission, set to multiuser  
-		*/
-		void ResetDatabaseToMultiuser();
+		///**
+		//* To reset database permission, set to multiuser  
+		//*/
+		//void ResetDatabaseToMultiuser();
 
 		/**
 		* To migrate data from scor.xyz to AtCor database 
@@ -264,7 +266,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		/**
 		* To log final data in the log file  
 		*/
-		void MigrationLogDetail(CrxLogger^ objLog, array<String^>^ skipPatientlog);
+		void MigrationLogDetail(CrxLogger^ objLog, array<String^>^ skipPatientlog, int totskipresult);
 
 		
 	public:		
@@ -472,8 +474,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* @param[in] systemIdentifier SystemInstallationID in database		
 		* @param[in] groupIdentifier Group Identifier is related to the patient in database
 		* @param[in] studyDateTimeArrStr String to store the study datetime list
-		* @param[out] heartRateArrStr String to store the meanheartrate list
-		* @param[out] pulseWaveVelocityArrStr String to store the meanpulsewavevelocity list
+		* @param[out] trendDataStruct CrxStructPWVTrendData handle to PWV Trend Details
 		*/
 		void GetPWVTrendData(int patientNumberInternal, int groupIdentifier, int systemIdentifier, String^ studyDateTimeArrStr, CrxStructPWVTrendData^ trendDataStruct);
 	

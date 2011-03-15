@@ -8,14 +8,8 @@
      Description  :     This class defines entry point for application.
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using System.Globalization;
-using System.Xml;
-using System.IO;
-using AtCor.Scor.CrossCutting.Configuration;
-using AtCor.Scor.CrossCutting;
 using Microsoft.VisualBasic.ApplicationServices; // imported to show splash screen
 
 namespace AtCor.Scor.Gui.Presentation
@@ -35,6 +29,7 @@ namespace AtCor.Scor.Gui.Presentation
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 defWindow = new DefaultWindow();
+                DataAccess.DalModule dm = DataAccess.DalModule.Instance;   
                 Application.Run(defWindow);
             }
             catch (Exception ex)
@@ -59,8 +54,8 @@ namespace AtCor.Scor.Gui.Presentation
         {
             protected override void OnCreateSplashScreen()
             {
-                this.SplashScreen = new SplashScreen();
-                this.SplashScreen.ShowInTaskbar = false;
+                SplashScreen = new SplashScreen();
+                SplashScreen.ShowInTaskbar = false;
             }
 
             protected override void OnCreateMainForm()
@@ -70,9 +65,9 @@ namespace AtCor.Scor.Gui.Presentation
                 // System.Threading.Thread.Sleep(3000);  // Test
 
                 // Then create the main form, the splash screen will automatically close
-                this.MainForm = new DefaultWindow();
-                this.HideSplashScreen();
-                this.MainForm.Activate();
+                MainForm = new DefaultWindow();
+                HideSplashScreen();
+                MainForm.Activate();
             }
         }
     }

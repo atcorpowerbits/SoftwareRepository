@@ -65,7 +65,7 @@ using namespace AtCor::Scor::CrossCutting;
 			reader = nullptr;
 			return true;
 		}
-		if (writer != nullptr) //TODO:STUB
+		if (writer != nullptr) 
 		{
 			//close streamreader
 			writer->Close();
@@ -170,7 +170,7 @@ using namespace AtCor::Scor::CrossCutting;
 		return true;
 	}
 
-bool DalSimulationFile::SaveCurrentValues_ORI(unsigned short tonometerData, unsigned short cuffPulse)
+bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse)
 {
 	String ^singleLine = tonometerData.ToString() + "\t" + cuffPulse.ToString();
 
@@ -185,20 +185,20 @@ bool DalSimulationFile::SaveCurrentValues_ORI(unsigned short tonometerData, unsi
 	}
 }
 
-//	bool DalSimulationFile::CreateFile_ORI(String^ outputFilePath)
-//{
-//	filePath = outputFilePath;
-//	String^ currentDir = Directory::GetCurrentDirectory();
-//
-//	try
-//	{
-//		//Create the file and pass it to new streamwiter.
-//		writer = File::CreateText(filePath);
-//		return true;
-//	}
-//	catch(Exception^)
-//	{
-//		throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
-//	}
-//}
+	bool DalSimulationFile::CreateFile(String^ outputFilePath)
+{
+	filePath = outputFilePath;
+	String^ currentDir = Directory::GetCurrentDirectory();
+
+	try
+	{
+		//Create the file and pass it to new streamwiter.
+		writer = File::CreateText(filePath);
+		return true;
+	}
+	catch(Exception^)
+	{
+		throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
+	}
+}
 

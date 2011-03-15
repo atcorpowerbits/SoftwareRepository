@@ -178,7 +178,7 @@ namespace TestDal {
 			{
 				unsigned int  dataLength = 5 ; 
 				EM4DataCapturePacket_Accessor^  target = (gcnew EM4DataCapturePacket_Accessor(dataLength));
-				Assert::AreEqual(10, target->em4Response->Length );
+				Assert::AreEqual(11, target->em4Response->Length );
 				Assert::IsNotNull(target->em4ResponseData);
 				Assert::AreEqual((int)dataLength, target->em4ResponseData->Length);
 				Assert::AreEqual((unsigned char)0x00, target->em4ResponseSequenceNumber);
@@ -198,7 +198,8 @@ namespace TestDal {
 			{
 				unsigned int dataLength = 0 ; 
 				EM4DataCapturePacket_Accessor^  target = (gcnew EM4DataCapturePacket_Accessor(dataLength));
-				Assert::AreEqual(5, target->em4Response->Length );
+				Assert::AreEqual(6, target->em4Response->Length );
+				Assert::AreEqual((unsigned int)0, target->em4ResponseDataLength);
 				Assert::IsNull(target->em4ResponseData);
 				Assert::AreEqual(dataLength, target->em4ResponseDataLength);
 				Assert::AreEqual((unsigned char)0x00, target->em4ResponseSequenceNumber);

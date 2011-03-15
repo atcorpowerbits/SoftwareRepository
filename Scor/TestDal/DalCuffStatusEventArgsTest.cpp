@@ -67,14 +67,13 @@ namespace TestDal {
 	public: [TestMethod]
 			void dataTest()
 			{
-				unsigned short data = 10; // TODO: Initialize to an appropriate value
-				DalCuffStatusEventArgs^  target = (gcnew DalCuffStatusEventArgs(data)); // TODO: Initialize to an appropriate value
-				unsigned short expected = 10; // TODO: Initialize to an appropriate value
-				unsigned short actual;
-				target->data = expected;
-				actual = target->data;
+				DalCuffStateFlags data = DalCuffStateFlags::CUFF_STATE_DISCONNECTED ; 
+				DalCuffStatusEventArgs^  target = (gcnew DalCuffStatusEventArgs(data)); 
+				DalCuffStateFlags expected = DalCuffStateFlags::CUFF_STATE_DISCONNECTED; 
+				DalCuffStateFlags actual;
+				target->CuffStateFlag = expected;
+				actual = target->CuffStateFlag;
 				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for DalCuffStatusEventArgs Constructor
@@ -82,12 +81,9 @@ namespace TestDal {
 	public: [TestMethod]
 			void DalCuffStatusEventArgsConstructorTest()
 			{
-				unsigned short data = 99; // TODO: Initialize to an appropriate value
-				//DalConstantStub data = DalConstantsStub::CUFF_DISCONNECTED_STATUS_BITS
+				DalCuffStateFlags data = DalCuffStateFlags::CUFF_STATE_INFLATING; 
 				DalCuffStatusEventArgs^  target = (gcnew DalCuffStatusEventArgs(data));
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 				Assert::IsNotNull(target);
-				//Assert::AreEqual(target->data , DalConstantsStub::CUFF_STATE_DISCONNECTED);
 			}
 	};
 }

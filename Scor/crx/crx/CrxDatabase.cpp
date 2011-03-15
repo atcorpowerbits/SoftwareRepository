@@ -184,8 +184,8 @@ void CrxDBManager::GetPWVTrendData(int patientNumberInternal, int groupIdentifie
 		_objDB->AddOutParameter(addCommand,"@StandardDeviationArrStr",DbType::String,studyDateTimeArrStr->Length);
 		_objDB->AddOutParameter(addCommand,"@IsStdDevValidArrStr",DbType::String,studyDateTimeArrStr->Length);
 		
-		//Execute stored procedure and return Dataset
-		int result = _objDB->ExecuteNonQuery(addCommand);
+		//Execute stored procedure
+		_objDB->ExecuteNonQuery(addCommand);
 
 		trendDataStruct->HeartRateArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,"@heartRateArrStr"));
 		trendDataStruct->PulseWaveVelocityArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,"@pulseWaveVelocityArrStr"));
@@ -645,6 +645,9 @@ int CrxDBManager::CheckConnection(String^ serverName, String^ sourceName)
 		{
 			//Create Connection object to check connection
 			SqlConnection^ connection = gcnew SqlConnection(ConnStr);
+
+			//Clear all connected Pools
+			connection->ClearAllPools();
 
 			//Open the connection to check connection can be established or not
 			connection->Open();
@@ -1202,12 +1205,17 @@ array<unsigned short>^ CrxDBManager::CommonByteArrtoShortArr(int len, array<Byte
 
 int CrxDBManager::DatabaseBackup(System::String ^filePath)
 {
-	int result				= 0;//initializes to 0, if 1 successful else return zero
-	DbCommand^ addCommand	= nullptr; // store the stored procedure in addCommand object
-	CrxLogger^ objLog			= nullptr; // Object used to access logger class
+	int result						= 1;		//initializes to 1, if 0 successful else not
+	DbCommand^ addCommand			= nullptr;	// store the stored procedure in addCommand object
+	String^ errorMessage			= nullptr;	//To store the error message string to be logged in the scor.log file
+	CrxLogger^ objLog				= nullptr;	// Object used to access logger class
+	CrxMessagingManager^ oMsgMgr	= nullptr;	// Object used to access messaging class
 
 	//Create logger object
 	objLog = CrxLogger::Instance;
+
+	//Create Messaging Object
+	oMsgMgr = CrxMessagingManager::Instance;
 	
 	try
 	{		
@@ -1219,17 +1227,13 @@ int CrxDBManager::DatabaseBackup(System::String ^filePath)
 		//Execute stored procedure and return int result backup successful or not
 		result = _objDB->ExecuteNonQuery(addCommand);	
 
+		//If the result is -1 then the Backup is successful, so set result to 0 
 		if(result < 0)
 		{
 			result = 0;
 		}
-		CrxMessagingManager^ oMsgMgr = CrxMessagingManager::Instance;
-		String^ errorMessage = oMsgMgr->GetMessage("BACKUP_DONE");
-		objLog->Write(errorMessage);
 
-
-		return result;
-		
+		return result;		
 	}
 	catch(ScorException^ crxObj)
 	{
@@ -1241,21 +1245,44 @@ int CrxDBManager::DatabaseBackup(System::String ^filePath)
 		// throw the exception
 		throw gcnew ScorException(eObj);
 	}
+	finally
+	{
+		if(result == 0)
+		{
+			errorMessage = oMsgMgr->GetMessage("BACKUP_DONE");
+		}
+		else
+		{
+			errorMessage = oMsgMgr->GetMessage("BACKUP_FAIL");
+		}	
+		objLog->Write(errorMessage);
+	}
 }
 int CrxDBManager::DatabaseRestore(System::String ^filePath)
 {
-	int result				= 0;		//initializes to 0, if 1 successful else return zero
-	DbCommand^ addCommand	= nullptr;  // store the stored procedure in addCommand object
-	String^ filePathSet		= nullptr;  //To store the reformated connection string,intializes to nullptr
+	int result					= 1;		//initializes to 1, if 0 successful else not
+	DbCommand^ addCommand		= nullptr;  //To store the stored procedure in addCommand object
+	String^ filePathSet			= nullptr;  //To store the reformated connection string,intializes to nullptr
+	String^ errorMessage		= nullptr;	//To store the error message string to be logged in the scor.log file
+	CrxLogger^ objLog			= nullptr;  // Object used to access logger class
+	CrxMessagingManager^ oMsgMgr = nullptr; // Object used to access messaging class
 
 	filePathSet  = String::Format("'{0}'" , filePath);
 
+	//Create logger object
+	objLog = CrxLogger::Instance;
+
+	//Create Messaging Object
+	oMsgMgr = CrxMessagingManager::Instance;
+
 	try
 	{		
-		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE " + DBname + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE"+ " RESTORE DATABASE " + DBname + " FROM DISK = " + filePathSet + " WITH REPLACE"); 
+		//addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE " + DBname + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE"+ " RESTORE DATABASE " + DBname + " FROM DISK = " + filePathSet + " WITH REPLACE"); 
+		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " RESTORE DATABASE " + DBname + " FROM DISK = " + filePathSet + " WITH REPLACE");
 
 		result = _objDB->ExecuteNonQuery(addCommand);	
 
+		//If the result is -1 then the Backup is successful, so set result to 0 
 		if(result < 0)
 		{
 			result = 0;
@@ -1271,41 +1298,49 @@ int CrxDBManager::DatabaseRestore(System::String ^filePath)
 	catch(Exception^ eObj)
 	{		
 		// throw the exception
-		throw gcnew ScorException(eObj);
+		throw gcnew ScorException(CRX_ERR_RESTORE_REFER_MANUAL, nullptr, ErrorSeverity::Exception,eObj,"CONTACT_ATCOR_SUPPORT2");// File not found
 	}
 	finally
 	{
-		ResetDatabaseToMultiuser();
-	}
-}
-
-void CrxDBManager::ResetDatabaseToMultiuser()
-{
-	DbCommand^ addCommand	= nullptr; // store the stored procedure in addCommand object
-	CrxLogger^ objLog		= nullptr; // Object used to access logger class
-
-	//Create logger object
-	objLog = CrxLogger::Instance;
-
-	try
-	{		
-		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE " + DBname +  " SET MULTI_USER" + " USE [" + DBname + "]" ); 
-		
-		_objDB->ExecuteNonQuery(addCommand);
-
-		CrxMessagingManager^ oMsgMgr = CrxMessagingManager::Instance;
-		String^ errorMessage = oMsgMgr->GetMessage("RESTORE_DONE");
+		if(result == 0)
+		{
+			errorMessage = oMsgMgr->GetMessage("RESTORE_DONE");
+		}
+		else
+		{
+			errorMessage = oMsgMgr->GetMessage("RESTORE_FAIL");
+		}	
 		objLog->Write(errorMessage);
-
 	}
-	catch(Exception^ eObj)
-	{		
-		// throw customised exception
-		throw gcnew ScorException(CRX_ERR_DBPERMISSION_REFER_MANUAL, "CRX_ERR_DBPERMISSION_REFER_MANUAL", ErrorSeverity::Exception);// File not found
-	}
-				
-
 }
+
+//void CrxDBManager::ResetDatabaseToMultiuser()
+//{
+//	DbCommand^ addCommand	= nullptr; // store the stored procedure in addCommand object
+//	CrxLogger^ objLog		= nullptr; // Object used to access logger class
+//
+//	//Create logger object
+//	objLog = CrxLogger::Instance;
+//
+//	try
+//	{		
+//		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE " + DBname +  " SET MULTI_USER" + " USE [" + DBname + "]" ); 
+//		
+//		_objDB->ExecuteNonQuery(addCommand);
+//
+//		CrxMessagingManager^ oMsgMgr = CrxMessagingManager::Instance;
+//		String^ errorMessage = oMsgMgr->GetMessage("RESTORE_DONE");
+//		objLog->Write(errorMessage);
+//
+//	}
+//	catch(Exception^)
+//	{		
+//		// throw customised exception
+//		throw gcnew ScorException(CRX_ERR_DBPERMISSION_REFER_MANUAL, "CRX_ERR_DBPERMISSION_REFER_MANUAL", ErrorSeverity::Exception);// File not found
+//	}
+//				
+//
+//}
 
 int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 {
@@ -1351,7 +1386,7 @@ int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 		//object to use to connect to the database
 
 		//Executing query to get number of records
-		cmd = gcnew OleDbCommand("Select Count(*) from patient",conn);
+		cmd = gcnew OleDbCommand("Select Count(1) from patient",conn);
 
 		//Create the reader object
 		rdr = cmd->ExecuteReader();
@@ -1360,6 +1395,7 @@ int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 
 		//Get number of rows in the migration file
 		rowNum = Convert::ToInt32(rdr->GetValue(0),CrxCommon::gCI);
+		rdr->Close();
 		rdr	= nullptr;
 
 		//Executing query to get number patient records
@@ -1370,13 +1406,21 @@ int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 	
 		result = MigrationInternal(rdr, objLog, rowNum, systemIdentifier, groupName);
 
+		rdr->Close();
+		
 		//Close the connection to the MS-Access database
 		conn->Close();
-
+		
+		//After closing connection it takes time to close intermediate file (scor.ldb), so we are delaying processing by 2 seconds
+		Thread::Sleep(2000);
+		
 		//Rename the migration file from scor.xyz to scor.xyz.old
-		File::Move(_nameOfAccessFile,_nameOfAccessFileNew);
+		if(result == 0)
+		{	
+			File::Move(_nameOfAccessFile,_nameOfAccessFileNew);
+		}
 
-		return result = 0;
+		return result;
 	}
 	catch(ScorException^ crxObj)
 	{
@@ -1438,7 +1482,6 @@ int CrxDBManager::MigrationInternal(OleDbDataReader ^rdr, CrxLogger^ objLog, int
 	String^ strFName				= nullptr;	// stores the patient first name
 	String^ strLName				= nullptr;	// stores the patient last name
 	String^ strPatientExtName		= nullptr;	// stores patient external name
-	String^ filePathSet				= nullptr;	// stores the formatted file path location
 	String^ details					= nullptr;	// stores the patient header details
 	String^ strGender				= nullptr;	// stores the gender value
 	String^ totDetailsMigrated		= nullptr;	// stores the total patient migrated header
@@ -1476,7 +1519,6 @@ int CrxDBManager::MigrationInternal(OleDbDataReader ^rdr, CrxLogger^ objLog, int
 			strFName			= nullptr;
 			strLName			= nullptr;
 			strPatientExtName	= nullptr;
-			filePathSet			= nullptr;
 			strGender			= nullptr;
 			patDetails			= nullptr;
 			srtDate				= nullptr;
@@ -1523,7 +1565,7 @@ int CrxDBManager::MigrationInternal(OleDbDataReader ^rdr, CrxLogger^ objLog, int
 
 		dbconnection->Close();	
 
-		MigrationLogDetail(objLog, skipPatientlog);
+		MigrationLogDetail(objLog, skipPatientlog , totskipresult);
 
 		totDetailsMigrated = String::Format("Total patients migrated: {0}",totresult); 
 		totDetailsSkipped = String::Format("Total patients skipped : {0}",totskipresult); 
@@ -1532,31 +1574,39 @@ int CrxDBManager::MigrationInternal(OleDbDataReader ^rdr, CrxLogger^ objLog, int
 
 		objLog->Write("Migration completed.");
 
-		return result;	
+		return result = 0;	
 	}
 	catch(Exception^)
 	{
-		// Roll back the transaction.
-		dbtransaction->Rollback();
+		objLog->Write("Migration failed.");	
 
-		objLog->Write("Migration failed.");
+		try
+		{
+			// Roll back the transaction.
+			dbtransaction->Rollback();		
+		}
+		catch(Exception^)
+		{
+			// throw customised exception
+			throw gcnew ScorException(CRX_ERR_MIGRATION_REFER_MANUAL, "CRX_ERR_MIGRATION_REFER_MANUAL", ErrorSeverity::Exception);
+		}
 
-		return result;	
+		return result = 1;	
 	}
 	finally
 	{			
 		if(dbconnection)
 		{
 			dbconnection->Close();
-		}		
+		}	
 	}
 }
 
-void CrxDBManager::MigrationLogDetail(CrxLogger^ objLog, array<String^>^ skipPatientlog)
+void CrxDBManager::MigrationLogDetail(CrxLogger^ objLog, array<String^>^ skipPatientlog, int totskipresult)
 {
 	//Log total patient migrated and skipped in the scor.log file
-	for(int arr= 0; arr < skipPatientlog->Length; arr++ )
+	for(int arr= 0; arr < totskipresult; arr++ )
 	{		
-		objLog->Write(skipPatientlog[0]);
+		objLog->Write(skipPatientlog[arr]);
 	}
 }

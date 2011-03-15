@@ -5,7 +5,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 		Scor.vsmdi = Scor.vsmdi
-		Scor2.vsmdi = Scor2.vsmdi
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dal", "dal\dal\dal.vcproj", "{E274BA19-F920-40C0-8747-214688D2ABB3}"
@@ -19,24 +18,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gui", "gui\gui\gui.csproj",
 	ProjectSection(ProjectDependencies) = postProject
 		{E274BA19-F920-40C0-8747-214688D2ABB3} = {E274BA19-F920-40C0-8747-214688D2ABB3}
 		{24748540-BFD1-4293-99F5-D556338366C4} = {24748540-BFD1-4293-99F5-D556338366C4}
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1} = {223314A8-ACA7-420E-815B-CEB160F4CFD1}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCrx", "TestCrx\TestCrx.vcproj", "{B5B613F0-48C9-4AC9-B919-F9324FA6B640}"
-	ProjectSection(ProjectDependencies) = postProject
-		{24748540-BFD1-4293-99F5-D556338366C4} = {24748540-BFD1-4293-99F5-D556338366C4}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestDal", "TestDal\TestDal.vcproj", "{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "biz_stub", "biz_stub\biz_stub.csproj", "{223314A8-ACA7-420E-815B-CEB160F4CFD1}"
-EndProject
-Project("{4CAA2610-1955-4629-BDC1-8133FE0B2087}") = "AQtime_Crx_Sprint7", "AQtime\AQtime_Crx_Sprint7.aqt", "{EC4C7ED0-42EE-4E97-9EE7-ED317DCACCBD}"
-EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Scor2.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -96,16 +84,6 @@ Global
 		{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}.Release|Win32.ActiveCfg = Release|Win32
 		{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}.Release|Win32.Build.0 = Release|Win32
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{223314A8-ACA7-420E-815B-CEB160F4CFD1}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

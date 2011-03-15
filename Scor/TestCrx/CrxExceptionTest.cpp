@@ -1,4 +1,9 @@
-﻿
+﻿//**************************************************************************//
+// Crxexception class will be removed in future sprint, as new exception	//
+// class (scorexception) class is already implemented. So all the test		//
+// cases related to Crxexception class will be removed.						//
+//**************************************************************************//
+
 #include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting;
@@ -70,7 +75,6 @@ namespace TestCrx {
 				CrxException^  target = (gcnew CrxException()); // TODO: Initialize to an appropriate value
 				Exception^  actual;
 				actual = target->ExceptionObject;
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for ErrorString
@@ -84,7 +88,6 @@ namespace TestCrx {
 				target->ErrorString = expected;
 				actual = target->ErrorString;
 				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for ErrorCode
@@ -98,7 +101,6 @@ namespace TestCrx {
 				target->ErrorCode = expected;
 				actual = target->ErrorCode;
 				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for CrxException Constructor
@@ -108,7 +110,6 @@ namespace TestCrx {
 			{
 				String^  errExpStr = System::String::Empty; // TODO: Initialize to an appropriate value
 				CrxException^  target = (gcnew CrxException(errExpStr));
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 			/// <summary>
 			///A test for CrxException Constructor
@@ -120,7 +121,6 @@ namespace TestCrx {
 				String^  errExpStr = System::String::Empty; // TODO: Initialize to an appropriate value
 				Exception^  errExp = nullptr; // TODO: Initialize to an appropriate value
 				CrxException^  target = (gcnew CrxException(exError, errExpStr, errExp));
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 			/// <summary>
 			///A test for CrxException Constructor
@@ -139,7 +139,6 @@ namespace TestCrx {
 			void CrxExceptionConstructorTest1()
 			{
 				CrxException^  target = (gcnew CrxException());
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 			/// <summary>
 			///A test for CrxException Constructor
@@ -149,7 +148,6 @@ namespace TestCrx {
 			{
 				int exError = 0; // TODO: Initialize to an appropriate value
 				CrxException^  target = (gcnew CrxException(exError));
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 	};
 }

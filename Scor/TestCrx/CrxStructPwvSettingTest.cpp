@@ -68,8 +68,15 @@ namespace TestCrx {
 			void CrxStructPwvSettingConstructorTest()
 			{
 				CrxStructPwvSetting^  target = (gcnew CrxStructPwvSetting());
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
-			}
+				Assert::IsNotNull(target);
+
+					Assert::IsFalse(target->FemoralToCuff);
+					Assert::IsFalse(target->ReferenceRange);
+					Assert::AreEqual(target->PWVDistanceUnits, 0);
+					Assert::AreEqual(target->PWVDistanceMethod, 0);
+					Assert::AreEqual(target->CaptureTime, 5);
+					Assert::IsNull(target->SimulationType);			
+		}
 	};
 }
 namespace TestCrx {

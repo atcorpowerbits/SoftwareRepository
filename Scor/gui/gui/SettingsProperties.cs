@@ -8,14 +8,10 @@
      Description  :     Common class for defining global variables, method, properties etc
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.CrossCutting.Logging;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using System.Configuration;
 
 namespace AtCor.Scor.Gui.Presentation
@@ -29,12 +25,7 @@ namespace AtCor.Scor.Gui.Presentation
        ////   public static string environment = string.Empty;         
        ////};
        ////#endregion
-
-       // public enum eEnvironment {Clinical, Research};
-       // this dll & method is used to set default printer for application, it even sets network printer as default printer
-       [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
-       public static extern bool SetDefaultPrinter(string name); 
-       
+            
        // public event SettingsChangedEventHandler OnSettingsChangedEvent;
        #region Global variable declaration
        public static bool SetupToReport = false;
@@ -48,6 +39,10 @@ namespace AtCor.Scor.Gui.Presentation
        public static DefaultWindow defaultWindowForm;
        #endregion      
 
+       public delegate void SetCaptureTabVisibility(bool value);
+
+       public static event SetCaptureTabVisibility OnCaptureClosing;
+
        #endregion
        #region Child Form Handles
        public static Telerik.WinControls.UI.RadForm reportChildForm;
@@ -59,218 +54,101 @@ namespace AtCor.Scor.Gui.Presentation
 
         #region Global variable declaration
 
-        public static string GCI = string.Empty;
+        public static string Gci = string.Empty;
+        public static bool IsWaitIntervalImposed = false; // this variable checks for 30 sec wait interval imposed by EM4 when coming from capture to setup
+        public static bool IsFormChanged = false; // this variable tracks any changes to the application form 
+        public static int ReportLoadCount = 0;
         #endregion
 
         #region General settings private variables
 
-        private static bool patient_privacy = false;
-        private static int height_weight_units = 0;
-        private static int blood_pressure = 0;
-        private static int systemidentifier = 0;
-        private static int patientinternalnumber = 0;
-        private static int groupid = 0;
-        private static string groupname = string.Empty;
-              
-        #endregion
+       #endregion
 
         #region PWV settings private variables
-        private static int pwv_distance_units = 0;
-        private static int pwv_distance_method = 0;
-        private static int capture_time = 0;
-        private static bool cuff_location = false;
-        private static bool reference_range = false;
-        private static string pwvcurrentstudydatetime = string.Empty; 
-       
-        #endregion
+
+       static SettingsProperties()
+       {
+           ReferenceRange = false;
+           CuffLocation = false;
+           CaptureTime = 0;
+           PwvDistanceMethod = 0;
+           PwvDistanceUnits = 0;
+           PwvCurrentStudyDatetime = string.Empty;
+           PatientPrivacy = false;
+           BloodPressure = 0;
+           HeightWeightUnits = 0;
+           GroupName = string.Empty;
+           GroupID = 0;
+           PatientInternalNumber = 0;
+           SystemIdentifier = 0;
+       }
+
+       #endregion
 
         #region General settings properties
-        public static int SystemIdentifier
-        {
-            get
-            {
-                return systemidentifier;
-            }
 
-            set
-            {
-                systemidentifier = value;
-            }
-        }
+       public static int SystemIdentifier { get; set; }
 
-        public static int PatientInternalNumber
-        {
-            get
-            {
-                return patientinternalnumber;
-            }
+       public static int PatientInternalNumber { get; set; }
 
-            set
-            {
-                patientinternalnumber = value;
-            }
-        }
+       public static int GroupID { get; set; }
 
-        public static int GroupID
-        {
-            get
-            {
-                return groupid;
-            }
+       public static string GroupName { get; set; }
 
-            set
-            {
-                groupid = value;
-            }
-        }
+       public static int HeightWeightUnits { get; set; }
 
-        public static string GroupName
-        {
-            get
-            {
-                return groupname;
-            }
+       public static int BloodPressure { get; set; }
 
-            set
-            {
-                groupname = value;
-            }
-        }
+       public static bool PatientPrivacy { get; set; }
 
-        public static int HeightWeightUnits
-        {
-            get
-            {
-                return height_weight_units;
-            }
-
-            set
-            {
-                height_weight_units = value;
-            }
-        }
-
-        public static int BloodPressure
-        {
-            get
-            {
-                return blood_pressure;
-            }
-
-            set
-            {
-                blood_pressure = value;
-            }
-        }
-
-        public static bool PatientPrivacy
-        {
-            get
-            {
-                return patient_privacy;
-            }
-
-            set
-            {
-                patient_privacy = value;
-            }
-        }
-
-        #endregion
+       #endregion
 
         #region PWV settings properties
-        public static string PwvCurrentStudyDatetime
-        {
-            get
-            {
-                return pwvcurrentstudydatetime;
-            }
 
-            set
-            {
-                pwvcurrentstudydatetime = value;
-            }
-        }
+       public static string PwvCurrentStudyDatetime { get; set; }
 
-        public static int PwvDistanceUnits
-        {
-            get
-            {
-                return pwv_distance_units;
-            }
+       public static int PwvDistanceUnits { get; set; }
 
-            set
-            {
-                pwv_distance_units = value;
-            }
-        }
+       public static int PwvDistanceMethod { get; set; }
 
-        public static int PwvDistanceMethod
-        {
-            get
-            {
-                return pwv_distance_method;
-            }
+       public static int CaptureTime { get; set; }
 
-            set
-            {
-                pwv_distance_method = value;
-            }
-        }
+       public static bool CuffLocation { get; set; }
 
-        public static int CaptureTime
-        {
-            get
-            {
-                return capture_time;
-            }
+       public static bool ReferenceRange { get; set; }
 
-            set
-            {
-                capture_time = value;
-            }
-        }
-
-        public static bool CuffLocation
-        {
-            get
-            {
-                return cuff_location;
-            }
-
-            set
-            {
-                cuff_location = value;
-            }
-        }
-
-        public static bool ReferenceRange
-        {
-            get
-            {
-                return reference_range;
-            }
-
-            set
-            {
-                reference_range = value;
-            }
-        }
-        #endregion
+       #endregion
 
         #region methods..
+       
+       /** This method is called on the form closing of the capture screen,to impose wait interval.
+        */
+       public static void InvokeCaptureClosing(bool value)
+       {
+           OnCaptureClosing.Invoke(value);
+       }
+
         /** This method retrieves database servername
         * */
         public static string ServerNameString()
         {
             CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
 
+            string serverName;
+
             if (crxMgrObject.GeneralSettings.ServerName == null)
             {
                 crxMgrObject.GeneralSettings.ServerName = ConfigurationManager.AppSettings["DefaultInstanceName"].ToString();
             }
 
-            return crxMgrObject.GeneralSettings.MachineName.Trim() + @"\" + crxMgrObject.GeneralSettings.ServerName.Trim();              
+            serverName = crxMgrObject.GeneralSettings.MachineName.Trim() + @"\" + crxMgrObject.GeneralSettings.ServerName.Trim();
+
+            if (serverName.EndsWith("\\"))
+            {
+                serverName = serverName.Replace("\\", string.Empty);
+            }
+
+            return serverName;
         }
 
        /** This method retrieves error message during network connection failure
@@ -283,7 +161,7 @@ namespace AtCor.Scor.Gui.Presentation
             string servername = ServerNameString();
             CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;            
           
-            // Vibhuti: string for CONTACT_ATCOR_SUPPORT defined as per jira comments in SWREQ007
+            // string for CONTACT_ATCOR_SUPPORT defined as per jira comments in SWREQ007
             if (!servername.Contains(SystemInformation.ComputerName))
             {
                 // remote PC
@@ -297,8 +175,7 @@ namespace AtCor.Scor.Gui.Presentation
             errorMsg += oMsgMgr.GetMessage("CONTACT_ATCOR_SUPPORT"); // +"\r\n" + oMsgMgr.GetMessage("CONTACT_ATCOR_SUPPORT1");
 
             // log the error
-            CrxLogger oLogObject = CrxLogger.Instance;
-            oLogObject.Write(errorMsg);
+            CrxLogger.Instance.Write(errorMsg);
 
             return errorMsg;
         }
@@ -314,6 +191,10 @@ namespace AtCor.Scor.Gui.Presentation
             return Environment;
         }
 
+        /** This method opens print dialog for printer settings
+         * It will set the aplication default printer to the one mentioned in scor.config file
+         * For any changes in aplication default printer will be saved to scor.config
+         * */
         public static void ViewPrintDialogToSetPrinter(PrintDialog printDialog)
         {
             CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
@@ -322,18 +203,30 @@ namespace AtCor.Scor.Gui.Presentation
             if (crxMgrObject.GeneralSettings.PrinterName != null && !string.IsNullOrEmpty(crxMgrObject.GeneralSettings.PrinterName))
             {
                 // below line sets printername available in config file as default printer and also assigns this name to the current printer dialog
-                SetDefaultPrinter(crxMgrObject.GeneralSettings.PrinterName);
                 printDialog.PrinterSettings.PrinterName = crxMgrObject.GeneralSettings.PrinterName;
             }
 
             // opens printer dialog            
-            DialogResult ds = printDialog.ShowDialog();
+            if (printDialog != null)
+            {
+                printDialog.ShowDialog();
                         
-            // store the currently selected printer in config file... this will be done only if apply button is clicked in print dialog box
-            crxMgrObject.GeneralSettings.PrinterName = printDialog.PrinterSettings.PrinterName;
+                // store the currently selected printer in config file... this will be done only if apply button is clicked in print dialog box
+                crxMgrObject.GeneralSettings.PrinterName = printDialog.PrinterSettings.PrinterName;
+            }
+
             crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);
         }
 
+        /** This method is sets the flag for form changed to true
+         * This method is subscribe to textchanged event for each textboxes, selection changes for drop downs etc on all the pages applicable.
+         * For any changes in textbox this method will be called which will set IsFormChanged flag to true
+         * On application closing this flag will be checked & accordingly messages will be shown to user before closing
+         * */
+        public static void FormChanged(object sender, EventArgs e)
+        {
+            IsFormChanged = true;            
+        }
         #endregion
     }
 }

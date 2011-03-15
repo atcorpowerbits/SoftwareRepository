@@ -22,7 +22,11 @@ using namespace System::Xml;
 namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configuration
 {	
 
-	//Declaring global static numbers for structure variables
+	// Declaring global static numbers for structure variables
+	/**
+	* @enum CrxGenPwvValue
+	 * @brief Container for General Pwv setting Value. 
+	 */
 	public enum class CrxGenPwvValue
 	{
 		CrxGenHeightWeightMetric		= 0,
@@ -39,6 +43,45 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		CrxPwvCapture20Seconds			= 20,
 		
 	};	
+
+	// Declaring global static numbers for structure variables
+	/**
+	* @enum UnitsType
+	 * @brief Container for Units Type Value. 
+	 */
+	public enum class UnitsType
+	{
+		UNITS_METRIC,
+		UNITS_IMPERIAL,
+		UNITS_INVALID
+	};          
+
+	
+	//Declaring enum for Metric Distance Units
+	/**
+	* @enum MetricDistanceUnits
+	 * @brief Container for Metric Distance Units. 
+	 */
+	
+	public enum class MetricDistanceUnits
+	{
+		METRIC_DISTANCE_MM,
+		METRIC_DISTANCE_CM,
+		METRIC_DISTANCE_INVALID
+	};          
+	
+	//Declaring enum for BizMode
+	/**
+	* @enum BizMode
+	 * @brief Container for Biz Mode. 
+	 */
+	public enum class BizMode
+	{
+		PWV,
+		PWA,
+		NIBP
+	};      
+
 
 	// Creating CrxStructSetting Structure and variables
 	/**

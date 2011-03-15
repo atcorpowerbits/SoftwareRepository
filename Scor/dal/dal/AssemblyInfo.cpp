@@ -38,3 +38,10 @@ using namespace System::Security::Permissions;
 [assembly:CLSCompliantAttribute(true)];
 
 [assembly:SecurityPermission(SecurityAction::RequestMinimum, UnmanagedCode = true)];
+
+//[assembly:AssemblyDelaySign(false)];
+//
+//[assembly: AssemblyKeyFile("D:\\Scor_Source_code\\gui\\gui\\bin\\Release\\dal.snk")];
+//
+//[assembly:AssemblyKeyName("")];
+

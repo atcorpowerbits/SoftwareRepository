@@ -9,19 +9,12 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.DatabaseManager;
-using AtCor.Scor.CrossCutting.Logging;
 using AtCor.Scor.CrossCutting.Messaging;
-using AtCor.Scor.CrossCutting;
-using System.Threading;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -42,11 +35,10 @@ namespace AtCor.Scor.Gui.Presentation
 
         public static event HandleMigration OnMigrationStart;
 
-        private const int CP_NOCLOSE_BUTTON = 0x200;
+        private const int CpNocloseButton = 0x200;
 
-        CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+        readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
-        CrxLogger oLogObject = CrxLogger.Instance;
         CrxDBManager dbMagr;
 
         string serverNameString = string.Empty;        
@@ -60,7 +52,7 @@ namespace AtCor.Scor.Gui.Presentation
             serverNameString = SettingsProperties.ServerNameString(); 
 
             // Disable the close button of the window.
-            this.FormElement.TitleBar.CloseButton.Enabled = false;
+            FormElement.TitleBar.CloseButton.Enabled = false;
         }       
 
         protected override CreateParams CreateParams
@@ -68,7 +60,7 @@ namespace AtCor.Scor.Gui.Presentation
             get
             {
                 CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                myCp.ClassStyle = myCp.ClassStyle | CpNocloseButton;
                 return myCp;
             }
         }
@@ -105,7 +97,7 @@ namespace AtCor.Scor.Gui.Presentation
                 IsMigrate = 1;
               
                 OnMigrationStart.Invoke(guicmbGroupNameList.Text.Trim());
-                this.Close();                
+                Close();                
             }
         }
         
@@ -119,19 +111,21 @@ namespace AtCor.Scor.Gui.Presentation
                 dbMagr = CrxDBManager.Instance;
                 if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
                 {
-                    DataSet ds = new DataSet();
-                    ds = dbMagr.GetGroupLists();
+                    DataSet ds =  dbMagr.GetGroupLists();
 
-                    DataRow dr = ds.Tables[0].NewRow();
-                    dr["GroupName"] = oMsgMgr.GetMessage("SELECT_CAPS"); // "--Select--";
-                    dr["GroupIdentifier"] = 0;
+                    if (ds != null)
+                    {
+                        DataRow dr = ds.Tables[0].NewRow();
+                        dr["GroupName"] = oMsgMgr.GetMessage("SELECT_CAPS"); // "--Select--";
+                        dr["GroupIdentifier"] = 0;
 
-                    ds.Tables[0].Rows.InsertAt(dr, 0);
+                        ds.Tables[0].Rows.InsertAt(dr, 0);
 
-                    guicmbGroupNameList.DataSource = ds.Tables[0];
-                    guicmbGroupNameList.DisplayMember = "GroupName";
+                        guicmbGroupNameList.DataSource = ds.Tables[0];
+                        guicmbGroupNameList.DisplayMember = "GroupName";
 
-                    guicmbGroupNameList.SelectedIndex = 0;
+                        guicmbGroupNameList.SelectedIndex = 0;
+                    }
                 }
                 else
                 {
@@ -139,6 +133,10 @@ namespace AtCor.Scor.Gui.Presentation
                     if (result == DialogResult.Retry)
                     {
                         LoadGroupNames();
+                    }
+                    else
+                    {
+                        this.Close();
                     }
                 }
             }
@@ -152,7 +150,7 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void radbtnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }        
     }
 }

@@ -137,6 +137,7 @@
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
+				KeyFile="dal_key.snk"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -194,15 +195,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\dal.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\dal_facade_stub.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DalCommandInterface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCRC8Calculator.cpp"
 				>
 			</File>
 			<File
@@ -222,11 +219,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DalEventContainer.cpp"
+				RelativePath=".\DalEM4DataCapturePacket.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DalEventContainerStub.cpp"
+				RelativePath=".\DalEventContainer.cpp"
 				>
 			</File>
 			<File
@@ -235,10 +232,6 @@
 			</File>
 			<File
 				RelativePath=".\DalSimulationFile.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalSimulationFileStub.cpp"
 				>
 			</File>
 			<File
@@ -276,23 +269,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\dal_facade_stub.h"
-				>
-			</File>
-			<File
-				RelativePath=".\dal_stub.h"
-				>
-			</File>
-			<File
-				RelativePath=".\dal_stub_constants.h"
-				>
-			</File>
-			<File
 				RelativePath=".\DalCommandInterface.h"
 				>
 			</File>
 			<File
 				RelativePath=".\DalCommon.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCRC8Calculator.h"
 				>
 			</File>
 			<File
@@ -312,11 +297,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DalEventContainer.h"
+				RelativePath=".\DalEM4DataCapturePacket.h"
 				>
 			</File>
 			<File
-				RelativePath=".\DalEventContainerStub.h"
+				RelativePath=".\DalEventContainer.h"
 				>
 			</File>
 			<File

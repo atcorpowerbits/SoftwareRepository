@@ -38,6 +38,24 @@ namespace AtCor{
 					CrxLogger ^logObj;
 					CrxMessagingManager ^ messagingMgr;
 					DalDataBuffer ^dataBufferObj; //to hold pointer to object
+					static DalDeviceHandler^ _instance = gcnew DalDeviceHandler();
+
+					 /**
+					  * Overloaded assignment Operator. @n
+					  * Returns this pointer to implement singleton.
+					  */
+					  DalDeviceHandler^ operator=(const DalDeviceHandler^) 
+					  {
+							 return this;
+					  }  
+
+					
+					//Deepak: Redundant due to change of design. Uncalled as of now. May need later - FxCop
+					///**
+					//* Checks if the device is connected on the same port as mentioned in DalCommandInterface
+					//* @return	@c true if device is present on the same port as in this object. @c false otherwise
+					//*/
+					//bool CheckIfDeviceIsConnected(DalCommandInterface^ currentCommandInterface);
 					
 				public:
 					/**
@@ -45,13 +63,14 @@ namespace AtCor{
 					*/
 					DalDeviceHandler(); 
 
-					/**
-					* Parametrized constructor for the class. @n
-					* Initializes the class using the specified comm port.
-					*
-					* @param[in] commPort	The com port for the EM4 device
-					*/
-					DalDeviceHandler(String^ commPort);
+					//Deepak: Redundant due to change of design. Uncalled as of now. May need later - FxCop
+					///*
+					//* Parametrized constructor for the class. @n
+					//* Initializes the class using the specified comm port.
+					//*
+					//* @param[in] commPort	The com port for the EM4 device
+					//*/
+					//DalDeviceHandler(String^ commPort);
 
 					/**
 					* Start the data capture fromt the device.
@@ -122,6 +141,9 @@ namespace AtCor{
 					* @return	@c true if device is present on the same port. @c false otherwise
 					*/
 					virtual bool CheckIfDeviceIsConnected(String^ comPort);
+
+					
+
 					/**
 					* Sets the pressure value
 					* @return	@c true if the operation succeded
@@ -150,6 +172,34 @@ namespace AtCor{
 					* @return @c true if the tonometer is connected properly
 					*/
 					bool CheckIfTonometerIsConnected();
+
+					/**
+					*  property with custom get method to supply instance.@n
+					* Used to implement singleton
+					*/
+					static property DalDeviceHandler^ Instance
+					{
+
+						/**
+						* Custom get method. @n
+						* Returns a pointer to this singleton instance.
+						*
+						* @return	Pointer to this instance
+						*/
+						DalDeviceHandler^ get()
+						{
+							return DalDeviceHandler::_instance;
+						};
+					};
+
+					/**
+					* Gets the Serial number of the device from config
+					* @param[out]	moduleSerialNumber	The serial number obtained from thedevice
+					* @return	Status of the operation
+					*/
+					bool GetConfigDeviceSerialMumber(String ^% moduleSerialNumber);
+
+
 					
 			};
 		}

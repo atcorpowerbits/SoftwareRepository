@@ -8,26 +8,19 @@
      Description  :     Functionality implemented for Capture.
 */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls.Primitives;
 using Telerik.WinControls;
 using System.Windows.Forms.DataVisualization.Charting;
 using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.BusinessLogic;
-using AtCor.Scor.CrossCutting;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.DatabaseManager;
 using AtCor.Scor.CrossCutting.Logging;
-using AtCor.Scor.DataAccess;     
-using System.Threading;
+using AtCor.Scor.DataAccess;
 using System.Configuration;
 using System.IO;
-using biz_stub;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -40,23 +33,19 @@ namespace AtCor.Scor.Gui.Presentation
         const int TonometerHeight = 300;
         const int QualityIndicatorHeight = 500;
         const double ChartAreaMinimumY = 0.96;
-        const double ChartAreaMaximumY = 1.04;
-        static int inflationTick = 0;
-        static int deflationTick = 0;
+        const double ChartAreaMaximumY = 1.04;        
         static uint xCoordinateTonometer = 0;
         static uint xCoordinateFemoralCuff = 0;
-        int minutes = 3;
-        int seconds = 00;
-        int deflationSeconds = 00;
-        int deflationMinutes = 00;
+        const int YCordinateForPlottingStraightLine = 600;
+        const int RequestedValues = 32;
         bool carotidFlag = false; // to check for carotid quality indicator
         bool femoralFlag = false; // to check for femoral quality indicator
-        volatile bool femoralPlotSwitch = false;             
+        volatile bool femoralPlotSwitch = false;
         volatile bool cuffstatechange_flag = false;
-        
-        #endregion        
 
-        public static event EventHandler OnAbortInitializeTimer;
+        #endregion
+
+        // public static event EventHandler OnAbortInitializeTimer;
 
         public static event EventHandler OnReportTabClick;
 
@@ -65,36 +54,35 @@ namespace AtCor.Scor.Gui.Presentation
         Series flatLineSeries;
         double screenwidth;
         double signalStrength;
-        ProgressBarPrimitive prim1;        
+        ProgressBarPrimitive prim1;
         CrxLogger oLogObject = CrxLogger.Instance;
-        
+
         // object of Config Manager         
         CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         CrxConfigManager obj;
-        string captureTime = string.Empty;
         ////DalDataBuffer dalDataBufferObj;
         private DefaultWindow objDefaultWindow;
         BizPWV bizObj;
         CrxDBManager dbMagr = CrxDBManager.Instance;
 
         /**This is the constructor fot the capture window.It is used to set the text for all the label controls on this page.
-         */ 
+         */
         public Capture()
         {
             InitializeComponent();
             SetTextForCaptureTab();
-            BizSession.Instance();            
+            BizSession.Instance();
         }
 
         public Capture(DefaultWindow defWindow)
         {
             InitializeComponent();
             SetTextForCaptureTab();
-            objDefaultWindow = defWindow;            
+            objDefaultWindow = defWindow;
         }
 
         /** This method is called to set the text for the label controls.
-         */ 
+         */
         private void SetTextForCaptureTab()
         {
             try
@@ -120,14 +108,12 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 CrxLogger.Instance.Write("Loading Capture Form");
-                
+
                 bizObj = (BizPWV)BizSession.Instance().measurement;
-                
-                BizFacade.Instance().SimulateCaptureData();
-                
+                                
                 radbtnCross.Focus();
 
-               // tmrInflationTimer.Enabled = true;
+                // tmrInflationTimer.Enabled = true;
                 CrxLogger.Instance.Write("Reading Configuration Settings");
                 obj = CrxConfigManager.Instance;
                 obj.GetGeneralUserSettings();
@@ -138,36 +124,36 @@ namespace AtCor.Scor.Gui.Presentation
                 BizEventContainer.Instance.OnBizFemoralQualityEvent += new BizFemoralQualityEventHandler(qualityIndicator_FemoraCuffEvent);
                 BizEventContainer.Instance.OnBizCountdownTimerEvent += new BizCountdownTimerEventHandler(UpdateCountdown);
                 BizEventContainer.Instance.OnBizCuffStateEvent += new BizCuffStateEventHandler(UpdateCuffState);
-                                
+
                 // DataAccess.DalEventContainer.Instance.OnDalCuffStatusEvent += new DalCuffStatusEventHandler_ORI(Instance_OnDalCuffStatusEvent);
                 ////deepak
 
                 SetTonometerWaveformProperties();
-                SetFemoralCuffWaveformProperties(); // vibhuti: setting femoral properties as need to show flat line 
+                SetFemoralCuffWaveformProperties(); // setting femoral properties as need to show flat line 
                 StartCarotidTonometerCapture();
 
-                // vibhuti: initially make progress bar & labels invisible
+                // initially make progress bar & labels invisible
                 guiradprgbarTimeToInflatioDeflation.Visible = false;
                 radlblTimeStatus.Visible = false;
                 guiradprgbarTimeToInflatioDeflation.Value1 = 0;
                 guiradprgbarTimeToInflatioDeflation.Maximum = 0;
-               
+
                 // Quality indicator ProgressBarSetup
-                prim1 = (ProgressBarPrimitive)this.radProgressBarQualityIndicator.ProgressBarElement.Children[1];
+                prim1 = (ProgressBarPrimitive)radProgressBarQualityIndicator.ProgressBarElement.Children[1];
                 radProgressBarQualityIndicator.Minimum = 0;
                 radProgressBarQualityIndicator.Maximum = QualityIndicatorHeight;
                 prim1.BackColor = prim1.BackColor2 = prim1.BackColor3 = prim1.BackColor4 = Color.Red;
                 radbtnTick.Enabled = false;
-               
+
                 // disable settings, backup, restore & cross button
                 objDefaultWindow.guiradmnuitemSettings.Enabled = false;
-                
+
                 objDefaultWindow.guiradmnuScor.Enabled = false;
 
                 // disable seup & report tabs
                 objDefaultWindow.radtabReport.Enabled = false;
                 objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = false;
-                
+
                 CrxLogger.Instance.Write("Capture Form Loading DONE");
 
                 DisplayCaptureTime();
@@ -176,7 +162,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 StopTimers();
                 GUIExceptionHandler.HandleException(ex, this);
-            }                    
+            }
         }
 
         /** This method displays capture time in bottom area
@@ -186,21 +172,26 @@ namespace AtCor.Scor.Gui.Presentation
             // set capture time in labels
             CrxConfigManager config = CrxConfigManager.Instance;
             switch (config.PwvSettings.CaptureTime)
-            { 
+            {
                 case 5:
                     objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage("GRP_CAPTURE_TIME") + ": " + oMsgMgr.GetMessage("RAD_5_SEC");
                     break;
+
                 case 10:
                     objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage("GRP_CAPTURE_TIME") + ": " + oMsgMgr.GetMessage("RAD_10_SEC");
                     break;
+
                 case 20:
                     objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage("GRP_CAPTURE_TIME") + ": " + oMsgMgr.GetMessage("RAD_20_SEC");
-                    break;            
-            }           
+                    break;
+
+                default:
+                    break;
+            }
         }
 
-         /** This method is used to resume plotting of femoral chart series after cuff state is inflated
-         * */
+        /** This method is used to resume plotting of femoral chart series after cuff state is inflated
+        * */
         private void ResumeFemoralChartSeries(object sender, EventArgs e)
         {
             try
@@ -234,9 +225,9 @@ namespace AtCor.Scor.Gui.Presentation
             guichartFemoralCuff.Series.Clear();
             guichartFemoralCuff.Series.Remove(femoralCuffSeries);
 
-            // vibhuti: make progress bar invisible & show cross image
+            // make progress bar invisible & show cross image
             guiradprgbarTimeToInflatioDeflation.Visible = false;
-            radlblcuffQuality.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["QualityCrossImage"].ToString()));          
+            //radlblcuffQuality.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["QualityCrossImage"].ToString()));          
         }
 
         /** This method plots a flat line when cuff is not in inflated state
@@ -249,9 +240,9 @@ namespace AtCor.Scor.Gui.Presentation
                 femoralCuffSeries = null;
             }
 
-            flatLineSeries.Points.AddXY(xCoordinateFemoralCuff, 600);
+            flatLineSeries.Points.AddXY(xCoordinateFemoralCuff, YCordinateForPlottingStraightLine);
             xCoordinateFemoralCuff++;
-                       
+
             if (xCoordinateFemoralCuff > screenwidth)
             {
                 flatLineSeries.Points.RemoveAt(0);
@@ -265,9 +256,9 @@ namespace AtCor.Scor.Gui.Presentation
             // int data = e.data / 1000;
             // oLogObject.Write("Countdown timer getting called.");
 
-        // ######################################################################################
-        // We are not clear with the functionality of this event, hence we are subscribing to Dal's event.
-        // ######################################################################################
+            // ######################################################################################
+            // We are not clear with the functionality of this event, hence we are subscribing to Dal's event.
+            // ######################################################################################
         }
 
         /**This event is called when the cuff state is changed.
@@ -305,7 +296,7 @@ namespace AtCor.Scor.Gui.Presentation
                     // make progress bar invisible & show cross image
                     guiradprgbarTimeToInflatioDeflation.Visible = false;
 
-                    radlblcuffQuality.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["QualityCrossImage"].ToString()));
+                    // radlblcuffQuality.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["QualityCrossImage"].ToString()));
                     pictureBox1.Image = Image.FromFile(Path.GetFullPath(ConfigurationManager.AppSettings["QualityCrossImage"].ToString()));
                 }
             }
@@ -319,23 +310,24 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                radlblcuffQuality.Visible = true;
+                // radlblcuffQuality.Visible = true;
+                pictureBox1.Visible = true;
                 femoralFlag = e.enableOkayButton;
-
+                
                 RefreshOkButton();
 
                 if (e.signalStrengthIsGood)
                 {
                     // show tick image
-                    radlblcuffQuality.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["QualityIndicatorImage"].ToString()));
-                    pictureBox1.Image = Image.FromFile(Path.GetFullPath(ConfigurationManager.AppSettings["QualityIndicatorImage"].ToString()));
+                    // radlblcuffQuality.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["QualityIndicatorImage"].ToString()));
+                    pictureBox1.Image = Image.FromFile(Path.GetFullPath(ConfigurationManager.AppSettings["QualityIndicatorImage"]));
                 }
 
                 if (!e.signalStrengthIsGood)
                 {
                     // show cross image
-                    radlblcuffQuality.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["QualityCrossImage"].ToString()));
-                    pictureBox1.Image = Image.FromFile(Path.GetFullPath(ConfigurationManager.AppSettings["QualityCrossImage"].ToString()));
+                    //  radlblcuffQuality.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["QualityCrossImage"].ToString()));
+                    pictureBox1.Image = Image.FromFile(Path.GetFullPath(ConfigurationManager.AppSettings["QualityCrossImage"]));
                 }
             }
             catch (Exception ex)
@@ -360,7 +352,7 @@ namespace AtCor.Scor.Gui.Presentation
                     signalStrength = QualityIndicatorHeight;
                 }
 
-                carotidFlag = e.enableOkayButton; 
+                carotidFlag = e.enableOkayButton;
 
                 // to enable tick button if both the events return true for enableokbutton
                 RefreshOkButton();
@@ -396,14 +388,14 @@ namespace AtCor.Scor.Gui.Presentation
                 GUIExceptionHandler.HandleException(ex, this);
             }
         }
-        
+
         /** This method is used to start the capture for tonometer waveform.
        */
         private void StartCarotidTonometerCapture()
         {
             try
             {
-               // DalModule dalModuleObj = DalModule.Instance;
+                // DalModule dalModuleObj = DalModule.Instance;
 
                 // ########################################################################
                 // ------------TO DO ----------- 
@@ -411,89 +403,87 @@ namespace AtCor.Scor.Gui.Presentation
                 // should call this method to set device strategy based on the saved config settings
                 // dalModuleObj.SetDeviceStrategy("Simulation");
                 // ########################################################################
-               // dalModuleObj.StartCapture(obj.PwvSettings.CaptureTime, SampleRate);
-                
-               // dalDataBufferObj = DalDataBuffer.Instance;
+                // dalModuleObj.StartCapture(obj.PwvSettings.CaptureTime, SampleRate);
+
+                // dalDataBufferObj = DalDataBuffer.Instance;
                 // Start capturing                
-                bizObj.StartCapture();               
+                bizObj.StartCapture();
                 timer1.Enabled = true;
-            }          
+            }
             catch (Exception ex)
             {
                 GUIExceptionHandler.HandleException(ex, this);
-            }            
-        }       
+            }
+        }
 
         /** This method is called to read value from the buffer, to be plotted on the graph.
-         */ 
+         */
         private void ReadValueFromBuffer()
         {
+            uint seconds;
+            uint minutes;
+            int countdowntimerInMilliseconds;
             try
-            {               
-                uint seconds = 0;
-                uint minutes = 0;
+            {
                 int startIndex = -1;
-                int returnedValues = -1;
                 DalPwvDataStruct structData;
                 DalDataBuffer dbuff = DalDataBuffer.Instance;
-                int countdowntimerInMilliseconds = 0; 
 
-                returnedValues = dbuff.GetNextValues(32, ref startIndex);
+                int returnedValues = dbuff.GetNextValues(RequestedValues, ref startIndex);
 
                 for (int i = 0; i < returnedValues; i++)
                 {
                     structData = dbuff.GetValueAt(startIndex, i);
-                    
+
                     // since countdown timer is in seconds now converting it into milliseconds
-                    countdowntimerInMilliseconds = (int)structData.countdownTimer * 1000;                   
-                    short tonometerData = (short)structData.tonometerData;  
+                    countdowntimerInMilliseconds = (int)structData.countdownTimer * 1000;
+                    short tonometerData = (short)structData.tonometerData;
                     PlotTonometerData(tonometerData);
 
                     if (femoralPlotSwitch)
                     {
                         if (cuffstatechange_flag)
-                        {                           
+                        {
                             CrxLogger.Instance.Write("COUNTDOWN: " + countdowntimerInMilliseconds.ToString());
                             guiradprgbarTimeToInflatioDeflation.Minimum = 0;
-                            if (countdowntimerInMilliseconds > 0) 
+                            if (countdowntimerInMilliseconds > 0)
                             {
                                 guiradprgbarTimeToInflatioDeflation.Maximum = countdowntimerInMilliseconds; // - int.Parse(deflationTime.ToString()); // (int)structData.countdownTimer
                             }
 
                             guiradprgbarTimeToInflatioDeflation.Value1 = 0;
-                            cuffstatechange_flag = false;                           
-                        }   
-                    
-                        if ((guiradprgbarTimeToInflatioDeflation.Maximum - countdowntimerInMilliseconds) > 0) 
+                            cuffstatechange_flag = false;
+                        }
+
+                        if ((guiradprgbarTimeToInflatioDeflation.Maximum - countdowntimerInMilliseconds) > 0)
                         {
                             guiradprgbarTimeToInflatioDeflation.Value1 = guiradprgbarTimeToInflatioDeflation.Maximum - countdowntimerInMilliseconds; // (int)structData.countdownTimer; // -int.Parse(deflationTime.ToString());
-                            CrxLogger.Instance.Write("Progress Bar Value = " + guiradprgbarTimeToInflatioDeflation.Value1.ToString());
-                        }                            
+                           // CrxLogger.Instance.Write("Progress Bar Value = " + guiradprgbarTimeToInflatioDeflation.Value1.ToString());
+                        }
 
                         // Get time to display
                         // conver miliseconds to seconds first
-                       // seconds = structData.countdownTimer / (uint)1000;
+                        // seconds = structData.countdownTimer / (uint)1000;
                         seconds = structData.countdownTimer;
-                       
+
                         // now get minutes and seconds 
-                        minutes = (seconds >= 60) ? (seconds / 60) : 0;                           
+                        minutes = (seconds >= 60) ? (seconds / 60) : 0;
                         seconds = (seconds >= 60) ? (seconds % 60) : seconds;
-                        CrxLogger.Instance.Write(oMsgMgr.GetMessage("LBL_TIMESTATUS") + " " + minutes.ToString() + ":" + ((seconds >= 10) ? string.Empty : "0") + seconds.ToString());
-                        radlblTimeStatus.Text = oMsgMgr.GetMessage("LBL_TIMESTATUS") + " " + minutes.ToString() + ":" + ((seconds >= 10) ? string.Empty : "0") + seconds.ToString();                           
+                       // CrxLogger.Instance.Write(oMsgMgr.GetMessage("LBL_TIMESTATUS") + " " + minutes.ToString() + ":" + ((seconds >= 10) ? string.Empty : "0") + seconds.ToString());
+                        radlblTimeStatus.Text = oMsgMgr.GetMessage("LBL_TIMESTATUS") + " " + minutes.ToString() + ":" + ((seconds >= 10) ? string.Empty : "0") + seconds.ToString();
 
                         short femoralCuffData = (short)structData.cuffPulseData;
                         PlotFemoralCuffData(femoralCuffData);
-                        
-                        bizObj.Append((ushort)structData.tonometerData, (ushort)structData.cuffPulseData);                        
+                        bizObj.Append(structData.tonometerData, structData.cuffPulseData);
                     }
                     else
                     {
                         // plot flat line for femoral when cuff is not inflated as value 0
                         PlotFemoralCuffData(0);
-                        bizObj.Append((ushort)structData.tonometerData, 0);                        
+                        bizObj.Append(structData.tonometerData, 0);
                     }
                 }
-            }             
+            }
             catch (Exception ex)
             {
                 GUIExceptionHandler.HandleException(ex, this);
@@ -501,40 +491,34 @@ namespace AtCor.Scor.Gui.Presentation
                 if (radbtnTick.Enabled)
                 {
                     DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("GUI_CAPTURE_ERROR"), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.AbortRetryIgnore, RadMessageIcon.Error);
-                    if (ds == DialogResult.Yes)
+                    switch (ds)
                     {
-                        // Click Yes to generate report.
-                        TickButtonAction();
-                    }
-                    else if (ds == DialogResult.No)
-                    {
-                        // Click No to abort report generation and go back to Setup screen.
-                        ShowSetupAfterCaptureAbort();
-                    }
-                    else 
-                    {
-                        // Click Cancel to restart the Capture process.                        
-                        BizSession.Instance().StopCapture();
-                        BizFacade.Instance().StopCaptureSimulation();
-                        StopTimers();
-                        guichartFemoralCuff.Series.Clear();
-                        guichartFemoralCuff.Series.Remove(femoralCuffSeries);
-
-                        // Clear and remove the tonometer waveform.
-                        chartTonometer.Series.Clear();
-                        chartTonometer.Series.Remove(newSeries);
-                        this.Invoke(new EventHandler(Capture_Load));
+                        case DialogResult.Yes:
+                            TickButtonAction();
+                            break;
+                        case DialogResult.No:
+                            ShowSetupAfterCaptureAbort();
+                            break;
+                        default:
+                            BizSession.Instance().StopCapture();
+                            StopTimers();
+                            guichartFemoralCuff.Series.Clear();
+                            guichartFemoralCuff.Series.Remove(femoralCuffSeries);
+                            chartTonometer.Series.Clear();
+                            chartTonometer.Series.Remove(newSeries);
+                            this.Invoke(new EventHandler(Capture_Load));
+                            break;
                     }
                 }
             }
         }
 
         /**This method is called to plot tonometer data.
-         */ 
+         */
         private void PlotTonometerData(short tonometerData)
         {
             try
-            {                
+            {
                 int data = tonometerData;
 
                 // set the maximum y-axis,if the incoming data has a point greater than the existing y-axis value then set the new data point as the y-axix maximum.
@@ -546,21 +530,21 @@ namespace AtCor.Scor.Gui.Presentation
                 if (data < chartTonometer.ChartAreas[0].AxisY.Minimum)
                 {
                     chartTonometer.ChartAreas[0].AxisY.Minimum = data * ChartAreaMinimumY;
-                }               
-                
+                }
+
                 // Add new data point to its series.               
                 newSeries.Points.AddXY(xCoordinateTonometer, data);
                 xCoordinateTonometer++;
 
-                if (xCoordinateTonometer > screenwidth) 
+                if (xCoordinateTonometer > screenwidth)
                 {
-                    newSeries.Points.RemoveAt(0);                    
+                    newSeries.Points.RemoveAt(0);
                 }
-                
+
                 // set the x axis's minimum and maximum values.
                 chartTonometer.ChartAreas[0].AxisX.Minimum = newSeries.Points[0].XValue;
                 chartTonometer.ChartAreas[0].AxisX.Maximum = newSeries.Points[0].XValue + screenwidth;
-                chartTonometer.Invalidate();            
+                chartTonometer.Invalidate();
             }
             catch (Exception ex)
             {
@@ -569,7 +553,7 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**This method is called to plot femoral cuff data.         
-         */ 
+         */
         private void PlotFemoralCuffData(short femoralCuffData)
         {
             try
@@ -579,7 +563,7 @@ namespace AtCor.Scor.Gui.Presentation
                 // when cuff is not inflated data will have value 0 to plot, setting minimum y axis range for femoral chart to -10 to show flat line
                 if (data == 0)
                 {
-                    guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = -10; 
+                    guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = -10;
                 }
                 else
                 {
@@ -606,7 +590,7 @@ namespace AtCor.Scor.Gui.Presentation
                 // Add new data point to its series.                               
                 femoralCuffSeries.Points.AddXY(xCoordinateFemoralCuff, data);
                 xCoordinateFemoralCuff++;
-                                
+
                 if (xCoordinateFemoralCuff > screenwidth)
                 {
                     femoralCuffSeries.Points.RemoveAt(0);
@@ -629,11 +613,8 @@ namespace AtCor.Scor.Gui.Presentation
         {
             // reset the tonometer x coordinate counter
             xCoordinateTonometer = 0;
-
-            // BizSession.Instance().measurement.captureTime + HandShakePeriod;
-            screenwidth = (obj.PwvSettings.CaptureTime + HandShakePeriod) * SampleRate; 
             
-            // screenwidth = (10 + 2)* 256;           
+            screenwidth = (obj.PwvSettings.CaptureTime + HandShakePeriod) * SampleRate;
 
             // Reset number of series in the chart.
             chartTonometer.Series.Clear();
@@ -645,17 +626,19 @@ namespace AtCor.Scor.Gui.Presentation
 
             // set x axis
             chartTonometer.ChartAreas[0].AxisX.Minimum = 0;
-            chartTonometer.ChartAreas[0].AxisX.Maximum = screenwidth; 
+            chartTonometer.ChartAreas[0].AxisX.Maximum = screenwidth;
 
             // give name (for internal use) to the series used for plotting the points,its chart type and the color of the graph.
-            newSeries = new Series("Tonometer");
-            newSeries.ChartType = SeriesChartType.FastLine;
-            newSeries.Color = Color.White;
-            newSeries.XValueType = ChartValueType.Int32;
-            newSeries.YValueType = ChartValueType.Int32;
+            newSeries = new Series("Tonometer")
+                            {
+                                ChartType = SeriesChartType.FastLine,
+                                Color = Color.White,
+                                XValueType = ChartValueType.Int32,
+                                YValueType = ChartValueType.Int32
+                            };
 
             // Add the series to the chart.
-            chartTonometer.Series.Add(newSeries);            
+            chartTonometer.Series.Add(newSeries);
         }
 
         /** This method is used to set the femoral cuff graphs properties.
@@ -666,13 +649,11 @@ namespace AtCor.Scor.Gui.Presentation
             xCoordinateFemoralCuff = 0;
 
             // BizSession.Instance().measurement.captureTime + HandShakePeriod;
-            screenwidth = (obj.PwvSettings.CaptureTime + HandShakePeriod) * SampleRate; 
-            
-            // screenwidth = (10 + 2) * 256;
+            screenwidth = (obj.PwvSettings.CaptureTime + HandShakePeriod) * SampleRate;
 
             // Reset number of series in the chart.
             guichartFemoralCuff.Series.Clear();
-           
+
             // set y axis
             guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = TonometerHeight;
             guichartFemoralCuff.ChartAreas[0].AxisY.Maximum = TonometerHeight;
@@ -683,14 +664,16 @@ namespace AtCor.Scor.Gui.Presentation
             guichartFemoralCuff.ChartAreas[0].AxisX.Maximum = screenwidth;
 
             // give name (for internal use) to the series used for plotting the points,its chart type and the color of the graph.
-            femoralCuffSeries = new Series("Femoral Cuff");
-            femoralCuffSeries.ChartType = SeriesChartType.FastLine;
-            femoralCuffSeries.Color = Color.Yellow;
-            femoralCuffSeries.XValueType = ChartValueType.Int32;
-            femoralCuffSeries.YValueType = ChartValueType.Int32;
+            femoralCuffSeries = new Series("Femoral Cuff")
+                                    {
+                                        ChartType = SeriesChartType.FastLine,
+                                        Color = Color.Yellow,
+                                        XValueType = ChartValueType.Int32,
+                                        YValueType = ChartValueType.Int32
+                                    };
 
             // Add the series to the chart.
-            guichartFemoralCuff.Series.Add(femoralCuffSeries); 
+            guichartFemoralCuff.Series.Add(femoralCuffSeries);
         }
 
         /** This method is used to set the femoral cuff graphs properties.
@@ -703,8 +686,6 @@ namespace AtCor.Scor.Gui.Presentation
             // BizSession.Instance().measurement.captureTime + HandShakePeriod;
             screenwidth = (obj.PwvSettings.CaptureTime + HandShakePeriod) * SampleRate;
 
-            // screenwidth = (10 + 2) * 256;
-
             // Reset number of series in the chart.
             guichartFemoralCuff.Series.Clear();
 
@@ -718,26 +699,29 @@ namespace AtCor.Scor.Gui.Presentation
             guichartFemoralCuff.ChartAreas[0].AxisX.Maximum = screenwidth;
 
             // give name (for internal use) to the series used for plotting the points,its chart type and the color of the graph.
-            flatLineSeries = new Series("Flat line");
-            flatLineSeries.ChartType = SeriesChartType.FastLine;
-            flatLineSeries.Color = Color.Yellow;
-            flatLineSeries.XValueType = ChartValueType.Int32;
-            flatLineSeries.YValueType = ChartValueType.Int32;
+            flatLineSeries = new Series("Flat line")
+                                 {
+                                     ChartType = SeriesChartType.FastLine,
+                                     Color = Color.Yellow,
+                                     XValueType = ChartValueType.Int32,
+                                     YValueType = ChartValueType.Int32
+                                 };
 
             // Add the series to the chart.
             guichartFemoralCuff.Series.Add(flatLineSeries);
         }
-        
+
         /**This method is called when the user clicks on the Tick button.
        */
         private void radbtnTick_Click(object sender, EventArgs e)
-        {            
+        {
             if (!radbtnTick.Enabled)
             {
                 return;
-            }               
+            }
 
             TickButtonAction();
+            this.Close();
         }
 
         /** This event is fired when the user clicks on the cross button.
@@ -759,11 +743,13 @@ namespace AtCor.Scor.Gui.Presentation
                     // navigate user to Setup screen
                     ShowSetupAfterCaptureAbort();
                 }
+
+                this.Close();
             }
             else
             {
                 CrossButtonAction();
-            }
+            }            
         }
 
         /**This method enables the tabs and the ribbion and navigates the user to the Reports tab.          
@@ -779,7 +765,7 @@ namespace AtCor.Scor.Gui.Presentation
                 CrxStructPWVMeasurementData cdata = new CrxStructPWVMeasurementData();
 
                 if (bizObj.CalculatePWVReport(cdata))
-                {                    
+                {
                     StopCaptureAndSaveReport(cdata);
                 }
                 else
@@ -803,17 +789,14 @@ namespace AtCor.Scor.Gui.Presentation
             StopTimers();
             objDefaultWindow.radlblMessage.Text = string.Empty;
 
-            // create stub instance to get file path of the text file saved
-            biz_stub.BizStub_BizSession bizstub = new BizStub_BizSession();
-
-            // report calculation failed save captured data in text file
+            // report calculation failed save captured data in text file                
             bizObj.SaveCaptureData(); // this will create text file & will save data captured so far
 
             // show error message alongwith filename
-            RadMessageBox.Show(this, oMsgMgr.GetMessage("REPORT_CAL_FAIL_MSG") + "\r\n\r\n" + oMsgMgr.GetMessage("GUI_WAVEFORM_SAVE_MSG") + "\r\n" + bizstub.GetSavedFileName(), oMsgMgr.GetMessage("EXEC_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+            RadMessageBox.Show(this, oMsgMgr.GetMessage("REPORT_CAL_FAIL_MSG") + "\r\n\r\n" + oMsgMgr.GetMessage("GUI_WAVEFORM_SAVE_MSG") + "\r\n" + DalModule.Instance.GetSavedFilePath(), oMsgMgr.GetMessage("EXEC_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
 
             // log the error
-            oLogObject.Write(oMsgMgr.GetMessage("REPORT_CAL_FAIL_MSG") + "\r\n\r\n" + oMsgMgr.GetMessage("GUI_WAVEFORM_SAVE_MSG") + "\r\n" + bizstub.GetSavedFileName());            
+            oLogObject.Write(oMsgMgr.GetMessage("REPORT_CAL_FAIL_MSG") + "\r\n\r\n" + oMsgMgr.GetMessage("GUI_WAVEFORM_SAVE_MSG") + "\r\n" + DalModule.Instance.GetSavedFilePath());
         }
 
         /** This method is called after successful report calculation
@@ -822,7 +805,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void StopCaptureAndSaveReport(CrxStructPWVMeasurementData cdata)
         {
             BizSession.Instance().StopCapture();
-            BizFacade.Instance().StopCaptureSimulation(); // ################# TO BE REMOVED
+            
             StopTimers();
 
             CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
@@ -849,8 +832,7 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void SaveReportCalculation(CrxStructPWVMeasurementData cdata)
         {
-            int iRow = 0;
-            iRow = dbMagr.SavePWVMeasurementDetails(cdata);
+            int iRow = dbMagr.SavePWVMeasurementDetails(cdata);
 
             if (iRow > 0)
             {
@@ -877,8 +859,17 @@ namespace AtCor.Scor.Gui.Presentation
                     return;
                 }
 
-                // invoke load method of report screen
-                 OnReportTabClick.Invoke(this, new EventArgs());                                    
+                // call the report load event only once 
+                // report load count is 1 when application is launched
+                if (SettingsProperties.ReportLoadCount == 1)
+                {
+                    SettingsProperties.ReportLoadCount++;
+                }
+                else
+                {
+                    // invoke load method of report screen
+                    OnReportTabClick.Invoke(this, new EventArgs());
+                }
 
                 // disable setting tab on menu bar
                 objDefaultWindow.guiradmnuitemSettings.Enabled = false;
@@ -887,7 +878,7 @@ namespace AtCor.Scor.Gui.Presentation
                 objDefaultWindow.guiradmnuitemSettings.Enabled = false;
                 objDefaultWindow.guiradmnuScor.Enabled = true;
                 objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
-                objDefaultWindow.radtabCapture.Enabled = false;                        
+                objDefaultWindow.radtabCapture.Enabled = false;
             }
             else
             {
@@ -906,6 +897,7 @@ namespace AtCor.Scor.Gui.Presentation
                 if (ds == DialogResult.Yes)
                 {
                     ShowSetupAfterCaptureAbort();
+                    this.Close();
                 }
                 else
                 {
@@ -923,7 +915,7 @@ namespace AtCor.Scor.Gui.Presentation
         void ShowSetupAfterCaptureAbort()
         {
             BizSession.Instance().StopCapture();
-            BizFacade.Instance().StopCaptureSimulation(); // ################# TO BE REMOVED
+                       
             StopTimers();
 
             // Clear and remove the femoral waveform.
@@ -937,7 +929,7 @@ namespace AtCor.Scor.Gui.Presentation
             // Disable the tick button on the screen.
             radbtnTick.Enabled = false;
 
-           // StopTimers();
+            // StopTimers();
             objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
             objDefaultWindow.radlblMessage.Text = string.Empty;
             objDefaultWindow.radlblCaptureTime.Text = string.Empty;
@@ -948,7 +940,7 @@ namespace AtCor.Scor.Gui.Presentation
             objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
             objDefaultWindow.radtabReport.Enabled = true;
             objDefaultWindow.guipictureboxError.Image = null;
-           
+
             // set variable to enforce 30 secs timers on setup 
             SettingsProperties.CaptureToSetup = true;
 
@@ -959,140 +951,17 @@ namespace AtCor.Scor.Gui.Presentation
             guiradprgbarTimeToInflatioDeflation.Maximum = 0;
             radProgressBarQualityIndicator.Value1 = 0;
             pictureBox1.Image = null;
-            
-            OnAbortInitializeTimer.Invoke(this, new EventArgs()); 
-        }
 
-        /** This event is raised on the tick of the tmrInflationTimer.
-         * This method shows the time to delfation using a progress bar and a countdown timer.
-         * If any exception occurs it will be caught and displayed to the user using a message box.
-         *The corresponding exception will also be logged in the log file.
-         */
-        private void tmrInflationTimer_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                guiradprgbarTimeToInflatioDeflation.Minimum = 0;
-                guiradprgbarTimeToInflatioDeflation.Maximum = 180;
-                inflationTick++;
-                guiradprgbarTimeToInflatioDeflation.Value1 = inflationTick;
-
-                if (inflationTick == 180)
-                {
-                    inflationTick = 0;
-                    tmrInflationTimer.Enabled = false;
-
-                    tmrDeflationTimer.Enabled = true;
-
-                    /*When the countdown timer for 3 mins ends,we need to stop plotting the femoral cuff waveform.
-                    Hence setting this flag to false.*/
-                    guichartFemoralCuff.Series.Clear();
-                    guichartFemoralCuff.Series.Remove(femoralCuffSeries);
-
-                    femoralPlotSwitch = false;
-                }
-
-                if (seconds < 1)
-                {
-                    seconds = 59;
-                    if (minutes.Equals(0))
-                    {
-                        minutes = 2;
-                    }
-                    else
-                    {
-                        minutes -= 1;
-                    }
-                }
-                else
-                {
-                    seconds -= 1;
-                }
-
-                radlblTimeStatus.Text = oMsgMgr.GetMessage("LBL_TIMESTATUS") + minutes.ToString() + ":" + ((seconds >= 10) ? string.Empty : "0") + seconds.ToString();
-            }
-            catch (Exception ex)
-            {
-                GUIExceptionHandler.HandleException(ex, this);
-            }
-        }
-
-        /** This event is raised on the tick of the tmrDeflationTimer.
-         * This method shows the time to inflation using a progress bar and a countdown timer.
-         * If any exception occurs it will be caught and displayed to the user using a message box.
-         *The corresponding exception will also be logged in the log file.
-         */
-        private void tmrDeflationTimer_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                guiradprgbarTimeToInflatioDeflation.Minimum = 0;
-                guiradprgbarTimeToInflatioDeflation.Maximum = 30;
-                deflationTick++;
-                guiradprgbarTimeToInflatioDeflation.Value1 = deflationTick;
-                
-                if (deflationSeconds < 1)
-                {
-                    deflationSeconds = 29;
-                }
-                else
-                {
-                    deflationSeconds -= 1;
-                }
-
-                if (deflationTick == 30)
-                {
-                    deflationTick = 0;
-                    tmrDeflationTimer.Enabled = false;
-
-                    tmrInflationTimer.Enabled = true;
-                    
-                    /*When the countdown timer's 30 secs timer ends,we need to start plotting the femoral cuff 
-                     waveform again,hence setting this flag to true.*/
-                    SetFemoralCuffWaveformProperties();
-
-                    femoralPlotSwitch = true;
-                }
-
-                radlblTimeStatus.Text = oMsgMgr.GetMessage("CAPTURE_TIME_TO_INFLATION") + deflationMinutes.ToString() + ":" + ((deflationSeconds >= 10) ? string.Empty : "0") + deflationSeconds.ToString();
-            }
-            catch (Exception ex)
-            {
-                GUIExceptionHandler.HandleException(ex, this);
-            }
-        }
-
-        /** This timer event is called on Form load,it will tick for 10 seconds and then clear the tonometer waveform and stop the timer itself.
-         */ 
-        private void TenSecWaitTmr_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                radbtnTick.Enabled = false;
-                chartTonometer.Series.Clear();
-                chartTonometer.Series.Remove(newSeries);
-                SetTonometerWaveformProperties();
-
-                // start plotting femoral waveform
-                SetFemoralCuffWaveformProperties();
-
-                femoralPlotSwitch = true;
-
-                TenSecWaitTmr.Enabled = false;
-            }
-            catch (Exception ex)
-            {
-                GUIExceptionHandler.HandleException(ex, this);
-            }
+            // OnAbortInitializeTimer.Invoke(this, new EventArgs());
         }
 
         /** This event is fired when the timer is enabled.
         * The tick event of the timer is called every 125 milliseconds.
         */
         private void timer1_Tick(object sender, EventArgs e)
-        {            
+        {
             ReadValueFromBuffer();
-            BizSession.Instance().DispatchCaptureData();           
+            BizSession.Instance().DispatchCaptureData();
         }
 
         private void Capture_KeyDown(object sender, KeyEventArgs e)
@@ -1130,9 +999,6 @@ namespace AtCor.Scor.Gui.Presentation
         {
             // Disable all the timers on the capture screen
             timer1.Stop();
-            tmrInflationTimer.Stop();
-            tmrDeflationTimer.Stop();
-            TenSecWaitTmr.Stop();            
         }
 
         /** This method is used to enable/disable the ok button on the Capture screen.
@@ -1149,6 +1015,25 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 radbtnTick.Enabled = false;
             }
+        }
+
+        /**This event is called when the form is called,it will start a timer which will disabled the capture tab
+         * Capture button on the Setup screen and the repeat button on the Report screen.
+         */
+        private void Capture_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                SettingsProperties.captureChildForm = null;
+                SettingsProperties.InvokeCaptureClosing(false);
+                objDefaultWindow.tmrImposeWaitTime.Interval = int.Parse(ConfigurationManager.AppSettings["WaitInterval"].ToString());
+                SettingsProperties.IsWaitIntervalImposed = true;
+                objDefaultWindow.tmrImposeWaitTime.Start();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }           
         }
     }
 }

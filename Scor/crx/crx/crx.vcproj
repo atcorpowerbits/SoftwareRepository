@@ -135,6 +135,7 @@
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
+				KeyFile="crx_key.snk"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -176,17 +177,17 @@
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Common.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.ServiceLocation.dll"
 			AssemblyName="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
@@ -206,7 +207,7 @@
 			MinFrameworkVersion="131072"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Data.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.EnterpriseLibrary.Data.dll"
 			AssemblyName="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
@@ -216,12 +217,12 @@
 			MinFrameworkVersion="0"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.dll"
 			AssemblyName="Microsoft.Practices.Unity, Version=2.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
 		<AssemblyReference
-			RelativePath="..\..\..\..\..\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.Interception.dll"
+			RelativePath="c:\Program Files\Microsoft Enterprise Library 5.0\Bin\Microsoft.Practices.Unity.Interception.dll"
 			AssemblyName="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
 			MinFrameworkVersion="196613"
 		/>
@@ -393,6 +394,18 @@
 						ResourceFileName="..\..\gui\gui\bin\$(IntDir)\System\Resources\$(SolutionName).ApplicationMessages.resources"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCManagedResourceCompilerTool"
+						ResourceFileName="..\..\gui\gui\bin\$(IntDir)\System\Resources\$(SolutionName).ApplicationMessages.resources"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\CEMarkSGS.jpg"
+				>
 			</File>
 		</Filter>
 		<File

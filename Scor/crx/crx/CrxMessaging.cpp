@@ -52,21 +52,21 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 	try
 	{			
 		//Check whether default resource file is exists or not
-		if(!File::Exists(_nameOfAppResxfile))
-		{ 
-			//throw gcnew CrxException(L"Resource file not found"); // File not found
-			errorString = "200 Resource file not found.";
-			return errorString;
-		}
+		//if(!File::Exists(_nameOfAppResxfile))
+		//{ 
+		//	//throw gcnew CrxException(L"Resource file not found"); // File not found
+		//	errorString = "200 Resource file not found.";
+		//	return errorString;
+		//}
 
 		//Get the message string through resource manager object
 		errorString = errRsrcMsg->GetString(strCode);
 
 		//validation to check string is returned or not, 
 		//if string length is equals to zero then send the string "Error Code not found"
-		if(errorString->Length == 0)
+		if(errorString == nullptr)
 		{
-			errorString = "201 Error Code not found.";
+			errorString = "201 : Error Code not found.";
 		}
 
 		return errorString;
@@ -82,3 +82,39 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 	}
 }
 
+Image ^CrxMessagingManager::GetImage(String^ strCode) 
+{
+	Image^	imagePrn		= nullptr;//Get error string and return, set to null
+	
+	try
+	{
+		//Get the message string through resource manager object
+		Bitmap^ b = (Bitmap^) errRsrcMsg->GetObject(strCode);
+		imagePrn = (Image^)b;
+
+		return imagePrn;
+	}
+	catch(Exception^ eObj)
+	{
+		// rethrow the exception
+		throw gcnew ScorException(eObj);
+	}
+	finally 
+	{
+		// kept here for future reference and use
+	}
+}
+
+//TODO: Need to implement the validation for culture specific changes
+int CrxMessagingManager::CheckResourceFileExist()
+{
+	int	result		= 0;//Get error string and return, set to null
+
+	//Check whether default resource file is exists or not
+	if(!File::Exists(_nameOfAppResxfile))
+	{ 		
+		// throw the exception
+		throw gcnew ScorException(CRX_ERR_RESOURCE_FILE_NOT_EXIST, nullptr, ErrorSeverity::Exception,nullptr,_checkResourceMesg);// File not found
+	}
+	return result;
+}

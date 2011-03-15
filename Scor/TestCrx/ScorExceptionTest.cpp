@@ -95,7 +95,6 @@ namespace TestCrx {
 				ScorException^  target = (gcnew ScorException(111,testKey, ErrorSeverity::Warning)); // TODO: Initialize to an appropriate value
 				String^  actual;
 				actual = target->ErrorMessageKey;
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 				Assert::AreEqual(testKey, actual);
 			}
 			/// <summary>
@@ -109,6 +108,36 @@ namespace TestCrx {
 				int actual;
 				actual = target->ErrorCode;
 				Assert::AreEqual(testErrorCode, actual);
+			}
+			/// <summary>
+			///A test for ScorException Constructor
+			///</summary>
+	public: [TestMethod]
+			void ScorExceptionConstructorTest3()
+			{
+				int errorCode = 100; // TODO: Initialize to an appropriate value
+				String^  errorKey = "Scor_Key"; // TODO: Initialize to an appropriate value
+				ErrorSeverity errorType = ErrorSeverity(); // TODO: Initialize to an appropriate value
+				Exception^  exceptionObject = gcnew Exception(); // TODO: Initialize to an appropriate value
+				cli::array< String^  >^  arr = gcnew array<String^>(1); // TODO: Initialize to an appropriate value
+				
+				//Begin: Smarajit(04-Mar-2011)
+				errorType = ErrorSeverity::Information ;
+				//exceptionObject-> = "ScorExceptionConstructorTest3";
+				arr[0] = "Arr_ScorExceptionConstructorTest3";
+				ScorException^  target = (gcnew ScorException(errorCode, errorKey, errorType, exceptionObject, arr));
+
+				Assert::AreEqual(errorCode, target->ErrorCode);
+				Assert::AreEqual(errorKey, target->ErrorMessageKey);
+				Assert::AreEqual(errorType, target->ErrorType);
+				Assert::AreEqual(exceptionObject->Message, target->ExceptionObject->Message);
+				Assert::AreEqual(arr[0], target->ErrorStringArr[0]);
+				
+				arr = gcnew array<String^>(0);
+				target = (gcnew ScorException(errorCode, errorKey, errorType, exceptionObject, nullptr));
+				Assert::AreEqual(arr->Length, target->ErrorStringArr->Length);
+
+				//End: Smarajit(04-Mar-2011)
 			}
 			/// <summary>
 			///A test for ScorException Constructor

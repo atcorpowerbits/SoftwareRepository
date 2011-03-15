@@ -20,6 +20,7 @@ using namespace System::Globalization;
 using namespace System::Threading;
 using namespace System::Reflection;
 
+using namespace System::Drawing;
 /**
  * @namespace	AtCor::Scor::CrossCutting::Messaging
  * @brief		This namespace implements messaging related cross-cutting functionalities.
@@ -40,12 +41,17 @@ namespace AtCor {
 			{
 				private:					
 					
+					//Declaring static variables names for exception numbers
+					static const int CRX_ERR_RESOURCE_FILE_NOT_EXIST	= 200;
+
 					//singleton instance
 					static CrxMessagingManager^ _instance = gcnew CrxMessagingManager(); /**< Instance to implement singleton. */
 					
 					// holds the location of the configuration file
 					static String^ _nameOfAppResxfile = L".\\system\\resources\\Scor.ApplicationMessages.resources";
 					
+					static String^ _checkResourceMesg = "Resource file not found.";
+
 					//Create Resource manager object
 					ResourceManager^ errRsrcMsg;
 
@@ -90,14 +96,32 @@ namespace AtCor {
 					* @param[in] errorCode	The error code for which message is required.
 					*/
 					String ^GetMessage(int errorCode); //Method to pass an error code as an integer and obtain corresponding error message
+					
 					/**
-					* Returns an error message corresponding to the specified integer error code.
+					* Returns an error message corresponding to the specified string code.
 					*
 					* @return The error message for the specified code
 					*
 					* @param[in] strCode	The error string for which message is required.
 					*/
 					String ^GetMessage(String^ strCode); //Method to pass an error Stringcode as a string and obtain corresponding error message
+					
+					/**
+					* Returns an image corresponding to the specified string.
+					*
+					* @return The image for the specified string code
+					*
+					* @param[in] strCode	The image file name for which image is required.
+					*/
+					Image ^GetImage(String^ strCode); //Method to pass an image name as string and obtain corresponding Image
+					
+					/**
+					* To check resource file exists.
+					*
+					* @return The integer value, if 0 resource file exists else not
+					*
+					*/
+					int CheckResourceFileExist(); //Method to check resource file exist or not.
 
 			};
 

@@ -80,7 +80,7 @@ namespace AtCor{
 				* @class DalCuffStatusEventArgs
 				* @brief Class to contain arguments for OnDalCuffStatusEvent.
 				*/
-				public ref class DalCuffStatusEventArgs_ORI: public EventArgs
+				public ref class DalCuffStatusEventArgs: public EventArgs
 				{
 					public:
 						/**
@@ -95,20 +95,20 @@ namespace AtCor{
 						*
 						* @param[in] cuffStateFlag	The data for the event (The resolved status flag).						
 						*/
-						DalCuffStatusEventArgs_ORI(DalCuffStateFlags cuffStateFlag);
+						DalCuffStatusEventArgs(DalCuffStateFlags cuffStateFlag);
 				};
 
 				/**
 				* Delegate for cuff status changed event
 				*/
-				public delegate void DalCuffStatusEventHandler_ORI(Object^ sender, DalCuffStatusEventArgs_ORI ^ args);
+				public delegate void DalCuffStatusEventHandler(Object^ sender, DalCuffStatusEventArgs ^ args);
 
 
 				/**
-				* @class DalModuleErrorAlarmEventArgs_ORI
+				* @class DalModuleErrorAlarmEventArgs
 				* @brief Class to contain arguments for OnDalModuleErrorAlarmEvent.
 				*/
-				public ref class DalModuleErrorAlarmEventArgs_ORI: public EventArgs
+				public ref class DalModuleErrorAlarmEventArgs: public EventArgs
 				{
 					public:
 						/**
@@ -121,13 +121,13 @@ namespace AtCor{
 						*
 						* @param[in] data	The data for the event (error or alarm raised event).						
 						*/
-						DalModuleErrorAlarmEventArgs_ORI(DalErrorAlarmStatusFlag data);
+						DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag data);
 				};
 
 				/**
 				* Delegate for cuff status changed event
 				*/
-				public delegate void DalModuleErrorAlarmEventHandler_ORI(Object^ sender, DalModuleErrorAlarmEventArgs_ORI ^ args);
+				public delegate void DalModuleErrorAlarmEventHandler(Object^ sender, DalModuleErrorAlarmEventArgs ^ args);
 
 
 
@@ -146,7 +146,7 @@ namespace AtCor{
 						/**
 						* Constructor for the class.
 						*
-						* @param[in] cuffStateFlag	The data for the event (The resolved status flag).						
+						* @param[in] tonometerStateFlag	The data for the event (The resolved tonometer state flag).						
 						*/
 						DalTonometerStatusEventArgs(DalTonometerState tonometerStateFlag);
 				};
@@ -173,14 +173,14 @@ namespace AtCor{
 						DalTonoMeterDataEventHandler^ _dalTonoMeterDataEventHandler; //Handler for tonometer events //TODO:STUB
 						DalCuffPulseEventHandler^ _dalCuffPulseEventHandler; //Handler for cuff puse events //TODO:STUB
 
-						DalCuffStatusEventHandler_ORI^ _DalCuffStatusEventHandler_ORI; //handler for cuff status change events
+						DalCuffStatusEventHandler^ _DalCuffStatusEventHandler; //handler for cuff status change events
 
 					//	DalCuffStatusEventHandler^ _dalCuffStatusEventHandler; //handler for cuff status change events
 
 					//	DalModuleErrorAlarmEventHandler^     _dalModuleErrorAlarmEventHandler;
 
 						 
-						DalModuleErrorAlarmEventHandler_ORI^     _dalModuleErrorAlarmEventHandler;
+						DalModuleErrorAlarmEventHandler^     _dalModuleErrorAlarmEventHandler;
 
 						DalTonometerStatusEventHandler^ _dalTonometerStatusEventHandler; //handler for tonometer status change events
 
@@ -299,19 +299,19 @@ namespace AtCor{
 						/**
 						* Cuff status changed event.
 						*/
-						event DalCuffStatusEventHandler_ORI^ OnDalCuffStatusEvent
+						event DalCuffStatusEventHandler^ OnDalCuffStatusEvent
 						{
 							/**
 							* Registers specifed handler method as a listener to this event.
 							*
 							* @param[in] handler	The handler method to be registered as a listener. @n
-							*						Should match the signature of DalCuffStatusEventHandler_ORI
+							*						Should match the signature of DalCuffStatusEventHandler
 							*/
-							void add(DalCuffStatusEventHandler_ORI^ handler)
+							void add(DalCuffStatusEventHandler^ handler)
 							{
 								lock lockEvents(this);
 								//add the specified handler as listener.
-								_DalCuffStatusEventHandler_ORI += handler;
+								_DalCuffStatusEventHandler += handler;
 							}
 							
 							/**
@@ -321,11 +321,11 @@ namespace AtCor{
 							* @param[in] handler	The handler method to be de-registered as a listener. @n
 							*						Should be already added as a listener.
 							*/
-							void remove(DalCuffStatusEventHandler_ORI^ handler)
+							void remove(DalCuffStatusEventHandler^ handler)
 							{
 								lock lockEvents(this);
 								//Remove the specified handler from the list of listeners
-								_DalCuffStatusEventHandler_ORI -= handler;
+								_DalCuffStatusEventHandler -= handler;
 							}
 
 							/**
@@ -333,18 +333,18 @@ namespace AtCor{
 							* Needed to raise an event.
 							*
 							* @param[in]	sender	Reference to object that raised the event.
-							* @param[in[	args	The arguments for this event. Should be of the type DalCuffStatusEventArgs_ORI.
+							* @param[in[	args	The arguments for this event. Should be of the type DalCuffStatusEventArgs.
 							*/
-							void raise(Object^ sender, DalCuffStatusEventArgs_ORI ^ args)
+							void raise(Object^ sender, DalCuffStatusEventArgs ^ args)
 							{
 								if (!args)
 								{
 									return;
 								}
 								//Raise the event.
-								if(_DalCuffStatusEventHandler_ORI)
+								if(_DalCuffStatusEventHandler)
 								{
-									_DalCuffStatusEventHandler_ORI->Invoke(sender, args);
+									_DalCuffStatusEventHandler->Invoke(sender, args);
 								}
 							}
 						}
@@ -401,15 +401,15 @@ namespace AtCor{
 						/**
 						* Error or alarm raised event.
 						*/
-						event DalModuleErrorAlarmEventHandler_ORI^ OnDalModuleErrorAlarmEvent
+						event DalModuleErrorAlarmEventHandler^ OnDalModuleErrorAlarmEvent
 						{
 							/**
 							* Registers specifed handler method as a listener to this event.
 							*
 							* @param[in] handler	The handler method to be registered as a listener. @n
-							*						Should match the signature of DalModuleErrorAlarmEventHandler_ORI
+							*						Should match the signature of DalModuleErrorAlarmEventHandler
 							*/
-							void add(DalModuleErrorAlarmEventHandler_ORI^ handler)
+							void add(DalModuleErrorAlarmEventHandler^ handler)
 							{
 								lock lockEvents(this);
 								//add the specified handler as listener.
@@ -423,7 +423,7 @@ namespace AtCor{
 							* @param[in] handler	The handler method to be de-registered as a listener. @n
 							*						Should be already added as a listener.
 							*/
-							void remove(DalModuleErrorAlarmEventHandler_ORI^ handler)
+							void remove(DalModuleErrorAlarmEventHandler^ handler)
 							{
 								lock lockEvents(this);
 								//Remove the specified handler from the list of listeners
@@ -435,9 +435,9 @@ namespace AtCor{
 							* Needed to raise an event.
 							*
 							* @param[in]	sender	Reference to object that raised the event.
-							* @param[in[	args	The arguments for this event. Should be of the type DalModuleErrorAlarmEventArgs_ORI.
+							* @param[in[	args	The arguments for this event. Should be of the type DalModuleErrorAlarmEventArgs.
 							*/
-							void raise(Object^ sender, DalModuleErrorAlarmEventArgs_ORI ^ args)
+							void raise(Object^ sender, DalModuleErrorAlarmEventArgs ^ args)
 							{
 								//Raise the event.
 								if(_dalModuleErrorAlarmEventHandler)

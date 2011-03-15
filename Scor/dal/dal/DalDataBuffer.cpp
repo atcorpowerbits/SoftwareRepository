@@ -287,42 +287,53 @@ namespace AtCor{
 	
 			bool DalDataBuffer::WriteDataToBuffer(DalPwvDataStruct dataToWrite)
 			{
-				if (bufferIndex == -1)
+				try
 				{
-					//array hasnt been created yet
-					throw gcnew ScorException(1001, "DAL_ERR_BUFFER_NOT_CREATED", ErrorSeverity::Exception);
-				}
-				
-				lockArray->WaitOne(); //lock the array to prevent simultaneous access.
+					if (bufferIndex == -1)
+					{
+						//array hasnt been created yet
+						throw gcnew ScorException(1001, "DAL_ERR_BUFFER_NOT_CREATED", ErrorSeverity::Exception);
+					}
+					
+					lockArray->WaitOne(); //lock the array to prevent simultaneous access.
 
-				//check if array is full( BI = SI-1)
-				//if it is then push SI further as we add elements
-				if (bufferIndex == (startIndex-1))
-				{
-					//increment SI and rollover
-					startIndex= (startIndex+1)%_arraySize;
-				}
-				else if(( bufferIndex == arrayLastElementIndex) && (startIndex == 0 ))
-				{
-					//check if BI is at the last element and ensure that the rollover of SI is done
-					startIndex= (startIndex+1)%_arraySize;
-				}
+					//check if array is full( BI = SI-1)
+					//if it is then push SI further as we add elements
+					if (bufferIndex == (startIndex-1))
+					{
+						//increment SI and rollover
+						startIndex= (startIndex+1)%_arraySize;
+					}
+					else if(( bufferIndex == arrayLastElementIndex) && (startIndex == 0 ))
+					{
+						//check if BI is at the last element and ensure that the rollover of SI is done
+						startIndex= (startIndex+1)%_arraySize;
+					}
 
-				//set the value at the position
-				bufferPointer->SetValue(%dataToWrite, bufferIndex);
+					//set the value at the position
+					bufferPointer->SetValue(%dataToWrite, bufferIndex);
 
-				//check if the rolover condition is about to be fullfiled before it actually takes place
-				if ((rollOverFlag == false) && (bufferIndex == arrayLastElementIndex))
-				{
-					//this is only needed for BLL
-					rollOverFlag = true;
+					//check if the rolover condition is about to be fullfiled before it actually takes place
+					if ((rollOverFlag == false) && (bufferIndex == arrayLastElementIndex))
+					{
+						//this is only needed for BLL
+						rollOverFlag = true;
+					}
+					//increment the BI
+					bufferIndex = (bufferIndex+1)%_arraySize;
+					
+					//release lock
+					lockArray->ReleaseMutex();
+					return true;
 				}
-				//increment the BI
-				bufferIndex = (bufferIndex+1)%_arraySize;
-				
-				//release lock
-				lockArray->ReleaseMutex();
-				return true;
+				catch(ScorException^)
+				{
+					throw;
+				}
+				catch(Exception^ excepObj)
+				{
+					throw gcnew ScorException(excepObj);
+				}
 			}
 
 		}

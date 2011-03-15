@@ -70,7 +70,6 @@ namespace TestCrx {
 				CrxEventContainer^  actual;
 				actual = CrxEventContainer::Instance;
 				Assert::IsNotNull(actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for op_Assign
@@ -97,7 +96,6 @@ namespace TestCrx {
 				CrxEventContainer^  unnamed = nullptr; // TODO: Initialize to an appropriate value
 				CrxEventContainer_Accessor^  target = (gcnew CrxEventContainer_Accessor(unnamed));
 				Assert::IsNotNull(target);
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 			/// <summary>
 			///A test for CrxEventContainer Constructor
@@ -108,7 +106,6 @@ namespace TestCrx {
 			{
 				CrxEventContainer_Accessor^  target = (gcnew CrxEventContainer_Accessor());
 				Assert::IsNotNull(target);
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 	};
 }

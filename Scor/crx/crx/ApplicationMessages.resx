@@ -764,9 +764,6 @@
   <data name="DAL_ERR_UNKNOWN_BIT_FLAG" xml:space="preserve">
     <value>The bit flag was unknown or unhandled.</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="BACKUP_DONE" xml:space="preserve">
     <value>Backup completed successfully</value>
   </data>
@@ -831,7 +828,7 @@
     <value>New</value>
   </data>
   <data name="BTN_OK" xml:space="preserve">
-    <value>Ok</value>
+    <value>Capture</value>
   </data>
   <data name="BTN_PRINT" xml:space="preserve">
     <value>Print</value>
@@ -969,7 +966,7 @@
     <value>Would you like to migrate patient records to the current database?</value>
   </data>
   <data name="REPORT_CAL_FAIL_MSG" xml:space="preserve">
-    <value>Report calculation failed.</value>
+    <value>Report generation failed.</value>
   </data>
   <data name="REPORT_SAVE_ERR" xml:space="preserve">
     <value>Error saving report</value>
@@ -1017,12 +1014,12 @@
     <value>System ID</value>
   </data>
   <data name="CAPTURE_TIME_OUT_OF_RANGE" xml:space="preserve">
-    <value>Capture time is not within the valid range between %0 and %1</value>
-    <comment>%0=lower range %1=upper range</comment>
+    <value>Capture time is not within the valid range between {0} and {1}</value>
+    <comment>{0}=lower range {1}=upper range</comment>
   </data>
   <data name="CAROTID_DIST_OUT_OF_RANGE" xml:space="preserve">
-    <value>Carotid distance is not within the valid range between %0 and %1 (%2)</value>
-    <comment>%0=lower range %1=upper range %2=unit, e.g. mm, cm</comment>
+    <value>Carotid distance is not within the valid range between {0} and {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. mm, cm</comment>
   </data>
   <data name="CAROTID_SIGNAL_BUFFER_NOT_FULL_YET" xml:space="preserve">
     <value>Carotid signal buffer is not full yet</value>
@@ -1031,22 +1028,22 @@
     <value>Carotid signal capture failed</value>
   </data>
   <data name="CUFF_DIST_OUT_OF_RANGE" xml:space="preserve">
-    <value>Cuff distance is not within the valid range between %0 and %1 (%2)</value>
-    <comment>%0=lower range %1=upper range %2=unit, e.g. mm, cm</comment>
+    <value>Cuff distance is not within the valid range between {0} and {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. mm, cm</comment>
   </data>
   <data name="DATA_REV_INVALID" xml:space="preserve">
-    <value>Data revision %0 is not valid</value>
+    <value>Data revision {0} is not valid</value>
   </data>
   <data name="DOB_NOT_ENTERED" xml:space="preserve">
     <value>Date of birth not entered</value>
   </data>
   <data name="DP_OUT_OF_RANGE" xml:space="preserve">
-    <value>Diastolic Pressure is not within the valid range between %0 and %1</value>
-    <comment>%0=lower range %1=upper range</comment>
+    <value>Diastolic Pressure is not within the valid range between {0} and {1}</value>
+    <comment>{0}=lower range {1}=upper range</comment>
   </data>
   <data name="FEMORAL_2_CUFF_OUT_OF_RANGE" xml:space="preserve">
-    <value>Femoral to cuff distance is not within the valid range between %0 and %1 (%2)</value>
-    <comment>%0=lower range %1=upper range %2=unit, e.g. mm, cm</comment>
+    <value>Femoral to cuff distance is not within the valid range between {0} and {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. mm, cm</comment>
   </data>
   <data name="FEMORAL_SIGNAL_BUFFER_NOT_FULL_YET" xml:space="preserve">
     <value>Femoral signal buffer is not full yet</value>
@@ -1055,53 +1052,53 @@
     <value>Femoral signal capture failed</value>
   </data>
   <data name="HEIGHT_OUT_OF_RANGE" xml:space="preserve">
-    <value>Height is not within the valid range between %0 and %1 (%2)</value>
-    <comment>%0=lower range %1=upper range %2=unit, e.g. inches, cm</comment>
+    <value>Height is not within the valid range between {0} and {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. inches, cm</comment>
   </data>
   <data name="MEASUREMENT_DATE_IN_FUTURE" xml:space="preserve">
     <value>Measurement date cannot be in future date</value>
   </data>
   <data name="MP_DP_TOO_CLOSE" xml:space="preserve">
-    <value>MP should be higher than DP by %0 mmHg</value>
+    <value>MP should be higher than DP by {0} mmHg</value>
   </data>
   <data name="MP_OUT_OF_RANGE" xml:space="preserve">
-    <value>Mean Pressure is not within the valid range between %0 and %1</value>
-    <comment>%0=lower range %1=upper range</comment>
+    <value>Mean Pressure is not within the valid range between {0} and {1}</value>
+    <comment>{0}=lower range {1}=upper range</comment>
   </data>
   <data name="PATIENT_NUM_INVALID" xml:space="preserve">
-    <value>Patient internal number %0 is not valid</value>
+    <value>Patient internal number {0} is not valid</value>
   </data>
   <data name="PWV_CALC_DIST_OUT_OF_RANGE" xml:space="preserve">
-    <value>PWV calulated distance is not within the valid range between %0 and %1 (%2)</value>
-    <comment>%0=lower range %1=upper range %2=unit, e.g. mm, cm</comment>
+    <value>PWV calulated distance is not within the valid range between {0} and {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. mm, cm</comment>
   </data>
   <data name="PWV_DIRECT_DIST_OUT_OF_RANGE" xml:space="preserve">
-    <value>PWV direct distance is not within the valid range between %0 and %1 (%2)</value>
-    <comment>%0=lower range %1=upper range %2=unit, e.g. mm, cm</comment>
+    <value>PWV direct distance is not within the valid range between {0} and {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. mm, cm</comment>
   </data>
   <data name="SAMPLE_RATE_OUT_OF_RANGE" xml:space="preserve">
-    <value>Sample rate is not within the valid range between %0 and %1</value>
-    <comment>%0=lower range %1=upper range</comment>
+    <value>Sample rate is not within the valid range between {0} and {1}</value>
+    <comment>{0}=lower range {1}=upper range</comment>
   </data>
   <data name="SP_DP_TOO_CLOSE" xml:space="preserve">
-    <value>SP should be higher than DP by %0 mmHg</value>
+    <value>SP should be higher than DP by {0} mmHg</value>
   </data>
   <data name="SP_MP_TOO_CLOSE" xml:space="preserve">
-    <value>SP should be higher than MP by %0 mmHg</value>
+    <value>SP should be higher than MP by {0} mmHg</value>
   </data>
   <data name="SP_OUT_OF_RANGE" xml:space="preserve">
-    <value>Systolic Pressure is not within the valid range between %0 and %1</value>
-    <comment>%0=lower range %1=upper range</comment>
+    <value>Systolic Pressure is not within the valid range between {0} and {1}</value>
+    <comment>{0}=lower range {1}=upper range</comment>
   </data>
   <data name="SP_REQUIRED" xml:space="preserve">
     <value>SP value required for reference range report</value>
   </data>
   <data name="SYSTEM_ID_INVALID" xml:space="preserve">
-    <value>System ID%0 is not valid</value>
+    <value>System ID{0} is not valid</value>
   </data>
   <data name="WEIGHT_OUT_OF_RANGE" xml:space="preserve">
-    <value>Weight is not within the valid range between %0 and %1 (%2)</value>
-    <comment>%0=lower range %1=upper range %2=unit, e.g. lbs, kg</comment>
+    <value>Weight is not within the valid range between {0} and {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. lbs, kg</comment>
   </data>
   <data name="ZERO_AGE" xml:space="preserve">
     <value>Age cannot be zero</value>
@@ -1110,19 +1107,19 @@
     <value>Signal failed to find onsets</value>
   </data>
   <data name="SIGNAL_HEIGHT_MIN_MAX_OUT_OF_RANGE" xml:space="preserve">
-    <value>Either signal min or max height is not within the valid range between %0 and %1</value>
+    <value>Either signal min or max height is not within the valid range between {0} and {1}</value>
   </data>
   <data name="SIGNAL_HEIGHT_MIN_TOO_LARGE" xml:space="preserve">
-    <value>Signal height min %0 is too large</value>
+    <value>Signal height min {0} is too large</value>
   </data>
   <data name="SIGNAL_HEIGHT_TOO_SHORT" xml:space="preserve">
-    <value>Signal height %0 is not high enough</value>
+    <value>Signal height {0} is not high enough</value>
   </data>
   <data name="SIGNAL_LEN_MIN_MAX_OUT_OF_RANGE" xml:space="preserve">
-    <value>Either signal min or max length is not within the valid range between %0 and %1</value>
+    <value>Either signal min or max length is not within the valid range between {0} and {1}</value>
   </data>
   <data name="SIGNAL_LEN_TOO_SHORT" xml:space="preserve">
-    <value>Signal length %0 is not long enough</value>
+    <value>Signal length {0} is not long enough</value>
   </data>
   <data name="CUFF_PULSE_APPEND_FAILED" xml:space="preserve">
     <value>Failed to append cuff pulse</value>
@@ -1137,28 +1134,28 @@
     <value>PWV counter failed</value>
   </data>
   <data name="PWV_DELTAS_NOT_ENOUGH" xml:space="preserve">
-    <value>%0 deltas not enough for PWV</value>
+    <value>{0} deltas not enough for PWV</value>
   </data>
   <data name="PWV_SET_DEFAULTS_FAILED" xml:space="preserve">
     <value>PWV failed to set defaults</value>
   </data>
   <data name="PWV_STD_DEV_TO_LARGE" xml:space="preserve">
-    <value>PWV standard deviation %0 is too large</value>
+    <value>PWV standard deviation {0} is too large</value>
   </data>
   <data name="PWV_TOO_SMALL_FOR_ADULT" xml:space="preserve">
-    <value>PWV%0 is too small for an adult</value>
+    <value>PWV {0} is too small for an adult</value>
   </data>
   <data name="PWV_VALID_DELTAS_NOT_ENOUGH" xml:space="preserve">
-    <value>%0 valid deltas not enough for PWV</value>
+    <value>{0} valid deltas not enough for PWV</value>
   </data>
   <data name="TONOMETER_DATA_APPEND_FAILED" xml:space="preserve">
     <value>Failed to append tonometer data</value>
   </data>
   <data name="CAPTURE_DEVICE_ERR_MSG" xml:space="preserve">
-    <value>Electronic module not found. Check the electronic module USB port connection</value>
+    <value>Electronic module not found. Check the electronic module USB port connection. When electronic module is connected and powered up, click System-&gt;Find Module</value>
   </data>
   <data name="GUI_ABOUT_CALIB_DATE" xml:space="preserve">
-    <value>Last calibration: {n}</value>
+    <value>Last calibration: {0}</value>
   </data>
   <data name="GUI_ABOUT_CAPABILITY_TXT" xml:space="preserve">
     <value>Capability</value>
@@ -1179,22 +1176,22 @@
     <value>Installed options:</value>
   </data>
   <data name="GUI_ABOUT_MEASUREMT_PWA" xml:space="preserve">
-    <value>Pulse Wave Analysis ({n}  tonometer)</value>
+    <value>Pulse Wave Analysis ({0}  measurements)</value>
   </data>
   <data name="GUI_ABOUT_MEASUREMT_BP" xml:space="preserve">
-    <value>Blood Pressure ({n} measurements)</value>
+    <value>Blood Pressure ({0} measurements)</value>
   </data>
   <data name="GUI_ABOUT_MODULE_TXT" xml:space="preserve">
-    <value>Module: {n1}, Version: {n2}, Serial no: {n3}</value>
+    <value>Module: {0}, Version: {1}, Serial no: {2}</value>
   </data>
   <data name="GUI_ABOUT_MOD_TYPE" xml:space="preserve">
     <value>Type</value>
   </data>
   <data name="GUI_ABOUT_NO_MEASUREMT_PWV" xml:space="preserve">
-    <value>Pulse Wave Velocity ({n} measurements)</value>
+    <value>Pulse Wave Velocity ({0} measurements)</value>
   </data>
   <data name="GUI_ABOUT_SEC_MODE" xml:space="preserve">
-    <value>Security Mode: {n}</value>
+    <value>Security Mode: {0}</value>
   </data>
   <data name="GUI_ABOUT_SERIAL_NO" xml:space="preserve">
     <value>Serial Number</value>
@@ -1212,7 +1209,7 @@
     <value>Electronic module found</value>
   </data>
   <data name="GUI_ELECTRONIC_MOD_FNDPORT" xml:space="preserve">
-    <value>Electronic module found on different port</value>
+    <value>Electronic module found on </value>
   </data>
   <data name="GUI_ELECTRONIC_MOD_NOTFND" xml:space="preserve">
     <value>Electronic module not found. Please check device USB and power connection. Search again?</value>
@@ -1228,7 +1225,7 @@
   </data>
   <data name="CRX_ERR_DBPERMISSION_REFER_MANUAL" xml:space="preserve">
     <value>Failed to restore database.
-If the problem persists, check troubleshooting section in user manual or contact AtCor support _http://atcormedical.com/request_support.html
+If the problem persists, check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html
 Would you like to retry?</value>
   </data>
   <data name="GUI_CAPTURE_GENERATING_REPORT" xml:space="preserve">
@@ -1329,5 +1326,110 @@ Would you like to retry?</value>
   </data>
   <data name="GUI_SETTINGS_MENU" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="GUI_EXIT_MSG" xml:space="preserve">
+    <value>Do you want to exit the application</value>
+  </data>
+  <data name="GUI_DATETIME_TXT" xml:space="preserve">
+    <value>Date and Time</value>
+  </data>
+  <data name="CONTACT_ATCOR_SUPPORT2" xml:space="preserve">
+    <value>Check AtCor support http://atcormedical.com/request_support.html</value>
+  </data>
+  <data name="CRX_ERR_MIGRATION_REFER_MANUAL" xml:space="preserve">
+    <value>Database Server is not responding.
+Data migration has failed.
+If the problem persists check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html</value>
+  </data>
+  <data name="FIELD_DISTANCE_CAROTID" xml:space="preserve">
+    <value>Carotid Distance</value>
+  </data>
+  <data name="FIELD_DISTANCE_CUFF_OR_DIRECT" xml:space="preserve">
+    <value>Direct Distance</value>
+  </data>
+  <data name="FIELD_DISTANCE_FEMORAL" xml:space="preserve">
+    <value>Femoral Distance</value>
+  </data>
+  <data name="FIELD_PATIENT_DP" xml:space="preserve">
+    <value>DP</value>
+  </data>
+  <data name="FIELD_PATIENT_HEIGHT" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="FIELD_PATIENT_HEIGHT_FOOT" xml:space="preserve">
+    <value>Height in Feet</value>
+  </data>
+  <data name="FIELD_PATIENT_HEIGHT_INCH" xml:space="preserve">
+    <value>Height in Inch</value>
+  </data>
+  <data name="FIELD_PATIENT_SP" xml:space="preserve">
+    <value>SP</value>
+  </data>
+  <data name="FIELD_PATIENT_WEIGHT" xml:space="preserve">
+    <value>Weight</value>
+  </data>
+  <data name="CUFF_STATE_INVALID" xml:space="preserve">
+    <value>Cuff state {0} is not valid</value>
+  </data>
+  <data name="FIELD_VALIDATION_LIMITS_ARE" xml:space="preserve">
+    <value> limits are: </value>
+  </data>
+  <data name="FIELD_VALIDATION_MUST_BE_NUMBER" xml:space="preserve">
+    <value> must be a number </value>
+  </data>
+  <data name="INCH" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="SECURITY_MODE" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="UNITS_DISTANCE_CM" xml:space="preserve">
+    <value>cm</value>
+  </data>
+  <data name="UNITS_DISTANCE_FOOT" xml:space="preserve">
+    <value>ft</value>
+  </data>
+  <data name="UNITS_DISTANCE_INCH" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="UNITS_DISTANCE_MM" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="UNITS_PRESSURE_MMHG" xml:space="preserve">
+    <value>mmHg</value>
+  </data>
+  <data name="UNITS_WEIGHT_KG" xml:space="preserve">
+    <value>Kg</value>
+  </data>
+  <data name="UNITS_WEIGHT_LBS" xml:space="preserve">
+    <value>lbs</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CEMarkSGS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>CEMarkSGS.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DAL_ERR_CAPTURE_INVALID_PACKET" xml:space="preserve">
+    <value>Received an invalid packet from the device. </value>
+  </data>
+  <data name="DAL_MSG_ILLEGAL_PACKET_RCVD" xml:space="preserve">
+    <value>Illegal/Incorrect packet recieved:</value>
+  </data>
+  <data name="DAL_MSG_PORT_BUFFER_DUMP" xml:space="preserve">
+    <value>Input Buffer dump: </value>
+  </data>
+  <data name="GUI_ERROR_TXT" xml:space="preserve">
+    <value>Error: </value>
+  </data>
+  <data name="GUI_INFO_TXT" xml:space="preserve">
+    <value>Info: </value>
+  </data>
+  <data name="GUI_WARNING_TXT" xml:space="preserve">
+    <value>Warning: </value>
+  </data>
+  <data name="DAL_MSG_DEFAULT_MODE_SELECTED_SIM" xml:space="preserve">
+    <value>Comm port was not set in Configuration. Switchng to Simulation mode by default. Please click on Find Module to locate EM4 device.</value>
+  </data>
+  <data name="PWV_START_CAPTURE_FAILED" xml:space="preserve">
+    <value>Start Capture failed because an empty file has been selected for simulation. Please select a valid file. (NOTE: THis message has not been added by Atcor. It needs to be added by them. We have put a filler string).</value>
   </data>
 </root>

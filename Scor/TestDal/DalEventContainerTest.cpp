@@ -61,12 +61,12 @@ namespace TestDal {
 			//}
 			//
 
-			static void MyDalCuffStatusEventHandler(Object ^sender, DalCuffStatusEventArgs_ORI ^args)
+			static void MyDalCuffStatusEventHandler(Object ^sender, DalCuffStatusEventArgs ^args)
 			{
 				Assert::IsTrue(true);
 			}
 
-			static void MyDalErrorAlarmEventHandler(Object ^sender, DalModuleErrorAlarmEventArgs_ORI ^args)
+			static void MyDalErrorAlarmEventHandler(Object ^sender, DalModuleErrorAlarmEventArgs ^args)
 			{
 				Assert::IsTrue(true);
 			}
@@ -96,14 +96,14 @@ namespace TestDal {
 				DalErrorAlarmStatusFlag errFlag;
 				errFlag = DalErrorAlarmStatusFlag::ActiveStatus;
 
-				actual->OnDalCuffStatusEvent += gcnew DalCuffStatusEventHandler_ORI(&TestDal::DalEventContainerTest::MyDalCuffStatusEventHandler);
-				actual->OnDalModuleErrorAlarmEvent += gcnew DalModuleErrorAlarmEventHandler_ORI(&TestDal::DalEventContainerTest::MyDalErrorAlarmEventHandler);
+				actual->OnDalCuffStatusEvent += gcnew DalCuffStatusEventHandler(&TestDal::DalEventContainerTest::MyDalCuffStatusEventHandler);
+				actual->OnDalModuleErrorAlarmEvent += gcnew DalModuleErrorAlarmEventHandler(&TestDal::DalEventContainerTest::MyDalErrorAlarmEventHandler);
 
-				actual->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs_ORI(cuffStateFlag));
-				actual->OnDalModuleErrorAlarmEvent(this, gcnew DalModuleErrorAlarmEventArgs_ORI( errFlag));
+				actual->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(cuffStateFlag));
+				actual->OnDalModuleErrorAlarmEvent(this, gcnew DalModuleErrorAlarmEventArgs( errFlag));
 
-				actual->OnDalCuffStatusEvent -= gcnew DalCuffStatusEventHandler_ORI(&TestDal::DalEventContainerTest::MyDalCuffStatusEventHandler);
-				actual->OnDalModuleErrorAlarmEvent -= gcnew DalModuleErrorAlarmEventHandler_ORI(&TestDal::DalEventContainerTest::MyDalErrorAlarmEventHandler);
+				actual->OnDalCuffStatusEvent -= gcnew DalCuffStatusEventHandler(&TestDal::DalEventContainerTest::MyDalCuffStatusEventHandler);
+				actual->OnDalModuleErrorAlarmEvent -= gcnew DalModuleErrorAlarmEventHandler(&TestDal::DalEventContainerTest::MyDalErrorAlarmEventHandler);
 
 			}
 	};

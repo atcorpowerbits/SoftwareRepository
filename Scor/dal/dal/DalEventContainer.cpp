@@ -30,7 +30,7 @@ namespace AtCor{
 			}
 			
 
-			DalCuffStatusEventArgs_ORI::DalCuffStatusEventArgs_ORI(DalCuffStateFlags cuffStateFlag)
+			DalCuffStatusEventArgs::DalCuffStatusEventArgs(DalCuffStateFlags cuffStateFlag)
 			{
 				//assign the parameter to class member
 				this->CuffStateFlag  = cuffStateFlag;
@@ -61,7 +61,7 @@ namespace AtCor{
 			//	this->ErrorAlarmSource  = data;
 			//}
 
-			DalModuleErrorAlarmEventArgs_ORI::DalModuleErrorAlarmEventArgs_ORI(DalErrorAlarmStatusFlag data)
+			DalModuleErrorAlarmEventArgs::DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag data)
 			{
 				//assign the parameter to class member
 				this->ErrorAlarmStatus = data;

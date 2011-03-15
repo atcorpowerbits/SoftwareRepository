@@ -8,17 +8,12 @@
      Description  :     Functionality implemented for common exception handling mechanism 
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using AtCor.Scor.CrossCutting;
 using AtCor.Scor.CrossCutting.Logging;
 using AtCor.Scor.CrossCutting.Messaging;
-using Telerik.WinControls.UI;
 using Telerik.WinControls;
-using Telerik.WinControls.Primitives;
-using AtCor.Scor.DataAccess;
 using System.Configuration;
 using System.IO;
 using System.Drawing;
@@ -31,28 +26,29 @@ namespace AtCor.Scor.Gui.Presentation
     {
         /** Enum for defining exception type
           * */
-        public enum Error_Type
+        public enum ErrorType
         {
             Information,
             Warning,
             Exception
         }
 
-        private static CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-        private static CrxLogger oLogObject = CrxLogger.Instance;
+        private static readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+        private static readonly CrxLogger oLogObject = CrxLogger.Instance;
+        private static StringBuilder eMesg = new StringBuilder();
 
         /** This method handles all types of exception & throws appropriate messages
          * */
         public static void HandleException(Exception ex, object currentWindow)
-        {            
+        {
             if (ex.GetType() == typeof(ScorException))
             {
-               HandleScorException((ScorException)ex, currentWindow);
+                HandleScorException((ScorException)ex, currentWindow);
             }
             else
             {
                 HandleGeneralException(ex, currentWindow);
-            }            
+            }
         } // End HandleException
 
         /** This method handles scor exception returned from both DAL & CRX with error codes & error types.
@@ -60,7 +56,7 @@ namespace AtCor.Scor.Gui.Presentation
          * It logs error code, error message & stack trace for unhandled exception
          * */
         private static void HandleScorException(ScorException crEx, object currentWindow)
-        {            
+        {
             if (crEx.ErrorCode == -1)
             {
                 // Handle unknown exception
@@ -75,7 +71,7 @@ namespace AtCor.Scor.Gui.Presentation
                 RadMessageBox.Show((IWin32Window)currentWindow, crEx.ExceptionObject.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
 
                 // log exception message alongwith stack trace and error source
-                oLogObject.Write(crEx.ExceptionObject.Message + "\r\n\r\n" + crEx.ExceptionObject.Source + "\r\n\r\n" + crEx.ExceptionObject.StackTrace);                
+                oLogObject.Write(crEx.ExceptionObject.Message + "\r\n\r\n" + crEx.ExceptionObject.Source + "\r\n\r\n" + crEx.ExceptionObject.StackTrace);
             }
             else
             {
@@ -89,9 +85,9 @@ namespace AtCor.Scor.Gui.Presentation
                 // cannot use crEx.ErrorString directly, used msg manager getmessage to get localized error
                 // message
 
-                // Prepare a message for display.
-                string eMsg = crEx.ErrorCode.ToString() + " : " + oMsgMgr.GetMessage(crEx.ErrorMessageKey);
-               
+                // smarajit
+                string eMsg = ConstructErrorMessage(crEx);
+
                 if (crEx.ErrorType == ErrorSeverity.Exception)
                 {
                     // crx handled exception
@@ -107,7 +103,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // here display "eMsg" in status bar along with RadMessageIcon.Exclamation icon at the
                     // begining of the message
-                   
+
                     // log error message
                     oLogObject.Write("Warning: " + eMsg);
 
@@ -128,7 +124,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // here display "eMsg" in status bar along with RadMessageIcon.Info icon at the
                     // begining of the message
-                   
+
                     // log error message
                     oLogObject.Write("Info: " + eMsg);
 
@@ -140,13 +136,80 @@ namespace AtCor.Scor.Gui.Presentation
                     SettingsProperties.defaultWindowForm.guialertmsgTimer.Enabled = true;
                     SettingsProperties.defaultWindowForm.guialertmsgTimer.Tick += new EventHandler(guialertmsgTimer_Tick);
                 }
-            }            
+            }
         } // End HandleCRXException
+
+        /** This method constructs error message depending upon the errormessagekey, general exception object
+         * and array of errorstring which is used to replace placeholders in error message
+         * */
+        private static string ConstructErrorMessage(ScorException crEx)
+        {
+            string eMsg = string.Empty;
+            eMesg = new StringBuilder(string.Empty);
+            
+            // check for error message key to construct exception message format
+            if (crEx.ErrorMessageKey != null)
+            {
+                // concatenate error code & get error message as per errormessagekey                   
+                eMesg.AppendLine(string.Format("{0} : {1}", crEx.ErrorCode.ToString(), oMsgMgr.GetMessage(crEx.ErrorMessageKey)));
+
+                // check if exception object is null this will have value when general exception is thrown
+                // append it to the main message
+                if (crEx.ExceptionObject != null)
+                {
+                    eMesg.AppendLine(crEx.ExceptionObject.Message + ", ");
+                }
+
+                // crEx.ErrorStringArr contains placeholder values for paramter strings
+                // replace the placeholders in main message with the values in crEx.ErrorStringArr 
+                if (crEx.ErrorStringArr.Length > 0)
+                {
+                    for (int i = 0; i < crEx.ErrorStringArr.Length; i++)
+                    {
+                        eMesg.Replace("{" + i + "}", crEx.ErrorStringArr[i].ToString());
+                    }
+                }
+
+                eMsg = eMesg.ToString();
+            }
+            else if (crEx.ExceptionObject != null)
+            {
+                // Prepare a message for display. this will be for general exception
+                string temp = crEx.ErrorCode.ToString() + " : " + crEx.ExceptionObject.Message;
+                eMesg.Append(temp);
+
+                // crEx.ErrorStringArr contains placeholder values for paramter strings
+                // formulate the error messages based on array values
+                eMsg = GetErrorString(crEx.ErrorStringArr);
+            }
+            else
+            {
+                //// Prepare a message for display if crEx.ErrorStringArr has value
+                eMsg = GetErrorString(crEx.ErrorStringArr);
+            }
+
+            return eMsg;
+        }
+
+        /** This method takes error string array as parameter and forumlates an error message from the array
+         * */
+        private static string GetErrorString(string[] errString)
+        {
+            if (errString.Length > 0)
+            {
+                foreach (string t in errString)
+                {
+                    eMesg.Append(oMsgMgr.GetMessage(t));
+                }
+            }
+
+            return eMesg.ToString();
+        }
 
         /** This method handles general exception thrown by application which is not catched by DAL & CRX
          * */
         private static void HandleGeneralException(Exception ex, object currentWindow)
-        {            
+        {
             // handle general GUI exception
             RadMessageBox.Show((IWin32Window)currentWindow, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
 

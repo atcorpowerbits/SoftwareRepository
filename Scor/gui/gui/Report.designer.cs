@@ -151,12 +151,14 @@ namespace AtCor.Scor.Gui.Presentation
             this.object_2861adea_5b4c_4e2f_b90d_eaa64c34536e = new Telerik.WinControls.RootRadElement();
             this.guichartNormalRange = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.guichartReferenceRange = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.guireportradlblReferenceMsg = new Telerik.WinControls.UI.RadLabel();
             this.guiradpnlAnalysis = new Telerik.WinControls.UI.RadPanel();
             this.guiradchartPulseWaveVelocity = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.guiradchartHeartRate = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.reportprintDialog = new System.Windows.Forms.PrintDialog();
+            this.guiradlblReportDateTimeDisplay = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportDateTime = new Telerik.WinControls.UI.RadLabel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.guichartSuperImposedWaveform)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).BeginInit();
             this.documentContainer1.SuspendLayout();
@@ -260,6 +262,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradpnlAnalysis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradchartPulseWaveVelocity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradchartHeartRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportDateTimeDisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportDateTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -279,6 +283,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guichartSuperImposedWaveform.Name = "guichartSuperImposedWaveform";
             this.guichartSuperImposedWaveform.Size = new System.Drawing.Size(542, 165);
             this.guichartSuperImposedWaveform.TabIndex = 72;
+            this.guichartSuperImposedWaveform.TabStop = false;
             this.guichartSuperImposedWaveform.Text = "chart1";
             // 
             // documentContainer1
@@ -344,7 +349,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradchkAssesments.Location = new System.Drawing.Point(3, 417);
             this.guiradchkAssesments.Name = "guiradchkAssesments";
             this.guiradchkAssesments.Size = new System.Drawing.Size(150, 17);
-            this.guiradchkAssesments.TabIndex = 101;
+            this.guiradchkAssesments.TabIndex = 13;
             this.guiradchkAssesments.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.guiradchkAssesments_ToggleStateChanged);
             // 
             // panel1
@@ -378,9 +383,10 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradgridReportAssessment.MasterTemplate.AllowAddNewRow = false;
             this.guiradgridReportAssessment.MasterTemplate.AllowColumnReorder = false;
             this.guiradgridReportAssessment.MasterTemplate.AllowColumnResize = false;
+            this.guiradgridReportAssessment.MasterTemplate.AllowDeleteRow = false;
             this.guiradgridReportAssessment.MasterTemplate.AllowRowResize = false;
             this.guiradgridReportAssessment.MasterTemplate.AutoGenerateColumns = false;
-            this.guiradgridReportAssessment.MasterTemplate.MultiSelect = true;
+            this.guiradgridReportAssessment.MasterTemplate.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.Fill;
             this.guiradgridReportAssessment.MasterTemplate.ShowColumnHeaders = false;
             this.guiradgridReportAssessment.MasterTemplate.ShowRowHeaderColumn = false;
             this.guiradgridReportAssessment.Name = "guiradgridReportAssessment";
@@ -396,8 +402,10 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradgridReportAssessment.ShowNoDataText = false;
             this.guiradgridReportAssessment.ShowRowErrors = false;
             this.guiradgridReportAssessment.Size = new System.Drawing.Size(312, 120);
-            this.guiradgridReportAssessment.TabIndex = 67;
+            this.guiradgridReportAssessment.TabIndex = 14;
+            this.guiradgridReportAssessment.TabStop = false;
             this.guiradgridReportAssessment.Text = "radGridView1";
+            this.guiradgridReportAssessment.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.guiradgridReportAssessment_ContextMenuOpening);
             this.guiradgridReportAssessment.ValueChanged += new System.EventHandler(this.guiradgridReportAssessment_ValueChanged);
             // 
             // guiradlblReportAssesmentCount
@@ -407,7 +415,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportAssesmentCount.Location = new System.Drawing.Point(193, 416);
             this.guiradlblReportAssesmentCount.Name = "guiradlblReportAssesmentCount";
             this.guiradlblReportAssesmentCount.Size = new System.Drawing.Size(75, 19);
-            this.guiradlblReportAssesmentCount.TabIndex = 65;
+            this.guiradlblReportAssesmentCount.TabIndex = 0;
             this.guiradlblReportAssesmentCount.Text = "[3 of 3]";
             this.guiradlblReportAssesmentCount.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -448,7 +456,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guipnlReportPatientMeasurementDetails.Location = new System.Drawing.Point(-6, 120);
             this.guipnlReportPatientMeasurementDetails.Name = "guipnlReportPatientMeasurementDetails";
             this.guipnlReportPatientMeasurementDetails.Size = new System.Drawing.Size(317, 295);
-            this.guipnlReportPatientMeasurementDetails.TabIndex = 18;
+            this.guipnlReportPatientMeasurementDetails.TabIndex = 0;
             // 
             // guiradpnlEditPWVdistance
             // 
@@ -468,7 +476,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradpnlEditPWVdistance.Location = new System.Drawing.Point(6, 168);
             this.guiradpnlEditPWVdistance.Name = "guiradpnlEditPWVdistance";
             this.guiradpnlEditPWVdistance.Size = new System.Drawing.Size(305, 100);
-            this.guiradpnlEditPWVdistance.TabIndex = 98;
+            this.guiradpnlEditPWVdistance.TabIndex = 9;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradpnlEditPWVdistance.GetChildAt(0).GetChildAt(1))).Width = 0F;
             // 
             // guiradlblReportCuff
@@ -478,7 +486,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportCuff.Location = new System.Drawing.Point(90, 4);
             this.guiradlblReportCuff.Name = "guiradlblReportCuff";
             this.guiradlblReportCuff.Size = new System.Drawing.Size(55, 19);
-            this.guiradlblReportCuff.TabIndex = 90;
+            this.guiradlblReportCuff.TabIndex = 0;
             this.guiradlblReportCuff.Text = "Cuff:";
             this.guiradlblReportCuff.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -489,29 +497,27 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportCuffUnits.Location = new System.Drawing.Point(195, 6);
             this.guiradlblReportCuffUnits.Name = "guiradlblReportCuffUnits";
             this.guiradlblReportCuffUnits.Size = new System.Drawing.Size(40, 19);
-            this.guiradlblReportCuffUnits.TabIndex = 91;
+            this.guiradlblReportCuffUnits.TabIndex = 2;
             this.guiradlblReportCuffUnits.Text = "mm";
             // 
             // guiradtxtReportCuff
             // 
             this.guiradtxtReportCuff.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradtxtReportCuff.Location = new System.Drawing.Point(146, 5);
-            this.guiradtxtReportCuff.MaxLength = 3;
             this.guiradtxtReportCuff.Name = "guiradtxtReportCuff";
             this.guiradtxtReportCuff.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportCuff.TabIndex = 111;
+            this.guiradtxtReportCuff.TabIndex = 0;
             this.guiradtxtReportCuff.TabStop = false;
             this.guiradtxtReportCuff.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNumericValues);
-            this.guiradtxtReportCuff.TextChanged += new System.EventHandler(this.guiradtxtReportCuff_TextChanged);
             // 
             // guiradlblCarotid
             // 
             this.guiradlblCarotid.AutoSize = false;
             this.guiradlblCarotid.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblCarotid.Location = new System.Drawing.Point(92, 28);
+            this.guiradlblCarotid.Location = new System.Drawing.Point(84, 28);
             this.guiradlblCarotid.Name = "guiradlblCarotid";
-            this.guiradlblCarotid.Size = new System.Drawing.Size(55, 19);
-            this.guiradlblCarotid.TabIndex = 110;
+            this.guiradlblCarotid.Size = new System.Drawing.Size(63, 19);
+            this.guiradlblCarotid.TabIndex = 1;
             this.guiradlblCarotid.Text = "Carotid:";
             this.guiradlblCarotid.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -522,19 +528,17 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblreportpwvdistancedisplay.Location = new System.Drawing.Point(146, 77);
             this.guiradlblreportpwvdistancedisplay.Name = "guiradlblreportpwvdistancedisplay";
             this.guiradlblreportpwvdistancedisplay.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblreportpwvdistancedisplay.TabIndex = 1;
+            this.guiradlblreportpwvdistancedisplay.TabIndex = 0;
             // 
             // guiradtxtCarotid
             // 
             this.guiradtxtCarotid.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradtxtCarotid.Location = new System.Drawing.Point(145, 29);
-            this.guiradtxtCarotid.MaxLength = 3;
             this.guiradtxtCarotid.Name = "guiradtxtCarotid";
             this.guiradtxtCarotid.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtCarotid.TabIndex = 112;
+            this.guiradtxtCarotid.TabIndex = 1;
             this.guiradtxtCarotid.TabStop = false;
             this.guiradtxtCarotid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNumericValues);
-            this.guiradtxtCarotid.TextChanged += new System.EventHandler(this.guiradtxtCarotid_TextChanged);
             // 
             // guiradlblCarotidUnits
             // 
@@ -543,7 +547,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblCarotidUnits.Location = new System.Drawing.Point(196, 30);
             this.guiradlblCarotidUnits.Name = "guiradlblCarotidUnits";
             this.guiradlblCarotidUnits.Size = new System.Drawing.Size(40, 19);
-            this.guiradlblCarotidUnits.TabIndex = 112;
+            this.guiradlblCarotidUnits.TabIndex = 2;
             this.guiradlblCarotidUnits.Text = "mm";
             // 
             // guiradlblReportFemoToCuff
@@ -565,7 +569,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.radLabel11.Location = new System.Drawing.Point(147, 1);
             this.radLabel11.Name = "radLabel11";
             this.radLabel11.Size = new System.Drawing.Size(45, 21);
-            this.radLabel11.TabIndex = 90;
+            this.radLabel11.TabIndex = 0;
             // 
             // guiradlblReportFemoralCuffUnits
             // 
@@ -581,13 +585,11 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradtxtReportFemoToCuff.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradtxtReportFemoToCuff.Location = new System.Drawing.Point(146, 53);
-            this.guiradtxtReportFemoToCuff.MaxLength = 3;
             this.guiradtxtReportFemoToCuff.Name = "guiradtxtReportFemoToCuff";
             this.guiradtxtReportFemoToCuff.Size = new System.Drawing.Size(45, 19);
             this.guiradtxtReportFemoToCuff.TabIndex = 113;
             this.guiradtxtReportFemoToCuff.TabStop = false;
             this.guiradtxtReportFemoToCuff.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNumericValues);
-            this.guiradtxtReportFemoToCuff.TextChanged += new System.EventHandler(this.guiradtxtReportFemoToCuff_TextChanged);
             // 
             // guiradlblReportPwvDistance
             // 
@@ -617,7 +619,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportPwvDitanceUnits.Location = new System.Drawing.Point(195, 78);
             this.guiradlblReportPwvDitanceUnits.Name = "guiradlblReportPwvDitanceUnits";
             this.guiradlblReportPwvDitanceUnits.Size = new System.Drawing.Size(50, 19);
-            this.guiradlblReportPwvDitanceUnits.TabIndex = 89;
+            this.guiradlblReportPwvDitanceUnits.TabIndex = 106;
             this.guiradlblReportPwvDitanceUnits.Text = "mm";
             // 
             // guiradlblreportSPdisplay
@@ -627,8 +629,9 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblreportSPdisplay.Location = new System.Drawing.Point(81, 6);
             this.guiradlblreportSPdisplay.Name = "guiradlblreportSPdisplay";
             this.guiradlblreportSPdisplay.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblreportSPdisplay.TabIndex = 1;
+            this.guiradlblreportSPdisplay.TabIndex = 0;
             this.guiradlblreportSPdisplay.Text = "sppp";
+            this.guiradlblreportSPdisplay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNumericValues);
             // 
             // guiradlblReportBloodPressure2
             // 
@@ -637,7 +640,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportBloodPressure2.Location = new System.Drawing.Point(206, 8);
             this.guiradlblReportBloodPressure2.Name = "guiradlblReportBloodPressure2";
             this.guiradlblReportBloodPressure2.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblReportBloodPressure2.TabIndex = 1;
+            this.guiradlblReportBloodPressure2.TabIndex = 0;
+            this.guiradlblReportBloodPressure2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNumericValues);
             // 
             // guiradtxtReportHeight
             // 
@@ -645,7 +649,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtReportHeight.Location = new System.Drawing.Point(81, 29);
             this.guiradtxtReportHeight.Name = "guiradtxtReportHeight";
             this.guiradtxtReportHeight.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportHeight.TabIndex = 104;
+            this.guiradtxtReportHeight.TabIndex = 2;
             this.guiradtxtReportHeight.TabStop = false;
             // 
             // guiradlblReportNotesDisplay
@@ -655,7 +659,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportNotesDisplay.Location = new System.Drawing.Point(4, 123);
             this.guiradlblReportNotesDisplay.Name = "guiradlblReportNotesDisplay";
             this.guiradlblReportNotesDisplay.Size = new System.Drawing.Size(317, 40);
-            this.guiradlblReportNotesDisplay.TabIndex = 18;
+            this.guiradlblReportNotesDisplay.TabIndex = 7;
             this.guiradlblReportNotesDisplay.Text = "radLabel9";
             // 
             // guiradlblReportOperatordisplay
@@ -666,7 +670,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportOperatordisplay.Location = new System.Drawing.Point(149, 79);
             this.guiradlblReportOperatordisplay.Name = "guiradlblReportOperatordisplay";
             this.guiradlblReportOperatordisplay.Size = new System.Drawing.Size(160, 19);
-            this.guiradlblReportOperatordisplay.TabIndex = 77;
+            this.guiradlblReportOperatordisplay.TabIndex = 6;
             this.guiradlblReportOperatordisplay.Text = "operator";
             // 
             // guiradpnldisplayPWVDistance
@@ -690,7 +694,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblreportpwvdistancedisplay1.Location = new System.Drawing.Point(148, 58);
             this.guiradlblreportpwvdistancedisplay1.Name = "guiradlblreportpwvdistancedisplay1";
             this.guiradlblreportpwvdistancedisplay1.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblreportpwvdistancedisplay1.TabIndex = 109;
+            this.guiradlblreportpwvdistancedisplay1.TabIndex = 0;
             // 
             // guiradlblReportPwvDistance1
             // 
@@ -751,7 +755,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtReportHeightInches.Location = new System.Drawing.Point(206, 33);
             this.guiradtxtReportHeightInches.Name = "guiradtxtReportHeightInches";
             this.guiradtxtReportHeightInches.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportHeightInches.TabIndex = 105;
+            this.guiradtxtReportHeightInches.TabIndex = 3;
             this.guiradtxtReportHeightInches.TabStop = false;
             // 
             // guiradlblReportHeightInches
@@ -761,7 +765,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportHeightInches.Location = new System.Drawing.Point(206, 33);
             this.guiradlblReportHeightInches.Name = "guiradlblReportHeightInches";
             this.guiradlblReportHeightInches.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblReportHeightInches.TabIndex = 1;
+            this.guiradlblReportHeightInches.TabIndex = 3;
             // 
             // guiradtxtReportOperator
             // 
@@ -769,7 +773,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtReportOperator.Location = new System.Drawing.Point(149, 79);
             this.guiradtxtReportOperator.Name = "guiradtxtReportOperator";
             this.guiradtxtReportOperator.Size = new System.Drawing.Size(160, 19);
-            this.guiradtxtReportOperator.TabIndex = 107;
+            this.guiradtxtReportOperator.TabIndex = 6;
             this.guiradtxtReportOperator.TabStop = false;
             // 
             // guiradtxtReportBloodPressure1
@@ -780,7 +784,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtReportBloodPressure1.MaxLength = 3;
             this.guiradtxtReportBloodPressure1.Name = "guiradtxtReportBloodPressure1";
             this.guiradtxtReportBloodPressure1.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportBloodPressure1.TabIndex = 109;
+            this.guiradtxtReportBloodPressure1.TabIndex = 0;
             this.guiradtxtReportBloodPressure1.TabStop = false;
             this.guiradtxtReportBloodPressure1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNumericValues);
             // 
@@ -790,7 +794,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.radLabel3.Location = new System.Drawing.Point(0, 0);
             this.radLabel3.Name = "radLabel3";
             this.radLabel3.Size = new System.Drawing.Size(45, 19);
-            this.radLabel3.TabIndex = 1;
+            this.radLabel3.TabIndex = 0;
             // 
             // guiradlblReportWeightdisplay
             // 
@@ -799,7 +803,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportWeightdisplay.Location = new System.Drawing.Point(81, 54);
             this.guiradlblReportWeightdisplay.Name = "guiradlblReportWeightdisplay";
             this.guiradlblReportWeightdisplay.Size = new System.Drawing.Size(45, 19);
-            this.guiradlblReportWeightdisplay.TabIndex = 1;
+            this.guiradlblReportWeightdisplay.TabIndex = 4;
             // 
             // guiradlblReportHeightDisplay
             // 
@@ -817,7 +821,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnreportedit.Location = new System.Drawing.Point(207, 269);
             this.guiradbtnreportedit.Name = "guiradbtnreportedit";
             this.guiradbtnreportedit.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnreportedit.TabIndex = 116;
+            this.guiradbtnreportedit.TabIndex = 12;
             this.guiradbtnreportedit.Text = "Edit";
             this.guiradbtnreportedit.Click += new System.EventHandler(this.guiradbtnreportedit_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnreportedit.GetChildAt(0))).ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -832,7 +836,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnreportcancel.Location = new System.Drawing.Point(111, 269);
             this.guiradbtnreportcancel.Name = "guiradbtnreportcancel";
             this.guiradbtnreportcancel.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnreportcancel.TabIndex = 115;
+            this.guiradbtnreportcancel.TabIndex = 11;
             this.guiradbtnreportcancel.Text = "Cancel";
             this.guiradbtnreportcancel.Visible = false;
             this.guiradbtnreportcancel.Click += new System.EventHandler(this.guiradbtnreportcancel_Click);
@@ -848,7 +852,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnreportsave.Location = new System.Drawing.Point(16, 269);
             this.guiradbtnreportsave.Name = "guiradbtnreportsave";
             this.guiradbtnreportsave.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnreportsave.TabIndex = 114;
+            this.guiradbtnreportsave.TabIndex = 10;
             this.guiradbtnreportsave.Text = "Save";
             this.guiradbtnreportsave.Visible = false;
             this.guiradbtnreportsave.Click += new System.EventHandler(this.guiradbtnreportsave_Click);
@@ -864,7 +868,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportBmiValue.Location = new System.Drawing.Point(206, 56);
             this.guiradlblReportBmiValue.Name = "guiradlblReportBmiValue";
             this.guiradlblReportBmiValue.Size = new System.Drawing.Size(45, 17);
-            this.guiradlblReportBmiValue.TabIndex = 113;
+            this.guiradlblReportBmiValue.TabIndex = 5;
             // 
             // guiradlblBloodPressure2
             // 
@@ -873,7 +877,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblBloodPressure2.Location = new System.Drawing.Point(155, 8);
             this.guiradlblBloodPressure2.Name = "guiradlblBloodPressure2";
             this.guiradlblBloodPressure2.Size = new System.Drawing.Size(50, 19);
-            this.guiradlblBloodPressure2.TabIndex = 109;
+            this.guiradlblBloodPressure2.TabIndex = 1;
             this.guiradlblBloodPressure2.Text = "DP:";
             this.guiradlblBloodPressure2.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -883,7 +887,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtReportWeight.Location = new System.Drawing.Point(81, 54);
             this.guiradtxtReportWeight.Name = "guiradtxtReportWeight";
             this.guiradtxtReportWeight.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportWeight.TabIndex = 106;
+            this.guiradtxtReportWeight.TabIndex = 5;
             this.guiradtxtReportWeight.TabStop = false;
             // 
             // guiradtxtReportBloodPressure2
@@ -893,7 +897,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtReportBloodPressure2.MaxLength = 3;
             this.guiradtxtReportBloodPressure2.Name = "guiradtxtReportBloodPressure2";
             this.guiradtxtReportBloodPressure2.Size = new System.Drawing.Size(45, 19);
-            this.guiradtxtReportBloodPressure2.TabIndex = 110;
+            this.guiradtxtReportBloodPressure2.TabIndex = 1;
             this.guiradtxtReportBloodPressure2.TabStop = false;
             this.guiradtxtReportBloodPressure2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AllowNumericValues);
             // 
@@ -904,7 +908,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportBloodPressure1.Location = new System.Drawing.Point(30, 6);
             this.guiradlblReportBloodPressure1.Name = "guiradlblReportBloodPressure1";
             this.guiradlblReportBloodPressure1.Size = new System.Drawing.Size(50, 19);
-            this.guiradlblReportBloodPressure1.TabIndex = 82;
+            this.guiradlblReportBloodPressure1.TabIndex = 1;
             this.guiradlblReportBloodPressure1.Text = "SP:";
             this.guiradlblReportBloodPressure1.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -925,7 +929,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportBmi.Location = new System.Drawing.Point(155, 56);
             this.guiradlblReportBmi.Name = "guiradlblReportBmi";
             this.guiradlblReportBmi.Size = new System.Drawing.Size(50, 15);
-            this.guiradlblReportBmi.TabIndex = 79;
+            this.guiradlblReportBmi.TabIndex = 6;
             this.guiradlblReportBmi.Text = "BMI:";
             this.guiradlblReportBmi.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -936,7 +940,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportOperator.Location = new System.Drawing.Point(39, 79);
             this.guiradlblReportOperator.Name = "guiradlblReportOperator";
             this.guiradlblReportOperator.Size = new System.Drawing.Size(110, 19);
-            this.guiradlblReportOperator.TabIndex = 78;
+            this.guiradlblReportOperator.TabIndex = 6;
             this.guiradlblReportOperator.Text = "Operator:";
             this.guiradlblReportOperator.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -979,7 +983,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportHeightUnits.Location = new System.Drawing.Point(130, 32);
             this.guiradlblReportHeightUnits.Name = "guiradlblReportHeightUnits";
             this.guiradlblReportHeightUnits.Size = new System.Drawing.Size(30, 19);
-            this.guiradlblReportHeightUnits.TabIndex = 72;
+            this.guiradlblReportHeightUnits.TabIndex = 13;
             this.guiradlblReportHeightUnits.Text = "cm";
             // 
             // guiradlblReportheightWeight
@@ -1005,7 +1009,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtReportNotes.RootElement.StretchVertically = true;
             this.guiradtxtReportNotes.ShowItemToolTips = false;
             this.guiradtxtReportNotes.Size = new System.Drawing.Size(317, 40);
-            this.guiradtxtReportNotes.TabIndex = 108;
+            this.guiradtxtReportNotes.TabIndex = 7;
             this.guiradtxtReportNotes.TabStop = false;
             // 
             // guiradlblNotes
@@ -1015,7 +1019,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblNotes.Location = new System.Drawing.Point(2, 101);
             this.guiradlblNotes.Name = "guiradlblNotes";
             this.guiradlblNotes.Size = new System.Drawing.Size(182, 19);
-            this.guiradlblNotes.TabIndex = 44;
+            this.guiradlblNotes.TabIndex = 7;
             this.guiradlblNotes.Text = "Medications/Notes:";
             this.guiradlblNotes.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1037,7 +1041,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guipnlReportPatientDemographicDetails.Location = new System.Drawing.Point(-6, -3);
             this.guipnlReportPatientDemographicDetails.Name = "guipnlReportPatientDemographicDetails";
             this.guipnlReportPatientDemographicDetails.Size = new System.Drawing.Size(317, 117);
-            this.guipnlReportPatientDemographicDetails.TabIndex = 17;
+            this.guipnlReportPatientDemographicDetails.TabIndex = 0;
             // 
             // guilblReportGenderValue
             // 
@@ -1046,7 +1050,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblReportGenderValue.Location = new System.Drawing.Point(149, 96);
             this.guilblReportGenderValue.Name = "guilblReportGenderValue";
             this.guilblReportGenderValue.Size = new System.Drawing.Size(100, 19);
-            this.guilblReportGenderValue.TabIndex = 16;
+            this.guilblReportGenderValue.TabIndex = 5;
             // 
             // guiradlblReportGender
             // 
@@ -1055,7 +1059,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportGender.Location = new System.Drawing.Point(69, 94);
             this.guiradlblReportGender.Name = "guiradlblReportGender";
             this.guiradlblReportGender.Size = new System.Drawing.Size(80, 19);
-            this.guiradlblReportGender.TabIndex = 9;
+            this.guiradlblReportGender.TabIndex = 114;
             this.guiradlblReportGender.Text = "Gender:";
             this.guiradlblReportGender.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1066,7 +1070,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblReportAgeValue.Location = new System.Drawing.Point(149, 77);
             this.guilblReportAgeValue.Name = "guilblReportAgeValue";
             this.guilblReportAgeValue.Size = new System.Drawing.Size(36, 19);
-            this.guilblReportAgeValue.TabIndex = 15;
+            this.guilblReportAgeValue.TabIndex = 4;
             // 
             // guilblReportDobValue
             // 
@@ -1075,7 +1079,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblReportDobValue.Location = new System.Drawing.Point(149, 59);
             this.guilblReportDobValue.Name = "guilblReportDobValue";
             this.guilblReportDobValue.Size = new System.Drawing.Size(100, 19);
-            this.guilblReportDobValue.TabIndex = 14;
+            this.guilblReportDobValue.TabIndex = 3;
             // 
             // guilblReportPatientIdValue
             // 
@@ -1084,7 +1088,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblReportPatientIdValue.Location = new System.Drawing.Point(149, 2);
             this.guilblReportPatientIdValue.Name = "guilblReportPatientIdValue";
             this.guilblReportPatientIdValue.Size = new System.Drawing.Size(100, 19);
-            this.guilblReportPatientIdValue.TabIndex = 13;
+            this.guilblReportPatientIdValue.TabIndex = 0;
             // 
             // guilblReportPatientNameValue
             // 
@@ -1093,7 +1097,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblReportPatientNameValue.Location = new System.Drawing.Point(149, 22);
             this.guilblReportPatientNameValue.Name = "guilblReportPatientNameValue";
             this.guilblReportPatientNameValue.Size = new System.Drawing.Size(160, 19);
-            this.guilblReportPatientNameValue.TabIndex = 12;
+            this.guilblReportPatientNameValue.TabIndex = 1;
             // 
             // guilblReportGroupValue
             // 
@@ -1102,7 +1106,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblReportGroupValue.Location = new System.Drawing.Point(149, 41);
             this.guilblReportGroupValue.Name = "guilblReportGroupValue";
             this.guilblReportGroupValue.Size = new System.Drawing.Size(100, 19);
-            this.guilblReportGroupValue.TabIndex = 11;
+            this.guilblReportGroupValue.TabIndex = 2;
             // 
             // guiradlblReportAge
             // 
@@ -1111,7 +1115,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportAge.Location = new System.Drawing.Point(90, 75);
             this.guiradlblReportAge.Name = "guiradlblReportAge";
             this.guiradlblReportAge.Size = new System.Drawing.Size(59, 19);
-            this.guiradlblReportAge.TabIndex = 10;
+            this.guiradlblReportAge.TabIndex = 116;
             this.guiradlblReportAge.Text = "Age:";
             this.guiradlblReportAge.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1122,7 +1126,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportGroup.Location = new System.Drawing.Point(45, 39);
             this.guiradlblReportGroup.Name = "guiradlblReportGroup";
             this.guiradlblReportGroup.Size = new System.Drawing.Size(104, 19);
-            this.guiradlblReportGroup.TabIndex = 4;
+            this.guiradlblReportGroup.TabIndex = 111;
             this.guiradlblReportGroup.Text = "Group:";
             this.guiradlblReportGroup.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1134,7 +1138,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportPatientName.Location = new System.Drawing.Point(9, 20);
             this.guiradlblReportPatientName.Name = "guiradlblReportPatientName";
             this.guiradlblReportPatientName.Size = new System.Drawing.Size(140, 19);
-            this.guiradlblReportPatientName.TabIndex = 6;
+            this.guiradlblReportPatientName.TabIndex = 100;
             this.guiradlblReportPatientName.Text = "Patient Name:";
             this.guiradlblReportPatientName.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1145,7 +1149,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportDOB.Location = new System.Drawing.Point(4, 57);
             this.guiradlblReportDOB.Name = "guiradlblReportDOB";
             this.guiradlblReportDOB.Size = new System.Drawing.Size(145, 19);
-            this.guiradlblReportDOB.TabIndex = 8;
+            this.guiradlblReportDOB.TabIndex = 113;
             this.guiradlblReportDOB.Text = "Date of birth:";
             this.guiradlblReportDOB.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1156,7 +1160,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportPatientId.Location = new System.Drawing.Point(39, 0);
             this.guiradlblReportPatientId.Name = "guiradlblReportPatientId";
             this.guiradlblReportPatientId.Size = new System.Drawing.Size(110, 19);
-            this.guiradlblReportPatientId.TabIndex = 7;
+            this.guiradlblReportPatientId.TabIndex = 103;
             this.guiradlblReportPatientId.Text = "Patient Id:";
             this.guiradlblReportPatientId.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1186,7 +1190,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiraddock.ShowToolCloseButton = true;
             this.guiraddock.Size = new System.Drawing.Size(327, 604);
             this.guiraddock.SplitterWidth = 4;
-            this.guiraddock.TabIndex = 76;
+            this.guiraddock.TabIndex = 0;
             this.guiraddock.TabStop = false;
             this.guiraddock.Text = "radDock1";
             // 
@@ -1226,18 +1230,18 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradlblReportPWVValue
             // 
             this.guiradlblReportPWVValue.AutoSize = false;
-            this.guiradlblReportPWVValue.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportPWVValue.Location = new System.Drawing.Point(620, 473);
+            this.guiradlblReportPWVValue.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportPWVValue.Location = new System.Drawing.Point(615, 471);
             this.guiradlblReportPWVValue.Name = "guiradlblReportPWVValue";
             this.guiradlblReportPWVValue.Size = new System.Drawing.Size(100, 21);
-            this.guiradlblReportPWVValue.TabIndex = 84;
+            this.guiradlblReportPWVValue.TabIndex = 1;
             this.guiradlblReportPWVValue.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guiradlblReportHeartRateValue
             // 
             this.guiradlblReportHeartRateValue.AutoSize = false;
             this.guiradlblReportHeartRateValue.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportHeartRateValue.Location = new System.Drawing.Point(375, 472);
+            this.guiradlblReportHeartRateValue.Location = new System.Drawing.Point(370, 470);
             this.guiradlblReportHeartRateValue.Name = "guiradlblReportHeartRateValue";
             this.guiradlblReportHeartRateValue.Size = new System.Drawing.Size(100, 21);
             this.guiradlblReportHeartRateValue.TabIndex = 83;
@@ -1257,7 +1261,7 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradlblReportPulseWaveVelocity
             // 
             this.guiradlblReportPulseWaveVelocity.AutoSize = false;
-            this.guiradlblReportPulseWaveVelocity.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportPulseWaveVelocity.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblReportPulseWaveVelocity.Location = new System.Drawing.Point(570, 424);
             this.guiradlblReportPulseWaveVelocity.Name = "guiradlblReportPulseWaveVelocity";
             this.guiradlblReportPulseWaveVelocity.Size = new System.Drawing.Size(200, 25);
@@ -1291,7 +1295,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnPrint.Location = new System.Drawing.Point(795, 562);
             this.guiradbtnPrint.Name = "guiradbtnPrint";
             this.guiradbtnPrint.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnPrint.TabIndex = 87;
+            this.guiradbtnPrint.TabIndex = 16;
             this.guiradbtnPrint.Text = "Print";
             this.guiradbtnPrint.Click += new System.EventHandler(this.guiradbtnPrint_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnPrint.GetChildAt(0))).Text = "Print";
@@ -1304,7 +1308,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnDelete.Location = new System.Drawing.Point(890, 562);
             this.guiradbtnDelete.Name = "guiradbtnDelete";
             this.guiradbtnDelete.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnDelete.TabIndex = 88;
+            this.guiradbtnDelete.TabIndex = 17;
             this.guiradbtnDelete.Text = "Delete";
             this.guiradbtnDelete.Click += new System.EventHandler(this.guiradbtnDelete_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnDelete.GetChildAt(0))).Text = "Delete";
@@ -1363,7 +1367,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblStdDeviationImage.AutoSize = false;
             this.guiradlblStdDeviationImage.ImageList = this.guiimagelistTickCross;
-            this.guiradlblStdDeviationImage.Location = new System.Drawing.Point(865, 456);
+            this.guiradlblStdDeviationImage.Location = new System.Drawing.Point(860, 454);
             this.guiradlblStdDeviationImage.Name = "guiradlblStdDeviationImage";
             this.guiradlblStdDeviationImage.Size = new System.Drawing.Size(50, 50);
             this.guiradlblStdDeviationImage.TabIndex = 93;
@@ -1391,7 +1395,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnRepeat.Location = new System.Drawing.Point(699, 562);
             this.guiradbtnRepeat.Name = "guiradbtnRepeat";
             this.guiradbtnRepeat.Size = new System.Drawing.Size(80, 25);
-            this.guiradbtnRepeat.TabIndex = 97;
+            this.guiradbtnRepeat.TabIndex = 15;
             this.guiradbtnRepeat.Text = "Repeat";
             this.guiradbtnRepeat.Click += new System.EventHandler(this.guiradbtnRepeat_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnRepeat.GetChildAt(0))).Text = "Repeat";
@@ -1436,7 +1440,7 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea2.AxisY.Minimum = 5;
             chartArea2.AxisY.Title = "P W V m/s";
             chartArea2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(75)))), ((int)(((byte)(58)))));
-            chartArea2.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
+            chartArea2.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.DiagonalLeft;
             chartArea2.InnerPlotPosition.Auto = false;
             chartArea2.InnerPlotPosition.Height = 73.13752F;
             chartArea2.InnerPlotPosition.Width = 83.42773F;
@@ -1465,6 +1469,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guichartNormalRange.Series.Add(series1);
             this.guichartNormalRange.Size = new System.Drawing.Size(306, 170);
             this.guichartNormalRange.TabIndex = 98;
+            this.guichartNormalRange.TabStop = false;
             this.guichartNormalRange.Text = "chart2";
             // 
             // guichartReferenceRange
@@ -1537,11 +1542,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.guichartReferenceRange.Series.Add(series3);
             this.guichartReferenceRange.Size = new System.Drawing.Size(306, 170);
             this.guichartReferenceRange.TabIndex = 99;
+            this.guichartReferenceRange.TabStop = false;
             this.guichartReferenceRange.Text = "chart1";
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // guireportradlblReferenceMsg
             // 
@@ -1575,7 +1577,6 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea4.AxisX.LabelAutoFitStyle = ((System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles)((((System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.IncreaseFont | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.DecreaseFont)
                         | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.LabelsAngleStep90)
                         | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.WordWrap)));
-            chartArea4.AxisX.LabelStyle.TruncatedLabels = true;
             chartArea4.AxisX.MajorGrid.Enabled = false;
             chartArea4.AxisX.ScaleBreakStyle.BreakLineStyle = System.Windows.Forms.DataVisualization.Charting.BreakLineStyle.None;
             chartArea4.AxisX.ScaleBreakStyle.StartFromZero = System.Windows.Forms.DataVisualization.Charting.StartFromZero.No;
@@ -1588,10 +1589,6 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea4.BackColor = System.Drawing.Color.Silver;
             chartArea4.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
             chartArea4.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea4.CursorX.IsUserEnabled = true;
-            chartArea4.CursorX.IsUserSelectionEnabled = true;
-            chartArea4.CursorY.IsUserEnabled = true;
-            chartArea4.CursorY.IsUserSelectionEnabled = true;
             chartArea4.InnerPlotPosition.Auto = false;
             chartArea4.InnerPlotPosition.Height = 75.06963F;
             chartArea4.InnerPlotPosition.Width = 93.3223F;
@@ -1607,8 +1604,10 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradchartPulseWaveVelocity.Series.Add(series4);
             this.guiradchartPulseWaveVelocity.Size = new System.Drawing.Size(650, 197);
             this.guiradchartPulseWaveVelocity.TabIndex = 121;
+            this.guiradchartPulseWaveVelocity.TabStop = false;
             this.guiradchartPulseWaveVelocity.Text = "chart1";
             this.guiradchartPulseWaveVelocity.Customize += new System.EventHandler(this.guiradchartPulseWaveVelocity_Customize);
+            this.guiradchartPulseWaveVelocity.MouseHover += new System.EventHandler(this.guiradchartPulseWaveVelocity_MouseHover);
             // 
             // guiradchartHeartRate
             // 
@@ -1624,7 +1623,6 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea5.AxisX.LabelStyle.Interval = 0;
             chartArea5.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Auto;
             chartArea5.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea5.AxisX.LabelStyle.TruncatedLabels = true;
             chartArea5.AxisX.MajorGrid.Enabled = false;
             chartArea5.AxisX.ScaleBreakStyle.BreakLineStyle = System.Windows.Forms.DataVisualization.Charting.BreakLineStyle.None;
             chartArea5.AxisX.ScaleBreakStyle.StartFromZero = System.Windows.Forms.DataVisualization.Charting.StartFromZero.No;
@@ -1640,7 +1638,7 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea5.InnerPlotPosition.Height = 75.06963F;
             chartArea5.InnerPlotPosition.Width = 93.3223F;
             chartArea5.InnerPlotPosition.X = 5.56068F;
-            chartArea5.InnerPlotPosition.Y = 4.46808F;
+            chartArea5.InnerPlotPosition.Y = 3.46808F;
             chartArea5.Name = "ChartArea1";
             this.guiradchartHeartRate.ChartAreas.Add(chartArea5);
             this.guiradchartHeartRate.Location = new System.Drawing.Point(3, 205);
@@ -1656,12 +1654,39 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradchartHeartRate.Series.Add(series5);
             this.guiradchartHeartRate.Size = new System.Drawing.Size(650, 197);
             this.guiradchartHeartRate.TabIndex = 120;
+            this.guiradchartHeartRate.TabStop = false;
             title1.Name = "Title1";
             this.guiradchartHeartRate.Titles.Add(title1);
+            this.guiradchartHeartRate.MouseHover += new System.EventHandler(this.guiradchartHeartRate_MouseHover);
             // 
             // reportprintDialog
             // 
             this.reportprintDialog.UseEXDialog = true;
+            // 
+            // guiradlblReportDateTimeDisplay
+            // 
+            this.guiradlblReportDateTimeDisplay.AutoSize = false;
+            this.guiradlblReportDateTimeDisplay.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportDateTimeDisplay.Location = new System.Drawing.Point(337, 562);
+            this.guiradlblReportDateTimeDisplay.Name = "guiradlblReportDateTimeDisplay";
+            this.guiradlblReportDateTimeDisplay.Size = new System.Drawing.Size(186, 21);
+            this.guiradlblReportDateTimeDisplay.TabIndex = 104;
+            this.guiradlblReportDateTimeDisplay.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // guiradlblReportDateTime
+            // 
+            this.guiradlblReportDateTime.AutoSize = false;
+            this.guiradlblReportDateTime.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportDateTime.Location = new System.Drawing.Point(347, 517);
+            this.guiradlblReportDateTime.Name = "guiradlblReportDateTime";
+            this.guiradlblReportDateTime.Size = new System.Drawing.Size(157, 25);
+            this.guiradlblReportDateTime.TabIndex = 103;
+            this.guiradlblReportDateTime.Text = "Date and Time";
+            this.guiradlblReportDateTime.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Report
             // 
@@ -1669,6 +1694,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(992, 599);
             this.Controls.Add(this.guiradpnlAnalysis);
+            this.Controls.Add(this.guiradlblReportDateTimeDisplay);
+            this.Controls.Add(this.guiradlblReportDateTime);
             this.Controls.Add(this.guichartNormalRange);
             this.Controls.Add(this.guiradbtnRepeat);
             this.Controls.Add(this.guiradAnalysisChartHeading);
@@ -1809,6 +1836,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradpnlAnalysis.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guiradchartPulseWaveVelocity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradchartHeartRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportDateTimeDisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportDateTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1917,13 +1946,15 @@ namespace AtCor.Scor.Gui.Presentation
         private System.Windows.Forms.ImageList guiimagelistTickCross;
         private System.Windows.Forms.DataVisualization.Charting.Chart guichartNormalRange;
         private System.Windows.Forms.DataVisualization.Charting.Chart guichartReferenceRange;
-        private System.Windows.Forms.Timer timer1;
         private Telerik.WinControls.UI.RadLabel guireportradlblReferenceMsg;
         private Telerik.WinControls.UI.RadCheckBox guiradchkAssesments;
         private Telerik.WinControls.UI.RadPanel guiradpnlAnalysis;
         private System.Windows.Forms.DataVisualization.Charting.Chart guiradchartHeartRate;
         private System.Windows.Forms.DataVisualization.Charting.Chart guiradchartPulseWaveVelocity;
         private System.Windows.Forms.PrintDialog reportprintDialog;
+        private Telerik.WinControls.UI.RadLabel guiradlblReportDateTimeDisplay;
+        private Telerik.WinControls.UI.RadLabel guiradlblReportDateTime;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

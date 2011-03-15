@@ -74,17 +74,35 @@ namespace TestDal {
 				target = DalDataBuffer::Instance;
 				Assert::AreSame(target, actual);
 			}
+
+			//DeepaK; replacing this test with new one below. It should run correctly regardless of whether it is run in a batch
+	//		/// <summary>
+	//		///A test for DataBuffer
+	//		///</summary>
+	//public: [TestMethod]
+	//		void DataBufferTest()
+	//		{
+	//			//Thisd test will fail when run  in a batch becuase the DalSimulationHandler class creates a buffer 
+	//			//and it will result in the 
+
+	//			DalDataBuffer^  target = (DalDataBuffer::Instance); 
+	//			Array^  actual;
+	//			actual = target->DataBuffer;
+	//			Assert::IsNull(actual, "Run this test individually for it to pass");
+	//			Assert::AreEqual(target->ArraySize , -1); //TODO: This test passed when an accessor was created
+	//		}
+
 			/// <summary>
 			///A test for DataBuffer
 			///</summary>
 	public: [TestMethod]
 			void DataBufferTest()
 			{
-				DalDataBuffer^  target = (DalDataBuffer::Instance); // TODO: Initialize to an appropriate value
+				DalDataBuffer_Accessor^  target = gcnew DalDataBuffer_Accessor(); 
 				Array^  actual;
 				actual = target->DataBuffer;
 				Assert::IsNull(actual);
-				//Assert::AreEqual(target->ArraySize , -1); //TODO: This test passed when an accessor was created
+				Assert::AreEqual(target->ArraySize , -1); 
 			}
 			
 			/// <summary>

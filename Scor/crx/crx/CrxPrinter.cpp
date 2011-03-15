@@ -34,49 +34,26 @@ using namespace AtCor::Scor::CrossCutting::Printer;
 using namespace AtCor::Scor::CrossCutting::Configuration; 
 
 
-void CrxPrintManager::AtCorPrintDocument(String^ strPrn)
+void CrxPrintManager::AtCorPrintDocument(String^ strPrn, Image^ imgPrn)
 {
-	CrxConfigManager^ objCrx = CrxConfigManager::Instance;
-
-	PrintDocument^ printDocument = gcnew PrintDocument();
-	PrintDialog^ printDialog	= gcnew PrintDialog();
-	CrxStructGeneralSetting^ gs = gcnew CrxStructGeneralSetting();
-    
-	CrxPrintManager::printString = strPrn;
-	
-	//Setting print dialog properties
-	printDialog->ShowNetwork = false;         
-	printDialog->Document = printDocument;         
-	printDialog->AllowPrintToFile = true;       
-
-	//Disabling advanced options, as printing simple text
-	printDialog->AllowCurrentPage = false;         
-	printDialog->AllowSelection = false;         
-	printDialog->AllowSomePages = false; 
-	
-	//Display XP Style Print Dialog         
-	printDialog->UseEXDialog = true; 
 	try
 	{
-		if (printDialog->ShowDialog() == DialogResult::OK)         
-		 {            
-			printDocument->PrintPage += gcnew PrintPageEventHandler(this, &CrxPrintManager::AtCorPrintStatus);             
-			 
-			//Print method call. 
-			printDocument->Print();             
-		 } 
+		CrxConfigManager^ objCrx = CrxConfigManager::Instance;
 
-		//Assigning the Printer settings to the Document.             
-		printDocument->PrinterSettings = printDialog->PrinterSettings; 
-		
+		PrintDocument^ printDocument = gcnew PrintDocument();
+		CrxStructGeneralSetting^ gs = gcnew CrxStructGeneralSetting();
+	    
+		CrxPrintManager::printString = strPrn;
+		CrxPrintManager::imgPrint = imgPrn;	
+
 		objCrx->GetGeneralUserSettings();
 		gs = objCrx->GeneralSettings;
+		printDocument->PrinterSettings->PrinterName = gs->PrinterName; 
 
-		//Getting selected printer name into gs
-		gs->PrinterName = printDocument->PrinterSettings->PrinterName;
-
-		//Setting printer name in to config file
-		objCrx->SetGeneralUserSettings(gs);
+	
+		printDocument->PrintPage += gcnew PrintPageEventHandler(this, &CrxPrintManager::AtCorPrintStatus);             
+		 
+		printDocument->Print();   		
 	}
 	catch(Exception^ eObj)
 	{		
@@ -86,12 +63,16 @@ void CrxPrintManager::AtCorPrintDocument(String^ strPrn)
 
 void CrxPrintManager::AtCorPrintStatus(Object^ sender, PrintPageEventArgs^ e)
 {
-	float lineTop = 0; 
-	float lineLeft =0;
-	Brush^ brush = nullptr;    
-	String^ prnStr = nullptr;
-	Font^ prnFont = nullptr;
-	Image^ imgPrint = nullptr;
+	int start				=	0;
+	int top					=	0;
+	int lineHeight			=	14;
+	int lineCount			=	1;
+	float lineTop			=	0; 
+	float lineLeft			=	0;		
+	Brush^ brush			=	nullptr;    
+	String^ prnStr			=	nullptr;
+	Font^ prnFont			=	nullptr;
+	Image^ imgPrint			=	nullptr;
 
 	//Setting the color as Black.
 	brush = Brushes::Black;    
@@ -102,14 +83,23 @@ void CrxPrintManager::AtCorPrintStatus(Object^ sender, PrintPageEventArgs^ e)
 	
 	//Assigning actual string into variable
 	prnStr = CrxPrintManager::printString;
+	imgPrint = CrxPrintManager::imgPrint;
+
+	lineTop = Convert::ToSingle(e->MarginBounds.Top) ;        
+	lineLeft = Convert::ToSingle(e->MarginBounds.Left);
 	
-	lineTop = e->MarginBounds.Top ;         
-	lineLeft = e->MarginBounds.Left;
+    while ((start = prnStr->IndexOf('\n', start)) != -1)
+    {
+        lineCount++;
+        start++;
+    }
+
+	top = e->MarginBounds.Top + (lineCount * lineHeight);
 	
 	try
 	{
 		e->Graphics->DrawString(prnStr, prnFont, brush, lineLeft, lineTop);        
-		
+		e->Graphics->DrawImage(imgPrint,int(lineLeft),top);
 	}
 	catch(Exception^ eObj)
 	{		

@@ -7,16 +7,7 @@
  
      Description  :     Functionality implemented for showing splash screen on application launch
 */
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using Telerik.WinControls;
 using AtCor.Scor.CrossCutting.Messaging;
-using System.Threading;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -24,7 +15,7 @@ namespace AtCor.Scor.Gui.Presentation
     {
         private delegate void DisplayMessage(string msg);
 
-        CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+        readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
 
         // private static Thread _splashLauncher;
         // private static SplashScreen _splashScreen;
@@ -34,8 +25,8 @@ namespace AtCor.Scor.Gui.Presentation
         public SplashScreen()
         {
             InitializeComponent();
-            lblversion.Text = "10"; // vibhuti: to be read from global registry variables
-            lblCopyright.Text = "2011"; // vibhuti: to be read from global registry variables
+            lblversion.Text = "10"; // hardcoded: to be read from global registry variables
+            lblCopyright.Text = "2011"; // hardcoded : to be read from global registry variables
             lblInitialMsg.Text = oMsgMgr.GetMessage("SPLASH_INI_MSG") + oMsgMgr.GetMessage("SPLASH_WAIT_MSG");
             DefaultWindow.OnInitializationProcess += new DefaultWindow.InitializationMessage(ShowInitializationMessage);
             SQLInstanceList.OnInitializationProcess += new SQLInstanceList.InitializationMessage(ShowInitializationMessage);
@@ -48,21 +39,21 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         public void ShowInitializationMessage(string message)
         {
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                DisplayMessage displaymsg = new DisplayMessage(ShowInitializationMessage);
-                this.Invoke(displaymsg, message);
+                DisplayMessage displaymsg = ShowInitializationMessage;
+                Invoke(displaymsg, message);
                 return;
             }
 
             if (message == oMsgMgr.GetMessage("BTN_EXIT"))
             {
-               this.SendToBack();
+               SendToBack();
             }
             else
             {
                 lblInitialMsg.Text = message;
-                this.Refresh();
+                Refresh();
             }            
         }
 

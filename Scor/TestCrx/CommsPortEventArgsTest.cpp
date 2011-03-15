@@ -74,7 +74,6 @@ namespace TestCrx {
 				target->commsPortSetting = expected;
 				actual = target->commsPortSetting;
 				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for CommsPortEventArgs Constructor
@@ -85,7 +84,6 @@ namespace TestCrx {
 				String^  commsPortSetting = System::String::Empty; // TODO: Initialize to an appropriate value
 				CommsPortEventArgs^  target = (gcnew CommsPortEventArgs(commsPortSetting));
 				Assert::IsNotNull(target);
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
 	};
 }

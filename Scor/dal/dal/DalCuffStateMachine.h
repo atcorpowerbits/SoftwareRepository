@@ -132,7 +132,7 @@ namespace AtCor{
 
 					static void ChangeState(DalCuffState^); //made static to call with CuffStateChangeListener. TODO, revert back if necessary.
 					//static DalCuffState^ _currentCuffState;
-					static void CuffStateChangeListener(Object^ sender, DalCuffStatusEventArgs_ORI ^ args);
+					static void CuffStateChangeListener(Object^ sender, DalCuffStatusEventArgs ^ args);
 
 				public:
 

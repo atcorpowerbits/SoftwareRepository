@@ -4,6 +4,9 @@ using namespace System;
 using namespace System::IO;// For FileStream
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting::Messaging;
+
+using namespace System::Drawing;
+
 namespace TestCrx {
     using namespace System;
     ref class CrxMessagingManagerTest;
@@ -16,7 +19,8 @@ namespace TestCrx {
 	[TestClass]
 	public ref class CrxMessagingManagerTest
 	{
-
+		
+	private: String^ _currDir;
 	private: Microsoft::VisualStudio::TestTools::UnitTesting::TestContext^  testContextInstance;
 			 /// <summary>
 			 ///Gets or sets the test context which provides
@@ -39,9 +43,16 @@ namespace TestCrx {
 			{
 				String^ path = Directory::GetCurrentDirectory(); 
 				int i = path->IndexOf("\\TestResults");
-				path = path->Substring(0,i + 12);
-				Directory::SetCurrentDirectory(path);
-				
+				if(i > 0)
+				{
+					path = path->Substring(0,i + 12);
+					Directory::SetCurrentDirectory(path);
+				}
+				else
+				{
+					path  = path + "\\TestResults";
+					Directory::SetCurrentDirectory(path);
+				}
 			}
 
 #pragma region Additional test attributes
@@ -61,16 +72,19 @@ namespace TestCrx {
 			//}
 			//
 			//Use TestInitialize to run code before running each test
-			//public: [TestInitialize]
-			//System::Void MyTestInitialize()
-			//{
-			//}
-			//
+			public: [TestInitialize]
+			System::Void MyTestInitialize()
+			{
+				_currDir = Directory::GetCurrentDirectory(); 
+				//_objConfig = CrxConfigManager::Instance;
+			}
+			
 			//Use TestCleanup to run code after each test has run
-			//public: [TestCleanup]
-			//System::Void MyTestCleanup()
-			//{
-			//}
+			public: [TestCleanup]
+			System::Void MyTestCleanup()
+			{
+				Directory::SetCurrentDirectory(_currDir);
+			}
 			//
 #pragma endregion
 			/// <summary>
@@ -82,7 +96,6 @@ namespace TestCrx {
 				CrxMessagingManager^  actual;
 				actual = CrxMessagingManager::Instance;
 				Assert::IsNotNull(actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			// This tests the assigment operator which is private and blank implmentation
 // we do not need to test this as of now: 11/02/2010: Smarajit Mishra
@@ -122,45 +135,28 @@ namespace TestCrx {
 			void GetMessageTest()
 			{
 				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
-				//String^  strCode = System::String::Empty; // TODO: Initialize to an appropriate value
-				//String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  strCode = "CRX_ERR_FILE_NOT";
-				String^ expected = "200 Resource file not found.";
 				String^  actual;
-				String^ path = Directory::GetCurrentDirectory(); 
-				//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code");
-				try
-				{
-					actual = target->GetMessage(strCode);
-				}
-				catch(Exception^)
-				{
-					//actual = "Resource file not found";
-				}
-				Assert::AreEqual(expected, actual);
+				String^  strCode = "CRX_ERR_FILE_NOT_EXIST";
+				String^  expected = "File does not exist.";
 
-				strCode = "CRX_ERR_FILE_NOT_EXIST";
-				expected = "File does not exist.";
-				CrxMessagingManagerTest::SetPath();
 				actual = target->GetMessage(strCode);
 				Assert::AreEqual(expected, actual);
-
-				strCode = "CRX_ERR_FILE";
-				expected = "#201 Error Code not found.";
-				CrxMessagingManagerTest::SetPath();
-				try
-				{
-					actual = target->GetMessage(strCode);
-				}
-				catch(Exception^)
-				{
-					actual = "#201 Error Code not found.";
-				}
-				
-				Assert::AreEqual(expected, actual);
-
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
+			/// <summary>
+			///A test for GetMessage
+			///</summary>
+	public: [TestMethod]
+			void GetMessageTest1()
+			{
+				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
+				String^  actual;
+				String^  strCode = "CRX_ERR_FILE";
+				String^  expected = "201 : Error Code not found.";
+
+				actual = target->GetMessage(strCode);
+				Assert::AreEqual(expected, actual);
+			}
+			
 			/// <summary>
 			///A test for CrxMessagingManager Constructor
 			///</summary>
@@ -171,8 +167,8 @@ namespace TestCrx {
 				CrxMessagingManager^  unnamed = nullptr; // TODO: Initialize to an appropriate value
 				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor(unnamed));
 				Assert::IsNotNull(target);
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
+
 			/// <summary>
 			///A test for CrxMessagingManager Constructor
 			///</summary>
@@ -182,9 +178,79 @@ namespace TestCrx {
 			{
 				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor());
 				Assert::IsNotNull(target);
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
-	};
+
+			/// <summary>
+			///A test for GetImage
+			///</summary>
+	public: [TestMethod]
+			void GetImageTest()
+			{
+				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
+				String^  strCode = System::String::Empty; // TODO: Initialize to an appropriate value
+				Image^  expected = nullptr; // TODO: Initialize to an appropriate value
+				Image^  actual;
+				//Begin: Alok - 04-Mar-2011
+				strCode = "TestImage"; //Setting invalid image name
+				try
+				{
+					actual = target->GetImage(strCode);
+				}
+				catch(Exception^ e)
+				{
+					Assert::IsNull(actual);
+				}
+
+				
+				//End: Alok - 04-Mar-2011
+			}
+			///A test for GetImage
+			///</summary>
+	public: [TestMethod]
+			void GetImageTest1()
+			{
+				CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
+				String^  strCode = System::String::Empty; // TODO: Initialize to an appropriate value
+				Image^  expected = nullptr; // TODO: Initialize to an appropriate value
+				Image^  actual;
+				//Begin: Alok - 04-Mar-2011
+				strCode = "CEMarkSGS"; //Setting valid image name (which is in resource file)
+				actual = target->GetImage(strCode);
+
+				Assert::IsNotNull(actual);
+				//End: Alok - 04-Mar-2011
+			}
+			/// <summary>
+			///A test for CheckResourceFileExist
+			///</summary>
+public: [TestMethod]
+		void CheckResourceFileExistTest()
+		{
+			CrxMessagingManager_Accessor^  target = (gcnew CrxMessagingManager_Accessor()); // TODO: Initialize to an appropriate value
+			int expected = 0; // TODO: Initialize to an appropriate value
+			int actual;
+		
+			try
+			{
+				target->CheckResourceFileExist();
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If Exception occur then test case pass.");	
+			}
+
+			SetPath();
+			try
+			{
+				actual = target->CheckResourceFileExist();
+			}
+			catch(Exception^)
+			{
+				actual = 1;
+			}
+			Assert::AreEqual(expected, actual);
+		}
+};
 }
 namespace TestCrx {
     

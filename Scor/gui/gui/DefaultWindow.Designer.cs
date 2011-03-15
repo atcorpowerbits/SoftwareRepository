@@ -55,9 +55,8 @@
             this.radlblCurrentMode = new Telerik.WinControls.UI.RadLabel();
             this.radStatusBar = new Telerik.WinControls.UI.RadStatusStrip();
             this.object_b537593d_058e_4cff_9f9f_429c5f332e49 = new Telerik.WinControls.RootRadElement();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.guialertmsgTimer = new System.Windows.Forms.Timer(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tmrImposeWaitTime = new System.Windows.Forms.Timer(this.components);
             this.object_bbfc195f_e97e_4154_8f63_2eec98f43230 = new Telerik.WinControls.RootRadElement();
             this.object_0187e6f3_872e_4cc9_b900_abc6b49863ca = new Telerik.WinControls.RootRadElement();
             this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
@@ -133,9 +132,9 @@
             this.radlblPatientName.AutoSize = false;
             this.radlblPatientName.BackColor = System.Drawing.Color.Transparent;
             this.radlblPatientName.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radlblPatientName.Location = new System.Drawing.Point(35, 19);
+            this.radlblPatientName.Location = new System.Drawing.Point(27, 19);
             this.radlblPatientName.Name = "radlblPatientName";
-            this.radlblPatientName.Size = new System.Drawing.Size(150, 25);
+            this.radlblPatientName.Size = new System.Drawing.Size(147, 25);
             this.radlblPatientName.TabIndex = 1;
             // 
             // radpgTabCollection
@@ -223,7 +222,11 @@
             // 
             // guialertmsgTimer
             // 
-            this.guialertmsgTimer.Interval = 5000;
+            this.guialertmsgTimer.Interval = 7000;
+            // 
+            // tmrImposeWaitTime
+            // 
+            this.tmrImposeWaitTime.Tick += new System.EventHandler(this.tmrImposeWaitTime_Tick);
             // 
             // object_bbfc195f_e97e_4154_8f63_2eec98f43230
             // 
@@ -574,7 +577,6 @@
             // guiFindPrinterDialog
             // 
             this.guiFindPrinterDialog.PrintToFile = true;
-            this.guiFindPrinterDialog.UseEXDialog = true;
             // 
             // DefaultWindow
             // 
@@ -599,6 +601,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.DefaultWindow_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DefaultWindow_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DefaultWindow_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.radlblCaptureTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radlblMessage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radlblPatientName)).EndInit();
@@ -631,8 +634,6 @@
         private Telerik.WinControls.UI.RadLabel radlblCurrentMode;
         private Telerik.WinControls.UI.RadStatusStrip radStatusBar;
         private Telerik.WinControls.RootRadElement object_b537593d_058e_4cff_9f9f_429c5f332e49;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Timer timer1;
         private Telerik.WinControls.RootRadElement object_bbfc195f_e97e_4154_8f63_2eec98f43230;
         private Telerik.WinControls.RootRadElement object_0187e6f3_872e_4cc9_b900_abc6b49863ca;
         private Telerik.WinControls.Themes.BreezeTheme breezeTheme1;
@@ -669,6 +670,7 @@
         private Telerik.WinControls.UI.RadWaitingBar guiWaitingStatusBar;
         public System.Windows.Forms.Timer guialertmsgTimer;
         public System.Windows.Forms.PictureBox guipictureboxError;
-        private System.Windows.Forms.PrintDialog guiFindPrinterDialog;        
+        private System.Windows.Forms.PrintDialog guiFindPrinterDialog;
+        public System.Windows.Forms.Timer tmrImposeWaitTime;        
     }
 }

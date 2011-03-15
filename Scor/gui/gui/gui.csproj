@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="biz, Version=0.7.1.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+    <Reference Include="biz, Version=0.8.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Debug\biz.dll</HintPath>
     </Reference>
@@ -199,12 +199,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="atcor.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\biz_stub\biz_stub.csproj">
-      <Project>{223314A8-ACA7-420E-815B-CEB160F4CFD1}</Project>
-      <Name>biz_stub</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

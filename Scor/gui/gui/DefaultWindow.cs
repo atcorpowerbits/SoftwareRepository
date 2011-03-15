@@ -7,36 +7,21 @@
  
     Description  :      This is the Default Window on Application load.
 */
-using AtCor.Scor.CrossCutting;
+using System.Linq;
 using AtCor.Scor.CrossCutting.Configuration;  
 using AtCor.Scor.CrossCutting.Logging;
 using AtCor.Scor.CrossCutting.DatabaseManager;  
-using AtCor.Scor.CrossCutting.Messaging; 
-using System.Collections.Generic;
-using System.ComponentModel;
+using AtCor.Scor.CrossCutting.Messaging;
 using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Drawing;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System;
-using Telerik.Charting;
 using Telerik.WinControls.UI;
 using Telerik.WinControls;
-using Telerik.WinControls.Primitives;
-using Telerik.WinControls.Enumerations;
-using Telerik.WinControls.UI.Docking;
-using Telerik.WinControls.Themes.Design;
 using AtCor.Scor.BusinessLogic;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Globalization;
-using Microsoft.Win32;
 using System.IO;
-using Microsoft.VisualBasic.ApplicationServices;
-using System.Runtime.InteropServices;
+using AtCor.Scor.DataAccess;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -49,25 +34,32 @@ namespace AtCor.Scor.Gui.Presentation
     * @class DefaultWindow
     * @brief This class will handle displaying of the default window controls.It will also check for multiple instances of the application,exception handling and logging of events.
     */
-    public partial class DefaultWindow : Telerik.WinControls.UI.RadForm
+    public partial class DefaultWindow : RadForm
     {
-        #region Set constant values
-    
-        const double HandShakePeriod = 2;
-        const int TonometerHeight = 4096;
-        const int QualityIndicatorHeight = 500;
-        const double ChartAreaMinimumY = 0.96;
-        const double ChartAreaMaximumY = 1.04;
-        #endregion         
+        // Code to minimize running application from taskbar
 
-        const string BackupFileExt = ".bak"; // vibhuti: to be placed in common file as global variable
+        const int WsMinimizebox = 0x20000;
+        const int CsDblclks = 0x8;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.Style |= WsMinimizebox;
+                cp.ClassStyle |= CsDblclks;
+                return cp;
+            }
+        }
+        // Code Ended
+
+        const string BackupFileExt = ".bak"; // to be placed in common file as global variable
         // static int count = 0;
-        string serverNameString = string.Empty;
-        CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
+        readonly string serverNameString = string.Empty;
+        readonly CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
         
         CrxDBManager dbMagr;
-        string currentpath = string.Empty; // vibhuti : to be placed in common file as global variable
-        string dbOperation = string.Empty; // vibhuti: to be placed in common file as global variable
+        string currentpath = string.Empty; 
+        string dbOperation = string.Empty; 
         
         // private delegate void ThreadException(Exception ex);
        // private event ThreadException OnThreadExceptionEvent;  
@@ -91,15 +83,14 @@ namespace AtCor.Scor.Gui.Presentation
         #region Global declarations
                      
         bool isDirectClose; // Flag set to check if there are multiple instances of the application.        
-        bool isFormDataChanged = false; // flag to check if any form data is changed before closing the form
-        
+                
         // object of Config Manager         
         CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
 
         // sets message on the status bar of the main window.
         public void SetMessage(string message)
         {
-            this.radlblMessage.Text = message;            
+            radlblMessage.Text = message;            
         }
 
         #endregion
@@ -111,31 +102,29 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                // launches splash screen
-                SplashScreen splsh = new SplashScreen();
-                splsh.Show();
-                splsh.Update();
-                            
-                isDirectClose = false;
-                CrxLogger oLogObject = CrxLogger.Instance;
-                
-                // get current application directory
-                currentpath = Directory.GetCurrentDirectory();
-               
                 // Logic to check multiple instances of the application.                 
                 if (IsProcessOpen(oMsgMgr.GetMessage("APP_NAME")))
                 {
                     // writes messages on splash screen by invoking OnInitializationProcess
-                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("EXEC_ERROR"));
-                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
-                    oLogObject.Write("instance exists");
+                    //OnInitializationProcess.Invoke(oMsgMgr.GetMessage("EXEC_ERROR"));
+                    //OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
                     isDirectClose = true;
-                    DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("APP_MSG"), oMsgMgr.GetMessage("EXEC_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                    RadMessageBox.Show(this, oMsgMgr.GetMessage("APP_MSG"), oMsgMgr.GetMessage("EXEC_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
                     this.Close();
                     Process.GetCurrentProcess().Kill();
                     return;
                 }
-                                
+
+                // launches splash screen
+                SplashScreen splsh = new SplashScreen();
+                splsh.Show();
+                splsh.Update();               
+
+                isDirectClose = false;
+
+                // get current application directory
+                currentpath = Directory.GetCurrentDirectory();
+                           
                 // check if startup screen is set in config file
                 crxMgrObject.GetGeneralUserSettings();
                 if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.StartupScreen))
@@ -144,7 +133,7 @@ namespace AtCor.Scor.Gui.Presentation
                     OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SYSTEM_ERROR"));
                     OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
                     RadMessageBox.Show(this, oMsgMgr.GetMessage("CRX_ERR_FILE_CORRUPT"), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                    oLogObject.Write(oMsgMgr.GetMessage("CRX_ERR_FILE_CORRUPT"));
+                    CrxLogger.Instance.Write(oMsgMgr.GetMessage("CRX_ERR_FILE_CORRUPT"));
                     this.Close();
                     Process.GetCurrentProcess().Kill();
                     return;
@@ -153,37 +142,36 @@ namespace AtCor.Scor.Gui.Presentation
                 if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.MachineName))
                 {
                     crxMgrObject.GeneralSettings.MachineName = SystemInformation.ComputerName;
-                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CHANGED_TO_LOCAL"));
+                    CrxLogger.Instance.Write(oMsgMgr.GetMessage("SQL_SERVER_CHANGED_TO_LOCAL"));
                 }
                
                 if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.SourceData))
                 {
                     crxMgrObject.GeneralSettings.SourceData = "SQLCLIENT";
-                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CHANGED_TO_DEFAULT"));
+                    CrxLogger.Instance.Write(oMsgMgr.GetMessage("SQL_SERVER_CHANGED_TO_DEFAULT"));
                 }
               
                 serverNameString = SettingsProperties.ServerNameString();
 
-                int result = 0;
                 dbMagr = CrxDBManager.Instance;
-                result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData.Trim());
+                int result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData.Trim());
                
                 // log message on connection status.
                 if (result.Equals(0))
                 {
                     // successfully connected
-                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + serverNameString);
+                    CrxLogger.Instance.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + serverNameString);
                     crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);
 
-                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SPLASH_SQL_CONN") + " " + serverNameString);
+                    OnInitializationProcess.Invoke(string.Format("{0} {1}", oMsgMgr.GetMessage("SPLASH_SQL_CONN"), serverNameString));
                 }
 
                 if (result.Equals(1))
                 {
                     // not able to connect, show popuo message for selecting machine.
-                    OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SQL_SERVER_CONN_FAILED") + " " + serverNameString);
+                    OnInitializationProcess.Invoke(string.Format("{0} {1}", oMsgMgr.GetMessage("SQL_SERVER_CONN_FAILED"), serverNameString));
                     OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
-                    oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONN_FAILED") + serverNameString);
+                    CrxLogger.Instance.Write(oMsgMgr.GetMessage("SQL_SERVER_CONN_FAILED") + serverNameString);
 
                     // Get the list of SQL server instances on the network
                     SQLInstanceList frmObject = new SQLInstanceList();
@@ -207,9 +195,13 @@ namespace AtCor.Scor.Gui.Presentation
                 
                 // Set the text for  Capture Tab form controls
                 SetTextForRibbionControl();
-                
-                SetStartUpModeEnvironmentScreen(); 
-               
+
+                // call bizdatavalidation class to set metric & distance units
+                // crxMgrObject.GeneralSettings.HeightandWeightUnit
+               // BizDataValidation.Instance().SetMeasSystem(UnitsType.UNITS_IMPERIAL, MetricDistanceUnits.METRIC_DISTANCE_MM);
+                radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;       
+                SetStartUpModeEnvironmentScreen();                              
+
                 // hide splash screen after initialization process
                 splsh.Hide();                   
             }         
@@ -237,8 +229,7 @@ namespace AtCor.Scor.Gui.Presentation
                 OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SYSTEM_ERROR"));
                 OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
                 RadMessageBox.Show(this, oMsgMgr.GetMessage("CRX_ERR_FILE_CORRUPT"), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(oMsgMgr.GetMessage("CRX_ERR_FILE_CORRUPT"));
+                CrxLogger.Instance.Write(oMsgMgr.GetMessage("CRX_ERR_FILE_CORRUPT"));
                 this.Close();
                 Process.GetCurrentProcess().Kill();
                 return;
@@ -247,7 +238,7 @@ namespace AtCor.Scor.Gui.Presentation
             // set up mode and environment texts on startup screen.
             radlblCurrentMode.Text = crxGen.StartupMode;
             guiradlblEnvironment.Text = crxGen.EnvironmentSettings;           
-            OnInitializationProcess.Invoke(oMsgMgr.GetMessage("SPLASH_INI_MSG") + " " + crxGen.StartupMode + " " + oMsgMgr.GetMessage("MODE"));
+            OnInitializationProcess.Invoke(string.Format("{0} {1} {2}", oMsgMgr.GetMessage("SPLASH_INI_MSG"), crxGen.StartupMode, oMsgMgr.GetMessage("MODE")));
             
             // Follwig delay is used to display messages on splash screen before application launch
             // without this delay some of the messages in loading application is not displayed.
@@ -255,24 +246,6 @@ namespace AtCor.Scor.Gui.Presentation
             InitializeSetupScreen();
         }
 
-        /**This method is called to disable the right clicking on the Gridview.
-        */
-        private void menuService_ContextMenuDisplaying(object sender, ContextMenuDisplayingEventArgs e)
-        {
-            // the menu request is associated with a valid DockWindow instance, which resides within a DocumentTabStrip
-              
-            // remove the "Close" menu items
-            for (int i = 0; i < e.MenuItems.Count; i++)
-            {
-                RadMenuItemBase menuItem = e.MenuItems[i];
-                {
-                    // In case you just want to disable to option you can set Enabled false
-                    // menuItem.Enabled = false;
-                    menuItem.Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-                }
-            }
-        }        
-        
         /**This method is called to set the text for the controls in the ribbon bar.The text is read from the resource file.
         */  
         private void SetTextForRibbionControl()
@@ -298,7 +271,32 @@ namespace AtCor.Scor.Gui.Presentation
         private void radButtonElementExit_Click(object sender, EventArgs e)
         {  
             // Close the application on click of Exit button under System menu.
-            this.Close();                    
+            //ExitApplication();    
+            this.Close();
+        }
+
+        /** This method checks for any changes in the current form if any and accordingly exits the application
+         * after asking the user
+         * */
+        private void ExitApplication()
+        {
+            // check if any changes are made in current form
+            if (!SettingsProperties.IsFormChanged)
+            {
+                this.Close();
+                return;
+            }
+            
+                // ask the user if he wants to close the application
+                DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("GUI_EXIT_MSG"),
+                                                     oMsgMgr.GetMessage("APPLICATION_MESSAGE"), MessageBoxButtons.YesNo,
+                                                     RadMessageIcon.Question);
+
+                if (ds == DialogResult.Yes)
+                {
+                    this.Close();
+                }
+            
         }
 
         /**This event is fired when window is closed.
@@ -306,12 +304,13 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void DefaultWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            int logExit = 0;
             try
             {
                 // On form closing a confirmation is asked to the user to Save the unsaved data.                                       
                 if (!isDirectClose)
                 {
-                    if (isFormDataChanged)
+                    if (SettingsProperties.IsFormChanged)
                     {
                         RadMessageBox.SetThemeName(oMsgMgr.GetMessage("MSG_DESERT"));
                         DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("MSG_SAVE_CHANGE"), oMsgMgr.GetMessage("MSG_SAVE_SETTINGS"), MessageBoxButtons.YesNoCancel, RadMessageIcon.Question);
@@ -320,31 +319,34 @@ namespace AtCor.Scor.Gui.Presentation
                         if (ds == DialogResult.Yes)
                         {
                             // Save data then exit.Application exited
-                            CrxLogger oLogObject = CrxLogger.Instance;
-                            oLogObject.Write(oMsgMgr.GetMessage("EXITSTR"));
+                            logExit = 0;
                         }
-
-                        if (ds == DialogResult.No)
+                        else if (ds == DialogResult.No)
                         {
-                            // DO NOT Save data then exit.                         
-                            CrxLogger oLogObject = CrxLogger.Instance;
-                            oLogObject.Write(oMsgMgr.GetMessage("EXITSTR"));
+                            logExit = 0;
                         }
-
-                        if (ds == DialogResult.Cancel)
+                        else
                         {
-                            // Cancel the close event.                         
-                            e.Cancel = true;
+                            logExit = 1;
+                            return;
                         }
                     }
-                }
-
-                CrxLogger.Instance.Write(oMsgMgr.GetMessage("EXITSTR"));
-                Process.GetCurrentProcess().Kill();
+                }               
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);            
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+            finally
+            {
+                // log the message when application closes
+                // this will be logged even if there is an exception
+                // logExit will be 1 if user chooses not to exit
+                if (logExit == 0)
+                {
+                    CrxLogger.Instance.Write(oMsgMgr.GetMessage("EXITSTR"));
+                    Process.GetCurrentProcess().Kill();
+                }
             }
         }
         
@@ -355,9 +357,9 @@ namespace AtCor.Scor.Gui.Presentation
         {  
             try
             {
-                // fills day, month & year, loads group names & patient list
-                radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod; 
-               
+                // On application load check if the resource file exists.
+              //  CheckForResourceFile();
+                
                 EnableMenuBarControls(); 
                 
                 // check if we can access the configuration file by reading general setting from config manager object.   
@@ -368,8 +370,7 @@ namespace AtCor.Scor.Gui.Presentation
                 WindowState = FormWindowState.Maximized;
 
                 // Log the event on successful load of the application.                 
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(oMsgMgr.GetMessage("STARTSTR"));
+                CrxLogger.Instance.Write(oMsgMgr.GetMessage("STARTSTR"));
 
                 // save the current window object for exception handling class
                 SettingsProperties.defaultWindowForm = this;
@@ -484,18 +485,8 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                int count = 0;
+                int count = Process.GetProcesses().Count(clsProcess => clsProcess.ProcessName.Contains(name));
 
-                foreach (Process clsProcess in Process.GetProcesses())
-                {
-                    if (clsProcess.ProcessName.Contains(name))
-                    {
-                        count++;
-                    }
-                }
-
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write("Running Application Instances found = " + count.ToString());
                 if (count > 1)
                 {
                     return true;
@@ -530,7 +521,7 @@ namespace AtCor.Scor.Gui.Presentation
             SettingsProperties.setupChildForm = new Setup(this);
             SettingsProperties.setupChildForm.TopLevel = false;
             SettingsProperties.setupChildForm.Dock = DockStyle.Fill;
-            SettingsProperties.setupChildForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            SettingsProperties.setupChildForm.FormBorderStyle = FormBorderStyle.None;
             
             // adds report form under parent window control
             var page = radpgTabCollection.Pages[0];
@@ -544,18 +535,17 @@ namespace AtCor.Scor.Gui.Presentation
        
         /** This method disables tab other than the parameter passed
          */ 
+/*
         private void DisableTabs(string currentTab)
         {
             // disables all the tabs except the currentTab
-            for (int pageCount = 0; pageCount < radpgTabCollection.Pages.Count; pageCount++)
+            foreach (RadPageViewPage t in radpgTabCollection.Pages.Where(t => t.Text.ToLower() != currentTab))
             {
-                if (radpgTabCollection.Pages[pageCount].Text.ToLower() != currentTab)
-                {
-                    radpgTabCollection.Pages[pageCount].Enabled = false;
-                }
+                t.Enabled = false;
             }
-        }    
-      
+        }
+*/
+
         /** This event is fired when the user clicks tried to click on the OperatorGuide option on the menu bar.
         */
         private void guiradmnuitemOperatorGuide_Click(object sender, EventArgs e)
@@ -564,7 +554,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 if (File.Exists(ConfigurationManager.AppSettings["OperatorGuidePath"].Replace("{culture}", Program.GetCurrentCulture())))
                 {
-                    System.Diagnostics.Process.Start(Path.GetFullPath(ConfigurationManager.AppSettings["OperatorGuidePath"].Replace("{culture}", Program.GetCurrentCulture())));
+                    Process.Start(Path.GetFullPath(ConfigurationManager.AppSettings["OperatorGuidePath"].Replace("{culture}", Program.GetCurrentCulture())));
                 }
                 else
                 {
@@ -585,7 +575,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 if (File.Exists(ConfigurationManager.AppSettings["ServiceManualPath"].Replace("{culture}", Program.GetCurrentCulture())))
                 {
-                  System.Diagnostics.Process.Start(Path.GetFullPath(ConfigurationManager.AppSettings["ServiceManualPath"].Replace("{culture}", Program.GetCurrentCulture())));
+                  Process.Start(Path.GetFullPath(ConfigurationManager.AppSettings["ServiceManualPath"].Replace("{culture}", Program.GetCurrentCulture())));
                 }
                 else
                 {
@@ -602,14 +592,14 @@ namespace AtCor.Scor.Gui.Presentation
        */
         private void guiradmnuitemWebsite_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(ConfigurationManager.AppSettings["SupportURL"].ToString());
+            Process.Start(ConfigurationManager.AppSettings["SupportURL"].ToString());
         }
 
         /** This method is called to Enable the menu controls.
          */ 
         private void EnableMenuBarControls()
         {
-            guiradmnuScor.MenuElement.SystemButtons.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            guiradmnuScor.MenuElement.SystemButtons.Visibility = ElementVisibility.Visible;
             guiradmnuScor.MenuElement.CloseButton.Click += new EventHandler(CloseButton_Click);
             guiradmnuScor.MenuElement.MinimizeButton.Click += new EventHandler(MinimizeButton_Click);
         }
@@ -618,18 +608,21 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-                this.Close();
+            // close the application
+            //ExitApplication();
+            this.Close();
         }
 
         /** This event is fired when the user clicks on the minimze button on the title bar.
          */ 
         private void MinimizeButton_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
         }
 
         /** This method is used to set the capture time in the status bar.
          */ 
+/*
         private void SetCaptureTimeInStatusBar()
         {
             switch (crxMgrObject.PwvSettings.CaptureTime)
@@ -647,6 +640,7 @@ namespace AtCor.Scor.Gui.Presentation
                     break;
             }
         }
+*/
 
         /**This method is invoked when Settings button under System tab is clicked. 
          * It opens setting window
@@ -656,7 +650,7 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 // Open the settings dialog box.                 
-                frmSettingsWindow settingWinObject = new frmSettingsWindow(this);
+                var settingWinObject = new frmSettingsWindow(this);
                 settingWinObject.ShowDialog();
             }
             catch (Exception ex)
@@ -716,8 +710,7 @@ namespace AtCor.Scor.Gui.Presentation
                 Directory.SetCurrentDirectory(currentpath); // shri: make part of global class
 
                 // log backup start process
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(oMsgMgr.GetMessage("BACKUP_PROGRESS"));
+                CrxLogger.Instance.Write(oMsgMgr.GetMessage("BACKUP_PROGRESS"));
 
                 DoBackup(path);               
             }         
@@ -738,19 +731,11 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         void DoBackup(string path)
         {
-            int success = 0;
-
             if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0) 
             {
               // save backup at selected location in shared folder
-                if (!Path.GetExtension(path).Equals(BackupFileExt, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    success = dbMagr.DatabaseBackup(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) + BackupFileExt : path + BackupFileExt); 
-                }
-                else
-                {
-                    success = dbMagr.DatabaseBackup(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) : path); 
-                }
+                int success;
+                success = !Path.GetExtension(path).Equals(BackupFileExt, StringComparison.CurrentCultureIgnoreCase) ? dbMagr.DatabaseBackup(path + BackupFileExt) : dbMagr.DatabaseBackup(path);
 
                 // on backup success invoke event to display status message
                 if (success == 0)
@@ -777,14 +762,10 @@ namespace AtCor.Scor.Gui.Presentation
             DialogResult result = RadMessageBox.Show(this, SettingsProperties.ConnectionErrorString(), oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
             if (result == DialogResult.Retry)
             {
-                if (dbOperation.Equals(oMsgMgr.GetMessage("BACKUP_FAIL"), StringComparison.CurrentCultureIgnoreCase))
-                {
-                    this.Invoke(new EventHandler(guiradmenuBackup_Click));
-                }
-                else
-                {
-                    this.Invoke(new EventHandler(guiradmenuRestore_Click));
-                }
+                this.Invoke(dbOperation.Equals(oMsgMgr.GetMessage("BACKUP_FAIL"),
+                                               StringComparison.CurrentCultureIgnoreCase)
+                                ? new EventHandler(guiradmenuBackup_Click)
+                                : new EventHandler(guiradmenuRestore_Click));
             }
         }
 
@@ -843,36 +824,41 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void NavigateToCapture()
         {
-            if (!radtabCapture.Enabled)
+            try
             {
-                return;
+                if (!radtabCapture.Enabled)
+                {
+                    return;
+                }
+
+                if (SettingsProperties.CaptureTabClick)
+                {
+                    OnCaptureTabClick.Invoke(this, new EventArgs());
+                }
+
+                SettingsProperties.CaptureTabClick = true;
+            }
+            catch (Exception ex)
+            {
+                // whenever exception is thrown while validating measurement details,
+                // navigate the user back to Setup screen.                
+                radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
+
+                GUIExceptionHandler.HandleException(ex, this);
             }
 
-            if (SettingsProperties.CaptureTabClick)
-            {
-                OnCaptureTabClick.Invoke(this, new EventArgs());
-            }
-
-            SettingsProperties.CaptureTabClick = true; 
         }
 
         /**This method will navigate the user to the Setup screen.
          */ 
         private void NavigateToSetup()
         {
+            radtabCapture.Enabled = !SettingsProperties.IsWaitIntervalImposed;
+
             // InitializeSetupScreen(); 
             radtabReport.Text = oMsgMgr.GetMessage("TAB_REPORT");
             radlblCaptureTime.Text = string.Empty;
-            if (SettingsProperties.HasMeasurementDetails)
-            {
-                radtabCapture.Enabled = true;
-                radtabReport.Enabled = true;
-            }
-            else
-            {
-                radtabCapture.Enabled = false;
-                radtabReport.Enabled = false;
-            }
+            radtabReport.Enabled = SettingsProperties.HasMeasurementDetails;
 
             SettingsProperties.CaptureToReport = false;
         }
@@ -888,7 +874,14 @@ namespace AtCor.Scor.Gui.Presentation
 
             SettingsProperties.SetupToReport = SettingsProperties.CaptureToReport ? false : true;
 
-            LoadReportScreen();
+            if (SettingsProperties.ReportLoadCount == 1)
+            {
+                SettingsProperties.ReportLoadCount++;
+            }
+            else
+            {
+                LoadReportScreen();
+            }
 
             // disable setting tab on menu bar
             guiradmnuitemSettings.Enabled = false;
@@ -940,10 +933,12 @@ namespace AtCor.Scor.Gui.Presentation
                 SettingsProperties.reportChildForm.Dispose();
             }
 
-            SettingsProperties.reportChildForm = new Report(this);
-            SettingsProperties.reportChildForm.TopLevel = false;
-            SettingsProperties.reportChildForm.Dock = DockStyle.Fill;
-            SettingsProperties.reportChildForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            SettingsProperties.reportChildForm = new Report(this)
+                                                     {
+                                                         TopLevel = false,
+                                                         Dock = DockStyle.Fill,
+                                                         FormBorderStyle = FormBorderStyle.None
+                                                     };
 
             // adds report form under parent window control
             var page = radpgTabCollection.Pages[2];
@@ -1010,20 +1005,18 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 string path = openFileDialog1.FileName;
-                int success = 0;
 
                 // set current directory for resource file
                 Directory.SetCurrentDirectory(currentpath); // shri: make part of global class
                 dbOperation = oMsgMgr.GetMessage("RESTORE_TITLE");
                         
                 // log message for restore started
-                CrxLogger oLogObject = CrxLogger.Instance;
-                oLogObject.Write(oMsgMgr.GetMessage("RESTORE_PROGRESS"));
+                CrxLogger.Instance.Write(oMsgMgr.GetMessage("RESTORE_PROGRESS"));
 
                 if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
                 {
                     // restore database
-                    success = dbMagr.DatabaseRestore(path.Contains(":\\") ? path.Replace(path.Substring(0, path.IndexOf("\\")), "\\\\" + SystemInformation.ComputerName) : path);
+                    int success = dbMagr.DatabaseRestore(path);
 
                     // on success of restore invoke event to show message
                     if (success == 0)
@@ -1061,7 +1054,7 @@ namespace AtCor.Scor.Gui.Presentation
       */
         private void guiradmenuahomepage_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(ConfigurationManager.AppSettings["AtcorHomepage"].ToString());
+            Process.Start(ConfigurationManager.AppSettings["AtcorHomepage"]);
         }
 
         /**This method will display the error message using the message box.
@@ -1082,8 +1075,8 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void guiradmnuitemAbout_Click(object sender, EventArgs e)
         {
-            RadAboutBox about = new RadAboutBox();
-            about.ShowDialog();           
+            var about = new RadAboutBox();
+            about.ShowDialog();             
         }
         
         /** This event fires when Find Printer option is selected under system menu item
@@ -1119,52 +1112,113 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                // Calling Biz method to find module
-                BizElectronicModule electronicMod = new BizElectronicModule();
-
                 DisplayStatusMessageDelegate messageBox = new DisplayStatusMessageDelegate(DisplayErrorMessage);
                 this.Invoke(messageBox, oMsgMgr.GetMessage("GUI_SEARCH_ELECTRONIC_MOD"));
-
                 // with out following wait, earlier message is not displayed.
                 // Thread.Sleep(2000);
 
                 // search module
                 string portName = string.Empty;
-                int retValue = electronicMod.FindModule(portName); 
+                int retValue = DalModule.Instance.FindModule(ref portName);
 
                 switch (retValue)
                 {
                     case 0: // module not found
-                        CrxLogger oLogObject = CrxLogger.Instance;
-                        oLogObject.Write(oMsgMgr.GetMessage("CAPTURE_DEVICE_ERR_MSG"));
-
-                        // ask user if another search is required
-                        DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage("GUI_ELECTRONIC_MOD_NOTFND"), oMsgMgr.GetMessage("APPLICATION_MESSAGE"), MessageBoxButtons.YesNo, RadMessageIcon.Info);
-                        if (ds == DialogResult.Yes)
-                        {
-                            // find module again
-                            FindElectronicModule();
-                        }
-
+                        CrxLogger.Instance.Write(oMsgMgr.GetMessage("CAPTURE_DEVICE_ERR_MSG"));
+                        DisplayMessageBoxDelegate findModuleErrorMessage = new DisplayMessageBoxDelegate(ShowFindModuleError);
+                        Invoke(findModuleErrorMessage, oMsgMgr.GetMessage("GUI_ELECTRONIC_MOD_NOTFND"), null);
+                        
                         break;
 
                     case 1: // module present on port, show message to user                    
-                        this.Invoke(messageBox, oMsgMgr.GetMessage("GUI_ELECTRONIC_MOD_FND"));
+                        Invoke(messageBox, oMsgMgr.GetMessage("GUI_ELECTRONIC_MOD_FND"));
                         break;
 
                     case 2: // module found on different port, show message to user
-                        this.Invoke(messageBox, oMsgMgr.GetMessage("GUI_ELECTRONIC_MOD_FNDPORT"));
+                        Invoke(messageBox, oMsgMgr.GetMessage("GUI_ELECTRONIC_MOD_FNDPORT") + portName);
+                        break;
+
+                    default:
                         break;
                 }
             }
             catch (Exception ex)
             {
-                if (this.InvokeRequired)
+                if (InvokeRequired)
                 {
                     ExceptionHandler excep = new ExceptionHandler(GUIExceptionHandler.HandleException);
-                    this.Invoke(excep, ex, this);                                     
-                } 
+                    Invoke(excep, ex, this);
+                }
             }
         } // End FindElectronicModule
+
+        /** This method is called when module is not found.
+         * It displays error message asking user to continue with search for module
+         * */
+        void ShowFindModuleError(string message, Exception ex)
+        {
+            radlblMessage.Text = string.Empty;
+
+            // ask user if another search is required                        
+            DialogResult ds = RadMessageBox.Show(this, message, oMsgMgr.GetMessage("APPLICATION_MESSAGE"), MessageBoxButtons.YesNo, RadMessageIcon.Info);
+            if (ds == DialogResult.Yes)
+            {
+                // find module again
+                FindElectronicModule();
+            }           
+        }
+
+        
+        /**This method will check if resource file exists or no.
+         * If the file does not exist,application will show an error message in the pop up,and close the application.
+         */
+        private void CheckForResourceFile()
+        {
+            try
+            {
+                // CrxMessagingManager.Instance.CheckResourceFileExist();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+                this.Close();
+            }
+        }
+
+        private void tmrImposeWaitTime_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                tmrImposeWaitTime.Enabled = false;
+                SettingsProperties.IsWaitIntervalImposed = false;
+                SettingsProperties.InvokeCaptureClosing(true);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+                this.Close();
+            }
+        }
+
+        /**This event is fired when the user tries to navigate across the page view,
+         * using the direction keys on the keyboard.
+         */ 
+        private void DefaultWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right || e.KeyCode == Keys.RButton)
+                {
+                    //return;
+                    e.SuppressKeyPress = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+                this.Close();
+            }
+        }
+
    } // End class
 } // End namespace

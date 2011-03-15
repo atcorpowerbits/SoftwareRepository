@@ -85,20 +85,33 @@ void CrxLogger::Write(String^ message)
 
 void CrxLogger::GetLastWrittenLineNumber()
 {
+	StreamReader ^curLogFileFileStream;
+	 String^ lastLineNumber;
+
 	//check if there is a current log file
 	if (File::Exists("system\\logs\\scor.log"))
 	{
+		try
+		{
 		//open it 
-		StreamReader ^curLogFileFileStream;
+			
 		curLogFileFileStream =File::OpenText("system\\logs\\scor.log");
 
 		//create a string and read the entire file
 		String ^fileStr = curLogFileFileStream->ReadToEnd();
 		//obtain the last newline. Note THere is always a newline at the end of the file. Hence -5.
 		//then using this penultimate newline get the last line.
+			fileStr = fileStr->Trim();
        String ^lastLine = fileStr->Substring(fileStr->LastIndexOf('\n',(fileStr->Length) - 5) + 1);
+		   lastLine = lastLine->Trim();
 		//get the first part of this string
-	   String^ lastLineNumber =  lastLine->Substring(0, lastLine->IndexOf(' '));
+		   lastLineNumber =  lastLine->Substring(0, lastLine->IndexOf(' '));
+		}
+		catch(Exception^ excepObj)
+		{
+			throw gcnew ScorException(excepObj);
+		}
+
 
 	   if (lastLineNumber != nullptr)
 	   {

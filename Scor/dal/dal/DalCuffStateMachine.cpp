@@ -129,7 +129,7 @@ namespace AtCor{
 			CuffStateMachine::CuffStateMachine()
 			{
 				//TODO: recheck if below line is necessary
-				DalEventContainer::Instance->OnDalCuffStatusEvent += gcnew DalCuffStatusEventHandler_ORI(&CuffStateMachine::CuffStateChangeListener);
+				DalEventContainer::Instance->OnDalCuffStatusEvent += gcnew DalCuffStatusEventHandler(&CuffStateMachine::CuffStateChangeListener);
 				DalModule::Instance->_currentCuffState  = CuffDeflated::Instance;
 
 			}
@@ -153,7 +153,7 @@ namespace AtCor{
 				DalModule::Instance->_currentCuffState  = newState;
 			}
 
-			void CuffStateMachine::CuffStateChangeListener(Object^ sender, DalCuffStatusEventArgs_ORI ^ args)
+			void CuffStateMachine::CuffStateChangeListener(Object^ sender, DalCuffStatusEventArgs ^ args)
 			{
 				switch(args->CuffStateFlag)
 				{

@@ -113,9 +113,15 @@ namespace AtCor{
 									bool ResetFileStreamPosition();
 
 
-									bool CreateFile(String^ outputFilePath);//TODO:STUB
+									/**
+									* Creates a new file to dump data on a crash
+									*
+									* @param[in] outputFilePath	The name of the file created. @n
+									*							It is created according to the date and time
+									* @return  true if the operation was successful.
+									*/
+									bool CreateFile(String^ outputFilePath);
 									
-									bool SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse); //TODO:STUB
 
 									/**
 									* Writes the values passed to the dump file
@@ -124,8 +130,8 @@ namespace AtCor{
 									* @param[in] cuffPulse	Cuff Pulse value
 									* @return  true if the operation was successful.
 									*/
-									bool SaveCurrentValues_ORI(unsigned short tonometerData, unsigned short cuffPulse); 
-									//The _ORI is used in order to avoid conflict with stub class
+									bool SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse); 
+									
 									
 								};
 		}

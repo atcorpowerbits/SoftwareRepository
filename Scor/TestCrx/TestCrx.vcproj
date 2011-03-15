@@ -324,6 +324,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CrxStructPWVTrendDataTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ScorExceptionTest.cpp"
 				>
 			</File>

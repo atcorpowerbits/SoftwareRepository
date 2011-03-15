@@ -35,9 +35,11 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Printer
 	{
 
 	private:
+
 		//singleton instance
 		static CrxPrintManager^ _instance = gcnew CrxPrintManager();
 		String^ printString ;
+		Image^ imgPrint;
 
 		/**
 		* Default Constructor
@@ -78,7 +80,13 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Printer
 			};
 		};
 
-		void AtCorPrintDocument(String^ prnStr);
+		/**
+		* To print the about box screen
+		*
+		* @param[in] prnStr		string to handle the text to be printed
+		* @param[in] imgPrint	image object to handle image to be printed.
+		*/
+		void AtCorPrintDocument(String^ prnStr, Image^ imgPrint);
 	};
 }
 }

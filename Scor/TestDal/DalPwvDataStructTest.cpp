@@ -94,12 +94,12 @@ namespace TestDal {
 			void DalPwvDataStructConstructorTest()
 			{
 				DalPwvDataStruct^  target = (gcnew DalPwvDataStruct());
-				unsigned long expectedValue = -1;
+				unsigned short expectedValue = -1;
 
-				Assert::AreEqual(target->tonometerData, expectedValue);
-				Assert::AreEqual(target->cuffPulseData, expectedValue);
-				Assert::AreEqual(target->cuffPressure, expectedValue);
-				Assert::AreEqual(target->countdownTimer, expectedValue);
+				Assert::AreEqual(expectedValue, target->tonometerData );
+				Assert::AreEqual(expectedValue, target->cuffPulseData);
+				Assert::AreEqual(expectedValue, target->cuffPressure);
+				Assert::AreEqual(expectedValue, target->countdownTimer);
 			}
 	};
 }

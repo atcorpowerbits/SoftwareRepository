@@ -31,7 +31,10 @@ namespace TestDal {
 				{
 					testContextInstance = value;
 				}
+			
 			}
+
+		private:	static String^ comPortName  = "COM4";
 
 #pragma region Additional test attributes
 			// 
@@ -70,7 +73,8 @@ namespace TestDal {
 			void StopCaptureTest1()
 			{
 				//Start and then stop capture
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM1")); 
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				
 				bool expected = true; 
 				bool actual;
@@ -97,8 +101,7 @@ namespace TestDal {
 				target->StopCapture();
 				Assert::AreEqual(expected, actual);
 				Assert::IsNotNull(target->_commandInterface);
-				//Assert::IsNotNull(target->dataBufferObj); //not available in acceesor
-				//Assert::AreNotEqual(0, target->dataBufferObj->bufferIndex); //not available in acceesor
+				Assert::IsNotNull(target->dataBufferObj); //not available in acceesor
 			}
 			
 			/// <summary>
@@ -108,7 +111,8 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void SetPressureTest_Mainboard()
 			{
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM1")); 
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				int newPressure = 30; 
 				EM4CuffBoard cuffBoard = EM4CuffBoard::MainBoard;
 				bool expected = true; 
@@ -125,7 +129,8 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void SetPressureTest_SuntechBoard()
 			{
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM1")); 
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				int newPressure = 30; 
 				EM4CuffBoard cuffBoard = EM4CuffBoard::SuntechBoard;
 				bool expected = false; 
@@ -141,7 +146,8 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void SaveCaptureDataTest1()
 			{
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM1")); 
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				cli::array< unsigned short >^  tonometerData = gcnew array< unsigned short > {0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6}; 
 				cli::array< unsigned short >^  cuffPulse = gcnew array< unsigned short > {0xB1, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6}; 
 				unsigned short bufferSize = 6; 
@@ -182,7 +188,8 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void GetSavedFileNameTest1()
 			{
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM1")); 
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				cli::array< unsigned short >^  tonometerData = gcnew array< unsigned short > {0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6}; 
 				cli::array< unsigned short >^  cuffPulse = gcnew array< unsigned short > {0xB1, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6}; 
 				unsigned short bufferSize = 6; 
@@ -210,7 +217,8 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void GetErrorAlarmSourceTest1()
 			{
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM1")); 
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				String^  expected = DalAlarmSource::OverPressure.ToString(); 
 				String^  actual;
 				actual = target->GetErrorAlarmSource();
@@ -224,7 +232,8 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void GetConnectionStatusTest1()
 			{
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM1")); 
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				bool expected = true; 
 				bool actual;
 				actual = target->GetConnectionStatus();
@@ -239,8 +248,9 @@ namespace TestDal {
 			void GetConnectionStatusTest2()
 			{
 				//provide a non existing port
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM2")); 
-				bool expected = true; 
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->CreateAndOpenNewSerialPort("COM2");
+				bool expected = false; 
 				bool actual;
 				actual = target->GetConnectionStatus();
 				Assert::AreEqual(expected, actual);
@@ -253,14 +263,15 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void GetConfigurationInfoTest1()
 			{
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
-				DalDeviceConfigUsageEnum deviceConfigItem = DalDeviceConfigUsageEnum(); // TODO: Initialize to an appropriate value
-				DalDeviceConfigUsageStruct^  deviceConfigInfo = nullptr; // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
+				DalDeviceConfigUsageEnum deviceConfigItem = DalDeviceConfigUsageEnum::ModuleSerialNumber ; 
+				DalDeviceConfigUsageStruct^  deviceConfigInfo = gcnew  DalDeviceConfigUsageStruct ; 
+				bool expected = true; 
 				bool actual;
 				actual = target->GetConfigurationInfo(deviceConfigItem, deviceConfigInfo);
 				Assert::AreEqual(expected, actual);
-				Assert::Inconclusive(L"Verify the correctness of this test method.");
+				Assert::IsNotNull(deviceConfigInfo->ModuleSerialNumber); 
 			}
 			/// <summary>
 			///A test for FindModule
@@ -270,8 +281,9 @@ namespace TestDal {
 			void FindModuleTest1()
 			{
 				Directory::SetCurrentDirectory("D:\\Scor_Source_code\\TestResults");
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM1")); 
-				String^  comPort ="COM1";
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
+				String^  comPort =comPortName;
 				int expected = 1; 
 				int actual;
 				actual = target->FindModule(comPort);
@@ -284,41 +296,58 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void CheckIfTonometerIsConnectedTest()
 			{
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				target->_commandInterface->SetActivePort(comPortName); 
+				bool expected = true; 
 				bool actual;
 				actual = target->CheckIfTonometerIsConnected();
 				Assert::AreEqual(expected, actual);
-				Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
-			/// <summary>
+			/// This method checks on the port in config
 			///A test for CheckIfDeviceIsConnected
-			///</summary>
+			///Ensure that the device is connected on the same port as specified in config.
 	public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
 			void CheckIfDeviceIsConnectedTest2()
 			{
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor());
+				bool expected = true; 
 				bool actual;
 				actual = target->CheckIfDeviceIsConnected();
-				Assert::AreEqual(expected, actual);
-				Assert::Inconclusive(L"Verify the correctness of this test method.");
+				Assert::AreEqual(expected, actual, "Ensure that the device is connected on the same port as specified in config.");
 			}
-			/// <summary>
+			/// This one calls the parametrized form 
 			///A test for CheckIfDeviceIsConnected
-			///</summary>
+			///It should be run with the device connected
 	public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
 			void CheckIfDeviceIsConnectedTest1()
 			{
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
-				String^  comPort = System::String::Empty; // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor());
+				String^  comPort = comPortName; 
+				//set the DCI port
+				target->_commandInterface->SetActivePort(comPort);
+				
+				bool expected = true; 
 				bool actual;
 				actual = target->CheckIfDeviceIsConnected(comPort);
 				Assert::AreEqual(expected, actual);
-				Assert::Inconclusive(L"Verify the correctness of this test method.");
+			}
+			/// This one calls the parametrized form 
+			///A test for CheckIfDeviceIsConnected
+			///It should be run WITHOUT the device connected 
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void CheckIfDeviceIsConnectedTest1_Neg()
+			{
+				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor());
+				String^  comPort = comPortName; 
+				//set the DCI port
+				target->_commandInterface->SetActivePort(comPort);
+				bool expected = false; 
+				bool actual;
+				actual = target->CheckIfDeviceIsConnected(comPort);
+				Assert::AreEqual(expected, actual);
 			}
 			/// <summary>
 			///A test for DalDeviceHandler Constructor
@@ -327,20 +356,13 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void DalDeviceHandlerConstructorTest1()
 			{
-				String^  commPort = System::String::Empty; // TODO: Initialize to an appropriate value
-				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor(commPort));
-				Assert::Inconclusive(L"TODO: Implement code to verify target");
-			}
-			/// <summary>
-			///A test for DalDeviceHandler Constructor
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void DalDeviceHandlerConstructorTest()
-			{
+				String^  commPort = comPortName; 
 				DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor());
-				Assert::Inconclusive(L"TODO: Implement code to verify target");
+				Assert::IsNotNull(target);
+				Assert::IsNotNull(target->_commandInterface);
+				Assert::IsNull(target->_commandInterface->_serialPort);
 			}
+			
 			/// <summary>
 			///A test for StopCapture
 			///</summary>
@@ -349,7 +371,9 @@ namespace TestDal {
 			void StopCaptureTest()
 			{
 				//negative test case. stop capture without starting cpature
-				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM1")); 
+				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				DalDeviceHandler_Accessor^ target_ddh = (DalDeviceHandler_Accessor^)target;
+				target_ddh->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				bool expected = false; 
 				bool actual;
 				actual = target->StopCapture();
@@ -363,7 +387,9 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void StartCaptureTest()
 			{
-				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor("COM1")); 
+				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				DalDeviceHandler_Accessor^ target_ddh = (DalDeviceHandler_Accessor^)target;
+				target_ddh->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				bool expected = true; 
 				bool actual;
 				actual = target->StartCapture(10, 256);
@@ -376,14 +402,13 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void SetPressureTest()
 			{
-				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
-				int newPressure = 0; // TODO: Initialize to an appropriate value
-				EM4CuffBoard cuffBoard = EM4CuffBoard(); // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
+				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				int newPressure = 40; 
+				EM4CuffBoard cuffBoard = EM4CuffBoard::MainBoard ;
+				bool expected = true; 
 				bool actual;
 				actual = target->SetPressure(newPressure, cuffBoard);
 				Assert::AreEqual(expected, actual);
-				Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for SaveCaptureData
@@ -392,19 +417,28 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void SaveCaptureDataTest()
 			{
-				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
-				cli::array< unsigned short >^  tonometerData = nullptr; // TODO: Initialize to an appropriate value
-				cli::array< unsigned short >^  cuffPulse = nullptr; // TODO: Initialize to an appropriate value
-				unsigned short bufferSize = 0; // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
+				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				cli::array< unsigned short >^  tonometerData = gcnew cli::array< unsigned short > (5) {0x01, 0x02, 0x03, 0x04, 0x05}; 
+				cli::array< unsigned short >^  cuffPulse = gcnew cli::array< unsigned short > (5) {0xA1, 0xA2, 0xA3, 0xA4, 0xA5};  
+				unsigned short bufferSize = 5; 
+				bool expected = true; 
 				bool actual;
 				actual = target->SaveCaptureData(tonometerData, cuffPulse, bufferSize);
 				Assert::AreEqual(expected, actual);
-				Assert::Inconclusive(L"Verify the correctness of this test method.");
+				String ^ savedFilePath = target->GetSavedFileName();
+				if (String::IsNullOrEmpty(savedFilePath))
+				{
+					Assert::Fail();
+				}
+				else
+				{
+					Assert::IsTrue(true);
+				}
 			}
 			
 			
-			
+			//the only difference with GetConfigurationInfoTest1 is that the IDalHandler pointer is used
+			//this test will
 			/// <summary>
 			///A test for GetConfigurationInfo
 			///</summary>
@@ -412,44 +446,34 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void GetConfigurationInfoTest()
 			{
-				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
-				DalDeviceConfigUsageEnum deviceConfigItem = DalDeviceConfigUsageEnum(); // TODO: Initialize to an appropriate value
-				DalDeviceConfigUsageStruct^  deviceConfigInfo = nullptr; // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
+				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+				DalCommandInterface_Accessor::Instance->CreateAndOpenNewSerialPort(comPortName);
+				DalDeviceConfigUsageEnum deviceConfigItem = DalDeviceConfigUsageEnum::ModuleSerialNumber ; 
+				DalDeviceConfigUsageStruct^  deviceConfigInfo = gcnew  DalDeviceConfigUsageStruct ; 
+				bool expected = true; 
 				bool actual;
 				actual = target->GetConfigurationInfo(deviceConfigItem, deviceConfigInfo);
 				Assert::AreEqual(expected, actual);
-				Assert::Inconclusive(L"Verify the correctness of this test method.");
+				Assert::IsNotNull(deviceConfigInfo->ModuleSerialNumber); 
 			}
-			/// <summary>
-			///A test for FindModule
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void FindModuleTest()
-			{
-				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
-				String^  comPort = System::String::Empty; // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
-				int actual;
-				actual = target->FindModule(comPort);
-				Assert::AreEqual(expected, actual);
-				Assert::Inconclusive(L"Verify the correctness of this test method.");
-			}
-			/// <summary>
-			///A test for CheckIfDeviceIsConnected
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void CheckIfDeviceIsConnectedTest()
-			{
-				IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
-				bool actual;
-				actual = target->CheckIfDeviceIsConnected();
-				Assert::AreEqual(expected, actual);
-				Assert::Inconclusive(L"Verify the correctness of this test method.");
-			}
+			//Find Module has been removed
+	//		/// <summary>
+	//		///A test for FindModule
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+	//		void FindModuleTest()
+	//		{
+	//			IDalHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); 
+	//			String^  comPort = comPortName; 
+	//			int expected = 1; 
+	//			int actual;
+	//			//Deepak:m revisit this
+	//			actual = target->FindMOFindModule(comPort); 
+	//			Assert::AreEqual(expected, actual);
+	//			Assert::Inconclusive(L"Verify the correctness of this test method.");
+	//		}
+
 	};
 }
 namespace TestDal {

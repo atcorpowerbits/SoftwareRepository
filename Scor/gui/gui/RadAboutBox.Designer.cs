@@ -82,7 +82,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.radPanel1.Name = "radPanel1";
             this.radPanel1.Size = new System.Drawing.Size(520, 297);
             this.radPanel1.TabIndex = 0;
-            this.radPanel1.Click += new System.EventHandler(this.radPanel1_Click);
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radPanel1.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radPanel1.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radPanel1.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
@@ -142,6 +141,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // guiradlblCeMark
             // 
+            this.guiradlblCeMark.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
             this.guiradlblCeMark.Font = new System.Drawing.Font("Verdana", 8.25F);
             this.guiradlblCeMark.Location = new System.Drawing.Point(29, 236);
             this.guiradlblCeMark.Name = "guiradlblCeMark";

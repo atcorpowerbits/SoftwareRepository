@@ -12,16 +12,10 @@ using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.DatabaseManager;
 using AtCor.Scor.CrossCutting.Logging;
 using AtCor.Scor.CrossCutting.Messaging;
-using AtCor.Scor.CrossCutting;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Sql;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System;
-using Telerik.WinControls;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -37,12 +31,11 @@ namespace AtCor.Scor.Gui.Presentation
     */
     public partial class SQLInstanceList : Telerik.WinControls.UI.RadForm
     {
-        public static int IsCancel = 0;
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        SqlDataSourceEnumerator getCurInst = SqlDataSourceEnumerator.Instance;
-        CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
-        CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-        CrxLogger oLogObject = CrxLogger.Instance;
+        public static int IsCancel;
+        private const int CpNocloseButton = 0x200;
+        readonly CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
+        readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+        readonly CrxLogger oLogObject = CrxLogger.Instance;
         DataTable dt;
         CrxDBManager dbMagr;
         string serverNameString = string.Empty;
@@ -59,7 +52,7 @@ namespace AtCor.Scor.Gui.Presentation
             serverNameString = SettingsProperties.ServerNameString(); 
             
             // Disable the close button of the window.
-            this.FormElement.TitleBar.CloseButton.Enabled = false;
+            FormElement.TitleBar.CloseButton.Enabled = false;
         }       
 
         protected override CreateParams CreateParams
@@ -67,7 +60,7 @@ namespace AtCor.Scor.Gui.Presentation
             get
             {
                 CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                myCp.ClassStyle = myCp.ClassStyle | CpNocloseButton;
                 return myCp;
             }
         }
@@ -79,10 +72,10 @@ namespace AtCor.Scor.Gui.Presentation
         private void SQLInstanceList_Load(object sender, EventArgs e)
         {
             DisplayAndLogMessage();
-            this.AcceptButton = guiradbtnConnect;
-            this.CancelButton = guiradbtnCancel;
-            this.MaximumSize = this.Size;
-            this.MinimumSize = this.Size;
+            AcceptButton = guiradbtnConnect;
+            CancelButton = guiradbtnCancel;
+            MaximumSize = this.Size;
+            MinimumSize = this.Size;
             
             // log status of database connection.
             try
@@ -114,8 +107,6 @@ namespace AtCor.Scor.Gui.Presentation
         */
         private void guiradbtnConnect_Click(object sender, EventArgs e)
         {
-            int result = 0;
-
             crxMgrObject.GeneralSettings.MachineName = guicmbxSqlServerList.Text;
 
             serverNameString = SettingsProperties.ServerNameString(); 
@@ -124,7 +115,7 @@ namespace AtCor.Scor.Gui.Presentation
             crxMgrObject.GeneralSettings.SourceData = "SQLCLIENT";
 
             dbMagr = CrxDBManager.Instance;
-            result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData);
+            int result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData);
 
             // Connection failed
             if (result.Equals(1)) 
