@@ -3,21 +3,22 @@
 
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting::Printer;
-using namespace AtCor::Scor::CrossCutting::Configuration;
+//using namespace AtCor::Scor::CrossCutting::Configuration;
 
-using namespace System;
-using namespace System::Text;
-using namespace System::Data;
-using namespace System::Windows;
-using namespace System::Windows::Forms;
-using namespace System::Data::Common;
-using namespace System::Data::SqlClient;
-using namespace System::IO;
-using namespace System::Diagnostics;
-using namespace System::ComponentModel;
-using namespace System::Data::OleDb;
-using namespace System::Drawing;
+//using namespace System;
+//using namespace System::Text;
+//using namespace System::Data;
+//using namespace System::Windows;
+//using namespace System::Windows::Forms;
+//using namespace System::Data::Common;
+//using namespace System::Data::SqlClient;
+//using namespace System::IO;
+//using namespace System::Diagnostics;
+//using namespace System::ComponentModel;
+//using namespace System::Data::OleDb;
+//using namespace System::Drawing;
 using namespace System::Drawing::Printing;
+
 namespace TestCrx {
     using namespace System;
     ref class CrxPrintManagerTest;
@@ -97,9 +98,9 @@ namespace TestCrx {
 	//		[DeploymentItem(L"crx.dll")]
 	//		void op_AssignTest()
 	//		{
-	//			CrxPrintManager_Accessor^  target = (gcnew CrxPrintManager_Accessor()); // TODO: Initialize to an appropriate value
-	//			CrxPrintManager^  unnamed = nullptr; // TODO: Initialize to an appropriate value
-	//			CrxPrintManager^  expected = nullptr; // TODO: Initialize to an appropriate value
+	//			CrxPrintManager_Accessor^  target = (gcnew CrxPrintManager_Accessor()); 
+	//			CrxPrintManager^  unnamed = nullptr; 
+	//			CrxPrintManager^  expected = nullptr; 
 	//			CrxPrintManager^  actual;
 	//			actual = (target = unnamed);
 	//			Assert::AreEqual(expected, actual);
@@ -112,15 +113,15 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void AtCorprintstatusTest()
 			{
-				CrxPrintManager_Accessor^  target = (gcnew CrxPrintManager_Accessor()); // TODO: Initialize to an appropriate value
-				Object^  sender = nullptr; // TODO: Initialize to an appropriate value
+				CrxPrintManager_Accessor^  target = (gcnew CrxPrintManager_Accessor()); 
+				Object^  sender = nullptr; 
 				PrintPageEventArgs^  e = nullptr;
 				
 				//This is private function of print manager which called from AtCorPrintDocumentTest and requires 
 				//PrintPageEventArgs, which raised from print dialog.
 				//because of this, function can not test automatically.
 				//We have tested this function in the application while testing the print functionality.
-				Assert::Inconclusive("Function can not test automatically");
+				Assert::Inconclusive("Function cannot be tested automatically");
 			}
 
 			
@@ -130,13 +131,13 @@ namespace TestCrx {
 	public: [TestMethod]
 			void AtCorPrintDocumentTest()
 			{
-				CrxPrintManager_Accessor^  target = (gcnew CrxPrintManager_Accessor()); // TODO: Initialize to an appropriate value
-				String^  prnString = "Print String"; // TODO: Initialize to an appropriate value
+				CrxPrintManager_Accessor^  target = (gcnew CrxPrintManager_Accessor()); 
+				String^  prnString = "Print String"; 
 				
 				//This function opens print dialog box which requires user to click on print/cancel. 
 				//because of this, function can not test automatically.
 				//We have tested this function in the application while testing the print functionality.
-				Assert::Inconclusive("Function can not test automatically");
+				Assert::Inconclusive("Function cannot be tested automatically");
 			
 			}
 			/// <summary>
@@ -150,6 +151,7 @@ namespace TestCrx {
 				CrxPrintManager_Accessor^  target = (gcnew CrxPrintManager_Accessor(unnamed));
 				Assert::IsNotNull(target);
 			}
+
 			/// <summary>
 			///A test for CrxPrintManager Constructor
 			///</summary>

@@ -13,7 +13,6 @@
 #include "Stdafx.h"
 #include "CrxEventContainer.h"
 
-using namespace AtCor::Scor::CrossCutting;
 
 namespace AtCor{
 	namespace Scor{

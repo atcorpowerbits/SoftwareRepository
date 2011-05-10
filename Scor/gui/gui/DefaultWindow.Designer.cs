@@ -30,21 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DefaultWindow));
-            Telerik.WinControls.Keyboard.InputBinding inputBinding5 = new Telerik.WinControls.Keyboard.InputBinding();
-            Telerik.WinControls.Keyboard.Chord chord5 = new Telerik.WinControls.Keyboard.Chord();
-            Telerik.WinControls.Keyboard.ChordModifier chordModifier5 = new Telerik.WinControls.Keyboard.ChordModifier();
-            Telerik.WinControls.Elements.ClickCommand clickCommand4 = new Telerik.WinControls.Elements.ClickCommand();
-            Telerik.WinControls.Keyboard.InputBinding inputBinding6 = new Telerik.WinControls.Keyboard.InputBinding();
-            Telerik.WinControls.Keyboard.Chord chord6 = new Telerik.WinControls.Keyboard.Chord();
-            Telerik.WinControls.Keyboard.ChordModifier chordModifier6 = new Telerik.WinControls.Keyboard.ChordModifier();
-            Telerik.WinControls.Elements.ClickCommand clickCommand5 = new Telerik.WinControls.Elements.ClickCommand();
-            Telerik.WinControls.Keyboard.InputBinding inputBinding7 = new Telerik.WinControls.Keyboard.InputBinding();
-            Telerik.WinControls.Keyboard.Chord chord7 = new Telerik.WinControls.Keyboard.Chord();
-            Telerik.WinControls.Keyboard.ChordModifier chordModifier7 = new Telerik.WinControls.Keyboard.ChordModifier();
-            Telerik.WinControls.Keyboard.InputBinding inputBinding8 = new Telerik.WinControls.Keyboard.InputBinding();
-            Telerik.WinControls.Keyboard.Chord chord8 = new Telerik.WinControls.Keyboard.Chord();
-            Telerik.WinControls.Keyboard.ChordModifier chordModifier8 = new Telerik.WinControls.Keyboard.ChordModifier();
-            Telerik.WinControls.Elements.ClickCommand clickCommand6 = new Telerik.WinControls.Elements.ClickCommand();
+            Telerik.WinControls.Keyboard.InputBinding inputBinding1 = new Telerik.WinControls.Keyboard.InputBinding();
+            Telerik.WinControls.Keyboard.Chord chord1 = new Telerik.WinControls.Keyboard.Chord();
+            Telerik.WinControls.Keyboard.ChordModifier chordModifier1 = new Telerik.WinControls.Keyboard.ChordModifier();
+            Telerik.WinControls.Elements.ClickCommand clickCommand1 = new Telerik.WinControls.Elements.ClickCommand();
+            Telerik.WinControls.Keyboard.InputBinding inputBinding2 = new Telerik.WinControls.Keyboard.InputBinding();
+            Telerik.WinControls.Keyboard.Chord chord2 = new Telerik.WinControls.Keyboard.Chord();
+            Telerik.WinControls.Keyboard.ChordModifier chordModifier2 = new Telerik.WinControls.Keyboard.ChordModifier();
+            Telerik.WinControls.Elements.ClickCommand clickCommand2 = new Telerik.WinControls.Elements.ClickCommand();
+            Telerik.WinControls.Keyboard.InputBinding inputBinding3 = new Telerik.WinControls.Keyboard.InputBinding();
+            Telerik.WinControls.Keyboard.Chord chord3 = new Telerik.WinControls.Keyboard.Chord();
+            Telerik.WinControls.Keyboard.ChordModifier chordModifier3 = new Telerik.WinControls.Keyboard.ChordModifier();
+            Telerik.WinControls.Keyboard.InputBinding inputBinding4 = new Telerik.WinControls.Keyboard.InputBinding();
+            Telerik.WinControls.Keyboard.Chord chord4 = new Telerik.WinControls.Keyboard.Chord();
+            Telerik.WinControls.Keyboard.ChordModifier chordModifier4 = new Telerik.WinControls.Keyboard.ChordModifier();
+            Telerik.WinControls.Elements.ClickCommand clickCommand3 = new Telerik.WinControls.Elements.ClickCommand();
             this.radlblCaptureTime = new Telerik.WinControls.UI.RadLabel();
             this.radlblMessage = new Telerik.WinControls.UI.RadLabel();
             this.radlblPatientName = new Telerik.WinControls.UI.RadLabel();
@@ -59,7 +59,6 @@
             this.tmrImposeWaitTime = new System.Windows.Forms.Timer(this.components);
             this.object_bbfc195f_e97e_4154_8f63_2eec98f43230 = new Telerik.WinControls.RootRadElement();
             this.object_0187e6f3_872e_4cc9_b900_abc6b49863ca = new Telerik.WinControls.RootRadElement();
-            this.breezeTheme1 = new Telerik.WinControls.Themes.BreezeTheme();
             this.guiradgridReportAssessment = new Telerik.WinControls.UI.RadGridView();
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
             this.guiradmnuScor = new Telerik.WinControls.UI.RadMenu();
@@ -80,11 +79,8 @@
             this.radPanelBottom = new Telerik.WinControls.UI.RadPanel();
             this.guipictureboxError = new System.Windows.Forms.PictureBox();
             this.guiWaitingStatusBar = new Telerik.WinControls.UI.RadWaitingBar();
-            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.roundRectShape1 = new Telerik.WinControls.RoundRectShape(this.components);
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.guiradlblEnvironment = new Telerik.WinControls.UI.RadLabel();
             this.guiFindPrinterDialog = new System.Windows.Forms.PrintDialog();
             ((System.ComponentModel.ISupportInitialize)(this.radlblCaptureTime)).BeginInit();
@@ -103,7 +99,6 @@
             this.radPanelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guipictureboxError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiWaitingStatusBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblEnvironment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -134,8 +129,9 @@
             this.radlblPatientName.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radlblPatientName.Location = new System.Drawing.Point(27, 19);
             this.radlblPatientName.Name = "radlblPatientName";
-            this.radlblPatientName.Size = new System.Drawing.Size(147, 25);
+            this.radlblPatientName.Size = new System.Drawing.Size(150, 25);
             this.radlblPatientName.TabIndex = 1;
+            this.radlblPatientName.TextWrap = false;
             // 
             // radpgTabCollection
             // 
@@ -155,6 +151,7 @@
             this.radpgTabCollection.TabIndex = 2;
             this.radpgTabCollection.Text = "Report";
             this.radpgTabCollection.ThemeName = "Breeze";
+            this.radpgTabCollection.Click += new System.EventHandler(this.radpgTabCollection_Click);
             this.radpgTabCollection.SelectedPageChanged += new System.EventHandler(this.radpgTabCollection_SelectedPageChanged);
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).ItemAlignment = Telerik.WinControls.UI.StripViewItemAlignment.Center;
@@ -249,7 +246,7 @@
             this.guiradgridReportAssessment.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.guiradgridReportAssessment.Location = new System.Drawing.Point(1, 479);
             // 
-            // 
+            // guiradgridReportAssessment
             // 
             this.guiradgridReportAssessment.MasterTemplate.AllowAddNewRow = false;
             this.guiradgridReportAssessment.MasterTemplate.AllowCellContextMenu = false;
@@ -303,57 +300,57 @@
             this.guiradmnuScor.AllItemsEqualHeight = true;
             this.guiradmnuScor.AllowMerge = false;
             this.guiradmnuScor.BackColor = System.Drawing.Color.Transparent;
-            chordModifier5.AltModifier = false;
-            chordModifier5.ControlModifier = true;
-            chordModifier5.ShiftModifier = false;
-            chord5.ChordModifier = chordModifier5;
-            chord5.Keys = "Ctrl+Z";
-            inputBinding5.Chord = chord5;
-            clickCommand4.ContextType = null;
-            clickCommand4.ImageList = null;
-            clickCommand4.Name = "ActionCommand";
-            clickCommand4.OwnerType = typeof(Telerik.WinControls.RadItem);
-            clickCommand4.Text = "This command rises the Click event of a selected RadItem instance.";
-            clickCommand4.Type = "";
-            inputBinding5.Command = clickCommand4;
-            chordModifier6.AltModifier = false;
-            chordModifier6.ControlModifier = true;
-            chordModifier6.ShiftModifier = false;
-            chord6.ChordModifier = chordModifier6;
-            chord6.Keys = "Ctrl+Y";
-            inputBinding6.Chord = chord6;
-            clickCommand5.ContextType = null;
-            clickCommand5.ImageList = null;
-            clickCommand5.Name = "ActionCommand";
-            clickCommand5.OwnerType = typeof(Telerik.WinControls.RadItem);
-            clickCommand5.Text = "This command rises the Click event of a selected RadItem instance.";
-            clickCommand5.Type = "";
-            inputBinding6.Command = clickCommand5;
-            chordModifier7.AltModifier = false;
-            chordModifier7.ControlModifier = true;
-            chordModifier7.ShiftModifier = false;
-            chord7.ChordModifier = chordModifier7;
-            chord7.Keys = "Ctrl+F";
-            inputBinding7.Chord = chord7;
-            inputBinding7.Command = clickCommand5;
-            chordModifier8.AltModifier = false;
-            chordModifier8.ControlModifier = true;
-            chordModifier8.ShiftModifier = false;
-            chord8.ChordModifier = chordModifier8;
-            chord8.Keys = "Ctrl+M";
-            inputBinding8.Chord = chord8;
-            clickCommand6.ContextType = null;
-            clickCommand6.ImageList = null;
-            clickCommand6.Name = "ActionCommand";
-            clickCommand6.OwnerType = typeof(Telerik.WinControls.RadItem);
-            clickCommand6.Text = "This command rises the Click event of a selected RadItem instance.";
-            clickCommand6.Type = "";
-            inputBinding8.Command = clickCommand6;
+            chordModifier1.AltModifier = false;
+            chordModifier1.ControlModifier = true;
+            chordModifier1.ShiftModifier = false;
+            chord1.ChordModifier = chordModifier1;
+            chord1.Keys = "Ctrl+Z";
+            inputBinding1.Chord = chord1;
+            clickCommand1.ContextType = null;
+            clickCommand1.ImageList = null;
+            clickCommand1.Name = "ActionCommand";
+            clickCommand1.OwnerType = typeof(Telerik.WinControls.RadItem);
+            clickCommand1.Text = "This command rises the Click event of a selected RadItem instance.";
+            clickCommand1.Type = "";
+            inputBinding1.Command = clickCommand1;
+            chordModifier2.AltModifier = false;
+            chordModifier2.ControlModifier = true;
+            chordModifier2.ShiftModifier = false;
+            chord2.ChordModifier = chordModifier2;
+            chord2.Keys = "Ctrl+Y";
+            inputBinding2.Chord = chord2;
+            clickCommand2.ContextType = null;
+            clickCommand2.ImageList = null;
+            clickCommand2.Name = "ActionCommand";
+            clickCommand2.OwnerType = typeof(Telerik.WinControls.RadItem);
+            clickCommand2.Text = "This command rises the Click event of a selected RadItem instance.";
+            clickCommand2.Type = "";
+            inputBinding2.Command = clickCommand2;
+            chordModifier3.AltModifier = false;
+            chordModifier3.ControlModifier = true;
+            chordModifier3.ShiftModifier = false;
+            chord3.ChordModifier = chordModifier3;
+            chord3.Keys = "Ctrl+F";
+            inputBinding3.Chord = chord3;
+            inputBinding3.Command = clickCommand2;
+            chordModifier4.AltModifier = false;
+            chordModifier4.ControlModifier = true;
+            chordModifier4.ShiftModifier = false;
+            chord4.ChordModifier = chordModifier4;
+            chord4.Keys = "Ctrl+M";
+            inputBinding4.Chord = chord4;
+            clickCommand3.ContextType = null;
+            clickCommand3.ImageList = null;
+            clickCommand3.Name = "ActionCommand";
+            clickCommand3.OwnerType = typeof(Telerik.WinControls.RadItem);
+            clickCommand3.Text = "This command rises the Click event of a selected RadItem instance.";
+            clickCommand3.Type = "";
+            inputBinding4.Command = clickCommand3;
             this.guiradmnuScor.CommandBindings.AddRange(new Telerik.WinControls.Keyboard.InputBinding[] {
-            inputBinding5,
-            inputBinding6,
-            inputBinding7,
-            inputBinding8});
+            inputBinding1,
+            inputBinding2,
+            inputBinding3,
+            inputBinding4});
             this.guiradmnuScor.Dock = System.Windows.Forms.DockStyle.None;
             this.guiradmnuScor.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradmnuScor.ForeColor = System.Drawing.Color.Black;
@@ -490,7 +487,6 @@
             this.radPanelBottom.Controls.Add(this.guipictureboxError);
             this.radPanelBottom.Controls.Add(this.radlblMessage);
             this.radPanelBottom.Controls.Add(this.guiWaitingStatusBar);
-            this.radPanelBottom.Controls.Add(this.radLabel4);
             this.radPanelBottom.Controls.Add(this.radlblCaptureTime);
             this.radPanelBottom.Controls.Add(this.radlblPatientName);
             this.radPanelBottom.Font = new System.Drawing.Font("Verdana", 8F);
@@ -545,26 +541,18 @@
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiWaitingStatusBar.GetChildAt(0).GetChildAt(3))).InnerColor4 = System.Drawing.SystemColors.ControlLight;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiWaitingStatusBar.GetChildAt(0).GetChildAt(3))).ForeColor = System.Drawing.SystemColors.ControlDark;
             // 
-            // radLabel4
+            // openFileDialog
             // 
-            this.radLabel4.Location = new System.Drawing.Point(414, 20);
-            this.radLabel4.Name = "radLabel4";
-            this.radLabel4.Size = new System.Drawing.Size(2, 2);
-            this.radLabel4.TabIndex = 5;
+            this.openFileDialog.DefaultExt = "bak";
+            this.openFileDialog.Filter = "*.bak|";
             // 
-            // openFileDialog1
+            // saveFileDialog
             // 
-            this.openFileDialog1.DefaultExt = "bak";
-            this.openFileDialog1.Filter = "*.bak|";
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.DefaultExt = "bak";
-            this.saveFileDialog1.FileName = "Atcor-Scor10.0.bak";
-            this.saveFileDialog1.Filter = "*.bak|";
-            this.saveFileDialog1.InitialDirectory = "g:\\vibhuti\\";
-            this.saveFileDialog1.RestoreDirectory = true;
-            this.saveFileDialog1.Title = "Database backup";
+            this.saveFileDialog.DefaultExt = "bak";
+            this.saveFileDialog.FileName = "Atcor-Scor10.0.bak";
+            this.saveFileDialog.Filter = "*.bak|";
+            this.saveFileDialog.RestoreDirectory = true;
+            this.saveFileDialog.Title = "Database backup";
             // 
             // guiradlblEnvironment
             // 
@@ -620,7 +608,6 @@
             this.radPanelBottom.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guipictureboxError)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiWaitingStatusBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblEnvironment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
@@ -636,14 +623,12 @@
         private Telerik.WinControls.RootRadElement object_b537593d_058e_4cff_9f9f_429c5f332e49;
         private Telerik.WinControls.RootRadElement object_bbfc195f_e97e_4154_8f63_2eec98f43230;
         private Telerik.WinControls.RootRadElement object_0187e6f3_872e_4cc9_b900_abc6b49863ca;
-        private Telerik.WinControls.Themes.BreezeTheme breezeTheme1;
         private Telerik.WinControls.UI.RadGridView guiradgridReportAssessment;
         public Telerik.WinControls.UI.RadLabel radlblPatientName;
         public Telerik.WinControls.UI.RadPageView radpgTabCollection;
         public Telerik.WinControls.UI.RadPageViewPage radtabReport;
         private Telerik.WinControls.UI.RadPanel radPanel1;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuSystem;
-        private Telerik.WinControls.UI.RadMenuItem guiradmnuDatabase;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuHelp;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuFindModule;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuFindPrinter;
@@ -653,11 +638,8 @@
         private Telerik.WinControls.UI.RadMenuItem guiradmnuWebsite;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuitemAbout;
         private Telerik.WinControls.UI.RadPanel radPanelBottom;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private Telerik.WinControls.UI.RadLabel radLabel4;
-        private Telerik.WinControls.RoundRectShape roundRectShape1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private Telerik.WinControls.UI.RadMenuItem guiradmenuahomepage;
         public Telerik.WinControls.UI.RadPageViewPage radtabCapture;
         public Telerik.WinControls.UI.RadPageViewPage guiradgrpbxPwvDistanceMethod;
@@ -671,6 +653,7 @@
         public System.Windows.Forms.Timer guialertmsgTimer;
         public System.Windows.Forms.PictureBox guipictureboxError;
         private System.Windows.Forms.PrintDialog guiFindPrinterDialog;
-        public System.Windows.Forms.Timer tmrImposeWaitTime;        
+        public System.Windows.Forms.Timer tmrImposeWaitTime;
+        public Telerik.WinControls.UI.RadMenuItem guiradmnuDatabase;        
     }
 }

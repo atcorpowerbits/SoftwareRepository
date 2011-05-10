@@ -8,6 +8,7 @@
      Description  :     Functionality implemented for common exception handling mechanism 
 */
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using AtCor.Scor.CrossCutting;
@@ -33,8 +34,8 @@ namespace AtCor.Scor.Gui.Presentation
             Exception
         }
 
-        private static readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-        private static readonly CrxLogger oLogObject = CrxLogger.Instance;
+        private static readonly CrxMessagingManager OMsgMgr = CrxMessagingManager.Instance;
+        private static readonly CrxLogger OLogObject = CrxLogger.Instance;
         private static StringBuilder eMesg = new StringBuilder();
 
         /** This method handles all types of exception & throws appropriate messages
@@ -57,7 +58,8 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private static void HandleScorException(ScorException crEx, object currentWindow)
         {
-            if (crEx.ErrorCode == -1)
+            string eMsg = string.Empty;
+            if (crEx.ErrorCode == (int)CustomErrorCode.SystemErrorCode)
             {
                 // Handle unknown exception
 
@@ -68,10 +70,23 @@ namespace AtCor.Scor.Gui.Presentation
                 // log the call stack and error source info in log file
 
                 // crx unhandled exception
-                RadMessageBox.Show((IWin32Window)currentWindow, crEx.ExceptionObject.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+                RadMessageBox.Show((IWin32Window)currentWindow, crEx.ExceptionObject.Message, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
 
                 // log exception message alongwith stack trace and error source
-                oLogObject.Write(crEx.ExceptionObject.Message + "\r\n\r\n" + crEx.ExceptionObject.Source + "\r\n\r\n" + crEx.ExceptionObject.StackTrace);
+                OLogObject.Write(crEx.ExceptionObject.Message + Environment.NewLine + crEx.ExceptionObject.Source + Environment.NewLine + crEx.ExceptionObject.StackTrace);
+            }
+            else if (crEx.ErrorCode == (int)CustomErrorCode.SpecialExceptionCode)
+            {
+                // Prepare a message for display. this will be for general exception
+                string temp = string.Format("{0}{1}", crEx.ExceptionObject.Message, Environment.NewLine);
+                eMesg.Append(temp);                
+
+                // crEx.ErrorStringArr contains placeholder values for paramter strings
+                // formulate the error messages based on array values
+                eMsg = GetErrorString(crEx.ErrorStringArr);
+
+                RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
             }
             else
             {
@@ -86,55 +101,30 @@ namespace AtCor.Scor.Gui.Presentation
                 // message
 
                 // smarajit
-                string eMsg = ConstructErrorMessage(crEx);
-
-                if (crEx.ErrorType == ErrorSeverity.Exception)
+                eMsg = ConstructErrorMessage(crEx);
+                GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
+                switch (crEx.ErrorType)
                 {
-                    // crx handled exception
-                    RadMessageBox.Show((IWin32Window)currentWindow, eMsg, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
-
-                    // log error message
-                    oLogObject.Write("Error: " + eMsg);
-                }
-                else if (crEx.ErrorType == ErrorSeverity.Warning)
-                {
-                    // TODO: Warning and Info messages displyed should be cleared from
-                    //      status bar after 5/10 Seconds
-
-                    // here display "eMsg" in status bar along with RadMessageIcon.Exclamation icon at the
-                    // begining of the message
-
-                    // log error message
-                    oLogObject.Write("Warning: " + eMsg);
-
-                    // ###########################################
-                    SettingsProperties.defaultWindowForm.radlblMessage.Text = eMsg;
-                    SettingsProperties.defaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["WarningImage"].ToString()));
-
-                    // ###########################################
-
-                    // Using timer4 to disable image and text shown in status bar
-                    SettingsProperties.defaultWindowForm.guialertmsgTimer.Enabled = true;
-                    SettingsProperties.defaultWindowForm.guialertmsgTimer.Tick += new EventHandler(guialertmsgTimer_Tick);
-                }
-                else if (crEx.ErrorType == ErrorSeverity.Information)
-                {
-                    // TODO: Warning and Info messages displyed should be cleared from
-                    //      status bar after 5/10 Seconds
-
-                    // here display "eMsg" in status bar along with RadMessageIcon.Info icon at the
-                    // begining of the message
-
-                    // log error message
-                    oLogObject.Write("Info: " + eMsg);
-
-                    // ###########################################
-                    SettingsProperties.defaultWindowForm.radlblMessage.Text = eMsg;
-                    SettingsProperties.defaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["InfoImage"].ToString()));
-
-                    // Using timer4 to disable image and text shown in status bar
-                    SettingsProperties.defaultWindowForm.guialertmsgTimer.Enabled = true;
-                    SettingsProperties.defaultWindowForm.guialertmsgTimer.Tick += new EventHandler(guialertmsgTimer_Tick);
+                    case ErrorSeverity.Exception:
+                        RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                        OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
+                        break;
+                    case ErrorSeverity.Warning:                        
+                        OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiWarningTxt) + eMsg);
+                        GuiCommon.DefaultWindowForm.radlblMessage.Text = eMsg;
+                        GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["WarningImage"]));
+                        GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = true;
+                        GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick += guialertmsgTimer_Tick;
+                        break;
+                    case ErrorSeverity.Information:
+                        OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiInfoTxt) + eMsg);
+                        GuiCommon.DefaultWindowForm.radlblMessage.Text = eMsg;
+                        GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["InfoImage"]));
+                        GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = true;
+                        GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick += guialertmsgTimer_Tick;
+                        break;
+                    default:
+                        break;
                 }
             }
         } // End HandleCRXException
@@ -144,48 +134,36 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private static string ConstructErrorMessage(ScorException crEx)
         {
-            string eMsg = string.Empty;
+            string eMsg;
             eMesg = new StringBuilder(string.Empty);
-            
+
             // check for error message key to construct exception message format
-            if (crEx.ErrorMessageKey != null)
+            if ((!string.IsNullOrEmpty(crEx.ErrorMessageKey)) && crEx.ErrorCode != 0)
             {
                 // concatenate error code & get error message as per errormessagekey                   
-                eMesg.AppendLine(string.Format("{0} : {1}", crEx.ErrorCode.ToString(), oMsgMgr.GetMessage(crEx.ErrorMessageKey)));
+                eMesg.AppendLine(string.Format("{0} {1} {2}", crEx.ErrorCode.ToString(), OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon), OMsgMgr.GetMessage(crEx.ErrorMessageKey)));
 
                 // check if exception object is null this will have value when general exception is thrown
-                // append it to the main message
+                // append it to the main message                
+                string errKeyTemp = OMsgMgr.GetMessage(crEx.ErrorMessageKey);
+                string temp = OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayLeftCurlyBracket);
+                int count = errKeyTemp.Length - errKeyTemp.Replace(temp, string.Empty).Length;
+                int arrCount = crEx.ErrorStringArr.Length;
+                string[] tempArr = new string[count];
+                tempArr = GetStringArr(crEx.ErrorStringArr, count, arrCount);                
+
                 if (crEx.ExceptionObject != null)
                 {
-                    eMesg.AppendLine(crEx.ExceptionObject.Message + ", ");
+                    eMesg.AppendLine(crEx.ExceptionObject.Message + OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma));
                 }
 
                 // crEx.ErrorStringArr contains placeholder values for paramter strings
                 // replace the placeholders in main message with the values in crEx.ErrorStringArr 
-                if (crEx.ErrorStringArr.Length > 0)
-                {
-                    for (int i = 0; i < crEx.ErrorStringArr.Length; i++)
-                    {
-                        eMesg.Replace("{" + i + "}", crEx.ErrorStringArr[i].ToString());
-                    }
-                }
-
-                eMsg = eMesg.ToString();
-            }
-            else if (crEx.ExceptionObject != null)
-            {
-                // Prepare a message for display. this will be for general exception
-                string temp = crEx.ErrorCode.ToString() + " : " + crEx.ExceptionObject.Message;
-                eMesg.Append(temp);
-
-                // crEx.ErrorStringArr contains placeholder values for paramter strings
-                // formulate the error messages based on array values
-                eMsg = GetErrorString(crEx.ErrorStringArr);
-            }
+                eMsg = tempArr.Length > 0 ? string.Format(eMesg.ToString(), tempArr) : eMesg.ToString();
+            }            
             else
-            {
-                //// Prepare a message for display if crEx.ErrorStringArr has value
-                eMsg = GetErrorString(crEx.ErrorStringArr);
+            {                
+                eMsg = OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayErrorException);
             }
 
             return eMsg;
@@ -193,37 +171,65 @@ namespace AtCor.Scor.Gui.Presentation
 
         /** This method takes error string array as parameter and forumlates an error message from the array
          * */
-        private static string GetErrorString(string[] errString)
+        private static string GetErrorString(ICollection<string> errString)
         {
-            if (errString.Length > 0)
+            if (errString.Count > 0)
             {
                 foreach (string t in errString)
                 {
-                    eMesg.Append(oMsgMgr.GetMessage(t));
+                    eMesg.Append(OMsgMgr.GetMessage(t));
                 }
             }
 
             return eMesg.ToString();
         }
+        
+        /** This method takes error string array as parameter and forumlates an string array
+         * */
+        private static string[] GetStringArr(IList<string> errArrString, int count, int arrCount)
+        {
+            string[] tempArr = new string[count];
+            if (count > arrCount)
+            {
+                for (int i = 0; i < arrCount; i++) 
+                {
+                    tempArr[i] = errArrString[i];
+                }
+
+                for (int i = arrCount; i < count; i++)
+                {
+                    tempArr[i] = OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayNoValueResourceString);     
+                }
+            }
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    tempArr[i] = errArrString[i];
+                }
+            }
+
+            return tempArr;
+        }        
 
         /** This method handles general exception thrown by application which is not catched by DAL & CRX
          * */
         private static void HandleGeneralException(Exception ex, object currentWindow)
         {
             // handle general GUI exception
-            RadMessageBox.Show((IWin32Window)currentWindow, ex.Message, oMsgMgr.GetMessage("SYSTEM_ERROR"), MessageBoxButtons.OK, RadMessageIcon.Error);
+            RadMessageBox.Show((IWin32Window)currentWindow, ex.Message, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
 
             // log exception message alongwith stack trace
-            oLogObject.Write(ex.Message + "\r\n\r\n" + ex.Source + "\r\n\r\n" + ex.StackTrace);
+            OLogObject.Write(ex.Message + Environment.NewLine + ex.Source + Environment.NewLine + ex.StackTrace);
         } // End HandleGeneralException
 
         /** This event gets called when alert message timer on default window ticks         
          * */
         private static void guialertmsgTimer_Tick(object sender, EventArgs e)
         {
-            SettingsProperties.defaultWindowForm.guialertmsgTimer.Enabled = false;
-            SettingsProperties.defaultWindowForm.guipictureboxError.Image = null;
-            SettingsProperties.defaultWindowForm.radlblMessage.Text = string.Empty;
+            GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = false;
+            GuiCommon.DefaultWindowForm.guipictureboxError.Image = null;
+            GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
         }
     }
 }

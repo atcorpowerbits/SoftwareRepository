@@ -8,6 +8,7 @@
      Description  :     Functionality implemented for showing splash screen on application launch
 */
 using AtCor.Scor.CrossCutting.Messaging;
+using System.Configuration; 
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -16,23 +17,20 @@ namespace AtCor.Scor.Gui.Presentation
         private delegate void DisplayMessage(string msg);
 
         readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-
-        // private static Thread _splashLauncher;
-        // private static SplashScreen _splashScreen;
-
+        
         /** Constructor, subscribes event for defaultwindow & sqlinstancelist to update loading status on splash screen
          * */
         public SplashScreen()
         {
             InitializeComponent();
-            lblversion.Text = "10"; // hardcoded: to be read from global registry variables
-            lblCopyright.Text = "2011"; // hardcoded : to be read from global registry variables
-            lblInitialMsg.Text = oMsgMgr.GetMessage("SPLASH_INI_MSG") + oMsgMgr.GetMessage("SPLASH_WAIT_MSG");
-            DefaultWindow.OnInitializationProcess += new DefaultWindow.InitializationMessage(ShowInitializationMessage);
-            SQLInstanceList.OnInitializationProcess += new SQLInstanceList.InitializationMessage(ShowInitializationMessage);
-            radVersionNo.Text = oMsgMgr.GetMessage("SPLASH_LBL_VERSION_TXT");
-            radLabelScorName.Text = oMsgMgr.GetMessage("SPLASH_LBL_SCOR_TXT");
-            radLabelCopyRight.Text = oMsgMgr.GetMessage("SPALSH_COPYRT_TXT");
+            lblversion.Text = ConfigurationManager.AppSettings["Version"]; // hardcoded: to be read from global registry variables
+            lblCopyright.Text = ConfigurationManager.AppSettings["Copyright"]; // hardcoded : to be read from global registry variables
+            lblInitialMsg.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashIniMsg) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashWaitMsg);
+            DefaultWindow.OnInitializationProcess += ShowInitializationMessage;
+            SQLInstanceList.OnInitializationProcess += ShowInitializationMessage;
+            radVersionNo.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashLblVersionTxt);
+            radLabelScorName.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashLblScorTxt);
+            radLabelCopyRight.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SpalshCopyrtTxt);
         }
 
         /** This method shows status messages on splash screen as per the default window loading process.
@@ -46,7 +44,7 @@ namespace AtCor.Scor.Gui.Presentation
                 return;
             }
 
-            if (message == oMsgMgr.GetMessage("BTN_EXIT"))
+            if (message == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnExit))
             {
                SendToBack();
             }
@@ -56,36 +54,5 @@ namespace AtCor.Scor.Gui.Presentation
                 Refresh();
             }            
         }
-
-        // ############## code to start splash screen separate thread
-        ////public static void ShowSplash()
-        ////{
-        ////    //Show the form in a new thread
-        ////    _splashLauncher = new Thread(new ThreadStart(LaunchSplash));
-        ////    _splashLauncher.IsBackground = true;
-        ////    _splashLauncher.Start();
-
-        ////}
-
-        ////private static void LaunchSplash()
-        ////{
-        ////    _splashScreen = new SplashScreen();
-
-        ////    //Create new message pump
-        ////    Application.Run(_splashScreen);
-        ////}
-
-        ////private static void CloseSplashDown()
-        ////{
-        ////    Application.ExitThread();
-        ////}
-
-        ////public static void CloseSplash()
-        ////{
-        ////    //Need to get the thread that launched the form, so
-        ////    //we need to use invoke.
-        ////    MethodInvoker mi = new MethodInvoker(CloseSplashDown);
-        ////    _splashScreen.Invoke(mi);
-        ////}
     }
 }

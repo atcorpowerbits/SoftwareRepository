@@ -14,6 +14,7 @@
 #include "IDalHandler.h"
 #include "DalCommandInterface.h"
 #include "DalDataBuffer.h"
+#include "DalStatusHandler.h"
 
 
 using namespace System;
@@ -111,7 +112,7 @@ namespace AtCor{
 					* @warning This is a stub only. Not yet implemented.
 					*/
 					virtual bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
-											  DalDeviceConfigUsageStruct ^deviceConfigInfo );
+											  DalDeviceConfigUsageStruct ^%deviceConfigInfo );
 
 					/**
 					* Returns the name of the last error or alarm source
@@ -151,23 +152,6 @@ namespace AtCor{
 					virtual bool SetPressure(int newPressure, EM4CuffBoard cuffBoard);	
 					
 					/**
-					* Dumps the tonometer and cuff data to a backup file @n
-					* Obtain the name using @c GetSavedFileName
-					* @param[in]	tonometerData	Array with tonometer data values
-					* @param[in]	cuffPulse	Array with cuff pulse data values
-					* @param[in]	bufferSize	The size of the buffer to be dumped
-					* @return	 @c true if the operation was successful
-					*/
-					virtual bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
-
-					/**
-					* Returns the name and filepath of the dump file saved by @c SaveCaptureData
-					* @return	The filepath of the saved file
-					* @see	SaveCaptureData
-					*/
-					virtual String^ GetSavedFileName();
-					
-					/**
 					* Checks if the tonometer is connected
 					* @return @c true if the tonometer is connected properly
 					*/
@@ -199,6 +183,15 @@ namespace AtCor{
 					*/
 					bool GetConfigDeviceSerialMumber(String ^% moduleSerialNumber);
 
+					///**
+					//* Dumps the tonometer and cuff data to a backup file @n
+					//* Obtain the name using @c GetSavedFileName
+					//* @param[in]	tonometerData	Array with tonometer data values
+					//* @param[in]	cuffPulse	Array with cuff pulse data values
+					//* @param[in]	bufferSize	The size of the buffer to be dumped
+					//* @return	 @c true if the operation was successful
+					//*/
+					//virtual bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
 
 					
 			};

@@ -15,6 +15,7 @@
 #include "DalSimulationFile.h"
 #include "DalDataBuffer.h"
 #include "DalCommon.h"
+#include "DalStatusHandler.h"
 
 using namespace System;
 using namespace System::IO;
@@ -70,7 +71,7 @@ namespace AtCor{
 					virtual bool StopCapture(); //Stop the simulation capture
 					virtual bool GetConnectionStatus(); //Dummy method to return connection status
 					virtual bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
-											  DalDeviceConfigUsageStruct ^deviceConfigInfo );//Dummy method to return configuration info.
+											  DalDeviceConfigUsageStruct ^%deviceConfigInfo );//Dummy method to return configuration info.
 
 					/**
 					* Checks if the device is connected on the port specified in conifg
@@ -85,23 +86,6 @@ namespace AtCor{
 					virtual bool SetPressure(int newPressure, EM4CuffBoard cuffBoard);	
 
 					/**
-					* Dumps the tonometer and cuff data to a backup file @n
-					* Obtain the name using @c GetSavedFileName
-					* @param[in]	tonometerData	Array with tonometer data values
-					* @param[in]	cuffPulse	Array with cuff pulse data values
-					* @param[in]	bufferSize	The size of the buffer to be dumped
-					* @return	 @c true if the operation was successful
-					*/
-					virtual bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
-					
-					/**
-					* Returns the name and filepath of the dump file saved by @c SaveCaptureData
-					* @return	The filepath of the saved file
-					* @see	SaveCaptureData
-					*/
-					virtual String^ GetSavedFileName();
-
-					/**
 					*Function is to open the selecetd Simulation file from the Config.
 					*
 					* @return The status of the operation
@@ -109,6 +93,14 @@ namespace AtCor{
 					bool GetFileNameFromConfgAndOpen();
 
 
+					/**
+					* Checks the status flag and raises events if necessary
+					*
+					* @param[in] statusBytes The status flag for validation
+					* @param[out] cuffIsInflated Indicates if the status flags had a cuff inflated status.
+					*
+					* @return The status of the operation
+					*/
 					static bool CheckStatusFlag(unsigned long statusBytes, bool %cuffIsInflated);
 
 					/**

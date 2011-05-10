@@ -9,20 +9,15 @@
 */
  
 #include "CrxCrossCutting.h"
-// CrxLogger.h
 
 #pragma once
 
 //Include namespaces from Enterprise library.
 using namespace System;
-using namespace System::Configuration;
+using namespace System::IO;	
 using namespace Microsoft::Practices::EnterpriseLibrary::Logging;
 using namespace Microsoft::Practices::EnterpriseLibrary::Common::Configuration;
 using namespace Microsoft::Practices::EnterpriseLibrary::Logging::Configuration;
-using namespace Microsoft::Practices::EnterpriseLibrary::Logging::Formatters;
-using namespace Microsoft::Practices::EnterpriseLibrary::Logging::TraceListeners;
-using namespace System::Diagnostics; //Needed for custom trace listener attributes
-
 
 //Namepsace CrxLogging to include all Logging realted functionalities
 /**
@@ -34,6 +29,19 @@ namespace AtCor {
 	namespace Scor {
 		namespace CrossCutting {
 			namespace Logging {
+
+								/**
+								 * @struct CrxLogStructInternal
+								 * @brief Container for internal string. 	
+								 */
+private ref struct CrxLogStructInternal
+{
+	static	String^	LogFilePath			=	"system\\logs\\scor.log";
+	static	String^	DateTimeFormat			=	"yyyyMMMddHHmmss";
+	static	String^	LogFileName			=	"system\\logs\\scor_";
+	static	String^	LogFileExt			=	".log";
+};
+
 								/**
 								 * @class		CrxLogger
 								 * @brief		This class provides logging funtionality for various laryers

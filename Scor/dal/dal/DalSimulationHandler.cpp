@@ -67,12 +67,16 @@ namespace AtCor{
 
                     // construct the simulation file path, based on the file name selected
                     // by user in "system - settings - PWV Settings - simulation type"
-                    String^ tempFilePath = ".\\simulation\\pwv\\";
-                    String^ tempFileExt = ".dat";
+                    //String^ tempFilePath =CrxMessagingManager::Instance->GetMessage("DAL_CONST_SIM_FOLDER_PATH");
+					String^ tempFilePath =CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPath);
+                    //String^ tempFileExt = CrxMessagingManager::Instance->GetMessage("DAL_CONST_DAT_FILE_EXTN");
+					String^ tempFileExt = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstDatFileExtn);
                     _tonometerSimulationFile = gcnew DalSimulationFile(tempFilePath + configMgr->PwvSettings->SimulationType + tempFileExt);
 				
 					//pick the cuff timer sim file from another directory
-					_cuffTimerSimulationFile = gcnew DalSimulationFile(".\\simulation\\cuff_timer\\cuff_timer.dat");
+					//_cuffTimerSimulationFile = gcnew DalSimulationFile(CrxMessagingManager::Instance->GetMessage("DAL_CONST_CUFFTIMER_FILE_PATH"));
+					_cuffTimerSimulationFile = gcnew DalSimulationFile(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstCufftimerFilePath));
+
 
 					result = true;
 			    }
@@ -198,8 +202,7 @@ namespace AtCor{
 					tempPWVDataVar.cuffPressure = (short)cuffAbsolutePressure;
 					tempPWVDataVar.tonometerData = (short)tonoData;
 					tempPWVDataVar.cuffPulseData = (short)cuffPulseData;
-					//TODO: remove next line
-					CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer );
+					//CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer );
 
 					//write data to buffer
 					dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
@@ -294,7 +297,7 @@ namespace AtCor{
 			}
 
 			bool DalSimulationHandler::GetConfigurationInfo (DalDeviceConfigUsageEnum deviceConfigItem, 
-											  DalDeviceConfigUsageStruct ^deviceConfigInfo )
+											  DalDeviceConfigUsageStruct ^%deviceConfigInfo )
 			{
 				switch (deviceConfigItem)
 				{
@@ -310,14 +313,18 @@ namespace AtCor{
 						deviceConfigInfo->ModuleConfigId = 123; //dummy value
 						break;
 					case DalDeviceConfigUsageEnum::ModuleMainFirmwareVersion:
-						deviceConfigInfo->ModuleMainFWVersion = L"Sim - 0.1"; //dummy value for sim device.
+						//deviceConfigInfo->ModuleMainFWVersion = CrxMessagingManager::Instance->GetMessage("DAL_CONST_GCI_FIRMWARE_VERSION"); //dummy value for sim device.
+						deviceConfigInfo->ModuleMainFWVersion = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstGciFirmwareVersion); //dummy value for sim device.
 						break;
 					case DalDeviceConfigUsageEnum::ModuleSerialNumber:
-						deviceConfigInfo->ModuleSerialNumber = L"Sim - 1234567890"; //dummy vale
+						//deviceConfigInfo->ModuleSerialNumber =  CrxMessagingManager::Instance->GetMessage("DAL_CONST_GCI_SERIAL_NUMBER"); //dummy vale
+						deviceConfigInfo->ModuleSerialNumber =  CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstGciSerialNumber); //dummy vale
 						break;
 					case DalDeviceConfigUsageEnum::ModuleType:
 						//lets the  requestor know which device it is.
-						deviceConfigInfo->ModuleType = L"Simulation";
+						deviceConfigInfo->ModuleType = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation);
+						break;
+					default:
 						break;
 				}
 
@@ -368,7 +375,7 @@ namespace AtCor{
 
 			//	try
 			//	{
-			//		dalErrorAlarmSourceName= "";
+			//		dalErrorAlarmSourceName= String::Empty;
 
 			//		switch( errorSourceEnum)
 			//		{
@@ -401,7 +408,7 @@ namespace AtCor{
 			//	static DalAlarmSource alarmSourceEnum;
 			//	alarmSourceEnum = safe_cast<DalAlarmSource>(sourceFlags);
 
-			//	dalErrorAlarmSourceName= "";
+			//	dalErrorAlarmSourceName= String::Empty;
 			//	CrxLogger::Instance->Write("Deepak>>> MapAlarmSourceToString sourceFlags:" + sourceFlags.ToString("X8"));
 
 			//	try
@@ -431,37 +438,7 @@ namespace AtCor{
 
 			//	return dalErrorAlarmSourceName;
 			//}
-
-		
-
-			//String^ DalSimulationHandler::GetErrorAlarmSource()
-			//{
-			//	static DalModuleErrorAlarmBitMask sourceFlagsEnum;
-			//	sourceFlagsEnum = safe_cast<DalModuleErrorAlarmBitMask>(_currentEAStatusFlag & 0x00000028);
-			//	CrxLogger::Instance->Write("GetErrorAlarmSource >>>>>>>> _currentEASourceFlag:" + _currentEASourceFlag.ToString("X8") + " sourceFlagsEnum:" + sourceFlagsEnum.ToString());
-
-			//	dalErrorAlarmSourceName= "";
-
-			//	switch (sourceFlagsEnum)
-			//	{
-			//		case DalModuleErrorAlarmBitMask::NoErrorAlarm:
-			//			dalErrorAlarmSourceName = Enum::Format(DalModuleErrorAlarmBitMask::typeid, sourceFlagsEnum, "G");
-			//			break;
-			//		case DalModuleErrorAlarmBitMask::ErrorStatus:
-			//			dalErrorAlarmSourceName = MapErrorSourceToString(_currentEASourceFlag  & 0x0000FFFF);
-			//			break;
-			//		case DalModuleErrorAlarmBitMask::AlarmStatus:
-			//			dalErrorAlarmSourceName = MapAlarmSourceToString((_currentEASourceFlag >> 16) & 0x0000FFFF);
-			//			break;
-			//		default:
-			//			dalErrorAlarmSourceName = "DALUnknownModuleStatus";
-			//			dalErrorAlarmSourceName = dalErrorAlarmSourceName +":" + _currentEASourceFlag.ToString();
-			//			//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-			//			throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
-			//			break;
-			//	}
-			//	return dalErrorAlarmSourceName;
-			//}
+			
 
 			//DalCuffStateFlags DalSimulationHandler::TranslateCuffStatusBits(unsigned long cuffStatusFlags) 
 			//{
@@ -540,6 +517,7 @@ namespace AtCor{
 			//	comPort = nullptr;
 			//	return true;
 			//}
+
 			bool DalSimulationHandler::CheckIfDeviceIsConnected()
 			{
 				return true;
@@ -547,65 +525,61 @@ namespace AtCor{
 			}
 
 
-		
+	//bool DalSimulationHandler::SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize)
+	//{	
+	//	unsigned short index = 0;
+	//	
+	//	// construct the file path, file contains captured waveform data and of same format
+	//	// as of the simulation file. (capture_DateTime.Dat).
+	//	String^ tempFilePath = ".\\simulation\\pwv\\";
+	//	String^ tempCapture = "capture_";
+	//	String^ tempFileExt = ".dat";
 
+	//	DateTime currentDateTime;
+	//	currentDateTime = System::DateTime::Now;
 
-	bool DalSimulationHandler::SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize)
-	{
-		
-		unsigned short index = 0;
-		
-		// construct the file path, file contains captured waveform data and of same format
-		// as of the simulation file. (capture_DateTime.Dat).
-		String^ tempFilePath = ".\\simulation\\pwv\\";
-		String^ tempCapture = "capture_";
-		String^ tempFileExt = ".dat";
+	//	try
+	//	{
 
-		DateTime currentDateTime;
-		currentDateTime = System::DateTime::Now;
+	//		//create the file name using current date time
+	//		String  ^ currentDateTimeStr = currentDateTime.ToString("yyyyMMMddHHmmss");
+	//		currentDateTimeStr = tempFilePath + tempCapture + currentDateTimeStr+ tempFileExt; 
+	//		
+	//		DalSimulationFile^ simulationOutputFile; //Pointer to first simulation file
+	//		simulationOutputFile = gcnew DalSimulationFile();
 
-		try
-		{
+	//		if(simulationOutputFile->CreateFile(currentDateTimeStr))
+	//		{
+	//			_savedDataFilePath = Directory::GetCurrentDirectory() + simulationOutputFile->filePath->Substring(1);
 
-			//create the file name using current date time
-			String  ^ currentDateTimeStr = currentDateTime.ToString("yyyyMMMddHHmmss");
-			currentDateTimeStr = tempFilePath + tempCapture + currentDateTimeStr+ tempFileExt; 
-			
-			DalSimulationFile^ simulationOutputFile; //Pointer to first simulation file
-			simulationOutputFile = gcnew DalSimulationFile();
-
-			if(simulationOutputFile->CreateFile(currentDateTimeStr))
-			{
-				_savedDataFilePath = Directory::GetCurrentDirectory() + simulationOutputFile->filePath->Substring(1);
-
-				while (index < bufferSize)
-				{
-					simulationOutputFile->SaveCurrentValues(tonometerData[index], cuffPulse[index]);
-					index++;
-				}
-			}
-			simulationOutputFile->CloseFile();
-			return true;
-		}
-		catch(ScorException ^)
-		{
-			throw;
-		}
-		catch(Exception ^excepObj)
-		{
-			throw gcnew ScorException(excepObj);
-		}
-	}
+	//			while (index < bufferSize)
+	//			{
+	//				simulationOutputFile->SaveCurrentValues(tonometerData[index], cuffPulse[index]);
+	//				index++;
+	//			}
+	//		}
+	//		simulationOutputFile->CloseFile();
+	//		return true;
+	//	}
+	//	catch(ScorException ^)
+	//	{
+	//		throw;
+	//	}
+	//	catch(Exception ^excepObj)
+	//	{
+	//		throw gcnew ScorException(excepObj);
+	//	}
+	//}
 
 			bool DalSimulationHandler::SetPressure(int newPressure, EM4CuffBoard cuffBoard)
 			{
 				return false; //not a valid command for simulation
 			}
 
-			String^ DalSimulationHandler::GetSavedFileName()
+			/*String^ DalSimulationHandler::GetSavedFileName()
 			{
 				return _savedDataFilePath;
-			}
+			}*/
 
 
 			bool DalSimulationHandler::CheckStatusFlag(unsigned long statusBytes, bool %cuffIsInflated)
@@ -614,9 +588,9 @@ namespace AtCor{
 				
 				//First break the status flag down into its two important sets
 				//cuff status related bits
-				cuffStatusBytes = statusBytes &0x2F00;
+				cuffStatusBytes = statusBytes & (unsigned long)DalStatusFlagBitMask::CuffStatusBitsMask;
 				//and Error-Alarm event related bits
-				errorAlarmStatusBytes =statusBytes & 0x0028;
+				errorAlarmStatusBytes =statusBytes & (unsigned long)DalStatusFlagBitMask::ErrorAlarmStatusBitsMask;
 				//CrxLogger::Instance->Write("statusBytes:" + statusBytes.ToString("X4") +" cuffStatusBytes:" + cuffStatusBytes.ToString("X4") + " errorAlarmStatusBytes:"+errorAlarmStatusBytes.ToString("X4") );
 				
 			

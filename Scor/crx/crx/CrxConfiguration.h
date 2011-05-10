@@ -8,10 +8,14 @@
      Description  :      Declaration for Cross-cutting Configuration namespace
 */
 
+
+
 #pragma once
+
 
 using namespace System;
 using namespace System::Xml;
+
 
 
 /**
@@ -43,6 +47,136 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		CrxPwvCapture20Seconds			= 20,
 		
 	};	
+
+	/**
+	 * @struct CrxConfigStructInternal
+	 * @brief Container for internal string. 	
+	 */
+	private ref struct CrxConfigStructInternal
+	{
+		static String^ ConfigFilePath = ".\\system\\config\\scor.config";
+		static String^ DefaultEnvironment = "Clinical";
+
+
+	};
+
+	/**
+	 * @struct CrxConfigXmlTag
+	 * @brief Container for config file tags. 	
+	 */
+	private ref struct CrxConfigXmlTag
+	{
+		static String^ General = "GENERAL";
+		static String^ Default = "DEFAULT";
+		static String^ User = "USER";
+		static String^ Pwv = "PWV";
+		static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'REFERENCERANGE', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT'";
+		static String^ TagSeparator	=	"'";
+		static String^ CheckYesNoValue = "'NO', 'YES'";
+		static String^ StartUpScreenValue = "'SETUP'";
+		static String^ UpperYES = "YES";
+		//Commented to reduce FxCop warning. Uncomment it to use when neccessary
+		//static String^ UpperNO = "NO";
+		static String^ LowerYes = "Yes";
+		static String^ LowerNo = "No";
+		static String^ Blank = " ";
+
+		static String^ PatientPrivacy = "PATIENTPRIVACY";
+		static String^ HeightAndWeightUnits = "HEIGHTANDWEIGHTUNITS";
+		static String^ BloodPressureEntryOptions = "BLOODPRESSUREENTRYOPTIONS";
+		static String^ CommsPort = "COMMSPORT";
+		static String^ ReportTitle = "REPORTTITLE";
+		static String^ ReportLogoPath = "REPORTLOGOPATH";
+		static String^ ServerName = "SERVERNAME";
+		static String^ SourceData = "SOURCEDATA";
+		static String^ CultureInfo = "CULTUREINFO";
+		static String^ MachineName = "MACHINENAME";
+		static String^ StartupMode = "STARTUPMODE";
+		static String^ StartupScreen = "STARTUPSCREEN";
+		static String^ PrinterName = "PRINTERNAME";
+
+		static String^ PwvDistanceMethod = "PWVDISTANCEMETHOD";
+		static String^ FemoralToCuff = "FEMORALTOCUFF";
+		static String^ PwvDistanceUnits = "PWVDISTANCEUNITS";
+		static String^ CaptureTime = "CAPTURETIME";
+		static String^ ReferenceRange = "REFERENCERANGE";
+		static String^ SimulationType = "SIMULATIONTYPE";
+		static String^ DefaultReport  = "DEFAULTREPORT";
+	};
+
+	/**
+	 * @struct CrxConfigHeightandWeightUnits
+	 * @brief Container for CrxConfigHeightandWeightUnits. 	
+	 */
+	private ref struct CrxConfigHeightandWeightUnits
+	{
+		static String^ Metric = "METRIC";
+		//Commented to reduce FxCop warning. Uncomment it to use when neccessary
+		//static String^ Imperial = "IMPERIAL";
+
+		static String^ MetricSetValue = "Metric";
+		static String^ ImperialSetValue = "Imperial";
+
+		static String^ CompareStr = "'METRIC', 'IMPERIAL'";
+	};
+
+	/**
+	 * @struct CrxConfigBloodPressureOption
+	 * @brief Container for BloodPressureOption. 	
+	 */
+	private ref struct CrxConfigBloodPressureOption
+	{
+		static String^ SPandDP = "SPANDDP";
+		static String^ SPandMP = "SPANDMP";
+		static String^ MPandDP = "MPANDDP";
+
+		static String^ SPandDPSetValue = "SP and DP";
+		static String^ SPandMPSetValue = "SP and MP";
+		static String^ MPandDPSetValue = "MP and DP";
+
+	};
+
+	/**
+	 * @struct CrxConfigPwvDistanceUnits
+	 * @brief Container for PwvDistanceUnits. 	
+	 */
+	private ref struct CrxConfigPwvDistanceUnits
+	{
+		static String^ MM = "MM";	
+		static String^ CompareStr = "'MM', 'CM'";
+
+		static String^ MMSetValue = "mm";
+		static String^ CMSetValue = "cm";		
+	};
+
+	/**
+	 * @struct CrxConfigPwvDistanceMethods
+	 * @brief Container for PwvDistanceMethods. 	
+	 */
+	private ref struct CrxConfigPwvDistanceMethods
+	{		
+		static String^ Subtracting = "SUBTRACTING";
+
+		static String^ SubtractingSetValue = "Subtracting";
+		static String^ DirectSetValue = "Direct";
+
+		static String^ CompareStr = "'SUBTRACTING', 'DIRECT'";
+	};
+
+	/**
+	 * @struct CrxConfigCaptureTime
+	 * @brief Container for CaptureTime. 	
+	 */
+	private ref struct CrxConfigCaptureTime
+	{
+		static String^ FiveSeconds		= "5SECONDS";
+		static String^ TenSeconds		= "10SECONDS";
+		static String^ TwentySeconds	= "20SECONDS";
+
+		static String^ FiveSecondsSetValue		= "5 seconds";
+		static String^ TenSecondsSetValue		= "10 seconds";
+		static String^ TwentySecondsSetValue	= "20 seconds";		
+	};
 
 	// Declaring global static numbers for structure variables
 	/**
@@ -141,6 +275,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		int PWVDistanceMethod;	/**<0 : if substracting is selected, 1: if direct is selected */
 		int CaptureTime;		/**<5 : if 5 seconds is selected 10:10 seconds is selected 20:20 seconds is selected */
 		String^ SimulationType;	/**< Shows the String Selected*/
+		String^ DefaultReport;	/**< Shows the default report string selected*/
 		
 		/**
 		* Default constructor to initialize the structure members
@@ -151,8 +286,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			ReferenceRange		= false;
 			PWVDistanceUnits	= 0;
 			PWVDistanceMethod	= 0;
-			CaptureTime			= 5;
-			SimulationType		= nullptr;			
+			CaptureTime			= Convert::ToInt32(CrxGenPwvValue::CrxPwvCapture5Seconds); 
+			SimulationType		= nullptr;
+			DefaultReport		= nullptr;
 		}
 	};
 
@@ -165,13 +301,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 	public ref class CrxConfigManager
 	{
 		private:
-			
-			//Declaring Static variables names for exception numbers
-			static const int CRXERR_FILE_NOT_EXIST	= 101;
-			static const int CRXERR_CORRUPT_FILE	= 100;
-			static const int CRXERR_FILE_NOT_ACCESS = 103;
-			static const int CRXERR_UNKNOWN_EXCEPN	= 104;
-
+						
 			//singleton instance
 			static CrxConfigManager^ _instance = gcnew CrxConfigManager();
 			
@@ -195,7 +325,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			CrxConfigManager()
 			{
                 //set path of the configuration file, this is hard coded as it will always point to system\config folder.
-                _nameOfFile = L".\\system\\config\\scor.config";
+				_nameOfFile = CrxConfigStructInternal::ConfigFilePath;
 
 				//Create instance General Settings Structure
 				_generalSettings = gcnew CrxStructGeneralSetting();
@@ -316,6 +446,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetCaptureTime(String^ SubSection, String^ ReaderValue);
 			//Get Simulation Type value from config file
 			void GetSimulationType(String^ SubSection, String^ ReaderValue);
+			//Get Default Report value from config file
+			void GetDefaultReport(String^ SubSection, String^ ReaderValue);
 	
 			//-------------------Set PWV Setting User Values-------------------
 			//Set Femoral Cuff in config file
@@ -330,6 +462,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void SetCaptureTime(CrxStructPwvSetting^ ps, XmlNode^ node);
 			//Set Simulation Type value in config file
 			void SetSimulationType(CrxStructPwvSetting^ ps, XmlNode^ node);
+			//Set Default Report value from config file
+			void SetDefaultReport(CrxStructPwvSetting^ ps, XmlNode^ node);
+
 			
 
 	public:

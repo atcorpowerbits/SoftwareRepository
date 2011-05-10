@@ -17,13 +17,6 @@
 
 using namespace AtCor::Scor::CrossCutting::Logging;
 using namespace AtCor::Scor::CrossCutting::Messaging;
-using namespace System::Diagnostics;
-using namespace System;
-using namespace System::Collections::Generic;
-using namespace  Microsoft::Practices::EnterpriseLibrary::Logging;
-using namespace System::IO;
-using namespace AtCor::Scor::CrossCutting;
-
 
 //Constructor for CrxLogger
 CrxLogger::CrxLogger()
@@ -45,17 +38,17 @@ void CrxLogger::Write(String^ message)
 		String^ headerString;
 		CrxMessagingManager ^messageMgr = CrxMessagingManager::Instance;
 
-		String ^headerSeperator = messageMgr->GetMessage("CRX_LOG_FILE_HEADER_SEPERATOR");
+		String ^headerSeperator = messageMgr->GetMessage(CrxStructCommonResourceMsg::CrxLogFileHeaderSeperator);
 
 		//this is the first line write a header
 		//then proceed to next line
-		headerString = messageMgr->GetMessage("CRX_LOG_FILE_HEADER_LINE")+ headerSeperator + (DateTime::Today).ToString("dd/MM/yyyy") + headerSeperator + (DateTime::Now).ToString("HH:mm:ss");
+		headerString = messageMgr->GetMessage(CrxStructCommonResourceMsg::CrxLogFileHeaderLine)+ headerSeperator + (DateTime::Today).ToString("dd/MM/yyyy") + headerSeperator + (DateTime::Now).ToString("HH:mm:ss");
 
 
 		//open a stream writer and log an entry directly.
 		//We cant  use the Loggers methods because it formats a log entry from the string.
 		StreamWriter ^curLogFileFileStream;
-		curLogFileFileStream = gcnew StreamWriter(File::Open("system\\logs\\scor.log", FileMode::Append)); //open in append mode.
+		curLogFileFileStream = gcnew StreamWriter(File::Open(CrxLogStructInternal::LogFilePath, FileMode::Append)); //open in append mode.
 		//write the header line
 		curLogFileFileStream->WriteLine(headerString);
 		//insert a blank line
@@ -89,23 +82,23 @@ void CrxLogger::GetLastWrittenLineNumber()
 	 String^ lastLineNumber;
 
 	//check if there is a current log file
-	if (File::Exists("system\\logs\\scor.log"))
+	 if (File::Exists(CrxLogStructInternal::LogFilePath))
 	{
 		try
 		{
 		//open it 
 			
-		curLogFileFileStream =File::OpenText("system\\logs\\scor.log");
+			curLogFileFileStream =File::OpenText(CrxLogStructInternal::LogFilePath);
 
-		//create a string and read the entire file
-		String ^fileStr = curLogFileFileStream->ReadToEnd();
-		//obtain the last newline. Note THere is always a newline at the end of the file. Hence -5.
-		//then using this penultimate newline get the last line.
+			//create a string and read the entire file
+			String ^fileStr = curLogFileFileStream->ReadToEnd();
+			//obtain the last newline. Note THere is always a newline at the end of the file. Hence -5.
+			//then using this penultimate newline get the last line.
 			fileStr = fileStr->Trim();
-       String ^lastLine = fileStr->Substring(fileStr->LastIndexOf('\n',(fileStr->Length) - 5) + 1);
-		   lastLine = lastLine->Trim();
-		//get the first part of this string
-		   lastLineNumber =  lastLine->Substring(0, lastLine->IndexOf(' '));
+			String ^lastLine = fileStr->Substring(fileStr->LastIndexOf('\n',(fileStr->Length) - 5) + 1);
+			lastLine = lastLine->Trim();
+			//get the first part of this string
+			lastLineNumber =  lastLine->Substring(0, lastLine->IndexOf(' '));
 		}
 		catch(Exception^ excepObj)
 		{
@@ -145,17 +138,17 @@ bool CrxLogger::RollLogFile()
 	  nowDateTime = System::DateTime::Now;
 
 	  //create the file name using current date time
-	  String  ^ nowDateTimeStr = nowDateTime.ToString("yyyyMMMddHHmmss");
-	  nowDateTimeStr = "system\\logs\\scor_"+ nowDateTimeStr+".log"; 
+	  String  ^ nowDateTimeStr = nowDateTime.ToString(CrxLogStructInternal::DateTimeFormat);
+	  nowDateTimeStr = CrxLogStructInternal::LogFileName + nowDateTimeStr+ CrxLogStructInternal::LogFileExt; 
 
 	  try
 	  {
 		  //rename the current file to the new filename
-		File::Move("system\\logs\\scor.log", nowDateTimeStr);
+		  File::Move(CrxLogStructInternal::LogFilePath, nowDateTimeStr);
 	  }
 	  catch(Exception ^)
 	  {
-		  throw gcnew ScorException(CRX_ERR_FILE_ALREADY_EXIST, "CRX_ERR_FILE_ALREADY_EXIST", ErrorSeverity::Exception);
+		  throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileAlreadyExistErrCd, CrxStructCommonResourceMsg::CrxErrFileAlreadyExist, ErrorSeverity::Exception);
 	  }
 	
 	  //now recreate the log file again . it will begin from scor.log

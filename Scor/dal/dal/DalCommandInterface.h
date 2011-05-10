@@ -14,10 +14,12 @@
 #include "DalCommon.h"
 #include "DalEM4Command.h"
 #include "DalEM4DataCapturePacket.h"
+#include "DalStatusHandler.h"
 
 using namespace System;
 using namespace System::IO::Ports;
 using namespace System::Threading;
+using namespace System::Timers;
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -43,6 +45,12 @@ namespace AtCor{
 				private:
 					
 					static unsigned char _sentPacketSequenceNumber;
+					static unsigned char _packetSequenceMaxValue = 0x0F;
+					static unsigned char _packetSequenceMinValue = 0x00;
+					static int _tonometerDataIndex = 0;
+					static int _cuffPulseDataIndex = 2;
+					static int _cuffPressureDataIndex = 4;
+					static int _countdownTimerDataIndex = 6;
 
 					static DalCommandInterface^ _instance = gcnew DalCommandInterface();
 					DalCommandInterface^ operator= (const DalCommandInterface);
@@ -51,7 +59,10 @@ namespace AtCor{
 					DalReturnValue ValidateCommandResult(DalEM4Command^ serialCommand, DalReturnValue responseReturnValue);
 
 					SerialPort ^_serialPort;
-					//static Mutex^ lockAndWriteMutex = gcnew Mutex();
+
+					Timers::Timer^ streamingStoppedCheckTimer;  //A timer to check whether the serial port data streaming has stopped.
+					
+
 					
 				internal:
 					
@@ -137,9 +148,9 @@ namespace AtCor{
 							unsigned char returnValue;
 							
 							returnValue = _sentPacketSequenceNumber++;
-							if (_sentPacketSequenceNumber >0x0F)
+							if (_sentPacketSequenceNumber > _packetSequenceMaxValue)
 							{
-								_sentPacketSequenceNumber = 0x00;
+								_sentPacketSequenceNumber = _packetSequenceMinValue;
 							}
 							
 							return returnValue;
@@ -249,9 +260,40 @@ namespace AtCor{
 					* @param[in]	currentDataPacket	The data packet to be dumped. 
 					*/
 					static bool DumpInputBufferOnFailure(SerialPort^ serialPort, array<unsigned char> ^currentDataPacket);
-					
 
 
+					/** 
+					* Processes the input buffer for data packets. @n
+					* Reads multiple data packets in a loop and writes them to the circula buffer.
+					* @param[in]	sender	Event sender. 
+					* @param[in]	e	Event arguments
+					* @see DataCaptureMultiplePacketHandler
+					*/
+					static void ReadFromPortAndWriteToBuffer(Object^ sender, SerialDataReceivedEventArgs^ e);
+
+					/** 
+					* Searches for the response to a particulr serial command in a large array. @n
+					* @param[in]	serialCommand	The command whose response we need to search in the array. 
+					* @param[in]	sourceArray		The array in which the search is conducted
+					* @return		A boolan value indicating the status of the operation: @n
+					*				@c true if a valid response to the command was found( can be an Ack or nack)
+					*				@c false if no response was found.
+					*/
+					bool ExtractRequiredResponseFromArray(DalEM4Command^ serialCommand, array <unsigned char> ^ sourceArray);
+
+
+					/**
+					* Event handler to check if data buffer is empty.
+					* Increments a counter if the buffer is empty and resets it to zero
+					* if it is not . If the counter reaches @ref DalConstants::MaxStreamingTimeoutOccurrences 
+					* then it raises an OnDalModuleErrorAlarmEvent
+					*
+					* @param[in]	sender	The object that raised this event.
+					* @param[out]	args	The timer event arguments.
+					*
+					*/
+					static void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args);
+			
 			};
 		}
 	}

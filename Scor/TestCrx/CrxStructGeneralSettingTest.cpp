@@ -1,7 +1,9 @@
 ﻿
 #include "StdAfx.h"
+
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting::Configuration;
+
 namespace TestCrx {
     using namespace System;
     ref class CrxStructGeneralSettingTest;

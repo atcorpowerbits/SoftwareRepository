@@ -1,7 +1,9 @@
 ﻿
 #include "StdAfx.h"
+
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting::Configuration;
+
 namespace TestCrx {
     using namespace System;
     ref class CrxStructPwvSettingTest;
@@ -70,12 +72,12 @@ namespace TestCrx {
 				CrxStructPwvSetting^  target = (gcnew CrxStructPwvSetting());
 				Assert::IsNotNull(target);
 
-					Assert::IsFalse(target->FemoralToCuff);
-					Assert::IsFalse(target->ReferenceRange);
-					Assert::AreEqual(target->PWVDistanceUnits, 0);
-					Assert::AreEqual(target->PWVDistanceMethod, 0);
-					Assert::AreEqual(target->CaptureTime, 5);
-					Assert::IsNull(target->SimulationType);			
+				Assert::IsFalse(target->FemoralToCuff);
+				Assert::IsFalse(target->ReferenceRange);
+				Assert::AreEqual(target->PWVDistanceUnits, 0);
+				Assert::AreEqual(target->PWVDistanceMethod, 0);
+				Assert::AreEqual(target->CaptureTime, 5);
+				Assert::IsNull(target->SimulationType);			
 		}
 	};
 }

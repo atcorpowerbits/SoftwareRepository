@@ -14,6 +14,7 @@
 
 using namespace AtCor::Scor::DataAccess;
 using namespace AtCor::Scor::CrossCutting::Logging;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace AtCor::Scor::CrossCutting;
 
 
@@ -27,7 +28,7 @@ using namespace AtCor::Scor::CrossCutting;
 		{
 			//throw gcnew DalException("DAL_ERR_FILE_NOT_SET"); 
 			//File not specified
-			throw gcnew ScorException(1004, "DAL_ERR_FILE_NOT_SET", ErrorSeverity::Exception);
+			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrFileNotSetErrCd, CrxStructCommonResourceMsg::DalErrFileNotSet, ErrorSeverity::Exception);
 		}
 
 		try
@@ -44,7 +45,7 @@ using namespace AtCor::Scor::CrossCutting;
 		if(openFileStream->Length  == 0)
 		{
 			//"The selected simulation file is empty. Please select another simulation file."
-			throw gcnew ScorException(1003, "DAL_ERR_EMPT_SIMULATION_FILE", ErrorSeverity::Exception);
+			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrEmptSimulationFileErrCd, CrxStructCommonResourceMsg::DalErrEmptSimulationFile, ErrorSeverity::Exception);
 			
 		}
 		else
@@ -105,7 +106,7 @@ using namespace AtCor::Scor::CrossCutting;
 		if (reader == nullptr)
 		{
 			 //Simulation file has not been opened before attempting to read
-			throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
 		}
 		
 		//Check if we have reached end of file and reset pointer to the start.
@@ -132,7 +133,7 @@ using namespace AtCor::Scor::CrossCutting;
 		if (reader == nullptr)
 		{
 			//Simulation file has not been opened before attempting to read
-			throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
 		}
 		
 		//Check if we have reached end of file and reset pointer to the start
@@ -145,7 +146,7 @@ using namespace AtCor::Scor::CrossCutting;
 		singleLine = reader->ReadLine();
 
 		//extract three substrings from this file
-		DataStrings = singleLine->Split('\t', 4); //four substrings
+		DataStrings = singleLine->Split(DalFormatterStrings::tabSeparator, 4); //four substrings
 
 		//parse individual values 
 		*value1 = (short)Single::Parse(DataStrings[0]);
@@ -172,7 +173,7 @@ using namespace AtCor::Scor::CrossCutting;
 
 bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse)
 {
-	String ^singleLine = tonometerData.ToString() + "\t" + cuffPulse.ToString();
+	String ^singleLine = tonometerData.ToString() + DalFormatterStrings::tabSeparatorString + cuffPulse.ToString();
 
 	try
 	{
@@ -181,7 +182,7 @@ bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned
 	}
 	catch(System::Exception^)
 	{
-		throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
 	}
 }
 
@@ -198,7 +199,7 @@ bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned
 	}
 	catch(Exception^)
 	{
-		throw gcnew ScorException(1008, "CRX_ERR_FILE_CANNOT_ACC", ErrorSeverity::Exception);
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
 	}
 }
 

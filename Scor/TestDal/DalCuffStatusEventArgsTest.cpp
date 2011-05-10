@@ -62,18 +62,18 @@ namespace TestDal {
 			//
 #pragma endregion
 			/// <summary>
-			///A test for data
+			///A test for data 
 			///</summary>
 	public: [TestMethod]
 			void dataTest()
 			{
 				DalCuffStateFlags data = DalCuffStateFlags::CUFF_STATE_DISCONNECTED ; 
 				DalCuffStatusEventArgs^  target = (gcnew DalCuffStatusEventArgs(data)); 
-				DalCuffStateFlags expected = DalCuffStateFlags::CUFF_STATE_DISCONNECTED; 
-				DalCuffStateFlags actual;
-				target->CuffStateFlag = expected;
-				actual = target->CuffStateFlag;
-				Assert::AreEqual(expected, actual);
+				//DalCuffStateFlags expected = DalCuffStateFlags::CUFF_STATE_DISCONNECTED; 
+				//DalCuffStateFlags actual;
+				//target->CuffStateFlag = expected;
+				//actual = target->CuffStateFlag;
+				Assert::AreEqual(data, target->CuffStateFlag);
 			}
 			/// <summary>
 			///A test for DalCuffStatusEventArgs Constructor
@@ -84,6 +84,7 @@ namespace TestDal {
 				DalCuffStateFlags data = DalCuffStateFlags::CUFF_STATE_INFLATING; 
 				DalCuffStatusEventArgs^  target = (gcnew DalCuffStatusEventArgs(data));
 				Assert::IsNotNull(target);
+				Assert::AreEqual(data, target->CuffStateFlag); 
 			}
 	};
 }

@@ -1,7 +1,7 @@
 /*
      Copyright (C) ATCOR MEDICAL PTY LTD, 2010
  
-	 Filename     :      IDalHandler.cpp
+	 Filename     :      DalStatusHandler.cpp
         
      Author       :		 Deepak D'Souza
  
@@ -15,7 +15,7 @@
 #include "DalDataBuffer.h"
 #include "DalModule.h"
 #include "DalCommon.h"
-#include "IDalHandler.h"
+#include "DalStatusHandler.h"
 
 
 using namespace System;
@@ -36,26 +36,26 @@ namespace AtCor{
 			String^ DalStatusHandler::GetErrorAlarmSource()
 			{
 				static DalModuleErrorAlarmBitMask sourceFlagsEnum;
-				sourceFlagsEnum = safe_cast<DalModuleErrorAlarmBitMask>(_currentEAStatusFlag & 0x00000028);
+				sourceFlagsEnum = safe_cast<DalModuleErrorAlarmBitMask>(_currentEAStatusFlag & (unsigned long)DalStatusFlagBitMask::ErrorAlarmStatusBitsMask ); //previously 0x00000028
 				//CrxLogger::Instance->Write("GetErrorAlarmSource >>>>>>>> _currentEASourceFlag:" + _currentEASourceFlag.ToString("X8") + " sourceFlagsEnum:" + sourceFlagsEnum.ToString()); //Logging only
 
-				dalErrorAlarmSourceName= "";
+				dalErrorAlarmSourceName= String::Empty;
 
 				switch (sourceFlagsEnum)
 				{
 					case DalModuleErrorAlarmBitMask::NoErrorAlarm:
-						dalErrorAlarmSourceName = Enum::Format(DalModuleErrorAlarmBitMask::typeid, sourceFlagsEnum, "G");
+						dalErrorAlarmSourceName = Enum::Format(DalModuleErrorAlarmBitMask::typeid, sourceFlagsEnum, DalFormatterStrings::PrintEnumName);
 						break;
 					case DalModuleErrorAlarmBitMask::ErrorStatus:
-						dalErrorAlarmSourceName = MapErrorSourceToString(_currentEASourceFlag  & 0x0000FFFF);
+						dalErrorAlarmSourceName = MapErrorSourceToString(_currentEASourceFlag  & (unsigned long)DalStatusFlagBitMask::ErrorAlarmSourceBitMask );
 						break;
 					case DalModuleErrorAlarmBitMask::AlarmStatus:
-						dalErrorAlarmSourceName = MapAlarmSourceToString((_currentEASourceFlag >> 16) & 0x0000FFFF);
+						dalErrorAlarmSourceName = MapAlarmSourceToString((_currentEASourceFlag >> 16) & (unsigned long)DalStatusFlagBitMask::ErrorAlarmSourceBitMask);
 						break;
 					default:
 						dalErrorAlarmSourceName = _currentEASourceFlag.ToString();
 						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag, ErrorSeverity::Warning);
 						break;
 				}
 				return dalErrorAlarmSourceName;
@@ -106,18 +106,18 @@ namespace AtCor{
 
 				try
 				{
-					dalErrorAlarmSourceName= "";
+					dalErrorAlarmSourceName= String::Empty;
 
 					switch( errorSourceEnum)
 					{
 						case DalErrorSource::CuffLeak :
 						case DalErrorSource::DualSensors :
-							dalErrorAlarmSourceName = Enum::Format(DalErrorSource::typeid, errorSourceEnum, "G");
+							dalErrorAlarmSourceName = Enum::Format(DalErrorSource::typeid, errorSourceEnum, DalFormatterStrings::PrintEnumName);
 							break;
 						default:
 							dalErrorAlarmSourceName = sourceFlags.ToString();
 							//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-							throw gcnew ScorException(1007, "DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning );
+							throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag, ErrorSeverity::Warning );
 							break;
 					}
 				}
@@ -138,7 +138,7 @@ namespace AtCor{
 				static DalAlarmSource alarmSourceEnum;
 				alarmSourceEnum = safe_cast<DalAlarmSource>(sourceFlags);
 
-				dalErrorAlarmSourceName= "";
+				dalErrorAlarmSourceName= String::Empty;
 				//CrxLogger::Instance->Write("Deepak>>> MapAlarmSourceToString sourceFlags:" + sourceFlags.ToString("X8"));
 
 				try
@@ -147,12 +147,11 @@ namespace AtCor{
 					{
 						case DalAlarmSource::OverPressure:
 						case DalAlarmSource::InflatedOverTime:
-							dalErrorAlarmSourceName = Enum::Format(DalAlarmSource::typeid, alarmSourceEnum, "G");
+							dalErrorAlarmSourceName = Enum::Format(DalAlarmSource::typeid, alarmSourceEnum, DalFormatterStrings::PrintEnumName);
 							break;
 						default:
 							dalErrorAlarmSourceName = sourceFlags.ToString();
-							//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-							throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
+							throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag, ErrorSeverity::Warning);
 							break;
 					}
 				}
@@ -172,7 +171,7 @@ namespace AtCor{
 			DalCuffStateFlags DalStatusHandler::TranslateCuffStatusBits(unsigned long cuffStatusFlags) 
 			{
 				static DalCuffStateFlags data;
-				data = (DalCuffStateFlags)(cuffStatusFlags & 0x2F00);
+				data = (DalCuffStateFlags)(cuffStatusFlags & (unsigned long)DalStatusFlagBitMask::CuffStatusBitsMask );
 	
 				switch (data)
 				{
@@ -193,7 +192,7 @@ namespace AtCor{
 						break;
 					default:
 						data = DalCuffStateFlags::CUFF_STATE_UNKNOWN;
-						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag,ErrorSeverity::Warning);
 						break;
 				}
 				return data;
@@ -207,7 +206,7 @@ namespace AtCor{
 
 				//This was an error and it has been corrected 0x2F00 > 0x0028
 				//data = (DalModuleErrorAlarmBitMask)(statusFlags & 0x2F00);
-				data = (DalModuleErrorAlarmBitMask)(statusFlags & 0x0028);
+				data = (DalModuleErrorAlarmBitMask)(statusFlags & (unsigned long)DalStatusFlagBitMask::CuffStatusBitsMask);
 				//errorAlarmStatusBytes =statusBytes & 0x0028;
 				
 				switch (data)
@@ -227,7 +226,7 @@ namespace AtCor{
 					default:
 						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
 						//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-						throw gcnew ScorException(1007,"DAL_ERR_UNKNOWN_BIT_FLAG", ErrorSeverity::Warning);
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag, ErrorSeverity::Warning);
 						break; 
 				}
 
@@ -237,17 +236,87 @@ namespace AtCor{
 			}
 
 			String^ DalStatusHandler::ConvertBytesToString(array<unsigned char>^ inputArray)
+			{
+				String ^ packetData = String::Empty ;
+
+				for each (unsigned char singleByte in inputArray)
+				{
+					packetData += singleByte.ToString(DalFormatterStrings::PrintByte);
+				}
+
+				return packetData;
+
+			}
+
+
+			bool DalStatusHandler::SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize)
+			{
+				
+				unsigned short index = 0;
+				
+				// construct the file path, file contains captured waveform data and of same format
+				// as of the simulation file. (capture_DateTime.Dat).
+				//String^ tempFilePath = ".\\simulation\\pwv\\";
+				//String^ tempFilePath = CrxMessagingManager::Instance->GetMessage("DAL_CONST_SIM_FOLDER_PATH"); //TODO: put this somewhere too
+				String^ tempFilePath = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPath); //TODO: put this somewhere too
+				//String^ tempCapture = "capture_";
+				//String^ tempCapture =  CrxMessagingManager::Instance->GetMessage("DAL_CONST_CAPTURE_FILE_PREFIX"); //TODO
+				String^ tempCapture =  CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstCaptureFilePrefix); //TODO
+				//String^ tempFileExt = ".dat";
+				//String^ tempFileExt = CrxMessagingManager::Instance->GetMessage("DAL_CONST_DAT_FILE_EXTN");
+				String^ tempFileExt = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstDatFileExtn);
+
+				DateTime currentDateTime;
+				currentDateTime = System::DateTime::Now;
+
+				try
+				{
+
+					//create the file name using current date time
+					String  ^ currentDateTimeStr = currentDateTime.ToString(DalFormatterStrings::FullDateTimeFormat );
+					currentDateTimeStr = tempFilePath + tempCapture + currentDateTimeStr+ tempFileExt; 
+					
+					DalSimulationFile^ simulationOutputFile; //Pointer to first simulation file
+					simulationOutputFile = gcnew DalSimulationFile();
+
+					if(simulationOutputFile->CreateFile(currentDateTimeStr))
 					{
-						String ^ packetData = String::Empty ;
+						//Remove the duplicate backslashes from the string 
+						String^ str = simulationOutputFile->filePath->Replace(DalFormatterStrings::FourSlashes , DalFormatterStrings::TwoSlashes );  
+													
+						//save the filepath to a variable.
+						//this variable will be called by another funciton to get the value
 
-						for each (unsigned char singleByte in inputArray)
+						//remove the dot at the begining
+						_savedDataFilePath = Directory::GetCurrentDirectory() + str->Substring(1);  
+
+						while (index < bufferSize)
 						{
-							packetData += singleByte.ToString("X2");
+							simulationOutputFile->SaveCurrentValues(tonometerData[index], cuffPulse[index]);
+							index++;
 						}
-
-						return packetData;
-
 					}
+					simulationOutputFile->CloseFile();
+					return true;
+				}
+				catch(ScorException ^)
+				{
+					return false;
+				}
+				catch(Exception ^)
+				{
+					return false;
+				}
+			}
+			
+			String^ DalStatusHandler::GetSavedFileName()
+			{
+				String^ returnValue = _savedDataFilePath;
+				_savedDataFilePath  = String::Empty;
+				return returnValue;
+			}
+
+
 		} //End of DataAccess namespace
 	}
 }

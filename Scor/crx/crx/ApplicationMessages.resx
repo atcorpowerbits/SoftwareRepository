@@ -121,7 +121,7 @@
     <value>Unknown Error.</value>
   </data>
   <data name="CRX_ERR_FILE_NOT_EXIST" xml:space="preserve">
-    <value>File does not exist.</value>
+    <value>System Configuration file does not exist.</value>
   </data>
   <data name="STARTSTR" xml:space="preserve">
     <value>Scor application loaded successfully.</value>
@@ -156,7 +156,7 @@
   <data name="LBL_TIMESTATUS" xml:space="preserve">
     <value>Time to Deflation</value>
   </data>
-  <data name="LBL_PATIENTNAME" xml:space="preserve">
+  <data name="LBL_PATIENT_DEFAULT_NAME" xml:space="preserve">
     <value>Default Patient</value>
   </data>
   <data name="APP_MSG" xml:space="preserve">
@@ -232,7 +232,7 @@
     <value>PWV Distance Method</value>
   </data>
   <data name="RAD_SUBTRACTING" xml:space="preserve">
-    <value>Subtracting (sternal notch to cuff – sternal notch to carotid)</value>
+    <value>Subtraction (sternal notch to cuff – sternal notch to carotid)</value>
   </data>
   <data name="RAD_DIRECT" xml:space="preserve">
     <value>Direct (carotid to cuff)</value>
@@ -334,10 +334,10 @@
     <value>Information</value>
   </data>
   <data name="CRX_ERR_FILE_CORRUPT" xml:space="preserve">
-    <value>File corrupted.</value>
+    <value>System Configuration file is corrupted.</value>
   </data>
   <data name="CRX_ERR_FILE_CANNOT_ACCESS" xml:space="preserve">
-    <value>File cannot be accessed.</value>
+    <value>System Configuration file cannot be accessed.</value>
   </data>
   <data name="CRX_ERR_MESSAGING_GENERAL" xml:space="preserve">
     <value>An exception occured in Messaging component.</value>
@@ -465,7 +465,7 @@
     <value>Direct</value>
   </data>
   <data name="DIRECT_METHOD" xml:space="preserve">
-    <value>Direct method</value>
+    <value>Direct method:</value>
   </data>
   <data name="DP" xml:space="preserve">
     <value>DP</value>
@@ -510,13 +510,13 @@
     <value>kg</value>
   </data>
   <data name="LABEL_CAROTID" xml:space="preserve">
-    <value>Carotid*:</value>
+    <value>Carotid to Sternal Notch*:</value>
   </data>
   <data name="LABEL_CUFF" xml:space="preserve">
-    <value>Cuff*:</value>
+    <value>Sternal Notch to Cuff*:</value>
   </data>
   <data name="LABEL_DIRECT" xml:space="preserve">
-    <value>Direct*:</value>
+    <value>Carotid To Cuff*:</value>
   </data>
   <data name="LABEL_DP" xml:space="preserve">
     <value>DP:</value>
@@ -531,7 +531,7 @@
     <value>SP:</value>
   </data>
   <data name="LABEL_SUBTRACTING" xml:space="preserve">
-    <value>Subtracting Method:</value>
+    <value>Subtraction Method:</value>
   </data>
   <data name="LBL_DOB" xml:space="preserve">
     <value>Date of Birth*:</value>
@@ -564,7 +564,7 @@
     <value>Patients</value>
   </data>
   <data name="LBL_PATIENT_ID" xml:space="preserve">
-    <value>Patient Id:</value>
+    <value>Patient ID:</value>
   </data>
   <data name="LBL_WEIGHT" xml:space="preserve">
     <value>Weight:</value>
@@ -636,7 +636,7 @@
     <value>SP</value>
   </data>
   <data name="SUBTRACTING_METHOD" xml:space="preserve">
-    <value>Subtracting method</value>
+    <value>Subtraction method:</value>
   </data>
   <data name="TRANSFER_PATIENT" xml:space="preserve">
     <value>Would you like to transfer the patient’s existing records to this group?</value>
@@ -645,7 +645,7 @@
     <value>Year</value>
   </data>
   <data name="GROUPNAME_EMPTY" xml:space="preserve">
-    <value>Group name is empty</value>
+    <value>Group name is empty.</value>
   </data>
   <data name="GROUPNAME_EXISTS" xml:space="preserve">
     <value>Select a valid group name from list.</value>
@@ -690,7 +690,7 @@
     <value>Direct</value>
   </data>
   <data name="REPORT_LBL_SUBTRACTING" xml:space="preserve">
-    <value>Subtracting</value>
+    <value>Subtraction</value>
   </data>
   <data name="REPORT_LBL_CAROTID" xml:space="preserve">
     <value>Carotid</value>
@@ -801,7 +801,7 @@
     <value>m/s</value>
   </data>
   <data name="PDF_FILE_ERROR" xml:space="preserve">
-    <value>PDF file does not exists</value>
+    <value>PDF file does not exist.</value>
   </data>
   <data name="REPORT_NORMALRANGE_X_AXIS_TITLE" xml:space="preserve">
     <value>Age (years)</value>
@@ -867,7 +867,7 @@
     <value>Heart Rate</value>
   </data>
   <data name="LBL_REPORT_NORMAL_RANGE" xml:space="preserve">
-    <value>Normal Range</value>
+    <value>Healthy Population</value>
   </data>
   <data name="LBL_REPORT_PWV" xml:space="preserve">
     <value>Pulse Wave Velocity</value>
@@ -876,7 +876,7 @@
     <value>PWV Method:</value>
   </data>
   <data name="LBL_REPORT_REFERENCE_RANGE" xml:space="preserve">
-    <value>Reference Range</value>
+    <value>General Population</value>
   </data>
   <data name="LBL_REPORT_STD_DEVIATION" xml:space="preserve">
     <value>Standard Deviation</value>
@@ -927,10 +927,10 @@
     <value>Male</value>
   </data>
   <data name="DELETE_PWV_MSG" xml:space="preserve">
-    <value>You are about to delete {0} assessment(s). Are you sure?</value>
+    <value>You are about to delete {0} assessment(s). Are  you sure?</value>
   </data>
   <data name="REPORT_CALCULATE_ERROR" xml:space="preserve">
-    <value>Error calculating report</value>
+    <value>Error calculating report.</value>
   </data>
   <data name="BTN_MIGRATE" xml:space="preserve">
     <value>Migrate</value>
@@ -942,7 +942,7 @@
     <value> ~ </value>
   </data>
   <data name="MIGRATE_HEADER_TXT" xml:space="preserve">
-    <value>Select a group name from the list to migrate records</value>
+    <value>Select a group name from the list to migrate records.</value>
   </data>
   <data name="MIGRATE_TITLE_TXT" xml:space="preserve">
     <value>Available group names</value>
@@ -954,7 +954,7 @@
     <value>Migration failed</value>
   </data>
   <data name="MIGRATION_SUCCESS_MESSAGE" xml:space="preserve">
-    <value>Migration completed successfully</value>
+    <value>Migration completed successfully.</value>
   </data>
   <data name="CRX_ERR_MSACCESS_FILE_NOT_EXIST" xml:space="preserve">
     <value>Migration file does not exist.</value>
@@ -969,7 +969,7 @@
     <value>Report generation failed.</value>
   </data>
   <data name="REPORT_SAVE_ERR" xml:space="preserve">
-    <value>Error saving report</value>
+    <value>Error saving report.</value>
   </data>
   <data name="CRX_UNKNOWN_EXCEPTION" xml:space="preserve">
     <value>Unknown exception</value>
@@ -987,10 +987,10 @@
     <value>Version 10</value>
   </data>
   <data name="LBL_REPORT_CAROTID_WITHCOLON" xml:space="preserve">
-    <value>Carotid:</value>
+    <value>Carotid to Sternal Notch:</value>
   </data>
   <data name="LBL_REPORT_CUFF_WITHCOLON" xml:space="preserve">
-    <value>Cuff:</value>
+    <value>Sternal Notch to Cuff:</value>
   </data>
   <data name="CONFIGURATION_ID" xml:space="preserve">
     <value>Configuration ID</value>
@@ -1056,7 +1056,7 @@
     <comment>{0}=lower range {1}=upper range {2}=unit, e.g. inches, cm</comment>
   </data>
   <data name="MEASUREMENT_DATE_IN_FUTURE" xml:space="preserve">
-    <value>Measurement date cannot be in future date</value>
+    <value>Measurement date cannot be in future date.</value>
   </data>
   <data name="MP_DP_TOO_CLOSE" xml:space="preserve">
     <value>MP should be higher than DP by {0} mmHg</value>
@@ -1101,7 +1101,7 @@
     <comment>{0}=lower range {1}=upper range {2}=unit, e.g. lbs, kg</comment>
   </data>
   <data name="ZERO_AGE" xml:space="preserve">
-    <value>Age cannot be zero</value>
+    <value>Age cannot be zero.</value>
   </data>
   <data name="SIGNAL_FIND_ONSETS_FAILED" xml:space="preserve">
     <value>Signal failed to find onsets</value>
@@ -1206,7 +1206,7 @@
     <value>PWV (m/s)</value>
   </data>
   <data name="GUI_ELECTRONIC_MOD_FND" xml:space="preserve">
-    <value>Electronic module found</value>
+    <value>Electronic module found.</value>
   </data>
   <data name="GUI_ELECTRONIC_MOD_FNDPORT" xml:space="preserve">
     <value>Electronic module found on </value>
@@ -1215,7 +1215,7 @@
     <value>Electronic module not found. Please check device USB and power connection. Search again?</value>
   </data>
   <data name="GUI_SEARCH_ELECTRONIC_MOD" xml:space="preserve">
-    <value>Searching for electronic module</value>
+    <value>Searching for electronic module...</value>
   </data>
   <data name="ANALYSIS_XAXIS_TITLE" xml:space="preserve">
     <value>Assessments</value>
@@ -1328,7 +1328,7 @@ Would you like to retry?</value>
     <value>Settings</value>
   </data>
   <data name="GUI_EXIT_MSG" xml:space="preserve">
-    <value>Do you want to exit the application</value>
+    <value>Do you want to exit the application?</value>
   </data>
   <data name="GUI_DATETIME_TXT" xml:space="preserve">
     <value>Date and Time</value>
@@ -1399,7 +1399,7 @@ If the problem persists check troubleshooting section in user manual or contact 
     <value>mmHg</value>
   </data>
   <data name="UNITS_WEIGHT_KG" xml:space="preserve">
-    <value>Kg</value>
+    <value>kg</value>
   </data>
   <data name="UNITS_WEIGHT_LBS" xml:space="preserve">
     <value>lbs</value>
@@ -1431,5 +1431,335 @@ If the problem persists check troubleshooting section in user manual or contact 
   </data>
   <data name="PWV_START_CAPTURE_FAILED" xml:space="preserve">
     <value>Start Capture failed because an empty file has been selected for simulation. Please select a valid file. (NOTE: THis message has not been added by Atcor. It needs to be added by them. We have put a filler string).</value>
+  </data>
+  <data name="GUI_DISPLAY_COLON" xml:space="preserve">
+    <value>:</value>
+  </data>
+  <data name="GUI_DISPLAY_COMMA" xml:space="preserve">
+    <value>,</value>
+  </data>
+  <data name="GUI_DISPLAY_LEFT_CURLY_BRACKET" xml:space="preserve">
+    <value>{</value>
+  </data>
+  <data name="GUI_DISPLAY_LEFT_SQR_BRACKET" xml:space="preserve">
+    <value>[</value>
+  </data>
+  <data name="GUI_DISPLAY_RIGHT_CURLY_BRACKET" xml:space="preserve">
+    <value>}</value>
+  </data>
+  <data name="GUI_DISPLAY_RIGHT_SQR_BRACKET" xml:space="preserve">
+    <value>]</value>
+  </data>
+  <data name="GUI_DISPLAY_SEMICOLON" xml:space="preserve">
+    <value>;</value>
+  </data>
+  <data name="DAL_CONST_CAPTURE_FILE_PREFIX" xml:space="preserve">
+    <value>capture_</value>
+  </data>
+  <data name="DAL_CONST_CUFFTIMER_FILE_PATH" xml:space="preserve">
+    <value>.\\simulation\\cuff_timer\\cuff_timer.dat</value>
+  </data>
+  <data name="DAL_CONST_DAT_FILE_EXTN" xml:space="preserve">
+    <value>.dat</value>
+  </data>
+  <data name="DAL_CONST_GCI_FIRMWARE_VERSION" xml:space="preserve">
+    <value>Sim - 0.1</value>
+  </data>
+  <data name="DAL_CONST_GCI_SERIAL_NUMBER" xml:space="preserve">
+    <value>Sim - 1234567890</value>
+  </data>
+  <data name="DAL_CONST_GCI_TYPE" xml:space="preserve">
+    <value>EM4 Device (stub)</value>
+  </data>
+  <data name="DAL_CONST_SIM_FOLDER_PATH" xml:space="preserve">
+    <value>.\\simulation\\pwv\\</value>
+  </data>
+  <data name="GUI_DISPLAY_DD_MM_YYYY" xml:space="preserve">
+    <value>dd/MM/yyyy</value>
+  </data>
+  <data name="GUI_DISPLAY_D_M_YYYY" xml:space="preserve">
+    <value>{0:{0}}</value>
+  </data>
+  <data name="GUI_DISPLAY_FIRST_NAME" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="GUI_DISPLAY_GENDER" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="GUI_DISPLAY_GROUP" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="GUI_DISPLAY_LAST_NAME" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="GUI_DISPLAY_PATIENT_ID" xml:space="preserve">
+    <value>Patient Id</value>
+  </data>
+  <data name="GUI_DISPLAY_STUDY_DATE_TIME" xml:space="preserve">
+    <value>Study DateTime</value>
+  </data>
+  <data name="GUI_REPORT_NO_BP" xml:space="preserve">
+    <value>Please enter patient's height and blood pressure to see the general population.</value>
+  </data>
+  <data name="DAL_ERR_ACTIVE_PORT_CLOSE_FAILED" xml:space="preserve">
+    <value>Failed to close active port.</value>
+  </data>
+  <data name="DAL_ERR_INVALID_PORT_CLOSE" xml:space="preserve">
+    <value>Attempted to close a port which was not open.</value>
+  </data>
+  <data name="DAL_ERR_PORT_OPEN_FAILED" xml:space="preserve">
+    <value>Port found but could not be oppened. There be be another application or process communicating on the same port. Please check and close any such applications.</value>
+  </data>
+  <data name="GUI_GRP_DEFAULT_REPORT" xml:space="preserve">
+    <value>Default report to print</value>
+  </data>
+  <data name="GUI_SETTINGS_PWV_PATIENT_REPORT" xml:space="preserve">
+    <value>PWV Patient Report</value>
+  </data>
+  <data name="GUI_SETTINGS_PWV_REPORT" xml:space="preserve">
+    <value>PWV Report</value>
+  </data>
+  <data name="PATIENT_ALREADY_EXIST_FOR_GROUP" xml:space="preserve">
+    <value>Patient record already exists for group </value>
+  </data>
+  <data name="GUI_DISPLAY_SINGLE_QUOTE" xml:space="preserve">
+    <value>'</value>
+  </data>
+  <data name="GUI_DIRECT" xml:space="preserve">
+    <value>Carotid To Cuff:</value>
+  </data>
+  <data name="GUI_DISPLAY_AMPERSAND" xml:space="preserve">
+    <value> and </value>
+  </data>
+  <data name="GUI_DISPLAY_ASTERISK_COLON" xml:space="preserve">
+    <value>*:</value>
+  </data>
+  <data name="GUI_FEMORAL" xml:space="preserve">
+    <value>Femoral:</value>
+  </data>
+  <data name="GUI_LIMITS_FORMAT" xml:space="preserve">
+    <value>{0} limits are {1} {2} - {3} {4}</value>
+  </data>
+  <data name="GUI_PLEASE_ENTER_FORMAT" xml:space="preserve">
+    <value>Please enter {0}</value>
+  </data>
+  <data name="GUI_REPORT_AGE_OUTSIDE_RANGE" xml:space="preserve">
+    <value>Patient age is outside the report age range.</value>
+  </data>
+  <data name="GUI_REPORT_LBL_BP_RANGE" xml:space="preserve">
+    <value>(SP: 120-129mmHg)</value>
+  </data>
+  <data name="BP_GRADE_II_AND_III_HT" xml:space="preserve">
+    <value>Grade II and III HT</value>
+  </data>
+  <data name="BP_GRADE_I_HT" xml:space="preserve">
+    <value>Grade I HT</value>
+  </data>
+  <data name="BP_HIGH_NORMAL" xml:space="preserve">
+    <value>High Normal</value>
+  </data>
+  <data name="BP_NORMAL" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="BP_OPTIMAL" xml:space="preserve">
+    <value>Optimal</value>
+  </data>
+  <data name="PWV_BL_TEXT" xml:space="preserve">
+    <value>PWV &gt;</value>
+  </data>
+  <data name="BP_GRADE_II_AND_III_HT_RANGE" xml:space="preserve">
+    <value>SP&gt;160</value>
+  </data>
+  <data name="BP_GRADE_I_HT_RANGE" xml:space="preserve">
+    <value>140&lt;SP&lt;159</value>
+  </data>
+  <data name="BP_HIGH_NORMAL_RANGE" xml:space="preserve">
+    <value>130&lt;SP&lt;139</value>
+  </data>
+  <data name="BP_NORMAL_RANGE" xml:space="preserve">
+    <value>120&lt;SP&lt;129</value>
+  </data>
+  <data name="BP_OPTIMAL_RANGE" xml:space="preserve">
+    <value>SP&lt;119</value>
+  </data>
+  <data name="GUI_DISPLAY_SLASH" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="LBL_REPORT_ASSESSMENT" xml:space="preserve">
+    <value>Assessment:</value>
+  </data>
+  <data name="LBL_REPORT_BP" xml:space="preserve">
+    <value>Blood Pressure:</value>
+  </data>
+  <data name="LBL_REPORT_DISTANCE" xml:space="preserve">
+    <value>Distance:</value>
+  </data>
+  <data name="LBL_REPORT_HR" xml:space="preserve">
+    <value>Heart Rate:</value>
+  </data>
+  <data name="LBL_REPORT_PATIENTDATA" xml:space="preserve">
+    <value>Patient Data</value>
+  </data>
+  <data name="LBL_REPORT_PWV_LBL" xml:space="preserve">
+    <value>Pulse Wave Velocity:</value>
+  </data>
+  <data name="LBL_REPORT_RECORED_CAROTID" xml:space="preserve">
+    <value>Recorded Carotid Pulse Waveform</value>
+  </data>
+  <data name="LBL_REPORT_RECORED_FEMORAL" xml:space="preserve">
+    <value>Recorded Femoral Pulse Waveform</value>
+  </data>
+  <data name="LBL_REPORT_SD_LBL" xml:space="preserve">
+    <value>Standard Deviation:</value>
+  </data>
+  <data name="LBL_REPORT_STUDYDATA" xml:space="preserve">
+    <value>Study Data</value>
+  </data>
+  <data name="GUI_REPORT_BP_COLON" xml:space="preserve">
+    <value>BP:</value>
+  </data>
+  <data name="GUI_REPORT_PWV_COLON" xml:space="preserve">
+    <value>PWV:</value>
+  </data>
+  <data name="PRT_PWV_BOX_TEXT_1" xml:space="preserve">
+    <value>These results have been corrected for your blood pressure. Your Blood pressure is _______. </value>
+  </data>
+  <data name="PRT_PWV_BOX_TEXT_2" xml:space="preserve">
+    <value>Based on your age of ______, and compared to Blood Pressure ranges, your   PWV limit for cardiovascular risk are:</value>
+  </data>
+  <data name="PRT_PWV_TEXT_1" xml:space="preserve">
+    <value>This report explains your Pulse Wave Velocity measurement, a test used to assess your aortic arterial stiffness. (the aorta is the large artery that moves blood from your heart to your kidneys, lungs and brain).</value>
+  </data>
+  <data name="PRT_PWV_TEXT_10" xml:space="preserve">
+    <value>area then your artery is less stiff that than </value>
+  </data>
+  <data name="PRT_PWV_TEXT_11" xml:space="preserve">
+    <value>other people your age and hence you have lower risk of stroke and heart attacks than other people of your age.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_12" xml:space="preserve">
+    <value>If your pulse wave velocity is </value>
+  </data>
+  <data name="PRT_PWV_TEXT_13" xml:space="preserve">
+    <value>area then you have relatively stiffer arteries and being</value>
+  </data>
+  <data name="PRT_PWV_TEXT_14" xml:space="preserve">
+    <value>more at risk of developing cardiovascular disease than other patients your age and your blood pressure. Your doctor may recommend some activities that are known to reduce your pulse wave velocity such as:
+
+   •   Stopping smoking
+   •   Increasing exercise
+   •   Improving your diet by cutting down on salt and fat
+   •   Taking anti-hypertensive medication</value>
+  </data>
+  <data name="PRT_PWV_TEXT_15" xml:space="preserve">
+    <value>Comparison of your measurement with a Healthy population (i.e. no cardiovascular disease, or diabetes).</value>
+  </data>
+  <data name="PRT_PWV_TEXT_16" xml:space="preserve">
+    <value>A study at the University of Cambridge in the UK has determined 
+healthy levels of Pulse Wave Velocity for your age.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_17" xml:space="preserve">
+    <value>If your pulse wave velocity is in the </value>
+  </data>
+  <data name="PRT_PWV_TEXT_18" xml:space="preserve">
+    <value>area, you have low levels of arterial stiffness </value>
+  </data>
+  <data name="PRT_PWV_TEXT_19" xml:space="preserve">
+    <value>for your age group. This is associated with a lower risk of stroke and heart attack.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_2" xml:space="preserve">
+    <value>About Aortic Pulse Wave Velocity:</value>
+  </data>
+  <data name="PRT_PWV_TEXT_20" xml:space="preserve">
+    <value>If your pulse wave velocity is in the </value>
+  </data>
+  <data name="PRT_PWV_TEXT_21" xml:space="preserve">
+    <value>area, your pulse wave velocity is higher than </value>
+  </data>
+  <data name="PRT_PWV_TEXT_22" xml:space="preserve">
+    <value>the recommended value for your age, indicating your arteries are stiffer than normal for your age group
+
+If your Pulse Wave velocity is high, talk to your doctor about things you can do to reduce your pulse wave velocity, such as:
+
+   •   Stopping smoking
+   •   Increasing exercise
+   •   Improving your diet by cutting down on fat and salt
+   •   Taking anti-hypertensive medication</value>
+  </data>
+  <data name="PRT_PWV_TEXT_3" xml:space="preserve">
+    <value>Pulse Wave Velocity is the internationally recognised measure for determining the stiffness of your arteries.  Because your aorta is directly connected to all the important organs (brain, heart, kidneys), the stiffness of this artery from your neck to the top of the leg, has been shown to be the best predictor of your cardiovascular risk.
+
+Your doctor has placed a probe, called tonometer, on your carotid artery (neck) and a cuff around your femoral artery (leg).  The cuff and the tonometer have measured how long your heart beat (or pulse) took to travel from your neck to your leg.
+
+If your arteries are young and/or healthy, the arteries are supple and relaxed, and the pulse travels slowly along the aorta. As we get older, our arteries get stiffer and make the pulse travel faster. Smoking, lack of exercise, hypertension and diabetes can all prematurely stiffen your arteries.
+
+            Time taken from heart to your Carotid Artery (neck): ______________ (ms)
+            Time taken from your heart to your Femoral Artery (leg): __________ (ms)
+
+Using these time measurements and the length of your arteries, the speed of your pulse (called Pulse Wave Velocity) can be calculated:</value>
+  </data>
+  <data name="PRT_PWV_TEXT_4" xml:space="preserve">
+    <value>Your Pulse Wave Velocity is: {0} (ms)</value>
+  </data>
+  <data name="PRT_PWV_TEXT_5" xml:space="preserve">
+    <value>Generally, lower values are better.  Lower values are associated with less risk of heart attacks and strokes</value>
+  </data>
+  <data name="PRT_PWV_TEXT_6" xml:space="preserve">
+    <value>Comparison of your measurement with the general population</value>
+  </data>
+  <data name="PRT_PWV_TEXT_7" xml:space="preserve">
+    <value>In a major clinical trial in Europe, Pulse Wave Velocity was measured in over 11,00 patients without diabetes.
+
+Your measurement has been compared to these results.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_8" xml:space="preserve">
+    <value>If your Pulse Wave Velocity is between the 2 lines then your Pulse Wave Velocity is normal for your age and blood pressure.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_9" xml:space="preserve">
+    <value>If your pulse wave velocity is in the </value>
+  </data>
+  <data name="PRT_PWV_TEXT_GREEN" xml:space="preserve">
+    <value>green</value>
+  </data>
+  <data name="PRT_PWV_TEXT_NAME_LBL" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PRT_PWV_TEXT_PATIENT_DETAILS" xml:space="preserve">
+    <value>Patient Details</value>
+  </data>
+  <data name="PRT_PWV_TEXT_PATIENT_REPORT" xml:space="preserve">
+    <value>PATIENT REPORT</value>
+  </data>
+  <data name="PRT_PWV_TEXT_RED" xml:space="preserve">
+    <value>red</value>
+  </data>
+  <data name="PRT_PWV_TEXT_RPT_DESCRIPTION" xml:space="preserve">
+    <value>The Global Reference Standard in Pulse Wave Velocity</value>
+  </data>
+  <data name="PRT_PWV_TEXT_SCOR" xml:space="preserve">
+    <value>SphygmoCor</value>
+  </data>
+  <data name="PRT_PWV_TEXT_PAGE" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="GUI_REPORT_GENERAL_POP_TEXT" xml:space="preserve">
+    <value>Normalised to direct arterial distance</value>
+  </data>
+  <data name="PRT_PWV_TEXT_RPT_HEADER" xml:space="preserve">
+    <value>SphygmoCor Patient Report</value>
+  </data>
+  <data name="GUI_DISPLAY_ERROR_EXCEPTION" xml:space="preserve">
+    <value>System exception has occurred, unable to determine error code or error message.</value>
+  </data>
+  <data name="GUI_REPORT_GREEN_AREA" xml:space="preserve">
+    <value>GREEN Area</value>
+  </data>
+  <data name="GUI_REPORT_RED_AREA" xml:space="preserve">
+    <value>RED Area</value>
+  </data>
+  <data name="GUI_DISPLAY_NO_VALUE_RESOURCE_STRING" xml:space="preserve">
+    <value>&lt;?&gt;</value>
+  </data>
+  <data name="GUI_SETUP_SEARCH_EXIT_MSG" xml:space="preserve">
+    <value>Do you want to exit Search mode?</value>
   </data>
 </root>

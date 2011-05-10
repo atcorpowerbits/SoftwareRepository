@@ -14,6 +14,7 @@
 
 using namespace System;
 using namespace AtCor::Scor::CrossCutting;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -27,8 +28,9 @@ namespace AtCor{
 
 				try
 				{
-
-					for (i=0; i<256; i++) 
+					//these consttants are used only in ths method 
+					//so we are not moving it to an enum
+					for (i=0; i < DalConstants::CRCTableSize; i++) 
 					{
 						crc = i;
 						for (j=0; j<8; j++)
@@ -40,7 +42,7 @@ namespace AtCor{
 				}
 				catch(Exception^ )
 				{
-					throw gcnew ScorException(1009, "DAL_ERR_CRC_TABLE_FAILED", ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCrcTableFailedErrCd, CrxStructCommonResourceMsg::DalErrCrcTableFailed, ErrorSeverity::Exception);
 				}
 			}
 
@@ -64,7 +66,7 @@ namespace AtCor{
 				}
 				catch(Exception^)
 				{
-					throw gcnew ScorException(1010, "DAL_ERR_CRC_CALC_FAILED", ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCrcCalcFailedErrCd, CrxStructCommonResourceMsg::DalErrCrcCalcFailed, ErrorSeverity::Exception);
 				}
 
 				*crc8ForArray = crcValue;

@@ -11,12 +11,10 @@
 #pragma once
 
 using namespace System;
-using namespace System::Xml;
-using namespace System::IO;
-using namespace System::Drawing;
+using namespace System::Drawing;				
 using namespace System::Drawing::Printing;
-using namespace System::Windows;
-using namespace System::Windows::Forms;
+
+
 
 /**
  * @namespace	AtCor::Scor::CrossCutting::Printer
@@ -25,6 +23,22 @@ using namespace System::Windows::Forms;
  */
 namespace AtCor { namespace Scor { namespace CrossCutting { namespace Printer
 {	
+
+	// Declaring global static numbers for structure variables
+	/**
+	* @struct CrxPrintValue
+	 * @brief Container for Print value to handle enum. 
+	 */
+	public ref struct CrxPrinterSetting
+	{
+		
+		static const int LineCount		= 1;
+		static const int LineHeight		= 14;
+		static const int FontSize		= 10;
+		static String^ const FontType	= "Arial";
+
+	};
+
 	/**
 	* @class CrxPrintManager
 	* @brief Class to manage printer related functions. @n
@@ -38,9 +52,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Printer
 
 		//singleton instance
 		static CrxPrintManager^ _instance = gcnew CrxPrintManager();
-		String^ printString ;
-		Image^ imgPrint;
-
+		String^ _printString ;
+		Image^ _imgPrint;
+		
 		/**
 		* Default Constructor
 		*/
@@ -65,7 +79,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Printer
 			 return this;
 		}  
 
-		void AtCorPrintStatus(Object^ sender, PrintPageEventArgs^ e);
+		void AtCorPrintAboutBoxFormat(Object^ sender, PrintPageEventArgs^ e);
 
 	public:
 
@@ -86,7 +100,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Printer
 		* @param[in] prnStr		string to handle the text to be printed
 		* @param[in] imgPrint	image object to handle image to be printed.
 		*/
-		void AtCorPrintDocument(String^ prnStr, Image^ imgPrint);
+		void AtCorPrintAboutBox(String^ prnStr, Image^ imgPrint);
 	};
 }
 }

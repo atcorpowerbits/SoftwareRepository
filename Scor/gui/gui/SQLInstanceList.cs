@@ -32,11 +32,10 @@ namespace AtCor.Scor.Gui.Presentation
     public partial class SQLInstanceList : Telerik.WinControls.UI.RadForm
     {
         public static int IsCancel;
-        private const int CpNocloseButton = 0x200;
         readonly CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
         readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         readonly CrxLogger oLogObject = CrxLogger.Instance;
-        DataTable dt;
+        
         CrxDBManager dbMagr;
         string serverNameString = string.Empty;
 
@@ -49,7 +48,7 @@ namespace AtCor.Scor.Gui.Presentation
         public SQLInstanceList()
         {
             InitializeComponent();
-            serverNameString = SettingsProperties.ServerNameString(); 
+            serverNameString = GuiCommon.ServerNameString(); 
             
             // Disable the close button of the window.
             FormElement.TitleBar.CloseButton.Enabled = false;
@@ -60,7 +59,7 @@ namespace AtCor.Scor.Gui.Presentation
             get
             {
                 CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CpNocloseButton;
+                myCp.ClassStyle = myCp.ClassStyle | GuiConstants.CpNocloseButton;
                 return myCp;
             }
         }
@@ -74,19 +73,19 @@ namespace AtCor.Scor.Gui.Presentation
             DisplayAndLogMessage();
             AcceptButton = guiradbtnConnect;
             CancelButton = guiradbtnCancel;
-            MaximumSize = this.Size;
-            MinimumSize = this.Size;
+            MaximumSize = Size;
+            MinimumSize = Size;
             
             // log status of database connection.
             try
             {
                 // below code returns all the sql server instances available in a network with instance name for running instances, it gives values (server name, instance name, isclustered, version)
                 SqlDataSourceEnumerator getCurInst = SqlDataSourceEnumerator.Instance;
-                dt = getCurInst.GetDataSources();
+                DataTable dt = getCurInst.GetDataSources();
 
                 guicmbxSqlServerList.DataSource = dt;
                 guicmbxSqlServerList.DisplayMember = "ServerName";
-                OnInitializationProcess.Invoke(oMsgMgr.GetMessage("BTN_EXIT"));
+                OnInitializationProcess.Invoke(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnExit));                 
             }
             catch (Exception ex)
             {
@@ -99,7 +98,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void guiradbtnCancel_Click(object sender, EventArgs e)
         {
             IsCancel = 1;
-            this.Close();            
+            Close();            
         }
 
         /**This event is fired when the user clicks on connect after selecting a server 
@@ -109,10 +108,10 @@ namespace AtCor.Scor.Gui.Presentation
         {
             crxMgrObject.GeneralSettings.MachineName = guicmbxSqlServerList.Text;
 
-            serverNameString = SettingsProperties.ServerNameString(); 
+            serverNameString = GuiCommon.ServerNameString(); 
  
             // set the source data settings to SQL as we are listing only SQL servers on the network
-            crxMgrObject.GeneralSettings.SourceData = "SQLCLIENT";
+            crxMgrObject.GeneralSettings.SourceData = GuiConstants.SourceData;
 
             dbMagr = CrxDBManager.Instance;
             int result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData);
@@ -121,14 +120,12 @@ namespace AtCor.Scor.Gui.Presentation
             if (result.Equals(1)) 
             {
                 DisplayAndLogMessage();
-            }
-
-            // successfully connected
+            }            
             else 
             {
-                oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_CONNECTED") + serverNameString);                
+                oLogObject.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerConnected) + serverNameString);                
                 crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);  
-                this.Close();
+                Close();
             }
         }
 
@@ -136,8 +133,8 @@ namespace AtCor.Scor.Gui.Presentation
         */
         private void DisplayAndLogMessage()
         {
-            guiradlblMessage.Text = oMsgMgr.GetMessage("SQL_SERVER_UNABLE_TO_CONNECT") + serverNameString + "," + oMsgMgr.GetMessage("GUI_SELECT_SQL_INSTANCE");
-            oLogObject.Write(oMsgMgr.GetMessage("SQL_SERVER_FAILED") + serverNameString); 
+            guiradlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerUnableToConnect) + serverNameString + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSelectSqlInstance);
+            oLogObject.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerFailed) + serverNameString); 
         }        
     }
 }

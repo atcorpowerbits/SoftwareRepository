@@ -9,12 +9,8 @@
 #include "stdafx.h"
 
 #include "CrxCrossCutting.h"
-#include "CrxMessaging.h"
-
 
 using namespace AtCor::Scor::CrossCutting;
-using namespace AtCor::Scor::CrossCutting::Configuration;
-using namespace AtCor::Scor::CrossCutting::Messaging;
 
 CultureInfo^ CrxCommon::GetCommCultureInfo()
 {	
@@ -25,12 +21,12 @@ CultureInfo^ CrxCommon::GetCommCultureInfo()
 		CommCI =  CrxConfigManager::Instance->GeneralSettings->CultureInfo->ToString()->Trim();
 		if (CommCI == nullptr || CommCI->Length == 0) 
 		{			
-			CommCI = "en-US";
+			CommCI = _defaultCulture;
 		}
 	}
 	catch (Exception^ )
 	{
-		CommCI = "en-US";
+		CommCI = _defaultCulture;
 	}		
 	gCI = gcnew CultureInfo(CommCI);
 	return gCI;

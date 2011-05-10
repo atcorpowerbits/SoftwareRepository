@@ -9,31 +9,24 @@
 */
 #pragma once
 
-#include "CrxCrossCutting.h"
-#include "CrxConfiguration.h"
+#include "CrxMessaging.h"
 #include "CrxLogger.h"
 #include "ScorException.h"
 
-using namespace System;
-using namespace System::Text;
+using namespace System;						
 using namespace System::Data;
 
 using namespace System::Data::Common;
 using namespace System::Data::SqlClient;
 using namespace System::IO;
-using namespace System::Diagnostics;
-using namespace System::ComponentModel;
 using namespace System::Data::OleDb;
 
 using namespace Microsoft::Practices::EnterpriseLibrary::Data;
 using namespace Microsoft::Practices::EnterpriseLibrary::Data::Sql;
-using namespace Microsoft::Practices::EnterpriseLibrary::Common;
-using namespace Microsoft::Practices::EnterpriseLibrary::Common::Configuration;
 
 // Added application specific namespaces
-using namespace AtCor::Scor::CrossCutting;
-using namespace AtCor::Scor::CrossCutting::Configuration;
-using namespace AtCor::Scor::CrossCutting::Logging;
+using namespace AtCor::Scor::CrossCutting::Logging;		
+using namespace AtCor::Scor::CrossCutting::Messaging;
 
 /**
  * @namespace	AtCor::Scor::CrossCutting::DatabaseManager
@@ -43,6 +36,331 @@ using namespace AtCor::Scor::CrossCutting::Logging;
 
 namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseManager
 {	
+
+	// Declaring global static numbers for structure variables
+	/**
+	* @enum CrxDBMsAccessPatientInfo
+	 * @brief Container for Ms-Access Database Patient Info. 
+	 */
+	public enum class CrxDBMsAccessPatientInfo
+	{
+		DBMgrColumnPatLastName		= 3,
+		DBMgrColumnPatFirstName		= 4,
+		DBMgrColumnPatGender		= 6,
+		DBMgrColumnPatDob			= 7,
+		DBMgrColumnPatExtName		= 8,
+	};         
+	
+	/**
+	* @enum CrxDBPatientTableList
+	 * @brief Container for Database Patient Table Info. 
+	 */
+	public enum class CrxDBPatientTableList
+	{
+		SystemIdentifier					=	0,
+		PatientNumberInternal				=	1,
+		PatientIdExternalReference			=	2,
+		LastName							=	3,
+		FirstName							=	4,
+		DateOfBirth							=	5,
+		Gender								=	6,
+		CharSpare1							=	7,
+		CharSpare2							=	8,	
+		IntSpare1							=	9,
+		IntSpare2							=	10,
+		FloatSpare1							=	11,
+		FloatSpare2							=	12,
+		ArraySpare1							=	13,
+		ArraySpare2							=	14,
+	
+	};
+	
+	
+	/**
+	* @enum CrxDBGetPatientDetailsById
+	 * @brief Container for Database Patient Details by Id. 
+	 */
+	public enum class CrxDBGetPatientDetailsById
+	{
+		PatientNumberInternal				=	0,
+		PatientIdExternalReference			=	1,
+		LastName							=	2,
+		FirstName							=	3,
+		DateOfBirth							=	4,
+		Gender								=	5,
+		GroupName							=	6,	
+	};
+
+	/**
+	* @enum CrxDBGetPatientDetails
+	 * @brief Container for Database Patient Details by Id. 
+	 */
+	public enum class CrxDBGetPatientDetails
+	{
+		SystemIdentifier					=	0,
+		PatientNumberInternal				=	1,
+		PatientIdExternalReference			=	2,
+		LastName							=	3,
+		FirstName							=	4,
+		DateOfBirth							=	5,
+		Gender								=	6,
+		GroupName							=	7,
+		GroupIdentifier						=	8,
+		PatientGroupTimeStamp				=	9,
+
+	};
+
+	/**
+	* @enum CrxDBGroupTableList
+	 * @brief Container for Database Group Table Info. 
+	 */
+	public enum class CrxDBGroupTableList
+	{
+		SystemIdentifier				=	0,
+		GroupIdentifier					=	1,
+		GroupName						=	2,
+		CharSpare1						=	3,
+		CharSpare2						=	4,
+		IntSpare1						=	5,
+		IntSpare2						=	6,
+	};
+
+	/**
+	* @enum CrxDBPatientGroupTableList
+	 * @brief Container for Database Patinet Group Relation Table Info. 
+	 */
+	public enum class CrxDBPatientGroupTableList
+	{
+		SystemIdentifier				=	0,
+		GroupIdentifier					=	1,
+		PatientNumberInternal			=	2,
+		PatientGroupTimeStamp			=	3,
+		CharSpare1						=	4,
+		CharSpare2						=	5,
+		IntSpare1						=	6,
+		IntSpare2						=	7,
+	};
+
+	/**
+	* @enum CrxDBGroupList
+	 * @brief Container for Database Groups list Info. 
+	 */
+	public enum class CrxDBGroupList
+	{
+		GroupIdentifier					=	0,
+		GroupName						=	1,
+	};
+
+	/**
+	* @enum CrxDBPWVMeasurementTableList
+	 * @brief Container for Database PWV Measurement Table Info. 
+	 */
+	public enum class CrxDBPWVMeasurementTableList
+	{
+		SystemIdentifier					=	0,
+		GroupIdentifier						=	1,
+		PatientNumberInternal				=	2,
+		StudyDateTime						=	3,
+		Notes								=	4,
+		SP									=	5,
+		DP									=	6,
+		MP									=	7,
+		Operator							=	8,
+		PWVDistance							=	9,
+		PWVDistanceMethod					=	10,
+		Carotid								=	11,
+		FemoraltoCuff						=	12,
+		Cuff								=	13,
+		Simulation							=	14,
+		BloodPressureRange					=	15,
+		BloodPressureEntryOption			=	16,
+		NormalRange							=	17,
+		ReferenceRange						=	18,
+		Age									=	19,
+		IsStandardDeviationValid			=	20,
+		IsFemoralSignalValid				=	21,
+		IsCarotidSignalValid				=	22,
+		Direct								=	23,
+		CaptureTime							=	24,
+		MeanCorrectedTime					=	25,
+		MeanDeltaTime						=	26,
+		MeanHeartRate						=	27,
+		MeanPulseWaveVelocity				=	28,
+		SampleRate							=	29,
+		StandardDeviation					=	30,
+		WeightInKilograms					=	31,
+		WeightInPounds						=	32,
+		HeightInCentimetres					=	33,
+		HeightInInches						=	34,
+		BodyMassIndex						=	35,
+		CarotidSignalFloatOnSets			=	36,
+		CarotidSignalOnSetsLength			=	37,
+		CarotidSignalPulseHeight			=	38,
+		CarotidSignalPulseHeightVariation	=	39,
+		CarotidSignal						=	40,
+		CarotidSignalLength					=	41,
+		CorrectionTime						=	42,
+		DataRevision						=	43,
+		FemoralSignalFloatOnSets			=	44,
+		FemoralSignalOnSetsLength			=	45,
+		FemoralSignalPulseHeight			=	46,
+		FemoralSignal						=	47,
+		FemoralSignalLength					=	48,
+		NumberOfDeltas						=	49,
+		NumberOfValidDeltas					=	50,
+		CharSpare1							=	51,
+		CharSpare2							=	52,
+		IntSpare1							=	53,
+		IntSpare2							=	54,
+		FloatSpare1							=	55,
+		FloatSpare2							=	56,
+		ArraySpare1							=	57,
+		ArraySpare2							=	58,
+	};
+
+	/**
+	 * @struct CrxDbStructSpList
+	 * @brief Container for stored procedure name list. 	
+	 */
+	private ref struct CrxDbStructSpList
+	{
+		static	String^	BackUpDatabase						=	"BackUpDatabase";
+		static	String^	CheckGroupNameExist					=	"CheckGroupNameExist";
+		static	String^	CheckPatientIDExist					=	"CheckPatientIDExist";
+		static	String^	CheckPatientRecordExists			=	"CheckPatientRecordExists";
+		static	String^	DeleteMeasurementDetails			=	"DeleteMeasurementDetails";
+		static	String^	DeletePatientDetails				=	"DeletePatientDetails";
+		static	String^	GetGroupList						=	"GetGroupList";
+		static	String^	GetMeasurementDetails				=	"GetMeasurementDetails";
+		static	String^	GetPatientDetails					=	"GetPatientDetails";
+		static	String^	GetPatientDetailsByPatientID		=	"GetPatientDetailsByPatientID";
+		static	String^	GetPWVTrendData						=	"GetPWVTrendData";
+		static	String^	InsertMeasurementDetails			=	"InsertMeasurementDetails";
+		static	String^	InsertPatientDetails				=	"InsertPatientDetails";
+		static	String^	MigratePatientDetails				=	"MigratePatientDetails";
+		static	String^	UpdateMeasurementDetails			=	"UpdateMeasurementDetails";
+		static	String^	UpdatePatientDetails				=	"UpdatePatientDetails";
+	};
+
+	/**
+	 * @struct CrxDbStructParameterList
+	 * @brief Container for parameters list. 	
+	 */
+	private ref struct CrxDbStructParametersList
+	{
+		static	String^	SystemIdentifier					=	"@systemIdentifier";
+		static	String^	PatientIDExternalReference			=	"@patientIDExternalReference";
+		static	String^	LastName							=	"@LastName";
+		static	String^	FirstName							=	"@FirstName";
+		static	String^	DateOfBirth							=	"@DateOfBirth";
+		static	String^	Gender								=	"@gender";
+		static	String^	GroupIdentifier						=	"@groupIdentifier";
+		static	String^	GroupName							=	"@groupName";
+		static	String^	PatientInternalId					=	"@patientInternalId";
+		static	String^	GroupId								=	"@groupId";
+		static	String^	PatientNumberInternal				=	"@PatientNumberInternal";
+		static	String^	StudyDateTime						=	"@studyDateTime";
+		static  String^	StudyDateTimeArrStr					=	"@studyDateTimeArrStr";
+		static	String^	Notes								=	"@notes";
+		static	String^	SP									=	"@SP";
+		static	String^	DP									=	"@DP";
+		static	String^	MP									=	"@MP";
+		static	String^	Operator							=	"@operator";
+		static	String^	PwvDistance							=	"@pwvDistance";
+		static	String^	PwvDistanceMethod					=	"@pwvDistanceMethod";
+		static	String^	Carotid								=	"@carotid";
+		static	String^	FemoraltoCuff						=	"@femoraltoCuff";
+		static	String^	Cuff								=	"@cuff";
+		static	String^	Simulation							=	"@simulation";	
+		static	String^	BloodPressureRange					=	"@bloodPressureRange";
+		static	String^	BloodPressureEntryOption			=	"@bloodPressureEntryOption";
+		static	String^	NormalRange							=	"@normalRange";
+		static	String^	ReferenceRange						=	"@referenceRange";
+		static	String^	Age									=	"@age";
+		static	String^	IsStandardDeviationValid			=	"@isStandardDeviationValid";	
+		static	String^	IsFemoralSignalValid				=	"@isFemoralSignalValid";	
+		static	String^	IsCarotidSignalValid				=	"@isCarotidSignalValid";	
+		static	String^	Direct								=	"@direct";
+		static	String^	CaptureTime							=	"@captureTime";
+		static	String^	MeanCorrectedTime					=	"@meanCorrectedTime";
+		static	String^	MeanDeltaTime						=	"@meanDeltaTime";
+		static	String^	MeanHeartRate						=	"@meanHeartRate";
+		static	String^	MeanPulseWaveVelocity				=	"@meanPulseWaveVelocity";
+		static	String^	SampleRate							=	"@sampleRate";
+		static	String^	StandardDeviation					=	"@standardDeviation";
+		static	String^	WeightInKilograms					=	"@weightInKilograms";
+		static	String^	WeightInPounds						=	"@weightInPounds";
+		static	String^	HeightInCentimetres					=	"@heightInCentimetres";
+		static	String^	HeightInInches						=	"@heightInInches";
+		static	String^	BodyMassIndex						=	"@bodyMassIndex";
+		static	String^	CarotidSignalOnSets					=	"@carotidSignalFloatOnSets";
+		static	String^	CarotidSignalOnSetsLength			=	"@carotidSignalOnSetsLength";
+		static	String^	CarotidSignalPulseHeight			=	"@carotidSignalPulseHeight";
+		static	String^	CarotidSignalPulseHeightVariation	=	"@carotidSignalPulseHeightVariation";
+		static	String^	CarotidSignal						=	"@carotidSignal";
+		static	String^	CarotidSignalLength					=	"@carotidSignalLength";
+		static	String^	CorrectionTime						=	"@correctionTime";
+		static	String^	DataRevision						=	"@dataRevision";
+		static	String^	FemoralSignalOnSets					=	"@femoralSignalFloatOnSets";
+		static	String^	FemoralSignalOnSetsLength			=	"@femoralSignalOnSetsLength";
+		static	String^	FemoralSignalPulseHeight			=	"@femoralSignalPulseHeight";
+		static	String^	FemoralSignal						=	"@femoralSignal";
+		static	String^	FemoralSignalLength					=	"@femoralSignalLength";
+		static	String^	NumberOfDeltas						=	"@numberOfDeltas";
+		static	String^	NumberOfValidDeltas					=	"@numberOfValidDeltas";
+
+		static String^	SpValidation						=	"@spValidation";
+		static String^	GroupIdentifier_modified			=	"@groupIdentifier_modified";
+		static String^	PatientIdExtRef						=	"@patientIdExtRef";
+		static String^	ReturnStudyDatetime					=	"@returnStudyDatetime";
+		static String^	HeartRateArrStr						=	"@heartRateArrStr";
+		static String^	PulseWaveVelocityArrStr				=	"@pulseWaveVelocityArrStr";
+		static String^	StandardDeviationArrStr				=	"@StandardDeviationArrStr";
+		static String^	IsStdDevValidArrStr					=	"@IsStdDevValidArrStr";
+		static String^  FilePath							=	"@FilePath";
+	};
+
+
+	/**
+	 * @struct CrxDbStructInternal
+	 * @brief Container for internal string. 	
+	 */
+	private ref struct CrxDbStructInternal
+	{
+		static	String^	DbConnectionFormat					=	"server={0};database={1};Integrated Security=true";
+		static  String^	MsAccessConnectionFormat			=	"PROVIDER=Microsoft.Jet.OLEDB.4.0;Data Source={0}";
+		static	String^	MsAccessQueryCount					=	"Select Count(1) from patient";
+		static	String^	MsAccessQueryAllRecord				=	"Select * from patient";
+		static	String^	MigrationRenameError				=	"Unable to rename scor.xyz to scor.xyz.old";
+		static	String^	MigrationStartedStr					=	"Migration started.";
+		static	String^	MigrationCompletedStr				=	"Migration completed.";
+		static	String^	MigrationFailedStr					=	"Migration failed.";
+		static	String^	MigrationPatientListHeaderFormat	=	"Patients skipped : Id         First Name                Last Name                 Gender DOB ";
+		static	String^	MigrationPatientTotMigratedFormat	=	"Total patients migrated: {0}";
+		static	String^	MigrationPatientTotSkippedFormat	=	"Total patients skipped : {0}";
+		//set path of the migration file, name of the old database file is always "scor.xyz"
+		// and hence this is hard coded.
+        static  String^ NameOfAccessFile					=	".\\system\\data\\scor.xyz";
+		//set path of the migration file, this is hard coded, as after migration old db file will
+		// always be renamed to .old extension
+         static  String^ NameOfAccessFileNew				=	".\\system\\data\\scor.xyz.old";
+		
+		 static String^  DbType								=	"SqlClient";
+		 static String^  DbName								=	"AtCor";
+		 static int	FloatSize								=	4;
+		 static int	ShortSize								=	2;
+		 static int AppWaitTime								=	2000;
+
+		 static String^ SqlClient							=	"SQLCLIENT";
+		 static String^ OracleClient						=	"ORACLECLIENT";
+		 static String^ ZeroParameterFormat					=	"'{0}'";
+		 static	String^	MigrationPatientListFormat			=	"{0} {1} {2} {3} {4} {5}";
+		 static	String^	BackupDone							=	"Backup completed successfully";
+		 static	String^	BackupFail							=	"Backup fail";
+		 static	String^	RestoreDone							=	"Database restored successfully";
+		 static	String^	RestoreFail							=	"Restore fail";
+	};
+
 	// Creating CrxStructPatientDemographicData Structure and variables
 	
 	/**
@@ -163,25 +481,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		Database^ _objDB;
 
 		// holds the location of the migration file
-        String^ _nameOfAccessFile;
+        //String^ _nameOfAccessFile;
 
 		// holds the location of the new migration file
-		String^ _nameOfAccessFileNew;
-
-		//Declaring static variables names for exception numbers
-		static const int CRX_ERR_MSACCESS_FILE_NOT_EXIST	= 605;
-		static const int CRX_ERR_DBMGR_CONVERSION			= 600;
-		static const int CRX_ERR_DBMGR_NO_PROVIDER			= 601;
-		static const int CRX_ERR_DBPERMISSION_REFER_MANUAL  = 610;
-		static const int BACKUP_DONE						= 609;
-		static const int CRX_ERR_MIGRATION_REFER_MANUAL     = 611;
-		static const int CRX_ERR_RESTORE_REFER_MANUAL		= 612;
-
-		static const int DBMGR_COLUMN_PAT_LAST_NAME			= 3;
-		static const int DBMGR_COLUMN_PAT_FIRST_NAME		= 4;
-		static const int DBMGR_COLUMN_PAT_GENDER			= 6;
-		static const int DBMGR_COLUMN_PAT_DOB				= 7;
-		static const int DBMGR_COLUMN_PAT_EXT_NAME			= 8;
+		//String^ _nameOfAccessFileNew;		
 
 		/**
 		* Default Constructor
@@ -195,16 +498,16 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 			// with new server name. 
 			// As currently application is configured to run only on SQL Express data base, hence _dbType is hardcoded to SqlClient
 			// Eg. Use "OracleClient" for oracle database, "Odbc" for any data source that can be connected with ODBC, etc.
-			_dbType = "SqlClient";
-			DBname = "AtCor"; 
+			_dbType = CrxDbStructInternal::DbType;
+			DBname = CrxDbStructInternal::DbName; 
 
 			//set path of the migration file, name of the old database file is always "scor.xyz"
 			// and hence this is hard coded.
-            _nameOfAccessFile = L".\\system\\data\\scor.xyz";
+           // _nameOfAccessFile = L".\\system\\data\\scor.xyz";
 
 			//set path of the migration file, this is hard coded, as after migration old db file will
 			// always be renamed to .old extension
-            _nameOfAccessFileNew = L".\\system\\data\\scor.xyz.old";
+           // _nameOfAccessFileNew = L".\\system\\data\\scor.xyz.old";
 		}
 
 

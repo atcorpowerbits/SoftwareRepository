@@ -1,7 +1,10 @@
 ﻿
 #include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
+using namespace System::IO;
 namespace TestDal {
     using namespace System;
     ref class DalStatusHandlerTest;
@@ -29,6 +32,25 @@ namespace TestDal {
 				System::Void set(Microsoft::VisualStudio::TestTools::UnitTesting::TestContext^  value)
 				{
 					testContextInstance = value;
+				}
+			}
+
+	private: String^ _currDir;
+
+
+			 static void SetPath()
+			{
+				String^ path = Directory::GetCurrentDirectory(); 
+				int i = path->IndexOf("\\TestResults");
+				if(i > 0)
+				{
+					path = path->Substring(0,i + 12);
+					Directory::SetCurrentDirectory(path);
+				}
+				else
+				{
+					path  = path + "\\TestResults";
+					Directory::SetCurrentDirectory(path);
 				}
 			}
 
@@ -71,9 +93,9 @@ namespace TestDal {
 			{
 				DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor());
 				Assert::IsNotNull(target);
-				Assert::AreEqual((unsigned long)0, target->_currentCuffStatusFlag, "Run this test independently");
-				Assert::AreEqual((unsigned long)0, target->_currentEAStatusFlag , "Run this test independently");
-				Assert::AreEqual((unsigned long)0, target->_currentEASourceFlag, "Run this test independently");
+				Assert::AreEqual((unsigned long)0, (unsigned long)target->_currentCuffStatusFlag, "Run this test independently");
+				Assert::AreEqual((unsigned long)0, (unsigned long)target->_currentEAStatusFlag , "Run this test independently");
+				Assert::AreEqual((unsigned long)0, (unsigned long)target->_currentEASourceFlag, "Run this test independently");
 
 				Assert::IsNull(target->dalErrorAlarmSourceName, "Run this test independently");
 				Assert::IsNull(target->_savedDataFilePath, "Run this test independently");
@@ -256,7 +278,112 @@ namespace TestDal {
 				Assert::AreEqual(expected, actual);
 			}
 
-	};
+
+			/// <summary>
+			///A test for GetSavedFileName
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void GetSavedFileNameTest1()
+			{
+				SetPath();
+				DalStatusHandler_Accessor^  target = gcnew DalStatusHandler_Accessor(); 
+				cli::array< unsigned short >^  tonometerData = gcnew array< unsigned short > {0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6}; 
+				cli::array< unsigned short >^  cuffPulse = gcnew array< unsigned short > {0xB1, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6}; 
+				unsigned short bufferSize = 6; 
+			
+				//create a filestring with a wildcard character. Remove the seconds since it is not always reliable
+				DateTime currentDateTime;
+				currentDateTime = System::DateTime::Now;
+				String^ tempCapture = "capture_";
+				String  ^ currentDateTimeStr = currentDateTime.ToString("yyyyMMMddHHmm");
+				currentDateTimeStr = tempCapture+ currentDateTimeStr ;
+
+
+				target->SaveCaptureData(tonometerData, cuffPulse, bufferSize);
+				
+				String^  expected = System::String::Empty; 
+				String^  actual;
+				actual = target->GetSavedFileName();
+				Assert::IsTrue(actual->Contains(currentDateTimeStr));
+			}
+			
+			
+			
+			/// <summary>
+			///A test for SaveCaptureData
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void SaveCaptureDataTest1()
+			{
+				SetPath();
+				DalStatusHandler_Accessor^  target = gcnew DalStatusHandler_Accessor(); 
+				cli::array< unsigned short >^  tonometerData = gcnew array< unsigned short > {0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6}; 
+				cli::array< unsigned short >^  cuffPulse = gcnew array< unsigned short > {0xB1, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6}; 
+				unsigned short bufferSize = 6; 
+				bool expected = true; 
+				bool actual;
+				bool excepRaised = false;
+				actual = target->SaveCaptureData(tonometerData, cuffPulse, bufferSize);
+				Assert::AreEqual(expected, actual);
+
+				//verify that the file exists in the specified path
+				String^ savedFileName = target->GetSavedFileName();
+				Assert::IsNotNull(savedFileName);
+
+				StreamReader ^ savedFileReader = gcnew StreamReader(savedFileName);
+
+				try
+				{
+					for(int i = 0; i<bufferSize; i++)
+					{
+						Assert::IsNotNull(savedFileReader->ReadLine());
+
+					}
+				}
+				catch(Exception^)
+				{
+					excepRaised = true;
+				}
+
+				Assert::IsFalse(excepRaised);
+				
+
+			}
+
+			/// Negative test case. calling the GetSavedFileName without first calling the  SaveCapturedata
+			///A test for GetSavedFileName
+			///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void GetSavedFileNameTest()
+		{
+			DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor()); 
+			String^  expected = System::String::Empty; 
+			String^  actual;
+			actual = target->GetSavedFileName();
+			Assert::AreEqual(expected, actual);
+			
+		}
+		/// <summary>
+		///A test for SaveCaptureData
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SaveCaptureDataTest()
+		{
+			DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor()); // TODO: Initialize to an appropriate value
+			cli::array< unsigned short >^  tonometerData = nullptr; // TODO: Initialize to an appropriate value
+			cli::array< unsigned short >^  cuffPulse = nullptr; // TODO: Initialize to an appropriate value
+			unsigned short bufferSize = 0; // TODO: Initialize to an appropriate value
+			bool expected = false; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->SaveCaptureData(tonometerData, cuffPulse, bufferSize);
+			Assert::AreEqual(expected, actual);
+			
+		}
+};
 }
 namespace TestDal {
     

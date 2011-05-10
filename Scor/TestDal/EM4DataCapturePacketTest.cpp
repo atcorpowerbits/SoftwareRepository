@@ -5,6 +5,7 @@
 #include "StdAfx.h"
 #include "StdAfx.h"
 #include "StdAfx.h"
+#include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
 namespace TestDal {
@@ -211,6 +212,78 @@ namespace TestDal {
 			
 		
 		
+			//This one will test for data
+			/// <summary>
+			///A test for BreakResponseDataPart
+			///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void BreakResponseDataPartTest()
+		{
+			//PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			
+			EM4DataCapturePacket_Accessor^  target = (gcnew EM4DataCapturePacket_Accessor(0)); // Packet with zero data
+			bool expected = true; 
+			bool actual;
+			target->em4ResponsePacketLength = 5; //externally set for a zero data packet
+			//fill with dummy data to test breakup
+			target->em4Response = gcnew array <unsigned char> {0x01, 0x08, 0x30, 0x04, 0x05, 0xBC};
+				
+			actual = target->BreakResponseDataPart();
+			Assert::AreEqual(expected, actual);
+			Assert::IsNull(target->em4ResponseData); 
+		}
+
+		//This one will test for zero data
+		/// <summary>
+			///A test for BreakResponseDataPart
+			///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void BreakResponseDataPartTest2()
+		{
+			EM4DataCapturePacket_Accessor^  target = (gcnew EM4DataCapturePacket_Accessor(0)); // Packet with zero data
+			bool expected = false; 
+			bool actual;
+			target->em4ResponsePacketLength = 4; //deliberately set toless than expected length
+			//fill with dummy data to test breakup
+			target->em4Response = gcnew array <unsigned char> {0x01, 0x08, 0x30, 0x04, 0xE3};
+				
+			actual = target->BreakResponseDataPart();
+			Assert::AreEqual(expected, actual);
+			Assert::IsNull(target->em4ResponseData); 
+		}
+
+		//This one will test for insufficient size
+		/// <summary>
+			///A test for BreakResponseDataPart
+			///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void BreakResponseDataPartTest3()
+		{
+			EM4DataCapturePacket_Accessor^  target = (gcnew EM4DataCapturePacket_Accessor(3)); //3 data bits
+			bool expected = true; 
+			bool actual;
+			target->em4ResponsePacketLength = 8; //externally set for a zero data packet
+			//fill with dummy data to test breakup
+			target->em4Response = gcnew array <unsigned char> {0x01, 0x08, 0x30, 0x04, 0x05, 0x06, 0x07, 0x09, 0x0A};
+				
+			try
+			{
+				actual = target->BreakResponseDataPart();
+				Assert::AreEqual(expected, actual);
+				Assert::IsNotNull(target->em4ResponseData); 
+				//check the data bits
+				Assert::AreEqual((unsigned char)0x04, target->em4ResponseData[0]);
+				Assert::AreEqual((unsigned char)0x05, target->em4ResponseData[1]);
+				Assert::AreEqual((unsigned char)0x06, target->em4ResponseData[2]);
+			}
+			catch(Exception ^ excepObj)
+			{
+				Assert::Fail("Exception thrown:" + excepObj->Message);
+			}
+		}
 };
 }
 namespace TestDal {

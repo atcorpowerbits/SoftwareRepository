@@ -61,6 +61,7 @@ namespace TestCrx {
 			//}
 			//
 #pragma endregion
+			
 			/// <summary>
 			///A test for Instance
 			///</summary>
@@ -71,21 +72,24 @@ namespace TestCrx {
 				actual = CrxEventContainer::Instance;
 				Assert::IsNotNull(actual);
 			}
+			
 			/// <summary>
-			///A test for op_Assign
+			///A test for op_Assign, this private assignment operator test, it has empty implementation and
+			/// is a private member of class, hence no test needed.
 			///</summary>
 	//public: [TestMethod]
 	//		[DeploymentItem(L"crx.dll")]
 	//		void op_AssignTest()
 	//		{
-	//			CrxEventContainer_Accessor^  target = (gcnew CrxEventContainer_Accessor()); // TODO: Initialize to an appropriate value
-	//			CrxEventContainer unnamed; // TODO: Initialize to an appropriate value
-	//			CrxEventContainer^  expected = nullptr; // TODO: Initialize to an appropriate value
+	//			CrxEventContainer_Accessor^  target = (gcnew CrxEventContainer_Accessor()); 
+	//			CrxEventContainer unnamed; 
+	//			CrxEventContainer^  expected = nullptr; 
 	//			CrxEventContainer^  actual;
 	//			actual = (target = unnamed);
 	//			Assert::AreEqual(expected, actual);
 	//			Assert::Inconclusive(L"Verify the correctness of this test method.");
 	//		}
+			
 			/// <summary>
 			///A test for CrxEventContainer Constructor
 			///</summary>
@@ -93,10 +97,11 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void CrxEventContainerConstructorTest1()
 			{
-				CrxEventContainer^  unnamed = nullptr; // TODO: Initialize to an appropriate value
+				CrxEventContainer^  unnamed = nullptr; 
 				CrxEventContainer_Accessor^  target = (gcnew CrxEventContainer_Accessor(unnamed));
 				Assert::IsNotNull(target);
 			}
+			
 			/// <summary>
 			///A test for CrxEventContainer Constructor
 			///</summary>

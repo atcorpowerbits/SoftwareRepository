@@ -17,6 +17,7 @@
 using namespace System;
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Logging ;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -34,7 +35,7 @@ namespace AtCor{
 				commandCRCByte = 0x00;
 				em4Response =  nullptr;
 				timeoutPeriod = DalConstants::EM4ResponseTimeout; //in miliseconds . 
-				retriesAllowed = DalConstants::EM4NumberofRetires; //three times.
+				retriesAllowed = DalConstants::EM4NumberofRetries; //three times.
 				retryNumber = 0;
 			}
 
@@ -54,22 +55,22 @@ namespace AtCor{
 					{
 						throw gcnew ScorException(excepObj);
 					}
-					commandLength = commandData->Length + 3; //code+ length+ sequence = 3 CRC excluded from command length
+					commandLength = commandData->Length + DalConstants::EM4CommandLengthWithNoData ; //code+ length+ sequence = 3 CRC excluded from command length
 				}
 				else
 				{
-					commandLength = 3; //code+ length+ sequence = 3 CRC excluded from command length
+					commandLength = DalConstants::EM4CommandLengthWithNoData; //code+ length+ sequence = 3 CRC excluded from command length
 				}
 									
 				commandCRCByte = 0x00;
 				em4Response =  nullptr;
 				timeoutPeriod = DalConstants::EM4ResponseTimeout ; //in miliseconds . Pick from a global value 
-				retriesAllowed = DalConstants::EM4NumberofRetires ; //three times. make this global 
+				retriesAllowed = DalConstants::EM4NumberofRetries ; //three times.
 				retryNumber = 0;
 
 				if (!this->ConstuctCommand())
 				{
-					throw gcnew ScorException(1023, "DAL_ERR_COMMD_PACKET_CREATE_FAIL", ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
 				}
 			}
 
@@ -100,7 +101,7 @@ namespace AtCor{
 					if (commandData)
 					{
 						//byte4 onwards copy the data
-						commandData->CopyTo(em4Command, 3);
+						commandData->CopyTo(em4Command, DalConstants::EM4CommandDataFirstIndex);
 					}
 					
 					//generate the CRC
@@ -133,7 +134,7 @@ namespace AtCor{
 					}
 					
 					// second element is lenght of the response 
-					em4ResponseLengthByte = em4Response[1];
+					em4ResponseLengthByte = em4Response[(int)Em4ResponseByteIndex::ResponseLengthByte ];
 
 					if (em4ResponsePacketLength != em4ResponseLengthByte)
 					{
@@ -142,14 +143,14 @@ namespace AtCor{
 						return false;
 					}
 
-					em4ResponseAckNackByte = em4Response[0];
+					em4ResponseAckNackByte = em4Response[(int)Em4ResponseByteIndex::AckNackByte];
 					
-					em4ResponseSequenceNumber = em4Response[2]>>4;
+					em4ResponseSequenceNumber = em4Response[(int)Em4ResponseByteIndex::SequenceNumberByte ]>>4;
 
 					em4ResponseCRCByte = em4Response[(int)em4ResponseLengthByte];
 
 					//get the status flag
-					EM44StatusFlag flagUn;
+					EM4StatusFlag flagUn;
 					flagUn.ucStatusBytes[0] = em4Response[em4ResponseLengthByte - 1];
 					flagUn.ucStatusBytes[1] = em4Response[em4ResponseLengthByte - 2];
 
@@ -158,10 +159,10 @@ namespace AtCor{
 					//sepearte the data packet and also its length
 					return BreakResponseDataPart();
 				}
-				catch(Exception^ excepObj)
+				catch(Exception^ )
 				{
 					//CrxLogger::Instance->Write("Inside DALEM4Command::BreakupResponse()");
-					throw gcnew ScorException(1016, "DAL_ERR_RESPONSE_INVALID", ErrorSeverity::Exception );
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrResponseInvalidErrCd, CrxStructCommonResourceMsg::DalErrResponseInvalid, ErrorSeverity::Exception );
 				}
 			}
 
@@ -170,13 +171,13 @@ namespace AtCor{
 				try
 				{
 					//sepearte the data packet and also its length
-					if (em4ResponsePacketLength == 5)
+					if (em4ResponsePacketLength == DalConstants::EM4ZeroDataResponsePacketSize)
 					{
 						// packet is valid but does not contain data
 						em4ResponseDataLength = 0;
 						em4ResponseData = nullptr;
 					}
-					else if (em4ResponsePacketLength < 5)
+					else if (em4ResponsePacketLength < DalConstants::EM4ZeroDataResponsePacketSize)
 					{
 						// invalid packet from EM4
 						return false;
@@ -184,9 +185,9 @@ namespace AtCor{
 					else 
 					{
 						// packet length greater than 5, means valid packet with data
-						em4ResponseDataLength = em4ResponsePacketLength - 5;
+						em4ResponseDataLength = em4ResponsePacketLength - DalConstants::EM4ZeroDataResponsePacketSize;
 						em4ResponseData = gcnew array<unsigned char> (em4ResponseDataLength);
-						em4Response->Copy(em4Response, 3 , em4ResponseData, 0,  em4ResponseDataLength);
+						em4Response->Copy(em4Response, (int)Em4ResponseByteIndex::DataChunkFirstByte , em4ResponseData, 0,  em4ResponseDataLength);
 					}
 				}
 				catch(Exception^ excepObj)

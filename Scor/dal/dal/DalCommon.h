@@ -23,7 +23,7 @@ namespace AtCor{
 
 								/**
 								* @class DalConstants
-								* @brief THis class stores all constants needed for the dal layer.
+								* @brief This class stores all constants needed for the dal layer.
 								*/
 								public ref class DalConstants
 								{
@@ -32,14 +32,21 @@ namespace AtCor{
 										static const unsigned int SimulationTimerInterval   = 4; // in msec
 										static const unsigned int SimulationWriteTimerInterval = 1000; /**< This is to signify the time interval in which the simulation will pick the number of values*/
 										static const unsigned int SimulationNumberOfReadsPerInterval = 256; /**< Number of items to read from tonometer sim file in each interval.*/
-										static const unsigned int EM4NumberofRetires = 3; /**< Default number of retries for a command before failure*/
+										static const unsigned int EM4NumberofRetries = 3; /**< Default number of retries for a command before failure*/
 										static const unsigned int EM4ResponseTimeout = 50; /**< Default timout to wait for an EM4 response*/
 										static const int PWVCaptureDataSize = 8; /**< Size of data in bytes for data capture in PWV */
 										static const int EM4ZeroDataResponsePacketSize = 5; /**< size of EM4 packet which does not contain data*/
 										static const int EM4SerialPortBaudRate = 115200; /**< Baud rate for serial port for EM4 device */
 										static const int EM4SerialPortBits = 8; /**< Number of bits for Serial port to communicate with EM4*/
-										static const int EM4LatencyPeriod = 1; /**< Time in ms for which the sending command should sleep before expecting a response. This is not the same as timeout*/
+										//TODO: this is temporary to enable testing -Deepak
+										static const int EM4LatencyPeriod = 40; /**< Time in ms for which the sending command should sleep before expecting a response. This is not the same as timeout*/
 										static const unsigned int DeviceNumberOfReadsPerInterval = 32; /**< Number of items to read from COM port in each read. This is used to set the Serial Port treshold.*/
+										static const int EM4CommandLengthWithNoData = 3; /**< The length of an EM4 command without any data . Also Excludes CRC count*/
+										static const int EM4CommandDataFirstIndex = 3;/**<Index of the first byte in command array */
+										static const int CRCTableSize = 256;/**< Size of the CRC table*/
+
+										static const unsigned int StreamingTimeoutCheckerInterval = 125; /**< time interval in which the capture process should check for timeout*/
+										static const int	MaxStreamingTimeoutOccurrences = 2; /**< number of times the StreamingTimout check should be done before raising a timeout event*/
 										
 								};
 
@@ -140,7 +147,9 @@ namespace AtCor{
 								public enum class DalErrorAlarmStatusFlag{
 									ActiveStatus = 0,
 									RecoverableStatus = 1,
-									UnrecoverableStatus = 2
+									UnrecoverableStatus = 2,
+									DataCaptureErrorInvalidPacket = 3,
+									DataCaptureTimeout = 4
 								};
 
 
@@ -166,101 +175,6 @@ namespace AtCor{
 
 
 								/**
-								* @class DalException
-								* @brief Exception class for DataAccess namespace.
-								*/
-								public ref class DalException:Exception
-								{
-								private:
-									int _errCode;
-                                    String^		_errMsg;
-                                    Exception^	_exceptionObject;
-								public: 
-									/**
-									* Default constructor
-									*/
-									DalException(): _errCode(0), _errMsg(""), _exceptionObject(nullptr) { }
-									
-									/**
-									* Overloaded constructor
-									* @param[in]	exError	The error code to intitialize this constructor with.
-									*/
-									DalException(int exError): _errCode(exError), _errMsg(""), _exceptionObject(nullptr) { }
-									
-									/**
-				                    * Overloaded constructor for Exception object
-				                    * @param[in]	errExp	The Unknown (System) Exception object to intitialize this constructor with.
-				                    */
-                                    //DalException(Exception^ eExp): _errCode(0), _errMsg(eExp->Message), _eObj(eExp) { }//reducing as per FxCop
-									DalException(Exception^ errExp) 
-									{
-										if (errExp != nullptr)
-										{
-											_errMsg= errExp->Message;
-											_exceptionObject = errExp;
-										}
-									}
-
-                                    /**
-				                    /* Overloaded constructor for String
-				                    * @param[in]	errExpStr	The String to intitialize this constructor with.
-				                    */
-				                    DalException(String^ errExpStr):  _errMsg(errExpStr), _exceptionObject(nullptr) { }
-
-                                    /**
-				                    /* Overloaded constructor for String
-                                    * @param[in]	exError	The error code to intitialize this constructor with.
-				                    * @param[in]	errExpStr	The String to intitialize this constructor with.
-                                    * @param[in]	errExp	The Unknown (System) Exception object to intitialize this constructor with.
-				                    */
-				                    DalException(int exError, String^ errExpStr, Exception^ errExp): _errCode(exError), _errMsg(errExpStr), _exceptionObject(errExp) { }
-									
-									/**
-									* Error code property of the exception.
-									*/ 
-									property int ErrorCode
-									{
-										int get()
-										{
-											return _errCode;
-										}
-
-										void set(int exError)
-										{
-											_errCode = exError;
-										}
-									}
-
-                                    /**
-				                    * Error code String property of the exception
-				                    */ 
-				                    property String^ ErrorString
-				                    {
-					                    String^ get()
-					                    {
-						                    return _errMsg;
-					                    }
-
-					                    void set(String^ exError)
-					                    {
-						                    _errMsg = exError;
-					                    }
-				                    }
-
-                                    /**
-			                        * Exception Object property of the exception
-			                        */ 
-			                        property Exception^ ExceptionObject
-			                        {
-				                        Exception^ get()
-				                        {
-					                        return _exceptionObject;
-				                        }
-			                        }
-								}; // End DalException
-
-
-								/**
 								* @enum DalReturnValue
 								* @brief Status of failure/succes and reasons
 								*/
@@ -273,20 +187,20 @@ namespace AtCor{
 								};
 
 								/**
-								* @union EM44StatusFlag
+								* @union EM4StatusFlag
 								* @brief Two byte union to translate EM4 status bits into an integer
 								*/
-								private union EM44StatusFlag
+								private union EM4StatusFlag
 								{
 									unsigned char ucStatusBytes[2];
 									unsigned short ulStatusFlag;
 								};
 
 								/**
-								* @union EM44ErrorAlarmSourceFlag
+								* @union EM4ErrorAlarmSourceFlag
 								* @brief Four byte union to translate EM4 error alarm source flag into a long integer
 								*/
-								private union EM44ErrorAlarmSourceFlag
+								private union EM4ErrorAlarmSourceFlag
 								{
 									unsigned char ucStatusBytes[4];
 									unsigned long ulStatusFlag;
@@ -317,16 +231,98 @@ namespace AtCor{
 								* @enum DalTonometerStatusBitMask
 								* @brief Bit masks to check Tonometer state
 								*/
-								public enum class DalTonometerStatusBitMask
+								private enum class DalTonometerStatusBitMask
 								{
 									TonometerNotConnectedBits = 0x1000
 
 								};
 
 
+								/**
+								* @enum DalStatusFlagBitMask
+								* @brief Masks used to check various parts of the status flags
+								*/
+								private enum class DalStatusFlagBitMask
+								{
+									ErrorAlarmStatusBitsMask = 0x00000028,
+									CuffStatusBitsMask = 0x2F00,
+									ErrorAlarmSourceBitMask = 0x0000FFFF,
+
+								};
 
 
-							
+								/**
+								* @class DalFormatterStrings
+								* @brief Strings needed for various formatting purposes
+								*/
+								private ref class DalFormatterStrings
+								{
+									internal:
+										static String^ PrintEnumName = "G";
+										static String^ SingleSpaceString = " ";
+										static String^ PrintByte = "X2";
+										static String^ FullDateTimeFormat = "yyyyMMMddHHmmss";
+										static char    tabSeparator = '\t';
+										static String^ tabSeparatorString = "\t";
+										static String^ FourSlashes = "\\\\";
+										static String^ TwoSlashes = "\\";
+								};
+
+								/**
+								* @enum Em4ResponseByteIndex
+								* @brief Index of various parts of the EM4 response
+								*/
+								private enum class Em4ResponseByteIndex
+								{
+									AckNackByte = 0,
+									ResponseLengthByte = 1,
+									SequenceNumberByte = 2,
+									DataChunkFirstByte = 3
+								};
+
+								/**
+								* @enum DalAckNackByteMask
+								* @brief Masks used to check the first byte of EM4 response.
+								*/
+								private enum class DalAckNackByteMask
+								{
+									CommandCodeBitsMask = 0x7F,
+									AckNackStatusBitMask = 0x80,
+									DataCaptureCodeAckedByte = 0x87
+
+								};
+
+
+								/**
+								* @class Em4CommandCodes
+								* @brief Contains all the EM4 command codes
+								*/
+								private class Em4CommandCodes
+								{
+									public:
+										static const unsigned char CaptureCommandDataPWVMode = 0x03;
+										static const unsigned char StartDataCapture = 0x06;
+										static const unsigned char StopDataCapture = 0x08;
+										static const unsigned char SetPressureSuntechBoard = 0x09;
+										static const unsigned char SetPressureMainBoard = 0x0A;
+										static const unsigned char GetConfigInfo = 0x0B;
+										static const unsigned char GetConfigInfoDataDeviceSerialNumber = 0x08;
+										static const unsigned char GetAlarmStatus = 0x11;
+								};
+
+								/**
+								* @class Em4ResponseRequiredLength
+								* @brief Contains the length of the response required for each EM4 code
+								*/
+								private class Em4ResponseRequiredLength
+								{
+									public:
+										static const int StartDataCapture = 5;
+										static const int StopDataCapture = 5;
+										static const int SetPressure = 5;
+										static const int GetConfigInfoDataDeviceSerialNumber = 17;
+										static const int GetAlarmStatus = 9;
+								};
 
 		} // End Namespace DataAccess
 	} // End Namespace Scor

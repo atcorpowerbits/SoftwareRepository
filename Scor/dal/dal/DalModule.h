@@ -18,6 +18,7 @@
 #include "DalEventContainer.h"
 #include "DalSimulationFile.h"
 #include "DalSimulationHandler.h"
+#include "DalStatusHandler.h"
 
 using namespace System;
 using namespace AtCor::Scor::CrossCutting;

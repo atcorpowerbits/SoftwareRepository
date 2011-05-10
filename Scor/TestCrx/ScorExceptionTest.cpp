@@ -1,7 +1,10 @@
 ﻿
 #include "StdAfx.h"
+#include "StdAfx.h"
+
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting;
+
 namespace TestCrx {
     using namespace System;
     ref class ScorExceptionTest;
@@ -68,7 +71,7 @@ namespace TestCrx {
 			void ExceptionObjectTest()
 			{
 				String ^ excepMessage = "This is a test excpetion";
-				ScorException^  target = (gcnew ScorException(gcnew Exception(excepMessage))); // TODO: Initialize to an appropriate value
+				ScorException^  target = (gcnew ScorException(gcnew Exception(excepMessage))); 
 				Exception^  actual;
 				actual = target->ExceptionObject;
 				Assert::IsNotNull(actual);
@@ -80,7 +83,7 @@ namespace TestCrx {
 	public: [TestMethod]
 			void ErrorTypeTest()
 			{
-				ScorException^  target = (gcnew ScorException(111, "TestKey", ErrorSeverity::Warning )); // TODO: Initialize to an appropriate value
+				ScorException^  target = (gcnew ScorException(111, "TestKey", ErrorSeverity::Warning )); 
 				ErrorSeverity actual;
 				actual = target->ErrorType;
 				Assert::AreEqual(ErrorSeverity::Warning , actual);
@@ -92,7 +95,7 @@ namespace TestCrx {
 			void ErrorMessageKeyTest()
 			{
 				String^ testKey = "SCOR_TEST_KEY";
-				ScorException^  target = (gcnew ScorException(111,testKey, ErrorSeverity::Warning)); // TODO: Initialize to an appropriate value
+				ScorException^  target = (gcnew ScorException(111,testKey, ErrorSeverity::Warning)); 
 				String^  actual;
 				actual = target->ErrorMessageKey;
 				Assert::AreEqual(testKey, actual);
@@ -104,7 +107,7 @@ namespace TestCrx {
 			void ErrorCodeTest()
 			{
 				int testErrorCode = 999;
-				ScorException^  target = (gcnew ScorException(testErrorCode, "TestKey", ErrorSeverity::Warning )); // TODO: Initialize to an appropriate value
+				ScorException^  target = (gcnew ScorException(testErrorCode, "TestKey", ErrorSeverity::Warning )); 
 				int actual;
 				actual = target->ErrorCode;
 				Assert::AreEqual(testErrorCode, actual);
@@ -115,15 +118,15 @@ namespace TestCrx {
 	public: [TestMethod]
 			void ScorExceptionConstructorTest3()
 			{
-				int errorCode = 100; // TODO: Initialize to an appropriate value
-				String^  errorKey = "Scor_Key"; // TODO: Initialize to an appropriate value
-				ErrorSeverity errorType = ErrorSeverity(); // TODO: Initialize to an appropriate value
-				Exception^  exceptionObject = gcnew Exception(); // TODO: Initialize to an appropriate value
-				cli::array< String^  >^  arr = gcnew array<String^>(1); // TODO: Initialize to an appropriate value
+				int errorCode = 100; 
+				String^  errorKey = "Scor_Key"; 
+				ErrorSeverity errorType = ErrorSeverity(); 
+				Exception^  exceptionObject = gcnew Exception(); 
+				cli::array< String^  >^  arr = gcnew array<String^>(1); 
 				
 				//Begin: Smarajit(04-Mar-2011)
 				errorType = ErrorSeverity::Information ;
-				//exceptionObject-> = "ScorExceptionConstructorTest3";
+				
 				arr[0] = "Arr_ScorExceptionConstructorTest3";
 				ScorException^  target = (gcnew ScorException(errorCode, errorKey, errorType, exceptionObject, arr));
 
@@ -139,6 +142,7 @@ namespace TestCrx {
 
 				//End: Smarajit(04-Mar-2011)
 			}
+
 			/// <summary>
 			///A test for ScorException Constructor
 			///</summary>
@@ -156,8 +160,8 @@ namespace TestCrx {
 	public: [TestMethod]
 			void ScorExceptionConstructorTest1()
 			{
-				int errorCode = 999; // TODO: Initialize to an appropriate value
-				String^  errorKey = "SCOR_TEST_EXCEP_KEY"; // TODO: Initialize to an appropriate value
+				int errorCode = 999; 
+				String^  errorKey = "SCOR_TEST_EXCEP_KEY"; 
 				ErrorSeverity errorType = ErrorSeverity();
 				errorType = ErrorSeverity::Information ;
 				ScorException^  target = (gcnew ScorException(errorCode, errorKey, errorType));
@@ -172,11 +176,29 @@ namespace TestCrx {
 			void ScorExceptionConstructorTest()
 			{
 				String^ testExceptionString = "TEST_KEY";
-				Exception^  exceptionObject = gcnew Exception(testExceptionString); // TODO: Initialize to an appropriate value
+				Exception^  exceptionObject = gcnew Exception(testExceptionString); 
 				ScorException^  target = (gcnew ScorException(exceptionObject));
 				Assert::AreEqual(testExceptionString, target->ExceptionObject->Message);
 			}
-	};
+			/// <summary>
+			///A test for ScorException Constructor
+			///</summary>
+public: [TestMethod]
+		void ScorExceptionConstructorTest4()
+		{
+			ErrorSeverity errorType = ErrorSeverity(); // TODO: Initialize to an appropriate value
+			errorType = ErrorSeverity::Exception;
+			//Exception^  exceptionObject = nullptr; // TODO: Initialize to an appropriate value
+			Exception^  exceptionObject = gcnew Exception();
+			String^  arr = "SCOR_TEST_EXCEP_KEY";; // TODO: Initialize to an appropriate value
+			ScorException^  target = (gcnew ScorException(errorType, exceptionObject, arr));
+			
+			Assert::AreEqual(errorType, target->ErrorType);
+			Assert::AreEqual(exceptionObject->Message, target->ExceptionObject->Message);
+			Assert::AreEqual(arr,target->ErrorStringArr[0]);
+			//Assert::Inconclusive(L"TODO: Implement code to verify target");
+		}
+};
 }
 namespace TestCrx {
     

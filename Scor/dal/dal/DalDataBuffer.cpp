@@ -13,6 +13,7 @@
 
 using namespace System::Threading;
 using namespace AtCor::Scor::CrossCutting;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 
 namespace AtCor{
 	namespace Scor{
@@ -74,7 +75,7 @@ namespace AtCor{
 					//check if either parameter is negative and signall error.
 					
 					//Arguements are invalid
-					throw gcnew ScorException(1005, "DAL_ERR_INVALID_ARGS",ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrInvalidArgsErrCd, CrxStructCommonResourceMsg::DalErrInvalidArgs,ErrorSeverity::Exception);
 				}
 				
 				//first clear all variables
@@ -110,7 +111,7 @@ namespace AtCor{
 					_arraySize = arrayLastElementIndex=startIndex= bufferIndex =-1;
 					bufferPointer = nullptr;
 
-					throw gcnew ScorException(1000, "DAL_ERR_ARRAY_CREATE_FAILED", ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrArrayCreateFailedErrCd, CrxStructCommonResourceMsg::DalErrArrayCreateFailed, ErrorSeverity::Exception);
 				}
 
 				return true; //if we reach here then it was successful
@@ -124,7 +125,7 @@ namespace AtCor{
 				if (bufferPointer == nullptr)
 				{
 					//array hasnt been created yet
-					throw gcnew ScorException(1001, "DAL_ERR_BUFFER_NOT_CREATED", ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferNotCreatedErrCd, CrxStructCommonResourceMsg::DalErrBufferNotCreated, ErrorSeverity::Exception);
 				}
 
 				//check if a rollover has happened only once.
@@ -162,19 +163,19 @@ namespace AtCor{
 				if (bufferPointer == nullptr)
 				{
 					//array hasnt been created yet
-					throw gcnew ScorException(1001, "DAL_ERR_BUFFER_NOT_CREATED", ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferNotCreatedErrCd, CrxStructCommonResourceMsg::DalErrBufferNotCreated, ErrorSeverity::Exception);
 				}
 
 				if (requestedValues <=0)
 				{
 					//illegal parameter: the number of requested values must be positive integer
-					throw gcnew ScorException(1005, "DAL_ERR_INVALID_ARGS",ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrInvalidArgsErrCd, CrxStructCommonResourceMsg::DalErrInvalidArgs,ErrorSeverity::Exception);
 				}
 				
 				if (requestedValues > (_arraySize -1))
 				{
 					//request size is larger than size of array.
-					throw gcnew ScorException(1006, "DAL_ERR_REQUEST_TOO_LARGE", ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrRequestTooLargeErrCd, CrxStructCommonResourceMsg::DalErrRequestTooLarge, ErrorSeverity::Exception);
 				}
 
 				
@@ -272,7 +273,7 @@ namespace AtCor{
 				if (bufferPointer == nullptr)
 				{
 					//array hasnt been created yet
-					throw gcnew ScorException(1001, "DAL_ERR_BUFFER_NOT_CREATED", ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferNotCreatedErrCd, CrxStructCommonResourceMsg::DalErrBufferNotCreated, ErrorSeverity::Exception);
 				}
 
 				//caclulate aexact index from offset and account for rollover.
@@ -292,7 +293,7 @@ namespace AtCor{
 					if (bufferIndex == -1)
 					{
 						//array hasnt been created yet
-						throw gcnew ScorException(1001, "DAL_ERR_BUFFER_NOT_CREATED", ErrorSeverity::Exception);
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferNotCreatedErrCd, CrxStructCommonResourceMsg::DalErrBufferNotCreated, ErrorSeverity::Exception);
 					}
 					
 					lockArray->WaitOne(); //lock the array to prevent simultaneous access.
@@ -333,6 +334,26 @@ namespace AtCor{
 				catch(Exception^ excepObj)
 				{
 					throw gcnew ScorException(excepObj);
+				}
+			}
+
+			bool DalDataBuffer::IsBufferEmpty()
+			{
+				if (bufferPointer == nullptr)
+				{
+					//array hasnt been created yet
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferNotCreatedErrCd, CrxStructCommonResourceMsg::DalErrBufferNotCreated, ErrorSeverity::Exception);
+				}
+
+				if (bufferIndex == startIndex)
+				{
+					///the buffer is empty
+					return true;
+				}
+				else
+				{
+					//in any other condition it is untrue
+					return false;
 				}
 			}
 

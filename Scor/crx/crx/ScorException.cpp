@@ -22,18 +22,9 @@ namespace AtCor {
 				//Empty constructor. Cannot be called.
 			}
 
-			/*ScorException::ScorException(ScorException^ scorExceptionObject)
-			{
-				this->_errorCode = scorExceptionObject->_errorCode;
-				this->_exceptionObject = scorExceptionObject->_exceptionObject ; 
-				this->_errorType = scorExceptionObject->_errorType; 
-				this->_errorKey = scorExceptionObject->_errorKey;
-
-			}*/
-
 			ScorException::ScorException(Exception^ excepObject)
 			{
-				this->_errorCode = -1; //set error code to -1 so that we know that this is system raised
+				this->_errorCode = Convert::ToInt32(CustomErrorCode::SystemErrorCode);//set error code to -1 so that we know that this is system raised
 				this->_exceptionObject = excepObject; //copy the object
 				this->_errorType = ErrorSeverity::Exception; //always raise system-generated exceptions with highest severity
 				this->_errorKey = nullptr;
@@ -75,6 +66,26 @@ namespace AtCor {
 				this->_errorType = errorType;//Set the error code provided from the parameter to scorexception object 
 				this->_exceptionObject = excepObject;//copy the object from the function parameter to scorexception object				
 			}
+
+			ScorException::ScorException(AtCor::Scor::CrossCutting::ErrorSeverity errorType, System::Exception ^exceptionObject, String ^arr)
+			{
+				//Checks array is null or not. 
+				//If not null put the values from the array to the scorexception object array
+				if(arr != nullptr)
+				{
+					this->_errorStringArr = gcnew array<String^>(1);
+					this->_errorStringArr[0] = arr;
+				}
+				//else set the length of scorexception object array to 0
+				else
+				{
+					this->_errorStringArr = gcnew array<String^>(0);
+				}
+				this->_errorKey = nullptr;//set the error key to nullptr
+				this->_errorCode = Convert::ToInt32(CustomErrorCode::SpecialExceptionCode);//Set error code provided from the function paramter to scorexception object 
+				this->_errorType = errorType;//Set the error code provided from the parameter to scorexception object 
+				this->_exceptionObject = exceptionObject;//copy the object from the function parameter to scorexception object	
+			}			
 
 		}
 	}

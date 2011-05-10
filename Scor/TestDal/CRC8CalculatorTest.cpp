@@ -73,8 +73,28 @@ namespace TestDal {
 			}
 
 
+			/// <summary>
+			///A test for CRC8Calculator Constructor
+			///</summary>
+			public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void CRC8forNextByteTest()
+			{
+				CRC8Calculator_Accessor^  target = (gcnew CRC8Calculator_Accessor());
+				unsigned char nextByte = 0x00;
+				unsigned char currentCrc  = 0x00;
+				target->Crc8forNextByte(&currentCrc, 0x00);
+				Assert::AreEqual((unsigned char)0x07, currentCrc);
+
+				currentCrc  = 0x00;
+				target->Crc8forNextByte(&currentCrc, 0x02);
+				Assert::AreEqual((unsigned char)0x0E, currentCrc);
+
+			}
+
+
 			//Deepak: This test causes the Test framework to crash and prevents all tests from running
-			/*/// <summary>
+			/// <summary>
 			///A test for CRC8Calculator Constructor
 			///</summary>
 	public: [TestMethod]
@@ -83,19 +103,19 @@ namespace TestDal {
 			{
 				try
 				{
-				CRC8Calculator_Accessor^  target = (gcnew CRC8Calculator_Accessor());
-				array<unsigned char>^ testArray = gcnew array<unsigned char> {0x10, 0x1F, 0xFF };
-				unsigned char expected, actual;
-				expected = 0xc5;
-				actual = 0x00;
-				 target->ComputeCrc8ForArray(testArray, 3 ,&actual );
-				 Assert::AreEqual(expected, actual);
+					CRC8Calculator_Accessor^  target = (gcnew CRC8Calculator_Accessor());
+					array<unsigned char>^ testArray = gcnew array<unsigned char> (3) {0x10, 0x1F, 0xFF };
+					unsigned char expected, actual;
+					expected = 0xc5;
+					actual = 0x00;
+					 target->ComputeCrc8ForArray(testArray, 3 ,&actual );
+					 Assert::AreEqual(expected, actual);
 				}
 				catch(Exception^ excepObj)
 				{
-					Assert::Fail("Exception raised");
+					Assert::Fail("Exception raised: " + excepObj->Message );
 				}
-			}*/
+			}
 	};
 }
 namespace TestDal {

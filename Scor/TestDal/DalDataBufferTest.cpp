@@ -2,6 +2,7 @@
 #include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
+using namespace AtCor::Scor::CrossCutting;
 
 namespace TestDal {
     using namespace System;
@@ -159,25 +160,34 @@ namespace TestDal {
 			}
 
 
-				public: [TestMethod]
+			//This test shall attemp to write to the buffer withoout first creating a buffer
+			//THis should result in an excpetion being thrown
+			public: [TestMethod]
 			void WriteDataToBufferTestNeg()
 			{
-				DalDataBuffer^  target = (DalDataBuffer::Instance); // TODO: Initialize to an appropriate value
+				DalDataBuffer_Accessor^  target = (gcnew DalDataBuffer_Accessor()); 
 
 				DalPwvDataStruct dataToWrite; 
 				dataToWrite.cuffPulseData = 100;
 				dataToWrite.tonometerData = 200;
-				
+
+				bool expected1 = false;
+				bool expected2 = true;
+				bool actual1;
+				bool actual2;
 
 				try
 				{
-
-					target->WriteDataToBuffer(dataToWrite);
+					//target->CreateBuffer(10, 256);
+					actual1 = target->WriteDataToBuffer(dataToWrite);
+					Assert::AreEqual(expected1, actual1);
 				}
-				catch(AtCor::Scor::CrossCutting::ScorException^ dalExObj)
+				catch(AtCor::Scor::CrossCutting::ScorException^ )
 				{
-					Assert::IsTrue(true);
+					//Assert::IsTrue(true);
+					actual2 = true;
 				}
+				Assert::AreEqual(expected2, actual2);
 			}
 
 			/// <summary>
@@ -254,15 +264,22 @@ namespace TestDal {
 				DalDataBuffer^  target = (DalDataBuffer::Instance); // TODO: Initialize to an appropriate value
 				int captureTime = -10; // TODO: Initialize to an appropriate value
 				int samplingRate = -30; // TODO: Initialize to an appropriate value
+				bool actual1 = false;
+				bool actual2 = true;
+				bool expected1;
+				bool expected2;
+
 				try
 				{
-				target->CreateBuffer(captureTime, samplingRate);
+				  expected1	= expected1 = target->CreateBuffer(captureTime, samplingRate);
+				  Assert::AreEqual(expected1,actual1);
 				}
-				catch(AtCor::Scor::CrossCutting::ScorException^ scorEx)
+				catch(AtCor::Scor::CrossCutting::ScorException^ )
 				{
-					Assert::IsTrue(true);
-
+					//Assert::IsTrue(true,);
+					expected2 = true;	
 				}
+				Assert::AreEqual(expected2, actual2);
 			}
 
 			/// <summary>
@@ -319,7 +336,7 @@ namespace TestDal {
 			/// <summary>
 			///A test for WriteDataToBuffer
 			///</summary>
-	public: [TestMethod]
+			public: [TestMethod]
 			void GetAllValuesTest()
 			{
 				DalDataBuffer^  target = (DalDataBuffer::Instance); 
@@ -331,7 +348,7 @@ namespace TestDal {
 				dataToWrite.tonometerData = 200;
 				bool expected = true; // TODO: Initialize to an appropriate value
 				bool actual;
-				DalPwvDataStruct^ DataToRead;
+				//DalPwvDataStruct^ DataToRead;
 
 				int fromIndex, toIndex;
 				
@@ -365,71 +382,114 @@ namespace TestDal {
 			public: [TestMethod]
 			void GetAllValuesTest2()
 			{
-				DalDataBuffer^  target = (DalDataBuffer::Instance); 
+				DalDataBuffer^  target = (DalDataBuffer::Instance ); 
 				int fromIndex, toIndex;
-				
+				bool actual1 = false;
+				bool actual2 = true;
+				bool expected1;
+				bool expected2;
 				try
 				{
-					target->GetAllValues(fromIndex, toIndex);
+				  expected1	= target->GetAllValues(fromIndex, toIndex);
+				  Assert::AreEqual(expected1, actual1);
 				}
-				catch(AtCor::Scor::CrossCutting::ScorException ^ dalExObj)
+				catch(AtCor::Scor::CrossCutting::ScorException ^ )
 				{
-					Assert::IsTrue(true);
+					//Assert::IsTrue(true);
+					expected2 = true;
 				}
+				Assert::AreEqual(expected2, actual2);
 			}
 
 
 
-				public: [TestMethod]
+			public: [TestMethod]
 			void GetNextValuesTest()
 			{
-				DalDataBuffer^  target = (DalDataBuffer::Instance); // TODO: Initialize to an appropriate value
-				int readStartIndex = 0; // TODO: Initialize to an appropriate value
-				int offsetFromReadStartIndex = 0; // TODO: Initialize to an appropriate value
-				DalPwvDataStruct  expected ; // TODO: Initialize to an appropriate value
-				DalPwvDataStruct^  actual;
+				DalDataBuffer_Accessor^  target = gcnew DalDataBuffer_Accessor(); 
+				int readStartIndex = 0; 
+				int offsetFromReadStartIndex = 0; 
+				DalPwvDataStruct  expected ; 
+				//DalPwvDataStruct^  actual;
 				expected.cuffPulseData = 100;
 				expected.tonometerData = 200;
-				DalPwvDataStruct^ DataToRead;
+				//DalPwvDataStruct^ DataToRead;
 				DalPwvDataStruct dataToWrite;
+		
+				bool expected1 = false;
+				bool actual1 = false;
+
+				int retValue;
+				
+				try
+				{
+					 retValue = target->GetNextValues(1, readStartIndex);
+					//throws exception here because before calling this method
+					//buffer has to be created. here bufferpointer is always null
+
+				}
+				catch(AtCor::Scor::CrossCutting::ScorException ^ )
+				{
+					//Assert::IsTrue(true);
+					actual1 = true;
+				}
+				Assert::AreEqual(true, actual1);
+				try
+				{
+					retValue= target->GetNextValues(-1, readStartIndex); //test negative parameter
+					//throws exception here because before calling this method
+					//buffer has to be created. here bufferpointer is always null
+
+				}
+				catch( AtCor::Scor::CrossCutting::ScorException^ ) 
+				{
+					//Assert::IsTrue(true);
+					actual1 = true;
+				}
+
+				Assert::AreEqual(true, actual1);
 
 				try
 				{
-					target->GetNextValues(1, readStartIndex);
+					expected1 = target->CreateBuffer(10,1);
+					Assert::AreEqual(expected1, true);
 				}
-				catch(AtCor::Scor::CrossCutting::ScorException ^ scorException)
+				catch( AtCor::Scor::CrossCutting::ScorException^ ) 
 				{
-					Assert::IsTrue(true);
+					actual1 = false;
+					Assert::AreEqual(false, actual1); //TODO
 				}
-
-				try
-				{
-					target->GetNextValues(-1, readStartIndex); //test negative parameter
-				}
-				catch( AtCor::Scor::CrossCutting::ScorException^ scExcepObj)
-				{
-					Assert::IsTrue(true);
-				}
-
-				target->CreateBuffer(10,1);
-
+				
 				
 				target->GetNextValues(1, readStartIndex); //test empty buffer
 				Assert::AreEqual(readStartIndex, -1);
 				
+				try
+				{
+					expected1 = target->WriteDataToBuffer(expected);
+					Assert::AreEqual(expected1, true);
+				}
+				catch( AtCor::Scor::CrossCutting::ScorException^ )
+				{
+					//Assert::IsTrue(true);
+					actual1 = false;
+					Assert::AreEqual(false, actual1);
+				}
 
-				target->WriteDataToBuffer(expected);
 
 				try
 				{
-					target->GetNextValues(100, readStartIndex); //test array size too large
+					retValue = target->GetNextValues(100, readStartIndex); //test array size too large
+					//throws exception here because before calling this method
+					//buffer has to be created. here bufferpointer is always null
+
 				}
-				 
-				catch( AtCor::Scor::CrossCutting::ScorException^ scExcepObj)
+				catch( AtCor::Scor::CrossCutting::ScorException^ )
 				{
-					Assert::IsTrue(true);
+					//Assert::IsTrue(true);
+					actual1 = true;
 				}
-				
+				Assert::AreEqual(actual1, true);  //neg test
 				
 				target->CreateBuffer(10, 1);
 				for (int i = 0; i<20; i++)
@@ -449,9 +509,7 @@ namespace TestDal {
 
 
 			}
-
-
-				public: [TestMethod]
+			public: [TestMethod]
 			void GetNextValues_CheckExcessRequest_Test()
 			{
 				DalDataBuffer^  target = (DalDataBuffer::Instance); // TODO: Initialize to an appropriate value
@@ -530,6 +588,9 @@ namespace TestDal {
 				int offsetFromReadStartIndex = 0; // TODO: Initialize to an appropriate value
 				int returnedValues;
 				bool writen;
+
+				bool expected = true;
+				//bool actual;
 				
 				DalPwvDataStruct dataToWrite;
 
@@ -539,7 +600,8 @@ namespace TestDal {
 				{
 					dataToWrite.tonometerData =i;
 					writen = target->WriteDataToBuffer (dataToWrite);
-					Assert::IsTrue(writen);
+					//Assert::IsTrue(writen);
+					Assert::AreEqual(expected, writen);
 				}
 
 				for (int i = 0; i<=5; i++)
@@ -563,6 +625,8 @@ namespace TestDal {
 				int offsetFromReadStartIndex = 0; // TODO: Initialize to an appropriate value
 				int returnedValues;
 				bool writen;
+
+				bool expected = true;
 				
 				DalPwvDataStruct dataToWrite;
 
@@ -572,7 +636,8 @@ namespace TestDal {
 				{
 					dataToWrite.tonometerData =i;
 					writen = target->WriteDataToBuffer (dataToWrite);
-					Assert::IsTrue(writen);
+					//Assert::IsTrue(writen);
+					Assert::AreEqual(expected, writen);
 				}
 
 				for (int i = 1; i<=12; i++)
@@ -588,7 +653,88 @@ namespace TestDal {
 			}
 
 
-	};
+			/// test without writing any data
+			///A test for IsBufferEmpty
+			///</summary>
+		public: [TestMethod]
+		void IsBufferEmptyTest()
+		{
+			DalDataBuffer_Accessor^  target = (gcnew DalDataBuffer_Accessor()); 
+			target->CreateBuffer(10, 256);
+			bool expected = true; 
+			bool actual;
+			actual = target->IsBufferEmpty();
+			Assert::AreEqual(expected, actual);
+		}
+
+
+		/// test without creating buffer. should throw exceptionm
+		///A test for IsBufferEmpty
+		///</summary>
+		public: [TestMethod]
+		void IsBufferEmptyTest2()
+		{
+			DalDataBuffer_Accessor^  target = (gcnew DalDataBuffer_Accessor()); 
+			bool actual;
+			bool ExceptionThrown = false;
+			try
+			{
+				actual = target->IsBufferEmpty();
+			}
+			catch(ScorException^)
+			{
+				ExceptionThrown = true;
+			}
+			Assert::IsTrue(ExceptionThrown);
+
+			//now create a buffer exception thrown should be false
+			target->CreateBuffer(10, 256);
+			ExceptionThrown = false;
+			try
+			{
+				actual = target->IsBufferEmpty();
+			}
+			catch(ScorException^)
+			{
+				ExceptionThrown = true;
+			}
+			Assert::IsFalse(ExceptionThrown);
+		}
+
+		/// test with data
+		///A test for IsBufferEmpty
+		///</summary>
+		public: [TestMethod]
+		void IsBufferEmptyTest3()
+		{
+			DalDataBuffer_Accessor^  target = (gcnew DalDataBuffer_Accessor()); 
+			target->CreateBuffer(10, 256);
+			bool expected = true; 
+			bool actual;
+			//first call without any data
+			actual = target->IsBufferEmpty();
+			Assert::AreEqual(expected, actual);
+			
+			//now enter some data
+			DalPwvDataStruct pwvstruct ;
+			
+			target->WriteDataToBuffer(pwvstruct);
+			actual = target->IsBufferEmpty();
+			Assert::IsFalse(actual);
+			int readStartIndex;
+			target->GetNextValues(32, readStartIndex);
+			target->GetValueAt(readStartIndex, 0);
+			//now it shoud retur true again
+			actual = target->IsBufferEmpty();
+			Assert::IsTrue(actual);
+
+
+		}
+
+
+
+
+};
 }
 namespace TestDal {
     

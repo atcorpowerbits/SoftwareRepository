@@ -11,21 +11,13 @@
 #include "CrxMessaging.h"
 #include "ScorException.h"
 
-using namespace System;// For String, Console
-using namespace System::Text; //For String manipulation
-
 // Add application specific namespaces
-using namespace AtCor::Scor::CrossCutting::Messaging;
-using namespace System::Xml;// For XML classes and enums
-using namespace System::IO;// For FileStream
-using namespace AtCor::Scor::CrossCutting;
-
+using namespace AtCor::Scor::CrossCutting::Messaging;	
 
 CrxMessagingManager::CrxMessagingManager()
 {
 	// Initialize the resource managers with appropriate resource files
-	errRsrcMsg = gcnew ResourceManager("Scor.ApplicationMessages", Assembly::GetExecutingAssembly());
-
+	errRsrcMsg = gcnew ResourceManager(CrxMsgStructInternal::NameOfAppResxfile, Assembly::GetExecutingAssembly());
 }
 
 //Returns an error message corresponding to the specified errorcode.Calling to main overloaded function
@@ -51,14 +43,6 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 	
 	try
 	{			
-		//Check whether default resource file is exists or not
-		//if(!File::Exists(_nameOfAppResxfile))
-		//{ 
-		//	//throw gcnew CrxException(L"Resource file not found"); // File not found
-		//	errorString = "200 Resource file not found.";
-		//	return errorString;
-		//}
-
 		//Get the message string through resource manager object
 		errorString = errRsrcMsg->GetString(strCode);
 
@@ -66,7 +50,7 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 		//if string length is equals to zero then send the string "Error Code not found"
 		if(errorString == nullptr)
 		{
-			errorString = "201 : Error Code not found.";
+			errorString = (String^)CrxStructCommonResourceMsg::ErrorStringNotFound;
 		}
 
 		return errorString;
@@ -81,6 +65,7 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 		// kept here for future reference and use
 	}
 }
+
 
 Image ^CrxMessagingManager::GetImage(String^ strCode) 
 {
@@ -106,15 +91,17 @@ Image ^CrxMessagingManager::GetImage(String^ strCode)
 }
 
 //TODO: Need to implement the validation for culture specific changes
-int CrxMessagingManager::CheckResourceFileExist()
+bool CrxMessagingManager::CheckResourceFileExist()
 {
-	int	result		= 0;//Get error string and return, set to null
+	//bool	result		= true;//Holds the return, set to true
 
-	//Check whether default resource file is exists or not
-	if(!File::Exists(_nameOfAppResxfile))
-	{ 		
-		// throw the exception
-		throw gcnew ScorException(CRX_ERR_RESOURCE_FILE_NOT_EXIST, nullptr, ErrorSeverity::Exception,nullptr,_checkResourceMesg);// File not found
-	}
-	return result;
+	////Check whether default resource file is exists or not
+	//if(!File::Exists(CrxMsgStructInternal::NameOfAppResxfilePath))
+	//{ 		
+	//	//If not exist, return false
+	//	result = false;		
+	//}
+	//return result;
+
+	return (File::Exists(CrxMsgStructInternal::NameOfAppResxfilePath));
 }

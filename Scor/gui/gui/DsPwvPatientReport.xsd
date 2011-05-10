@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DsPwvPatientReport" targetNamespace="http://tempuri.org/DsPwvPatientReport.xsd" xmlns:mstns="http://tempuri.org/DsPwvPatientReport.xsd" xmlns="http://tempuri.org/DsPwvPatientReport.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DsPwvPatientReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DsPwvPatientReport" msprop:Generator_DataSetName="DsPwvPatientReport" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_TablePropName="DataTable1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ImageGpTxt" msprop:Generator_UserColumnName="ImageGpTxt" msprop:Generator_ColumnVarNameInTable="columnImageGpTxt" msprop:Generator_ColumnPropNameInRow="ImageGpTxt" msprop:Generator_ColumnPropNameInTable="ImageGpTxtColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ImageStdDeviation" msprop:Generator_UserColumnName="ImageStdDeviation" msprop:Generator_ColumnPropNameInRow="ImageStdDeviation" msprop:Generator_ColumnVarNameInTable="columnImageStdDeviation" msprop:Generator_ColumnPropNameInTable="ImageStdDeviationColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ImageFemoralValue" msprop:Generator_UserColumnName="ImageFemoralValue" msprop:Generator_ColumnPropNameInRow="ImageFemoralValue" msprop:Generator_ColumnVarNameInTable="columnImageFemoralValue" msprop:Generator_ColumnPropNameInTable="ImageFemoralValueColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ImageCarotidValue" msprop:Generator_UserColumnName="ImageCarotidValue" msprop:Generator_ColumnPropNameInRow="ImageCarotidValue" msprop:Generator_ColumnVarNameInTable="columnImageCarotidValue" msprop:Generator_ColumnPropNameInTable="ImageCarotidValueColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ImageFemoral" msprop:Generator_UserColumnName="ImageFemoral" msprop:Generator_ColumnPropNameInRow="ImageFemoral" msprop:Generator_ColumnVarNameInTable="columnImageFemoral" msprop:Generator_ColumnPropNameInTable="ImageFemoralColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ImageCarotid" msprop:Generator_UserColumnName="ImageCarotid" msprop:Generator_ColumnPropNameInRow="ImageCarotid" msprop:Generator_ColumnVarNameInTable="columnImageCarotid" msprop:Generator_ColumnPropNameInTable="ImageCarotidColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ImageGp" msprop:Generator_UserColumnName="ImageGp" msprop:Generator_ColumnVarNameInTable="columnImageGp" msprop:Generator_ColumnPropNameInRow="ImageGp" msprop:Generator_ColumnPropNameInTable="ImageGpColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ImageHp" msprop:Generator_UserColumnName="ImageHp" msprop:Generator_ColumnVarNameInTable="columnImageHp" msprop:Generator_ColumnPropNameInRow="ImageHp" msprop:Generator_ColumnPropNameInTable="ImageHpColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="Image" msprop:Generator_UserColumnName="Image" msprop:Generator_ColumnVarNameInTable="columnImage" msprop:Generator_ColumnPropNameInRow="Image" msprop:Generator_ColumnPropNameInTable="ImageColumn" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

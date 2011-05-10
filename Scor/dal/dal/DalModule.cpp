@@ -57,12 +57,12 @@ namespace AtCor{
 					if (String::IsNullOrEmpty(comPortInConfig))
 					{
 						//make it simualtion by default Dont throw exception
-						comPortInConfig = CrxMessagingManager::Instance->GetMessage("COMPORT_SIMULATION");
+						comPortInConfig = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation);
 
 						//set the com port as simulation in Config file
 						configMgr->GeneralSettings->CommsPort = comPortInConfig;
 						configMgr->SetGeneralUserSettings(configMgr->GeneralSettings);
-						CrxLogger::Instance->Write(CrxMessagingManager::Instance->GetMessage("DAL_MSG_DEFAULT_MODE_SELECTED_SIM"));
+						CrxLogger::Instance->Write(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalMsgDefaultModeSelectedSim));
 					}
 
 					SetDeviceStrategy(comPortInConfig); 
@@ -86,11 +86,11 @@ namespace AtCor{
 					if (commPort == nullptr)
 					{
 						//A null string was passed when a comm port was expected.
-						throw gcnew ScorException(1002, "DAL_ERR_COMPORT_NOT_SET", ErrorSeverity::Exception);
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrComportNotSetErrCd, CrxStructCommonResourceMsg::DalErrComportNotSet, ErrorSeverity::Exception);
 					}
 	                
 					//Compare with the "simulation" string CrxMessaging
-              		if (String::Compare(commPort->Replace(" ",""), oMsg->GetMessage("COMPORT_SIMULATION"), false) == 0)
+              		if (String::Compare(commPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), oMsg->GetMessage(CrxStructCommonResourceMsg::ComportSimulation), false) == 0)
 					{
 						//if config manager returns "simulation" initialize the DalSimulationHander
 						//create a new simulation handler
@@ -192,7 +192,7 @@ namespace AtCor{
 				//first check if the current device is simulation
 				//save it to a flag 
 				//if find module fails to locate a real device we will need to go back to simulation.
-				if (0 == String::Compare(configPort->Replace(" ",""), CrxMessagingManager::Instance->GetMessage("COMPORT_SIMULATION"), false) )
+				if (0 == String::Compare(configPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation), false) )
 				{
 					//there was no real comms port in COnfig file
 					commsPortInConfig = nullptr;

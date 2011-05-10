@@ -67,13 +67,12 @@ namespace TestDal {
 	public: [TestMethod]
 			void ModuleTypeTest()
 			{
-				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); // TODO: Initialize to an appropriate value
-				String^  expected = "Test Module Type"; // TODO: Initialize to an appropriate value
+				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); 
+				String^  expected = "Test Module Type";  //assigning a dummy value
 				String^  actual;
 				target->ModuleType = expected;
 				actual = target->ModuleType;
 				Assert::AreEqual(expected, actual);
-			//	Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for ModuleSerialNumber
@@ -81,13 +80,12 @@ namespace TestDal {
 	public: [TestMethod]
 			void ModuleSerialNumberTest()
 			{
-				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); // TODO: Initialize to an appropriate value
-				String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); 
+				String^  expected = L"Sim - 1234567890"; //assigning a dummy value 
 				String^  actual;
 				target->ModuleSerialNumber = expected;
 				actual = target->ModuleSerialNumber;
 				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for ModuleMainFWVersion
@@ -95,13 +93,12 @@ namespace TestDal {
 	public: [TestMethod]
 			void ModuleMainFWVersionTest()
 			{
-				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); // TODO: Initialize to an appropriate value
-				String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); 
+				String^  expected =  L"Sim - 0.1"; //assigning a dummy value.
 				String^  actual;
 				target->ModuleMainFWVersion = expected;
 				actual = target->ModuleMainFWVersion;
 				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for ModuleConfigId
@@ -109,13 +106,12 @@ namespace TestDal {
 	public: [TestMethod]
 			void ModuleConfigIdTest()
 			{
-				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); // TODO: Initialize to an appropriate value
-				unsigned short expected = 0; // TODO: Initialize to an appropriate value
+				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); 
+				unsigned short expected = 0; 
 				unsigned short actual;
 				target->ModuleConfigId = expected;
 				actual = target->ModuleConfigId;
 				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for ModuleConfigDate
@@ -123,13 +119,12 @@ namespace TestDal {
 	public: [TestMethod]
 			void ModuleConfigDateTest()
 			{
-				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); // TODO: Initialize to an appropriate value
-				DateTime expected = DateTime(); // TODO: Initialize to an appropriate value
+				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); 
+				DateTime expected = DateTime(); 
 				DateTime actual;
 				target->ModuleConfigDate = expected;
 				actual = target->ModuleConfigDate;
 				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for ModuleCalibrationDate
@@ -137,13 +132,12 @@ namespace TestDal {
 	public: [TestMethod]
 			void ModuleCalibrationDateTest()
 			{
-				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); // TODO: Initialize to an appropriate value
-				DateTime expected = DateTime(); // TODO: Initialize to an appropriate value
+				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct()); 
+				DateTime expected = DateTime(); 
 				DateTime actual;
 				target->ModuleCalibrationDate = expected;
 				actual = target->ModuleCalibrationDate;
 				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}
 			/// <summary>
 			///A test for DalDeviceConfigUsageStruct Constructor
@@ -152,7 +146,6 @@ namespace TestDal {
 			void DalDeviceConfigUsageStructConstructorTest()
 			{
 				DalDeviceConfigUsageStruct^  target = (gcnew DalDeviceConfigUsageStruct());
-				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 				Assert::IsNotNull(target);
 			}
 	};

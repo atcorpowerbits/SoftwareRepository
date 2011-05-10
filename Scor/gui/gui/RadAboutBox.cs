@@ -57,22 +57,22 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblCompanyName.Text = bizInformation.GetCompanyName().Replace("(R)", "\u00AE"); 
                 guiradlblCopyrightNotice.Text = bizInformation.GetCopyright().Replace("(c)", "\u00A9"); 
                 guiradlblVersion.Text = bizInformation.GetVersion();
-                guiradlblInstalledID.Text = oMsgMgr.GetMessage("GUI_ABOUT_INSTALL_ID");
-                guiradlblPWV.Text = string.Format(oMsgMgr.GetMessage("GUI_ABOUT_NO_MEASUREMT_PWV"), bizInformation.GetModuleNumberMeasurementsPWV()); 
-                guiradlblPWA.Text = string.Format(oMsgMgr.GetMessage("GUI_ABOUT_MEASUREMT_PWA"), bizInformation.GetModuleNumberMeasurementsPWA().ToString());
-                guiradlblBP.Text = string.Format(oMsgMgr.GetMessage("GUI_ABOUT_MEASUREMT_BP"), bizInformation.GetModuleNumberMeasurementsNIBP().ToString()); 
-                guiradlblSecurityMode.Text = string.Format(oMsgMgr.GetMessage("GUI_ABOUT_SEC_MODE"), bizInformation.GetSecurityMode());
-                guiradlblmoduleInfo.Text = string.Format(oMsgMgr.GetMessage("GUI_ABOUT_MODULE_TXT"), bizInformation.GetModuleType(), bizInformation.GetModuleVersion(), bizInformation.GetModuleSN()); 
+                guiradlblInstalledID.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutInstallId);
+                guiradlblPWV.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutNoMeasuremtPwv), bizInformation.GetModuleNumberMeasurementsPWV());
+                guiradlblPWA.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtPwa), bizInformation.GetModuleNumberMeasurementsPWA().ToString());
+                guiradlblBP.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtBp), bizInformation.GetModuleNumberMeasurementsNIBP().ToString());
+                guiradlblSecurityMode.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutSecMode), bizInformation.GetSecurityMode());
+                guiradlblmoduleInfo.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutModuleTxt), bizInformation.GetModuleType(), bizInformation.GetModuleVersion(), bizInformation.GetModuleSN());
 
-                guiradlblLastCalibrationDate.Text = string.Format(oMsgMgr.GetMessage("GUI_ABOUT_CALIB_DATE"), bizInformation.GetModuleCalibrationDate());
+                guiradlblLastCalibrationDate.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutCalibDate), bizInformation.GetModuleCalibrationDate());
 
-                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["CEMarkImage"].ToString()))
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["CEMarkImage"]))
                 {
                     guiradlblCeMark.BackColor = Color.FromArgb(191, 219, 255);
                 }
                 else
                 {
-                    guiradlblCeMark.Image = oMsgMgr.GetImage(ConfigurationManager.AppSettings["CEMarkImage"].ToString());
+                    guiradlblCeMark.Image = oMsgMgr.GetImage(ConfigurationManager.AppSettings["CEMarkImage"]);
                 }
             }
             catch (Exception ex)
@@ -127,7 +127,9 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // call crx printmanager to print the document
                 CrxPrintManager printMgr = CrxPrintManager.Instance;
-                printMgr.AtCorPrintDocument(sBPrint.ToString(), oMsgMgr.GetImage(ConfigurationManager.AppSettings["CEMarkImage"].ToString()));
+
+                // printMgr.AtCorPrintDocument(sBPrint.ToString(), oMsgMgr.GetImage(ConfigurationManager.AppSettings["CEMarkImage"].ToString()));
+                printMgr.AtCorPrintAboutBox(sBPrint.ToString(), oMsgMgr.GetImage(ConfigurationManager.AppSettings["CEMarkImage"]));  
             }
             catch (Exception ex)
             {

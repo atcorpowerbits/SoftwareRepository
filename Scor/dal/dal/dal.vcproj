@@ -178,10 +178,9 @@
 			AssemblyName="System.Xml, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
-		<AssemblyReference
-			RelativePath="..\..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
-			MinFrameworkVersion="0"
+		<ProjectReference
+			ReferencedProjectIdentifier="{24748540-BFD1-4293-99F5-D556338366C4}"
+			RelativePathToProject=".\crx\crx\crx.vcproj"
 		/>
 	</References>
 	<Files>
@@ -239,7 +238,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\IDalHandler.cpp"
+				RelativePath=".\DalStatusHandler.cpp"
 				>
 			</File>
 			<File
@@ -314,6 +313,10 @@
 			</File>
 			<File
 				RelativePath=".\DalSimulationHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalStatusHandler.h"
 				>
 			</File>
 			<File

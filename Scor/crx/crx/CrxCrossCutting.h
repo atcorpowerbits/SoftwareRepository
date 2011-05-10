@@ -13,9 +13,9 @@
 #pragma once
 
 using namespace System;
-using namespace System::IO;
 using namespace System::Globalization;
 
+using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Configuration;
 
 /**
@@ -51,9 +51,13 @@ namespace AtCor
 				//singleton instance
 				static CrxCommon^ _instance = gcnew CrxCommon();
 
+				//declare constant for default cultural settings
+				static String^ _defaultCulture;
+
 				//Default Constructor, also initializes all the structure references.
 				CrxCommon()
 				{
+					_defaultCulture = "en-US";
 					GetCommCultureInfo();
 				}
 
@@ -93,6 +97,7 @@ namespace AtCor
 				static CultureInfo^ gCI;				
 			};
 
+			// TODO: After finalizing ScorException we need to remove this class, 
 			/**
 			* @class CrxException
 			* @brief Exception class for CrxConfiguration namespace.
@@ -107,13 +112,13 @@ namespace AtCor
 				/**
 				* Default constructor, Initializes error code to Zero, which is a Unknown System Error.
 				*/
-				CrxException(): _errCode(0), _errMsg(""), _eObj(nullptr) { }
+				CrxException(): _errCode(0), _errMsg(String::Empty), _eObj(nullptr) { }
 				
 				/**
 				* Overloaded constructor
 				* @param[in]	exError	The error code to intitialize this constructor with.
 				*/
-				CrxException(int exError): _errCode(exError), _errMsg(""), _eObj(nullptr) { }
+				CrxException(int exError): _errCode(exError), _errMsg(String::Empty), _eObj(nullptr) { }
 
 				/**
 				* Overloaded constructor for Exception object

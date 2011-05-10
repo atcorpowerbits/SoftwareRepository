@@ -2,15 +2,17 @@
 #include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting;
+
 namespace TestCrx {
     using namespace System;
     ref class CommsPortEventArgsTest;
     
     
-    /// <summary>
+/// <summary>
 ///This is a test class for CommsPortEventArgsTest and is intended
 ///to contain all CommsPortEventArgsTest Unit Tests
 ///</summary>
+
 	[TestClass]
 	public ref class CommsPortEventArgsTest
 	{
@@ -61,28 +63,43 @@ namespace TestCrx {
 			//}
 			//
 #pragma endregion
+
 			/// <summary>
-			///A test for commsPortSetting
+			///A test for commsPortSetting property
 			///</summary>
 	public: [TestMethod]
 			void commsPortSettingTest()
 			{
-				String^  commsPortSetting = System::String::Empty; // TODO: Initialize to an appropriate value
-				CommsPortEventArgs^  target = (gcnew CommsPortEventArgs(commsPortSetting)); // TODO: Initialize to an appropriate value
-				String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+				// create object with some other settings
+				String^  commsPortSetting = "COM3"; 
+				CommsPortEventArgs^  target = (gcnew CommsPortEventArgs(commsPortSetting)); 
+
+				String^  expected = "COM10"; 
 				String^  actual;
+
+				//set new value in property
 				target->commsPortSetting = expected;
+
+				// read same value from property
 				actual = target->commsPortSetting;
+
+				// check if newly set and read value is same
 				Assert::AreEqual(expected, actual);
+
+				//reset the value back to blank
+				target->commsPortSetting = System::String::Empty;
 			}
+
 			/// <summary>
 			///A test for CommsPortEventArgs Constructor
 			///</summary>
 	public: [TestMethod]
 			void CommsPortEventArgsConstructorTest()
 			{
-				String^  commsPortSetting = System::String::Empty; // TODO: Initialize to an appropriate value
+				String^  commsPortSetting = System::String::Empty; 
 				CommsPortEventArgs^  target = (gcnew CommsPortEventArgs(commsPortSetting));
+
+				// check if object is created
 				Assert::IsNotNull(target);
 			}
 	};

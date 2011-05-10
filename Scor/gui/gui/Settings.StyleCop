@@ -321,10 +321,14 @@
           <Value>db</Value>
           <Value>ds</Value>
           <Value>dv</Value>
+          <Value>e</Value>
           <Value>i</Value>
           <Value>o</Value>
           <Value>p</Value>
+          <Value>s</Value>
+          <Value>t</Value>
           <Value>x</Value>
+          <Value>y</Value>
         </CollectionProperty>
       </AnalyzerSettings>
     </Analyzer>

@@ -2,20 +2,12 @@
 #include "StdAfx.h"
 using namespace System::Data;
 using namespace System::IO;
+using namespace System::Data::OleDb;
+
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting::DatabaseManager;
 using namespace AtCor::Scor::CrossCutting::Logging;
 using namespace AtCor::Scor::CrossCutting::Configuration;
-
-using namespace System;
-using namespace System::Text;
-using namespace System::Data;
-using namespace System::Data::Common;
-using namespace System::Data::SqlClient;
-using namespace System::Data::OleDb;
-
-using namespace Microsoft::Practices::EnterpriseLibrary::Data;
-using namespace Microsoft::Practices::EnterpriseLibrary::Data::Sql;
 
 namespace TestCrx {
     using namespace System;
@@ -23,9 +15,9 @@ namespace TestCrx {
     
     
     /// <summary>
-///This is a test class for CrxDBManagerTest and is intended
-///to contain all CrxDBManagerTest Unit Tests
-///</summary>
+	///This is a test class for CrxDBManagerTest and is intended
+	///to contain all CrxDBManagerTest Unit Tests
+	///</summary>
 	[TestClass]
 	public ref class CrxDBManagerTest
 	{
@@ -68,6 +60,16 @@ namespace TestCrx {
 					Directory::SetCurrentDirectory(path);
 				}
 			}
+
+			//Begin Smarajit Mishra 19 Apr 2011
+			/*int CountofPatientRecords()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbCount = dbRecords->Tables[0]->Rows->Count;
+				return dbCount;
+			}*/
+			//End Smarajit Mishra 19 Apr 2011
 
 			void SetServerMachineName()
 			{
@@ -134,6 +136,7 @@ namespace TestCrx {
 			}
 
 #pragma endregion
+
 			/// <summary>
 			///A test for Instance
 			///</summary>
@@ -144,6 +147,7 @@ namespace TestCrx {
 				actual = CrxDBManager::Instance;
 				Assert::IsNotNull(actual);
 			}
+
 			/// <summary>
 			///A test for DataProviderType
 			///</summary>
@@ -151,14 +155,16 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void DataProviderTypeTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
 				String^  expected = "SQLEXPRESS";
 				String^  actual;
+
 				target->DataProviderType = expected;
 				actual = target->DataProviderType;
+
 				Assert::AreEqual(expected, actual);
 			}
+
 			/// <summary>
 			///A test for ConnString
 			///</summary>
@@ -166,24 +172,26 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void ConnStringTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
 				String^  expected = "server=serverName;database=AtCor;Integrated Security=true";
 				String^  actual;
+
 				target->ConnString = expected;
 				actual = target->ConnString;
+
 				Assert::AreEqual(expected, actual);
 			}
+
 			/// <summary>
 			///A test for UpdatePWVMeasurementDetails
 			///</summary>
 	public: [TestMethod]
 			void UpdatePWVMeasurementDetailsTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//CrxStructPWVMeasurementData^  md = nullptr; // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int expected = 0; 
 				int actual;
+				
 				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
 				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
 				
@@ -198,6 +206,12 @@ namespace TestCrx {
 
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+
+				//End Smarajit Mishra 19 Apr 2011 
 
 				try
 				{
@@ -220,8 +234,8 @@ namespace TestCrx {
 					pwvmd->GroupIdentifier = pd->GroupIdentifier;
 					pwvmd->PWVDistance = 50;
 					pwvmd->MeanHeartRate = 150.0000;
-					pwvmd->MeanPulseWaveVelocity = 4.4000;
-					pwvmd->StandardDeviation = 3.300;
+					pwvmd->MeanPulseWaveVelocity = Convert::ToSingle(4.4000);
+					pwvmd->StandardDeviation = Convert::ToSingle(3.300);
 					pwvmd->IsStandardDeviationValid = 1;
 					pwvmd->Notes = "CheckOut";
 					pwvmd->Carotid = 111;
@@ -270,22 +284,25 @@ namespace TestCrx {
 				{
 					target->DeletePatientData(pd);
 				}
+				
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecords->Tables[0]->Rows->Count;//CountofPatientRecords();;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
+
 			/// <summary>
 			///A test for UpdatePatientData
 			///</summary>
 	public: [TestMethod]
 			void UpdatePatientDataTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//CrxStructPatientDemographicData^  pd = nullptr; // TODO: Initialize to an appropriate value
-				bool spCheck = true; // TODO: Initialize to an appropriate value
-				int expected = 1; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				bool spCheck = true; 
+				int expected = 1; 
 				int actual;
 
-				//Smarajit
-				//called the database connection to connect database
-				//input parameters to call method
 				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 
 				try
@@ -296,9 +313,25 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true,"If exception occur then test case pass.");
 				}
+			}
+
+	public: [TestMethod]
+			void UpdatePatientDataTest1()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				bool spCheck = true; 
+				int expected = 1; 
+				int actual;
+
+				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
+				
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 
 				try
 				{
@@ -328,24 +361,29 @@ namespace TestCrx {
 					//exception occur if any assert statement fails - test failed 
 					//Assert::Fail();
 				}
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
+			
 			/// <summary>
 			///A test for SetConnection
 			///</summary>
 	public: [TestMethod]
 			void SetConnectionTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//String^  serverName = System::String::Empty; // TODO: Initialize to an appropriate value
-				//String^  sourceName = System::String::Empty; // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int expected = 0; 
 				int actual;
-				String^ serverNameTest = String::Empty;//"MUM-9696\\SQLEXPRESS";
-				String^  sourceNameTest = String::Empty ;//"SQLCLIENT";
+
+				String^ serverNameTest = String::Empty;		
+				String^  sourceNameTest = String::Empty ;	
 				
 				try
 				{
-					//SetServerMachineName();
 					expected = 0;
 					serverNameTest = "XXXX";
 					sourceNameTest= nullptr;
@@ -355,10 +393,20 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true,"If exception occur then test case pass");
 				}
+			}
+
+	public: [TestMethod]
+			void SetConnectionTest1()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int expected = 0; 
+				int actual;
+
+				String^ serverNameTest = String::Empty;		
+				String^  sourceNameTest = String::Empty ;	
 				
 				try
 				{
-					//SetServerMachineName();
 					expected = 1;
 					serverNameTest = "XXXX";
 					sourceNameTest= "SQLCLIENT";
@@ -368,6 +416,17 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true,"If exception occur then test case pass");
 				}
+			}
+
+	public: [TestMethod]
+			void SetConnectionTest2()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int expected = 0; 
+				int actual;
+
+				String^ serverNameTest = String::Empty;		
+				String^  sourceNameTest = String::Empty ;	
 				
 				try
 				{
@@ -381,9 +440,19 @@ namespace TestCrx {
 				{
 					actual = 1;
 				}
-				Assert::AreEqual(expected, actual);
-				
-				
+				Assert::AreEqual(expected, actual);				
+			}
+
+	public: [TestMethod]
+			void SetConnectionTest3()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int expected = 0; 
+				int actual;
+
+				String^ serverNameTest = String::Empty;		
+				String^  sourceNameTest = String::Empty ;	
+			
 				serverNameTest = "MUM-9696\\SQLEXPRESS";
 				sourceNameTest = "ORACLECLIENT";
 				try
@@ -398,15 +467,16 @@ namespace TestCrx {
 				Assert::AreEqual(expected, actual);
 
 			}
+
 			/// <summary>
 			///A test for SavePWVMeasurementDetails
 			///</summary>
 	public: [TestMethod]
 			void SavePWVMeasurementDetailsTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//CrxStructPWVMeasurementData^  md = nullptr; // TODO: Initialize to an appropriate value
-				int expected = 1; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				//CrxStructPWVMeasurementData^  md = nullptr; 
+				int expected = 1; 
 				int actual;
 				CrxDBManager^ crxDB = CrxDBManager::Instance;
 				
@@ -424,14 +494,17 @@ namespace TestCrx {
 
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
-				/////////////////////////////////////////////
-				////preparing test data into database//////
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
+
 				try
 				{
 					////preparing test data into database///
 					//-------------------------------------
 					pd->SystemIdentifier = 11111;
-					//pd->PatientNumberInternal = 26;
 					pd->LastName = "Test_Patient_Last";
 					pd->FirstName = "Test_Patient_First";
 					pd->DateOfBirth = Convert::ToDateTime("08/09/1985");
@@ -447,8 +520,8 @@ namespace TestCrx {
 					pwvmd->GroupIdentifier = pd->GroupIdentifier;
 					pwvmd->PWVDistance = 50;
 					pwvmd->MeanHeartRate = 150.0000;
-					pwvmd->MeanPulseWaveVelocity = 4.4000;
-					pwvmd->StandardDeviation = 3.300;
+					pwvmd->MeanPulseWaveVelocity = Convert::ToSingle(4.4000);
+					pwvmd->StandardDeviation = Convert::ToSingle(3.300);
 					pwvmd->IsStandardDeviationValid = 1;
 					pwvmd->Notes = "CheckOut";
 					pwvmd->Carotid = 111;
@@ -476,22 +549,24 @@ namespace TestCrx {
 					target->DeletePatientData(pd);
 
 				}
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
+
 			/// <summary>
 			///A test for SavePatientData
 			///</summary>
 	public: [TestMethod]
 			void SavePatientDataTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//CrxStructPatientDemographicData^  pd = nullptr; // TODO: Initialize to an appropriate value
-				//int expected = 0; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
 				int actual;
 				int expected = 1; 
 
-				//Smarajit
-				//called the database connection to connect database
-				//input parameters to call method
 				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 
 				try
@@ -502,9 +577,24 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true,"If exception occur then test case pass.");
 				}
+			}	
+
+	public: [TestMethod]
+			void SavePatientDataTest1()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int actual;
+				int expected = 1; 
+
+				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
+				
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 
 				try
 				{
@@ -527,21 +617,24 @@ namespace TestCrx {
 				{
 					target->DeletePatientData(pd);
 				}
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}	
+
 			/// <summary>
 			///A test for PatientRecordExists
 			///</summary>
 	public: [TestMethod]
 			void PatientRecordExistsTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//CrxStructPatientDemographicData^  pd = nullptr; // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int expected = 0; 
 				int actual;
 
-				//Smarajit
-				//called the database connection to connect database
-				//input parameters to call method
 				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 
 				try
@@ -552,9 +645,24 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true, "If exception occur then test case pass.");
 				}
+			}
+
+	public: [TestMethod]
+			void PatientRecordExistsTest1()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int expected = 0; 
+				int actual;
+
+				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 
 				try
 				{
@@ -578,22 +686,25 @@ namespace TestCrx {
 				{
 					target->DeletePatientData(pd);
 				}
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
+
 			/// <summary>
 			///A test for PatientIdExists
 			///</summary>
 	public: [TestMethod]
 			void PatientIdExistsTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
-				String^  patientIdExternalReference = System::String::Empty; // TODO: Initialize to an appropriate value
-				bool expected = true; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int systemIdentifier = 0; 
+				String^  patientIdExternalReference = System::String::Empty; 
+				bool expected = true; 
 				bool actual;
-
-				//Smarajit
-				//called the database connection to connect database
-				//input parameters to call method
 
 				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 				
@@ -605,9 +716,26 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true, "If exception occur then test case pass.");
 				}
+			}
+
+	public: [TestMethod]
+			void PatientIdExistsTest1()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int systemIdentifier = 0; 
+				String^  patientIdExternalReference = System::String::Empty; 
+				bool expected = true; 
+				bool actual;
+
+				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 
 				try
 				{
@@ -631,8 +759,14 @@ namespace TestCrx {
 				{
 					target->DeletePatientData(pd);
 				}
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
-			// This tests the assigment operator which is private and blank implmentation
+						// This tests the assigment operator which is private and blank implmentation
 // we do not need to test this as of now: 11/25/2010: Smarajit Mishra
 	//		/// <summary>
 	//		///A test for op_Assign
@@ -641,62 +775,65 @@ namespace TestCrx {
 	//		[DeploymentItem(L"crx.dll")]
 	//		void op_AssignTest()
 	//		{
-	//			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-	//			CrxDBManager^  unnamed = nullptr; // TODO: Initialize to an appropriate value
-	//			CrxDBManager^  expected = nullptr; // TODO: Initialize to an appropriate value
+	//			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+	//			CrxDBManager^  unnamed = nullptr; 
+	//			CrxDBManager^  expected = nullptr; 
 	//			CrxDBManager^  actual;
 	//			actual = (target = unnamed);
 	//			Assert::AreEqual(expected, actual);
 	//			Assert::Inconclusive(L"Verify the correctness of this test method.");
 	//		}
-				/// <summary>
+
+			/// <summary>
 			///A test for MigrationLogDetail
 			///</summary>
 	public: [TestMethod]
 			[DeploymentItem(L"crx.dll")]
 			void MigrationLogDetailTest()
 			{
-				//SetPath();
-
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxLogger^  objLog = nullptr; // TODO: Initialize to an appropriate value
-				cli::array< String^  >^  skipPatientlog = gcnew array<String^>(2);; // TODO: Initialize to an appropriate value
-				int totskipresult = 0; // TODO: Initialize to an appropriate value	
-				objLog = CrxLogger::Instance ; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				CrxLogger^  objLog = nullptr; 
+				cli::array< String^  >^  skipPatientlog = gcnew array<String^>(2);; 
+				int totskipresult = 0; 	
+				objLog = CrxLogger::Instance ; 
 				
-				//SetPath();
-
-				skipPatientlog[0] = "ThisIsForTestOnly";
-				totskipresult = 1;
-				//target->MigrationLogDetail(objLog, skipPatientlog);
-				target->MigrationLogDetail(objLog, skipPatientlog, totskipresult);
-
-				StreamReader ^curLogFileFileStream;
-				
-				String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
-				
-				/*if(!Directory::Exists(path))
+				try
 				{
-					Directory::CreateDirectory(path);
-					File::Create(path + "Scor.log");
-				}*/
+					skipPatientlog[0] = "ThisIsForTestOnly";
+					totskipresult = 1;
 
-				if(File::Exists(path+"scor_test.log"))
-				{
-					File::Delete(path+"scor_test.log");	
+					target->MigrationLogDetail(objLog, skipPatientlog, totskipresult);
+
+					String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
+
+					if(File::Exists(path + "scor.log"))					
+					{	
+						StreamReader ^curLogFileFileStream;
+
+						if(File::Exists(path + "scor_test.log"))
+						{
+							File::Delete(path + "scor_test.log");	
+						}
+						
+						File::Copy(path+"scor.log",path+"scor_test.log"); 
+						
+						curLogFileFileStream =gcnew StreamReader(File::Open(path+"scor_test.log", FileMode::Open,FileAccess::Read,FileShare::Read ));
+						
+						String ^fileStr = curLogFileFileStream->ReadToEnd();
+						String ^lastLine = fileStr->Substring(fileStr->LastIndexOf('\n',(fileStr->Length) - 5) + 1);
+
+						lastLine = lastLine->Trim();
+
+						lastLine= lastLine->Substring(lastLine->LastIndexOf('\t')+1); 
+						Assert::AreEqual(lastLine, skipPatientlog[0]);
+						curLogFileFileStream->Close();
+					}
 				}
-				File::Copy(path+"scor.log",path+"scor_test.log"); 
-				
-				curLogFileFileStream =gcnew StreamReader(File::Open(path+"scor_test.log", FileMode::Open,FileAccess::Read,FileShare::Read ));
-				
-				String ^fileStr = curLogFileFileStream->ReadToEnd();
-				String ^lastLine = fileStr->Substring(fileStr->LastIndexOf('\n',(fileStr->Length) - 5) + 1);
+				catch(Exception^ )
+				{
+					Assert::Fail("Error occured in 'WriteTest'.");
+				}
 
-				lastLine = lastLine->Trim();
-
-				lastLine= lastLine->Substring(lastLine->LastIndexOf('\t')+1); 
-				Assert::AreEqual(lastLine, skipPatientlog[0]);
-				curLogFileFileStream->Close();
 			}
 	public: [TestMethod]
 			[DeploymentItem(L"crx.dll")]
@@ -704,17 +841,17 @@ namespace TestCrx {
 			{
 				///////////Negative test case////////////////
 
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxLogger^  objLog = nullptr; // TODO: Initialize to an appropriate value
-				cli::array< String^  >^  skipPatientlog = gcnew array<String^>(2);; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				CrxLogger^  objLog = nullptr; 
+				cli::array< String^  >^  skipPatientlog = gcnew array<String^>(2);; 
 				
-				objLog = CrxLogger::Instance ; // TODO: Initialize to an appropriate value
+				//objLog = CrxLogger::Instance ; 
 				
-				int totskipresult = 0; // TODO: Initialize to an appropriate value				
+				int totskipresult = 1; 				
+				//StreamReader ^curLogFileFileStream;
+				//objLog = nullptr ; 	
+				skipPatientlog[0] = "This is for Test Only";
 
-				StreamReader ^curLogFileFileStream;
-				objLog = nullptr ; // TODO: Initialize to an appropriate value	
-				skipPatientlog[0] = String::Empty;
 				try
 				{
 					//target->MigrationLogDetail(objLog, skipPatientlog);
@@ -726,6 +863,7 @@ namespace TestCrx {
 				}
 				
 			}
+
 			/// <summary>
 			///A test for MigrationInternal
 			///</summary>
@@ -733,13 +871,13 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void MigrationInternalTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				OleDbDataReader^  rdr = nullptr; // TODO: Initialize to an appropriate value
-				CrxLogger^  objLog = nullptr; // TODO: Initialize to an appropriate value
-				int rowNum = 0; // TODO: Initialize to an appropriate value
-				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
-				String^  groupName = System::String::Empty; // TODO: Initialize to an appropriate value
-				int expected = 1; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				OleDbDataReader^  rdr = nullptr; 
+				CrxLogger^  objLog = nullptr; 
+				int rowNum = 0; 
+				int systemIdentifier = 0; 
+				String^  groupName = System::String::Empty; 
+				int expected = 1; 
 				int actual;
 
 				/// testing woth no data in rdr
@@ -758,63 +896,68 @@ namespace TestCrx {
 			void MigrationInternalTest1()
 			{
 				////To check rest of the scenario, it requires manual intervention during the execution
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				OleDbDataReader^  rdr = nullptr; // TODO: Initialize to an appropriate value
-				CrxLogger^  objLog = nullptr; // TODO: Initialize to an appropriate value
-				int rowNum = 0; // TODO: Initialize to an appropriate value
-				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
-				String^  groupName = System::String::Empty; // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				OleDbDataReader^  rdr = nullptr; 
+				CrxLogger^  objLog = nullptr; 
+				int rowNum = 0; 
+				int systemIdentifier = 0; 
+				String^  groupName = System::String::Empty; 
+				int expected = 0; 
 				int actual;
 
 				/// testing woth no data in rdr
 				objLog = CrxLogger::Instance;
 				systemIdentifier = 11;
 				groupName = "Test";
-				SetServerMachineName();
-				target->SetConnection(serverName, sourceName);
-				// passing OleDbDataReader as null ptr, function is suppose to rollback transaction on this
-				actual = target->MigrationInternal(rdr, objLog, rowNum, systemIdentifier, groupName);
-				
-				///testing transaction rollback
-				StreamReader ^curLogFileFileStream;
-				String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
-				if(!Directory::Exists(path))
+				try
 				{
-					Directory::CreateDirectory(path);
+					SetServerMachineName();
+					target->SetConnection(serverName, sourceName);
+					// passing OleDbDataReader as null ptr, function is suppose to rollback transaction on this
+					actual = target->MigrationInternal(rdr, objLog, rowNum, systemIdentifier, groupName);
+					
+					///testing transaction rollback
+					StreamReader ^curLogFileFileStream;
+					String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
+				
+					if(File::Exists(path + "scor.log"))					
+					{
+						if(File::Exists(path+"scor_test.log"))
+						{
+							File::Delete(path+"scor_test.log");	
+						}
+						File::Copy(path+"scor.log",path+"scor_test.log"); 
+						
+						curLogFileFileStream =gcnew StreamReader(File::Open(path+"scor_test.log", FileMode::Open,FileAccess::Read,FileShare::Read ));
+
+						String ^fileStr = curLogFileFileStream->ReadToEnd();
+						String ^lastLine = fileStr->Substring(fileStr->LastIndexOf('\n',(fileStr->Length) - 5) + 1);
+
+						lastLine = lastLine->Trim();
+
+						lastLine= lastLine->Substring(lastLine->LastIndexOf('\t')+1); 
+						
+						//Checking that transction rollback execution
+						Assert::IsNotNull(lastLine);
+						//Assert::AreEqual(lastLine, "Migration failed.");
+						curLogFileFileStream->Close();
+					}
 				}
-				if(File::Exists(path+"scor_test.log"))
+				catch(Exception^ )
 				{
-					File::Delete(path+"scor_test.log");	
+					Assert::Fail("Error occured in 'MigrationInternalTest1'.");
 				}
-				File::Copy(path+"scor.log",path+"scor_test.log"); 
-				
-				curLogFileFileStream =gcnew StreamReader(File::Open(path+"scor_test.log", FileMode::Open,FileAccess::Read,FileShare::Read ));
-
-				String ^fileStr = curLogFileFileStream->ReadToEnd();
-				String ^lastLine = fileStr->Substring(fileStr->LastIndexOf('\n',(fileStr->Length) - 5) + 1);
-
-				lastLine = lastLine->Trim();
-
-				lastLine= lastLine->Substring(lastLine->LastIndexOf('\t')+1); 
-				
-				//Checking that transction rollback execution
-				Assert::IsNotNull(lastLine);
-				//Assert::AreEqual(lastLine, "Migration failed.");
-				curLogFileFileStream->Close();
-
 			}
+
 			/// <summary>
 			///A test for MigrationFileExist
 			///</summary>
 	public: [TestMethod]
 			void MigrationFileExistTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				bool expected = false; // TODO: Initialize to an appropriate value
-				bool actual;
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				bool expected = false; 
 
-				//Alok
 				SetPath();
 				String^ curDir = Directory::GetCurrentDirectory();
 				String ^ path = curDir + "\\system\\data\\";
@@ -824,6 +967,17 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(target->MigrationFileExist());
 				}
+			}
+
+	public: [TestMethod]
+			void MigrationFileExistTest1()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				bool expected = false; 
+
+				SetPath();
+				String^ curDir = Directory::GetCurrentDirectory();
+				String ^ path = curDir + "\\system\\data\\";
 				
 				//Negative Testing
 				path = curDir + "\\system\\";
@@ -834,46 +988,60 @@ namespace TestCrx {
 					Assert::IsFalse(target->MigrationFileExist());
 				}
 			}
+
 			/// <summary>
 			///A test for MigrateAtCorData
 			///</summary>
 	public: [TestMethod]
 			void MigrateAtCorDataTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
-				String^  groupName = System::String::Empty; // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int systemIdentifier = 0; 
+				String^  groupName = System::String::Empty; 
+				int expected = 0; 
 				int actual;
 				
-				groupName = "Dr.Alok";
-				systemIdentifier = 31256;
-				
-				SetPath();
-				//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");
-				SetServerMachineName();
-				target->SetConnection(serverName, sourceName);
-
-				if(File::Exists(Directory::GetCurrentDirectory() + "\\system\\data\\scor.xyz"))
+				try
 				{
-					actual = target->MigrateAtCorData(systemIdentifier, groupName);
-					Assert::AreEqual(expected, actual);
+					groupName = "Dr.Alok";
+					systemIdentifier = 31256;
+					
+					SetPath();
+					//Directory::SetCurrentDirectory("D:\\Smarajit\\AQTime\\Scor_Source_code\\TestResults\\");
+					SetServerMachineName();
+					target->SetConnection(serverName, sourceName);
+					String^ path = Directory::GetCurrentDirectory() + "\\system\\data\\";
+
+					if(File::Exists(path + "scor.xyz"))
+					{
+						actual = target->MigrateAtCorData(systemIdentifier, groupName);
+						Assert::AreEqual(expected, actual);
+					}
+					else if(File::Exists(path + "scor.xyz.old"))
+					{
+						File::Move(path + "scor.xyz.old", path + "scor.xyz");
+						actual = target->MigrateAtCorData(systemIdentifier, groupName);
+						Assert::AreEqual(expected, actual);
+					}
+				}
+				catch(Exception^)
+				{
+					Assert::Fail("Error occured in method 'MigrateAtCorDataTest'.");
 				}
 			}
+
 			/// <summary>
 			///A test for GroupRecordExits
 			///</summary>
 	public: [TestMethod]
 			void GroupRecordExitsTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
-				String^  groupName = System::String::Empty; // TODO: Initialize to an appropriate value
-				bool expected = true; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int systemIdentifier = 0; 
+				String^  groupName = System::String::Empty; 
+				bool expected = true; 
 				bool actual;
-				//Smarajit
-				//called the database connection to connect database
-				//input parameters to call method
+
 				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 				
 				try
@@ -884,9 +1052,26 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true, "If exception occur then test case pass.");
 				}
+			}
+
+	public: [TestMethod]
+			void GroupRecordExitsTest1()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int systemIdentifier = 0; 
+				String^  groupName = System::String::Empty; 
+				bool expected = true; 
+				bool actual;
+
+				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 
 				try
 				{
@@ -912,19 +1097,26 @@ namespace TestCrx {
 				catch(Exception^)
 				{
 					target->DeletePatientData(pd);					
-				}				
+				}	
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
-						/// <summary>
+			
+			/// <summary>
 			///A test for GetPWVTrendData
 			///</summary>
 	public: [TestMethod]
 			void GetPWVTrendDataTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				int patientNumberInternal = 0; // TODO: Initialize to an appropriate value
-				int groupIdentifier = 0; // TODO: Initialize to an appropriate value
-				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
-				String^  studyDateTimeArrStr = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int patientNumberInternal = 0; 
+				int groupIdentifier = 0; 
+				int systemIdentifier = 0; 
+				String^  studyDateTimeArrStr = System::String::Empty; 
 				CrxStructPWVTrendData^  trendDataStruct = gcnew CrxStructPWVTrendData();
 				
 				//Testing without database connection for exception
@@ -939,13 +1131,30 @@ namespace TestCrx {
 					//If exception occurs, means test case passed
 					Assert::IsTrue(true);
 				}
+			}
 
-				// now connect to db
+	public: [TestMethod]
+			void GetPWVTrendDataTest1()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int patientNumberInternal = 0; 
+				int groupIdentifier = 0; 
+				int systemIdentifier = 0; 
+				String^  studyDateTimeArrStr = System::String::Empty; 
+				CrxStructPWVTrendData^  trendDataStruct = gcnew CrxStructPWVTrendData();
+
+				// connect to db
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
 				////preparing test data into database//////
 				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
 				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
+
 				try
 				{
 					////preparing test data into database///
@@ -967,8 +1176,8 @@ namespace TestCrx {
 					pwvmd->GroupIdentifier = pd->GroupIdentifier;
 					pwvmd->PWVDistance = 50;
 					pwvmd->MeanHeartRate = 150.0000;
-					pwvmd->MeanPulseWaveVelocity = 4.4000;
-					pwvmd->StandardDeviation = 3.300;
+					pwvmd->MeanPulseWaveVelocity = Convert::ToSingle(4.4000);
+					pwvmd->StandardDeviation = Convert::ToSingle(3.300);
 					pwvmd->IsStandardDeviationValid = 1;
 					pwvmd->Notes = "CheckOut";
 					pwvmd->Carotid = 111;
@@ -1012,8 +1221,9 @@ namespace TestCrx {
 					trendDataStruct->StandardDeviationArrStr = String::Empty;
 					trendDataStruct->IsStdDevValidArrStr = String::Empty;
 
-					//Testing with double value
-					studyDateTimeArrStr = studyDateTimeArrStr + "2011-01-31 17:46:01,";
+					////Testing with double value
+					DateTime^ temp = System::DateTime::Now;
+					studyDateTimeArrStr = studyDateTimeArrStr + temp + "," ;//"2011-01-31 17:46:01,";
 					target->GetPWVTrendData(patientNumberInternal, groupIdentifier, systemIdentifier, studyDateTimeArrStr, trendDataStruct);
 					Assert::AreEqual(trendDataStruct->HeartRateArrStr	,"150");
 					Assert::AreEqual(trendDataStruct->PulseWaveVelocityArrStr	,"4.4");
@@ -1045,23 +1255,30 @@ namespace TestCrx {
 					//exception occur if any assert statement fails - test failed 
 					Assert::Fail();
 				}
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
+			
 			/// <summary>
 			///A test for GetPWVMeasurementDetails
 			///</summary>
 	public: [TestMethod]
-			void GetPWVMeasurementDetailsTest1()
+			void GetPWVMeasurementDetailsTest11()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				int patientNumberInternal = 0; // TODO: Initialize to an appropriate value
-				int groupIdentifier = 0; // TODO: Initialize to an appropriate value
-				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int patientNumberInternal = 0; 
+				int groupIdentifier = 0; 
+				int systemIdentifier = 0; 
 				bool isStandardDeviationValid = true;
 				short pwvDistance = 0;
 
-				DataSet^  expected = nullptr; // TODO: Initialize to an appropriate value
+				DataSet^  expected = nullptr; 
 				DataSet^  actual;
-				//smarajit
+				
 				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
 				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
 				
@@ -1073,11 +1290,31 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true,"If exception occur then test case pass.");
 				}
+			}
+
+	public: [TestMethod]
+			void GetPWVMeasurementDetailsTest12()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int patientNumberInternal = 0; 
+				int groupIdentifier = 0; 
+				int systemIdentifier = 0; 
+				bool isStandardDeviationValid = true;
+				short pwvDistance = 0;
+
+				DataSet^  expected = nullptr; 
+				
+				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
+				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
 				
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 				
-				//smarajit
 				try
 				{
 					////preparing test data into database///
@@ -1099,8 +1336,8 @@ namespace TestCrx {
 					pwvmd->GroupIdentifier = pd->GroupIdentifier;
 					pwvmd->PWVDistance = 50;
 					pwvmd->MeanHeartRate = 150.0000;
-					pwvmd->MeanPulseWaveVelocity = 4.4000;
-					pwvmd->StandardDeviation = 3.300;
+					pwvmd->MeanPulseWaveVelocity = Convert::ToSingle(4.4000);
+					pwvmd->StandardDeviation = Convert::ToSingle(3.300);
 					pwvmd->IsStandardDeviationValid = 1;
 					pwvmd->Notes = "CheckOut";
 					pwvmd->Carotid = 111;
@@ -1125,7 +1362,7 @@ namespace TestCrx {
 					systemIdentifier = Convert::ToInt32(msrds->Tables[0]->Rows[0]["SystemIdentifier"]);
 					patientNumberInternal = Convert::ToInt32(msrds->Tables[0]->Rows[0]["PatientNumberInternal"]);
 					groupIdentifier = Convert::ToInt32(msrds->Tables[0]->Rows[0]["GroupIdentifier"]);
-					isStandardDeviationValid = Convert::ToInt32(msrds->Tables[0]->Rows[0]["IsStandardDeviationValid"]);
+					isStandardDeviationValid = Convert::ToBoolean (msrds->Tables[0]->Rows[0]["IsStandardDeviationValid"]);
 					pwvDistance = Convert::ToInt32(msrds->Tables[0]->Rows[0]["PWVDistance"]);
 					//Assert::AreEqual(expectStr, actualStr);					
 
@@ -1139,27 +1376,30 @@ namespace TestCrx {
 				catch(Exception^)
 				{
 					target->DeletePatientData(pd);
-
 				}
-				
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
-			
+						
 			/// <summary>
 			///A test for GetPWVMeasurementDetails
 			///</summary>
 	public: [TestMethod]
-			void GetPWVMeasurementDetailsTest()
+			void GetPWVMeasurementDetailsTest01()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//CrxStructPWVMeasurementData^  md = nullptr; // TODO: Initialize to an appropriate value
-				DataSet^  expected = nullptr; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				DataSet^  expected = nullptr; 
 				DataSet^  actual;
-				int patientNumberInternal = 0; // TODO: Initialize to an appropriate value
-				int groupIdentifier = 0; // TODO: Initialize to an appropriate value
-				int systemIdentifier = 0; // TODO: Initialize to an appropriate value
+				int patientNumberInternal = 0; 
+				int groupIdentifier = 0; 
+				int systemIdentifier = 0; 
 				bool isStandardDeviationValid = true;
 				short pwvDistance = 0;
-				//smarajit
+				
 				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
 				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
 				CrxStructPWVMeasurementData^  md = gcnew CrxStructPWVMeasurementData();
@@ -1172,9 +1412,31 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true,"If exception occur then test case pass.");
 				}
+			}
+
+	public: [TestMethod]
+			void GetPWVMeasurementDetailsTest02()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				DataSet^  expected = nullptr; 
+				DataSet^  actual;
+				int patientNumberInternal = 0; 
+				int groupIdentifier = 0; 
+				int systemIdentifier = 0; 
+				bool isStandardDeviationValid = true;
+				short pwvDistance = 0;
+				
+				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
+				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
+				CrxStructPWVMeasurementData^  md = gcnew CrxStructPWVMeasurementData();
 
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 
 				try
 				{
@@ -1196,8 +1458,8 @@ namespace TestCrx {
 					pwvmd->GroupIdentifier = pd->GroupIdentifier;
 					pwvmd->PWVDistance = 50;
 					pwvmd->MeanHeartRate = 150.0000;
-					pwvmd->MeanPulseWaveVelocity = 4.4000;
-					pwvmd->StandardDeviation = 3.300;
+					pwvmd->MeanPulseWaveVelocity = Convert::ToSingle(4.4000);
+					pwvmd->StandardDeviation = Convert::ToSingle(3.300);
 					pwvmd->StandardDeviation = isStandardDeviationValid;
 					pwvmd->Notes = "CheckOut";
 					pwvmd->Carotid = 111;
@@ -1223,7 +1485,7 @@ namespace TestCrx {
 					md->SystemIdentifier = Convert::ToInt32(msrds->Tables[0]->Rows[0]["SystemIdentifier"]);
 					md->PatientNumberInternal = Convert::ToInt32(msrds->Tables[0]->Rows[0]["PatientNumberInternal"]);
 					md->GroupIdentifier = Convert::ToInt32(msrds->Tables[0]->Rows[0]["GroupIdentifier"]);
-					md->StandardDeviation = Convert::ToInt32(msrds->Tables[0]->Rows[0]["IsStandardDeviationValid"]);
+					md->IsStandardDeviationValid = Convert::ToBoolean(msrds->Tables[0]->Rows[0]["IsStandardDeviationValid"]);
 					md->PWVDistance = Convert::ToInt32(msrds->Tables[0]->Rows[0]["PWVDistance"]);
 					
 					int expectStr = md->PatientNumberInternal;
@@ -1240,33 +1502,33 @@ namespace TestCrx {
 					target->DeletePatientData(pd);
 
 				}
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
+			
 			/// <summary>
 			///A test for GetPatientDemographicRecords
 			///</summary>
 	public: [TestMethod]
-			void GetPatientDemographicRecordsTest1()
+			void GetPatientDemographicRecordsTest2()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				DataSet^  expected = nullptr; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				DataSet^  expected = nullptr; 
 				DataSet^  actual;
 				String^ actualStr;
-				//Smarajit
-				//called the database connection to connect database
-				//input parameters to call method
-				
-				try
-				{
-					actual = target->GetPatientDemographicRecords();
-				}
-				catch(Exception^)
-				{
-					Assert::IsTrue(true,"If exception occur then test case pass.");
-				}
 
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
 				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 				
 				try
 				{
@@ -1300,34 +1562,112 @@ namespace TestCrx {
 				{
 					  target->DeletePatientData(pd);
 				}
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
+
+	public: [TestMethod]
+			void GetPatientDemographicRecordsTest3()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				DataSet^  expected = nullptr; 
+				DataSet^  actual;
+				String^ actualStr;
+
+				SetServerMachineName();
+				target->SetConnection(serverName, sourceName);
+				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
+				
+				try
+				{
+					pd->SystemIdentifier = 11111;
+					pd->LastName = "Test_Patient_Last";
+					pd->FirstName = "Test_Patient_First";
+					pd->DateOfBirth = Convert::ToDateTime("08/09/1985");
+					pd->Gender = "Test";
+					pd->PatientIDExternalReference = "TestER";
+					pd->GroupName = "Test_Group";
+					pd->GroupIdentifier = 24;
+					target->SavePatientData(pd);
+
+					actual = target->GetPatientDemographicRecords();
+
+					String^ ExpectedStr = pd->PatientIDExternalReference;
+
+					for(int i = 0; i < 100 ; i++)
+					{
+						String^ actualStr1 = actual->Tables[0]->Rows[i]["PatientIDExternalReference"]->ToString();
+						if (actualStr1->Equals(ExpectedStr))
+						{
+							actualStr = actualStr1;
+							break;
+						}
+					}
+					Assert::AreEqual(ExpectedStr, actualStr);
+					target->DeletePatientData(pd);
+				}
+				catch(Exception^)
+				{
+					  target->DeletePatientData(pd);
+				}
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
+			}
+
 			/// <summary>
 			///A test for GetPatientDemographicRecords
 			///</summary>
 	      public: [TestMethod]
 			  void GetPatientDemographicRecordsTest()
 			  {
-					CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-					int patientNumberInternal = 0; // TODO: Initialize to an appropriate value
-					int systemIdentifier = 0; // TODO: Initialize to an appropriate value
-					int groupIdentifier = 0; // TODO: Initialize to an appropriate value
-					DataSet^  expected = nullptr; // TODO: Initialize to an appropriate value
+					CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+					int patientNumberInternal = 0; 
+					int systemIdentifier = 0; 
+					int groupIdentifier = 0; 
 					DataSet^  actual;
-					//Smarajit
-					//called the database connection to connect database
-					//input parameters to call method
 					
 					try
 					{
-						  actual = target->GetPatientDemographicRecords(patientNumberInternal, systemIdentifier, groupIdentifier);
+						actual = target->GetPatientDemographicRecords(patientNumberInternal, systemIdentifier, groupIdentifier);
 					}
 					catch(Exception^)
 					{
 						Assert::IsTrue(true,"If exception occur then test case pass.");
 					}
+			  }
+
+			/// <summary>
+			///A test for GetPatientDemographicRecords
+			///</summary>
+	      public: [TestMethod]
+			  void GetPatientDemographicRecordsTest1()
+			  {
+					CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+					int patientNumberInternal = 0; 
+					int systemIdentifier = 0; 
+					int groupIdentifier = 0; 
+					DataSet^  actual;
 
 					SetServerMachineName();
 					target->SetConnection(serverName, sourceName);
+
+					//Begin Smarajit Mishra 19 Apr 2011 
+					DataSet^ dbRecords = target->GetPatientDemographicRecords();
+					int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+					//End Smarajit Mishra 19 Apr 2011 
 
 					////preparing test data into database//////
 					CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
@@ -1360,20 +1700,24 @@ namespace TestCrx {
 					{
 						  target->DeletePatientData(pd);
 					}
+
+					//Begin Smarajit Mishra 19 Apr 2011 
+					DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+					int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+					Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+					//End Smarajit Mishra 19 Apr 2011 
 			  }
 
-			/// <summary>
+		    /// <summary>
 			///A test for GetGroupLists
 			///</summary>
 	public: [TestMethod]
 			void GetGroupListsTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				DataSet^  expected = nullptr; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				DataSet^  expected = nullptr; 
 				DataSet^  actual;
-				//Smarajit
-				//called the database connection to connect database
-				//input parameters to call method
+				
 				try
 				{
 					actual = target->GetGroupLists();
@@ -1382,10 +1726,23 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true,"If exception occur then test case pass.");
 				}
+			}
+
+	public: [TestMethod]
+			void GetGroupListsTest1()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				DataSet^  expected = nullptr; 
+				DataSet^  actual;
 
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
 				CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 				
 				try
 				{
@@ -1423,22 +1780,26 @@ namespace TestCrx {
                 {
                       target->DeletePatientData(pd);
                 }
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 			}
+
 			/// <summary>
 			///A test for DeletePWVMeasurementDetails
 			///</summary>
 	public: [TestMethod]
 			void DeletePWVMeasurementDetailsTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				CrxStructPWVMeasurementData^  md = nullptr; // TODO: Initialize to an appropriate value
-				String^  studyDateTimeArrStr = System::String::Empty; // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				CrxStructPWVMeasurementData^  md = nullptr; 
+				String^  studyDateTimeArrStr = System::String::Empty; 
+				int expected = 0; 
 				int actual;
 				
-				///////////////////
-				//called the database connection to connect database
-				//input parameters to call method
 				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
 				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
 				
@@ -1449,10 +1810,28 @@ namespace TestCrx {
 				catch(Exception^)
 				{
 					Assert::IsTrue(true,"If exception occur then test case pass.");
-				}
+				}				
+			}
+
+	public: [TestMethod]
+			void DeletePWVMeasurementDetailsTest1()
+			{
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				CrxStructPWVMeasurementData^  md = nullptr; 
+				String^  studyDateTimeArrStr = System::String::Empty; 
+				int expected = 0; 
+				int actual;
+				
+				CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
+				CrxStructPWVMeasurementData ^ pwvmd = gcnew CrxStructPWVMeasurementData ();
 				
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 				
 				try
 				{
@@ -1476,8 +1855,8 @@ namespace TestCrx {
 					pwvmd->GroupIdentifier = pd->GroupIdentifier;
 					pwvmd->PWVDistance = 50;
 					pwvmd->MeanHeartRate = 150.0000;
-					pwvmd->MeanPulseWaveVelocity = 4.4000;
-					pwvmd->StandardDeviation = 3.300;
+					pwvmd->MeanPulseWaveVelocity = Convert::ToSingle(4.4000);
+					pwvmd->StandardDeviation = Convert::ToSingle(3.300);
 					pwvmd->IsStandardDeviationValid = 1;
 					pwvmd->Notes = "CheckOut";
 					pwvmd->Carotid = 111;
@@ -1516,21 +1895,25 @@ namespace TestCrx {
 				{
 					target->DeletePatientData(pd);
 				}
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
 				///////////////////
 			}
+
 			/// <summary>
 			///A test for DeletePatientData
 			///</summary>
 	public: [TestMethod]
 			void DeletePatientDataTest()
           {
-                CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-                //CrxStructPatientDemographicData^  pd = nullptr; // TODO: Initialize to an appropriate value
-                int expected = 0; // TODO: Initialize to an appropriate value
+                CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+                int expected = 0; 
                 int actual;
-                //Smarajit
-                //called the database connection to connect database
-                //input parameters to call method
+
                 CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
 
 				try
@@ -1541,9 +1924,24 @@ namespace TestCrx {
 				{
 					Assert::IsTrue(true,"If exception occur then test case pass.");
 				}
+          }
+
+	public: [TestMethod]
+			void DeletePatientDataTest1()
+          {
+                CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+                int expected = 0; 
+                int actual;
+                CrxStructPatientDemographicData^  pd = gcnew CrxStructPatientDemographicData();
+
 
                 SetServerMachineName();
                 target->SetConnection(serverName, sourceName);
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecords = target->GetPatientDemographicRecords();
+				int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+				//End Smarajit Mishra 19 Apr 2011 
 
                 try
                 {
@@ -1566,17 +1964,24 @@ namespace TestCrx {
                 {
                       target->DeletePatientData(pd);
                 }
+
+				//Begin Smarajit Mishra 19 Apr 2011 
+				DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+				int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+				Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+				//End Smarajit Mishra 19 Apr 2011 
           }
-            /// <summary>
+
+		    /// <summary>
 			///A test for DatabaseRestore
 			///</summary>
 	public: [TestMethod]
 			void DatabaseRestoreTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//String^  FilePath = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				//String^  FilePath = System::String::Empty; 
 				String^  FilePath = nullptr;
-				int expected = 0; // TODO: Initialize to an appropriate value
+				int expected = 0; 
 				int actual;
 				//input parameters to call method
 				SetServerMachineName();
@@ -1590,26 +1995,28 @@ namespace TestCrx {
 				}
 				catch(Exception^)
 				{
-					Assert::Fail;
+					Assert::Fail();;
 				}
 			}
+
 			/// <summary>
 			///A test for DatabaseRestore1
 			///</summary>
 	public: [TestMethod]
 			void DatabaseRestoreTest1()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//String^  FilePath = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				//String^  FilePath = System::String::Empty; 
 				String^  FilePath = nullptr;
-				int expected = 1; // TODO: Initialize to an appropriate value
+				int expected = 1; 
 				int actual;
 				//input parameters to call method
 				SetServerMachineName();
 				target->SetConnection(serverName, sourceName);
 
+				//Setting invalid path, so that error occur
 				FilePath = "\\\\MUM-9638\\Atcor_2009\\Test_For120110105.BAK";
-				//expected = 0; // TODO: Initialize to an appropriate value
+				//expected = 0; 
 				//int actual;
 				//input parameters to call method
 				try
@@ -1630,10 +2037,10 @@ namespace TestCrx {
 	public: [TestMethod]
 			void DatabaseBackupTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//String^  FilePath = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				//String^  FilePath = System::String::Empty; 
 				String^  FilePath = "\\Test_AtCor.BAK";
-				int expected = 0; // TODO: Initialize to an appropriate value
+				int expected = 0; 
 				int actual;
 				//input parameters to call method
 				SetServerMachineName();
@@ -1646,7 +2053,7 @@ namespace TestCrx {
 				{
 					actual = target->DatabaseBackup(FilePath);
 				}
-				catch(Exception^ e)
+				catch(Exception^ )
 				{
 					Assert::Fail();
 				}
@@ -1654,29 +2061,25 @@ namespace TestCrx {
 				Assert::AreEqual(expected, actual);
 
 			}
+
 			/// <summary>
 			///A test for DatabaseBackup1
 			///</summary>
 	public: [TestMethod]
 			void DatabaseBackupTest1()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				//String^  FilePath = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
 				String^  FilePath = nullptr;
-				int expected = 1; // TODO: Initialize to an appropriate value
+				int expected = 1; 
 				int actual;
-				//input parameters to call method
+
 				SetServerMachineName();
-			
 				target->SetConnection(serverName, sourceName);
 				SetPath();
 				
 				FilePath = Directory::GetCurrentDirectory() + FilePath;
 				
-				//String^  FilePath = "\\\\MUM-9638\\Atcor_2008\\Test_For120110105.BAK";
-				//int expected = 0; // TODO: Initialize to an appropriate value
-				//int actual;
-				//input parameters to call method
+				//input parameters to call method - Setting invalid path so that function gets failed.
 				FilePath = "\\\\MUM-9638\\Atcor_2009\\Test_For120110105.BAK";
 				try
 				{
@@ -1688,16 +2091,17 @@ namespace TestCrx {
 				}
 				Assert::AreEqual(expected, actual);
 			}
+
 			/// <summary>
 			///A test for CommonShortArrtoByteArr
 			///</summary>
 	public: [TestMethod]
 			void CommonShortArrtoByteArrTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				int len = 0; // TODO: Initialize to an appropriate value
-				cli::array< unsigned short >^  shrtarr = nullptr; // TODO: Initialize to an appropriate value
-				//cli::array< unsigned char >^  expected = nullptr; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int len = 0; 
+				cli::array< unsigned short >^  shrtarr = nullptr; 
+				//cli::array< unsigned char >^  expected = nullptr; 
 				//cli::array< unsigned char >^  actual;
 				cli::array< Byte >^  expected = nullptr;
 				cli::array< Byte >^  actual;
@@ -1736,16 +2140,17 @@ namespace TestCrx {
 				Assert::AreEqual(expectedTest,actualTest);
 				//smarajit
 			}
+
 			/// <summary>
 			///A test for CommonFloatArrtoByteArr
 			///</summary>
 	public: [TestMethod]
 			void CommonFloatArrtoByteArrTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				int len = 0; // TODO: Initialize to an appropriate value
-				cli::array< float >^  fltarr = nullptr; // TODO: Initialize to an appropriate value
-				//cli::array< unsigned char >^  expected = nullptr; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int len = 0; 
+				cli::array< float >^  fltarr = nullptr; 
+				//cli::array< unsigned char >^  expected = nullptr; 
 				//cli::array< unsigned char >^  actual;
 				cli::array< Byte >^  expected = nullptr;
 				cli::array< Byte >^  actual;
@@ -1789,16 +2194,17 @@ namespace TestCrx {
 				Assert::AreEqual(expectedTest,actualTest);
 				//smarajit
 			}
+
 			/// <summary>
 			///A test for CommonByteArrtoShortArr
 			///</summary>
 	public: [TestMethod]
 			void CommonByteArrtoShortArrTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				int len = 0; // TODO: Initialize to an appropriate value
-				cli::array< unsigned char >^  bytearr = nullptr; // TODO: Initialize to an appropriate value
-				cli::array< unsigned short >^  expected = nullptr; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int len = 0; 
+				cli::array< unsigned char >^  bytearr = nullptr; 
+				cli::array< unsigned short >^  expected = nullptr; 
 				cli::array< unsigned short >^  actual;
 				///Smarajit
 
@@ -1838,16 +2244,17 @@ namespace TestCrx {
 				int expectedTest = 0;
 				Assert::AreEqual(expectedTest,actualTest);
 			}
+
 			/// <summary>
 			///A test for CommonByteArrtoFloatArr
 			///</summary>
 	public: [TestMethod]
 			void CommonByteArrtoFloatArrTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				int len = 0; // TODO: Initialize to an appropriate value
-				cli::array< unsigned char >^  bytearr = nullptr; // TODO: Initialize to an appropriate value
-				cli::array< float >^  expected = nullptr; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				int len = 0; 
+				cli::array< unsigned char >^  bytearr = nullptr; 
+				cli::array< float >^  expected = nullptr; 
 				cli::array< float >^  actual;
 				///Smarajit
 
@@ -1888,16 +2295,17 @@ namespace TestCrx {
 				int expectedTest = 0;
 				Assert::AreEqual(expectedTest,actualTest);
 			}
+
 			/// <summary>
 			///A test for CheckConnection
 			///</summary>
 	public: [TestMethod]
 			void CheckConnectionTest()
 			{
-				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
-				String^  serverName = System::String::Empty; // TODO: Initialize to an appropriate value
-				String^  sourceName = System::String::Empty; // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
+				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
+				String^  serverName = System::String::Empty; 
+				String^  sourceName = System::String::Empty; 
+				int expected = 0; 
 				int actual;
 				String^ serverNameTest = String::Empty;//"MUM-9383\\SQLEXPRESS";
 				String^  sourceNameTest = String::Empty;//"SQLCLIENT";
@@ -1930,6 +2338,7 @@ namespace TestCrx {
 					Assert::AreEqual(expected, actual);	
 				}
 			}
+
 			/// <summary>
 			///A test for CrxDBManager Constructor
 			///</summary>
@@ -1937,10 +2346,11 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void CrxDBManagerConstructorTest1()
 			{
-				CrxDBManager^  unnamed = nullptr; // TODO: Initialize to an appropriate value
+				CrxDBManager^  unnamed = nullptr; 
 				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor(unnamed));
 				Assert::IsNotNull(target);
 			}
+
 			/// <summary>
 			///A test for CrxDBManager Constructor
 			///</summary>

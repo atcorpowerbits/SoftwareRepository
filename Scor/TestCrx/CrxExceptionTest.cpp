@@ -1,5 +1,5 @@
 ﻿//**************************************************************************//
-// Crxexception class will be removed in future sprint, as new exception	//
+// Crxexception class will be REMOVED in future sprint, as new exception	//
 // class (scorexception) class is already implemented. So all the test		//
 // cases related to Crxexception class will be removed.						//
 //**************************************************************************//
@@ -15,6 +15,8 @@ namespace TestCrx {
     /// <summary>
 ///This is a test class for CrxExceptionTest and is intended
 ///to contain all CrxExceptionTest Unit Tests
+
+
 ///</summary>
 	[TestClass]
 	public ref class CrxExceptionTest
@@ -66,72 +68,79 @@ namespace TestCrx {
 			//}
 			//
 #pragma endregion
+			
 			/// <summary>
 			///A test for ExceptionObject
 			///</summary>
 	public: [TestMethod]
 			void ExceptionObjectTest()
 			{
-				CrxException^  target = (gcnew CrxException()); // TODO: Initialize to an appropriate value
-				Exception^  actual;
-				actual = target->ExceptionObject;
+				CrxException^  target = (gcnew CrxException()); 
+				Assert::IsNotNull(target);
 			}
+			
 			/// <summary>
 			///A test for ErrorString
 			///</summary>
 	public: [TestMethod]
 			void ErrorStringTest()
 			{
-				CrxException^  target = (gcnew CrxException()); // TODO: Initialize to an appropriate value
-				String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+				CrxException^  target = (gcnew CrxException()); 
+				String^  expected = System::String::Empty; 
 				String^  actual;
 				target->ErrorString = expected;
 				actual = target->ErrorString;
 				Assert::AreEqual(expected, actual);
 			}
+			
 			/// <summary>
 			///A test for ErrorCode
 			///</summary>
 	public: [TestMethod]
 			void ErrorCodeTest()
 			{
-				CrxException^  target = (gcnew CrxException()); // TODO: Initialize to an appropriate value
-				int expected = 0; // TODO: Initialize to an appropriate value
+				CrxException^  target = (gcnew CrxException()); 
+				int expected = 0; 
 				int actual;
 				target->ErrorCode = expected;
 				actual = target->ErrorCode;
 				Assert::AreEqual(expected, actual);
 			}
+			
 			/// <summary>
 			///A test for CrxException Constructor
 			///</summary>
 	public: [TestMethod]
 			void CrxExceptionConstructorTest4()
 			{
-				String^  errExpStr = System::String::Empty; // TODO: Initialize to an appropriate value
+				String^  errExpStr = System::String::Empty; 
 				CrxException^  target = (gcnew CrxException(errExpStr));
+				Assert::IsNotNull(target);
 			}
+			
 			/// <summary>
 			///A test for CrxException Constructor
 			///</summary>
 	public: [TestMethod]
 			void CrxExceptionConstructorTest3()
 			{
-				int exError = 0; // TODO: Initialize to an appropriate value
-				String^  errExpStr = System::String::Empty; // TODO: Initialize to an appropriate value
-				Exception^  errExp = nullptr; // TODO: Initialize to an appropriate value
+				int exError = 0; 
+				String^  errExpStr = System::String::Empty; 
+				Exception^  errExp = nullptr; 
 				CrxException^  target = (gcnew CrxException(exError, errExpStr, errExp));
 			}
+			
 			/// <summary>
 			///A test for CrxException Constructor
 			///</summary>
 	public: [TestMethod]
 			void CrxExceptionConstructorTest2()
 			{
-				//Exception^  errExp = nullptr; // TODO: Initialize to an appropriate value
+				//Exception^  errExp = nullptr; 
 				//CrxException^  target = (gcnew CrxException(errExp));
 				//Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}
+			
 			/// <summary>
 			///A test for CrxException Constructor
 			///</summary>
@@ -140,13 +149,14 @@ namespace TestCrx {
 			{
 				CrxException^  target = (gcnew CrxException());
 			}
+			
 			/// <summary>
 			///A test for CrxException Constructor
 			///</summary>
 	public: [TestMethod]
 			void CrxExceptionConstructorTest()
 			{
-				int exError = 0; // TODO: Initialize to an appropriate value
+				int exError = 0; 
 				CrxException^  target = (gcnew CrxException(exError));
 			}
 	};

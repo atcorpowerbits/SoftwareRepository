@@ -54,6 +54,8 @@ namespace AtCor{
 					unsigned int timeoutPeriod; /**< timout period to wait for response. Default value is 50 ms*/
 					unsigned int retriesAllowed; /**< Number of retries . Set to 3 by default*/
 
+					unsigned int expectedResponseLength; /**< The expected length. If it is a non-zero value it should be validated against the data received*/
+
 				private:
 					DalEM4Command(); // Default C'tor
 

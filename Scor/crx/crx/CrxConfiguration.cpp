@@ -12,20 +12,18 @@
 #include "CrxConfiguration.h"
 #include "CrxCrossCutting.h"
 #include "ScorException.h"
+#include "CrxMessaging.h"
 
-using namespace System;// For String, Console
-using namespace System::Xml;// For XML classes and enums
-using namespace System::IO;// For FileStream
-using namespace System::Text; //For String manipulation
+using namespace System;				// For String, Console
+using namespace System::IO;			// For FileStream
 
+using namespace AtCor::Scor::CrossCutting::Messaging;
 // Add application specific namespaces
-using namespace AtCor::Scor::CrossCutting;
-using namespace AtCor::Scor::CrossCutting::Configuration;
 
 //To get General Default Settings from file
 void CrxConfigManager::GetGeneralDefaultSettings(CrxStructGeneralSetting^ objGenSettings)
 {
-	CrxConfigManager::GetSettings("GENERAL","DEFAULT");
+	CrxConfigManager::GetSettings(CrxConfigXmlTag::General,CrxConfigXmlTag::Default);
 
 	// as there is no assignment operator defined, doing memberwise copy
 	objGenSettings->PatientPrivacy				= _gSetInternal->PatientPrivacy;
@@ -40,26 +38,26 @@ void CrxConfigManager::GetGeneralDefaultSettings(CrxStructGeneralSetting^ objGen
 	objGenSettings->MachineName					= _gSetInternal->MachineName;
 	objGenSettings->StartupMode					= _gSetInternal->StartupMode;
 	objGenSettings->StartupScreen				= _gSetInternal->StartupScreen;
-	objGenSettings->EnvironmentSettings			= "Clinical";
+	objGenSettings->EnvironmentSettings			= CrxConfigStructInternal::DefaultEnvironment;
 	objGenSettings->PrinterName					= _gSetInternal->PrinterName;
 }
 
 //To get User Settings from the file
 void CrxConfigManager::GetGeneralUserSettings()
 {
-	CrxConfigManager::GetSettings("GENERAL","USER");
+	CrxConfigManager::GetSettings(CrxConfigXmlTag::General,CrxConfigXmlTag::User);
 }
 
 //To Set General User Setting 
 void CrxConfigManager::SetGeneralUserSettings(CrxStructGeneralSetting^ gs)
 {
-	CrxConfigManager::SetSettings("GENERAL","USER",gs,nullptr);
+	CrxConfigManager::SetSettings(CrxConfigXmlTag::General,CrxConfigXmlTag::User,gs,nullptr);
 }
 
 //To get PWV Default Settings from file
 void CrxConfigManager::GetPwvDefaultSettings(CrxStructPwvSetting^ objPwvSettings)
 {
-	CrxConfigManager::GetSettings("PWV","DEFAULT");
+	CrxConfigManager::GetSettings(CrxConfigXmlTag::Pwv,CrxConfigXmlTag::Default);
 
 	objPwvSettings->CaptureTime			= _pSetInternal->CaptureTime;
 	objPwvSettings->PWVDistanceMethod	= _pSetInternal->PWVDistanceMethod;
@@ -67,18 +65,19 @@ void CrxConfigManager::GetPwvDefaultSettings(CrxStructPwvSetting^ objPwvSettings
 	objPwvSettings->PWVDistanceUnits	= _pSetInternal->PWVDistanceUnits;
 	objPwvSettings->ReferenceRange		= _pSetInternal->ReferenceRange;
 	objPwvSettings->SimulationType		= _pSetInternal->SimulationType;
+	objPwvSettings->DefaultReport		= _pSetInternal->DefaultReport;
 }
 
 //To get PWV User Settings from the file
 void CrxConfigManager::GetPwvUserSettings()
 {
-	CrxConfigManager::GetSettings("PWV","USER");
+	CrxConfigManager::GetSettings(CrxConfigXmlTag::Pwv,CrxConfigXmlTag::User);
 }
 
 //To Set PWV User Setting 
 void CrxConfigManager::SetPwvUserSettings(CrxStructPwvSetting^ ps)
 {
-	CrxConfigManager::SetSettings("PWV","USER",nullptr,ps);
+	CrxConfigManager::SetSettings(CrxConfigXmlTag::Pwv,CrxConfigXmlTag::User,nullptr,ps);
 }
 
 //***************************************************************
@@ -97,7 +96,7 @@ void CrxConfigManager::SetSettings(String^ Section, String^ SubSection, CrxStruc
 		//Check whether file is exists or not
 		if(!File::Exists(_nameOfFile))
 		{ 
-			throw gcnew ScorException(CRXERR_FILE_NOT_EXIST, "CRX_ERR_FILE_NOT_EXIST", ErrorSeverity::Exception);// File not found
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileNotExistErrCd, CrxStructCommonResourceMsg::CrxErrFileNotExist, ErrorSeverity::Exception);// File not found
 		}		
 		
 		//Check whether File Access is provided or not
@@ -107,13 +106,13 @@ void CrxConfigManager::SetSettings(String^ Section, String^ SubSection, CrxStruc
 		}
 		catch(Exception^)
 		{
-			throw gcnew ScorException(CRXERR_FILE_NOT_ACCESS, "CRX_ERR_FILE_CANNOT_ACCESS", ErrorSeverity::Exception);// File not accessable
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);// File not accessable
 		}
 
 		//Check whether have the access to write or not
 		if(!fs->CanWrite)
 		{
-			throw gcnew ScorException(CRXERR_FILE_NOT_ACCESS, "CRX_ERR_FILE_CANNOT_ACCESS", ErrorSeverity::Exception);// File not accessable
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);// File not accessable
 		}
 		
 		//Close the file Access Object
@@ -145,7 +144,7 @@ void CrxConfigManager::SetSettings(String^ Section, String^ SubSection, CrxStruc
 	}
 	catch (XmlException^) 
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);// any xml exception is rethrown as corrupt file exception
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);// any xml exception is rethrown as corrupt file exception
 	}
 	
 	finally 
@@ -174,7 +173,7 @@ void CrxConfigManager::SetSettingsNode(String^ Section, String^ SubSection, CrxS
 	//Check if node is empty or not, if empty throw exception
 	if (node == nullptr)
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);
 	}
 
 	//Processes each node for values
@@ -199,14 +198,18 @@ void CrxConfigManager::SetSettingsNode(String^ Section, String^ SubSection, CrxS
 							//Flap validating for loop
 							startflag = true;
 							
-							if(Section == "GENERAL")
+							if(Section == CrxConfigXmlTag::General)
 							{
 								CrxConfigManager::SetGeneralSettingsNode(gs, node4);
 							}
-							else
-							if(Section == "PWV")
+							else if(Section == CrxConfigXmlTag::Pwv)
 							{
 								CrxConfigManager::SetPwvSettingsNode(ps, node4);
+							}
+							else
+							{
+								// this is a unknown section, raise exception
+								throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);
 							}
 						 }
 					  }
@@ -216,7 +219,7 @@ void CrxConfigManager::SetSettingsNode(String^ Section, String^ SubSection, CrxS
 	}
 	if (startflag == false)
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);
 	}
 }
 
@@ -228,85 +231,85 @@ void CrxConfigManager::SetGeneralSettingsNode(CrxStructGeneralSetting^ gs, XmlNo
 	SubSectionNodeName = node->Name->ToUpper();
 
 	//Calls function if node element is Patient Privacy
- 	if (SubSectionNodeName == "PATIENTPRIVACY")
+	if (SubSectionNodeName == CrxConfigXmlTag::PatientPrivacy)
 	{	
 		CrxConfigManager::SetPatientPrivacy(gs, node);		
 	}
 	//Calls function if node element is Height and Weight
     else
-    if (SubSectionNodeName == "HEIGHTANDWEIGHTUNITS")
+	if (SubSectionNodeName == CrxConfigXmlTag::HeightAndWeightUnits)
 	{	
 		CrxConfigManager::SetHeightWeight(gs, node);
 	}
 	//Calls function if node element is Blood Pressure Option
     else
-	if (SubSectionNodeName == "BLOODPRESSUREENTRYOPTIONS")
+	if (SubSectionNodeName == CrxConfigXmlTag::BloodPressureEntryOptions)
 	{	
 		CrxConfigManager::SetBloodPressureOption(gs, node);		
 	}
 	//Calls function if node element is Comms Port
 	else
-	if(SubSectionNodeName == "COMMSPORT")
+	if(SubSectionNodeName == CrxConfigXmlTag::CommsPort)
 	{
 		CrxConfigManager::SetCommsPort(gs, node);
 	}
 	//Calls function if node element is Report Title
 	else
-	if(SubSectionNodeName == "REPORTTITLE")
+	if(SubSectionNodeName == CrxConfigXmlTag::ReportTitle)
 	{									
 		CrxConfigManager::SetReportTitle(gs, node);
 	}
 	//Calls function if node element is Report Logo Path
 	else
-	if(SubSectionNodeName == "REPORTLOGOPATH")
+	if(SubSectionNodeName == CrxConfigXmlTag::ReportLogoPath)
 	{
 		CrxConfigManager::SetReportLogoPath(gs, node);
 	}
 	//Calls function if node element is Server Name
 	else
-	if(SubSectionNodeName == "SERVERNAME")
+	if(SubSectionNodeName == CrxConfigXmlTag::ServerName)
 	{
 		CrxConfigManager::SetServerName(gs, node);
 	}
 	//Calls function if node element is Source Data
 	else
-	if(SubSectionNodeName == "SOURCEDATA")
+	if(SubSectionNodeName == CrxConfigXmlTag::SourceData)
 	{									
 		CrxConfigManager::SetSourceData(gs, node);
 	}
 	//Calls function if node element is Culture Info
 	else
-	if(SubSectionNodeName == "CULTUREINFO")
+	if(SubSectionNodeName == CrxConfigXmlTag::CultureInfo)
 	{
 		CrxConfigManager::SetCultureInfo(gs, node);
 	}
 	//Calls function if node element is Machine Name
 	else
-	if(SubSectionNodeName == "MACHINENAME")
+	if(SubSectionNodeName == CrxConfigXmlTag::MachineName)
 	{
 		CrxConfigManager::SetMachineName(gs, node);
 	}
 	//Calls function if node element is StartupMode
 	else
-	if(SubSectionNodeName == "STARTUPMODE")
+	if(SubSectionNodeName == CrxConfigXmlTag::StartupMode)
 	{
 		
 	}
 	//Calls function if node element is StartupScreen
 	else
-	if(SubSectionNodeName == "STARTUPSCREEN")
+		if(SubSectionNodeName == CrxConfigXmlTag::StartupScreen)
 	{
 		
 	}
 	//Calls function if node element is Config Printer
 	else
-	if(SubSectionNodeName == "PRINTERNAME")
+	if(SubSectionNodeName == CrxConfigXmlTag::PrinterName)
 	{
 		CrxConfigManager::SetPrinterName(gs, node);
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file
 	}
 }
 
@@ -317,43 +320,49 @@ void CrxConfigManager::SetPwvSettingsNode(CrxStructPwvSetting^ ps, XmlNode^ node
 	SubSectionNodeName = node->Name->ToUpper();
 
    //Calls function if node element is PWV Distance Methods
-	if (SubSectionNodeName == "PWVDISTANCEMETHOD")
+	if (SubSectionNodeName == CrxConfigXmlTag::PwvDistanceMethod)
 	{	
 		CrxConfigManager::SetPwvDistanceMethods(ps, node);		
 	}
 	//Calls function if node element is FemoralToCuff
     else
-    if (SubSectionNodeName == "FEMORALTOCUFF")
+	if (SubSectionNodeName == CrxConfigXmlTag::FemoralToCuff)
 	{	
 		CrxConfigManager::SetFemoralToCuff(ps, node);
 	}
 	//Calls function if node element is PWV Distance Units
     else
-	if (SubSectionNodeName == "PWVDISTANCEUNITS")
+	if (SubSectionNodeName == CrxConfigXmlTag::PwvDistanceUnits)
 	{	
 		CrxConfigManager::SetPwvDistanceUnits(ps, node);		
 	}
 	//Calls function if node element is Capture Time
 	else
-	if(SubSectionNodeName == "CAPTURETIME")
+	if(SubSectionNodeName == CrxConfigXmlTag::CaptureTime)
 	{
 		CrxConfigManager::SetCaptureTime(ps, node);
 	}
 	//Calls function if node element is Reference Range
 	else
-	if(SubSectionNodeName == "REFERENCERANGE")
+	if(SubSectionNodeName == CrxConfigXmlTag::ReferenceRange)
 	{									
 		CrxConfigManager::SetReferenceRange(ps, node);
 	}
 	//Calls function if node element is Simulation Type
 	else
-	if(SubSectionNodeName == "SIMULATIONTYPE")
+	if(SubSectionNodeName == CrxConfigXmlTag::SimulationType)
 	{
 		CrxConfigManager::SetSimulationType(ps, node);
 	}
+	//Calls function if node element is Default Report
+	else
+	if(SubSectionNodeName == CrxConfigXmlTag::DefaultReport)
+	{
+		CrxConfigManager::SetDefaultReport(ps, node);
+	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file
 	}
 }
 
@@ -365,17 +374,17 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 	bool breakflag				= false;	//bool value containing true or false. True to break the loop
 	bool startflag				= false;	//bool value containing true or false. True to Start to store
 	XmlReader^ reader			= nullptr;	//Store the XML data
-	String^ GetXMLSection		= "'";		//Gets the XML section name
+	String^ GetXMLSection		= nullptr;	//Gets the XML section name
 	String^ GetSectionName		= nullptr;  //Store section name to get the value
 	String^ ReaderValue			= nullptr;  //Store XML Node Reader value
-	String^ configXMLElements   = L"'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'REFERENCERANGE', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME'";
+	String^ configXMLElements   = CrxConfigXmlTag::ConfigXmlElementsList;
 
 	try 
 	{
 		//Check whether file is exists or not
 		if(!File::Exists(_nameOfFile))
 		{
-			throw gcnew ScorException(CRXERR_FILE_NOT_EXIST, "CRX_ERR_FILE_NOT_EXIST", ErrorSeverity::Exception);// File not found
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileNotExistErrCd, CrxStructCommonResourceMsg::CrxErrFileNotExist, ErrorSeverity::Exception);// File not found
 		}
 	
 		//Reads the XML data from filepath and store in reader object
@@ -399,9 +408,9 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 					//Stores Element name temporarily in Upper Case
 					GetXMLSection = reader->Name->ToUpper();
 					//Validate if the Element name is valid or not, if not, throws exception
-					if(!configXMLElements->Contains("'" + GetXMLSection + "'"))
+					if(!configXMLElements->Contains(CrxConfigXmlTag::TagSeparator + GetXMLSection + CrxConfigXmlTag::TagSeparator))
 					{
-						throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
+						throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file
 					}
 
 					if(Section == GetXMLSection)
@@ -416,7 +425,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 					//Check if the Element is Empty or not, if yes, throws exception
                     if (reader->IsEmptyElement) 
 					{
-						throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
+						throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file
 					}
 					break; 
 
@@ -448,7 +457,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 				
 				//if none of the switch case are valid for node, then default and throw exception
 				default: 
-					throw gcnew ScorException(CRXERR_UNKNOWN_EXCEPN, "CRX_UNKNOWN_EXCEPTION", ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::CrxUnknownExceptionErrCd, CrxStructCommonResourceMsg::CrxUnknownException, ErrorSeverity::Exception);
 			}
 			if (breakflag) 
 			{
@@ -461,9 +470,9 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 	catch (XmlException^) 
 	{
 		//Throws again an exception
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);// any xml exception is rethrown as corrupt file exception
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);// any xml exception is rethrown as corrupt file exception
 	}
-	//Finally stage to close all open files
+	//Close all open files
 	finally 
 	{
 		if (reader && (reader->ReadState != ReadState::Closed)) 
@@ -476,13 +485,13 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 void CrxConfigManager::GetSettingsNode(String^ Section, String^ SubSection, String^ SubSectionNode , String^ ReaderValue)
 {
 	//Call General or PWV Seeting functions
-	if(Section == "GENERAL")
+	if(Section == CrxConfigXmlTag::General)
 	{
 		//Call GetGeneralSettingsNode function to get values of General Settings
 		CrxConfigManager::GetGeneralSettingsNode(SubSection,SubSectionNode,ReaderValue);
 	}
 	else 
-	if(Section == "PWV")
+		if(Section == CrxConfigXmlTag::Pwv)
 	{
 		//Call GetPWVSettingsNode function to get values of PWV Settings
 		CrxConfigManager::GetPwvSettingsNode(SubSection,SubSectionNode,ReaderValue);
@@ -493,134 +502,140 @@ void CrxConfigManager::GetSettingsNode(String^ Section, String^ SubSection, Stri
 void CrxConfigManager::GetGeneralSettingsNode(String^ SubSection, String^ SubSectionNode , String^ ReaderValue)
 {
 	//Calls function if node element is Patient Privacy
-	if(SubSectionNode == "PATIENTPRIVACY")
+	if(SubSectionNode == CrxConfigXmlTag::PatientPrivacy)
 	{
 		CrxConfigManager::GetPatientPrivacy(SubSection,ReaderValue);
 	}
 	//Calls function if node element is Height and Weight
 	else
-	if(SubSectionNode == "HEIGHTANDWEIGHTUNITS")
+	if(SubSectionNode == CrxConfigXmlTag::HeightAndWeightUnits)
 	{
 		CrxConfigManager::GetHeightWeight(SubSection,ReaderValue);
 
 	}
 	//Calls function if node element is Blood Pressure Option
 	else
-	if(SubSectionNode == "BLOODPRESSUREENTRYOPTIONS")
+	if(SubSectionNode == CrxConfigXmlTag::BloodPressureEntryOptions)
 	{
 		CrxConfigManager::GetBloodPressureOption(SubSection,ReaderValue);
 	}
 	//Calls function if node element is Comms Port
 	else
-	if(SubSectionNode == "COMMSPORT")
+	if(SubSectionNode == CrxConfigXmlTag::CommsPort)
 	{
 		CrxConfigManager::GetCommsPort(SubSection,ReaderValue);
 
 	}
 	//Calls function if node element is Report Title
 	else
-	if(SubSectionNode == "REPORTTITLE")
+	if(SubSectionNode == CrxConfigXmlTag::ReportTitle)
 	{
 		CrxConfigManager::GetReportTitle(SubSection,ReaderValue);
 
 	}
 	//Calls function if node element is Report Logo Path
 	else
-	if(SubSectionNode == "REPORTLOGOPATH")
+	if(SubSectionNode == CrxConfigXmlTag::ReportLogoPath)
 	{
 		CrxConfigManager::GetReportLogoPath(SubSection,ReaderValue);
 	}
 	//Calls function if node element is Server Name
 	else
-	if(SubSectionNode == "SERVERNAME")
+	if(SubSectionNode == CrxConfigXmlTag::ServerName)
 	{
 		CrxConfigManager::GetServerName(SubSection,ReaderValue);
 	}
 	//Calls function if node element is Source Data
 	else
-	if(SubSectionNode == "SOURCEDATA")
+	if(SubSectionNode == CrxConfigXmlTag::SourceData)
 	{
 		CrxConfigManager::GetSourceData(SubSection,ReaderValue);
 	}
 	//Calls function if node element is CultureInfo
 	else
-	if(SubSectionNode == "CULTUREINFO")
+	if(SubSectionNode == CrxConfigXmlTag::CultureInfo)
 	{
 		CrxConfigManager::GetCultureInfo(SubSection,ReaderValue);
 	}
 	//Calls function if node element is MachineName
 	else
-	if(SubSectionNode == "MACHINENAME")
+	if(SubSectionNode == CrxConfigXmlTag::MachineName)
 	{
 		CrxConfigManager::GetMachineName(SubSection,ReaderValue);
 	}
 	//Calls function if node element is StartupMode
 	else
-	if(SubSectionNode == "STARTUPMODE")
+	if(SubSectionNode == CrxConfigXmlTag::StartupMode)
 	{
 		CrxConfigManager::GetStartupMode(SubSection,ReaderValue);
 	}
 	//Calls function if node element is StartupScreen
 	else
-	if(SubSectionNode == "STARTUPSCREEN")
+	if(SubSectionNode == CrxConfigXmlTag::StartupScreen)
 	{
 		CrxConfigManager::GetStartupScreen(SubSection,ReaderValue);
 	}
 	//Calls function if node element is Config Printer
 	else
-	if(SubSectionNode == "PRINTERNAME")
+	if(SubSectionNode == CrxConfigXmlTag::PrinterName)
 	{
 		CrxConfigManager::GetConfigPrinter(SubSection,ReaderValue);
 	}
 	//If none of the node element matches then throw exception
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file
 	}
 }
 void CrxConfigManager::GetPwvSettingsNode(String^ SubSection, String^ SubSectionNode , String^ ReaderValue)
 {
 	//Calls function if node element is PWV Distance Methods
-	if(SubSectionNode == "PWVDISTANCEMETHOD")
+	if(SubSectionNode == CrxConfigXmlTag::PwvDistanceMethod)
 	{
 		CrxConfigManager::GetPwvDistanceMethods(SubSection,ReaderValue);
 	}
 	//Calls function if node element is FemoralToCuff
 	else
-	if(SubSectionNode == "FEMORALTOCUFF")
+	if(SubSectionNode == CrxConfigXmlTag::FemoralToCuff)
 	{
 		CrxConfigManager::GetFemoralToCuff(SubSection,ReaderValue);
 
 	}
 	//Calls function if node element is PWV Distance Units
 	else
-	if(SubSectionNode == "PWVDISTANCEUNITS")
+	if(SubSectionNode == CrxConfigXmlTag::PwvDistanceUnits)
 	{
 		CrxConfigManager::GetPwvDistanceUnits(SubSection,ReaderValue);
 	}
 	//Calls function if node element is Capture Time
 	else
-	if(SubSectionNode == "CAPTURETIME")
+	if(SubSectionNode == CrxConfigXmlTag::CaptureTime)
 	{
 		CrxConfigManager::GetCaptureTime(SubSection,ReaderValue);
 
 	}
 	//Calls function if node element is Reference Range
 	else
-	if(SubSectionNode == "REFERENCERANGE")
+	if(SubSectionNode == CrxConfigXmlTag::ReferenceRange)
 	{
 		CrxConfigManager::GetReferenceRange(SubSection,ReaderValue);
 
 	}
 	//Calls function if node element is Simulation Type
 	else
-	if(SubSectionNode == "SIMULATIONTYPE")
+	if(SubSectionNode == CrxConfigXmlTag::SimulationType)
 	{
 		CrxConfigManager::GetSimulationType(SubSection,ReaderValue);
+	}
+	//Calls function if node element is Default Report
+	else
+	if(SubSectionNode == CrxConfigXmlTag::DefaultReport)
+	{
+		CrxConfigManager::GetDefaultReport(SubSection,ReaderValue);
 	}	
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
@@ -637,15 +652,15 @@ void CrxConfigManager::GetPatientPrivacy(String^ SubSection, String^ ReaderValue
 
 	tempValue  = ReaderValue->ToUpper();
 
-	chkVal = "'NO', 'YES'";
+	chkVal = CrxConfigXmlTag::CheckYesNoValue;
 
-	if(chkVal->Contains("'" + tempValue + "'") == false)
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
-	PatientPrivacyValue = (tempValue == "YES");
+	PatientPrivacyValue = (tempValue == CrxConfigXmlTag::UpperYES);
 
-	if(SubSection == "DEFAULT")
+	if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->PatientPrivacy = PatientPrivacyValue;
 	}
@@ -664,15 +679,15 @@ void CrxConfigManager::GetHeightWeight(String^ SubSection, String^ ReaderValue)
 	String^ chkVal = nullptr;
 
 	tempValue  = ReaderValue->ToUpper();
-	chkVal = "'METRIC', 'IMPERIAL'";
+	chkVal = CrxConfigHeightandWeightUnits::CompareStr;
 
-	if(chkVal->Contains("'" + tempValue + "'") == false)
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
-	HeightWeight = (tempValue == "METRIC" ? 0 : 1);
-	if(SubSection == "DEFAULT")
+	HeightWeight = (tempValue == CrxConfigHeightandWeightUnits::Metric ? Convert::ToInt32(CrxGenPwvValue::CrxGenHeightWeightMetric) : Convert::ToInt32(CrxGenPwvValue::CrxGenHeightWeightImperial));
+	if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->HeightandWeightUnit = HeightWeight;
 	}
@@ -691,31 +706,31 @@ void CrxConfigManager::GetBloodPressureOption(String^ SubSection, String^ Reader
 	
 	tempValue  = ReaderValue->ToUpper();
 
-	tempValue = tempValue->Replace(" ","");
+	tempValue = tempValue->Replace(CrxConfigXmlTag::Blank,String::Empty);
 
-	if(tempValue == "SPANDDP")
+	if(tempValue == CrxConfigBloodPressureOption::SPandDP)
 	{
 		//BloodPressureValue = 0;
 		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandDP);
 	}
 	else 
-	if(tempValue == "SPANDMP")
+	if(tempValue == CrxConfigBloodPressureOption::SPandMP)
 	{
 		//BloodPressureValue = 1;
 		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandMP);
 	}
 	else 
-	if(tempValue == "MPANDDP")
+	if(tempValue == CrxConfigBloodPressureOption::MPandDP)
 	{
 		//BloodPressureValue = 2;
 		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptMPandDP);
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
-	if(SubSection == "DEFAULT")
+	if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->BloodPressureEntryOptions = BloodPressureValue;
 	}
@@ -728,133 +743,133 @@ void CrxConfigManager::GetBloodPressureOption(String^ SubSection, String^ Reader
 void CrxConfigManager::GetCommsPort(String^ SubSection, String^ ReaderValue)
 {
 	//Get the Comms Port Details
-	if(SubSection == "USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_generalSettings->CommsPort = ReaderValue;
 	}
-	else if (SubSection == "DEFAULT")
+	else if (SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->CommsPort = nullptr;
 	}	
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
 void CrxConfigManager::GetReportTitle(String^ SubSection, String^ ReaderValue)
 {
 	//Get Report Title details
-	if(SubSection == "USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_generalSettings->ReportTitle = ReaderValue;
 	}
-	else if (SubSection == "DEFAULT")
+	else if (SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->ReportTitle = nullptr;
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
 void CrxConfigManager::GetReportLogoPath(String^ SubSection, String^ ReaderValue)
 {
 	//Get Report logo path details
-	if(SubSection == "USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_generalSettings->ReportLogoPath = ReaderValue;
 	}
-	else if (SubSection == "DEFAULT")
+	else if (SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->ReportLogoPath = nullptr;
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
 void CrxConfigManager::GetServerName(String^ SubSection, String^ ReaderValue)
 {
 	//Get Server Name details
-	if(SubSection == "USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_generalSettings->ServerName = ReaderValue;
 	}
-	else if (SubSection == "DEFAULT")
+	else if (SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->ServerName = nullptr;
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 void CrxConfigManager::GetSourceData(String^ SubSection, String^ ReaderValue)
 {
 	//Get Source data details
-	if(SubSection == "USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_generalSettings->SourceData = ReaderValue;
 	}
-	else if (SubSection == "DEFAULT")
+	else if (SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->SourceData = nullptr;
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 void CrxConfigManager::GetCultureInfo(String^ SubSection, String^ ReaderValue)
 {
 	//Get Culture Info details
-	if(SubSection == "USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_generalSettings->CultureInfo = ReaderValue;
 	}
-	else if (SubSection == "DEFAULT")
+	else if (SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->CultureInfo = nullptr;
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
 void CrxConfigManager::GetMachineName(System::String ^SubSection, System::String ^ReaderValue)
 {
 	//Get Machine Name details
-	if(SubSection == "USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_generalSettings->MachineName = ReaderValue;
 	}
-	else if (SubSection == "DEFAULT")
+	else if (SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->MachineName = nullptr;
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
 void CrxConfigManager::GetStartupMode(System::String ^SubSection, System::String ^ReaderValue)
 {
-	if(SubSection =="USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_generalSettings->StartupMode = ReaderValue;
 	}
-	else if(SubSection == "DEFAULT")
+	else if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->StartupMode = ReaderValue;
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 
@@ -864,40 +879,40 @@ void CrxConfigManager::GetStartupScreen(System::String ^SubSection, System::Stri
 	String^ chkVal = nullptr;
 
 	tempValue  = ReaderValue->ToUpper();
-	chkVal = "'SETUP'";
+	chkVal = CrxConfigXmlTag::StartUpScreenValue;
 
-	if(chkVal->Contains("'" + tempValue + "'") == false)
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
-	if(SubSection =="USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_generalSettings->StartupScreen = ReaderValue;
 	}
-	else if(SubSection == "DEFAULT")
+	else if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->StartupScreen = ReaderValue;
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 void CrxConfigManager::GetConfigPrinter(String^ SubSection, String^ ReaderValue)
 {
 	//Get Config Printer details
-	if(SubSection == "USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_generalSettings->PrinterName = ReaderValue;
 	}
-	else if (SubSection == "DEFAULT")
+	else if (SubSection == CrxConfigXmlTag::Default)
 	{
 		_gSetInternal->PrinterName = nullptr;
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}	
 }
 //***********************************************************************
@@ -912,15 +927,15 @@ void CrxConfigManager::GetFemoralToCuff(String^ SubSection, String^ ReaderValue)
 	String^ chkVal = nullptr;
 
 	tempValue  = ReaderValue->ToUpper();
-	chkVal = "'NO', 'YES'";
+	chkVal = CrxConfigXmlTag::CheckYesNoValue;
 
-	if(chkVal->Contains("'" + tempValue + "'") == false)
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
-	FemoralCuff = (tempValue == "YES");
+	FemoralCuff = (tempValue == CrxConfigXmlTag::UpperYES);
 
-	if(SubSection == "DEFAULT")
+	if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_pSetInternal->FemoralToCuff = FemoralCuff;
 	}
@@ -938,15 +953,15 @@ void CrxConfigManager::GetReferenceRange(String^ SubSection, String^ ReaderValue
 	String^ chkVal = nullptr;
 
 	tempValue  = ReaderValue->ToUpper();
-	chkVal = "'NO', 'YES'";
+	chkVal = CrxConfigXmlTag::CheckYesNoValue;
 
-	if(chkVal->Contains("'" + tempValue + "'") == false)
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
-	RefRange = (tempValue == "YES");
+	RefRange = (tempValue == CrxConfigXmlTag::UpperYES);
 
-	if(SubSection == "DEFAULT")
+	if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_pSetInternal->ReferenceRange = RefRange;
 	}
@@ -964,15 +979,15 @@ void CrxConfigManager::GetPwvDistanceUnits(String^ SubSection, String^ ReaderVal
 	String^ chkVal = nullptr;
 
 	tempValue  = ReaderValue->ToUpper();
-	chkVal = "'MM', 'CM'";
+	chkVal = CrxConfigPwvDistanceUnits::CompareStr;
 
-	if(chkVal->Contains("'" + tempValue + "'") == false)
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
-	DistanceUnits = (tempValue == "MM" ? 0 : 1);
-	if(SubSection == "DEFAULT")
+	DistanceUnits = (tempValue == CrxConfigPwvDistanceUnits::MM ? Convert::ToInt32(CrxGenPwvValue::CrxPwvDistDistUnitsMM) : Convert::ToInt32(CrxGenPwvValue::CrxPwvDistDistUnitsCM));
+	if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_pSetInternal->PWVDistanceUnits = DistanceUnits;
 	}
@@ -985,20 +1000,20 @@ void CrxConfigManager::GetPwvDistanceMethods(String^ SubSection, String^ ReaderV
 {
 	//Get the PWV Distance Methods Details
 	//Temporary variables
-	int DistanceMethods = 0; 
+	int DistanceMethods = Convert::ToInt32(CrxGenPwvValue::CrxPwvDistMethodSubtract); 
 	String^ tempValue  = nullptr;
 	String^ chkVal = nullptr;
 
 	tempValue  = ReaderValue->ToUpper();
-	chkVal = "'SUBTRACTING', 'DIRECT'";
+	chkVal = CrxConfigPwvDistanceMethods::CompareStr;
 
-	if(chkVal->Contains("'" + tempValue + "'") == false)
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
-	DistanceMethods = (tempValue == "SUBTRACTING" ? 0 : 1);
-	if(SubSection == "DEFAULT")
+	DistanceMethods = (tempValue == CrxConfigPwvDistanceMethods::Subtracting ? Convert::ToInt32(CrxGenPwvValue::CrxPwvDistMethodSubtract) : Convert::ToInt32(CrxGenPwvValue::CrxPwvDistMethodDirect));
+	if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_pSetInternal->PWVDistanceMethod = DistanceMethods;
 	}
@@ -1011,36 +1026,36 @@ void CrxConfigManager::GetCaptureTime(String^ SubSection, String^ ReaderValue)
 {
 	//Get the Get Capture time Details
 	//Temporary variables
-	int CaptureTime = 5;
+	int CaptureTime = Convert::ToInt32(CrxGenPwvValue::CrxPwvCapture5Seconds);
 	String^ tempValue  = nullptr;
 
 	tempValue  = ReaderValue->ToUpper();
 
-	tempValue = tempValue->Replace(" ","");
+	tempValue = tempValue->Replace(CrxConfigXmlTag::Blank,String::Empty);
 
-	if(tempValue == "5SECONDS")
+	if(tempValue == CrxConfigCaptureTime::FiveSeconds)
 	{
 		//CaptureTime = 0;
 		CaptureTime = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture5Seconds);
 	}
 	else 
-	if(tempValue == "10SECONDS")
+		if(tempValue == CrxConfigCaptureTime::TenSeconds)
 	{
 		//CaptureTime = 1;
 		CaptureTime = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture10Seconds);
 	}
 	else 
-	if(tempValue == "20SECONDS")
+	if(tempValue == CrxConfigCaptureTime::TwentySeconds)
 	{
 		//CaptureTime = 2;
 		CaptureTime = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture20Seconds);
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 
-	if(SubSection == "DEFAULT")
+	if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_pSetInternal->CaptureTime = CaptureTime;
 	}
@@ -1053,17 +1068,34 @@ void CrxConfigManager::GetSimulationType(String^ SubSection, String^ ReaderValue
 {
 	//Get the Simulation Type Details
 	//Temporary variables
-	if(SubSection == "USER")
+	if(SubSection == CrxConfigXmlTag::User)
 	{
 		_instance->_pwvSettings->SimulationType = ReaderValue;
 	}
-	else if (SubSection == "DEFAULT")
+	else if (SubSection == CrxConfigXmlTag::Default)
 	{
 		_pSetInternal->SimulationType = ReaderValue;
 	}
 	else
 	{
-		throw gcnew ScorException(CRXERR_CORRUPT_FILE, "CRX_ERR_FILE_CORRUPT", ErrorSeverity::Exception);//corrupt file//corrupt file
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+}
+void CrxConfigManager::GetDefaultReport(String^ SubSection, String^ ReaderValue)
+{
+	//Get the Default Report Details
+	//Temporary variables
+	if(SubSection == CrxConfigXmlTag::User)
+	{
+		_instance->_pwvSettings->DefaultReport = ReaderValue;
+	}
+	else if (SubSection == CrxConfigXmlTag::Default)
+	{
+		_pSetInternal->DefaultReport = ReaderValue;
+	}
+	else
+	{
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
 	}
 }
 //********************************************
@@ -1073,12 +1105,12 @@ void CrxConfigManager::SetPatientPrivacy(CrxStructGeneralSetting^ gs, XmlNode^ n
 {
 	if(gs->PatientPrivacy == false)
 	{
-		node->InnerText = "No";								
+		node->InnerText = CrxConfigXmlTag::LowerNo;								
 	}
 	else
 	if(gs->PatientPrivacy == true)
 	{
-		node->InnerText = "Yes";
+		node->InnerText = CrxConfigXmlTag::LowerYes;
 	}
 }
 void CrxConfigManager::SetHeightWeight(CrxStructGeneralSetting^ gs, XmlNode^ node)
@@ -1086,13 +1118,13 @@ void CrxConfigManager::SetHeightWeight(CrxStructGeneralSetting^ gs, XmlNode^ nod
 	//if(gs->HeightandWeightUnit == 0)
 	if((gs->HeightandWeightUnit == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenHeightWeightMetric)))
 	{
-		node->InnerText = "Metric";								
+		node->InnerText = CrxConfigHeightandWeightUnits::MetricSetValue;								
 	}
 	else
 	//if(gs->HeightandWeightUnit == 1)
 	if((gs->HeightandWeightUnit == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenHeightWeightImperial)))
 	{
-		node->InnerText = "Imperial";
+		node->InnerText = CrxConfigHeightandWeightUnits::ImperialSetValue;
 	}
 }
 void CrxConfigManager::SetBloodPressureOption(CrxStructGeneralSetting^ gs, XmlNode^ node)
@@ -1100,19 +1132,19 @@ void CrxConfigManager::SetBloodPressureOption(CrxStructGeneralSetting^ gs, XmlNo
 	//if(gs->BloodPressureEntryOptions == 0)
 	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandDP)))
 	{
-		node->InnerText = "SP and DP";								
+		node->InnerText = CrxConfigBloodPressureOption::SPandDPSetValue;								
 	}
 	else
 	//if(gs->BloodPressureEntryOptions == 1)
 	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandMP)))
 	{
-		node->InnerText = "SP and MP";
+		node->InnerText = CrxConfigBloodPressureOption::SPandMPSetValue;
 	}
 	else
 	//if(gs->BloodPressureEntryOptions == 2)
 	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptMPandDP)))
 	{
-		node->InnerText = "MP and DP";
+		node->InnerText = CrxConfigBloodPressureOption::MPandDPSetValue;
 	}
 }
 void CrxConfigManager::SetCommsPort(CrxStructGeneralSetting^ gs, XmlNode^ node)
@@ -1123,7 +1155,7 @@ void CrxConfigManager::SetCommsPort(CrxStructGeneralSetting^ gs, XmlNode^ node)
     }
     else 
     {
-         node->InnerText = " "; 
+		node->InnerText = CrxConfigXmlTag::Blank; 
     }
 }
 void CrxConfigManager::SetReportTitle(CrxStructGeneralSetting^ gs, XmlNode^ node)
@@ -1134,7 +1166,7 @@ void CrxConfigManager::SetReportTitle(CrxStructGeneralSetting^ gs, XmlNode^ node
     }
     else 
     {
-         node->InnerText = " "; 
+		node->InnerText = CrxConfigXmlTag::Blank; 
     }
 }
 void CrxConfigManager::SetReportLogoPath(CrxStructGeneralSetting^ gs, XmlNode^ node)
@@ -1145,7 +1177,7 @@ void CrxConfigManager::SetReportLogoPath(CrxStructGeneralSetting^ gs, XmlNode^ n
     }
     else 
     {
-         node->InnerText = " "; 
+		node->InnerText = CrxConfigXmlTag::Blank; 
     }
 }
 
@@ -1157,7 +1189,7 @@ void CrxConfigManager::SetServerName(CrxStructGeneralSetting^ gs, XmlNode^ node)
     }
     else 
     {
-         node->InnerText = " "; 
+		node->InnerText = CrxConfigXmlTag::Blank; 
     }
 }
 void CrxConfigManager::SetSourceData(CrxStructGeneralSetting^ gs, XmlNode^ node)
@@ -1168,7 +1200,7 @@ void CrxConfigManager::SetSourceData(CrxStructGeneralSetting^ gs, XmlNode^ node)
     }
     else 
     {
-         node->InnerText = " "; 
+		node->InnerText = CrxConfigXmlTag::Blank; 
     }
 }
 void CrxConfigManager::SetCultureInfo(CrxStructGeneralSetting^ gs, XmlNode^ node)
@@ -1179,7 +1211,7 @@ void CrxConfigManager::SetCultureInfo(CrxStructGeneralSetting^ gs, XmlNode^ node
     }
     else 
     {
-         node->InnerText = " "; 
+		node->InnerText = CrxConfigXmlTag::Blank; 
     }
 }
 
@@ -1191,7 +1223,7 @@ void CrxConfigManager::SetMachineName(AtCor::Scor::CrossCutting::Configuration::
 	}
 	else
 	{
-		node->InnerText = " ";
+		node->InnerText = CrxConfigXmlTag::Blank;
 	}
 }
 void CrxConfigManager::SetPrinterName(CrxStructGeneralSetting^ gs, XmlNode^ node)
@@ -1202,7 +1234,7 @@ void CrxConfigManager::SetPrinterName(CrxStructGeneralSetting^ gs, XmlNode^ node
 	}
 	else
 	{
-		node->InnerText = " ";
+		node->InnerText = CrxConfigXmlTag::Blank;
 	}
 }
 //********************************************
@@ -1212,24 +1244,24 @@ void CrxConfigManager::SetFemoralToCuff(CrxStructPwvSetting^ ps, XmlNode^ node)
 {
 	if(ps->FemoralToCuff == false)
 	{
-		node->InnerText = "No";								
+		node->InnerText = CrxConfigXmlTag::LowerNo;								
 	}
 	else
 	if(ps->FemoralToCuff == true)
 	{
-		node->InnerText = "Yes";
+		node->InnerText = CrxConfigXmlTag::LowerYes;
 	}
 }
 void CrxConfigManager::SetReferenceRange(CrxStructPwvSetting^ ps, XmlNode^ node)
 {
 	if(ps->ReferenceRange == false)
 	{
-		node->InnerText = "No";								
+		node->InnerText = CrxConfigXmlTag::LowerNo;								
 	}
 	else
 	if(ps->ReferenceRange == true)
 	{
-		node->InnerText = "Yes";
+		node->InnerText = CrxConfigXmlTag::LowerYes;
 	}
 }
 void CrxConfigManager::SetPwvDistanceUnits(CrxStructPwvSetting^ ps, XmlNode^ node)
@@ -1237,13 +1269,13 @@ void CrxConfigManager::SetPwvDistanceUnits(CrxStructPwvSetting^ ps, XmlNode^ nod
 	//if(ps->PWVDistanceUnits == 0)
 	if((ps->PWVDistanceUnits == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvDistDistUnitsMM)))
 	{
-		node->InnerText = "mm";								
+		node->InnerText = CrxConfigPwvDistanceUnits::MMSetValue;								
 	}
 	else
 	//if(ps->PWVDistanceUnits == 1)
 	if((ps->PWVDistanceUnits == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvDistDistUnitsCM)))
 	{
-		node->InnerText = "cm";
+		node->InnerText = CrxConfigPwvDistanceUnits::CMSetValue;
 	}
 }
 void CrxConfigManager::SetPwvDistanceMethods(CrxStructPwvSetting^ ps, XmlNode^ node)
@@ -1251,13 +1283,13 @@ void CrxConfigManager::SetPwvDistanceMethods(CrxStructPwvSetting^ ps, XmlNode^ n
 	//if(ps->PWVDistanceMethod == 0)
 	if((ps->PWVDistanceMethod == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvDistMethodSubtract)))
 	{
-		node->InnerText = "Subtracting";								
+		node->InnerText = CrxConfigPwvDistanceMethods::SubtractingSetValue;								
 	}
 	else
 	//if(ps->PWVDistanceMethod == 1)
 	if((ps->PWVDistanceMethod == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvDistMethodDirect)))
 	{
-		node->InnerText = "Direct";
+		node->InnerText = CrxConfigPwvDistanceMethods::DirectSetValue;
 	}
 }
 void CrxConfigManager::SetCaptureTime(CrxStructPwvSetting^ ps, XmlNode^ node)
@@ -1265,19 +1297,19 @@ void CrxConfigManager::SetCaptureTime(CrxStructPwvSetting^ ps, XmlNode^ node)
 	//if(ps->CaptureTime == 0)
 	if((ps->CaptureTime == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture5Seconds)))
 	{
-		node->InnerText = "5 seconds";								
+		node->InnerText = CrxConfigCaptureTime::FiveSecondsSetValue;								
 	}
 	else
 	//if(ps->CaptureTime == 1)
 	if((ps->CaptureTime == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture10Seconds)))
 	{
-		node->InnerText = "10 seconds";
+		node->InnerText = CrxConfigCaptureTime::TenSecondsSetValue;
 	}
 	else
 	//if(ps->CaptureTime == 2)
 	if((ps->CaptureTime == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxPwvCapture20Seconds)))
 	{
-		node->InnerText = "20 seconds";
+		node->InnerText = CrxConfigCaptureTime::TwentySecondsSetValue;
 	}
 }
 void CrxConfigManager::SetSimulationType(CrxStructPwvSetting^ ps, XmlNode^ node)
@@ -1288,7 +1320,18 @@ void CrxConfigManager::SetSimulationType(CrxStructPwvSetting^ ps, XmlNode^ node)
     }
     else 
     {
-         node->InnerText = " "; 
+		node->InnerText = CrxConfigXmlTag::Blank; 
+    }
+}
+void CrxConfigManager::SetDefaultReport(AtCor::Scor::CrossCutting::Configuration::CrxStructPwvSetting ^ps, System::Xml::XmlNode ^node)
+{
+	if(ps->DefaultReport != nullptr) 
+    {
+        node->InnerText = ps->DefaultReport;
+    }
+    else 
+    {
+		node->InnerText = CrxConfigXmlTag::Blank; 
     }
 }
 

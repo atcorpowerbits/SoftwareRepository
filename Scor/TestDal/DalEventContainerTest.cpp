@@ -1,5 +1,9 @@
 ﻿
 #include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
 namespace TestDal {
@@ -32,6 +36,10 @@ namespace TestDal {
 				}
 			}
 
+	public: static bool cuffStatusEventRaised = false;
+			static bool errorAlarmEventRaised = false;	
+			static bool tonoStatusEvenRaised = false;
+
 #pragma region Additional test attributes
 			// 
 			//You can use the following additional attributes as you write your tests:
@@ -63,12 +71,17 @@ namespace TestDal {
 
 			static void MyDalCuffStatusEventHandler(Object ^sender, DalCuffStatusEventArgs ^args)
 			{
-				Assert::IsTrue(true);
+				cuffStatusEventRaised = true;
 			}
 
 			static void MyDalErrorAlarmEventHandler(Object ^sender, DalModuleErrorAlarmEventArgs ^args)
 			{
-				Assert::IsTrue(true);
+				errorAlarmEventRaised = true;	
+			}
+
+			static void MyDalTonometerStatusEventHandler(Object ^sender, DalTonometerStatusEventArgs  ^args)
+			{
+				tonoStatusEvenRaised = true;
 			}
 
 #pragma endregion
@@ -80,7 +93,6 @@ namespace TestDal {
 			{
 				DalEventContainer^  actual;
 				actual = DalEventContainer::Instance;
-				//Assert::Inconclusive(L"Verify the correctness of this test method.");
 				Assert::IsNotNull(actual);
 			}
 
@@ -88,24 +100,87 @@ namespace TestDal {
 			public: [TestMethod]
 			void RegisterEventsTestTest()
 			{
-				DalEventContainer^  actual;
-				actual = DalEventContainer::Instance;
+				DalEventContainer^  actual = DalEventContainer::Instance;
 				DalCuffStateFlags cuffStateFlag;
 				cuffStateFlag = DalCuffStateFlags::CUFF_STATE_INFLATING;
 
 				DalErrorAlarmStatusFlag errFlag;
 				errFlag = DalErrorAlarmStatusFlag::ActiveStatus;
 
+				Assert::AreEqual(false, cuffStatusEventRaised );
+				Assert::AreEqual(false, errorAlarmEventRaised );
+				Assert::AreEqual(false, tonoStatusEvenRaised );
+
 				actual->OnDalCuffStatusEvent += gcnew DalCuffStatusEventHandler(&TestDal::DalEventContainerTest::MyDalCuffStatusEventHandler);
 				actual->OnDalModuleErrorAlarmEvent += gcnew DalModuleErrorAlarmEventHandler(&TestDal::DalEventContainerTest::MyDalErrorAlarmEventHandler);
+				actual->OnDalTonometerStatusEvent += gcnew DalTonometerStatusEventHandler(&TestDal::DalEventContainerTest::MyDalTonometerStatusEventHandler);
 
 				actual->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(cuffStateFlag));
 				actual->OnDalModuleErrorAlarmEvent(this, gcnew DalModuleErrorAlarmEventArgs( errFlag));
+				actual->OnDalTonometerStatusEvent(this, gcnew DalTonometerStatusEventArgs(DalTonometerState::Connected ));
+
+				Assert::AreEqual(true, cuffStatusEventRaised );
+				Assert::AreEqual(true, errorAlarmEventRaised );
+				Assert::AreEqual(true, tonoStatusEvenRaised );
 
 				actual->OnDalCuffStatusEvent -= gcnew DalCuffStatusEventHandler(&TestDal::DalEventContainerTest::MyDalCuffStatusEventHandler);
 				actual->OnDalModuleErrorAlarmEvent -= gcnew DalModuleErrorAlarmEventHandler(&TestDal::DalEventContainerTest::MyDalErrorAlarmEventHandler);
-
+				
+				 
 			}
+			
+			/// <summary>
+			///A test for op_Assign
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void op_AssignTest()
+			{
+				DalEventContainer_Accessor^  target = (gcnew DalEventContainer_Accessor()); 
+				DalEventContainer_Accessor^ unnamed; 
+				DalEventContainer_Accessor^  actual;
+				actual = (unnamed = target);
+				Assert::AreEqual(target, actual);
+			}
+			/// <summary>
+			///A test for DalEventContainer Constructor
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void DalEventContainerConstructorTest1()
+			{
+				DalEventContainer^  unnamed = DalEventContainer::Instance ; 
+				Assert::IsNotNull(unnamed);
+				DalEventContainer_Accessor^  target = (gcnew DalEventContainer_Accessor(unnamed));
+				Assert::IsNotNull(target);
+			}
+			/// <summary>
+			///A test for DalEventContainer Constructor
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void DalEventContainerConstructorTest()
+			{
+				DalEventContainer_Accessor^  target = (gcnew DalEventContainer_Accessor());
+				Assert::IsNotNull(target);
+			}
+
+
+			/*public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void EventsRaisedTest()
+			{
+				bool eventWasRaised = false;
+				DalEventContainer_Accessor^ eventRaiser = gcnew DalAlarmSource_Accessor();
+				eventRaiser->add_OnDalCuffPulseEvent+= gcnew DalCuffPulseEventHandler_Accessor(Object ^ sender, DalCuffStatusEventArgs^ e){
+					eventWasRaised = true;
+				};
+
+				eventRaiser->raise_OnDalCuffStatusEvent(nullptr, nullptr);
+
+				Assert::IsTrue(eventWasRaised );
+
+			}*/
 	};
 }
 namespace TestDal {

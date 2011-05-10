@@ -13,28 +13,9 @@
 #include "ScorException.h"
 #include "CrxPrinter.h"
 
-using namespace System;
-using namespace System::Text;
-using namespace System::Data;
-using namespace System::Windows;
-using namespace System::Windows::Forms;
-
-using namespace System::Data::Common;
-using namespace System::Data::SqlClient;
-using namespace System::IO;
-using namespace System::Diagnostics;
-using namespace System::ComponentModel;
-using namespace System::Data::OleDb;
-using namespace System::Drawing;
-using namespace System::Drawing::Printing;
-using namespace System::Resources;
-
-using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Printer;
-using namespace AtCor::Scor::CrossCutting::Configuration; 
 
-
-void CrxPrintManager::AtCorPrintDocument(String^ strPrn, Image^ imgPrn)
+void CrxPrintManager::AtCorPrintAboutBox(String^ strPrn, Image^ imgPrn)
 {
 	try
 	{
@@ -43,15 +24,15 @@ void CrxPrintManager::AtCorPrintDocument(String^ strPrn, Image^ imgPrn)
 		PrintDocument^ printDocument = gcnew PrintDocument();
 		CrxStructGeneralSetting^ gs = gcnew CrxStructGeneralSetting();
 	    
-		CrxPrintManager::printString = strPrn;
-		CrxPrintManager::imgPrint = imgPrn;	
+		CrxPrintManager::_printString = strPrn;
+		CrxPrintManager::_imgPrint = imgPrn;	
 
 		objCrx->GetGeneralUserSettings();
 		gs = objCrx->GeneralSettings;
 		printDocument->PrinterSettings->PrinterName = gs->PrinterName; 
 
 	
-		printDocument->PrintPage += gcnew PrintPageEventHandler(this, &CrxPrintManager::AtCorPrintStatus);             
+		printDocument->PrintPage += gcnew PrintPageEventHandler(this, &CrxPrintManager::AtCorPrintAboutBoxFormat);             
 		 
 		printDocument->Print();   		
 	}
@@ -61,12 +42,12 @@ void CrxPrintManager::AtCorPrintDocument(String^ strPrn, Image^ imgPrn)
 	}
 }
 
-void CrxPrintManager::AtCorPrintStatus(Object^ sender, PrintPageEventArgs^ e)
+void CrxPrintManager::AtCorPrintAboutBoxFormat(Object^ sender, PrintPageEventArgs^ e)
 {
 	int start				=	0;
 	int top					=	0;
-	int lineHeight			=	14;
-	int lineCount			=	1;
+	int lineHeight			=	0;
+	int lineCount			=	0;
 	float lineTop			=	0; 
 	float lineLeft			=	0;		
 	Brush^ brush			=	nullptr;    
@@ -74,30 +55,33 @@ void CrxPrintManager::AtCorPrintStatus(Object^ sender, PrintPageEventArgs^ e)
 	Font^ prnFont			=	nullptr;
 	Image^ imgPrint			=	nullptr;
 
-	//Setting the color as Black.
-	brush = Brushes::Black;    
-
-	//Using default font as Arial, size 10
-	//Setting the font and size as Arial(10).
-	prnFont = gcnew Font("Arial",10);
-	
-	//Assigning actual string into variable
-	prnStr = CrxPrintManager::printString;
-	imgPrint = CrxPrintManager::imgPrint;
-
-	lineTop = Convert::ToSingle(e->MarginBounds.Top) ;        
-	lineLeft = Convert::ToSingle(e->MarginBounds.Left);
-	
-    while ((start = prnStr->IndexOf('\n', start)) != -1)
-    {
-        lineCount++;
-        start++;
-    }
-
-	top = e->MarginBounds.Top + (lineCount * lineHeight);
-	
 	try
 	{
+		//Setting the color as Black.
+		brush = Brushes::Black;    
+
+		//Using default font as Arial, size 10
+		//Setting the font and size as Arial(10).
+		prnFont = gcnew Font(CrxPrinterSetting::FontType,Convert::ToSingle(CrxPrinterSetting::FontSize,CrxCommon::gCI));
+		
+		//Assigning actual string into variable
+		prnStr = CrxPrintManager::_printString;
+		imgPrint = CrxPrintManager::_imgPrint;
+
+		//Initializing the varibales
+		lineHeight = Convert::ToInt32(CrxPrinterSetting::LineHeight,CrxCommon::gCI);
+		lineCount = Convert::ToInt32(CrxPrinterSetting::LineCount,CrxCommon::gCI);
+		lineTop = Convert::ToSingle(e->MarginBounds.Top);        
+		lineLeft = Convert::ToSingle(e->MarginBounds.Left);
+		
+		while ((start = prnStr->IndexOf('\n', start)) != -1)
+		{
+			lineCount++;
+			start++;
+		}
+
+		top = e->MarginBounds.Top + (lineCount * lineHeight);	
+	
 		e->Graphics->DrawString(prnStr, prnFont, brush, lineLeft, lineTop);        
 		e->Graphics->DrawImage(imgPrint,int(lineLeft),top);
 	}

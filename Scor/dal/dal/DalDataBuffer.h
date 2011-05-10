@@ -192,6 +192,15 @@ namespace AtCor{
 										*/
 										int DalDataBuffer::GetNextValues(int requestedValues, int % readStartIndex );
 
+										/**
+										* Checks if the buffer is empty.
+										*
+										* @return A boolean value indicating if the buffer is empty or not:
+										*		  @c true if the buffer is empty.
+										*		  @c 
+										*/
+										bool IsBufferEmpty();
+
 			};
 
 		}

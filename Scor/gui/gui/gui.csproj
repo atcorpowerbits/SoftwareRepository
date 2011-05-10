@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="biz, Version=0.8.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+    <Reference Include="biz, Version=0.9.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Debug\biz.dll</HintPath>
     </Reference>
@@ -42,6 +42,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Debug\crx.dll</HintPath>
     </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="dal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Debug\dal.dll</HintPath>
@@ -57,7 +63,14 @@
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AtcorLibraries\System.Windows.Forms.DataVisualization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -82,7 +95,10 @@
     <Reference Include="Telerik.WinControls.Themes.Telerik, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
     <Reference Include="Telerik.WinControls.Themes.Vista, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
     <Reference Include="Telerik.WinControls.UI, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
-    <Reference Include="TelerikCommon, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="TelerikCommon, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AtcorLibraries\TelerikCommon.dll</HintPath>
+    </Reference>
     <Reference Include="TelerikData, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
@@ -92,13 +108,32 @@
     <Compile Include="Capture.Designer.cs">
       <DependentUpon>Capture.cs</DependentUpon>
     </Compile>
+    <Compile Include="CryPwvPatientReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryPwvPatientReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CryPwvReport.cs">
+      <SubType>Component</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryPwvReport.rpt</DependentUpon>
+    </Compile>
     <Compile Include="DefaultWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DefaultWindow.Designer.cs">
       <DependentUpon>DefaultWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="DsPwvPatientReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DsPwvPatientReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="GuiConstants.cs" />
     <Compile Include="GUIExceptionHandler.cs" />
+    <Compile Include="GuiFieldValidation.cs" />
     <Compile Include="Migrate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +144,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Capture.resx">
       <DependentUpon>Capture.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CryPwvPatientReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryPwvPatientReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CryPwvReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryPwvReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="DefaultWindow.resx">
       <DependentUpon>DefaultWindow.cs</DependentUpon>
@@ -123,12 +167,21 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="PwvPatientReport.resx">
+      <DependentUpon>PwvPatientReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="RadAboutBox.resx">
       <DependentUpon>RadAboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportPreview.resx">
+      <DependentUpon>ReportPreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
@@ -144,10 +197,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SQLInstanceList.resx">
       <DependentUpon>SQLInstanceList.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -159,11 +214,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PwvPatientReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PwvPatientReport.Designer.cs">
+      <DependentUpon>PwvPatientReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="RadAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RadAboutBox.Designer.cs">
       <DependentUpon>RadAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RadSplitButton.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report.cs">
       <SubType>Form</SubType>
@@ -171,13 +235,19 @@
     <Compile Include="Report.designer.cs">
       <DependentUpon>Report.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportPreview.Designer.cs">
+      <DependentUpon>ReportPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsProperties.cs" />
+    <Compile Include="GuiCommon.cs" />
     <Compile Include="SettingsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +269,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="atcor.ico" />
+    <None Include="SetupScreenDirect_Small.jpg" />
+    <None Include="SetupScreenSubtracting_small.jpg" />
+    <None Include="Resources\SetupScreenSubtracting.jpg" />
+    <None Include="Resources\SetupScreenDirect.jpg" />
+    <None Include="Resources\newarrowpart211.jpg" />
+    <None Include="Resources\newarrowpart111.jpg" />
+    <None Include="DsPwvPatientReport.xsc">
+      <DependentUpon>DsPwvPatientReport.xsd</DependentUpon>
+    </None>
+    <None Include="DsPwvPatientReport.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DsPwvPatientReport.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DsPwvPatientReport.xss">
+      <DependentUpon>DsPwvPatientReport.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

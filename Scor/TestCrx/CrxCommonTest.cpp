@@ -1,20 +1,19 @@
 ﻿
 #include "StdAfx.h"
-using namespace System;
 using namespace System::IO;
 using namespace System::Globalization;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting;
-using namespace AtCor::Scor::CrossCutting::Configuration;
+
 namespace TestCrx {
     using namespace System;
     ref class CrxCommonTest;
     
     
-    /// <summary>
-///This is a test class for CrxCommonTest and is intended
-///to contain all CrxCommonTest Unit Tests
-///</summary>
+	/// <summary>
+	///This is a test class for CrxCommonTest and is intended
+	///to contain all CrxCommonTest Unit Tests
+	///</summary>
 	[TestClass]
 	public ref class CrxCommonTest
 	{
@@ -68,6 +67,7 @@ namespace TestCrx {
 			//{
 			//}
 			//
+	
 			//Use TestInitialize to run code before running each test
 			public: [TestInitialize]
 			System::Void MyTestInitialize()
@@ -85,6 +85,7 @@ namespace TestCrx {
 
 
 #pragma endregion
+
 			/// <summary>
 			///A test for Instance
 			///</summary>
@@ -102,14 +103,15 @@ namespace TestCrx {
 	//		[DeploymentItem(L"crx.dll")]
 	//		void op_AssignTest()
 	//		{
-	//			CrxCommon_Accessor^  target = (gcnew CrxCommon_Accessor()); // TODO: Initialize to an appropriate value
-	//			CrxCommon^  unnamed = nullptr; // TODO: Initialize to an appropriate value
-	//			CrxCommon^  expected = nullptr; // TODO: Initialize to an appropriate value
+	//			CrxCommon_Accessor^  target = (gcnew CrxCommon_Accessor()); 
+	//			CrxCommon^  unnamed = nullptr; 
+	//			CrxCommon^  expected = nullptr; 
 	//			CrxCommon^  actual;
 	//			actual = (target = unnamed);
 	//			Assert::AreEqual(expected, actual);
 	//			Assert::Inconclusive(L"Verify the correctness of this test method.");
 	//		}
+
 			/// <summary>
 			///A test for GetCommCultureInfo
 			///</summary>
@@ -117,8 +119,8 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void GetCommCultureInfoTest()
 			{
-				CrxCommon_Accessor^  target = (gcnew CrxCommon_Accessor()); // TODO: Initialize to an appropriate value
-				CultureInfo^  expected = nullptr; // TODO: Initialize to an appropriate value
+				CrxCommon_Accessor^  target = (gcnew CrxCommon_Accessor()); 
+				CultureInfo^  expected = nullptr; 
 				CultureInfo^  actual;
 				String^ expectedOut;
 
@@ -127,14 +129,13 @@ namespace TestCrx {
 				actual = target->GetCommCultureInfo();
 				Assert::AreEqual(expected, actual);
 
-				//SetPath();
 				expectedOut = "fr-FR";
 				expected = gcnew CultureInfo(expectedOut);
 				
 				actual = target->GetCommCultureInfo();
 				Assert::AreNotEqual(expected, actual);
-
 			}
+
 			/// <summary>
 			///A test for CrxCommon Constructor
 			///</summary>
@@ -142,10 +143,11 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void CrxCommonConstructorTest1()
 			{
-				CrxCommon^  unnamed = nullptr; // TODO: Initialize to an appropriate value
+				CrxCommon^  unnamed = nullptr; 
 				CrxCommon_Accessor^  target = (gcnew CrxCommon_Accessor(unnamed));
 				Assert::IsNotNull(target);
 			}
+			
 			/// <summary>
 			///A test for CrxCommon Constructor
 			///</summary>

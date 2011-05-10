@@ -8,77 +8,65 @@
      Description  :     Common class for defining global variables, method, properties etc
 */
 using System;
+using AtCor.Scor.CrossCutting;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.CrossCutting.Logging;
+using AtCor.Scor.CrossCutting.DatabaseManager;
 using System.Windows.Forms;
 using System.Configuration;
+using System.Data;
+using Telerik.WinControls.UI;
 
+/**
+ * @namespace AtCor.Scor.Gui.Presentation
+ * @brief This namespace implements Presentation related classes.
+ * 
+ */
 namespace AtCor.Scor.Gui.Presentation
 {
-    // public delegate void SettingsChangedEventHandler(Object sender,EventArgs  args);   
-   public static class SettingsProperties
+    /**
+  * @class SettingsProperties
+  * @brief This class contains global variables and methods which are used across different forms
+  */
+    public static class SettingsProperties
    {
-       ////#region struct
-       ////public struct registyKeyInfo
-       ////{
-       ////   public static string environment = string.Empty;         
-       ////};
-       ////#endregion
-            
-       // public event SettingsChangedEventHandler OnSettingsChangedEvent;
        #region Global variable declaration
        public static bool SetupToReport = false;
        public static bool CaptureToReport = false;
        public static bool CaptureToSetup = false;
        public static bool HasMeasurementDetails = false;
-       public static string Environment = string.Empty;
+       
        public static bool CaptureTabClick = true;
+       public static RadPageViewPage TabFocused;
+       public static bool IsWaitIntervalImposed = false; // this variable checks for 30 sec wait interval imposed by EM4 when coming from capture to setup
+       public static bool IsFormChanged = false; // this variable tracks any changes to the application form 
+       public static int ReportLoadCount = 0;
+       #endregion
 
        #region Main / Parent window Handle
-       public static DefaultWindow defaultWindowForm;
+       public static DefaultWindow DefaultWindowForm;
        #endregion      
 
        public delegate void SetCaptureTabVisibility(bool value);
 
        public static event SetCaptureTabVisibility OnCaptureClosing;
-
-       #endregion
+       
        #region Child Form Handles
-       public static Telerik.WinControls.UI.RadForm reportChildForm;
-        public static Telerik.WinControls.UI.RadForm captureChildForm;
-        public static Telerik.WinControls.UI.RadForm setupChildForm;
+       public static Telerik.WinControls.UI.RadForm ReportChildForm;
+        public static Telerik.WinControls.UI.RadForm CaptureChildForm;
+        public static Telerik.WinControls.UI.RadForm SetupChildForm;
 
-        public static Telerik.WinControls.UI.RadForm frmRptBlnk;
-        #endregion
-
-        #region Global variable declaration
-
-        public static string Gci = string.Empty;
-        public static bool IsWaitIntervalImposed = false; // this variable checks for 30 sec wait interval imposed by EM4 when coming from capture to setup
-        public static bool IsFormChanged = false; // this variable tracks any changes to the application form 
-        public static int ReportLoadCount = 0;
-        #endregion
-
-        #region General settings private variables
-
-       #endregion
+        public static Telerik.WinControls.UI.RadForm FrmRptBlnk;
+        #endregion  
 
         #region PWV settings private variables
 
        static SettingsProperties()
        {
-           ReferenceRange = false;
-           CuffLocation = false;
-           CaptureTime = 0;
-           PwvDistanceMethod = 0;
-           PwvDistanceUnits = 0;
            PwvCurrentStudyDatetime = string.Empty;
-           PatientPrivacy = false;
-           BloodPressure = 0;
-           HeightWeightUnits = 0;
            GroupName = string.Empty;
-           GroupID = 0;
+           GroupId = 0;
            PatientInternalNumber = 0;
            SystemIdentifier = 0;
        }
@@ -91,31 +79,15 @@ namespace AtCor.Scor.Gui.Presentation
 
        public static int PatientInternalNumber { get; set; }
 
-       public static int GroupID { get; set; }
+       public static int GroupId { get; set; }
 
-       public static string GroupName { get; set; }
-
-       public static int HeightWeightUnits { get; set; }
-
-       public static int BloodPressure { get; set; }
-
-       public static bool PatientPrivacy { get; set; }
+       public static string GroupName { get; set; }      
 
        #endregion
 
         #region PWV settings properties
 
-       public static string PwvCurrentStudyDatetime { get; set; }
-
-       public static int PwvDistanceUnits { get; set; }
-
-       public static int PwvDistanceMethod { get; set; }
-
-       public static int CaptureTime { get; set; }
-
-       public static bool CuffLocation { get; set; }
-
-       public static bool ReferenceRange { get; set; }
+       public static string PwvCurrentStudyDatetime { get; set; }             
 
        #endregion
 
@@ -134,14 +106,12 @@ namespace AtCor.Scor.Gui.Presentation
         {
             CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
 
-            string serverName;
-
             if (crxMgrObject.GeneralSettings.ServerName == null)
             {
                 crxMgrObject.GeneralSettings.ServerName = ConfigurationManager.AppSettings["DefaultInstanceName"].ToString();
             }
 
-            serverName = crxMgrObject.GeneralSettings.MachineName.Trim() + @"\" + crxMgrObject.GeneralSettings.ServerName.Trim();
+            string serverName = crxMgrObject.GeneralSettings.MachineName.Trim() + @"\" + crxMgrObject.GeneralSettings.ServerName.Trim();
 
             if (serverName.EndsWith("\\"))
             {
@@ -165,31 +135,20 @@ namespace AtCor.Scor.Gui.Presentation
             if (!servername.Contains(SystemInformation.ComputerName))
             {
                 // remote PC
-                errorMsg += oMsgMgr.GetMessage("SQL_NETWORK_ERROR_STRG") + "\r\n\r\n";
+                errorMsg += oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlNetworkErrorStrg) + Environment.NewLine;
             }
             else
             {
-                errorMsg += oMsgMgr.GetMessage("SQL_LOCAL_ERROR_STRG") + "\r\n\r\n";
+                errorMsg += oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlLocalErrorStrg) + Environment.NewLine;
             }
 
-            errorMsg += oMsgMgr.GetMessage("CONTACT_ATCOR_SUPPORT"); // +"\r\n" + oMsgMgr.GetMessage("CONTACT_ATCOR_SUPPORT1");
+            errorMsg += oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ContactAtcorSupport); 
 
             // log the error
             CrxLogger.Instance.Write(errorMsg);
 
             return errorMsg;
-        }
-
-       /** This method gets environment information
-        * */
-        public static string GetEnvironment()
-        {
-            CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-
-            // registyKeyInfo regKey = new registyKeyInfo(oMsgMgr.GetMessage("ENV_CLINICAL_TEXT"));
-            Environment = oMsgMgr.GetMessage("ENV_CLINICAL_TEXT");
-            return Environment;
-        }
+        }             
 
         /** This method opens print dialog for printer settings
          * It will set the aplication default printer to the one mentioned in scor.config file
@@ -226,6 +185,64 @@ namespace AtCor.Scor.Gui.Presentation
         public static void FormChanged(object sender, EventArgs e)
         {
             IsFormChanged = true;            
+        }
+
+        /** This method gets list of groupnames from database and binds the same to the combo box passed
+        * */
+        public static void BindGroupNames(ComboBox cmbxGroup, CrxDBManager dbMagr)
+        {
+            // fetches group name and binds it
+            CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+
+            DataSet ds = dbMagr.GetGroupLists();
+
+            if (ds != null)
+            {
+                DataRow dr = ds.Tables[0].NewRow();
+                dr[(int)CrxDBGroupList.GroupName] = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps);
+                dr[(int)CrxDBGroupList.GroupIdentifier] = 0;
+
+                ds.Tables[0].Rows.InsertAt(dr, 0);
+
+                cmbxGroup.DataSource = ds.Tables[0];
+                cmbxGroup.DisplayMember = CrxDBGroupList.GroupName.ToString();
+
+                cmbxGroup.SelectedIndex = 0;
+            }            
+        }
+
+       /** This method restricts input values to integers only
+        * */
+        public static void CheckForNumericValues(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == '\b')
+            {
+                e.Handled = false;
+            }
+        }
+
+        /** This method sets font configured in app.config for the controls on form
+         * It takes parameter radform
+         * */
+        public static void SetFontForControls(RadForm frm)
+        {
+            System.Drawing.Font font = new System.Drawing.Font(GuiConstants.FontName, 8);
+            foreach (Control ctrl in frm.Controls)
+            {
+                if (ctrl.Font.Size == font.Size)
+                {
+                    ctrl.Font = font;
+                }
+                else
+                {
+                    font = new System.Drawing.Font(GuiConstants.FontName, ctrl.Font.Size);
+                }
+            }
         }
         #endregion
     }

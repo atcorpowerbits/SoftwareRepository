@@ -39,7 +39,7 @@ namespace AtCor{
 						return false;
 					}
 					
-					em4ResponseLengthByte = em4Response[1];
+					em4ResponseLengthByte = em4Response[(int)Em4ResponseByteIndex::ResponseLengthByte];
 
 					if (em4ResponsePacketLength != em4ResponseLengthByte)
 					{
@@ -48,13 +48,13 @@ namespace AtCor{
 						return false;
 					}
 
-					em4ResponseAckNackByte = em4Response[0];
+					em4ResponseAckNackByte = em4Response[(int)Em4ResponseByteIndex::AckNackByte ];
 					
-					em4ResponseSequenceNumber = em4Response[2]>>4;
+					em4ResponseSequenceNumber = em4Response[(int)Em4ResponseByteIndex::ResponseLengthByte]>>4;
 					em4ResponseCRCByte = em4Response[(int)em4ResponseLengthByte];
 
 					//get the status flag
-					EM44StatusFlag flagUn;
+					EM4StatusFlag flagUn;
 					flagUn.ucStatusBytes[0] = em4Response[em4ResponseLengthByte - 1];
 					flagUn.ucStatusBytes[1] = em4Response[em4ResponseLengthByte - 2];
 
@@ -111,13 +111,13 @@ namespace AtCor{
 				try
 				{
 					//sepearte the data packet and also its length
-					if (em4ResponsePacketLength == 5)
+					if (em4ResponsePacketLength == DalConstants::EM4ZeroDataResponsePacketSize)
 					{
 						// packet is valid but does not contain data
 						em4ResponseDataLength = 0;
 						em4ResponseData = nullptr;
 					}
-					else if (em4ResponsePacketLength < 5)
+					else if (em4ResponsePacketLength < DalConstants::EM4ZeroDataResponsePacketSize)
 					{
 						// invalid packet from EM4
 						return false;
@@ -125,9 +125,9 @@ namespace AtCor{
 					else 
 					{
 						// packet len greater than 5, means valid packet with data
-						em4ResponseDataLength = em4ResponsePacketLength - 5;
+						em4ResponseDataLength = em4ResponsePacketLength - DalConstants::EM4ZeroDataResponsePacketSize;
 						em4ResponseData = gcnew array<unsigned char> (em4ResponseDataLength);
-						em4Response->Copy(em4Response, 3 , em4ResponseData, 0,  em4ResponseDataLength);
+						em4Response->Copy(em4Response, (int)Em4ResponseByteIndex::DataChunkFirstByte , em4ResponseData, 0,  em4ResponseDataLength);
 					}
 				}
 				catch(Exception^ excepObj)

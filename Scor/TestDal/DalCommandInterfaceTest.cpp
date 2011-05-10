@@ -1,11 +1,16 @@
 ﻿
 #include "StdAfx.h"
+using namespace System::Timers;
 using namespace System::IO::Ports;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
+using namespace AtCor::Scor::CrossCutting;
+using namespace System;
+using namespace System::IO;
 namespace TestDal {
     using namespace System;
     ref class DalCommandInterfaceTest;
+	   using namespace System;
     
     
     /// <summary>
@@ -32,9 +37,10 @@ namespace TestDal {
 					testContextInstance = value;
 				}
 			}
-		private: static String^ comPortName  = "COM4";
+		public: static bool TimeoutErrorAlarmEventRaised = false;
+		private: static String^ comPortName  = "COM5";
 		public:	static DalCommandInterface_Accessor ^commInterfaceObject = DalCommandInterface_Accessor::Instance;
-
+		private: String^ _currDir;
 
 #pragma region Additional test attributes
 			// 
@@ -44,9 +50,32 @@ namespace TestDal {
 			public: [ClassInitialize]
 			static System::Void MyClassInitialize(Microsoft::VisualStudio::TestTools::UnitTesting::TestContext^  testContext)
 			{
-				commInterfaceObject = DalCommandInterface_Accessor::Instance;
-				commInterfaceObject->SetActivePort(comPortName);
+				try
+				{
+					commInterfaceObject = DalCommandInterface_Accessor::Instance;
+					commInterfaceObject->SetActivePort(comPortName);
+				}
+				catch (AtCor::Scor::CrossCutting::ScorException^ scorExObj)
+				{
+					Assert::Fail("MyClassInitialize failed: " + scorExObj->ErrorMessageKey);  
+				}
 
+			}
+
+			static void SetPath()
+			{
+				String^ path = Directory::GetCurrentDirectory(); 
+				int i = path->IndexOf("\\TestResults");
+				if(i > 0)
+				{
+					path = path->Substring(0,i + 12);
+					Directory::SetCurrentDirectory(path);
+				}
+				else
+				{
+					path  = path + "\\TestResults";
+					Directory::SetCurrentDirectory(path);
+				}
 			}
 			
 			//Use ClassCleanup to run code after all tests in a class have run
@@ -77,6 +106,14 @@ namespace TestDal {
 					delete ex;
 				}
 			}
+
+			static void MyDalErrorAlarmEventHandler(Object ^sender, DalModuleErrorAlarmEventArgs ^args)
+			{
+				if (args->ErrorAlarmStatus == DalErrorAlarmStatusFlag::DataCaptureTimeout )
+				{
+					TimeoutErrorAlarmEventRaised = true;	
+				}
+			}
 			
 #pragma endregion
 			/// <summary>
@@ -90,7 +127,8 @@ namespace TestDal {
 				try
 				{
 
-					DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor());
+					//DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor());
+					DalCommandInterface_Accessor ^ target = DalCommandInterface_Accessor::Instance;
 					target->CreateAndOpenNewSerialPort(comPortName);
 					Assert::IsNotNull(target->_serialPort);
 					Assert::IsTrue(target->_serialPort->IsOpen);
@@ -128,7 +166,7 @@ namespace TestDal {
 			void ActiveSerialPortNameTest()
 			{
 				String^ actual;
-				DalCommandInterface_Accessor ^ target = DalCommandInterface_Accessor::Instance;
+				DalCommandInterface_Accessor ^ target = gcnew DalCommandInterface_Accessor();
 				Assert::IsNotNull(target);
 				actual = target->ActiveSerialPortName;
 				Assert::IsNull(actual);
@@ -159,7 +197,8 @@ public: [TestMethod]
 		[DeploymentItem(L"dal.dll")]
 		void ValidateCommandResultTest()
 		{
-			DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
+			//DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
+			DalCommandInterface_Accessor ^ target = DalCommandInterface_Accessor::Instance;
 			target->SetActivePort(comPortName);
 			DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0x0b, gcnew array<unsigned char>(1) {0x08});
 			DalReturnValue responseReturnValue = DalReturnValue::Failure;  //Intitialized
@@ -179,11 +218,12 @@ public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
 			void ValidateCommandTest()
 			{
-			DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
-			target->SetActivePort(comPortName);
-			DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0x0B, gcnew array<unsigned char> {0x08}); 
-			
-			bool expected = true; 
+				//DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
+				DalCommandInterface_Accessor ^ target = DalCommandInterface_Accessor::Instance;
+				target->SetActivePort(comPortName);
+				DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0x0B, gcnew array<unsigned char> {0x08}); 
+				
+				bool expected = true; 
 				bool actual;
 				actual = target->ValidateCommand(serialCommand);
 				Assert::AreEqual(expected, actual);
@@ -247,7 +287,7 @@ public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
 			void SetSerialPortPorpertiesTest()
 			{
-				DalCommandInterface_Accessor^ target = gcnew DalCommandInterface_Accessor();
+				DalCommandInterface_Accessor^ target = commInterfaceObject;
 				try
 				{
 					target->CloseActivePort();
@@ -271,19 +311,7 @@ public: [TestMethod]
 				//SetActivePortInstance is called internally by SetActivePort. 
 				//we cannot Call it seperately since SetActivePortName expects that the _serialPort meber is set
 				DalCommandInterface_Accessor^ target = commInterfaceObject ;
-				//if (nullptr == target->_serialPort)
-				//{
-				//	try
-				//	{
-				//		//set any other valid port to create the _serialPort 
-				//		target->SetActivePort("COM1");
-				//	}
-				//	catch(Exception ^)
-				//	{
-				//		Assert::Fail("Ensure that this portname is valid and is not being used");
-				//	}
-				//}
-
+				
 				//now call the method
 				bool retValue = target->SetActivePortInstance(comPortName);
 				Assert::IsTrue(retValue, "Ensure that the portnames are valid and run individually.");
@@ -297,8 +325,8 @@ public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
 			void SetActivePortTest()
 			{
-				DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
-				Assert::IsNull(target->ActiveSerialPortName);
+				DalCommandInterface_Accessor^  target = commInterfaceObject; 
+				//Assert::IsNull(target->ActiveSerialPortName);
 				target->SetActivePort(comPortName);
 				Assert::IsNotNull(target->ActiveSerialPortName);
 				Assert::AreEqual(comPortName, target->ActiveSerialPortName);
@@ -313,7 +341,7 @@ public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
 			void SetActivePortTest2()
 			{
-				DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
+				DalCommandInterface_Accessor^  target = commInterfaceObject ; 
 				target->SetActivePort(comPortName);
 				Assert::AreEqual(comPortName, target->ActiveSerialPortName);
 				///now provide any other valid port
@@ -327,9 +355,9 @@ public: [TestMethod]
 			void SendCommandTest()
 			{
 				DalCommandInterface_Accessor^  target = commInterfaceObject ; 
-				target->SetActivePort(comPortName);
+				//target->SetActivePort(comPortName);
 				DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0x40, nullptr); 
-				DalReturnValue ^expected = DalReturnValue_Accessor::Success; 
+				DalReturnValue ^expected = DalReturnValue::Success; 
 				
 				DalReturnValue ^actual;
 				
@@ -345,9 +373,8 @@ public: [TestMethod]
 		void SendCommandTestNeg1()
 		{
 			
-			DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
-			target->SetActivePort(comPortName);
-
+			DalCommandInterface_Accessor^  target = commInterfaceObject; 
+			
 			//Ensure that a non-existent command is sent to the Device 
 			DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0xFF, nullptr); 
 			DalReturnValue expected = DalReturnValue();
@@ -358,7 +385,7 @@ public: [TestMethod]
 			{
 				actual = target->SendCommand(serialCommand);
 			}
-			catch(Exception^ excepObj)
+			catch(Exception^ )
 			{
 				exceptionRaised = true;
 			}
@@ -373,7 +400,7 @@ public: [TestMethod]
 		void SendCommandTestPos1()
 		{
 			DalCommandInterface_Accessor^  target = commInterfaceObject ; 
-			target->SetActivePort(comPortName);
+			//target->SetActivePort(comPortName);
 			DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0x0B, gcnew array<unsigned char> {0x08}); 
 			DalReturnValue expected = DalReturnValue::Success ;
 			bool exceptionRaised = false;
@@ -388,8 +415,8 @@ public: [TestMethod]
 				exceptionRaised = true;
 
 			}
-			Assert::IsFalse(exceptionRaised, "Run Docklight script: getconfiginfo.pst");
-			Assert::AreEqual(expected, actual, "Run Docklight script: getconfiginfo.pst");
+			Assert::IsFalse(exceptionRaised, "Run EM4 simulation tool");
+			Assert::AreEqual(expected, actual, "Run EM4 simulation tool");
 		}
 
 //Deepak: parametrised constructor has been removied in sprint 8
@@ -511,15 +538,34 @@ public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
 			void ListenForEM4ResponseTest()
 			{
-			DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
-			target->CreateAndOpenNewSerialPort(comPortName);
+				try
+				{
+			DalCommandInterface_Accessor^  target = commInterfaceObject; 
+			//target->CreateAndOpenNewSerialPort(comPortName);
 			DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0x0B, gcnew array<unsigned char> (1) {0x08}); 
 			DalReturnValue expected = DalReturnValue::Success ; 
-				DalReturnValue actual;
-			target->SendCommand(serialCommand);
-			target->_serialPort->ReadTimeout = SerialPort::InfiniteTimeout;
-				actual = target->ListenForEM4Response(serialCommand);
-				Assert::AreEqual(expected, actual, "Start the test tool before running this test");
+			DalReturnValue actual;
+					
+					target->_serialPort->ReadTimeout = 5*DalConstants::EM4ResponseTimeout;
+					//target->_serialPort->ReadTimeout = SerialPort::InfiniteTimeout; // changing to infinite timeout 
+					//clear the input buffer before sending a command 
+					//so that any remenant bits dont get prefixed to the response
+					target->_serialPort->DiscardInBuffer();
+					target->_serialPort->Write(serialCommand->em4Command,0, serialCommand->commandLength +1); //1 for CRC byte
+		
+					//wait to allow the response to arrive
+					System::Threading::Thread::Sleep(35);
+			actual = target->ListenForEM4Response(serialCommand);
+					Assert::AreEqual(expected, actual, "Start the test tool before running this test. Change timout if necessary");
+				}
+				catch(ScorException^ scorExcepObj)
+				{
+					Assert::Fail("ScorException Raised: " + scorExcepObj->ErrorMessageKey ); 
+				}
+				catch(Exception^ excepObj)
+				{
+					Assert::Fail("Exception Raised: " + excepObj->Message); 
+				}
 			
 			}
 			/// <summary>
@@ -529,8 +575,9 @@ public: [TestMethod]
 		[DeploymentItem(L"dal.dll")]
 		void InitiateDataCaptureModeTest()
 		{
-			DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
-			target->CreateAndOpenNewSerialPort(comPortName);
+			/*DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
+			target->CreateAndOpenNewSerialPort(comPortName);*/
+			DalCommandInterface_Accessor ^ target = commInterfaceObject; 
 			bool expected = true;
 			bool excepThrown = false;
 			bool actual;
@@ -555,14 +602,14 @@ public: [TestMethod]
 		void DataCaptureMultiplePacketHandlerTest1()
 		{
 
-			//Assert::Inconclusive("This test is incorrect");
 			//Open a port and call the start data capture command 
 			//keep data ready in the port
 			bool Exceptionthrown = false;
 			
 
-			DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
-			target->CreateAndOpenNewSerialPort(comPortName);
+			/*DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
+			target->CreateAndOpenNewSerialPort(comPortName);*/
+			DalCommandInterface_Accessor ^ target = commInterfaceObject; 
 
 			DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0x06, gcnew array<unsigned char> {0x03}); 
 			target->InitiateDataCaptureMode();
@@ -571,7 +618,7 @@ public: [TestMethod]
 			{
 				target->SendCommand(serialCommand);
 			}
-			catch(Exception^ excepObj)
+			catch(Exception^)
 			{
 				Exceptionthrown = true;
 			}
@@ -601,8 +648,8 @@ public: [TestMethod]
 				//// Private Accessor for CreateAndOpenNewSerialPort is not found. Please rebuild the containing project or run the Publicize.exe manually.
 				//Assert::Inconclusive(L"Private Accessor for CreateAndOpenNewSerialPort is not found. Please rebuild the " 
 				//	L"containing project or run the Publicize.exe manually.");
-				DalCommandInterface_Accessor^ target = DalCommandInterface_Accessor::Instance;
-				Assert::IsNull(target->_serialPort);
+				DalCommandInterface_Accessor^ target = commInterfaceObject;
+				//Assert::IsNull(target->_serialPort);
 				target->CreateAndOpenNewSerialPort(comPortName);
 				Assert::IsNotNull(target->_serialPort);
 			}
@@ -633,8 +680,9 @@ public: [TestMethod]
 		[DeploymentItem(L"dal.dll")]
 		void CheckStatusFlagTest()
 		{
-			DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
-			target->SetActivePort(comPortName);
+			/*DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
+			target->SetActivePort(comPortName);*/
+			DalCommandInterface_Accessor^  target = commInterfaceObject;
 			//initialize all variables to starting values
 			target->_currentCuffStatusFlag = 0;
 			target->_currentEAStatusFlag = 0;
@@ -673,7 +721,105 @@ public: [TestMethod]
 			
 		
 		}
-	};
+
+		/// <summary>
+		///A test for ReadFromPortAndWriteToBuffer
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void ReadFromPortAndWriteToBufferTest()
+		{
+			bool Exceptionthrown = false;
+			
+			DalCommandInterface_Accessor ^ target = commInterfaceObject; 
+			DalDataBuffer::Instance->CreateBuffer(10, 256);
+
+			DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0x06, gcnew array<unsigned char> {0x03}); 
+			target->InitiateDataCaptureMode();
+			target->_serialPort->DataReceived += gcnew SerialDataReceivedEventHandler(DalCommandInterface_Accessor::DataCaptureMultiplePacketHandler);
+			try
+			{
+				TimeoutErrorAlarmEventRaised = false;
+				target->SendCommand(serialCommand);
+				//Assert::IsFalse(DalDataBuffer_Accessor::Instance->IsBufferEmpty());
+				System::Threading::Thread::Sleep(300); //sleep for a period longer than expected
+				target->CheckIfTimeoutHasOccurred(this, nullptr);
+				Assert::IsFalse(TimeoutErrorAlarmEventRaised);
+			}
+			catch(ScorException^ excepObj)
+			{
+				Assert::Fail("Test case failed because of " + excepObj->ErrorMessageKey );
+			}
+			catch(Exception^ excepObj)
+			{
+				Assert::Fail("Exception thrown: "+ excepObj->Data) ;
+			}
+			
+		}
+		/// <summary>
+		///A test for ExtractRequiredResponseFromArray
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void ExtractRequiredResponseFromArrayTest()
+		{
+			DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
+			target->_sentPacketSequenceNumber  = 0x01;
+			DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0x08, nullptr); 
+			serialCommand->expectedResponseLength = 0x05;
+			cli::array< unsigned char >^  destinationArray = gcnew array<unsigned char> {0x87, 0x0D, 0x20, 0x01, 0xA8, 0x02, 0xB7, 0x00, 0x46, 0x00, 0x18, 0x09, 0x00, 0xA5, 0x87, 0x0D, 0x30, 0x01, 0xA7, 0x02, 0xCA, 0x00, 0x46, 0x00, 0x18, 0x09, 0x00, 0x8C, 0x88, 0x05, 0x10, 0x01, 0x00, 0x77, 0x87, 0x0D, 0x40, 0x01, 0xC8, 0x01, 0xC2, 0x00, 0x46, 0x00, 0x18, 0x09, 0x00, 0x26}; 
+			bool expected = true; 
+			bool actual;
+			actual = target->ExtractRequiredResponseFromArray(serialCommand, destinationArray);
+			Assert::AreEqual(expected, actual);
+			Assert::IsNotNull(serialCommand->em4Response);
+			Assert::AreEqual((int)serialCommand->expectedResponseLength + 1, serialCommand->em4Response->Length);
+			Assert::AreEqual((unsigned char)0x88, serialCommand->em4Response[0]);
+			Assert::AreEqual((unsigned char)0x05, serialCommand->em4Response[1]);
+			Assert::AreEqual((unsigned char)(serialCommand->commandSequenceNumber<<4), serialCommand->em4Response[2]);
+		}
+		/// <summary>
+		///A test for CheckIfTimeoutHasOccurred
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void CheckIfTimeoutHasOccurredTest()
+		{
+			SetPath();
+			DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
+			DalDataBuffer::Instance->CreateBuffer(10,256);
+
+			DalPwvDataStruct bufferDataInput;
+			
+			DalEventContainer::Instance->OnDalModuleErrorAlarmEvent += gcnew DalModuleErrorAlarmEventHandler(&TestDal::DalCommandInterfaceTest::MyDalErrorAlarmEventHandler);
+
+			Object^  sender = this; 
+			ElapsedEventArgs^  args = nullptr; 
+			Assert::IsFalse(TimeoutErrorAlarmEventRaised); //This shoudld be false 
+			
+			DalCommandInterface_Accessor::CheckIfTimeoutHasOccurred(sender, args);
+			Assert::IsFalse(TimeoutErrorAlarmEventRaised); //This shoudld be false 
+			
+			DalCommandInterface_Accessor::CheckIfTimeoutHasOccurred(sender, args);
+			Assert::IsTrue(TimeoutErrorAlarmEventRaised); //This shoudld be TRUE 
+
+			//Now write an element to the array and check
+			TimeoutErrorAlarmEventRaised = false; //first reset
+			DalDataBuffer::Instance->WriteDataToBuffer(bufferDataInput);
+			//Now call the method twice in succession
+			DalCommandInterface_Accessor::CheckIfTimeoutHasOccurred(sender, args);
+			DalCommandInterface_Accessor::CheckIfTimeoutHasOccurred(sender, args);
+			Assert::IsFalse(TimeoutErrorAlarmEventRaised); //This shoudld be false 
+			
+			//Now read the element and then check
+			int readStartIndex;
+			DalDataBuffer::Instance->GetNextValues(32, readStartIndex);
+			DalDataBuffer::Instance->GetValueAt(readStartIndex, 0);
+			DalCommandInterface_Accessor::CheckIfTimeoutHasOccurred(sender, args);
+			DalCommandInterface_Accessor::CheckIfTimeoutHasOccurred(sender, args);
+			Assert::IsTrue(TimeoutErrorAlarmEventRaised); //This shoudld be TRUE 
+		}
+};
 }
 namespace TestDal {
     

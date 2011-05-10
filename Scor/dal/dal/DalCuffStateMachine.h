@@ -7,6 +7,11 @@
  
      Description  :     Header file for CuffStateMachine
 */
+//************************************************
+//This class is not a part of the deliverable for sprint 8. 
+//It was done as a POC. It hasnt been integrated into the code but we have not removed the file
+//Since we will be implementing it in sprint 9 anyway.
+//**************************************************
 #pragma once
 
 #include "stdafx.h"
@@ -21,7 +26,7 @@ namespace AtCor{
 	namespace Scor { 
 		namespace DataAccess{
 
-			public ref class DalCuffState //TODO: rename to DalCuffState
+			public ref class DalCuffState 
 			{
 				public:
 					DalCuffState();

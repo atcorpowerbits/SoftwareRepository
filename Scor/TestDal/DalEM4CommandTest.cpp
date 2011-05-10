@@ -2,6 +2,10 @@
 #include "StdAfx.h"
 #include "StdAfx.h"
 #include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
 namespace TestDal {
@@ -102,7 +106,7 @@ namespace TestDal {
 				
 				Assert::AreEqual(expected_em4Command[0], actual_em4Command[0]); 
 				Assert::AreEqual(expected_em4Command[1], actual_em4Command[1]); 
-				Assert::AreEqual((unsigned char)0x00, actual_em4Command[2]);
+				Assert::AreEqual((unsigned char)0x00, actual_em4Command[2], "Sequence numbers may differ when this test is run so this must be run indivdually to verify");
 				Assert::AreEqual((unsigned char)0xD3, actual_em4Command[3]);   //Check CRC value
 			}
 
@@ -128,7 +132,7 @@ namespace TestDal {
 				
 				Assert::AreEqual(expected_em4Command[0], actual_em4Command[0]); 
 				Assert::AreEqual(expected_em4Command[1], actual_em4Command[1]); 
-				Assert::AreEqual((unsigned char)0x00, actual_em4Command[2]);
+				Assert::AreEqual((unsigned char)0x00, actual_em4Command[2], "Sequence numbers may differ when this test is run so this must be run indivdually to verify");
 				Assert::AreEqual(expected_em4Command[3], actual_em4Command[3]); 
 				Assert::AreEqual(expected_em4Command[4], actual_em4Command[4]); 
 				Assert::AreEqual(expected_em4Command[5], actual_em4Command[5]); 
@@ -171,7 +175,7 @@ namespace TestDal {
 				int looper = 0;
 				do 
 				{
-					Assert::AreEqual(expected_em4Command[looper], actual_em4Command[looper]); 
+					Assert::AreEqual(expected_em4Command[looper], actual_em4Command[looper], "Sequence numbers may differ when this test is run so this must be run indivdually to verify"); 
 					looper++;
 				}while( looper< expected_em4Command->Length -1 );
 			}
@@ -196,7 +200,7 @@ namespace TestDal {
 				int looper = 0;
 				do 
 				{
-					Assert::AreEqual(expected_em4Command[looper], actual_em4Command[looper]); 
+					Assert::AreEqual(expected_em4Command[looper], actual_em4Command[looper], "Sequence numbers may differ when this test is run so this must be run indivdually to verify"); 
 					looper++;
 				}while( looper< expected_em4Command->Length -1 );
 			}
@@ -221,7 +225,7 @@ namespace TestDal {
 				Assert::AreEqual(uchar_zero, target->commandCode );
 				Assert::IsNull(target->commandData);
 				Assert::AreEqual(DalConstants::EM4ResponseTimeout, target->timeoutPeriod);
-				Assert::AreEqual(DalConstants::EM4NumberofRetires, target->retriesAllowed);
+				Assert::AreEqual(DalConstants::EM4NumberofRetries, target->retriesAllowed);
 			}
 
 			/// <summary>
@@ -298,7 +302,7 @@ public: [TestMethod]
 			Assert::IsNull(target->em4ResponseData);
 		}
 
-					/// <summary>
+			/// <summary>
 			///A test for BreakupEM4Response
 			///</summary>
 public: [TestMethod]
@@ -318,33 +322,88 @@ public: [TestMethod]
 			Assert::AreEqual((unsigned short)(0x1234), (target->em4StatusFlag)); //Could not resolve this error Verified manually
 			
 		}
-		//Deepak: Cannot fix this
-//		/// <summary>
-//		///A test for sentPacketSequenceNumber
-//		///</summary>
-//public: [TestMethod]
-//		[DeploymentItem(L"dal.dll")]
-//		void sentPacketSequenceNumberTest()
-//		{
-//			PrivateType^ privateType = gcnew PrivateType("DataAccess", "DataAccess::DalEM4Command");
-//
-//
-//			//PrivateObject^  param0 = gcnew PrivateObject(dataLength);
-//				
-//			DalEM4Command_Accessor^  target = (gcnew DalEM4Command_Accessor()); 
-//			//Assert::AreEqual((unsigned char)0x00, target->_sentPacketSequenceNumber);
-//			target->_sentPacketSequenceNumber =0x00; //reset to get correct result
-//			unsigned char actual;
-//			unsigned char expected;
-//
-//			for (int i = 0; i <18; i++)
-//			{
-//				expected = i%16;
-//				Object ^ obj  = privateType->GetStaticProperty(target->sentPacketSequenceNumber);
-//				actual = target->sentPacketSequenceNumber;
-//				Assert::AreEqual(expected, actual);
-//			}
-//		}
+
+
+		/// <summary>
+		///A test for ~DalEM4Command
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void DalEM4CommandDestructorTest()
+		{
+			DalEM4Command_Accessor^  target = (gcnew DalEM4Command_Accessor(0x0B, nullptr)); 
+			Assert::IsNotNull(target->em4Command);
+			delete target;
+			Assert::IsNull(target->em4Command );
+		}
+		/// <summary>
+		///A test for BreakResponseDataPart
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void BreakResponseDataPartTest()
+		{
+			DalEM4Command_Accessor^  target = (gcnew DalEM4Command_Accessor(0x0B, nullptr)); 
+			bool expected = true; 
+			bool actual;
+			//give a valid em4 respose part before  calling the function under test.
+			target->em4Response = gcnew array <unsigned char> {0x01, 0x08, 0x30, 0x04, 0x05, 0xBC};
+			target->em4ResponsePacketLength = 5;
+			actual = target->BreakResponseDataPart();
+			Assert::AreEqual(expected, actual);
+			Assert::IsNull(target->em4ResponseData); 
+		}
+
+		//this one will test for less than require data
+		//Negative test
+		/// <summary>
+		///A test for BreakResponseDataPart
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void BreakResponseDataPartTest2()
+		{
+			DalEM4Command_Accessor^  target = (gcnew DalEM4Command_Accessor(0x0B, nullptr)); 
+			bool expected = false; //THe method should fail 
+			bool actual;
+			//give a valid em4 respose part before  calling the function under test.
+			target->em4ResponsePacketLength = 4; //deliberately set toless than expected length
+			//fill with dummy data to test breakup
+			target->em4Response = gcnew array <unsigned char> {0x01, 0x08, 0x30, 0x04, 0xE3};
+			actual = target->BreakResponseDataPart();
+			Assert::AreEqual(expected, actual);
+			Assert::IsNull(target->em4ResponseData); 
+		}
+
+		/// Positive test case with valid data
+		///A test for BreakResponseDataPart
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void BreakResponseDataPartTest3()
+		{
+			DalEM4Command_Accessor^  target = (gcnew DalEM4Command_Accessor(0x0B, nullptr)); 
+			bool expected = true; 
+			bool actual;
+			target->em4ResponsePacketLength = 8; //externally set for a zero data packet
+			//fill with dummy data to test breakup
+			target->em4Response = gcnew array <unsigned char> {0x01, 0x08, 0x30, 0x04, 0x05, 0x06, 0x07, 0x09, 0x0A};
+			
+			try
+			{
+				actual = target->BreakResponseDataPart();
+				Assert::AreEqual(expected, actual);
+				Assert::IsNotNull(target->em4ResponseData); 
+				//check the data bits
+				Assert::AreEqual((unsigned char)0x04, target->em4ResponseData[0]);
+				Assert::AreEqual((unsigned char)0x05, target->em4ResponseData[1]);
+				Assert::AreEqual((unsigned char)0x06, target->em4ResponseData[2]);
+			}
+			catch(Exception ^ excepObj)
+			{
+				Assert::Fail("Exception thrown:" + excepObj->Message);
+			}
+		}
 };
 }
 namespace TestDal {

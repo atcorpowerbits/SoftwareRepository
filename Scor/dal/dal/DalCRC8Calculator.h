@@ -10,6 +10,7 @@
 #pragma once
 
 #include "stdafx.h"
+#include "DalCommon.h"
 
 using namespace System;
 
@@ -28,7 +29,7 @@ namespace AtCor{
 			private ref class CRC8Calculator
 			{
 				private:
-					static array<unsigned char>^ crc8Table = gcnew array<unsigned char>(256); // Default size of array
+					static array<unsigned char>^ crc8Table = gcnew array<unsigned char>(DalConstants::CRCTableSize ); // Default size of array
 					static bool TableReady = false;
 					static CRC8Calculator^ _instance = gcnew CRC8Calculator();
 					/*CRC8Calculator^ operator= (const CRC8Calculator);*/ //fxCop

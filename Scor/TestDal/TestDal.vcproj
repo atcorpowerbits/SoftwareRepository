@@ -187,10 +187,9 @@
 			ReferencedProjectIdentifier="{E274BA19-F920-40C0-8747-214688D2ABB3}"
 			RelativePathToProject=".\dal\dal\dal.vcproj"
 		/>
-		<AssemblyReference
-			RelativePath="..\Debug\crx.dll"
-			AssemblyName="crx, Version=1.0.0.0, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
-			MinFrameworkVersion="196613"
+		<ProjectReference
+			ReferencedProjectIdentifier="{24748540-BFD1-4293-99F5-D556338366C4}"
+			RelativePathToProject=".\crx\crx\crx.vcproj"
 		/>
 		<AssemblyReference
 			RelativePath=".\dal_Accessor.dll"
@@ -245,10 +244,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DalExceptionTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DalModuleErrorAlarmEventArgs_ORITest.cpp"
 				>
 			</File>
@@ -265,7 +260,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalSimulationHandlerTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalStatusHandlerTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalTonometerStatusEventArgsTest.cpp"
 				>
 			</File>
 			<File
