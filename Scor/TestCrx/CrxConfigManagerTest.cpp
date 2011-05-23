@@ -2,6 +2,8 @@
 #include "StdAfx.h"
 #include "StdAfx.h"
 #include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
 
 //using namespace System;
 using namespace System::IO;// For FileStream
@@ -357,6 +359,7 @@ namespace TestCrx {
 				ps->ReferenceRange = true;
 				ps->SimulationType = "Default";
 				ps->DefaultReport = "PWV Report";
+				ps->NormalRange = true;
 			
 				target->SetPwvUserSettings(ps);
 
@@ -368,6 +371,7 @@ namespace TestCrx {
 				Assert::AreEqual(5, target->_instance->PwvSettings->CaptureTime);
 				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
 				Assert::AreEqual("PWV Report", target->_instance->PwvSettings->DefaultReport);
+				Assert::AreEqual(true, target->_instance->PwvSettings->NormalRange);
 
 				ps->PWVDistanceMethod = 1;
 				ps->FemoralToCuff = false;
@@ -376,6 +380,7 @@ namespace TestCrx {
 				ps->ReferenceRange = false;
 				ps->SimulationType = nullptr;
 				ps->DefaultReport = nullptr;
+				ps->NormalRange = false;
 			
 				target->SetPwvUserSettings(ps);
 
@@ -386,6 +391,7 @@ namespace TestCrx {
 				Assert::AreEqual(1, target->_instance->PwvSettings->PWVDistanceUnits);
 				Assert::AreEqual(10, target->_instance->PwvSettings->CaptureTime);
 				Assert::AreEqual(false, target->_instance->PwvSettings->ReferenceRange);
+				Assert::AreEqual(false, target->_instance->PwvSettings->NormalRange);
 				
 				ps->CaptureTime = 20;
 
@@ -400,8 +406,9 @@ namespace TestCrx {
 				ps->PWVDistanceUnits = 0;
 				ps->CaptureTime = 5;
 				ps->ReferenceRange = true;
-				ps->SimulationType = "Default";
+				ps->SimulationType = "Simulation";
 				ps->DefaultReport = "PWV Report";
+				ps->NormalRange = true;
 
 				target->SetPwvUserSettings(ps);
 			}
@@ -1202,7 +1209,7 @@ namespace TestCrx {
 				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceUnits);
 				Assert::AreEqual(5, target->_instance->PwvSettings->CaptureTime);
 				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
-				Assert::AreEqual("Default", target->_instance->PwvSettings->SimulationType);
+				Assert::AreEqual("Simulation", target->_instance->PwvSettings->SimulationType);
 			}
 
 			/// <summary>
@@ -1897,6 +1904,71 @@ public: [TestMethod]
 //			target->SetDefaultReport(ps, node);
 //			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 //		}
+			/// <summary>
+			///A test for SetNormalRange
+			///</summary>
+			//This method don't need to be called,as is will be covered in the method SetPwvUserSettings
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetNormalRangeTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetNormalRange(ps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for GetNormalRange
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetNormalRangeTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); 
+
+			//Pass the required inout to get the expected result
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"No";
+
+			target->GetNormalRange(SubSection, ReaderValue);
+			Assert::AreEqual(false, target->_instance->PwvSettings->NormalRange);
+		}
+
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetNormalRangeTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); 
+
+			//Pass the required inout to get the expected result
+			String^  SubSection = L"DEFAULT";
+			String^  ReaderValue = L"Yes";
+
+			target->GetNormalRange(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_pSetInternal->NormalRange);
+		}
+
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetNormalRangeTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); 
+
+			//Pass the required inout to get the expected result
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"XX";
+
+			try
+			{	
+				target->GetNormalRange(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
 };
 }
 namespace TestCrx {

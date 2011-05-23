@@ -13,7 +13,6 @@
 #include "stdafx.h"
 #include "DalCommon.h"
 #include "DalSimulationFile.h"
-#include "DalCuffStateMachine.h"
 
 using namespace System;
 using namespace System::IO;
@@ -32,19 +31,48 @@ namespace AtCor{
 			{
 				protected:
 					static unsigned long _currentCuffStatusFlag;  /**< current cuff status flags*/
-					 static unsigned long _currentEAStatusFlag; /**< current error alarm  status flags*/
-					 static unsigned long _currentEASourceFlag; /**< current error alarm  source flags*/
+					static unsigned long _currentAlarmStatusFlag; /**< current error alarm  status flags*/
+					static unsigned long _currentEASourceFlag; /**< current error alarm  source flags*/
+					static unsigned long _currentUnusedStatusFlag; // use this
 
-					 static String^ dalErrorAlarmSourceName; //To store the source name
+					static String^ dalErrorAlarmSourceName; //To store the source name
 			
 					static String^ _savedDataFilePath; /**< the path and filename where the waveform dump has been placed*/
+
+					static unsigned long cuffStatusBytes, alarmStatusBytes, tonoStatusBytes;  
+					static unsigned long powerUpStatusBytes, stopButtonStatusBytes;
+					static unsigned long unusedStatusBytes;
+					static DalCuffStateFlags currentCuffState; //Stores the current cuffState enum value, needed for simulation
+
+					static unsigned long _currentStatusFlag;  /**< current status flags*/
+					static unsigned long _currentTonoStatusFlag;  /**< current tonometer status flags*/
+
+
+					/**
+					* Resets all static member variables which represents various 
+					* flags to the some initial reference value.
+					* Should be called when the measurement process should be started repeatedly
+					*/
+					static void ResetAllStaticMembers();
+
+					/**
+					* Returns a string with he name of the supply rails alarm which triggered the AS flag 
+					* Called internally from GetAlarmSource().
+					*/
+					String^ GetSupplyRailsAlarmSource();
+
+					/**
+					* Returns a string with he name of the supply rails alarm which triggered the AS flag 
+					*/
+					String^ GetNameofRaisedAlarmFlag();
+
 				
 				public:
 					/**
-					* Returns the source of alarm or error
-					* @return	The name of the error/alarm source 
+					* Returns the source of alarm
+					* @return	The name of the alarm source 
 					*/
-					virtual String^ GetErrorAlarmSource(); 
+					virtual String^ GetAlarmSource(); 
 
 					/**
 					* Checks if there is a change in cuff status. 
@@ -55,24 +83,25 @@ namespace AtCor{
 
 					/**
 					* Checks if there is a change in error/alarm status. 
-					* @param	newEAStatusFlag	New error/alarm status flag to compare with the current value
+					* @param	newAlarmStatusFlag	New error/alarm status flag to compare with the current value
 					* @return	status of the operation
 					*/
-					static bool CheckEAStatusFlagChanged(unsigned long newEAStatusFlag); 
+					static bool CheckAlarmStatusFlagChanged(unsigned long newAlarmStatusFlag); 
 
-					/**
-					* Returns the error source name  
-					* @param	sourceFlags	Error/alarm source flag
-					* @return	Name of the error source
-					*/
-					static String^ MapErrorSourceToString(unsigned long sourceFlags); 
+					//obsolete
+					///*
+					//* Returns the error source name  
+					//* @param	sourceFlags	Error/alarm source flag
+					//* @return	Name of the error source
+					//*/
+					//static String^ MapErrorSourceToString(unsigned long sourceFlags); 
 
-					/**
-					* Returns the alarm source name  
-					* @param	sourceFlags	Error/alarm source flag
-					* @return	Name of the alarm source
-					*/
-					static String^ MapAlarmSourceToString(unsigned long sourceFlags); 
+					///*
+					//* Returns the alarm source name  
+					//* @param	sourceFlags	Error/alarm source flag
+					//* @return	Name of the alarm source
+					//*/
+					//static String^ MapAlarmSourceToString(unsigned long sourceFlags); 
 
 					/**
 					* Translates the cuff status flag bits into a state as listed in DalCuffStateFlags
@@ -80,12 +109,13 @@ namespace AtCor{
 					* @return	The translated cuff state
 					*/
 					static DalCuffStateFlags TranslateCuffStatusBits(unsigned long statusFlags);
+					
 					/**
 					* Translates the error/alarm status flag bits into an error/alarm state as listed in DalErrorAlarmStatusFlag
 					* @param	statusFlags	error/alarm status bits source flag
 					* @return	The translated state
 					*/
-					static DalErrorAlarmStatusFlag TranslateErrorAlarmStatusBits(unsigned long statusFlags); 
+					static DalErrorAlarmStatusFlag TranslateAlarmStatusBits(unsigned long statusFlags); 
 
 					/**
 					* Converts the input array into a hexadecimal string representation.
@@ -113,6 +143,75 @@ namespace AtCor{
 					*			Calling it a second time results in a blank string being returned.
 					*/
 					virtual String^ GetSavedFileName();
+
+					/**
+					* Breaks up the Status flag into its constituent parts and validates them. @n
+					* Raises events when necessary	
+					*
+					* @param	statusBytes	The status flags as an unsigned long integer
+					*
+					* @returns	A bool value indicating the status of the operation
+					*/
+					static bool ProcessStatusFlag(unsigned long statusBytes);
+
+					/**
+					* Checks if there is a change the entire status flag. 
+					* @param	newStatusFlag	New status flag to compare with the current value
+					* @return	status of the operation
+					*/
+					static bool CheckStatusFlagsChanged(const unsigned long newStatusFlag); 
+
+					/**
+					* Extracts the values of the status flag parameter and copies them to the various flag members.
+					* @param	statusBytes	 The status flag to be split into various components
+					*/
+					static void SplitStatusFlagComponents(const unsigned long statusBytes);
+
+					/**
+					* Checks the cuff status flag and raises an event if changed.
+					*/
+					static void ProcessCuffStatusFlag();
+
+					/**
+					* Checks if the tonometer flag has changed and raises event if needed.
+					*/
+					static void ProcessTonoStatusFlag();
+
+					/**
+					* Checks if the alarm bit of the status flag has changed.
+					* Raises event if needed and performs any other action if needed.
+					*/
+					static void ProcessAlarmStatusFlag();
+
+					/**
+					* Checks if the powerup bit of the status flag is raised
+					* Raises event if needed and performs any other action on the flag.
+					*/
+					static void ProcessPowerUpBitMask();
+
+					/**
+					* Checks if the set restet button has been hit by the user
+					* Raises event if needed and stops the capture process if needed.
+					*/
+					static void ProcessStopButtonBitMask();
+
+					/**
+					* Checks if any of the unused status bits have changed and raises an event
+					* @param[in] statusBytes	The status flag to be processed
+					*/
+					static void ProcessUnusedBitsStatusFlag(const unsigned long statusBytes);
+
+					/**
+					* Validates a particular unused bit in the status flag.
+					* Raises an event if that bit has changed
+					*
+					* @param[in,out] oldFlag	The current flag value. Will be set to the new value
+					* @param[in]	newFlag	The new value of the flag
+					* @param[in]	unusedFlagType	The flag name.
+					*/
+					static void ProcessUnusedBit( unsigned long & oldFlag , const unsigned long  & newFlag, DalUnusedStatusFlagBit unusedFlagType);
+
+
 					
 			};
 

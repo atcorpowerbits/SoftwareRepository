@@ -102,11 +102,23 @@
     <Reference Include="TelerikData, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysisPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnalysisPreview.Designer.cs">
+      <DependentUpon>AnalysisPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Capture.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Capture.Designer.cs">
       <DependentUpon>Capture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CryPwvAnalysis.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryPwvAnalysis.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="CryPwvPatientReport.cs">
       <AutoGen>True</AutoGen>
@@ -142,9 +154,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AnalysisPreview.resx">
+      <DependentUpon>AnalysisPreview.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Capture.resx">
       <DependentUpon>Capture.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CryPwvAnalysis.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryPwvAnalysis.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="CryPwvPatientReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -269,6 +288,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="atcor.ico" />
+    <None Include="Resources\cap_arrow5.JPG" />
+    <None Include="Resources\cap_arrow6.JPG" />
     <None Include="SetupScreenDirect_Small.jpg" />
     <None Include="SetupScreenSubtracting_small.jpg" />
     <None Include="Resources\SetupScreenSubtracting.jpg" />

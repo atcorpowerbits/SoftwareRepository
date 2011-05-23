@@ -70,7 +70,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		static String^ Default = "DEFAULT";
 		static String^ User = "USER";
 		static String^ Pwv = "PWV";
-		static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'REFERENCERANGE', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT'";
+		static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION'";
 		static String^ TagSeparator	=	"'";
 		static String^ CheckYesNoValue = "'NO', 'YES'";
 		static String^ StartUpScreenValue = "'SETUP'";
@@ -99,7 +99,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		static String^ FemoralToCuff = "FEMORALTOCUFF";
 		static String^ PwvDistanceUnits = "PWVDISTANCEUNITS";
 		static String^ CaptureTime = "CAPTURETIME";
-		static String^ ReferenceRange = "REFERENCERANGE";
+		static String^ ReferenceRange = "EUROPEANGENERALPOPULATION";
+		static String^ NormalRange = "HEALTHYPOPULATION";
 		static String^ SimulationType = "SIMULATIONTYPE";
 		static String^ DefaultReport  = "DEFAULTREPORT";
 	};
@@ -271,6 +272,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		
 		bool FemoralToCuff;		/**< true: if Femoral to Cuff is selected, false: if not selcted */		
 		bool ReferenceRange;	/**< true: if Reference Range is selected, false: if not selcted */
+		bool NormalRange;		/**< true: if Normal Range is selected, false: if not selcted */
 		int PWVDistanceUnits;	/**<0 : if mm is selected, 1: If cm is selected */
 		int PWVDistanceMethod;	/**<0 : if substracting is selected, 1: if direct is selected */
 		int CaptureTime;		/**<5 : if 5 seconds is selected 10:10 seconds is selected 20:20 seconds is selected */
@@ -284,6 +286,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		{
 			FemoralToCuff		= false;
 			ReferenceRange		= false;
+			NormalRange			= false;
 			PWVDistanceUnits	= 0;
 			PWVDistanceMethod	= 0;
 			CaptureTime			= Convert::ToInt32(CrxGenPwvValue::CrxPwvCapture5Seconds); 
@@ -438,6 +441,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetFemoralToCuff(String^ SubSection , String^ ReaderValue);
 			//Get Reference Range value from config file
 			void GetReferenceRange(String^ SubSection, String^ ReaderValue);
+			//Get Normal Range value from config file
+			void GetNormalRange(String^ SubSection, String^ ReaderValue);
 			//Get PWV Distance Units value from config file
 			void GetPwvDistanceUnits(String^ SubSection, String^ ReaderValue);
 			//Get PWV Distance Methods value from config file
@@ -454,6 +459,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void SetFemoralToCuff(CrxStructPwvSetting^ ps, XmlNode^ node);
 			//Set Reference Range value in config file
 			void SetReferenceRange(CrxStructPwvSetting^ ps, XmlNode^ node);
+			//Set Normal Range value in config file
+			void SetNormalRange(CrxStructPwvSetting^ ps, XmlNode^ node);
 			//Set PWV Distance Units value in config file
 			void SetPwvDistanceUnits(CrxStructPwvSetting^ ps, XmlNode^ node);
 			//Set PWV Distance Methods value in config file

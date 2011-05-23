@@ -88,6 +88,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				Description="compile the new dDal_Accessor.dll"
+				CommandLine="publicize.exe $(TargetPath)"
 			/>
 		</Configuration>
 		<Configuration
@@ -194,15 +196,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalCaptureState.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalCommandInterface.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DalCRC8Calculator.cpp"
+				RelativePath=".\DalCommandState.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DalCuffStateMachine.cpp"
+				RelativePath=".\DalCRC8Calculator.cpp"
 				>
 			</File>
 			<File
@@ -268,7 +274,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\DalCaptureState.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DalCommandInterface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCommandState.h"
 				>
 			</File>
 			<File
@@ -277,10 +291,6 @@
 			</File>
 			<File
 				RelativePath=".\DalCRC8Calculator.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DalCuffStateMachine.h"
 				>
 			</File>
 			<File

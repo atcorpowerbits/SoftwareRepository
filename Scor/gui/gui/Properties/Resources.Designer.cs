@@ -60,6 +60,20 @@ namespace gui.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap cap_arrow5 {
+            get {
+                object obj = ResourceManager.GetObject("cap_arrow5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cap_arrow6 {
+            get {
+                object obj = ResourceManager.GetObject("cap_arrow6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap newarrowpart111 {
             get {
                 object obj = ResourceManager.GetObject("newarrowpart111", resourceCulture);

@@ -42,7 +42,7 @@ namespace AtCor{
 				//Does nothing
 			}
 
-			void DalModule::SetDeviceStrategy()
+			bool DalModule::SetDeviceStrategy()
 			{
 				try
 				{
@@ -75,9 +75,11 @@ namespace AtCor{
 				{
 					throw gcnew ScorException(excepObj);
 				}
+
+				return true;
 			}
 
-			void DalModule::SetDeviceStrategy(System::String ^commPort)
+			bool DalModule::SetDeviceStrategy(System::String ^commPort)
 			{
 				try
 				{
@@ -94,19 +96,12 @@ namespace AtCor{
 					{
 						//if config manager returns "simulation" initialize the DalSimulationHander
 						//create a new simulation handler
-						//_currentDevice = nullptr; /no need to remove the handle
 						_currentDevice = DalSimulationHandler::Instance;
 					}
 					else
 					{
-						/*
-						//if the config manager retursn a comm port name call DalDeviceHandler
-						_currentDevice = nullptr;
-						_currentDevice = gcnew DalDeviceHandler(commPort);*/
-
 						//since DAlDeviceHandler is implemented as a singleton we cannot use gcnew
 						_currentDevice = DalDeviceHandler::Instance;
-						//_currentEM4Device = DalDeviceHandler::Instance; removed by FxCop
 					}
 				}
 				catch(ScorException ^)
@@ -117,6 +112,8 @@ namespace AtCor{
 				{
 					throw gcnew ScorException(excepObj);
 				}
+
+				return true;
 			}
 
 			DalModule^ DalModule::operator =(const DalModule)
@@ -126,31 +123,36 @@ namespace AtCor{
 				return this;
 			}
 
-			void DalModule::StartCapture()
+			//older method. was retained for compatilbilty, removed now
+			//void DalModule::StartCapture()
+			//{
+			//	if (_currentDevice)
+			//	{
+			//		//call the active device method
+			//		_currentDevice->StartCapture();
+			//	}
+			//}
+
+			bool DalModule::StartMeasurement(int captureTime, int samplingRate)
 			{
 				if (_currentDevice)
 				{
 					//call the active device method
-					_currentDevice->StartCapture();
+					return _currentDevice->StartCapture(captureTime, samplingRate);
 				}
+
+				return false;
 			}
 
-			void DalModule::StartCapture(int captureTime, int samplingRate)
+			bool DalModule::StopMeasurement()
 			{
 				if (_currentDevice)
 				{
 					//call the active device method
-					_currentDevice->StartCapture(captureTime, samplingRate);
+					return _currentDevice->StopCapture();
 				}
-			}
 
-			void DalModule::StopCapture()
-			{
-				if (_currentDevice)
-				{
-					//call the active device method
-					_currentDevice->StopCapture();
-				}
+				return false;
 			}
 
 			bool DalModule::GetConnectionStatus()
@@ -174,12 +176,12 @@ namespace AtCor{
 				return false;
 			}
 
-			int DalModule::FindModule(String ^%deviceFoundPort)
+			DalFindModuleResult DalModule::FindModule(String ^%deviceFoundPort)
 			{
 				//find module should search all ports regardless of whether 
 				//it is in Simulation mode or Device mode
 
-				String ^ configPort; //to store the COM port setting recieved from CONFIG
+				String ^ configPort; //to store the COM port setting received from CONFIG
 				String ^ commsPortInConfig; //This will store config comPort name only if it is a non-simulation
 				
 				
@@ -219,7 +221,7 @@ namespace AtCor{
 						//set the current device to this port
 						SetDeviceStrategy(deviceFoundPort);
 
-						return 1; 
+						return DalFindModuleResult::ModuleFoundOnConfigPort; 
 						//TO specify that the device was found on the 
 						//same port as mentioned in COnfig file
 					}
@@ -242,7 +244,9 @@ namespace AtCor{
 					//update the config setting
 					configMgr->GeneralSettings->CommsPort = foundPortName;
 					configMgr->SetGeneralUserSettings(configMgr->GeneralSettings);
-					return 2; //this means that the device was found on a different port as specifed in config
+					//return 2; 
+					//this means that the device was found on a different port as specifed in config
+					return DalFindModuleResult::ModuleFoundOnDifferentPort;
 				}
 				else
 				{
@@ -250,7 +254,8 @@ namespace AtCor{
 					//if device was simulation let it be 
 					//if device was com port  let it be at the same port
 					SetDeviceStrategy();
-					return 0;
+					//return 0;
+					return DalFindModuleResult::ModuleNotFound;
 				}
 			
 			}
@@ -260,7 +265,7 @@ namespace AtCor{
 				if (_currentDevice)
 				{
 					//call the active device method
-					return _currentDevice->GetErrorAlarmSource();
+					return _currentDevice->GetAlarmSource();
 				}
 				return nullptr;
 
@@ -334,7 +339,7 @@ namespace AtCor{
 
 			void DalModule::ConfigCommsPortSettingChangeHandler(Object^ sender, CommsPortEventArgs^ args)
 			{
-				//CrxLogger::Instance->Write("DAl recieved Comms port change event: " + args->commsPortSetting );
+				//CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting );
 				SetDeviceStrategy(args->commsPortSetting);
 
 			}
@@ -386,6 +391,48 @@ namespace AtCor{
 				{
 					return false;
 				}
+			}
+
+			bool DalModule::SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard)
+			{
+				if (_currentDevice)
+				{
+					return _currentDevice->SetPressure(newPressure, cuffBoard);
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			bool DalModule::SetIdleMode()
+			{
+				//call the actual method
+				if (_currentDevice)
+				{
+					return _currentDevice->SetIdleMode();
+				}
+				else
+				{
+					return false;
+				}
+	
+			}
+
+			//Fxcop reccommends that reference parameters should not be used
+			//bool DalModule::IsAnnualCalibrationDue(System::DateTime ^%lastCalibrationDate)
+			//{
+			//	//Stub method. will be replaced by actual code later
+			//	lastCalibrationDate = gcnew DateTime(2010, 5, 9);
+
+			//	return true;
+
+			//}
+
+			DateTime DalModule::GetLastCalibrationDate()
+			{
+				//Stub method. will be replaced by actual code later
+				return DateTime(2010, 5, 9);
 			}
 
 

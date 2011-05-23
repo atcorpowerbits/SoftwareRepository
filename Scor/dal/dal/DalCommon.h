@@ -54,15 +54,15 @@ namespace AtCor{
 								* @enum	CaptureType
 								* @brief	The type of data capture .	
 								*/
-								public enum class CaptureType { 
-													Tonometer, /**< Tonometer only */
-													CuffPulseCombination, /**< Cuff Pulse combination */
-													TonometerAndCuffPulseCombination, /**< Tonometer and Cuff Pulse  reading combination */
-													CuffAbsPressure, /**< Cuff Absolute pressure */
-													CuffNibp, /**< Cuff NIBP reading */
-													CuffPulse /**< Cuff Pulse only */
-
-												  }; // End CaptureType
+								public enum class CaptureType 
+								{ 
+									Tonometer, /**< Tonometer only */
+									CuffPulseCombination, /**< Cuff Pulse combination */
+									TonometerAndCuffPulseCombination, /**< Tonometer and Cuff Pulse  reading combination */
+									CuffAbsPressure, /**< Cuff Absolute pressure */
+									CuffNibp, /**< Cuff NIBP reading */
+									CuffPulse /**< Cuff Pulse only */
+								}; // End CaptureType
 
 								/**
 								* @enum	DalDeviceConfigUsageEnum
@@ -101,12 +101,21 @@ namespace AtCor{
 								* This will be used in combination with DalCuffStateFlags.
 								*/
 								public enum class DalCuffStatusBitMask{
-									CUFF_STATUS_BITS_UNKNOWN = 0x0000, 
+									//CUFF_STATUS_BITS_UNKNOWN = 0x0000,  cannot be used since Deflated now has the same value
+									
 									CUFF_DISCONNECTED_STATUS_BITS = 0x2000,
-									CUFF_DEFLATED_STATUS_BITS     = 0x0100,
-									CUFF_INFLATING_STATUS_BITS    = 0x0400,
-									CUFF_INFLATED_STATUS_BITS     = 0x0900,
-									CUFF_DEFLATING_STATUS_BITS    = 0x0200
+									
+									//CUFF_DEFLATED_STATUS_BITS     = 0x0100,
+									CUFF_DEFLATED_STATUS_BITS     = 0x0000,
+								
+									//CUFF_INFLATING_STATUS_BITS    = 0x0400,
+									CUFF_INFLATING_STATUS_BITS    = 0x0100,
+									
+									//CUFF_INFLATED_STATUS_BITS     = 0x0900,
+									CUFF_INFLATED_STATUS_BITS     = 0x0A00,
+									
+									//CUFF_DEFLATING_STATUS_BITS    = 0x0200
+									CUFF_DEFLATING_STATUS_BITS    = 0x0300
 								};
 
 								/**
@@ -126,15 +135,16 @@ namespace AtCor{
 
 
 								/**
-								* @enum DalModuleErrorAlarmBitMask
+								* @enum DalAlarmStatusBitMask
 								* @brief	Contains the bit masks against which the error alarm flags will be compared to obtain alarm error status.
 								* This will be used in combination with DalErrorAlarmStatusFlag.
 								*/
-								public enum class DalModuleErrorAlarmBitMask{
-									NoErrorAlarm = 0x0000,
-									ErrorStatus = 0x0020,
-									AlarmStatus = 0x0008,
-									ErrorAndAlarmStatus = 0x0028
+								public enum class DalAlarmStatusBitMask{
+									NoAlarm = 0x0000,
+									//ErrorStatus = 0x0020, //obsolete
+									//AlarmStatus = 0x0008,
+									AlarmStatus = 0x0020, //the older ES has been reanemed to AS and TAIO is now gone 
+									//ErrorAndAlarmStatus = 0x0028 //obsolete
 								};
 
 
@@ -142,26 +152,29 @@ namespace AtCor{
 								/**
 								* @enum DalErrorAlarmStatusFlag
 								* @brief Contains translated status for Error Alarm events.
-								* To be used in combination with DalModuleErrorAlarmBitMask
+								* To be used in combination with DalAlarmStatusBitMask
 								*/
 								public enum class DalErrorAlarmStatusFlag{
 									ActiveStatus = 0,
 									RecoverableStatus = 1,
 									UnrecoverableStatus = 2,
 									DataCaptureErrorInvalidPacket = 3,
-									DataCaptureTimeout = 4
+									DataCaptureTimeout = 4,
+									StopButtonPressed = 5,
+									PowerUpEvent = 6
 								};
 
 
-								/**
-								* @enum DalErrorSource
-								* @brief	This enum contains a mapping of bit flags from the Error Alarm Status flag against various error source.
-								*/
-								public enum class DalErrorSource {
-									ErrorSourceUnknown = 0x0000, 
-									CuffLeak    = 0x0008,
-									DualSensors = 0x0020	
-								};
+								//obsolete
+								///*
+								//* @enum DalErrorSource
+								//* @brief	This enum contains a mapping of bit flags from the Error Alarm Status flag against various error source.
+								//*/
+								//public enum class DalErrorSource {
+								//	ErrorSourceUnknown = 0x0000, 
+								//	CuffLeak    = 0x0008,
+								//	DualSensors = 0x0020	
+								//};
 
 								/**
 								* @enum DalAlarmSource
@@ -170,7 +183,11 @@ namespace AtCor{
 								public enum class DalAlarmSource {
 									AlarmSourceUnknown = 0x0000,
 									OverPressure     = 0x0001,
-									InflatedOverTime = 0x0004
+									InflatedOverTime = 0x0004,
+									//Brought over from the older DalErrorSource Enum for mergin
+									//TODO: verify and add anyu more if necessary
+									CuffLeak    = 0x0008,
+									DualSensors = 0x0020	
 								};
 
 
@@ -244,10 +261,22 @@ namespace AtCor{
 								*/
 								private enum class DalStatusFlagBitMask
 								{
-									ErrorAlarmStatusBitsMask = 0x00000028,
-									CuffStatusBitsMask = 0x2F00,
-									ErrorAlarmSourceBitMask = 0x0000FFFF,
+									//ErrorAlarmStatusBitsMask = 0x00000028, //older value
+									AlarmStatusBitsMask = 0x0020,
 
+									CuffStatusBitsMask = 0x2F00,
+									//ErrorAlarmSourceBitMask = 0x0000FFFF, moving to a sperate ENUM
+									TonoStatusBitsMask = 0x5000,
+									PowerUpBitMask = 0x0001,
+									StopButtonBitMask = 0x0002,
+
+									UnusedStatusBitsMask = 0x80DC //THis flag is used to rasie an event for ano of the other unused bits
+
+								};
+
+								private enum class DalAlarmSourceFlagBitMask
+								{
+									SupplyRailsBitMask = 0x0F00
 								};
 
 
@@ -308,6 +337,7 @@ namespace AtCor{
 										static const unsigned char GetConfigInfo = 0x0B;
 										static const unsigned char GetConfigInfoDataDeviceSerialNumber = 0x08;
 										static const unsigned char GetAlarmStatus = 0x11;
+										static const unsigned char SetIdleMode = 0x1A;
 								};
 
 								/**
@@ -322,6 +352,88 @@ namespace AtCor{
 										static const int SetPressure = 5;
 										static const int GetConfigInfoDataDeviceSerialNumber = 17;
 										static const int GetAlarmStatus = 9;
+								};
+
+
+								/**
+								* @enum	DalUnusedStatusFlagBit
+								* @brief	Contains the translated unused status bit masks
+								*/
+								public enum class DalUnusedStatusFlagBit 
+								{
+									UnusedBitBprr = 0x8000,
+									UnusedBitReservedLSB7 = 0x0080,
+									UnusedBitReservedLSB6 = 0x0040,
+									UnusedBitReservedLSB4 = 0x0010,
+									UnusedBitReservedLSB3 = 0x0008
+								};
+
+								/**
+								* @enum	DalAlarmFlagBitPosition
+								* @brief	Contains the postions and names of various bits in the Alarm flag
+								*/
+								public enum class DalAlarmFlagBitPosition
+								{
+									PowerUp= 0,
+									HighInflationRate = 1,
+									CuffMPower = 2,
+									CuffLeak = 3,
+									HighDeflationRate = 4,
+									DualSensors = 5,
+									Temperature = 6,
+									LowPumpSpeed = 7,
+									SupplyRails = 8,
+									SourceID0 = 9,
+									SourceID1 = 10,
+									SourceID2 = 11,
+									Spare = 12,
+									LowDeflationRate= 13,
+									Reserved14 = 14,
+									Reserved15 = 15,
+									OverPressure = 16,
+									InflatedOvertimeOverpressure = 17,
+									InflatedOvertime = 18,
+									ShortWaitPeriod = 19,
+									Reserved20 = 20,
+									Reserved21 = 21,
+									Reserved22 = 22,
+									Reserved23 = 23,
+									Reserved24 = 24,
+									Reserved25 = 25,
+									Reserved26 = 26,
+									Reserved27 = 27,
+									Reserved28 = 28,
+									Reserved29 = 29,
+									Reserved30 = 30,
+									Reserved31 = 31,
+									TotalBitCount = 32
+								};
+
+								/**
+								* @enum	DalAlarmSupplyRailFlag
+								* @brief	Contains the bit mask combination for the various supply rail alarm bits
+								*/
+								public enum class DalAlarmSupplyRailFlag
+								{
+									SupplyRailNoAlarm = 0x0000,
+									Vin = 0x0300,
+									Source5VD = 0x0500,
+									VPump = 0x0700,
+									VValve = 0x0900,
+									VTono = 0x0B00,
+									Source5VA = 0x0D00,
+									Reserved = 0x0F00
+								};
+
+								/**
+								* @enum	DalFindModuleResult
+								* @brief	An enum defining the return values for FindModule function.
+								*/
+								public enum class DalFindModuleResult
+								{
+									ModuleNotFound = 0, /**< The device was not found on any port and DAL is in simulation mode. */
+									ModuleFoundOnConfigPort = 1, /**<A comm port was set in configuration and the EM4 was found on the same port. */
+									ModuleFoundOnDifferentPort = 2 /**< The EM4 device was found on a different port as specified in configuration*/
 								};
 
 		} // End Namespace DataAccess

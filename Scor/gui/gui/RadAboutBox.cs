@@ -14,6 +14,10 @@ using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.CrossCutting.Printer;
 using AtCor.Scor.BusinessLogic;
 using System.Configuration;
+using Telerik.WinControls;
+using System.Windows.Forms;
+using Telerik.WinControls.UI;
+using Telerik.WinControls.Primitives;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -21,7 +25,7 @@ namespace AtCor.Scor.Gui.Presentation
     * @class RadAboutBox
     * @brief This class will handle displaying of the default window controls.It will also check for multiple instances of the application,exception handling and logging of events.
     */
-    partial class RadAboutBox : Telerik.WinControls.UI.RadForm
+    partial class RadAboutBox : RadForm
     {
         readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         StringBuilder sBPrint;
@@ -32,7 +36,8 @@ namespace AtCor.Scor.Gui.Presentation
         public RadAboutBox()
         {
             InitializeComponent();
-            
+
+            // GuiCommon.SetFontForControls(this);
             // fix the size & location of about box panel
             Size = new Size(525, 330);
             Location = new Point(0, 0);
@@ -40,7 +45,9 @@ namespace AtCor.Scor.Gui.Presentation
             radPanel1.Location = new Point(-1, -1);
             MaximumSize = Size;
             MinimumSize = Size;
-            SetAboutBoxInformation();            
+            SetAboutBoxInformation();
+            SetShape(guiradlblCompanyName, guiradlblCopyrightNotice, guiradlblVersion, guiradlblSecurityMode, guiradlblInstalledID, guiradlblPWV, guiradlblPWA, guiradlblBP, guiradlblmoduleInfo, guiradlblLastCalibrationDate);
+            SetShape(guiradbtnPrint, guiradbtnOk);
         }
 
         /** This method sets about box information in respective labels
@@ -59,20 +66,20 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblVersion.Text = bizInformation.GetVersion();
                 guiradlblInstalledID.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutInstallId);
                 guiradlblPWV.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutNoMeasuremtPwv), bizInformation.GetModuleNumberMeasurementsPWV());
-                guiradlblPWA.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtPwa), bizInformation.GetModuleNumberMeasurementsPWA().ToString());
-                guiradlblBP.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtBp), bizInformation.GetModuleNumberMeasurementsNIBP().ToString());
+                guiradlblPWA.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtPwa), bizInformation.GetModuleNumberMeasurementsPWA());
+                guiradlblBP.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtBp), bizInformation.GetModuleNumberMeasurementsNIBP());
                 guiradlblSecurityMode.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutSecMode), bizInformation.GetSecurityMode());
                 guiradlblmoduleInfo.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutModuleTxt), bizInformation.GetModuleType(), bizInformation.GetModuleVersion(), bizInformation.GetModuleSN());
 
                 guiradlblLastCalibrationDate.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutCalibDate), bizInformation.GetModuleCalibrationDate());
 
-                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["CEMarkImage"]))
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.CeMarkImage.ToString()]))
                 {
                     guiradlblCeMark.BackColor = Color.FromArgb(191, 219, 255);
                 }
                 else
                 {
-                    guiradlblCeMark.Image = oMsgMgr.GetImage(ConfigurationManager.AppSettings["CEMarkImage"]);
+                    guiradlblCeMark.Image = oMsgMgr.GetImage(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.CeMarkImage.ToString()]);
                 }
             }
             catch (Exception ex)
@@ -87,6 +94,37 @@ namespace AtCor.Scor.Gui.Presentation
         private void guiradbtnOk_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void SetShape(params Control[] labelControl)
+        {
+            RoundRectShape shape = new RoundRectShape();
+            shape.BottomLeftRounded = true;
+            shape.BottomRightRounded = true;
+            shape.TopLeftRounded = true;
+            shape.TopRightRounded = true;
+            shape.Radius = 5;
+
+            foreach (Control control in labelControl)
+            {
+                RadLabel label = control as RadLabel;
+                if (label != null)
+                {
+                    label.RootElement.BackColor = Color.Transparent;
+                    ((FillPrimitive)label.LabelElement.Children[0]).NumberOfColors = 1;
+                    label.LabelElement.Shape = shape;
+                }
+
+                RadTextBox textBox = control as RadTextBox;
+                if (textBox != null)
+                {
+                    textBox.TextBoxElement.BackColor = Color.FromArgb(172, 177, 204);
+                    textBox.TextBoxElement.Fill.BackColor = Color.FromArgb(172, 177, 204);
+
+                    textBox.TextBoxElement.Border.Shape = shape;
+                    textBox.TextBoxElement.Fill.Shape = shape;
+                }
+            }
         }
 
         /** This method appends string to stringbuilder for printing about box content
@@ -129,7 +167,7 @@ namespace AtCor.Scor.Gui.Presentation
                 CrxPrintManager printMgr = CrxPrintManager.Instance;
 
                 // printMgr.AtCorPrintDocument(sBPrint.ToString(), oMsgMgr.GetImage(ConfigurationManager.AppSettings["CEMarkImage"].ToString()));
-                printMgr.AtCorPrintAboutBox(sBPrint.ToString(), oMsgMgr.GetImage(ConfigurationManager.AppSettings["CEMarkImage"]));  
+                printMgr.AtCorPrintAboutBox(sBPrint.ToString(), oMsgMgr.GetImage(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.CeMarkImage.ToString()]));  
             }
             catch (Exception ex)
             {

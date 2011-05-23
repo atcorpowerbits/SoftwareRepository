@@ -45,16 +45,18 @@ namespace AtCor{
 				{
 					_commandInterface = DalCommandInterface::Instance;
 				}
+
+				//_currentCommandState = DalCommandStateReady::Instance;
 			}
 
-
-			bool DalDeviceHandler::StartCapture()
-			{
-				// this code has been left for compatibility with the DAL stub
-				//no parameters recieved. assume capture time and sampling rate
-				//since this function will be done away with , we are not moving the constants
-				return StartCapture( 10, 256);
-			}
+			//obsolete
+			//bool DalDeviceHandler::StartCapture()
+			//{
+			//	// this code has been left for compatibility with the DAL stub
+			//	//no parameters received. assume capture time and sampling rate
+			//	//since this function will be done away with , we are not moving the constants
+			//	return StartCapture( 10, 256);
+			//}
 
 			bool DalDeviceHandler::StartCapture(int captureTime, int samplingRate)
 			{
@@ -85,6 +87,14 @@ namespace AtCor{
 				{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrTonoNotConnectedErrCd, CrxStructCommonResourceMsg::DalErrTonoNotConnected, ErrorSeverity::Information);
 				}
+				
+				//Set Idle mode
+				bool boolReturnValue;
+				boolReturnValue = SetIdleMode();
+				if (false == boolReturnValue )
+				{
+					return false;
+				}
 
 				//now issue the command to start capture and see if the response was acknowledgement
 				array<unsigned char> ^commandData = gcnew array<unsigned char> (1) {Em4CommandCodes::CaptureCommandDataPWVMode}; //Make this 0x03 into a dynamic thing
@@ -93,8 +103,8 @@ namespace AtCor{
 				
 				DalReturnValue returnValue = DalReturnValue::Failure;
 
-				returnValue = _commandInterface->SendCommand(startCaptureCommand);
-
+				returnValue = _commandInterface->SendCommandAndGetResponse(startCaptureCommand); //renamed oringinal method
+				
 
 				//if acknowledged start the handler to listen to the data received.
 				if (DalReturnValue::Success == returnValue )
@@ -102,8 +112,7 @@ namespace AtCor{
 					//start the handler for data capture here
 					try
 					{
-						_commandInterface->InitiateDataCaptureMode();
-						return true;
+						return _commandInterface->InitiateDataCaptureMode();
 					}
 					catch(ScorException^)
 					{
@@ -134,7 +143,7 @@ namespace AtCor{
 				DalReturnValue returnValue = DalReturnValue::Failure;
 				startCaptureCommand->expectedResponseLength = Em4ResponseRequiredLength::StopDataCapture; 
 
-				returnValue = _commandInterface->SendCommand(startCaptureCommand);
+				returnValue = _commandInterface->SendCommandAndGetResponse(startCaptureCommand); //renamed oringinal method
 				if (returnValue == DalReturnValue::Success)
 				{
 					return true;
@@ -147,10 +156,8 @@ namespace AtCor{
 
 			bool DalDeviceHandler::GetConnectionStatus()
 			{
-				//TODO
-				//Stub method, needs to be implemented with state machine
-				//will return false to show that it is disconnected until the functionality is implemented.
-				return false;
+				//call the fucntion which checks the device connection
+				return CheckIfDeviceIsConnected();
 			}
 
 			bool DalDeviceHandler::GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
@@ -192,7 +199,8 @@ namespace AtCor{
 				return false;
 			}
 
-			String^ DalDeviceHandler::GetErrorAlarmSource() 
+			//name changed. see if the functionality needs changing
+			String^ DalDeviceHandler::GetAlarmSource() 
 			{
 				
 				//We need to call a command to get the error alrm source
@@ -204,16 +212,16 @@ namespace AtCor{
 				{
 					serialCommand = gcnew DalEM4Command(Em4CommandCodes::GetAlarmStatus, nullptr);
 					serialCommand->expectedResponseLength = Em4ResponseRequiredLength::GetAlarmStatus ;
-					returnedValue = _commandInterface->SendCommand(serialCommand);
-
+					returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); //renamed oringinal method
+					
 					if (returnedValue == DalReturnValue::Success)
 					{
 						eaSourceFlag = DalCommandInterface::TranslateFourBytes(serialCommand->em4ResponseData, 0);
 						_currentEASourceFlag = eaSourceFlag  ;
-						_currentEAStatusFlag = (serialCommand->em4StatusFlag) & (unsigned long)DalStatusFlagBitMask::ErrorAlarmStatusBitsMask;
+						_currentAlarmStatusFlag = (serialCommand->em4StatusFlag) & (unsigned long)DalStatusFlagBitMask::AlarmStatusBitsMask;
 
 						// call parent method
-						return DalStatusHandler::GetErrorAlarmSource();
+						return DalStatusHandler::GetAlarmSource();
 					}
 					else
 					{
@@ -355,7 +363,7 @@ namespace AtCor{
 			}
 
 
-			bool DalDeviceHandler::SetPressure(int newPressure, EM4CuffBoard cuffBoard)
+			bool DalDeviceHandler::SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard)
 			{
 				unsigned short pressureToSet = (unsigned short)newPressure;
 
@@ -380,8 +388,8 @@ namespace AtCor{
 				{
 					DalEM4Command ^setPressureCommand = gcnew DalEM4Command(commandByte,pressureBytes);
 					setPressureCommand->expectedResponseLength = Em4ResponseRequiredLength::SetPressure;
-					
-					if (_commandInterface->SendCommand(setPressureCommand) ==DalReturnValue::Success)
+
+					if (_commandInterface->SendCommandAndGetResponse(setPressureCommand) ==DalReturnValue::Success) //renamed oringinal method
 					{
 						return true; 
 					}
@@ -411,8 +419,9 @@ namespace AtCor{
 
 				DalEM4Command^ serialCommand = gcnew DalEM4Command(Em4CommandCodes::GetConfigInfo, gcnew array<unsigned char> (1){Em4CommandCodes::GetConfigInfoDataDeviceSerialNumber});
 				serialCommand->expectedResponseLength = Em4ResponseRequiredLength::GetConfigInfoDataDeviceSerialNumber;
-				returnedValue = _commandInterface->SendCommand(serialCommand);
-
+				
+				returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); //renamed oringinal method
+				
 				if (returnedValue == DalReturnValue::Success)
 				{
 					serialCommand->BreakupEM4Response();
@@ -435,12 +444,6 @@ namespace AtCor{
 				}
 			}
 
-
-			/*String^ DalDeviceHandler::GetSavedFileName()
-			{
-				return _savedDataFilePath;
-			}*/
-
 			bool DalDeviceHandler::GetConfigDeviceSerialMumber(String ^% moduleSerialNumber)
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
@@ -449,7 +452,9 @@ namespace AtCor{
 
 				serialCommand = gcnew DalEM4Command(Em4CommandCodes::GetConfigInfo, dataCode);
 				serialCommand->expectedResponseLength = Em4ResponseRequiredLength::GetConfigInfoDataDeviceSerialNumber ;
-				returnedValue = _commandInterface->SendCommand(serialCommand);
+				
+				returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); ////renamed oringinal method
+				
 				if (returnedValue == DalReturnValue::Success)
 				{
 					moduleSerialNumber = ConvertBytesToString(serialCommand->em4ResponseData); 
@@ -462,7 +467,58 @@ namespace AtCor{
 				}
 
 			}
-			
-		}
+
+			bool DalDeviceHandler::SetIdleMode()
+			{
+				try
+				{
+					bool returnValue;
+
+					//first check if device is connected
+					returnValue = CheckIfDeviceIsConnected();
+
+					//if device is not connected we cannot set the mode
+					if (false == returnValue)
+					{
+						return false;
+					}
+					//else create a command and send it
+
+					//create a command object
+					DalEM4Command^ setIdleCommand;
+
+					setIdleCommand = gcnew DalEM4Command(Em4CommandCodes::SetIdleMode, nullptr);
+					
+					//this command can only be sent once
+					setIdleCommand->retriesAllowed = 1;
+					//set timeout to 15 seconds
+					setIdleCommand->timeoutPeriod = 15000; //miliseconds
+
+					setIdleCommand->expectedResponseLength = 5;
+
+					//send it
+					DalReturnValue commandReturnValue;
+					commandReturnValue = _commandInterface->SendCommandAndGetResponse(setIdleCommand);
+
+					if (DalReturnValue::Success == commandReturnValue)
+					{
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+				catch(ScorException^)
+				{
+					throw;
+				}
+				catch(Exception ^ excepObj)
+				{
+					throw gcnew ScorException(excepObj);
+				}
+			}
+
+		}// end namespaces
 	}
 }

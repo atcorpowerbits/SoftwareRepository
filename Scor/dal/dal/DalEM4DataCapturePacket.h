@@ -31,11 +31,11 @@ namespace AtCor{
 					unsigned int em4ResponseDataLength; /**< Response data part length*/
 					unsigned char em4ResponseSequenceNumber; /**< response sequence byte */
 
-					unsigned short em4StatusFlag; /**< status flag recieved*/
+					unsigned short em4StatusFlag; /**< status flag received*/
 					unsigned char em4ResponseCRCByte; /**< CRC value recived from EM4*/
 					unsigned char em4ResponseAckNackByte; /**< Ack.Nack byte*/
-					unsigned char em4ResponseLengthByte; /**< EM4 response length as recieved within the packet*/
-					array<unsigned char>^ em4ResponseData; /**< data packet recieved from the response packet */
+					unsigned char em4ResponseLengthByte; /**< EM4 response length as received within the packet*/
+					array<unsigned char>^ em4ResponseData; /**< data packet received from the response packet */
 
 				private:
 					~EM4DataCapturePacket();

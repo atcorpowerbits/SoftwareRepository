@@ -47,9 +47,9 @@ namespace AtCor{
 					unsigned char em4ResponseSequenceNumber; /**< response sequence byte */
 					unsigned char em4ResponseCRCByte; /**< CRC value recived from EM4*/
 					unsigned char em4ResponseAckNackByte; /**< Ack.Nack byte*/
-					unsigned char em4ResponseLengthByte; /**< EM4 response length as recieved within the packet*/
+					unsigned char em4ResponseLengthByte; /**< EM4 response length as received within the packet*/
 					unsigned short em4StatusFlag; /**< status flag */
-					array<unsigned char>^ em4ResponseData; /**< data packet recieved from the response packet */
+					array<unsigned char>^ em4ResponseData; /**< data packet received from the response packet */
 
 					unsigned int timeoutPeriod; /**< timout period to wait for response. Default value is 50 ms*/
 					unsigned int retriesAllowed; /**< Number of retries . Set to 3 by default*/

@@ -15,25 +15,20 @@
 #include "DalEM4Command.h"
 #include "DalEM4DataCapturePacket.h"
 #include "DalStatusHandler.h"
+#include "DalCommandState.h"
+#include "DalCaptureState.h"
 
 using namespace System;
 using namespace System::IO::Ports;
 using namespace System::Threading;
 using namespace System::Timers;
 
+using namespace AtCor::Scor::DataAccess::StateMachines;
+
 namespace AtCor{ 
 	namespace Scor { 
 		namespace DataAccess{
 
-			/**
-			* @class DalCommandState
-			* @brief Class for command state
-			* @warning	Not yet implemented
-			*/
-			private ref class DalCommandState
-			{
-				//TODO: add the class definition
-			};
 
 			/**
 			* @class DalCommandInterface
@@ -58,15 +53,17 @@ namespace AtCor{
 					bool ValidateCommand(DalEM4Command^ serialCommand);
 					DalReturnValue ValidateCommandResult(DalEM4Command^ serialCommand, DalReturnValue responseReturnValue);
 
-					SerialPort ^_serialPort;
+					static SerialPort ^_serialPort;
 
 					Timers::Timer^ streamingStoppedCheckTimer;  //A timer to check whether the serial port data streaming has stopped.
 					
+					static DalCommandState^ _currentCommandState; //pointer to the current state object of the command state machine
+
+					static DalCaptureState^ _currentCaptureState;  //pointer to the current state object of the capture state machine
+
 
 					
 				internal:
-					
-					DalCommandState _currentState; /**< Current state of the interface. Unused */
 					
 					/**
 					* Converts the specifed byte array into an unsigned short integer @n
@@ -86,12 +83,27 @@ namespace AtCor{
 					*/
 					static unsigned long TranslateFourBytes( array <unsigned char>^ sourceArray, int startPostion);
 			
+					//Renamed the older SendCommand method to SendCommandAndGetResponse.
+					//This is more descriptive. SendCommand does not give the real meaning.
+					
 					/**
-					* Send the command specifed in the parameter and evaluate the response
+					* Send the command specifed in the parameter and processes the response from EM4
+					* @warning This command was previously known as SendCommand() 
+					* but has been renamed to make it more meaningful. It is now a facade for ProcessCommandAndResponse()
+					*
 					* @param[in,out] serialCommand	A DalEM4Command object which has been initialized  with a valid command.
 					* @return The status of the operation: succeded/ failed/ timout/ nack
 					*/
-					DalReturnValue SendCommand(DalEM4Command^ serialCommand); 
+					DalReturnValue SendCommandAndGetResponse(DalEM4Command^ serialCommand); 
+
+					/**
+					* Sends a command and gets the response from the EM4 @n
+					* @warning This function is the same code as SendCommandAndGetResponse(previously SendCommand()) 
+					*			It will do the actual code while SendCommandAndGetResponse is the facade for this method.
+					* @param[in,out] serialCommand	A DalEM4Command object which has been initialized  with a valid command.
+					* @return The status of the operation: succeded/ failed/ timout/ nack
+					*/
+					DalReturnValue ProcessCommandAndResponse(DalEM4Command^ serialCommand); 
 
 					/**
 					* Obtains the response from the port for the command sent by SendCommand
@@ -104,7 +116,7 @@ namespace AtCor{
 
 					/**
 					* Validates the CRC of the EM4 response for a succesfully sent command
-					* @param[in]	serialCommand	The succesful sent & recieved data packet
+					* @param[in]	serialCommand	The succesful sent & received data packet
 					* @return	boolean value indiciating status of the operation
 					*/
 					static bool ValidateResponseCRC(DalEM4Command^ serialCommand);
@@ -118,24 +130,25 @@ namespace AtCor{
 
 					/**
 					* Validates the EM4 response for a succesfully sent command
-					* @param[in]	serialCommand	The succesful sent & recieved data packet
+					* @param[in]	serialCommand	The succesful sent & received data packet
 					* @return	DalReturnValue value indiciating status of the operation
 					*/
 					static DalReturnValue ValidateResponsePacket(DalEM4Command^ serialCommand);
 
 					/**
-					* Validates EM4 DataCapture packet recieved by DataCaptureSinglePacketHandler().
+					* Validates EM4 DataCapture packet received by DataCaptureSinglePacketHandler().
 					* @param[in]	capturePacket	The EM4DataCapturePacket recived from the EM4 
 					* @return	DalReturnValue value indiciating status of the operation
 					*/
 					static DalReturnValue ValidateResponsePacket(EM4DataCapturePacket ^ capturePacket);
 
-					/**
-					* Checks the status flag parameter and raises events on cuff or error_alarm status change
-					* @param[in] statusBytes	The status flag to check
-					* @return	status of the operation
-					*/
-					static bool CheckStatusFlag(unsigned long statusBytes);
+					//function is being moved to DalStatusHandler for unification
+					///*
+					//* Checks the status flag parameter and raises events on cuff or error_alarm status change
+					//* @param[in] statusBytes	The status flag to check
+					//* @return	status of the operation
+					//*/
+					//static bool CheckStatusFlag(unsigned long statusBytes);
 
 					/**
 					* Property to obtain the a sequence number for the EM4 command 
@@ -156,6 +169,32 @@ namespace AtCor{
 							return returnValue;
 						};
 					};
+
+					/**
+					* Sets the current state of the command State machine
+					*
+					* @param[in]	newCommandState	The new state of the command state machine
+					*/
+					void ChangeCommandState(DalCommandState^ newCommandState);
+
+					/**
+					* Sets the current state of the Capture State machine
+					*
+					* @param[in]	newCaptureState	The new state of the capture state machine
+					*/
+					void ChangeCaptureState(DalCaptureState^ newCaptureState);
+
+					/**
+					* Registers the DataCaptureSinglePacketHandler to listen to data caputre packets
+					* @return	status of the operation
+					*/
+					bool InitiateDataCaptureModeInternal();
+
+					/**
+					* De-registers the DataCaptureSinglePacketHandler to listen to data caputre packets
+					* @return	status of the operation
+					*/
+					bool StopDataCaptureModeInternal();
 					
 				public:
 
@@ -185,14 +224,6 @@ namespace AtCor{
 					* @return	status of the operation
 					*/
 					bool StopDataCaptureMode();
-
-					//Deepak: uncalled as of now. May need later - FxCop
-					///*
-					//* Sets the current SerialPort Object to the specified parameter
-					//* @param  serialPortObject The serial port object to specify
-					//* @return	status of the operation
-					//*/
-					//bool SetActivePort( SerialPort^ serialPortObject);
 
 					/**
 					* Sets the current SerialPort Object to the specified port name
@@ -254,7 +285,7 @@ namespace AtCor{
 
 					/** 
 					* Cleans the input buffer and dumps the unread packets into the log file.
-					* Called when there an illegal data packet is recieved @n
+					* Called when there an illegal data packet is received @n
 					* cleans the input buffer and dumps the remaining values into the logfile.
 					* @param[in]	serialPort	The serial port object
 					* @param[in]	currentDataPacket	The data packet to be dumped. 
@@ -293,6 +324,10 @@ namespace AtCor{
 					*
 					*/
 					static void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args);
+
+					static void CheckIfTimeoutHasOccurredInternal(Object^ sender, ElapsedEventArgs^ args);
+
+					static void CheckSerialPortInputBuffer(Object^ sender, ElapsedEventArgs^ args);
 			
 			};
 		}

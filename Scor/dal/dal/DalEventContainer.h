@@ -22,6 +22,7 @@ namespace AtCor{
 		
 		namespace DataAccess{
 
+				//obslolete; this event passes tonometer data NOT STATUS
 				/**
 				* @class DalTonometerDataEventArgs
 				* @brief Class to contain arguments for OnDalTonometerDataEvent.
@@ -42,12 +43,14 @@ namespace AtCor{
 						DalTonometerDataEventArgs(unsigned short data);
 				};
 
+				//obslolete; this event passes tonometer data NOT STATUS
 				/**
 				* Delegate for tonometer event
 				*/
 				public delegate void DalTonoMeterDataEventHandler(Object^ sender, DalTonometerDataEventArgs ^ args); //TODO:STUB
 
 
+				//obsolete: cuff pulse data is now put into the buffer. It wont be sent through events
 				/**
 				* @class DalCuffPulseEventArgs
 				* @brief Class to contain arguments for OnDalCuffPulseEvent.
@@ -68,6 +71,7 @@ namespace AtCor{
 						DalCuffPulseEventArgs(unsigned short data);
 				};
 				
+				//obsolete: cuff pulse data is now put into the buffer. It wont be sent through events
 				
 				/**
 				* Delegate for cuff pulse event
@@ -112,16 +116,22 @@ namespace AtCor{
 				{
 					public:
 						/**
-						* Data for the event.
+						* The alarm status.
 						*/
 						property DalErrorAlarmStatusFlag ErrorAlarmStatus;
 
 						/**
+						* Name of the source
+						*/
+						property String^ AlarmSourceName;
+
+						/**
 						* Constructor for the class.
 						*
-						* @param[in] data	The data for the event (error or alarm raised event).						
+						* @param[in] alarmStatus	The type of alarm raised.
+						* @param[in]	alarmSource	The name of the alarm source from the Alarm Flags.	
 						*/
-						DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag data);
+						DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag alarmStatus, String^ alarmSource);
 				};
 
 				/**
@@ -157,6 +167,39 @@ namespace AtCor{
 				public delegate void DalTonometerStatusEventHandler(Object^ sender, DalTonometerStatusEventArgs ^args);
 
 
+				/**
+				* @class DalUnusedStatusFlagEventArgs
+				* @brief Class to contain arguments for OnDalUnusedFlagChangeEvent.
+				*/
+				public ref class DalUnusedStatusFlagEventArgs: public EventArgs
+				{
+					public:
+						/**
+						* Data for the event.
+						*/
+						property DalUnusedStatusFlagBit UnusedStatusFlagChanged;
+
+						/**
+						* The value of the flag 1 set/ 0 = reset
+						*/
+						property bool ValueSetReset;
+						
+						/**
+						* Constructor for the class.
+						*
+						* @param[in] changedStatusFlag	The flag that was changed
+						* @param[in]	setResetValue	The value to be set.
+						*/
+						DalUnusedStatusFlagEventArgs(DalUnusedStatusFlagBit changedStatusFlag, bool setResetValue);
+				};
+
+				/**
+				* Delegate for unused status flag changed event
+				*/
+				public delegate void DalUnusedStatusFlagChangedEventHandler(Object^ sender, DalUnusedStatusFlagEventArgs ^args);
+
+
+
 
 				/**
 				* @class DalEventContainer
@@ -174,18 +217,12 @@ namespace AtCor{
 						DalCuffPulseEventHandler^ _dalCuffPulseEventHandler; //Handler for cuff puse events //TODO:STUB
 
 						DalCuffStatusEventHandler^ _DalCuffStatusEventHandler; //handler for cuff status change events
-
-					//	DalCuffStatusEventHandler^ _dalCuffStatusEventHandler; //handler for cuff status change events
-
-					//	DalModuleErrorAlarmEventHandler^     _dalModuleErrorAlarmEventHandler;
-
-						 
+			 
 						DalModuleErrorAlarmEventHandler^     _dalModuleErrorAlarmEventHandler;
 
 						DalTonometerStatusEventHandler^ _dalTonometerStatusEventHandler; //handler for tonometer status change events
 
-
-
+						DalUnusedStatusFlagChangedEventHandler^ _dalUnusedStatusFlagChangedEventHandler; //unused status flag changed event handler
 						
 					public:
 						/**
@@ -345,57 +382,11 @@ namespace AtCor{
 								if(_DalCuffStatusEventHandler)
 								{
 									_DalCuffStatusEventHandler->Invoke(sender, args);
+									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() );
+							
 								}
 							}
 						}
-
-						//Deepak: No event to get EA source. It will be called by method
-						///**
-						//* Error or alarm source event.
-						//*/
-						//event DalErrorAlarmSourceEventHandler^ OnDalErrorAlarmSourceEvent
-						//{
-						//	/**
-						//	* Registers specifed handler method as a listener to this event.
-						//	*
-						//	* @param[in] handler	The handler method to be registered as a listener. @n
-						//	*						Should match the signature of DalErrorAlarmSourceEventHandler
-						//	*/
-						//	void add(DalErrorAlarmSourceEventHandler^ handler)
-						//	{
-						//		lock lockEvents(this);
-						//		//add the specified handler as listener.
-						//		_dalErrorAlarmSourceEventHandler += handler;
-						//	}
-						//	
-						//	/**
-						//	* Removes specifed handler method from the list of listners. @n
-						//	* The handler can no  longer listen to this event.
-						//	*
-						//	* @param[in] handler	The handler method to be de-registered as a listener. @n
-						//	*						Should be already added as a listener.
-						//	*/
-						//	void remove(DalErrorAlarmSourceEventHandler^ handler)
-						//	{
-						//		lock lockEvents(this);
-						//		//Remove the specified handler from the list of listeners
-						//		_dalErrorAlarmSourceEventHandler -= handler;
-						//	}
-
-						//	/*
-						//	* Overloaded raise method.
-						//	* Needed to raise an event.
-						//	*
-						//	* @param[in]	sender	Reference to object that raised the event.
-						//	* @param[in]	args	The arguments for this event. Should be of the type DalErrorAlarmSourceEventArgs.
-						//	*/
-						//	void raise(Object^ sender, DalErrorAlarmSourceEventArgs ^ args)
-						//	{
-						//		//Raise the event.
-						//		if(_dalErrorAlarmSourceEventHandler)
-						//			_dalErrorAlarmSourceEventHandler->Invoke(sender, args);
-						//	}
-						//}
 
 
 						/**
@@ -439,9 +430,19 @@ namespace AtCor{
 							*/
 							void raise(Object^ sender, DalModuleErrorAlarmEventArgs ^ args)
 							{
+								if (nullptr == args )
+								{
+									//validation of param based on FxCop
+									//No need to validate the sender as it is unimportant.
+									return;
+								}
 								//Raise the event.
 								if(_dalModuleErrorAlarmEventHandler)
+								{
 									_dalModuleErrorAlarmEventHandler->Invoke(sender, args);
+									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Error Alarm event raised in DAL: "+ args->ErrorAlarmStatus.ToString() + " : " + args->AlarmSourceName  );
+								}
+							
 							}
 						}
 
@@ -487,16 +488,81 @@ namespace AtCor{
 							*/
 							void raise(Object^ sender, DalTonometerStatusEventArgs ^args)
 							{
+								if (nullptr == args )
+								{
+									//validation of param based on FxCop
+									//No need to validate the sender as it is unimportant.
+									return;
+								}
+
 								//Raise the event.
 								if(_dalTonometerStatusEventHandler)
 								{
 									_dalTonometerStatusEventHandler->Invoke(sender, args);
-									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Tonometer event raised in DAL: "+ args->CuffStateFlag.ToString() );
+									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Tonometer event raised in DAL: "+ args->TonometerStateFlag.ToString() );
 								}
 							}
 						}
 
 
+
+
+						/**
+						* Unused status flag raised event.
+						*/
+						event DalUnusedStatusFlagChangedEventHandler^ OnDalUnusedStatusFlagChangedEvent
+						{
+							/**
+							* Registers specifed handler method as a listener to this event.
+							*
+							* @param[in] handler	The handler method to be registered as a listener. @n
+							*						Should match the cignature of DalUnusedStatusFlagChangedEventHandler
+							*/
+							void add(DalUnusedStatusFlagChangedEventHandler^ handler)
+							{
+								lock lockEvents(this);
+								//add the specified handler as listener.
+								_dalUnusedStatusFlagChangedEventHandler += handler;
+							}
+							
+							/**
+							* Removes specifed handler method from the list of listners. @n
+							* The handler can no  longer listen to this event.
+							*
+							* @param[in] handler	The handler method to be de-registered as a listener. @n
+							*						Should be already added as a listener.
+							*/
+							void remove(DalUnusedStatusFlagChangedEventHandler^ handler)
+							{
+								lock lockEvents(this);
+								//Remove the specified handler from the list of listeners
+								_dalUnusedStatusFlagChangedEventHandler -= handler;
+							}
+
+							/**
+							* Overloaded raise method.
+							* Needed to raise an event.
+							*
+							* @param[in]	sender	Reference to object that raised the event.
+							* @param[in[	args	The arguments for this event. Should be of the type DalTonometerDataEventArgs.
+							*/
+							void raise(Object^ sender, DalUnusedStatusFlagEventArgs^ args)
+							{
+								if (nullptr == args )
+								{
+									//validation of param based on FxCop
+									//No need to validate the sender as it is unimportant.
+									return;
+								}
+
+								//Raise the event.
+								if(_dalUnusedStatusFlagChangedEventHandler)
+								{
+									_dalUnusedStatusFlagChangedEventHandler->Invoke(sender, args);
+									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> UnusedStatusFlagChangedEvent raised in DAL: "+ args->UnusedStatusFlagChanged.ToString() + " : " + args->ValueSetReset.ToString()  );
+								}
+							}
+						}
 
 				}; // End class DalEventContainer
 		}

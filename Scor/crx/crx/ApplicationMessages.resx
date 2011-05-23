@@ -250,7 +250,7 @@
     <value>Report Screen</value>
   </data>
   <data name="CHK_REFERENCE_RANGE" xml:space="preserve">
-    <value>Reference Range</value>
+    <value>European General Population</value>
   </data>
   <data name="GRP_PWV_DISTANCE_UNITS" xml:space="preserve">
     <value>PWV Distance Units</value>
@@ -876,7 +876,7 @@
     <value>PWV Method:</value>
   </data>
   <data name="LBL_REPORT_REFERENCE_RANGE" xml:space="preserve">
-    <value>General Population</value>
+    <value>European General Population</value>
   </data>
   <data name="LBL_REPORT_STD_DEVIATION" xml:space="preserve">
     <value>Standard Deviation</value>
@@ -1341,15 +1341,6 @@ Would you like to retry?</value>
 Data migration has failed.
 If the problem persists check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html</value>
   </data>
-  <data name="FIELD_DISTANCE_CAROTID" xml:space="preserve">
-    <value>Carotid Distance</value>
-  </data>
-  <data name="FIELD_DISTANCE_CUFF_OR_DIRECT" xml:space="preserve">
-    <value>Direct Distance</value>
-  </data>
-  <data name="FIELD_DISTANCE_FEMORAL" xml:space="preserve">
-    <value>Femoral Distance</value>
-  </data>
   <data name="FIELD_PATIENT_DP" xml:space="preserve">
     <value>DP</value>
   </data>
@@ -1429,8 +1420,8 @@ If the problem persists check troubleshooting section in user manual or contact 
   <data name="DAL_MSG_DEFAULT_MODE_SELECTED_SIM" xml:space="preserve">
     <value>Comm port was not set in Configuration. Switchng to Simulation mode by default. Please click on Find Module to locate EM4 device.</value>
   </data>
-  <data name="PWV_START_CAPTURE_FAILED" xml:space="preserve">
-    <value>Start Capture failed because an empty file has been selected for simulation. Please select a valid file. (NOTE: THis message has not been added by Atcor. It needs to be added by them. We have put a filler string).</value>
+  <data name="BLL_START_CAPTURE_FAILED" xml:space="preserve">
+    <value>Start Capture failed.</value>
   </data>
   <data name="GUI_DISPLAY_COLON" xml:space="preserve">
     <value>:</value>
@@ -1761,5 +1752,78 @@ Your measurement has been compared to these results.</value>
   </data>
   <data name="GUI_SETUP_SEARCH_EXIT_MSG" xml:space="preserve">
     <value>Do you want to exit Search mode?</value>
+  </data>
+  <data name="CHK_NORMAL_RANGE" xml:space="preserve">
+    <value>Healthy Population</value>
+  </data>
+  <data name="GUI_REPORT_GENERAL_POP_DESCRIPTION" xml:space="preserve">
+    <value>Normalised for distance measurement</value>
+  </data>
+  <data name="GUI_SETTINGS_PWV_ANALYSIS" xml:space="preserve">
+    <value>PWV Analysis</value>
+  </data>
+  <data name="GUI_PRINT_PWV_ANALYSIS_TITLE" xml:space="preserve">
+    <value>Pulse Wave Velocity Analysis</value>
+  </data>
+  <data name="GUI_PRINT_PWV_RPT_TITLE" xml:space="preserve">
+    <value>Pulse Wave Velocity Report</value>
+  </data>
+  <data name="DATA_CAPTURE_INCONSISTENT" xml:space="preserve">
+    <value>Inconsistent data capture between tonomter and cuff pulse data</value>
+  </data>
+  <data name="FIELD_DISTANCE_CAROTID_TO_FEMORAL_CUFF" xml:space="preserve">
+    <value>Carotid to Femoral Cuff Distance</value>
+  </data>
+  <data name="FIELD_DISTANCE_CAROTID_TO_STERNAL_NOTCH" xml:space="preserve">
+    <value>Carotid to Sternal Notch Distance</value>
+  </data>
+  <data name="FIELD_DISTANCE_FEMORAL_TO_CUFF" xml:space="preserve">
+    <value>Femoral to Cuff Distance</value>
+  </data>
+  <data name="FIELD_DISTANCE_STERNAL_NOTCH_TO_FEMORAL_CUFF" xml:space="preserve">
+    <value>Sternal Notch to Femoral Cuff Distance</value>
+  </data>
+  <data name="GUI_MONTH_APR" xml:space="preserve">
+    <value>Apr</value>
+  </data>
+  <data name="GUI_MONTH_AUG" xml:space="preserve">
+    <value>Aug</value>
+  </data>
+  <data name="GUI_MONTH_DEC" xml:space="preserve">
+    <value>Dec</value>
+  </data>
+  <data name="GUI_MONTH_FEB" xml:space="preserve">
+    <value>Feb</value>
+  </data>
+  <data name="GUI_MONTH_JAN" xml:space="preserve">
+    <value>Jan</value>
+  </data>
+  <data name="GUI_MONTH_JUL" xml:space="preserve">
+    <value>Jul</value>
+  </data>
+  <data name="GUI_MONTH_JUN" xml:space="preserve">
+    <value>Jun</value>
+  </data>
+  <data name="GUI_MONTH_MAR" xml:space="preserve">
+    <value>Mar</value>
+  </data>
+  <data name="GUI_MONTH_MAY" xml:space="preserve">
+    <value>May</value>
+  </data>
+  <data name="GUI_MONTH_NOV" xml:space="preserve">
+    <value>Nov</value>
+  </data>
+  <data name="GUI_MONTH_OCT" xml:space="preserve">
+    <value>Oct</value>
+  </data>
+  <data name="GUI_MONTH_SEP" xml:space="preserve">
+    <value>Sep</value>
+  </data>
+  <data name="GUI_ANNUAL_CALLIBRATION_MESSAGE" xml:space="preserve">
+    <value>Annual callibration is due,last annual callibration was done on {0}.
+Press Ok to Remind later or Cancel to ignore.</value>
+  </data>
+  <data name="DAL_ERROR_NULL_PARAM" xml:space="preserve">
+    <value>A null parameter was passed</value>
   </data>
 </root>

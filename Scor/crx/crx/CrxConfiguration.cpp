@@ -64,6 +64,7 @@ void CrxConfigManager::GetPwvDefaultSettings(CrxStructPwvSetting^ objPwvSettings
 	objPwvSettings->FemoralToCuff		= _pSetInternal->FemoralToCuff;
 	objPwvSettings->PWVDistanceUnits	= _pSetInternal->PWVDistanceUnits;
 	objPwvSettings->ReferenceRange		= _pSetInternal->ReferenceRange;
+	objPwvSettings->NormalRange			= _pSetInternal->NormalRange;
 	objPwvSettings->SimulationType		= _pSetInternal->SimulationType;
 	objPwvSettings->DefaultReport		= _pSetInternal->DefaultReport;
 }
@@ -348,6 +349,12 @@ void CrxConfigManager::SetPwvSettingsNode(CrxStructPwvSetting^ ps, XmlNode^ node
 	{									
 		CrxConfigManager::SetReferenceRange(ps, node);
 	}
+	//Calls function if node element is Normal Range
+	else
+	if(SubSectionNodeName == CrxConfigXmlTag::NormalRange)
+	{									
+		CrxConfigManager::SetNormalRange(ps, node);
+	}
 	//Calls function if node element is Simulation Type
 	else
 	if(SubSectionNodeName == CrxConfigXmlTag::SimulationType)
@@ -619,7 +626,12 @@ void CrxConfigManager::GetPwvSettingsNode(String^ SubSection, String^ SubSection
 	if(SubSectionNode == CrxConfigXmlTag::ReferenceRange)
 	{
 		CrxConfigManager::GetReferenceRange(SubSection,ReaderValue);
-
+	}
+	//Calls function if node element is Normal Range
+	else
+	if(SubSectionNode == CrxConfigXmlTag::NormalRange)
+	{
+		CrxConfigManager::GetNormalRange(SubSection,ReaderValue);
 	}
 	//Calls function if node element is Simulation Type
 	else
@@ -970,6 +982,32 @@ void CrxConfigManager::GetReferenceRange(String^ SubSection, String^ ReaderValue
 		_instance->_pwvSettings->ReferenceRange = RefRange;
 	}
 }
+void CrxConfigManager::GetNormalRange(String^ SubSection, String^ ReaderValue)
+{
+	//Get the Normal Range Details
+	//Temporary variables
+	bool NormlRange = false;
+	String^ tempValue  = nullptr;
+	String^ chkVal = nullptr;
+
+	tempValue  = ReaderValue->ToUpper();
+	chkVal = CrxConfigXmlTag::CheckYesNoValue;
+
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
+	{
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+	NormlRange = (tempValue == CrxConfigXmlTag::UpperYES);
+
+	if(SubSection == CrxConfigXmlTag::Default)
+	{
+		_pSetInternal->NormalRange = NormlRange;
+	}
+	else
+	{
+		_instance->_pwvSettings->NormalRange = NormlRange;
+	}
+}
 void CrxConfigManager::GetPwvDistanceUnits(String^ SubSection, String^ ReaderValue)
 {
 	//Get the PWV Distance Units Details
@@ -1260,6 +1298,18 @@ void CrxConfigManager::SetReferenceRange(CrxStructPwvSetting^ ps, XmlNode^ node)
 	}
 	else
 	if(ps->ReferenceRange == true)
+	{
+		node->InnerText = CrxConfigXmlTag::LowerYes;
+	}
+}
+void CrxConfigManager::SetNormalRange(CrxStructPwvSetting^ ps, XmlNode^ node)
+{
+	if(ps->NormalRange == false)
+	{
+		node->InnerText = CrxConfigXmlTag::LowerNo;								
+	}
+	else
+	if(ps->NormalRange == true)
 	{
 		node->InnerText = CrxConfigXmlTag::LowerYes;
 	}

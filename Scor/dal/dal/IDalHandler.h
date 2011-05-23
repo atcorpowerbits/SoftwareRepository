@@ -29,26 +29,28 @@ namespace AtCor{
 			private interface class IDalHandler 
 			{
 				public:
-					/*static property unsigned long currentCuffStatusFlag;
-					static property unsigned long currentErrorAlarmFlags;*/
 			
 					bool StartCapture(int captureTime, int samplingRate); //parametrized method
 					
-					bool StartCapture();//TODO:STUB
+					//bool StartCapture();//TODO:STUB Non parametrized method removed from Dal Module
 					bool StopCapture();
 					bool GetConnectionStatus();
 					bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, DalDeviceConfigUsageStruct ^%deviceConfigInfo );
-					String^ GetErrorAlarmSource();
-
-					//It should not be called when device is in simulation.
-					//so we are removing from the interface	
-					//int FindModule(String^ comPort);
+					//String^ GetErrorAlarmSource();
+					String^ GetAlarmSource();
 
 					bool CheckIfDeviceIsConnected();
-					 bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
+  				    bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
 
-					bool SetPressure(int newPressure, EM4CuffBoard cuffBoard);
+					bool SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard);
 					String^ GetSavedFileName();
+
+					/**
+					* Sets the EM4 mode to Idle mode
+					*
+					* @return A boolean value indicating the status of the operation
+					*/
+					bool SetIdleMode();
 			};
 
 		}

@@ -138,7 +138,7 @@ namespace AtCor{
 
 					if (em4ResponsePacketLength != em4ResponseLengthByte)
 					{
-						//there is a mismatch between the length as mentioned in the packet and as recieved.
+						//there is a mismatch between the length as mentioned in the packet and as received.
 						//Cannot continue any further
 						return false;
 					}

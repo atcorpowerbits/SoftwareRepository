@@ -308,6 +308,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CrxShowStatusEventArgsTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CrxStructGeneralSettingTest.cpp"
 				>
 			</File>

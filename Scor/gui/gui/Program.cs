@@ -8,8 +8,10 @@
      Description  :     This class defines entry point for application.
 */
 using System;
+using System.Configuration;
 using System.Windows.Forms;
 using System.Globalization;
+using Telerik.WinControls;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -32,7 +34,8 @@ namespace AtCor.Scor.Gui.Presentation
         {
             DefaultWindow defWindow = null;             
             try
-            { 
+            {
+                ThemeResolutionService.ApplicationThemeName = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.ApplicationThemeName.ToString()];
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 defWindow = new DefaultWindow();

@@ -1142,6 +1142,7 @@ namespace TestCrx {
 				int systemIdentifier = 0; 
 				String^  studyDateTimeArrStr = System::String::Empty; 
 				CrxStructPWVTrendData^  trendDataStruct = gcnew CrxStructPWVTrendData();
+				String^ CulturalNeutralDateFormat = "yyyy-MM-dd HH:mm:ss";
 
 				// connect to db
 				SetServerMachineName();
@@ -1198,9 +1199,9 @@ namespace TestCrx {
 					int i = target->SavePWVMeasurementDetails(pwvmd);
 
 					DataSet^ msrds = target->GetPWVMeasurementDetails(pwvmd->PatientNumberInternal,pwvmd->GroupIdentifier, pwvmd->SystemIdentifier);
-					pwvmd->StudyDateTime	= Convert::ToDateTime(msrds->Tables[0]->Rows[0]["StudyDateTime"]);
-					String^ studyDateTimeArrStr = ( pwvmd->StudyDateTime) + ",";
-
+					//pwvmd->StudyDateTime	= Convert::ToDateTime(msrds->Tables[0]->Rows[0]["StudyDateTime"]).ToString(CulturalNeutralDateFormat);
+					//String^ studyDateTimeArrStr = ( pwvmd->StudyDateTime) + ",";
+					String^ studyDateTimeArrStr =  Convert::ToDateTime(msrds->Tables[0]->Rows[0]["StudyDateTime"]).ToString(CulturalNeutralDateFormat) + ",";
 					//target->DeletePatientData(pd);
 				//	////////////	
 
@@ -1222,7 +1223,8 @@ namespace TestCrx {
 					trendDataStruct->IsStdDevValidArrStr = String::Empty;
 
 					////Testing with double value
-					DateTime^ temp = System::DateTime::Now;
+					//DateTime^ temp = System::DateTime::Now.ToString(CulturalNeutralDateFormat);
+					String^ temp = System::DateTime::Now.ToString(CulturalNeutralDateFormat);
 					studyDateTimeArrStr = studyDateTimeArrStr + temp + "," ;//"2011-01-31 17:46:01,";
 					target->GetPWVTrendData(patientNumberInternal, groupIdentifier, systemIdentifier, studyDateTimeArrStr, trendDataStruct);
 					Assert::AreEqual(trendDataStruct->HeartRateArrStr	,"150");

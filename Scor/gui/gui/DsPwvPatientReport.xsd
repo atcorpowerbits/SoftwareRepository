@@ -27,6 +27,15 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="DataTable2" msprop:Generator_UserTableName="DataTable2" msprop:Generator_RowDeletedName="DataTable2RowDeleted" msprop:Generator_TableClassName="DataTable2DataTable" msprop:Generator_RowChangedName="DataTable2RowChanged" msprop:Generator_RowClassName="DataTable2Row" msprop:Generator_RowChangingName="DataTable2RowChanging" msprop:Generator_RowEvArgName="DataTable2RowChangeEvent" msprop:Generator_RowEvHandlerName="DataTable2RowChangeEventHandler" msprop:Generator_TablePropName="DataTable2" msprop:Generator_TableVarName="tableDataTable2" msprop:Generator_RowDeletingName="DataTable2RowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ImageHeartRate" msprop:Generator_UserColumnName="ImageHeartRate" msprop:Generator_ColumnPropNameInRow="ImageHeartRate" msprop:Generator_ColumnVarNameInTable="columnImageHeartRate" msprop:Generator_ColumnPropNameInTable="ImageHeartRateColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ImageAnalysisChart" msprop:Generator_UserColumnName="ImageAnalysisChart" msprop:Generator_ColumnPropNameInRow="ImageAnalysisChart" msprop:Generator_ColumnVarNameInTable="columnImageAnalysisChart" msprop:Generator_ColumnPropNameInTable="ImageAnalysisChartColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="ImageLogo" msprop:Generator_UserColumnName="ImageLogo" msprop:Generator_ColumnPropNameInRow="ImageLogo" msprop:Generator_ColumnVarNameInTable="columnImageLogo" msprop:Generator_ColumnPropNameInTable="ImageLogoColumn" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>

@@ -33,21 +33,15 @@ namespace AtCor{
 			private ref class DalSimulationHandler : public IDalHandler , public DalStatusHandler 
 			{
 				private:
-					 /*static unsigned long _currentCuffStatusFlag;
-					 static unsigned long _currentEAStatusFlag;
-					 static unsigned long _currentEASourceFlag;*/
-
 					 static bool firstReadAfterCaptureStarted = false;
 
 					static DalDataBuffer ^dataBufferObj; //to hold pointer to object
 
-					//static String^ dalErrorAlarmSourceName; //used for 2-3 static functions
-					
 					//Making these two variables static. They need to be accessed from static member functions.
 					static DalSimulationFile^ _tonometerSimulationFile; //Pointer to first simulation file
 					static DalSimulationFile^ _cuffTimerSimulationFile; //pointer to second simulation file (for other cuff related measurements)
 					Timers::Timer ^captureTimer;  //Timer to fire simulated data events
-					static void OnTimerGetValuesAndRaiseEvents(Object^ sender, ElapsedEventArgs^ args); //Method to raise events at a specific time imterval //TODO:STUB
+					//static void OnTimerGetValuesAndRaiseEvents(Object^ sender, ElapsedEventArgs^ args); //Method to raise events at a specific time imterval //Obsolete
 					static void OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args); //read multiple events in each interval
 					//static void ReadMultipleEventsInLoop(); //making non static in order to raise events. static members cannot have this pointer
 					static void ReadMultipleEventsInLoop(Object^ sender);
@@ -66,7 +60,8 @@ namespace AtCor{
 					DalSimulationHandler(); //Constructor , made private to implement singleton
 					
 				public:
-					virtual bool StartCapture(); //Start the simulation capture //TODO:STUB
+					//virtual bool StartCapture(); //Start the simulation capture //Non parameterized method is obsolete
+
 					virtual bool StartCapture(int captureTime, int samplingRate); //new parametrized method
 					virtual bool StopCapture(); //Stop the simulation capture
 					virtual bool GetConnectionStatus(); //Dummy method to return connection status
@@ -83,7 +78,7 @@ namespace AtCor{
 					* Sets the pressure value
 					* @return	Will always return @c true for simulation
 					*/
-					virtual bool SetPressure(int newPressure, EM4CuffBoard cuffBoard);	
+					virtual bool SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard);	
 
 					/**
 					*Function is to open the selecetd Simulation file from the Config.
@@ -93,15 +88,16 @@ namespace AtCor{
 					bool GetFileNameFromConfgAndOpen();
 
 
-					/**
-					* Checks the status flag and raises events if necessary
-					*
-					* @param[in] statusBytes The status flag for validation
-					* @param[out] cuffIsInflated Indicates if the status flags had a cuff inflated status.
-					*
-					* @return The status of the operation
-					*/
-					static bool CheckStatusFlag(unsigned long statusBytes, bool %cuffIsInflated);
+					//function is being moved to DalStatusHandler for unification
+					///*
+					//* Checks the status flag and raises events if necessary
+					//*
+					//* @param[in] statusBytes The status flag for validation
+					//* @param[out] cuffIsInflated Indicates if the status flags had a cuff inflated status.
+					//*
+					//* @return The status of the operation
+					//*/
+					//static bool CheckStatusFlag(unsigned long statusBytes, bool %cuffIsInflated);
 
 					/**
 					* Property with custom get method to supply instance.@n
@@ -121,6 +117,15 @@ namespace AtCor{
 							return DalSimulationHandler::_instance;
 						};
 					};
+
+
+					/**
+					* Sets the EM4 mode to Idle mode
+					*
+					* @return @c true
+					* @warning This is a stub method for simulationa and will always return @c true
+					*/
+					virtual bool SetIdleMode();
 
 			};
 		}

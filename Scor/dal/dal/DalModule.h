@@ -44,7 +44,6 @@ namespace AtCor{
 				DalModule(const DalModule^);
 				DalModule^ operator= (const DalModule);
 
-				//IDalHandler^ _currentDevice;
 				CaptureType _captureDataType;
 
 				static void ConfigCommsPortSettingChangeHandler(Object^ sender, CommsPortEventArgs^ args);
@@ -52,10 +51,7 @@ namespace AtCor{
 
 			internal:	
 				static IDalHandler^ _currentDevice; 
-				DalCuffState^ _currentCuffState; //TODO
-				//static DalDeviceHandler^ _currentEM4Device = DalDeviceHandler::Instance ; //FxCop
-				//we need one instance ready when dal module is initiated. 
-
+				
 			public:
 				
 				/**
@@ -67,41 +63,44 @@ namespace AtCor{
 					{
 						return DalModule::_instance;
 					};
-				
-					
 				};
 
 				/**
 				* Obtains the current com port settig from Configuration and sets the current strategy.
+				*
+				* @return	A boolean value specifying the success/failure of the operation.
 				*/
-				static void SetDeviceStrategy();
+				static bool SetDeviceStrategy();
 
 				/**
 				* Obtains the current com port settig from Configuration and sets the current strategy.
 				* @param[in] commPort The Comm port setting.
+				*
+				* @return	A boolean value specifying the success/failure of the operation.
 				*/
-				static void SetDeviceStrategy(String^ commPort);
+				static bool SetDeviceStrategy(String^ commPort);
 
 				/**
-				* Starts the data capture from the selected device.
-				*/
-				void StartCapture(); //TODO:STUB
-
-				/**
-				* Starts the data capture from the selected device after creating a 
-				* buffer according to the specified parameters/
+				* Starts the data capture process from the selected device after creating a 
+				* buffer according to the specified parameters.
 				* @param[in]	captureTime	The capture window time
 				* @param[in]	samplingRate	The number of samples per second.
+				*
+				* @return	A boolean value specifying the success/failure of the operation.
 				*/
-				void StartCapture(int captureTime, int samplingRate);
+				bool StartMeasurement(int captureTime, int samplingRate);
 
 				/**
-				* Stops the data capture from the active device.
+				* Stops the data capture process.
+				*
+				* @return	A boolean value specifying the success/failure of the operation.
 				*/
-				void StopCapture();
+				bool StopMeasurement();
 
 				/**
-				* Returns the status for the current device.
+				* Checks the status for the current device.
+				*
+				* @return	A boolean value specifying the success/failure of the operation
 				*/
 				bool GetConnectionStatus();
 
@@ -109,19 +108,21 @@ namespace AtCor{
 				* Gets the configuration info for the specifed configruation item .
 				* @param[in]	deviceConfigItem	The configuration item to be obtained
 				* @param[in,out]	deviceConfigInfo	The structure to return the configuration info into.
+				*
+				* @return	A boolean value specifying the success/failure of the operation
 				*/
 				bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
 											DalDeviceConfigUsageStruct ^deviceConfigInfo ); 
 
 				/**
-				* Stub method. Returns the name of the first comm port on which the EM4 device is connected. @n
+				* Returns the name of the first comm port on which the EM4 device is connected. @n
 				* Should only be used for DalDeviceHandler
 				*
-				* @return	The name of the first comm port where the electronic device is connected.
-				* 
-				* @warning	This method has not been implemented. It is a stub.
+				* @param[out]	deviceFoundPort	The port on which the device was found
+				*
+				* @return	A DalFindModuleResult value specifying whether the EM4 device was found or not.
 				*/
-				int FindModule(String ^%deviceFoundPort);
+				DalFindModuleResult FindModule(String ^%deviceFoundPort);
 
 				// Returns the PWV measurement counter stored in the firmware
 				bool GetPWVMeasurementCounter( unsigned short% count); //TODO:STUB
@@ -169,6 +170,34 @@ namespace AtCor{
 				* @return	@c true if the device is connected on the same port
 				*/
 				bool CheckIfDeviceIsConnected();
+
+				/**
+				*  Sets the pressure value of the specified board.
+				*
+				* @param[in]	newPressure	The new pressure value to be set
+				* @param[in]	cuffBoard	The board for which the pressure should be set
+				*
+				* @return	A boolean value indicating the success/failure of the poration
+				*/
+				bool SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard);
+
+				/**
+				* Sets the EM4 device to Idle mode.
+				*
+				* @return	A boolean value indicating success/failue.
+				*/
+				bool SetIdleMode(); 
+
+
+				//Fxcop reccommends that reference parameters should not be used
+				/*bool IsAnnualCalibrationDue(System::DateTime ^%lastCalibrationDate);*/
+
+				/**
+				* Gets the last callibration date from EM4.
+				*
+				* @return	The date when the system was last calibrated.
+				*/
+				DateTime GetLastCalibrationDate();
 			};
 		}
 	}

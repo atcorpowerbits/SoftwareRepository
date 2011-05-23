@@ -22,6 +22,7 @@ using System;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Docking;
+using Telerik.WinControls.Primitives;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -79,14 +80,14 @@ namespace AtCor.Scor.Gui.Presentation
         // Constructor of the form,initializes all the controls and the structure for General as well as PWV settings.       
         public frmSettingsWindow()
         {
-            InitializeSettingsWindow();
+            InitializeSettingsWindow();             
         }
 
         /**Parameterized constructor to display messages in the Message Bay of the DefaultWindow.
         */
         public frmSettingsWindow(DefaultWindow objDfltWnd)
         {
-            InitializeSettingsWindow();
+            InitializeSettingsWindow();           
             objDefaultWindow = objDfltWnd;
         }        
                
@@ -94,6 +95,8 @@ namespace AtCor.Scor.Gui.Presentation
         private void InitializeSettingsWindow()
         {
             InitializeComponent();
+
+           // GuiCommon.SetFontForControls(this);
             gnrlSettingsStruct = new CrxStructGeneralSetting();
             pwvSettingsStruct = new CrxStructPwvSetting();
 
@@ -111,7 +114,9 @@ namespace AtCor.Scor.Gui.Presentation
             SetTextForGeneralSettingsTab();            
 
             // Populate the text value for PWV settings form controls
-            SetTextForPwvSettingsTab();            
+            SetTextForPwvSettingsTab();
+            SetShape(radtxtReportTitle);
+            SetShape(comboDefaultReport, comboSimulationFiles, comboBoxCommsPort);
         }
         
         /**This method sets the test for the labels ,buttons ,group boxes and so on, for the General settings on the GUI.
@@ -151,6 +156,7 @@ namespace AtCor.Scor.Gui.Presentation
             radgrpSimulationFiles.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpSimulationFiles);
             radgrpReportScreen.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpReportScreen);
             radchkReferenceRange.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ChkReferenceRange);
+            radchkNormalRange.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ChkNormalRange);   
             radgrpPwvDistanceUnits.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpPwvDistanceUnits);
             radmm.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RadMm);
             radcm.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RadCm);
@@ -252,6 +258,7 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     radchkFemoralToCuff.Checked = pwvStructObj.FemoralToCuff;
                     radchkReferenceRange.Checked = pwvStructObj.ReferenceRange;
+                    radchkNormalRange.Checked = pwvStructObj.NormalRange; 
 
                     // This method is used to set the PWV distance method value to the corresponding GUI control.       
                     SetPwvDistanceMethod(pwvStructObj.PWVDistanceMethod);
@@ -359,16 +366,20 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     DirectoryInfo dirInfo = new DirectoryInfo(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SysSimFilePath));
                     fileList.AddRange(dirInfo.GetFiles().Select(file => Path.GetFileNameWithoutExtension(file.ToString().ToUpper())));
-
+                    RadListDataItem var;
                     if (fileList.Contains(value.ToUpper()))
                     {
-                        comboSimulationFiles.SelectedItem = value;
+                        var  = new RadListDataItem();
+                        var.Value = value;
+                        var.Text = value;
+                        comboSimulationFiles.SelectedValue = value;
+
                         return;
                     }
 
                     if (fileList.Contains(FileDefault))
-                    {
-                        comboSimulationFiles.SelectedItem = FileDefault;
+                    {                       
+                        comboSimulationFiles.SelectedValue = FileDefault;
                         return;
                     }
                     else
@@ -401,7 +412,10 @@ namespace AtCor.Scor.Gui.Presentation
                 return;
             }
 
-            comboDefaultReport.SelectedItem = defaultReport;   
+            RadListDataItem var = new RadListDataItem();
+            var.Value = defaultReport;
+            var.Text = defaultReport;
+            comboDefaultReport.SelectedValue = defaultReport;
         }
 
         /**This method is used to set the height weight units value to the corresponding GUI control.
@@ -444,15 +458,19 @@ namespace AtCor.Scor.Gui.Presentation
         /**This method is used to set the comm port value to the corresponding GUI control.
         */ 
         private void SetCommPort(string value)
-        {
-            if (value == null || !comboBoxCommsPort.Items.Contains(value))
+        {           
+            // if (value == null || !comboBoxCommsPort.Items.Equals(value))
+            // {
+            //    return;
+            // }           
+            if (value == null)
             {
+                // Display a list of search values.
+                SearchPorts();
                 return;
             }
 
-            comboBoxCommsPort.Items.Remove(value);
-            comboBoxCommsPort.Items.Insert(0, value);
-            comboBoxCommsPort.SelectedIndex = 0;
+            comboBoxCommsPort.SelectedValue = value;   
         }
 
         /**This method is used to set the report title value to the corresponding GUI control.
@@ -606,15 +624,24 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
+                RadListDataItem commPort;
+              
+                comboBoxCommsPort.Items.Clear();
                 string[] ports = SerialPort.GetPortNames();
 
                 // Append the port into the comboBox.                 
                 foreach (string port in ports)
                 {
-                    comboBoxCommsPort.Items.Add(port);
+                    commPort = new RadListDataItem { Text = port, Value = port };
+                    comboBoxCommsPort.Items.Add(commPort);
                 }
 
-                comboBoxCommsPort.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ComportSimulation));
+                commPort = new RadListDataItem
+                               {
+                                   Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ComportSimulation),
+                                   Value = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ComportSimulation)
+                               };
+                comboBoxCommsPort.Items.Add(commPort);
                 comboBoxCommsPort.SelectedIndex = 0;
             }
             catch (Exception ex)
@@ -631,6 +658,7 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void PopulateSimulationType()
         {
+            RadListDataItem simulationType;
             try
             {
                 DirectoryInfo dirInfo = new DirectoryInfo(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SysSimFilePath));
@@ -638,7 +666,12 @@ namespace AtCor.Scor.Gui.Presentation
                 comboSimulationFiles.Items.Clear();
                 foreach (FileInfo file in dirInfo.GetFiles())
                 {
-                    comboSimulationFiles.Items.Add(Path.GetFileNameWithoutExtension(file.ToString()));
+                    simulationType = new RadListDataItem
+                                         {
+                                             Value = Path.GetFileNameWithoutExtension(file.ToString()),
+                                             Text = Path.GetFileNameWithoutExtension(file.ToString())
+                                         };
+                    comboSimulationFiles.Items.Add(simulationType);
                 }
 
                 if (dirInfo.GetFiles().Length.Equals(0))
@@ -661,11 +694,29 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void PopulateDefaultReportDropDown()
         {
+            RadListDataItem defaultReportType;
             try
             {
                 comboDefaultReport.Items.Clear();
-                comboDefaultReport.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSettingsPwvReport));
-                comboDefaultReport.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSettingsPwvPatientReport));
+
+                defaultReportType = new RadListDataItem
+                                        {
+                                            Value = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSettingsPwvReport),
+                                            Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSettingsPwvReport)
+                                        };
+                comboDefaultReport.Items.Add(defaultReportType);
+
+                defaultReportType = new RadListDataItem
+                                        {
+                                            Value =
+                                                oMsgMgr.GetMessage(
+                                                    CrxStructCommonResourceMsg.GuiSettingsPwvPatientReport),
+                                            Text =
+                                                oMsgMgr.GetMessage(
+                                                    CrxStructCommonResourceMsg.GuiSettingsPwvPatientReport)
+                                        };
+                comboDefaultReport.Items.Add(defaultReportType);
+
                 comboDefaultReport.SelectedIndex = 0;
             }
             catch (Exception ex)
@@ -820,6 +871,11 @@ namespace AtCor.Scor.Gui.Presentation
                     pwvSettingsStruct.ReferenceRange = true;
                 }
 
+                if (radchkNormalRange != null && radchkNormalRange.Checked)
+                {
+                    pwvSettingsStruct.NormalRange = true;
+                }
+
                 pwvSettingsStruct.PWVDistanceMethod = 0;
                 if (radDirect.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
                 {
@@ -959,8 +1015,8 @@ namespace AtCor.Scor.Gui.Presentation
         /**Enable save button when user selects a value from the drop down list
         */ 
         private void comboSimulationFiles_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            if (comboSimulationFiles.GetItemText(comboSimulationFiles.SelectedItem).Length.Equals(0))
+        {            
+             if (comboSimulationFiles.SelectedItem.Equals(0))
             {
                 RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSelectSimulationFile), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.OK, RadMessageIcon.Error);
             }
@@ -973,6 +1029,79 @@ namespace AtCor.Scor.Gui.Presentation
         /**Enable save button when user selects a value from the drop down list
        */ 
         private void comboDefaultReport_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            radbtnSave.Enabled = true;
+        }
+
+        /**This method is used to round the text boxes and the label controls on the Settings screen.
+        */
+        private void SetShape(params Control[] labelControl)
+        {
+            RoundRectShape shape = new RoundRectShape();
+            shape.BottomLeftRounded = true;
+            shape.BottomRightRounded = true;
+            shape.TopLeftRounded = true;
+            shape.TopRightRounded = true;
+            shape.Radius = 5;
+
+            foreach (Control control in labelControl)
+            {
+                RadLabel label = control as RadLabel;
+                if (label != null)
+                {
+                    label.RootElement.BackColor = Color.Transparent;
+                    ((FillPrimitive)label.LabelElement.Children[0]).NumberOfColors = 1;
+                    ((FillPrimitive)label.LabelElement.Children[0]).BackColor = Color.FromArgb(172, 177, 204);
+
+                    // ((FillPrimitive)label.LabelElement.Children[0]).BackColor = Color.FromArgb(255,255,255); 
+                    label.LabelElement.Shape = shape;
+                }
+
+                RadTextBox textBox = control as RadTextBox;
+                if (textBox != null)
+                {
+                   // textBox.TextBoxElement.BackColor = Color.FromArgb(172, 177, 204);
+                   // textBox.TextBoxElement.Fill.BackColor = Color.FromArgb(172, 177, 204);
+                    textBox.TextBoxElement.Border.Shape = shape;
+                    textBox.TextBoxElement.Fill.Shape = shape;
+                }
+
+                RadDropDownList dropDownlist = control as RadDropDownList;
+                if (dropDownlist != null)
+                {
+                    dropDownlist.DropDownListElement.Shape = shape;
+                    dropDownlist.DropDownListElement.EditableElement.Shape = shape;
+
+                    dropDownlist.DropDownListElement.ArrowButton.Shape = shape;
+                    dropDownlist.DropDownListElement.ArrowButton.Fill.NumberOfColors = 1;
+                    dropDownlist.DropDownListElement.ArrowButton.Fill.BackColor = Color.FromArgb(142, 150, 186);                    
+                    ((FillPrimitive)dropDownlist.DropDownListElement.Children[3]).BackColor = Color.FromArgb(142, 150, 186);
+                }
+            }
+        }
+
+        /**Enable save button when user selects a value from the drop down list
+        */ 
+        private void comboBoxCommsPort_SelectionChangeCommitted(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
+        {
+            radbtnSave.Enabled = true;
+        }
+
+        /**Enable save button when user selects a value from the drop down list
+               */ 
+        private void comboSimulationFiles_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
+        {
+            if ((comboSimulationFiles.SelectedItem).Equals(0))
+            {
+                RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSelectSimulationFile), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.OK, RadMessageIcon.Error);
+            }
+            else
+            {
+                radbtnSave.Enabled = true;
+            }
+        }
+
+        private void comboDefaultReport_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
             radbtnSave.Enabled = true;
         }

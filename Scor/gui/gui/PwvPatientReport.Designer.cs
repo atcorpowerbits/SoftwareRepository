@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.crysRptVwrPwvPatientReport = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
-            this.CryPwvReport1 = new gui.CryPwvReport();
-            //this.CrystalReport11 = new gui.CrystalReport1();
             this.CryPwvPatientReport1 = new gui.CryPwvPatientReport();
+            this.CryPwvReport1 = new gui.CryPwvReport();
+            this.CryPwvAnalysis1 = new gui.CryPwvAnalysis();
             this.SuspendLayout();
             // 
             // crysRptVwrPwvPatientReport
@@ -43,13 +43,9 @@
             this.crysRptVwrPwvPatientReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crysRptVwrPwvPatientReport.Location = new System.Drawing.Point(0, 0);
             this.crysRptVwrPwvPatientReport.Name = "crysRptVwrPwvPatientReport";
-            this.crysRptVwrPwvPatientReport.ReportSource = this.CryPwvPatientReport1;
+            this.crysRptVwrPwvPatientReport.ReportSource = this.CryPwvAnalysis1;
             this.crysRptVwrPwvPatientReport.Size = new System.Drawing.Size(862, 490);
             this.crysRptVwrPwvPatientReport.TabIndex = 0;
-            // 
-            // CrystalReport11
-            // 
-            //this.CrystalReport11.InitReport += new System.EventHandler(this.CrystalReport11_InitReport);
             // 
             // PwvPatientReport
             // 
@@ -70,6 +66,7 @@
         //private gui.CrystalReport1 CrystalReport11;
         private gui.CryPwvReport CryPwvReport1;
         private gui.CryPwvPatientReport CryPwvPatientReport1;
+        private gui.CryPwvAnalysis CryPwvAnalysis1;
 
     }
 }

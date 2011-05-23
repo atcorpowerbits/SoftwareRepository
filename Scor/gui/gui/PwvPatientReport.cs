@@ -32,7 +32,8 @@ namespace AtCor.Scor.Gui.Presentation
    */
     public partial class PwvPatientReport : Form
     {
-        private ReportPreview objReportPreview;
+        private readonly ReportPreview objReportPreview;
+        private readonly AnaylsisPreview objAnalysisPreview;
 
         /**Parameterized Constructor, used to initialize the report object     
       */
@@ -40,6 +41,14 @@ namespace AtCor.Scor.Gui.Presentation
         {
             InitializeComponent();
             objReportPreview = obj;
+        }
+
+        /**Parameterized Constructor, used to initialize the report object     
+     */
+        public PwvPatientReport(AnaylsisPreview obj)
+        {
+            InitializeComponent();
+            objAnalysisPreview = obj;
         }
 
         /** This method converts image object to byte array
@@ -58,6 +67,8 @@ namespace AtCor.Scor.Gui.Presentation
             CrxConfigManager configMgr = CrxConfigManager.Instance;
             configMgr.GetGeneralUserSettings();
             string tempPrinter = configMgr.GeneralSettings.PrinterName;
+
+            CrxMessagingManager objMsg = CrxMessagingManager.Instance;
 
             if (PWVReportData.RptReportType.Equals(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiSettingsPwvPatientReport)))
             {
@@ -107,9 +118,7 @@ namespace AtCor.Scor.Gui.Presentation
                 catch (Exception)
                 {
                     crysRptVwrPwvPatientReport.Refresh();
-                }
-
-                CrxMessagingManager objMsg = CrxMessagingManager.Instance;
+                }                
 
                 CryPwvPatientReport1.SetParameterValue(GuiConstants.ReportTitle,  objMsg.GetMessage(CrxStructCommonResourceMsg.PrtPwvTextPatientReport));
                 CryPwvPatientReport1.SetParameterValue(GuiConstants.ProductName, objMsg.GetMessage(CrxStructCommonResourceMsg.PrtPwvTextScor));
@@ -160,7 +169,9 @@ namespace AtCor.Scor.Gui.Presentation
                 CryPwvPatientReport1.SetParameterValue(GuiConstants.AgeUpperLimit, BizConstants.MAXIMUM_REFERENCE_RANGE_AGE);
                 CryPwvPatientReport1.SetParameterValue(GuiConstants.AgeLowerLimit, BizConstants.MINIMUM_REFERENCE_RANGE_AGE);
                 CryPwvPatientReport1.SetParameterValue(GuiConstants.PWVPatientHeight, PWVPatientReportData.RptPatientHeight);
-                
+                CryPwvPatientReport1.SetParameterValue(GuiConstants.HealthyPopulation, PWVPatientReportData.RptHealthyPopulation);
+                CryPwvPatientReport1.SetParameterValue(GuiConstants.GeneralPopulation, PWVPatientReportData.RptGeneralPopulation);
+
                 crysRptVwrPwvPatientReport.ReportSource = CryPwvPatientReport1;
                 crysRptVwrPwvPatientReport.Refresh();
                 crysRptVwrPwvPatientReport.Hide();
@@ -172,11 +183,11 @@ namespace AtCor.Scor.Gui.Presentation
 
                 CryPwvPatientReport1.PrintToPrinter(1, false, 0, 0);   
             }
-            else
+            else if (PWVReportData.RptReportType.Equals(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiSettingsPwvReport)))
             {
                 // print PWV Report
                 try
-                {                    
+                {
                     DsPwvPatientReport dsPwvRpt = new DsPwvPatientReport();
 
                     DsPwvPatientReport.DataTable1DataTable dtPwvRpt = new DsPwvPatientReport.DataTable1DataTable();
@@ -234,7 +245,7 @@ namespace AtCor.Scor.Gui.Presentation
                 }
 
                 CryPwvReport1.SetParameterValue(GuiConstants.ReportHeader, PWVReportData.RptHeader);
-                CryPwvReport1.SetParameterValue(GuiConstants.ReportTitle, PWVReportData.RptTitle);
+                CryPwvReport1.SetParameterValue(GuiConstants.ReportTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.GuiPrintPwvRptTitle));
                 CryPwvReport1.SetParameterValue(GuiConstants.PatientData, PWVReportData.RptPatientData);
                 CryPwvReport1.SetParameterValue(GuiConstants.StudyData, PWVReportData.RptStudyData);
                 CryPwvReport1.SetParameterValue(GuiConstants.PatientNameTitle, PWVReportData.RptPatientName);
@@ -270,15 +281,75 @@ namespace AtCor.Scor.Gui.Presentation
                 CryPwvReport1.SetParameterValue(GuiConstants.PatientFemoral, PWVReportData.RptPatientFemoral);
                 CryPwvReport1.SetParameterValue(GuiConstants.AgeUpperLimit, BizConstants.MAXIMUM_REFERENCE_RANGE_AGE);
                 CryPwvReport1.SetParameterValue(GuiConstants.AgeLowerLimit, BizConstants.MINIMUM_REFERENCE_RANGE_AGE);
-                
+                CryPwvReport1.SetParameterValue(GuiConstants.HealthyPopulation, PWVReportData.RptHealthyPopulation);
+                CryPwvReport1.SetParameterValue(GuiConstants.GeneralPopulation, PWVReportData.RptGeneralPopulation);
+
                 crysRptVwrPwvPatientReport.ReportSource = CryPwvReport1;
                 crysRptVwrPwvPatientReport.Refresh();
                 crysRptVwrPwvPatientReport.Hide();
                 CryPwvReport1.PrintOptions.PrinterName = tempPrinter;
-                CryPwvReport1.PrintOptions.PaperOrientation = GuiCommon.IsLandScape == false ? PaperOrientation.Portrait : PaperOrientation.Landscape;        
+                CryPwvReport1.PrintOptions.PaperOrientation = GuiCommon.IsLandScape == false ? PaperOrientation.Portrait : PaperOrientation.Landscape;
 
                 CryPwvReport1.PrintOptions.PaperSize = PaperSize.PaperA4;
-                CryPwvReport1.PrintToPrinter(1, false, 0, 0);   
+                CryPwvReport1.PrintToPrinter(1, false, 0, 0);
+            }
+            else
+            {
+                try
+                {
+                    DsPwvPatientReport dsPwvAnalysis = new DsPwvPatientReport();
+
+                    DsPwvPatientReport.DataTable2DataTable dtPwvAnlys = new DsPwvPatientReport.DataTable2DataTable();
+                   
+                    // object of data row 
+                    DataRow dr1 = dtPwvAnlys.NewRow();
+                    Image imgLogo;
+                    Image imgAnalysisChart;
+                    Image imgHeartRate;
+
+                    GetPwvAnalysisImages(out imgLogo, out imgAnalysisChart, out imgHeartRate);
+                    
+                    byte[] imgbyteLogo = ImageToByteArray(imgLogo);
+                    byte[] imgbyteAnalysis = ImageToByteArray(imgAnalysisChart);
+                    byte[] imgbyteHeartRate = ImageToByteArray(imgHeartRate);
+                    
+                    // add the column in table to store the image of Byte array type 
+                    dr1[0] = imgbyteHeartRate;
+                    dr1[1] = imgbyteAnalysis;
+                    dr1[2] = imgbyteLogo;
+                    dtPwvAnlys.Rows.Add(dr1);
+                    dsPwvAnalysis.Tables.Clear();
+                    dsPwvAnalysis.Tables.Add(dtPwvAnlys);
+                    dsPwvAnalysis.AcceptChanges();
+                    CryPwvAnalysis1.SetDataSource(dsPwvAnalysis);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.ReportHeader, PWVReportData.RptHeader);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.ReportTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.GuiPrintPwvAnalysisTitle));
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientData, PWVReportData.RptPatientData);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientNameTitle, PWVReportData.RptPatientName);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientNameValue, PWVReportData.RptPatientNameValue);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientIdTitle, PWVReportData.RptPatientId);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientIdValue, PWVReportData.RptPatientIdValue);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientDobTitle, PWVReportData.RptPatientDob);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientDobValue, PWVReportData.RptPatientDobValue);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientAgeTitle, PWVReportData.RptPatientAge);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientAgeValue, PWVReportData.RptPatientAgeValue);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientGenderTitle, PWVReportData.RptPatientGender);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientGenderValue, PWVReportData.RptPatientGenderValue);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.PWVTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.LblReportPwv));
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.HeartRateTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.LblReportHeartRate));
+                    crysRptVwrPwvPatientReport.ReportSource = CryPwvAnalysis1;
+                    crysRptVwrPwvPatientReport.Refresh();
+                    crysRptVwrPwvPatientReport.Hide();
+                    CryPwvAnalysis1.PrintOptions.PrinterName = tempPrinter;
+                    CryPwvAnalysis1.PrintOptions.PaperOrientation = GuiCommon.IsLandScape == false ? PaperOrientation.Portrait : PaperOrientation.Landscape;
+
+                    CryPwvAnalysis1.PrintOptions.PaperSize = PaperSize.PaperA4;
+                    CryPwvAnalysis1.PrintToPrinter(1, false, 0, 0);
+                }
+                catch (Exception)
+                {
+                    crysRptVwrPwvPatientReport.Refresh();
+                }
             }
 
             Close();
@@ -360,6 +431,35 @@ namespace AtCor.Scor.Gui.Presentation
             imgPWVctrl = new Bitmap(width, height);
             objReportPreview.guilblStdDeviationImage.DrawToBitmap(imgPWVctrl, rect);
             imgStdDeviation = imgPWVctrl;
+        }
+
+          /** This method creates images from the forms for charts and logo and returns the same
+        */
+        private void GetPwvAnalysisImages(out Image imgLogo, out Image imgPwvAnalysisChart, out Image imgHeartRate)
+        {
+            int width = objAnalysisPreview.guiPicBoxReportLogo.Width;
+            int height = objAnalysisPreview.guiPicBoxReportLogo.Height;
+            Point p = new Point(0, 0);
+            Rectangle rect = new Rectangle(p, objAnalysisPreview.guiPicBoxReportLogo.Size);
+            Bitmap imgPWVctrl = new Bitmap(width, height);
+            objAnalysisPreview.guiPicBoxReportLogo.DrawToBitmap(imgPWVctrl, rect);
+            imgLogo = imgPWVctrl;
+
+            width = objAnalysisPreview.guiradchartPulseWaveVelocity.Width;
+            height = objAnalysisPreview.guiradchartPulseWaveVelocity.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objAnalysisPreview.guiradchartPulseWaveVelocity.Size);
+            imgPWVctrl = new Bitmap(width, height);
+            objAnalysisPreview.guiradchartPulseWaveVelocity.DrawToBitmap(imgPWVctrl, rect);
+            imgPwvAnalysisChart = imgPWVctrl;
+
+            width = objAnalysisPreview.guiradchartHeartRate.Width;
+            height = objAnalysisPreview.guiradchartHeartRate.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objAnalysisPreview.guiradchartHeartRate.Size);
+            imgPWVctrl = new Bitmap(width, height);
+            objAnalysisPreview.guiradchartHeartRate.DrawToBitmap(imgPWVctrl, rect);
+            imgHeartRate = imgPWVctrl;
         }
     }
 }

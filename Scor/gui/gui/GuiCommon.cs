@@ -112,7 +112,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             if (crxMgrObject.GeneralSettings.ServerName == null)
             {
-                crxMgrObject.GeneralSettings.ServerName = ConfigurationManager.AppSettings["DefaultInstanceName"];
+                crxMgrObject.GeneralSettings.ServerName = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.DefaultInstanceName.ToString()];
             }
 
             string serverName = crxMgrObject.GeneralSettings.MachineName.Trim() + @"\" + crxMgrObject.GeneralSettings.ServerName.Trim();
@@ -217,6 +217,28 @@ namespace AtCor.Scor.Gui.Presentation
             }            
         }
 
+        public static void BindGroupNames(RadDropDownList cmbxGroup, CrxDBManager dbMagr)
+        {
+            // fetches group name and binds it
+            CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+
+            DataSet ds = dbMagr.GetGroupLists();
+
+            if (ds != null)
+            {
+                DataRow dr = ds.Tables[0].NewRow();
+                dr[(int)CrxDBGroupList.GroupName] = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps);
+                dr[(int)CrxDBGroupList.GroupIdentifier] = 0;
+
+                ds.Tables[0].Rows.InsertAt(dr, 0);
+
+                cmbxGroup.DataSource = ds.Tables[0];
+                cmbxGroup.DisplayMember = CrxDBGroupList.GroupName.ToString();
+
+                cmbxGroup.SelectedIndex = 0;
+            }
+        }
+
        /** This method restricts input values to integers only
         * */
         public static void CheckForNumericValues(object sender, KeyPressEventArgs e)
@@ -237,16 +259,19 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         public static void SetFontForControls(RadForm frm)
         {
-            Font font = new Font(GuiConstants.FontName, 8);
+            Font font = new Font(GuiConstants.FontName, 11);
             foreach (Control ctrl in frm.Controls)
             {
+                CrxLogger.Instance.Write(ctrl.Text);    
                 if (ctrl.Font.Size == font.Size)
                 {
+                    font = new Font(GuiConstants.FontName, 11);
                     ctrl.Font = font;
                 }
                 else
                 {
                     font = new Font(GuiConstants.FontName, ctrl.Font.Size);
+                    ctrl.Font = font;
                 }
             }
         }
@@ -332,6 +357,10 @@ namespace AtCor.Scor.Gui.Presentation
         public static string RptPatientFemoral { get; set; }
 
         public static string RptReportType { get; set; }
+
+        public static bool RptGeneralPopulation { get; set; }
+
+        public static bool RptHealthyPopulation { get; set; }
     }
 
     /**
@@ -367,5 +396,9 @@ namespace AtCor.Scor.Gui.Presentation
         public static string RptPatientBpRefRange { get; set; }
 
         public static string RptPatientHeight { get; set; }
+
+        public static bool RptGeneralPopulation { get; set; }
+
+        public static bool RptHealthyPopulation { get; set; }
     }
 }

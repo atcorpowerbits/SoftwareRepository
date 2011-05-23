@@ -14,6 +14,9 @@ using Telerik.WinControls;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.DatabaseManager;
 using AtCor.Scor.CrossCutting.Messaging;
+using Telerik.WinControls.UI;
+using Telerik.WinControls.Primitives;
+using System.Drawing;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -26,7 +29,7 @@ namespace AtCor.Scor.Gui.Presentation
     * @class Migrate
     * @brief This class is used to select groupnames from available groupname in current database to migrate patient records for selected group names
     */
-    public partial class Migrate : Telerik.WinControls.UI.RadForm
+    public partial class Migrate : RadForm
     {                     
         public static int IsMigrate = 0;
         
@@ -45,11 +48,14 @@ namespace AtCor.Scor.Gui.Presentation
         public Migrate()
         {
             InitializeComponent();
-            
+            GuiCommon.SetFontForControls(this);
             serverNameString = GuiCommon.ServerNameString(); 
 
             // Disable the close button of the window.
             FormElement.TitleBar.CloseButton.Enabled = false;
+
+            // GuiCommon.SetFontForControls(this);
+            SetShape(guicmbGroupNameList);           
         }
 
         /**This event is fired on the load of the form. Fetches group name from database
@@ -58,6 +64,32 @@ namespace AtCor.Scor.Gui.Presentation
         {
             SetText();
             LoadGroupNames();
+
+            // GuiCommon.SetFontForControls(this);
+        }
+
+        private void SetShape(params Control[] labelControl)
+        {
+            RoundRectShape shape = new RoundRectShape();
+            shape.BottomLeftRounded = true;
+            shape.BottomRightRounded = true;
+            shape.TopLeftRounded = true;
+            shape.TopRightRounded = true;
+            shape.Radius = 5;
+
+            foreach (Control control in labelControl)
+            {
+                RadDropDownList dropDownlist = control as RadDropDownList;
+                if (dropDownlist != null)
+                {
+                    dropDownlist.DropDownListElement.Shape = shape;
+                    dropDownlist.DropDownListElement.EditableElement.Shape = shape;
+                    dropDownlist.DropDownListElement.ArrowButton.Shape = shape;
+                    dropDownlist.DropDownListElement.ArrowButton.Fill.NumberOfColors = 1;
+                    dropDownlist.DropDownListElement.ArrowButton.Fill.BackColor = Color.FromArgb(142, 150, 186);                   
+                    ((FillPrimitive)dropDownlist.DropDownListElement.Children[3]).BackColor = Color.FromArgb(142, 150, 186);
+                }
+            }
         }
 
         void SetText()
@@ -98,7 +130,7 @@ namespace AtCor.Scor.Gui.Presentation
                 dbMagr = CrxDBManager.Instance;
                 if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
                 {
-                    GuiCommon.BindGroupNames(guicmbGroupNameList, dbMagr);                    
+                   GuiCommon.BindGroupNames(guicmbGroupNameList, dbMagr);
                 }
                 else
                 {

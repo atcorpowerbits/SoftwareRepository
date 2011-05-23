@@ -8,6 +8,7 @@
     Description  :      Launches setup screen on Application load.
 */
 using System;
+
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.DatabaseManager;
 using AtCor.Scor.CrossCutting.Messaging;
 using Telerik.WinControls.UI;
+using Telerik.WinControls.Primitives;
 using AtCor.Scor.BusinessLogic;
 using System.Configuration;
 using System.Globalization;
@@ -37,14 +39,6 @@ namespace AtCor.Scor.Gui.Presentation
         #region Global declarations
                 
         const int PatientMinChar = 14; // minimum characters required to display patient name on current lable width
-        const int LblPatientMinHeight = 22; // minimum height for labels to display patient name
-        const int LblPatientMaxHeight = 28; // maximum height for labels to display patient name with charaters > 14
-        const int LblPatientMinWidth = 100; // minimum width for labels to display patient name
-        const int LblPatientMaxWidth = 103; // maximum width for labels to display patient name with charaters > 14
-
-        const int LblMainPatientMinHeight = 25; // min height require to display patient name on bottom label
-        const int LblMainPatientMaxHeight = 40; // max height require to display patient name on bottom label for character > 14
-        const int LblMainPatientMinLength = 37; // variable to show minimum number of characters properly in bottom patient name label
         const int FemoralToCuffDefaultMmValue = 200; // default femoral to cuff value in mm
         const int FemoralToCuffDefaultCmValue = FemoralToCuffDefaultMmValue / 10; // convert default femoral to cuff value to cm
         const int PatientListHideValue = 20; // minimum splitter distance to hide patient list
@@ -98,7 +92,8 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {               
                 InitializeComponent();
-                GuiCommon.SetFontForControls(this);
+
+                // GuiCommon.SetFontForControls(this);
 
                 // subscribe for form changes
                 SubscribeSetupFormChanges();
@@ -122,6 +117,9 @@ namespace AtCor.Scor.Gui.Presentation
                 
                 // initialize servername string
                 serverNameString = GuiCommon.ServerNameString();
+                SetShape(guilblLastNameDisplay, guilblFirstnameDisplay, guilblPatientIdDisplay, guilblFirstnameDisplay);
+                SetShape(guiradtxtsetupheight, guiradtxtImperialHeight, guiradtxtWeight, guiradtxtOperator, guiradtxtMedication, guiradtxtSP, guiradtxtDP, guiradtxtCarotid, guiradtxtCuff, guiradtxtFemoralToCuff, guiradtxtPatientID, guiradtxtFirstName, guiradtxtLastName);
+                SetShape(guicmbDay, guicmbxMonth, guicmbxYear, guicmbxYear, guicmbxGender);
             }
             catch (Exception ex)
             {
@@ -149,8 +147,8 @@ namespace AtCor.Scor.Gui.Presentation
         /**This method sets text for labels in patient demographic details region
       */
         private void SetTextForSetupTab()
-        {
-            guiradlblPatient.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPateints);
+        {    // guiradlblPatient.Text is commented because according to new requirement label is not needed anymore
+            // guiradlblPatient.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPateints);
             guiradlblPatientId.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPatientId);
             guiradlblGroup.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblGroup);
             guiradlblFirstName.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblFirstName);
@@ -182,7 +180,7 @@ namespace AtCor.Scor.Gui.Presentation
             guiradbtnCancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCancel);
             guiradbtnSave.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnSave);
             guiradbtnDelete.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnDelete);
-            guiradlblSPUnits.Text = guiradlblDPUnits.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.UnitsPressureMmhg); 
+            guiradlblSPUnits.Text = guiradlblDPUnits.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.UnitsPressureMmhg);
         }
 
         /** This method sets tag property of textbox and labels for validating measurement details on setup screen.
@@ -190,9 +188,20 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void SetSetupTagForValidations()
         {
-            guiradlblCarotid.Tag = guiradtxtCarotid.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldDistanceCarotid);
-            guiradlblCuff.Tag = guiradtxtCuff.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldDistanceCuffOrDirect);
-            guiradlblFemoralToCuff.Tag = guiradtxtFemoralToCuff.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldDistanceFemoral);
+            if (crxMgrObject.PwvSettings.PWVDistanceMethod.Equals((int)CrxGenPwvValue.CrxPwvDistMethodSubtract))
+            {
+                guiradlblCuff.Tag = guiradtxtCuff.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemoralDistanceSternalNotchToFemoralCuff);
+                guiradlblCarotid.Tag = guiradtxtCarotid.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemoralDistanceCarotidToSternalCuff);
+            }
+
+            if (crxMgrObject.PwvSettings.PWVDistanceMethod.Equals((int)CrxGenPwvValue.CrxPwvDistMethodDirect))
+            {
+                guiradlblCuff.Tag = guiradtxtCuff.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemoralDistanceCarotidToFemoralCuff);   
+            }
+
+           // guiradlblCarotid.Tag = guiradtxtCarotid.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldDistanceCarotid);
+           // guiradlblCuff.Tag = guiradtxtCuff.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldDistanceCuffOrDirect);
+            guiradlblFemoralToCuff.Tag = guiradtxtFemoralToCuff.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemoralDistanceFemoraltoCuff);
             guiradlblDP.Tag = guiradtxtDP.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientDp);
             guiradlblSP.Tag = guiradtxtSP.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientSp);
             guilblHeight.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeight);
@@ -315,10 +324,26 @@ namespace AtCor.Scor.Gui.Presentation
         void FillGender()
         {
             guicmbxGender.Items.Clear();
-            guicmbxGender.Items.Insert(0, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps));
-            guicmbxGender.Items.Insert(1, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MaleTxt));
-            guicmbxGender.Items.Insert(2, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemaleTxt));
+            RadListDataItem genname = new RadListDataItem
+                                          {
+                                              Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps),
+                                              Value = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps)
+                                          };
 
+            RadListDataItem genmale = new RadListDataItem
+                                          {
+                                              Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MaleTxt),
+                                              Value = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MaleTxt)
+                                          };
+
+            RadListDataItem genfemale = new RadListDataItem
+                                            {
+                                                Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemaleTxt),
+                                                Value = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemaleTxt)
+                                            };
+            guicmbxGender.Items.Add(genname);
+            guicmbxGender.Items.Add(genmale);
+            guicmbxGender.Items.Add(genfemale);
             guicmbxGender.SelectedIndex = 0;            
         }
 
@@ -438,6 +463,9 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradgrdPatientList.Columns.Add(CrxDBGetPatientDetails.Gender.ToString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayGender), CrxDBGetPatientDetails.Gender.ToString());
                 guiradgrdPatientList.Columns[7].Width = 101;
 
+                guiradgrdPatientList.EnableAlternatingRowColor = true;
+                ((GridTableElement)this.guiradgrdPatientList.GridElement).AlternatingRowColor = Color.Gray;
+
                 // guiradgrdPatientList.Columns.Add(CrxDBGetPatientDetails.GroupName.ToString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayGroup), CrxDBGetPatientDetails.GroupName.ToString());
                 // guiradgrdPatientList.Columns[8].Width = 72;
                 guiradgrdPatientList.TableElement.EndUpdate();
@@ -467,7 +495,9 @@ namespace AtCor.Scor.Gui.Presentation
                     {
                         mode = CurrentMode.None;
                         guiradgrdPatientList.Enabled = true;
-                        guiradlblNumberOfPatients.Text = ds.Tables[0].Rows.Count.ToString();
+
+                        // guiradlblNumberOfPatients.Text is commented because according to new requirement label is not needed anymore
+                        // guiradlblNumberOfPatients.Text = ds.Tables[0].Rows.Count.ToString();
 
                         // Display last record details into the demographic fields.
                         GridViewRowInfo lastRow = guiradgrdPatientList.Rows[guiradgrdPatientList.Rows.Count - 1];
@@ -544,20 +574,13 @@ namespace AtCor.Scor.Gui.Presentation
                         originalgroupname = guicmbGroup.Text;
                         orgPatientIdExt = guiradtxtPatientID.Text;
                         guicmbxMonth.SelectedIndex = date.Month;
-                        guicmbxYear.SelectedItem = date.Year.ToString();
-                        guicmbDay.SelectedItem = date.Day.ToString();
-                        
-                        guicmbxGender.SelectedItem = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dsPatientDemographicDetails.Tables[0].Rows[0][(int)CrxDBGetPatientDetailsById.Gender].ToString().Trim().ToLower());
+                        guicmbxYear.SelectedValue = date.Year;                        
+                        guicmbDay.SelectedIndex = date.Day;
+
+                        guicmbxGender.SelectedValue = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(dsPatientDemographicDetails.Tables[0].Rows[0][(int)CrxDBGetPatientDetailsById.Gender].ToString().Trim().ToLower());
                                                
                         // display patients first & last name at bottom
-                        if (!string.IsNullOrEmpty(guiradtxtFirstName.Text.Trim()))
-                        {
-                            objDefaultWindow.radlblPatientName.Text = string.Format("{0} {1}", guiradtxtFirstName.Text.Trim(), guiradtxtLastName.Text.Trim());                                                      
-                        }
-                        else
-                        {
-                            objDefaultWindow.radlblPatientName.Text = guiradtxtLastName.Text.Trim();
-                        }
+                        objDefaultWindow.radlblPatientName.Text = !string.IsNullOrEmpty(guiradtxtFirstName.Text.Trim()) ? string.Format("{0} {1}", guiradtxtFirstName.Text.Trim(), guiradtxtLastName.Text.Trim()) : guiradtxtLastName.Text.Trim();
 
                         radlblpatientinternalnumber.Text = patientNumberInternal.ToString();
                         radlblgroupid.Text = groupId.ToString();
@@ -991,9 +1014,9 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 case (int)CrxGenPwvValue.CrxPwvDistMethodSubtract:
                     guiradlblPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SubtractingMethod);
-                    Image imageSubtracting = Image.FromFile(ConfigurationManager.AppSettings["SetupScreenSubtracting"].ToString());
+                    Image imageSubtracting = Image.FromFile(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.SetupScreenSubtracting.ToString()]);
                     picbxPwvDisMthdImage.Image = imageSubtracting;
-                    picbxPwvDisMthdImage.ImageLocation = ConfigurationManager.AppSettings["SetupScreenSubtracting"].ToString();
+                    picbxPwvDisMthdImage.ImageLocation = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.SetupScreenSubtracting.ToString()];
                     picbxPwvDisMthdImage.Height = imageSubtracting.Height;
                     picbxPwvDisMthdImage.Width = imageSubtracting.Width;
 
@@ -1013,9 +1036,9 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // direct method.
                     guiradlblPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.DirectMethod);
-                    Image imageDirect = Image.FromFile(ConfigurationManager.AppSettings["SetupScreenDirect"].ToString());
+                    Image imageDirect = Image.FromFile(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.SetupScreenDirect.ToString()]);
                     picbxPwvDisMthdImage.Image = imageDirect;
-                    picbxPwvDisMthdImage.ImageLocation = ConfigurationManager.AppSettings["SetupScreenDirect"].ToString();
+                    picbxPwvDisMthdImage.ImageLocation = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.SetupScreenDirect.ToString()];
                     picbxPwvDisMthdImage.Height = imageDirect.Height;
                     picbxPwvDisMthdImage.Width = imageDirect.Width;
 
@@ -1270,23 +1293,41 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 // list of Month to be fetched from resource file.Need to decide which resource file.
-                if (!guicmbxMonth.Items.Contains(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Month)))
-                {
-                    guicmbxMonth.Items.Insert(0, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Month));
+                if (!guicmbxMonth.Items.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Month)))
+                {                    
+                    guicmbxMonth.Items.Clear();
+                    guicmbxMonth.SelectedIndex = 0;
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Month));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthJan));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthFeb));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthMar));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthApr));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthMay));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthJun));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthJul));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthAug));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthSep));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthOct));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthNov));
+                    guicmbxMonth.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthDec));
+                    guicmbxMonth.SelectedIndex = 0;                                     
                 }
 
-                guicmbxMonth.SelectedIndex = 0;
-                                
+                guicmbxYear.Items.Clear();                
+
+                if (!guicmbxYear.Items.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Year)))
+                {
+                    guicmbxYear.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Year));                    
+                }
+
+                RadListDataItem yr;
+
                 // reads min year from app.config and binds the drop down
-                for (int year = int.Parse(ConfigurationManager.AppSettings["MinYearForDOB"]); year <= DateTime.Now.Year; year++)
+                for (int year = int.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.MinYearForDob.ToString()]); year <= DateTime.Now.Year; year++)
                 {
-                    guicmbxYear.Items.Add(year.ToString());
-                }
+                    yr = new RadListDataItem { Text = year.ToString(), Value = year };
 
-                if (!guicmbxYear.Items.Contains(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Year)))
-                {
-                    guicmbxYear.Items.Insert(0, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Year));
-                    guicmbxYear.SelectedIndex = 0;
+                    guicmbxYear.Items.Add(yr);
                 }
             }
             catch (Exception ex)
@@ -1318,13 +1359,13 @@ namespace AtCor.Scor.Gui.Presentation
                     lastDay = 31;
                 }
 
+                guicmbDay.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Day));
+
                 // Fill day dropdown.
                 for (int day = 1; day <= lastDay; day++)
                 {
                     guicmbDay.Items.Add(day.ToString());
-                }
-
-                guicmbDay.Items.Insert(0, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Day));
+                }              
 
                 // in case last day is less than previous selected value in combo box, set selected index to last day
                 guicmbDay.SelectedIndex = selectedvaue > lastDay ? lastDay : selectedvaue;
@@ -1333,37 +1374,15 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GUIExceptionHandler.HandleException(ex, this);
             }
-        }
-
-        /**This event is fired when the combox value of the month is changed.
-          */
-        private void guicmbxMonth_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                BindDaysForMonthSelected();
-
-                // to fetch records in search mode
-                if (!IsFieldsBlank(true) && mode == CurrentMode.SearchMode)
-                {
-                    GetSearchResults();
-                }
-
-                guilblMonth.Text = guicmbxMonth.Text;
-            }
-            catch (Exception ex)
-            {
-                GUIExceptionHandler.HandleException(ex, this);
-            }
-        }
+        }      
 
         /** This method Bind days for month as per month selected in drop down
          * */
         private void BindDaysForMonthSelected()
         {
             // fetches days for a month according to month selected
-            DaysInMonth methodName = guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase) ? DaysInMonth.LeapYear : (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.AprCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.JunCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SepCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.NovCondition), StringComparison.CurrentCultureIgnoreCase)) ? DaysInMonth.Days30 : DaysInMonth.Days31;
-
+            // DaysInMonth methodName = guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase) ? DaysInMonth.LeapYear : (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.AprCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.JunCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SepCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.NovCondition), StringComparison.CurrentCultureIgnoreCase)) ? DaysInMonth.Days30 : DaysInMonth.Days31;
+            DaysInMonth methodName = (guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase) ? DaysInMonth.LeapYear : ((guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.AprCondition), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.JunCondition), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SepCondition), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.NovCondition), StringComparison.CurrentCultureIgnoreCase)) ? DaysInMonth.Days30 : DaysInMonth.Days31;
             switch (methodName)
             {
                 case DaysInMonth.LeapYear:
@@ -1378,33 +1397,7 @@ namespace AtCor.Scor.Gui.Presentation
                 default:
                     break;
             }
-        }
-
-        /**This event is fired when the combox value of the year is changed.
-        */
-        private void guicmbxYear_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                // binds number of days for feb month according to year selected
-                if (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase))
-                {
-                    FillDayLeapYear();
-                }
-
-                // to fetch records in search mode
-                if (!IsFieldsBlank(true) && mode == CurrentMode.SearchMode)
-                {
-                    GetSearchResults();
-                }
-
-                guilblYear.Text = guicmbxYear.Text;
-            }
-            catch (Exception ex)
-            {
-                GUIExceptionHandler.HandleException(ex, this);
-            }
-        }
+        }      
 
         /** This method is called to check if a year is leap year,if so accordingly the combobox values for the Months and Day are changed.
         */
@@ -1415,7 +1408,8 @@ namespace AtCor.Scor.Gui.Presentation
                 // checks if year selected is leap year and calls fillday method to bind days
                 if (guicmbxYear.SelectedIndex > 0)
                 {
-                    FillDay(DateTime.IsLeapYear(int.Parse(guicmbxYear.GetItemText(guicmbxYear.SelectedItem))) ? 29 : 28);
+                   // FillDay(DateTime.IsLeapYear(int.Parse(guicmbxYear.GetItemText(guicmbxYear.SelectedItem))) ? 29 : 28);
+                    FillDay(DateTime.IsLeapYear(guicmbxYear.SelectedIndex) ? 29 : 28);
                 }
                 else
                 {
@@ -1479,9 +1473,10 @@ namespace AtCor.Scor.Gui.Presentation
             isSearchOn = false;
             guiradtxtPatientID.Focus();
 
-            // brings the screen to input mode          
-            if (int.Parse(guiradlblNumberOfPatients.Text.Trim()) != 0)
-            {
+            // brings the screen to input mode
+            // guiradlblNumberOfPatients.Text is commented because according to new requirement label is not needed anymore
+            // if (int.Parse(guiradlblNumberOfPatients.Text.Trim()) != 0)
+           // {
                 mode = CurrentMode.EditMode;
                 BrowseMode(false);
                 objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.EditMode);
@@ -1492,11 +1487,12 @@ namespace AtCor.Scor.Gui.Presentation
                 // disable capture & report tab in edit mode
                 objDefaultWindow.radtabReport.Enabled = false;
                 objDefaultWindow.radtabCapture.Enabled = false;
-            }
-            else
-            {
-                RadMessageBox.Show(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.NoRecordsToEdit), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Message), MessageBoxButtons.OK);
-            }
+
+            // }
+            // else
+            // {
+            //    RadMessageBox.Show(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.NoRecordsToEdit), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Message), MessageBoxButtons.OK);
+            // }
         }
 
         /** This method is called when a user selects a record from the patient list and clicks on Delete button. The user is asked for the confirmation whether he wants to delete the record.If yes the record is deleted from the database.
@@ -1508,8 +1504,9 @@ namespace AtCor.Scor.Gui.Presentation
                 isSearchOn = false;
 
                 // deletes patient from database for patient with 1 relation in patient group relation, else deletes relation of patient with that group from patient group relation table
-                if (int.Parse(guiradlblNumberOfPatients.Text.Trim()) != 0)
-                {
+                // guiradlblNumberOfPatients.Text is commented because according to new requirement label is not needed anymore
+                // if (int.Parse(guiradlblNumberOfPatients.Text.Trim()) != 0)
+                // {
                     CrxStructPatientDemographicData patientDemographicData = new CrxStructPatientDemographicData();
                     
                     GridViewRowInfo row = guiradgrdPatientList.CurrentRow;
@@ -1541,11 +1538,11 @@ namespace AtCor.Scor.Gui.Presentation
                             }
                         }
                     }
-                }
-                else
-                {
-                    RadMessageBox.Show(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.NoRecordsToDelete), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Message), MessageBoxButtons.OK);
-                }
+                
+                // else
+                // {
+                //    RadMessageBox.Show(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.NoRecordsToDelete), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Message), MessageBoxButtons.OK);
+                // }
             }
             catch (Exception ex)
             {
@@ -1743,7 +1740,9 @@ namespace AtCor.Scor.Gui.Presentation
                 // get date of birth value
                 if (guicmbDay.SelectedIndex > 0 && guicmbxMonth.SelectedIndex > 0 && guicmbxYear.SelectedIndex > 0)
                 {
-                    dob = string.Format("{0}/{1}/{2}", guicmbxMonth.GetItemText(guicmbDay.SelectedItem), guicmbDay.GetItemText(guicmbxMonth.SelectedItem), guicmbxYear.GetItemText(guicmbxYear.SelectedItem));
+                    // dob = string.Format("{0}/{1}/{2}", guicmbxMonth.GetItemText(guicmbDay.SelectedItem), guicmbDay.GetItemText(guicmbxMonth.SelectedItem), guicmbxYear.GetItemText(guicmbxYear.SelectedItem));
+                   //  dob = string.Format("{0}/{1}/{2}", guicmbxMonth.GetItemText(guicmbDay.SelectedItem), guicmbxMonth.SelectedItem, guicmbxYear.GetItemText(guicmbxYear.SelectedItem));
+                    dob = string.Format("{0}/{1}/{2}", guicmbDay.SelectedItem, guicmbxMonth.SelectedItem, guicmbxYear.SelectedItem);
                 }
 
                 // get selected item from gender drop down
@@ -1753,7 +1752,7 @@ namespace AtCor.Scor.Gui.Presentation
                 }
                 else if (guicmbxGender.SelectedIndex > 0)
                 {
-                    gender = guicmbxGender.GetItemText(guicmbxGender.SelectedItem.ToString().Trim());
+                    gender = guicmbxGender.SelectedItem.ToString().Trim();
                 }
 
                 // if (!guicmbGroup.Text.ToLower().Contains(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectSmall)))
@@ -1802,26 +1801,10 @@ namespace AtCor.Scor.Gui.Presentation
             if (!IsFieldsBlank(false) && mode == CurrentMode.SearchMode)
             {
                 GetSearchResults();
-            }            
+            }
 
             guilblFirstnameDisplay.Text = guiradtxtFirstName.Text;                                       
-        }
-
-        /** This method sets adjust height & width of labels for larger patient names
-         * */
-        private void SetLargeHeightWidth(RadLabel lblCtrl)
-        {
-            lblCtrl.Width = LblPatientMaxWidth;
-            lblCtrl.Height = LblPatientMaxHeight;
-        }
-
-        /** This method sets adjust height & width of labels for smaller patient names
-        * */
-        private void SetSmallHeightWidth(RadLabel lblCtrl)
-        {
-            lblCtrl.Width = LblPatientMinWidth;
-            lblCtrl.Height = LblPatientMinHeight;
-        }
+        }      
 
         /** This event is fired on the text changed of the LastName field.
         */
@@ -1832,71 +1815,8 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GetSearchResults();
             }
-
-            // Checks the total number of characters in Patient's last name   
-            // and accordingly set the height of textbox to display name properly
-            if (guiradtxtLastName.Text.Length > PatientMinChar)
-            {
-                SetLargeHeightWidth(guilblLastNameDisplay);
-                guilblLastNameDisplay.Text = guiradtxtLastName.Text;
-            }
-            else
-            {
-                SetSmallHeightWidth(guilblLastNameDisplay);               
-                guilblLastNameDisplay.Text = guiradtxtLastName.Text;
-            }
-        }
-
-        /** This event is fired on the selectionchanged of the Group combobox.
-        */
-
-        // private void guicmbGroup_SelectedIndexChanged(object sender, EventArgs e)
-        // {
-        //    // gets patient records based on inputs given for group name (when selected from drop down)
-        //    if (!IsFieldsBlank(false) && mode == CurrentMode.SearchMode)
-        //    {
-        //        GetSearchResults();
-        //    }
-        // }
-
-        /** This event is fired on the text changed of the Group combobox.
-          */
-
-        // private void guicmbGroup_TextChanged(object sender, EventArgs e)
-        // {
-        //    // gets patient records based on inputs given for group name (when text changes)
-        //    if (!IsFieldsBlank(false) && mode == CurrentMode.SearchMode)
-        //    {
-        //        GetSearchResults();
-        //    }
-
-        // guilblGroup.Text = guicmbGroup.Text;
-        // }
-
-        /** This event is fired on the selectionchanged of the Gender combobox.
-         */
-        private void guicmbxGender_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // gets patient records based on inputs given for gender
-            if (!IsFieldsBlank(true) && mode == CurrentMode.SearchMode)
-            {
-                GetSearchResults();
-            }
-             
-            guilblGender.Text = guicmbxGender.Text;
-        }
-
-        /** This event is fired on the selectionchanged of the Day(of DOB) combobox.
-         */
-        private void guicmbDay_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // gets patient records based on inputs given for day drop down (only if month & year values are selected)
-            if (!IsFieldsBlank(true) && mode == CurrentMode.SearchMode)
-            {
-                GetSearchResults();
-            }
-
-            guilblDay.Text = guicmbDay.Text;
+           
+            guilblLastNameDisplay.Text = guiradtxtLastName.Text;            
         }
 
         /** This method is used to check if a field is blank or no while fetching search results.
@@ -2137,29 +2057,6 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        /** This event fires when enable property of guicmbGroup combo box changes
-        */
-
-        // private void guicmbGroup_EnabledChanged(object sender, EventArgs e)
-        // {
-        //    if (guicmbGroup.Enabled)
-        //    {
-        //        // make group combo box visible and labels invisible
-        //        guicmbGroup.Visible = true;
-        //        guicmbGroup.BringToFront();
-        //        guilblGroup.Visible = false;
-        //        guilblGroup.SendToBack();
-        //    }
-        //    else
-        //    {
-        //        // make group combo box invisible and labels visible
-        //        guicmbGroup.Visible = false;
-        //        guicmbGroup.SendToBack();
-        //        guilblGroup.Visible = true;
-        //        guilblGroup.BringToFront();
-        //    }
-        // }
-
         /** This event fires when enable property of guicmbday combo box changes
         */
         private void guicmbDay_EnabledChanged(object sender, EventArgs e)
@@ -2181,51 +2078,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblDay.BringToFront();
             }
         }
-
-        /** This event fires when enable property of guicmbmonth combo box changes
-        */
-        private void guicmbxMonth_EnabledChanged(object sender, EventArgs e)
-        {
-            if (guicmbxMonth.Enabled)
-            {
-                // makes combo box visible and labels invisible
-                guicmbxMonth.Visible = true;
-                guicmbxMonth.BringToFront();
-                guilblMonth.Visible = false;
-                guilblMonth.SendToBack();
-            }
-            else
-            {
-                // makes combo box invisible and labels visible
-                guicmbxMonth.Visible = false;
-                guicmbxMonth.SendToBack();
-                guilblMonth.Visible = true;
-                guilblMonth.BringToFront();
-            }
-        }
-
-        /** This event fires when enable property of guicmbYear combo box changes
-        */
-        private void guicmbxYear_EnabledChanged(object sender, EventArgs e)
-        {
-            if (guicmbxYear.Enabled)
-            {
-                // makes combo box visible and labels invisible
-                guicmbxYear.Visible = true;
-                guicmbxYear.BringToFront();
-                guilblYear.Visible = false;
-                guilblYear.SendToBack();
-            }
-            else
-            {
-                // makes combo box invisible and labels visible
-                guicmbxYear.Visible = false;
-                guicmbxYear.SendToBack();
-                guilblYear.Visible = true;
-                guilblYear.BringToFront();
-            }
-        }
-
+     
         /** This event fires when enable property of guicmbxGender combo box changes
         */
         private void guicmbxGender_EnabledChanged(object sender, EventArgs e)
@@ -2645,6 +2498,215 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradtxtFemoralToCuff.Text = (int.Parse(guiradtxtFemoralToCuff.Text) / GuiConstants.DivisionFactor).ToString();
                 guiradlblResult.Text = (int.Parse(guiradlblResult.Text) / GuiConstants.DivisionFactor).ToString();
             }
+        }
+
+        private void SetShape(params Control[] labelControl)
+        {
+            RoundRectShape shape = new RoundRectShape();
+            shape.BottomLeftRounded = true;
+            shape.BottomRightRounded = true;
+            shape.TopLeftRounded = true;
+            shape.TopRightRounded = true;
+            shape.Radius = 5;
+
+            foreach (Control control in labelControl)
+            {
+                RadLabel label = control as RadLabel;
+                if (label != null)
+                {
+                    // label.RootElement.BackColor = Color.Transparent;
+                     ((FillPrimitive)label.LabelElement.Children[0]).NumberOfColors = 1;
+                    label.LabelElement.Shape = shape;
+                }
+
+                RadTextBox textBox = control as RadTextBox;
+                if (textBox != null)
+                {
+                    textBox.TextBoxElement.Border.Shape = shape;
+                    textBox.TextBoxElement.Fill.Shape = shape;
+                }
+               
+                RadDropDownList dropDownlist = control as RadDropDownList;
+                if (dropDownlist != null)
+                {
+                    dropDownlist.DropDownListElement.Shape = shape;
+                    dropDownlist.DropDownListElement.EditableElement.Shape = shape;
+
+                    dropDownlist.DropDownListElement.ArrowButton.Shape = shape;
+                    dropDownlist.DropDownListElement.ArrowButton.Fill.NumberOfColors = 1;
+                    dropDownlist.DropDownListElement.ArrowButton.Fill.BackColor = Color.FromArgb(142, 150, 186);                    
+                    ((FillPrimitive)dropDownlist.DropDownListElement.Children[3]).BackColor = Color.FromArgb(142, 150, 186);
+                }
+            }
+        }
+
+        /** To change the color of selected row.
+        */
+        private void guiradgrdPatientList_RowFormatting(object sender, RowFormattingEventArgs e)
+        {            
+            GridRowElement row = e.RowElement as GridRowElement;
+            if (row != null)
+            {
+                if (row.IsCurrent)
+                {
+                    // row fill
+                    row.DrawFill = true;
+                    row.GradientStyle = GradientStyles.Solid;
+                    
+                    row.BackColor = Color.FromArgb(172, 177, 204);
+
+                    // row border
+                    row.DrawBorder = true;
+                    row.BorderBoxStyle = BorderBoxStyle.SingleBorder;                    
+                    row.BorderColor = Color.Red;                    
+                }
+                else
+                {
+                    row.ResetValue(LightVisualElement.DrawFillProperty, ValueResetFlags.Local);
+                    row.ResetValue(LightVisualElement.GradientStyleProperty, ValueResetFlags.Local);
+                    row.ResetValue(LightVisualElement.BackColorProperty, ValueResetFlags.Local);
+                    row.ResetValue(LightVisualElement.DrawBorderProperty, ValueResetFlags.Local);
+                    row.ResetValue(LightVisualElement.BorderBoxStyleProperty, ValueResetFlags.Local);
+                    row.ResetValue(LightVisualElement.BorderColorProperty, ValueResetFlags.Local);
+                }
+            }
+        }
+
+        private void guiradgrdPatientList_CellFormatting(object sender, CellFormattingEventArgs e)
+        {
+            GridDataCellElement cell = e.CellElement as GridDataCellElement;
+            if (cell != null)
+            {
+                if (cell.IsCurrent)
+                {
+                    // cell fill
+                    cell.DrawFill = true;
+                    cell.GradientStyle = GradientStyles.Solid;                    
+                    cell.BackColor = Color.FromArgb(172, 177, 204);
+
+                    // cell border
+                    cell.DrawBorder = true;
+                    cell.BorderBoxStyle = BorderBoxStyle.SingleBorder;
+                    cell.BorderColor = Color.FromArgb(95, 105, 154);
+                }
+                else
+                {
+                    cell.ResetValue(LightVisualElement.DrawFillProperty, ValueResetFlags.Local);
+                    cell.ResetValue(LightVisualElement.GradientStyleProperty, ValueResetFlags.Local);
+                    cell.ResetValue(LightVisualElement.BackColorProperty, ValueResetFlags.Local);
+
+                    cell.ResetValue(LightVisualElement.DrawBorderProperty, ValueResetFlags.Local);
+                    cell.ResetValue(LightVisualElement.BorderBoxStyleProperty, ValueResetFlags.Local);
+                    cell.ResetValue(LightVisualElement.BorderColorProperty, ValueResetFlags.Local);
+                }
+            }
+        }
+
+        private void guicmbDay_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
+        {
+            // gets patient records based on inputs given for day drop down (only if month & year values are selected)
+            if (!IsFieldsBlank(true) && mode == CurrentMode.SearchMode)
+            {
+                GetSearchResults();
+            }
+
+            guilblDay.Text = guicmbDay.Text;
+        }
+
+        private void guicmbxMonth_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
+        {
+            try
+            {
+                BindDaysForMonthSelected();
+
+                // to fetch records in search mode
+                if (!IsFieldsBlank(true) && mode == CurrentMode.SearchMode)
+                {
+                    GetSearchResults();
+                }
+
+                guilblMonth.Text = guicmbxMonth.Text;
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        private void guicmbxYear_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
+        {
+            try
+            {
+                // binds number of days for feb month according to year selected
+                // if (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase))
+                if ((guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase))
+                {
+                    FillDayLeapYear();
+                }
+
+                // to fetch records in search mode
+                if (!IsFieldsBlank(true) && mode == CurrentMode.SearchMode)
+                {
+                    GetSearchResults();
+                }
+
+                guilblYear.Text = guicmbxYear.Text;
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        private void guicmbxYear_EnabledChanged(object sender, EventArgs e)
+        {
+            if (guicmbxYear.Enabled)
+            {
+                // makes combo box visible and labels invisible
+                guicmbxYear.Visible = true;
+                guicmbxYear.BringToFront();
+                guilblYear.Visible = false;
+                guilblYear.SendToBack();
+            }
+            else
+            {
+                // makes combo box invisible and labels visible
+                guicmbxYear.Visible = false;
+                guicmbxYear.SendToBack();
+                guilblYear.Visible = true;
+                guilblYear.BringToFront();
+            }
+        }
+
+        private void guicmbxMonth_EnabledChanged(object sender, EventArgs e)
+        {
+            if (guicmbxMonth.Enabled)
+            {
+                // makes combo box visible and labels invisible
+                guicmbxMonth.Visible = true;
+                guicmbxMonth.BringToFront();
+                guilblMonth.Visible = false;
+                guilblMonth.SendToBack();
+            }
+            else
+            {
+                // makes combo box invisible and labels visible
+                guicmbxMonth.Visible = false;
+                guicmbxMonth.SendToBack();
+                guilblMonth.Visible = true;
+                guilblMonth.BringToFront();
+            }
+        }
+       
+        private void guicmbxGender_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
+        {
+            // gets patient records based on inputs given for gender
+                if (!IsFieldsBlank(true) && mode == CurrentMode.SearchMode)
+                {
+                    GetSearchResults();
+                }
+
+                guilblGender.Text = guicmbxGender.Text;
         }
     }
 }

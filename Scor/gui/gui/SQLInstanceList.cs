@@ -16,6 +16,10 @@ using System.Data.Sql;
 using System.Data;
 using System.Windows.Forms;
 using System;
+using Telerik.WinControls.UI;
+using System.Drawing;
+using Telerik.WinControls.Primitives;
+using Telerik.WinControls;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -29,7 +33,7 @@ namespace AtCor.Scor.Gui.Presentation
     * @brief This class is used to set show all the available SQL Server in a drop down list.
      *       On selection of one of the server the class checks for the authentication with the server.Once the authentication is done,the new server name is logged inot the config file.
     */
-    public partial class SQLInstanceList : Telerik.WinControls.UI.RadForm
+    public partial class SQLInstanceList : RadForm
     {
         public static int IsCancel;
         readonly CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
@@ -52,6 +56,7 @@ namespace AtCor.Scor.Gui.Presentation
             
             // Disable the close button of the window.
             FormElement.TitleBar.CloseButton.Enabled = false;
+            SetShape(guicmbxSqlServerList);
         }       
 
         protected override CreateParams CreateParams
@@ -91,6 +96,31 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GUIExceptionHandler.HandleException(ex, this);
             }            
+        }
+
+        private void SetShape(params Control[] labelControl)
+        {
+            RoundRectShape shape = new RoundRectShape();
+            shape.BottomLeftRounded = true;
+            shape.BottomRightRounded = true;
+            shape.TopLeftRounded = true;
+            shape.TopRightRounded = true;
+            shape.Radius = 5;
+                            
+            foreach (Control control in labelControl)
+            {
+                RadDropDownList dropDownlist = control as RadDropDownList;
+                if (dropDownlist != null)
+                {
+                    dropDownlist.DropDownListElement.Shape = shape;
+                    dropDownlist.DropDownListElement.EditableElement.Shape = shape;
+
+                    dropDownlist.DropDownListElement.ArrowButton.Shape = shape;
+                    dropDownlist.DropDownListElement.ArrowButton.Fill.NumberOfColors = 1;
+                    dropDownlist.DropDownListElement.ArrowButton.Fill.BackColor = Color.FromArgb(142, 150, 186);
+                    ((FillPrimitive)dropDownlist.DropDownListElement.Children[3]).BackColor = Color.FromArgb(142, 150, 186);
+                }
+            }        
         }
 
         /**This event is fired when the cancel button is clicked.It will close the application.

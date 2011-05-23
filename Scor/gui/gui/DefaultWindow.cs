@@ -13,7 +13,7 @@ using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.Logging;
 using AtCor.Scor.CrossCutting.DatabaseManager;  
 using AtCor.Scor.CrossCutting.Messaging;
-using System.Configuration;
+using System.Configuration;  
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
@@ -109,7 +109,9 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 // On application launch check if the resource file exists.
                 CheckForResourceFile();
-
+               
+                CrxEventContainer.Instance.OnShowStatusEvent += GUIExceptionHandler.ShowStatusMessage;
+              
                 isDirectClose = false;
 
                 // Logic to check multiple instances of the application.                 
@@ -133,24 +135,8 @@ namespace AtCor.Scor.Gui.Presentation
                 
                 // check if startup screen is set in config file
                 crxMgrObject.GetGeneralUserSettings();
-                crxMgrObject.GetPwvUserSettings();
-                if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.StartupScreen))
-                {
-                    ExitApplication();
-                }
-                              
-                if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.MachineName))
-                {
-                    crxMgrObject.GeneralSettings.MachineName = SystemInformation.ComputerName;
-                    CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerChangedToLocal));
-                }
-               
-                if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.SourceData))
-                {
-                    crxMgrObject.GeneralSettings.SourceData = GuiConstants.SourceData;
-                    CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerChangedToDefault));
-                }
-              
+                crxMgrObject.GetPwvUserSettings();                
+                CheckMachineNameOnStartUp();
                 serverNameString = GuiCommon.ServerNameString();
 
                 dbMagr = CrxDBManager.Instance;
@@ -385,8 +371,9 @@ namespace AtCor.Scor.Gui.Presentation
         {  
             try
             {
-                EnableMenuBarControls(); 
-                
+                EnableMenuBarControls();
+                CheckAnnualCalibration();
+
                 // check if we can access the configuration file by reading general setting from config manager object.   
                 CrxConfigManager oConfigMgr = CrxConfigManager.Instance;
                 oConfigMgr.GetGeneralUserSettings();              
@@ -567,9 +554,9 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                if (File.Exists(ConfigurationManager.AppSettings["OperatorGuidePath"].Replace("{culture}", Program.GetCurrentCulture())))
+                if (File.Exists(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.OperatorGuidePath.ToString()].Replace("{culture}", Program.GetCurrentCulture())))
                 {
-                    Process.Start(Path.GetFullPath(ConfigurationManager.AppSettings["OperatorGuidePath"].Replace("{culture}", Program.GetCurrentCulture())));
+                    Process.Start(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.OperatorGuidePath.ToString()].Replace("{culture}", Program.GetCurrentCulture())));
                 }
                 else
                 {
@@ -588,9 +575,9 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                if (File.Exists(ConfigurationManager.AppSettings["ServiceManualPath"].Replace("{culture}", Program.GetCurrentCulture())))
+                if (File.Exists(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.ServiceManualPath.ToString()].Replace("{culture}", Program.GetCurrentCulture())))
                 {
-                  Process.Start(Path.GetFullPath(ConfigurationManager.AppSettings["ServiceManualPath"].Replace("{culture}", Program.GetCurrentCulture())));
+                    Process.Start(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.ServiceManualPath.ToString()].Replace("{culture}", Program.GetCurrentCulture())));
                 }
                 else
                 {
@@ -607,7 +594,7 @@ namespace AtCor.Scor.Gui.Presentation
        */
         private void guiradmnuitemWebsite_Click(object sender, EventArgs e)
         {
-            Process.Start(ConfigurationManager.AppSettings["SupportURL"]);
+            Process.Start(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.SupportUrl.ToString()]);
         }
 
         /** This method is called to Enable the menu controls.
@@ -672,7 +659,7 @@ namespace AtCor.Scor.Gui.Presentation
                 if (GuiCommon.IsMenuItemShown)
                 {
                     // opens folder dialog box to select location
-                    saveFileDialog.FileName = ConfigurationManager.AppSettings["DBDefaultFileName"] + ConfigurationManager.AppSettings["DBVersionNumber"] + BackupFileExt;
+                    saveFileDialog.FileName = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.DbDefaultFileName.ToString()] + ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.DbVersionNumber.ToString()] + BackupFileExt;
                     saveFileDialog.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BackupTitle);
                     DialogResult result = saveFileDialog.ShowDialog();
 
@@ -1038,7 +1025,7 @@ namespace AtCor.Scor.Gui.Presentation
       */
         private void guiradmenuahomepage_Click(object sender, EventArgs e)
         {
-            Process.Start(ConfigurationManager.AppSettings["AtcorHomepage"]);
+            Process.Start(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AtcorHomepage.ToString()]);
         }
 
         /**This method will display the error message using the message box.
@@ -1122,7 +1109,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // search module
                 string portName = string.Empty;
-
+                
                 // int retValue = DalModule.Instance.FindModule(ref portName);
 
                 /**  FindModule call returns integer
@@ -1131,19 +1118,19 @@ namespace AtCor.Scor.Gui.Presentation
                  *  2 => module found on different port
                  * */
                 switch (DalModule.Instance.FindModule(ref portName))
-                { 
-                    case (int)ModuleFound.No: // module not found
+                {  
+                    case DalFindModuleResult.ModuleNotFound: // module not found
                         CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureDeviceErrMsg));
                         DisplayStatusMessageDelegate findModuleErrorMessage = ShowFindModuleError;
                         Invoke(findModuleErrorMessage, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiElectronicModNotfnd));
                          
                         break;
 
-                    case (int)ModuleFound.Yes: // module present on port, show message to user                    
+                    case DalFindModuleResult.ModuleFoundOnConfigPort: // module present on port , show message to user                    
                         Invoke(messageBox, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiElectronicModFnd));
                         break;
 
-                    case (int)ModuleFound.DifferentPort: // module found on different port, show message to user
+                    case DalFindModuleResult.ModuleFoundOnDifferentPort: // module found on different port , show message to user
                         Invoke(messageBox, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiElectronicModFndport) + portName);
                         break;
 
@@ -1247,5 +1234,47 @@ namespace AtCor.Scor.Gui.Presentation
                 OnCaptureScreenTabClick.Invoke(this, new EventArgs());
             } 
         }                     
+
+        /** This method is called to check the start up screen,machine name and the soruce data of the application,
+         * from the configuration file.
+         */ 
+        private void CheckMachineNameOnStartUp()
+        {
+            if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.StartupScreen))
+            {
+                ExitApplication();
+            }
+                          
+            if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.MachineName))
+            {
+                crxMgrObject.GeneralSettings.MachineName = SystemInformation.ComputerName;
+                CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerChangedToLocal));
+            }
+           
+            if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.SourceData))
+            {
+                crxMgrObject.GeneralSettings.SourceData = GuiConstants.SourceData;
+                CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerChangedToDefault));
+            }
+        }
+
+        /** This method is used to check the annual calibration of the EM4 device.
+         */ 
+        private void CheckAnnualCalibration()
+        {
+            try
+            {
+                DateTime calibrationDate = DalModule.Instance.GetLastCalibrationDate();
+                if (calibrationDate < DateTime.Now)
+                {
+                    RadMessageBox.Show(this, string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAnnualCallibrationMesg), calibrationDate), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ApplicationMessage), MessageBoxButtons.OKCancel, RadMessageIcon.Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+                Close();
+            }
+        }
    } // End class
 } // End namespace

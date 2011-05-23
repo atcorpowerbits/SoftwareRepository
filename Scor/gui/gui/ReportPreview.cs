@@ -11,10 +11,10 @@ using AtCor.Scor.CrossCutting.Configuration;
 namespace AtCor.Scor.Gui.Presentation
 {
     public partial class ReportPreview : Form
-    {
+    {        
+        readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         BizPWV obj;
-        CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-        
+
         public ReportPreview()
         {
             InitializeComponent();
@@ -316,7 +316,7 @@ namespace AtCor.Scor.Gui.Presentation
                 ((obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue)) ||
                 (obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)) ||
                 (obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)))
-                || obj.heightAndWeight.heightInCentimetres.Equals(GuiConstants.DefaultValue) || obj.heightAndWeight.heightInCentimetres.Equals(GuiConstants.DefaultValue))
+                || obj.heightAndWeight.heightInCentimetres.Equals(GuiConstants.DefaultValue) || obj.heightAndWeight.heightInInches.Equals(GuiConstants.DefaultValue))
             {
                guilblBPmsg.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportNoBp);
             }

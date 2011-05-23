@@ -31,9 +31,10 @@ namespace AtCor.Scor.Gui.Presentation
         const int SampleRate = 256;
         const int TonometerHeight = 300;
         const int QualityIndicatorHeight = 500;
+        const int TwoSecondsWindow = 512;
 /*
         const int YCordinateForPlottingStraightLine = 600;
-*/
+*/  
         const int RequestedValues = 32;
         const int GoodFemoralQualityIndicatorValue = 80;
         const int BadFemoralQualityIndicatorValue = 20;
@@ -166,6 +167,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 case (int)CrxGenPwvValue.CrxPwvCapture10Seconds:
                     objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureTime) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad10Sec);
+                    CrxLogger.Instance.Write("Capture time: " + objDefaultWindow.radlblCaptureTime.Text);
                     break;
 
                 case (int)CrxGenPwvValue.CrxPwvCapture20Seconds:
@@ -269,6 +271,18 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
+                // Due to some reason on some occasions the event arg max is less than min.
+                // THis causes the application to stop.
+                // This happens when recapture is done in simulation mode and during first capture for device mode.
+                // The reason for the problem has not been found.
+                // We are adding this code so as to continie using the application till the solution is found,
+                if (e.signalMaximum < e.signalMinimum)
+                {
+                    // This message is for debugging purpose only             
+                    CrxLogger.Instance.Write("qualityIndicator_CarotidQualityEvent Max is less than min, exiting function");
+                    return;
+                }
+
                 chartTonometer.ChartAreas[0].AxisY.Minimum = e.signalMinimum * GuiConstants.ChartAreaMinimumY;
                 chartTonometer.ChartAreas[0].AxisY.Maximum = e.signalMaximum * GuiConstants.ChartAreaMaximumY;
                 CrxLogger.Instance.Write(e.signalMaximum.ToString());
@@ -276,7 +290,7 @@ namespace AtCor.Scor.Gui.Presentation
                 if (signalStrength > QualityIndicatorHeight)
                 {
                     signalStrength = QualityIndicatorHeight;
-                }
+                }              
 
                 carotidFlag = e.enableOkayButton;
 
@@ -361,6 +375,8 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     structData = dbuff.GetValueAt(startIndex, i);
 
+                    // this is done so that during the second inflated time the progress bar starts from 0%.
+                    // previously, it used to show 100% for a fraction of a second.
                     if ((structData.countdownTimer * 1000) > countdowntimerInMilliseconds)
                     {
                         cdtimerIncrementedflag = true;
@@ -467,18 +483,31 @@ namespace AtCor.Scor.Gui.Presentation
                 newSeries.Points.AddXY(xCoordinateTonometer, data);
                 xCoordinateTonometer++;
 
-                if (xCoordinateTonometer > screenwidth)
+                if ((xCoordinateTonometer > screenwidth) && (xCoordinateTonometer - screenwidth) % TwoSecondsWindow == 1)
                 {
-                    newSeries.Points.RemoveAt(0);
-                }
+                    for (int i = 1; i <= TwoSecondsWindow; i++)
+                    {
+                        newSeries.Points.RemoveAt(0);
+                    }
 
-                // set the x axis's minimum and maximum values.
-                chartTonometer.ChartAreas[0].AxisX.Minimum = newSeries.Points[0].XValue;
-                chartTonometer.ChartAreas[0].AxisX.Maximum = newSeries.Points[0].XValue + screenwidth;
+                    chartTonometer.ChartAreas[0].AxisX.Minimum = newSeries.Points[0].XValue;
+                    chartTonometer.ChartAreas[0].AxisX.Maximum = newSeries.Points[0].XValue + screenwidth;
+                }
+                else if (xCoordinateTonometer >= screenwidth)
+                {
+                }
+                else
+                {
+                    chartTonometer.ChartAreas[0].AxisX.Minimum = newSeries.Points[0].XValue;
+                    chartTonometer.ChartAreas[0].AxisX.Maximum = newSeries.Points[0].XValue + screenwidth;
+                }      
+          
                 chartTonometer.Invalidate();
             }
             catch (Exception ex)
             {
+                CrxLogger.Instance.Write(ex.StackTrace);
+                StopTimers();
                 GUIExceptionHandler.HandleException(ex, this);
             }
         }
@@ -521,15 +550,28 @@ namespace AtCor.Scor.Gui.Presentation
                 // Add new data point to its series.                               
                 femoralCuffSeries.Points.AddXY(xCoordinateFemoralCuff, data);
                 xCoordinateFemoralCuff++;
-
-                if (xCoordinateFemoralCuff > screenwidth)
+                               
+                if ((xCoordinateFemoralCuff > screenwidth) && (xCoordinateFemoralCuff - screenwidth) % TwoSecondsWindow == 1)
                 {
-                    femoralCuffSeries.Points.RemoveAt(0);
-                }
+                    for (int i = 1; i <= TwoSecondsWindow; i++)
+                    {
+                        femoralCuffSeries.Points.RemoveAt(0);
+                    }
 
-                // set the x axis's minimum and maximum values.
-                guichartFemoralCuff.ChartAreas[0].AxisX.Minimum = femoralCuffSeries.Points[0].XValue;
-                guichartFemoralCuff.ChartAreas[0].AxisX.Maximum = femoralCuffSeries.Points[0].XValue + screenwidth;
+                    guichartFemoralCuff.ChartAreas[0].AxisX.Minimum = femoralCuffSeries.Points[0].XValue;
+                    guichartFemoralCuff.ChartAreas[0].AxisX.Maximum = femoralCuffSeries.Points[0].XValue + screenwidth;
+                }
+                else if (xCoordinateFemoralCuff >= screenwidth)
+                {
+                    // do nothing in this condition.
+                }
+                else
+                {
+                    // set the x axis's minimum and maximum values.
+                    guichartFemoralCuff.ChartAreas[0].AxisX.Minimum = femoralCuffSeries.Points[0].XValue;
+                    guichartFemoralCuff.ChartAreas[0].AxisX.Maximum = femoralCuffSeries.Points[0].XValue + screenwidth;
+                }                
+
                 guichartFemoralCuff.Invalidate();
             }
             catch (Exception ex)
@@ -849,6 +891,7 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void Capture_KeyDown(object sender, KeyEventArgs e)
         {
+            timer1.Enabled = false;
             if (e.KeyCode == Keys.Escape)
             {                
                 GenerateReportWhenCaptureIsEnabled();
@@ -897,7 +940,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GuiCommon.CaptureChildForm = null;
                 GuiCommon.InvokeCaptureClosing(false);
-                objDefaultWindow.tmrImposeWaitTime.Interval = int.Parse(ConfigurationManager.AppSettings["WaitInterval"]);
+                objDefaultWindow.tmrImposeWaitTime.Interval = int.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.WaitInterval.ToString()]);
                 GuiCommon.IsWaitIntervalImposed = true;
                 objDefaultWindow.tmrImposeWaitTime.Start();
             }
@@ -937,6 +980,6 @@ namespace AtCor.Scor.Gui.Presentation
         private void Capture_OnCaptureScreenTabClick(object sender, EventArgs e)
         {
             radbtnCross.Focus();
-        }       
+        }        
     }
 }

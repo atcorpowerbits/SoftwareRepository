@@ -23,8 +23,8 @@ namespace AtCor.Scor.Gui.Presentation
         public SplashScreen()
         {
             InitializeComponent();
-            lblversion.Text = ConfigurationManager.AppSettings["Version"]; // hardcoded: to be read from global registry variables
-            lblCopyright.Text = ConfigurationManager.AppSettings["Copyright"]; // hardcoded : to be read from global registry variables
+            lblversion.Text = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.Version.ToString()]; // hardcoded: to be read from global registry variables
+            lblCopyright.Text = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.Copyright.ToString()]; // hardcoded : to be read from global registry variables
             lblInitialMsg.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashIniMsg) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashWaitMsg);
             DefaultWindow.OnInitializationProcess += ShowInitializationMessage;
             SQLInstanceList.OnInitializationProcess += ShowInitializationMessage;

@@ -38,6 +38,11 @@ namespace AtCor.Scor.Gui.Presentation
         private static readonly CrxLogger OLogObject = CrxLogger.Instance;
         private static StringBuilder eMesg = new StringBuilder();
 
+        public static void ShowStatusMessage(Object sender, CrxShowStatusEventArgs args)
+        {
+            HandleException(args.ObjScorException, sender);
+        }  
+
         /** This method handles all types of exception & throws appropriate messages
          * */
         public static void HandleException(Exception ex, object currentWindow)
@@ -112,14 +117,14 @@ namespace AtCor.Scor.Gui.Presentation
                     case ErrorSeverity.Warning:                        
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiWarningTxt) + eMsg);
                         GuiCommon.DefaultWindowForm.radlblMessage.Text = eMsg;
-                        GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["WarningImage"]));
+                        GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.WarningImage.ToString()]));
                         GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = true;
                         GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick += guialertmsgTimer_Tick;
                         break;
                     case ErrorSeverity.Information:
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiInfoTxt) + eMsg);
                         GuiCommon.DefaultWindowForm.radlblMessage.Text = eMsg;
-                        GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings["InfoImage"]));
+                        GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.InfoImage.ToString()]));
                         GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = true;
                         GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick += guialertmsgTimer_Tick;
                         break;
@@ -141,7 +146,7 @@ namespace AtCor.Scor.Gui.Presentation
             if ((!string.IsNullOrEmpty(crEx.ErrorMessageKey)) && crEx.ErrorCode != 0)
             {
                 // concatenate error code & get error message as per errormessagekey                   
-                eMesg.AppendLine(string.Format("{0} {1} {2}", crEx.ErrorCode.ToString(), OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon), OMsgMgr.GetMessage(crEx.ErrorMessageKey)));
+                eMesg.AppendLine(string.Format("{0} {1} {2}", crEx.ErrorCode, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon), OMsgMgr.GetMessage(crEx.ErrorMessageKey)));
 
                 // check if exception object is null this will have value when general exception is thrown
                 // append it to the main message                

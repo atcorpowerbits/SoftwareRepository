@@ -27,6 +27,7 @@ namespace AtCor.Scor.Gui.Presentation
          *  separator => used to split strings
          *  SourceData => to be part of Crx struct in future
          * */
+        
         public const int SystemId = 31256;
         public const ushort DefaultValue = 9999;
         public const short SdefaultValue = 9999;
@@ -42,11 +43,11 @@ namespace AtCor.Scor.Gui.Presentation
         public const int DivisionFactor = 10;
 
         // readonly values for setting chart max & min height to adjust series plotting away from edges of the chart
-        public static readonly double ChartAreaMinimumY = double.Parse(ConfigurationManager.AppSettings["ChartAreaMinY"]);
-        public static readonly double ChartAreaMaximumY = double.Parse(ConfigurationManager.AppSettings["ChartAreaMaxY"]);
+        public static readonly double ChartAreaMinimumY = double.Parse(ConfigurationManager.AppSettings[AppConfigParams.ChartAreaMinY.ToString()]);
+        public static readonly double ChartAreaMaximumY = double.Parse(ConfigurationManager.AppSettings[AppConfigParams.ChartAreaMaxY.ToString()]);
         
         // readonly string for setting font name used overall application
-        public static readonly string FontName = ConfigurationManager.AppSettings["GuiFontName"]; 
+        public static readonly string FontName = ConfigurationManager.AppSettings[AppConfigParams.GuiFontName.ToString()]; 
        
         // following readonly values are defined for setting parameter values in Crystal report for the report generation functionality
         // Crystal reports binds values based on paramters defined in the report
@@ -101,6 +102,8 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string AgeUpperLimit = "AgeUpperLimit";
         public static readonly string AgeLowerLimit = "AgeLowerLimit";
         public static readonly string PWVPatientHeight = "PWVPatientHeight";
+        public static readonly string HealthyPopulation = "HealthyPopulation";
+        public static readonly string GeneralPopulation = "GeneralPopulation";
 
         // PWV report
         public static readonly string ReportHeader = "ReportHeader";
@@ -137,5 +140,43 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string PatientGeneralPopulation = "PatientGeneralPopulation";
         public static readonly string PatientCarotid = "PatientCarotid";
         public static readonly string PatientFemoral = "PatientFemoral";
+
+        // PWV Analysis
+        public static readonly string PWVTitle = "PWVTitle";
+        public static readonly string HeartRateTitle = "HeartRateTitle";
+
+        public static string DateWithComma = string.Empty;
+
+        public enum AppConfigParams
+        {
+            WaitInterval,
+            WarningImage,
+            InfoImage,
+            DefaultInstanceName,
+            CeMarkImage,
+            Version,
+            Copyright,
+            AnalysisFontName,
+            AnalysisFontMax,
+            AnalysisFontMin,
+            ChartAreaMinY,
+            ChartAreaMaxY,
+            GuiFontName,
+            GuiBackColor,
+            SetupScreenDirect,
+            SetupScreenSubtracting,
+            ApplicationThemeName,
+            AtcorImageIcon,
+            MinYearForDob,
+            ServiceManualPath,
+            OperatorGuidePath,
+            SupportUrl,
+            AtcorHomepage,
+            DefaultCulture,
+            DbDefaultFileName,
+            DbVersionNumber,
+            QualityIndicatorImage,
+            QualityCrossImage
+        }
     }
 }

@@ -15,12 +15,14 @@
 #include "DalCommandInterface.h"
 #include "DalDataBuffer.h"
 #include "DalStatusHandler.h"
+#include "DalCommandState.h"
 
 
 using namespace System;
 using namespace AtCor::Scor::DataAccess;
 using namespace AtCor::Scor::CrossCutting::Logging;
 using namespace AtCor::Scor::CrossCutting::Messaging;
+using namespace AtCor::Scor::DataAccess::StateMachines;
 
 
 namespace AtCor{ 
@@ -41,22 +43,14 @@ namespace AtCor{
 					DalDataBuffer ^dataBufferObj; //to hold pointer to object
 					static DalDeviceHandler^ _instance = gcnew DalDeviceHandler();
 
-					 /**
-					  * Overloaded assignment Operator. @n
-					  * Returns this pointer to implement singleton.
-					  */
-					  DalDeviceHandler^ operator=(const DalDeviceHandler^) 
-					  {
-							 return this;
-					  }  
-
-					
-					//Deepak: Redundant due to change of design. Uncalled as of now. May need later - FxCop
-					///**
-					//* Checks if the device is connected on the same port as mentioned in DalCommandInterface
-					//* @return	@c true if device is present on the same port as in this object. @c false otherwise
-					//*/
-					//bool CheckIfDeviceIsConnected(DalCommandInterface^ currentCommandInterface);
+					/**
+					* Overloaded assignment Operator. @n
+					* Returns this pointer to implement singleton.
+					*/
+					DalDeviceHandler^ operator=(const DalDeviceHandler^) 
+					{
+						return this;
+					}  
 					
 				public:
 					/**
@@ -64,21 +58,13 @@ namespace AtCor{
 					*/
 					DalDeviceHandler(); 
 
-					//Deepak: Redundant due to change of design. Uncalled as of now. May need later - FxCop
-					///*
-					//* Parametrized constructor for the class. @n
-					//* Initializes the class using the specified comm port.
-					//*
-					//* @param[in] commPort	The com port for the EM4 device
-					//*/
-					//DalDeviceHandler(String^ commPort);
 
-					/**
-					* Start the data capture fromt the device.
-					*
-					* @warning This is a stub only. It is not meant to be used and is only retained for compatibility with stub.
-					*/
-					virtual bool StartCapture(); //TODO:STUB
+					///*
+					//* Start the data capture fromt the device.
+					//*
+					//* @warning This is a stub only. It is not meant to be used and is only retained for compatibility with stub.
+					//*/
+					//virtual bool StartCapture(); //obsolete
 
 					/**
 					* Start the data capture fromt the device. @n
@@ -118,7 +104,7 @@ namespace AtCor{
 					* Returns the name of the last error or alarm source
 					* @return	A string contianing the name of the source
 					*/
-					virtual String^ GetErrorAlarmSource() new; 
+					virtual String^ GetAlarmSource() new; 
 
 					/**
 					* Looks for the EM4 module on the serial ports
@@ -149,7 +135,7 @@ namespace AtCor{
 					* Sets the pressure value
 					* @return	@c true if the operation succeded
 					*/
-					virtual bool SetPressure(int newPressure, EM4CuffBoard cuffBoard);	
+					virtual bool SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard);	
 					
 					/**
 					* Checks if the tonometer is connected
@@ -183,17 +169,14 @@ namespace AtCor{
 					*/
 					bool GetConfigDeviceSerialMumber(String ^% moduleSerialNumber);
 
-					///**
-					//* Dumps the tonometer and cuff data to a backup file @n
-					//* Obtain the name using @c GetSavedFileName
-					//* @param[in]	tonometerData	Array with tonometer data values
-					//* @param[in]	cuffPulse	Array with cuff pulse data values
-					//* @param[in]	bufferSize	The size of the buffer to be dumped
-					//* @return	 @c true if the operation was successful
-					//*/
-					//virtual bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
+					/**
+					* Sets the EM4 mode to Idle mode
+					*
+					* @return The result of the operation
+					*/
+					virtual bool SetIdleMode();
 
-					
+
 			};
 		}
 	}

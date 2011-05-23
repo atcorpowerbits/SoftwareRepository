@@ -42,6 +42,13 @@ namespace AtCor{
 				return this;
 			}
 
+			//Show Status Event constructor
+			CrxShowStatusEventArgs::CrxShowStatusEventArgs(ScorException^ objScorException)
+			{
+				//assign the parameter to class member
+				this->ObjScorException = objScorException;
+			}			
+
 		}
 	}
 }

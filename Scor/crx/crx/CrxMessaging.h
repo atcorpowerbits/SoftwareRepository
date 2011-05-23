@@ -55,7 +55,7 @@ namespace AtCor {
 				static  String^ const  BackupFail								=	"BACKUP_FAIL";
 				static  String^ const  BackupProgress							=	"BACKUP_PROGRESS";
 				static  String^ const  BackupTitle								=	"BACKUP_TITLE";
-				
+				static  String^ const  BllStartCaptureFailed					=	"BLL_START_CAPTURE_FAILED";
 				static  String^ const  BpGradeIht								=	"BP_GRADE_I_HT";
 				static  String^ const  BpGradeIhtRange							=	"BP_GRADE_I_HT_RANGE";
 				static  String^ const  BpGradeIiAndIiiHt						=	"BP_GRADE_II_AND_III_HT";
@@ -94,6 +94,7 @@ namespace AtCor {
 				static  String^ const  CarotidSignalBufferNotFullYet			=	"CAROTID_SIGNAL_BUFFER_NOT_FULL_YET";
 				static  String^ const  CarotidSignalCaptureFailed				=	"CAROTID_SIGNAL_CAPTURE_FAILED";
 				static  String^ const  ChkFemoralCuff							=	"CHK_FEMORAL_CUFF";
+				static  String^ const  ChkNormalRange							=	"CHK_NORMAL_RANGE";
 				static  String^ const  ChkPatientPrivacy						=	"CHK_PATIENT_PRIVACY";
 				static  String^ const  ChkReferenceRange						=	"CHK_REFERENCE_RANGE";
 				static  String^ const  Cm										=	"CM";
@@ -255,11 +256,15 @@ namespace AtCor {
 
 				static  String^ const  DalErrUnknownBitFlag						=	"DAL_ERR_UNKNOWN_BIT_FLAG";
 				static  const   int	   DalErrUnknownBitFlagErrCd				=	1007;
-	
+
+				static  String^ const  DalErrorNullParam						=	"DAL_ERROR_NULL_PARAM";
+				static  const   int    DalErrorNullParamErrCd                   =     1028;
+
 				static  String^ const  DalMsgDefaultModeSelectedSim				=	"DAL_MSG_DEFAULT_MODE_SELECTED_SIM";
 				static  String^ const  DalMsgIllegalPacketRcvd					=	"DAL_MSG_ILLEGAL_PACKET_RCVD";
 				static  String^ const  DalMsgPortBufferDump						=	"DAL_MSG_PORT_BUFFER_DUMP";
 				static  String^ const  Dalunknownmodulestatus					=	"DALUnknownModuleStatus";
+				static  String^ const  DataCaptureInconsistent					=	"DATA_CAPTURE_INCONSISTENT";
 				static  String^ const  DataRevInvalid							=	"DATA_REV_INVALID";
 				static  String^ const  Day										=	"DAY";
 				static  String^ const  DbCorrupt								=	"DB_CORRUPT";
@@ -291,9 +296,10 @@ namespace AtCor {
 				static  String^ const  Femoral2CuffOutOfRange					=	"FEMORAL_2_CUFF_OUT_OF_RANGE";
 				static  String^ const  FemoralSignalBufferNotFullYet			=	"FEMORAL_SIGNAL_BUFFER_NOT_FULL_YET";
 				static  String^ const  FemoralSignalCaptureFailed				=	"FEMORAL_SIGNAL_CAPTURE_FAILED";
-				static  String^ const  FieldDistanceCarotid						=	"FIELD_DISTANCE_CAROTID";
-				static  String^ const  FieldDistanceCuffOrDirect				=	"FIELD_DISTANCE_CUFF_OR_DIRECT";
-				static  String^ const  FieldDistanceFemoral						=	"FIELD_DISTANCE_FEMORAL";
+				static  String^ const  FemoralDistanceCarotidToFemoralCuff		=	"FIELD_DISTANCE_CAROTID_TO_FEMORAL_CUFF";
+				static  String^ const  FemoralDistanceCarotidToSternalCuff		=	"FIELD_DISTANCE_CAROTID_TO_STERNAL_NOTCH";
+				static  String^ const  FemoralDistanceFemoraltoCuff				=	"FIELD_DISTANCE_FEMORAL_TO_CUFF";
+				static  String^ const  FemoralDistanceSternalNotchToFemoralCuff	=	"FIELD_DISTANCE_STERNAL_NOTCH_TO_FEMORAL_CUFF";
 				static  String^ const  FieldPatientDp							=	"FIELD_PATIENT_DP";
 				static  String^ const  FieldPatientHeight						=	"FIELD_PATIENT_HEIGHT";
 				static  String^ const  FieldPatientHeightFoot					=	"FIELD_PATIENT_HEIGHT_FOOT";
@@ -332,6 +338,7 @@ namespace AtCor {
 				static  String^ const  GuiAboutSecMode						=	"GUI_ABOUT_SEC_MODE";
 				static  String^ const  GuiAboutSerialNo						=	"GUI_ABOUT_SERIAL_NO";
 				static  String^ const  GuiAboutVersion						=	"GUI_ABOUT_VERSION";
+				static  String^ const  GuiAnnualCallibrationMesg			=	"GUI_ANNUAL_CALLIBRATION_MESSAGE";
 				static  String^ const  GuiAtcorHomepageMenu					=	"GUI_ATCOR_HOMEPAGE_MENU";
 				static  String^ const  GuiBackupMenu						=	"GUI_BACKUP_MENU";
 				static  String^ const  GuiCaptureCuffInflated				=	"GUI_CAPTURE_CUFF_INFLATED";
@@ -381,11 +388,28 @@ namespace AtCor {
 				static  String^ const  GuiGrpDefaultReport					=	"GUI_GRP_DEFAULT_REPORT";
 				static  String^ const  GuiInfoTxt							=	"GUI_INFO_TXT";
 				static  String^ const  GuiLimitsFormat						=	"GUI_LIMITS_FORMAT";
+				
+				static  String^ const  GuiMonthApr							=	"GUI_MONTH_APR";
+				static  String^ const  GuiMonthAug							=	"GUI_MONTH_AUG";
+				static  String^ const  GuiMonthDec							=	"GUI_MONTH_DEC";
+				static  String^ const  GuiMonthFeb							=	"GUI_MONTH_FEB";
+				static  String^ const  GuiMonthJan							=	"GUI_MONTH_JAN";
+				static  String^ const  GuiMonthJul							=	"GUI_MONTH_JUL";
+				static  String^ const  GuiMonthJun							=	"GUI_MONTH_JUN";
+				static  String^ const  GuiMonthMar							=	"GUI_MONTH_MAR";
+				static  String^ const  GuiMonthMay							=	"GUI_MONTH_MAY";
+				static  String^ const  GuiMonthNov							=	"GUI_MONTH_NOV";
+				static  String^ const  GuiMonthOct							=	"GUI_MONTH_OCT";
+				static  String^ const  GuiMonthSep							=	"GUI_MONTH_SEP";
+
 				static  String^ const  GuiOperatorGuideMenu					=	"GUI_OPERATOR_GUIDE_MENU";
 				static  String^ const  GuiPleaseEnterFormat					=	"GUI_PLEASE_ENTER_FORMAT";
+				static  String^ const  GuiPrintPwvAnalysisTitle				=	"GUI_PRINT_PWV_ANALYSIS_TITLE";
+				static  String^ const  GuiPrintPwvRptTitle					=	"GUI_PRINT_PWV_RPT_TITLE";
 				static  String^ const  GuiPrinterSetup						=	"GUI_PRINTER_SETUP";
 				static  String^ const  GuiReportAgeOutsideRange				=	"GUI_REPORT_AGE_OUTSIDE_RANGE";
 				static  String^ const  GuiReportBpColon						=	"GUI_REPORT_BP_COLON";
+				static  String^ const  GuiReportGenPopDesc					=	"GUI_REPORT_GENERAL_POP_DESCRIPTION";
 				static  String^ const  GuiReportGenPopText					=	"GUI_REPORT_GENERAL_POP_TEXT";
 				static  String^ const  GuiReportGreenArea					=	"GUI_REPORT_GREEN_AREA";
 				static  String^ const  GuiReportLblBpRange					=	"GUI_REPORT_LBL_BP_RANGE";
@@ -398,6 +422,7 @@ namespace AtCor {
 				static  String^ const  GuiSelectSqlInstance					=	"GUI_SELECT_SQL_INSTANCE";
 				static  String^ const  GuiServiceManualMenu					=	"GUI_SERVICE_MANUAL_MENU";
 				static  String^ const  GuiSettingsMenu						=	"GUI_SETTINGS_MENU";
+				static  String^ const  GuiSettingsPwvAnalysis				=	"GUI_SETTINGS_PWV_ANALYSIS";
 				static  String^ const  GuiSettingsPwvPatientReport			=	"GUI_SETTINGS_PWV_PATIENT_REPORT";
 				static  String^ const  GuiSettingsPwvReport					=	"GUI_SETTINGS_PWV_REPORT";
 				static  String^ const  GuiSetupSearchExitMsg				=	"GUI_SETUP_SEARCH_EXIT_MSG";
@@ -569,7 +594,8 @@ namespace AtCor {
 				static  String^ const  PwvSetDefaultsFailed					=	"PWV_SET_DEFAULTS_FAILED";
 				static  String^ const  PwvSettings							=	"PWV_SETTINGS";
 				static  String^ const  PwvSignalTooBad						=	"PWV_SIGNAL_TOO_BAD";
-				static  String^ const  PwvStartCaptureFailed				=	"PWV_START_CAPTURE_FAILED";
+				//static  String^ const  PwvStartCaptureFailed				=	"PWV_START_CAPTURE_FAILED";
+				static  String^ const  PwvStartCaptureFailed				=	"BLL_START_CAPTURE_FAILED";
 				static  String^ const  PwvStdDevToLarge						=	"PWV_STD_DEV_TO_LARGE";
 				static  String^ const  PwvTooSmallForAdult					=	"PWV_TOO_SMALL_FOR_ADULT";
 				static  String^ const  PwvUnit								=	"PWV_UNIT";

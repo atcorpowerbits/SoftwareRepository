@@ -61,10 +61,12 @@ namespace AtCor{
 			//	this->ErrorAlarmSource  = data;
 			//}
 
-			DalModuleErrorAlarmEventArgs::DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag data)
+			DalModuleErrorAlarmEventArgs::DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag data, String^ alarmSource)
 			{
 				//assign the parameter to class member
 				this->ErrorAlarmStatus = data;
+
+				this->AlarmSourceName = alarmSource;
 				
 			}
 
@@ -74,6 +76,11 @@ namespace AtCor{
 				this->TonometerStateFlag = tonometerStateFlag;
 			}
 
+			DalUnusedStatusFlagEventArgs::DalUnusedStatusFlagEventArgs(DalUnusedStatusFlagBit changedStatusFlag, bool setResetValue)
+			{
+				this->UnusedStatusFlagChanged = changedStatusFlag;
+				this->ValueSetReset = setResetValue;
+			}
 
 		}
 	}

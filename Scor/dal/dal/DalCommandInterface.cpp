@@ -12,6 +12,9 @@
 #include "DalCommandInterface.h"
 #include "DalDeviceHandler.h"
 #include "DalCommon.h"
+#include "DalEventContainer.h"
+#include "DalCaptureState.h"
+
 
 
 using namespace System;
@@ -20,6 +23,7 @@ using namespace AtCor::Scor::DataAccess;
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Logging;
 using namespace AtCor::Scor::CrossCutting::Messaging;
+using namespace AtCor::Scor::DataAccess::StateMachines;
 
 
 namespace AtCor{ 
@@ -29,6 +33,8 @@ namespace AtCor{
 			{
 				//We should not create the default serial port object since it sets to COM1
 				
+				_currentCommandState = DalCommandStateReady::Instance;
+				_currentCaptureState = DalCaptureStateNotListening::Instance;
 				
 			}
 
@@ -40,7 +46,7 @@ namespace AtCor{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrEmptyCommandErrCd, CrxStructCommonResourceMsg::DalErrEmptyCommand, ErrorSeverity::Exception);
 				}
 
-				if (0x00 == serialCommand->commandCode )  //Defect fixed
+				if (0x00 == serialCommand->commandCode )  
 				{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrEmptyCommandErrCd, CrxStructCommonResourceMsg::DalErrEmptyCommand, ErrorSeverity::Exception);
 				}
@@ -54,8 +60,10 @@ namespace AtCor{
 				return true;
 			}
 
-			
-			DalReturnValue DalCommandInterface::SendCommand(DalEM4Command^ serialCommand)
+			//Renamed to make it more meaningful 
+			//SendCommand->SendCommandAndGetResponse->ProcessCommandAndResponse
+			//DalReturnValue DalCommandInterface::SendCommandAndGetResponse(DalEM4Command^ serialCommand)
+			DalReturnValue DalCommandInterface::ProcessCommandAndResponse(DalEM4Command^ serialCommand)
 			{
 				DalReturnValue responseReturnValue = DalReturnValue::Failure; //initialize to failure
 				
@@ -90,15 +98,22 @@ namespace AtCor{
 						throw gcnew ScorException(excepObj);
 					}
 
+					//change state before the latency wait
+					DalCommandInterface::Instance->ChangeCommandState(DalCommandStateWaiting::Instance);
+
 					//wait to allow the response to arrive
 					Thread::Sleep(DalConstants::EM4LatencyPeriod);
 
 					//check here for response 
-					responseReturnValue = ListenForEM4Response(serialCommand);
+					//responseReturnValue = ListenForEM4Response(serialCommand);
+					responseReturnValue = _currentCommandState->ListenForEM4Response(serialCommand);
 
+				
 				} while((serialCommand->retryNumber < serialCommand->retriesAllowed ) && (responseReturnValue != DalReturnValue::Success ));
 
 				return ValidateCommandResult(serialCommand, responseReturnValue);
+				//return _currentCommandState->ValidateCommandResult(serialCommand, responseReturnValue);
+
 			}
 
 			DalReturnValue DalCommandInterface::ValidateCommandResult(DalEM4Command^ serialCommand, DalReturnValue responseReturnValue)
@@ -115,12 +130,17 @@ namespace AtCor{
 				{
 					return responseReturnValue;
 				}
+
+				
+
 			}
 
 
 			void DalCommandInterface::DataCaptureMultiplePacketHandler(Object^ sender, SerialDataReceivedEventArgs^ e)
 			{
-				ReadFromPortAndWriteToBuffer(sender, e);
+				DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateDataReceived::Instance);
+				//ReadFromPortAndWriteToBuffer(sender, e);
+				_currentCaptureState->ReadFromPortAndWriteToBuffer(sender, e);
 			}
 
 
@@ -156,7 +176,7 @@ namespace AtCor{
 						
 						//This comment is needed to debug EM4 packtes. Will be kept till it is tested on EM4 device. 
 						//Remove after development is completed
-						//CrxLogger::Instance->Write("Data recieved:" +  ConvertBytesToString(capturePacket->em4Response));
+						//CrxLogger::Instance->Write("Data received:" +  ConvertBytesToString(capturePacket->em4Response));
 						
 						if (bytesRead != singlePacketSize)
 						{
@@ -165,10 +185,10 @@ namespace AtCor{
 							continue;
 
 						}
-						//write the number of bytes recieved so that it can be validated against the length recieved from EM4
+						//write the number of bytes received so that it can be validated against the length received from EM4
 						capturePacket->em4ResponsePacketLength = bytesRead - 1; //excluding CRC
 					
-						//split the recieved array into individual components 
+						//split the received array into individual components 
 						//for valdiation and transfering to buffer.
 						if (!(capturePacket->BreakupEM4Response()))
 						{
@@ -218,13 +238,17 @@ namespace AtCor{
 						
 						//TODO: mention this in release note
 						delete scorExObj ;
-						DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket));
+						String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, DalFormatterStrings::PrintEnumName);
+						DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
+						DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 					}
 					catch(Exception^ excepObj)
 					{
 						//see note above.
 						delete excepObj;
-						DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket));
+						String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, DalFormatterStrings::PrintEnumName);
+						DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
+						DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 
 					}
 				}//end for
@@ -237,22 +261,23 @@ namespace AtCor{
 				int dataWaiting = _serialPort->BytesToRead;
 				if (dataWaiting == 0)
 				{
+					DalCommandInterface::Instance->ChangeCommandState(DalCommandStateTimeout::Instance);
+					
 					serialCommand->retryNumber++;
 					return DalReturnValue::Timeout;
 				}
 
-				//create a sperate array to read the resonse . it may contain additional bytes if data capture is in place
-				//serialCommand->em4Response  = gcnew array<unsigned char>(dataWaiting);
+				//create a sperate array to read the response . it may contain additional bytes if data capture is in place
 				array <unsigned char>^ recievedData = gcnew array <unsigned char>(dataWaiting);
 				int bytesRead = 0;
 
 				try
 				{
-					//bytesRead = _serialPort->Read(serialCommand->em4Response, 0, dataWaiting);
 					bytesRead = _serialPort->Read(recievedData, 0, dataWaiting);
 				}
 				catch(TimeoutException^)
 				{
+					DalCommandInterface::Instance->ChangeCommandState(DalCommandStateTimeout::Instance);
 					serialCommand->retryNumber++;
 					return DalReturnValue::Timeout;
 				}
@@ -281,9 +306,20 @@ namespace AtCor{
 					serialCommand->em4ResponsePacketLength = bytesRead - 1; //excluding CRC
 				}
 
+				//if we have come this far then the data is available
+				DalCommandInterface::Instance->ChangeCommandState(DalCommandStateResponseReceived::Instance);
+
 				//if everthing is fine and the data is recoeved 
 				//validate the packet
-				return ValidateResponsePacket(serialCommand);
+
+				DalReturnValue returnValue;
+				//returnValue =  ValidateResponsePacket(serialCommand);
+				returnValue =  _currentCommandState->ValidateResponsePacket(serialCommand);
+
+
+				DalCommandInterface::Instance->ChangeCommandState(DalCommandStateReady::Instance);
+				
+				return returnValue;
 			}
 
 			bool DalCommandInterface::ValidateResponseCRC (DalEM4Command^ serialCommand)
@@ -382,7 +418,7 @@ namespace AtCor{
 
 				//assign the status flag to a variable
 				statusBytes = (unsigned long) serialCommand->em4StatusFlag ;
-				CheckStatusFlag(statusBytes);
+				ProcessStatusFlag(statusBytes);
 				
 				//validate sequence number
 				if (serialCommand->commandSequenceNumber != serialCommand->em4ResponseSequenceNumber)
@@ -393,45 +429,46 @@ namespace AtCor{
 				return DalReturnValue::Success ;
 			}
 
-			bool DalCommandInterface::CheckStatusFlag(unsigned long statusBytes)
-			{
-				unsigned long cuffStatusBytes, eaStatusBytes; 
+			//bool DalCommandInterface::CheckStatusFlag(unsigned long statusBytes)
+			//{
+			//	unsigned long cuffStatusBytes, alarmStatusBytes; 
 
-				//First break the status flag down into its two important sets
-				//cuff status related bits
-				cuffStatusBytes = statusBytes & (unsigned long)DalStatusFlagBitMask::CuffStatusBitsMask;
+			//	//First break the status flag down into its two important sets
+			//	//cuff status related bits
+			//	cuffStatusBytes = statusBytes & (unsigned long)DalStatusFlagBitMask::CuffStatusBitsMask;
 
-				//and Error-Alarm event related bits
-				eaStatusBytes =statusBytes & (unsigned long)DalStatusFlagBitMask::ErrorAlarmStatusBitsMask;
+			//	//and Error-Alarm event related bits
+			//	alarmStatusBytes =statusBytes & (unsigned long)DalStatusFlagBitMask::AlarmStatusBitsMask;
 
-				//CrxLogger::Instance->Write("statusBytes:" + statusBytes.ToString("X4") +" cuffStatusBytes:" + cuffStatusBytes.ToString("X4") + " errorAlarmStatusBytes:"+eaStatusBytes.ToString("X4") ); //debugging only
-				
-				try
-				{
-					 if (CheckCuffStatusFlagsChanged(cuffStatusBytes) ==  true)
-					 {
-						DalCuffStateFlags currentCuffState = TranslateCuffStatusBits(cuffStatusBytes);
+			//	//CrxLogger::Instance->Write("statusBytes:" + statusBytes.ToString("X4") +" cuffStatusBytes:" + cuffStatusBytes.ToString("X4") + " alarmStatusBytes:"+eaStatusBytes.ToString("X4") ); //debugging only
+			//	
+			//	try
+			//	{
+			//		 if (CheckCuffStatusFlagsChanged(cuffStatusBytes) ==  true)
+			//		 {
+			//			DalCuffStateFlags currentCuffState = TranslateCuffStatusBits(cuffStatusBytes);
 
-						 //map the status bytes to a state flag
-						 //	raise a staus change event and update the new flag.
-						DalEventContainer::Instance->OnDalCuffStatusEvent(nullptr, gcnew DalCuffStatusEventArgs(currentCuffState)); //cant pass the sender since this is a static method
-						
-					 }
+			//			 //map the status bytes to a state flag
+			//			 //	raise a staus change event and update the new flag.
+			//			DalEventContainer::Instance->OnDalCuffStatusEvent(nullptr, gcnew DalCuffStatusEventArgs(currentCuffState)); //cant pass the sender since this is a static method
+			//			
+			//		 }
 
-					 if (CheckEAStatusFlagChanged(eaStatusBytes) == true)
-					 {
-						 //if a change has occured in the error/alarm bits first raise an event 
-						 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(TranslateErrorAlarmStatusBits(eaStatusBytes)));//cant pass the sender since this is a static method
-						 //CrxLogger::Instance->Write("CheckEAStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
-					 }
-				}
-				catch(ScorException^)
-				{
-					throw;
-				}
+			//		 if (CheckAlarmStatusFlagChanged(alarmStatusBytes) == true)
+			//		 {
+			//			 //if a change has occured in the error/alarm bits first raise an event 
+			//			 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalAlarmEventArgs(TranslateAlarmStatusBits(alarmStatusBytes)));//cant pass the sender since this is a static method
+			//			 //CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
+			//		 }
+			//	}
+			//	catch(ScorException^)
+			//	{
+			//		throw;
+			//	}
 
-				return true;
-			}
+			//	return true;
+			//}
+
 
 			DalReturnValue DalCommandInterface::ValidateResponsePacket(EM4DataCapturePacket ^capturePacket)
 			{
@@ -440,17 +477,6 @@ namespace AtCor{
 
 				//Breakup response is called outside the method
 	
-				//if (capturePacket->em4Response == nullptr)
-				//{
-				//	throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrEmptyResponseValidationErrCd, CrxStructCommonResourceMsg::DalErrEmptyResponseValidation, ErrorSeverity::Exception);
-				//}
-
-				////Call the method to break the response into individual partes;
-				//if (!capturePacket->BreakupEM4Response())
-				//{
-				//	return DalReturnValue::Failure;
-				//}
-
 				//the reply value should be for 07
 				if (capturePacket->em4ResponseAckNackByte != (unsigned char)DalAckNackByteMask::DataCaptureCodeAckedByte ) 
 				{
@@ -467,19 +493,20 @@ namespace AtCor{
 				//assign the status flag to a variable
 				statusBytes = (unsigned long) capturePacket->em4StatusFlag ;
 				
-				if (!CheckStatusFlag(statusBytes))
+				if (!ProcessStatusFlag(statusBytes))
 				{
 					return DalReturnValue::Failure ;
 				}
 				return DalReturnValue::Success ;
 			}
 
-			bool DalCommandInterface::InitiateDataCaptureMode()
+			bool DalCommandInterface::InitiateDataCaptureModeInternal()
 			{
 				if (_serialPort)
 				{
 					try
 					{
+						ResetAllStaticMembers();
 					
 						//for mutliple reads we need to set the threshold to to the number of packets being read
 						int singlePacketSize =DalConstants::EM4ZeroDataResponsePacketSize + DalConstants::PWVCaptureDataSize+ 1; //packet size+ data size + CRC byte
@@ -490,7 +517,9 @@ namespace AtCor{
 						
 						//set the timer for data streaming check
 						streamingStoppedCheckTimer = gcnew Timers::Timer(DalConstants::StreamingTimeoutCheckerInterval);
-						streamingStoppedCheckTimer->Elapsed += gcnew ElapsedEventHandler(&DalCommandInterface::CheckIfTimeoutHasOccurred ); //TODO
+						//streamingStoppedCheckTimer->Elapsed += gcnew ElapsedEventHandler(&DalCommandInterface::CheckIfTimeoutHasOccurred ); 
+						streamingStoppedCheckTimer->Elapsed += gcnew ElapsedEventHandler(&DalCommandInterface::CheckSerialPortInputBuffer); 
+						
 						streamingStoppedCheckTimer->Enabled = true;
 
 
@@ -508,7 +537,7 @@ namespace AtCor{
 				}
 			}
 
-			bool DalCommandInterface::StopDataCaptureMode()
+			bool DalCommandInterface::StopDataCaptureModeInternal()
 			{
 				if (_serialPort)
 				{
@@ -587,33 +616,7 @@ namespace AtCor{
 				return true;
 			}
 
-			//Deepak: uncalled as of now. May need later - FxCop
-			//bool DalCommandInterface::SetActivePort( SerialPort^ serialPortObject)
-			//{
-			//	
-			//	//close the active port if present
-			//	try
-			//	{
-			//		CloseActivePort();
-			//	}
-			//	catch(Exception ^)
-			//	{
-			//		return false;
-			//	}
-
-			//	try
-			//	{
-			//		_serialPort = serialPortObject;
-			//		SetSerialPortProperties();
-			//	}
-			//	catch (Exception ^)
-			//	{
-			//		return false;
-			//	}
-
-			//	return true;
-			//}
-
+			
 			bool DalCommandInterface::SetActivePort(String^ serialPortName)
 			{
 				//if ((String::Empty == serialPortName) ||(nullptr == serialPortName)) //removed by FxCop
@@ -856,7 +859,7 @@ namespace AtCor{
 				
 			}
 
-			void DalCommandInterface::CheckIfTimeoutHasOccurred(System::Object ^sender, System::Timers::ElapsedEventArgs ^args)
+			void DalCommandInterface::CheckIfTimeoutHasOccurredInternal(System::Object ^sender, System::Timers::ElapsedEventArgs ^args)
 			{
 				static unsigned int BufferEmptyCounter = 0;
 
@@ -868,15 +871,112 @@ namespace AtCor{
 				{
 					//reset the pointer
 					BufferEmptyCounter = 0;
+
+					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateWaiting::Instance);
+					
 				}
 
 				if (BufferEmptyCounter >=  DalConstants::MaxStreamingTimeoutOccurrences)
 				{
+					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
+					
 					//raise event 
-					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureTimeout));
+					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureTimeout, DalFormatterStrings::PrintEnumName);
+					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
+					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+
 					//CrxLogger::Instance->Write("Timeout Event raised :" + BufferEmptyCounter);
+
+					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
 				}
 			}
+
+
+			void DalCommandInterface::CheckSerialPortInputBuffer(Object^ sender, ElapsedEventArgs^ args)
+			{
+				static int previousBufferedCount = -1;
+				int currentBufferedCount;
+
+				int singlePacketSize = DalConstants::PWVCaptureDataSize + DalConstants::EM4ZeroDataResponsePacketSize +1 ;
+
+				int numberofPacketsToRead = DalConstants::DeviceNumberOfReadsPerInterval ;
+
+
+				currentBufferedCount= _serialPort->BytesToRead;
+
+				if (currentBufferedCount < (singlePacketSize * numberofPacketsToRead))
+				{
+					if (currentBufferedCount == previousBufferedCount)
+					{
+						//raise event
+						String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureTimeout, DalFormatterStrings::PrintEnumName);
+						DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
+						DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+						//CrxLogger::Instance->Write("Timeout Event raised :" + BufferEmptyCounter);
+					}
+					else
+					{
+						previousBufferedCount = currentBufferedCount;
+					}
+				}
+			}
+
+
+
+			void DalCommandInterface::ChangeCommandState(DalCommandState ^newCommandState)
+			{
+				if (nullptr == newCommandState)
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrorNullParamErrCd, CrxStructCommonResourceMsg::DalErrorNullParam, ErrorSeverity::Exception);
+					//new state cannot be null
+				}
+
+				//set the parameter object as the new state
+				DalCommandInterface::_currentCommandState = newCommandState;
+			}
+
+
+			//This is a facade for ProcessCommandAndResponse.
+			//It will call the ProcessCommandAndResponse thorugh the state machine
+			DalReturnValue DalCommandInterface::SendCommandAndGetResponse(DalEM4Command^ serialCommand)
+			{
+				//call the state machine's method and let the state machine decide
+				//if the command is valid for the current state
+				return _currentCommandState->SendCommandAndGetResponse(serialCommand);
+				
+			}
+
+
+			
+			void DalCommandInterface::ChangeCaptureState(DalCaptureState ^newCaptureState)
+			{
+				if (nullptr == newCaptureState)
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrorNullParamErrCd, CrxStructCommonResourceMsg::DalErrorNullParam, ErrorSeverity::Exception);
+					//new state cannot be null
+				}
+
+				//set the parameter object as the new state
+				DalCommandInterface::_currentCaptureState  = newCaptureState;
+			}
+
+			bool DalCommandInterface::InitiateDataCaptureMode()
+			{
+				return _currentCaptureState->InitiateDataCaptureMode();
+			}
+
+			bool DalCommandInterface::StopDataCaptureMode()
+			{
+
+				return _currentCaptureState->StopDataCaptureMode();
+			}
+
+			void DalCommandInterface::CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args)
+			{
+				_currentCaptureState->CheckIfTimeoutHasOccurred(sender, args);
+			}
+
+
 
 		}//End Data Access
 	}
