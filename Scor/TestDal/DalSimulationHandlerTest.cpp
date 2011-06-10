@@ -456,12 +456,12 @@ private:	static String^ comPortName  = "Simulation";
 			///</summary>
 	public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
-			void CheckStatusFlagTest()
+			void CheckStatusFlagsChangedTest()
 			{
 				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
 			
 				target->_currentCuffStatusFlag = 0;
-				target->_currentEAStatusFlag = 0;
+				target->_currentAlarmStatusFlag  = 0;
 			
 				unsigned long Current_cuffStatusBytes = 0x0400; //first expected value
 				unsigned long Current_eaStatusBytes = 0x0000; //first expected value
@@ -470,35 +470,35 @@ private:	static String^ comPortName  = "Simulation";
 				bool actual;
 				bool cuffIsInflated;  
 
-				actual = target->CheckStatusFlag(statusBytes, cuffIsInflated);
+				actual = target->CheckStatusFlagsChanged(statusBytes);
 			
 				Assert::AreEqual(expected, actual);
 				Assert::AreEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
-				Assert::AreEqual(Current_eaStatusBytes, target->_currentEAStatusFlag);
+				Assert::AreEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
 
 				//now assign the current values for checking
 				Current_cuffStatusBytes = target->_currentCuffStatusFlag;
-				Current_eaStatusBytes = target->_currentEAStatusFlag;
+				Current_eaStatusBytes = target->_currentAlarmStatusFlag ;
 
 				//change alarm flags without changing cuff flags
 				statusBytes = 0x0408;
-				target->CheckStatusFlag(statusBytes, cuffIsInflated);
+				target->CheckStatusFlagsChanged(statusBytes);
 				Assert::AreEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
-				Assert::AreNotEqual(Current_eaStatusBytes, target->_currentEAStatusFlag);
+				Assert::AreNotEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
 				Assert::IsFalse(cuffIsInflated);
 
 				//reset back to normal position . we wont chek the status this time
 				statusBytes = 0x0400;
-				target->CheckStatusFlag(statusBytes, cuffIsInflated);
+				target->CheckStatusFlagsChanged(statusBytes);
 				Current_cuffStatusBytes = target->_currentCuffStatusFlag;
-				Current_eaStatusBytes = target->_currentEAStatusFlag;
+				Current_eaStatusBytes = target->_currentAlarmStatusFlag ;
 				Assert::IsFalse(cuffIsInflated);
 
 				//now change cuff flags without changing alarm
 				statusBytes = 0x0900;
-				target->CheckStatusFlag(statusBytes, cuffIsInflated);
+				target->CheckStatusFlagsChanged(statusBytes);
 				Assert::AreNotEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
-				Assert::AreEqual(Current_eaStatusBytes, target->_currentEAStatusFlag);
+				Assert::AreEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
 				Assert::IsTrue(cuffIsInflated); //0x900 means cuff is inflated so this should be true
 
 			}

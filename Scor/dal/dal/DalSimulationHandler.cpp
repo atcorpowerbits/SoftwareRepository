@@ -93,59 +93,12 @@ namespace AtCor{
 				return result;
 			}
 
-			//Deepak Obsolete
-
-			//void DalSimulationHandler::OnTimerGetValuesAndRaiseEvents(Object^ sender, ElapsedEventArgs^ args)
-			//{
-			//	//variables to hold the tonometer and cuff pulse readings
-			//	static unsigned long tonoData, cuffPulseData;
-			//	
-			//	//get the next set of values from the simulation file.
-			//	_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
-			//	
-			//	//raise the tonometer event
-			//	DalEventContainer::Instance->OnDalTonometerDataEvent(sender, gcnew DalTonometerDataEventArgs((unsigned short)tonoData));
-			//	//raise the cuff event
-			//	DalEventContainer::Instance->OnDalCuffPulseEvent(sender, gcnew DalCuffPulseEventArgs((unsigned short)cuffPulseData));
-			//}			
-
-			//Deepak : obsolete
-
-			//bool DalSimulationHandler::StartCapture()
-			//{
-			//	try
-			//	{
-			//		firstReadAfterCaptureStarted = true;
-
-			//		//move file to start in case it isn't alreay at start.
-			//		_tonometerSimulationFile->ResetFileStreamPosition();
-			//		_cuffTimerSimulationFile->ResetFileStreamPosition();
-			//		
-			//		//The interval should come from a global value
-			//		//initialize a new timer object
-			//		captureTimer = gcnew Timers::Timer(DalConstants::SimulationTimerInterval);
-			//		
-			//		//specify the event handler to handle timer events
-			//		captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerGetValuesAndRaiseEvents); 
-			//		
-			//		//Start the timer.
-			//		captureTimer->Enabled = true;
-			//		return true;
-			//	}
-			//	catch(ScorException^)
-			//	{
-			//		throw;
-			//	}
-   //             catch(Exception^ sysExObj)
-   //             {
-   //                 throw gcnew ScorException(sysExObj);
-   //             }
-			//}
 
 			//New method to read n numer of element per interval
 			//At present we will read 256 elements in 1 second
 			void DalSimulationHandler::OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args)
 			{
+				args; //Dummy statement to get rid of C4100 warning
 				//using parametrized threadstart to pass parameter
 				Thread^ simulationWriterThread = gcnew Thread(gcnew ParameterizedThreadStart(DalSimulationHandler::ReadMultipleEventsInLoop)); 
 				simulationWriterThread->Start(sender);
@@ -155,6 +108,8 @@ namespace AtCor{
 			//new method to to read data in a loop 
 			void DalSimulationHandler::ReadMultipleEventsInLoop(Object^ sender)
 			{
+				sender; //Dummy statement to get rid of C4100 warning
+
 				DalPwvDataStruct tempPWVDataVar;
 			
 				//variables to hold the tonometer and cuff pulse readings
@@ -350,53 +305,15 @@ namespace AtCor{
 
 			bool DalSimulationHandler::SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard)
 			{
+				newPressure; //Dummy statement to get rid of C4100 warning
+				cuffBoard ; //Dummy statement to get rid of C4100 warning
+
+
 				//This should always return true 
 				//to pretend that the pressure has been set/
 				//The actual value will be deciced based on the simulation file.
 				return true; 
 			}
-
-			//bool DalSimulationHandler::CheckStatusFlag(unsigned long statusBytes, bool %cuffIsInflated)
-			//{
-			//	static unsigned long cuffStatusBytes, alarmStatusBytes; 
-			//	
-			//	//First break the status flag down into its two important sets
-			//	//cuff status related bits
-			//	cuffStatusBytes = statusBytes & (unsigned long)DalStatusFlagBitMask::CuffStatusBitsMask;
-			//	//and Error-Alarm event related bits
-			//	alarmStatusBytes =statusBytes & (unsigned long)DalStatusFlagBitMask::AlarmStatusBitsMask;
-			//	//CrxLogger::Instance->Write("statusBytes:" + statusBytes.ToString("X4") +" cuffStatusBytes:" + cuffStatusBytes.ToString("X4") + " alarmStatusBytes:"+alarmStatusBytes.ToString("X4") );
-			//	
-			//
-			//	 if (CheckCuffStatusFlagsChanged(cuffStatusBytes) ==  true)
-			//	 {
-			//		  //Code to check if the new status is cuff inflated/
-			//		 //If yes then the countdown timer value should be decremented. If not then return 0.
-
-			//		DalCuffStateFlags currentCuffState = TranslateCuffStatusBits(cuffStatusBytes);
-			//		 if (currentCuffState == DalCuffStateFlags::CUFF_STATE_INFLATED)
-			//		 {
-			//			 cuffIsInflated = true;
-			//		 }
-			//		 else
-			//		 {
-			//			 cuffIsInflated = false;
-			//		 }
-			//		
-			//		 //map the status bytes to a state flag
-			//		 //	raise a staus change event and update the new flag.
-			//		DalEventContainer::Instance->OnDalCuffStatusEvent(nullptr, gcnew DalCuffStatusEventArgs(currentCuffState));
-			//		
-			//	 }
-
-			//	 if (CheckAlarmStatusFlagChanged(alarmStatusBytes) == true)
-			//	 {
-			//		 //if a change has occured in the error/alarm bits first raise an event 
-			//		 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalAlarmEventArgs(TranslateAlarmStatusBits(alarmStatusBytes)));
-			//		 //CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
-			//	}
-			//	return true;
-			//}
 
 
 			bool DalSimulationHandler::SetIdleMode()

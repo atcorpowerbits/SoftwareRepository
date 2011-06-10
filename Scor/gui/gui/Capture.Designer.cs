@@ -92,7 +92,7 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea6.Position.Height = 100F;
             chartArea6.Position.Width = 100F;
             this.chartTonometer.ChartAreas.Add(chartArea6);
-            this.chartTonometer.Location = new System.Drawing.Point(4, 30);
+            this.chartTonometer.Location = new System.Drawing.Point(10, 30);
             this.chartTonometer.Name = "chartTonometer";
             this.chartTonometer.Size = new System.Drawing.Size(935, 297);
             this.chartTonometer.TabIndex = 14;
@@ -139,7 +139,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.tableLayoutPanel1.Controls.Add(this.radbtnTick, 2, 0);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Arial", 11.25F);
             this.tableLayoutPanel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(-2, 557);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 557);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -269,7 +269,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.radProgressBarQualityIndicator.Dash = false;
             this.radProgressBarQualityIndicator.Font = new System.Drawing.Font("Arial", 11.25F);
             this.radProgressBarQualityIndicator.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.radProgressBarQualityIndicator.Location = new System.Drawing.Point(957, 30);
+            this.radProgressBarQualityIndicator.Location = new System.Drawing.Point(961, 30);
             this.radProgressBarQualityIndicator.Name = "radProgressBarQualityIndicator";
             this.radProgressBarQualityIndicator.ProgressOrientation = Telerik.WinControls.ProgressOrientation.Bottom;
             // 
@@ -330,7 +330,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.radProgressBarFemoralIndicator.Dash = false;
             this.radProgressBarFemoralIndicator.Font = new System.Drawing.Font("Arial", 11.25F);
             this.radProgressBarFemoralIndicator.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.radProgressBarFemoralIndicator.Location = new System.Drawing.Point(957, 361);
+            this.radProgressBarFemoralIndicator.Location = new System.Drawing.Point(961, 361);
             this.radProgressBarFemoralIndicator.Name = "radProgressBarFemoralIndicator";
             this.radProgressBarFemoralIndicator.ProgressOrientation = Telerik.WinControls.ProgressOrientation.Bottom;
             // 
@@ -435,7 +435,7 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea10.Position.Height = 100F;
             chartArea10.Position.Width = 100F;
             this.guichartFemoralCuff.ChartAreas.Add(chartArea10);
-            this.guichartFemoralCuff.Location = new System.Drawing.Point(3, 361);
+            this.guichartFemoralCuff.Location = new System.Drawing.Point(10, 361);
             this.guichartFemoralCuff.Name = "guichartFemoralCuff";
             this.guichartFemoralCuff.Size = new System.Drawing.Size(935, 186);
             this.guichartFemoralCuff.TabIndex = 17;
@@ -445,7 +445,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblTonometerThresholdPart2.AutoSize = false;
             this.guiradlblTonometerThresholdPart2.Image = global::gui.Properties.Resources.cap_arrow6;
-            this.guiradlblTonometerThresholdPart2.Location = new System.Drawing.Point(975, 201);
+            this.guiradlblTonometerThresholdPart2.Location = new System.Drawing.Point(980, 201);
             this.guiradlblTonometerThresholdPart2.Name = "guiradlblTonometerThresholdPart2";
             this.guiradlblTonometerThresholdPart2.Size = new System.Drawing.Size(8, 10);
             this.guiradlblTonometerThresholdPart2.TabIndex = 26;
@@ -454,7 +454,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblFemoralThresholdPart2.AutoSize = false;
             this.guiradlblFemoralThresholdPart2.Image = global::gui.Properties.Resources.cap_arrow6;
-            this.guiradlblFemoralThresholdPart2.Location = new System.Drawing.Point(975, 466);
+            this.guiradlblFemoralThresholdPart2.Location = new System.Drawing.Point(980, 466);
             this.guiradlblFemoralThresholdPart2.Name = "guiradlblFemoralThresholdPart2";
             this.guiradlblFemoralThresholdPart2.Size = new System.Drawing.Size(8, 10);
             this.guiradlblFemoralThresholdPart2.TabIndex = 25;
@@ -465,7 +465,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblTonometerThresholdPart1.BackColor = System.Drawing.Color.Transparent;
             this.guiradlblTonometerThresholdPart1.ForeColor = System.Drawing.Color.Black;
             this.guiradlblTonometerThresholdPart1.Image = global::gui.Properties.Resources.cap_arrow5;
-            this.guiradlblTonometerThresholdPart1.Location = new System.Drawing.Point(954, 206);
+            this.guiradlblTonometerThresholdPart1.Location = new System.Drawing.Point(958, 206);
             this.guiradlblTonometerThresholdPart1.Name = "guiradlblTonometerThresholdPart1";
             // 
             // 
@@ -481,7 +481,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblFemoralThresholdPart1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.guiradlblFemoralThresholdPart1.ForeColor = System.Drawing.Color.DarkGray;
             this.guiradlblFemoralThresholdPart1.Image = global::gui.Properties.Resources.cap_arrow5;
-            this.guiradlblFemoralThresholdPart1.Location = new System.Drawing.Point(954, 471);
+            this.guiradlblFemoralThresholdPart1.Location = new System.Drawing.Point(958, 471);
             this.guiradlblFemoralThresholdPart1.Name = "guiradlblFemoralThresholdPart1";
             // 
             // 
@@ -497,6 +497,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.ClientSize = new System.Drawing.Size(992, 599);
+            this.Controls.Add(this.guichartFemoralCuff);
+            this.Controls.Add(this.chartTonometer);
             this.Controls.Add(this.guiradlblTonometerThresholdPart2);
             this.Controls.Add(this.guiradlblFemoralThresholdPart2);
             this.Controls.Add(this.guiradlblTonometerThresholdPart1);
@@ -504,9 +506,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.Controls.Add(this.radProgressBarFemoralIndicator);
             this.Controls.Add(this.radProgressBarQualityIndicator);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.guichartFemoralCuff);
             this.Controls.Add(this.guiradlblFemoralCuff);
-            this.Controls.Add(this.chartTonometer);
             this.Controls.Add(this.guiradlblCarotidTonometer);
             this.Font = new System.Drawing.Font("Arial", 9.75F);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(145)))));

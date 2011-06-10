@@ -283,8 +283,6 @@ namespace AtCor.Scor.Gui.Presentation
         {
             CrxConfigManager crxConfig = CrxConfigManager.Instance;
             guiPicBoxReportLogo.Image = string.IsNullOrEmpty(crxConfig.GeneralSettings.ReportLogoPath) ? null : Image.FromFile(crxConfig.GeneralSettings.ReportLogoPath);            
-
-           // guilblBPmsg.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportNoBp);
         }
 
         /** This method checks if patient age is within specified limit and accordingly displays label text instead of

@@ -66,7 +66,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Printer
 		/**
 		* Copy Constructor
 		*/
-		CrxPrintManager(const CrxPrintManager^)
+		CrxPrintManager(CrxPrintManager^)
 		{
 			
 		}
@@ -74,7 +74,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Printer
 		/**
 		* Assignment Operator
 		*/
-		CrxPrintManager^ operator=(const CrxPrintManager^) 
+		CrxPrintManager^ operator=(CrxPrintManager^) 
 		{
 			 return this;
 		}  

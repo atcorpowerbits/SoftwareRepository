@@ -44,7 +44,7 @@ namespace AtCor.Scor.Gui.Presentation
         static uint xCoordinateFemoralCuff = 0;
         private DefaultWindow objDefaultWindow;
         bool carotidFlag = false; // to check for carotid quality indicator
-        bool femoralFlag = false; // to check for femoral quality indicator
+        bool femoralFlag = false; // to check for femoral quality indicator        
         volatile bool femoralPlotSwitch = false;
         volatile bool cuffstatechangeFlag = false;
 
@@ -98,19 +98,16 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                CrxLogger.Instance.Write("Loading Capture Form");
-
+                GuiCommon.captureFormLoaded = true;
                 bizObj = (BizPWV)BizSession.Instance().measurement;
                                 
                 radbtnCross.Focus();
 
-                // tmrInflationTimer.Enabled = true;
-                CrxLogger.Instance.Write("Reading Configuration Settings");
+                // tmrInflationTimer.Enabled = true;                
                 obj = CrxConfigManager.Instance;
                 obj.GetGeneralUserSettings();
                 obj.GetPwvUserSettings();
 
-                CrxLogger.Instance.Write("Subscribing to Events");
                 BizEventContainer.Instance.OnBizCarotidQualityEvent += qualityIndicator_CarotidQualityEvent;
                 BizEventContainer.Instance.OnBizFemoralQualityEvent += qualityIndicator_FemoraCuffEvent;
                 BizEventContainer.Instance.OnBizCuffStateEvent += UpdateCuffState;
@@ -131,6 +128,9 @@ namespace AtCor.Scor.Gui.Presentation
                 prim2 = (ProgressBarPrimitive)radProgressBarFemoralIndicator.ProgressBarElement.Children[1];
                 radProgressBarQualityIndicator.Minimum = 0;
                 radProgressBarQualityIndicator.Maximum = QualityIndicatorHeight;                
+
+                // Here enabling and disabling the capture button in order to make the capture button look rounded.
+                radbtnTick.Enabled = true;
                 radbtnTick.Enabled = false;
 
                 // disable settings, backup, restore & cross button
@@ -140,11 +140,9 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // disable seup & report tabs
                 objDefaultWindow.radtabReport.Enabled = false;
-                objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = false;
+                objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = false;               
 
-                CrxLogger.Instance.Write("Capture Form Loading DONE");
-
-                DisplayCaptureTime();
+                DisplayCaptureTime();                
             }
             catch (Exception ex)
             {
@@ -495,6 +493,7 @@ namespace AtCor.Scor.Gui.Presentation
                 }
                 else if (xCoordinateTonometer >= screenwidth)
                 {
+                    // Nothing to be done.
                 }
                 else
                 {
@@ -736,7 +735,7 @@ namespace AtCor.Scor.Gui.Presentation
             StopTimers();
 
             CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
-
+              
             // check db connection
             if (dbMagr.CheckConnection(GuiCommon.ServerNameString(), crxMgrObject.GeneralSettings.SourceData) == 0)
             {
@@ -904,6 +903,7 @@ namespace AtCor.Scor.Gui.Presentation
             else if (e.KeyCode == Keys.Space && !radbtnTick.Enabled)
             {
                 e.SuppressKeyPress = true;
+                timer1.Enabled = true;
             }           
         }
 
@@ -978,8 +978,8 @@ namespace AtCor.Scor.Gui.Presentation
          }
 
         private void Capture_OnCaptureScreenTabClick(object sender, EventArgs e)
-        {
-            radbtnCross.Focus();
+        {           
+           radbtnCross.Focus();            
         }        
     }
 }

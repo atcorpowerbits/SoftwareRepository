@@ -64,7 +64,7 @@ namespace AtCor
 				/**
 				* Copy Constructor
 				*/
-				CrxCommon(const CrxCommon^)
+				CrxCommon(CrxCommon^)
 				{
 					
 				}
@@ -72,7 +72,7 @@ namespace AtCor
 				/**
 				* Assignment Operator
 				*/
-				CrxCommon^ operator=(const CrxCommon^) 
+				CrxCommon^ operator=(CrxCommon^) 
 				{
 					 return this;
 				}     

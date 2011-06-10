@@ -244,9 +244,9 @@ public: [TestMethod]
 				 
 				String^  deviceFoundPort = System::String::Empty; 
 				String^  deviceFoundPortExpected =  comPortName; 
-				int actual;
+				DalFindModuleResult  actual;
 				actual = target->FindModule(deviceFoundPort);
-				Assert::AreNotEqual(0, actual); //FindModule may return either 1 0r 2 but should not retirn zero
+				Assert::AreNotEqual(DalFindModuleResult::ModuleNotFound , actual); //FindModule may return either 1 0r 2 but should not retirn zero
 				Assert::AreEqual(deviceFoundPortExpected, deviceFoundPort);
 			}
 
@@ -262,7 +262,7 @@ public: [TestMethod]
 				String^  deviceFoundPort = System::String::Empty; 
 				String^  deviceFoundPortExpected =  comPortName; 
 				int expected = 1; //we should get 1 here
-				int actual;
+				DalFindModuleResult  actual;
 				actual = target->FindModule(deviceFoundPort);
 				Assert::AreEqual(expected, actual);
 				Assert::AreEqual(deviceFoundPortExpected, deviceFoundPort);

@@ -68,7 +68,8 @@ namespace TestDal {
 			void ErrorAlarmStatusTest()
 			{
 				DalErrorAlarmStatusFlag data = DalErrorAlarmStatusFlag(); // TODO: Initialize to an appropriate value
-				DalModuleErrorAlarmEventArgs^  target = (gcnew DalModuleErrorAlarmEventArgs(data)); // TODO: Initialize to an appropriate value
+				String^ alarmSourceName = nullptr; //Deepak: TODO
+				DalModuleErrorAlarmEventArgs^  target = (gcnew DalModuleErrorAlarmEventArgs(data, alarmSourceName)); // TODO: Initialize to an appropriate value
 				DalErrorAlarmStatusFlag expected = DalErrorAlarmStatusFlag(); // TODO: Initialize to an appropriate value
 				DalErrorAlarmStatusFlag actual;
 				target->ErrorAlarmStatus = expected;
@@ -83,7 +84,8 @@ namespace TestDal {
 			void DalModuleErrorAlarmEventArgsConstructorTest()
 			{
 				DalErrorAlarmStatusFlag data = DalErrorAlarmStatusFlag::ActiveStatus ; // TODO: Initialize to an appropriate value
-				DalModuleErrorAlarmEventArgs^  target = (gcnew DalModuleErrorAlarmEventArgs(data));
+				String^ alarmSourceName = nullptr; //Deepak: TODO
+				DalModuleErrorAlarmEventArgs^  target = (gcnew DalModuleErrorAlarmEventArgs(data, alarmSourceName)); // TODO: Initialize to an appropriate value
 				Assert::AreEqual(target->ErrorAlarmStatus, data);
 			}
 	};

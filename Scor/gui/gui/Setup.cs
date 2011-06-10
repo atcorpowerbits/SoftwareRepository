@@ -54,7 +54,7 @@ namespace AtCor.Scor.Gui.Presentation
         GuiFieldValidation objValidation;
 
         // denotes the current mode of setup screen
-        enum CurrentMode
+       public enum CurrentMode
         {
             None,
             InsertMode,
@@ -91,9 +91,7 @@ namespace AtCor.Scor.Gui.Presentation
         { 
             try
             {               
-                InitializeComponent();
-
-                // GuiCommon.SetFontForControls(this);
+                InitializeComponent();                
 
                 // subscribe for form changes
                 SubscribeSetupFormChanges();
@@ -112,12 +110,13 @@ namespace AtCor.Scor.Gui.Presentation
                 DefaultWindow.OnSetupMenuItemClick += SaveChangesForModes;
                 GuiCommon.OnCaptureClosing += EnableCaptureButton;
                 Report.OnPwvMeasurementChangedEvent += SettingsChangedEventHandler;
-                
+                DefaultWindow.OnSetupScreenTabClick += SetFocusOnPatientList;
+                DefaultWindow.OnRestoreOptionClick += CheckIfInInsertMode;  
                 obj = (BizPWV)BizSession.Instance().measurement;              
                 
                 // initialize servername string
                 serverNameString = GuiCommon.ServerNameString();
-                SetShape(guilblLastNameDisplay, guilblFirstnameDisplay, guilblPatientIdDisplay, guilblFirstnameDisplay);
+                SetShape(guilblLastNameDisplay, guilblFirstnameDisplay, guilblPatientIdDisplay, guilblFirstnameDisplay, guilblGender, guilblDay, guilblMonth, guilblYear);
                 SetShape(guiradtxtsetupheight, guiradtxtImperialHeight, guiradtxtWeight, guiradtxtOperator, guiradtxtMedication, guiradtxtSP, guiradtxtDP, guiradtxtCarotid, guiradtxtCuff, guiradtxtFemoralToCuff, guiradtxtPatientID, guiradtxtFirstName, guiradtxtLastName);
                 SetShape(guicmbDay, guicmbxMonth, guicmbxYear, guicmbxYear, guicmbxGender);
             }
@@ -128,8 +127,8 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**This method is called on the tick of wait interval  timer used on the Default window.
-        * On the tick of the timer we enable the Capture button on the Setup screen along with the Capture tab.
-        */
+       * On the tick of the timer we enable the Capture button on the Setup screen along with the Capture tab.
+       */
         public void EnableCaptureButton(bool value)
         {
             try
@@ -141,6 +140,21 @@ namespace AtCor.Scor.Gui.Presentation
             catch (Exception ex)
             {
                 GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        /** This event is invoked from DefautWindow when, there are no records in the db and the user is trying to restore db.
+         *  During this process if he does not have the permissions to restore this method will be executed.
+         */ 
+        void CheckIfInInsertMode(object sender, EventArgs e)
+        {
+            if (guiradgrdPatientList.Rows.Count == 0)
+            {
+                BrowseMode(false); 
+            }
+            else
+            {
+                return;
             }
         }
 
@@ -235,6 +249,7 @@ namespace AtCor.Scor.Gui.Presentation
                 // set tags as per settings changed for height & weight
                 guiradtxtsetupheight.Tag = crxMgrObject.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeight) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeightFoot);
                 guiradtxtImperialHeight.Tag = crxMgrObject.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) ? string.Empty : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeightInch);
+                SetSetupTagForValidations();
 
                 // set mandatory fields again after settings are changed from settings window
                 objValidation.SetMandatoryFields(guipnlMeasurementDetails);
@@ -282,7 +297,7 @@ namespace AtCor.Scor.Gui.Presentation
                     Invoke(new EventHandler(Setup_Load));
                     return;
                 }
- 
+                    
                 bobj = GuiConstants.SystemId;
                 GuiCommon.SystemIdentifier = bobj;
                 objValidation = new GuiFieldValidation(guipnlMeasurementDetails);
@@ -293,7 +308,7 @@ namespace AtCor.Scor.Gui.Presentation
                 FillMonthAndYear();
                 LoadGroupNames();
                 InitializePatientList();
-                LoadPatientList();                
+                LoadPatientList();               
             }
             catch (Exception ex)
             {
@@ -669,7 +684,7 @@ namespace AtCor.Scor.Gui.Presentation
             if (value)
             {
                 // enable database backup & restore
-               // objDefaultWindow.guiradmnuDatabase.Enabled = true;
+                objDefaultWindow.guiradmnuDatabase.Enabled = true;
                 
                 // makes all input fields read only and disables combo boxes
                 guiradtxtFirstName.Enabled = false;
@@ -694,7 +709,7 @@ namespace AtCor.Scor.Gui.Presentation
             else
             {
                 // disable database backup & restore
-                // objDefaultWindow.guiradmnuDatabase.Enabled = mode != CurrentMode.InsertMode || guiradgrdPatientList.Rows.Count > 0 ? false : true;
+                objDefaultWindow.guiradmnuDatabase.Enabled = mode != CurrentMode.InsertMode || guiradgrdPatientList.Rows.Count > 0 ? false : true;
                 
                 // default enable property for these controls is True, hence seting this 
                 // property again to true on form load dose not call the handle enable event 
@@ -834,6 +849,17 @@ namespace AtCor.Scor.Gui.Presentation
                    
                     break;
                 default:
+
+                    // Check if there are any records in the patient list.
+                    // There is a exception when the user is running the application on a fresh db,
+                    // by default the setup screen goes into Insert mode,at this moment if user clicks on the menu bar he will be prompted to 
+                    // save changes.This is not logical since he has not made any changes.
+                    // Hence following condition is checked.
+                    if (guiradgrdPatientList.RowCount.Equals(0))
+                    {
+                        return;
+                    }
+
                     // this will handle saving the values in edit & insert mode before navigating to menu items
                     DialogResult dsSave = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgSaveChange), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgSaveSettings), MessageBoxButtons.YesNoCancel, RadMessageIcon.Question);
                     switch (dsSave)
@@ -872,7 +898,9 @@ namespace AtCor.Scor.Gui.Presentation
             // check for db connection
             if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
             {
+                // Commenting the following code,as per requirement change PWVSW-282 in ATCOR JIRA.
                 // check if patient ID exists and add accordingly
+                /*
                 if (dbMagr.PatientIdExists(bobj, guiradtxtPatientID.Text.Trim()))
                 {
                     DialogResult result = RadMessageBox.Show(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PatientAlreadyExist), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Message), MessageBoxButtons.YesNo);
@@ -882,11 +910,8 @@ namespace AtCor.Scor.Gui.Presentation
                         AddNewPatientDetails();
                     }
                 }
-                else
-                {
-                    // patient ID does not exists, add record
-                    AddNewPatientDetails();
-                }
+                */               
+                 AddNewPatientDetails();               
             }
             else
             {
@@ -908,6 +933,7 @@ namespace AtCor.Scor.Gui.Presentation
                 // check if old patient ID is changed
                 if (string.Compare(orgPatientIdExt, guiradtxtPatientID.Text.Trim(), true, CultureInfo.CurrentCulture) != 0)
                 {
+                    /*
                     // check patient ID exists and update record accordingly
                     if (dbMagr.PatientIdExists(bobj, guiradtxtPatientID.Text.Trim()))
                     {
@@ -923,6 +949,8 @@ namespace AtCor.Scor.Gui.Presentation
                         // patient ID does not exists, update record
                         UpdatePatientDetails();
                     }
+                    */
+                    UpdatePatientDetails();
                 }
                 else
                 {
@@ -1182,8 +1210,15 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // update patient record
                 patientData.PatientNumberInternal = int.Parse(radlblpatientinternalnumber.Text);
-                patientData.GroupIdentifier = int.Parse(radlblgroupid.Text);                
-                iRow = dbMagr.UpdatePatientData(patientData, true);                           
+                patientData.GroupIdentifier = int.Parse(radlblgroupid.Text);
+                if (dbMagr.PatientRecordExists(patientData) == 0)
+                {
+                    iRow = dbMagr.UpdatePatientData(patientData, true);
+                }
+                else
+                {
+                    RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PatientAlreadyExists), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ApplicationMessage), MessageBoxButtons.OK, RadMessageIcon.Error);
+                } 
             }
 
             if (iRow > 0)
@@ -1382,7 +1417,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             // fetches days for a month according to month selected
             // DaysInMonth methodName = guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase) ? DaysInMonth.LeapYear : (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.AprCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.JunCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SepCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.NovCondition), StringComparison.CurrentCultureIgnoreCase)) ? DaysInMonth.Days30 : DaysInMonth.Days31;
-            DaysInMonth methodName = (guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase) ? DaysInMonth.LeapYear : ((guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.AprCondition), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.JunCondition), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SepCondition), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.NovCondition), StringComparison.CurrentCultureIgnoreCase)) ? DaysInMonth.Days30 : DaysInMonth.Days31;
+            DaysInMonth methodName = (guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthFeb), StringComparison.CurrentCultureIgnoreCase) ? DaysInMonth.LeapYear : ((guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthApr), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthJun), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthSep), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthNov), StringComparison.CurrentCultureIgnoreCase)) ? DaysInMonth.Days30 : DaysInMonth.Days31;
             switch (methodName)
             {
                 case DaysInMonth.LeapYear:
@@ -1409,7 +1444,7 @@ namespace AtCor.Scor.Gui.Presentation
                 if (guicmbxYear.SelectedIndex > 0)
                 {
                    // FillDay(DateTime.IsLeapYear(int.Parse(guicmbxYear.GetItemText(guicmbxYear.SelectedItem))) ? 29 : 28);
-                    FillDay(DateTime.IsLeapYear(guicmbxYear.SelectedIndex) ? 29 : 28);
+                    FillDay(DateTime.IsLeapYear(int.Parse(guicmbxYear.SelectedItem.Text)) ? 29 : 28);
                 }
                 else
                 {
@@ -1563,6 +1598,8 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void EnableCaptureAndCalculatePwvDistance()
         {
+            // Clearing the PWV distance so that previous calculated distance is not seen,if any of the current fields are blank.
+            guiradlblResult.Text = string.Empty;
             try
             {
                 if (crxMgrObject.PwvSettings.PWVDistanceMethod.Equals((int)CrxGenPwvValue.CrxPwvDistMethodSubtract) && guiradtxtCarotid.Text.Length > 0 && guiradtxtCuff.Text.Length > 0 && guiradtxtFemoralToCuff.Text.Length > 0)
@@ -2185,9 +2222,9 @@ namespace AtCor.Scor.Gui.Presentation
                 // check if device is connected
                 // fill the biz session object with measurement details
                 // if validation succeeds start capture process
-                GuiCommon.CaptureTabClick = false;
+                GuiCommon.CaptureTabClick = false;              
                 StartCaptureProcess(sender, e);
-                GuiCommon.CaptureTabClick = true;
+                GuiCommon.CaptureTabClick = true;              
             }
             catch (Exception ex)
             {
@@ -2200,58 +2237,69 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void StartCaptureProcess(object sender, EventArgs e)
         {
-            if (!objValidation.CheckMandatoryFields())
+            if (ValidatePatientAge())
             {
-                // check for electronic module is connected. 
-                if (DalModule.Instance.CheckIfDeviceIsConnected())
+                if (GuiCommon.IsValueOutsideLimits)
                 {
-                    FillSessionWithModifiedMeasuremt();
+                    GuiCommon.IsValueOutsideLimits = false;
+                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                    objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                    return;
+                }
 
-                    // check for valid measurement details
-                    if (obj.Validate())
+                if (!objValidation.CheckMandatoryFields())
+                {
+                    // check for electronic module is connected. 
+                    if (DalModule.Instance.CheckIfDeviceIsConnected())
                     {
-                        // go to capture screen once electonic module is found & data is valid                   
-                        GuiCommon.CaptureChildForm = new Capture(objDefaultWindow)
-                                                                  {
-                                                                      TopLevel = false,
-                                                                      Dock = DockStyle.Fill,
-                                                                      FormBorderStyle = FormBorderStyle.None
-                                                                  };
+                        FillSessionWithModifiedMeasuremt();
 
-                        // adds capture form under parent window control
-                        var page = objDefaultWindow.radpgTabCollection.Pages[1];
-                        GuiCommon.CaptureChildForm.Parent = page;
-                        page.Controls.Clear();
+                        // check for valid measurement details
+                        if (obj.Validate())
+                        {
+                            // go to capture screen once electonic module is found & data is valid                   
+                            GuiCommon.CaptureChildForm = new Capture(objDefaultWindow)
+                                                                      {
+                                                                          TopLevel = false,
+                                                                          Dock = DockStyle.Fill,
+                                                                          FormBorderStyle = FormBorderStyle.None
+                                                                      };
 
-                        page.Controls.Add(GuiCommon.CaptureChildForm);
-                        GuiCommon.CaptureChildForm.Show();
+                            // adds capture form under parent window control
+                            var page = objDefaultWindow.radpgTabCollection.Pages[1];
+                            GuiCommon.CaptureChildForm.Parent = page;
+                            page.Controls.Clear();
 
-                        // GuiCommon.CaptureTabClick = false;
-                        objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabCapture;
+                            page.Controls.Add(GuiCommon.CaptureChildForm);
+                            GuiCommon.CaptureChildForm.Show();
+
+                            // GuiCommon.CaptureTabClick = false;
+                            objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabCapture;
+                        }
+                        else
+                        {
+                            if (GuiCommon.CaptureTabClick)
+                            {
+                                // whenever exception is thrown while validating measurement details,
+                                // navigate the user back to Setup screen.                            
+                                objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                            }
+
+                            // capture tab & capture button
+                            RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ErrorValidating), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                        }
                     }
                     else
                     {
+                        // device not connected show error message
+                        RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureDeviceErrMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
                         if (GuiCommon.CaptureTabClick)
                         {
-                            // whenever exception is thrown while validating measurement details,
-                            // navigate the user back to Setup screen.                            
                             objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                            objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
                         }
-
-                        // capture tab & capture button
-                        RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ErrorValidating), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
                     }
-                }
-                else
-                {
-                    // device not connected show error message
-                    RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureDeviceErrMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                    if (GuiCommon.CaptureTabClick)
-                    {
-                        objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
-                        objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
-                    }
-                }
+                }                
             }
             else
             {
@@ -2540,7 +2588,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        /** To change the color of selected row.
+        /** To change the color of selected row.Also to implement color for alternating rows in the grid.
         */
         private void guiradgrdPatientList_RowFormatting(object sender, RowFormattingEventArgs e)
         {            
@@ -2560,6 +2608,12 @@ namespace AtCor.Scor.Gui.Presentation
                     row.BorderBoxStyle = BorderBoxStyle.SingleBorder;                    
                     row.BorderColor = Color.Red;                    
                 }
+                else if (row.IsOdd)
+                 {
+                     row.DrawFill = true;
+                     row.GradientStyle = GradientStyles.Solid;
+                     row.BackColor = Color.LightGray;
+                 }
                 else
                 {
                     row.ResetValue(LightVisualElement.DrawFillProperty, ValueResetFlags.Local);
@@ -2639,7 +2693,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 // binds number of days for feb month according to year selected
                 // if (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase))
-                if ((guicmbxMonth.SelectedText).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase))
+                if ((guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthFeb), StringComparison.CurrentCultureIgnoreCase))
                 {
                     FillDayLeapYear();
                 }
@@ -2708,5 +2762,82 @@ namespace AtCor.Scor.Gui.Presentation
 
                 guilblGender.Text = guicmbxGender.Text;
         }
-    }
+
+        /** This method is used to Validate age of the patient before validating measurement details.
+         */ 
+        private bool ValidatePatientAge()
+        {
+            // if (GuiCommon.CaptureChildForm.Equals(null))
+            // {
+            //    GuiCommon.CaptureChildForm.Close();
+            //    // GuiCommon.CaptureChildForm = null;
+            // }
+            bool retVal = false;
+            try
+            {                
+                string message = string.Empty;
+                BizPWV bixPwvObject = new BizPWV();
+                switch (bixPwvObject.ValidateAgeLimit(ref message))
+                {
+                    case BizCaptureGate.CAPTURE_GOAHEAD:
+                        // Go ahead with the capture.No Confirmation required.                        
+                        retVal = true;
+                        break;
+
+                    case BizCaptureGate.CAPTURE_CANCEL:
+                        // Cancel the capture and bring the user back to setup screen.
+                        // Show the user ,warning message recevied from the biz.dll
+                        RadMessageBox.Show(this, message, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+                        retVal = false;
+                        break;
+
+                    case BizCaptureGate.CAPTURE_CONFIRM:
+                        DialogResult result = RadMessageBox.Show(this, message, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNo, RadMessageIcon.Exclamation);
+
+                        // Show a popup box to the user with the string provided with Yes and No button.
+                        // Yes is proceed with capture.
+                        switch (result)
+                        {
+                            case DialogResult.Yes:
+                                retVal = true;
+                                break;
+                            case DialogResult.No:
+                                retVal = false;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        break;
+                    
+                    default:
+                        break;
+                }
+
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+                return retVal;
+            }
+        }
+
+        /** This event is used to set focus on the Pateint list when ever the user comes back to setup screen from Report.
+         */
+        private void SetFocusOnPatientList(object sender, EventArgs e)
+        {
+            guiradgrdPatientList.Focus();
+        }
+
+        private void CheckIfFieldValueIsOutsideRange()
+        {
+            if (GuiCommon.IsValueOutsideLimits)
+            {
+                objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                return;
+            }
+        }
+    }   
 }

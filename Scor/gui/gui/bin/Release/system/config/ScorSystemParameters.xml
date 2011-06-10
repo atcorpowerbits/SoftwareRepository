@@ -1,0 +1,13 @@
+<Parameters> 
+   <TonometerPulseHeightVariationHigh>20</TonometerPulseHeightVariationHigh> 
+   <TonometerPulseHeightVariationLow>10</TonometerPulseHeightVariationLow> 
+   <CuffSignalQThreshold>70</CuffSignalQThreshold> 
+   <NIBPRestInterval>5</NIBPRestInterval> 
+   <StdEM4Timeout>50</StdEM4Timeout> 
+   <ExtEM4Timeout>100</ExtEM4Timeout> 
+   <EM4NumberOfRetriesAllowed>3</EM4NumberOfRetriesAllowed> 
+   <MyTestValues>
+		<Value1>1</Value1>
+		<Value2>2</Value2>
+   </MyTestValues>
+</Parameters>

@@ -306,17 +306,20 @@ namespace AtCor.Scor.Gui.Presentation
                     Image imgLogo;
                     Image imgAnalysisChart;
                     Image imgHeartRate;
+                    Image imgBpChart;
 
-                    GetPwvAnalysisImages(out imgLogo, out imgAnalysisChart, out imgHeartRate);
+                    GetPwvAnalysisImages(out imgLogo, out imgAnalysisChart, out imgHeartRate, out imgBpChart);
                     
                     byte[] imgbyteLogo = ImageToByteArray(imgLogo);
                     byte[] imgbyteAnalysis = ImageToByteArray(imgAnalysisChart);
                     byte[] imgbyteHeartRate = ImageToByteArray(imgHeartRate);
+                    byte[] imgbyteBP = ImageToByteArray(imgBpChart);
                     
                     // add the column in table to store the image of Byte array type 
-                    dr1[0] = imgbyteHeartRate;
-                    dr1[1] = imgbyteAnalysis;
-                    dr1[2] = imgbyteLogo;
+                    dr1[0] = imgbyteBP;
+                    dr1[1] = imgbyteHeartRate;
+                    dr1[2] = imgbyteAnalysis;
+                    dr1[3] = imgbyteLogo;
                     dtPwvAnlys.Rows.Add(dr1);
                     dsPwvAnalysis.Tables.Clear();
                     dsPwvAnalysis.Tables.Add(dtPwvAnlys);
@@ -337,6 +340,7 @@ namespace AtCor.Scor.Gui.Presentation
                     CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientGenderValue, PWVReportData.RptPatientGenderValue);
                     CryPwvAnalysis1.SetParameterValue(GuiConstants.PWVTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.LblReportPwv));
                     CryPwvAnalysis1.SetParameterValue(GuiConstants.HeartRateTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.LblReportHeartRate));
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.BpChartTitle, "BP");
                     crysRptVwrPwvPatientReport.ReportSource = CryPwvAnalysis1;
                     crysRptVwrPwvPatientReport.Refresh();
                     crysRptVwrPwvPatientReport.Hide();
@@ -435,7 +439,7 @@ namespace AtCor.Scor.Gui.Presentation
 
           /** This method creates images from the forms for charts and logo and returns the same
         */
-        private void GetPwvAnalysisImages(out Image imgLogo, out Image imgPwvAnalysisChart, out Image imgHeartRate)
+        private void GetPwvAnalysisImages(out Image imgLogo, out Image imgPwvAnalysisChart, out Image imgHeartRate, out Image imgBpChart)
         {
             int width = objAnalysisPreview.guiPicBoxReportLogo.Width;
             int height = objAnalysisPreview.guiPicBoxReportLogo.Height;
@@ -459,7 +463,15 @@ namespace AtCor.Scor.Gui.Presentation
             rect = new Rectangle(p, objAnalysisPreview.guiradchartHeartRate.Size);
             imgPWVctrl = new Bitmap(width, height);
             objAnalysisPreview.guiradchartHeartRate.DrawToBitmap(imgPWVctrl, rect);
-            imgHeartRate = imgPWVctrl;
+            imgHeartRate = imgPWVctrl;           
+
+            width = objAnalysisPreview.guiradchartBP.Width;
+            height = objAnalysisPreview.guiradchartBP.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objAnalysisPreview.guiradchartBP.Size);
+            imgPWVctrl = new Bitmap(width, height);
+            objAnalysisPreview.guiradchartBP.DrawToBitmap(imgPWVctrl, rect);
+            imgBpChart = imgPWVctrl;
         }
     }
 }

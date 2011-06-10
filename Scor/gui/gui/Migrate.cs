@@ -52,7 +52,7 @@ namespace AtCor.Scor.Gui.Presentation
             serverNameString = GuiCommon.ServerNameString(); 
 
             // Disable the close button of the window.
-            FormElement.TitleBar.CloseButton.Enabled = false;
+            // FormElement.TitleBar.CloseButton.Enabled = false;
 
             // GuiCommon.SetFontForControls(this);
             SetShape(guicmbGroupNameList);           

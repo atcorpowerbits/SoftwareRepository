@@ -82,7 +82,7 @@ namespace AtCor{
 			static DalCaptureStateNotListening^ _instance = gcnew DalCaptureStateNotListening();
 			
 			DalCaptureStateNotListening();
-			DalCaptureStateNotListening^ operator = (const DalCaptureStateNotListening^);
+			DalCaptureStateNotListening^ operator = (DalCaptureStateNotListening^);
 
 		public:
 			/**
@@ -114,7 +114,7 @@ namespace AtCor{
 			static DalCaptureStateWaiting^ _instance = gcnew DalCaptureStateWaiting();
 			
 			DalCaptureStateWaiting();
-			DalCaptureStateWaiting^ operator = (const DalCaptureStateWaiting^);
+			DalCaptureStateWaiting^ operator = (DalCaptureStateWaiting^);
 
 		public:
 			/**
@@ -146,7 +146,7 @@ namespace AtCor{
 			static DalCaptureStateDataReceived^ _instance = gcnew DalCaptureStateDataReceived();
 			
 			DalCaptureStateDataReceived();
-			DalCaptureStateDataReceived^ operator = (const DalCaptureStateDataReceived^);
+			DalCaptureStateDataReceived^ operator = ( DalCaptureStateDataReceived^);
 
 		public:
 			/**
@@ -179,7 +179,7 @@ namespace AtCor{
 			static DalCaptureStateTimeout^ _instance = gcnew DalCaptureStateTimeout();
 			
 			DalCaptureStateTimeout();
-			DalCaptureStateTimeout^ operator = (const DalCaptureStateTimeout^);
+			DalCaptureStateTimeout^ operator = (DalCaptureStateTimeout^);
 
 		public:
 			/**

@@ -79,7 +79,7 @@ namespace AtCor{
 			static DalCommandStateReady^ _instance = gcnew DalCommandStateReady();
 
 			DalCommandStateReady();
-			DalCommandStateReady^ operator = (const DalCommandStateReady^);
+			DalCommandStateReady^ operator = (DalCommandStateReady^);
 
 		public:
 			/**
@@ -111,7 +111,7 @@ namespace AtCor{
 			static DalCommandStateWaiting^ _instance = gcnew DalCommandStateWaiting();
 
 			DalCommandStateWaiting();
-			DalCommandStateWaiting^ operator = (const DalCommandStateWaiting^);
+			DalCommandStateWaiting^ operator = (DalCommandStateWaiting^);
 
 		public:
 			/**
@@ -142,7 +142,7 @@ namespace AtCor{
 			static DalCommandStateTimeout^ _instance = gcnew DalCommandStateTimeout();
 
 			DalCommandStateTimeout();
-			DalCommandStateTimeout^ operator = (const DalCommandStateTimeout^);
+			DalCommandStateTimeout^ operator = (DalCommandStateTimeout^);
 
 		public:
 			/**
@@ -168,7 +168,7 @@ namespace AtCor{
 			static DalCommandStateResponseReceived^ _instance = gcnew DalCommandStateResponseReceived();
 
 			DalCommandStateResponseReceived();
-			DalCommandStateResponseReceived^ operator = (const DalCommandStateResponseReceived^);
+			DalCommandStateResponseReceived^ operator = (DalCommandStateResponseReceived^);
 
 		public:
 			/**

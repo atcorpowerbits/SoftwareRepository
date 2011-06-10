@@ -50,6 +50,10 @@ namespace AtCor.Scor.Gui.Presentation
 
         public static event EventHandler OnCaptureScreenTabClick;
 
+        public static event EventHandler OnSetupScreenTabClick;
+
+        public static event EventHandler OnRestoreOptionClick;
+
         protected override CreateParams CreateParams
         {
             get
@@ -107,6 +111,11 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
+                if (Screen.PrimaryScreen.WorkingArea.Width < 1024 && Screen.PrimaryScreen.WorkingArea.Height < 768)
+                {
+                    RadMessageBox.Show(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiScreenResolutionMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.AppName), MessageBoxButtons.OK, RadMessageIcon.Error);
+                }
+
                 // On application launch check if the resource file exists.
                 CheckForResourceFile();
                
@@ -245,6 +254,8 @@ namespace AtCor.Scor.Gui.Presentation
 
             // set up mode and environment texts on startup screen.
             radlblCurrentMode.Text = crxGen.StartupMode;
+            guiradlblEnvironment.BringToFront();
+            guiradlblEnvironment.Focus();
             guiradlblEnvironment.Text = crxGen.EnvironmentSettings;
             OnInitializationProcess.Invoke(string.Format("{0} {1} {2}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashIniMsg), crxGen.StartupMode, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mode)));
             
@@ -618,7 +629,7 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void MinimizeButton_Click(object sender, EventArgs e)
         {
-            WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;            
         }
         
         /**This method is invoked when Settings button under System tab is clicked. 
@@ -774,7 +785,8 @@ namespace AtCor.Scor.Gui.Presentation
             radpgTabCollection.Enabled = true;
 
             // show status message for restore & backup & migration.... dbOperation will contain respective messages
-            radlblMessage.Text = dbOperation;         
+            radlblMessage.Text = dbOperation;
+            OnRestoreOptionClick.Invoke(this, new EventArgs());     
         }
 
         /**This method is called when the Setup, Capture or Report tab is selected.
@@ -787,10 +799,11 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // read the coms port and simulation type.
                 if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabCapture), StringComparison.CurrentCultureIgnoreCase))
-                {                     
+                {                    
                     NavigateToCapture();
                     GuiCommon.TabFocused = radtabCapture;
                     GuiCommon.IsFormChanged = false;
+                    GuiCommon.CheckIfMandatoryFieldIsEmpty();                    
                 }
                 else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport), StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -823,8 +836,8 @@ namespace AtCor.Scor.Gui.Presentation
                 }
 
                 if (GuiCommon.CaptureTabClick)
-                {
-                    OnCaptureTabClick.Invoke(this, new EventArgs());
+                {                   
+                   OnCaptureTabClick.Invoke(this, new EventArgs());            
                 }
 
                 GuiCommon.CaptureTabClick = true;
@@ -834,7 +847,6 @@ namespace AtCor.Scor.Gui.Presentation
                 // whenever exception is thrown while validating measurement details,
                 // navigate the user back to Setup screen.                
                 radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
-
                 GUIExceptionHandler.HandleException(ex, this);
             }
         }
@@ -843,7 +855,7 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void NavigateToSetup()
         {
-            radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+            radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;            
 
             // InitializeSetupScreen(); 
             radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
@@ -851,6 +863,7 @@ namespace AtCor.Scor.Gui.Presentation
             radtabReport.Enabled = GuiCommon.HasMeasurementDetails;
 
             GuiCommon.CaptureToReport = false;
+            OnSetupScreenTabClick.Invoke(this, new EventArgs());
         }
 
         /**This method will navigate the user to the Report screen.
@@ -1231,7 +1244,15 @@ namespace AtCor.Scor.Gui.Presentation
         {
             if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabCapture), StringComparison.CurrentCultureIgnoreCase))
             {
-                OnCaptureScreenTabClick.Invoke(this, new EventArgs());
+                if (GuiCommon.captureFormLoaded)
+                {
+                    OnCaptureScreenTabClick.Invoke(this, new EventArgs());
+                }
+                else
+                {
+                    radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
+                    guiradgrpbxPwvDistanceMethod.Enabled = true;
+                }
             } 
         }                     
 
@@ -1275,6 +1296,23 @@ namespace AtCor.Scor.Gui.Presentation
                 GUIExceptionHandler.HandleException(ex, this);
                 Close();
             }
+        }
+
+        private void CheckFieldValueIsOutOfLimit()
+        {
+            if (GuiCommon.IsValueOutsideLimits)
+            {
+                GuiCommon.IsValueOutsideLimits = false;
+                radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
+                guiradgrpbxPwvDistanceMethod.Enabled = true;
+                return;
+            }
+        }
+
+        private void DefaultWindow_Activated(object sender, EventArgs e)
+        {
+            guiradpnlDefaultWin.Top = (Screen.PrimaryScreen.WorkingArea.Height / 2) - (guiradpnlDefaultWin.Height / 2);
+            guiradpnlDefaultWin.Left = (Screen.PrimaryScreen.WorkingArea.Width / 2) - (guiradpnlDefaultWin.Width / 2);           
         }
    } // End class
 } // End namespace

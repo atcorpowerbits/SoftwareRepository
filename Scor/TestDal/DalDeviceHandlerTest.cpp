@@ -54,7 +54,7 @@ namespace TestDal {
 				}
 			}
 
-		private:	static String^ comPortName  = "COM3";
+		private:	static String^ comPortName  = "COM6";
 	public: static DalDeviceHandler_Accessor^ deviceHandlerTestObj = DalDeviceHandler_Accessor::Instance;
 
 #pragma region Additional test attributes
@@ -263,18 +263,18 @@ namespace TestDal {
 			}
 
 			/// <summary>
-			///A test for GetErrorAlarmSource
+			///A test for GetAlarmSource
 			///</summary>
 	public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
-			void GetErrorAlarmSourceTest1()
+			void GetAlarmSourceTest1()
 			{
 				SetPath();
 				DalDeviceHandler_Accessor^  target = deviceHandlerTestObj; 
 				target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				String^  expected = DalAlarmSource::OverPressure.ToString(); 
 				String^  actual;
-				actual = target->GetErrorAlarmSource();
+				actual = target->GetAlarmSource();
 				Assert::AreEqual(expected, actual, "If test fail;s change latency period in Dal contants to a higher value. Or else, run this test in debug mode.");
 			}
 			

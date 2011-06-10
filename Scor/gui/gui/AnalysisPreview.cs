@@ -22,6 +22,11 @@ namespace AtCor.Scor.Gui.Presentation
 {
     public partial class AnaylsisPreview : Form
     {
+        // readonly string for from field name and values
+        public static readonly string Legends = "Legends";
+        public static readonly string BubbleMaxSize = "BubbleMaxSize=";
+        public static readonly string ZeroValue = "0";
+
         const int MaxLabelYValue = 12; // this denotes the maximum number of values to be displayed on Y axis so that it does not overlap                      
         const int LblVerticalAngle = -90; // angle of labels to display vertically on analysis screen when more records are are selected
         const int LblHorizontalAngle = 0; // angle of labels to display horizontally on analysis screen when few records are are selected
@@ -34,24 +39,10 @@ namespace AtCor.Scor.Gui.Presentation
         string[] heartRate; // heart rate array to be used on analysis screen
         string[] pWv; // pwv velocity array to be used on analysis screen
         string[] isStdDeviationValid; // standard deviation array to be used on analysis screen
-       // int[] xCoordinate; // array of x coordinates to display data to the closest datapoint        
+        string[] SP; // SP vlaue array to be used on analysis screen
+        string[] DP; // DP vlaue array to be used on analysis screen
+        string[] MP; // MP vlaue array to be used on analysis screen
         int labelInterval;
-
-        // denotes chart type on analysis screen
-        enum ChartName
-        {
-            Pwv,
-            HeartRate
-        }
-
-        enum SeriesType
-        {
-            HeartLine = 0,
-            HeartPoint,
-            PwvLine,
-            PwvPoint,
-            ErrorBar
-        } // series used on analysis screen
 
         public AnaylsisPreview()
         {
@@ -60,6 +51,29 @@ namespace AtCor.Scor.Gui.Presentation
             // initialize servername string
             serverNameString = GuiCommon.ServerNameString();
         }
+
+        // denotes chart type on analysis screen
+        enum ChartName
+        {
+            Pwv,
+            HeartRate,
+            BP
+        }
+
+        enum SeriesType
+        {
+            HeartLine = 0,
+            HeartPoint,
+            PwvLine,
+            PwvPoint,
+            SpLine,
+            SpPoint,
+            DpLine,
+            DpPoint,
+            MpLine,
+            MpPoint,
+            ErrorBar
+        } // series used on analysis screen        
 
         private void AnaylsisPreview_Load(object sender, EventArgs e)
         {
@@ -85,6 +99,8 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradchartHeartRate.Titles.Clear();
                 guiradchartPulseWaveVelocity.Series.Clear();
                 guiradchartHeartRate.Series.Clear();
+                guiradchartBP.Titles.Clear();
+                guiradchartBP.Series.Clear();  
 
                 // if date ends with comma, truncate it as it creates empty value in array for dates
                 if (dateSelected.EndsWith(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma)))
@@ -104,7 +120,8 @@ namespace AtCor.Scor.Gui.Presentation
                     if (!string.IsNullOrEmpty(trendData.HeartRateArrStr) && !string.IsNullOrEmpty(trendData.PulseWaveVelocityArrStr))
                     {
                         PlotHeartRateTrend(trendData);
-                        PlotPwVelocityTrend(trendData);                      
+                        PlotPwVelocityTrend(trendData);
+                        PlotBpTrend(trendData);
                     }
                 }
                 else
@@ -147,7 +164,14 @@ namespace AtCor.Scor.Gui.Presentation
                 value = Math.Round(double.Parse(heartPwvSort[heartPwvSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
                 guiradchartHeartRate.ChartAreas[0].AxisY.Maximum = value;
                 guiradchartHeartRate.ChartAreas[0].AxisY.IntervalOffset = 0;
-                guiradchartHeartRate.ChartAreas[0].AxisY.Interval = 10;
+                guiradchartHeartRate.ChartAreas[0].AxisY.Interval = 5;
+
+                guiradchartHeartRate.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
+                guiradchartHeartRate.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+                guiradchartHeartRate.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+                guiradchartHeartRate.ChartAreas[0].AxisX.MajorGrid.Enabled = true;
+                guiradchartHeartRate.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+                guiradchartHeartRate.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
 
                 guiradchartHeartRate.ChartAreas[0].AxisX.IntervalOffset = 1;
                 CalculateLabelIntervalX();
@@ -191,6 +215,13 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Maximum = value;
                 guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.IntervalOffset = 0;
                 guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Interval = 1;
+
+                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
+                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+                guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.MajorGrid.Enabled = true;
+                guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+                guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
 
                 guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.IntervalOffset = 1;
 
@@ -277,7 +308,7 @@ namespace AtCor.Scor.Gui.Presentation
                 Color = Color.Blue,
                 ChartType = SeriesChartType.Bubble,
                 XValueType = ChartValueType.Int32,
-                CustomProperties = "BubbleMaxSize=" + (20 - (labelInterval * 2) + 1),
+                CustomProperties = AnaylsisPreview.BubbleMaxSize + (20 - (labelInterval * 2) + 1),
                 MarkerStyle = MarkerStyle.Circle,
                 ShadowOffset = 2
             };
@@ -287,7 +318,6 @@ namespace AtCor.Scor.Gui.Presentation
 
             for (int hrseries1 = 0; hrseries1 < trendSeries.Count; hrseries1++)
             {
-                // heartline.Points.AddXY(double.Parse(DateTime.Parse(date[hrseries1].ToString()).ToOADate().ToString()), double.Parse(heartRate[hrseries1].ToString()));
                 trendLine.Points.AddXY(hrseries1, double.Parse(trendSeries[hrseries1]));
                 trendPoint.Points.AddXY(hrseries1, double.Parse(trendSeries[hrseries1]));
 
@@ -326,7 +356,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void SetTextForLabels()
         {
             CrxConfigManager crxConfig = CrxConfigManager.Instance;
-            string defaultImgPath = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AtcorImageIcon.ToString()];  // ".\\atcor.ico";
+            string defaultImgPath = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AtcorImageIcon.ToString()];
             guiPicBoxReportLogo.Image = string.IsNullOrEmpty(crxConfig.GeneralSettings.ReportLogoPath) ? Image.FromFile(defaultImgPath) : Image.FromFile(crxConfig.GeneralSettings.ReportLogoPath);
         }
 
@@ -353,6 +383,327 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GUIExceptionHandler.HandleException(ex, this);
             }
-        }        
+        }
+
+          /** This method plots BP Trend graph 
+         * */
+        private void PlotBpTrend(CrxStructPWVTrendData trendData)
+        {
+            try
+            {
+                SP = trendData.SpValidArrStr.Split(GuiConstants.Separator);
+                DP = trendData.DpValidArrStr.Split(GuiConstants.Separator);
+                MP = trendData.MpValidArrStr.Split(GuiConstants.Separator);
+
+                string[] SpSort = trendData.SpValidArrStr.Split(GuiConstants.Separator);
+                string[] DpSort = trendData.DpValidArrStr.Split(GuiConstants.Separator);
+                string[] MpSort = trendData.MpValidArrStr.Split(GuiConstants.Separator);
+
+                int[] SpSortArr = CommonStringArrToIntArr(SpSort);
+                int[] DpSortArr = CommonStringArrToIntArr(DpSort);
+                int[] MpSortArr = CommonStringArrToIntArr(MpSort);
+
+                // sort array to get minimum & maximum value to set y axis range
+                Array.Sort(SpSortArr);
+                Array.Sort(DpSortArr);
+                Array.Sort(MpSortArr);
+
+                SpSort = CommonIntArrToStringArr(SpSortArr);
+                DpSort = CommonIntArrToStringArr(DpSortArr);
+                MpSort = CommonIntArrToStringArr(MpSortArr);
+
+                // Check the combination of the Blood pressure options.
+                if (SP.Length > 0 && DP.Length > 0 && MP.Length > 0)
+                {
+                    // set min and max for the chart and plot the BP.             
+                    double spValue = Math.Round(double.Parse(SpSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+                    double dpValue = Math.Round(double.Parse(DpSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+                    double mpValue = Math.Round(double.Parse(MpSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+                    
+                    spValue = ((int)Math.Round(spValue / 10.0)) * 10;
+                    dpValue = ((int)Math.Round(dpValue / 10.0)) * 10;
+                    mpValue = ((int)Math.Round(mpValue / 10.0)) * 10;
+
+                    // check if the sp min value is zero then????
+
+                    // Compare which blood pressure option is less. 
+                    double bpValue = spValue > dpValue ? dpValue  : spValue;
+                    bpValue = bpValue > mpValue ? mpValue : bpValue;
+                    guiradchartBP.ChartAreas[0].AxisY.Minimum = bpValue - 10;
+
+                    guiradchartBP.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BpLblAnalysis);
+                    guiradchartBP.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartBP.ChartAreas[0].AxisY.TitleFont.Size);
+
+                    // Modifying default value
+                    SpSort = SettingAxisValuesForChart(SpSort);
+                    DpSort = SettingAxisValuesForChart(DpSort);
+                    MpSort = SettingAxisValuesForChart(MpSort);
+
+                    SpSortArr = CommonStringArrToIntArr(SpSort);
+                    DpSortArr = CommonStringArrToIntArr(DpSort);
+                    MpSortArr = CommonStringArrToIntArr(MpSort);
+
+                    // sort array to get minimum & maximum value to set y axis range
+                    Array.Sort(SpSortArr);
+                    Array.Sort(DpSortArr);
+                    Array.Sort(MpSortArr);
+
+                    SpSort = CommonIntArrToStringArr(SpSortArr);
+                    DpSort = CommonIntArrToStringArr(DpSortArr);
+                    MpSort = CommonIntArrToStringArr(MpSortArr);
+
+                    spValue = Math.Round(double.Parse(SpSort[SpSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+                    dpValue = Math.Round(double.Parse(DpSort[DpSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+                    mpValue = Math.Round(double.Parse(MpSort[MpSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+
+                    // Compare which blood pressure option is more. 
+                    bpValue = spValue > dpValue ? spValue : dpValue;
+                    bpValue = bpValue > mpValue ? bpValue : mpValue;
+                    guiradchartBP.ChartAreas[0].AxisY.Maximum = bpValue + 10;
+
+                    // guiradchartBP.ChartAreas[0].AxisY.Maximum = spValue + 10;
+                    guiradchartBP.ChartAreas[0].AxisY.IntervalOffset = 0;
+                    guiradchartBP.ChartAreas[0].AxisY.Interval = 10;
+
+                    guiradchartBP.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
+                    guiradchartBP.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+                    guiradchartBP.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+                    guiradchartBP.ChartAreas[0].AxisX.MajorGrid.Enabled = true;
+                    guiradchartBP.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+                    guiradchartBP.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
+
+                    guiradchartBP.ChartAreas[0].AxisX.IntervalOffset = 1;
+
+                    CalculateBpLabelIntervalX();
+                    BindCustomLabelForTrendCharts(guiradchartBP, SP.Length);
+                     
+                    PlotBpSeries(guiradchartBP, SP, DP, MP, ChartName.BP);
+
+                    // Manipulation of Legends and Legends Title
+                    Legend LegendBP = guiradchartBP.Legends.FindByName(AnaylsisPreview.Legends);
+                    LegendBP.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiPrintPwvAnalysisLegendTitle);
+                    
+                    guiradchartBP.Legends.Clear();
+                    guiradchartBP.Legends.Add(LegendBP);
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        private void PlotBpSeries(Chart trendChart, IList<string> bloodPressure1, IList<string> bloodPressure2, IList<string> bloodPressure3, ChartName trendType)
+        {      
+            // default BP value
+            string dfBPVlaue = GuiConstants.SdefaultValue.ToString();
+
+            // to plot line for BP graph,SP value.  
+            Series bp1Line = new Series(((int)SeriesType.SpLine).ToString())
+            {
+                Color = Color.Blue,
+                ChartType = SeriesChartType.FastLine,
+                XValueType = ChartValueType.Int32,
+                
+                MarkerStyle = MarkerStyle.Triangle,
+                MarkerBorderColor = Color.DarkBlue,
+                MarkerColor = Color.DarkBlue,
+                MarkerSize = 80,
+                MarkerBorderWidth = 50,
+                LegendText = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp)                
+            };
+
+            // to plot point for BP graph.,SP value
+            Series bp1Point = new Series(((int)SeriesType.SpPoint).ToString())
+            {
+                Color = Color.DarkBlue,
+                ChartType = SeriesChartType.Bubble,
+                XValueType = ChartValueType.Int32,
+                CustomProperties = AnaylsisPreview.BubbleMaxSize + (20 - (labelInterval * 2) + 1),
+                MarkerStyle = MarkerStyle.Triangle,
+                ShadowOffset = 0,
+                LegendText = " ",
+                MarkerSize = 0                
+            };
+
+            // to plot line for BP graph,DP value. 
+            Series bp2Line = new Series(((int)SeriesType.DpLine).ToString())
+            {
+                Color = Color.Blue,
+                ChartType = SeriesChartType.FastLine,
+                XValueType = ChartValueType.Int32,
+                
+                MarkerStyle = MarkerStyle.Diamond,
+                MarkerBorderColor = Color.DarkRed,
+                MarkerColor = Color.DarkRed,
+                MarkerSize = 80,
+                MarkerBorderWidth = 80,
+                LegendText = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Dp)
+            };
+
+            // to plot point for BP graph.,DP value
+            Series bp2Point = new Series(((int)SeriesType.DpPoint).ToString())
+            {
+                Color = Color.DarkRed,
+                ChartType = SeriesChartType.Bubble,
+                XValueType = ChartValueType.Int32,
+                CustomProperties = AnaylsisPreview.BubbleMaxSize + (20 - (labelInterval * 2) + 1),
+                MarkerStyle = MarkerStyle.Diamond,
+                ShadowOffset = 0,
+                LegendText = " ",
+                MarkerSize = 0
+            };
+
+            // to plot line for BP graph,MP value. 
+            Series bp3Line = new Series(((int)SeriesType.MpLine).ToString())
+            {
+                Color = Color.Blue,
+                ChartType = SeriesChartType.FastLine,
+                XValueType = ChartValueType.Int32,
+                
+                MarkerStyle = MarkerStyle.Square,
+                MarkerBorderColor = Color.DarkGreen,
+                MarkerColor = Color.DarkGreen,
+                MarkerSize = 80,
+                MarkerBorderWidth = 50,
+                LegendText = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mp)
+            };
+
+            // to plot point for BP graph.,MP value
+            Series bp3Point = new Series(((int)SeriesType.MpPoint).ToString())
+            {
+                Color = Color.DarkGreen,
+                ChartType = SeriesChartType.Bubble,
+                XValueType = ChartValueType.Int32,
+                CustomProperties = AnaylsisPreview.BubbleMaxSize + (20 - (labelInterval * 2) + 1),
+                MarkerStyle = MarkerStyle.Square,
+                ShadowOffset = 0,
+                LegendText = " ",
+                MarkerSize = 0
+            };
+
+            bp1Line.Points.Clear();
+            bp1Point.Points.Clear();
+            bp2Line.Points.Clear();
+            bp2Point.Points.Clear();
+            bp3Line.Points.Clear();
+            bp3Point.Points.Clear();
+
+            for (int i = 0; i < bloodPressure1.Count; i++)
+            {
+                // check if value is 9999
+                if (!(bloodPressure1[i].Equals(dfBPVlaue)))
+                {
+                    bp1Line.Points.AddXY(i, double.Parse(bloodPressure1[i]));
+                    bp1Point.Points.AddXY(i, double.Parse(bloodPressure1[i]));
+                }               
+            }
+
+            for (int j = 0; j < bloodPressure2.Count; j++)
+            {
+                // check if value is 9999
+                if (!(bloodPressure2[j].Equals(dfBPVlaue)))
+                {
+                    bp2Line.Points.AddXY(j, double.Parse(bloodPressure2[j]));
+                    bp2Point.Points.AddXY(j, double.Parse(bloodPressure2[j]));
+                }
+            }
+
+            for (int j = 0; j < bloodPressure3.Count; j++)
+            {
+                // check if value is 9999
+                if (!(bloodPressure3[j].Equals(dfBPVlaue)))
+                {
+                     bp3Line.Points.AddXY(j, double.Parse(bloodPressure3[j]));
+                     bp3Point.Points.AddXY(j, double.Parse(bloodPressure3[j]));
+                }
+            }
+
+            trendChart.Series.Add(bp1Line);
+            trendChart.Series.Add(bp1Point);
+            trendChart.Series.Add(bp2Line);
+            trendChart.Series.Add(bp2Point);
+            trendChart.Series.Add(bp3Line);
+            trendChart.Series.Add(bp3Point);
+            trendChart.Invalidate();
+        }
+
+        private string[] SettingAxisValuesForChart(string[] listValue)
+        {
+            // default BP value
+            string dfBPVlaue = GuiConstants.SdefaultValue.ToString();
+
+            for (int i = 0; i < listValue.Length; i++ )
+            {
+                if (listValue[i].Equals(dfBPVlaue))
+                {
+                    listValue[i] = AnaylsisPreview.ZeroValue;
+                }
+            }
+
+            return listValue;
+        }
+
+        /** This method calculates label interval for x axis label for BP charts
+        * Since the interval is 1 there is overlapping for label display when more labels are there
+        * */
+        private void CalculateBpLabelIntervalX()
+        {
+            const int XInterval = 10; // this variable denotes the number by which x label interval would be calculated
+
+            int intvl = SP.Length / XInterval;
+
+            if (intvl == 0)
+            {
+                intvl = 1;
+            }
+
+            guiradchartBP.ChartAreas[0].AxisX.LabelStyle.Interval = intvl;
+            labelInterval = intvl;
+        }
+
+        private void guiradchartBP_Customize(object sender, EventArgs e)
+        {
+            try
+            {
+                const int SeriesPoints = 3;
+
+                if (SP.Length > SeriesPoints)
+                {
+                    foreach (CustomLabel cl in guiradchartBP.ChartAreas[0].AxisX.CustomLabels)
+                    {
+                        cl.Text = DateTime.Parse(cl.Text).ToShortDateString() + Environment.NewLine + DateTime.Parse(cl.Text).ToLongTimeString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        private int[] CommonStringArrToIntArr(string[] SortArr)
+        {
+            int[] BpSort = new int[SortArr.Length];
+
+            for (int i = 0; i < SortArr.Length; i++)
+            {
+                BpSort[i] = Convert.ToInt32(SortArr[i]);
+            }
+
+            return BpSort; 
+        }
+
+        private string[] CommonIntArrToStringArr(int[] SortArr)
+        {
+            string[] BpSort = new string[SortArr.Length];
+
+            for (int i = 0; i < SortArr.Length; i++)
+            {
+                BpSort[i] = Convert.ToString(SortArr[i]);
+            }
+
+            return BpSort;
+        }
     }
 }

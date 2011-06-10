@@ -42,6 +42,9 @@ namespace AtCor {
 				static  String^ const  ApplicationError                         =   "Application Error";
 
 				static  String^ const  Activestatus								=	"ActiveStatus";
+				static  String^ const  AgeNotSafe								=	"AGE_NOT_SAFE";
+				static  String^ const  AgeWarningCuffFitting					=	"AGE_WARNING_CUFF_FITTING";
+				static  String^ const  AgeWarningNoClinicalData					=	"AGE_WARNING_NO_CLINICAL_DATA";
 				static  String^ const  Alarmsourceunknown						=	"Alarmsourceunknown";
 				static  String^ const  Alarmstatus								=	"AlarmStatus";
 				static  String^ const  AnalysisXaxisTitle						=	"ANALYSIS_XAXIS_TITLE";
@@ -49,8 +52,6 @@ namespace AtCor {
 				static  String^ const  AppName									=	"APP_NAME";
 				static  String^ const  AppVersion								=	"APP_VERSION";
 				static  String^ const  ApplicationMessage						=	"APPLICATION_MESSAGE";
-				static  String^ const  AprCondition								=	"APR_CONDITION";
-				static  String^ const  AugCondition								=	"AUG_CONDITION";
 				static  String^ const  BackupDone								=	"BACKUP_DONE";
 				static  String^ const  BackupFail								=	"BACKUP_FAIL";
 				static  String^ const  BackupProgress							=	"BACKUP_PROGRESS";
@@ -62,6 +63,7 @@ namespace AtCor {
 				static  String^ const  BpGradeIiAndIiiHtRange					=	"BP_GRADE_II_AND_III_HT_RANGE";
 				static  String^ const  BpHighNormal								=	"BP_HIGH_NORMAL";
 				static  String^ const  BpHighNormalRange						=	"BP_HIGH_NORMAL_RANGE";
+				static  String^ const  BpLblAnalysis							=	"BP_LBL_ANALYSIS";
 				static  String^ const  BpNormal									=	"BP_NORMAL";
 				static  String^ const  BpNormalRange							=	"BP_NORMAL_RANGE";
 				static  String^ const  BpOptimal								=	"BP_OPTIMAL";
@@ -153,6 +155,9 @@ namespace AtCor {
 
 				static  String^ const  CrxErrMsaccessFileOldAlreadyExist		=	"CRX_ERR_MSACCESS_FILE_OLD_ALREADY_EXIST";
 				
+				static  String^ const  CrxErrXmlTagIncorrect					=	"CRX_ERR_XML_TAG_INCORRECT";
+				static  const   int	   CrxErrXmlTagIncorrectErrCd				=	301;
+
 				static  String^ const  CrxLogFileHeaderLine						=	"CRX_LOG_FILE_HEADER_LINE";
 				static  const   int	   CrxLogFileHeaderLineErrCd				=	300;
 				
@@ -268,7 +273,6 @@ namespace AtCor {
 				static  String^ const  DataRevInvalid							=	"DATA_REV_INVALID";
 				static  String^ const  Day										=	"DAY";
 				static  String^ const  DbCorrupt								=	"DB_CORRUPT";
-				static  String^ const  DecCondition								=	"DEC_CONDITION";
 				static  String^ const  DeletePateint							=	"DELETE_PATEINT";
 				static  String^ const  DeletePwvMsg								=	"DELETE_PWV_MSG";
 				static  String^ const  Direct									=	"DIRECT";
@@ -290,7 +294,6 @@ namespace AtCor {
 				static  String^ const  ExecError								=	"EXEC_ERROR";
 				static  String^ const  Exitstr									=	"EXITSTR";
 				static  String^ const  ExpanderInital							=	"EXPANDER_INITAL";
-				static  String^ const  FebCondition								=	"FEB_CONDITION";
 				static  String^ const  Feet										=	"FEET";
 				static  String^ const  FemaleTxt								=	"FEMALE_TXT";
 				static  String^ const  Femoral2CuffOutOfRange					=	"FEMORAL_2_CUFF_OUT_OF_RANGE";
@@ -404,6 +407,7 @@ namespace AtCor {
 
 				static  String^ const  GuiOperatorGuideMenu					=	"GUI_OPERATOR_GUIDE_MENU";
 				static  String^ const  GuiPleaseEnterFormat					=	"GUI_PLEASE_ENTER_FORMAT";
+				static  String^ const  GuiPrintPwvAnalysisLegendTitle		=	"GUI_PRINT_PWV_ANALYSIS_LEGEND_TITLE";
 				static  String^ const  GuiPrintPwvAnalysisTitle				=	"GUI_PRINT_PWV_ANALYSIS_TITLE";
 				static  String^ const  GuiPrintPwvRptTitle					=	"GUI_PRINT_PWV_RPT_TITLE";
 				static  String^ const  GuiPrinterSetup						=	"GUI_PRINTER_SETUP";
@@ -417,6 +421,7 @@ namespace AtCor {
 				static  String^ const  GuiReportPwvColon					=	"GUI_REPORT_PWV_COLON";
 				static  String^ const  GuiReportRedArea						=	"GUI_REPORT_RED_AREA";
 				static  String^ const  GuiRestoreMenu						=	"GUI_RESTORE_MENU";
+				static  String^ const  GuiScreenResolutionMsg				=	"GUI_SCREEN_RESOLUTION_MSG";
 				static  String^ const  GuiSearchElectronicMod				=	"GUI_SEARCH_ELECTRONIC_MOD";
 				static  String^ const  GuiSelectSimulationFile				=	"GUI_SELECT_SIMULATION_FILE";
 				static  String^ const  GuiSelectSqlInstance					=	"GUI_SELECT_SQL_INSTANCE";
@@ -438,9 +443,6 @@ namespace AtCor {
 				static  String^ const  Inflatedovertime						=	"InflatedOverTime";
 				static  String^ const  Information							=	"INFORMATION";
 				static  String^ const  InsertMode							=	"INSERT_MODE";
-				static  String^ const  JanCondition							=	"JAN_CONDITION";
-				static  String^ const  JulCondition							=	"JUL_CONDITION";
-				static  String^ const  JunCondition							=	"JUN_CONDITION";
 				static  String^ const  Kg									=	"KG";
 				static  String^ const  LabelCarotid							=	"LABEL_CAROTID";
 				static  String^ const  LabelCuff							=	"LABEL_CUFF";
@@ -497,9 +499,7 @@ namespace AtCor {
 				static  String^ const  LblWeight							=	"LBL_WEIGHT";
 				static  String^ const  Lbs									=	"LBS";
 				static  String^ const  MaleTxt								=	"MALE_TXT";
-				static  String^ const  MarCondition							=	"MAR_CONDITION";
 				static  String^ const  MathError							=	"MATH_ERROR";
-				static  String^ const  MayCondition							=	"MAY_CONDITION";
 				static  String^ const  MeasureInvalidCaptureTime			=	"MEASURE_INVALID_CAPTURE_TIME";
 				static  String^ const  MeasureInvalidSampleRate				=	"MEASURE_INVALID_SAMPLE_RATE";
 				static  String^ const  MeasurementDateInFuture				=	"MEASUREMENT_DATE_IN_FUTURE";
@@ -532,9 +532,7 @@ namespace AtCor {
 				static  String^ const  NoRecordsToDelete					=	"NO_RECORDS_TO_DELETE";
 				static  String^ const  NoRecordsToEdit						=	"NO_RECORDS_TO_EDIT";
 				static  String^ const  Noerroralarm							=	"NoErrorAlarm";
-				static  String^ const  NovCondition							=	"NOV_CONDITION";
 				static  String^ const  NullMeasurementRecord				=	"NULL_MEASUREMENT_RECORD";
-				static  String^ const  OctCondition							=	"OCT_CONDITION";
 				static  String^ const  Overpressure							=	"OverPressure";
 				static  String^ const  PatientAdded							=	"PATIENT_ADDED";
 				static  String^ const  PatientAlreadyExist					=	"PATIENT_ALREADY_EXIST";
@@ -638,7 +636,6 @@ namespace AtCor {
 				static  String^ const  SelectDob							=	"SELECT_DOB";
 				static  String^ const  SelectGender							=	"SELECT_GENDER";
 				static  String^ const  SelectSmall							=	"SELECT_SMALL";
-				static  String^ const  SepCondition							=	"SEP_CONDITION";
 				static  String^ const  SetupScreen							=	"SETUP_SCREEN";
 				static  String^ const  ShowCaps								=	"SHOW_CAPS";
 				static  String^ const  ShowSmall							=	"SHOW_SMALL";
@@ -747,14 +744,14 @@ namespace AtCor {
 					/**
 					* Copy Constructor
 					*/
-					CrxMessagingManager(const CrxMessagingManager^)
+					CrxMessagingManager(CrxMessagingManager^)
 					{
 					}
 		          
 					/**
 					* Assignment Operator
 					*/
-					CrxMessagingManager^ operator=(const CrxMessagingManager^) 
+					CrxMessagingManager^ operator=(CrxMessagingManager^) 
 				    {
 						 return this;
 					} 

@@ -52,7 +52,7 @@ namespace AtCor{
 					 * Overloaded assignment Operator. @n
 					 * Returns this pointer to implement singleton.
 					 */
-					DalSimulationHandler^ operator=(const DalSimulationHandler^) 
+					DalSimulationHandler^ operator=(DalSimulationHandler^) 
 					{
 						return this;
 					}  

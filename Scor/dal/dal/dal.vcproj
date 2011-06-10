@@ -42,12 +42,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="D:\SVN\ATCOR\src\trunk\Scor\crx\crx"
-				AdditionalUsingDirectories="&quot;D:\My Docs\Visual Studio 2008\Projects\DalTEster\Debug&quot;"
+				AdditionalIncludeDirectories=""
+				AdditionalUsingDirectories=""
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -88,8 +88,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="compile the new dDal_Accessor.dll"
-				CommandLine="publicize.exe $(TargetPath)"
+				Description="Compiling Dal_Accessor.dll"
+				CommandLine="publicize.exe &quot;$(TargetPath)&quot;"
 			/>
 		</Configuration>
 		<Configuration

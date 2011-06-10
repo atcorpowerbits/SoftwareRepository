@@ -30,13 +30,13 @@ namespace AtCor{
 			}
 
 			//Overloaded copy contructor. 
-			CrxEventContainer::CrxEventContainer(const CrxEventContainer^)
+			CrxEventContainer::CrxEventContainer(CrxEventContainer^)
 			{
 				//Does nothing. Made private to implement singleton.
 			}
 
 			//overloaded assignment operator. Private to implement singleton.
-			CrxEventContainer^ CrxEventContainer::operator = (const CrxEventContainer)
+			CrxEventContainer^ CrxEventContainer::operator = (CrxEventContainer)
 			{
 				//return the  current instance itself.
 				return this;

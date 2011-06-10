@@ -101,20 +101,16 @@ namespace AtCor{
 								* This will be used in combination with DalCuffStateFlags.
 								*/
 								public enum class DalCuffStatusBitMask{
-									//CUFF_STATUS_BITS_UNKNOWN = 0x0000,  cannot be used since Deflated now has the same value
+									CUFF_STATUS_BITS_UNKNOWN = 0xFFFF,  //marked as a clear flag. cannot use 0 becuase it is another valid value
 									
 									CUFF_DISCONNECTED_STATUS_BITS = 0x2000,
 									
-									//CUFF_DEFLATED_STATUS_BITS     = 0x0100,
 									CUFF_DEFLATED_STATUS_BITS     = 0x0000,
 								
-									//CUFF_INFLATING_STATUS_BITS    = 0x0400,
 									CUFF_INFLATING_STATUS_BITS    = 0x0100,
 									
-									//CUFF_INFLATED_STATUS_BITS     = 0x0900,
 									CUFF_INFLATED_STATUS_BITS     = 0x0A00,
 									
-									//CUFF_DEFLATING_STATUS_BITS    = 0x0200
 									CUFF_DEFLATING_STATUS_BITS    = 0x0300
 								};
 
@@ -239,9 +235,9 @@ namespace AtCor{
 								*/
 								public enum class DalTonometerState
 								{
+									Unknown = 0,
 									Disconnected = 1,
-									Connected  = 0
-
+									Connected  = 2
 								};
 
 								/**
@@ -250,8 +246,10 @@ namespace AtCor{
 								*/
 								private enum class DalTonometerStatusBitMask
 								{
-									TonometerNotConnectedBits = 0x1000
-
+									TonometerStatusUnknown = 0xFFFF,
+									//TonometerNotConnectedBits = 0x1000 //Incorrect
+									TonometerNotConnectedBits = 0x4000,
+									TonometerConnectedBits= 0x0000
 								};
 
 
@@ -270,7 +268,7 @@ namespace AtCor{
 									PowerUpBitMask = 0x0001,
 									StopButtonBitMask = 0x0002,
 
-									UnusedStatusBitsMask = 0x80DC //THis flag is used to rasie an event for ano of the other unused bits
+									UnusedStatusBitsMask = 0x80DC //THis flag is used to rasie an event for any of the other unused bits
 
 								};
 
@@ -434,6 +432,24 @@ namespace AtCor{
 									ModuleNotFound = 0, /**< The device was not found on any port and DAL is in simulation mode. */
 									ModuleFoundOnConfigPort = 1, /**<A comm port was set in configuration and the EM4 was found on the same port. */
 									ModuleFoundOnDifferentPort = 2 /**< The EM4 device was found on a different port as specified in configuration*/
+								};
+
+								/**
+								* @class DalParameterNames
+								* @brief Names of various system parameter tags to be extracted from ScorSystemParameters.xml
+								*/
+								private ref class DalSystemParameterNames
+								{
+									private:
+										DalSystemParameterNames()
+										{
+											//empty private constructor to prevent compiler from adding a default constructor. FxCop.
+										};
+
+									internal:
+										static String^ TagStdEM4Timeout = "StdEM4Timeout";
+										static String^ TagEM4NumberOfRetriesAllowed = "EM4NumberOfRetriesAllowed";
+										
 								};
 
 		} // End Namespace DataAccess

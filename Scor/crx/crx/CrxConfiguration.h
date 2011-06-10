@@ -346,7 +346,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			/**
 			* Copy Constructor
 			*/
-			CrxConfigManager(const CrxConfigManager^)
+			CrxConfigManager(CrxConfigManager^)
 			{
 				
 			}
@@ -354,7 +354,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			/**
 			* Assignment Operator
 			*/
-			CrxConfigManager^ operator=(const CrxConfigManager^) 
+			CrxConfigManager^ operator=(CrxConfigManager^) 
 			{
 				 return this;
 			}     
@@ -553,5 +553,21 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		* @param[in] ps CrxStructPwvSetting Handle to the PWV setting structure
 		*/
 		void SetPwvUserSettings(CrxStructPwvSetting^ ps);	
+	};
+
+	/**
+	 * @struct CrxSystemParameterInfo
+	 * @brief Stores strings needed for system	
+	 */
+	private ref struct CrxSystemParameterInfo
+	{
+		private:
+			CrxSystemParameterInfo()
+			{
+				//empty private constructor . Recommended by FXCop
+			}
+		public:
+			static String^ FilePath = ".\\system\\config\\ScorSystemParameters.xml";
+
 	};
 }}}} // End Namespace tags

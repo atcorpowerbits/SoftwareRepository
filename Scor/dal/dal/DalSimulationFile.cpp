@@ -189,7 +189,7 @@ bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned
 	bool DalSimulationFile::CreateFile(String^ outputFilePath)
 {
 	filePath = outputFilePath;
-	String^ currentDir = Directory::GetCurrentDirectory();
+	//String^ currentDir = Directory::GetCurrentDirectory();
 
 	try
 	{

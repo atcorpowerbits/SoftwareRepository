@@ -38,7 +38,7 @@ namespace TestDal {
 				}
 			}
 		public: static bool TimeoutErrorAlarmEventRaised = false;
-		private: static String^ comPortName  = "COM5";
+		private: static String^ comPortName  = "COM3";
 		public:	static DalCommandInterface_Accessor ^commInterfaceObject = DalCommandInterface_Accessor::Instance;
 		private: String^ _currDir;
 
@@ -205,7 +205,7 @@ public: [TestMethod]
 			DalReturnValue expected = DalReturnValue::Success ; 
 			DalReturnValue actual;
 			DalReturnValue commandReturnValue = DalReturnValue::Failure;
-			commandReturnValue = target->SendCommand(serialCommand);
+			commandReturnValue = target->SendCommandAndGetResponse(serialCommand);
 			Assert::AreEqual(expected, commandReturnValue);
 			actual = target->ValidateCommandResult(serialCommand, commandReturnValue); //validate the response recieved from send command
 			Assert::AreEqual(expected, actual);
@@ -349,10 +349,10 @@ public: [TestMethod]
 				Assert::AreEqual(comPortName, target->ActiveSerialPortName);
 			}
 			/// <summary>
-			///A test for SendCommand
+			///A test for SendCommandAndGetResponse
 			///</summary>
 			public: [TestMethod]
-			void SendCommandTest()
+			void SendCommandAndGetResponseTest()
 			{
 				DalCommandInterface_Accessor^  target = commInterfaceObject ; 
 				//target->SetActivePort(comPortName);
@@ -361,16 +361,16 @@ public: [TestMethod]
 				
 				DalReturnValue ^actual;
 				
-				actual = target->SendCommand(serialCommand);
+				actual = target->SendCommandAndGetResponse(serialCommand);
 				Assert::AreEqual(expected, actual);
 	
 			}
 
 				/// <summary>
-			///A test for SendCommand
+			///A test for SendCommandAndGetResponse
 			///</summary>
 public: [TestMethod]
-		void SendCommandTestNeg1()
+		void SendCommandAndGetResponseTestNeg1()
 		{
 			
 			DalCommandInterface_Accessor^  target = commInterfaceObject; 
@@ -383,21 +383,21 @@ public: [TestMethod]
 			DalReturnValue ^actual;
 			try
 			{
-				actual = target->SendCommand(serialCommand);
+				actual = target->SendCommandAndGetResponse(serialCommand);
 			}
 			catch(Exception^ )
 			{
 				exceptionRaised = true;
 			}
 			Assert::IsFalse(exceptionRaised);
-			Assert::AreEqual(DalReturnValue::Timeout , actual, "ensure that SendCommandTest.ptp docklight script is NOT running on the testing system");
+			Assert::AreEqual(DalReturnValue::Timeout , actual, "ensure that SendCommandAndGetResponseTest.ptp docklight script is NOT running on the testing system");
 		}
 			
 			/// <summary>
-			///A test for SendCommand
+			///A test for SendCommandAndGetResponse
 			///</summary>
 public: [TestMethod]
-		void SendCommandTestPos1()
+		void SendCommandAndGetResponseTestPos1()
 		{
 			DalCommandInterface_Accessor^  target = commInterfaceObject ; 
 			//target->SetActivePort(comPortName);
@@ -408,7 +408,7 @@ public: [TestMethod]
 			DalReturnValue ^actual;
 			try
 			{
-				actual = target->SendCommand(serialCommand);
+				actual = target->SendCommandAndGetResponse(serialCommand);
 			}
 			catch(Exception^)
 			{
@@ -616,7 +616,7 @@ public: [TestMethod]
 			target->_serialPort->DataReceived += gcnew SerialDataReceivedEventHandler(DalCommandInterface_Accessor::DataCaptureMultiplePacketHandler);
 			try
 			{
-				target->SendCommand(serialCommand);
+				target->SendCommandAndGetResponse(serialCommand);
 			}
 			catch(Exception^)
 			{
@@ -674,50 +674,50 @@ public: [TestMethod]
 				}
 			}
 			/// <summary>
-		///A test for CheckStatusFlag
+		///A test for CheckStatusFlagsChanged
 		///</summary>
 public: [TestMethod]
 		[DeploymentItem(L"dal.dll")]
-		void CheckStatusFlagTest()
+		void CheckStatusFlagsChangedTest()
 		{
 			/*DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
 			target->SetActivePort(comPortName);*/
 			DalCommandInterface_Accessor^  target = commInterfaceObject;
 			//initialize all variables to starting values
 			target->_currentCuffStatusFlag = 0;
-			target->_currentEAStatusFlag = 0;
+			target->_currentAlarmStatusFlag  = 0;
 		
 			unsigned long Current_cuffStatusBytes = 0x0400; //first expected value
 			unsigned long Current_eaStatusBytes = 0x0000; //first expected value
 			unsigned long statusBytes = 0x0400; 
 			bool expected = true; 
 			bool actual;
-			actual = target->CheckStatusFlag(statusBytes);
+			actual = target->CheckStatusFlagsChanged(statusBytes);
 			Assert::AreEqual(expected, actual);
 			Assert::AreEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
-			Assert::AreEqual(Current_eaStatusBytes, target->_currentEAStatusFlag);
+			Assert::AreEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
 
 			//now assign the current values for checking
 			Current_cuffStatusBytes = target->_currentCuffStatusFlag;
-			Current_eaStatusBytes = target->_currentEAStatusFlag;
+			Current_eaStatusBytes = target->_currentAlarmStatusFlag ;
 
 			//change alarm flags without changing cuff flags
 			statusBytes = 0x0408;
-			target->CheckStatusFlag(statusBytes);
+			target->CheckStatusFlagsChanged(statusBytes);
 			Assert::AreEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
-			Assert::AreNotEqual(Current_eaStatusBytes, target->_currentEAStatusFlag);
+			Assert::AreNotEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
 
 			//reset back to normal position . we wont chek the status this time
 			statusBytes = 0x0400;
-			target->CheckStatusFlag(statusBytes);
+			target->CheckStatusFlagsChanged(statusBytes);
 			Current_cuffStatusBytes = target->_currentCuffStatusFlag;
-			Current_eaStatusBytes = target->_currentEAStatusFlag;
+			Current_eaStatusBytes = target->_currentAlarmStatusFlag ;
 
 			//now change cuff flags without changing alarm
 			statusBytes = 0x0900;
-			target->CheckStatusFlag(statusBytes);
+			target->CheckStatusFlagsChanged(statusBytes);
 			Assert::AreNotEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
-			Assert::AreEqual(Current_eaStatusBytes, target->_currentEAStatusFlag);
+			Assert::AreEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
 			
 		
 		}
@@ -740,7 +740,7 @@ public: [TestMethod]
 			try
 			{
 				TimeoutErrorAlarmEventRaised = false;
-				target->SendCommand(serialCommand);
+				target->SendCommandAndGetResponse(serialCommand);
 				//Assert::IsFalse(DalDataBuffer_Accessor::Instance->IsBufferEmpty());
 				System::Threading::Thread::Sleep(300); //sleep for a period longer than expected
 				target->CheckIfTimeoutHasOccurred(this, nullptr);

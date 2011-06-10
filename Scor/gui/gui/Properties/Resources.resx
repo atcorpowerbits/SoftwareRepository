@@ -124,9 +124,6 @@
   <data name="newarrowpart211" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\newarrowpart211.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SetupScreenDirect_Small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\SetupScreenDirect_Small.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="SetupScreenSubtracting_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\SetupScreenSubtracting_small.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -135,5 +132,8 @@
   </data>
   <data name="cap_arrow6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cap_arrow6.JPG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SetupScreenDirect_Small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SetupScreenDirect_Small.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

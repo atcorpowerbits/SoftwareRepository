@@ -621,6 +621,8 @@ namespace gui {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class DataTable2DataTable : global::System.Data.TypedTableBase<DataTable2Row> {
             
+            private global::System.Data.DataColumn columnImageBpChart;
+            
             private global::System.Data.DataColumn columnImageHeartRate;
             
             private global::System.Data.DataColumn columnImageAnalysisChart;
@@ -655,6 +657,13 @@ namespace gui {
             protected DataTable2DataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn ImageBpChartColumn {
+                get {
+                    return this.columnImageBpChart;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -707,9 +716,10 @@ namespace gui {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public DataTable2Row AddDataTable2Row(byte[] ImageHeartRate, byte[] ImageAnalysisChart, byte[] ImageLogo) {
+            public DataTable2Row AddDataTable2Row(byte[] ImageBpChart, byte[] ImageHeartRate, byte[] ImageAnalysisChart, byte[] ImageLogo) {
                 DataTable2Row rowDataTable2Row = ((DataTable2Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        ImageBpChart,
                         ImageHeartRate,
                         ImageAnalysisChart,
                         ImageLogo};
@@ -732,6 +742,7 @@ namespace gui {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
+                this.columnImageBpChart = base.Columns["ImageBpChart"];
                 this.columnImageHeartRate = base.Columns["ImageHeartRate"];
                 this.columnImageAnalysisChart = base.Columns["ImageAnalysisChart"];
                 this.columnImageLogo = base.Columns["ImageLogo"];
@@ -739,6 +750,8 @@ namespace gui {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitClass() {
+                this.columnImageBpChart = new global::System.Data.DataColumn("ImageBpChart", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImageBpChart);
                 this.columnImageHeartRate = new global::System.Data.DataColumn("ImageHeartRate", typeof(byte[]), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnImageHeartRate);
                 this.columnImageAnalysisChart = new global::System.Data.DataColumn("ImageAnalysisChart", typeof(byte[]), null, global::System.Data.MappingType.Element);
@@ -1117,6 +1130,21 @@ namespace gui {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] ImageBpChart {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableDataTable2.ImageBpChartColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ImageBpChart\' in table \'DataTable2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.ImageBpChartColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public byte[] ImageHeartRate {
                 get {
                     try {
@@ -1159,6 +1187,16 @@ namespace gui {
                 set {
                     this[this.tableDataTable2.ImageLogoColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsImageBpChartNull() {
+                return this.IsNull(this.tableDataTable2.ImageBpChartColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetImageBpChartNull() {
+                this[this.tableDataTable2.ImageBpChartColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

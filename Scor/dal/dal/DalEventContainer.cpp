@@ -42,13 +42,13 @@ namespace AtCor{
 			}
 
 			//Overloaded copy contructor. 
-			DalEventContainer::DalEventContainer(const DalEventContainer^)
+			DalEventContainer::DalEventContainer(DalEventContainer^)
 			{
 				//Does nothing. Made private to implement singleton.
 			}
 
 			//overloaded assignment operator. Private to implement singleton.
-			DalEventContainer^ DalEventContainer::operator = (const DalEventContainer)
+			DalEventContainer^ DalEventContainer::operator = (DalEventContainer)
 			{
 				//return the  current instance itself.
 				return this;

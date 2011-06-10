@@ -116,7 +116,7 @@ namespace TestDal {
 				actual->OnDalTonometerStatusEvent += gcnew DalTonometerStatusEventHandler(&TestDal::DalEventContainerTest::MyDalTonometerStatusEventHandler);
 
 				actual->OnDalCuffStatusEvent(this, gcnew DalCuffStatusEventArgs(cuffStateFlag));
-				actual->OnDalModuleErrorAlarmEvent(this, gcnew DalModuleErrorAlarmEventArgs( errFlag));
+				actual->OnDalModuleErrorAlarmEvent(this, gcnew DalModuleErrorAlarmEventArgs( errFlag, nullptr)); //TODO: Deepak Put an appropriate string
 				actual->OnDalTonometerStatusEvent(this, gcnew DalTonometerStatusEventArgs(DalTonometerState::Connected ));
 
 				Assert::AreEqual(true, cuffStatusEventRaised );

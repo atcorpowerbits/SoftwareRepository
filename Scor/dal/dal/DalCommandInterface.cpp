@@ -146,6 +146,7 @@ namespace AtCor{
 
 			void DalCommandInterface::ReadFromPortAndWriteToBuffer(Object^ sender, SerialDataReceivedEventArgs^ e)
 			{
+				e; //Dummy statement to get rid of C4100 warning
 
 				DalPwvDataStruct pwvDataObject ;
 				int bytesRead;
@@ -429,45 +430,7 @@ namespace AtCor{
 				return DalReturnValue::Success ;
 			}
 
-			//bool DalCommandInterface::CheckStatusFlag(unsigned long statusBytes)
-			//{
-			//	unsigned long cuffStatusBytes, alarmStatusBytes; 
-
-			//	//First break the status flag down into its two important sets
-			//	//cuff status related bits
-			//	cuffStatusBytes = statusBytes & (unsigned long)DalStatusFlagBitMask::CuffStatusBitsMask;
-
-			//	//and Error-Alarm event related bits
-			//	alarmStatusBytes =statusBytes & (unsigned long)DalStatusFlagBitMask::AlarmStatusBitsMask;
-
-			//	//CrxLogger::Instance->Write("statusBytes:" + statusBytes.ToString("X4") +" cuffStatusBytes:" + cuffStatusBytes.ToString("X4") + " alarmStatusBytes:"+eaStatusBytes.ToString("X4") ); //debugging only
-			//	
-			//	try
-			//	{
-			//		 if (CheckCuffStatusFlagsChanged(cuffStatusBytes) ==  true)
-			//		 {
-			//			DalCuffStateFlags currentCuffState = TranslateCuffStatusBits(cuffStatusBytes);
-
-			//			 //map the status bytes to a state flag
-			//			 //	raise a staus change event and update the new flag.
-			//			DalEventContainer::Instance->OnDalCuffStatusEvent(nullptr, gcnew DalCuffStatusEventArgs(currentCuffState)); //cant pass the sender since this is a static method
-			//			
-			//		 }
-
-			//		 if (CheckAlarmStatusFlagChanged(alarmStatusBytes) == true)
-			//		 {
-			//			 //if a change has occured in the error/alarm bits first raise an event 
-			//			 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalAlarmEventArgs(TranslateAlarmStatusBits(alarmStatusBytes)));//cant pass the sender since this is a static method
-			//			 //CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
-			//		 }
-			//	}
-			//	catch(ScorException^)
-			//	{
-			//		throw;
-			//	}
-
-			//	return true;
-			//}
+			
 
 
 			DalReturnValue DalCommandInterface::ValidateResponsePacket(EM4DataCapturePacket ^capturePacket)
@@ -762,7 +725,7 @@ namespace AtCor{
 				return true;
 			}
 
-			DalCommandInterface^ DalCommandInterface::operator =(const DalCommandInterface)
+			DalCommandInterface^ DalCommandInterface::operator =( DalCommandInterface)
 			{
 				//overloaded assignment operator.
 				//used to implement singleton.
@@ -861,6 +824,9 @@ namespace AtCor{
 
 			void DalCommandInterface::CheckIfTimeoutHasOccurredInternal(System::Object ^sender, System::Timers::ElapsedEventArgs ^args)
 			{
+				sender; //Dummy statement to get rid of C4100 warning
+				args; //Dummy statement to get rid of C4100 warning
+
 				static unsigned int BufferEmptyCounter = 0;
 
 				if (DalDataBuffer::Instance->IsBufferEmpty())
@@ -894,6 +860,9 @@ namespace AtCor{
 
 			void DalCommandInterface::CheckSerialPortInputBuffer(Object^ sender, ElapsedEventArgs^ args)
 			{
+				sender; //Dummy statement to get rid of C4100 warning
+				args; //Dummy statement to get rid of C4100 warning
+
 				static int previousBufferedCount = -1;
 				int currentBufferedCount;
 

@@ -71,7 +71,7 @@ private ref struct CrxLogStructInternal
 										* Copy Constructor @n
 										* Made private to avoid being used with new(). Does nothing.
 										*/
-										  CrxLogger(const CrxLogger^)
+										  CrxLogger(CrxLogger^)
 										  {
 							                    
 										  }
@@ -80,7 +80,7 @@ private ref struct CrxLogStructInternal
 										  * Overloaded assignment Operator. @n
 										  * Returns this pointer to implement singleton.
 										  */
-										  CrxLogger^ operator=(const CrxLogger^) 
+										  CrxLogger^ operator=(CrxLogger^) 
 										  {
 												 return this;
 										  }  

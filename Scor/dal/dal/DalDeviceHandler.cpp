@@ -163,10 +163,12 @@ namespace AtCor{
 			bool DalDeviceHandler::GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
 											  DalDeviceConfigUsageStruct ^%deviceConfigInfo )
 			{
+				bool returnValue = false;
 
 				//temporarily assign the same values as the EM4 simulation device until the actual code is written.
 				switch (deviceConfigItem)
 				{
+					
 					case DalDeviceConfigUsageEnum::ModuleCalibrationDate:
 						//Dummy value: returns todays date
 						deviceConfigInfo->ModuleConfigDate= System::DateTime::Today;
@@ -185,7 +187,11 @@ namespace AtCor{
 						deviceConfigInfo->ModuleMainFWVersion =CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstGciFirmwareVersion);
 						break;
 					case DalDeviceConfigUsageEnum::ModuleSerialNumber:
-						return GetConfigDeviceSerialMumber(deviceConfigInfo->ModuleSerialNumber);
+						String ^ tempSerialNumber;
+						
+						returnValue = GetConfigDeviceSerialMumber(tempSerialNumber);
+						deviceConfigInfo->ModuleSerialNumber = tempSerialNumber;
+						return returnValue;
 					case DalDeviceConfigUsageEnum::ModuleType:
 						//Dummy value
 						//deviceConfigInfo->ModuleType = CrxMessagingManager::Instance->GetMessage("DAL_CONST_GCI_TYPE"); 
@@ -305,7 +311,7 @@ namespace AtCor{
 				{
 					 return CheckIfDeviceIsConnected(commPort);
 				}
-				return false;
+				//return false; //unreachable code
 			}
 
 
@@ -352,7 +358,7 @@ namespace AtCor{
 					}
 					return false; 
 				}
-				catch(ScorException ^)
+				catch(ScorException^ )
 				{
 					throw; 
 				}
@@ -374,18 +380,22 @@ namespace AtCor{
 				
 				array<unsigned char> ^pressureBytes = gcnew array<unsigned char> {pressureMSB, pressureLSB};
 
-				if (cuffBoard == EM4CuffBoard::SuntechBoard)
-				{
-					commandByte = Em4CommandCodes::SetPressureSuntechBoard;
-					
-				}
-				else if (cuffBoard == EM4CuffBoard::MainBoard)
-				{
-					commandByte = Em4CommandCodes::SetPressureMainBoard;
-				}
-
+				
 				try
 				{
+					if (cuffBoard == EM4CuffBoard::SuntechBoard)
+					{
+						commandByte = Em4CommandCodes::SetPressureSuntechBoard;
+					}
+					else if (cuffBoard == EM4CuffBoard::MainBoard)
+					{
+						commandByte = Em4CommandCodes::SetPressureMainBoard;
+					}
+					else 
+					{
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrInvalidArgsErrCd, CrxStructCommonResourceMsg::DalErrInvalidArgs, ErrorSeverity::Exception);
+					}
+
 					DalEM4Command ^setPressureCommand = gcnew DalEM4Command(commandByte,pressureBytes);
 					setPressureCommand->expectedResponseLength = Em4ResponseRequiredLength::SetPressure;
 

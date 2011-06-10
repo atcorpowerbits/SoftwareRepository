@@ -82,6 +82,8 @@ namespace AtCor.Scor.Gui.Presentation
             }
             else if (crEx.ErrorCode == (int)CustomErrorCode.SpecialExceptionCode)
             {
+                eMesg = new StringBuilder(string.Empty);
+
                 // Prepare a message for display. this will be for general exception
                 string temp = string.Format("{0}{1}", crEx.ExceptionObject.Message, Environment.NewLine);
                 eMesg.Append(temp);                
@@ -107,14 +109,15 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // smarajit
                 eMsg = ConstructErrorMessage(crEx);
-                GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
+               
                 switch (crEx.ErrorType)
                 {
                     case ErrorSeverity.Exception:
                         RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
                         break;
-                    case ErrorSeverity.Warning:                        
+                    case ErrorSeverity.Warning: 
+                        GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiWarningTxt) + eMsg);
                         GuiCommon.DefaultWindowForm.radlblMessage.Text = eMsg;
                         GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.WarningImage.ToString()]));
@@ -122,6 +125,7 @@ namespace AtCor.Scor.Gui.Presentation
                         GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick += guialertmsgTimer_Tick;
                         break;
                     case ErrorSeverity.Information:
+                        GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiInfoTxt) + eMsg);
                         GuiCommon.DefaultWindowForm.radlblMessage.Text = eMsg;
                         GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.InfoImage.ToString()]));

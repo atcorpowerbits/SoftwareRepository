@@ -59,8 +59,8 @@ namespace AtCor.Scor.Gui.Presentation
         int recordsToDelete; // this variable holds value for number of records to delete and is used across dfifferent methods 
         string lastAssessmentDate = string.Empty;
         private DefaultWindow objDefaultWindow;
-        bool oneRecordSelect = true; // this variable is used to denote whether one single assessment record is selected and accordingly display report data
 
+       // bool oneRecordSelect = true; // this variable is used to denote whether one single assessment record is selected and accordingly display report data
         string[] date; // date array to be used on analysis screen
         string[] heartRate; // heart rate array to be used on analysis screen
         string[] pWv; // pwv velocity array to be used on analysis screen
@@ -129,8 +129,7 @@ namespace AtCor.Scor.Gui.Presentation
                 DefaultWindow.OnReportMenuItemClick += SaveChangesOnMenuFocus;
                 Presentation.Capture.OnReportTabClick += Report_Load;
                 GuiCommon.OnCaptureClosing += EnableRepeatAndCaptureTab;
-                guichartSuperImposedWaveform.BackColor = Color.White; 
-                guichartSuperImposedWaveform.ChartAreas[0].BackColor = Color.White;
+                guichartSuperImposedWaveform.BackColor = Color.White;                
                 guiradlblReportCarotid.ForeColor = Color.Blue;  
             }
             catch (Exception ex)
@@ -149,8 +148,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             crxMgrObject.GetGeneralUserSettings();
             crxMgrObject.GetPwvUserSettings();
-
-            SetShape(guilblReportPatientIdValue, guilblReportDobValue, guilblReportAgeValue, guilblReportGenderValue, guiradlblreportSPdisplay, guiradlblReportBloodPressure2, guiradlblReportOperatordisplay, guiradlblReportNotesDisplay, guiradlblReportPwvDistanceMethodType, guiradlblreportpwvdistancedisplay1, guiradlblreportpwvdistancedisplay, guiradlblReportHeightDisplay, guiradlblReportHeightInches);
+            SetShape(guilblReportPatientIdValue, guilblReportDobValue, guilblReportAgeValue, guilblReportGenderValue, guiradlblreportSPdisplay, guiradlblReportBloodPressure2, guiradlblReportOperatordisplay, guiradlblReportNotesDisplay, guiradlblReportPwvDistanceMethodType, guiradlblreportpwvdistancedisplay1, guiradlblreportpwvdistancedisplay, guiradlblReportHeightDisplay, guiradlblReportHeightInches);           
             SetShape(guiradtxtReportBloodPressure1, guiradtxtReportBloodPressure2, guiradtxtReportOperator, guiradtxtReportNotes, guiradtxtReportCuff, guiradtxtCarotid, guiradtxtReportFemoToCuff, guiradtxtReportHeightInches, guiradtxtReportHeight);
         }
 
@@ -197,8 +195,7 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.ReportLoadCount++;
             
             SetTextForReportScreen();
-            SetReportTagForValidation();
-
+            SetReportTagForValidation();            
             objValidateReport = new GuiFieldValidation(guipnlReportPatientMeasurementDetails, guiradpnlEditPWVdistance);
 
             // set default text for report tab
@@ -218,7 +215,8 @@ namespace AtCor.Scor.Gui.Presentation
 
             // to check if wait interval is imposed and accordingly disable/ enable capture tab & repeat buttons
             CheckWaitIntervalImposed();
-            guichartSuperImposedWaveform.ChartAreas[0].BackColor = Color.White; 
+            guichartSuperImposedWaveform.ChartAreas[0].BackColor = Color.White;
+            guichartSuperImposedWaveform.ChartAreas[0].ShadowColor = System.Drawing.Color.Transparent;                
         }
 
          /** This method set default options for buttons on report screen & calculates patients age
@@ -246,7 +244,7 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 guiradlblReportPwvDistance.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelPwvDistance);
-                guiradchkAssesments.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportAssessments);
+                guiradlblReportAssessments.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportAssessments);
                 guiradlblReportPatientId.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPatientId);
                 guiradlblReportPatientName.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPatientName);
 
@@ -359,7 +357,7 @@ namespace AtCor.Scor.Gui.Presentation
         
          /**This method sets Carotid, cuff & femoral to cuff values for editing as per PWV distance method
        */
-        void SetPwvDistanceFieldForEditing()
+        private void SetPwvDistanceFieldForEditing()
         {
             ushort tempVal;
 
@@ -414,7 +412,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         /**This method sets SP, DP & MP values for editing in textboxes
       */
-        void SetBloodPressureDataForEditing()
+        private void SetBloodPressureDataForEditing()
         {
             // sets SP, DP & MP values as per session & config object
             if (obj.bloodPressureEntryOption != ushort.Parse(crxMgrObject.GeneralSettings.BloodPressureEntryOptions.ToString()))
@@ -512,7 +510,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // Commenting the below code as group name is not used anymore in Clinical environment.
                 // guilblReportGroupValue.Text = GuiCommon.GroupName;
-                guiradlblReportPatientName.Text = string.IsNullOrEmpty(patientObj.firstName) ? patientObj.lastName : patientObj.firstName + " " + patientObj.lastName;
+                guiradlblReportPatientName.Text = string.IsNullOrEmpty(patientObj.firstName) ? patientObj.lastName : patientObj.firstName + "  " + patientObj.lastName;
                 guilblReportPatientIdValue.Text = patientObj.patientId;
                 guilblReportDobValue.Text = patientObj.dateOfBirth.ToString(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportDateTimeFormat));
                 guilblReportAgeValue.Text = obj.patientAge.ToString();
@@ -541,6 +539,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradgridReportAssessment.Columns[0].IsVisible = true;
                 guiradgridReportAssessment.Columns[0].Width = 22;
                 guiradgridReportAssessment.Columns[0].ReadOnly = false;
+                guiradgridReportAssessment.Columns[0].IsVisible = false;
 
                 guiradgridReportAssessment.Columns.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentsFormat), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayStudyDateTime), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentsFormat)); 
                 guiradgridReportAssessment.Columns[1].Width = 275;
@@ -571,7 +570,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradbtnDelete.Enabled = true;
 
                // guiradbtnPrint.Enabled = true;
-                guiradchkAssesments.Enabled = guiradgridReportAssessment.Rows.Count > 1 ? true : false;
+                // guiradchkAssesments.Enabled = guiradgridReportAssessment.Rows.Count > 1 ? true : false;
                 guiradgridReportAssessment.Enabled = true;
                 
                 // show labels (display PWV details)
@@ -636,8 +635,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 guiradbtnDelete.Enabled = false;
                 guiradbtnPrint.Enabled = false;
-                guiradbtnRepeat.Enabled = false;
-                guiradchkAssesments.Enabled = false;
+                guiradbtnRepeat.Enabled = false;               
                 guiradgridReportAssessment.Enabled = false;
                 
                 // edit PWV details (show text boxes)
@@ -690,7 +688,7 @@ namespace AtCor.Scor.Gui.Presentation
         * */
         void FillPWVMeasurementDetailsReport()
         {
-            const int LblReportNotesDisplayMaximumLength = 81; // denotes the maximum length of guiradlblReportNotesDisplay label
+            const int LblReportNotesDisplayMaximumLength = 44; // denotes the maximum length of guiradlblReportNotesDisplay label
            // const int LblReportOperatorDisplayMaxLength = 13; // denotes the maximum length of guiradlblReportOperatordisplay label
                         
             // make display panel visible for PWV distance
@@ -715,12 +713,6 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradlblReportBmiValue.Text = obj.heightAndWeight.bodyMassIndex.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.heightAndWeight.bodyMassIndex.ToString();
             guiradlblReportOperatordisplay.Text = guiradtxtReportOperator.Text = obj.operatorId;
             guiradlblReportNotesDisplay.Text = guiradtxtReportNotes.Text = obj.notes;
-
-            // if (guiradlblReportOperatordisplay.Text.Length > LblReportOperatorDisplayMaxLength)
-            // {
-            //    guiradlblReportOperatordisplay.Text = guiradlblReportOperatordisplay.Text.Substring(0, LblReportOperatorDisplayMaxLength - 3);
-            //    guiradlblReportOperatordisplay.Text = string.Format("{0}...", guiradlblReportOperatordisplay.Text);
-            // }
 
             // Since AutoEllipsis propert works only on singleline we are using code to check maximum length for label
             if (guiradlblReportNotesDisplay.Text.Length > LblReportNotesDisplayMaximumLength)
@@ -805,14 +797,13 @@ namespace AtCor.Scor.Gui.Presentation
 
                     guiradgridReportAssessment.DataSource = ds.Tables[0];
 
-                    guiradchkAssesments.Checked = false;
+                   // guiradchkAssesments.Checked = false;
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         guiradbtnreportedit.Enabled = true;
 
                         // sets assessment count for a label
-                        guiradlblReportAssesmentCount.Text = string.Format("{0}{1} {2} {3}{4}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayLeftSqrBracket), ds.Tables[0].Rows.Count, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentRecordCount), ds.Tables[0].Rows.Count, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayRightSqrBracket));
-                        guiradchkAssesments.Enabled = true;
+                        guiradlblReportAssesmentCount.Text = string.Format("{0}{1} {2} {3}{4}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayLeftSqrBracket), ds.Tables[0].Rows.Count, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentRecordCount), ds.Tables[0].Rows.Count, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayRightSqrBracket));                       
                         GuiCommon.HasMeasurementDetails = true;
                         guiradgridReportAssessment.MasterTemplate.Rows[ds.Tables[0].Rows.Count - 1].Cells[0].Value = true;
                         guiradbtnDelete.Enabled = true;
@@ -833,16 +824,16 @@ namespace AtCor.Scor.Gui.Presentation
 
                         if (ds.Tables[0].Rows.Count == 1)
                         {
-                            guiradchkAssesments.Checked = true;
-                            guiradchkAssesments.Enabled = false;
+                           // guiradchkAssesments.Checked = true;
+                           // guiradchkAssesments.Enabled = false;
 
                             // Since there is only one record in the assessment grid, and it should be checked by default hence making the check box readonly.
                             guiradgridReportAssessment.Rows[0].Cells[0].ReadOnly = true;    
                         }
                         else
                         {
-                            guiradchkAssesments.Enabled = true;
-                            guiradgridReportAssessment.Rows[0].Cells[0].ReadOnly = false;
+                            // guiradchkAssesments.Enabled = true;
+                           // guiradgridReportAssessment.Rows[0].Cells[0].ReadOnly = false;
                         }                                               
 
                         FillPWVMeasurementDetailsReport();                        
@@ -850,7 +841,7 @@ namespace AtCor.Scor.Gui.Presentation
                         SuperImposedWaveForm();
                         CheckAgeLimit(obj.patientAge);                        
                         PlotNormalRangeGraph();
-                        PlotReferenceRangeGraph();
+                        PlotReferenceRangeGraph();                        
                     }
                     else
                     {
@@ -861,8 +852,7 @@ namespace AtCor.Scor.Gui.Presentation
                         guiradbtnPrint.Enabled = false;
                         ClearChartData();
                         ResetMeasurementFields();
-                        GuiCommon.HasMeasurementDetails = false;
-                        guiradchkAssesments.Enabled = false;
+                        GuiCommon.HasMeasurementDetails = false;                        
                         guiradpnlAnalysis.Visible = false;
                         objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
                         guiradlblReportAssesmentCount.Text = string.Format("{0}{1} {2} {3}{4}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayLeftSqrBracket), ds.Tables[0].Rows.Count.ToString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentRecordCount), ds.Tables[0].Rows.Count.ToString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayRightSqrBracket));
@@ -929,6 +919,7 @@ namespace AtCor.Scor.Gui.Presentation
                 (obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)))
                 || obj.heightAndWeight.heightInCentimetres.Equals(GuiConstants.DefaultValue) || obj.heightAndWeight.heightInCentimetres.Equals(GuiConstants.DefaultValue))
             {
+                guiradlblReportReferenceRange.Visible = false;
                 guiradlblReportBpRange.Visible = false;
                 guiradlblRefRangeDescription.Visible = false;
                 guireportradlblReferenceMsg.Visible = true;
@@ -937,6 +928,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             else
             {
+                guiradlblReportReferenceRange.Visible = true;
                 guiradlblReportBpRange.Visible = true;
                 guiradlblRefRangeDescription.Visible = true;
                 guichartReferenceRange.Visible = true;
@@ -1535,8 +1527,9 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                guichartSuperImposedWaveform.ChartAreas[0].BackColor = Color.White;
-                crxMgrObject.PwvSettings.PWVDistanceMethod = obj.distanceMethod;
+                guichartSuperImposedWaveform.ChartAreas[0].BackColor = Color.White;                
+
+                // crxMgrObject.PwvSettings.PWVDistanceMethod = obj.distanceMethod;
                 ushort[] femoralSignal = obj.femoralSignal.signal;
                 obj.femoralSignal.CaptureSignal(femoralSignal, obj.femoralSignal.signalLength, 0, 0);
                 ushort[] carotidSignal = obj.carotidSignal.signal;
@@ -1582,22 +1575,29 @@ namespace AtCor.Scor.Gui.Presentation
             const double MinXValue = 0;
 
             // plot on the waveform.
-            double maxXValue = signalLength;
-                          
+            double dblMaxXValue = signalLength;
+
+            // new chart area
+            guichartSuperImposedWaveform.ChartAreas.Clear();
+            guichartSuperImposedWaveform.ChartAreas.Add(new ChartArea("ChartArea1"));
+            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Enabled = AxisEnabled.False;
+            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisX.Enabled = AxisEnabled.False;
+            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisX.MajorGrid.Enabled = false;
+
             // set y axis
-            guichartSuperImposedWaveform.ChartAreas[0].AxisY.Minimum = ChartHeight * GuiConstants.ChartAreaMinimumY;
-            guichartSuperImposedWaveform.ChartAreas[0].AxisY.Maximum = ChartHeight * GuiConstants.ChartAreaMaximumY;
-            guichartSuperImposedWaveform.ChartAreas[0].AxisY.Interval = 1;
+            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Minimum = ChartHeight * GuiConstants.ChartAreaMinimumY;
+            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Maximum = ChartHeight * GuiConstants.ChartAreaMaximumY;
+            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Interval = 1;
 
             // set x axis
-            guichartSuperImposedWaveform.ChartAreas[0].AxisX.Minimum = MinXValue;
-            guichartSuperImposedWaveform.ChartAreas[0].AxisX.Maximum = maxXValue;
-            guichartSuperImposedWaveform.ChartAreas[0].AxisX.Interval = 1;
+            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisX.Minimum = MinXValue;
+            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisX.Maximum = dblMaxXValue;
+            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisX.Interval = 1;
 
             // initialize series,chartype,add points to series and finally add series to chart.
             // Series for tonometer
             guichartSuperImposedWaveform.Series.Clear();
-            
+
             // plot carotid series
             PlotCarotidFemoralSeries(carotidSignalToPlot, carotidOnSetPoints, signalLength, Color.Blue);
             
@@ -1608,33 +1608,35 @@ namespace AtCor.Scor.Gui.Presentation
         /** This method plots series & onSet points for both femoral & carotid series
          * */
         private void PlotCarotidFemoralSeries(IList<ushort> signalToPlot, float[] onSetPoints, ushort signalLength, Color seriesColor)
-        {            
+        {
             Series tonometerSeries = new Series
                                          {
                 ChartType = SeriesChartType.FastLine,
                 Color = seriesColor,
                 XValueType = ChartValueType.Auto,
-                YValuesPerPoint = 1
+                YValuesPerPoint = 1,
+                ChartArea = "ChartArea1"
             };
 
             Hashtable carotidFemoralTable = new Hashtable();
             tonometerSeries.Points.Clear();
+
             for (int i = 0; i < signalLength; i++)
             {
                 if (signalToPlot[i] > guichartSuperImposedWaveform.ChartAreas[0].AxisY.Maximum)
                 {
-                    guichartSuperImposedWaveform.ChartAreas[0].AxisY.Maximum = signalToPlot[i] * GuiConstants.ChartAreaMaximumY;
+                    guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Maximum = signalToPlot[i] * GuiConstants.ChartAreaMaximumY;
                 }
 
                 if (signalToPlot[i] < guichartSuperImposedWaveform.ChartAreas[0].AxisY.Minimum)
                 {
-                    guichartSuperImposedWaveform.ChartAreas[0].AxisY.Minimum = signalToPlot[i] * GuiConstants.ChartAreaMinimumY;
+                    guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Minimum = signalToPlot[i] * GuiConstants.ChartAreaMinimumY;
                 }
 
                 tonometerSeries.Points.AddXY(i, signalToPlot[i]);
                 carotidFemoralTable[i] = signalToPlot[i];
             }
-                        
+
             Series tonometerOnsetSeries = new Series
                                               {
                 ChartType = SeriesChartType.FastPoint,
@@ -1667,40 +1669,17 @@ namespace AtCor.Scor.Gui.Presentation
                 }
             }
 
-            guichartSuperImposedWaveform.ChartAreas[0].BackColor = Color.White; 
             guichartSuperImposedWaveform.Series.Add(tonometerSeries);
-           
             guichartSuperImposedWaveform.Series.Add(tonometerOnsetSeries);
             guichartSuperImposedWaveform.Series.Add(tonometerOnsetSeries2);
+            
             guichartSuperImposedWaveform.Invalidate();
         }
 
         /**This event fires when checkbox is checked or unchecked on assessment gridview
           * */
         private void guiradgridReportAssessment_ValueChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (guiradgridReportAssessment.ActiveEditor is RadCheckBoxEditor)
-                {
-                    // "Off" is internal property of radgridview checkbox value. It hold value "Off" when checkbox in grid is unselected
-                    if (guiradgridReportAssessment.ActiveEditor.Value.ToString() == "Off")
-                    {
-                        // if checkbox is unchecked                        
-                        DisplaySelectedRecords(guiradgridReportAssessment.CurrentCell.RowIndex, false);
-                        guiradchkAssesments.Checked = false;
-                    }
-                    else
-                    {
-                        // if checkbox is checked                        
-                        DisplaySelectedRecords(-1, true);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                GUIExceptionHandler.HandleException(ex, this);
-            }
+        {            
         }
        
         /** This method displays report & analysis screen as per assessments selected
@@ -1714,19 +1693,15 @@ namespace AtCor.Scor.Gui.Presentation
             // check assessment checkbox if all assessments are selected in grid
             if (recordSelected == guiradgridReportAssessment.Rows.Count)
             {
-                EnableDisableReportPrintButton(false);
-
-                // check assessment checkbox if all assessments are selected in grid
-                if (guiradchkAssesments.ToggleState != ToggleState.On)
-                {
-                    guiradchkAssesments.Checked = true;
-                }
-                
                 guiradbtnDelete.Enabled = true;
                 if (recordSelected == 1)
                 {
                     dateToCompare = datetime.Replace(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma), string.Empty);
                 }
+
+                DisplayAnalysisScreen();
+                PlotAnalysisTrendCharts(datetime);
+                objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabAnalysis);
             }
             else if (recordSelected == 1)
             {
@@ -1747,15 +1722,17 @@ namespace AtCor.Scor.Gui.Presentation
             }
             else if (recordSelected > 1)
             {
-                EnableDisableReportPrintButton(false);
+                DisplayAnalysisScreen();
 
-                // display analysis screen
-                guiradbtnreportedit.Enabled = false;
-                guiradpnlAnalysis.Visible = true;
-                guiradbtnRepeat.Enabled = false;
-                guiradbtnDelete.Enabled = true;
-                objDefaultWindow.radtabCapture.Enabled = false;
-                ReportPWVDisplayMode(true);
+                // EnableDisableReportPrintButton(false);
+
+                //// display analysis screen
+                // guiradbtnreportedit.Enabled = false;
+                // guiradpnlAnalysis.Visible = true;
+                // guiradbtnRepeat.Enabled = false;
+                // guiradbtnDelete.Enabled = true;
+                // objDefaultWindow.radtabCapture.Enabled = false;
+                // ReportPWVDisplayMode(true);
                 PlotAnalysisTrendCharts(datetime);
                 objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabAnalysis);
             }
@@ -1787,17 +1764,21 @@ namespace AtCor.Scor.Gui.Presentation
               
         /** This method plots normal range graph
          * */
-        void PlotNormalRangeGraph()
+        private void PlotNormalRangeGraph()
         {
             try
             {
-                guichartNormalRange.Visible = CrxConfigManager.Instance.PwvSettings.NormalRange ? true : false;     
-                if (guichartNormalRange.Visible)
+                // set the location and plot normal range series
+                guichartNormalRange.Location = new Point(331, 232);
+                if (CrxConfigManager.Instance.PwvSettings.NormalRange)
                 {
-                    // set the location and plot normal range series
-                    guichartNormalRange.Location = new Point(331, 232);
                     PlotNormalReferenceRange(guichartNormalRange, obj.normalRange, AxisType.Primary, AxisType.Primary);
-                }
+                }                
+                else
+                {
+                    guichartNormalRange.Visible = false;
+                    guiradlbReportNormalRange.Visible = false;
+                }         
             }
             catch (Exception ex)
             {
@@ -1807,17 +1788,24 @@ namespace AtCor.Scor.Gui.Presentation
 
         /** This method plots reference range graph
        * */
-        void PlotReferenceRangeGraph()
+        private void PlotReferenceRangeGraph()
         {
             try
             {
-                guichartReferenceRange.Visible = CrxConfigManager.Instance.PwvSettings.ReferenceRange ? true : false;     
-                if (guichartReferenceRange.Visible)
+                // set the location and plot reference range series
+                guichartReferenceRange.Location = new Point(650, 232);
+                if (CrxConfigManager.Instance.PwvSettings.ReferenceRange)
                 {
-                    // set the location and plot reference range series
-                    guichartReferenceRange.Location = new Point(650, 232);
                     PlotNormalReferenceRange(guichartReferenceRange, obj.referenceRange, AxisType.Secondary, AxisType.Primary);
                 }
+                else
+                {
+                    guichartReferenceRange.Visible = false;
+                    guiradlblReportReferenceRange.Visible = false;
+                    guiradlblReportBpRange.Visible = false;
+                    guiradlblRefRangeDescription.Visible = false;
+                    guireportradlblReferenceMsg.Visible = false;
+                }         
             }
             catch (Exception ex)
             {
@@ -1906,80 +1894,6 @@ namespace AtCor.Scor.Gui.Presentation
 
             rangeChart.Series.Add(rangeSeries2);
             rangeChart.Invalidate();
-        }
-
-        /** This event fires when assessment checkbox is selected.
-         * If selected it selects all checkboxes in grid & vice versa
-         * */
-        private void guiradchkAssesments_ToggleStateChanged(object sender, StateChangedEventArgs args)
-        {            
-            bool flag = !GuiCommon.IsWaitIntervalImposed;
-            objDefaultWindow.radlblMessage.Text = string.Empty;
-
-            // if checked select all records in grid   
-            if (guiradchkAssesments.ToggleState == ToggleState.On)
-            {                
-                foreach (GridViewRowInfo t in guiradgridReportAssessment.Rows)
-                {
-                    t.Cells["CheckBox"].Value = true;                   
-                }
-
-                guiradgridReportAssessment.SelectAll();
-                
-                if (guiradgridReportAssessment.Rows.Count.Equals(1))
-                {                        
-                    guiradbtnRepeat.Enabled = flag;
-                    objDefaultWindow.radtabCapture.Enabled = flag;
-                    guiradbtnreportedit.Enabled = true;
-                    EnableDisableReportPrintButton(true);
-                }
-                else
-                {
-                    EnableDisableReportPrintButton(false);
-                    guiradbtnRepeat.Enabled = false;
-                    objDefaultWindow.radtabCapture.Enabled = false;
-                    guiradbtnreportedit.Enabled = false;  
-
-                    // Plot the trend analysis as per the number of assessments selected
-                    ReportPWVDisplayMode(true);
-                    string dateselected = GetCommaSeparatedDates();
-                    PlotAnalysisTrendCharts(dateselected);
-                    guiradpnlAnalysis.Visible = true;
-                    objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabAnalysis); 
-                }
-                
-                oneRecordSelect = false;
-                guiradbtnDelete.Enabled = true;                                                     
-            }
-
-            if (guiradchkAssesments.ToggleState == ToggleState.Off)
-            {
-                EnableDisableReportPrintButton(true);
-
-                if (!oneRecordSelect && guiradgridReportAssessment.Rows.Count > 0)
-                {                        
-                    foreach (GridViewRowInfo tRow in guiradgridReportAssessment.Rows)
-                    {
-                        tRow.Cells["CheckBox"].Value = false;
-                    }
-
-                    guiradgridReportAssessment.ClearSelection();
-                    guiradbtnDelete.Enabled = true;
-                    guiradbtnreportedit.Enabled = true;
-                    guiradpnlAnalysis.Visible = false;
-                    
-                    guiradbtnRepeat.Enabled = flag;
-                    objDefaultWindow.radtabCapture.Enabled = flag;                    
-
-                    guiradgridReportAssessment.MasterTemplate.Rows[guiradgridReportAssessment.Rows.Count - 1].Cells[0].Value = true;
-                    DisplayReportForSelectedAssesment(guiradgridReportAssessment.Rows[guiradgridReportAssessment.Rows.Count - 1].Cells[1].Value.ToString());
-                    recordsToDelete = 1;
-                    dateWithComma = DateTime.Parse(guiradgridReportAssessment.Rows[guiradgridReportAssessment.Rows.Count - 1].Cells[1].Value.ToString()).ToString(CulturalNeutralDateFormat) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
-                    objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
-                    guiradlblReportDateTime.Visible = false;
-                    guiradlblReportDateTimeDisplay.Visible = false;
-                } 
-            }
         }
 
         /** This event deletes assessments of selected patients
@@ -2577,7 +2491,7 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void DisplaySelectedRecords(int rowIndex, bool isChecked)
         {
-            oneRecordSelect = true;
+          // oneRecordSelect = true;
             int recordSelected = 0;
             dateWithComma = string.Empty;
             objDefaultWindow.radlblMessage.Text = string.Empty;
@@ -2592,35 +2506,10 @@ namespace AtCor.Scor.Gui.Presentation
             foreach (GridViewRowInfo row in guiradgridReportAssessment.Rows)
             {
                 if (row.IsSelected) 
-                {
-                    // when this value is false it means checkbox is checked
-                    if (isChecked)
-                    {
-                        row.Cells["CheckBox"].Value = true;
-                        recordSelected++;                        
-                        dateWithComma += DateTime.Parse(row.Cells[1].Value.ToString()).ToString(CulturalNeutralDateFormat) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
-                    }
-                    else if (row.IsCurrent)
-                    {
-                        row.Cells["CheckBox"].Value = false;
-                    }
-                    else if (row.Cells["CheckBox"].Value != null)
-                    {
-                        if (bool.Parse(row.Cells["CheckBox"].Value.ToString()) && rowIndex != row.Index)
-                        {
-                            recordSelected++;                            
-                            dateWithComma += DateTime.Parse(row.Cells[1].Value.ToString()).ToString(CulturalNeutralDateFormat) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
-                        }
-                    }      
-                }
-                else if (row.Cells["CheckBox"].Value != null)
-                {
-                    if (bool.Parse(row.Cells["CheckBox"].Value.ToString()) && rowIndex != row.Index)
-                    {
-                        recordSelected++;                        
-                        dateWithComma += DateTime.Parse(row.Cells[1].Value.ToString()).ToString(CulturalNeutralDateFormat) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
-                    }
-                }                
+                {                   
+                    recordSelected++;                        
+                    dateWithComma += DateTime.Parse(row.Cells[1].Value.ToString()).ToString(CulturalNeutralDateFormat) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);                   
+                }                             
             }
 
             GuiConstants.DateWithComma = dateWithComma;  
@@ -2629,7 +2518,8 @@ namespace AtCor.Scor.Gui.Presentation
             // below line of code will keep focus on current record selection in assessment grid
             guiradgridReportAssessment.MasterTemplate.EndUpdate(new DataViewChangedEventArgs(ViewChangedAction.DataChanged));
             guiradgridReportAssessment.MasterTemplate.SynchronizationService.AddListener(navigatorListener);
-            guiradchkAssesments.Enabled = guiradgridReportAssessment.Rows.Count == 1 ? false : true;
+
+           // guiradchkAssesments.Enabled = guiradgridReportAssessment.Rows.Count == 1 ? false : true;
 
             // display analysis / report screen based on records selected
             DisplayReportOnSelection(recordSelected, dateWithComma);            
@@ -2645,9 +2535,9 @@ namespace AtCor.Scor.Gui.Presentation
                 FillPWVMeasurementDetailsReport();
 
                 SuperImposedWaveForm();
-                CheckAgeLimit(obj.patientAge);                
+                CheckAgeLimit(obj.patientAge);               
                 PlotNormalRangeGraph();
-                PlotReferenceRangeGraph();
+                PlotReferenceRangeGraph();                
             }
         }
 
@@ -2756,9 +2646,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void CheckLastAssessmentSelected(string dateTime)
         {
             // check if there are any assessments in the grid, if no then disable the Repeat button and the Capture tab.
-            // if there are records in the grid then go with the normal flow.
-            // check if there are any assessments in the grid, if no then disable the Repeat button and the Capture tab.
-            // if there are records in the grid then go with the normal flow.           
+            // if there are records in the grid then go with the normal flow.        
             bool setValue;
             if (GuiCommon.TabFocused == objDefaultWindow.guiradgrpbxPwvDistanceMethod)
             {
@@ -2849,6 +2737,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guireportradlblReferenceMsg.Visible = true;
                 guireportradlblReferenceMsg.BringToFront();
                 guichartReferenceRange.Visible = false;
+                guiradlblReportReferenceRange.Visible = false;
                 guiradlblReportBpRange.Visible = false;
                 guiradlblRefRangeDescription.Visible = false;
 
@@ -2856,6 +2745,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblReportNormalMsg.Visible = true;
                 guiradlblReportNormalMsg.BringToFront();
                 guichartNormalRange.Visible = false;
+                guiradlbReportNormalRange.Visible = false;
 
                 // Display message saying Age is outside the range.
                 guireportradlblReferenceMsg.Text = guiradlblReportNormalMsg.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportAgeOutsideRange);
@@ -2866,10 +2756,9 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblReportNormalMsg.Visible = false;
                 guiradlblReportNormalMsg.SendToBack();
                 guichartNormalRange.Visible = true;
+                guiradlbReportNormalRange.Visible = true;               
                 CheckBloodPressure();
-            }
-
-            CheckConfigSettingsForRangeGraphs();
+            }          
         }
 
         /** This method fille structure "PWVReportData" with the values to be printed on PWV report.
@@ -3109,7 +2998,7 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     // if ((guiradchkAssesments.Focused == false))
                     // {
-                    guiradchkAssesments.Focus();
+                    guiradlblReportAssessments.Focus();
                 }
                 else
                 {
@@ -3145,7 +3034,8 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     label.RootElement.BackColor = Color.Transparent;
                     ((FillPrimitive)label.LabelElement.Children[0]).NumberOfColors = 1;
-                    ((FillPrimitive)label.LabelElement.Children[0]).BackColor = Color.FromArgb(172, 177, 204);
+
+                   // ((FillPrimitive)label.LabelElement.Children[0]).BackColor = Color.FromArgb(172, 177, 204);
 
                     // ((FillPrimitive)label.LabelElement.Children[0]).BackColor = Color.FromArgb(255,255,255); 
                     label.LabelElement.Shape = shape;
@@ -3161,39 +3051,7 @@ namespace AtCor.Scor.Gui.Presentation
                     textBox.TextBoxElement.Fill.Shape = shape;
                 }
             }
-        }
-
-        /**This event is fired to format the row selected by the user in the assessments grid.
-         */ 
-        private void guiradgridReportAssessment_CellFormatting(object sender, CellFormattingEventArgs e)
-        {
-            GridDataCellElement cell = e.CellElement as GridDataCellElement;
-            if (cell != null)
-            {
-                if (cell.IsCurrent)
-                {
-                    // cell fill
-                    cell.DrawFill = true;
-                    cell.GradientStyle = GradientStyles.Solid;                    
-                    cell.BackColor = Color.FromArgb(172, 177, 204);
-
-                    // cell border
-                    cell.DrawBorder = true;
-                    cell.BorderBoxStyle = BorderBoxStyle.SingleBorder;
-                    cell.BorderColor = Color.FromArgb(95, 105, 154);
-                }
-                else
-                {
-                    cell.ResetValue(LightVisualElement.DrawFillProperty, ValueResetFlags.Local);
-                    cell.ResetValue(LightVisualElement.GradientStyleProperty, ValueResetFlags.Local);
-                    cell.ResetValue(LightVisualElement.BackColorProperty, ValueResetFlags.Local);
-
-                    cell.ResetValue(LightVisualElement.DrawBorderProperty, ValueResetFlags.Local);
-                    cell.ResetValue(LightVisualElement.BorderBoxStyleProperty, ValueResetFlags.Local);
-                    cell.ResetValue(LightVisualElement.BorderColorProperty, ValueResetFlags.Local);
-                }
-            }
-        }
+        }        
 
         /**This method is used to display Report print button/Analysis print button depending upon the number of
          * assessments selected.         
@@ -3288,6 +3146,75 @@ namespace AtCor.Scor.Gui.Presentation
           e.ClipRectangle.Width - 1,
           e.ClipRectangle.Height - 1);
           OnPaint(e);
+        }
+
+        /** This event is used to set the alternate color for the assessment grid's records.
+         */ 
+        private void guiradgridReportAssessment_RowFormatting(object sender, RowFormattingEventArgs e)
+        {
+            GridRowElement row = e.RowElement as GridRowElement;
+            if (row != null)
+            {
+                if (row.IsCurrent)
+                {
+                    // row fill
+                    row.DrawFill = true;
+                    row.GradientStyle = GradientStyles.Solid;
+                    row.BackColor = Color.FromArgb(172, 177, 204);
+
+                    // row border
+                    row.DrawBorder = true;
+                    row.BorderBoxStyle = BorderBoxStyle.SingleBorder;
+                    row.BorderColor = Color.Red;
+                }
+                else if (row.IsOdd)
+                {
+                    // change the color to gray if the row is not selected. 
+                    if (!row.IsSelected)
+                    {
+                        row.DrawFill = true;
+                        row.GradientStyle = GradientStyles.Solid;
+                        row.BackColor = Color.LightGray;
+                    }               
+                }
+                else
+                {
+                    row.ResetValue(LightVisualElement.DrawFillProperty, ValueResetFlags.Local);
+                    row.ResetValue(LightVisualElement.GradientStyleProperty, ValueResetFlags.Local);
+                    row.ResetValue(LightVisualElement.BackColorProperty, ValueResetFlags.Local);
+                    row.ResetValue(LightVisualElement.DrawBorderProperty, ValueResetFlags.Local);
+                    row.ResetValue(LightVisualElement.BorderBoxStyleProperty, ValueResetFlags.Local);
+                    row.ResetValue(LightVisualElement.BorderColorProperty, ValueResetFlags.Local);
+                }
+            }
+        }
+
+        /**This method is fired when row selection is changes in the assessments grid.
+         */ 
+        private void guiradgridReportAssessment_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // DisplaySelectedRecords(guiradgridReportAssessment.CurrentCell.RowIndex, false);
+                DisplaySelectedRecords(-1, false);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        private void DisplayAnalysisScreen()
+        {
+            EnableDisableReportPrintButton(false);
+
+            // display analysis screen
+            guiradbtnreportedit.Enabled = false;
+            guiradpnlAnalysis.Visible = true;
+            guiradbtnRepeat.Enabled = false;
+            guiradbtnDelete.Enabled = true;
+            objDefaultWindow.radtabCapture.Enabled = false;
+            ReportPWVDisplayMode(true);            
         }
     }
 }

@@ -317,6 +317,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static String^	PulseWaveVelocityArrStr				=	"@pulseWaveVelocityArrStr";
 		static String^	StandardDeviationArrStr				=	"@StandardDeviationArrStr";
 		static String^	IsStdDevValidArrStr					=	"@IsStdDevValidArrStr";
+		static String^	SpValidArrStr						=	"@SpValidArrStr";
+		static String^	DpValidArrStr						=	"@DpValidArrStr";
+		static String^	MpValidArrStr						=	"@MpValidArrStr";
 		static String^  FilePath							=	"@FilePath";
 	};
 
@@ -327,6 +330,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 	 */
 	private ref struct CrxDbStructInternal
 	{
+		static	String^	DbRestoreFormat						=	"USE [master] RESTORE DATABASE  {0}  FROM DISK =  {1}  WITH REPLACE";
 		static	String^	DbConnectionFormat					=	"server={0};database={1};Integrated Security=true";
 		static  String^	MsAccessConnectionFormat			=	"PROVIDER=Microsoft.Jet.OLEDB.4.0;Data Source={0}";
 		static	String^	MsAccessQueryCount					=	"Select Count(1) from patient";
@@ -458,6 +462,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		String^ PulseWaveVelocityArrStr;
 		String^ StandardDeviationArrStr;
 		String^ IsStdDevValidArrStr;
+		String^ SpValidArrStr;
+		String^ DpValidArrStr;
+		String^ MpValidArrStr;
 	};
 
 	
@@ -514,7 +521,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		/**
 		* Copy Constructor
 		*/
-		CrxDBManager(const CrxDBManager^)
+		CrxDBManager(CrxDBManager^)
 		{
 			
 		}
@@ -522,7 +529,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		/**
 		* Assignment Operator
 		*/
-		CrxDBManager^ operator=(const CrxDBManager^) 
+		CrxDBManager^ operator=(CrxDBManager^) 
 		{
 			 return this;
 		}  

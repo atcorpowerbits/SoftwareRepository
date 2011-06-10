@@ -210,8 +210,8 @@ namespace AtCor{
 					private:
 						static DalEventContainer^ _instance = gcnew DalEventContainer(); //instance variable. Implements singleton
 						DalEventContainer(); //Empty constructor to implement singleton
-						DalEventContainer(const DalEventContainer^); //Overloaded copy contructor. Made private to implement singleton
-						DalEventContainer^ operator= (const DalEventContainer); //overloaded assignment operator. Private to implement singleton.
+						DalEventContainer(DalEventContainer^); //Overloaded copy contructor. Made private to implement singleton
+						DalEventContainer^ operator= (DalEventContainer); //overloaded assignment operator. Private to implement singleton.
 
 						DalTonoMeterDataEventHandler^ _dalTonoMeterDataEventHandler; //Handler for tonometer events //TODO:STUB
 						DalCuffPulseEventHandler^ _dalCuffPulseEventHandler; //Handler for cuff puse events //TODO:STUB

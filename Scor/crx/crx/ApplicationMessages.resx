@@ -334,7 +334,7 @@
     <value>Information</value>
   </data>
   <data name="CRX_ERR_FILE_CORRUPT" xml:space="preserve">
-    <value>System Configuration file is corrupted.</value>
+    <value>System Configuration file  is corrupted.</value>
   </data>
   <data name="CRX_ERR_FILE_CANNOT_ACCESS" xml:space="preserve">
     <value>System Configuration file cannot be accessed.</value>
@@ -440,12 +440,6 @@
   <data name="APPLICATION_MESSAGE" xml:space="preserve">
     <value>Application message</value>
   </data>
-  <data name="APR_CONDITION" xml:space="preserve">
-    <value>apr</value>
-  </data>
-  <data name="AUG_CONDITION" xml:space="preserve">
-    <value>aug</value>
-  </data>
   <data name="BTN_CAPTURE" xml:space="preserve">
     <value>Capture</value>
   </data>
@@ -454,9 +448,6 @@
   </data>
   <data name="DAY" xml:space="preserve">
     <value>Day</value>
-  </data>
-  <data name="DEC_CONDITION" xml:space="preserve">
-    <value>dec</value>
   </data>
   <data name="DELETE_PATEINT" xml:space="preserve">
     <value>Do you want to delete the selected patient?</value>
@@ -482,9 +473,6 @@
   <data name="EXPANDER_INITAL" xml:space="preserve">
     <value>Show</value>
   </data>
-  <data name="FEB_CONDITION" xml:space="preserve">
-    <value>feb</value>
-  </data>
   <data name="FEET" xml:space="preserve">
     <value>ft</value>
   </data>
@@ -496,15 +484,6 @@
   </data>
   <data name="INSERT_MODE" xml:space="preserve">
     <value>Insert Mode</value>
-  </data>
-  <data name="JAN_CONDITION" xml:space="preserve">
-    <value>jan</value>
-  </data>
-  <data name="JUL_CONDITION" xml:space="preserve">
-    <value>jul</value>
-  </data>
-  <data name="JUN_CONDITION" xml:space="preserve">
-    <value>jun</value>
   </data>
   <data name="KG" xml:space="preserve">
     <value>kg</value>
@@ -572,12 +551,6 @@
   <data name="LBS" xml:space="preserve">
     <value>lbs</value>
   </data>
-  <data name="MAR_CONDITION" xml:space="preserve">
-    <value>mar</value>
-  </data>
-  <data name="MAY_CONDITION" xml:space="preserve">
-    <value>may</value>
-  </data>
   <data name="MESSAGE" xml:space="preserve">
     <value>Message</value>
   </data>
@@ -589,12 +562,6 @@
   </data>
   <data name="MP" xml:space="preserve">
     <value>MP</value>
-  </data>
-  <data name="NOV_CONDITION" xml:space="preserve">
-    <value>nov</value>
-  </data>
-  <data name="OCT_CONDITION" xml:space="preserve">
-    <value>oct</value>
   </data>
   <data name="PATIENT_ADDED" xml:space="preserve">
     <value>Patient record added successfully.</value>
@@ -622,9 +589,6 @@
   </data>
   <data name="SELECT_SMALL" xml:space="preserve">
     <value>--select--</value>
-  </data>
-  <data name="SEP_CONDITION" xml:space="preserve">
-    <value>sep</value>
   </data>
   <data name="SHOW_CAPS" xml:space="preserve">
     <value>Show</value>
@@ -717,7 +681,7 @@
     <value>Connection failed with server</value>
   </data>
   <data name="CRX_ERR_DBMGR_CONVERSION" xml:space="preserve">
-    <value>#600 Unable to convert data type.</value>
+    <value>Unable to convert data type.</value>
   </data>
   <data name="NoErrorAlarm" xml:space="preserve">
     <value>No Error or Alarm</value>
@@ -1825,5 +1789,26 @@ Press Ok to Remind later or Cancel to ignore.</value>
   </data>
   <data name="DAL_ERROR_NULL_PARAM" xml:space="preserve">
     <value>A null parameter was passed</value>
+  </data>
+  <data name="CRX_ERR_XML_TAG_INCORRECT" xml:space="preserve">
+    <value>The specified XML tag was not found or may be in incorrect format.</value>
+  </data>
+  <data name="GUI_PRINT_PWV_ANALYSIS_LEGEND_TITLE" xml:space="preserve">
+    <value>BP Chart Legends</value>
+  </data>
+  <data name="BP_LBL_ANALYSIS" xml:space="preserve">
+    <value>BP (mmHg)</value>
+  </data>
+  <data name="AGE_NOT_SAFE" xml:space="preserve">
+    <value>Measurement is not safe and not validated. User is not allowed to proceed with the capture.</value>
+  </data>
+  <data name="AGE_WARNING_CUFF_FITTING" xml:space="preserve">
+    <value>Please ensure that the cuff size fits the patient and that the measurement is not currently validated for non-adult patients. Do you want to proceed?</value>
+  </data>
+  <data name="AGE_WARNING_NO_CLINICAL_DATA" xml:space="preserve">
+    <value>Please note that no clinical data to support and that the measurement is not currently validated for non-adult patients. Do you want to proceed?</value>
+  </data>
+  <data name="GUI_SCREEN_RESOLUTION_MSG" xml:space="preserve">
+    <value>Screen resolution is too low. Application may not display properly. Best viewed in 1024*768.</value>
   </data>
 </root>

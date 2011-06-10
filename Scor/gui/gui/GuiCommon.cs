@@ -36,12 +36,18 @@ namespace AtCor.Scor.Gui.Presentation
        public static bool CaptureToReport = false;
        public static bool CaptureToSetup = false;
        public static bool HasMeasurementDetails = false;
-       
+        
        public static bool CaptureTabClick = true;
        public static RadPageViewPage TabFocused;
        public static bool IsWaitIntervalImposed = false; // this variable checks for 30 sec wait interval imposed by EM4 when coming from capture to setup
        public static bool IsFormChanged = false; // this variable tracks any changes to the application form 
        public static bool IsMenuItemShown = true;
+       public static bool captureFormLoaded = false; // to check if capture form has loaded.
+       // This variable is used during checking field limits on Setup screen.When user has clicked Rad tab capture and if one of the field has value which
+       // is out of range.After the out of range message is shown the tabselection_changed event has already been fired due to which the capture functionality starts.
+       // As this is wrong we are using the below variable to see if it is true then stop the tab from changing.
+       public static bool IsValueOutsideLimits = false;
+       public static bool IsMandatoryFieldEmpty = false;  
        public static int ReportLoadCount = 0;
        public static int ExitApp = 0;
        #endregion
@@ -273,6 +279,18 @@ namespace AtCor.Scor.Gui.Presentation
                     font = new Font(GuiConstants.FontName, ctrl.Font.Size);
                     ctrl.Font = font;
                 }
+            }
+        }
+
+        /**This method is used to check the status of the flags set in the GUI Field validation class.
+         */ 
+        public static void CheckIfMandatoryFieldIsEmpty()
+        {            
+            if (IsValueOutsideLimits || IsMandatoryFieldEmpty )
+            {
+                DefaultWindowForm.radpgTabCollection.SelectedPage = DefaultWindowForm.guiradgrpbxPwvDistanceMethod;
+                DefaultWindowForm.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                return;
             }
         }
         #endregion

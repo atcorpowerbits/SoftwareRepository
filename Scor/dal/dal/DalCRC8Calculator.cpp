@@ -23,7 +23,8 @@ namespace AtCor{
 
 			CRC8Calculator::CRC8Calculator()
 			{
-				int i, j;
+				int j;
+				unsigned char i;
 				unsigned char crc;
 
 				try

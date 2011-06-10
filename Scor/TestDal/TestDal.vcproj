@@ -192,7 +192,7 @@
 			RelativePathToProject=".\crx\crx\crx.vcproj"
 		/>
 		<AssemblyReference
-			RelativePath=".\dal_Accessor.dll"
+			RelativePath="..\Debug\dal_Accessor.dll"
 			AssemblyName="dal_Accessor, Version=0.0.0.0, processorArchitecture=MSIL"
 			MinFrameworkVersion="0"
 		/>

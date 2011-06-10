@@ -41,8 +41,8 @@ namespace AtCor{
 
 				static DalModule^ _instance = gcnew DalModule();
 				DalModule();
-				DalModule(const DalModule^);
-				DalModule^ operator= (const DalModule);
+				DalModule( DalModule^);
+				DalModule^ operator= ( DalModule);
 
 				CaptureType _captureDataType;
 

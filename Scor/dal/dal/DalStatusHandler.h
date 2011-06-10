@@ -30,22 +30,25 @@ namespace AtCor{
 			private ref class DalStatusHandler
 			{
 				protected:
-					static unsigned long _currentCuffStatusFlag;  /**< current cuff status flags*/
+					static unsigned long _currentCuffStatusFlag = 0xFFFF;  /**< current cuff status flags*/ //TODO: clear value for all flags?
 					static unsigned long _currentAlarmStatusFlag; /**< current error alarm  status flags*/
 					static unsigned long _currentEASourceFlag; /**< current error alarm  source flags*/
 					static unsigned long _currentUnusedStatusFlag; // use this
 
-					static String^ dalErrorAlarmSourceName; //To store the source name
+					//unused variable
+					//static String^ dalErrorAlarmSourceName; //To store the source name
 			
 					static String^ _savedDataFilePath; /**< the path and filename where the waveform dump has been placed*/
 
-					static unsigned long cuffStatusBytes, alarmStatusBytes, tonoStatusBytes;  
-					static unsigned long powerUpStatusBytes, stopButtonStatusBytes;
-					static unsigned long unusedStatusBytes;
+					static unsigned long _newAlarmStatusBytes;  
+					static unsigned long  _newTonoStatusBytes = 0xFFFF;  
+					static unsigned long _newCuffStatusBytes = 0xFFFF;
+					static unsigned long _newPowerUpStatusBytes, _newStopButtonStatusBytes;
+					static unsigned long _newUnusedStatusBytes;
 					static DalCuffStateFlags currentCuffState; //Stores the current cuffState enum value, needed for simulation
 
 					static unsigned long _currentStatusFlag;  /**< current status flags*/
-					static unsigned long _currentTonoStatusFlag;  /**< current tonometer status flags*/
+					static unsigned long _currentTonoStatusFlag = 0xFFFF;  /**< current tonometer status flags*/
 
 
 					/**
@@ -88,27 +91,19 @@ namespace AtCor{
 					*/
 					static bool CheckAlarmStatusFlagChanged(unsigned long newAlarmStatusFlag); 
 
-					//obsolete
-					///*
-					//* Returns the error source name  
-					//* @param	sourceFlags	Error/alarm source flag
-					//* @return	Name of the error source
-					//*/
-					//static String^ MapErrorSourceToString(unsigned long sourceFlags); 
-
-					///*
-					//* Returns the alarm source name  
-					//* @param	sourceFlags	Error/alarm source flag
-					//* @return	Name of the alarm source
-					//*/
-					//static String^ MapAlarmSourceToString(unsigned long sourceFlags); 
-
 					/**
 					* Translates the cuff status flag bits into a state as listed in DalCuffStateFlags
-					* @param	statusFlags	cuff status bits source flag
+					* @param	cuffStatusFlags	Cuff status bits source flag
 					* @return	The translated cuff state
 					*/
-					static DalCuffStateFlags TranslateCuffStatusBits(unsigned long statusFlags);
+					static DalCuffStateFlags TranslateCuffStatusBits(unsigned long cuffStatusFlags);
+
+					/**
+					* Translates the tonometer status flag bits into a state as listed in DalTonometerState
+					* @param	tonoStatusFlags	Tonometer status bits source flag
+					* @return	The translated Tonometer state
+					*/
+					static DalTonometerState TranslateTonoStatusBits(unsigned long tonoStatusFlags);
 					
 					/**
 					* Translates the error/alarm status flag bits into an error/alarm state as listed in DalErrorAlarmStatusFlag

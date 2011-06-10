@@ -114,7 +114,7 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     int fieldValue = int.Parse(radtxtCtrl.Text.Trim());
                     GetValidationErrorMsg(fieldValue, radtxtCtrl);
-                }
+                }              
             }
             catch (OverflowException)
             {
@@ -131,7 +131,7 @@ namespace AtCor.Scor.Gui.Presentation
         public bool CheckMandatoryFields()
         {   
             string errMsg = string.Empty;
-           
+            GuiCommon.IsMandatoryFieldEmpty = false;
             int countFields = 0;
             GuiCommon.ExitApp = 0;
             GuiCommon.IsMenuItemShown = true;
@@ -146,6 +146,7 @@ namespace AtCor.Scor.Gui.Presentation
             if (errMsg.Length > 0)
             {
                 isFieldEmpty = true;
+                GuiCommon.IsMandatoryFieldEmpty = true;
                 GuiCommon.ExitApp = 1;
                 GuiCommon.IsMenuItemShown = false;
 
@@ -218,7 +219,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             // instantiate BizDataLimits to retrieve limits for a particular field
             BizDataLimits lim = BizDataValidation.Instance().GetLimits(radtxtCtrl.Tag.ToString());
-            isFieldEmpty = false;
+            isFieldEmpty = false;            
 
             // read limits and units 
             int min = lim.GetMin();
@@ -230,15 +231,20 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 // field validation error
                 isFieldEmpty = true;
+                GuiCommon.IsValueOutsideLimits = true;
                 string field = GetLabelText(radtxtCtrl.Tag.ToString());
                 radtxtCtrl.Text = string.Empty;
                 string err = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiLimitsFormat), field, min, units, max, units);
                 RadMessageBox.Show(err, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
             }
+            else
+            {
+                GuiCommon.IsValueOutsideLimits = false;
+            }
         }
 
         /** This method fetched label text to display for error messages for missing fields & validation
-         * */
+        */
         private string GetLabelText(string txtTag)
         {
             string tag = txtTag;

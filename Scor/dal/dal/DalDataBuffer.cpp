@@ -24,10 +24,10 @@ namespace AtCor{
 				DalPwvDataStruct::DalPwvDataStruct()
 				{
 					//Initialize all elements to -1 to indicate that the value is unusable.
-					tonometerData = -1;
-					cuffPulseData = -1;
-					cuffPressure = -1;
-					countdownTimer = -1;
+					tonometerData = (unsigned short)-1;
+					cuffPulseData = (unsigned short)-1;
+					cuffPressure = (unsigned short)-1;
+					countdownTimer = (unsigned short)-1;
 				}
 
 				//Copy constructor to work around the reference copy function
@@ -51,13 +51,13 @@ namespace AtCor{
 				DalDataBuffer::bufferPointer = nullptr;
 			}
 
-			DalDataBuffer::DalDataBuffer(const AtCor::Scor::DataAccess::DalDataBuffer ^)
+			DalDataBuffer::DalDataBuffer( DalDataBuffer ^)
 			{
 				//overloaded copy constructor.
 				//Does nothing
 			}
 
-			DalDataBuffer^ DalDataBuffer::operator =(const DalDataBuffer)
+			DalDataBuffer^ DalDataBuffer::operator =( DalDataBuffer)
 			{
 				//overloaded assignment operator.
 				//used to implement singleton.

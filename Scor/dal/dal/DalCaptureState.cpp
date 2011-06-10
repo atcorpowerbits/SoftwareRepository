@@ -32,11 +32,17 @@ namespace AtCor{
 
 	void DalCaptureState::ReadFromPortAndWriteToBuffer(Object ^sender, SerialDataReceivedEventArgs ^e)
 	{
+		sender; //Dummy statement to get rid of C4100 warning
+		e; //Dummy statement to get rid of C4100 warning
+
 		//do nothing
 	}
 
 	void DalCaptureState::CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args)
 	{
+		sender; //Dummy statement to get rid of C4100 warning
+		args; //Dummy statement to get rid of C4100 warning
+
 		//do nothing
 	}
 
@@ -46,7 +52,7 @@ namespace AtCor{
 	{
 	}
 
-	DalCaptureStateNotListening^ DalCaptureStateNotListening::operator =(const DalCaptureStateNotListening ^)
+	DalCaptureStateNotListening^ DalCaptureStateNotListening::operator =(DalCaptureStateNotListening ^)
 	{
 		return this;
 	}
@@ -74,7 +80,7 @@ namespace AtCor{
 		//do nothing
 	}
 
-	DalCaptureStateWaiting^ DalCaptureStateWaiting::operator =(const DalCaptureStateWaiting^)
+	DalCaptureStateWaiting^ DalCaptureStateWaiting::operator =(DalCaptureStateWaiting^)
 	{
 		return this;
 	}
@@ -106,7 +112,7 @@ namespace AtCor{
 		//empty constructor
 	}
 
-	DalCaptureStateDataReceived^ DalCaptureStateDataReceived::operator =(const DalCaptureStateDataReceived^)
+	DalCaptureStateDataReceived^ DalCaptureStateDataReceived::operator =(DalCaptureStateDataReceived^)
 	{
 		return this;
 	}
@@ -124,7 +130,7 @@ namespace AtCor{
 	{
 	}
 
-	DalCaptureStateTimeout^ DalCaptureStateTimeout::operator =(const DalCaptureStateTimeout^)
+	DalCaptureStateTimeout^ DalCaptureStateTimeout::operator =(DalCaptureStateTimeout^)
 	{
 		return this;
 	}

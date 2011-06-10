@@ -33,35 +33,6 @@ namespace AtCor{
 	namespace Scor{
 		namespace DataAccess{
 
-			//String^ DalStatusHandler::GetAlarmSource()
-			//{
-			//	static DalAlarmStatusBitMask sourceFlagsEnum;
-			//	sourceFlagsEnum = safe_cast<DalAlarmStatusBitMask>(_currentAlarmStatusFlag & (unsigned long)DalStatusFlagBitMask::AlarmStatusBitsMask ); 
-			//	//CrxLogger::Instance->Write("GetErrorAlarmSource >>>>>>>> _currentEASourceFlag:" + _currentEASourceFlag.ToString("X8") + " sourceFlagsEnum:" + sourceFlagsEnum.ToString()); //Logging only
-
-			//	dalErrorAlarmSourceName= String::Empty;
-
-			//	switch (sourceFlagsEnum)
-			//	{
-			//		case DalAlarmStatusBitMask::NoAlarm:
-			//			dalErrorAlarmSourceName = Enum::Format(DalAlarmStatusBitMask::typeid, sourceFlagsEnum, DalFormatterStrings::PrintEnumName);
-			//			break;
-			//			//Error status is obsolete
-			//		/*case DalAlarmStatusBitMask::ErrorStatus:
-			//			dalErrorAlarmSourceName = MapErrorSourceToString(_currentEASourceFlag  & (unsigned long)DalAlarmSourceFlagBitMask::AlarmSourceBitMask );
-			//			break;*/
-			//			//TODO merge MapErrorSourceToString into MapAlarmSourceToString
-			//		case DalAlarmStatusBitMask::AlarmStatus:
-			//			dalErrorAlarmSourceName = MapAlarmSourceToString((_currentEASourceFlag >> 16) & (unsigned long)DalAlarmSourceFlagBitMask::AlarmSourceBitMask );
-			//			break;
-			//		default:
-			//			dalErrorAlarmSourceName = _currentEASourceFlag.ToString();
-			//			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag, ErrorSeverity::Warning);
-			//			break;
-			//	}
-			//	return dalErrorAlarmSourceName;
-			//}
-
 			String^ DalStatusHandler::GetAlarmSource()
 			{
 				String ^ alarmSourceName;
@@ -183,109 +154,44 @@ namespace AtCor{
 			}
 
 
-			//obsolete
-			//MapAlarmsourcetoString 
-			//String^ DalStatusHandler::MapErrorSourceToString(unsigned long sourceFlags) 
-			//{
-			//	static DalErrorSource  errorSourceEnum;
-			//	errorSourceEnum = safe_cast<DalErrorSource>(sourceFlags);
-
-			//	//CrxLogger::Instance->Write("Deepak>>> MapErrorSourceToString sourceFlags:" + sourceFlags.ToString("X8") + " errorSourceEnum: " + errorSourceEnum.ToString());
-
-			//	try
-			//	{
-			//		dalErrorAlarmSourceName= String::Empty;
-
-			//		switch( errorSourceEnum)
-			//		{
-			//			case DalErrorSource::CuffLeak :
-			//			case DalErrorSource::DualSensors :
-			//				dalErrorAlarmSourceName = Enum::Format(DalErrorSource::typeid, errorSourceEnum, DalFormatterStrings::PrintEnumName);
-			//				break;
-			//			default:
-			//				dalErrorAlarmSourceName = sourceFlags.ToString();
-			//				//throw gcnew DalException("DAL_ERR_UNKNOWN_BIT_FLAG");
-			//				throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag, ErrorSeverity::Warning );
-			//				break;
-			//		}
-			//	}
-			//	catch(ScorException^ )
-			//	{
-			//		throw;
-			//	}
-			//	catch(Exception^ excepObj)
-			//	{
-			//		throw gcnew ScorException(excepObj);
-			//	}
-
-			//	return dalErrorAlarmSourceName;
-			//}
-			
-			//String^ DalStatusHandler::MapAlarmSourceToString(unsigned long sourceFlags) 
-			//{
-			//	static DalAlarmSource alarmSourceEnum;
-			//	alarmSourceEnum = safe_cast<DalAlarmSource>(sourceFlags);
-
-			//	dalErrorAlarmSourceName= String::Empty;
-			//	//CrxLogger::Instance->Write("Deepak>>> MapAlarmSourceToString sourceFlags:" + sourceFlags.ToString("X8"));
-
-			//	try
-			//	{
-			//		switch( alarmSourceEnum)
-			//		{
-			//			case DalAlarmSource::CuffLeak :
-			//			case DalAlarmSource::DualSensors :
-			//			case DalAlarmSource::OverPressure:
-			//			case DalAlarmSource::InflatedOverTime:
-			//				dalErrorAlarmSourceName = Enum::Format(DalAlarmSource::typeid, alarmSourceEnum, DalFormatterStrings::PrintEnumName);
-			//				break;
-			//			default:
-			//				dalErrorAlarmSourceName = sourceFlags.ToString();
-			//				throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag, ErrorSeverity::Warning);
-			//				break;
-			//		}
-			//	}
-			//	catch(ScorException^ )
-			//	{
-			//		throw;
-			//	}
-			//	catch(Exception^ excepObj)
-			//	{
-			//		throw gcnew ScorException(excepObj);
-			//	}
-
-			//	return dalErrorAlarmSourceName;
-			//}
-
-		
+	
 			DalCuffStateFlags DalStatusHandler::TranslateCuffStatusBits(unsigned long cuffStatusFlags) 
 			{
-				static DalCuffStateFlags data;
-				data = (DalCuffStateFlags)(cuffStatusFlags & (unsigned long)DalStatusFlagBitMask::CuffStatusBitsMask );
-	
-				switch (data)
+				DalCuffStatusBitMask currentCuffStatusBitMask;
+				DalCuffStateFlags currentCuffStateFlags;
+
+				currentCuffStatusBitMask = (DalCuffStatusBitMask)cuffStatusFlags;
+				//First check if the cuff strate flag passed to us is valid
+				if (!(Enum::IsDefined(DalCuffStatusBitMask::typeid, currentCuffStatusBitMask)))
+				{
+					//no: throw an exception
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag,ErrorSeverity::Warning);
+				}
+
+				switch (currentCuffStatusBitMask)
 				{
 					case DalCuffStatusBitMask::CUFF_DISCONNECTED_STATUS_BITS:
-						data = DalCuffStateFlags::CUFF_STATE_DISCONNECTED;
+						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_DISCONNECTED;
 						break;
 					case DalCuffStatusBitMask::CUFF_INFLATING_STATUS_BITS:
-						data = DalCuffStateFlags::CUFF_STATE_INFLATING;
+						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_INFLATING;
 						break;
 					case DalCuffStatusBitMask::CUFF_INFLATED_STATUS_BITS:
-						data = DalCuffStateFlags::CUFF_STATE_INFLATED;
+						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_INFLATED;
 						break;
 					case DalCuffStatusBitMask::CUFF_DEFLATING_STATUS_BITS:
-						data = DalCuffStateFlags::CUFF_STATE_DEFLATING;
+						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_DEFLATING;
 						break;
 					case DalCuffStatusBitMask::CUFF_DEFLATED_STATUS_BITS:
-						data = DalCuffStateFlags::CUFF_STATE_DEFLATED;
+						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_DEFLATED;
 						break;
 					default:
-						data = DalCuffStateFlags::CUFF_STATE_UNKNOWN;
+						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_UNKNOWN;
 						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag,ErrorSeverity::Warning);
 						break;
 				}
-				return data;
+
+				return currentCuffStateFlags;
 			}
 
 			DalErrorAlarmStatusFlag DalStatusHandler::TranslateAlarmStatusBits(unsigned long statusFlags)
@@ -344,14 +250,8 @@ namespace AtCor{
 				
 				// construct the file path, file contains captured waveform data and of same format
 				// as of the simulation file. (capture_DateTime.Dat).
-				//String^ tempFilePath = ".\\simulation\\pwv\\";
-				//String^ tempFilePath = CrxMessagingManager::Instance->GetMessage("DAL_CONST_SIM_FOLDER_PATH"); //TODO: put this somewhere too
 				String^ tempFilePath = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPath); //TODO: put this somewhere too
-				//String^ tempCapture = "capture_";
-				//String^ tempCapture =  CrxMessagingManager::Instance->GetMessage("DAL_CONST_CAPTURE_FILE_PREFIX"); //TODO
 				String^ tempCapture =  CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstCaptureFilePrefix); //TODO
-				//String^ tempFileExt = ".dat";
-				//String^ tempFileExt = CrxMessagingManager::Instance->GetMessage("DAL_CONST_DAT_FILE_EXTN");
 				String^ tempFileExt = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstDatFileExtn);
 
 				DateTime currentDateTime;
@@ -468,28 +368,28 @@ namespace AtCor{
 				//break the individual parts
 
 				//cuff status related bits
-				cuffStatusBytes = statusBytes & (unsigned long)DalStatusFlagBitMask::CuffStatusBitsMask;
+				_newCuffStatusBytes = statusBytes & (unsigned long)DalStatusFlagBitMask::CuffStatusBitsMask;
 				
 				//Alarm event related bits
-				alarmStatusBytes =statusBytes & (unsigned long)DalStatusFlagBitMask::AlarmStatusBitsMask;
+				_newAlarmStatusBytes =statusBytes & (unsigned long)DalStatusFlagBitMask::AlarmStatusBitsMask;
 
 				//tonometer related bits
-				tonoStatusBytes = statusBytes & (unsigned long) DalStatusFlagBitMask::TonoStatusBitsMask;
+				_newTonoStatusBytes = statusBytes & (unsigned long) DalStatusFlagBitMask::TonoStatusBitsMask;
 
-				powerUpStatusBytes = statusBytes & (unsigned long) DalStatusFlagBitMask::PowerUpBitMask;
+				_newPowerUpStatusBytes = statusBytes & (unsigned long) DalStatusFlagBitMask::PowerUpBitMask;
 				
-				stopButtonStatusBytes = statusBytes & (unsigned long) DalStatusFlagBitMask::StopButtonBitMask;
+				_newStopButtonStatusBytes = statusBytes & (unsigned long) DalStatusFlagBitMask::StopButtonBitMask;
 
-				unusedStatusBytes = statusBytes & (unsigned long) DalStatusFlagBitMask::UnusedStatusBitsMask;
+				_newUnusedStatusBytes = statusBytes & (unsigned long) DalStatusFlagBitMask::UnusedStatusBitsMask;
 								
 				//CrxLogger::Instance->Write("statusBytes:" + statusBytes.ToString("X4") +" cuffStatusBytes:" + cuffStatusBytes.ToString("X4") + " alarmStatusBytes:"+eaStatusBytes.ToString("X4") ); //debugging only
 			}
 
 			 void DalStatusHandler::ProcessCuffStatusFlag()
 			{
-				if (CheckCuffStatusFlagsChanged(cuffStatusBytes) ==  true)
+				if (CheckCuffStatusFlagsChanged(_newCuffStatusBytes) ==  true)
 				{
-					currentCuffState = TranslateCuffStatusBits(cuffStatusBytes);//TODO
+					currentCuffState = TranslateCuffStatusBits(_newCuffStatusBytes);
 
 					//map the status bytes to a state flag
 					//	raise a staus change event and update the new flag.
@@ -500,38 +400,40 @@ namespace AtCor{
 			void DalStatusHandler::ProcessTonoStatusFlag()
 			{
 
-				if (_currentTonoStatusFlag != tonoStatusBytes)
+				if (_currentTonoStatusFlag != _newTonoStatusBytes)
 				{
 					//assing the new status bytes
-					_currentTonoStatusFlag = tonoStatusBytes;
+					_currentTonoStatusFlag = _newTonoStatusBytes;
 
-					DalTonometerState tonoState;
+					DalTonometerState tonoState = TranslateTonoStatusBits(_newTonoStatusBytes);
 
-					tonoState = (DalTonometerState)(tonoStatusBytes & (unsigned short)DalTonometerStatusBitMask::TonometerNotConnectedBits);
-					if (DalTonometerState::Disconnected  == tonoState)
-					{
-						DalEventContainer::Instance->OnDalTonometerStatusEvent(nullptr, gcnew DalTonometerStatusEventArgs(tonoState));
-					}
+					
+					//raise event for both connected and disconnected states.
+					/*if (DalTonometerState::Disconnected  == tonoState)
+					{*/
+					DalEventContainer::Instance->OnDalTonometerStatusEvent(nullptr, gcnew DalTonometerStatusEventArgs(tonoState));
+					/*}*/
 				}
 			}
 
 			void DalStatusHandler::ProcessAlarmStatusFlag()
 			{
-				 if (CheckAlarmStatusFlagChanged(alarmStatusBytes) == true)
+				 if (CheckAlarmStatusFlagChanged(_newAlarmStatusBytes) == true)
 				 {
 					 String ^ alarmSource;
 					 //Get the source of the alarm
-					alarmSource= DalDeviceHandler::Instance->GetAlarmSource();
+					//alarmSource= DalDeviceHandler::Instance->GetAlarmSource(); //Incorrect should hit DalModule so that whichever is the current device will be called
+					 alarmSource= DalModule::Instance->GetErrorAlarmSource();
 
 					 //raise an event only after getting the source of the error
-					 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(TranslateAlarmStatusBits(alarmStatusBytes), alarmSource));
+					 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(TranslateAlarmStatusBits(_newAlarmStatusBytes), alarmSource));
 					 //CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
 				 }
 			}
 
 			void DalStatusHandler::ProcessStopButtonBitMask()
 			{
-				if (stopButtonStatusBytes)
+				if (_newStopButtonStatusBytes)
 				{
 					//If a capture operation is in progress ,
 					//it must be stopped
@@ -548,7 +450,7 @@ namespace AtCor{
 
 			void DalStatusHandler::ProcessPowerUpBitMask()
 			{
-				if (powerUpStatusBytes)
+				if (_newPowerUpStatusBytes)
 				{
 					//If a capture operation is in progress ,
 					//it must be stopped
@@ -572,10 +474,10 @@ namespace AtCor{
 				//bool setResetValue;
 
 
-				if (_currentUnusedStatusFlag != unusedStatusBytes)
+				if (_currentUnusedStatusFlag != _newUnusedStatusBytes)
 				{
 					//change the current flag
-					_currentUnusedStatusFlag = unusedStatusBytes;
+					_currentUnusedStatusFlag = _newUnusedStatusBytes;
 					
 					//split the various bits
 					unusedFlagBPRRNew = statusBytes & (unsigned long)DalUnusedStatusFlagBit::UnusedBitBprr;
@@ -618,18 +520,50 @@ namespace AtCor{
 			{
 				_currentEASourceFlag = 0;
 				_currentAlarmStatusFlag  = 0;
-				_currentCuffStatusFlag   = 0;
-				_currentTonoStatusFlag = 0;
+				_currentCuffStatusFlag   = 0xFFFF; //Todo. check if necessary for all other flags
+				_currentTonoStatusFlag = 0xFFFF;
 				_currentStatusFlag = 0;
 				_currentUnusedStatusFlag = 0;
 				
 				//reseting the flag masks to a value which is not used
-				cuffStatusBytes = 0xFFFF; 
-				alarmStatusBytes = 0xFFFF;
-				tonoStatusBytes = 0xFFFF;
-				powerUpStatusBytes = 0xFFFF;
-				stopButtonStatusBytes = 0xFFFF;
-				unusedStatusBytes = 0xFFFF;
+				_newCuffStatusBytes = 0xFFFF; 
+				_newAlarmStatusBytes = 0xFFFF;
+				_newTonoStatusBytes = 0xFFFF;
+				_newPowerUpStatusBytes = 0xFFFF;
+				_newStopButtonStatusBytes = 0xFFFF;
+				_newUnusedStatusBytes = 0xFFFF;
+			}
+
+			DalTonometerState DalStatusHandler::TranslateTonoStatusBits(unsigned long tonoStatusFlags)
+			{
+				DalTonometerState currentTonoMeterState ;
+				DalTonometerStatusBitMask currentTonometerStatusBitMask;
+
+				currentTonometerStatusBitMask = (DalTonometerStatusBitMask)tonoStatusFlags;
+
+				//First check if the tonometer state flag passed to us is valid
+				if (!(Enum::IsDefined(DalTonometerStatusBitMask::typeid, currentTonometerStatusBitMask)))
+				{
+					//no: throw an exception
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag,ErrorSeverity::Warning);
+				}
+
+				//next translate it to the correct state
+				switch(currentTonometerStatusBitMask)
+				{
+					case DalTonometerStatusBitMask::TonometerNotConnectedBits :
+						currentTonoMeterState = DalTonometerState::Disconnected;
+						break;
+					case DalTonometerStatusBitMask::TonometerConnectedBits :
+						currentTonoMeterState = DalTonometerState::Connected;
+						break;
+					default:
+						currentTonoMeterState = DalTonometerState::Unknown;
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag,ErrorSeverity::Warning);
+						break;
+				}
+
+				return currentTonoMeterState;
 			}
 
 

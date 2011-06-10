@@ -85,8 +85,8 @@ namespace AtCor {
 					private:
 						static CrxEventContainer^ _instance = gcnew CrxEventContainer(); //instance variable. Implements singleton
 						CrxEventContainer(); //Empty constructor to implement singleton
-						CrxEventContainer(const CrxEventContainer^); //Overloaded copy contructor. Made private to implement singleton
-						CrxEventContainer^ operator= (const CrxEventContainer); //overloaded assignment operator. Private to implement singleton.
+						CrxEventContainer(CrxEventContainer^); //Overloaded copy contructor. Made private to implement singleton
+						CrxEventContainer^ operator= (CrxEventContainer); //overloaded assignment operator. Private to implement singleton.
 
 						CommsPortEventHandler^ _commsPortEventHandler; //Handler for Comms Port settings events
 

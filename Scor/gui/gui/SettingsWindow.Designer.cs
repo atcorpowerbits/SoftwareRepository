@@ -261,14 +261,14 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.radtxtReportTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.radtxtReportTitle.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radtxtReportTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radtxtReportTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.radtxtReportTitle.Location = new System.Drawing.Point(3, 27);
             this.radtxtReportTitle.MaxLength = 100;
             this.radtxtReportTitle.Name = "radtxtReportTitle";
             // 
             // 
             // 
-            this.radtxtReportTitle.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radtxtReportTitle.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.radtxtReportTitle.Size = new System.Drawing.Size(213, 23);
             this.radtxtReportTitle.TabIndex = 2;
             this.radtxtReportTitle.TabStop = false;

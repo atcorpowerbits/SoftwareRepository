@@ -155,6 +155,9 @@ void CrxDBManager::GetPWVTrendData(int patientNumberInternal, int groupIdentifie
 		_objDB->AddOutParameter(addCommand,CrxDbStructParametersList::PulseWaveVelocityArrStr,DbType::String,studyDateTimeArrStr->Length);
 		_objDB->AddOutParameter(addCommand,CrxDbStructParametersList::StandardDeviationArrStr,DbType::String,studyDateTimeArrStr->Length);
 		_objDB->AddOutParameter(addCommand,CrxDbStructParametersList::IsStdDevValidArrStr,DbType::String,studyDateTimeArrStr->Length);
+		_objDB->AddOutParameter(addCommand,CrxDbStructParametersList::SpValidArrStr,DbType::String,studyDateTimeArrStr->Length);
+		_objDB->AddOutParameter(addCommand,CrxDbStructParametersList::DpValidArrStr,DbType::String,studyDateTimeArrStr->Length);
+		_objDB->AddOutParameter(addCommand,CrxDbStructParametersList::MpValidArrStr,DbType::String,studyDateTimeArrStr->Length);
 		
 		//Execute stored procedure
 		_objDB->ExecuteNonQuery(addCommand);
@@ -163,6 +166,9 @@ void CrxDBManager::GetPWVTrendData(int patientNumberInternal, int groupIdentifie
 		trendDataStruct->PulseWaveVelocityArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,CrxDbStructParametersList::PulseWaveVelocityArrStr),CrxCommon::gCI);
 		trendDataStruct->StandardDeviationArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,CrxDbStructParametersList::StandardDeviationArrStr),CrxCommon::gCI);
 		trendDataStruct->IsStdDevValidArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,CrxDbStructParametersList::IsStdDevValidArrStr),CrxCommon::gCI);
+		trendDataStruct->SpValidArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,CrxDbStructParametersList::SpValidArrStr),CrxCommon::gCI);
+		trendDataStruct->DpValidArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,CrxDbStructParametersList::DpValidArrStr),CrxCommon::gCI);
+		trendDataStruct->MpValidArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,CrxDbStructParametersList::MpValidArrStr),CrxCommon::gCI);
 	}
 	catch(ScorException^ crxObj)
 	{
@@ -559,7 +565,7 @@ int CrxDBManager::SetConnection(String^ serverName, String^ sourceName)
 	String^ ConnStr			= nullptr;	//To store the reformated connection string,intializes to nullptr
 	int ConnectionStatus	= 0;		//return result onnection can be established or not
 
-	ConnStr  = String::Format(CrxDbStructInternal::DbConnectionFormat , serverName, DBname);
+	ConnStr  = String::Format(CrxCommon::gCI,CrxDbStructInternal::DbConnectionFormat , serverName, DBname);
 	
 	ConnString = ConnStr;//initialize _connString for further use in the application
 	DataProviderType = sourceName;//initialize _dbType for further use in the application
@@ -609,7 +615,7 @@ int CrxDBManager::CheckConnection(String^ serverName, String^ sourceName)
 	String^ ConnStr		= nullptr;	//To store the reformated connection string,intializes to nullptr
 	int ConnectionCheck = 0;		//return result onnection can be established or not
 	
-	ConnStr  = String::Format(CrxDbStructInternal::DbConnectionFormat , serverName, DBname);
+	ConnStr  = String::Format(CrxCommon::gCI,CrxDbStructInternal::DbConnectionFormat , serverName, DBname);
 
 	try
 	{	
@@ -1230,7 +1236,7 @@ int CrxDBManager::DatabaseBackup(System::String ^filePath)
 	catch(Exception^ eObj)
 	{
 		// throw the exception
-		throw gcnew ScorException(eObj);
+		throw gcnew ScorException(ErrorSeverity::Exception,eObj,CrxStructCommonResourceMsg::ContactAtcorSupport2);
 	}
 	finally
 	{
@@ -1253,7 +1259,7 @@ int CrxDBManager::DatabaseRestore(System::String ^filePath)
 	String^ errorMessage		= nullptr;	//To store the error message string to be logged in the scor.log file
 	CrxLogger^ objLog			= nullptr;  // Object used to access logger class
 
-	filePathSet  = String::Format(CrxDbStructInternal::ZeroParameterFormat , filePath);
+	filePathSet  = String::Format(CrxCommon::gCI,CrxDbStructInternal::ZeroParameterFormat , filePath);
 
 	//Create logger object
 	objLog = CrxLogger::Instance;
@@ -1261,9 +1267,8 @@ int CrxDBManager::DatabaseRestore(System::String ^filePath)
 	try
 	{		
 		//TODO Restore String to be replaced with String Format type
-		//addCommand = _objDB->GetSqlStringCommand("USE [master]" + " ALTER DATABASE " + DBname + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE"+ " RESTORE DATABASE " + DBname + " FROM DISK = " + filePathSet + " WITH REPLACE"); 
-		addCommand = _objDB->GetSqlStringCommand("USE [master]" + " RESTORE DATABASE " + DBname + " FROM DISK = " + filePathSet + " WITH REPLACE");
-
+		String^ restoreQuery = String::Format(CrxCommon::gCI,CrxDbStructInternal::DbRestoreFormat, DBname , filePathSet);
+		addCommand = _objDB->GetSqlStringCommand(restoreQuery);
 		result = _objDB->ExecuteNonQuery(addCommand);	
 
 		//If the result is -1 then the Backup is successful, so set result to 0 
@@ -1354,7 +1359,7 @@ int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 		}
 
 		//Set the path for MS-Access Connection path
-		filePathSet  = String::Format(CrxDbStructInternal::MsAccessConnectionFormat , CrxDbStructInternal::NameOfAccessFile);
+		filePathSet  = String::Format(CrxCommon::gCI,CrxDbStructInternal::MsAccessConnectionFormat , CrxDbStructInternal::NameOfAccessFile);
 		
 		//Create logger object
 		objLog = CrxLogger::Instance;

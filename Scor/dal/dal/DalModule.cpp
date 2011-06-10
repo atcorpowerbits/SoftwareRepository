@@ -23,7 +23,7 @@ namespace AtCor{
 
 			DalModule::DalModule()
 			{
-				//Set the current capture data type to cuff pulse and tonometer by default.								DalModule::_captureDataType = CaptureType::TonometerAndCuffPulseCombination;
+				//Set the current capture data type to cuff pulse and tonometer by default.
 				DalModule::_currentDevice = nullptr;
 				
 				//Call method to set the current device
@@ -32,11 +32,11 @@ namespace AtCor{
 				// For testing only
 				measurementCounterTest = true; //TODO:STUB
 				
-				//register the event handler that will run when the congi stteings comm port is changed.
+				//register the event handler that will run when the config setting's comm port is changed.
 				CrxEventContainer::Instance->OnCommsPortEvent += gcnew CommsPortEventHandler(&DalModule::ConfigCommsPortSettingChangeHandler);
 			}
 
-			DalModule::DalModule(const AtCor::Scor::DataAccess::DalModule ^)
+			DalModule::DalModule(DalModule ^)
 			{
 				//overloaded copy constructor.
 				//Does nothing
@@ -116,7 +116,7 @@ namespace AtCor{
 				return true;
 			}
 
-			DalModule^ DalModule::operator =(const DalModule)
+			DalModule^ DalModule::operator =(DalModule)
 			{
 				//overloaded assignment operator.
 				//used to implement singleton.
@@ -321,6 +321,8 @@ namespace AtCor{
 			*/
 			bool DalModule::SetPWVMeasurementCounter( unsigned short count)
 			{
+				count; //Dummy statement to get rid of C4100 warning
+
 				// If the module is not connected return false, otherwise set the count -
 				// value and return true
 
@@ -339,6 +341,8 @@ namespace AtCor{
 
 			void DalModule::ConfigCommsPortSettingChangeHandler(Object^ sender, CommsPortEventArgs^ args)
 			{
+				sender; //Dummy statement to get rid of C4100 warning
+
 				//CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting );
 				SetDeviceStrategy(args->commsPortSetting);
 

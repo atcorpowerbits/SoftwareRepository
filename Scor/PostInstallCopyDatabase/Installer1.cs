@@ -41,46 +41,49 @@ namespace PostInstallCopyDatabase
                 }
             }
 
-            PathForm pf = new PathForm();
-            pf.InstallPath = installDir;
-            pf.ShowDialog();
-            pf.ShowInTaskbar = true;
+            string strVer8 = "C:\\Program Files\\AtCor\\SphygmoCor CvMS\\data\\";
+            string strVer9 = "C:\\AtCor\\SphygmoCor CvMS V9\\data\\";
+            string fileNameMdb = "scor.mdb";
+            string fileNameXyz = "scor.xyz";
 
-            //calling the 
-            System.Diagnostics.Process.Start("http://get.adobe.com/reader/");
+            if (File.Exists(strVer8 + fileNameXyz))
+            {
+                string filePath = strVer8 + fileNameXyz;
+                string copyPath = installDir + "\\system\\data\\" + fileNameXyz;
 
-            #region Running Batch File
-            ////get install directory
-            //string installDir = "";
-            //foreach (string k in savedState.Keys)
-            //{
-            //    if (k.Equals("TargetDir"))
-            //    {
-            //        installDir = savedState[k].ToString();
-            //    }
-            //}
+                File.Copy(filePath, copyPath, true);
+            }
+            else if (File.Exists(strVer8 + fileNameMdb))
+            {
+                string filePath = strVer8 + fileNameMdb;
+                string copyPath = installDir + "\\system\\data\\" + fileNameMdb;
 
-            //StreamWriter sw = new StreamWriter("C:\\NTemp\\Commit.txt", false);
+                File.Copy(filePath, copyPath, true);
+            }
+            else if (File.Exists(strVer9 + fileNameXyz))
+            {
+                string filePath = strVer9 + fileNameXyz;
+                string copyPath = installDir + "\\system\\data\\" + fileNameXyz;
 
+                File.Copy(filePath, copyPath, true);
+            }
+            else if (File.Exists(strVer9 + fileNameMdb))
+            {
+                string filePath = strVer9 + fileNameMdb;
+                string copyPath = installDir + "\\system\\data\\" + fileNameMdb;
 
-
-            //foreach (string k in savedState.Keys)
-            //{
-            //    sw.WriteLine("BATCH [" + k + "]= " + savedState[k].ToString());
-            //}
-
-
-
-            //sw.Flush();
-            //sw.Close();
-
-
-            
-            //System.Diagnostics.Process.Start(@"C:\\Program Files\\Default Company Name\\DummySetup\\Runapp.bat");
-            //System.Diagnostics.Process.Start(installDir + @"\Runapp.bat");
-            
-
-            #endregion
+                File.Copy(filePath, copyPath, true);
+            }
+            else
+            {
+                if (!(File.Exists(installDir + "\\system\\data\\" + fileNameMdb) || (File.Exists(installDir + "\\system\\data\\" + fileNameXyz))))
+                {
+                    PathForm pf = new PathForm();
+                    pf.InstallPath = installDir;
+                    pf.ShowDialog();
+                    pf.ShowInTaskbar = true;
+                }
+            }         
 
         }
 

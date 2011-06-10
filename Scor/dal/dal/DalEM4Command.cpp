@@ -18,14 +18,11 @@ using namespace System;
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Logging ;
 using namespace AtCor::Scor::CrossCutting::Messaging;
+using namespace AtCor::Scor::CrossCutting::Configuration;
 
 namespace AtCor{ 
 	namespace Scor { 
 		namespace DataAccess{
-
-	
-
-					
 
 			DalEM4Command::DalEM4Command()
 			{
@@ -64,8 +61,12 @@ namespace AtCor{
 									
 				commandCRCByte = 0x00;
 				em4Response =  nullptr;
-				timeoutPeriod = DalConstants::EM4ResponseTimeout ; //in miliseconds . Pick from a global value 
-				retriesAllowed = DalConstants::EM4NumberofRetries ; //three times.
+				
+				//PWVSW-275 picking constants from  a system file 
+				//timeoutPeriod = DalConstants::EM4ResponseTimeout ; //in miliseconds . Pick from a global value 
+				//retriesAllowed = DalConstants::EM4NumberofRetries ; //three times.
+				this->timeoutPeriod = CrxSytemParameters::Instance->GetIntegerTagValue(DalSystemParameterNames::TagStdEM4Timeout );
+				this->retriesAllowed = CrxSytemParameters::Instance->GetIntegerTagValue(DalSystemParameterNames::TagEM4NumberOfRetriesAllowed);
 				retryNumber = 0;
 
 				if (!this->ConstuctCommand())
@@ -94,7 +95,7 @@ namespace AtCor{
 					em4Command = gcnew array<unsigned char>(commandLength+1);
 				
 					em4Command[0] = commandCode; //byte1 = command code
-					em4Command[1] = commandLength ; //byte 2 length
+					em4Command[1] = (unsigned char)commandLength ; //byte 2 length
 					em4Command[2] = this->commandSequenceNumber ; //byte 3 seq#
 
 					// do not copy command is commandData is null

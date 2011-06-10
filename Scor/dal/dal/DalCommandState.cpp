@@ -33,18 +33,24 @@ namespace AtCor{
 
 				DalReturnValue DalCommandState::SendCommandAndGetResponse(DalEM4Command ^serialCommand)
 				{
+					serialCommand; //Dummy statement to get rid of C4100 warning
+
 					//return failure by default. child class overrides will do actual processing
 					return DalReturnValue::Failure; 
 				}
 
 				DalReturnValue DalCommandState::ValidateResponsePacket(DalEM4Command^ serialCommand)
 				{
+					serialCommand; //Dummy statement to get rid of C4100 warning
+
 					//return failure by default. child class overrides will do actual processing
 					return DalReturnValue::Failure; 
 				}
 
 				DalReturnValue DalCommandState::ListenForEM4Response(DalEM4Command ^serialCommand)
 				{
+					serialCommand; //Dummy statement to get rid of C4100 warning
+
 					//return failure by default. child class overrides will do actual processing
 					return DalReturnValue::Failure;
 				}
@@ -62,7 +68,7 @@ namespace AtCor{
 					//nothing to do
 				}
 
-				DalCommandStateReady^ DalCommandStateReady::operator =(const AtCor::Scor::DataAccess::StateMachines::DalCommandStateReady ^)
+				DalCommandStateReady^ DalCommandStateReady::operator =(DalCommandStateReady ^)
 				{
 					return this;
 				}
@@ -90,7 +96,7 @@ namespace AtCor{
 					//nothing to do
 				}
 
-				DalCommandStateWaiting^ DalCommandStateWaiting::operator =(const AtCor::Scor::DataAccess::StateMachines::DalCommandStateWaiting ^)
+				DalCommandStateWaiting^ DalCommandStateWaiting::operator =(DalCommandStateWaiting ^)
 				{
 					return this;
 				}
@@ -117,7 +123,7 @@ namespace AtCor{
 					//nothing to do
 				}
 
-				DalCommandStateTimeout^ DalCommandStateTimeout::operator =(const AtCor::Scor::DataAccess::StateMachines::DalCommandStateTimeout ^)
+				DalCommandStateTimeout^ DalCommandStateTimeout::operator =(AtCor::Scor::DataAccess::StateMachines::DalCommandStateTimeout ^)
 				{
 					return this;
 				}
@@ -128,7 +134,7 @@ namespace AtCor{
 					//nothing to do
 				}
 
-				DalCommandStateResponseReceived^ DalCommandStateResponseReceived::operator =(const AtCor::Scor::DataAccess::StateMachines::DalCommandStateResponseReceived ^)
+				DalCommandStateResponseReceived^ DalCommandStateResponseReceived::operator =(DalCommandStateResponseReceived ^)
 				{
 					return this;
 				}

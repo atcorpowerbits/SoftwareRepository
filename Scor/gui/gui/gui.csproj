@@ -38,10 +38,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Debug\biz.dll</HintPath>
     </Reference>
-    <Reference Include="crx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Debug\crx.dll</HintPath>
-    </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -50,7 +46,7 @@
     <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="dal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Debug\dal.dll</HintPath>
+      <HintPath>..\..\Release\dal.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Microsoft.VisualBasic" />
@@ -288,6 +284,66 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="atcor.ico" />
+    <None Include="Resources\SetupScreenDirect_Small.jpg" />
+    <Content Include="Theme\Atcor_DockSplitContainer.xml" />
+    <Content Include="Theme\Atcor_RadCheckmark.xml" />
+    <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_RootRadElement.xml" />
+    <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewOutlookElement.xml" />
+    <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewStackElement.xml" />
+    <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewStripElement.xml" />
+    <Content Include="Theme\Atcor_Repository.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_ColumnChooserControl.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_DesktopAlertPopup.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_AutoHideTabStrip.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_DocumentContainer.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_DocumentTabStrip.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_FloatingWindow.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_QuickNavigator.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_RadDock.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_ToolTabStrip.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadApplicationMenu.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadApplicationMenuDropDown.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadCalendar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadCalendarFastNavigationControl.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadCheckBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadComboBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadDateTimePicker.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadDropDownButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadDropDownList.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadDropDownMenu.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadForm.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadGridView.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadGroupBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadLabel.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadListBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadListControl.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadMaskedEditBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadMenu.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadPanel.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadPanelBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadProgressBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadRadioButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadRepeatButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadRibbonBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadRibbonForm.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadScheduler.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadSchedulerNavigator.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadScrollablePanel.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadScrollBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadSizablePopupControl.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadSpinEditor.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadSplitButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadSplitContainer.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadStatusStrip.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTabStrip.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTextBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTitleBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadToggleButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTrackBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTreeView.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadWaitingBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_SplitPanel.xml" />
     <None Include="Resources\cap_arrow5.JPG" />
     <None Include="Resources\cap_arrow6.JPG" />
     <None Include="SetupScreenDirect_Small.jpg" />
@@ -307,9 +363,16 @@
     <None Include="DsPwvPatientReport.xss">
       <DependentUpon>DsPwvPatientReport.xsd</DependentUpon>
     </None>
+    <EmbeddedResource Include="Theme\Atcor.tssp" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\crx\crx\crx.vcproj">
+      <Project>{24748540-BFD1-4293-99F5-D556338366C4}</Project>
+      <Name>crx</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

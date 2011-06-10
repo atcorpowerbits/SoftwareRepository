@@ -75,13 +75,13 @@ namespace AtCor{
 										* Overloaded copy constructor. 
 										* Used to implement singleton.
 										*/
-										DalDataBuffer(const DalDataBuffer^);
+										DalDataBuffer( DalDataBuffer^);
 
 										/**
 										* Overloaded assignment operator. 
 										* Used to implement singleton.
 										*/
-										DalDataBuffer^ operator= (const DalDataBuffer);
+										DalDataBuffer^ operator= ( DalDataBuffer);
 										
 										
 									public:

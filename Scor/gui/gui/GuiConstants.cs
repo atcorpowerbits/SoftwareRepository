@@ -144,7 +144,7 @@ namespace AtCor.Scor.Gui.Presentation
         // PWV Analysis
         public static readonly string PWVTitle = "PWVTitle";
         public static readonly string HeartRateTitle = "HeartRateTitle";
-
+        public static readonly string BpChartTitle = "BpChartTitle";
         public static string DateWithComma = string.Empty;
 
         public enum AppConfigParams

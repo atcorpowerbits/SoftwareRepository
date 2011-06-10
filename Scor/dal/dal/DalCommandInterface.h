@@ -48,7 +48,7 @@ namespace AtCor{
 					static int _countdownTimerDataIndex = 6;
 
 					static DalCommandInterface^ _instance = gcnew DalCommandInterface();
-					DalCommandInterface^ operator= (const DalCommandInterface);
+					DalCommandInterface^ operator= ( DalCommandInterface);
 					
 					bool ValidateCommand(DalEM4Command^ serialCommand);
 					DalReturnValue ValidateCommandResult(DalEM4Command^ serialCommand, DalReturnValue responseReturnValue);

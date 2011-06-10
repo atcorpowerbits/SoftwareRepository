@@ -35,11 +35,13 @@ namespace AtCor.Scor.Gui.Presentation
             DefaultWindow defWindow = null;             
             try
             {
-                ThemeResolutionService.ApplicationThemeName = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.ApplicationThemeName.ToString()];
+                ThemeResolutionService.LoadPackageResource("gui.Theme.Atcor.tssp");
+                ThemeResolutionService.ApplicationThemeName = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.ApplicationThemeName.ToString()];                
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 defWindow = new DefaultWindow();
                 DataAccess.DalModule dm = DataAccess.DalModule.Instance;   
+                
                 Application.Run(defWindow);
             }
             catch (Exception ex)
