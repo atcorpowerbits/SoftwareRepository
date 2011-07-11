@@ -16,7 +16,9 @@ using AtCor.Scor.CrossCutting.DatabaseManager;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Data;
+using Telerik.WinControls;
 using Telerik.WinControls.UI;
+using AtCor.Scor.BusinessLogic;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -36,13 +38,13 @@ namespace AtCor.Scor.Gui.Presentation
        public static bool CaptureToReport = false;
        public static bool CaptureToSetup = false;
        public static bool HasMeasurementDetails = false;
-        
+       public static bool IsPatientListEmpty = false; // this flag is used to check if the patient list on the setup screen is empty or not. 
        public static bool CaptureTabClick = true;
        public static RadPageViewPage TabFocused;
        public static bool IsWaitIntervalImposed = false; // this variable checks for 30 sec wait interval imposed by EM4 when coming from capture to setup
        public static bool IsFormChanged = false; // this variable tracks any changes to the application form 
        public static bool IsMenuItemShown = true;
-       public static bool captureFormLoaded = false; // to check if capture form has loaded.
+       public static bool CaptureFormLoaded = false; // to check if capture form has loaded.
        // This variable is used during checking field limits on Setup screen.When user has clicked Rad tab capture and if one of the field has value which
        // is out of range.After the out of range message is shown the tabselection_changed event has already been fired due to which the capture functionality starts.
        // As this is wrong we are using the below variable to see if it is true then stop the tab from changing.
@@ -50,6 +52,7 @@ namespace AtCor.Scor.Gui.Presentation
        public static bool IsMandatoryFieldEmpty = false;  
        public static int ReportLoadCount = 0;
        public static int ExitApp = 0;
+       public static string MessageToBeDisplayed = string.Empty;
        #endregion
 
        #region Main / Parent window Handle
@@ -62,13 +65,14 @@ namespace AtCor.Scor.Gui.Presentation
        
        #region Child Form Handles
        public static RadForm ReportChildForm;
-        public static RadForm CaptureChildForm;
-        public static RadForm SetupChildForm;
+       public static RadForm CaptureChildForm;
+       public static RadForm SetupChildForm;
+       public static RadForm FrmRptBlnk;
 
-        public static RadForm FrmRptBlnk;
-        #endregion  
-
-        #region PWV settings private variables
+       public static event EventHandler OnBizErrorEventInvocation;       
+       #endregion  
+        
+        #region PWV settings private variables        
 
        static GuiCommon()
        {
@@ -77,7 +81,33 @@ namespace AtCor.Scor.Gui.Presentation
            GroupId = 0;
            PatientInternalNumber = 0;
            SystemIdentifier = 0;
+
+           // Subscribing to the biz.dll events.
+           BizEventContainer.Instance.OnBizErrorEvent += Instance_OnBizErrorEvent; 
        }
+
+       /**This event is invoked when BLL recevies DAL alarm events.
+       */ 
+       public static void Instance_OnBizErrorEvent(object sender, BizErrorEventArgs e)
+       {
+           // We have to check on which form the user is,when the alarm event is raised.
+           // As of now the event can be raised when the user is either on the Capture screen , About box 
+           // or the user has clicked on the Find module option under the System menu.
+           if (CaptureFormLoaded)
+           {
+               // Take action if capture screen is loaded and alarm flag is raised.
+               // in this case we need to stop the capture on the capture screen.
+               string messageToBeDisplayed = e.data;
+               object dummySender = new object();
+               OnBizErrorEventInvocation.Invoke(dummySender, new EventArgs());               
+            }
+           else
+           {
+               // In any other case show a dialog box with the message from the biz.dll to the user.Also log the mesaage in the log file.               
+               RadMessageBox.Show(e.data, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.ApplicationMessage), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+               CrxLogger.Instance.Write(e.data);
+           }
+       }   
 
        #endregion
 
@@ -286,7 +316,7 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         public static void CheckIfMandatoryFieldIsEmpty()
         {            
-            if (IsValueOutsideLimits || IsMandatoryFieldEmpty )
+            if (IsValueOutsideLimits || IsMandatoryFieldEmpty)
             {
                 DefaultWindowForm.radpgTabCollection.SelectedPage = DefaultWindowForm.guiradgrpbxPwvDistanceMethod;
                 DefaultWindowForm.guiradgrpbxPwvDistanceMethod.Enabled = true;
@@ -418,5 +448,18 @@ namespace AtCor.Scor.Gui.Presentation
         public static bool RptGeneralPopulation { get; set; }
 
         public static bool RptHealthyPopulation { get; set; }
+    }
+
+    /**
+* @class PWVAnalysisData
+* @brief This class is used to define properties which will be used for generating PWV Analysis report
+    * The property values will be set in report screen once the user clicks print "PWV Analysis report" and these values
+    * will be passed to Crystal report for printing PWV Analysis Report
+*/
+    public static class PWVAnalysisData
+    {
+        public static bool BPChartValidation { get; set; }
+
+        public static string BpChartTextValue { get; set; }
     }
 }

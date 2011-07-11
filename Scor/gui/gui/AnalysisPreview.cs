@@ -39,9 +39,9 @@ namespace AtCor.Scor.Gui.Presentation
         string[] heartRate; // heart rate array to be used on analysis screen
         string[] pWv; // pwv velocity array to be used on analysis screen
         string[] isStdDeviationValid; // standard deviation array to be used on analysis screen
-        string[] SP; // SP vlaue array to be used on analysis screen
-        string[] DP; // DP vlaue array to be used on analysis screen
-        string[] MP; // MP vlaue array to be used on analysis screen
+        string[] sp; // SP vlaue array to be used on analysis screen
+        string[] dp; // DP vlaue array to be used on analysis screen
+        string[] mp; // MP vlaue array to be used on analysis screen
         int labelInterval;
 
         public AnaylsisPreview()
@@ -152,34 +152,37 @@ namespace AtCor.Scor.Gui.Presentation
             Array.Sort(heartPwvSort);
 
             // plot heart rate series
-            if (heartRate.Length > 0)
+            if (heartRate.Length <= 0)
             {
-                // assign latest record valus to bottom labels
-               // guiradlblReportHeartRateValue.Text = heartRate[heartRate.Length - 1].ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.HeartrateUnit);
-                double value = Math.Round(double.Parse(heartPwvSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
-                guiradchartHeartRate.ChartAreas[0].AxisY.Minimum = value;
-                guiradchartHeartRate.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.HeartrateLblAnalysis);
-                guiradchartHeartRate.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartHeartRate.ChartAreas[0].AxisY.TitleFont.Size);
-
-                value = Math.Round(double.Parse(heartPwvSort[heartPwvSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
-                guiradchartHeartRate.ChartAreas[0].AxisY.Maximum = value;
-                guiradchartHeartRate.ChartAreas[0].AxisY.IntervalOffset = 0;
-                guiradchartHeartRate.ChartAreas[0].AxisY.Interval = 5;
-
-                guiradchartHeartRate.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
-                guiradchartHeartRate.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
-                guiradchartHeartRate.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
-                guiradchartHeartRate.ChartAreas[0].AxisX.MajorGrid.Enabled = true;
-                guiradchartHeartRate.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
-                guiradchartHeartRate.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
-
-                guiradchartHeartRate.ChartAreas[0].AxisX.IntervalOffset = 1;
-                CalculateLabelIntervalX();
-
-                BindCustomLabelForTrendCharts(guiradchartHeartRate, heartRate.Length);
-
-                PlotTrendChartSeries(guiradchartHeartRate, heartRate, null, ChartName.HeartRate);
+                return;
             }
+                
+            // assign latest record valus to bottom labels
+            // guiradlblReportHeartRateValue.Text = heartRate[heartRate.Length - 1].ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.HeartrateUnit);
+            double value = Math.Round(double.Parse(heartPwvSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+            value = ((int)Math.Round(value / 10.0)) * 10;
+            guiradchartHeartRate.ChartAreas[0].AxisY.Minimum = value;
+            guiradchartHeartRate.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.HeartrateLblAnalysis);
+            guiradchartHeartRate.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartHeartRate.ChartAreas[0].AxisY.TitleFont.Size, FontStyle.Bold);
+
+            value = Math.Round(double.Parse(heartPwvSort[heartPwvSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+            guiradchartHeartRate.ChartAreas[0].AxisY.Maximum = value;
+            guiradchartHeartRate.ChartAreas[0].AxisY.IntervalOffset = 0;
+            guiradchartHeartRate.ChartAreas[0].AxisY.Interval = 5;
+
+            guiradchartHeartRate.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
+            guiradchartHeartRate.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+            guiradchartHeartRate.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+            guiradchartHeartRate.ChartAreas[0].AxisX.MajorGrid.Enabled = true;
+            guiradchartHeartRate.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+            guiradchartHeartRate.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
+
+            guiradchartHeartRate.ChartAreas[0].AxisX.IntervalOffset = 1;
+            CalculateLabelIntervalX();
+
+            BindCustomLabelForTrendCharts(guiradchartHeartRate, heartRate.Length);
+
+            PlotTrendChartSeries(guiradchartHeartRate, heartRate, null, ChartName.HeartRate);
         }
 
         /** This method plots PWV velocity trend graph 
@@ -195,39 +198,41 @@ namespace AtCor.Scor.Gui.Presentation
             string[] stdDeviationSort = trendData.StandardDeviationArrStr.Split(GuiConstants.Separator);
             Array.Sort(stdDeviationSort);
 
-            if (pWv.Length > 0)
+            if (pWv.Length <= 0)
             {
-                // set max value as largest pwv + largest std deviation
-                // set min value as lowest pwv + largest std deviation
-                double maxValue = double.Parse(heartPwvSort[heartPwvSort.Length - 1]) + double.Parse(stdDeviationSort[stdDeviationSort.Length - 1]) + 1;
-                double minValue = double.Parse(heartPwvSort[0]) - double.Parse(stdDeviationSort[stdDeviationSort.Length - 1]) - 1;
-
-                maxValue = Math.Round(maxValue, 0, MidpointRounding.ToEven);
-                minValue = Math.Round(minValue);
-                CalculateLabelIntervalYForPwvTrend(int.Parse(minValue.ToString()), int.Parse(maxValue.ToString()));
-
-                double value = Math.Round(minValue * GuiConstants.ChartAreaMinimumY);
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Minimum = value;
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwvLblAnalysis);
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.TitleFont.Size);
-
-                value = Math.Round(maxValue * GuiConstants.ChartAreaMaximumY, 0, MidpointRounding.AwayFromZero);
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Maximum = value;
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.IntervalOffset = 0;
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Interval = 1;
-
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.MajorGrid.Enabled = true;
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
-
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.IntervalOffset = 1;
-
-                BindCustomLabelForTrendCharts(guiradchartPulseWaveVelocity, pWv.Length);
-                PlotTrendChartSeries(guiradchartPulseWaveVelocity, pWv, stdDeviation, ChartName.Pwv);
+                return;
             }
+
+            // set max value as largest pwv + largest std deviation
+            // set min value as lowest pwv + largest std deviation
+            double maxValue = double.Parse(heartPwvSort[heartPwvSort.Length - 1]) + double.Parse(stdDeviationSort[stdDeviationSort.Length - 1]) + 1;
+            double minValue = double.Parse(heartPwvSort[0]) - double.Parse(stdDeviationSort[stdDeviationSort.Length - 1]) - 1;
+
+            maxValue = Math.Round(maxValue, 0, MidpointRounding.ToEven);
+            minValue = Math.Round(minValue);
+            CalculateLabelIntervalYForPwvTrend(int.Parse(minValue.ToString()), int.Parse(maxValue.ToString()));
+
+            double value = Math.Round(minValue * GuiConstants.ChartAreaMinimumY);
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Minimum = value;
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwvLblAnalysis);
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.TitleFont.Size, FontStyle.Bold);
+
+            value = Math.Round(maxValue * GuiConstants.ChartAreaMaximumY, 0, MidpointRounding.AwayFromZero);
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Maximum = value;
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.IntervalOffset = 0;
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Interval = 1;
+
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.MajorGrid.Enabled = true;
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
+
+            guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.IntervalOffset = 1;
+
+            BindCustomLabelForTrendCharts(guiradchartPulseWaveVelocity, pWv.Length);
+            PlotTrendChartSeries(guiradchartPulseWaveVelocity, pWv, stdDeviation, ChartName.Pwv);
         }
 
         /** This method calculates label interval for Y axis label for PWV trend charts
@@ -337,9 +342,12 @@ namespace AtCor.Scor.Gui.Presentation
                     correctionLine["PointWidth"] = "0.1";
 
                     double centerY = double.Parse(pWv[hrseries1]);
-                    double lowerErrorY = centerY - double.Parse(stdDeviationSeries[hrseries1]);
-                    double upperErrorY = centerY + double.Parse(stdDeviationSeries[hrseries1]);
-                    correctionLine.Points.AddXY(hrseries1, centerY, lowerErrorY, upperErrorY);
+                    if (stdDeviationSeries != null)
+                    {
+                        double lowerErrorY = centerY - double.Parse(stdDeviationSeries[hrseries1]);
+                        double upperErrorY = centerY + double.Parse(stdDeviationSeries[hrseries1]);
+                        correctionLine.Points.AddXY(hrseries1, centerY, lowerErrorY, upperErrorY);
+                    }
 
                     trendChart.Series.Add(correctionLine);
                 }
@@ -385,85 +393,86 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-          /** This method plots BP Trend graph 
+        /** This method plots BP Trend graph 
          * */
         private void PlotBpTrend(CrxStructPWVTrendData trendData)
         {
             try
             {
-                SP = trendData.SpValidArrStr.Split(GuiConstants.Separator);
-                DP = trendData.DpValidArrStr.Split(GuiConstants.Separator);
-                MP = trendData.MpValidArrStr.Split(GuiConstants.Separator);
+                sp = trendData.SpValidArrStr.Split(GuiConstants.Separator);
+                dp = trendData.DpValidArrStr.Split(GuiConstants.Separator);
+                mp = trendData.MpValidArrStr.Split(GuiConstants.Separator);
 
-                string[] SpSort = trendData.SpValidArrStr.Split(GuiConstants.Separator);
-                string[] DpSort = trendData.DpValidArrStr.Split(GuiConstants.Separator);
-                string[] MpSort = trendData.MpValidArrStr.Split(GuiConstants.Separator);
+                string[] spSort = trendData.SpValidArrStr.Split(GuiConstants.Separator);
+                string[] dpSort = trendData.DpValidArrStr.Split(GuiConstants.Separator);
+                string[] mpSort = trendData.MpValidArrStr.Split(GuiConstants.Separator);
 
-                int[] SpSortArr = CommonStringArrToIntArr(SpSort);
-                int[] DpSortArr = CommonStringArrToIntArr(DpSort);
-                int[] MpSortArr = CommonStringArrToIntArr(MpSort);
+                int[] spSortArr = CommonStringArrToIntArr(spSort);
+                int[] dpSortArr = CommonStringArrToIntArr(dpSort);
+                int[] mpSortArr = CommonStringArrToIntArr(mpSort);
 
                 // sort array to get minimum & maximum value to set y axis range
-                Array.Sort(SpSortArr);
-                Array.Sort(DpSortArr);
-                Array.Sort(MpSortArr);
+                Array.Sort(spSortArr);
+                Array.Sort(dpSortArr);
+                Array.Sort(mpSortArr);
 
-                SpSort = CommonIntArrToStringArr(SpSortArr);
-                DpSort = CommonIntArrToStringArr(DpSortArr);
-                MpSort = CommonIntArrToStringArr(MpSortArr);
+                spSort = CommonIntArrToStringArr(spSortArr);
+                dpSort = CommonIntArrToStringArr(dpSortArr);
+                mpSort = CommonIntArrToStringArr(mpSortArr);
 
                 // Check the combination of the Blood pressure options.
-                if (SP.Length > 0 && DP.Length > 0 && MP.Length > 0)
+                if (sp.Length > 0 && dp.Length > 0 && mp.Length > 0)
                 {
                     // set min and max for the chart and plot the BP.             
-                    double spValue = Math.Round(double.Parse(SpSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
-                    double dpValue = Math.Round(double.Parse(DpSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
-                    double mpValue = Math.Round(double.Parse(MpSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+                    double spValue = Math.Round(double.Parse(spSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+                    double dpValue = Math.Round(double.Parse(dpSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+                    double mpValue = Math.Round(double.Parse(mpSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
                     
                     spValue = ((int)Math.Round(spValue / 10.0)) * 10;
                     dpValue = ((int)Math.Round(dpValue / 10.0)) * 10;
                     mpValue = ((int)Math.Round(mpValue / 10.0)) * 10;
 
-                    // check if the sp min value is zero then????
+                    // Compare which blood pressure option is less.
+                    double lowBpVlaue = CompareLowerBP(spValue, dpValue, mpValue);
 
-                    // Compare which blood pressure option is less. 
-                    double bpValue = spValue > dpValue ? dpValue  : spValue;
-                    bpValue = bpValue > mpValue ? mpValue : bpValue;
-                    guiradchartBP.ChartAreas[0].AxisY.Minimum = bpValue - 10;
+                    guiradchartBP.ChartAreas[0].AxisY.Minimum = lowBpVlaue - 10;
 
                     guiradchartBP.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BpLblAnalysis);
-                    guiradchartBP.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartBP.ChartAreas[0].AxisY.TitleFont.Size);
+                    guiradchartBP.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartBP.ChartAreas[0].AxisY.TitleFont.Size, FontStyle.Bold);
 
                     // Modifying default value
-                    SpSort = SettingAxisValuesForChart(SpSort);
-                    DpSort = SettingAxisValuesForChart(DpSort);
-                    MpSort = SettingAxisValuesForChart(MpSort);
+                    spSort = SettingAxisValuesForChart(spSort);
+                    dpSort = SettingAxisValuesForChart(dpSort);
+                    mpSort = SettingAxisValuesForChart(mpSort);
 
-                    SpSortArr = CommonStringArrToIntArr(SpSort);
-                    DpSortArr = CommonStringArrToIntArr(DpSort);
-                    MpSortArr = CommonStringArrToIntArr(MpSort);
+                    spSortArr = CommonStringArrToIntArr(spSort);
+                    dpSortArr = CommonStringArrToIntArr(dpSort);
+                    mpSortArr = CommonStringArrToIntArr(mpSort);
 
                     // sort array to get minimum & maximum value to set y axis range
-                    Array.Sort(SpSortArr);
-                    Array.Sort(DpSortArr);
-                    Array.Sort(MpSortArr);
+                    Array.Sort(spSortArr);
+                    Array.Sort(dpSortArr);
+                    Array.Sort(mpSortArr);
 
-                    SpSort = CommonIntArrToStringArr(SpSortArr);
-                    DpSort = CommonIntArrToStringArr(DpSortArr);
-                    MpSort = CommonIntArrToStringArr(MpSortArr);
+                    spSort = CommonIntArrToStringArr(spSortArr);
+                    dpSort = CommonIntArrToStringArr(dpSortArr);
+                    mpSort = CommonIntArrToStringArr(mpSortArr);
 
-                    spValue = Math.Round(double.Parse(SpSort[SpSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
-                    dpValue = Math.Round(double.Parse(DpSort[DpSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
-                    mpValue = Math.Round(double.Parse(MpSort[MpSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+                    spValue = Math.Round(double.Parse(spSort[spSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+                    dpValue = Math.Round(double.Parse(dpSort[dpSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+                    mpValue = Math.Round(double.Parse(mpSort[mpSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
 
                     // Compare which blood pressure option is more. 
-                    bpValue = spValue > dpValue ? spValue : dpValue;
-                    bpValue = bpValue > mpValue ? bpValue : mpValue;
-                    guiradchartBP.ChartAreas[0].AxisY.Maximum = bpValue + 10;
+                    double highBpVlaue = CompareHigherBP(spValue, dpValue, mpValue);
 
-                    // guiradchartBP.ChartAreas[0].AxisY.Maximum = spValue + 10;
+                    int yaxisInterval = YaxisIntervalOffsetBp(highBpVlaue, lowBpVlaue);
+
+                    double tempMaxBpValue = 0.0;
+
+                    guiradchartBP.ChartAreas[0].AxisY.Maximum = highBpVlaue + 10;
+
                     guiradchartBP.ChartAreas[0].AxisY.IntervalOffset = 0;
-                    guiradchartBP.ChartAreas[0].AxisY.Interval = 10;
+                    guiradchartBP.ChartAreas[0].AxisY.Interval = yaxisInterval; // 10;
 
                     guiradchartBP.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
                     guiradchartBP.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
@@ -475,16 +484,26 @@ namespace AtCor.Scor.Gui.Presentation
                     guiradchartBP.ChartAreas[0].AxisX.IntervalOffset = 1;
 
                     CalculateBpLabelIntervalX();
-                    BindCustomLabelForTrendCharts(guiradchartBP, SP.Length);
-                     
-                    PlotBpSeries(guiradchartBP, SP, DP, MP, ChartName.BP);
+                    BindCustomLabelForTrendCharts(guiradchartBP, sp.Length);
+
+                    if (highBpVlaue > tempMaxBpValue)
+                    {
+                        PlotBpSeries(guiradchartBP, sp, dp, mp, ChartName.BP);
+                        PWVAnalysisData.BPChartValidation = false;
+                        PWVAnalysisData.BpChartTextValue = string.Empty;
+                    }
+                    else
+                    {
+                        PWVAnalysisData.BpChartTextValue = "No SP,DP or MP values exist for the selected assessments";
+                        PWVAnalysisData.BPChartValidation = true;
+                    }                
 
                     // Manipulation of Legends and Legends Title
-                    Legend LegendBP = guiradchartBP.Legends.FindByName(AnaylsisPreview.Legends);
-                    LegendBP.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiPrintPwvAnalysisLegendTitle);
+                    Legend legendBP = guiradchartBP.Legends.FindByName(Legends);
+                    legendBP.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiPrintPwvAnalysisLegendTitle);
                     
                     guiradchartBP.Legends.Clear();
-                    guiradchartBP.Legends.Add(LegendBP);
+                    guiradchartBP.Legends.Add(legendBP);
                 }
             }
             catch (Exception ex)
@@ -519,7 +538,7 @@ namespace AtCor.Scor.Gui.Presentation
                 Color = Color.DarkBlue,
                 ChartType = SeriesChartType.Bubble,
                 XValueType = ChartValueType.Int32,
-                CustomProperties = AnaylsisPreview.BubbleMaxSize + (20 - (labelInterval * 2) + 1),
+                CustomProperties = BubbleMaxSize + (20 - (labelInterval * 2) + 1),
                 MarkerStyle = MarkerStyle.Triangle,
                 ShadowOffset = 0,
                 LegendText = " ",
@@ -575,7 +594,7 @@ namespace AtCor.Scor.Gui.Presentation
                 Color = Color.DarkGreen,
                 ChartType = SeriesChartType.Bubble,
                 XValueType = ChartValueType.Int32,
-                CustomProperties = AnaylsisPreview.BubbleMaxSize + (20 - (labelInterval * 2) + 1),
+                CustomProperties = BubbleMaxSize + (20 - (labelInterval * 2) + 1),
                 MarkerStyle = MarkerStyle.Square,
                 ShadowOffset = 0,
                 LegendText = " ",
@@ -592,30 +611,42 @@ namespace AtCor.Scor.Gui.Presentation
             for (int i = 0; i < bloodPressure1.Count; i++)
             {
                 // check if value is 9999
-                if (!(bloodPressure1[i].Equals(dfBPVlaue)))
+                if (!bloodPressure1[i].Equals(dfBPVlaue))
                 {
                     bp1Line.Points.AddXY(i, double.Parse(bloodPressure1[i]));
                     bp1Point.Points.AddXY(i, double.Parse(bloodPressure1[i]));
-                }               
+                }
+                else
+                {
+                    bp1Point.Points.AddXY(i, double.Parse(ZeroValue));
+                }
             }
 
             for (int j = 0; j < bloodPressure2.Count; j++)
             {
                 // check if value is 9999
-                if (!(bloodPressure2[j].Equals(dfBPVlaue)))
+                if (!bloodPressure2[j].Equals(dfBPVlaue))
                 {
                     bp2Line.Points.AddXY(j, double.Parse(bloodPressure2[j]));
                     bp2Point.Points.AddXY(j, double.Parse(bloodPressure2[j]));
+                }
+                else
+                {
+                    bp2Point.Points.AddXY(j, double.Parse(ZeroValue));
                 }
             }
 
             for (int j = 0; j < bloodPressure3.Count; j++)
             {
                 // check if value is 9999
-                if (!(bloodPressure3[j].Equals(dfBPVlaue)))
+                if (!bloodPressure3[j].Equals(dfBPVlaue))
                 {
-                     bp3Line.Points.AddXY(j, double.Parse(bloodPressure3[j]));
-                     bp3Point.Points.AddXY(j, double.Parse(bloodPressure3[j]));
+                    bp3Line.Points.AddXY(j, double.Parse(bloodPressure3[j]));
+                    bp3Point.Points.AddXY(j, double.Parse(bloodPressure3[j]));
+                }
+                else
+                {
+                    bp3Point.Points.AddXY(j, double.Parse(ZeroValue));
                 }
             }
 
@@ -633,11 +664,11 @@ namespace AtCor.Scor.Gui.Presentation
             // default BP value
             string dfBPVlaue = GuiConstants.SdefaultValue.ToString();
 
-            for (int i = 0; i < listValue.Length; i++ )
+            for (int i = 0; i < listValue.Length; i++)
             {
                 if (listValue[i].Equals(dfBPVlaue))
                 {
-                    listValue[i] = AnaylsisPreview.ZeroValue;
+                    listValue[i] = ZeroValue;
                 }
             }
 
@@ -651,7 +682,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             const int XInterval = 10; // this variable denotes the number by which x label interval would be calculated
 
-            int intvl = SP.Length / XInterval;
+            int intvl = sp.Length / XInterval;
 
             if (intvl == 0)
             {
@@ -668,7 +699,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 const int SeriesPoints = 3;
 
-                if (SP.Length > SeriesPoints)
+                if (sp.Length > SeriesPoints)
                 {
                     foreach (CustomLabel cl in guiradchartBP.ChartAreas[0].AxisX.CustomLabels)
                     {
@@ -682,28 +713,72 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        private int[] CommonStringArrToIntArr(string[] SortArr)
+        private int[] CommonStringArrToIntArr(string[] sortArr)
         {
-            int[] BpSort = new int[SortArr.Length];
+            int[] bpSort = new int[sortArr.Length];
 
-            for (int i = 0; i < SortArr.Length; i++)
+            for (int i = 0; i < sortArr.Length; i++)
             {
-                BpSort[i] = Convert.ToInt32(SortArr[i]);
+                bpSort[i] = Convert.ToInt32(sortArr[i]);
             }
 
-            return BpSort; 
+            return bpSort; 
         }
 
-        private string[] CommonIntArrToStringArr(int[] SortArr)
+        private string[] CommonIntArrToStringArr(int[] sortArr)
         {
-            string[] BpSort = new string[SortArr.Length];
+            string[] bpSort = new string[sortArr.Length];
 
-            for (int i = 0; i < SortArr.Length; i++)
+            for (int i = 0; i < sortArr.Length; i++)
             {
-                BpSort[i] = Convert.ToString(SortArr[i]);
+                bpSort[i] = Convert.ToString(sortArr[i]);
             }
 
-            return BpSort;
+            return bpSort;
+        }
+
+        private double CompareLowerBP(double spValue, double dpValue, double mpValue)
+        {
+            // Compare which blood pressure option is less. 
+            double bpValue = spValue > dpValue ? dpValue : spValue;
+            bpValue = bpValue > mpValue ? mpValue : bpValue;
+            return bpValue;
+        }
+
+        private double CompareHigherBP(double spValue, double dpValue, double mpValue)
+        {
+            double bpValue = spValue > dpValue ? spValue : dpValue;
+            bpValue = bpValue > mpValue ? bpValue : mpValue;
+            return bpValue; 
+        }
+
+        private int YaxisIntervalOffsetBp(double highBpVlaue, double lowBpVlaue)
+        {
+            int bpInterval = 10;
+            int tempValue = 10;
+            int tempInterval = 0;
+            int validInternal = 15;
+            int maxInterval = 20;           
+
+            if (highBpVlaue != 0.0)
+            {
+                highBpVlaue = highBpVlaue + tempValue;
+                lowBpVlaue = lowBpVlaue - tempValue;
+
+                tempInterval = Convert.ToInt32(highBpVlaue - lowBpVlaue);
+                tempInterval = tempInterval / tempValue;
+
+                if (tempInterval < validInternal)
+                {
+                    bpInterval = tempValue;
+                }
+                else
+                {
+                    bpInterval = maxInterval;
+                }
+            }         
+
+            return bpInterval;
         }
     }
 }

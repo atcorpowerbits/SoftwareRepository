@@ -14,8 +14,7 @@
 #include "DalCommon.h"
 #include "DalEventContainer.h"
 #include "DalCaptureState.h"
-
-
+#include "DalSequenceNumberManager.h"
 
 using namespace System;
 using namespace System::IO::Ports;
@@ -24,6 +23,7 @@ using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Logging;
 using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace AtCor::Scor::DataAccess::StateMachines;
+using namespace AtCor::Scor::CrossCutting::Configuration;
 
 
 namespace AtCor{ 
@@ -92,6 +92,8 @@ namespace AtCor{
 						
 						_serialPort->DiscardOutBuffer();
 						_serialPort->Write(serialCommand->em4Command,0, serialCommand->commandLength +1); //1 for CRC byte
+
+						CrxLogger::Instance->Write("Deepak>>> Command sent on port:  " +  ConvertBytesToString(serialCommand->em4Command));
 					}
 					catch(Exception^ excepObj)
 					{
@@ -160,6 +162,8 @@ namespace AtCor{
 
 				int numberofPacketsToRead = DalConstants::DeviceNumberOfReadsPerInterval ;
 
+				CrxLogger::Instance->Write("Deepak>>> ReadFromPortAndWriteToBuffer() called");
+
 				
 				for (int loopCounter = 0; loopCounter < numberofPacketsToRead; loopCounter++)
 				{
@@ -177,7 +181,7 @@ namespace AtCor{
 						
 						//This comment is needed to debug EM4 packtes. Will be kept till it is tested on EM4 device. 
 						//Remove after development is completed
-						//CrxLogger::Instance->Write("Data received:" +  ConvertBytesToString(capturePacket->em4Response));
+						CrxLogger::Instance->Write("Deepak>>> ReadFromPortAndWriteToBuffer() Data read from port:  bytes read =  " + bytesRead + " Packet: " +  ConvertBytesToString(capturePacket->em4Response));
 						
 						if (bytesRead != singlePacketSize)
 						{
@@ -275,6 +279,11 @@ namespace AtCor{
 				try
 				{
 					bytesRead = _serialPort->Read(recievedData, 0, dataWaiting);
+
+					//This comment is needed to debug EM4 packtes. Will be kept till it is tested on EM4 device. 
+					//Remove after development is completed
+					CrxLogger::Instance->Write("Deepak>>> ListenForEM4Response() Data read from port:  bytes read =  " + bytesRead + " Packet: " +  ConvertBytesToString(recievedData));
+						
 				}
 				catch(TimeoutException^)
 				{
@@ -333,7 +342,7 @@ namespace AtCor{
 				}
 
 				//generate the CRC
-				CRC8Calculator ^ crcCalculator = CRC8Calculator::Instance;
+				DalCRC8Calculator ^ crcCalculator = DalCRC8Calculator::Instance;
 				unsigned char generatedCRCValue = 0x00;
 				unsigned char recivedCRCValue = serialCommand->em4ResponseCRCByte;
 				returnValue= crcCalculator->ComputeCrc8ForArray(serialCommand->em4Response, serialCommand->em4ResponsePacketLength, &generatedCRCValue);
@@ -362,7 +371,7 @@ namespace AtCor{
 				}
 
 				//generate the CRC
-				CRC8Calculator ^ crcCalculator = CRC8Calculator::Instance;
+				DalCRC8Calculator ^ crcCalculator = DalCRC8Calculator::Instance;
 				unsigned char generatedCRCValue = 0x00;
 				unsigned char recivedCRCValue = capturePacket->em4ResponseCRCByte;
 				returnValue= crcCalculator->ComputeCrc8ForArray(capturePacket->em4Response, capturePacket->em4ResponsePacketLength, &generatedCRCValue);
@@ -390,6 +399,7 @@ namespace AtCor{
 				{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrEmptyResponseValidationErrCd, CrxStructCommonResourceMsg::DalErrEmptyResponseValidation, ErrorSeverity::Exception);
 				}
+				CrxLogger::Instance->Write("Deepak>>> ValidateResponsePacket() : " + ConvertBytesToString(serialCommand->em4Response));
 
 				//Call the method to break the response into individual partes;
 				if (!serialCommand->BreakupEM4Response())
@@ -422,9 +432,16 @@ namespace AtCor{
 				ProcessStatusFlag(statusBytes);
 				
 				//validate sequence number
-				if (serialCommand->commandSequenceNumber != serialCommand->em4ResponseSequenceNumber)
+
+				if (CrxSytemParameters::Instance->GetStringTagValue("ProcessSequenceNumber.CommandResponse") == "Y")
 				{
-					return DalReturnValue::Failure;
+
+					//Replacing with another class
+				//if (serialCommand->commandSequenceNumber != serialCommand->em4ResponseSequenceNumber)
+					if (!(DalSequenceNumberManager::ValidateCommandResponseSequenceNumber(serialCommand->commandSequenceNumber, serialCommand->em4ResponseSequenceNumber)))
+					{
+						return DalReturnValue::Failure;
+					}
 				}
 
 				return DalReturnValue::Success ;
@@ -456,10 +473,24 @@ namespace AtCor{
 				//assign the status flag to a variable
 				statusBytes = (unsigned long) capturePacket->em4StatusFlag ;
 				
-				if (!ProcessStatusFlag(statusBytes))
+				//no need to return value based on the status flag. ACK/NACK is enough 
+				//In any case ProcessStatusFlag returns true
+				/*if (!ProcessStatusFlag(statusBytes))
 				{
 					return DalReturnValue::Failure ;
+				}*/
+
+				ProcessStatusFlag(statusBytes);
+
+				if (CrxSytemParameters::Instance->GetStringTagValue("ProcessSequenceNumber.StreamingPackets") == "Y")
+				{
+					//validate the sequecne number
+					if (!DalSequenceNumberManager::ValidateStreamingSequenceNumber(capturePacket->em4ResponseSequenceNumber))
+					{
+						return DalReturnValue::Failure;
+					}
 				}
+
 				return DalReturnValue::Success ;
 			}
 
@@ -470,6 +501,9 @@ namespace AtCor{
 					try
 					{
 						ResetAllStaticMembers();
+
+						//Reset the streaming seqence number validation
+						DalSequenceNumberManager::ResetStreamingSequenceNumber();
 					
 						//for mutliple reads we need to set the threshold to to the number of packets being read
 						int singlePacketSize =DalConstants::EM4ZeroDataResponsePacketSize + DalConstants::PWVCaptureDataSize+ 1; //packet size+ data size + CRC byte
@@ -772,7 +806,12 @@ namespace AtCor{
 					commandCodeAcked = serialCommand->commandCode  | (unsigned char)DalAckNackByteMask::AckNackStatusBitMask;
 					commandCodeNacked = serialCommand->commandCode;
 					
-					expectedSequenceNumber = serialCommand->commandSequenceNumber << 4;
+					//No need to shift the sequence nummber for command-resp
+					//problem noted by Alistair , mai rcvd on 13 June 2011 -Deepak.
+
+					//expectedSequenceNumber = serialCommand->commandSequenceNumber << 4;
+					expectedSequenceNumber = serialCommand->commandSequenceNumber ;
+
 
 					if ((int)(serialCommand->expectedResponseLength +1 ) < (sourceArray->Length))
 					{

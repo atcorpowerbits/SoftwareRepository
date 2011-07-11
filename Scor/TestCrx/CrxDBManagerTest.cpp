@@ -1,5 +1,6 @@
 ﻿
 #include "StdAfx.h"
+
 using namespace System::Data;
 using namespace System::IO;
 using namespace System::Data::OleDb;
@@ -1003,6 +1004,12 @@ namespace TestCrx {
 				
 				try
 				{
+					if(!File::Exists(".\\system\\data\\scor.xyz"))
+					{
+						File::Copy(".\\system\\data\\scor.xyz.old",".\\system\\data\\scor.xyz");
+					}
+
+
 					groupName = "Dr.Alok";
 					systemIdentifier = 31256;
 					
@@ -2363,7 +2370,140 @@ namespace TestCrx {
 				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor());
 				Assert::IsNotNull(target);
 			}
-	};
+		/// <summary>
+		///A test for RemoveOldAccessFile
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void RemoveOldAccessFileTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			int fileType = 1; // TODO: Initialize to an appropriate value
+			SetPath();
+			if(File::Exists(".\\system\\data\\scor.xyz.old"))
+			{
+				if(!File::Exists(".\\system\\data\\scor.xyz"))
+				{
+					File::Copy(".\\system\\data\\scor.xyz.old",".\\system\\data\\scor.xyz");
+				}
+				target->RemoveOldAccessFile(fileType);
+			}
+			else
+			{
+				File::Copy(".\\system\\data\\scor.xyz",".\\system\\data\\scor.xyz.old");
+				target->RemoveOldAccessFile(fileType);
+			}
+
+			if(File::Exists(".\\system\\data\\scor.xyz.old"))
+			{
+				Assert::Fail();
+			}
+		}
+
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void RemoveOldAccessFileTest1()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			int fileType = 2; // TODO: Initialize to an appropriate value
+			SetPath();
+			if(File::Exists(".\\system\\data\\scor.mdb.old"))
+			{
+				if(!File::Exists(".\\system\\data\\scor.mdb"))
+				{
+					File::Copy(".\\system\\data\\scor.mdb.old",".\\system\\data\\scor.mdb");
+				}
+				target->RemoveOldAccessFile(fileType);
+			}
+			else
+			{
+				File::Copy(".\\system\\data\\scor.mdb",".\\system\\data\\scor.mdb.old");
+				target->RemoveOldAccessFile(fileType);
+			}
+
+			if(File::Exists(".\\system\\data\\scor.mdb.old"))
+			{
+				Assert::Fail();
+			}			
+		}
+		/// <summary>
+		///A test for MigrationFileName
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void MigrationFileNameTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			int fileType = 1; // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			
+			expected = ".\\system\\data\\scor.xyz";
+			actual = target->MigrationFileName(fileType);
+			Assert::AreEqual(expected, actual);
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void MigrationFileNameTest1()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			int fileType = 2; // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			expected = ".\\system\\data\\scor.mdb";
+			actual = target->MigrationFileName(fileType);
+			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for MigrationFileRename
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void MigrationFileRenameTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			int fileType = 1; // TODO: Initialize to an appropriate value
+			SetPath();
+			if(File::Exists(".\\system\\data\\scor.xyz"))
+			{
+				target->MigrationFileRename(fileType);
+			}
+			else
+			{
+				File::Move(".\\system\\data\\scor.xyz.old",".\\system\\data\\scor.xyz");
+				target->MigrationFileRename(fileType);
+			}
+
+			if(File::Exists(".\\system\\data\\scor.xyz"))
+			{
+				Assert::Fail();
+			}
+
+			File::Copy(".\\system\\data\\scor.xyz.old",".\\system\\data\\scor.xyz");
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void MigrationFileRenameTest1()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			int fileType = 2; // TODO: Initialize to an appropriate value
+			SetPath();
+			if(File::Exists(".\\system\\data\\scor.mdb"))
+			{
+				target->MigrationFileRename(fileType);
+			}
+			else
+			{
+				File::Move(".\\system\\data\\scor.mdb.old",".\\system\\data\\scor.mdb");
+				target->MigrationFileRename(fileType);
+			}
+
+			if(File::Exists(".\\system\\data\\scor.mdb"))
+			{
+				Assert::Fail();
+			}
+		}
+};
 }
 namespace TestCrx {
     

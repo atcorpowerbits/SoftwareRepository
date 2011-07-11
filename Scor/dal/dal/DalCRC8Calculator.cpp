@@ -5,7 +5,7 @@
         
      Author       :		 Deepak D'Souza
  
-     Description  :      CRC8Calculator class code
+     Description  :      DalCRC8Calculator class code
 */
 
 #include "stdafx.h"
@@ -21,10 +21,10 @@ namespace AtCor{
 		namespace DataAccess{
 
 
-			CRC8Calculator::CRC8Calculator()
+			DalCRC8Calculator::DalCRC8Calculator()
 			{
 				int j;
-				unsigned char i;
+				int i; 
 				unsigned char crc;
 
 				try
@@ -33,7 +33,7 @@ namespace AtCor{
 					//so we are not moving it to an enum
 					for (i=0; i < DalConstants::CRCTableSize; i++) 
 					{
-						crc = i;
+						crc = (unsigned char)i;
 						for (j=0; j<8; j++)
 						{
 							crc = (crc << 1) ^ ((crc & 0x80) ? 0x07 : 0);
@@ -47,13 +47,13 @@ namespace AtCor{
 				}
 			}
 
-			void CRC8Calculator::Crc8forNextByte(unsigned char* currentCrc, const unsigned char nextByte)
+			void DalCRC8Calculator::Crc8forNextByte(unsigned char* currentCrc, const unsigned char nextByte)
 			{
 				*currentCrc = crc8Table[(*currentCrc)^nextByte];
 				*currentCrc &= 0xFF;
 			}
 
-			bool CRC8Calculator::ComputeCrc8ForArray(array<unsigned char>^ commandArray, const unsigned int arrayLength, unsigned char* crc8ForArray)
+			bool DalCRC8Calculator::ComputeCrc8ForArray(array<unsigned char>^ commandArray, const unsigned int arrayLength, unsigned char* crc8ForArray)
 			{
 
 				unsigned char crcValue = 0x00;

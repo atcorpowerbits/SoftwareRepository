@@ -8,7 +8,9 @@
      Description  :     Functionality implemented for showing splash screen on application launch
 */
 using AtCor.Scor.CrossCutting.Messaging;
-using System.Configuration; 
+using System;
+using System.Configuration;
+using System.Reflection; 
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -21,14 +23,13 @@ namespace AtCor.Scor.Gui.Presentation
         /** Constructor, subscribes event for defaultwindow & sqlinstancelist to update loading status on splash screen
          * */
         public SplashScreen()
-        {
-            InitializeComponent();
-            lblversion.Text = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.Version.ToString()]; // hardcoded: to be read from global registry variables
+        { 
+            InitializeComponent();                       
             lblCopyright.Text = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.Copyright.ToString()]; // hardcoded : to be read from global registry variables
             lblInitialMsg.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashIniMsg) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashWaitMsg);
             DefaultWindow.OnInitializationProcess += ShowInitializationMessage;
             SQLInstanceList.OnInitializationProcess += ShowInitializationMessage;
-            radVersionNo.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashLblVersionTxt);
+            radVersionNo.Text = string.Format("{0}{1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashLblVersionTxt), Assembly.GetExecutingAssembly().GetName().Version.ToString());
             radLabelScorName.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashLblScorTxt);
             radLabelCopyRight.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SpalshCopyrtTxt);
         }

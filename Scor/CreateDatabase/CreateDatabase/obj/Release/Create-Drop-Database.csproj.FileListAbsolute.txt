@@ -1,0 +1,8 @@
+D:\Sprint12\CreateDatabase\CreateDatabase\bin\Release\Create-Drop-Database.exe
+D:\Sprint12\CreateDatabase\CreateDatabase\bin\Release\Create-Drop-Database.pdb
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Release\ResolveAssemblyReference.cache
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Release\CreateDatabase.Form1.resources
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Release\CreateDatabase.Properties.Resources.resources
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Release\Create-Drop-Database.csproj.GenerateResource.Cache
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Release\Create-Drop-Database.exe
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Release\Create-Drop-Database.pdb

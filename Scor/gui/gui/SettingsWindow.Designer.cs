@@ -237,8 +237,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.tableLayoutPanel5.RowCount = 5;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 94F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 95F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(219, 217);
             this.tableLayoutPanel5.TabIndex = 6;
@@ -292,7 +292,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.picbxReportLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.picbxReportLogo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.picbxReportLogo.Location = new System.Drawing.Point(59, 87);
+            this.picbxReportLogo.Location = new System.Drawing.Point(59, 86);
             this.picbxReportLogo.MaximumSize = new System.Drawing.Size(100, 84);
             this.picbxReportLogo.Name = "picbxReportLogo";
             this.picbxReportLogo.Size = new System.Drawing.Size(100, 84);

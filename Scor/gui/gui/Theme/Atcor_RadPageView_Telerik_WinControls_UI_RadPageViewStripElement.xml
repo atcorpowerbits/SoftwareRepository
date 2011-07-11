@@ -4,7 +4,7 @@
     <XmlStyleBuilderRegistration>
       <BuilderData xsi:type="XmlStyleSheet" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <PropertySettingGroups>
-          <XmlPropertySettingGroup BasedOn="RoundRectShape2Top,PageViewItemSelectedFill,StripViewItemForeColor,StripViewItemSelectedBorder">
+          <XmlPropertySettingGroup BasedOn="RoundRectShape2Top,PageViewItemSelectedFill,StripViewItemForeColor,StripViewItemSelectedBorder,PageViewStripItemBoldFont">
             <PropertySettings>
               <XmlPropertySetting Property="Telerik.WinControls.UI.RadPageViewElementBase.BorderPadding" Value="0, 0, 0, -1" />
               <XmlPropertySetting Property="Telerik.WinControls.UI.RadPageViewElementBase.FillPadding" Value="0, 0, 0, -2" />
@@ -18,7 +18,7 @@
               <XmlVisualStateSelector VisualState="RadPageViewStripItem.Selected" />
             </Selectors>
           </XmlPropertySettingGroup>
-          <XmlPropertySettingGroup BasedOn="StripViewItemForeColor,OuterInnerEmptyBorder">
+          <XmlPropertySettingGroup BasedOn="StripViewItemForeColor,OuterInnerEmptyBorder,PageViewStripItemNormalFont">
             <PropertySettings>
               <XmlPropertySetting Property="Telerik.WinControls.RadElement.Shape" Value="(none)" />
               <XmlPropertySetting Property="Telerik.WinControls.UI.RadPageViewElementBase.BorderPadding" Value="0, 0, 0, 0" />
@@ -29,6 +29,7 @@
               <XmlPropertySetting Property="Telerik.WinControls.UI.LightVisualElement.BackColor2" Value="142, 150, 186" />
               <XmlPropertySetting Property="Telerik.WinControls.UI.LightVisualElement.BackColor3" Value="142, 150, 186" />
               <XmlPropertySetting Property="Telerik.WinControls.UI.LightVisualElement.BackColor4" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.UI.LightVisualElement.BorderColor" Value="Transparent" />
             </PropertySettings>
             <Selectors>
               <XmlVisualStateSelector VisualState="RadPageViewStripItem" />
@@ -69,7 +70,7 @@
               <XmlVisualStateSelector VisualState="RadPageViewStripItem.MouseOver" />
             </Selectors>
           </XmlPropertySettingGroup>
-          <XmlPropertySettingGroup BasedOn="RoundRectShape2Top,PageViewItemSelectedFill,StripViewItemHoverSelectedBorder">
+          <XmlPropertySettingGroup BasedOn="RoundRectShape2Top,PageViewItemSelectedFill,StripViewItemHoverSelectedBorder,PageViewStripItemBoldFont">
             <PropertySettings>
               <XmlPropertySetting Property="Telerik.WinControls.UI.RadPageViewElementBase.FillPadding" Value="0, 0, 0, -2" />
               <XmlPropertySetting Property="Telerik.WinControls.UI.RadPageViewElementBase.BorderPadding" Value="0, 0, 0, -2" />

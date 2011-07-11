@@ -4,15 +4,15 @@ using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
 namespace TestDal {
     using namespace System;
-    ref class CRC8CalculatorTest;
+    ref class DalCRC8CalculatorTest;
     
     
     /// <summary>
-///This is a test class for CRC8CalculatorTest and is intended
-///to contain all CRC8CalculatorTest Unit Tests
+///This is a test class for DalCRC8CalculatorTest and is intended
+///to contain all DalCRC8CalculatorTest Unit Tests
 ///</summary>
 	[TestClass]
-	public ref class CRC8CalculatorTest
+	public ref class DalCRC8CalculatorTest
 	{
 
 	private: Microsoft::VisualStudio::TestTools::UnitTesting::TestContext^  testContextInstance;
@@ -62,25 +62,25 @@ namespace TestDal {
 			//
 #pragma endregion
 			/// <summary>
-			///A test for CRC8Calculator Constructor
+			///A test for DalDalCRC8Calculator Constructor
 			///</summary>
 	public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
-			void CRC8CalculatorConstructorTest()
+			void DalCRC8CalculatorConstructorTest()
 			{
-				CRC8Calculator_Accessor^  target = (gcnew CRC8Calculator_Accessor());
+				DalCRC8Calculator_Accessor^  target = (gcnew DalCRC8Calculator_Accessor());
 				Assert::IsNotNull(target->crc8Table);
 			}
 
 
 			/// <summary>
-			///A test for CRC8Calculator Constructor
+			///A test for DalDalCRC8Calculator Constructor
 			///</summary>
 			public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
 			void CRC8forNextByteTest()
 			{
-				CRC8Calculator_Accessor^  target = (gcnew CRC8Calculator_Accessor());
+				DalCRC8Calculator_Accessor^  target = (gcnew DalCRC8Calculator_Accessor());
 				unsigned char nextByte = 0x00;
 				unsigned char currentCrc  = 0x00;
 				target->Crc8forNextByte(&currentCrc, 0x00);
@@ -95,7 +95,7 @@ namespace TestDal {
 
 			//Deepak: This test causes the Test framework to crash and prevents all tests from running
 			/// <summary>
-			///A test for CRC8Calculator Constructor
+			///A test for DalDalCRC8Calculator Constructor
 			///</summary>
 	public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
@@ -103,7 +103,7 @@ namespace TestDal {
 			{
 				try
 				{
-					CRC8Calculator_Accessor^  target = (gcnew CRC8Calculator_Accessor());
+					DalCRC8Calculator_Accessor^  target = (gcnew DalCRC8Calculator_Accessor());
 					array<unsigned char>^ testArray = gcnew array<unsigned char> (3) {0x10, 0x1F, 0xFF };
 					unsigned char expected, actual;
 					expected = 0xc5;

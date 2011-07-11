@@ -22,7 +22,7 @@ namespace gui.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace gui.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("gui.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace gui.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -60,42 +60,49 @@ namespace gui.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap cap_arrow5 {
+        public static System.Drawing.Icon Atcor {
+            get {
+                object obj = ResourceManager.GetObject("Atcor", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap cap_arrow5 {
             get {
                 object obj = ResourceManager.GetObject("cap_arrow5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap cap_arrow6 {
+        public static System.Drawing.Bitmap cap_arrow6 {
             get {
                 object obj = ResourceManager.GetObject("cap_arrow6", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap newarrowpart111 {
+        public static System.Drawing.Bitmap newarrowpart111 {
             get {
                 object obj = ResourceManager.GetObject("newarrowpart111", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap newarrowpart211 {
+        public static System.Drawing.Bitmap newarrowpart211 {
             get {
                 object obj = ResourceManager.GetObject("newarrowpart211", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap SetupScreenDirect_Small {
+        public static System.Drawing.Bitmap SetupScreenDirect_Small {
             get {
                 object obj = ResourceManager.GetObject("SetupScreenDirect_Small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap SetupScreenSubtracting_small {
+        public static System.Drawing.Bitmap SetupScreenSubtracting_small {
             get {
                 object obj = ResourceManager.GetObject("SetupScreenSubtracting_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

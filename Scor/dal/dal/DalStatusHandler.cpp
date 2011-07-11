@@ -174,12 +174,14 @@ namespace AtCor{
 						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_DISCONNECTED;
 						break;
 					case DalCuffStatusBitMask::CUFF_INFLATING_STATUS_BITS:
+					case DalCuffStatusBitMask::CUFF_DISCONNECTED_INFLATING_STATUS_BITS:
 						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_INFLATING;
 						break;
 					case DalCuffStatusBitMask::CUFF_INFLATED_STATUS_BITS:
 						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_INFLATED;
 						break;
 					case DalCuffStatusBitMask::CUFF_DEFLATING_STATUS_BITS:
+					case DalCuffStatusBitMask::CUFF_DISCONNECTED_DEFLATING_STATUS_BITS:
 						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_DEFLATING;
 						break;
 					case DalCuffStatusBitMask::CUFF_DEFLATED_STATUS_BITS:
@@ -235,7 +237,7 @@ namespace AtCor{
 
 				for each (unsigned char singleByte in inputArray)
 				{
-					packetData += singleByte.ToString(DalFormatterStrings::PrintByte);
+					packetData += singleByte.ToString(DalFormatterStrings::PrintByte) + DalFormatterStrings::SingleSpaceString ;
 				}
 
 				return packetData;
@@ -304,7 +306,18 @@ namespace AtCor{
 				return returnValue;
 			}
 
+			//bool DalStatusHandler::ProcessStatusFlag(unsigned long statusBytes)
+			//{
+			//	statusBytes;
 
+			//	//TODO: IMP. This is a temporary function to prevent status bytes from beign handled.
+			//	//necessary for testing EM4
+			//	//Revert this when the task is done 
+			//	return true;
+			//}
+
+			/*Commented on 10th july 2011 to neable testing
+			TODO: Temporary revert tot return true without processing status flag. revert when done */
 			bool DalStatusHandler::ProcessStatusFlag(unsigned long statusBytes)
 			{
 				//first check if the status flag has changed from the previous value
@@ -323,16 +336,38 @@ namespace AtCor{
 				try
 				{
 					//process the various parts in order of importance
-					ProcessStopButtonBitMask();
-					ProcessPowerUpBitMask();
 
+					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.StopButton") == "Y")
+					{
+						ProcessStopButtonBitMask();
+					}
+					
+					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.PowerUpBit") == "Y")
+					{
+						ProcessPowerUpBitMask();
+					}
+
+					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.AlarmFlag") == "Y")
+					{
 					//check alarms bfore anything else
-					ProcessAlarmStatusFlag();
-					ProcessCuffStatusFlag();
-					ProcessTonoStatusFlag();
+						ProcessAlarmStatusFlag();
+					}
 
+					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.CuffStatusFlags") == "Y")
+					{
+					ProcessCuffStatusFlag();
+					}
+
+					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.TonometerFlags") == "Y")
+					{
+						ProcessTonoStatusFlag();
+					}
+
+					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.UnusedBits") == "Y")
+					{
 					//least important
-					ProcessUnusedBitsStatusFlag(statusBytes);
+						ProcessUnusedBitsStatusFlag(statusBytes);
+				}
 				}
 				catch(ScorException^)
 				{
@@ -420,6 +455,8 @@ namespace AtCor{
 			{
 				 if (CheckAlarmStatusFlagChanged(_newAlarmStatusBytes) == true)
 				 {
+					 //TODO: raise this event only when bit is on1 not when bit is zero.
+
 					 String ^ alarmSource;
 					 //Get the source of the alarm
 					//alarmSource= DalDeviceHandler::Instance->GetAlarmSource(); //Incorrect should hit DalModule so that whichever is the current device will be called
@@ -427,7 +464,7 @@ namespace AtCor{
 
 					 //raise an event only after getting the source of the error
 					 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(TranslateAlarmStatusBits(_newAlarmStatusBytes), alarmSource));
-					 //CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
+					CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
 				 }
 			}
 
@@ -438,7 +475,9 @@ namespace AtCor{
 					//If a capture operation is in progress ,
 					//it must be stopped
 					//DalDeviceHandler::Instance->StopCapture(); //the bit can also be raised during simulation mode
-					DalModule::Instance->StopMeasurement();
+					//DalModule::Instance->StopMeasurement();
+					//Just raise the event . let the handler decidethe current mode and decide what actions need to be taken.
+					//TODO: add an handler
 
 					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::StopButtonPressed, DalFormatterStrings::PrintEnumName);
 					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::StopButtonPressed, sourceName);
@@ -455,7 +494,9 @@ namespace AtCor{
 					//If a capture operation is in progress ,
 					//it must be stopped
 					//DalDeviceHandler::Instance->StopCapture();
-					DalModule::Instance->StopMeasurement();
+					//DalModule::Instance->StopMeasurement();
+					//Just raise the event . let the handler decidethe current mode and decide what actions need to be taken.
+					//TODO: add an handler
 
 					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::PowerUpEvent , DalFormatterStrings::PrintEnumName);
 					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::PowerUpEvent, sourceName);

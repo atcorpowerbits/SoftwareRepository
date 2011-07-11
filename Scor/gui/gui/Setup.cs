@@ -8,7 +8,6 @@
     Description  :      Launches setup screen on Application load.
 */
 using System;
-
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -41,7 +40,7 @@ namespace AtCor.Scor.Gui.Presentation
         const int PatientMinChar = 14; // minimum characters required to display patient name on current lable width
         const int FemoralToCuffDefaultMmValue = 200; // default femoral to cuff value in mm
         const int FemoralToCuffDefaultCmValue = FemoralToCuffDefaultMmValue / 10; // convert default femoral to cuff value to cm
-        const int PatientListHideValue = 20; // minimum splitter distance to hide patient list
+        const int PatientListHideValue = 10; // minimum splitter distance to hide patient list
         const int PatientListShowValue = 356; // maximum splitter distance to show patient list
                 
         readonly CrxDBManager dbMagr = CrxDBManager.Instance;
@@ -161,7 +160,8 @@ namespace AtCor.Scor.Gui.Presentation
         /**This method sets text for labels in patient demographic details region
       */
         private void SetTextForSetupTab()
-        {    // guiradlblPatient.Text is commented because according to new requirement label is not needed anymore
+        {
+            // guiradlblPatient.Text is commented because according to new requirement label is not needed anymore
             // guiradlblPatient.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPateints);
             guiradlblPatientId.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPatientId);
             guiradlblGroup.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblGroup);
@@ -242,7 +242,7 @@ namespace AtCor.Scor.Gui.Presentation
                 SetHeightWeightUnits();
                 SetBloodPressure();
                 SetPwvDistanceMethodAndUnits();
-
+                
                 // set label text as per settings changed for distance method
                 guiradlblCuff.Text = crxMgrObject.PwvSettings.PWVDistanceMethod.Equals((int)CrxGenPwvValue.CrxPwvDistMethodSubtract) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportCuffWithcolon) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDirect);
                 
@@ -263,6 +263,8 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradtxtFemoralToCuff.ReadOnly = !crxMgrObject.PwvSettings.FemoralToCuff;
 
                 SetPatientPrivacy();
+                SetSetupTagForValidations();   
+                bool value = obj.Initialise();
             }
             catch (Exception ex)
             {
@@ -422,19 +424,21 @@ namespace AtCor.Scor.Gui.Presentation
                 splitContainer1.SplitterDistance = PatientListHideValue;
                 guiradbtnEdit.Enabled = false;
                 guiradbtnDelete.Enabled = false;
-                guiradbtnSearch.Enabled = false;
+                guiradbtnSearch.Enabled = false;               
 
-                // Disable the vertical scrollbar
+                // Disable the vertical scrollbar                                 
                 guiradgrdPatientList.VerticalScrollState = ScrollState.AlwaysHide;
+                radLabel1.Visible = true;
             }
             else
             {
                 splitContainer1.SplitterDistance = PatientListShowValue;
                 guiradbtnSearch.Enabled = (mode == CurrentMode.None && guiradgrdPatientList.Rows.Count > 1) ? true : false;
                 guiradbtnDelete.Enabled = guiradbtnEdit.Enabled = (mode == CurrentMode.None && guiradgrdPatientList.Rows.Count > 0) ? true : false;
-
+                
                 // Enaable the vertical scrollbar
                 guiradgrdPatientList.VerticalScrollState = ScrollState.AlwaysShow;
+                radLabel1.Visible = false;
             }
         }
 
@@ -479,10 +483,10 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradgrdPatientList.Columns[7].Width = 101;
 
                 guiradgrdPatientList.EnableAlternatingRowColor = true;
-                ((GridTableElement)this.guiradgrdPatientList.GridElement).AlternatingRowColor = Color.Gray;
+                guiradgrdPatientList.GridElement.AlternatingRowColor = Color.Gray;
 
                 // guiradgrdPatientList.Columns.Add(CrxDBGetPatientDetails.GroupName.ToString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayGroup), CrxDBGetPatientDetails.GroupName.ToString());
-                // guiradgrdPatientList.Columns[8].Width = 72;
+                // guiradgrdPatientList.Columns[8].Width = 72;                             
                 guiradgrdPatientList.TableElement.EndUpdate();
                 guiradgrdPatientList.AutoGenerateColumns = false;
                 isCellInitializeWidth = false;
@@ -653,12 +657,28 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 guiradbtnEdit.Enabled = false;
                 guiradbtnDelete.Enabled = false;
+
+                // Nitesh
+                if (mode == CurrentMode.None)
+                {
+                    guiradbtnCancel.Enabled = false;
+                }
+                else
+                {
+                    guiradbtnCancel.Enabled = true;
+                }
+
+                // Nitesh
                 objDefaultWindow.radlblPatientName.Visible = false;
             }
             else
             {
                 if (mode == CurrentMode.InsertMode || mode == CurrentMode.EditMode || mode == CurrentMode.SearchMode)
                 {
+                    // Nitesh
+                    guiradbtnCancel.Enabled = true;
+
+                    // Nitesh
                     guiradbtnEdit.Enabled = false;
                     guiradbtnDelete.Enabled = false;
                     objDefaultWindow.radlblPatientName.Visible = false;
@@ -668,6 +688,7 @@ namespace AtCor.Scor.Gui.Presentation
                     guiradbtnEdit.Enabled = true;
                     guiradbtnDelete.Enabled = true;
                     objDefaultWindow.radlblPatientName.Visible = true;
+                    guiradbtnCancel.Enabled = false;                    
                 }
             }
         }
@@ -855,10 +876,10 @@ namespace AtCor.Scor.Gui.Presentation
                     // by default the setup screen goes into Insert mode,at this moment if user clicks on the menu bar he will be prompted to 
                     // save changes.This is not logical since he has not made any changes.
                     // Hence following condition is checked.
-                    if (guiradgrdPatientList.RowCount.Equals(0))
-                    {
-                        return;
-                    }
+                    // if (guiradgrdPatientList.RowCount.Equals(0))
+                    // {
+                    // return;
+                    // }
 
                     // this will handle saving the values in edit & insert mode before navigating to menu items
                     DialogResult dsSave = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgSaveChange), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgSaveSettings), MessageBoxButtons.YesNoCancel, RadMessageIcon.Question);
@@ -873,6 +894,17 @@ namespace AtCor.Scor.Gui.Presentation
                             GuiCommon.IsMenuItemShown = false;
                             break;
                         default:
+                            // Check if there are any records in the patient list.
+                            // There is a exception when the user is running the application on a fresh db,
+                            // by default the setup screen goes into Insert mode,at this moment if user clicks on the menu bar he will be prompted to 
+                            // save changes.This is not logical since he has not made any changes.
+                            // Hence following condition is checked.
+                            if (guiradgrdPatientList.RowCount.Equals(0))
+                            {
+                               GuiCommon.IsPatientListEmpty = true;
+                               return;
+                            }
+
                             mode = CurrentMode.None;
                             DisplayLastRecord(int.Parse(radlblpatientinternalnumber.Text.Trim()), int.Parse(radlblgroupid.Text));
 
@@ -1037,6 +1069,10 @@ namespace AtCor.Scor.Gui.Presentation
     */
         private void SetPwvDistanceMethodAndUnits()
         {
+            // Clear the PWV distance values when the PWV distance method is changed.
+            guiradtxtCuff.Text = string.Empty;
+            guiradtxtCarotid.Text = string.Empty;
+
             // read pwv distance units and pwv distance method and accordingly dispaly the labels and textbox.Do the calculation of for PWV distance.Also read the cuff location for it to be editable or no. 
             switch (crxMgrObject.PwvSettings.PWVDistanceMethod)
             {
@@ -1415,9 +1451,10 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void BindDaysForMonthSelected()
         {
+            string selectedMonth = guicmbxMonth.Text;
+
             // fetches days for a month according to month selected
-            // DaysInMonth methodName = guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase) ? DaysInMonth.LeapYear : (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.AprCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.JunCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SepCondition), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.NovCondition), StringComparison.CurrentCultureIgnoreCase)) ? DaysInMonth.Days30 : DaysInMonth.Days31;
-            DaysInMonth methodName = (guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthFeb), StringComparison.CurrentCultureIgnoreCase) ? DaysInMonth.LeapYear : ((guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthApr), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthJun), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthSep), StringComparison.CurrentCultureIgnoreCase) || (guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthNov), StringComparison.CurrentCultureIgnoreCase)) ? DaysInMonth.Days30 : DaysInMonth.Days31;
+            DaysInMonth methodName = guicmbxMonth.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthFeb), StringComparison.CurrentCultureIgnoreCase) ? DaysInMonth.LeapYear : (guicmbxMonth.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthApr), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthJun), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthSep), StringComparison.CurrentCultureIgnoreCase) || guicmbxMonth.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthNov), StringComparison.CurrentCultureIgnoreCase)) ? DaysInMonth.Days30 : DaysInMonth.Days31;
             switch (methodName)
             {
                 case DaysInMonth.LeapYear:
@@ -1736,6 +1773,7 @@ namespace AtCor.Scor.Gui.Presentation
                         mode = CurrentMode.None;
                         DisplayLastRecord(int.Parse(guiradgrdPatientList.Rows[0].Cells[1].Value.ToString()), int.Parse(guiradgrdPatientList.Rows[0].Cells[2].Value.ToString()));
                         guiradbtnSearch.Enabled = false;
+                        guiradbtnCancel.Enabled = true;
                     }
                     else if (dvSearch.Count > 1)
                     {
@@ -2228,6 +2266,8 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
+                // In case of any exception being raised in the StartCaptureProcess(sender, e);
+                GuiCommon.CaptureTabClick = true;   
                 GUIExceptionHandler.HandleException(ex, this);
             }
         }
@@ -2239,14 +2279,13 @@ namespace AtCor.Scor.Gui.Presentation
         {
             if (ValidatePatientAge())
             {
-                if (GuiCommon.IsValueOutsideLimits)
-                {
-                    GuiCommon.IsValueOutsideLimits = false;
-                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
-                    objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
-                    return;
-                }
-
+                // if (GuiCommon.IsValueOutsideLimits)
+                // {
+                // GuiCommon.IsValueOutsideLimits = false;
+                // objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                // objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                // return;
+                // }
                 if (!objValidation.CheckMandatoryFields())
                 {
                     // check for electronic module is connected. 
@@ -2299,7 +2338,7 @@ namespace AtCor.Scor.Gui.Presentation
                             objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
                         }
                     }
-                }                
+                }               
             }
             else
             {
@@ -2308,7 +2347,7 @@ namespace AtCor.Scor.Gui.Presentation
                     objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
                     objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
                 }
-            }
+            }          
         }
 
         /** This method fills session object with measurement data
@@ -2342,9 +2381,13 @@ namespace AtCor.Scor.Gui.Presentation
                     break;
 
                 case (int)CrxGenPwvValue.CrxGenHeightWeightImperial:
-                    if ((guiradtxtsetupheight.Text.Length > 0) && (guiradtxtImperialHeight.Text.Length > 0))
+                    if ((guiradtxtsetupheight.Text.Length > 0) || (guiradtxtImperialHeight.Text.Length > 0))
                     {
-                        int heightInInches = (int.Parse(guiradtxtsetupheight.Text) * 12) + int.Parse(guiradtxtImperialHeight.Text);
+                        // Checking if the inch/feet field is blank then setting it to zero.
+                        // using local variable to store the text of guiradtxtImperialHeight and guiradtxtsetupheight.
+                        string guiRadTxtImperialHeight = guiradtxtImperialHeight.Text.Equals(string.Empty) ? "0" : guiradtxtImperialHeight.Text;
+                        string guiRadTxtSetUpheight = guiradtxtsetupheight.Text.Equals(string.Empty) ? "0" : guiradtxtsetupheight.Text;                        
+                        int heightInInches = (int.Parse(guiRadTxtSetUpheight) * 12) + int.Parse(guiRadTxtImperialHeight);
                         obj.heightAndWeight.heightInInches = (ushort)heightInInches;
                     }
                     else
@@ -2657,14 +2700,14 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         private void guicmbDay_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
-        {
+        {           
+            guilblDay.Text = guicmbDay.Text;
+
             // gets patient records based on inputs given for day drop down (only if month & year values are selected)
             if (!IsFieldsBlank(true) && mode == CurrentMode.SearchMode)
             {
                 GetSearchResults();
             }
-
-            guilblDay.Text = guicmbDay.Text;
         }
 
         private void guicmbxMonth_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
@@ -2693,7 +2736,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 // binds number of days for feb month according to year selected
                 // if (guicmbxMonth.GetItemText(guicmbxMonth.SelectedItem).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FebCondition), StringComparison.CurrentCultureIgnoreCase))
-                if ((guicmbxMonth.SelectedItem.Text).Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthFeb), StringComparison.CurrentCultureIgnoreCase))
+                if (guicmbxMonth.SelectedItem.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMonthFeb), StringComparison.CurrentCultureIgnoreCase))
                 {
                     FillDayLeapYear();
                 }
@@ -2773,11 +2816,19 @@ namespace AtCor.Scor.Gui.Presentation
             //    // GuiCommon.CaptureChildForm = null;
             // }
             bool retVal = false;
+
+            if (GuiCommon.IsValueOutsideLimits)
+            {
+                GuiCommon.IsValueOutsideLimits = false;
+                objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                return retVal;
+            }
+
             try
-            {                
+            {
                 string message = string.Empty;
-                BizPWV bixPwvObject = new BizPWV();
-                switch (bixPwvObject.ValidateAgeLimit(ref message))
+                switch (obj.ValidateAgeLimit(ref message))
                 {
                     case BizCaptureGate.CAPTURE_GOAHEAD:
                         // Go ahead with the capture.No Confirmation required.                        
@@ -2792,6 +2843,7 @@ namespace AtCor.Scor.Gui.Presentation
                         break;
 
                     case BizCaptureGate.CAPTURE_CONFIRM:
+                        GuiCommon.ReportChildForm.Close();  
                         DialogResult result = RadMessageBox.Show(this, message, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNo, RadMessageIcon.Exclamation);
 
                         // Show a popup box to the user with the string provided with Yes and No button.

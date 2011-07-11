@@ -50,7 +50,9 @@ namespace AtCor{
 
 					em4ResponseAckNackByte = em4Response[(int)Em4ResponseByteIndex::AckNackByte ];
 					
-					em4ResponseSequenceNumber = em4Response[(int)Em4ResponseByteIndex::ResponseLengthByte]>>4;
+					//em4ResponseSequenceNumber = em4Response[(int)Em4ResponseByteIndex::ResponseLengthByte]>>DalConstants::RightShiftOneNibble;
+					em4ResponseSequenceNumber = em4Response[(int)Em4ResponseByteIndex::SequenceNumberByte];
+
 					em4ResponseCRCByte = em4Response[(int)em4ResponseLengthByte];
 
 					//get the status flag

@@ -1341,25 +1341,24 @@ int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 	
 	int result					= 0;		// returns result value	
 	int rowNum					= 0;		// stores number of rows in the migration file
+	int	migrationFileType		= 0;		// stores the migration filetype
 	
-	String^ filePathSet			= nullptr; // stores the formatted file path location	
+	String^ filePathSet			= nullptr; // stores the formatted file path location
+	String^ migrationFileName	= nullptr; // stores the migration file name
 
 	try
 	{
-		//Check whether file is exists or not
-		if(!File::Exists(CrxDbStructInternal::NameOfAccessFile))
-		{			
-			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrMsAccessFileNotExistErrCd, CrxStructCommonResourceMsg::CrxErrMsAccessFileNotExist, ErrorSeverity::Exception);// File not found
-		}
+		//Check whether file is exists or not		
+		migrationFileType = MigrationFileExistInternal();		
 		
-		//Check whether old file is exists or not
-		if(File::Exists(CrxDbStructInternal::NameOfAccessFileNew))
-		{ 
-			File::Delete(CrxDbStructInternal::NameOfAccessFileNew);
-		}
-
+		//Check whether old file is exists or not, then delete the old file
+		RemoveOldAccessFile(migrationFileType);
+		
+		//Returns the migration file name to be migrated
+		migrationFileName = MigrationFileName(migrationFileType);
+		
 		//Set the path for MS-Access Connection path
-		filePathSet  = String::Format(CrxCommon::gCI,CrxDbStructInternal::MsAccessConnectionFormat , CrxDbStructInternal::NameOfAccessFile);
+		filePathSet  = String::Format(CrxCommon::gCI,CrxDbStructInternal::MsAccessConnectionFormat , migrationFileName);
 		
 		//Create logger object
 		objLog = CrxLogger::Instance;
@@ -1406,7 +1405,8 @@ int CrxDBManager::MigrateAtCorData(int systemIdentifier, String^ groupName)
 		//Rename the migration file from scor.xyz to scor.xyz.old
 		if(result == 0)
 		{	
-			File::Move(CrxDbStructInternal::NameOfAccessFile,CrxDbStructInternal::NameOfAccessFileNew);
+			//Rename the migration file
+			MigrationFileRename(migrationFileType);
 		}
 
 		return result;
@@ -1445,7 +1445,8 @@ bool CrxDBManager::MigrationFileExist()
 	try
 	{
 		//Check whether file is exists or not
-		if(!File::Exists(CrxDbStructInternal::NameOfAccessFile))
+		//if(!File::Exists(CrxDbStructInternal::NameOfAccessFile))
+		if(!(File::Exists(CrxDbStructInternal::NameOfAccessFile) || File::Exists(CrxDbStructInternal::NameOfMSAccessFile)))
 		{ 
 			result = false;
 		}     
@@ -1597,5 +1598,85 @@ void CrxDBManager::MigrationLogDetail(CrxLogger^ objLog, array<String^>^ skipPat
 	for(int arr= 0; arr < totskipresult; arr++ )
 	{		
 		objLog->Write(skipPatientlog[arr]);
+	}
+}
+
+int CrxDBManager::MigrationFileExistInternal()
+{
+	int result = 0;//initializes to true, if true exist else not exist
+
+	try
+	{
+		//Check whether file is exists or not
+		if(File::Exists(CrxDbStructInternal::NameOfAccessFile))
+		{ 
+			result = Convert::ToInt32(CrxDBAccessFileNameList::ScorXyzFileType,CrxCommon::gCI);
+		}
+		else if(File::Exists(CrxDbStructInternal::NameOfMSAccessFile))
+		{
+			result = Convert::ToInt32(CrxDBAccessFileNameList::ScorMdbFileType,CrxCommon::gCI);
+		}
+		else
+		{
+			result = Convert::ToInt32(CrxDBAccessFileNameList::MigrationFileNotPresent,CrxCommon::gCI);
+		}
+
+		//return result;
+	}
+	catch(Exception^)
+	{
+		//return result = false;
+		result = Convert::ToInt32(CrxDBAccessFileNameList::MigrationFileNotPresent,CrxCommon::gCI);
+	}
+	finally
+	{
+		if(result == Convert::ToInt32(CrxDBAccessFileNameList::MigrationFileNotPresent,CrxCommon::gCI))
+		{
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrMsAccessFileNotExistErrCd, CrxStructCommonResourceMsg::CrxErrMsAccessFileNotExist, ErrorSeverity::Exception);// File not found
+		}		
+	}
+	return result;
+}
+
+void CrxDBManager::RemoveOldAccessFile(int fileType)
+{
+	if(fileType == Convert::ToInt32(CrxDBAccessFileNameList::ScorXyzFileType,CrxCommon::gCI))
+	{ 
+		File::Delete(CrxDbStructInternal::NameOfAccessFileNew);
+	}
+	else
+	if(fileType == Convert::ToInt32(CrxDBAccessFileNameList::ScorMdbFileType,CrxCommon::gCI))
+	{ 
+		File::Delete(CrxDbStructInternal::NameOfMSAccessFileNew);
+	}
+}
+
+String^ CrxDBManager::MigrationFileName(int fileType)
+{
+	String^ tempFileName = String::Empty;
+
+	if(fileType == Convert::ToInt32(CrxDBAccessFileNameList::ScorXyzFileType,CrxCommon::gCI))
+	{ 
+		tempFileName = CrxDbStructInternal::NameOfAccessFile;
+	}
+	else
+	if(fileType == Convert::ToInt32(CrxDBAccessFileNameList::ScorMdbFileType,CrxCommon::gCI))
+	{ 
+		tempFileName = CrxDbStructInternal::NameOfMSAccessFile;
+	}
+
+	return tempFileName;
+}
+
+void CrxDBManager::MigrationFileRename(int fileType)
+{
+	if(fileType == Convert::ToInt32(CrxDBAccessFileNameList::ScorXyzFileType,CrxCommon::gCI))
+	{ 
+		File::Move(CrxDbStructInternal::NameOfAccessFile,CrxDbStructInternal::NameOfAccessFileNew);
+	}
+	else
+	if(fileType == Convert::ToInt32(CrxDBAccessFileNameList::ScorMdbFileType,CrxCommon::gCI))
+	{ 
+		File::Move(CrxDbStructInternal::NameOfMSAccessFile,CrxDbStructInternal::NameOfMSAccessFileNew);
 	}
 }

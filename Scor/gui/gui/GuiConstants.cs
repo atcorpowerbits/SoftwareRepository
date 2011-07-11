@@ -33,6 +33,8 @@ namespace AtCor.Scor.Gui.Presentation
         public const short SdefaultValue = 9999;
         public const char Separator = ',';
         public const string SourceData = "SQLCLIENT";
+        public const string DefaultAtcorImage = "AtcorLogo";
+        public const string DefaultReportTitle = "AtCor Medical [THE PRODUCT] (R)";
 
         // values used for disabling close button of form
         public const int WsMinimizebox = 0x20000;
@@ -43,8 +45,11 @@ namespace AtCor.Scor.Gui.Presentation
         public const int DivisionFactor = 10;
 
         // readonly values for setting chart max & min height to adjust series plotting away from edges of the chart
-        public static readonly double ChartAreaMinimumY = double.Parse(ConfigurationManager.AppSettings[AppConfigParams.ChartAreaMinY.ToString()]);
-        public static readonly double ChartAreaMaximumY = double.Parse(ConfigurationManager.AppSettings[AppConfigParams.ChartAreaMaxY.ToString()]);
+        public static readonly double ChartAreaMinimumY = 0.96;  
+        public static readonly double ChartAreaMaximumY = 1.04;
+
+        // double.Parse(ConfigurationManager.AppSettings[AppConfigParams.ChartAreaMinY.ToString()]);
+        // double.Parse(ConfigurationManager.AppSettings[AppConfigParams.ChartAreaMaxY.ToString()]);
         
         // readonly string for setting font name used overall application
         public static readonly string FontName = ConfigurationManager.AppSettings[AppConfigParams.GuiFontName.ToString()]; 
@@ -104,7 +109,7 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string PWVPatientHeight = "PWVPatientHeight";
         public static readonly string HealthyPopulation = "HealthyPopulation";
         public static readonly string GeneralPopulation = "GeneralPopulation";
-
+        
         // PWV report
         public static readonly string ReportHeader = "ReportHeader";
         public static readonly string PatientData = "PatientData";
@@ -145,6 +150,8 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string PWVTitle = "PWVTitle";
         public static readonly string HeartRateTitle = "HeartRateTitle";
         public static readonly string BpChartTitle = "BpChartTitle";
+        public static readonly string BPChartValidation = "BPChartValidation";
+        public static readonly string BpChartTextValue = "BpChartTextValue";
         public static string DateWithComma = string.Empty;
 
         public enum AppConfigParams

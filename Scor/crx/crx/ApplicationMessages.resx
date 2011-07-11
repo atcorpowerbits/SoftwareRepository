@@ -238,10 +238,10 @@
     <value>Direct (carotid to cuff)</value>
   </data>
   <data name="GRP_CUFF_LOCATION" xml:space="preserve">
-    <value>Cuff Location</value>
+    <value>Default distance</value>
   </data>
   <data name="CHK_FEMORAL_CUFF" xml:space="preserve">
-    <value>Femoral To Cuff</value>
+    <value>Femoral to Cuff</value>
   </data>
   <data name="GRP_SIMULATION_FILES" xml:space="preserve">
     <value>Simulation Types</value>
@@ -495,13 +495,13 @@
     <value>Sternal Notch to Cuff*:</value>
   </data>
   <data name="LABEL_DIRECT" xml:space="preserve">
-    <value>Carotid To Cuff*:</value>
+    <value>Carotid to Cuff*:</value>
   </data>
   <data name="LABEL_DP" xml:space="preserve">
     <value>DP:</value>
   </data>
   <data name="LABEL_FEMORAL_CUFF" xml:space="preserve">
-    <value>Femoral To Cuff:</value>
+    <value>Femoral to Cuff:</value>
   </data>
   <data name="LABEL_PWV_DISTANCE" xml:space="preserve">
     <value>PWV Distance:</value>
@@ -948,7 +948,7 @@
     <value>SCOR CvMS</value>
   </data>
   <data name="SPLASH_LBL_VERSION_TXT" xml:space="preserve">
-    <value>Version 10</value>
+    <value>Version:</value>
   </data>
   <data name="LBL_REPORT_CAROTID_WITHCOLON" xml:space="preserve">
     <value>Carotid to Sternal Notch:</value>
@@ -1454,7 +1454,7 @@ If the problem persists check troubleshooting section in user manual or contact 
     <value>Study DateTime</value>
   </data>
   <data name="GUI_REPORT_NO_BP" xml:space="preserve">
-    <value>Please enter patient's height and blood pressure to see the general population.</value>
+    <value>Please enter patient's height and blood pressure to see the comparison of European General Population.</value>
   </data>
   <data name="DAL_ERR_ACTIVE_PORT_CLOSE_FAILED" xml:space="preserve">
     <value>Failed to close active port.</value>
@@ -1472,7 +1472,7 @@ If the problem persists check troubleshooting section in user manual or contact 
     <value>PWV Patient Report</value>
   </data>
   <data name="GUI_SETTINGS_PWV_REPORT" xml:space="preserve">
-    <value>PWV Report</value>
+    <value>PWV Summary Report</value>
   </data>
   <data name="PATIENT_ALREADY_EXIST_FOR_GROUP" xml:space="preserve">
     <value>Patient record already exists for group </value>
@@ -1647,8 +1647,6 @@ Your doctor has placed a probe, called tonometer, on your carotid artery (neck) 
 
 If your arteries are young and/or healthy, the arteries are supple and relaxed, and the pulse travels slowly along the aorta. As we get older, our arteries get stiffer and make the pulse travel faster. Smoking, lack of exercise, hypertension and diabetes can all prematurely stiffen your arteries.
 
-            Time taken from heart to your Carotid Artery (neck): ______________ (ms)
-            Time taken from your heart to your Femoral Artery (leg): __________ (ms)
 
 Using these time measurements and the length of your arteries, the speed of your pulse (called Pulse Wave Velocity) can be calculated:</value>
   </data>
@@ -1662,7 +1660,7 @@ Using these time measurements and the length of your arteries, the speed of your
     <value>Comparison of your measurement with the general population</value>
   </data>
   <data name="PRT_PWV_TEXT_7" xml:space="preserve">
-    <value>In a major clinical trial in Europe, Pulse Wave Velocity was measured in over 11,00 patients without diabetes.
+    <value>In a major clinical trial in Europe, Pulse Wave Velocity was measured in over 11,000 patients without diabetes.
 
 Your measurement has been compared to these results.</value>
   </data>
@@ -1810,5 +1808,20 @@ Press Ok to Remind later or Cancel to ignore.</value>
   </data>
   <data name="GUI_SCREEN_RESOLUTION_MSG" xml:space="preserve">
     <value>Screen resolution is too low. Application may not display properly. Best viewed in 1024*768.</value>
+  </data>
+  <data name="PowerUpStatus" xml:space="preserve">
+    <value>Power Up Status.</value>
+  </data>
+  <data name="GUI_MENU_SUPPORT" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="GUI_SETTINGS_WINDOW" xml:space="preserve">
+    <value>User Settings</value>
+  </data>
+  <data name="GUI_START_CAPTURE_FAILED" xml:space="preserve">
+    <value>Capture cannot be started. If the problem persists, check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html </value>
+  </data>
+  <data name="LBL_REPORT_BLOOD_PRESSURE" xml:space="preserve">
+    <value>BP</value>
   </data>
 </root>

@@ -29,11 +29,11 @@ namespace AtCor.Scor.Gui.Presentation
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.chartTonometer = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.guiradlblCarotidTonometer = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblFemoralCuff = new Telerik.WinControls.UI.RadLabel();
@@ -79,19 +79,25 @@ namespace AtCor.Scor.Gui.Presentation
             // chartTonometer
             // 
             this.chartTonometer.BackColor = System.Drawing.Color.Black;
-            chartArea6.AxisX.MajorGrid.Enabled = false;
-            chartArea6.AxisY.MajorGrid.Enabled = false;
-            chartArea6.AxisY.MajorGrid.LineColor = System.Drawing.Color.Yellow;
-            chartArea6.AxisY.MinorGrid.LineColor = System.Drawing.Color.Cyan;
-            chartArea6.BackColor = System.Drawing.Color.Black;
-            chartArea6.InnerPlotPosition.Auto = false;
-            chartArea6.InnerPlotPosition.Height = 100F;
-            chartArea6.InnerPlotPosition.Width = 100F;
-            chartArea6.Name = "ChartArea1";
-            chartArea6.Position.Auto = false;
-            chartArea6.Position.Height = 100F;
-            chartArea6.Position.Width = 100F;
-            this.chartTonometer.ChartAreas.Add(chartArea6);
+            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea1.AxisX.Interval = 20;
+            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea1.AxisX.IsLabelAutoFit = false;
+            chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.LawnGreen;
+            chartArea1.AxisY.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea1.AxisY.MajorGrid.Enabled = false;
+            chartArea1.AxisY.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.Cyan;
+            chartArea1.BackColor = System.Drawing.Color.Black;
+            chartArea1.InnerPlotPosition.Auto = false;
+            chartArea1.InnerPlotPosition.Height = 100F;
+            chartArea1.InnerPlotPosition.Width = 100F;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.chartTonometer.ChartAreas.Add(chartArea1);
             this.chartTonometer.Location = new System.Drawing.Point(10, 30);
             this.chartTonometer.Name = "chartTonometer";
             this.chartTonometer.Size = new System.Drawing.Size(935, 297);
@@ -372,15 +378,15 @@ namespace AtCor.Scor.Gui.Presentation
             // chart3
             // 
             this.chart3.BackColor = System.Drawing.Color.Black;
-            chartArea7.BackColor = System.Drawing.Color.Black;
-            chartArea7.InnerPlotPosition.Auto = false;
-            chartArea7.InnerPlotPosition.Height = 100F;
-            chartArea7.InnerPlotPosition.Width = 100F;
-            chartArea7.Name = "ChartArea1";
-            chartArea7.Position.Auto = false;
-            chartArea7.Position.Height = 100F;
-            chartArea7.Position.Width = 100F;
-            this.chart3.ChartAreas.Add(chartArea7);
+            chartArea2.BackColor = System.Drawing.Color.Black;
+            chartArea2.InnerPlotPosition.Auto = false;
+            chartArea2.InnerPlotPosition.Height = 100F;
+            chartArea2.InnerPlotPosition.Width = 100F;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 100F;
+            this.chart3.ChartAreas.Add(chartArea2);
             this.chart3.Location = new System.Drawing.Point(-953, 0);
             this.chart3.Name = "chart3";
             this.chart3.Size = new System.Drawing.Size(935, 186);
@@ -390,15 +396,15 @@ namespace AtCor.Scor.Gui.Presentation
             // chart2
             // 
             this.chart2.BackColor = System.Drawing.Color.Black;
-            chartArea8.BackColor = System.Drawing.Color.Black;
-            chartArea8.InnerPlotPosition.Auto = false;
-            chartArea8.InnerPlotPosition.Height = 100F;
-            chartArea8.InnerPlotPosition.Width = 100F;
-            chartArea8.Name = "ChartArea1";
-            chartArea8.Position.Auto = false;
-            chartArea8.Position.Height = 100F;
-            chartArea8.Position.Width = 100F;
-            this.chart2.ChartAreas.Add(chartArea8);
+            chartArea3.BackColor = System.Drawing.Color.Black;
+            chartArea3.InnerPlotPosition.Auto = false;
+            chartArea3.InnerPlotPosition.Height = 100F;
+            chartArea3.InnerPlotPosition.Width = 100F;
+            chartArea3.Name = "ChartArea1";
+            chartArea3.Position.Auto = false;
+            chartArea3.Position.Height = 100F;
+            chartArea3.Position.Width = 100F;
+            this.chart2.ChartAreas.Add(chartArea3);
             this.chart2.Location = new System.Drawing.Point(-953, 8);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(935, 186);
@@ -408,15 +414,15 @@ namespace AtCor.Scor.Gui.Presentation
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.Color.Black;
-            chartArea9.BackColor = System.Drawing.Color.Black;
-            chartArea9.InnerPlotPosition.Auto = false;
-            chartArea9.InnerPlotPosition.Height = 100F;
-            chartArea9.InnerPlotPosition.Width = 100F;
-            chartArea9.Name = "ChartArea1";
-            chartArea9.Position.Auto = false;
-            chartArea9.Position.Height = 100F;
-            chartArea9.Position.Width = 100F;
-            this.chart1.ChartAreas.Add(chartArea9);
+            chartArea4.BackColor = System.Drawing.Color.Black;
+            chartArea4.InnerPlotPosition.Auto = false;
+            chartArea4.InnerPlotPosition.Height = 100F;
+            chartArea4.InnerPlotPosition.Width = 100F;
+            chartArea4.Name = "ChartArea1";
+            chartArea4.Position.Auto = false;
+            chartArea4.Position.Height = 100F;
+            chartArea4.Position.Width = 100F;
+            this.chart1.ChartAreas.Add(chartArea4);
             this.chart1.Location = new System.Drawing.Point(-953, 0);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(935, 186);
@@ -426,15 +432,15 @@ namespace AtCor.Scor.Gui.Presentation
             // guichartFemoralCuff
             // 
             this.guichartFemoralCuff.BackColor = System.Drawing.Color.Transparent;
-            chartArea10.BackColor = System.Drawing.Color.Black;
-            chartArea10.InnerPlotPosition.Auto = false;
-            chartArea10.InnerPlotPosition.Height = 100F;
-            chartArea10.InnerPlotPosition.Width = 100F;
-            chartArea10.Name = "ChartArea1";
-            chartArea10.Position.Auto = false;
-            chartArea10.Position.Height = 100F;
-            chartArea10.Position.Width = 100F;
-            this.guichartFemoralCuff.ChartAreas.Add(chartArea10);
+            chartArea5.BackColor = System.Drawing.Color.Black;
+            chartArea5.InnerPlotPosition.Auto = false;
+            chartArea5.InnerPlotPosition.Height = 100F;
+            chartArea5.InnerPlotPosition.Width = 100F;
+            chartArea5.Name = "ChartArea1";
+            chartArea5.Position.Auto = false;
+            chartArea5.Position.Height = 100F;
+            chartArea5.Position.Width = 100F;
+            this.guichartFemoralCuff.ChartAreas.Add(chartArea5);
             this.guichartFemoralCuff.Location = new System.Drawing.Point(10, 361);
             this.guichartFemoralCuff.Name = "guichartFemoralCuff";
             this.guichartFemoralCuff.Size = new System.Drawing.Size(935, 186);

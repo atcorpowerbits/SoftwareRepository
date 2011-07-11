@@ -48,6 +48,8 @@ namespace AtCor{
 										static const unsigned int StreamingTimeoutCheckerInterval = 125; /**< time interval in which the capture process should check for timeout*/
 										static const int	MaxStreamingTimeoutOccurrences = 2; /**< number of times the StreamingTimout check should be done before raising a timeout event*/
 										
+										static const unsigned int RightShiftOneNibble = 4;
+										
 								};
 
 								/**
@@ -109,9 +111,13 @@ namespace AtCor{
 								
 									CUFF_INFLATING_STATUS_BITS    = 0x0100,
 									
+									CUFF_DISCONNECTED_INFLATING_STATUS_BITS    = 0x2100, //same as INFLATING but thhe CN bit changes
+									
 									CUFF_INFLATED_STATUS_BITS     = 0x0A00,
 									
-									CUFF_DEFLATING_STATUS_BITS    = 0x0300
+									CUFF_DEFLATING_STATUS_BITS    = 0x0300,
+
+									CUFF_DISCONNECTED_DEFLATING_STATUS_BITS    = 0x2300//Same as deflating with the CN bit set to 1
 								};
 
 								/**

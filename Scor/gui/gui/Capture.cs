@@ -62,7 +62,14 @@ namespace AtCor.Scor.Gui.Presentation
 
         // object of Config Manager                 
         CrxConfigManager obj;
-        BizPWV bizObj;        
+        BizPWV bizObj;
+
+        public Capture()
+        {
+            InitializeComponent();
+            GuiCommon.SetFontForControls(this);
+            SetTextForCaptureTab();            
+        }
         
         public Capture(DefaultWindow defWindow)
         {
@@ -70,6 +77,14 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.SetFontForControls(this);
             SetTextForCaptureTab();
             objDefaultWindow = defWindow;
+        }       
+
+        /** This event is fired when the user clicks on the cross button.
+        */
+        public void radbtnCross_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            GenerateReportWhenCaptureIsEnabled();
         }
 
         /** This method is called to set the text for the label controls.
@@ -98,7 +113,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                GuiCommon.captureFormLoaded = true;
+                GuiCommon.CaptureFormLoaded = true;
                 bizObj = (BizPWV)BizSession.Instance().measurement;
                                 
                 radbtnCross.Focus();
@@ -111,8 +126,8 @@ namespace AtCor.Scor.Gui.Presentation
                 BizEventContainer.Instance.OnBizCarotidQualityEvent += qualityIndicator_CarotidQualityEvent;
                 BizEventContainer.Instance.OnBizFemoralQualityEvent += qualityIndicator_FemoraCuffEvent;
                 BizEventContainer.Instance.OnBizCuffStateEvent += UpdateCuffState;
-                DefaultWindow.OnCaptureScreenTabClick += Capture_OnCaptureScreenTabClick;                
-                
+                DefaultWindow.OnCaptureScreenTabClick += Capture_OnCaptureScreenTabClick;
+                GuiCommon.OnBizErrorEventInvocation += GuiCommon_OnBizErrorEventInvocation;  
                 SetTonometerWaveformProperties();
                 SetFemoralCuffWaveformProperties(); // setting femoral properties as need to show flat line 
                 StartCarotidTonometerCapture();
@@ -151,6 +166,11 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
+        private void GuiCommon_OnBizErrorEventInvocation(object sender, EventArgs e)
+        {
+            Invoke(new EventHandler(radbtnCross_Click));
+        }
+
         /** This method displays capture time in bottom area
          * */
         void DisplayCaptureTime()
@@ -164,8 +184,7 @@ namespace AtCor.Scor.Gui.Presentation
                     break;
 
                 case (int)CrxGenPwvValue.CrxPwvCapture10Seconds:
-                    objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureTime) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad10Sec);
-                    CrxLogger.Instance.Write("Capture time: " + objDefaultWindow.radlblCaptureTime.Text);
+                    objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureTime) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad10Sec);                    
                     break;
 
                 case (int)CrxGenPwvValue.CrxPwvCapture20Seconds:
@@ -342,9 +361,21 @@ namespace AtCor.Scor.Gui.Presentation
                 // dalModuleObj.StartCapture(obj.PwvSettings.CaptureTime, SampleRate);
 
                 // dalDataBufferObj = DalDataBuffer.Instance;
-                // Start capturing                
-                bizObj.StartCapture();
-                timer1.Enabled = true;
+                // Start capturing    
+                // Check the return value of biz.StartCapture
+                if (!bizObj.StartCapture())
+                {
+                    // Show the following error message to the user."Capture cannot be started. If the problem persists check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html"
+                   // string tempMessage = "Capture cannot be started. If the problem persists check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html";
+                    RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiStartCaptureFailed), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ApplicationMessage), MessageBoxButtons.OK);
+
+                    // Navigate the user to Setup screen.
+                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                }                
+                else
+                {
+                    timer1.Enabled = true;
+                }
             }
             catch (Exception ex)
             {
@@ -356,8 +387,6 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void ReadValueFromBuffer()
         {
-            uint seconds;
-            uint minutes;
             int countdowntimerInMilliseconds = 0;
             bool cdtimerIncrementedflag = false;
 
@@ -382,7 +411,9 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // since countdown timer is in seconds now converting it into milliseconds
                     countdowntimerInMilliseconds = structData.countdownTimer * 1000;
+                    
                     short tonometerData = (short)structData.tonometerData;
+
                     PlotTonometerData(tonometerData);
 
                     if (femoralPlotSwitch)
@@ -408,12 +439,12 @@ namespace AtCor.Scor.Gui.Presentation
 
                         // Get time to display
                         // conver miliseconds to seconds first
-                        seconds = structData.countdownTimer;
+                        uint seconds = structData.countdownTimer;
 
                         // now get minutes and seconds 
-                        minutes = (seconds >= 60) ? (seconds / 60) : 0;
+                        uint minutes = (seconds >= 60) ? (seconds / 60) : 0;
                         seconds = (seconds >= 60) ? (seconds % 60) : seconds;
-                        radlblTimeStatus.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblTimestatus) + " " + minutes.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + ((seconds >= 10) ? string.Empty : "0") + seconds.ToString();
+                        radlblTimeStatus.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblTimestatus) + " " + minutes + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + ((seconds >= 10) ? string.Empty : "0") + seconds;
 
                         short femoralCuffData = (short)structData.cuffPulseData;
                         PlotFemoralCuffData(femoralCuffData);
@@ -465,7 +496,7 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 int data = tonometerData;
-
+                
                 // set the maximum y-axis,if the incoming data has a point greater than the existing y-axis value then set the new data point as the y-axix maximum.
                 if (data > chartTonometer.ChartAreas[0].AxisY.Maximum)
                 {
@@ -480,7 +511,9 @@ namespace AtCor.Scor.Gui.Presentation
                 // Add new data point to its series.               
                 newSeries.Points.AddXY(xCoordinateTonometer, data);
                 xCoordinateTonometer++;
-
+               
+                // Here we check if the x-cordinate value has increased the screenwidth and the difference of the x-co-rdinate and the screenwidth is divisble by 256( 2 seconds window)
+                // then slide the window 2 seconds forward and remove the starting points for 2 seconds.
                 if ((xCoordinateTonometer > screenwidth) && (xCoordinateTonometer - screenwidth) % TwoSecondsWindow == 1)
                 {
                     for (int i = 1; i <= TwoSecondsWindow; i++)
@@ -488,19 +521,28 @@ namespace AtCor.Scor.Gui.Presentation
                         newSeries.Points.RemoveAt(0);
                     }
 
+                    /* This code is commented for future use.
+                    DataPoint dpMax = newSeries.Points.FindMaxByValue();
+                    DataPoint dpMin = newSeries.Points.FindMinByValue();
+
+                    chartTonometer.ChartAreas[0].AxisY.Maximum = dpMax.YValues[0] * 1.04;
+                    chartTonometer.ChartAreas[0].AxisY.Maximum = dpMin.YValues[0] * 0.96;
+                    */
                     chartTonometer.ChartAreas[0].AxisX.Minimum = newSeries.Points[0].XValue;
                     chartTonometer.ChartAreas[0].AxisX.Maximum = newSeries.Points[0].XValue + screenwidth;
                 }
+
+                // Here we plot the data points only, nothing to be done with respect to the axis.
                 else if (xCoordinateTonometer >= screenwidth)
                 {
                     // Nothing to be done.
-                }
+                }                
                 else
                 {
                     chartTonometer.ChartAreas[0].AxisX.Minimum = newSeries.Points[0].XValue;
                     chartTonometer.ChartAreas[0].AxisX.Maximum = newSeries.Points[0].XValue + screenwidth;
-                }      
-          
+                }
+         
                 chartTonometer.Invalidate();
             }
             catch (Exception ex)
@@ -650,7 +692,9 @@ namespace AtCor.Scor.Gui.Presentation
         /**This method is called when the user clicks on the Tick button.
        */
         private void radbtnTick_Click(object sender, EventArgs e)
-        {
+        {            
+            // BizErrorEventArgs bize = new BizErrorEventArgs ("mess");
+            // GuiCommon.Instance_OnBizErrorEvent(this, bize);   
             if (!radbtnTick.Enabled)
             {
                 return;
@@ -658,15 +702,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             TickButtonAction();
             Close();
-        }
-
-        /** This event is fired when the user clicks on the cross button.
-         */
-        private void radbtnCross_Click(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-            GenerateReportWhenCaptureIsEnabled();
-        }
+        }       
 
         /**This method enables the tabs and the ribbion and navigates the user to the Reports tab.          
          */
@@ -752,6 +788,11 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     SaveReportCalculation(cdata);
                 }
+                else
+                {
+                    // Navigate user back to the setup screen                    
+                    ShowSetupAfterCaptureAbort();
+                }
             }
         }
 
@@ -819,7 +860,7 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 timer1.Enabled = false;
-                DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureFailed), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.YesNo, RadMessageIcon.Info);
+                DialogResult ds = RadMessageBox.Show(this, GuiCommon.MessageToBeDisplayed + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureFailed), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.YesNo, RadMessageIcon.Info);
                 if (ds == DialogResult.Yes)
                 {
                     ShowSetupAfterCaptureAbort();
@@ -938,11 +979,24 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
+                tableLayoutPanel1.Visible = false;
+                chartTonometer.Visible = false;      
+                guichartFemoralCuff.Visible = false;      
+                guiradlblCarotidTonometer.Visible = false;
+                guiradlblFemoralCuff.Visible = false;      
+                radProgressBarQualityIndicator.Visible = false;
+                radProgressBarFemoralIndicator.Visible = false;                
+                guiradlblTonometerThresholdPart1.Visible = false;
+                guiradlblTonometerThresholdPart2.Visible = false;
+                guiradlblFemoralThresholdPart1.Visible = false;
+                guiradlblFemoralThresholdPart2.Visible = false;
+                GuiCommon.CaptureFormLoaded = false;
                 GuiCommon.CaptureChildForm = null;
                 GuiCommon.InvokeCaptureClosing(false);
                 objDefaultWindow.tmrImposeWaitTime.Interval = int.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.WaitInterval.ToString()]);
                 GuiCommon.IsWaitIntervalImposed = true;
                 objDefaultWindow.tmrImposeWaitTime.Start();
+                this.Dispose(false);
             }
             catch (Exception ex)
             {
@@ -958,7 +1012,7 @@ namespace AtCor.Scor.Gui.Presentation
             // if Ok btn is enabled and user clicks on Cancel then ask the user if he wants to generate report or abort.
             if (radbtnTick.Enabled)
             {
-                DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureTickMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.YesNo, RadMessageIcon.Info);
+                DialogResult ds = RadMessageBox.Show(this, GuiCommon.MessageToBeDisplayed + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureTickMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.YesNo, RadMessageIcon.Info);
                 if (ds == DialogResult.Yes)
                 {
                     TickButtonAction();

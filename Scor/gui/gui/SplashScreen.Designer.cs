@@ -32,7 +32,6 @@ namespace AtCor.Scor.Gui.Presentation
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
             this.lblimage = new System.Windows.Forms.Label();
             this.lblInitialMsg = new System.Windows.Forms.Label();
-            this.lblversion = new System.Windows.Forms.Label();
             this.lblCopyright = new System.Windows.Forms.Label();
             this.radBottomLabel = new Telerik.WinControls.UI.RadLabel();
             this.radLabelCopyRight = new Telerik.WinControls.UI.RadLabel();
@@ -65,16 +64,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.lblInitialMsg.Size = new System.Drawing.Size(567, 17);
             this.lblInitialMsg.TabIndex = 2;
             this.lblInitialMsg.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // lblversion
-            // 
-            this.lblversion.BackColor = System.Drawing.Color.DarkBlue;
-            this.lblversion.Font = new System.Drawing.Font("Arial", 11.25F);
-            this.lblversion.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblversion.Location = new System.Drawing.Point(68, 451);
-            this.lblversion.Name = "lblversion";
-            this.lblversion.Size = new System.Drawing.Size(20, 13);
-            this.lblversion.TabIndex = 3;
             // 
             // lblCopyright
             // 
@@ -118,7 +107,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.radLabelScorName.BackColor = System.Drawing.Color.Navy;
             this.radLabelScorName.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
-            this.radLabelScorName.Location = new System.Drawing.Point(98, 5);
+            this.radLabelScorName.Location = new System.Drawing.Point(120, 5);
             this.radLabelScorName.Name = "radLabelScorName";
             this.radLabelScorName.Size = new System.Drawing.Size(2, 2);
             this.radLabelScorName.TabIndex = 0;
@@ -138,10 +127,9 @@ namespace AtCor.Scor.Gui.Presentation
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(608, 525);
+            this.ClientSize = new System.Drawing.Size(606, 554);
             this.Controls.Add(this.radBottomLabel);
             this.Controls.Add(this.lblCopyright);
-            this.Controls.Add(this.lblversion);
             this.Controls.Add(this.lblInitialMsg);
             this.Controls.Add(this.lblimage);
             this.Font = new System.Drawing.Font("Arial", 11.25F);
@@ -172,7 +160,6 @@ namespace AtCor.Scor.Gui.Presentation
 
         private System.Windows.Forms.Label lblimage;
         private System.Windows.Forms.Label lblInitialMsg;
-        private System.Windows.Forms.Label lblversion;
         private System.Windows.Forms.Label lblCopyright;
         private Telerik.WinControls.UI.RadLabel radBottomLabel;
         private Telerik.WinControls.UI.RadLabel radVersionNo;

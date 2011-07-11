@@ -219,6 +219,17 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 	};
 
 	/**
+	* @enum CrxDBAccessFileNameList
+	 * @brief Container for Migration Access File List. 
+	 */
+	private enum class CrxDBAccessFileNameList
+	{
+		MigrationFileNotPresent,
+		ScorXyzFileType,
+		ScorMdbFileType,
+	};
+
+	/**
 	 * @struct CrxDbStructSpList
 	 * @brief Container for stored procedure name list. 	
 	 */
@@ -345,9 +356,15 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		//set path of the migration file, name of the old database file is always "scor.xyz"
 		// and hence this is hard coded.
         static  String^ NameOfAccessFile					=	".\\system\\data\\scor.xyz";
+		//set path of the migration file, name of the old database file is always "scor.mdb"
+		// and hence this is hard coded.
+        static  String^ NameOfMSAccessFile					=	".\\system\\data\\scor.mdb";
 		//set path of the migration file, this is hard coded, as after migration old db file will
 		// always be renamed to .old extension
          static  String^ NameOfAccessFileNew				=	".\\system\\data\\scor.xyz.old";
+		 //set path of the migration file, this is hard coded, as after migration old db file will
+		// always be renamed to .old extension
+         static  String^ NameOfMSAccessFileNew				=	".\\system\\data\\scor.mdb.old";
 		
 		 static String^  DbType								=	"SqlClient";
 		 static String^  DbName								=	"AtCor";
@@ -577,6 +594,28 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* To log final data in the log file  
 		*/
 		void MigrationLogDetail(CrxLogger^ objLog, array<String^>^ skipPatientlog, int totskipresult);
+
+		/**
+		* To check migration file exist in .\\system\\data\\ location or not
+		* @return if true file exist
+		*/
+		int MigrationFileExistInternal();
+
+		/**
+		* To remove old migration file as per migration file type
+		*/
+		void RemoveOldAccessFile(int fileType);
+		
+		/**
+		* To return migration file name as per file type
+		* @return The Migration file name to migrate
+		*/
+		String^ MigrationFileName(int fileType); 
+
+		/**
+		* To rename migration file to old as per the file type(e.g scor.xyz to scor.xyz.old)
+		*/
+		void MigrationFileRename(int fileType);
 
 		
 	public:		

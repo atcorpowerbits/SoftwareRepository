@@ -391,7 +391,7 @@ namespace AtCor {
 				static  String^ const  GuiGrpDefaultReport					=	"GUI_GRP_DEFAULT_REPORT";
 				static  String^ const  GuiInfoTxt							=	"GUI_INFO_TXT";
 				static  String^ const  GuiLimitsFormat						=	"GUI_LIMITS_FORMAT";
-				
+				static  String^ const  GuiMenuSupport						=	"GUI_MENU_SUPPORT";
 				static  String^ const  GuiMonthApr							=	"GUI_MONTH_APR";
 				static  String^ const  GuiMonthAug							=	"GUI_MONTH_AUG";
 				static  String^ const  GuiMonthDec							=	"GUI_MONTH_DEC";
@@ -430,7 +430,9 @@ namespace AtCor {
 				static  String^ const  GuiSettingsPwvAnalysis				=	"GUI_SETTINGS_PWV_ANALYSIS";
 				static  String^ const  GuiSettingsPwvPatientReport			=	"GUI_SETTINGS_PWV_PATIENT_REPORT";
 				static  String^ const  GuiSettingsPwvReport					=	"GUI_SETTINGS_PWV_REPORT";
+				static  String^ const  GuiSettingsWindow					=	"GUI_SETTINGS_WINDOW";
 				static  String^ const  GuiSetupSearchExitMsg				=	"GUI_SETUP_SEARCH_EXIT_MSG";
+				static  String^ const  GuiStartCaptureFailed				=	"GUI_START_CAPTURE_FAILED";
 				static  String^ const  GuiWarningTxt						=	"GUI_WARNING_TXT";
 				static  String^ const  GuiWaveformSaveMsg					=	"GUI_WAVEFORM_SAVE_MSG";
 				static  String^ const  HeartrateLblAnalysis					=	"HEARTRATE_LBL_ANALYSIS";
@@ -470,6 +472,7 @@ namespace AtCor {
 				static  String^ const  LblReportAge							=	"LBL_REPORT_AGE";
 				static  String^ const  LblReportAssessment					=	"LBL_REPORT_ASSESSMENT";
 				static  String^ const  LblReportAssessments					=	"LBL_REPORT_ASSESSMENTS";
+				static  String^ const  LblReportBloodPressure				=	"LBL_REPORT_BLOOD_PRESSURE";
 				static  String^ const  LblReportBmi							=	"LBL_REPORT_BMI";
 				static  String^ const  LblReportBp							=	"LBL_REPORT_BP";
 				static  String^ const  LblReportCarotid						=	"LBL_REPORT_CAROTID";
@@ -541,6 +544,7 @@ namespace AtCor {
 				static  String^ const  PatientNotSaved						=	"PATIENT_NOT_SAVED";
 				static  String^ const  PatientNoInvalid						=	"PATIENT_NUM_INVALID";
 				static  String^ const  PdfFileError							=	"PDF_FILE_ERROR";
+				static  String^ const  PowerUpStatus						=	"PowerUpStatus";
 
 				static  String^ const  PrtPwvBoxText1						=	"PRT_PWV_BOX_TEXT_1";
 				static  String^ const  PrtPwvBoxText2						=	"PRT_PWV_BOX_TEXT_2";

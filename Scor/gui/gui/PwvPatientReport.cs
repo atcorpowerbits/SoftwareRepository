@@ -298,7 +298,6 @@ namespace AtCor.Scor.Gui.Presentation
                 try
                 {
                     DsPwvPatientReport dsPwvAnalysis = new DsPwvPatientReport();
-
                     DsPwvPatientReport.DataTable2DataTable dtPwvAnlys = new DsPwvPatientReport.DataTable2DataTable();
                    
                     // object of data row 
@@ -340,7 +339,9 @@ namespace AtCor.Scor.Gui.Presentation
                     CryPwvAnalysis1.SetParameterValue(GuiConstants.PatientGenderValue, PWVReportData.RptPatientGenderValue);
                     CryPwvAnalysis1.SetParameterValue(GuiConstants.PWVTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.LblReportPwv));
                     CryPwvAnalysis1.SetParameterValue(GuiConstants.HeartRateTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.LblReportHeartRate));
-                    CryPwvAnalysis1.SetParameterValue(GuiConstants.BpChartTitle, "BP");
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.BpChartTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.LblReportBloodPressure));
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.BPChartValidation, PWVAnalysisData.BPChartValidation);
+                    CryPwvAnalysis1.SetParameterValue(GuiConstants.BpChartTextValue, PWVAnalysisData.BpChartTextValue);
                     crysRptVwrPwvPatientReport.ReportSource = CryPwvAnalysis1;
                     crysRptVwrPwvPatientReport.Refresh();
                     crysRptVwrPwvPatientReport.Hide();

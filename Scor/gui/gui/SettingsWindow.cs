@@ -13,6 +13,7 @@ using AtCor.Scor.CrossCutting;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.Messaging;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.IO.Ports;
 using System.IO;
@@ -123,6 +124,7 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void SetTextForGeneralSettingsTab()
         {
+            Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMenuSupport);
             docWndGeneralSettings.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.DocGeneralSettings);
             radchkbxPatientPrivacy.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ChkPatientPrivacy);
             radgrpbxSetupScreen.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpSetupScreen);
@@ -477,7 +479,11 @@ namespace AtCor.Scor.Gui.Presentation
         */ 
         private void SetReportTitle(string value)
         {
-            if (!string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
+            {
+                radtxtReportTitle.Text = GuiConstants.DefaultReportTitle;                
+            }
+            else
             {
                 radtxtReportTitle.Text = value;
             }
@@ -489,7 +495,13 @@ namespace AtCor.Scor.Gui.Presentation
         {
             if (path == null || path.Length <= 0)
             {
-                return;
+                // return;
+                // Set the default Logo which is Atcor's logo.
+                Image defaultImage = Image.FromFile(ConfigurationManager.AppSettings[GuiConstants.DefaultAtcorImage]);
+                picbxReportLogo.Image = defaultImage;
+                picbxReportLogo.ImageLocation = ConfigurationManager.AppSettings[GuiConstants.DefaultAtcorImage];
+                picbxReportLogo.Height = defaultImage.Height;
+                picbxReportLogo.Width = defaultImage.Width;
             }
 
             Image image = Image.FromFile(path);
@@ -756,13 +768,14 @@ namespace AtCor.Scor.Gui.Presentation
                              };
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
+                    picbxReportLogo.Anchor = AnchorStyles.None;
                     Image image = Image.FromFile(dialog.FileName);
                     picbxReportLogo.Image = image;
                     picbxReportLogo.ImageLocation = dialog.FileName;
                     picbxReportLogo.Height = image.Height;
-                    picbxReportLogo.Width = image.Width;
-                }
-
+                    picbxReportLogo.Width = image.Width;                    
+                }               
+                
                 if (radtxtReportTitle.ToString() == String.Empty)
                 {
                     return; // user didn't select a file to open
@@ -1091,7 +1104,7 @@ namespace AtCor.Scor.Gui.Presentation
                */ 
         private void comboSimulationFiles_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
-            if ((comboSimulationFiles.SelectedItem).Equals(0))
+            if (comboSimulationFiles.SelectedItem.Equals(0))
             {
                 RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSelectSimulationFile), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.OK, RadMessageIcon.Error);
             }

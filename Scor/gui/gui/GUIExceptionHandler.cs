@@ -18,6 +18,7 @@ using Telerik.WinControls;
 using System.Configuration;
 using System.IO;
 using System.Drawing;
+using System.Security.Permissions;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -38,10 +39,16 @@ namespace AtCor.Scor.Gui.Presentation
         private static readonly CrxLogger OLogObject = CrxLogger.Instance;
         private static StringBuilder eMesg = new StringBuilder();
 
-        public static void ShowStatusMessage(Object sender, CrxShowStatusEventArgs args)
+        public static void ShowStatusMessage(object sender, CrxShowStatusEventArgs args)
         {
             HandleException(args.ObjScorException, sender);
         }  
+
+        public static void RegisterUnHandledExceptionHandler()
+        {
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(currentDomain_UnhandledException); 
+        }
 
         /** This method handles all types of exception & throws appropriate messages
          * */
@@ -55,7 +62,13 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 HandleGeneralException(ex, currentWindow);
             }
-        } // End HandleException
+        }
+
+        static void currentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {            
+            Exception ex = (Exception)e.ExceptionObject;
+            RadMessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace.ToString(), OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+        } 
 
         /** This method handles scor exception returned from both DAL & CRX with error codes & error types.
          * It displays exception message with error code for handled & unhandled exception 
@@ -116,13 +129,16 @@ namespace AtCor.Scor.Gui.Presentation
                         RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
                         break;
-                    case ErrorSeverity.Warning: 
-                        GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
-                        OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiWarningTxt) + eMsg);
-                        GuiCommon.DefaultWindowForm.radlblMessage.Text = eMsg;
-                        GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.WarningImage.ToString()]));
-                        GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = true;
-                        GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick += guialertmsgTimer_Tick;
+                    case ErrorSeverity.Warning:
+                        RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+                        OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
+
+                        // GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
+                        // OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiWarningTxt) + eMsg);
+                        // GuiCommon.DefaultWindowForm.radlblMessage.Text = eMsg;
+                        // GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.WarningImage.ToString()]));
+                        // GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = true;
+                        // GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick += guialertmsgTimer_Tick;
                         break;
                     case ErrorSeverity.Information:
                         GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;

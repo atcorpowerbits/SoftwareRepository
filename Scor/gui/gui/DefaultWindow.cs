@@ -92,13 +92,6 @@ namespace AtCor.Scor.Gui.Presentation
                      
         bool isDirectClose; // Flag set to check if there are multiple instances of the application.       
 
-        enum ModuleFound
-        { 
-            No = 0,
-            Yes = 1,
-            DifferentPort = 2
-        }
-   
         // object of Config Manager         
         readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
                
@@ -111,14 +104,17 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
+                GUIExceptionHandler.RegisterUnHandledExceptionHandler();  
+
                 if (Screen.PrimaryScreen.WorkingArea.Width < 1024 && Screen.PrimaryScreen.WorkingArea.Height < 768)
                 {
                     RadMessageBox.Show(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiScreenResolutionMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.AppName), MessageBoxButtons.OK, RadMessageIcon.Error);
+                    CrxLogger.Instance.Write("Closing application as screen resolution is set below the 1024*768");   
+                    Process.GetCurrentProcess().Kill();                    
                 }
 
                 // On application launch check if the resource file exists.
-                CheckForResourceFile();
-               
+               // CheckForResourceFile();               
                 CrxEventContainer.Instance.OnShowStatusEvent += GUIExceptionHandler.ShowStatusMessage;
               
                 isDirectClose = false;
@@ -269,6 +265,10 @@ namespace AtCor.Scor.Gui.Presentation
         */  
         private void SetTextForRibbionControl()
         {
+            guiradmnuSystem.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MenuSystem);
+            guiradmnuDatabase.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MenuDatabase);
+            guiradmnuHelp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MenuHelp);
+            guiradmnuWebsite.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiMenuSupport);
             guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabSetup);
             radtabCapture.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabCapture);
             radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
@@ -382,15 +382,15 @@ namespace AtCor.Scor.Gui.Presentation
         {  
             try
             {
+                // Set the windows size to maximum.                 
+                WindowState = FormWindowState.Normal;
+
                 EnableMenuBarControls();
                 CheckAnnualCalibration();
 
                 // check if we can access the configuration file by reading general setting from config manager object.   
                 CrxConfigManager oConfigMgr = CrxConfigManager.Instance;
                 oConfigMgr.GetGeneralUserSettings();              
-
-                // On windows load set the windows size to maximum.                 
-                WindowState = FormWindowState.Maximized;
 
                 // Log the event on successful load of the application.                 
                 CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Startstr));
@@ -411,7 +411,7 @@ namespace AtCor.Scor.Gui.Presentation
                 // set waiting bar
                 guiWaitingStatusBar.WaitingStep = 10;
                 guiWaitingStatusBar.WaitingSpeed = 50;
-                guiWaitingStatusBar.Visible = false;
+                guiWaitingStatusBar.Visible = false;                
 
                 OnDbBackupAndRestoreCompleteEvent += DisplayStatusComplete;
                 Migrate.OnMigrationStart += DoMigration;
@@ -423,7 +423,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                GUIExceptionHandler.HandleException(ex, this); 
             }
-        }
+        }      
 
         /** This method checks for mdb file & migrates data
          * */
@@ -666,6 +666,10 @@ namespace AtCor.Scor.Gui.Presentation
                 radlblMessage.Text = string.Empty;
 
                 SaveChangeOnNavigatingMenu(sender, e);
+                if (IsPatientListOnSetupEmpty())
+                {
+                    return;
+                }
 
                 if (GuiCommon.IsMenuItemShown)
                 {
@@ -1176,29 +1180,6 @@ namespace AtCor.Scor.Gui.Presentation
                 FindElectronicModule();
             }           
         }
-        
-        /**This method will check if resource file exists or no.
-         * If the file does not exist,application will show an error message in the pop up,and close the application.
-         */
-        private void CheckForResourceFile()
-        {
-            try
-            {
-                bool isFileExist = CrxMessagingManager.Instance.CheckResourceFileExist();
-
-                if (!isFileExist)
-                {
-                    RadMessageBox.Show(this, CrxStructCommonResourceMsg.ResourceFileNotFound, CrxStructCommonResourceMsg.ApplicationError, MessageBoxButtons.OK, RadMessageIcon.Error);
-                    CrxLogger.Instance.Write(CrxStructCommonResourceMsg.ResourceFileNotFound);
-                    Process.GetCurrentProcess().Kill();                       
-                }
-            }
-            catch (Exception ex)
-            {
-                GUIExceptionHandler.HandleException(ex, this);
-                Close();
-            }
-        }
 
         /** This event fires when interval imposed by EM4 device (currently configured in app.config) lapses
          * It disables the timer & enables capturetab & capture buttons on setup & report screen
@@ -1244,7 +1225,8 @@ namespace AtCor.Scor.Gui.Presentation
         {
             if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabCapture), StringComparison.CurrentCultureIgnoreCase))
             {
-                if (GuiCommon.captureFormLoaded)
+                // When the capture form has loaded ,this event is invoked.
+                if (GuiCommon.CaptureFormLoaded)
                 {
                     OnCaptureScreenTabClick.Invoke(this, new EventArgs());
                 }
@@ -1298,21 +1280,28 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        private void CheckFieldValueIsOutOfLimit()
-        {
-            if (GuiCommon.IsValueOutsideLimits)
-            {
-                GuiCommon.IsValueOutsideLimits = false;
-                radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
-                guiradgrpbxPwvDistanceMethod.Enabled = true;
-                return;
-            }
-        }
-
         private void DefaultWindow_Activated(object sender, EventArgs e)
         {
+            Height = Screen.PrimaryScreen.WorkingArea.Height;
+            Width = Screen.PrimaryScreen.WorkingArea.Width;
+            Left = Screen.PrimaryScreen.WorkingArea.Left;
+            Top = Screen.PrimaryScreen.WorkingArea.Top;
+
             guiradpnlDefaultWin.Top = (Screen.PrimaryScreen.WorkingArea.Height / 2) - (guiradpnlDefaultWin.Height / 2);
-            guiradpnlDefaultWin.Left = (Screen.PrimaryScreen.WorkingArea.Width / 2) - (guiradpnlDefaultWin.Width / 2);           
+            guiradpnlDefaultWin.Left = (Screen.PrimaryScreen.WorkingArea.Width / 2) - (guiradpnlDefaultWin.Width / 2);
+        }
+
+        private bool IsPatientListOnSetupEmpty()
+        {
+            if (GuiCommon.IsPatientListEmpty)
+            {
+                GuiCommon.IsPatientListEmpty = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
    } // End class
 } // End namespace

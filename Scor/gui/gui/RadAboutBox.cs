@@ -18,6 +18,7 @@ using Telerik.WinControls;
 using System.Windows.Forms;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.Primitives;
+using System.Reflection;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -36,8 +37,13 @@ namespace AtCor.Scor.Gui.Presentation
         public RadAboutBox()
         {
             InitializeComponent();
+            Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiAboutMenu);
+
+            // guiradbtnOk.Text =CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.
+            guiradbtnPrint.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.BtnPrint);
 
             // GuiCommon.SetFontForControls(this);
+
             // fix the size & location of about box panel
             Size = new Size(525, 330);
             Location = new Point(0, 0);
@@ -62,8 +68,8 @@ namespace AtCor.Scor.Gui.Presentation
                 // \u00AE displays registered symbol
                 // \u00A9 displays copyright symbol
                 guiradlblCompanyName.Text = bizInformation.GetCompanyName().Replace("(R)", "\u00AE"); 
-                guiradlblCopyrightNotice.Text = bizInformation.GetCopyright().Replace("(c)", "\u00A9"); 
-                guiradlblVersion.Text = bizInformation.GetVersion();
+                guiradlblCopyrightNotice.Text = bizInformation.GetCopyright().Replace("(c)", "\u00A9");
+                guiradlblVersion.Text = string.Format("{0}{1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashLblVersionTxt), Assembly.GetExecutingAssembly().GetName().Version.ToString());    // bizInformation.GetVersion();
                 guiradlblInstalledID.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutInstallId);
                 guiradlblPWV.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutNoMeasuremtPwv), bizInformation.GetModuleNumberMeasurementsPWV());
                 guiradlblPWA.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtPwa), bizInformation.GetModuleNumberMeasurementsPWA());

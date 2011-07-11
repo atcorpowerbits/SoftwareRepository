@@ -109,6 +109,9 @@ namespace AtCor{
 				//if acknowledged start the handler to listen to the data received.
 				if (DalReturnValue::Success == returnValue )
 				{
+					//Reserve the successful capture commands sequence number durign streaming process
+					DalSequenceNumberManager::ReserveCommandNumberDuringStreaming(startCaptureCommand->commandSequenceNumber);
+
 					//start the handler for data capture here
 					try
 					{
@@ -144,6 +147,11 @@ namespace AtCor{
 				startCaptureCommand->expectedResponseLength = Em4ResponseRequiredLength::StopDataCapture; 
 
 				returnValue = _commandInterface->SendCommandAndGetResponse(startCaptureCommand); //renamed oringinal method
+
+				//Free up the reserved sequence number so that it can be reused
+				DalSequenceNumberManager::ReleaseReservedCommandNumber();
+
+
 				if (returnValue == DalReturnValue::Success)
 				{
 					return true;

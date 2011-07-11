@@ -100,13 +100,15 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void SetShape(params Control[] labelControl)
         {
-            RoundRectShape shape = new RoundRectShape();
-            shape.BottomLeftRounded = true;
-            shape.BottomRightRounded = true;
-            shape.TopLeftRounded = true;
-            shape.TopRightRounded = true;
-            shape.Radius = 5;
-                            
+            RoundRectShape shape = new RoundRectShape
+                                       {
+                                           BottomLeftRounded = true,
+                                           BottomRightRounded = true,
+                                           TopLeftRounded = true,
+                                           TopRightRounded = true,
+                                           Radius = 5
+                                       };
+
             foreach (Control control in labelControl)
             {
                 RadDropDownList dropDownlist = control as RadDropDownList;

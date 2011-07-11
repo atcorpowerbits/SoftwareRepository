@@ -1,5 +1,6 @@
 ﻿
 #include "StdAfx.h"
+#include "StdAfx.h"
 using namespace System::Timers;
 using namespace System::IO::Ports;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
@@ -38,7 +39,7 @@ namespace TestDal {
 				}
 			}
 		public: static bool TimeoutErrorAlarmEventRaised = false;
-		private: static String^ comPortName  = "COM3";
+		private: static String^ comPortName  = "COM6";
 		public:	static DalCommandInterface_Accessor ^commInterfaceObject = DalCommandInterface_Accessor::Instance;
 		private: String^ _currDir;
 
@@ -818,6 +819,37 @@ public: [TestMethod]
 			DalCommandInterface_Accessor::CheckIfTimeoutHasOccurred(sender, args);
 			DalCommandInterface_Accessor::CheckIfTimeoutHasOccurred(sender, args);
 			Assert::IsTrue(TimeoutErrorAlarmEventRaised); //This shoudld be TRUE 
+		}
+		/// Test for single value
+		///A test for SentPacketSequenceNumber
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SentPacketSequenceNumberTest()
+		{
+			unsigned char actual;
+			actual = DalCommandInterface_Accessor::SentPacketSequenceNumber;
+			Assert::AreEqual((unsigned char)0, actual);
+			
+		}
+
+
+		/// Test values in a loop
+		///A test for SentPacketSequenceNumber
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SentPacketSequenceNumberLoopTest()
+		{
+			unsigned char actual;
+			
+			//run it for more than 0-F to check for valdity
+			for (int i = 0; i < 18; i++)
+			{
+				actual = DalCommandInterface_Accessor::SentPacketSequenceNumber;
+				Assert::AreEqual((unsigned char)(i%16), actual);
+			}
+			
 		}
 };
 }

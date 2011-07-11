@@ -5,13 +5,14 @@
         
      Author       :		 Deepak D'Souza
  
-     Description  :      CRC8Calculator, DalEM4Command, EM4DataCapturePacket class code
+     Description  :      DalCRC8Calculator, DalEM4Command, EM4DataCapturePacket class code
 */
 
 #include "stdafx.h"
 #include "DalEM4Command.h"
 #include "DalCommon.h"
 #include "DalCommandInterface.h"
+#include "DalSequenceNumberManager.h"
 
 
 using namespace System;
@@ -40,7 +41,7 @@ namespace AtCor{
 			{
 				this->em4Command = nullptr;
 				this->commandCode = inCommandCode;
-				this->commandSequenceNumber = DalCommandInterface::SentPacketSequenceNumber ; //get the seqence number for the next packet
+				this->commandSequenceNumber = DalSequenceNumberManager::NextCommandSequenceNumber ; //get the seqence number for the next packet
 
 				if (inCommandData != nullptr)
 				{
@@ -106,7 +107,7 @@ namespace AtCor{
 					}
 					
 					//generate the CRC
-					CRC8Calculator ^ crcCalculator = CRC8Calculator::Instance;
+					DalCRC8Calculator ^ crcCalculator = DalCRC8Calculator::Instance;
 					
 					unsigned char generatedCRCValue = 0x00;
 
@@ -146,7 +147,10 @@ namespace AtCor{
 
 					em4ResponseAckNackByte = em4Response[(int)Em4ResponseByteIndex::AckNackByte];
 					
-					em4ResponseSequenceNumber = em4Response[(int)Em4ResponseByteIndex::SequenceNumberByte ]>>4;
+					//Response sequence number of recieved packet should not be shifted PWVSW-312
+					//em4ResponseSequenceNumber = em4Response[(int)Em4ResponseByteIndex::SequenceNumberByte ]>>DalConstants::RightShiftOneNibble;
+					em4ResponseSequenceNumber = em4Response[(int)Em4ResponseByteIndex::SequenceNumberByte ];
+
 
 					em4ResponseCRCByte = em4Response[(int)em4ResponseLengthByte];
 

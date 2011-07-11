@@ -7,6 +7,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using System.Collections;
 using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.CrossCutting.Configuration;
+using System.Configuration;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -218,6 +219,7 @@ namespace AtCor.Scor.Gui.Presentation
                     rangeChart.ChartAreas[0].AxisY2.Minimum = ChartYAxisMin;
                     rangeChart.ChartAreas[0].AxisY2.Maximum = ChartYAxisMax;
                     rangeChart.ChartAreas[0].AxisY2.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportNormalrangeYAxisTitle);
+                    rangeChart.ChartAreas[0].AxisY2.TitleFont = new Font(GuiConstants.FontName, rangeChart.ChartAreas[0].AxisY2.TitleFont.Size, FontStyle.Bold);
                     rangeChart.ChartAreas[0].AxisY2.Interval = NormalRefYInterval;
                     break;
 
@@ -225,14 +227,16 @@ namespace AtCor.Scor.Gui.Presentation
                     rangeChart.ChartAreas[0].AxisY.Minimum = ChartYAxisMin;
                     rangeChart.ChartAreas[0].AxisY.Maximum = ChartYAxisMax;
                     rangeChart.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportNormalrangeYAxisTitle);
+                    rangeChart.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, rangeChart.ChartAreas[0].AxisY.TitleFont.Size, FontStyle.Bold);
                     rangeChart.ChartAreas[0].AxisY.Interval = NormalRefYInterval;
                     break;
-            }
+            }       
 
             // set x axis
             rangeChart.ChartAreas[0].AxisX.Minimum = BizConstants.MINIMUM_REFERENCE_RANGE_AGE; // 20
             rangeChart.ChartAreas[0].AxisX.Maximum = BizConstants.MAXIMUM_REFERENCE_RANGE_AGE; // 90;
             rangeChart.ChartAreas[0].AxisX.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportNormalrangeXAxisTitle);
+            rangeChart.ChartAreas[0].AxisX.TitleFont = new Font(GuiConstants.FontName, rangeChart.ChartAreas[0].AxisX.TitleFont.Size, FontStyle.Bold);
             rangeChart.ChartAreas[0].AxisX.Interval = NormalRefXInterval;
 
             // initialize series,chartype,add points to series and finally add series to chart.
@@ -282,7 +286,8 @@ namespace AtCor.Scor.Gui.Presentation
         private void SetTextForLabels()
         {
             CrxConfigManager crxConfig = CrxConfigManager.Instance;
-            guiPicBoxReportLogo.Image = string.IsNullOrEmpty(crxConfig.GeneralSettings.ReportLogoPath) ? null : Image.FromFile(crxConfig.GeneralSettings.ReportLogoPath);            
+            string defaultImgPath = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AtcorImageIcon.ToString()];
+            guiPicBoxReportLogo.Image = string.IsNullOrEmpty(crxConfig.GeneralSettings.ReportLogoPath) ? Image.FromFile(defaultImgPath) : Image.FromFile(crxConfig.GeneralSettings.ReportLogoPath);            
         }
 
         /** This method checks if patient age is within specified limit and accordingly displays label text instead of

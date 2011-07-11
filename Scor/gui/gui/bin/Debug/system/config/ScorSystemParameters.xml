@@ -6,6 +6,18 @@
    <StdEM4Timeout>50</StdEM4Timeout> 
    <ExtEM4Timeout>100</ExtEM4Timeout> 
    <EM4NumberOfRetriesAllowed>3</EM4NumberOfRetriesAllowed> 
+   <ProcessSequenceNumber>
+		<CommandResponse>N</CommandResponse>
+		<StreamingPackets>N</StreamingPackets>
+   </ProcessSequenceNumber>
+   <ProcessStatusFlagParts>
+		<StopButton>N</StopButton>
+		<PowerUpBit>N</PowerUpBit>
+		<AlarmFlag>N</AlarmFlag>
+		<CuffStatusFlags>Y</CuffStatusFlags>
+		<TonometerFlags>N</TonometerFlags>
+		<UnusedBits>N</UnusedBits>
+   </ProcessStatusFlagParts>
    <MyTestValues>
 		<Value1>1</Value1>
 		<Value2>2</Value2>

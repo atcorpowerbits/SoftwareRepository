@@ -17,6 +17,7 @@
 #include "DalStatusHandler.h"
 #include "DalCommandState.h"
 #include "DalCaptureState.h"
+#include "DalSequenceNumberManager.h"
 
 using namespace System;
 using namespace System::IO::Ports;
@@ -39,9 +40,9 @@ namespace AtCor{
 			{
 				private:
 					
-					static unsigned char _sentPacketSequenceNumber;
+					/*static unsigned char _sentPacketSequenceNumber;
 					static unsigned char _packetSequenceMaxValue = 0x0F;
-					static unsigned char _packetSequenceMinValue = 0x00;
+					static unsigned char _packetSequenceMinValue = 0x00;*/
 					static int _tonometerDataIndex = 0;
 					static int _cuffPulseDataIndex = 2;
 					static int _cuffPressureDataIndex = 4;
@@ -150,11 +151,12 @@ namespace AtCor{
 					//*/
 					//static bool CheckStatusFlag(unsigned long statusBytes);
 
-					/**
+					//moved to a different class
+					/*
 					* Property to obtain the a sequence number for the EM4 command 
 					* Starts from 0x00 to 0x0F and rolls over.
 					*/
-					static property unsigned char SentPacketSequenceNumber
+					/*static property unsigned char SentPacketSequenceNumber
 					{
 						unsigned char get()
 						{
@@ -168,7 +170,7 @@ namespace AtCor{
 							
 							return returnValue;
 						};
-					};
+					};*/
 
 					/**
 					* Sets the current state of the command State machine

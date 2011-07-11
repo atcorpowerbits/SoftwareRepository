@@ -53,7 +53,8 @@ namespace AtCor.Scor.Gui.Presentation
         CrxStructPWVMeasurementData crxPWV = new CrxStructPWVMeasurementData();
         
         int bobj;
-        
+
+        // bool isControlAndUpArrowKeyPressed = false; 
         string dateToCompare = string.Empty; // used to compare dates when 30 sec wait interval is imposed to enable / disable repeat button based on last record selected
         string dateWithComma = string.Empty;
         int recordsToDelete; // this variable holds value for number of records to delete and is used across dfifferent methods 
@@ -181,6 +182,9 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void Report_Load(object sender, EventArgs e)
         {
+            // Clearing the capture time label on load.
+            objDefaultWindow.radlblCaptureTime.Text = string.Empty;
+  
             // below statement checks if Invoke required and calls the report load event again to populate report data
             // without this report data will not be loaded when it this event is invoked from other windows
             if (InvokeRequired)
@@ -214,9 +218,7 @@ namespace AtCor.Scor.Gui.Presentation
             FillPatientAssessmentDetailsReport();
 
             // to check if wait interval is imposed and accordingly disable/ enable capture tab & repeat buttons
-            CheckWaitIntervalImposed();
-            guichartSuperImposedWaveform.ChartAreas[0].BackColor = Color.White;
-            guichartSuperImposedWaveform.ChartAreas[0].ShadowColor = System.Drawing.Color.Transparent;                
+            CheckWaitIntervalImposed();            
         }
 
          /** This method set default options for buttons on report screen & calculates patients age
@@ -421,7 +423,7 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     case (int)CrxGenPwvValue.CrxGenBPOptSPandDP:
                         // SP & DP
-                        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelSp); 
+                        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp); 
                         guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp); 
 
                         guiradtxtReportBloodPressure1.Text = (obj.bloodPressure.SP == null || obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
@@ -429,7 +431,7 @@ namespace AtCor.Scor.Gui.Presentation
                         break;
                     case (int)CrxGenPwvValue.CrxGenBPOptSPandMP:
                         // SP & MP
-                        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelSp); 
+                        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp); 
                         guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelMp); 
 
                         guiradtxtReportBloodPressure1.Text = (obj.bloodPressure.SP == null || obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
@@ -437,7 +439,7 @@ namespace AtCor.Scor.Gui.Presentation
                         break;
                     case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
                         // MP & DP
-                        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelMp);
+                        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mp);
                         guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp);
 
                         guiradtxtReportBloodPressure1.Text = (obj.bloodPressure.MP == null || obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
@@ -540,8 +542,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradgridReportAssessment.Columns[0].Width = 22;
                 guiradgridReportAssessment.Columns[0].ReadOnly = false;
                 guiradgridReportAssessment.Columns[0].IsVisible = false;
-
-                guiradgridReportAssessment.Columns.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentsFormat), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayStudyDateTime), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentsFormat)); 
+                guiradgridReportAssessment.Columns.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentsFormat), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayStudyDateTime), "StudyDateTime");
                 guiradgridReportAssessment.Columns[1].Width = 275;
                 guiradgridReportAssessment.Columns[1].IsVisible = true;
                 guiradgridReportAssessment.Columns[1].ReadOnly = true;
@@ -824,17 +825,11 @@ namespace AtCor.Scor.Gui.Presentation
 
                         if (ds.Tables[0].Rows.Count == 1)
                         {
-                           // guiradchkAssesments.Checked = true;
-                           // guiradchkAssesments.Enabled = false;
-
-                            // Since there is only one record in the assessment grid, and it should be checked by default hence making the check box readonly.
-                            guiradgridReportAssessment.Rows[0].Cells[0].ReadOnly = true;    
+                            // If there is only one assessment in the grid,we need to show the split button to the user and hide the normal button used to print the analysis report.
+                            guiradbtnAnalysisPrint.SendToBack();
+                            guiradbtnPrint.BringToFront();
+                            guiradbtnPrint.Enabled = true;
                         }
-                        else
-                        {
-                            // guiradchkAssesments.Enabled = true;
-                           // guiradgridReportAssessment.Rows[0].Cells[0].ReadOnly = false;
-                        }                                               
 
                         FillPWVMeasurementDetailsReport();                        
                         
@@ -850,6 +845,7 @@ namespace AtCor.Scor.Gui.Presentation
                         guiradbtnreportedit.Enabled = false;
                         guiradbtnDelete.Enabled = false;
                         guiradbtnPrint.Enabled = false;
+                        guiradbtnAnalysisPrint.Enabled = false;
                         ClearChartData();
                         ResetMeasurementFields();
                         GuiCommon.HasMeasurementDetails = false;                        
@@ -882,21 +878,21 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 case (int)CrxGenPwvValue.CrxGenBPOptSPandDP:
                     // sp & dp
-                    guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelSp); // hardcoded for internal use while changing user settings.
-                    guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp); // hardcoded for internal use while changing user settings.
+                    guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp);
+                    guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp); 
                     guiradlblreportSPdisplay.Text = obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
                     guiradlblReportBloodPressure2.Text = obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.DP.Reading.ToString();
                     break;
                 case (int)CrxGenPwvValue.CrxGenBPOptSPandMP:
                     // sp & mp
-                    guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelSp); // hardcoded for internal use while changing user settings.
+                    guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp); // hardcoded for internal use while changing user settings.
                     guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelMp); // hardcoded for internal use while changing user settings.
                     guiradlblreportSPdisplay.Text = obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
                     guiradlblReportBloodPressure2.Text = obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
                     break;
                 case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
                     // mp & dp
-                    guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelMp); // hardcoded for internal use while changing user settings.
+                    guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mp); // hardcoded for internal use while changing user settings.
                     guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp); // hardcoded for internal use while changing user settings.
                     guiradlblreportSPdisplay.Text = obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
                     guiradlblReportBloodPressure2.Text = obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.DP.Reading.ToString();
@@ -1639,13 +1635,13 @@ namespace AtCor.Scor.Gui.Presentation
 
             Series tonometerOnsetSeries = new Series
                                               {
-                ChartType = SeriesChartType.FastPoint,
+                ChartType = SeriesChartType.Point,
                 Color = Color.Red
             };
 
             Series tonometerOnsetSeries2 = new Series
                                                {
-                ChartType = SeriesChartType.FastPoint,
+                ChartType = SeriesChartType.Point,
                 Color = Color.Green
             };
 
@@ -1743,6 +1739,7 @@ namespace AtCor.Scor.Gui.Presentation
                 // disable delete & edit button when no record is selected
                 guiradbtnDelete.Enabled = false;
                 guiradbtnreportedit.Enabled = false;
+                guiradbtnPrint.Enabled = false;
                 CheckLastAssessmentSelected(string.Empty);
             }
             else
@@ -1819,7 +1816,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void PlotNormalReferenceRange(Chart rangeChart, float[] rangeToPlot, AxisType yAxisType, AxisType xAxisType)
         {
             const int NormalRefYInterval = 5; // interval used for y axis for normal & reference range graph
-            const int NormalRefXInterval = 35; // interval used for x axis for normal & reference range graph
+            const int NormalRefXInterval = 15; // interval used for x axis for normal & reference range graph
             const int ChartYAxisMin = 4;
             const int ChartYAxisMax = 25; 
 
@@ -1831,30 +1828,32 @@ namespace AtCor.Scor.Gui.Presentation
             rangeChart.Series.Clear();
 
             switch (yAxisType)
-            {
-                default:  // case AxisType.Primary:
-                    rangeChart.ChartAreas[0].AxisY.Minimum = ChartYAxisMin; // double.Parse(sortedNormalReferenceRange[0].ToString());
-                    rangeChart.ChartAreas[0].AxisY.Maximum = ChartYAxisMax; // double.Parse(sortedNormalReferenceRange[sortedNormalReferenceRange.Length - 1].ToString());
-                    rangeChart.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportNormalrangeYAxisTitle);
-                    rangeChart.ChartAreas[0].AxisY.Interval = NormalRefYInterval; 
-                    break;
-                
+            {                
                 case AxisType.Secondary:
                     rangeChart.ChartAreas[0].AxisY2.Minimum = ChartYAxisMin; // double.Parse(sortedNormalReferenceRange[0].ToString());
                     rangeChart.ChartAreas[0].AxisY2.Maximum = ChartYAxisMax; // double.Parse(sortedNormalReferenceRange[sortedNormalReferenceRange.Length - 1].ToString());
                     rangeChart.ChartAreas[0].AxisY2.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportNormalrangeYAxisTitle);
+                    rangeChart.ChartAreas[0].AxisY2.TitleFont = new Font(GuiConstants.FontName, rangeChart.ChartAreas[0].AxisY2.TitleFont.Size, FontStyle.Bold);
                     rangeChart.ChartAreas[0].AxisY2.Interval = NormalRefYInterval;
                     break;
+
+                default:  // case AxisType.Primary:
+                    rangeChart.ChartAreas[0].AxisY.Minimum = ChartYAxisMin; // double.Parse(sortedNormalReferenceRange[0].ToString());
+                    rangeChart.ChartAreas[0].AxisY.Maximum = ChartYAxisMax; // double.Parse(sortedNormalReferenceRange[sortedNormalReferenceRange.Length - 1].ToString());
+                    rangeChart.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportNormalrangeYAxisTitle);
+                    rangeChart.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, rangeChart.ChartAreas[0].AxisY.TitleFont.Size, FontStyle.Bold);
+                    rangeChart.ChartAreas[0].AxisY.Interval = NormalRefYInterval;
+                    break;              
             }         
 
             // set x axis
             rangeChart.ChartAreas[0].AxisX.Minimum = BizConstants.MINIMUM_REFERENCE_RANGE_AGE; // 20
             rangeChart.ChartAreas[0].AxisX.Maximum = BizConstants.MAXIMUM_REFERENCE_RANGE_AGE; // 90;
             rangeChart.ChartAreas[0].AxisX.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportNormalrangeXAxisTitle);
+            rangeChart.ChartAreas[0].AxisX.TitleFont = new Font(GuiConstants.FontName, rangeChart.ChartAreas[0].AxisX.TitleFont.Size, FontStyle.Bold);
             rangeChart.ChartAreas[0].AxisX.Interval = NormalRefXInterval;
 
-            // initialize series,chartype,add points to series and finally add series to chart.
-            // Series for tonometer
+            // initialize series,chartype,add points to series and finally add series to chart.            
             // set display properties for normal range graph
             Series rangeSeries = new Series
                                      {
@@ -2031,17 +2030,21 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradchartPulseWaveVelocity.Titles.Clear();
                 guiradchartHeartRate.Titles.Clear();
                 Font font = new Font(GuiConstants.FontName, 11);
-                Title itemPwv = new Title();
-                itemPwv.Font = font;
-                itemPwv.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportPwv);
+                Title itemPwv = new Title
+                                    {
+                                        Font = font,
+                                        Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportPwv)
+                                    };
 
                 // guiradchartPulseWaveVelocity.Titles.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportPwv));
                 guiradchartPulseWaveVelocity.Titles.Add(itemPwv);
-                Title itemHeartRate = new Title();
-                itemHeartRate.Font = font;
-                itemHeartRate.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportHeartRate);
+                Title itemHeartRate = new Title
+                                          {
+                                              Font = font,
+                                              Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportHeartRate)
+                                          };
 
-               // guiradchartHeartRate.Titles.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportHeartRate));
+                // guiradchartHeartRate.Titles.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportHeartRate));
                 guiradchartHeartRate.Titles.Add(itemHeartRate); 
                 guiradchartPulseWaveVelocity.Series.Clear();
                 guiradchartHeartRate.Series.Clear();
@@ -2108,13 +2111,16 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblReportHeartRateValue.Text = heartRate[heartRate.Length - 1] + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.HeartrateUnit);
                
                 double value = Math.Round(double.Parse(heartPwvSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+                
+                value = ((int)Math.Round(value / 10.0)) * 10;
+                
                 guiradchartHeartRate.ChartAreas[0].AxisY.Minimum = value;
                 guiradchartHeartRate.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.HeartrateLblAnalysis);
-                guiradchartHeartRate.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartHeartRate.ChartAreas[0].AxisY.TitleFont.Size);
+                guiradchartHeartRate.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartHeartRate.ChartAreas[0].AxisY.TitleFont.Size, FontStyle.Bold);
                 value = Math.Round(double.Parse(heartPwvSort[heartPwvSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
                 guiradchartHeartRate.ChartAreas[0].AxisY.Maximum = value;
                 guiradchartHeartRate.ChartAreas[0].AxisY.IntervalOffset = 0;
-                guiradchartHeartRate.ChartAreas[0].AxisY.Interval = 10;
+                guiradchartHeartRate.ChartAreas[0].AxisY.Interval = 5;
 
                 guiradchartHeartRate.ChartAreas[0].AxisX.IntervalOffset = 1;
                 CalculateLabelIntervalX();
@@ -2156,7 +2162,7 @@ namespace AtCor.Scor.Gui.Presentation
                 double value = Math.Round(minValue * GuiConstants.ChartAreaMinimumY); 
                 guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Minimum = value;
                 guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwvLblAnalysis);
-                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.TitleFont.Size);
+                guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.TitleFont.Size, FontStyle.Bold);
 
                 value = Math.Round(maxValue * GuiConstants.ChartAreaMaximumY, 0, MidpointRounding.AwayFromZero);
                 guiradchartPulseWaveVelocity.ChartAreas[0].AxisY.Maximum = value;
@@ -2245,9 +2251,12 @@ namespace AtCor.Scor.Gui.Presentation
                     correctionLine["PointWidth"] = "0.1";
 
                     double centerY = double.Parse(pWv[hrseries1]);
-                    double lowerErrorY = centerY - double.Parse(stdDeviationSeries[hrseries1]);
-                    double upperErrorY = centerY + double.Parse(stdDeviationSeries[hrseries1]);
-                    correctionLine.Points.AddXY(hrseries1, centerY, lowerErrorY, upperErrorY);
+                    if (stdDeviationSeries != null)
+                    {
+                        double lowerErrorY = centerY - double.Parse(stdDeviationSeries[hrseries1]);
+                        double upperErrorY = centerY + double.Parse(stdDeviationSeries[hrseries1]);
+                        correctionLine.Points.AddXY(hrseries1, centerY, lowerErrorY, upperErrorY);
+                    }
 
                     trendChart.Series.Add(correctionLine);
                 }
@@ -2529,7 +2538,7 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void DisplayReportForSelectedAssesment(string dateTime)
         {
-            if (!GuiCommon.SetupToReport)
+           // if (!GuiCommon.SetupToReport)
             {
                 InitializeCrxOnLoad(dateTime);
                 FillPWVMeasurementDetailsReport();
@@ -2878,6 +2887,19 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 e.SuppressKeyPress = false;
             }
+
+            /*
+            if (e.Control && e.KeyCode == Keys.Up)
+            {
+                // if the above condition is true then set a falg which needs to be checked in the row formatting event and highlight 
+                // selected row's border.
+                IsControlAndUpArrowKeyPressed = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.Space)
+            {
+                Invoke(new EventHandler(guiradgridReportAssessment_SelectionChanged));               
+            }*/
         }
 
         /** This method sets height for passing it to the crystal report for print reports
@@ -3156,7 +3178,7 @@ namespace AtCor.Scor.Gui.Presentation
             if (row != null)
             {
                 if (row.IsCurrent)
-                {
+                {                    
                     // row fill
                     row.DrawFill = true;
                     row.GradientStyle = GradientStyles.Solid;
@@ -3166,6 +3188,15 @@ namespace AtCor.Scor.Gui.Presentation
                     row.DrawBorder = true;
                     row.BorderBoxStyle = BorderBoxStyle.SingleBorder;
                     row.BorderColor = Color.Red;
+                    /*
+                    if (IsControlAndUpArrowKeyPressed)
+                    {
+                        IsControlAndUpArrowKeyPressed = false;
+                        row.BackColor = Color.Aqua;
+                        row.DrawBorder = true;
+                        row.BorderBoxStyle = BorderBoxStyle.SingleBorder;
+                        row.BorderColor = Color.Black;
+                    }*/
                 }
                 else if (row.IsOdd)
                 {
@@ -3215,6 +3246,6 @@ namespace AtCor.Scor.Gui.Presentation
             guiradbtnDelete.Enabled = true;
             objDefaultWindow.radtabCapture.Enabled = false;
             ReportPWVDisplayMode(true);            
-        }
+        }        
     }
 }

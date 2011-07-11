@@ -5,7 +5,7 @@
         
      Author       :		 Deepak D'Souza
  
-     Description  :     Header file for classes:  CRC8Calculator
+     Description  :     Header file for classes:  DalCRC8Calculator
 */
 #pragma once
 
@@ -23,22 +23,22 @@ namespace AtCor{
 
 
 			/**
-			* @class CRC8Calculator
+			* @class DalCRC8Calculator
 			* @brief Class to calculate 8 bit CRC value 
 			*/
-			private ref class CRC8Calculator
+			private ref class DalCRC8Calculator
 			{
 				private:
 					static array<unsigned char>^ crc8Table = gcnew array<unsigned char>(DalConstants::CRCTableSize ); // Default size of array
 					static bool TableReady = false;
-					static CRC8Calculator^ _instance = gcnew CRC8Calculator();
-					/*CRC8Calculator^ operator= (const CRC8Calculator);*/ //fxCop
+					static DalCRC8Calculator^ _instance = gcnew DalCRC8Calculator();
+					/*DalCRC8Calculator^ operator= (const DalCRC8Calculator);*/ //fxCop
 					
 					/**
 					* Constructor for the class. @n
 					* Initializes the CRC8 table
 					*/
-					CRC8Calculator();
+					DalCRC8Calculator();
 
 				public:
 					
@@ -62,11 +62,11 @@ namespace AtCor{
 					/**
 					* Returns the current singleton instance.
 					*/
-					static property CRC8Calculator^ Instance
+					static property DalCRC8Calculator^ Instance
 					{
-						CRC8Calculator^ get()
+						DalCRC8Calculator^ get()
 						{
-							return CRC8Calculator::_instance;
+							return DalCRC8Calculator::_instance;
 						};
 					};
 			};
