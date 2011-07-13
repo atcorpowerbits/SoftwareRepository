@@ -5,6 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 		Scor.vsmdi = Scor.vsmdi
+		Scor1.vsmdi = Scor1.vsmdi
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dal", "dal\dal\dal.vcproj", "{E274BA19-F920-40C0-8747-214688D2ABB3}"
@@ -29,6 +30,9 @@ EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ScorSetup", "ScorSetup\ScorSetup.vdproj", "{32981A04-BA81-4A36-B041-0866F311E20C}"
 EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Scor1.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -75,7 +79,6 @@ Global
 		{B5B613F0-48C9-4AC9-B919-F9324FA6B640}.Debug|Win32.Build.0 = Debug|Win32
 		{B5B613F0-48C9-4AC9-B919-F9324FA6B640}.Release|Any CPU.ActiveCfg = Release|Win32
 		{B5B613F0-48C9-4AC9-B919-F9324FA6B640}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{B5B613F0-48C9-4AC9-B919-F9324FA6B640}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{B5B613F0-48C9-4AC9-B919-F9324FA6B640}.Release|Win32.ActiveCfg = Release|Win32
 		{B5B613F0-48C9-4AC9-B919-F9324FA6B640}.Release|Win32.Build.0 = Release|Win32
 		{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}.Debug|Any CPU.ActiveCfg = Debug|Win32
@@ -85,7 +88,6 @@ Global
 		{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}.Debug|Win32.Build.0 = Debug|Win32
 		{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}.Release|Any CPU.ActiveCfg = Release|Win32
 		{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}.Release|Win32.ActiveCfg = Release|Win32
 		{88FA13E0-C4A7-4FDC-A9AF-4A71395E6C6E}.Release|Win32.Build.0 = Release|Win32
 		{1276F6E5-9319-4321-9A39-53152BB7477C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
