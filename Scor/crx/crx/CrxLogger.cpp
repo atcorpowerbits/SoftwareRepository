@@ -68,12 +68,15 @@ void CrxLogger::Write(String^ message)
 	CrxLogWriter->Write(logEnt);
 
 
-  if (entryLineNumber >= 1600) 
-  {
-	  //roll over when the limit of 1600 lines is crossed.
-	 RollLogFile();
+	//Deepak: Disabling rollover in order to log packets and prevent rollover related issues
+	//THis will be used for testing by TS. 
+	//TODO: IMPORTANT: DO NOT check in into the delivery code
+  //if (entryLineNumber >= 1600) 
+  //{
+	 // //roll over when the limit of 1600 lines is crossed.
+	 //RollLogFile();
 
-  }
+  //}
 }
 
 void CrxLogger::GetLastWrittenLineNumber()
