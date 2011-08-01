@@ -46,8 +46,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, defWindow);
-                System.Diagnostics.EventLog.WriteEntry("Scor error", ex.Message);
+                GUIExceptionHandler.HandleException(ex, defWindow);               
             }
         }
     }

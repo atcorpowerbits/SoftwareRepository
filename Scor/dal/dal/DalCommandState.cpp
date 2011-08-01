@@ -31,10 +31,8 @@ namespace AtCor{
 					//No intialization required
 				}
 
-				DalReturnValue DalCommandState::SendCommandAndGetResponse(DalEM4Command ^serialCommand)
+				DalReturnValue DalCommandState::SendCommandAndGetResponse(DalEM4Command ^)
 				{
-					serialCommand; //Dummy statement to get rid of C4100 warning
-
 					//return failure by default. child class overrides will do actual processing
 					return DalReturnValue::Failure; 
 				}

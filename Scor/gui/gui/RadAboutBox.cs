@@ -14,10 +14,7 @@ using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.CrossCutting.Printer;
 using AtCor.Scor.BusinessLogic;
 using System.Configuration;
-using Telerik.WinControls;
-using System.Windows.Forms;
 using Telerik.WinControls.UI;
-using Telerik.WinControls.Primitives;
 using System.Reflection;
 
 namespace AtCor.Scor.Gui.Presentation
@@ -30,7 +27,7 @@ namespace AtCor.Scor.Gui.Presentation
     {
         readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         StringBuilder sBPrint;
-
+       
         /**Constructor of the form,initializes all the controls.
        *It will call set about box information and string for printing the same
        */        
@@ -45,16 +42,67 @@ namespace AtCor.Scor.Gui.Presentation
             // GuiCommon.SetFontForControls(this);
 
             // fix the size & location of about box panel
-            Size = new Size(525, 330);
+            Size = new Size(525, 370);
             Location = new Point(0, 0);
             radPanel1.Size = new Size(530, 340);
             radPanel1.Location = new Point(-1, -1);
             MaximumSize = Size;
             MinimumSize = Size;
             SetAboutBoxInformation();
-            SetShape(guiradlblCompanyName, guiradlblCopyrightNotice, guiradlblVersion, guiradlblSecurityMode, guiradlblInstalledID, guiradlblPWV, guiradlblPWA, guiradlblBP, guiradlblmoduleInfo, guiradlblLastCalibrationDate);
-            SetShape(guiradbtnPrint, guiradbtnOk);
+           GuiCommon.SetShape(guiradlblCompanyName, guiradlblCopyrightNotice, guiradlblVersion, guiradlblSecurityMode, guiradlblInstalledID, guiradlblPWV, guiradlblPWA, guiradlblBP, guiradlblmoduleInfo, guiradlblLastCalibrationDate);
+           GuiCommon.SetShape(guiradbtnPrint, guiradbtnOk);
         }
+
+        /** Begin: AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,4 july 2011
+         * This function returns supported features for the current key.      
+         */
+        public string SetKeyFeatures()
+        {
+            string strFeatures = string.Empty;
+
+            if (BizInfo.Instance().OptionResearch)
+            {
+                strFeatures = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionResearch);
+            }
+            else
+            {
+                strFeatures = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionClinical);
+            }
+
+            if (BizInfo.Instance().OptionPWV)
+            {
+                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionPwv));
+            }
+
+            if (BizInfo.Instance().OptionCPWA)
+            {
+                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptioncPwa));
+            }
+
+            if (BizInfo.Instance().OptionTPWA)
+            {
+                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptiontPwa));
+            }
+
+            if (BizInfo.Instance().OptionNIBP)
+            {
+                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionNibp));
+            }
+
+            if (BizInfo.Instance().OptionCaptureGuide)
+            {
+                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionCaptureGuide));
+            }
+
+            if (BizInfo.Instance().OptionAuditTrail)
+            {
+                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionAuditTrial));
+            }
+
+            return strFeatures;
+        }
+
+        // end  AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,4 july 2011
 
         /** This method sets about box information in respective labels
          * */
@@ -76,7 +124,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblBP.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtBp), bizInformation.GetModuleNumberMeasurementsNIBP());
                 guiradlblSecurityMode.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutSecMode), bizInformation.GetSecurityMode());
                 guiradlblmoduleInfo.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutModuleTxt), bizInformation.GetModuleType(), bizInformation.GetModuleVersion(), bizInformation.GetModuleSN());
-
+                guiradlblKeyFeatures.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblKey) + ": " + SetKeyFeatures();
                 guiradlblLastCalibrationDate.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutCalibDate), bizInformation.GetModuleCalibrationDate());
 
                 if (string.IsNullOrEmpty(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.CeMarkImage.ToString()]))
@@ -92,7 +140,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GUIExceptionHandler.HandleException(ex, this);
             }
-        }
+        }     
 
         /** This event fires when user clicks OK button on about box.
          * It closes about box window
@@ -100,37 +148,6 @@ namespace AtCor.Scor.Gui.Presentation
         private void guiradbtnOk_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void SetShape(params Control[] labelControl)
-        {
-            RoundRectShape shape = new RoundRectShape();
-            shape.BottomLeftRounded = true;
-            shape.BottomRightRounded = true;
-            shape.TopLeftRounded = true;
-            shape.TopRightRounded = true;
-            shape.Radius = 5;
-
-            foreach (Control control in labelControl)
-            {
-                RadLabel label = control as RadLabel;
-                if (label != null)
-                {
-                    label.RootElement.BackColor = Color.Transparent;
-                    ((FillPrimitive)label.LabelElement.Children[0]).NumberOfColors = 1;
-                    label.LabelElement.Shape = shape;
-                }
-
-                RadTextBox textBox = control as RadTextBox;
-                if (textBox != null)
-                {
-                    textBox.TextBoxElement.BackColor = Color.FromArgb(172, 177, 204);
-                    textBox.TextBoxElement.Fill.BackColor = Color.FromArgb(172, 177, 204);
-
-                    textBox.TextBoxElement.Border.Shape = shape;
-                    textBox.TextBoxElement.Fill.Shape = shape;
-                }
-            }
         }
 
         /** This method appends string to stringbuilder for printing about box content

@@ -339,9 +339,9 @@ namespace AtCor{
 				return _currentDevice->GetSavedFileName();
 			}
 
-			void DalModule::ConfigCommsPortSettingChangeHandler(Object^ sender, CommsPortEventArgs^ args)
+			void DalModule::ConfigCommsPortSettingChangeHandler(Object^ , CommsPortEventArgs^ args)
 			{
-				sender; //Dummy statement to get rid of C4100 warning
+				//sender; //Dummy statement to get rid of C4100 warning
 
 				//CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting );
 				SetDeviceStrategy(args->commsPortSetting);

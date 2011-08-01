@@ -19,6 +19,8 @@ using System.Data;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using AtCor.Scor.BusinessLogic;
+using Telerik.WinControls.Primitives;
+using System.ComponentModel;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -34,6 +36,10 @@ namespace AtCor.Scor.Gui.Presentation
     public static class GuiCommon
    {       
        #region Global variable declaration
+       public static bool IsValidatedLicenseKey = false; // This flag is used to check whether LicenseKey is valdiated or not.
+       public static SystemKeyWindowValues SystemKeyWindowValue = SystemKeyWindowValues.ADD; // values :0.Add 1.Update     Checking whether system key form is called for updating or adding system key.
+       public static string CurrentMode = string.Empty;
+       public static string CurrentScreen = CrxStructCommonResourceMsg.Setup;
        public static bool SetupToReport = false;
        public static bool CaptureToReport = false;
        public static bool CaptureToSetup = false;
@@ -45,6 +51,7 @@ namespace AtCor.Scor.Gui.Presentation
        public static bool IsFormChanged = false; // this variable tracks any changes to the application form 
        public static bool IsMenuItemShown = true;
        public static bool CaptureFormLoaded = false; // to check if capture form has loaded.
+       public static bool IsOnReportForm = false; // This variable is used to check if the user is on the report screen.
        // This variable is used during checking field limits on Setup screen.When user has clicked Rad tab capture and if one of the field has value which
        // is out of range.After the out of range message is shown the tabselection_changed event has already been fired due to which the capture functionality starts.
        // As this is wrong we are using the below variable to see if it is true then stop the tab from changing.
@@ -52,7 +59,8 @@ namespace AtCor.Scor.Gui.Presentation
        public static bool IsMandatoryFieldEmpty = false;  
        public static int ReportLoadCount = 0;
        public static int ExitApp = 0;
-       public static string MessageToBeDisplayed = string.Empty;
+       public static string MessageToBeDisplayed = string.Empty;       
+       public static ScorController ScorControllerObject = new ScorController();
        #endregion
 
        #region Main / Parent window Handle
@@ -62,12 +70,32 @@ namespace AtCor.Scor.Gui.Presentation
        public delegate void SetCaptureTabVisibility(bool value);
 
        public static event SetCaptureTabVisibility OnCaptureClosing;
-       
+
+       public static event EventHandler OnEnterButtonClick;
+
+       #region Global Varialbles
+        
+       // public static Modes CurrentMode = Modes.cPWA;
+
+       // public enum Modes
+       // { 
+       // PWV = 0,
+       // cPWA = 1,
+       // tPWA = 2
+       // }
+       public enum SystemKeyWindowValues
+       {
+           ADD = 0,
+           Update = 1
+       }
+       #endregion
+
        #region Child Form Handles
        public static RadForm ReportChildForm;
        public static RadForm CaptureChildForm;
        public static RadForm SetupChildForm;
        public static RadForm FrmRptBlnk;
+       public static RadForm PWAReportChildForm;
 
        public static event EventHandler OnBizErrorEventInvocation;       
        #endregion  
@@ -97,14 +125,14 @@ namespace AtCor.Scor.Gui.Presentation
            {
                // Take action if capture screen is loaded and alarm flag is raised.
                // in this case we need to stop the capture on the capture screen.
-               string messageToBeDisplayed = e.data;
+               MessageToBeDisplayed = e.data;
                object dummySender = new object();
                OnBizErrorEventInvocation.Invoke(dummySender, new EventArgs());               
             }
            else
            {
                // In any other case show a dialog box with the message from the biz.dll to the user.Also log the mesaage in the log file.               
-               RadMessageBox.Show(e.data, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.ApplicationMessage), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+               RadMessageBox.Show(e.data, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
                CrxLogger.Instance.Write(e.data);
            }
        }   
@@ -159,6 +187,46 @@ namespace AtCor.Scor.Gui.Presentation
             }
 
             return serverName;
+        }
+
+        public static void SetShape(params Control[] labelControl)
+        {
+            RoundRectShape shape = new RoundRectShape();
+            shape.BottomLeftRounded = true;
+            shape.BottomRightRounded = true;
+            shape.TopLeftRounded = true;
+            shape.TopRightRounded = true;
+            shape.Radius = 5;
+
+            foreach (Control control in labelControl)
+            {
+                RadLabel label = control as RadLabel;
+                if (label != null)
+                {
+                    // label.RootElement.BackColor = Color.Transparent;
+                    ((FillPrimitive)label.LabelElement.Children[0]).NumberOfColors = 1;
+                    label.LabelElement.Shape = shape;
+                }
+
+                RadTextBox textBox = control as RadTextBox;
+                if (textBox != null)
+                {
+                    textBox.TextBoxElement.Border.Shape = shape;
+                    textBox.TextBoxElement.Fill.Shape = shape;
+                }
+
+                RadDropDownList dropDownlist = control as RadDropDownList;
+                if (dropDownlist != null)
+                {
+                    dropDownlist.DropDownListElement.Shape = shape;
+                    dropDownlist.DropDownListElement.EditableElement.Shape = shape;
+
+                    dropDownlist.DropDownListElement.ArrowButton.Shape = shape;
+                    dropDownlist.DropDownListElement.ArrowButton.Fill.NumberOfColors = 1;
+                    dropDownlist.DropDownListElement.ArrowButton.Fill.BackColor = Color.FromArgb(142, 150, 186);
+                    ((FillPrimitive)dropDownlist.DropDownListElement.Children[3]).BackColor = Color.FromArgb(142, 150, 186);
+                }
+            }
         }
 
        /** This method retrieves error message during network connection failure
@@ -289,6 +357,55 @@ namespace AtCor.Scor.Gui.Presentation
                 e.Handled = false;
             }
         }
+
+        /** Begin: AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,04 July 2011
+        /* This method restricts input values to integers and characters only.
+         * This method is called on keypress event of the textbox.
+               * */
+        public static void CheckForNumeric_CharValues(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetterOrDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == '\b')
+            {
+                e.Handled = false;
+            }
+
+            if (e.KeyChar == ' ')
+            {
+                ((RadTextBoxBase)(sender)).Text = string.Empty;
+            }
+
+            if (e.KeyChar == (char)13)
+            {
+                OnEnterButtonClick.Invoke(sender, e);
+            }
+        }
+
+        /** This method restricts input values to integers and characters only.
+         * This method is called on Validating event of the textbox.
+         */
+        public static void ValidatingNumericCharValues(object sender, CancelEventArgs e)
+        {
+            CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+            char[] array = ((RadTextBoxBase)(sender)).Text.ToCharArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (!char.IsLetterOrDigit(array[i]))
+                {
+                   // If textbox contain value other than letter and digit then it highlight textbox and shows message to the user.
+                    ((RadTextBoxBase)(sender)).Select(0, ((RadTextBoxBase)(sender)).Text.Length);
+                    RadMessageBox.Show(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgSpecialCharacter), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);                   
+                    e.Cancel = true;
+                    return;
+                }
+            }
+        }
+        
+        // End : AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,12 July 2011
 
         /** This method sets font configured in app.config for the controls on form
          * It takes parameter radform

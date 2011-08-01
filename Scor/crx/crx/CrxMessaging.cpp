@@ -44,7 +44,7 @@ String ^CrxMessagingManager::GetMessage(String^ strCode)
 	try
 	{			
 		//Get the message string through resource manager object
-		errorString = errRsrcMsg->GetString(strCode);
+		errorString = errRsrcMsg->GetString(strCode,CrxCommon::gCI);
 
 		//validation to check string is returned or not, 
 		//if string length is equals to zero then send the string "Error Code not found"

@@ -317,15 +317,25 @@
       </Rules>
       <AnalyzerSettings>
         <CollectionProperty Name="Hungarian">
+          <Value>ap</Value>
+          <Value>bp</Value>
           <Value>cr</Value>
           <Value>db</Value>
+          <Value>df</Value>
+          <Value>dp</Value>
           <Value>ds</Value>
+          <Value>dt</Value>
           <Value>dv</Value>
           <Value>e</Value>
           <Value>i</Value>
+          <Value>mp</Value>
           <Value>o</Value>
           <Value>p</Value>
+          <Value>pp</Value>
+          <Value>rp</Value>
           <Value>s</Value>
+          <Value>sb</Value>
+          <Value>sp</Value>
           <Value>t</Value>
           <Value>x</Value>
           <Value>y</Value>

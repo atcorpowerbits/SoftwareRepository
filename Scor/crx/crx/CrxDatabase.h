@@ -12,6 +12,7 @@
 #include "CrxMessaging.h"
 #include "CrxLogger.h"
 #include "ScorException.h"
+#include "CrxEventContainer.h"
 
 using namespace System;						
 using namespace System::Data;
@@ -27,6 +28,7 @@ using namespace Microsoft::Practices::EnterpriseLibrary::Data::Sql;
 // Added application specific namespaces
 using namespace AtCor::Scor::CrossCutting::Logging;		
 using namespace AtCor::Scor::CrossCutting::Messaging;
+using namespace AtCor::Scor::CrossCutting;
 
 /**
  * @namespace	AtCor::Scor::CrossCutting::DatabaseManager
@@ -251,6 +253,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static	String^	MigratePatientDetails				=	"MigratePatientDetails";
 		static	String^	UpdateMeasurementDetails			=	"UpdateMeasurementDetails";
 		static	String^	UpdatePatientDetails				=	"UpdatePatientDetails";
+		static	String^	InsertCuffPWAMeasurementDetails		=	"InsertCuffPWAMeasurementDetails";
+		static	String^	InsertTonoPWAMeasurementDetails		=	"InsertTonoPWAMeasurementDetails";
 	};
 
 	/**
@@ -333,7 +337,164 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static String^	MpValidArrStr						=	"@MpValidArrStr";
 		static String^  FilePath							=	"@FilePath";
 	};
-
+	
+	/**
+	 * @struct CrxDbStructPwaParametersList
+	 * @brief Container for parameters list. 	
+	 */
+	private ref struct CrxDbStructPwaParametersList
+	{
+		//static String^		SystemIdentifier			=		"@systemIdentifier";
+		//static String^		GroupIdentifier				=		"@groupIdentifier";
+		//static String^		PatientNumberernal			=		"@PatientNumberInternal";		
+		//static String^		BloodPressureRange			=		"@bloodPressureRange";
+		//static String^		BloodPressureEntryOption	=		"@bloodPressureEntryOption";
+		//static String^		Age							=		"@age";
+		//static String^		Notes						=		"@notes";
+		//static String^		SP							=		"@SP";
+		//static String^		DP							=		"@DP";
+		//static String^		MP							=		"@MP";
+		//static String^		Operator					=		"@operator";
+		//static String^		WeightInKilograms			=		"@weightInKilograms";
+		//static String^		WeightInPounds				=		"@weightInPounds";
+		//static String^		HeightInCentimetres			=		"@heightInCentimetres";
+		//static String^		HeightInInches				=		"@heightInInches";
+		//static String^		BodyMassIndex				=		"@bodyMassIndex";
+		static String^		AuditChange			=		"@auditChange datetime ";
+		static String^		MemSpare1			=		"@memSpare1";
+		static String^		MemSpare2			=		"@memSpare2";
+		static String^		Simulation			=		"@simulation";
+		static String^		IntSpare2			=		"@intSpare2";
+		static String^		FloatSpare1			=		"@floatSpare1";
+		static String^		DataRev				=		"@datarRev";
+		static String^		SubType				=		"@subType";
+		static String^		SampleRate			=		"@sampleRate";
+		static String^		SignalUpSampleRate	=		"@signalUpSampleRate";
+		static String^		ExpPulseUpSampleRate=		"@expPulseUpSampleRate";
+		static String^		Flow				=		"@flow";
+		static String^		Medication			=		"@medication";
+		static String^		Message				=		"@message";
+		static String^		Units				=		"@units";
+		static String^		CalSP				=		"@calSP";
+		static String^		CalDP				=		"@calDP";
+		static String^		CalMP				=		"@calMP";
+		static String^		HR					=		"@hR";
+		static String^		ED					=		"@eD";
+		static String^		CalcED				=		"@calcED";
+		static String^		QualityED			=		"@QualityED";
+		static String^		EDMin				=		"@eDMin";
+		static String^		EDMax				=		"@eDMax";
+		static String^		EDOther				=		"@eDOther";
+		static String^		CaptureInput		=		"@captureInput";
+		static String^		C_Raw_Signals		=		"@c_RAW_SIGNALS";
+		static String^		C_Av_Pulses			=		"@c_AV_PULSE";
+		static String^		C_Trigs				=		"@c_TRIGS";
+		static String^		C_Onsets			=		"@c_ONSETS";
+		static String^		C_Uncal_Av			=		"@c_Uncal_Av";
+		static String^		C_ResemblePulse		=		"@c_ResemblePulse";
+		static String^		C_Ole_Spare			=		"@c_Ole_Spare";
+		static String^		C_Math_Params		=		"@c_Math_Params";
+		static String^		C_Sp				=		"@c_Sp";
+		static String^		C_Dp				=		"@c_Dp";
+		static String^		C_Meanp				=		"@c_Meanp";
+		static String^		C_T1				=		"@c_T1";
+		static String^		C_T2				=		"@c_T2";
+		static String^		C_T1i				=		"@c_T1i";
+		static String^		C_T1r				=		"@c_T1r";
+		static String^		C_T1m				=		"@c_T1m";
+		static String^		C_T1other			=		"@c_T1other";
+		static String^		C_T2i				=		"@c_T2i";
+		static String^		C_T2R				=		"@c_T2R";
+		static String^		C_T2M				=		"@c_T2M";
+		static String^		C_T2Other			=		"@c_T2Other";
+		static String^		C_Quality_T1		=		"@c_Quality_T1";
+		static String^		C_Quality_T2		=		"@c_Quality_T2";
+		static String^		C_P1				=		"@c_P1";
+		static String^		C_P2				=		"@c_P2";
+		static String^		C_T1ED				=		"@c_T1ED";
+		static String^		C_T2ED				=		"@c_T2ED";
+		static String^		C_Ai				=		"@c_Ai";
+		static String^		C_Esp				=		"@c_Esp";
+		static String^		C_Ap				=		"@c_Ap";
+		static String^		C_Mps				=		"@c_Mps";
+		static String^		C_Mpd				=		"@c_Mpd";
+		static String^		C_Tti				=		"@c_Tti";
+		static String^		C_Dti				=		"@c_Dti";
+		static String^		C_Svi				=		"@c_Svi";
+		static String^		C_Period			=		"@c_Period";
+		static String^		C_Dd				=		"@c_Dd";
+		static String^		C_EdPeriod			=		"@c_EdPeriod";
+		static String^		C_DdPeriod			=		"@c_DdPeriod";
+		static String^		C_Ph				=		"@c_Ph";
+		static String^		C_P1_Height			=		"@c_P1_Height";
+		static String^		C_Agph				=		"@c_Agph";
+		static String^		C_Qc_Other1			=		"@c_Qc_Other1";
+		static String^		C_Qc_Other2			=		"@c_Qc_Other2";
+		static String^		C_Qc_Other3			=		"@c_Qc_Other3";
+		static String^		C_Qc_Other4			=		"@c_Qc_Other4";
+		static String^		C_IntSpare1			=		"@c_IntSpare1";
+		static String^		C_IntSpare2			=		"@c_IntSpare2";
+		static String^		C_FloatSpare1		=		"@c_FloatSpare1";
+		static String^		C_FloatSpare2		=		"@c_FloatSpare2";
+		static String^		C_MemSpare1			=		"@c_MemSpare1";
+		static String^		C_MemSpare2			=		"@c_MemSpare2";
+		static String^		C_Al				=		"@c_Al";
+		static String^		C_Ati				=		"@c_Ati";
+		static String^		C_Flow				=		"@c_Flow";
+		static String^		C_Forward			=		"@c_Forward";
+		static String^		C_Backward			=		"@c_Backward";
+		static String^		C_Avi				=		"@c_Avi";
+		static String^		C_Pptt				=		"@c_Pptt";
+		static String^		C_Avd				=		"@c_Avd";
+		static String^		C_Pwv				=		"@c_Pwv";
+		static String^		C_Forward_Area		=		"@c_Forward_Area";
+		static String^		C_Backward_Area		=		"@c_Backward_Area";
+		static String^		C_Area_Ratio		=		"@c_Area_Ratio";
+		static String^		C_Pulse_Ratio		=		"@c_Pulse_Ratio ";
+		
+	};
+	/**
+	 * @struct CrxDbStructCuffPwaParametersList
+	 * @brief Container for parameters list. 	
+	 */
+	private ref struct CrxDbStructCuffPwaParametersList
+	{
+		static String^		P_Raw_Signals		=		"@p_Raw_Signals";
+		static String^		P_Av_Pulses			=		"@p_Av_Pulses";
+		static String^		P_Trigs				=		"@p_Trigs";
+		static String^		P_Onsets			=		"@p_Onsets";
+		static String^		P_Uncal_Av			=		"@p_Uncal_Av";
+		static String^		P_ResemblePulse		=		"@p_ResemblePulse";
+		static String^		P_Ole_Spare			=		"@p_Ole_Spare";
+		static String^		P_Math_Params		=		"@p_Math_Params";
+		static String^		P_Sp				=		"@p_Sp";
+		static String^		P_Dp				=		"@p_Dp";
+		static String^		P_Meanp				=		"@p_Meanp";
+		static String^		P_T1i				=		"@p_T1i";
+		static String^		P_T1r				=		"@p_T1r";
+		static String^		P_T1m				=		"@p_T1m";
+		static String^		P_T1other			=		"@p_T1other";
+		static String^		P_T2i				=		"@p_T2i";
+		static String^		P_T2r				=		"@p_T2r";
+		static String^		P_T2m				=		"@p_T2m";
+		static String^		P_T2other			=		"@p_T2other";
+		static String^		P_Max_Dpdt			=		"@p_Max_Dpdt";
+		static String^		P_Memspare1			=		"@p_Memspare1";
+		static String^		P_Memspare2			=		"@p_Memspare2";
+		static String^		P_Intspare1			=		"@p_Intspare1";
+		static String^		P_Intspare2			=		"@p_Intspare2";
+		static String^		P_Floatspare1		=		"@p_Floatspare1";
+		static String^		P_Floatspare2		=		"@p_Floatspare2";
+		static String^		P_Noise_Factor		=		"@p_Noise_Factor";
+		static String^		P_Qc_Ph				=		"@p_Qc_Ph";
+		static String^		P_Qc_Phv			=		"@p_Qc_Phv";
+		static String^		P_Qc_Plv			=		"@p_Qc_Plv";
+		static String^		P_Qc_Dv				=		"@p_Qc_Dv";
+		static String^		P_Qc_Other1			=		"@p_Qc_Other1";
+		static String^		P_Qc_Other2			=		"@p_Qc_Other2";
+		static String^		P_Qc_Other3			=		"@p_Qc_Other3";
+		static String^		P_Qc_Other4			=		"@p_Qc_Other4";
+	};
 
 	/**
 	 * @struct CrxDbStructInternal
@@ -484,7 +645,225 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		String^ MpValidArrStr;
 	};
 
-	
+	/**
+	 * @struct CrxStructPWAMeasurementData
+	 * @brief Container for PWA main measurement data. 	
+	 */
+	public ref struct CrxStructPWAMeasurementData
+	{
+		int	SystemIdentifier;
+		int	GroupIdentifier;
+		int	PatientNumberInternal;
+		DateTime	StudyDateTime;
+		int			PWA_Id;
+		DateTime	AuditChange;
+		String^	BloodPressureRange;
+		short	BloodPressureEntryOption;
+		short	Age;
+		String^	Notes;
+		short	SP;
+		short	DP;
+		short	MP;
+		String^	Operator;
+		short	WeightInKilograms;
+		short	WeightInPounds;
+		short	HeightInCentimetres;
+		short	HeightInInches;
+		float	BodyMassIndex;
+		String^	MemSpare1;
+		String^	MemSpare2;
+		bool	Simulation;
+		int		IntSpare2;
+		float	FloatSpare1;
+		int		DataRev;
+		String^	SubType;
+		int		SampleRate;
+		int		SignalUpSampleRate;
+		int		ExpPulseUpSampleRate;
+		int		Flow;
+		String^	Medication;
+		String^	Message;
+		String^	Units;
+		int	CalSP;
+		int	CalDP;
+		int	CalMP;
+		int	HR;
+		int	ED;
+		int	CalcED;
+		int	QualityED;
+		int	EDMin;
+		int	EDMax;
+		int	EDOther;
+		short	CaptureInput;
+		array<float>^	C_RAW_SIGNALS;	// raw signals
+		array<float>^	C_AV_PULSE;		// average pulse which contains points to draw this average pulse
+		array<short>^	C_TRIGS;		// starting points of each pulse
+		array<short>^	C_ONSETS;		// calculated by P_TRIGS
+		array<float>^	C_Uncal_Av;
+		array<float>^	C_ResemblePulse; // pulse sampled at 1024 Hz
+		String^	C_Ole_Spare;
+		int		C_Math_Params;
+		float	C_Sp;
+		float	C_Dp;
+		float	C_Meanp;
+		float	C_T1;
+		float	C_T2;
+		float	C_T1i;
+		float	C_T1r;
+		float	C_T1m;
+		float	C_T1other;
+		float	C_T2i;
+		float	C_T2R;
+		float	C_T2M;
+		float	C_T2Other;
+		int		C_Quality_T1;
+		int		C_Quality_T2;
+		float	C_P1;
+		float	C_P2;
+		float	C_T1ED;
+		float	C_T2ED;
+		float	C_Ai;
+		float	C_Esp;
+		float	C_Ap;
+		float	C_Mps;
+		float	C_Mpd;
+		float	C_Tti;
+		float	C_Dti;
+		float	C_Svi;
+		float	C_Period; // length of central raw signals
+		float	C_Dd;
+		float	C_EdPeriod;
+		float	C_DdPeriod;
+		float	C_Ph;
+		float	C_P1_Height;
+		float	C_Agph;
+		float	C_Qc_Other1;
+		float	C_Qc_Other2;
+		float	C_Qc_Other3;
+		float	C_Qc_Other4;
+		int		C_IntSpare1;
+		int		C_IntSpare2;
+		float	C_FloatSpare1;
+		float	C_FloatSpare2;
+		float	C_MemSpare1;
+		float	C_MemSpare2;
+		float	C_Al;
+		float	C_Ati;
+		array<float>^	C_Flow;
+		array<float>^	C_Forward;
+		array<float>^	C_Backward;
+		float	C_Avi;
+		float	C_Pptt;
+		float	C_Avd;
+		float	C_Pwv;
+		float	C_Forward_Area;
+		float	C_Backward_Area;
+		float	C_Area_Ratio;
+		float	C_Pulse_Ratio;
+	};
+
+
+	/**
+	 * @struct CrxStructCuffPWAMeasurementData
+	 * @brief Container for PWA Cuff measurement data. 	
+	 */
+	public ref struct CrxStructCuffPWAMeasurementData
+	{
+		int				PWA_Id;
+		array<float>^	P_RAW_SIGNALS;	// raw signals
+		array<float>^	P_AV_PULSE;		// average pulse which contains points to draw this average pulse
+		array<short>^	P_TRIGS;		// starting points of each pulse
+		array<short>^	P_ONSETS;		// calculated by P_TRIGS
+		array<float>^	P_UNCAL_AV;
+		array<float>^	P_ResemblePulse; // pulse sampled at 1024 Hz
+		String^	P_OLE_SPARE;
+		int		P_MATH_PARAMS;
+		float	P_SP;
+		float	P_DP;
+		float	P_MEANP;
+		float	P_T1I;
+		float	P_T1R;
+		float	P_T1M;
+		float	P_T1Other;
+		float	P_T2I;
+		float	P_T2R;
+		float	P_T2M;
+		float	P_T2Other;
+		float	P_MAX_DPDT;
+		float	P_MEMSPARE1;
+		float	P_MEMSPARE2;
+		int		P_INTSPARE1;
+		int		P_INTSPARE2;
+		float	P_FLOATSPARE1;
+		float	P_FLOATSPARE2;
+		int		P_NOISE_FACTOR;
+		float	P_QC_PH;
+		float	P_QC_PHV;
+		float	P_QC_PLV;
+		float	P_QC_DV;
+		float	P_QC_OTHER1;
+		float	P_QC_OTHER2;
+		float	P_QC_OTHER3;
+		float	P_QC_OTHER4;
+	};
+
+
+	/**
+	 * @struct CrxStructTonoPWAMeasurementData
+	 * @brief Container for PWA Tonometer measurement data. 	
+	 */
+	public ref struct CrxStructTonoPWAMeasurementData
+	{
+		int				PWA_Id;
+		array<float>^	P_RAW_SIGNALS;	// raw signals
+		array<float>^	P_AV_PULSE;		// average pulse which contains points to draw this average pulse
+		array<short>^	P_TRIGS;		// starting points of each pulse
+		array<short>^	P_ONSETS;		// calculated by P_TRIGS
+		array<float>^	P_UNCAL_AV;
+		array<float>^	P_ResemblePulse; // pulse sampled at 1024 Hz
+		String^			P_OLE_SPARE;
+		int		P_MATH_PARAMS;
+		float	P_SP;
+		float	P_DP;
+		float	P_MEANP;
+		float	P_T1I;
+		float	P_T1R;
+		float	P_T1M;
+		float	P_T1Other;
+		float	P_T2I;
+		float	P_T2R;
+		float	P_T2M;
+		float	P_T2Other;
+		float	P_MAX_DPDT;
+		float	P_MEMSPARE1;
+		float	P_MEMSPARE2;
+		int		P_INTSPARE1;
+		int		P_INTSPARE2;
+		float	P_FLOATSPARE1;
+		float	P_FLOATSPARE2;
+		int		P_NOISE_FACTOR;
+		float	P_QC_PH;
+		float	P_QC_PHV;
+		float	P_QC_PLV;
+		float	P_QC_DV;
+		float	P_QC_OTHER1;
+		float	P_QC_OTHER2;
+		float	P_QC_OTHER3;
+		float	P_QC_OTHER4;
+		float	P_T1;
+		float	P_T2;
+		float	P_AI;
+		float	P_CalcT1;
+		float	P_CalcT2;
+		float	P_ESP;
+		float	P_P1;
+		float	P_P2;
+		float	P_T1ED;
+		float	P_T2ED;
+		int		P_QUALITY_T1;
+		int		P_QUALITY_T2;
+	};
+
 	/**
 	* @class CrxDBManager
 	* @brief Class to manage database related functions. @n
@@ -743,6 +1122,15 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* @param[in] md CrxStructPWVMeasurementData handle to Measurement Details structure
 		*/
 		int SavePWVMeasurementDetails(CrxStructPWVMeasurementData^ md);
+
+		/**
+		* To save PWA measurement record in the database @n
+		* Conversion of short/float arrays to byte arrays values to store in varbinary type at database
+		* @return if 1 if successfully saved else not successful
+		* @param[in] md CrxStructPWAMeasurementData handle to Measurement Details structure
+		*/
+		int SaveCuffPWAMeasurementDetails(CrxStructPWAMeasurementData^ pwaMD,CrxStructCuffPWAMeasurementData^ cuffPwaMD);
+	
 		
 		/**
 		* To update measurement record in the database @n
@@ -789,6 +1177,14 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* @param[in] shrtarr Short array values
 		*/
 		array<Byte>^ CommonShortArrtoByteArr(int len, array<unsigned short>^ shrtarr);
+
+		/**
+		* Overloaded method to convert short Array to Byte Array 
+		* @return Byte array data
+		* @param[in] len Length of the array
+		* @param[in] shrtarr Short array values
+		*/
+		array<Byte>^ CommonShortArrtoByteArr(int len, array<short>^ shrtarr);
 
 		/**
 		* To take backup of the database 

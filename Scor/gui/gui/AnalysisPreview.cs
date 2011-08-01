@@ -15,8 +15,10 @@ using Telerik.WinControls;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.DatabaseManager;
 using AtCor.Scor.CrossCutting.Messaging;
+using AtCor.Scor.CrossCutting;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Configuration;
+using System.Globalization;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -205,8 +207,8 @@ namespace AtCor.Scor.Gui.Presentation
 
             // set max value as largest pwv + largest std deviation
             // set min value as lowest pwv + largest std deviation
-            double maxValue = double.Parse(heartPwvSort[heartPwvSort.Length - 1]) + double.Parse(stdDeviationSort[stdDeviationSort.Length - 1]) + 1;
-            double minValue = double.Parse(heartPwvSort[0]) - double.Parse(stdDeviationSort[stdDeviationSort.Length - 1]) - 1;
+            double maxValue = double.Parse(heartPwvSort[heartPwvSort.Length - 1], CrxCommon.nCI) + double.Parse(stdDeviationSort[stdDeviationSort.Length - 1], CrxCommon.nCI) + 1;
+            double minValue = double.Parse(heartPwvSort[0], CrxCommon.nCI) - double.Parse(stdDeviationSort[stdDeviationSort.Length - 1], CrxCommon.nCI) - 1;
 
             maxValue = Math.Round(maxValue, 0, MidpointRounding.ToEven);
             minValue = Math.Round(minValue);
@@ -313,7 +315,7 @@ namespace AtCor.Scor.Gui.Presentation
                 Color = Color.Blue,
                 ChartType = SeriesChartType.Bubble,
                 XValueType = ChartValueType.Int32,
-                CustomProperties = AnaylsisPreview.BubbleMaxSize + (20 - (labelInterval * 2) + 1),
+                CustomProperties = BubbleMaxSize + (20 - (labelInterval * 2) + 1),
                 MarkerStyle = MarkerStyle.Circle,
                 ShadowOffset = 2
             };
@@ -323,8 +325,8 @@ namespace AtCor.Scor.Gui.Presentation
 
             for (int hrseries1 = 0; hrseries1 < trendSeries.Count; hrseries1++)
             {
-                trendLine.Points.AddXY(hrseries1, double.Parse(trendSeries[hrseries1]));
-                trendPoint.Points.AddXY(hrseries1, double.Parse(trendSeries[hrseries1]));
+                trendLine.Points.AddXY(hrseries1, double.Parse(trendSeries[hrseries1], CrxCommon.nCI));
+                trendPoint.Points.AddXY(hrseries1, double.Parse(trendSeries[hrseries1], CrxCommon.nCI));
 
                 if (trendType == ChartName.Pwv)
                 {
@@ -344,8 +346,8 @@ namespace AtCor.Scor.Gui.Presentation
                     double centerY = double.Parse(pWv[hrseries1]);
                     if (stdDeviationSeries != null)
                     {
-                        double lowerErrorY = centerY - double.Parse(stdDeviationSeries[hrseries1]);
-                        double upperErrorY = centerY + double.Parse(stdDeviationSeries[hrseries1]);
+                        double lowerErrorY = centerY - double.Parse(stdDeviationSeries[hrseries1], CrxCommon.nCI);
+                        double upperErrorY = centerY + double.Parse(stdDeviationSeries[hrseries1], CrxCommon.nCI);
                         correctionLine.Points.AddXY(hrseries1, centerY, lowerErrorY, upperErrorY);
                     }
 
@@ -566,7 +568,7 @@ namespace AtCor.Scor.Gui.Presentation
                 Color = Color.DarkRed,
                 ChartType = SeriesChartType.Bubble,
                 XValueType = ChartValueType.Int32,
-                CustomProperties = AnaylsisPreview.BubbleMaxSize + (20 - (labelInterval * 2) + 1),
+                CustomProperties = BubbleMaxSize + (20 - (labelInterval * 2) + 1),
                 MarkerStyle = MarkerStyle.Diamond,
                 ShadowOffset = 0,
                 LegendText = " ",
@@ -755,26 +757,26 @@ namespace AtCor.Scor.Gui.Presentation
         private int YaxisIntervalOffsetBp(double highBpVlaue, double lowBpVlaue)
         {
             int bpInterval = 10;
-            int tempValue = 10;
             int tempInterval = 0;
-            int validInternal = 15;
-            int maxInterval = 20;           
+            const int TempValue = 10;
+            const int ValidInternal = 15;
+            const int MaxInterval = 20;           
 
             if (highBpVlaue != 0.0)
             {
-                highBpVlaue = highBpVlaue + tempValue;
-                lowBpVlaue = lowBpVlaue - tempValue;
+                highBpVlaue = highBpVlaue + TempValue;
+                lowBpVlaue = lowBpVlaue - TempValue;
 
                 tempInterval = Convert.ToInt32(highBpVlaue - lowBpVlaue);
-                tempInterval = tempInterval / tempValue;
+                tempInterval = tempInterval / TempValue;
 
-                if (tempInterval < validInternal)
+                if (tempInterval < ValidInternal)
                 {
-                    bpInterval = tempValue;
+                    bpInterval = TempValue;
                 }
                 else
                 {
-                    bpInterval = maxInterval;
+                    bpInterval = MaxInterval;
                 }
             }         
 

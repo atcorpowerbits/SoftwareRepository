@@ -283,7 +283,7 @@ public: [TestMethod]
 				CommsPortEventArgs^  args = gcnew  CommsPortEventArgs(comPortName); 
 				target->ConfigCommsPortSettingChangeHandler(sender, args);
 				DalDeviceHandler_Accessor ^currentDalDevice = dynamic_cast<DalDeviceHandler_Accessor^>(target->_currentDevice);
-				Assert::AreEqual(comPortName, currentDalDevice->_commandInterface->ActiveSerialPortName);
+				Assert::AreEqual(comPortName, DalActivePort_Accessor::Instance->ActiveSerialPortName);
 
 			}
 			

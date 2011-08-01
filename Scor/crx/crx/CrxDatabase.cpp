@@ -1102,6 +1102,41 @@ array<Byte>^ CrxDBManager::CommonShortArrtoByteArr(int len, array<unsigned short
 		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrDbMgrConversionErrCd, CrxStructCommonResourceMsg::CrxErrDbMgrConversion, ErrorSeverity::Exception);
 	} 
 }
+//*********************************************//
+array<Byte>^ CrxDBManager::CommonShortArrtoByteArr(int len, array<short>^ shrtarr)
+{
+	int val						=	0;	//value to run number of loops
+	int byt						=	0;	//value to store data in array location	
+	array<Byte>^ bufferarr;				//Temporary byte array object for manipulation
+	array<Byte>^ bufferArrRet;			//Temporary byte array object for manipulation and returning
+
+	try
+	{
+		if(len != 0)
+		{		
+			//initiaze the size of the array
+			bufferArrRet = gcnew array<Byte>(len*sizeof(short));
+			
+			for(val=0, byt=0; val<len; val++, byt = byt + CrxDbStructInternal::ShortSize)
+			{
+				bufferarr = BitConverter::GetBytes(shrtarr[val]);			
+				bufferArrRet[byt] = bufferarr[0];
+				bufferArrRet[byt+1] = bufferarr[1];
+			}
+		}
+		else
+		{
+			bufferArrRet = gcnew array<Byte>(len*sizeof(short));
+		}
+		return bufferArrRet;
+	}
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrDbMgrConversionErrCd, CrxStructCommonResourceMsg::CrxErrDbMgrConversion, ErrorSeverity::Exception);
+	} 
+}
+//*********************************************//
 array<Byte>^ CrxDBManager::CommonFloatArrtoByteArr(int len, array<float>^ fltarr)
 {
 	int val						=	0;	//value to run number of loops
@@ -1678,5 +1713,415 @@ void CrxDBManager::MigrationFileRename(int fileType)
 	if(fileType == Convert::ToInt32(CrxDBAccessFileNameList::ScorMdbFileType,CrxCommon::gCI))
 	{ 
 		File::Move(CrxDbStructInternal::NameOfMSAccessFile,CrxDbStructInternal::NameOfMSAccessFileNew);
+	}
+}
+
+
+int CrxDBManager::SaveCuffPWAMeasurementDetails(AtCor::Scor::CrossCutting::DatabaseManager::CrxStructPWAMeasurementData ^pwaMD, AtCor::Scor::CrossCutting::DatabaseManager::CrxStructCuffPWAMeasurementData ^cuffPwaMD)
+{
+	int result				 = 0;		//initializes to 0, if 1 successful else return zero
+	int len					 = 0;		//Get the length of the array
+	DbCommand^ addCommand	 = nullptr; // store the stored procedure in addCommand object
+	SqlParameter^ parameter  = nullptr;	//creating sqlparameter object to pass parameter values
+	array<Byte>^	buffarr;			//Temporary byte array object for manipulation
+
+	try
+	{		
+		//initializing sqlparameter object to pass the parameter value
+		parameter = gcnew SqlParameter(); 
+
+		//get the Stored Procedure query using database object
+		addCommand = _objDB->GetStoredProcCommand(CrxDbStructSpList::InsertCuffPWAMeasurementDetails);
+
+		////Adding input parameters in the DbCommand object to execute stored procedure
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::SystemIdentifier,DbType::Int32,pwaMD->SystemIdentifier);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::GroupIdentifier,DbType::Int32,pwaMD->GroupIdentifier);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::PatientNumberInternal,DbType::Int32,pwaMD->PatientNumberInternal);
+		//_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::AuditChange,DbType::DateTime,pwaMD->AuditChange);
+
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::BloodPressureRange,DbType::String,pwaMD->BloodPressureRange);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::BloodPressureEntryOption,DbType::Int16,pwaMD->BloodPressureEntryOption);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::Age,DbType::Int16,pwaMD->Age);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::Notes,DbType::String,pwaMD->Notes);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::SP,DbType::Int16,pwaMD->SP);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::DP,DbType::Int16,pwaMD->DP);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::MP,DbType::Int16,pwaMD->MP);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::Operator,DbType::String,pwaMD->Operator);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::WeightInKilograms,DbType::Int16,pwaMD->WeightInKilograms);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::WeightInPounds,DbType::Int16,pwaMD->WeightInPounds);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::HeightInCentimetres,DbType::Int16,pwaMD->HeightInCentimetres);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::HeightInInches,DbType::Int16,pwaMD->HeightInInches);
+		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::BodyMassIndex,DbType::Single,pwaMD->BodyMassIndex);
+
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::MemSpare1,DbType::String,pwaMD->MemSpare1);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::MemSpare2,DbType::String,pwaMD->MemSpare2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::Simulation,DbType::Boolean,pwaMD->Simulation);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::IntSpare2,DbType::Int32,pwaMD->IntSpare2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::FloatSpare1,DbType::Single,pwaMD->FloatSpare1);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::DataRev,DbType::Int32,pwaMD->DataRev);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::SubType,DbType::String,pwaMD->SubType);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::SampleRate,DbType::Int32,pwaMD->SampleRate);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::SignalUpSampleRate,DbType::Int32,pwaMD->SignalUpSampleRate);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::ExpPulseUpSampleRate,DbType::Int32,pwaMD->ExpPulseUpSampleRate);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::Flow,DbType::Int32,pwaMD->Flow);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::Medication,DbType::String,pwaMD->Medication);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::Message,DbType::String,pwaMD->Message);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::Units,DbType::String,pwaMD->Units);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::CalSP,DbType::Int32,pwaMD->CalSP);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::CalDP,DbType::Int32,pwaMD->CalDP);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::CalMP,DbType::Int32,pwaMD->CalMP);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::HR,DbType::Int32,pwaMD->HR);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::ED,DbType::Int32,pwaMD->ED);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::CalcED,DbType::Int32,pwaMD->CalcED);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::QualityED,DbType::Int32,pwaMD->QualityED);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::EDMin,DbType::Int32,pwaMD->EDMin);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::EDMax,DbType::Int32,pwaMD->EDMax);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::EDOther,DbType::Int32,pwaMD->EDOther);	
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::CaptureInput,DbType::Int16,pwaMD->CaptureInput);
+		
+		//get the length of array
+		len = pwaMD->C_RAW_SIGNALS->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_RAW_SIGNALS);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_Raw_Signals;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+		//get the length of array
+		len = pwaMD->C_AV_PULSE->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_AV_PULSE);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_Av_Pulses;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+		//get the length of array
+		len = pwaMD->C_TRIGS->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(short));
+		//Calling common function convert to byte array
+		buffarr = CommonShortArrtoByteArr(len,pwaMD->C_TRIGS);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_Trigs;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+		//get the length of array
+		len = pwaMD->C_ONSETS->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(short));
+		//Calling common function convert to byte array
+		buffarr = CommonShortArrtoByteArr(len,pwaMD->C_ONSETS);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_Onsets;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+				
+		//get the length of array
+		len = pwaMD->C_Uncal_Av->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_Uncal_Av);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_Uncal_Av;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+		//get the length of array
+		len = pwaMD->C_ResemblePulse->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_ResemblePulse);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_ResemblePulse;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);		
+
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Ole_Spare,DbType::String,pwaMD->C_Ole_Spare);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Math_Params,DbType::Int32,pwaMD->C_Math_Params);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Sp,DbType::Single,pwaMD->C_Sp);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Dp,DbType::Single,pwaMD->C_Dp);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Meanp,DbType::Single,pwaMD->C_Meanp);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T1,DbType::Single,pwaMD->C_T1);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T2,DbType::Single,pwaMD->C_T2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T1i,DbType::Single,pwaMD->C_T1i);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T1r,DbType::Single,pwaMD->C_T1r);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T1m,DbType::Single,pwaMD->C_T1m);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T1other,DbType::Single,pwaMD->C_T1other);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T2i,DbType::Single,pwaMD->C_T2i);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T2R,DbType::Single,pwaMD->C_T2R);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T2M,DbType::Single,pwaMD->C_T2M);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T2Other,DbType::Single,pwaMD->C_T2Other);
+		
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Quality_T1,DbType::Int32,pwaMD->C_Quality_T1);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Quality_T2,DbType::Int32,pwaMD->C_Quality_T2);
+
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_P1,DbType::Single,pwaMD->C_P1);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_P2,DbType::Single,pwaMD->C_P2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T1ED,DbType::Single,pwaMD->C_T1ED);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_T2ED,DbType::Single,pwaMD->C_T2ED);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Ai,DbType::Single,pwaMD->C_Ai);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Esp,DbType::Single,pwaMD->C_Esp);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Ap,DbType::Single,pwaMD->C_Ap);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Mps,DbType::Single,pwaMD->C_Mps);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Mpd,DbType::Single,pwaMD->C_Mpd);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Tti,DbType::Single,pwaMD->C_Tti);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Dti,DbType::Single,pwaMD->C_Dti);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Svi,DbType::Single,pwaMD->C_Svi);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Period,DbType::Single,pwaMD->C_Period);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Dd,DbType::Single,pwaMD->C_Dd);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_EdPeriod,DbType::Single,pwaMD->C_EdPeriod);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_DdPeriod,DbType::Single,pwaMD->C_DdPeriod);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Ph,DbType::Single,pwaMD->C_Ph);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_P1_Height,DbType::Single,pwaMD->C_P1_Height);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Agph,DbType::Single,pwaMD->C_Agph);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Qc_Other1,DbType::Single,pwaMD->C_Qc_Other1);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Qc_Other2,DbType::Single,pwaMD->C_Qc_Other2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Qc_Other3,DbType::Single,pwaMD->C_Qc_Other3);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Qc_Other4,DbType::Single,pwaMD->C_Qc_Other4);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_IntSpare1,DbType::Int32,pwaMD->C_IntSpare1);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_IntSpare2,DbType::Int32,pwaMD->C_IntSpare2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_FloatSpare1,DbType::Single,pwaMD->C_FloatSpare1);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_FloatSpare2,DbType::Single,pwaMD->C_FloatSpare2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_MemSpare1,DbType::Single,pwaMD->C_MemSpare1);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_MemSpare2,DbType::Single,pwaMD->C_MemSpare2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Al,DbType::Single,pwaMD->C_Al);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Ati,DbType::Single,pwaMD->C_Ati);
+
+		//get the length of array
+		len = pwaMD->C_Flow->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_Flow);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_Flow;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+		//get the length of array
+		len = pwaMD->C_Forward->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_Forward);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_Forward;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+		//get the length of array
+		len = pwaMD->C_Backward->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_Backward);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_Backward;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+		
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Avi,DbType::Single,pwaMD->C_Avi);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Pptt,DbType::Single,pwaMD->C_Pptt);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Avd,DbType::Single,pwaMD->C_Avd);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Pwv,DbType::Single,pwaMD->C_Pwv);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Forward_Area,DbType::Single,pwaMD->C_Forward_Area);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Backward_Area,DbType::Single,pwaMD->C_Backward_Area);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Area_Ratio,DbType::Single,pwaMD->C_Area_Ratio);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Pulse_Ratio,DbType::Single,pwaMD->C_Pulse_Ratio);
+
+		/////////////////////
+		//Cuff PWA Measurement Input
+		/////////////////////
+
+		//get the length of array
+		len = cuffPwaMD->P_RAW_SIGNALS->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,cuffPwaMD->P_RAW_SIGNALS);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructCuffPwaParametersList::P_Raw_Signals;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+		//get the length of array
+		len = cuffPwaMD->P_AV_PULSE->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,cuffPwaMD->P_AV_PULSE);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructCuffPwaParametersList::P_Av_Pulses;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+	
+		//get the length of array
+		len = cuffPwaMD->P_TRIGS->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(short));
+		//Calling common function convert to byte array
+		buffarr = CommonShortArrtoByteArr(len,cuffPwaMD->P_TRIGS);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructCuffPwaParametersList::P_Trigs;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+		//get the length of array
+		len = cuffPwaMD->P_ONSETS->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(short));
+		//Calling common function convert to byte array
+		buffarr = CommonShortArrtoByteArr(len,cuffPwaMD->P_ONSETS);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructCuffPwaParametersList::P_Onsets;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+		//get the length of array
+		len = cuffPwaMD->P_UNCAL_AV->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,cuffPwaMD->P_UNCAL_AV);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructCuffPwaParametersList::P_Uncal_Av;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);
+
+		//get the length of array
+		len = cuffPwaMD->P_ResemblePulse->Length;
+		//initiaze the size of the array
+		buffarr = gcnew array<Byte>(len*sizeof(float));
+		//Calling common function convert to byte array
+		buffarr = CommonFloatArrtoByteArr(len,cuffPwaMD->P_ResemblePulse);
+		//initializing sqlparameter object to pass the parameter value
+		parameter = nullptr;
+		parameter = gcnew SqlParameter();
+		parameter->ParameterName = CrxDbStructCuffPwaParametersList::P_ResemblePulse;         
+		parameter->SqlDbType = SqlDbType::VarBinary;  	
+		parameter->Direction = ParameterDirection::Input;         
+		parameter->Value = buffarr;
+		addCommand->Parameters->Add(parameter);		
+
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Ole_Spare,DbType::String,cuffPwaMD->P_OLE_SPARE);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Math_Params,DbType::Int32,cuffPwaMD->P_MATH_PARAMS);
+
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Sp,DbType::Single,cuffPwaMD->P_SP);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Dp,DbType::Single,cuffPwaMD->P_DP);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Meanp,DbType::Single,cuffPwaMD->P_MEANP);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_T1i,DbType::Single,cuffPwaMD->P_T1I);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_T1r,DbType::Single,cuffPwaMD->P_T1R);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_T1m,DbType::Single,cuffPwaMD->P_T1M);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_T1other,DbType::Single,cuffPwaMD->P_T1Other);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_T2i,DbType::Single,cuffPwaMD->P_T2I);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_T2r,DbType::Single,cuffPwaMD->P_T2R);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_T2m,DbType::Single,cuffPwaMD->P_T2M);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_T2other,DbType::Single,cuffPwaMD->P_T2Other);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Max_Dpdt,DbType::Single,cuffPwaMD->P_MAX_DPDT);
+
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Memspare1,DbType::Single,cuffPwaMD->P_MEMSPARE1);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Memspare2,DbType::Single,cuffPwaMD->P_MEMSPARE2);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Intspare1,DbType::Int32,cuffPwaMD->P_INTSPARE1);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Intspare2,DbType::Int32,cuffPwaMD->P_INTSPARE2);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Floatspare1,DbType::Single,cuffPwaMD->P_FLOATSPARE1);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Floatspare2,DbType::Single,cuffPwaMD->P_FLOATSPARE2);
+
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Noise_Factor,DbType::Int32,cuffPwaMD->P_NOISE_FACTOR);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Ph,DbType::Single,cuffPwaMD->P_QC_PH);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Phv,DbType::Single,cuffPwaMD->P_QC_PHV);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Plv,DbType::Single,cuffPwaMD->P_QC_PLV);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Dv,DbType::Single,cuffPwaMD->P_QC_DV);
+
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other1,DbType::Single,cuffPwaMD->P_QC_OTHER1);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other2,DbType::Single,cuffPwaMD->P_QC_OTHER2);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other3,DbType::Single,cuffPwaMD->P_QC_OTHER3);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other4,DbType::Single,cuffPwaMD->P_QC_OTHER4);		
+		
+		//Execute stored procedure and return int result how many rows affected
+		result = _objDB->ExecuteNonQuery(addCommand);	
+
+		if(result > 0)
+		{
+			result = 1;
+		}
+
+		return result;
+		
+	}
+	catch(ScorException^ crxObj)
+	{
+		// rethrow the exception
+		throw crxObj;
+	}
+	catch(Exception^ eObj)
+	{
+		// throw the exception
+		throw gcnew ScorException(eObj);
 	}
 }

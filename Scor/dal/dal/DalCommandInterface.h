@@ -18,6 +18,9 @@
 #include "DalCommandState.h"
 #include "DalCaptureState.h"
 #include "DalSequenceNumberManager.h"
+#include "DalActivePort.h"
+#include "DalStreamingPacketQueue.h"
+
 
 using namespace System;
 using namespace System::IO::Ports;
@@ -46,7 +49,7 @@ namespace AtCor{
 					static int _tonometerDataIndex = 0;
 					static int _cuffPulseDataIndex = 2;
 					static int _cuffPressureDataIndex = 4;
-					static int _countdownTimerDataIndex = 6;
+					static int _countdownTimerDataIndex = 6; //TODO: maybe we better send this to another structure or class
 
 					static DalCommandInterface^ _instance = gcnew DalCommandInterface();
 					DalCommandInterface^ operator= ( DalCommandInterface);
@@ -54,13 +57,20 @@ namespace AtCor{
 					bool ValidateCommand(DalEM4Command^ serialCommand);
 					DalReturnValue ValidateCommandResult(DalEM4Command^ serialCommand, DalReturnValue responseReturnValue);
 
-					static SerialPort ^_serialPort;
+					//static SerialPort ^_serialPort;
+				//	static DalActivePort^ _serialPort;
 
 					Timers::Timer^ streamingStoppedCheckTimer;  //A timer to check whether the serial port data streaming has stopped.
+
+					Timers::Timer^ streamingPacketProcessingTimer; //Timer to start the method that will process x packets in each tick
 					
 					static DalCommandState^ _currentCommandState; //pointer to the current state object of the command state machine
 
 					static DalCaptureState^ _currentCaptureState;  //pointer to the current state object of the capture state machine
+
+					DalReturnValue SendCommandPacketWithRetries(DalEM4Command^ serialCommand);  
+
+					Thread^ listenerThread;
 
 
 					
@@ -96,6 +106,16 @@ namespace AtCor{
 					* @return The status of the operation: succeded/ failed/ timout/ nack
 					*/
 					DalReturnValue SendCommandAndGetResponse(DalEM4Command^ serialCommand); 
+
+					///**
+					//* Send the command specifed in the parameter and processes the response from EM4
+					//* @warning This command was previously known as SendCommand() 
+					//* but has been renamed to make it more meaningful. It is now a facade for ProcessCommandAndResponse()
+					//*
+					//* @param[in,out] serialCommand	A DalEM4Command object which has been initialized  with a valid command.
+					//* @return The status of the operation: succeded/ failed/ timout/ nack
+					//*/
+					//DalReturnValue SendPacketWithRetries(DalEM4Command^ serialCommand); 
 
 					/**
 					* Sends a command and gets the response from the EM4 @n
@@ -206,13 +226,13 @@ namespace AtCor{
 					*/
 					DalCommandInterface();
 					
-					/**
-					* Handler for the events raised during data capture. @n
-					* Reads multiple events in a loop
-					* @param[in]	sender	Event sender. 
-					* @param[in]	e	Event arguments
-					*/
-					static void DataCaptureMultiplePacketHandler(Object^ sender, SerialDataReceivedEventArgs^ e);
+					///*
+					//* Handler for the events raised during data capture. @n
+					//* Reads multiple events in a loop
+					//* @param[in]	sender	Event sender. 
+					//* @param[in]	e	Event arguments
+					//*/
+					//static void DataCaptureMultiplePacketHandler(Object^ sender, SerialDataReceivedEventArgs^ e);
 			
 
 					/**
@@ -232,7 +252,7 @@ namespace AtCor{
 					* @param  serialPortName The serial port to set
 					* @return	status of the operation
 					*/
-					bool SetActivePort( String^ serialPortName);
+					//bool SetActivePort( String^ serialPortName);
 
 					/**
 					* Sets the port name for the current serial port object.
@@ -240,17 +260,17 @@ namespace AtCor{
 					* @return	status of the operation
 					* @warning Check if the serialport instance is not null before calling.
 					*/
-					bool SetActivePortInstance(String^ serialPortName);
+					//bool SetActivePortInstance(String^ serialPortName);
 
 					/**
 					* Sets the properties of the internal serialPort object
 					* @return	status of the operation
 					*/
-					bool SetSerialPortProperties();
+					//bool SetSerialPortProperties();
 
-					bool CreateAndOpenNewSerialPort(String^ newPortName);
+					//bool CreateAndOpenNewSerialPort(String^ newPortName);
 
-					bool CloseActivePort();
+					//bool CloseActivePort();
 
 					/**
 					* Returns the current singleton instance.
@@ -263,56 +283,56 @@ namespace AtCor{
 						};
 					};
 
-					/**
-					* Returns the name of the currently active serial port.
-					* @warning Will return @c null if the current serial port object is not set.
-					*/
-					property String^ ActiveSerialPortName
-					{
-						String^ get()
-						{
-							if (_serialPort)
-							{
-								return _serialPort->PortName;
-							}
-							else
-							{
-								//we will return a null string to indicate that the serialPort object hasnt been initialized.
-								return nullptr;
-							}
-						};
-					}
+					///**
+					//* Returns the name of the currently active serial port.
+					//* @warning Will return @c null if the current serial port object is not set.
+					//*/
+					//property String^ ActiveSerialPortName
+					//{
+					//	String^ get()
+					//	{
+					//		if (_serialPort)
+					//		{
+					//			return _serialPort->PortName;
+					//		}
+					//		else
+					//		{
+					//			//we will return a null string to indicate that the serialPort object hasnt been initialized.
+					//			return nullptr;
+					//		}
+					//	};
+					//}
 
 					
 
-					/** 
-					* Cleans the input buffer and dumps the unread packets into the log file.
-					* Called when there an illegal data packet is received @n
-					* cleans the input buffer and dumps the remaining values into the logfile.
-					* @param[in]	serialPort	The serial port object
-					* @param[in]	currentDataPacket	The data packet to be dumped. 
-					*/
-					static bool DumpInputBufferOnFailure(SerialPort^ serialPort, array<unsigned char> ^currentDataPacket);
+					///**
+					//* Cleans the input buffer and dumps the unread packets into the log file.
+					//* Called when there an illegal data packet is received @n
+					//* cleans the input buffer and dumps the remaining values into the logfile.
+					//* @param[in]	serialPort	The serial port object
+					//* @param[in]	currentDataPacket	The data packet to be dumped. 
+					//*/
+					//static bool DumpInputBufferOnFailure(SerialPort^ serialPort, array<unsigned char> ^currentDataPacket);
 
 
-					/** 
-					* Processes the input buffer for data packets. @n
-					* Reads multiple data packets in a loop and writes them to the circula buffer.
-					* @param[in]	sender	Event sender. 
-					* @param[in]	e	Event arguments
-					* @see DataCaptureMultiplePacketHandler
-					*/
-					static void ReadFromPortAndWriteToBuffer(Object^ sender, SerialDataReceivedEventArgs^ e);
+					///*
+					//* Processes the input buffer for data packets. @n
+					//* Reads multiple data packets in a loop and writes them to the circula buffer.
+					//* @param[in]	sender	Event sender. 
+					//* @param[in]	e	Event arguments
+					//* @see DataCaptureMultiplePacketHandler
+					//*/
+					//static void ReadFromPortAndWriteToBuffer(Object^ sender, SerialDataReceivedEventArgs^ e);
 
-					/** 
-					* Searches for the response to a particulr serial command in a large array. @n
-					* @param[in]	serialCommand	The command whose response we need to search in the array. 
-					* @param[in]	sourceArray		The array in which the search is conducted
-					* @return		A boolan value indicating the status of the operation: @n
-					*				@c true if a valid response to the command was found( can be an Ack or nack)
-					*				@c false if no response was found.
-					*/
-					bool ExtractRequiredResponseFromArray(DalEM4Command^ serialCommand, array <unsigned char> ^ sourceArray);
+					///*
+					//* Searches for the response to a particulr serial command in a large array. @n
+					//* @param[in]	serialCommand	The command whose response we need to search in the array. 
+					//* @param[in]	sourceArray		The array in which the search is conducted
+					//* @return		A boolan value indicating the status of the operation: @n
+					//*				@c true if a valid response to the command was found( can be an Ack or nack)
+					//*				@c false if no response was found.
+					//*/
+					//bool ExtractRequiredResponseFromArray(DalEM4Command^ serialCommand, array <unsigned char> ^ sourceArray);
 
 
 					/**
@@ -330,7 +350,18 @@ namespace AtCor{
 					static void CheckIfTimeoutHasOccurredInternal(Object^ sender, ElapsedEventArgs^ args);
 
 					static void CheckSerialPortInputBuffer(Object^ sender, ElapsedEventArgs^ args);
-			
+
+					bool ProcessSingleStreamingPacket(array<unsigned char> ^ streamingPacket);
+
+					bool ProcessStreamingPackets();
+
+					void StreamingPacketReadHandler(Object ^sender, ElapsedEventArgs^ e);
+
+					void ResponseListenerThreadMethod(Object^ responsePacket);
+
+					void SignalResponsePacketAvailable();
+
+				
 			};
 		}
 	}

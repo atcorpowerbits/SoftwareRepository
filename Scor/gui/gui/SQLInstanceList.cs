@@ -56,7 +56,7 @@ namespace AtCor.Scor.Gui.Presentation
             
             // Disable the close button of the window.
             FormElement.TitleBar.CloseButton.Enabled = false;
-            SetShape(guicmbxSqlServerList);
+            GuiCommon.SetShape(guicmbxSqlServerList);
         }       
 
         protected override CreateParams CreateParams
@@ -90,7 +90,8 @@ namespace AtCor.Scor.Gui.Presentation
 
                 guicmbxSqlServerList.DataSource = dt;
                 guicmbxSqlServerList.DisplayMember = "ServerName";
-                OnInitializationProcess.Invoke(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnExit));                 
+                OnInitializationProcess.Invoke(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnExit));
+                SetTextForControls();
             }
             catch (Exception ex)
             {
@@ -167,6 +168,14 @@ namespace AtCor.Scor.Gui.Presentation
         {
             guiradlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerUnableToConnect) + serverNameString + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSelectSqlInstance);
             oLogObject.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerFailed) + serverNameString); 
-        }        
+        }
+
+        /**This method is used to set the text for the controls on the form.
+        */
+        private void SetTextForControls()
+        {
+            guiradbtnConnect.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSqlInstanceConnect);
+            guiradbtnCancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCancel);
+        }
     }
 }

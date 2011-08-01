@@ -86,6 +86,14 @@ namespace TestCrx {
 				Assert::IsNull(target->StartupScreen);
 				Assert::IsNull(target->EnvironmentSettings);
 				Assert::IsNull(target->PrinterName);
+				Assert::IsNull(target->Key);
+				//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2010, 13-Jun-2011
+				/*Assert::IsNull(target->Id);
+				Assert::IsNull(target->Sn);
+				Assert::IsNull(target->Verify);
+				Assert::IsNull(target->Cksum);*/
+				//End  : AtCor-Drop2-Sprint1, TM, SWREQ2010, 13-Jun-2011
+	
 			}
 	};
 }

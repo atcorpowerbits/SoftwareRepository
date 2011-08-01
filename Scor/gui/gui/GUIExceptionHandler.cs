@@ -18,7 +18,6 @@ using Telerik.WinControls;
 using System.Configuration;
 using System.IO;
 using System.Drawing;
-using System.Security.Permissions;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -47,7 +46,7 @@ namespace AtCor.Scor.Gui.Presentation
         public static void RegisterUnHandledExceptionHandler()
         {
             AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(currentDomain_UnhandledException); 
+            currentDomain.UnhandledException += currentDomain_UnhandledException; 
         }
 
         /** This method handles all types of exception & throws appropriate messages
@@ -67,7 +66,7 @@ namespace AtCor.Scor.Gui.Presentation
         static void currentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {            
             Exception ex = (Exception)e.ExceptionObject;
-            RadMessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace.ToString(), OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+            RadMessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
         } 
 
         /** This method handles scor exception returned from both DAL & CRX with error codes & error types.

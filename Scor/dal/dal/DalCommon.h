@@ -47,8 +47,10 @@ namespace AtCor{
 
 										static const unsigned int StreamingTimeoutCheckerInterval = 125; /**< time interval in which the capture process should check for timeout*/
 										static const int	MaxStreamingTimeoutOccurrences = 2; /**< number of times the StreamingTimout check should be done before raising a timeout event*/
-										
+
 										static const unsigned int RightShiftOneNibble = 4;
+										static const unsigned int EM4NackPacketDataLength = 1; //Nack packet contains only one packet
+										static const unsigned int StreamingPacketReadInterval = 125; /**< Interval at which the timer for reading packets should fire.*/
 										
 								};
 
@@ -106,7 +108,7 @@ namespace AtCor{
 									CUFF_STATUS_BITS_UNKNOWN = 0xFFFF,  //marked as a clear flag. cannot use 0 becuase it is another valid value
 									
 									CUFF_DISCONNECTED_STATUS_BITS = 0x2000,
-									
+																		
 									CUFF_DEFLATED_STATUS_BITS     = 0x0000,
 								
 									CUFF_INFLATING_STATUS_BITS    = 0x0100,
@@ -293,7 +295,7 @@ namespace AtCor{
 									internal:
 										static String^ PrintEnumName = "G";
 										static String^ SingleSpaceString = " ";
-										static String^ PrintByte = "X2";
+										static String^ PrintByte = DalFormatterStrings::PrintByte;
 										static String^ FullDateTimeFormat = "yyyyMMMddHHmmss";
 										static char    tabSeparator = '\t';
 										static String^ tabSeparatorString = "\t";
@@ -457,6 +459,25 @@ namespace AtCor{
 										static String^ TagEM4NumberOfRetriesAllowed = "EM4NumberOfRetriesAllowed";
 										
 								};
+
+								private enum class DalPacketType
+								{
+									Unknown,
+									StreamingDataPacket,
+									AckedResponsePakcet,
+									NackedResponsePacket
+								};
+
+
+								/*private ref class DalExceptionHandler
+								{
+								public:
+									static void HandleDalExceptions(Exception^ ex, Object^ sender)
+									{
+										ex;
+										sender;
+									}
+								};*/
 
 		} // End Namespace DataAccess
 	} // End Namespace Scor

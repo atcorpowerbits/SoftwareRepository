@@ -54,7 +54,7 @@ namespace TestDal {
 				try
 				{
 					commInterfaceObject = DalCommandInterface_Accessor::Instance;
-					commInterfaceObject->SetActivePort(comPortName);
+					DalActivePort_Accessor::Instance->SetActivePort(comPortName);
 				}
 				catch (AtCor::Scor::CrossCutting::ScorException^ scorExObj)
 				{
@@ -100,7 +100,7 @@ namespace TestDal {
 				DalCommandInterface_Accessor ^ target = DalCommandInterface_Accessor::Instance;
 				try
 				{
-					target->CloseActivePort();
+					DalActivePort_Accessor::Instance->CloseActivePort();
 				}
 				catch(Exception^ ex)
 				{
@@ -130,7 +130,7 @@ namespace TestDal {
 
 					//DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor());
 					DalCommandInterface_Accessor ^ target = DalCommandInterface_Accessor::Instance;
-					target->CreateAndOpenNewSerialPort(comPortName);
+					//target->CreateAndOpenNewSerialPort(comPortName);
 					Assert::IsNotNull(target->_serialPort);
 					Assert::IsTrue(target->_serialPort->IsOpen);
 
@@ -765,7 +765,7 @@ public: [TestMethod]
 		void ExtractRequiredResponseFromArrayTest()
 		{
 			DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor()); 
-			target->_sentPacketSequenceNumber  = 0x01;
+			//target->_sentPacketSequenceNumber  = 0x01; //packet number shifted to different class
 			DalEM4Command_Accessor^  serialCommand = gcnew DalEM4Command_Accessor(0x08, nullptr); 
 			serialCommand->expectedResponseLength = 0x05;
 			cli::array< unsigned char >^  destinationArray = gcnew array<unsigned char> {0x87, 0x0D, 0x20, 0x01, 0xA8, 0x02, 0xB7, 0x00, 0x46, 0x00, 0x18, 0x09, 0x00, 0xA5, 0x87, 0x0D, 0x30, 0x01, 0xA7, 0x02, 0xCA, 0x00, 0x46, 0x00, 0x18, 0x09, 0x00, 0x8C, 0x88, 0x05, 0x10, 0x01, 0x00, 0x77, 0x87, 0x0D, 0x40, 0x01, 0xC8, 0x01, 0xC2, 0x00, 0x46, 0x00, 0x18, 0x09, 0x00, 0x26}; 
@@ -820,7 +820,9 @@ public: [TestMethod]
 			DalCommandInterface_Accessor::CheckIfTimeoutHasOccurred(sender, args);
 			Assert::IsTrue(TimeoutErrorAlarmEventRaised); //This shoudld be TRUE 
 		}
-		/// Test for single value
+
+		//Moved to a different class
+		/*/// Test for single value
 		///A test for SentPacketSequenceNumber
 		///</summary>
 public: [TestMethod]
@@ -831,26 +833,27 @@ public: [TestMethod]
 			actual = DalCommandInterface_Accessor::SentPacketSequenceNumber;
 			Assert::AreEqual((unsigned char)0, actual);
 			
-		}
+		}*/
 
 
-		/// Test values in a loop
-		///A test for SentPacketSequenceNumber
-		///</summary>
-public: [TestMethod]
-		[DeploymentItem(L"dal.dll")]
-		void SentPacketSequenceNumberLoopTest()
-		{
-			unsigned char actual;
-			
-			//run it for more than 0-F to check for valdity
-			for (int i = 0; i < 18; i++)
-			{
-				actual = DalCommandInterface_Accessor::SentPacketSequenceNumber;
-				Assert::AreEqual((unsigned char)(i%16), actual);
-			}
-			
-		}
+		//moved to different class
+//		/// Test values in a loop
+//		///A test for SentPacketSequenceNumber
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"dal.dll")]
+//		void SentPacketSequenceNumberLoopTest()
+//		{
+//			unsigned char actual;
+//			
+//			//run it for more than 0-F to check for valdity
+//			for (int i = 0; i < 18; i++)
+//			{
+//				actual = DalCommandInterface_Accessor::SentPacketSequenceNumber;
+//				Assert::AreEqual((unsigned char)(i%16), actual);
+//			}
+//			
+//		}
 };
 }
 namespace TestDal {

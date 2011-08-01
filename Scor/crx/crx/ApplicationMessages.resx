@@ -166,7 +166,7 @@
     <value>Scor Execution Error</value>
   </data>
   <data name="SYSTEM_ERROR" xml:space="preserve">
-    <value>Scor System Error</value>
+    <value>Scor</value>
   </data>
   <data name="MSG_DESERT" xml:space="preserve">
     <value>Desert</value>
@@ -306,7 +306,7 @@
   <data name="MENU_DATABASE" xml:space="preserve">
     <value>Database</value>
   </data>
-  <data name="TAB_SETUP" xml:space="preserve">
+  <data name="SETUP" xml:space="preserve">
     <value>Setup</value>
   </data>
   <data name="TAB_CAPTURE" xml:space="preserve">
@@ -1807,7 +1807,7 @@ Press Ok to Remind later or Cancel to ignore.</value>
     <value>Please note that no clinical data to support and that the measurement is not currently validated for non-adult patients. Do you want to proceed?</value>
   </data>
   <data name="GUI_SCREEN_RESOLUTION_MSG" xml:space="preserve">
-    <value>Screen resolution is too low. Application may not display properly. Best viewed in 1024*768.</value>
+    <value>Screen resolution is too low. Application may not display properly. Best viewed in 1024 by 768 pixels.</value>
   </data>
   <data name="PowerUpStatus" xml:space="preserve">
     <value>Power Up Status.</value>
@@ -1823,5 +1823,214 @@ Press Ok to Remind later or Cancel to ignore.</value>
   </data>
   <data name="LBL_REPORT_BLOOD_PRESSURE" xml:space="preserve">
     <value>BP</value>
+  </data>
+  <data name="BTN_GET_BP" xml:space="preserve">
+    <value>Get BP</value>
+  </data>
+  <data name="DOC_BP_SETTINGS" xml:space="preserve">
+    <value>BP Settings</value>
+  </data>
+  <data name="DOC_PWA_SETTINGS" xml:space="preserve">
+    <value>PWA Settings</value>
+  </data>
+  <data name="GRP_AUGMENTATION_INDEX" xml:space="preserve">
+    <value>Augmentation Index</value>
+  </data>
+  <data name="GRP_AUGMENTATION_INDEX_@HR75" xml:space="preserve">
+    <value>Augmentation Index@HR75</value>
+  </data>
+  <data name="GRP_AUTO_CAPTURE" xml:space="preserve">
+    <value>Auto Capture</value>
+  </data>
+  <data name="GRP_AUTO_INFLATE" xml:space="preserve">
+    <value>Auto Inflate</value>
+  </data>
+  <data name="GRP_AUTO_PWA" xml:space="preserve">
+    <value>Auto PWA</value>
+  </data>
+  <data name="GRP_BLIND_STUDY" xml:space="preserve">
+    <value>Blind Study</value>
+  </data>
+  <data name="GRP_BP_DEVICE" xml:space="preserve">
+    <value>BP Device</value>
+  </data>
+  <data name="GRP_CAPTURE_GUIDE" xml:space="preserve">
+    <value>Capture Guide</value>
+  </data>
+  <data name="GRP_CAPTURE_INPUT" xml:space="preserve">
+    <value>Capture Input</value>
+  </data>
+  <data name="GRP_CLINICAL_REPORT" xml:space="preserve">
+    <value>Clinical Report</value>
+  </data>
+  <data name="GRP_GUIDANCE_BAR" xml:space="preserve">
+    <value>Guidance Bars</value>
+  </data>
+  <data name="GRP_IF_PP" xml:space="preserve">
+    <value> If PP &amp;lt;=</value>
+  </data>
+  <data name="GRP_IF_SP" xml:space="preserve">
+    <value>If SP &amp;gt;=</value>
+  </data>
+  <data name="GRP_NO_OF_ASSESSMENTS" xml:space="preserve">
+    <value>Number of Assessments</value>
+  </data>
+  <data name="GRP_OTHER" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="GRP_PRESSURE_CUFF" xml:space="preserve">
+    <value>Pressure Cuff
+ </value>
+  </data>
+  <data name="PWA" xml:space="preserve">
+    <value>PWA</value>
+  </data>
+  <data name="PWV" xml:space="preserve">
+    <value>PWV</value>
+  </data>
+  <data name="QUICK START" xml:space="preserve">
+    <value>Quick Start</value>
+  </data>
+  <data name="GRP_SPHYCOMOR" xml:space="preserve">
+    <value>Sphygmocor</value>
+  </data>
+  <data name="GRP_STARTUP_MODE" xml:space="preserve">
+    <value>Startup Mode</value>
+  </data>
+  <data name="GRP_STARTUP_SCREEN" xml:space="preserve">
+    <value>Startup Screen</value>
+  </data>
+  <data name="GRP_TONOMETER" xml:space="preserve">
+    <value>Tonometer</value>
+  </data>
+  <data name="LBL_AIX" xml:space="preserve">
+    <value>AIx</value>
+  </data>
+  <data name="LBL_AP" xml:space="preserve">
+    <value>AP</value>
+  </data>
+  <data name="LBL_AVG_CENTRAL_AORTIC_PULSE" xml:space="preserve">
+    <value>Average Central Aortic Pulse</value>
+  </data>
+  <data name="LBL_BRACHIAL_SP_DP_MP" xml:space="preserve">
+    <value>Brachial SP/DP(MP):</value>
+  </data>
+  <data name="LBL_CPWA" xml:space="preserve">
+    <value>cPWA</value>
+  </data>
+  <data name="LBL_DP" xml:space="preserve">
+    <value>DP</value>
+  </data>
+  <data name="LBL_DP*" xml:space="preserve">
+    <value>DP*:</value>
+  </data>
+  <data name="LBL_HR" xml:space="preserve">
+    <value>HR</value>
+  </data>
+  <data name="LBL_PP" xml:space="preserve">
+    <value>PP</value>
+  </data>
+  <data name="LBL_PWA_ANALYSIS_CLOSINGBRACE" xml:space="preserve">
+    <value>)</value>
+  </data>
+  <data name="LBL_PWA_ANALYSIS_OPENINGBRACE" xml:space="preserve">
+    <value>(</value>
+  </data>
+  <data name="LBL_PWA_ANALYSIS_SP_DP_MP" xml:space="preserve">
+    <value>SP / DP ( MP):</value>
+  </data>
+  <data name="LBL_PWA_CUFF_PRESSURE" xml:space="preserve">
+    <value>Cuff Pressure:</value>
+  </data>
+  <data name="LBL_PWA_INTERPRETATION" xml:space="preserve">
+    <value>Interpretation:</value>
+  </data>
+  <data name="LBL_PWA_QUALITY_CONTROL" xml:space="preserve">
+    <value>Quality Control</value>
+  </data>
+  <data name="LBL_PWA_SETUP_PROGRESSBAR_END_MSG" xml:space="preserve">
+    <value>PWA enabled in 0:15</value>
+  </data>
+  <data name="LBL_PWA_SETUP_PROGRESSBAR_START_MSG" xml:space="preserve">
+    <value>PWA enabled in 0:</value>
+  </data>
+  <data name="LBL_PWA_SYPHYMOCOR_REF_AGE" xml:space="preserve">
+    <value>Sphygmocor Reference Age</value>
+  </data>
+  <data name="LBL_SP*" xml:space="preserve">
+    <value>SP*:</value>
+  </data>
+  <data name="BTN_OK_TXT" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="FRM_NEWSYSTEM_KEY" xml:space="preserve">
+    <value>New System Key</value>
+  </data>
+  <data name="FRM_SYSTEM_KEY" xml:space="preserve">
+    <value>System Key</value>
+  </data>
+  <data name="LBL_INVALID_KEY" xml:space="preserve">
+    <value>Invalid Key, please enter valid key.</value>
+  </data>
+  <data name="LBL_KEY" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="LBL_PLEASE_ENTER_KEY" xml:space="preserve">
+    <value>Please enter a valid System Key</value>
+  </data>
+  <data name="MSG_VALIDATING_SYSTEM_KEY" xml:space="preserve">
+    <value>Validating System key...please wait</value>
+  </data>
+  <data name="MSG_PLEASE_RELAUNCH" xml:space="preserve">
+    <value>Please relaunch application to reflect new system key changes.</value>
+  </data>
+  <data name="CLINICAL_ENV" xml:space="preserve">
+    <value>Clinical</value>
+  </data>
+  <data name="MODE_MISMATCH_MSG" xml:space="preserve">
+    <value>Current startup mode or screen is not allowed in the system key.
+Please contact AtCor support  http://atcormedical.com/request_support.html</value>
+  </data>
+  <data name="RESEARCH_ENV" xml:space="preserve">
+    <value>Research</value>
+  </data>
+  <data name="GUI_RPT_REF_RANGE_DESC" xml:space="preserve">
+    <value>Normalised for distance measurement</value>
+  </data>
+  <data name="GUI_SQL_INSTANCE_CONNECT" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="LBL_OPTIONAUDITTRAIL" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="LBL_OPTIONCAPTUREGUIDE" xml:space="preserve">
+    <value>G</value>
+  </data>
+  <data name="LBL_OPTIONCLINICAL" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="LBL_OPTIONCPWA" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="LBL_OPTIONNIBP" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="LBL_OPTIONPWV" xml:space="preserve">
+    <value>V</value>
+  </data>
+  <data name="LBL_OPTIONRESEARCH" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="LBL_OPTIONTPWA" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="MSG_SPECIALCHARACTER" xml:space="preserve">
+    <value>Special characters are not allowed.</value>
+  </data>
+  <data name="FIELD_PATIENT_PP" xml:space="preserve">
+    <value>PP</value>
+  </data>
+  <data name="SIGNAL_HEIGHT_MIN_TOO_SMALL" xml:space="preserve">
+    <value>Signal height min {0} is too small</value>
   </data>
 </root>

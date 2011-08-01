@@ -61,7 +61,7 @@ namespace AtCor{
 				}
 				else
 				{
-					CrxLogger::Instance->Write("Deepak>>> ValidateStreamingSequenceNumber Failed at : " + streamingPacketSequenceNumber.ToString("X"));
+					CrxLogger::Instance->Write("Deepak>>> ValidateStreamingSequenceNumber Failed at : " + streamingPacketSequenceNumber.ToString(DalFormatterStrings::PrintByte ));
 					//return false in case of no mathc
 					return false;
 				}
@@ -132,7 +132,7 @@ namespace AtCor{
 
 			bool DalSequenceNumberManager::ValidateStreamingSequenceNumber(const unsigned char streamingPacketSequenceNumber)
 			{
-				CrxLogger::Instance->Write("Deepak>>> ValidateStreamingSequenceNumber : " + streamingPacketSequenceNumber.ToString("X"));
+				CrxLogger::Instance->Write("Deepak>>> ValidateStreamingSequenceNumber : " + streamingPacketSequenceNumber.ToString(DalFormatterStrings::PrintByte));
 				//first extract the number
 				unsigned char shiftedNumber = ExtractStreamingSequenceNumber(streamingPacketSequenceNumber);
 
@@ -140,16 +140,17 @@ namespace AtCor{
 				return CheckStreamingSequenceNumber(shiftedNumber);
 			}
 
-			void DalSequenceNumberManager::IncrementWithRollover(unsigned char ^%numberToIncrement)
-			{
-				(*numberToIncrement)++;
+			//couldnt get this to work. Keeping for later - Deepak
+			//void DalSequenceNumberManager::IncrementWithRollover(unsigned char ^%numberToIncrement)
+			//{
+			//	(*numberToIncrement)++;
 
-				if (*numberToIncrement > _packetSequenceMaxValue)
-				{
-					//check for rollover
-					*numberToIncrement = _packetSequenceMinValue;
-				}
-			}
+			//	if (*numberToIncrement > _packetSequenceMaxValue)
+			//	{
+			//		//check for rollover
+			//		*numberToIncrement = _packetSequenceMinValue;
+			//	}
+			//}
 					
 
 

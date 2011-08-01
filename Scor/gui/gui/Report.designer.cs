@@ -736,7 +736,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradpnlAnalysis.Name = "guiradpnlAnalysis";
             this.guiradpnlAnalysis.Size = new System.Drawing.Size(658, 425);
             this.guiradpnlAnalysis.SmallImageList = this.guiimagelistTickCross;
-            this.guiradpnlAnalysis.TabIndex = 102;            
+            this.guiradpnlAnalysis.TabIndex = 102;
             // 
             // guiradchartPulseWaveVelocity
             // 
@@ -842,7 +842,7 @@ namespace AtCor.Scor.Gui.Presentation
             title1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
             title1.Name = "Title1";
             this.guiradchartHeartRate.Titles.Add(title1);
-            this.guiradchartHeartRate.MouseMove += new System.Windows.Forms.MouseEventHandler(this.guiradchartHeartRate_MouseMove);            
+            this.guiradchartHeartRate.MouseMove += new System.Windows.Forms.MouseEventHandler(this.guiradchartHeartRate_MouseMove);
             // 
             // reportprintDialog
             // 
@@ -1566,7 +1566,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.guiradlblReportCuff.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblReportCuff.Size = new System.Drawing.Size(167, 20);
+            this.guiradlblReportCuff.Size = new System.Drawing.Size(167, 22);
             this.guiradlblReportCuff.TabIndex = 0;
             this.guiradlblReportCuff.Text = "Sternal notch to Cuff*:";
             this.guiradlblReportCuff.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1955,7 +1955,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblReportAgeValue.AutoSize = false;
             this.guilblReportAgeValue.BorderVisible = true;
             this.guilblReportAgeValue.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guilblReportAgeValue.Location = new System.Drawing.Point(179, 73);
+            this.guilblReportAgeValue.Location = new System.Drawing.Point(179, 70);
             this.guilblReportAgeValue.Name = "guilblReportAgeValue";
             this.guilblReportAgeValue.Size = new System.Drawing.Size(100, 20);
             this.guilblReportAgeValue.TabIndex = 119;
@@ -1975,7 +1975,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblReportDobValue.AutoSize = false;
             this.guilblReportDobValue.BorderVisible = true;
             this.guilblReportDobValue.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guilblReportDobValue.Location = new System.Drawing.Point(179, 50);
+            this.guilblReportDobValue.Location = new System.Drawing.Point(179, 48);
             this.guilblReportDobValue.Name = "guilblReportDobValue";
             this.guilblReportDobValue.Size = new System.Drawing.Size(100, 20);
             this.guilblReportDobValue.TabIndex = 0;
@@ -1996,7 +1996,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblReportPatientIdValue.AutoSize = false;
             this.guilblReportPatientIdValue.BorderVisible = true;
             this.guilblReportPatientIdValue.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guilblReportPatientIdValue.Location = new System.Drawing.Point(179, 28);
+            this.guilblReportPatientIdValue.Location = new System.Drawing.Point(179, 26);
             this.guilblReportPatientIdValue.Name = "guilblReportPatientIdValue";
             this.guilblReportPatientIdValue.Size = new System.Drawing.Size(100, 20);
             this.guilblReportPatientIdValue.TabIndex = 117;
@@ -2019,7 +2019,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblReportGenderValue.BorderVisible = true;
             this.guilblReportGenderValue.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guilblReportGenderValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guilblReportGenderValue.Location = new System.Drawing.Point(179, 95);
+            this.guilblReportGenderValue.Location = new System.Drawing.Point(179, 92);
             this.guilblReportGenderValue.Name = "guilblReportGenderValue";
             // 
             // 
@@ -2048,13 +2048,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportGender.AutoSize = false;
             this.guiradlblReportGender.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblReportGender.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblReportGender.Location = new System.Drawing.Point(93, 94);
+            this.guiradlblReportGender.Location = new System.Drawing.Point(6, 92);
             this.guiradlblReportGender.Name = "guiradlblReportGender";
             // 
             // 
             // 
             this.guiradlblReportGender.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblReportGender.Size = new System.Drawing.Size(80, 19);
+            this.guiradlblReportGender.Size = new System.Drawing.Size(167, 19);
             this.guiradlblReportGender.TabIndex = 114;
             this.guiradlblReportGender.Text = "Gender:";
             this.guiradlblReportGender.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
@@ -2064,13 +2064,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportAge.AutoSize = false;
             this.guiradlblReportAge.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblReportAge.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblReportAge.Location = new System.Drawing.Point(114, 73);
+            this.guiradlblReportAge.Location = new System.Drawing.Point(6, 71);
             this.guiradlblReportAge.Name = "guiradlblReportAge";
             // 
             // 
             // 
             this.guiradlblReportAge.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblReportAge.Size = new System.Drawing.Size(59, 19);
+            this.guiradlblReportAge.Size = new System.Drawing.Size(167, 19);
             this.guiradlblReportAge.TabIndex = 116;
             this.guiradlblReportAge.Text = "Age:";
             this.guiradlblReportAge.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
@@ -2098,13 +2098,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportDOB.AutoSize = false;
             this.guiradlblReportDOB.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblReportDOB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblReportDOB.Location = new System.Drawing.Point(28, 51);
+            this.guiradlblReportDOB.Location = new System.Drawing.Point(4, 49);
             this.guiradlblReportDOB.Name = "guiradlblReportDOB";
             // 
             // 
             // 
             this.guiradlblReportDOB.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblReportDOB.Size = new System.Drawing.Size(145, 19);
+            this.guiradlblReportDOB.Size = new System.Drawing.Size(169, 19);
             this.guiradlblReportDOB.TabIndex = 113;
             this.guiradlblReportDOB.Text = "Date of birth:";
             this.guiradlblReportDOB.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
@@ -2114,13 +2114,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportPatientId.AutoSize = false;
             this.guiradlblReportPatientId.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblReportPatientId.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblReportPatientId.Location = new System.Drawing.Point(63, 28);
+            this.guiradlblReportPatientId.Location = new System.Drawing.Point(-2, 26);
             this.guiradlblReportPatientId.Name = "guiradlblReportPatientId";
             // 
             // 
             // 
             this.guiradlblReportPatientId.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblReportPatientId.Size = new System.Drawing.Size(110, 19);
+            this.guiradlblReportPatientId.Size = new System.Drawing.Size(175, 19);
             this.guiradlblReportPatientId.TabIndex = 103;
             this.guiradlblReportPatientId.Text = "Patient Id:";
             this.guiradlblReportPatientId.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
@@ -2250,7 +2250,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.ShowItemToolTips = false;
             this.Text = "Report";
             this.ThemeName = "Atcor";
-            this.Load += new System.EventHandler(this.Report_Load);
+            this.Load += new System.EventHandler(this.Report_Load);            
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Report_KeyUp);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Report_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.guichartSuperImposedWaveform)).EndInit();

@@ -99,9 +99,17 @@ namespace AtCor{
 			void DalSimulationHandler::OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args)
 			{
 				args; //Dummy statement to get rid of C4100 warning
-				//using parametrized threadstart to pass parameter
-				Thread^ simulationWriterThread = gcnew Thread(gcnew ParameterizedThreadStart(DalSimulationHandler::ReadMultipleEventsInLoop)); 
-				simulationWriterThread->Start(sender);
+
+				try
+				{
+					//using parametrized threadstart to pass parameter
+					Thread^ simulationWriterThread = gcnew Thread(gcnew ParameterizedThreadStart(DalSimulationHandler::ReadMultipleEventsInLoop)); 
+					simulationWriterThread->Start(sender);
+				}
+				catch(ScorException^)
+				{
+					throw;
+				}
 				
 			}
 
@@ -121,59 +129,73 @@ namespace AtCor{
 				
 				//Pick the number of reads from DalConstants
 				int numberOfReads = DalConstants::SimulationNumberOfReadsPerInterval;
-				
-				
-				if (firstReadAfterCaptureStarted == true)
-				{
-					//CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString());
-					ResetAllStaticMembers();
 
-					tonoData = cuffPulseData = cuffAbsolutePressure = locCountdownTimer = statusBytes =  0;
-					currentCuffStateIsInflated = firstReadAfterCaptureStarted = false;
+				try
+				{				
+					if (firstReadAfterCaptureStarted == true)
+					{
+						//CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString());
+						ResetAllStaticMembers();
+
+						tonoData = cuffPulseData = cuffAbsolutePressure = locCountdownTimer = statusBytes =  0;
+						currentCuffStateIsInflated = firstReadAfterCaptureStarted = false;
+					}
+				
+					//Read n elements in a loop. 
+					for (int counter = 0; counter < numberOfReads ; counter++)
+					{
+						if (locCountdownTimer <=0) 
+						{
+							//get next set of values from the cufff simulation file
+							_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &locEASourceFlag);
+							//CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X2) + " ,locEASourceFlag" + locEASourceFlag.ToString("X2));
+
+							//store the Error/alarm SOURCE in the global variable. If an event is raised we need to retrive the stored value to find the source.
+							_currentEASourceFlag = locEASourceFlag;
+
+							//The DalSimulationHandler::SchecStatusFlag(,) function has been 
+							//replaced by the //DalStatusHandler::ProcessStatusFlag() method
+							//CheckStatusFlag(statusBytes, currentCuffStateIsInflated);
+
+							ProcessStatusFlag(statusBytes);
+
+						}
+
+						//get the next set of values from the tonometer simulation file.
+						_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
+
+						if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
+						{
+							//value is in miliseconds. The device returns it as seconds hece divide by thousand.
+							tempPWVDataVar.countdownTimer = (short)locCountdownTimer/1000;
+						}
+						else
+						{
+							tempPWVDataVar.countdownTimer = 0;
+						}
+						tempPWVDataVar.cuffPressure = (short)cuffAbsolutePressure;
+						tempPWVDataVar.tonometerData = (short)tonoData;
+						tempPWVDataVar.cuffPulseData = (short)cuffPulseData;
+						//CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer );
+
+						//write data to buffer
+						dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
+
+						//decrement the timer after every write operation
+						locCountdownTimer -= DalConstants::DataSamplingInterval;
+					}
 				}
-				
-				//Read n elements in a loop. 
-				for (int counter = 0; counter < numberOfReads ; counter++)
+				catch(ScorException^)
 				{
-					if (locCountdownTimer <=0) 
+					throw;
+				}
+				catch(Exception^ excepObj)
+				{
+					/*if (InvokeRequired)
 					{
-						//get next set of values from the cufff simulation file
-						_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &locEASourceFlag);
-						//CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X") + " ,locEASourceFlag" + locEASourceFlag.ToString("X"));
-
-						//store the Error/alarm SOURCE in the global variable. If an event is raised we need to retrive the stored value to find the source.
-						_currentEASourceFlag = locEASourceFlag;
-
-						//The DalSimulationHandler::SchecStatusFlag(,) function has been 
-						//replaced by the //DalStatusHandler::ProcessStatusFlag() method
-						//CheckStatusFlag(statusBytes, currentCuffStateIsInflated);
-
-						ProcessStatusFlag(statusBytes);
-
-					}
-
-					//get the next set of values from the tonometer simulation file.
-					_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
-
-					if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
-					{
-						//value is in miliseconds. The device returns it as seconds hece divide by thousand.
-						tempPWVDataVar.countdownTimer = (short)locCountdownTimer/1000;
-					}
-					else
-					{
-						tempPWVDataVar.countdownTimer = 0;
-					}
-					tempPWVDataVar.cuffPressure = (short)cuffAbsolutePressure;
-					tempPWVDataVar.tonometerData = (short)tonoData;
-					tempPWVDataVar.cuffPulseData = (short)cuffPulseData;
-					//CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer );
-
-					//write data to buffer
-					dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
-
-					//decrement the timer after every write operation
-					locCountdownTimer -= DalConstants::DataSamplingInterval;
+						System::Windows::
+					}*/
+					throw gcnew ScorException(excepObj);
 				}
 			}
 

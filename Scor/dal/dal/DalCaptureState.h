@@ -48,14 +48,16 @@ namespace AtCor{
 			*/
 			virtual bool StopDataCaptureMode();
 
-			/** 
-			* Processes the input buffer for data packets. @n
-			* Reads multiple data packets in a loop and writes them to the circula buffer.
-			* @param[in]	sender	Event sender. 
-			* @param[in]	e	Event arguments
-			* @see DataCaptureMultiplePacketHandler
-			*/
-			virtual void ReadFromPortAndWriteToBuffer(Object^ sender, SerialDataReceivedEventArgs^ e);
+			///*
+			//* Processes the input buffer for data packets. @n
+			//* Reads multiple data packets in a loop and writes them to the circula buffer.
+			//* @param[in]	sender	Event sender. 
+			//* @param[in]	e	Event arguments
+			//* @see DataCaptureMultiplePacketHandler
+			//*/
+			//virtual void ReadFromPortAndWriteToBuffer(Object^ sender, SerialDataReceivedEventArgs^ e);
+
+			virtual bool ProcessStreamingPackets();
 
 			/**
 			* Event handler to check if data buffer is empty.
@@ -163,7 +165,9 @@ namespace AtCor{
 			/**
 			* Calls the method which will process serial port capture packets.
 			*/
-			virtual void ReadFromPortAndWriteToBuffer(Object^ sender, SerialDataReceivedEventArgs^ e) override;
+			//virtual void ReadFromPortAndWriteToBuffer(Object^ sender, SerialDataReceivedEventArgs^ e) override;
+
+			virtual bool ProcessStreamingPackets() override;
 
 	};
 

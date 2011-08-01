@@ -184,10 +184,6 @@
 			MinFrameworkVersion="131072"
 		/>
 		<ProjectReference
-			ReferencedProjectIdentifier="{E274BA19-F920-40C0-8747-214688D2ABB3}"
-			RelativePathToProject=".\dal\dal\dal.vcproj"
-		/>
-		<ProjectReference
 			ReferencedProjectIdentifier="{24748540-BFD1-4293-99F5-D556338366C4}"
 			RelativePathToProject=".\crx\crx\crx.vcproj"
 		/>
@@ -212,6 +208,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalActivePortTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalBinaryConversionsTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalConstantsTest.cpp"
 				>
 			</File>
@@ -225,10 +229,6 @@
 			</File>
 			<File
 				RelativePath=".\DalDeviceConfigUsageStructTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalDeviceHandlerTest.cpp"
 				>
 			</File>
 			<File
@@ -252,6 +252,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalResponsePacketQueueTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalSequenceNumberManagerTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalSimulationFileTest.cpp"
 				>
 			</File>
@@ -260,7 +268,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalStagingQueueTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalStatusHandlerTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalStreamingPacketQueueTest.cpp"
 				>
 			</File>
 			<File

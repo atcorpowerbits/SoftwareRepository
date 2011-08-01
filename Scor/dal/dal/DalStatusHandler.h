@@ -112,6 +112,7 @@ namespace AtCor{
 					*/
 					static DalErrorAlarmStatusFlag TranslateAlarmStatusBits(unsigned long statusFlags); 
 
+					//TODO: move to another class
 					/**
 					* Converts the input array into a hexadecimal string representation.
 					* @param	inputArray	The input array

@@ -42,7 +42,7 @@ void CrxPrintManager::AtCorPrintAboutBox(String^ strPrn, Image^ imgPrn)
 	}
 }
 
-void CrxPrintManager::AtCorPrintAboutBoxFormat(Object^ sender, PrintPageEventArgs^ e)
+void CrxPrintManager::AtCorPrintAboutBoxFormat(Object^ , PrintPageEventArgs^ e)
 {
 	int start				=	0;
 	int top					=	0;

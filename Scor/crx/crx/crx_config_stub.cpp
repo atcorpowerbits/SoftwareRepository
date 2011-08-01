@@ -10,8 +10,10 @@
 #include "stdafx.h"
 #include "crx_namespace.h"
 #include "crx_config_stub.h"
+#include "CrxMessaging.h"
 
 using namespace CRX_CONFIG_NAMESPACE;
+using namespace CRX_MSG_NAMESPACE;
 
 /** 
 Instance
@@ -95,3 +97,44 @@ void CrxConfigFacade::SetCaptureTime(unsigned short captureTime)
 {
 	PWVCaptureTime = captureTime;
 }
+
+bool CrxConfigFacade::IsPressurePeriphCuff()
+{
+	return false; // true: Cuff, false: Tonometer
+}
+
+bool CrxConfigFacade::IsPwaMode()
+{
+	return false; // true: PWA mode, false: PWV mode
+}
+
+String^ CrxConfigFacade::GetDistanceUnitName()
+{
+	String^ unitName;
+	if (CrxConfigManager::Instance->PwvSettings->PWVDistanceUnits == (int)CrxGenPwvValue::CrxPwvDistDistUnitsCM)
+	{
+		unitName = CrxMessagingManager::Instance->GetMessage("CM");
+	}
+	else
+	{
+		unitName = CrxMessagingManager::Instance->GetMessage("MM");
+	}
+	return unitName;
+}
+
+unsigned int CrxConfigFacade::GetDistanceUnitDivisor()
+{
+	unsigned int unitDivisor;
+	if (CrxConfigManager::Instance->PwvSettings->PWVDistanceUnits == (int)CrxGenPwvValue::CrxPwvDistDistUnitsCM)
+	{
+		// Internal distance in mm to be converted to cm
+		unitDivisor = 10;
+	}
+	else
+	{
+		// Internal distance in mm to be used as is
+		unitDivisor = 1;
+	}
+	return unitDivisor;
+}
+

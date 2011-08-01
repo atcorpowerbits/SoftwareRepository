@@ -60,7 +60,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(NoInherit)"
-				Version="0.0.12.2"
+				Version="0.1.2.3"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
@@ -133,7 +133,8 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(NoInherit)"
-				LinkIncremental="1"
+				Version="0.1.2.3"
+				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 				KeyFile="crx_key.snk"

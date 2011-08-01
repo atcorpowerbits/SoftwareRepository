@@ -28,10 +28,21 @@ public:
 	void SetDistanceMethod(bool);
 	void SetCaptureTime(unsigned short);
 
+	// For Pressure Peripheral Cuff or Tonometer
+	bool IsPressurePeriphCuff();
+	String^ GetDistanceUnitName();
+	unsigned int GetDistanceUnitDivisor();
+
+	// For checking PWA or others
+	bool IsPwaMode();
+
+	void GetPwaUserSettings(){};
+
 protected:
 	CrxConfigFacade(void);
 	property bool PWVSubtractingMethod;
 	property unsigned short PWVCaptureTime;
+	
 private:
 	static CrxConfigFacade^ _instance;
 };

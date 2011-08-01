@@ -46,7 +46,7 @@
     <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="dal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Release\dal.dll</HintPath>
+      <HintPath>..\..\Debug\dal.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Microsoft.VisualBasic" />
@@ -65,7 +65,7 @@
     </Reference>
     <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\AtcorLibraries\System.Windows.Forms.DataVisualization.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\AtcorLibraries\System.Windows.Forms.DataVisualization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -93,7 +93,7 @@
     <Reference Include="Telerik.WinControls.UI, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="TelerikCommon, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\AtcorLibraries\TelerikCommon.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\AtcorLibraries\TelerikCommon.dll</HintPath>
     </Reference>
     <Reference Include="TelerikData, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
   </ItemGroup>
@@ -152,6 +152,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AnalysisPreview.resx">
       <DependentUpon>AnalysisPreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Capture.resx">
       <DependentUpon>Capture.cs</DependentUpon>
@@ -229,6 +230,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PwaClass.cs" />
+    <Compile Include="PWAReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PWAReport.designer.cs">
+      <DependentUpon>PWAReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PwvClass.cs" />
     <Compile Include="PwvPatientReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,6 +265,8 @@
     <Compile Include="ReportPreview.Designer.cs">
       <DependentUpon>ReportPreview.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScorController.cs" />
+    <Compile Include="ScorStratergy.cs" />
     <Compile Include="SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -281,10 +292,17 @@
     <Compile Include="SQLInstanceList.Designer.cs">
       <DependentUpon>SQLInstanceList.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemKey.Designer.cs">
+      <DependentUpon>SystemKey.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="atcor.ico" />
     <None Include="Resources\SetupScreenDirect_Small.jpg" />
+    <None Include="Resources\PWA_diagram.jpg" />
     <Content Include="Theme\Atcor_DockSplitContainer.xml" />
     <Content Include="Theme\Atcor_RadCheckmark.xml" />
     <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_RootRadElement.xml" />
@@ -363,6 +381,14 @@
     <None Include="DsPwvPatientReport.xss">
       <DependentUpon>DsPwvPatientReport.xsd</DependentUpon>
     </None>
+    <EmbeddedResource Include="PWAReport.resx">
+      <DependentUpon>PWAReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemKey.resx">
+      <DependentUpon>SystemKey.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Theme\Atcor.tssp" />
   </ItemGroup>
   <ItemGroup>

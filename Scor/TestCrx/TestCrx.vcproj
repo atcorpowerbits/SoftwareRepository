@@ -317,11 +317,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CrxStructBpSettingTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CrxStructGeneralSettingTest.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\CrxStructPatientDemographicDataTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CrxStructPwaSettingTest.cpp"
 				>
 			</File>
 			<File

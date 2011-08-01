@@ -30,18 +30,18 @@ namespace AtCor.Scor.Gui.Presentation
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.RadListDataItem radListDataItem13 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem14 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem15 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem16 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem17 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem18 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem19 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem20 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem21 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem22 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem23 = new Telerik.WinControls.UI.RadListDataItem();
-            Telerik.WinControls.UI.RadListDataItem radListDataItem24 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem1 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem2 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem3 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem4 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem5 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem6 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem7 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem8 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem9 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem10 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem11 = new Telerik.WinControls.UI.RadListDataItem();
+            Telerik.WinControls.UI.RadListDataItem radListDataItem12 = new Telerik.WinControls.UI.RadListDataItem();
             this.radlblgroupid = new Telerik.WinControls.UI.RadLabel();
             this.radlblpatientinternalnumber = new Telerik.WinControls.UI.RadLabel();
             this.guipnlSeperator = new System.Windows.Forms.Panel();
@@ -111,9 +111,40 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnExpander = new Telerik.WinControls.UI.RadButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.guiradgrdPatientList = new Telerik.WinControls.UI.RadGridView();
+            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.object_f80ee077_8dfd_47af_927c_82b836cb53ec = new Telerik.WinControls.RootRadElement();
             this.object_63cad6f9_d575_406c_95e3_c64610d02c2f = new Telerik.WinControls.RootRadElement();
-            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
+            this.guipnlPWAMeasurementDetails = new System.Windows.Forms.Panel();
+            this.guiradlblPWAHRDisplay = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblPWAHR = new Telerik.WinControls.UI.RadLabel();
+            this.guiradtxtPWAImperialHeight = new Telerik.WinControls.UI.RadTextBox();
+            this.guiradtxtPWAHeight = new Telerik.WinControls.UI.RadTextBox();
+            this.guiradbtnAutoPWACancel = new Telerik.WinControls.UI.RadButton();
+            this.guiradlblBPProgressBar = new Telerik.WinControls.UI.RadProgressBar();
+            this.guiradlblPWASPDisplay = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblCuffPressure = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblCuffPressureUnit = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblPWAMP = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblPWAPP = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblPWASP = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblPWADP = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblImperialHeightUnit = new Telerik.WinControls.UI.RadLabel();
+            this.guiradllblPWAHeight = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblPWAHeightUnit = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblCuffPressureValue = new Telerik.WinControls.UI.RadLabel();
+            this.guipicboxPWAGetBp = new System.Windows.Forms.PictureBox();
+            this.guiradlblPWADPDisplay = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblPWAMPDisplay = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblPWAPPDisplay = new Telerik.WinControls.UI.RadLabel();
+            this.guiradbtnGetBp = new Telerik.WinControls.UI.RadButton();
+            this.guipnlPWABPOtherDevice = new System.Windows.Forms.Panel();
+            this.guiradtxtOthDevPWADP = new Telerik.WinControls.UI.RadTextBox();
+            this.guiradtxtOthDevPWASP = new Telerik.WinControls.UI.RadTextBox();
+            this.guiradlblOthDevPWAMP = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblOthDevPWASP = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblOthDevPWADP = new Telerik.WinControls.UI.RadLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.guiradbtnDisplayReport = new Telerik.WinControls.UI.RadButton();
             ((System.ComponentModel.ISupportInitialize)(this.radlblgroupid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radlblpatientinternalnumber)).BeginInit();
             this.guipnlMeasurementDetails.SuspendLayout();
@@ -184,6 +215,38 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradgrdPatientList.MasterTemplate)).BeginInit();
             this.guiradgrdPatientList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
+            this.guipnlPWAMeasurementDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAHRDisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAHR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtPWAImperialHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtPWAHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnAutoPWACancel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblBPProgressBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWASPDisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCuffPressure)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCuffPressureUnit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAMP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAPP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWASP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWADP)).BeginInit();
+            this.guiradlblPWADP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblImperialHeightUnit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradllblPWAHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAHeightUnit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCuffPressureValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guipicboxPWAGetBp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWADPDisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAMPDisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAPPDisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnGetBp)).BeginInit();
+            this.guipnlPWABPOtherDevice.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtOthDevPWADP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtOthDevPWASP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblOthDevPWAMP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblOthDevPWASP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblOthDevPWADP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnDisplayReport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -297,7 +360,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradbtnCapture.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradbtnCapture.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradbtnCapture.Location = new System.Drawing.Point(372, 555);
+            this.guiradbtnCapture.Location = new System.Drawing.Point(371, 555);
             this.guiradbtnCapture.Name = "guiradbtnCapture";
             // 
             // 
@@ -451,7 +514,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblFemoralToCuff.RootElement.AutoSize = false;
             this.guiradlblFemoralToCuff.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblFemoralToCuff.Size = new System.Drawing.Size(100, 32);
+            this.guiradlblFemoralToCuff.Size = new System.Drawing.Size(100, 37);
             this.guiradlblFemoralToCuff.TabIndex = 18;
             this.guiradlblFemoralToCuff.Text = "Femoral To Cuff:";
             this.guiradlblFemoralToCuff.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
@@ -508,13 +571,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblCuff.AutoSize = false;
             this.guiradlblCuff.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblCuff.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblCuff.Location = new System.Drawing.Point(3, 362);
+            this.guiradlblCuff.Location = new System.Drawing.Point(3, 355);
             this.guiradlblCuff.Name = "guiradlblCuff";
             // 
             // 
             // 
             this.guiradlblCuff.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblCuff.Size = new System.Drawing.Size(120, 43);
+            this.guiradlblCuff.Size = new System.Drawing.Size(120, 57);
             this.guiradlblCuff.TabIndex = 2;
             this.guiradlblCuff.Text = "Sternal Notch to Cuff*:";
             // 
@@ -863,63 +926,63 @@ namespace AtCor.Scor.Gui.Presentation
             this.guicmbxMonth.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
             this.guicmbxMonth.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guicmbxMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            radListDataItem13.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            radListDataItem13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem13.Text = "Jan";
-            radListDataItem13.TextWrap = true;
-            radListDataItem14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem14.Text = "Feb";
-            radListDataItem14.TextWrap = true;
-            radListDataItem15.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            radListDataItem15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem15.Text = "Mar";
-            radListDataItem15.TextWrap = true;
-            radListDataItem16.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            radListDataItem16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem16.Text = "Apr";
-            radListDataItem16.TextWrap = true;
-            radListDataItem17.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            radListDataItem17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem17.Text = "May";
-            radListDataItem17.TextWrap = true;
-            radListDataItem18.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            radListDataItem18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem18.Text = "Jun";
-            radListDataItem18.TextWrap = true;
-            radListDataItem19.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            radListDataItem19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem19.Text = "Jul";
-            radListDataItem19.TextWrap = true;
-            radListDataItem20.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            radListDataItem20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem20.Text = "Aug";
-            radListDataItem20.TextWrap = true;
-            radListDataItem21.Text = "Sep";
-            radListDataItem21.TextWrap = true;
-            radListDataItem22.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            radListDataItem22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem22.Text = "Oct";
-            radListDataItem22.TextWrap = true;
-            radListDataItem23.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            radListDataItem23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem23.Text = "Nov";
-            radListDataItem23.TextWrap = true;
-            radListDataItem24.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            radListDataItem24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
-            radListDataItem24.Text = "Dec";
-            radListDataItem24.TextWrap = true;
-            this.guicmbxMonth.Items.Add(radListDataItem13);
-            this.guicmbxMonth.Items.Add(radListDataItem14);
-            this.guicmbxMonth.Items.Add(radListDataItem15);
-            this.guicmbxMonth.Items.Add(radListDataItem16);
-            this.guicmbxMonth.Items.Add(radListDataItem17);
-            this.guicmbxMonth.Items.Add(radListDataItem18);
-            this.guicmbxMonth.Items.Add(radListDataItem19);
-            this.guicmbxMonth.Items.Add(radListDataItem20);
-            this.guicmbxMonth.Items.Add(radListDataItem21);
-            this.guicmbxMonth.Items.Add(radListDataItem22);
-            this.guicmbxMonth.Items.Add(radListDataItem23);
-            this.guicmbxMonth.Items.Add(radListDataItem24);
+            radListDataItem1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            radListDataItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem1.Text = "Jan";
+            radListDataItem1.TextWrap = true;
+            radListDataItem2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem2.Text = "Feb";
+            radListDataItem2.TextWrap = true;
+            radListDataItem3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            radListDataItem3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem3.Text = "Mar";
+            radListDataItem3.TextWrap = true;
+            radListDataItem4.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            radListDataItem4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem4.Text = "Apr";
+            radListDataItem4.TextWrap = true;
+            radListDataItem5.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            radListDataItem5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem5.Text = "May";
+            radListDataItem5.TextWrap = true;
+            radListDataItem6.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            radListDataItem6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem6.Text = "Jun";
+            radListDataItem6.TextWrap = true;
+            radListDataItem7.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            radListDataItem7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem7.Text = "Jul";
+            radListDataItem7.TextWrap = true;
+            radListDataItem8.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            radListDataItem8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem8.Text = "Aug";
+            radListDataItem8.TextWrap = true;
+            radListDataItem9.Text = "Sep";
+            radListDataItem9.TextWrap = true;
+            radListDataItem10.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            radListDataItem10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem10.Text = "Oct";
+            radListDataItem10.TextWrap = true;
+            radListDataItem11.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            radListDataItem11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem11.Text = "Nov";
+            radListDataItem11.TextWrap = true;
+            radListDataItem12.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            radListDataItem12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(25)))));
+            radListDataItem12.Text = "Dec";
+            radListDataItem12.TextWrap = true;
+            this.guicmbxMonth.Items.Add(radListDataItem1);
+            this.guicmbxMonth.Items.Add(radListDataItem2);
+            this.guicmbxMonth.Items.Add(radListDataItem3);
+            this.guicmbxMonth.Items.Add(radListDataItem4);
+            this.guicmbxMonth.Items.Add(radListDataItem5);
+            this.guicmbxMonth.Items.Add(radListDataItem6);
+            this.guicmbxMonth.Items.Add(radListDataItem7);
+            this.guicmbxMonth.Items.Add(radListDataItem8);
+            this.guicmbxMonth.Items.Add(radListDataItem9);
+            this.guicmbxMonth.Items.Add(radListDataItem10);
+            this.guicmbxMonth.Items.Add(radListDataItem11);
+            this.guicmbxMonth.Items.Add(radListDataItem12);
             this.guicmbxMonth.Location = new System.Drawing.Point(402, 12);
             this.guicmbxMonth.Name = "guicmbxMonth";
             // 
@@ -1623,6 +1686,15 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradgrdPatientList.CellFormatting += new Telerik.WinControls.UI.CellFormattingEventHandler(this.guiradgrdPatientList_CellFormatting);
             this.guiradgrdPatientList.RowFormatting += new Telerik.WinControls.UI.RowFormattingEventHandler(this.guiradgrdPatientList_RowFormatting);
             // 
+            // radLabel1
+            // 
+            this.radLabel1.AutoSize = false;
+            this.radLabel1.Location = new System.Drawing.Point(504, 1);
+            this.radLabel1.Name = "radLabel1";
+            this.radLabel1.Size = new System.Drawing.Size(15, 30);
+            this.radLabel1.TabIndex = 0;
+            this.radLabel1.Visible = false;
+            // 
             // object_f80ee077_8dfd_47af_927c_82b836cb53ec
             // 
             this.object_f80ee077_8dfd_47af_927c_82b836cb53ec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
@@ -1639,14 +1711,634 @@ namespace AtCor.Scor.Gui.Presentation
             this.object_63cad6f9_d575_406c_95e3_c64610d02c2f.StretchHorizontally = true;
             this.object_63cad6f9_d575_406c_95e3_c64610d02c2f.StretchVertically = true;
             // 
-            // radLabel1
+            // guipnlPWAMeasurementDetails
             // 
-            this.radLabel1.AutoSize = false;
-            this.radLabel1.Location = new System.Drawing.Point(504, 1);
-            this.radLabel1.Name = "radLabel1";
-            this.radLabel1.Size = new System.Drawing.Size(15, 30);
-            this.radLabel1.TabIndex = 0;
-            this.radLabel1.Visible = false;
+            this.guipnlPWAMeasurementDetails.AutoSize = true;
+            this.guipnlPWAMeasurementDetails.BackColor = System.Drawing.Color.White;
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWASPDisplay);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWAHRDisplay);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWAHR);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradtxtPWAImperialHeight);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradtxtPWAHeight);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradbtnAutoPWACancel);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblBPProgressBar);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblCuffPressure);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblCuffPressureUnit);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWAMP);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWAPP);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWASP);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWADP);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblImperialHeightUnit);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradllblPWAHeight);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWAHeightUnit);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblCuffPressureValue);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guipicboxPWAGetBp);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWADPDisplay);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWAMPDisplay);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPWAPPDisplay);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradbtnGetBp);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guipnlPWABPOtherDevice);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradbtnDisplayReport);
+            this.guipnlPWAMeasurementDetails.Location = new System.Drawing.Point(528, 1);
+            this.guipnlPWAMeasurementDetails.Name = "guipnlPWAMeasurementDetails";
+            this.guipnlPWAMeasurementDetails.Size = new System.Drawing.Size(475, 599);
+            this.guipnlPWAMeasurementDetails.TabIndex = 45;
+            this.guipnlPWAMeasurementDetails.Visible = false;
+            // 
+            // guiradlblPWAHRDisplay
+            // 
+            this.guiradlblPWAHRDisplay.AutoSize = false;
+            this.guiradlblPWAHRDisplay.BorderVisible = true;
+            this.guiradlblPWAHRDisplay.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblPWAHRDisplay.Location = new System.Drawing.Point(262, 441);
+            this.guiradlblPWAHRDisplay.Name = "guiradlblPWAHRDisplay";
+            // 
+            // 
+            // 
+            this.guiradlblPWAHRDisplay.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblPWAHRDisplay.Size = new System.Drawing.Size(38, 23);
+            this.guiradlblPWAHRDisplay.TabIndex = 55;
+            this.guiradlblPWAHRDisplay.Text = "75";
+            this.guiradlblPWAHRDisplay.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAHRDisplay.GetChildAt(0))).BorderVisible = true;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAHRDisplay.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAHRDisplay.GetChildAt(0))).Text = "75";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAHRDisplay.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAHRDisplay.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAHRDisplay.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAHRDisplay.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAHRDisplay.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAHRDisplay.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAHRDisplay.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAHRDisplay.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAHRDisplay.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAHRDisplay.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // guiradlblPWAHR
+            // 
+            this.guiradlblPWAHR.AutoSize = false;
+            this.guiradlblPWAHR.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblPWAHR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWAHR.Location = new System.Drawing.Point(192, 441);
+            this.guiradlblPWAHR.Name = "guiradlblPWAHR";
+            // 
+            // 
+            // 
+            this.guiradlblPWAHR.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWAHR.Size = new System.Drawing.Size(70, 25);
+            this.guiradlblPWAHR.TabIndex = 54;
+            this.guiradlblPWAHR.Text = "HR:";
+            this.guiradlblPWAHR.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradtxtPWAImperialHeight
+            // 
+            this.guiradtxtPWAImperialHeight.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtPWAImperialHeight.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradtxtPWAImperialHeight.Location = new System.Drawing.Point(253, 125);
+            this.guiradtxtPWAImperialHeight.Name = "guiradtxtPWAImperialHeight";
+            // 
+            // 
+            // 
+            this.guiradtxtPWAImperialHeight.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradtxtPWAImperialHeight.RootElement.StretchVertically = true;
+            this.guiradtxtPWAImperialHeight.Size = new System.Drawing.Size(60, 23);
+            this.guiradtxtPWAImperialHeight.TabIndex = 53;
+            this.guiradtxtPWAImperialHeight.TabStop = false;
+            this.guiradtxtPWAImperialHeight.Visible = false;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradtxtPWAImperialHeight.GetChildAt(0).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradtxtPWAImperialHeight.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // guiradtxtPWAHeight
+            // 
+            this.guiradtxtPWAHeight.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtPWAHeight.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradtxtPWAHeight.Location = new System.Drawing.Point(163, 125);
+            this.guiradtxtPWAHeight.Name = "guiradtxtPWAHeight";
+            // 
+            // 
+            // 
+            this.guiradtxtPWAHeight.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradtxtPWAHeight.RootElement.StretchVertically = true;
+            this.guiradtxtPWAHeight.Size = new System.Drawing.Size(60, 23);
+            this.guiradtxtPWAHeight.TabIndex = 52;
+            this.guiradtxtPWAHeight.TabStop = false;
+            this.guiradtxtPWAHeight.Text = "170";
+            ((Telerik.WinControls.UI.RadTextBoxElement)(this.guiradtxtPWAHeight.GetChildAt(0))).Text = "170";
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradtxtPWAHeight.GetChildAt(0).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradtxtPWAHeight.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // guiradbtnAutoPWACancel
+            // 
+            this.guiradbtnAutoPWACancel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradbtnAutoPWACancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradbtnAutoPWACancel.Location = new System.Drawing.Point(354, 558);
+            this.guiradbtnAutoPWACancel.Name = "guiradbtnAutoPWACancel";
+            // 
+            // 
+            // 
+            this.guiradbtnAutoPWACancel.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradbtnAutoPWACancel.Size = new System.Drawing.Size(80, 25);
+            this.guiradbtnAutoPWACancel.TabIndex = 43;
+            this.guiradbtnAutoPWACancel.Text = "Cancel";
+            this.guiradbtnAutoPWACancel.Visible = false;
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnAutoPWACancel.GetChildAt(0))).Text = "Cancel";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnAutoPWACancel.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnAutoPWACancel.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnAutoPWACancel.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnAutoPWACancel.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(243)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradbtnAutoPWACancel.GetChildAt(0).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradbtnAutoPWACancel.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // guiradlblBPProgressBar
+            // 
+            this.guiradlblBPProgressBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guiradlblBPProgressBar.Dash = false;
+            this.guiradlblBPProgressBar.Font = new System.Drawing.Font("Arial", 10F);
+            this.guiradlblBPProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblBPProgressBar.Location = new System.Drawing.Point(137, 561);
+            this.guiradlblBPProgressBar.Name = "guiradlblBPProgressBar";
+            // 
+            // 
+            // 
+            this.guiradlblBPProgressBar.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblBPProgressBar.ShowProgressIndicators = true;
+            this.guiradlblBPProgressBar.Size = new System.Drawing.Size(211, 22);
+            this.guiradlblBPProgressBar.TabIndex = 43;
+            this.guiradlblBPProgressBar.Text = "PWA enabled in 0:15";
+            this.guiradlblBPProgressBar.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.guiradlblBPProgressBar.Visible = false;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradlblBPProgressBar.GetChildAt(0))).ShowProgressIndicator = true;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradlblBPProgressBar.GetChildAt(0))).Dash = false;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradlblBPProgressBar.GetChildAt(0))).Value1 = 0;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradlblBPProgressBar.GetChildAt(0))).SeparatorColor1 = System.Drawing.SystemColors.ControlLightLight;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradlblBPProgressBar.GetChildAt(0))).Text = "PWA enabled in 0:15";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.SystemColors.ControlLightLight;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(0))).NumberOfColors = 2;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(0))).GradientPercentage = 0.1F;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(0))).GradientPercentage2 = 0.1F;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.SystemColors.ControlLightLight;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(1))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(139)))), ((int)(((byte)(232)))));
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(1))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(139)))), ((int)(((byte)(232)))));
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(1))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(1))).GradientStyle = Telerik.WinControls.GradientStyles.Linear;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(1))).GradientPercentage = 0.5F;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(1))).GradientPercentage2 = 0.5F;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.SystemColors.ControlDark;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(3))).LeftColor = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(3))).TopColor = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(3))).RightColor = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(3))).BottomColor = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(3))).ForeColor2 = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(3))).ForeColor3 = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(3))).ForeColor4 = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblBPProgressBar.GetChildAt(0).GetChildAt(3))).ForeColor = System.Drawing.SystemColors.ControlDark;
+            // 
+            // guiradlblPWASPDisplay
+            // 
+            this.guiradlblPWASPDisplay.AutoSize = false;
+            this.guiradlblPWASPDisplay.BorderVisible = true;
+            this.guiradlblPWASPDisplay.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblPWASPDisplay.Location = new System.Drawing.Point(76, 238);
+            this.guiradlblPWASPDisplay.Name = "guiradlblPWASPDisplay";
+            // 
+            // 
+            // 
+            this.guiradlblPWASPDisplay.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblPWASPDisplay.Size = new System.Drawing.Size(36, 23);
+            this.guiradlblPWASPDisplay.TabIndex = 49;
+            this.guiradlblPWASPDisplay.Text = "120";
+            this.guiradlblPWASPDisplay.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWASPDisplay.GetChildAt(0))).BorderVisible = true;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWASPDisplay.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWASPDisplay.GetChildAt(0))).Text = "120";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWASPDisplay.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWASPDisplay.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWASPDisplay.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWASPDisplay.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWASPDisplay.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWASPDisplay.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWASPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWASPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWASPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWASPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // guiradlblCuffPressure
+            // 
+            this.guiradlblCuffPressure.AutoSize = false;
+            this.guiradlblCuffPressure.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblCuffPressure.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblCuffPressure.Location = new System.Drawing.Point(55, 478);
+            this.guiradlblCuffPressure.Name = "guiradlblCuffPressure";
+            // 
+            // 
+            // 
+            this.guiradlblCuffPressure.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblCuffPressure.Size = new System.Drawing.Size(206, 25);
+            this.guiradlblCuffPressure.TabIndex = 48;
+            this.guiradlblCuffPressure.Text = "Cuff Pressure:";
+            this.guiradlblCuffPressure.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.guiradlblCuffPressure.Visible = false;
+            // 
+            // guiradlblCuffPressureUnit
+            // 
+            this.guiradlblCuffPressureUnit.AutoSize = false;
+            this.guiradlblCuffPressureUnit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblCuffPressureUnit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblCuffPressureUnit.Location = new System.Drawing.Point(314, 477);
+            this.guiradlblCuffPressureUnit.Name = "guiradlblCuffPressureUnit";
+            // 
+            // 
+            // 
+            this.guiradlblCuffPressureUnit.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblCuffPressureUnit.Size = new System.Drawing.Size(50, 25);
+            this.guiradlblCuffPressureUnit.TabIndex = 47;
+            this.guiradlblCuffPressureUnit.Text = "mmHg";
+            this.guiradlblCuffPressureUnit.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.guiradlblCuffPressureUnit.Visible = false;
+            // 
+            // guiradlblPWAMP
+            // 
+            this.guiradlblPWAMP.AutoSize = false;
+            this.guiradlblPWAMP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblPWAMP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWAMP.Location = new System.Drawing.Point(4, 349);
+            this.guiradlblPWAMP.Name = "guiradlblPWAMP";
+            // 
+            // 
+            // 
+            this.guiradlblPWAMP.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWAMP.Size = new System.Drawing.Size(70, 25);
+            this.guiradlblPWAMP.TabIndex = 44;
+            this.guiradlblPWAMP.Text = "MP:";
+            this.guiradlblPWAMP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradlblPWAPP
+            // 
+            this.guiradlblPWAPP.AutoSize = false;
+            this.guiradlblPWAPP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblPWAPP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWAPP.Location = new System.Drawing.Point(4, 296);
+            this.guiradlblPWAPP.Name = "guiradlblPWAPP";
+            // 
+            // 
+            // 
+            this.guiradlblPWAPP.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWAPP.Size = new System.Drawing.Size(70, 25);
+            this.guiradlblPWAPP.TabIndex = 43;
+            this.guiradlblPWAPP.Text = "PP:";
+            this.guiradlblPWAPP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradlblPWASP
+            // 
+            this.guiradlblPWASP.AutoSize = false;
+            this.guiradlblPWASP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblPWASP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWASP.Location = new System.Drawing.Point(4, 238);
+            this.guiradlblPWASP.Name = "guiradlblPWASP";
+            // 
+            // 
+            // 
+            this.guiradlblPWASP.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWASP.Size = new System.Drawing.Size(70, 25);
+            this.guiradlblPWASP.TabIndex = 41;
+            this.guiradlblPWASP.Text = "SP:";
+            this.guiradlblPWASP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradlblPWADP
+            // 
+            this.guiradlblPWADP.AutoSize = false;
+            this.guiradlblPWADP.Controls.Add(this.guiradtxtOthDevPWADP);
+            this.guiradlblPWADP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblPWADP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWADP.Location = new System.Drawing.Point(4, 412);
+            this.guiradlblPWADP.Name = "guiradlblPWADP";
+            // 
+            // 
+            // 
+            this.guiradlblPWADP.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWADP.Size = new System.Drawing.Size(70, 25);
+            this.guiradlblPWADP.TabIndex = 42;
+            this.guiradlblPWADP.Text = "DP:";
+            this.guiradlblPWADP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradlblImperialHeightUnit
+            // 
+            this.guiradlblImperialHeightUnit.AutoSize = false;
+            this.guiradlblImperialHeightUnit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblImperialHeightUnit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblImperialHeightUnit.Location = new System.Drawing.Point(319, 131);
+            this.guiradlblImperialHeightUnit.Name = "guiradlblImperialHeightUnit";
+            // 
+            // 
+            // 
+            this.guiradlblImperialHeightUnit.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblImperialHeightUnit.Size = new System.Drawing.Size(50, 25);
+            this.guiradlblImperialHeightUnit.TabIndex = 40;
+            this.guiradlblImperialHeightUnit.Text = "in";
+            this.guiradlblImperialHeightUnit.Visible = false;
+            // 
+            // guiradllblPWAHeight
+            // 
+            this.guiradllblPWAHeight.AutoSize = false;
+            this.guiradllblPWAHeight.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradllblPWAHeight.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradllblPWAHeight.Location = new System.Drawing.Point(63, 126);
+            this.guiradllblPWAHeight.Name = "guiradllblPWAHeight";
+            // 
+            // 
+            // 
+            this.guiradllblPWAHeight.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradllblPWAHeight.Size = new System.Drawing.Size(100, 25);
+            this.guiradllblPWAHeight.TabIndex = 36;
+            this.guiradllblPWAHeight.Text = "Height:";
+            this.guiradllblPWAHeight.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradlblPWAHeightUnit
+            // 
+            this.guiradlblPWAHeightUnit.AutoSize = false;
+            this.guiradlblPWAHeightUnit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblPWAHeightUnit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWAHeightUnit.Location = new System.Drawing.Point(229, 130);
+            this.guiradlblPWAHeightUnit.Name = "guiradlblPWAHeightUnit";
+            // 
+            // 
+            // 
+            this.guiradlblPWAHeightUnit.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblPWAHeightUnit.Size = new System.Drawing.Size(50, 25);
+            this.guiradlblPWAHeightUnit.TabIndex = 39;
+            this.guiradlblPWAHeightUnit.Text = "cm";
+            // 
+            // guiradlblCuffPressureValue
+            // 
+            this.guiradlblCuffPressureValue.AutoSize = false;
+            this.guiradlblCuffPressureValue.BorderVisible = true;
+            this.guiradlblCuffPressureValue.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblCuffPressureValue.Location = new System.Drawing.Point(260, 478);
+            this.guiradlblCuffPressureValue.Name = "guiradlblCuffPressureValue";
+            // 
+            // 
+            // 
+            this.guiradlblCuffPressureValue.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblCuffPressureValue.Size = new System.Drawing.Size(51, 24);
+            this.guiradlblCuffPressureValue.TabIndex = 1;
+            this.guiradlblCuffPressureValue.Text = "10";
+            this.guiradlblCuffPressureValue.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.guiradlblCuffPressureValue.Visible = false;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblCuffPressureValue.GetChildAt(0))).BorderVisible = true;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblCuffPressureValue.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblCuffPressureValue.GetChildAt(0))).Text = "10";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblCuffPressureValue.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblCuffPressureValue.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblCuffPressureValue.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblCuffPressureValue.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblCuffPressureValue.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblCuffPressureValue.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblCuffPressureValue.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblCuffPressureValue.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblCuffPressureValue.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            // 
+            // guipicboxPWAGetBp
+            // 
+            this.guipicboxPWAGetBp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.guipicboxPWAGetBp.Image = global::gui.Properties.Resources.PWA_diagram;
+            this.guipicboxPWAGetBp.Location = new System.Drawing.Point(117, 224);
+            this.guipicboxPWAGetBp.Name = "guipicboxPWAGetBp";
+            this.guipicboxPWAGetBp.Size = new System.Drawing.Size(317, 213);
+            this.guipicboxPWAGetBp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guipicboxPWAGetBp.TabIndex = 9;
+            this.guipicboxPWAGetBp.TabStop = false;
+            // 
+            // guiradlblPWADPDisplay
+            // 
+            this.guiradlblPWADPDisplay.AutoSize = false;
+            this.guiradlblPWADPDisplay.BorderVisible = true;
+            this.guiradlblPWADPDisplay.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblPWADPDisplay.Location = new System.Drawing.Point(76, 413);
+            this.guiradlblPWADPDisplay.Name = "guiradlblPWADPDisplay";
+            // 
+            // 
+            // 
+            this.guiradlblPWADPDisplay.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblPWADPDisplay.Size = new System.Drawing.Size(36, 23);
+            this.guiradlblPWADPDisplay.TabIndex = 8;
+            this.guiradlblPWADPDisplay.Text = "80";
+            this.guiradlblPWADPDisplay.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWADPDisplay.GetChildAt(0))).BorderVisible = true;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWADPDisplay.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWADPDisplay.GetChildAt(0))).Text = "80";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWADPDisplay.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // guiradlblPWAMPDisplay
+            // 
+            this.guiradlblPWAMPDisplay.AutoSize = false;
+            this.guiradlblPWAMPDisplay.BorderVisible = true;
+            this.guiradlblPWAMPDisplay.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblPWAMPDisplay.Location = new System.Drawing.Point(75, 350);
+            this.guiradlblPWAMPDisplay.Name = "guiradlblPWAMPDisplay";
+            // 
+            // 
+            // 
+            this.guiradlblPWAMPDisplay.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblPWAMPDisplay.Size = new System.Drawing.Size(36, 23);
+            this.guiradlblPWAMPDisplay.TabIndex = 7;
+            this.guiradlblPWAMPDisplay.Text = "100";
+            this.guiradlblPWAMPDisplay.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAMPDisplay.GetChildAt(0))).BorderVisible = true;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAMPDisplay.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAMPDisplay.GetChildAt(0))).Text = "100";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAMPDisplay.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAMPDisplay.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAMPDisplay.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAMPDisplay.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAMPDisplay.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAMPDisplay.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAMPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAMPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAMPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAMPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // guiradlblPWAPPDisplay
+            // 
+            this.guiradlblPWAPPDisplay.AutoSize = false;
+            this.guiradlblPWAPPDisplay.BorderVisible = true;
+            this.guiradlblPWAPPDisplay.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblPWAPPDisplay.Location = new System.Drawing.Point(76, 296);
+            this.guiradlblPWAPPDisplay.Name = "guiradlblPWAPPDisplay";
+            // 
+            // 
+            // 
+            this.guiradlblPWAPPDisplay.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblPWAPPDisplay.Size = new System.Drawing.Size(36, 23);
+            this.guiradlblPWAPPDisplay.TabIndex = 6;
+            this.guiradlblPWAPPDisplay.Text = "40";
+            this.guiradlblPWAPPDisplay.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAPPDisplay.GetChildAt(0))).BorderVisible = true;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAPPDisplay.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAPPDisplay.GetChildAt(0))).Text = "40";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAPPDisplay.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAPPDisplay.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAPPDisplay.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAPPDisplay.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradlblPWAPPDisplay.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(150)))), ((int)(((byte)(189)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAPPDisplay.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAPPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAPPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAPPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWAPPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // guiradbtnGetBp
+            // 
+            this.guiradbtnGetBp.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradbtnGetBp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradbtnGetBp.Location = new System.Drawing.Point(53, 558);
+            this.guiradbtnGetBp.Name = "guiradbtnGetBp";
+            // 
+            // 
+            // 
+            this.guiradbtnGetBp.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradbtnGetBp.Size = new System.Drawing.Size(80, 25);
+            this.guiradbtnGetBp.TabIndex = 0;
+            this.guiradbtnGetBp.Text = "Get BP";
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnGetBp.GetChildAt(0))).Text = "Get BP";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnGetBp.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnGetBp.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnGetBp.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnGetBp.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(243)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradbtnGetBp.GetChildAt(0).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradbtnGetBp.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // guipnlPWABPOtherDevice
+            // 
+            this.guipnlPWABPOtherDevice.Controls.Add(this.guiradtxtOthDevPWASP);
+            this.guipnlPWABPOtherDevice.Controls.Add(this.guiradlblOthDevPWAMP);
+            this.guipnlPWABPOtherDevice.Controls.Add(this.guiradlblOthDevPWASP);
+            this.guipnlPWABPOtherDevice.Controls.Add(this.guiradlblOthDevPWADP);
+            this.guipnlPWABPOtherDevice.Controls.Add(this.pictureBox1);
+            this.guipnlPWABPOtherDevice.Location = new System.Drawing.Point(2, 170);
+            this.guipnlPWABPOtherDevice.Name = "guipnlPWABPOtherDevice";
+            this.guipnlPWABPOtherDevice.Size = new System.Drawing.Size(454, 341);
+            this.guipnlPWABPOtherDevice.TabIndex = 50;
+            // 
+            // guiradtxtOthDevPWADP
+            // 
+            this.guiradtxtOthDevPWADP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtOthDevPWADP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradtxtOthDevPWADP.Location = new System.Drawing.Point(73, 2);
+            this.guiradtxtOthDevPWADP.Name = "guiradtxtOthDevPWADP";
+            // 
+            // 
+            // 
+            this.guiradtxtOthDevPWADP.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradtxtOthDevPWADP.Size = new System.Drawing.Size(36, 23);
+            this.guiradtxtOthDevPWADP.TabIndex = 50;
+            this.guiradtxtOthDevPWADP.TabStop = false;
+            this.guiradtxtOthDevPWADP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // guiradtxtOthDevPWASP
+            // 
+            this.guiradtxtOthDevPWASP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtOthDevPWASP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradtxtOthDevPWASP.Location = new System.Drawing.Point(74, 68);
+            this.guiradtxtOthDevPWASP.Name = "guiradtxtOthDevPWASP";
+            // 
+            // 
+            // 
+            this.guiradtxtOthDevPWASP.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradtxtOthDevPWASP.Size = new System.Drawing.Size(36, 23);
+            this.guiradtxtOthDevPWASP.TabIndex = 49;
+            this.guiradtxtOthDevPWASP.TabStop = false;
+            this.guiradtxtOthDevPWASP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // guiradlblOthDevPWAMP
+            // 
+            this.guiradlblOthDevPWAMP.AutoSize = false;
+            this.guiradlblOthDevPWAMP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblOthDevPWAMP.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblOthDevPWAMP.Location = new System.Drawing.Point(3, 168);
+            this.guiradlblOthDevPWAMP.Name = "guiradlblOthDevPWAMP";
+            // 
+            // 
+            // 
+            this.guiradlblOthDevPWAMP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblOthDevPWAMP.Size = new System.Drawing.Size(70, 25);
+            this.guiradlblOthDevPWAMP.TabIndex = 48;
+            this.guiradlblOthDevPWAMP.Text = "MP:";
+            this.guiradlblOthDevPWAMP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradlblOthDevPWASP
+            // 
+            this.guiradlblOthDevPWASP.AutoSize = false;
+            this.guiradlblOthDevPWASP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblOthDevPWASP.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblOthDevPWASP.Location = new System.Drawing.Point(6, 68);
+            this.guiradlblOthDevPWASP.Name = "guiradlblOthDevPWASP";
+            // 
+            // 
+            // 
+            this.guiradlblOthDevPWASP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblOthDevPWASP.Size = new System.Drawing.Size(70, 25);
+            this.guiradlblOthDevPWASP.TabIndex = 46;
+            this.guiradlblOthDevPWASP.Text = "SP*:";
+            this.guiradlblOthDevPWASP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradlblOthDevPWADP
+            // 
+            this.guiradlblOthDevPWADP.AutoSize = false;
+            this.guiradlblOthDevPWADP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblOthDevPWADP.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblOthDevPWADP.Location = new System.Drawing.Point(6, 237);
+            this.guiradlblOthDevPWADP.Name = "guiradlblOthDevPWADP";
+            // 
+            // 
+            // 
+            this.guiradlblOthDevPWADP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblOthDevPWADP.Size = new System.Drawing.Size(70, 25);
+            this.guiradlblOthDevPWADP.TabIndex = 47;
+            this.guiradlblOthDevPWADP.Text = "DP*:";
+            this.guiradlblOthDevPWADP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(135, 63);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(297, 197);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 45;
+            this.pictureBox1.TabStop = false;
+            // 
+            // guiradbtnDisplayReport
+            // 
+            this.guiradbtnDisplayReport.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradbtnDisplayReport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradbtnDisplayReport.Location = new System.Drawing.Point(317, 558);
+            this.guiradbtnDisplayReport.Name = "guiradbtnDisplayReport";
+            // 
+            // 
+            // 
+            this.guiradbtnDisplayReport.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradbtnDisplayReport.Size = new System.Drawing.Size(117, 25);
+            this.guiradbtnDisplayReport.TabIndex = 51;
+            this.guiradbtnDisplayReport.Text = "Display Report";
+            ((Telerik.WinControls.UI.RadButtonElement)(this.guiradbtnDisplayReport.GetChildAt(0))).Text = "Display Report";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnDisplayReport.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnDisplayReport.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnDisplayReport.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradbtnDisplayReport.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(243)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradbtnDisplayReport.GetChildAt(0).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradbtnDisplayReport.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             // 
             // Setup
             // 
@@ -1657,13 +2349,14 @@ namespace AtCor.Scor.Gui.Presentation
             this.Controls.Add(this.radlblgroupid);
             this.Controls.Add(this.radlblpatientinternalnumber);
             this.Controls.Add(this.guipnlSeperator);
-            this.Controls.Add(this.guipnlMeasurementDetails);
             this.Controls.Add(this.guipnlDemographicDetails);
             this.Controls.Add(this.guiradbtnExpander);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.guicmbGroup);
             this.Controls.Add(this.guiradlblGroup);
             this.Controls.Add(this.guilblGroup);
+            this.Controls.Add(this.guipnlPWAMeasurementDetails);
+            this.Controls.Add(this.guipnlMeasurementDetails);
             this.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.KeyPreview = true;
@@ -1750,6 +2443,41 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradgrdPatientList)).EndInit();
             this.guiradgrdPatientList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
+            this.guipnlPWAMeasurementDetails.ResumeLayout(false);
+            this.guipnlPWAMeasurementDetails.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAHRDisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAHR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtPWAImperialHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtPWAHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnAutoPWACancel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblBPProgressBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWASPDisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCuffPressure)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCuffPressureUnit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAMP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAPP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWASP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWADP)).EndInit();
+            this.guiradlblPWADP.ResumeLayout(false);
+            this.guiradlblPWADP.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblImperialHeightUnit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradllblPWAHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAHeightUnit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblCuffPressureValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guipicboxPWAGetBp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWADPDisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAMPDisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWAPPDisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnGetBp)).EndInit();
+            this.guipnlPWABPOtherDevice.ResumeLayout(false);
+            this.guipnlPWABPOtherDevice.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtOthDevPWADP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradtxtOthDevPWASP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblOthDevPWAMP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblOthDevPWASP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblOthDevPWADP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradbtnDisplayReport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1831,6 +2559,37 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadLabel guilblDay;
         public Telerik.WinControls.UI.RadGridView guiradgrdPatientList;
         private Telerik.WinControls.UI.RadLabel radLabel1;
+        public System.Windows.Forms.Panel guipnlPWAMeasurementDetails;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWAHRDisplay;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWAHR;
+        private Telerik.WinControls.UI.RadTextBox guiradtxtPWAImperialHeight;
+        private Telerik.WinControls.UI.RadTextBox guiradtxtPWAHeight;
+        private Telerik.WinControls.UI.RadButton guiradbtnAutoPWACancel;
+        private Telerik.WinControls.UI.RadProgressBar guiradlblBPProgressBar;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWASPDisplay;
+        private Telerik.WinControls.UI.RadLabel guiradlblCuffPressure;
+        private Telerik.WinControls.UI.RadLabel guiradlblCuffPressureUnit;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWAMP;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWAPP;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWASP;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWADP;
+        private Telerik.WinControls.UI.RadLabel guiradlblImperialHeightUnit;
+        private Telerik.WinControls.UI.RadLabel guiradllblPWAHeight;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWAHeightUnit;
+        public Telerik.WinControls.UI.RadLabel guiradlblCuffPressureValue;
+        private System.Windows.Forms.PictureBox guipicboxPWAGetBp;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWADPDisplay;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWAMPDisplay;
+        private Telerik.WinControls.UI.RadLabel guiradlblPWAPPDisplay;
+        private Telerik.WinControls.UI.RadButton guiradbtnGetBp;
+        private System.Windows.Forms.Panel guipnlPWABPOtherDevice;
+        private Telerik.WinControls.UI.RadTextBox guiradtxtOthDevPWADP;
+        private Telerik.WinControls.UI.RadTextBox guiradtxtOthDevPWASP;
+        private Telerik.WinControls.UI.RadLabel guiradlblOthDevPWAMP;
+        private Telerik.WinControls.UI.RadLabel guiradlblOthDevPWASP;
+        private Telerik.WinControls.UI.RadLabel guiradlblOthDevPWADP;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private Telerik.WinControls.UI.RadButton guiradbtnDisplayReport;
     }
 }
 

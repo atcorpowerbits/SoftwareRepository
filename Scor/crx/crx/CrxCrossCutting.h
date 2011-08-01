@@ -58,6 +58,7 @@ namespace AtCor
 				CrxCommon()
 				{
 					_defaultCulture = "en-US";
+					SetNeutralCultureInfo();
 					GetCommCultureInfo();
 				}
 
@@ -78,6 +79,8 @@ namespace AtCor
 				}     
 
 				CultureInfo^ GetCommCultureInfo();
+
+				void SetNeutralCultureInfo();
 				
 
 			public:
@@ -94,7 +97,10 @@ namespace AtCor
 				};
 
 				//holds the culture info name 
-				static CultureInfo^ gCI;				
+				static CultureInfo^ gCI;
+
+				//holds the neutral culture info name 
+				static CultureInfo^ nCI;
 			};
 
 			// TODO: After finalizing ScorException we need to remove this class, 

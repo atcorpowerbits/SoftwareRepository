@@ -31,3 +31,8 @@ CultureInfo^ CrxCommon::GetCommCultureInfo()
 	gCI = gcnew CultureInfo(CommCI);
 	return gCI;
 }
+
+void CrxCommon::SetNeutralCultureInfo()
+{
+	nCI = gcnew CultureInfo(_defaultCulture);
+}

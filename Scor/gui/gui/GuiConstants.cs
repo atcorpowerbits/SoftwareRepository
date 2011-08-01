@@ -34,7 +34,7 @@ namespace AtCor.Scor.Gui.Presentation
         public const char Separator = ',';
         public const string SourceData = "SQLCLIENT";
         public const string DefaultAtcorImage = "AtcorLogo";
-        public const string DefaultReportTitle = "AtCor Medical [THE PRODUCT] (R)";
+        public const string DefaultReportTitle = "AtCor Medical [THE PRODUCT] (R)";               
 
         // values used for disabling close button of form
         public const int WsMinimizebox = 0x20000;

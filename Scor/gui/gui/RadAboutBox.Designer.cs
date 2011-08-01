@@ -30,6 +30,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RadAboutBox));
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
+            this.guiradlblKeyFeatures = new Telerik.WinControls.UI.RadLabel();
             this.radPanel2 = new Telerik.WinControls.UI.RadPanel();
             this.guiradbtnOk = new Telerik.WinControls.UI.RadButton();
             this.guiradbtnPrint = new Telerik.WinControls.UI.RadButton();
@@ -48,6 +49,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.object_94f2ef16_653f_4d2a_a741_bb47b0b00f1c = new Telerik.WinControls.RootRadElement();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
             this.radPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblKeyFeatures)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnOk)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnPrint)).BeginInit();
@@ -68,6 +70,7 @@ namespace AtCor.Scor.Gui.Presentation
             // radPanel1
             // 
             this.radPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.radPanel1.Controls.Add(this.guiradlblKeyFeatures);
             this.radPanel1.Controls.Add(this.radPanel2);
             this.radPanel1.Controls.Add(this.guiradbtnOk);
             this.radPanel1.Controls.Add(this.guiradbtnPrint);
@@ -83,9 +86,9 @@ namespace AtCor.Scor.Gui.Presentation
             this.radPanel1.Controls.Add(this.guiradlblCopyrightNotice);
             this.radPanel1.Controls.Add(this.guiradlblCompanyName);
             this.radPanel1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radPanel1.Location = new System.Drawing.Point(-1, 11);
+            this.radPanel1.Location = new System.Drawing.Point(-1, 10);
             this.radPanel1.Name = "radPanel1";
-            this.radPanel1.Size = new System.Drawing.Size(520, 297);
+            this.radPanel1.Size = new System.Drawing.Size(520, 334);
             this.radPanel1.TabIndex = 0;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radPanel1.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(241)))));
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radPanel1.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(198)))), ((int)(((byte)(224)))));
@@ -96,6 +99,20 @@ namespace AtCor.Scor.Gui.Presentation
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radPanel1.GetChildAt(0).GetChildAt(1))).BottomColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radPanel1.GetChildAt(0).GetChildAt(1))).BottomShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radPanel1.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            // 
+            // guiradlblKeyFeatures
+            // 
+            this.guiradlblKeyFeatures.Font = new System.Drawing.Font("Arial", 11.25F);
+            this.guiradlblKeyFeatures.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblKeyFeatures.Location = new System.Drawing.Point(45, 187);
+            this.guiradlblKeyFeatures.Name = "guiradlblKeyFeatures";
+            // 
+            // 
+            // 
+            this.guiradlblKeyFeatures.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradlblKeyFeatures.Size = new System.Drawing.Size(76, 21);
+            this.guiradlblKeyFeatures.TabIndex = 34;
+            this.guiradlblKeyFeatures.Text = "radLabel4";
             // 
             // radPanel2
             // 
@@ -111,7 +128,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnOk.Font = new System.Drawing.Font("Arial", 11.25F);
             this.guiradbtnOk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradbtnOk.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.guiradbtnOk.Location = new System.Drawing.Point(431, 261);
+            this.guiradbtnOk.Location = new System.Drawing.Point(431, 298);
             this.guiradbtnOk.Name = "guiradbtnOk";
             // 
             // 
@@ -135,7 +152,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradbtnPrint.Font = new System.Drawing.Font("Arial", 11.25F);
             this.guiradbtnPrint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradbtnPrint.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.guiradbtnPrint.Location = new System.Drawing.Point(344, 261);
+            this.guiradbtnPrint.Location = new System.Drawing.Point(344, 298);
             this.guiradbtnPrint.Name = "guiradbtnPrint";
             // 
             // 
@@ -157,7 +174,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblLastCalibrationDate.Font = new System.Drawing.Font("Arial", 11.25F);
             this.guiradlblLastCalibrationDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblLastCalibrationDate.Location = new System.Drawing.Point(29, 216);
+            this.guiradlblLastCalibrationDate.Location = new System.Drawing.Point(29, 241);
             this.guiradlblLastCalibrationDate.Name = "guiradlblLastCalibrationDate";
             // 
             // 
@@ -171,7 +188,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblCeMark.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
             this.guiradlblCeMark.Font = new System.Drawing.Font("Verdana", 8.25F);
-            this.guiradlblCeMark.Location = new System.Drawing.Point(29, 236);
+            this.guiradlblCeMark.Location = new System.Drawing.Point(29, 265);
             this.guiradlblCeMark.Name = "guiradlblCeMark";
             this.guiradlblCeMark.Size = new System.Drawing.Size(2, 2);
             this.guiradlblCeMark.TabIndex = 29;
@@ -180,7 +197,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradlblmoduleInfo.Font = new System.Drawing.Font("Arial", 11.25F);
             this.guiradlblmoduleInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblmoduleInfo.Location = new System.Drawing.Point(29, 198);
+            this.guiradlblmoduleInfo.Location = new System.Drawing.Point(29, 222);
             this.guiradlblmoduleInfo.Name = "guiradlblmoduleInfo";
             // 
             // 
@@ -320,7 +337,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.ClientSize = new System.Drawing.Size(534, 368);
+            this.ClientSize = new System.Drawing.Size(530, 377);
             this.Controls.Add(this.radPanel1);
             this.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -342,6 +359,7 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).EndInit();
             this.radPanel1.ResumeLayout(false);
             this.radPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblKeyFeatures)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnOk)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnPrint)).EndInit();
@@ -380,6 +398,7 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadPanel radPanel2;
         private Telerik.WinControls.RootRadElement object_29bd1e5f_6a69_4379_ba24_259daa7acd8c;
         private Telerik.WinControls.RootRadElement object_94f2ef16_653f_4d2a_a741_bb47b0b00f1c;
+        private Telerik.WinControls.UI.RadLabel guiradlblKeyFeatures;
 
 
     }

@@ -230,6 +230,33 @@ namespace TestDal {
 				Assert::IsTrue(exceptionRaised);
 			}
 
+			///Usae this test to check any previusly uninncluded bit combinations
+			///A test for TranslateCuffStatusBits
+			///</summary>
+			public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void TranslateCuffStatusBitsTestNewFlag()
+			{
+				SetPath();
+				unsigned long cuffStatusFlags = 0 ; 
+				bool exceptionRaised = false;
+				
+				try
+				{
+					cuffStatusFlags = 0x2300 ; //New flag not previously added to the enum
+					DalCuffStateFlags actual;
+					DalCuffStateFlags expected = DalCuffStateFlags::CUFF_STATE_DEFLATING  ; 
+					actual = DalStatusHandler_Accessor::TranslateCuffStatusBits(cuffStatusFlags);
+					Assert::IsNotNull(actual);
+					Assert::AreEqual(expected, actual);
+				}
+				catch(ScorException^)
+				{
+					exceptionRaised = true;
+				}
+				Assert::IsFalse(exceptionRaised); //exception should not be raised once this flag is added
+			}
+
 			//Error flag has been removed
 	//		/// <summary>
 	//		///A test for MapErrorSourceToString
@@ -573,9 +600,9 @@ public: [TestMethod]
 			
 			Assert::IsTrue(exceptionThrown);
 			Assert::AreEqual( statusBytes, target->_currentStatusFlag);
-			Assert::AreEqual((unsigned long)0x0000, target->_currentCuffStatusFlag );
-			Assert::AreEqual((unsigned long)0x5000, target->_currentTonoStatusFlag);
-			Assert::AreEqual((unsigned long)0x0020, target->_currentAlarmStatusFlag);
+			Assert::AreEqual((unsigned long)0x0000, (target->_currentCuffStatusFlag) );
+			Assert::AreEqual((unsigned long)0x5000, (target->_currentTonoStatusFlag));
+			Assert::AreEqual((unsigned long)0x0020, (target->_currentAlarmStatusFlag));
 		}
 		/// <summary>
 		///A test for ProcessPowerUpBitMask
@@ -728,7 +755,7 @@ public: [TestMethod]
 			
 			DalStatusHandler_Accessor::ResetAllStaticMembers();
 			Assert::AreEqual((unsigned long)0xFFFF, target->_currentCuffStatusFlag);
-			Assert::AreEqual((unsigned long)0x0, target->_currentAlarmStatusFlag);
+			Assert::AreEqual((unsigned long)0x0, (target->_currentAlarmStatusFlag));
 			Assert::AreEqual((unsigned long)0, target->_currentEASourceFlag);
 			Assert::AreEqual((unsigned long)0, target->_currentStatusFlag);
 			Assert::AreEqual((unsigned long)0xFFFF, target->_currentTonoStatusFlag);

@@ -48,6 +48,16 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		
 	};	
 
+	//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+	public enum class CrxGenPwaValue
+	{
+		CrxPwaCapture5Seconds			= 5,
+		CrxPwaCapture10Seconds			= 10,
+		CrxPwaCapture20Seconds			= 20,
+		
+	};	
+	//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+
 	/**
 	 * @struct CrxConfigStructInternal
 	 * @brief Container for internal string. 	
@@ -70,16 +80,31 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		static String^ Default = "DEFAULT";
 		static String^ User = "USER";
 		static String^ Pwv = "PWV";
-		static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION'";
+		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+		//static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION'";
+		static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION' , 'PWA' ,'GUIDANCEBARS','AUTOCAPTURE','MINPULSEHEIGHT','MAXPULSEHEIGHTVARIATION','MAXDIASTOLICVARIATION','AUGMENTATIONINDEX','AUGMENTATIONINDEXATHR75','BLINDSTUDY','CAPTUREINPUT','DEFAULTREPORTSCREEN', 'BP', 'DEVICE' ,'NUMBEROFASSESSMENTS', 'AUTOPWA', 'SPTHRESHOLD', 'PPTHRESHOLD', 'BLOODPRESSURE','SIMULATIONTYPE','KEY' ,'AUTOPWASP','AUTOPWAPP','AUTOPWADP','AUTOPWASPTHRESHOLD','AUTOPWAPPTHRESHOLD','AUTOPWADPTHRESHOLD'";
+		//End   : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+		
 		static String^ TagSeparator	=	"'";
 		static String^ CheckYesNoValue = "'NO', 'YES'";
-		static String^ StartUpScreenValue = "'SETUP'";
+		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+		//static String^ StartUpScreenValue = "'SETUP'";
+		static String^ StartUpScreenValue = "'SETUP','QUICK START'";
+		//End   : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+		static String^ StartUpModeValue = "'PWV','PWA'";
+
 		static String^ UpperYES = "YES";
 		//Commented to reduce FxCop warning. Uncomment it to use when neccessary
 		//static String^ UpperNO = "NO";
 		static String^ LowerYes = "Yes";
 		static String^ LowerNo = "No";
 		static String^ Blank = " ";
+		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+		static String^ Pwa = "PWA";
+		static String^ BP = "BP";
+		static String^ DeviceValue = "'SPHYGMOCOR','OTHER'";
+		//End   : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+
 
 		static String^ PatientPrivacy = "PATIENTPRIVACY";
 		static String^ HeightAndWeightUnits = "HEIGHTANDWEIGHTUNITS";
@@ -94,6 +119,14 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		static String^ StartupMode = "STARTUPMODE";
 		static String^ StartupScreen = "STARTUPSCREEN";
 		static String^ PrinterName = "PRINTERNAME";
+		static String^ SystemKey	=	"KEY";
+
+		////Begin: AtCor-Drop2-Sprint1, TM, SWREQ2001, 9-Jun-2011
+		//static String^ Id = "ID" ;
+		//static String^ Sn = "SN";
+		//static String^ Verify = "VERIFY";
+		//static String^ Cksum = "CKSUM";
+		////End   : AtCor-Drop2-Sprint1, TM, SWREQ2001, 9-Jun-2011
 
 		static String^ PwvDistanceMethod = "PWVDISTANCEMETHOD";
 		static String^ FemoralToCuff = "FEMORALTOCUFF";
@@ -103,6 +136,28 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		static String^ NormalRange = "HEALTHYPOPULATION";
 		static String^ SimulationType = "SIMULATIONTYPE";
 		static String^ DefaultReport  = "DEFAULTREPORT";
+
+		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+		static String^ GuidanceBars = "GUIDANCEBARS";
+		static String^ AutoCapture = "AUTOCAPTURE";
+		static String^ AugmentationIndex = "AUGMENTATIONINDEX";
+		static String^ AugmentationIndexAtHR75  = "AUGMENTATIONINDEXATHR75";
+		static String^ CaptureInput  = "CAPTUREINPUT";
+		//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+
+		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 6-Jun-2011
+		static String^ Device = "DEVICE" ;
+		static String^ NumberofAssessments = "NUMBEROFASSESSMENTS";
+		static String^ AutoPWA = "AUTOPWA";
+		static String^ BloodPressure = "BLOODPRESSURE";
+		static String^ AutoPWASP = "AUTOPWASP";
+		static String^ AutoPWAPP = "AUTOPWAPP";
+		static String^ AutoPWADP = "AUTOPWADP";
+		static String^ AutoPWASPThreshold = "AUTOPWASPTHRESHOLD";
+		static String^ AutoPWAPPThreshold = "AUTOPWAPPTHRESHOLD";
+		static String^ AutoPWADPThreshold = "AUTOPWADPTHRESHOLD";
+		//End   : AtCor-Drop2-Sprint1, TM, SWREQ2006, 6-Jun-2011
+
 	};
 
 	/**
@@ -205,6 +260,38 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		METRIC_DISTANCE_INVALID
 	};          
 	
+	//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 6-Jun-2011
+	//Declaring enum for Number of Assessments
+	/**
+	* @enum NumberofAssessments
+	 * @brief Container for Number of Assessments. 
+	 */
+	
+	public enum class NumberofAssessments
+	{
+		Zero = 0,
+		One,
+		Two,
+		Three,
+		Four,
+		Five
+	};     
+	
+	//Declaring enum for SP PP Threshold Values
+	/**
+	* @enum ThresholdValues
+	 * @brief Container for Threshold Values. 
+	 */
+	
+	public enum class ThresholdValues
+	{
+		SPThresholdMin = 30,
+		SPThresholdMax = 250,
+		PPThresholdMin = 10,
+		PPThresholdMax = 220
+	};     
+	//End: AtCor-Drop2-Sprint1, TM, SWREQ2006, 6-Jun-2011
+
 	//Declaring enum for BizMode
 	/**
 	* @enum BizMode
@@ -239,6 +326,13 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		String^ StartupScreen;			/**< Shows the Startup Screen */
 		String^ EnvironmentSettings;	/**< Shows the environment Settings  */
 		String^ PrinterName;			/**< Shows the printer settings */
+		String^	Key;					/**< Shows the application aystem key */
+		////Begin: AtCor-Drop2-Sprint1, TM, SWREQ2001, 9-Jun-2011
+		//String^ Id;						/**< Shows the Id from System Key */
+		//String^ Sn;						/**< Shows the Sn from System Key */
+		//String^ Verify;					/**< Shows the Verify from System Key */
+		//String^ Cksum;					/**< Shows the Cksum from System Key */
+		////End   : AtCor-Drop2-Sprint1, TM, SWREQ2001, 9-Jun-2011
 
 
 		/**
@@ -260,6 +354,11 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			StartupScreen				= nullptr;
 			EnvironmentSettings			= nullptr;
 			PrinterName					= nullptr;
+			Key							= nullptr;
+			/*Id							= nullptr;
+			Sn							= nullptr;
+			Verify						= nullptr;
+			Cksum						= nullptr;*/
 		}
 	};
 
@@ -295,6 +394,82 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		}
 	};
 
+	//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+	/**
+	 * @struct CrxStructPwaSetting
+	 * @brief Container for PWA configuration settings. 
+	 */
+	public ref struct CrxStructPwaSetting
+	{
+		
+		int CaptureTime;
+        bool GuidanceBars;
+		bool AutoCapture;
+		bool AugmentationIndex;
+		bool AugmentationIndexAtHR75;
+		String^ CaptureInput;
+		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+		String^ SimulationType;	/**< Shows the String Selected*/
+		//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+		
+
+		/**
+		* Default constructor to initialize the structure members
+		*/
+		CrxStructPwaSetting()
+		{
+			CaptureTime				= Convert::ToInt32(CrxGenPwvValue::CrxPwvCapture5Seconds); 
+			GuidanceBars			= true;
+			AutoCapture				= true;
+			AugmentationIndex		= true;
+			AugmentationIndexAtHR75	= false;
+			CaptureInput			= "Pressure Cuff";
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+			SimulationType			= nullptr;
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+		}
+	};
+	//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+	//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 6-Jun-2011
+	/**
+	 * @struct CrxStructBpSetting
+	 * @brief Container for Bp configuration settings. 
+	 */
+	public ref struct CrxStructBpSetting
+	{
+		
+		String^ Device;
+		int NumberofAssessments;
+		String^ AutoPWA;
+		int BloodPressure;
+		bool AutoPWASP;
+		bool AutoPWAPP;
+		bool AutoPWADP;
+		int AutoPWASPThreshold;
+		int AutoPWAPPThreshold;
+		int AutoPWADPThreshold;
+		
+		/**
+		* Default constructor to initialize the structure members
+		*/
+		CrxStructBpSetting()
+		{
+			Device						= nullptr;
+			NumberofAssessments			= 1;
+			AutoPWA						= nullptr;
+			BloodPressure				= 0;
+			AutoPWASP					= false;
+			AutoPWAPP					= false;
+			AutoPWADP					= false;
+			AutoPWASPThreshold			= 0;
+			AutoPWAPPThreshold			= 0;
+			AutoPWADPThreshold			= 0;
+		}
+	};
+	//End   : AtCor-Drop2-Sprint1, TM, SWREQ2006, 6-Jun-2011
+
+
+
 	/**
 	* @class CrxConfigManager
 	* @brief Class to manage configuration related functions. @n
@@ -320,6 +495,22 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			//structure instance to hold PWV settings for internal use
 			CrxStructPwvSetting^ _pSetInternal;
 
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+			//structure instance to hold PWV settings
+			CrxStructPwaSetting^ _pwaSettings;
+
+			//structure instance to hold PWA settings for internal use
+			CrxStructPwaSetting^ _pwaSetInternal;
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
+			//structure instance to hold BP settings
+			CrxStructBpSetting^ _bpSettings;
+
+			//structure instance to hold BP settings for internal use
+			CrxStructBpSetting^ _bpSetInternal;
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
+
 			// holds the location of the configuration file
             String^ _nameOfFile;
 
@@ -336,11 +527,27 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 				//Create instance PWV Settings Structure
 				_pwvSettings = gcnew CrxStructPwvSetting();
 
+				//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+				_pwaSettings = gcnew CrxStructPwaSetting();
+				//End  : AtCor-Drop2-Sprint, TM, SWREQ2009, 13-Jun-2011
+
+				//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
+				_bpSettings = gcnew CrxStructBpSetting();
+				//End  : AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
+
 				//Create internal instance General Settings Structure
 				_gSetInternal = gcnew CrxStructGeneralSetting();
 
 				//Create internal instance PWV Settings Structure
 				_pSetInternal = gcnew CrxStructPwvSetting();
+			
+				//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+				_pwaSetInternal = gcnew CrxStructPwaSetting();
+				//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+
+				//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
+				_bpSetInternal = gcnew CrxStructBpSetting();
+				//End  : AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
 			}
 
 			/**
@@ -364,16 +571,28 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetSettings(String^ Section, String^ SubSection);
 
 			//Set data in the file as per Section and Subsection
-			void SetSettings(String^ Section, String^ SubSection, CrxStructGeneralSetting^ gs , CrxStructPwvSetting^ ps);
+			//void SetSettings(String^ Section, String^ SubSection, CrxStructGeneralSetting^ gs , CrxStructPwvSetting^ ps);
+			void SetSettings(String^ Section, String^ SubSection, CrxStructGeneralSetting^ gs , CrxStructPwvSetting^ ps , CrxStructPwaSetting^ pwas, CrxStructBpSetting^ bps);
 
 			//Set data in the file as per Section, Subsection and node
-			void SetSettingsNode(String^ Section, String^ SubSection, CrxStructGeneralSetting^ gs, CrxStructPwvSetting^ ps, XmlNode^ node);
+			//void SetSettingsNode(String^ Section, String^ SubSection, CrxStructGeneralSetting^ gs, CrxStructPwvSetting^ ps, XmlNode^ node);
+			void SetSettingsNode(String^ Section, String^ SubSection, CrxStructGeneralSetting^ gs, CrxStructPwvSetting^ ps, CrxStructPwaSetting^ pwas,  CrxStructBpSetting^ bps, XmlNode^ node);
 		
 			//Get data from the XML file as per Subsection node
 			void SetGeneralSettingsNode(CrxStructGeneralSetting^ gs, XmlNode^ node);
 
 			//Get data from the XML file as per Subsection node
 			void SetPwvSettingsNode(CrxStructPwvSetting^ gs, XmlNode^ node);
+
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+			//Get data from the XML file as per Subsection node
+			void SetPwaSettingsNode(CrxStructPwaSetting^ gs, XmlNode^ node);
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
+			//Get data from the XML file as per Subsection node
+			void SetBpSettingsNode(CrxStructBpSetting^ bps, XmlNode^ node);
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
 
 			//Get data from the XML file as per Subsection node
 			void GetSettingsNode(String^ Section, String^ SubSection, String^ SubSectionNode , String^ ReaderValue);
@@ -383,6 +602,16 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 
 			//Get data from the XML file as per Subsection node
 			void GetPwvSettingsNode(String^ SubSection, String^ SubSectionNode , String^ ReaderValue);
+			
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+			//Get data from the XML file as per Subsection node
+			void GetPwaSettingsNode(String^ SubSection, String^ SubSectionNode , String^ ReaderValue);
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
+			//Get data from the XML file as per Subsection node
+			void GetBpSettingsNode(String^ SubSection, String^ SubSectionNode , String^ ReaderValue);
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
 
 			//-------------------Get General Setting Values-------------------
 			//Get Patient Privacy value form config file
@@ -411,7 +640,20 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetStartupScreen(String^ SubSection, String^ ReaderValue);
 			//Get Config Printer from config file
 			void GetConfigPrinter(String^ SubSection, String^ ReaderValue);
-	
+			//Get System Key from config file
+			void GetSystemKey(String^ SubSection, String^ ReaderValue);
+			
+			////Begin: AtCor-Drop2-Sprint1, TM, SWREQ2001, 9-Jun-2011
+			////Get Id (System Key) from config file
+			//void GetId(String^ SubSection, String^ ReaderValue);
+			////Get SN (System Key) from config file
+			//void GetSn(String^ SubSection, String^ ReaderValue);
+			////Get Verify (System Key) from config file
+			//void GetVerify(String^ SubSection, String^ ReaderValue);
+			////Get CheckSum (System Key) from config file
+			//void GetCkSum(String^ SubSection, String^ ReaderValue);
+			////End  : AtCor-Drop2-Sprint1, TM, SWREQ2001, 9-Jun-2011
+			
 			//-------------------Set General Setting User Values-------------------
 			//Set Patient Privacy value in config file
 			void SetPatientPrivacy(CrxStructGeneralSetting^ gs, XmlNode^ node);
@@ -435,7 +677,23 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void SetMachineName(CrxStructGeneralSetting^ gs, XmlNode^ node);
 			//Set Printer Name in config file
 			void SetPrinterName(CrxStructGeneralSetting^ gs, XmlNode^ node);
-
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+			void SetStartupMode(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			void SetStartupScreen(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+			//Set System Key in config file
+			void SetSystemKey(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			////Begin: AtCor-Drop2-Sprint1, TM, SWREQ2001, 9-Jun-2011
+			////Set Id (System Key) in config file
+			//void SetId(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			////Set SN (System Key) in config file
+			//void SetSn(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			////Set Verify (System Key) in config file
+			//void SetVerify(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			////Set CheckSum (System Key) in config file
+			//void SetCkSum(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			////End  : AtCor-Drop2-Sprint1, TM, SWREQ2001, 9-Jun-2011
+			
 			//-------------------Get PWV Setting Values-------------------
 			//Get Femoral Cuff value from config file
 			void GetFemoralToCuff(String^ SubSection , String^ ReaderValue);
@@ -454,6 +712,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			//Get Default Report value from config file
 			void GetDefaultReport(String^ SubSection, String^ ReaderValue);
 	
+		
 			//-------------------Set PWV Setting User Values-------------------
 			//Set Femoral Cuff in config file
 			void SetFemoralToCuff(CrxStructPwvSetting^ ps, XmlNode^ node);
@@ -472,7 +731,111 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			//Set Default Report value from config file
 			void SetDefaultReport(CrxStructPwvSetting^ ps, XmlNode^ node);
 
-			
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+			//-------------------Get PWA Setting Values-------------------
+			//Get Capture Time value from config file
+			void GetPwaCaptureTime(String^ SubSection, String^ ReaderValue);
+			//Get Guidance Bar value from config file
+			void GetPwaGuidanceBars(String^ SubSection, String^ ReaderValue);
+			//Get Auto Capture value from config file
+			void GetPwaAutoCapture(String^ SubSection, String^ ReaderValue);
+			//Get Min Pulse Height value from config file
+			//void GetPwaMinPulseHeight(String^ SubSection, String^ ReaderValue);
+			//Get Max Pulse Height value from config file
+			//void GetPwaMaxPulseHeightVariation(String^ SubSection, String^ ReaderValue);
+			//Get Max Diastolic Variation value from config file
+			//void GetPwaMaxDiastolicVariation(String^ SubSection, String^ ReaderValue);
+			//Get Augmentation Index value from config file
+			void GetPwaAugmentationIndex(String^ SubSection, String^ ReaderValue);
+			//Get Augmentation Index @HR75 value from config file
+			void GetPwaAugmentationIndexAtHR75(String^ SubSection, String^ ReaderValue);
+			//Get Blind Study value from config file
+			//void GetPwaBlindStudy(String^ SubSection, String^ ReaderValue);
+			//Get Capture Input value from config file
+			void GetPwaCaptureInput(String^ SubSection, String^ ReaderValue);
+			//Get Default Report Screen value from config file
+			//void GetPwaDefaultReportScreen(String^ SubSection, String^ ReaderValue);
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+			//Get Simulation Type value from config file
+			void GetPwaSimulationType(String^ SubSection, String^ ReaderValue);
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+
+
+			//-------------------Set PWA Setting Values-------------------
+			//Set Capture Time value from config file
+			void SetPwaCaptureTime(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//Set Guidance Bar value from config file
+			void SetPwaGuidanceBars(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//Set Auto Capture value from config file
+			void SetPwaAutoCapture(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//Set Min Pulse Height value from config file
+			//void SetPwaMinPulseHeight(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//Set Max Pulse Height value from config file
+			//void SetPwaMaxPulseHeightVariation(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//Set Max Diastolic Variation value from config file
+			//void SetPwaMaxDiastolicVariation(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//Set Augmentation Index value from config file
+			void SetPwaAugmentationIndex(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//Set Augmentation Index @HR75 value from config file
+			void SetPwaAugmentationIndexAtHR75(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//Set Blind Study value from config file
+			//void SetPwaBlindStudy(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//Set Capture Input value from config file
+			void SetPwaCaptureInput(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//Set Default Report Screen value from config file
+			//void SetPwaDefaultReportScreen(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+			//Set Simulation Type value in config file
+			void SetPwaSimulationType(CrxStructPwaSetting^ pwas, XmlNode^ node);
+			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+
+
+			//-------------------Get BP Setting Values-------------------
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
+			//Get BP Device from config file
+			void GetBpDevice(String^ SubSection, String^ ReaderValue);
+			//Get Number of Assessments from config file
+			void GetBpNumberofAssessments(String^ SubSection, String^ ReaderValue);
+			//Get Auto PWA from config file
+			void GetBpAutoPWA(String^ SubSection, String^ ReaderValue);
+			//Get Blood Pressure from config file
+			void GetBpBloodPressure(String^ SubSection, String^ ReaderValue);
+			//Get Auto PWV SP from config file
+			void GetBpAutoPWASP(String^ SubSection, String^ ReaderValue);
+			//Get Auto PWV PP from config file
+			void GetBpAutoPWAPP(String^ SubSection, String^ ReaderValue);
+			//Get Auto PWV DP from config file
+			void GetBpAutoPWADP(String^ SubSection, String^ ReaderValue);
+			//Get Auto PWV SP Threshold from config file
+			void GetBpAutoPWASPThreshold(String^ SubSection, String^ ReaderValue);
+			//Get Auto PWV PP Threshold from config file
+			void GetBPAutoPWAPPThreshold(String^ SubSection, String^ ReaderValue);
+			//Get Auto PWV DP Threshold  from config file
+			void GetBpAutoPWADPThreshold(String^ SubSection, String^ ReaderValue);
+
+			//-------------------Set BP Setting Values-------------------
+			//Set BP Device from config file
+			void SetBpDevice(CrxStructBpSetting^ bps, XmlNode^ node);
+			//Set Number of Assessments from config file
+			void SetBpNumberofAssessments(CrxStructBpSetting^ bps, XmlNode^ node);
+			//Set Auto PWA from config file
+			void SetBpAutoPWA(CrxStructBpSetting^ bps, XmlNode^ node);
+			//Set Blood Pressure from config file
+			void SetBpBloodPressure(CrxStructBpSetting^ bps, XmlNode^ node);
+			//Set Auto PWV SP from config file
+			void SetBpAutoPWASP(CrxStructBpSetting^ bps, XmlNode^ node);
+			//Set Auto PWV PP from config file
+			void SetBpAutoPWAPP(CrxStructBpSetting^ bps, XmlNode^ node);
+			//Set Auto PWV DP from config file
+			void SetBpAutoPWADP(CrxStructBpSetting^ bps, XmlNode^ node);
+			//Set Auto PWV SP Threshold from config file
+			void SetBpAutoPWASPThreshold(CrxStructBpSetting^ bps, XmlNode^ node);
+			//Set Auto PWV PP Threshold from config file
+			void SetBpAutoPWAPPThreshold(CrxStructBpSetting^ bps, XmlNode^ node);
+			//Set Auto PWV DP Threshold  from config file
+			void SetBpAutoPWADPThreshold(CrxStructBpSetting^ bps, XmlNode^ node);
+			//End: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
 
 	public:
 			
@@ -518,7 +881,37 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 				{
 					_pwvSettings = ps;
 				}
-			};			
+			};	
+			
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+			property CrxStructPwaSetting^ PwaSettings
+			{
+				CrxStructPwaSetting^ get()
+				{
+					return CrxConfigManager::_pwaSettings;
+				};
+
+				void set(CrxStructPwaSetting^ ps)
+				{
+					_pwaSettings = ps;
+				}
+			};	
+			//End: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+
+			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
+			property CrxStructBpSetting^ BpSettings
+			{
+				CrxStructBpSetting^ get()
+				{
+					return CrxConfigManager::_bpSettings;
+				};
+
+				void set(CrxStructBpSetting^ bps)
+				{
+					_bpSettings = bps;
+				}
+			};	
+			//End: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
 
 		/**
 		* To get General Default Settings from file
@@ -553,6 +946,42 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		* @param[in] ps CrxStructPwvSetting Handle to the PWV setting structure
 		*/
 		void SetPwvUserSettings(CrxStructPwvSetting^ ps);	
+
+		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+		/**
+		* To get PWA Default Settings from file
+		* @param[out] objPwaSettings CrxStructPwaSetting handle to PWA Settings structure
+		*/
+		void GetPwaDefaultSettings(CrxStructPwaSetting^ objPwaSettings);
+		/**
+		* To get PWA User Settings from the file
+		*/
+		void GetPwaUserSettings();
+		
+		/**
+		* To Set PWA User Setting 
+		* @param[in] pwas CrxStructPwaSetting Handle to the PWA setting structure
+		*/
+		void SetPwaUserSettings(CrxStructPwaSetting^ pwas);	
+		//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+		
+		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
+		/**
+		* To get BP Default Settings from file
+		* @param[out] objBpSettings CrxStructBpSetting handle to BP Settings structure
+		*/
+		void GetBpDefaultSettings(CrxStructBpSetting^ objBpSettings);
+		/**
+		* To get PWA User Settings from the file
+		*/
+		void GetBpUserSettings();
+		
+		/**
+		* To Set PWA User Setting 
+		* @param[in] bps CrxStructPwaSetting Handle to the PWA setting structure
+		*/
+		void SetBpUserSettings(CrxStructBpSetting^ bps);	
+		//End  : AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
 	};
 
 	/**

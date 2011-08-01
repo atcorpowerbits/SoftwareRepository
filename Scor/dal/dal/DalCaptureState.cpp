@@ -30,12 +30,18 @@ namespace AtCor{
 		return false;
 	}
 
-	void DalCaptureState::ReadFromPortAndWriteToBuffer(Object ^sender, SerialDataReceivedEventArgs ^e)
-	{
-		sender; //Dummy statement to get rid of C4100 warning
-		e; //Dummy statement to get rid of C4100 warning
+	//void DalCaptureState::ReadFromPortAndWriteToBuffer(Object ^sender, SerialDataReceivedEventArgs ^e)
+	//{
+	//	sender; //Dummy statement to get rid of C4100 warning
+	//	e; //Dummy statement to get rid of C4100 warning
 
-		//do nothing
+	//	//do nothing
+	//}
+
+	bool DalCaptureState::ProcessStreamingPackets()
+	{
+		return false;
+		//Do nothing
 	}
 
 	void DalCaptureState::CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args)
@@ -117,10 +123,20 @@ namespace AtCor{
 		return this;
 	}
 
-	void DalCaptureStateDataReceived::ReadFromPortAndWriteToBuffer(Object ^sender, SerialDataReceivedEventArgs ^e)
+	/*void DalCaptureStateDataReceived::ReadFromPortAndWriteToBuffer(Object ^sender, SerialDataReceivedEventArgs ^e)
 	{
 		DalCommandInterface::Instance->ReadFromPortAndWriteToBuffer(sender, e);
 		DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateWaiting::Instance);
+	}*/
+
+	bool DalCaptureStateDataReceived::ProcessStreamingPackets()
+	{
+		bool returnValue ;
+		returnValue = DalCommandInterface::Instance->ProcessStreamingPackets();
+		DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateWaiting::Instance);
+
+		return returnValue;
+
 	}
 
 

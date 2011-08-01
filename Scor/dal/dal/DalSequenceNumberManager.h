@@ -57,7 +57,7 @@ namespace AtCor{
 					*/
 					static unsigned char ExtractStreamingSequenceNumber(const unsigned char streamingPacketSequenceNumber);
 
-					static void IncrementWithRollover(unsigned char ^%numberToIncrement);
+					//static void IncrementWithRollover(unsigned char ^%numberToIncrement);
 
 				internal:
 					

@@ -68,7 +68,7 @@ namespace TestDal {
 			{
 				deviceHandlerTestObj = DalDeviceHandler_Accessor::Instance;
 				//deviceHandlerTestObj->SetDeviceStrategy("Simulation");
-				deviceHandlerTestObj->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
+				//deviceHandlerTestObj->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				
 			}
 			

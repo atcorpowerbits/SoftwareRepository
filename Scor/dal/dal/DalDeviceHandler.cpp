@@ -14,6 +14,7 @@
 #include "DalDataBuffer.h"
 #include "IDalHandler.h"
 #include "DalStatusHandler.h"
+#include "DalActivePort.h"
 
 using namespace System;
 using namespace System::IO::Ports;
@@ -105,7 +106,6 @@ namespace AtCor{
 
 				returnValue = _commandInterface->SendCommandAndGetResponse(startCaptureCommand); //renamed oringinal method
 				
-
 				//if acknowledged start the handler to listen to the data received.
 				if (DalReturnValue::Success == returnValue )
 				{
@@ -128,18 +128,21 @@ namespace AtCor{
 
 			bool DalDeviceHandler::StopCapture()
 			{
+				CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture START");
+					
 				//check if  the comand interface isnt already created
 				if (nullptr == _commandInterface)
 				{
 					return false;
 				}
 
-				//deregister the data capture handler first
-				if(!(_commandInterface->StopDataCaptureMode()))
-				{
-					//failed to deregister the data capture handler
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed, ErrorSeverity::Information); 
-				}
+				////deregister the data capture handler first
+				//if(!(_commandInterface->StopDataCaptureMode()))
+				//{
+				//	CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture EXCEPTION");
+				//	//failed to deregister the data capture handler
+				//	throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed, ErrorSeverity::Information); 
+				//}
 
 				//send command to stop capture
 				DalEM4Command ^ startCaptureCommand = gcnew DalEM4Command(Em4CommandCodes::StopDataCapture , nullptr);
@@ -147,6 +150,16 @@ namespace AtCor{
 				startCaptureCommand->expectedResponseLength = Em4ResponseRequiredLength::StopDataCapture; 
 
 				returnValue = _commandInterface->SendCommandAndGetResponse(startCaptureCommand); //renamed oringinal method
+
+				CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture returnValue" + returnValue.ToString());
+
+				//deregister the data capture handler after the call to stop capture and see
+				if(!(_commandInterface->StopDataCaptureMode()))
+				{
+					CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture EXCEPTION");
+					//failed to deregister the data capture handler
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed, ErrorSeverity::Information); 
+				}
 
 				//Free up the reserved sequence number so that it can be reused
 				DalSequenceNumberManager::ReleaseReservedCommandNumber();
@@ -338,11 +351,23 @@ namespace AtCor{
 				
 					//first check if this is the port already set in commandInterface
 					//if yes then we SHOULD NOT open it again
-					if ( (comPort == _commandInterface->ActiveSerialPortName) && (nullptr != _commandInterface))
+					
+					//if ( (comPort == _commandInterface->ActiveSerialPortName) && (nullptr != _commandInterface))
+					if ( (comPort == DalActivePort::Instance->ActiveSerialPortName) && (nullptr != _commandInterface))
 					{
 						//this com port has already been set 
 						//we just need to verify if the device is present there
-						return GetConfigurationInfo(DalDeviceConfigUsageEnum::ModuleSerialNumber, configStruct);
+
+						try
+						{
+							return GetConfigurationInfo(DalDeviceConfigUsageEnum::ModuleSerialNumber, configStruct);
+						}
+						catch(ScorException ^)
+						{
+							//this port didnt work
+							//dont throw the exception so that we can try with another port
+							return false;
+						}
 					}
 					else
 					{
@@ -352,7 +377,8 @@ namespace AtCor{
 						
 						try
 						{
-							_commandInterface->SetActivePort(comPort);
+							//_commandInterface->SetActivePort(comPort);
+							DalActivePort::Instance->SetActivePort(comPort);
 						
 							returnValue = GetConfigurationInfo(DalDeviceConfigUsageEnum::ModuleSerialNumber, configStruct);
 							return returnValue;

@@ -1,9 +1,6 @@
 ﻿
 #include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
+
 
 //using namespace System;
 using namespace System::IO;// For FileStream
@@ -222,6 +219,11 @@ namespace TestCrx {
 				String^  SubSection = System::String::Empty; 
 				CrxStructGeneralSetting^  gs = nullptr; 
 				CrxStructPwvSetting^  ps = nullptr; 
+				//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 2-Jun-2011
+				CrxStructPwaSetting^ pwas  = nullptr;
+				CrxStructBpSetting^ bps  = nullptr;
+				//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 2-Jun-2011
+
 				XmlNode^  node = nullptr; 
 				
 				int expected = 0; 
@@ -239,7 +241,11 @@ namespace TestCrx {
 
 					XmlNode^ elem = doc->DocumentElement->FirstChild;
 										
-					target->SetSettingsNode(Section, SubSection, gs, ps, elem);
+					//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 2-Jun-2011
+					//target->SetSettingsNode(Section, SubSection, gs, ps, elem);
+					target->SetSettingsNode(Section, SubSection, gs, ps, pwas, bps, elem);
+					//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 2-Jun-2011
+					target->SetSettingsNode(Section, SubSection, gs, ps, pwas, bps, elem);
 				}
 				catch(Exception^)
 				{
@@ -249,13 +255,30 @@ namespace TestCrx {
 
 				try
 				{										
-					target->SetSettingsNode(Section, SubSection, gs, ps, node);
+					//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 2-Jun-2011
+					//target->SetSettingsNode(Section, SubSection, gs, ps, node);
+					target->SetSettingsNode(Section, SubSection, gs, ps,pwas,bps, node);
+					//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 2-Jun-2011
 				}
 				catch(Exception^)
 				{
 					actual =0;
 				}
 				Assert::AreEqual (expected,actual);
+				Section = "GENERAL1";
+				try
+				{										
+					//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 2-Jun-2011
+					//target->SetSettingsNode(Section, SubSection, gs, ps, node);
+					target->SetSettingsNode(Section, SubSection, gs, ps,pwas,bps, node);
+					//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 2-Jun-2011
+				}
+				catch(Exception^)
+				{
+					actual =0;
+				}
+				Assert::AreEqual (expected,actual);
+				
 				//smarajit			
 			}
 			//Smarajit Mishra
@@ -272,6 +295,10 @@ namespace TestCrx {
 				String^  SubSection = System::String::Empty; 
 				CrxStructGeneralSetting^  gs = nullptr; 
 				CrxStructPwvSetting^  ps = nullptr; 
+				//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2010, 13-Jun-2011
+				CrxStructPwaSetting^  pwas = nullptr; 
+				CrxStructBpSetting^  bps = nullptr; 
+				//End: AtCor-Drop2-Sprint1, TM, SWREQ2010, 13-Jun-2011
 				
 				Section = "GENERAL";
 				SubSection= "USER";
@@ -281,7 +308,11 @@ namespace TestCrx {
 
 				try
 				{
-					target->SetSettings(Section, SubSection, gs, ps);
+					//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2010, 13-Jun-2011
+					//target->SetSettings(Section, SubSection, gs, ps);
+					target->SetSettings(Section, SubSection, gs, ps,pwas,bps);
+					//End: AtCor-Drop2-Sprint1, TM, SWREQ2010, 13-Jun-2011
+				
 				}
 				catch(Exception^)
 				{
@@ -549,6 +580,7 @@ namespace TestCrx {
 				String^ SourceData =  target->_instance->GeneralSettings->SourceData;
 				String^ CultureInfo =  target->_instance->GeneralSettings->CultureInfo;
 				String^ printerName =  target->_instance->GeneralSettings->PrinterName;
+				String^ SystemKey =  target->_instance->GeneralSettings->Key;
 
 				gs->BloodPressureEntryOptions = 0;
 				gs->CommsPort = "Simulation";
@@ -563,6 +595,11 @@ namespace TestCrx {
 				gs->StartupMode = "PWV";
 				gs->StartupScreen = "Setup";
 				gs->PrinterName = printerName;
+				gs->Key = "12345";
+				/*gs->Id = "123";
+				gs->Sn = "12345";
+				gs->Verify = "12";
+				gs->Cksum = "12345";*/
 
 				target->SetGeneralUserSettings(gs);
 
@@ -574,12 +611,17 @@ namespace TestCrx {
 				Assert::AreEqual("Simulation", target->_instance->GeneralSettings->CommsPort);
 				Assert::AreEqual("REPORT DEM TESTFORme", target->_instance->GeneralSettings->ReportTitle);
 				//Assert::AreEqual("D:\\EXTRA_DESKTOP\\ERROR.JPG", target->_instance->GeneralSettings->ReportLogoPath);
-				Assert::AreEqual("SQLCLIENT", target->_instance->GeneralSettings->SourceData);
+				Assert::AreEqual("SQLCLIENT", target->_instance->GeneralSettings->SourceData->ToUpper());
+				Assert::AreEqual("12345", target->_instance->GeneralSettings->Key);
 				//Assert::AreEqual("fr-FR", target->_instance->GeneralSettings->CultureInfo);				
 				
 				Assert::AreEqual("PWV", target->_instance->GeneralSettings->StartupMode);
 				Assert::AreEqual("Setup", target->_instance->GeneralSettings->StartupScreen);
-
+				/*Assert::AreEqual("123", target->_instance->GeneralSettings->Id);
+				Assert::AreEqual("12345", target->_instance->GeneralSettings->Sn);
+				Assert::AreEqual("12", target->_instance->GeneralSettings->Verify);
+				Assert::AreEqual("12345", target->_instance->GeneralSettings->Cksum);*/
+				
 				
 				gs->BloodPressureEntryOptions = 1;
 				gs->CommsPort = nullptr;
@@ -588,13 +630,17 @@ namespace TestCrx {
 				gs->ReportLogoPath = nullptr;
 				gs->ReportTitle = nullptr;
 				gs->ServerName = String::Empty;
-				gs->SourceData = String::Empty;
-				gs->CultureInfo = String::Empty;
-				gs->MachineName = String::Empty;
+				gs->SourceData = nullptr;
+				gs->CultureInfo = nullptr;
+				gs->MachineName = nullptr;
 				gs->StartupMode = nullptr;
 				gs->StartupScreen = nullptr;
 				gs->PrinterName = nullptr;
-
+				gs->Key = nullptr;
+				/*gs->Id = nullptr;
+				gs->Sn = nullptr;
+				gs->Verify = nullptr;
+				gs->Cksum = nullptr;*/
 
 				target->SetGeneralUserSettings(gs);
 
@@ -634,6 +680,7 @@ namespace TestCrx {
 				gs->StartupMode = "PWV";
 				gs->StartupScreen = "Setup";
 				gs->PrinterName = printerName;
+				gs->Key = SystemKey;
 
 				target->SetGeneralUserSettings(gs);
 
@@ -867,8 +914,8 @@ namespace TestCrx {
 				String^  SubSection = System::String::Empty; 
 				String^  ReaderValue = System::String::Empty; 
 			
-				target->GetStartupMode("DEFAULT", "Smar");
-				Assert::AreEqual("Smar", target->_gSetInternal->StartupMode);
+				target->GetStartupMode("DEFAULT", "PWA");
+				Assert::AreEqual("PWA", target->_gSetInternal->StartupMode);
 			}
 
 	public: [TestMethod]
@@ -999,9 +1046,31 @@ namespace TestCrx {
 					target->GetSettings("PWV", "USER");
 					Assert::IsNotNull(target->_instance->PwvSettings->PWVDistanceMethod);				
 
-				
 					target->GetSettings("PWV", "DEFAULT");
 					Assert::IsNotNull(target->_instance->PwvSettings->PWVDistanceMethod);
+
+					//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 2-Jun-2011
+					target->GetSettings("PWA", "USER");
+					Assert::IsNotNull(target->_instance->PwaSettings->CaptureTime);				
+
+					target->GetSettings("PWA", "DEFAULT");
+					Assert::IsNotNull(target->_instance->PwaSettings->CaptureTime);
+
+					try
+					{
+						target->GetSettings("BP", "USER");
+					}
+					catch(Exception^)
+					{
+					}
+					Assert::IsNotNull(target->_instance->BpSettings->NumberofAssessments);				
+
+					target->GetSettings("BP", "DEFAULT");
+					Assert::IsNotNull(target->_instance->BpSettings->NumberofAssessments);
+
+					//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 2-Jun-2011
+
+
 				//CrxConfigManagerTest::SetPath();
 				expected = 0;
 				try
@@ -1095,10 +1164,29 @@ namespace TestCrx {
 				Assert::IsNull(target->_gSetInternal->ReportTitle);
 				
 			}
+public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void GetReportTitleTest2()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); 
+				
+				String^  SubSection = "DEFAULT1"; 
+				String^  ReaderValue = "ReportTitle2"; 
+				
+				try
+				{
+					target->GetReportTitle(SubSection, ReaderValue);
+					Assert::Fail("If error does not occur then test fail");
+				}
+				catch(Exception^)
+				{
+					Assert::IsTrue(true,"If error occur then test pass");
+				}
+			}
 
 	public: [TestMethod]
 			[DeploymentItem(L"crx.dll")]
-			void GetReportTitleTest2()
+			void GetReportTitleTest3()
 			{
 				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); 
 				
@@ -1968,6 +2056,1735 @@ public: [TestMethod]
 			{
 				Assert::IsTrue(true,"If error occur then test pass");
 			}
+		}
+		/// <summary>
+		///A test for PwaSettings
+		///</summary>
+public: [TestMethod]
+		void PwaSettingsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructPwaSetting^  expected = gcnew CrxStructPwaSetting(); // TODO: Initialize to an appropriate value
+			CrxStructPwaSetting^  actual;
+			target->PwaSettings = expected;
+			actual = target->PwaSettings;
+			Assert::AreEqual(expected, actual);
+			//--------
+			
+			actual = target->PwaSettings;
+
+			//Default values in the structure 	CrxStructPwaSetting are 5, true,true,true, false, "Pressure Cuff" for CaptureTime,
+			//GuidanceBars, AutoCapture , AugmentationIndex, AugmentationIndexAtHR75 and CaptureInput respectively
+			Assert::AreEqual(5, actual->CaptureTime);
+			Assert::AreEqual(true, actual->GuidanceBars);
+			Assert::AreEqual(true, actual->AutoCapture);
+			Assert::AreEqual(true, actual->AugmentationIndex);
+			Assert::AreEqual(false, actual->AugmentationIndexAtHR75);
+			Assert::AreEqual("Pressure Cuff", actual->CaptureInput);
+
+			expected->CaptureTime = 10;
+			expected->GuidanceBars = false;
+			expected->AutoCapture = false;
+			expected->AugmentationIndex = false;
+			expected->AugmentationIndexAtHR75 = false;
+			expected->CaptureInput = "Tonometer";
+			expected->SimulationType = "Simulation";
+
+			//Setting the CaptureTime member of structure CrxStructPwvSetting
+			target->PwaSettings = expected;
+
+			//Getting the CaptureTime member of structure CrxStructPwvSetting
+			actual = target->PwaSettings;
+			
+			//comparing the actual and expected structure values
+			Assert::AreEqual(expected->CaptureTime, actual->CaptureTime);
+			Assert::AreEqual(expected->GuidanceBars, actual->GuidanceBars);
+			Assert::AreEqual(expected->AutoCapture, actual->AutoCapture);
+			Assert::AreEqual(expected->AugmentationIndex, actual->AugmentationIndex);
+			Assert::AreEqual(expected->AugmentationIndexAtHR75, actual->AugmentationIndexAtHR75);
+			Assert::AreEqual(expected->CaptureInput, actual->CaptureInput);
+			
+		}
+		/// <summary>
+		///A test for BpSettings
+		///</summary>
+public: [TestMethod]
+		void BpSettingsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructBpSetting^  expected = gcnew CrxStructBpSetting(); // TODO: Initialize to an appropriate value
+			CrxStructBpSetting^  actual;
+			target->BpSettings = expected;
+			actual = target->BpSettings;
+			Assert::AreEqual(expected, actual);
+			//-----------
+			
+			actual = target->BpSettings;
+
+			//Default values in the structure 	CrxStructPwaSetting are 5, true,true,true, false, "Pressure Cuff" for CaptureTime,
+			//GuidanceBars, AutoCapture , AugmentationIndex, AugmentationIndexAtHR75 and CaptureInput respectively
+			if (actual->Device != nullptr)
+			{
+				Assert::AreEqual("Sphygmocor", actual->Device);
+			}
+			if (actual->NumberofAssessments > 0)
+			{
+				Assert::AreEqual(1, actual->NumberofAssessments);
+			}
+			/*if (actual->BloodPressure!= nullptr)
+			{
+				Assert::AreEqual(true, actual->BloodPressure);
+			}*/
+			if (actual->AutoPWA != nullptr)
+			{
+				Assert::AreEqual("Yes", actual->AutoPWA);
+			}
+			expected->Device = "Tonometer";
+			expected->NumberofAssessments= 4;
+			expected->BloodPressure = 0;
+			expected->AutoPWA = "No";
+			
+
+			//Setting the CaptureTime member of structure CrxStructPwvSetting
+			target->BpSettings = expected;
+
+			//Getting the CaptureTime member of structure CrxStructPwvSetting
+			actual = target->BpSettings;
+			
+			//comparing the actual and expected structure values
+			Assert::AreEqual(expected->Device, actual->Device);
+			Assert::AreEqual(expected->NumberofAssessments, actual->NumberofAssessments);
+			Assert::AreEqual(expected->BloodPressure, actual->BloodPressure);
+			Assert::AreEqual(expected->AutoPWA, actual->AutoPWA);
+		}
+		//Alok Sahu
+		//This method don't need to be called,as is will be covered in the method SetGeneralUserSettings
+//		/// <summary>
+//		///A test for SetVerify
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetVerifyTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetVerify(gs, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetStartupScreen
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetStartupScreenTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetStartupScreen(gs, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetStartupMode
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetStartupModeTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetStartupMode(gs, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetSn
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetSnTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetSn(gs, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for SetPwaUserSettings
+		///</summary>
+public: [TestMethod]
+		void SetPwaUserSettingsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructPwaSetting^  pwas = gcnew CrxStructPwaSetting(); // TODO: Initialize to an appropriate value
+			CrxStructPwaSetting^  pwasOri = gcnew CrxStructPwaSetting();
+
+			CrxConfigManagerTest::SetPath();
+			
+			//target->GetPwaUserSettings();
+			pwasOri = target->_instance->PwaSettings;
+				//------------------------------
+			pwas->CaptureTime = 5;
+			pwas->GuidanceBars=true;
+			pwas->AugmentationIndex=true;
+			pwas->AugmentationIndexAtHR75=true;
+			pwas->CaptureInput="Pressure Cuff";
+			pwas->SimulationType = "Simulation";
+
+			target->SetPwaUserSettings(pwas);
+
+			target->GetPwaUserSettings();
+
+			Assert::AreEqual(5, target->_instance->PwaSettings->CaptureTime);
+			Assert::AreEqual(true, target->_instance->PwaSettings->GuidanceBars);
+			Assert::AreEqual(true, target->_instance->PwaSettings->AugmentationIndex);
+			Assert::AreEqual(true, target->_instance->PwaSettings->AugmentationIndexAtHR75);
+			Assert::AreEqual("Pressure Cuff", target->_instance->PwaSettings->CaptureInput);
+			Assert::AreEqual(pwas->SimulationType, target->_instance->PwaSettings->SimulationType);
+
+			pwas->CaptureTime = 10;
+			pwas->GuidanceBars = false;
+			pwas->AugmentationIndex = false;
+			pwas->AugmentationIndexAtHR75 = false;
+			pwas->CaptureInput = nullptr;
+			pwas->AutoCapture = false;
+			pwas->SimulationType = nullptr;
+
+			target->SetPwaUserSettings(pwas);
+
+			target->GetPwaUserSettings();
+
+			Assert::AreEqual(10, target->_instance->PwaSettings->CaptureTime);
+			Assert::AreEqual(false, target->_instance->PwaSettings->GuidanceBars);
+			Assert::AreEqual(false, target->_instance->PwaSettings->AugmentationIndex);
+			Assert::AreEqual(false, target->_instance->PwaSettings->AugmentationIndexAtHR75);
+			//Assert::AreEqual(" ", target->_instance->PwaSettings->CaptureInput);
+			Assert::AreEqual(false, target->_instance->PwaSettings->AutoCapture );
+
+			pwas->CaptureTime = 20;
+			
+			target->SetPwaUserSettings(pwas);
+
+			target->GetPwaUserSettings();
+
+			Assert::AreEqual(20, target->_instance->PwaSettings->CaptureTime);
+			
+			target->SetPwaUserSettings(pwasOri);
+	
+			pwas->CaptureTime = 5;
+			pwas->GuidanceBars=true;
+			pwas->AugmentationIndex=true;
+			pwas->AugmentationIndexAtHR75=true;
+			pwas->CaptureInput="Pressure Cuff";
+			pwas->SimulationType = "Simulation";
+
+			target->SetPwaUserSettings(pwas);
+
+				
+				//------------------------------
+		}
+		/// <summary>
+		///A test for SetPwaSettingsNode
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void SetPwaSettingsNodeTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructPwaSetting^  gs = nullptr; 
+			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+			
+
+			int actual;
+			int expected = 0;
+			try
+			{
+				XmlDocument^ doc = gcnew XmlDocument;
+
+				doc->LoadXml( "<root>" "<elem>some text<child/>more text</elem>" "</root>" );
+
+				XmlNode^ elem = doc->DocumentElement->FirstChild;
+									
+				target->SetPwaSettingsNode(gs, elem);
+				//target->SetPwvSettingsNode(gs, elem);
+			}
+			catch(Exception^)
+			{
+				actual =0;
+			}
+			Assert::AreEqual (expected,actual);
+
+		}
+		//Alok Sahu
+		//This method don't need to be called,as is will be covered in the method SetPWaUserSettings
+		
+//		/// <summary>
+//		///A test for SetPwaGuidanceBars
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetPwaGuidanceBarsTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwaSetting^  pwas = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetPwaGuidanceBars(pwas, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetPwaCaptureTime
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetPwaCaptureTimeTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwaSetting^  pwas = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetPwaCaptureTime(pwas, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetPwaCaptureInput
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetPwaCaptureInputTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwaSetting^  pwas = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetPwaCaptureInput(pwas, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetPwaAutoCapture
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetPwaAutoCaptureTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwaSetting^  pwas = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetPwaAutoCapture(pwas, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetPwaAugmentationIndexAtHR75
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetPwaAugmentationIndexAtHR75Test()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwaSetting^  pwas = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetPwaAugmentationIndexAtHR75(pwas, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetPwaAugmentationIndex
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetPwaAugmentationIndexTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwaSetting^  pwas = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetPwaAugmentationIndex(pwas, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		//Alok Sahu
+		//This method don't need to be called,as is will be covered in the method SetGeneralUserSettings
+//		/// <summary>
+//		///A test for SetId
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetIdTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetId(gs, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetCkSum
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetCkSumTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetCkSum(gs, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for SetBpUserSettings
+		///</summary>
+public: [TestMethod]
+		void SetBpUserSettingsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructBpSetting^  bps = gcnew CrxStructBpSetting(); // TODO: Initialize to an appropriate value
+			
+			CrxConfigManagerTest::SetPath();
+			
+			bps->Device = "SPHYGMOCOR";
+			bps->NumberofAssessments = 3;
+			bps->AutoPWA= "Yes";
+			bps->BloodPressure = 2;
+			bps->AutoPWADP = true;
+			bps->AutoPWAPP = true;
+			bps->AutoPWASP = true;
+			bps->AutoPWADPThreshold = 130;
+			bps->AutoPWASPThreshold = 30;
+			bps->AutoPWAPPThreshold = 150;
+			
+			target->SetBpUserSettings(bps);
+			
+			target->GetBpUserSettings();
+
+			Assert::AreEqual(bps->Device, target->_instance->BpSettings->Device);
+			Assert::AreEqual(bps->NumberofAssessments, target->_instance->BpSettings->NumberofAssessments);
+			Assert::AreEqual(bps->AutoPWA, target->_instance->BpSettings->AutoPWA);
+			Assert::AreEqual(bps->BloodPressure, target->_instance->BpSettings->BloodPressure);
+			Assert::AreEqual(bps->AutoPWADP, target->_instance->BpSettings->AutoPWADP);
+			Assert::AreEqual(bps->AutoPWAPP, target->_instance->BpSettings->AutoPWAPP);
+			Assert::AreEqual(bps->AutoPWASP, target->_instance->BpSettings->AutoPWASP);
+			Assert::AreEqual(bps->AutoPWADPThreshold, target->_instance->BpSettings->AutoPWADPThreshold);
+			Assert::AreEqual(bps->AutoPWASPThreshold, target->_instance->BpSettings->AutoPWASPThreshold);
+			Assert::AreEqual(bps->AutoPWAPPThreshold, target->_instance->BpSettings->AutoPWAPPThreshold);
+			
+			bps->Device = nullptr;
+			bps->NumberofAssessments = 3;
+			bps->BloodPressure = 1;
+			bps->AutoPWA= nullptr;
+			bps->AutoPWADP = false;
+			bps->AutoPWAPP = false;
+			bps->AutoPWASP = false;
+			bps->AutoPWADPThreshold = 1;
+			bps->AutoPWASPThreshold = 1;
+			bps->AutoPWAPPThreshold = 1;
+			//bps->BloodPressure = nullptr;
+			
+			target->SetBpUserSettings(bps);
+			
+			target->GetBpUserSettings();
+
+			//Assert::AreEqual(" ", target->_instance->BpSettings->Device);
+			Assert::AreEqual(bps->NumberofAssessments, target->_instance->BpSettings->NumberofAssessments);
+			Assert::AreEqual(bps->BloodPressure, target->_instance->BpSettings->BloodPressure);
+			Assert::AreEqual(bps->AutoPWADP, target->_instance->BpSettings->AutoPWADP);
+			Assert::AreEqual(bps->AutoPWAPP, target->_instance->BpSettings->AutoPWAPP);
+			Assert::AreEqual(bps->AutoPWASP, target->_instance->BpSettings->AutoPWASP);
+			Assert::AreEqual(bps->AutoPWADPThreshold, target->_instance->BpSettings->AutoPWADPThreshold);
+			Assert::AreEqual(bps->AutoPWASPThreshold, target->_instance->BpSettings->AutoPWASPThreshold);
+			Assert::AreEqual(bps->AutoPWAPPThreshold, target->_instance->BpSettings->AutoPWAPPThreshold);
+			//Assert::AreEqual(bps->AutoPWA, target->_instance->BpSettings->AutoPWA);
+			//Assert::AreEqual(bps->BloodPressure, target->_instance->BpSettings->BloodPressure);
+
+			//Set to default values
+			bps->Device = "Sphygmocor";
+			bps->NumberofAssessments = 1;
+			bps->BloodPressure = 1;
+			bps->AutoPWA= nullptr;
+			bps->AutoPWADP = true;
+			bps->AutoPWAPP = true;
+			bps->AutoPWASP = true;
+			bps->AutoPWADPThreshold = 90;
+			bps->AutoPWASPThreshold = 130;
+			bps->AutoPWAPPThreshold = 50;
+
+			target->SetBpUserSettings(bps);
+
+			target->GetBpUserSettings();
+			Assert::AreEqual(bps->NumberofAssessments, target->_instance->BpSettings->NumberofAssessments);
+			Assert::AreEqual(bps->BloodPressure, target->_instance->BpSettings->BloodPressure);
+
+			bps->BloodPressure = 0;
+			target->SetBpUserSettings(bps);
+
+			target->GetBpUserSettings();
+			Assert::AreEqual(bps->BloodPressure, target->_instance->BpSettings->BloodPressure);
+
+		}
+		/// <summary>
+		///A test for SetBpSettingsNode
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void SetBpSettingsNodeTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+			
+			int actual;
+			int expected = 0;
+			try
+			{
+				XmlDocument^ doc = gcnew XmlDocument;
+
+				doc->LoadXml( "<root>" "<elem>some text<child/>more text</elem>" "</root>" );
+
+				XmlNode^ elem = doc->DocumentElement->FirstChild;
+									
+				target->SetBpSettingsNode(bps, node);
+			}
+			catch(Exception^)
+			{
+				actual =0;
+			}
+			Assert::AreEqual (expected,actual);
+			//Smarajit Mishra
+			//Remove the set functionality becuase we don't have the proper node object for XML
+			//target->SetPwvSettingsNode(gs, node);
+
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void SetBpSettingsNodeTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+			
+			int actual;
+			int expected = 0;
+			try
+			{
+				XmlDocument^ doc = gcnew XmlDocument;
+
+				doc->LoadXml( "<root>" "<elem>some text<child/>more text</elem>" "</root>" );
+
+				XmlNode^ elem = doc->DocumentElement->FirstChild;
+									
+				target->SetBpSettingsNode(bps, elem);
+			}
+			catch(Exception^)
+			{
+				actual =0;
+			}
+			Assert::AreEqual (expected,actual);
+		}
+		
+		//Alok Sahu
+		//This method don't need to be called,as is will be covered in the method SetBpUserSettings
+		/// <summary>
+		///A test for SetBpNumberofAssessments
+		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetBpNumberofAssessmentsTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetBpNumberofAssessments(bps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetBpDevice
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetBpDeviceTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetBpDevice(bps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetBpBloodPressure
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetBpBloodPressureTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetBpBloodPressure(bps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for SetBpAutoPWA
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetBpAutoPWATest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetBpAutoPWA(bps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+//		/// <summary>
+//		///A test for GetVerify
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetVerifyTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			
+//			String^  SubSection = "USER"; 
+//			String^  ReaderValue = "XXXXX"; 
+//			
+//			target->GetVerify(SubSection, ReaderValue);
+//			Assert::AreEqual(ReaderValue, target->_instance->GeneralSettings->Verify);
+//
+//		}
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetVerifyTest1()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			
+//			String^  SubSection = "DEFAULT"; 
+//			String^  ReaderValue = "XXXXX"; 
+//			
+//			target->GetVerify(SubSection, ReaderValue);
+//			Assert::AreEqual(nullptr, target->_gSetInternal->Verify);
+//
+//		}
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetVerifyTest2()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			
+//			String^  SubSection = "DEFAULT1"; 
+//			String^  ReaderValue = "XXXXX"; 
+//			
+//			try
+//			{
+//				target->GetVerify(SubSection, ReaderValue);
+//				Assert::Fail("If error does not occur then test fail");
+//			}
+//			catch(Exception^)
+//			{
+//				Assert::IsTrue(true,"If error occur then test pass");
+//			}
+//		}
+//		/// <summary>
+//		///A test for GetSn
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetSnTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//
+//			String^  SubSection = "USER"; 
+//			String^  ReaderValue = "XXXXX"; 
+//			
+//			target->GetSn(SubSection, ReaderValue);
+//			Assert::AreEqual(ReaderValue, target->_instance->GeneralSettings->Sn);
+//
+//		}
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetSnTest1()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//
+//			String^  SubSection = "DEFAULT"; 
+//			String^  ReaderValue = "XXXXX"; 
+//			
+//			target->GetSn(SubSection, ReaderValue);
+//			Assert::AreEqual(nullptr, target->_gSetInternal->Sn);
+//
+//		}
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetSnTest2()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//
+//			String^  SubSection = "DEFAULT1"; 
+//			String^  ReaderValue = "XXXXX"; 
+//			
+//			try
+//			{
+//				target->GetSn(SubSection, ReaderValue);
+//				Assert::Fail("If error does not occur then test fail");
+//			}
+//			catch(Exception^)
+//			{
+//				Assert::IsTrue(true,"If error occur then test pass");
+//			}
+//		}		
+		/// <summary>
+		///A test for GetPwaUserSettings
+		///</summary>
+public: [TestMethod]
+		void GetPwaUserSettingsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructPwaSetting^  pwas = gcnew CrxStructPwaSetting(); // TODO: Initialize to an appropriate value
+			
+			CrxConfigManagerTest::SetPath();
+			pwas->CaptureTime = 20;
+			pwas->GuidanceBars = "Yes";
+			pwas->SimulationType = "Simulation";
+			target->SetPwaUserSettings(pwas);
+
+			target->GetPwaUserSettings();
+
+			Assert::AreEqual(20, target->_instance->PwaSettings->CaptureTime);
+			Assert::AreEqual(true, target->_instance->PwaSettings->GuidanceBars);
+			//Assert::AreEqual(false, target->_instance->PwaSettings->AugmentationIndex);
+			//Assert::AreEqual(false, target->_instance->PwaSettings->AugmentationIndexAtHR75);
+			//Assert::AreEqual("Pressure Cuff", target->_instance->PwaSettings->CaptureInput);
+
+		}
+		/// <summary>
+		///A test for GetPwaSettingsNode
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaSettingsNodeTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  SubSectionNode = "USER2"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			
+			//int actual;
+			int expected = 0;
+			try
+			{
+				XmlDocument^ doc = gcnew XmlDocument;
+
+				doc->LoadXml( "<root>" "<elem>some text<child/>more text</elem>" "</root>" );
+
+				XmlNode^ elem = doc->DocumentElement->FirstChild;
+									
+				target->GetPwaSettingsNode(SubSection, SubSectionNode, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
+		/// <summary>
+		///A test for GetPwaGuidanceBars
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaGuidanceBarsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"Yes";
+
+			target->GetPwaGuidanceBars(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_instance->PwaSettings->GuidanceBars);
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaGuidanceBarsTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"XX-XX";
+
+			try
+			{
+				target->GetPwaGuidanceBars(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
+		/// <summary>
+		///A test for GetPwaDefaultSettings
+		///</summary>
+public: [TestMethod]
+		void GetPwaDefaultSettingsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructPwaSetting^  objPwaSettings = gcnew CrxStructPwaSetting(); // TODO: Initialize to an appropriate value
+
+			CrxConfigManagerTest::SetPath();
+			target->GetPwaDefaultSettings(objPwaSettings);
+			
+			Assert::AreEqual(5, objPwaSettings->CaptureTime);
+			Assert::AreEqual(true, objPwaSettings->GuidanceBars);
+			Assert::AreEqual(true, objPwaSettings->AutoCapture);
+			Assert::AreEqual(true, objPwaSettings->AugmentationIndex);
+			Assert::AreEqual(false, objPwaSettings->AugmentationIndexAtHR75);
+			Assert::AreEqual("Pressure Cuff", objPwaSettings->CaptureInput);
+
+		}
+		/// <summary>
+		///A test for GetPwaCaptureTime
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaCaptureTimeTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"5SECONDS";
+
+			target->GetPwaCaptureTime(SubSection, ReaderValue);
+			Assert::AreEqual(5, target->_instance->PwaSettings->CaptureTime);
+
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaCaptureTimeTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"55SECONDS";
+
+			try
+			{
+				target->GetPwaCaptureTime(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
+		/// <summary>
+		///A test for GetPwaCaptureInput
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaCaptureInputTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"Yes";
+
+			target->GetPwaCaptureInput(SubSection, ReaderValue);
+			Assert::AreEqual(ReaderValue, target->_instance->PwaSettings->CaptureInput);
+
+		}
+		/// <summary>
+		///A test for GetPwaAutoCapture
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaAutoCaptureTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"Yes";
+
+			target->GetPwaAutoCapture(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_instance->PwaSettings->AutoCapture);
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaAutoCaptureTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"XX-XX";
+
+			try
+			{
+				target->GetPwaAutoCapture(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
+		/// <summary>
+		///A test for GetPwaAugmentationIndexAtHR75
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaAugmentationIndexAtHR75Test()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"Yes";
+
+			target->GetPwaAugmentationIndexAtHR75(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_instance->PwaSettings->AugmentationIndexAtHR75);
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaAugmentationIndexAtHR75Test1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"XX";
+
+			try
+			{
+				target->GetPwaAugmentationIndexAtHR75(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
+		/// <summary>
+		///A test for GetPwaAugmentationIndex
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaAugmentationIndexTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"Yes";
+
+			target->GetPwaAugmentationIndex(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_instance->PwaSettings->AugmentationIndex);
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaAugmentationIndexTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"XX";
+
+			try
+			{
+				target->GetPwaAugmentationIndex(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
+//		/// <summary>
+//		///A test for GetId
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetIdTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			String^  SubSection = L"USER";
+//			String^  ReaderValue = L"Yes";
+//
+//			target->GetId(SubSection, ReaderValue);
+//			Assert::AreEqual(ReaderValue, target->_instance->GeneralSettings->Id);
+//			
+//
+//		}
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetIdTest1()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			String^  SubSection = L"DEFAULT";
+//			String^  ReaderValue = L"XX";
+//
+//			target->GetId(SubSection, ReaderValue);
+//			Assert::AreEqual(nullptr, target->_gSetInternal->Id);
+//		
+//		}
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetIdTest2()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			String^  SubSection = L"DEFAULT1";
+//			String^  ReaderValue = L"XX";
+//
+//			try
+//			{
+//				target->GetId(SubSection, ReaderValue);
+//				Assert::Fail("If error does not occur then test fail");
+//			}
+//			catch(Exception^)
+//			{
+//				Assert::IsTrue(true,"If error occur then test pass");
+//			}
+//		}
+//		/// <summary>
+//		///A test for GetCkSum
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetCkSumTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			
+//			String^  SubSection = L"USER";
+//			String^  ReaderValue = L"Yes";
+//
+//			target->GetCkSum(SubSection, ReaderValue);
+//			Assert::AreEqual(ReaderValue, target->_instance->GeneralSettings->Cksum);
+//			
+//		}
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetCkSumTest1()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			
+//			String^  SubSection = L"DEFAULT";
+//			String^  ReaderValue = L"Yes";
+//
+//			target->GetCkSum(SubSection, ReaderValue);
+//			Assert::AreEqual(nullptr, target->_gSetInternal->Cksum);
+//			
+//		}
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetCkSumTest2()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			
+//			String^  SubSection = L"DEFAULT1";
+//			String^  ReaderValue = L"Yes";
+//
+//			try
+//			{
+//				target->GetCkSum(SubSection, ReaderValue);
+//				Assert::Fail("If error does not occur then test fail");
+//			}
+//			catch(Exception^)
+//			{
+//				Assert::IsTrue(true,"If error occur then test pass");
+//			}
+//
+//		}
+		/// <summary>
+		///A test for GetBpUserSettings
+		///</summary>
+public: [TestMethod]
+		void GetBpUserSettingsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructBpSetting^  bps = gcnew CrxStructBpSetting(); // TODO: Initialize to an appropriate value
+			
+			CrxConfigManagerTest::SetPath();
+			
+			bps->Device = "Sphygmocor";
+			bps->NumberofAssessments = 3;
+			bps->AutoPWA= "Yes";
+			bps->BloodPressure = 0;
+			bps->AutoPWA= nullptr;
+			bps->AutoPWADP = true;
+			bps->AutoPWAPP = true;
+			bps->AutoPWASP = true;
+			bps->AutoPWADPThreshold = 90;
+			bps->AutoPWASPThreshold = 130;
+			bps->AutoPWAPPThreshold = 50;
+			
+			target->SetBpUserSettings(bps);
+			
+			target->GetBpUserSettings();
+
+			Assert::AreEqual(bps->Device, target->_instance->BpSettings->Device);
+			Assert::AreEqual(bps->NumberofAssessments, target->_instance->BpSettings->NumberofAssessments);
+			Assert::AreEqual(bps->AutoPWA, target->_instance->BpSettings->AutoPWA);
+			Assert::AreEqual(bps->BloodPressure, target->_instance->BpSettings->BloodPressure);
+
+			bps->NumberofAssessments = 0;
+			target->SetBpUserSettings(bps);
+			
+			try
+			{
+				target->GetBpUserSettings();
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+			bps->NumberofAssessments = 1;
+			target->SetBpUserSettings(bps);
+			
+		}
+		/// <summary>
+		///A test for GetBpSettingsNode
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpSettingsNodeTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  SubSectionNode = "USER2"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			
+			//int actual;
+			int expected = 0;
+			try
+			{
+				XmlDocument^ doc = gcnew XmlDocument;
+
+				doc->LoadXml( "<root>" "<elem>some text<child/>more text</elem>" "</root>" );
+
+				XmlNode^ elem = doc->DocumentElement->FirstChild;
+									
+				target->GetBpSettingsNode(SubSection, SubSectionNode, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+
+		}
+		/// <summary>
+		///A test for GetBpNumberofAssessments
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpNumberofAssessmentsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"1";
+
+			target->GetBpNumberofAssessments(SubSection, ReaderValue);
+			Assert::AreEqual(1, target->_instance->BpSettings->NumberofAssessments);
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpNumberofAssessmentsTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"0";
+
+			try
+			{
+				target->GetBpNumberofAssessments(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
+
+		/// <summary>
+		///A test for GetBpDevice
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpDeviceTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"SPHYGMOCOR";
+
+			target->GetBpDevice(SubSection, ReaderValue);
+			Assert::AreEqual(ReaderValue, target->_instance->BpSettings->Device);
+		}
+				/// <summary>
+		///A test for GetBpDevice
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpDeviceTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"SPHYGMOCOR1";
+
+			try
+			{
+				target->GetBpDevice(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+			
+		}
+
+		/// <summary>
+		///A test for GetBpDefaultSettings
+		///</summary>
+public: [TestMethod]
+		void GetBpDefaultSettingsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructBpSetting^  objBpSettings = gcnew CrxStructBpSetting(); // TODO: Initialize to an appropriate value
+			
+			CrxConfigManagerTest::SetPath();
+			target->GetBpDefaultSettings(objBpSettings);
+			
+			Assert::AreEqual("Sphygmocor", objBpSettings->Device);
+			//Assert::AreEqual(1, objBpSettings->NumberofAssessments);
+
+		}
+		/// <summary>
+		///A test for GetBpBloodPressure
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpBloodPressureTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"SP and DP";
+
+			target->GetBpBloodPressure(SubSection, ReaderValue);
+			Assert::AreEqual(0, target->_instance->BpSettings->BloodPressure);
+			
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpBloodPressureTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"DEFAULT";
+			String^  ReaderValue = L"XX";
+
+			try
+			{	
+				target->GetBpBloodPressure(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+            }
+            catch(Exception^)
+            {
+                  Assert::IsTrue(true,"If error occur then test pass");
+            }
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpBloodPressureTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"SP and MP";
+
+			target->GetBpBloodPressure(SubSection, ReaderValue);
+			Assert::AreEqual(1, target->_instance->BpSettings->BloodPressure);
+			
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpBloodPressureTest3()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"DEFAULT";
+			String^  ReaderValue = L"MP and DP";
+
+			target->GetBpBloodPressure(SubSection, ReaderValue);
+			Assert::AreEqual(2, target->_bpSetInternal->BloodPressure);
+			
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpBloodPressureTest4()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"MP and DP";
+
+			target->GetBpBloodPressure(SubSection, ReaderValue);
+			Assert::AreEqual(2, target->_instance->BpSettings->BloodPressure);
+			
+		}
+		/// <summary>
+		///A test for GetBpAutoPWA
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWATest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"Yes";
+
+			target->GetBpAutoPWA(SubSection, ReaderValue);
+			Assert::AreEqual(ReaderValue, target->_instance->BpSettings->AutoPWA);
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWATest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"XX";
+
+			try
+			{
+				target->GetBpAutoPWA(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
+		/// <summary>
+		///A test for SetPwaSimulationType
+		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetPwaSimulationTypeTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwaSetting^  pwas = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetPwaSimulationType(pwas, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for GetPwaSimulationType
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaSimulationTypeTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "USER"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "Simulation"; // TODO: Initialize to an appropriate value
+			target->GetPwaSimulationType(SubSection, ReaderValue);
+			Assert::AreEqual(ReaderValue, target->_instance->PwaSettings->SimulationType);
+		}
+
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaSimulationTypeTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "DEFAULT"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "Simulation"; // TODO: Initialize to an appropriate value
+			target->GetPwaSimulationType(SubSection, ReaderValue);
+			Assert::AreEqual(ReaderValue, target->_instance->PwaSettings->SimulationType);
+		}
+
+	public: [TestMethod]
+			[DeploymentItem(L"crx.dll")]
+			void GetPwaSimulationTypeTest2()
+			{
+				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); 
+				String^  SubSection = "DEFAULT1"; // TODO: Initialize to an appropriate value
+				String^  ReaderValue = "Simulation1"; // TODO: Initialize to an appropriate value
+
+				try
+				{	
+					target->GetPwaSimulationType(SubSection, ReaderValue);
+					Assert::Fail("If error does not occur then test fail");
+				}
+				catch(Exception^)
+				{
+					Assert::IsTrue(true,"If error occur then test pass");
+				}
+			}
+			/// <summary>
+			///A test for SetBpAutoPWASPThreshold
+			///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetBpAutoPWASPThresholdTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetBpAutoPWASPThreshold(bps, node);
+//			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for SetBpAutoPWASP
+		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetBpAutoPWASPTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetBpAutoPWASP(bps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for SetBpAutoPWAPPThreshold
+		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetBpAutoPWAPPThresholdTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetBpAutoPWAPPThreshold(bps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for SetBpAutoPWAPP
+		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetBpAutoPWAPPTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetBpAutoPWAPP(bps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for SetBpAutoPWADPThreshold
+		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetBpAutoPWADPThresholdTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetBpAutoPWADPThreshold(bps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for SetBpAutoPWADP
+		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetBpAutoPWADPTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructBpSetting^  bps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetBpAutoPWADP(bps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for SetSystemKey
+		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetSystemKeyTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructGeneralSetting^  gs = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetSystemKey(gs, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for GetSystemKey
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetSystemKeyTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "USER"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "66666123456789030fdab4d63"; // TODO: Initialize to an appropriate value
+			target->GetSystemKey(SubSection, ReaderValue);
+			Assert::AreEqual(ReaderValue,target->_instance->GeneralSettings->Key);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetSystemKeyTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "DEFAULT"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "Check"; // TODO: Initialize to an appropriate value
+			String^ Expected = nullptr;
+			target->GetSystemKey(SubSection, ReaderValue);
+			Assert::AreEqual(Expected,target->_gSetInternal->Key);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetSystemKeyTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "DEFAULT1"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = nullptr; // TODO: Initialize to an appropriate value
+			try
+			{	
+				target->GetSystemKey(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for GetBpAutoPWASPThreshold
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWASPThresholdTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "USER"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "130"; // TODO: Initialize to an appropriate value
+			target->GetBpAutoPWASPThreshold(SubSection, ReaderValue);
+			Assert::AreEqual(Convert::ToInt32(ReaderValue),target->_instance->BpSettings->AutoPWASPThreshold);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWASPThresholdTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "DEFAULT"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "150"; // TODO: Initialize to an appropriate value
+			target->GetBpAutoPWASPThreshold(SubSection, ReaderValue);
+			Assert::AreEqual(Convert::ToInt32(ReaderValue),target->_bpSetInternal->AutoPWASPThreshold);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWASPThresholdTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "DEFAULT1"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "150"; // TODO: Initialize to an appropriate value
+			
+			try
+			{	
+				target->GetBpAutoPWASPThreshold(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for GetBpAutoPWASP
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWASPTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"Yes";
+			target->GetBpAutoPWASP(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_instance->BpSettings->AutoPWASP);
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWASPTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"DEFAULT";
+			String^  ReaderValue = L"Yes";
+			target->GetBpAutoPWASP(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_bpSetInternal->AutoPWASP);
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWASPTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"XX";
+
+			try
+			{
+				target->GetBpAutoPWASP(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+			
+		}
+		/// <summary>
+		///A test for GetBPAutoPWAPPThreshold
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBPAutoPWAPPThresholdTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "USER"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "130"; // TODO: Initialize to an appropriate value
+			target->GetBPAutoPWAPPThreshold(SubSection, ReaderValue);
+			Assert::AreEqual(Convert::ToInt32(ReaderValue),target->_instance->BpSettings->AutoPWAPPThreshold);
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBPAutoPWAPPThresholdTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "DEFAULT"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "150"; // TODO: Initialize to an appropriate value
+			target->GetBPAutoPWAPPThreshold(SubSection, ReaderValue);
+			Assert::AreEqual(Convert::ToInt32(ReaderValue),target->_bpSetInternal->AutoPWAPPThreshold);
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBPAutoPWAPPThresholdTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "DEFAULT1"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "150"; // TODO: Initialize to an appropriate value
+			
+			try
+			{	
+				target->GetBPAutoPWAPPThreshold(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
+		/// <summary>
+		///A test for GetBpAutoPWAPP
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWAPPTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"Yes";
+			target->GetBpAutoPWAPP(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_instance->BpSettings->AutoPWAPP);
+			
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWAPPTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"DEFAULT";
+			String^  ReaderValue = L"Yes";
+			target->GetBpAutoPWAPP(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_bpSetInternal->AutoPWAPP);			
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWAPPTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"XX";
+
+			try
+			{
+				target->GetBpAutoPWAPP(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}			
+		}
+		/// <summary>
+		///A test for GetBpAutoPWADPThreshold
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWADPThresholdTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "USER"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "130"; // TODO: Initialize to an appropriate value
+			target->GetBpAutoPWADPThreshold(SubSection, ReaderValue);
+			Assert::AreEqual(Convert::ToInt32(ReaderValue),target->_instance->BpSettings->AutoPWADPThreshold);
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWADPThresholdTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "DEFAULT"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "150"; // TODO: Initialize to an appropriate value
+			target->GetBpAutoPWADPThreshold(SubSection, ReaderValue);
+			Assert::AreEqual(Convert::ToInt32(ReaderValue),target->_bpSetInternal->AutoPWADPThreshold);
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWADPThresholdTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = "DEFAULT1"; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = "150"; // TODO: Initialize to an appropriate value
+			
+			try
+			{	
+				target->GetBpAutoPWADPThreshold(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+		}
+		/// <summary>
+		///A test for GetBpAutoPWADP
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWADPTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"Yes";
+			target->GetBpAutoPWADP(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_instance->BpSettings->AutoPWADP);		
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWADPTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"DEFAULT";
+			String^  ReaderValue = L"Yes";
+			target->GetBpAutoPWADP(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_bpSetInternal->AutoPWADP);			
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetBpAutoPWADPTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = L"USER";
+			String^  ReaderValue = L"XX";
+
+			try
+			{
+				target->GetBpAutoPWADP(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}			
 		}
 };
 }

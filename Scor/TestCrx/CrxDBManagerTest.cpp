@@ -1004,6 +1004,7 @@ namespace TestCrx {
 				
 				try
 				{
+					SetPath();
 					if(!File::Exists(".\\system\\data\\scor.xyz"))
 					{
 						File::Copy(".\\system\\data\\scor.xyz.old",".\\system\\data\\scor.xyz");
@@ -2502,6 +2503,143 @@ public: [TestMethod]
 			{
 				Assert::Fail();
 			}
+		}
+		/// <summary>
+		///A test for SaveCuffPWAMeasurementDetails
+		///</summary>
+public: [TestMethod]
+		void SaveCuffPWAMeasurementDetailsTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			//CrxStructPWAMeasurementData^  pwaMd = nullptr; // TODO: Initialize to an appropriate value
+			//CrxStructCuffPWAMeasurementData^  cuffPwaMd = nullptr; // TODO: Initialize to an appropriate value
+			int expected = 1; // TODO: Initialize to an appropriate value
+			int actual;
+
+			// connect to db
+			SetServerMachineName();
+			target->SetConnection(serverName, sourceName);
+
+			CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();
+			CrxStructPWAMeasurementData^  pwaMd = gcnew CrxStructPWAMeasurementData();
+			CrxStructCuffPWAMeasurementData^  cuffPwaMd = gcnew CrxStructCuffPWAMeasurementData();
+
+			DataSet^ dbRecords = target->GetPatientDemographicRecords();
+			int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+
+			try
+			{
+				expected = 1;
+				////preparing test data into database///
+				//-------------------------------------
+				pd->SystemIdentifier = 65421;
+				//pd->PatientNumberInternal = 26;
+				pd->LastName = "Test_Patient_Last";
+				pd->FirstName = "Test_Patient_First";
+				pd->DateOfBirth = Convert::ToDateTime("08/09/1985");
+				pd->Gender = "Test";
+				pd->PatientIDExternalReference = "TestER";
+				pd->GroupName = "Test_Group_PWA";
+				//pd->GroupIdentifier = 24;
+				target->SavePatientData(pd);
+
+				DataSet^ dbRecords2 = target->GetPatientDemographicRecords();
+				int SysId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[0][0]);
+				int PatIntId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[0][1]);
+
+				DataSet^ dbRecordsGrp = target->GetGroupLists();
+				int GrpId = Convert::ToInt32(dbRecordsGrp->Tables[0]->Rows[0][0]);
+
+				pwaMd->SystemIdentifier = SysId;
+				pwaMd->PatientNumberInternal = PatIntId;
+				pwaMd->GroupIdentifier = 1;
+				pwaMd->C_RAW_SIGNALS = gcnew array<float>(1);
+				pwaMd->C_RAW_SIGNALS[0] = 1234.12f;
+				pwaMd->C_AV_PULSE = gcnew array<float>(1);
+				pwaMd->C_AV_PULSE[0] = 1234.12f;
+				pwaMd->C_TRIGS = gcnew array<short>(1);
+				pwaMd->C_TRIGS[0] = 1344;
+				pwaMd->C_ONSETS = gcnew array<short>(1);
+				pwaMd->C_ONSETS[0] = 1344;
+				pwaMd->C_Uncal_Av = gcnew array<float>(1);
+				pwaMd->C_Uncal_Av[0] = 1234.12f;
+				pwaMd->C_ResemblePulse = gcnew array<float>(1);
+				pwaMd->C_ResemblePulse[0] = 1234.12f;
+				pwaMd->C_Flow = gcnew array<float>(1);
+				pwaMd->C_Flow[0] = 1234.12f;
+				pwaMd->C_Forward = gcnew array<float>(1);
+				pwaMd->C_Forward[0] = 1234.12f;
+				pwaMd->C_Backward = gcnew array<float>(1);
+				pwaMd->C_Backward[0] = 1234.12f;
+
+				//Cuff PWA
+				cuffPwaMd->P_RAW_SIGNALS = gcnew array<float>(1);
+				cuffPwaMd->P_RAW_SIGNALS[0] = 1234.12f;
+				cuffPwaMd->P_AV_PULSE = gcnew array<float>(1);
+				cuffPwaMd->P_AV_PULSE[0] = 1234.12f;
+				cuffPwaMd->P_TRIGS = gcnew array<short>(1);
+				cuffPwaMd->P_TRIGS[0] = 1234;
+				cuffPwaMd->P_ONSETS = gcnew array<short>(1);
+				cuffPwaMd->P_ONSETS[0] = 1234;
+				cuffPwaMd->P_UNCAL_AV = gcnew array<float>(1);
+				cuffPwaMd->P_UNCAL_AV[0] = 1234.12f;
+				cuffPwaMd->P_ResemblePulse = gcnew array<float>(1);
+				cuffPwaMd->P_ResemblePulse[0] = 1234.12f;
+
+				actual = target->SaveCuffPWAMeasurementDetails(pwaMd, cuffPwaMd);
+				Assert::AreEqual(expected, actual);
+			}
+			catch(Exception^)
+			{
+				//target->DeletePatientData(pd);
+			}
+		}
+		/// <summary>
+		///A test for CommonShortArrtoByteArr
+		///</summary>
+public: [TestMethod]
+		void CommonShortArrtoByteArrTest1()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			int len = 0; // TODO: Initialize to an appropriate value
+			cli::array< short >^  shrtarr = nullptr; // TODO: Initialize to an appropriate value
+			//cli::array< unsigned char >^  expected = nullptr; // TODO: Initialize to an appropriate value
+			//cli::array< unsigned char >^  actual;
+			cli::array< Byte >^  expected = nullptr;
+			cli::array< Byte >^  actual;
+			
+			shrtarr = gcnew array<short> (1);
+			shrtarr[0] = 21212;
+			len = shrtarr->Length;
+			array<Byte>^ bufferarr;
+			expected =  gcnew array<Byte> (2);
+			bufferarr = BitConverter::GetBytes(shrtarr[0]);
+			expected[0] = bufferarr[0];
+			expected[1] = bufferarr[1];
+			actual =  gcnew array<Byte> (2);
+			actual = target->CommonShortArrtoByteArr(len, shrtarr);
+			Assert::AreEqual(expected[0], actual[0]);
+			
+			len = 0 ;
+			actual =  gcnew array<Byte> (len*2);
+			actual = target->CommonShortArrtoByteArr(len, shrtarr);
+			expected =  gcnew array<Byte>(len*2);
+
+			int actualTest;
+			try
+			{
+				actual =  gcnew array<Byte> (2);
+				actual = target->CommonShortArrtoByteArr(2, shrtarr);
+			}					
+			catch(Exception^)
+			{
+				actualTest = 0;
+			}
+			int expectedTest = 0;
+			Assert::AreEqual(expectedTest,actualTest);
+			
+			//actual = target->CommonShortArrtoByteArr(len, shrtarr);
+			//Assert::AreEqual(expected, actual);
 		}
 };
 }

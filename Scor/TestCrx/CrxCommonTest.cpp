@@ -1,5 +1,6 @@
 ﻿
 #include "StdAfx.h"
+
 using namespace System::IO;
 using namespace System::Globalization;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
@@ -158,7 +159,21 @@ namespace TestCrx {
 				CrxCommon_Accessor^  target = (gcnew CrxCommon_Accessor());
 				Assert::IsNotNull(target);
 			}
-	};
+			/// <summary>
+			///A test for SetNeutralCultureInfo
+			///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void SetNeutralCultureInfoTest()
+		{
+			CrxCommon_Accessor^  target = (gcnew CrxCommon_Accessor()); // TODO: Initialize to an appropriate value
+			CultureInfo^ tempCult = gcnew CultureInfo("en-US");
+			target->SetNeutralCultureInfo();
+			Assert::AreEqual(tempCult->Name,CrxCommon::nCI->Name);
+			
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+};
 }
 namespace TestCrx {
     

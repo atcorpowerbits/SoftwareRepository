@@ -120,7 +120,7 @@ namespace AtCor{
 
 			bool DalStatusHandler::CheckCuffStatusFlagsChanged(unsigned long newCuffStatusFlags) 
 			{
-				//CrxLogger::Instance->Write("CheckCuffStatusFlagsChanged currentflag " + _currentCuffStatusFlag.ToString("X") + " newCuffStatusFlags: " + newCuffStatusFlags.ToString("X"));
+				//CrxLogger::Instance->Write("CheckCuffStatusFlagsChanged currentflag " + _currentCuffStatusFlag.ToString("X2) + " newCuffStatusFlags: " + newCuffStatusFlags.ToString("X2));
 				if (newCuffStatusFlags != _currentCuffStatusFlag )
 				{
 					//Flags have changed . Assign the new flags 
@@ -349,13 +349,13 @@ namespace AtCor{
 
 					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.AlarmFlag") == "Y")
 					{
-					//check alarms bfore anything else
+						//check alarms bfore anything else
 						ProcessAlarmStatusFlag();
 					}
 
 					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.CuffStatusFlags") == "Y")
 					{
-					ProcessCuffStatusFlag();
+						ProcessCuffStatusFlag();
 					}
 
 					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.TonometerFlags") == "Y")
@@ -365,9 +365,9 @@ namespace AtCor{
 
 					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.UnusedBits") == "Y")
 					{
-					//least important
+						//least important
 						ProcessUnusedBitsStatusFlag(statusBytes);
-				}
+					}
 				}
 				catch(ScorException^)
 				{
@@ -386,7 +386,7 @@ namespace AtCor{
 			{
 				if (newStatusFlag != _currentStatusFlag)
 				{
-					//CrxLogger::Instance->Write("CheckStatusFlagsChanged currentflag " + _currentStatusFlag.ToString("X") + " newStatusFlags: " + newStatusFlag.ToString("X"));
+					//CrxLogger::Instance->Write("CheckStatusFlagsChanged currentflag " + _currentStatusFlag.ToString("X2) + " newStatusFlags: " + newStatusFlag.ToString("X2));
 					//Flags have changed . Assign the new flags 
 					_currentStatusFlag  = newStatusFlag;
 					return true;

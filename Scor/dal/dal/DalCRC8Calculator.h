@@ -30,7 +30,7 @@ namespace AtCor{
 			{
 				private:
 					static array<unsigned char>^ crc8Table = gcnew array<unsigned char>(DalConstants::CRCTableSize ); // Default size of array
-					static bool TableReady = false;
+					//static bool TableReady ; //initialized to false by default. //unused
 					static DalCRC8Calculator^ _instance = gcnew DalCRC8Calculator();
 					/*DalCRC8Calculator^ operator= (const DalCRC8Calculator);*/ //fxCop
 					

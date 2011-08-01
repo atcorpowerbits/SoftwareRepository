@@ -59,11 +59,6 @@
             this.object_a97f3e92_34ce_4935_a0bd_0e1c161df207 = new Telerik.WinControls.UI.RadMenu.RadMenuRootElement();
             this.guiradpnlDefaultWin = new Telerik.WinControls.UI.RadPanel();
             this.guiradlblEnvironment = new Telerik.WinControls.UI.RadLabel();
-            this.radlblCurrentMode = new Telerik.WinControls.UI.RadLabel();
-            this.radpgTabCollection = new Telerik.WinControls.UI.RadPageView();
-            this.guiradgrpbxPwvDistanceMethod = new Telerik.WinControls.UI.RadPageViewPage();
-            this.radtabCapture = new Telerik.WinControls.UI.RadPageViewPage();
-            this.radtabReport = new Telerik.WinControls.UI.RadPageViewPage();
             this.radPanelBottom = new Telerik.WinControls.UI.RadPanel();
             this.guipictureboxError = new System.Windows.Forms.PictureBox();
             this.radlblMessage = new Telerik.WinControls.UI.RadLabel();
@@ -74,6 +69,7 @@
             this.guiradmnuScor = new Telerik.WinControls.UI.RadMenu();
             this.guiradmnuSystem = new Telerik.WinControls.UI.RadMenuItem();
             this.guiradmnuitemSettings = new Telerik.WinControls.UI.RadMenuItem();
+            this.guiradmnuSystemKey = new Telerik.WinControls.UI.RadMenuItem();
             this.guiradmnuFindModule = new Telerik.WinControls.UI.RadMenuItem();
             this.guiradmnuFindPrinter = new Telerik.WinControls.UI.RadMenuItem();
             this.guiradmnuExit = new Telerik.WinControls.UI.RadMenuItem();
@@ -87,15 +83,17 @@
             this.guiradmenuahomepage = new Telerik.WinControls.UI.RadMenuItem();
             this.guiradmnuitemAbout = new Telerik.WinControls.UI.RadMenuItem();
             this.guipnlBackgrndPanel = new System.Windows.Forms.Panel();
+            this.guicmbxCurrentMode = new Telerik.WinControls.UI.RadDropDownList();
+            this.radpgTabCollection = new Telerik.WinControls.UI.RadPageView();
+            this.guiradgrpbxPwvDistanceMethod = new Telerik.WinControls.UI.RadPageViewPage();
+            this.radtabCapture = new Telerik.WinControls.UI.RadPageViewPage();
+            this.radtabReport = new Telerik.WinControls.UI.RadPageViewPage();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradgridReportAssessment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradgridReportAssessment.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradpnlDefaultWin)).BeginInit();
             this.guiradpnlDefaultWin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblEnvironment)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radlblCurrentMode)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radpgTabCollection)).BeginInit();
-            this.radpgTabCollection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radPanelBottom)).BeginInit();
             this.radPanelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guipictureboxError)).BeginInit();
@@ -106,6 +104,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
             this.radPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradmnuScor)).BeginInit();
+            this.guipnlBackgrndPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guicmbxCurrentMode)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radpgTabCollection)).BeginInit();
+            this.radpgTabCollection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -166,7 +168,7 @@
             this.guiradgridReportAssessment.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.guiradgridReportAssessment.Location = new System.Drawing.Point(1, 479);
             // 
-            // guiradgridReportAssessment
+            // 
             // 
             this.guiradgridReportAssessment.MasterTemplate.AllowAddNewRow = false;
             this.guiradgridReportAssessment.MasterTemplate.AllowCellContextMenu = false;
@@ -233,8 +235,6 @@
             // guiradpnlDefaultWin
             // 
             this.guiradpnlDefaultWin.Controls.Add(this.guiradlblEnvironment);
-            this.guiradpnlDefaultWin.Controls.Add(this.radlblCurrentMode);
-            this.guiradpnlDefaultWin.Controls.Add(this.radpgTabCollection);
             this.guiradpnlDefaultWin.Controls.Add(this.radPanelBottom);
             this.guiradpnlDefaultWin.Controls.Add(this.radPanel1);
             this.guiradpnlDefaultWin.Controls.Add(this.guipnlBackgrndPanel);
@@ -265,87 +265,6 @@
             this.guiradlblEnvironment.TabIndex = 19;
             this.guiradlblEnvironment.Text = "Clinical";
             this.guiradlblEnvironment.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // radlblCurrentMode
-            // 
-            this.radlblCurrentMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radlblCurrentMode.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radlblCurrentMode.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radlblCurrentMode.Location = new System.Drawing.Point(15, 70);
-            this.radlblCurrentMode.Name = "radlblCurrentMode";
-            // 
-            // 
-            // 
-            this.radlblCurrentMode.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radlblCurrentMode.Size = new System.Drawing.Size(148, 21);
-            this.radlblCurrentMode.TabIndex = 17;
-            this.radlblCurrentMode.Text = "Pulse Wave Velocity";
-            // 
-            // radpgTabCollection
-            // 
-            this.radpgTabCollection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radpgTabCollection.Controls.Add(this.guiradgrpbxPwvDistanceMethod);
-            this.radpgTabCollection.Controls.Add(this.radtabCapture);
-            this.radpgTabCollection.Controls.Add(this.radtabReport);
-            this.radpgTabCollection.Font = new System.Drawing.Font("Arial", 11.25F);
-            this.radpgTabCollection.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radpgTabCollection.Location = new System.Drawing.Point(0, 61);
-            this.radpgTabCollection.Name = "radpgTabCollection";
-            this.radpgTabCollection.PageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            // 
-            // 
-            // 
-            this.radpgTabCollection.RootElement.AutoSize = false;
-            this.radpgTabCollection.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radpgTabCollection.SelectedPage = this.guiradgrpbxPwvDistanceMethod;
-            this.radpgTabCollection.Size = new System.Drawing.Size(1024, 637);
-            this.radpgTabCollection.TabIndex = 18;
-            this.radpgTabCollection.Text = "Report";
-            this.radpgTabCollection.ThemeName = "Atcor";
-            this.radpgTabCollection.Click += new System.EventHandler(this.radpgTabCollection_Click);
-            this.radpgTabCollection.SelectedPageChanged += new System.EventHandler(this.radpgTabCollection_SelectedPageChanged);            
-            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
-            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).ItemAlignment = Telerik.WinControls.UI.StripViewItemAlignment.Center;
-            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).ItemSpacing = 2;
-            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.UI.StripViewItemLayout)(this.radpgTabCollection.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
-            ((Telerik.WinControls.UI.StripViewItemLayout)(this.radpgTabCollection.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.UI.StripViewButtonsPanel)(this.radpgTabCollection.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
-            ((Telerik.WinControls.UI.StripViewButtonsPanel)(this.radpgTabCollection.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.UI.StripViewButtonsPanel)(this.radpgTabCollection.GetChildAt(0).GetChildAt(0).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            ((Telerik.WinControls.UI.RadPageViewContentAreaElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(1))).BorderWidth = 0F;
-            ((Telerik.WinControls.UI.RadPageViewContentAreaElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(1))).BorderColor = System.Drawing.SystemColors.Control;
-            ((Telerik.WinControls.UI.RadPageViewContentAreaElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(2))).Text = "Setup";
-            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(3))).Text = "Setup";
-            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(3))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            // 
-            // guiradgrpbxPwvDistanceMethod
-            // 
-            this.guiradgrpbxPwvDistanceMethod.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.guiradgrpbxPwvDistanceMethod.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradgrpbxPwvDistanceMethod.Location = new System.Drawing.Point(9, 39);
-            this.guiradgrpbxPwvDistanceMethod.Name = "guiradgrpbxPwvDistanceMethod";
-            this.guiradgrpbxPwvDistanceMethod.Size = new System.Drawing.Size(1005, 588);
-            this.guiradgrpbxPwvDistanceMethod.Text = "Setup";
-            // 
-            // radtabCapture
-            // 
-            this.radtabCapture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radtabCapture.Location = new System.Drawing.Point(9, 39);
-            this.radtabCapture.Margin = new System.Windows.Forms.Padding(0);
-            this.radtabCapture.Name = "radtabCapture";
-            this.radtabCapture.Size = new System.Drawing.Size(1005, 588);
-            this.radtabCapture.Text = "Capture";
-            // 
-            // radtabReport
-            // 
-            this.radtabReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radtabReport.Location = new System.Drawing.Point(9, 39);
-            this.radtabReport.Name = "radtabReport";
-            this.radtabReport.Size = new System.Drawing.Size(1005, 588);
-            this.radtabReport.Text = "Report";
             // 
             // radPanelBottom
             // 
@@ -581,6 +500,7 @@
             this.guiradmnuSystem.Class = "";
             this.guiradmnuSystem.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.guiradmnuitemSettings,
+            this.guiradmnuSystemKey,
             this.guiradmnuFindModule,
             this.guiradmnuFindPrinter,
             this.guiradmnuExit});
@@ -594,6 +514,15 @@
             this.guiradmnuitemSettings.Name = "guiradmnuitemSettings";
             this.guiradmnuitemSettings.Text = "Settings";
             this.guiradmnuitemSettings.Click += new System.EventHandler(this.guiradmnuSettings_Click);
+            // 
+            // guiradmnuSystemKey
+            // 
+            this.guiradmnuSystemKey.Class = "";
+            this.guiradmnuSystemKey.Font = new System.Drawing.Font("Arial", 11.25F);
+            this.guiradmnuSystemKey.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            this.guiradmnuSystemKey.Name = "guiradmnuSystemKey";
+            this.guiradmnuSystemKey.Text = "System Key";
+            this.guiradmnuSystemKey.Click += new System.EventHandler(this.guiradmnuSystemKey_Click);
             // 
             // guiradmnuFindModule
             // 
@@ -699,10 +628,92 @@
             // guipnlBackgrndPanel
             // 
             this.guipnlBackgrndPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guipnlBackgrndPanel.Controls.Add(this.guicmbxCurrentMode);
+            this.guipnlBackgrndPanel.Controls.Add(this.radpgTabCollection);
             this.guipnlBackgrndPanel.Location = new System.Drawing.Point(-1, -1);
             this.guipnlBackgrndPanel.Name = "guipnlBackgrndPanel";
             this.guipnlBackgrndPanel.Size = new System.Drawing.Size(1052, 784);
             this.guipnlBackgrndPanel.TabIndex = 19;
+            // 
+            // guicmbxCurrentMode
+            // 
+            this.guicmbxCurrentMode.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guicmbxCurrentMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guicmbxCurrentMode.Location = new System.Drawing.Point(12, 71);
+            this.guicmbxCurrentMode.Name = "guicmbxCurrentMode";
+            // 
+            // 
+            // 
+            this.guicmbxCurrentMode.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guicmbxCurrentMode.Size = new System.Drawing.Size(147, 23);
+            this.guicmbxCurrentMode.TabIndex = 23;
+            this.guicmbxCurrentMode.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.guicmbxCurrentMode_SelectedIndexChanged);
+            // 
+            // radpgTabCollection
+            // 
+            this.radpgTabCollection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radpgTabCollection.Controls.Add(this.guiradgrpbxPwvDistanceMethod);
+            this.radpgTabCollection.Controls.Add(this.radtabCapture);
+            this.radpgTabCollection.Controls.Add(this.radtabReport);
+            this.radpgTabCollection.Font = new System.Drawing.Font("Arial", 11.25F);
+            this.radpgTabCollection.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radpgTabCollection.Location = new System.Drawing.Point(3, 61);
+            this.radpgTabCollection.Name = "radpgTabCollection";
+            this.radpgTabCollection.PageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // 
+            // 
+            this.radpgTabCollection.RootElement.AutoSize = false;
+            this.radpgTabCollection.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radpgTabCollection.SelectedPage = this.guiradgrpbxPwvDistanceMethod;
+            this.radpgTabCollection.Size = new System.Drawing.Size(1036, 637);
+            this.radpgTabCollection.TabIndex = 18;
+            this.radpgTabCollection.Text = "Report";
+            this.radpgTabCollection.ThemeName = "Atcor";
+            this.radpgTabCollection.Click += new System.EventHandler(this.radpgTabCollection_Click);
+            this.radpgTabCollection.SelectedPageChanged += new System.EventHandler(this.radpgTabCollection_SelectedPageChanged);
+            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
+            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).ItemAlignment = Telerik.WinControls.UI.StripViewItemAlignment.Center;
+            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).ItemSpacing = 2;
+            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.UI.StripViewItemLayout)(this.radpgTabCollection.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
+            ((Telerik.WinControls.UI.StripViewItemLayout)(this.radpgTabCollection.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.UI.StripViewButtonsPanel)(this.radpgTabCollection.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
+            ((Telerik.WinControls.UI.StripViewButtonsPanel)(this.radpgTabCollection.GetChildAt(0).GetChildAt(0).GetChildAt(1))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.UI.StripViewButtonsPanel)(this.radpgTabCollection.GetChildAt(0).GetChildAt(0).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.UI.RadPageViewContentAreaElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(1))).BorderWidth = 0F;
+            ((Telerik.WinControls.UI.RadPageViewContentAreaElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(1))).BorderColor = System.Drawing.SystemColors.Control;
+            ((Telerik.WinControls.UI.RadPageViewContentAreaElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(2))).Text = "Setup";
+            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(3))).Text = "Setup";
+            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(3))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            // 
+            // guiradgrpbxPwvDistanceMethod
+            // 
+            this.guiradgrpbxPwvDistanceMethod.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guiradgrpbxPwvDistanceMethod.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradgrpbxPwvDistanceMethod.Location = new System.Drawing.Point(9, 39);
+            this.guiradgrpbxPwvDistanceMethod.Name = "guiradgrpbxPwvDistanceMethod";
+            this.guiradgrpbxPwvDistanceMethod.Size = new System.Drawing.Size(1017, 588);
+            this.guiradgrpbxPwvDistanceMethod.Text = "Setup";
+            // 
+            // radtabCapture
+            // 
+            this.radtabCapture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radtabCapture.Location = new System.Drawing.Point(9, 39);
+            this.radtabCapture.Margin = new System.Windows.Forms.Padding(0);
+            this.radtabCapture.Name = "radtabCapture";
+            this.radtabCapture.Size = new System.Drawing.Size(1005, 588);
+            this.radtabCapture.Text = "Capture";
+            // 
+            // radtabReport
+            // 
+            this.radtabReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radtabReport.Location = new System.Drawing.Point(9, 39);
+            this.radtabReport.Name = "radtabReport";
+            this.radtabReport.Size = new System.Drawing.Size(1005, 588);
+            this.radtabReport.Text = "Report";
             // 
             // DefaultWindow
             // 
@@ -710,8 +721,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.ClientSize = new System.Drawing.Size(1036, 780);
-            this.Controls.Add(this.guiradpnlDefaultWin);
             this.Controls.Add(this.radStatusBar);
+            this.Controls.Add(this.guiradpnlDefaultWin);
             this.Font = new System.Drawing.Font("Arial", 11.25F);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -736,11 +747,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.guiradgridReportAssessment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradpnlDefaultWin)).EndInit();
             this.guiradpnlDefaultWin.ResumeLayout(false);
-            this.guiradpnlDefaultWin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblEnvironment)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radlblCurrentMode)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radpgTabCollection)).EndInit();
-            this.radpgTabCollection.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radPanelBottom)).EndInit();
             this.radPanelBottom.ResumeLayout(false);
             this.radPanelBottom.PerformLayout();
@@ -753,6 +760,11 @@
             this.radPanel1.ResumeLayout(false);
             this.radPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradmnuScor)).EndInit();
+            this.guipnlBackgrndPanel.ResumeLayout(false);
+            this.guipnlBackgrndPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guicmbxCurrentMode)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radpgTabCollection)).EndInit();
+            this.radpgTabCollection.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -782,7 +794,6 @@
         public Telerik.WinControls.UI.RadLabel radlblCaptureTime;
         public Telerik.WinControls.UI.RadLabel radlblPatientName;
         private Telerik.WinControls.UI.RadPanel radPanel1;
-        public Telerik.WinControls.UI.RadMenu guiradmnuScor;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuSystem;
         public Telerik.WinControls.UI.RadMenuItem guiradmnuDatabase;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuHelp;
@@ -797,12 +808,14 @@
         private Telerik.WinControls.UI.RadMenuItem guiradmnuitemAbout;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuExit;
         public Telerik.WinControls.UI.RadMenuItem guiradmnuitemSettings;
-        private Telerik.WinControls.UI.RadLabel radlblCurrentMode;
         public Telerik.WinControls.UI.RadPageView radpgTabCollection;
         public Telerik.WinControls.UI.RadPageViewPage radtabCapture;
         public Telerik.WinControls.UI.RadPageViewPage radtabReport;
         public Telerik.WinControls.UI.RadPageViewPage guiradgrpbxPwvDistanceMethod;
         private System.Windows.Forms.Panel guipnlBackgrndPanel;
-        private Telerik.WinControls.UI.RadLabel guiradlblEnvironment;        
+        private Telerik.WinControls.UI.RadLabel guiradlblEnvironment;
+        public Telerik.WinControls.UI.RadMenu guiradmnuScor;
+        public Telerik.WinControls.UI.RadMenuItem guiradmnuSystemKey;
+        public Telerik.WinControls.UI.RadDropDownList guicmbxCurrentMode;        
     }
 }
