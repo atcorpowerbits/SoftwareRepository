@@ -15,6 +15,7 @@
 #include "IDalHandler.h"
 #include "DalStatusHandler.h"
 #include "DalActivePort.h"
+#include "DalBinaryConversions.h"
 
 using namespace System;
 using namespace System::IO::Ports;
@@ -61,6 +62,8 @@ namespace AtCor{
 
 			bool DalDeviceHandler::StartCapture(int captureTime, int samplingRate)
 			{
+				CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StartCapture Called");
+
 				//create a buffer of the required size
 				try
 				{
@@ -128,6 +131,7 @@ namespace AtCor{
 
 			bool DalDeviceHandler::StopCapture()
 			{
+				CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture Called");
 				CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture START");
 					
 				//check if  the comand interface isnt already created
@@ -135,14 +139,6 @@ namespace AtCor{
 				{
 					return false;
 				}
-
-				////deregister the data capture handler first
-				//if(!(_commandInterface->StopDataCaptureMode()))
-				//{
-				//	CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture EXCEPTION");
-				//	//failed to deregister the data capture handler
-				//	throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed, ErrorSeverity::Information); 
-				//}
 
 				//send command to stop capture
 				DalEM4Command ^ startCaptureCommand = gcnew DalEM4Command(Em4CommandCodes::StopDataCapture , nullptr);
@@ -154,11 +150,17 @@ namespace AtCor{
 				CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture returnValue" + returnValue.ToString());
 
 				//deregister the data capture handler after the call to stop capture and see
-				if(!(_commandInterface->StopDataCaptureMode()))
+				//if(!(_commandInterface->StopDataCaptureMode()))
+				//{
+				//	CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture EXCEPTION");
+				//	//failed to deregister the data capture handler
+				//	throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed, ErrorSeverity::Information); 
+				//}
+
+				///TODO: replacing the state machine dependent method with the direct call.
+				if(!(_commandInterface->StopDataCaptureModeInternal()))
 				{
-					CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture EXCEPTION");
-					//failed to deregister the data capture handler
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed, ErrorSeverity::Information); 
+					CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopDataCaptureMode returned false");
 				}
 
 				//Free up the reserved sequence number so that it can be reused
@@ -239,11 +241,11 @@ namespace AtCor{
 				{
 					serialCommand = gcnew DalEM4Command(Em4CommandCodes::GetAlarmStatus, nullptr);
 					serialCommand->expectedResponseLength = Em4ResponseRequiredLength::GetAlarmStatus ;
-					returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); //renamed oringinal method
+					returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); 
 					
 					if (returnedValue == DalReturnValue::Success)
 					{
-						eaSourceFlag = DalCommandInterface::TranslateFourBytes(serialCommand->em4ResponseData, 0);
+						eaSourceFlag = DalBinaryConversions::TranslateFourBytes(serialCommand->em4ResponseData, 0);
 						_currentEASourceFlag = eaSourceFlag  ;
 						_currentAlarmStatusFlag = (serialCommand->em4StatusFlag) & (unsigned long)DalStatusFlagBitMask::AlarmStatusBitsMask;
 
@@ -405,12 +407,13 @@ namespace AtCor{
 
 			bool DalDeviceHandler::SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard)
 			{
+				CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure called with pressure:" + newPressure);
 				unsigned short pressureToSet = (unsigned short)newPressure;
 
 				unsigned char pressureMSB, pressureLSB, commandByte;
 
 				pressureLSB = (unsigned char)(pressureToSet & 0x00FF);
-				pressureMSB = ((unsigned char)((pressureToSet &0xFF00) >> 8));
+				pressureMSB = ((unsigned char)((pressureToSet & 0xFF00) >> 8));
 				
 				array<unsigned char> ^pressureBytes = gcnew array<unsigned char> {pressureMSB, pressureLSB};
 
@@ -435,10 +438,13 @@ namespace AtCor{
 
 					if (_commandInterface->SendCommandAndGetResponse(setPressureCommand) ==DalReturnValue::Success) //renamed oringinal method
 					{
+						CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Successful" );
+				
 						return true; 
 					}
 					else
 					{
+						CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Failed" );
 						return false;
 					}
 				}
@@ -501,7 +507,7 @@ namespace AtCor{
 				
 				if (returnedValue == DalReturnValue::Success)
 				{
-					moduleSerialNumber = ConvertBytesToString(serialCommand->em4ResponseData); 
+					moduleSerialNumber = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
 					delete serialCommand;
 					return true;
 				}

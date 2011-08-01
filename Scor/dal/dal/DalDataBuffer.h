@@ -111,7 +111,7 @@ namespace AtCor{
 										
 										/**
 										* Returns a pointer to the array. @n
-										* Hides the actuall array.t
+										* Hides the actuall array.
 										*/
 										property Array^ DataBuffer
 										{

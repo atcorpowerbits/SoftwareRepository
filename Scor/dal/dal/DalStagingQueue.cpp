@@ -11,7 +11,6 @@
 #include "stdafx.h"
 
 #include "DalStagingQueue.h"
-#include "DalStatusHandler.h" //TODO remove later
 #include "DalResponsePacketBuffer.h"
 #include "DalStreamingPacketQueue.h"
 #include "DalActivePort.h"
@@ -379,7 +378,7 @@ void DalStagingQueue::PartiallyClearBuffer()
 		
 		if (-1 == nextStreamingPacketIndex)
 		{
-			CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::PartiallyClearBuffer clearing entire buffer in Capture Mode:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(stagingQueue->ToArray()));
+			CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::PartiallyClearBuffer clearing entire buffer in Capture Mode:  " +  DalBinaryConversions::ConvertBytesToString(stagingQueue->ToArray()));
 			
 			//there are no more packets clear entire buffer
 			EmptyBuffer();
@@ -391,7 +390,7 @@ void DalStagingQueue::PartiallyClearBuffer()
 			//get the array elements for debugging only
 			array<unsigned char> ^ returnValueArray = this->stagingQueue->GetRange(0, nextStreamingPacketIndex)->ToArray();
 
-			CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::PartiallyClearBuffer Partial remove length:  "+ nextStreamingPacketIndex + " Bytes : " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(returnValueArray));
+			CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::PartiallyClearBuffer Partial remove length:  "+ nextStreamingPacketIndex + " Bytes : " +  DalBinaryConversions::ConvertBytesToString(returnValueArray));
 
 			//clear from 0 to (nextStreamingPacketIndex-1)
 			this->stagingQueue->RemoveRange(0, nextStreamingPacketIndex);
@@ -402,7 +401,7 @@ void DalStagingQueue::PartiallyClearBuffer()
 	}
 	else
 	{
-		CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::PartiallyClearBuffer clearing entire buffer:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(stagingQueue->ToArray()));
+		CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::PartiallyClearBuffer clearing entire buffer:  " +  DalBinaryConversions::ConvertBytesToString(stagingQueue->ToArray()));
 	
 		//command response mode clear the entire buffer.
 		EmptyBuffer();

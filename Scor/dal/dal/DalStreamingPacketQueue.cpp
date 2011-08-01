@@ -94,5 +94,10 @@ void DalStreamingPacketQueue::Clear()
 
 int DalStreamingPacketQueue::Count()
 {
-	return this->streamingPacketQueue->Count;
+	_mutex->WaitOne();
+
+	int count =  this->streamingPacketQueue->Count;
+
+	_mutex->ReleaseMutex();
+	return count;
 }

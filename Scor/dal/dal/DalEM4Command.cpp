@@ -13,6 +13,8 @@
 #include "DalCommon.h"
 #include "DalCommandInterface.h"
 #include "DalSequenceNumberManager.h"
+#include "DalBinaryConversions.h"
+
 
 
 using namespace System;
@@ -155,12 +157,14 @@ namespace AtCor{
 					em4ResponseCRCByte = em4Response[(int)em4ResponseLengthByte];
 
 					//get the status flag
-					EM4StatusFlag flagUn;
+					/*TwoBytesUnsignedShort flagUn;
 					flagUn.ucStatusBytes[0] = em4Response[em4ResponseLengthByte - 1];
 					flagUn.ucStatusBytes[1] = em4Response[em4ResponseLengthByte - 2];
 
-					em4StatusFlag =  flagUn.ulStatusFlag ;
+					em4StatusFlag =  flagUn.ulStatusFlag ;*/
 
+					em4StatusFlag = DalBinaryConversions::TranslateTwoBytes(em4Response, em4ResponseLengthByte - 2);
+					
 					//sepearte the data packet and also its length
 					return BreakResponseDataPart();
 				}

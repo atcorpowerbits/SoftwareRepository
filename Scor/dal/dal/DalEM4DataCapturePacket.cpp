@@ -12,6 +12,7 @@
 #include "DalEM4DataCapturePacket.h"
 #include "DalCommon.h"
 #include "DalCommandInterface.h"
+#include "DalBinaryConversions.h"
 
 
 using namespace System;
@@ -49,24 +50,20 @@ namespace AtCor{
 					}
 
 					em4ResponseAckNackByte = em4Response[(int)Em4ResponseByteIndex::AckNackByte ];
-					
-					//em4ResponseSequenceNumber = em4Response[(int)Em4ResponseByteIndex::ResponseLengthByte]>>DalConstants::RightShiftOneNibble;
 					em4ResponseSequenceNumber = em4Response[(int)Em4ResponseByteIndex::SequenceNumberByte];
-
 					em4ResponseCRCByte = em4Response[(int)em4ResponseLengthByte];
 
 					//get the status flag
-					EM4StatusFlag flagUn;
-					flagUn.ucStatusBytes[0] = em4Response[em4ResponseLengthByte - 1];
+					/*TwoBytesUnsignedShort flagUn;
+
 					flagUn.ucStatusBytes[1] = em4Response[em4ResponseLengthByte - 2];
-
-					em4StatusFlag =  flagUn.ulStatusFlag ;
-
-					//em4StatusFlag = DalCommandInterface::TranslateTwoBytes(em4Response, em4ResponseLengthByte - 2);
-
-					return BreakResponseDataPart();
-
+					flagUn.ucStatusBytes[0] = em4Response[em4ResponseLengthByte - 1];
 					
+					em4StatusFlag =  flagUn.ulStatusFlag ;*/
+
+					em4StatusFlag = DalBinaryConversions::TranslateTwoBytes(em4Response, em4ResponseLengthByte - 2);
+					
+					return BreakResponseDataPart();
 				}
 				catch(ScorException ^ )
 				{

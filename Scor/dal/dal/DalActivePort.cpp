@@ -13,6 +13,8 @@
 #include "DalStagingQueue.h"
 #include "DalStatusHandler.h" //TODO remove later
 #include "DalBinaryConversions.h"
+#include "DalCommandInterface.h"
+#include "DalEventContainer.h"
 
 
 using namespace System;
@@ -36,9 +38,11 @@ namespace AtCor{
 					//Register the handler to listen to the port events
 					_serialPort->DataReceived += gcnew SerialDataReceivedEventHandler(this, &DalActivePort::DataReceviedHandler);
 
+					serialDataWasRecieved = true; //should be true before first check;
 
-				/*	readerThread = gcnew Thread(gcnew ThreadStart(this, &DalActivePort::ThreadMethod));*/
-					
+					//Create a timer and register its listener. Do not start it!
+					timeoutCheckTimer= gcnew Timers::Timer(DalConstants::StreamingTimeoutCheckerInterval);
+					timeoutCheckTimer->Elapsed += gcnew ElapsedEventHandler(this, &DalActivePort::CheckStreamingTimeout); 
 				}
 				catch(Exception^ excepObj)
 				{
@@ -225,13 +229,10 @@ namespace AtCor{
 					//set the read and write timeouts to the same value
 					_serialPort->WriteTimeout  = DalConstants::EM4ResponseTimeout ; 
 					_serialPort->ReadTimeout   = DalConstants::EM4ResponseTimeout ; 
-					//TODO: experimental 
+					
 					//Set the tresold to the minimum packet size we need to read
 					//The minimum size is a response packet which has no data
-					//_serialPort->ReceivedBytesThreshold  = DalConstants::EM4ZeroDataResponsePacketSize + DalConstants::EM4NackPacketDataLength ;
 					_serialPort->ReceivedBytesThreshold  = DalConstants::EM4ZeroDataResponsePacketSize ;
-
-
 				}
 				catch(Exception^ excepObj)
 				{
@@ -248,11 +249,11 @@ namespace AtCor{
 					this->_serialPort->Write(dataToSend, 0, dataToSend->Length);
 					Thread::Sleep(0); //give the system some time to send the packet 
 
-					CrxLogger::Instance->Write("Deepak>>> DalActivePort::SendPacket Command sent on port:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(dataToSend));
+					CrxLogger::Instance->Write("Deepak>>> DalActivePort::SendPacket Command sent on port:  " +  DalBinaryConversions::ConvertBytesToString(dataToSend));
 				}
 				catch(Exception^ excepObj)
 				{
-					CrxLogger::Instance->Write("Deepak>>> DalActivePort::SendPacket Failed to send:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(dataToSend));
+					CrxLogger::Instance->Write("Deepak>>> DalActivePort::SendPacket Failed to send:  " +  DalBinaryConversions::ConvertBytesToString(dataToSend));
 					throw gcnew ScorException(excepObj);
 				}
 			}
@@ -264,7 +265,7 @@ namespace AtCor{
 			//we will simply interupt a sleeping thread.
 			void DalActivePort::DataReceviedHandler(Object ^, SerialDataReceivedEventArgs ^)
 			{
-				//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event raised Avalibale "+ _serialPort->BytesToRead);
+				CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event raised Avalibale "+ _serialPort->BytesToRead);
 			
 			//	//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING 1st Time");
 				Thread::Sleep(0);
@@ -278,6 +279,8 @@ namespace AtCor{
 
 				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING 2nd Time ");
 				//Thread::Sleep(0);
+
+				serialDataWasRecieved = true; //set the marker to true to let the checker know that we got the data
 
 				//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler exiting Avalibale "+ _serialPort->BytesToRead);
 			}
@@ -315,7 +318,7 @@ namespace AtCor{
 				//if no bytes are available then return back
 				if (0 == bytesAvaliable)
 				{
-				//	//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort Zero data return back");
+					//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort Zero data return back");
 					return; //end this process
 				}
 
@@ -371,6 +374,73 @@ namespace AtCor{
 			//	while(true); //will throw a warning. leave it as it is
 			//	//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Exit");
 			//}
+
+			void DalActivePort::CheckStreamingTimeout(Object^, ElapsedEventArgs^ )
+			{
+
+				static unsigned int BufferEmptyCounter; 
+
+				//the DataRecieved event sets this flag to true to indicate that the data was recieved
+				//this handler checks wether the flag was raised . It then resets the flag. If the data was not recieved
+				//till  the next tick it will remain false
+
+
+				//check if the flag is false
+				if (serialDataWasRecieved)
+				{
+					CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout true" );
+
+					//if true, it means that data was recieved and timeout has not occured
+					//set the flag to false and give the reader a chance to set it to true again
+
+					serialDataWasRecieved = false;
+					BufferEmptyCounter = 0; //reset the counter
+				}
+				else
+				{
+					//increment the counter
+					BufferEmptyCounter++;
+					CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout false BufferEmptyCounter = " + BufferEmptyCounter);
+
+
+					
+					if (BufferEmptyCounter <  DalConstants::MaxStreamingTimeoutOccurrences)
+					{
+						//if the treshold for number of empty tries is not reached , return
+						return;
+					}
+
+					//if false for multipl occurences, it means that there was no data between last check and this one
+					//raise an alarm
+				
+					//change the state
+					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
+					CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout Timeout occured Raising event." );
+
+					
+					//raise event 
+					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureTimeout, DalFormatterStrings::PrintEnumName);
+					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureTimeout, sourceName);
+					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+
+					//after raising a timout event , subsequent checks will also timout. 
+					//so diable the timer.
+					timeoutCheckTimer->Enabled = false;
+
+					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
+				}
+			}
+
+
+			void DalActivePort::StartStreamingTimeoutChecker()
+			{
+				timeoutCheckTimer->Enabled = true;
+			}
+
+			void DalActivePort::StopStreamingTimeoutChecker()
+			{
+				timeoutCheckTimer->Enabled = false;
+			}
 
 		
 		} //End namespace DataAccess

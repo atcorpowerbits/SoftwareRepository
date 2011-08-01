@@ -40,7 +40,8 @@ namespace AtCor.Scor.Gui.Presentation
 
         public static void ShowStatusMessage(object sender, CrxShowStatusEventArgs args)
         {
-            HandleException(args.ObjScorException, sender);
+            Form obj =  new Form();
+            HandleException(args.ObjScorException, obj);
         }  
 
         public static void RegisterUnHandledExceptionHandler()

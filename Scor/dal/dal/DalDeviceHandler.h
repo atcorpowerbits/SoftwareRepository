@@ -79,14 +79,14 @@ namespace AtCor{
 					/**
 					* Stops an ongoing data capture.
 					*
-					* @warning This is a stub only. Not yet implemented.
+					* @return A boolean value inidcating the status of the operation.
 					*/
 					virtual bool StopCapture();
 
 					/**
 					* Returns the connection status. ie if device is connected or not on the given commport.
 					*
-					* @warning This is a stub only. Not yet implemented.
+					* @return A boolean value indicating if the device is connected or not.
 					*/
 					virtual bool GetConnectionStatus();
 
@@ -132,7 +132,11 @@ namespace AtCor{
 					
 
 					/**
-					* Sets the pressure value
+					* Sets the pressure value of the EM4 cuff.
+					*
+					* @param[in]	newPressure	The pressure to set
+					* @param[in]	cuffBoard	The board on which the pressure is set
+					*
 					* @return	@c true if the operation succeded
 					*/
 					virtual bool SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard);	

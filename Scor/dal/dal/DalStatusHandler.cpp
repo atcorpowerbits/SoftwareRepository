@@ -170,18 +170,18 @@ namespace AtCor{
 
 				switch (currentCuffStatusBitMask)
 				{
-					case DalCuffStatusBitMask::CUFF_DISCONNECTED_STATUS_BITS:
+					/*case DalCuffStatusBitMask::CUFF_DISCONNECTED_STATUS_BITS:
 						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_DISCONNECTED;
-						break;
+						break;*/
 					case DalCuffStatusBitMask::CUFF_INFLATING_STATUS_BITS:
-					case DalCuffStatusBitMask::CUFF_DISCONNECTED_INFLATING_STATUS_BITS:
+					//case DalCuffStatusBitMask::CUFF_DISCONNECTED_INFLATING_STATUS_BITS:
 						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_INFLATING;
 						break;
 					case DalCuffStatusBitMask::CUFF_INFLATED_STATUS_BITS:
 						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_INFLATED;
 						break;
 					case DalCuffStatusBitMask::CUFF_DEFLATING_STATUS_BITS:
-					case DalCuffStatusBitMask::CUFF_DISCONNECTED_DEFLATING_STATUS_BITS:
+					//case DalCuffStatusBitMask::CUFF_DISCONNECTED_DEFLATING_STATUS_BITS:
 						currentCuffStateFlags = DalCuffStateFlags::CUFF_STATE_DEFLATING;
 						break;
 					case DalCuffStatusBitMask::CUFF_DEFLATED_STATUS_BITS:
@@ -231,18 +231,18 @@ namespace AtCor{
 				return retAlarmValue;
 			}
 
-			String^ DalStatusHandler::ConvertBytesToString(array<unsigned char>^ inputArray)
-			{
-				String ^ packetData = String::Empty ;
+			//String^ DalStatusHandler::ConvertBytesToString(array<unsigned char>^ inputArray)
+			//{
+			//	String ^ packetData = String::Empty ;
 
-				for each (unsigned char singleByte in inputArray)
-				{
-					packetData += singleByte.ToString(DalFormatterStrings::PrintByte) + DalFormatterStrings::SingleSpaceString ;
-				}
+			//	for each (unsigned char singleByte in inputArray)
+			//	{
+			//		packetData += singleByte.ToString(DalFormatterStrings::PrintByte) + DalFormatterStrings::SingleSpaceString ;
+			//	}
 
-				return packetData;
+			//	return packetData;
 
-			}
+			//}
 
 
 			bool DalStatusHandler::SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize)
@@ -306,18 +306,7 @@ namespace AtCor{
 				return returnValue;
 			}
 
-			//bool DalStatusHandler::ProcessStatusFlag(unsigned long statusBytes)
-			//{
-			//	statusBytes;
 
-			//	//TODO: IMP. This is a temporary function to prevent status bytes from beign handled.
-			//	//necessary for testing EM4
-			//	//Revert this when the task is done 
-			//	return true;
-			//}
-
-			/*Commented on 10th july 2011 to neable testing
-			TODO: Temporary revert tot return true without processing status flag. revert when done */
 			bool DalStatusHandler::ProcessStatusFlag(unsigned long statusBytes)
 			{
 				//first check if the status flag has changed from the previous value
@@ -442,12 +431,8 @@ namespace AtCor{
 
 					DalTonometerState tonoState = TranslateTonoStatusBits(_newTonoStatusBytes);
 
-					
 					//raise event for both connected and disconnected states.
-					/*if (DalTonometerState::Disconnected  == tonoState)
-					{*/
 					DalEventContainer::Instance->OnDalTonometerStatusEvent(nullptr, gcnew DalTonometerStatusEventArgs(tonoState));
-					/*}*/
 				}
 			}
 
@@ -455,16 +440,18 @@ namespace AtCor{
 			{
 				 if (CheckAlarmStatusFlagChanged(_newAlarmStatusBytes) == true)
 				 {
-					 //TODO: raise this event only when bit is on1 not when bit is zero.
-
-					 String ^ alarmSource;
+					 //raise this event only when bit is on1 not when bit is zero.
+					 if (_newAlarmStatusBytes)
+					 {
+						  String ^ alarmSource;
 					 //Get the source of the alarm
-					//alarmSource= DalDeviceHandler::Instance->GetAlarmSource(); //Incorrect should hit DalModule so that whichever is the current device will be called
 					 alarmSource= DalModule::Instance->GetErrorAlarmSource();
 
 					 //raise an event only after getting the source of the error
 					 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(TranslateAlarmStatusBits(_newAlarmStatusBytes), alarmSource));
 					CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
+
+					 }
 				 }
 			}
 
@@ -532,9 +519,6 @@ namespace AtCor{
 					ProcessUnusedBit(unusedFlagReservedLSB3Current , unusedFlagReservedLSB3New , DalUnusedStatusFlagBit::UnusedBitReservedLSB3);
 					ProcessUnusedBit(unusedFlagReservedLSB4Current , unusedFlagReservedLSB4New , DalUnusedStatusFlagBit::UnusedBitReservedLSB4);
 					ProcessUnusedBit(unusedFlagReservedLSB7Current , unusedFlagReservedLSB7New , DalUnusedStatusFlagBit::UnusedBitReservedLSB7);
-
-
-
 				}
 			}
 			
@@ -561,7 +545,7 @@ namespace AtCor{
 			{
 				_currentEASourceFlag = 0;
 				_currentAlarmStatusFlag  = 0;
-				_currentCuffStatusFlag   = 0xFFFF; //Todo. check if necessary for all other flags
+				_currentCuffStatusFlag   = 0xFFFF; 
 				_currentTonoStatusFlag = 0xFFFF;
 				_currentStatusFlag = 0;
 				_currentUnusedStatusFlag = 0;

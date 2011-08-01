@@ -79,7 +79,7 @@ namespace AtCor{
 				return true;
 			}
 
-			bool DalModule::SetDeviceStrategy(System::String ^commPort)
+			bool DalModule::SetDeviceStrategy(String ^commPort)
 			{
 				try
 				{

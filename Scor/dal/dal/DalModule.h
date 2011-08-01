@@ -188,10 +188,6 @@ namespace AtCor{
 				*/
 				bool SetIdleMode(); 
 
-
-				//Fxcop reccommends that reference parameters should not be used
-				/*bool IsAnnualCalibrationDue(System::DateTime ^%lastCalibrationDate);*/
-
 				/**
 				* Gets the last callibration date from EM4.
 				*

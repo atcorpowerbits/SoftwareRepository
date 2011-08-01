@@ -53,4 +53,29 @@ String^ DalBinaryConversions::ConvertBytesToString(array<unsigned char>^ inputAr
 		packetData->Append(singleByte.ToString(DalFormatterStrings::PrintByte))->Append(DalFormatterStrings::SingleSpaceString);
 	}
 	return packetData->ToString();
-}	
+}
+
+unsigned short DalBinaryConversions::TranslateTwoBytes( array <unsigned char>^ sourceArray, int startPostion)
+{
+	//get the status flag
+	TwoBytesUnsignedShort flagUn;
+
+	flagUn.ucStatusBytes[1] = sourceArray[startPostion];
+	flagUn.ucStatusBytes[0] = sourceArray[startPostion + 1];
+
+	return flagUn.ulStatusFlag ;
+}
+
+
+unsigned long DalBinaryConversions::TranslateFourBytes( array <unsigned char>^ sourceArray, int startPostion)
+{
+	//get the status flag
+	FourBytesUnsignedLong flagUn;
+	//UT fix
+	flagUn.ucStatusBytes[3] = sourceArray[startPostion];
+	flagUn.ucStatusBytes[2] = sourceArray[startPostion + 1];
+	flagUn.ucStatusBytes[1] = sourceArray[startPostion + 2];
+	flagUn.ucStatusBytes[0] = sourceArray[startPostion + 3];
+
+	return flagUn.ulStatusFlag ;
+}

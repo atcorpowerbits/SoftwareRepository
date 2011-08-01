@@ -15,6 +15,8 @@ using namespace System::IO;
 using namespace System::IO::Ports;
 using namespace System::Threading;
 
+using namespace System::Timers;
+
 
 
 namespace AtCor{ 
@@ -29,8 +31,11 @@ namespace AtCor{
 			DalActivePort^ operator = (DalActivePort);
 			
 			static SerialPort ^_serialPort;
-			//Thread^ readerThread;
-			//static bool dataAvaliable = false;
+
+			static bool serialDataWasRecieved; //flag to check wether data was recieved since the last chek.
+
+			Timers::Timer^ timeoutCheckTimer;
+
 
 		public:
 
@@ -66,8 +71,19 @@ namespace AtCor{
 			*/
 			bool SetSerialPortProperties();
 
+			/**
+			* Creates a new SerialPort instance and opens it.
+			* If any port is already open it will attempt to close it first.
+			* 
+			* @param[in]	 newPortName	Name of the new port.
+			* @return	A boolean value indicating the status of the operation
+			*/
 			bool CreateAndOpenNewSerialPort(String^ newPortName);
 
+			/**
+			* Closes any open port and deletes its instance. 
+			* @return	status of the operation
+			*/
 			bool CloseActivePort();
 
 			/**
@@ -92,6 +108,9 @@ namespace AtCor{
 
 			//TODO: This method needs to be removed. No class should be 
 			//allowed to refer to the port directly. Al read writhe must be done within this class 
+			/**
+			* Returns a pointer to the internal SerialPort instance. 
+			*/
 			property SerialPort^ CurrentPort
 			{
 				SerialPort^ get()
@@ -100,17 +119,31 @@ namespace AtCor{
 				}
 			}
 
+			/**
+			* Transmits a packet over the serial port interface
+			* @param	dataToSend	The command to be sent
+			*/
 			void SendPacket(array<unsigned char>^ dataToSend);
 			
+			/**
+			* Event handler for the serial port's Data recieved event
+			* @param[in]	sender	The object which raised this event
+			* @param[in]	The arguements for the event.
+			*/
 			void DataReceviedHandler(
 											Object^ sender,
 											SerialDataReceivedEventArgs^ e);
 
+			/**
+			* Reads all the available data from the port and writes it to a staging queue.
+			*/
 			void ReadDataFromPort();
 
-			//void ThreadMethod();
+			 void CheckStreamingTimeout(Object^ sender, ElapsedEventArgs^ args);
 
+			void StartStreamingTimeoutChecker();
 
+			void StopStreamingTimeoutChecker();
 
 	};
 

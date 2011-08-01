@@ -45,7 +45,7 @@ namespace AtCor{
 										static const int EM4CommandDataFirstIndex = 3;/**<Index of the first byte in command array */
 										static const int CRCTableSize = 256;/**< Size of the CRC table*/
 
-										static const unsigned int StreamingTimeoutCheckerInterval = 125; /**< time interval in which the capture process should check for timeout*/
+										static const unsigned int StreamingTimeoutCheckerInterval = 100; /**< time interval in which the capture process should check for timeout*/
 										static const int	MaxStreamingTimeoutOccurrences = 2; /**< number of times the StreamingTimout check should be done before raising a timeout event*/
 
 										static const unsigned int RightShiftOneNibble = 4;
@@ -99,6 +99,30 @@ namespace AtCor{
 
 								}; // End DalDeviceConfigUsageStruct
 
+								/*
+								* @enum DalCuffStatusBitMask
+								* @brief	Contains the bit masks against which the status flags will be comapred to obtain the cuff status bits.
+								* This will be used in combination with DalCuffStateFlags.
+								*/
+								//public enum class DalCuffStatusBitMask{
+								//	CUFF_STATUS_BITS_UNKNOWN = 0xFFFF,  //marked as a clear flag. cannot use 0 becuase it is another valid value
+								//	
+								//	CUFF_DISCONNECTED_STATUS_BITS = 0x2000,
+								//										
+								//	CUFF_DEFLATED_STATUS_BITS     = 0x0000,
+								//
+								//	CUFF_INFLATING_STATUS_BITS    = 0x0100,
+								//	
+								//	CUFF_DISCONNECTED_INFLATING_STATUS_BITS    = 0x2100, //same as INFLATING but thhe CN bit changes
+								//	
+								//	CUFF_INFLATED_STATUS_BITS     = 0x0A00,
+								//	
+								//	CUFF_DEFLATING_STATUS_BITS    = 0x0300,
+
+								//	CUFF_DISCONNECTED_DEFLATING_STATUS_BITS    = 0x2300//Same as deflating with the CN bit set to 1
+								//};
+
+								//Replaced with a new version of the flags. Wait for TS to approve before finalizing
 								/**
 								* @enum DalCuffStatusBitMask
 								* @brief	Contains the bit masks against which the status flags will be comapred to obtain the cuff status bits.
@@ -107,19 +131,21 @@ namespace AtCor{
 								public enum class DalCuffStatusBitMask{
 									CUFF_STATUS_BITS_UNKNOWN = 0xFFFF,  //marked as a clear flag. cannot use 0 becuase it is another valid value
 									
-									CUFF_DISCONNECTED_STATUS_BITS = 0x2000,
+									//CUFF_DISCONNECTED_STATUS_BITS = 0x2000,
 																		
 									CUFF_DEFLATED_STATUS_BITS     = 0x0000,
 								
 									CUFF_INFLATING_STATUS_BITS    = 0x0100,
 									
-									CUFF_DISCONNECTED_INFLATING_STATUS_BITS    = 0x2100, //same as INFLATING but thhe CN bit changes
+									//CUFF_DISCONNECTED_INFLATING_STATUS_BITS    = 0x2100, //same as INFLATING but thhe CN bit changes
 									
-									CUFF_INFLATED_STATUS_BITS     = 0x0A00,
+									//CUFF_INFLATED_STATUS_BITS     = 0x0A00,
+									CUFF_INFLATED_STATUS_BITS     = 0x0200,
+									
 									
 									CUFF_DEFLATING_STATUS_BITS    = 0x0300,
 
-									CUFF_DISCONNECTED_DEFLATING_STATUS_BITS    = 0x2300//Same as deflating with the CN bit set to 1
+									//CUFF_DISCONNECTED_DEFLATING_STATUS_BITS    = 0x2300//Same as deflating with the CN bit set to 1
 								};
 
 								/**
@@ -146,8 +172,8 @@ namespace AtCor{
 								public enum class DalAlarmStatusBitMask{
 									NoAlarm = 0x0000,
 									//ErrorStatus = 0x0020, //obsolete
-									//AlarmStatus = 0x0008,
-									AlarmStatus = 0x0020, //the older ES has been reanemed to AS and TAIO is now gone 
+									AlarmStatus = 0x0008,
+									//AlarmStatus = 0x0020, 
 									//ErrorAndAlarmStatus = 0x0028 //obsolete
 								};
 
@@ -167,18 +193,6 @@ namespace AtCor{
 									StopButtonPressed = 5,
 									PowerUpEvent = 6
 								};
-
-
-								//obsolete
-								///*
-								//* @enum DalErrorSource
-								//* @brief	This enum contains a mapping of bit flags from the Error Alarm Status flag against various error source.
-								//*/
-								//public enum class DalErrorSource {
-								//	ErrorSourceUnknown = 0x0000, 
-								//	CuffLeak    = 0x0008,
-								//	DualSensors = 0x0020	
-								//};
 
 								/**
 								* @enum DalAlarmSource
@@ -208,20 +222,20 @@ namespace AtCor{
 								};
 
 								/**
-								* @union EM4StatusFlag
+								* @union TwoBytesUnsignedShort
 								* @brief Two byte union to translate EM4 status bits into an integer
 								*/
-								private union EM4StatusFlag
+								private union TwoBytesUnsignedShort
 								{
 									unsigned char ucStatusBytes[2];
 									unsigned short ulStatusFlag;
 								};
 
 								/**
-								* @union EM4ErrorAlarmSourceFlag
+								* @union FourBytesUnsignedLong
 								* @brief Four byte union to translate EM4 error alarm source flag into a long integer
 								*/
-								private union EM4ErrorAlarmSourceFlag
+								private union FourBytesUnsignedLong
 								{
 									unsigned char ucStatusBytes[4];
 									unsigned long ulStatusFlag;
@@ -267,16 +281,17 @@ namespace AtCor{
 								*/
 								private enum class DalStatusFlagBitMask
 								{
-									//ErrorAlarmStatusBitsMask = 0x00000028, //older value
-									AlarmStatusBitsMask = 0x0020,
+									AlarmStatusBitsMask = 0x0008,
 
-									CuffStatusBitsMask = 0x2F00,
-									//ErrorAlarmSourceBitMask = 0x0000FFFF, moving to a sperate ENUM
+									//CuffStatusBitsMask = 0x2F00,// This mask uses all 5 cuff buts whereas we need only three bits for the status
+									CuffStatusBitsMask = 0x0700, //Only count Cs0, Cs1, Cs2
+									
 									TonoStatusBitsMask = 0x5000,
 									PowerUpBitMask = 0x0001,
 									StopButtonBitMask = 0x0002,
 
-									UnusedStatusBitsMask = 0x80DC //THis flag is used to rasie an event for any of the other unused bits
+									//UnusedStatusBitsMask = 0x80DC //changed
+									UnusedStatusBitsMask = 0x80F4 //THis flag is used to rasie an event for any of the other unused bits
 
 								};
 
@@ -295,7 +310,7 @@ namespace AtCor{
 									internal:
 										static String^ PrintEnumName = "G";
 										static String^ SingleSpaceString = " ";
-										static String^ PrintByte = DalFormatterStrings::PrintByte;
+										static String^ PrintByte = "X2";
 										static String^ FullDateTimeFormat = "yyyyMMMddHHmmss";
 										static char    tabSeparator = '\t';
 										static String^ tabSeparatorString = "\t";

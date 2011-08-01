@@ -10,8 +10,8 @@
 
 #include "stdafx.h"
 #include "DalResponsePacketBuffer.h"
-#include "DalStatusHandler.h"
 #include "DalCommandInterface.h"
+#include "DalBinaryConversions.h"
 
 using namespace AtCor::Scor::DataAccess;
 using namespace AtCor::Scor::CrossCutting::Logging;
@@ -55,7 +55,7 @@ array<unsigned char> ^ DalResponsePacketBuffer::Dequeue()
 	returnValue =  this->waitingResponse;
 	if(nullptr!= returnValue)
 	{
-		CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Dequeue Start " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(returnValue));
+		CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Dequeue Start " + DalBinaryConversions::ConvertBytesToString(returnValue));
 	}
 	else
 	{
@@ -81,11 +81,11 @@ void DalResponsePacketBuffer::Enqueue(array<unsigned char> ^packet)
 	//TODO : This code is for printing the response only //please delete after testing
 	if (waitingResponse)
 	{
-		CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Enqueue deleting the existing resposne: " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(waitingResponse));
+		CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Enqueue deleting the existing resposne: " + DalBinaryConversions::ConvertBytesToString(waitingResponse));
 		delete waitingResponse;
 	}
 
-	CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Enqueue Adding new packet: " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(packet));
+	CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Enqueue Adding new packet: " + DalBinaryConversions::ConvertBytesToString(packet));
 	//now write the new response packet
 	waitingResponse = packet;
 	

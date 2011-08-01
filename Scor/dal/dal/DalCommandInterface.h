@@ -76,23 +76,7 @@ namespace AtCor{
 					
 				internal:
 					
-					/**
-					* Converts the specifed byte array into an unsigned short integer @n
-					* Converts two bytes to an unsigned short integer
-					* @param[in]	sourceArray	The byte array from which the integer is to be extracted
-					* @param[in]	startPostion	Start index for the bytes
-					* @return	An  unsigned short integer containing the translated bytes
-					*/
-					static unsigned short TranslateTwoBytes( array <unsigned char>^ sourceArray, int startPostion);
 					
-					/**
-					* Converts the specifed byte array into an unsigned long integer
-					* Converts four bytes to an unsigned long integer
-					* @param[in]	sourceArray	The byte array from which the integer is to be extracted
-					* @param[in]	startPostion	Start index for the bytes
-					* @return	An  unsigned long integer containing the translated bytes
-					*/
-					static unsigned long TranslateFourBytes( array <unsigned char>^ sourceArray, int startPostion);
 			
 					//Renamed the older SendCommand method to SendCommandAndGetResponse.
 					//This is more descriptive. SendCommand does not give the real meaning.
@@ -349,7 +333,8 @@ namespace AtCor{
 
 					static void CheckIfTimeoutHasOccurredInternal(Object^ sender, ElapsedEventArgs^ args);
 
-					static void CheckSerialPortInputBuffer(Object^ sender, ElapsedEventArgs^ args);
+					//TODO: Repalce with a new method that will fit into the new logic.
+					//static void CheckSerialPortInputBuffer(Object^ sender, ElapsedEventArgs^ args);
 
 					bool ProcessSingleStreamingPacket(array<unsigned char> ^ streamingPacket);
 

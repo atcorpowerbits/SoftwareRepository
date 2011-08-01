@@ -147,8 +147,8 @@ namespace AtCor{
 
 				//set the timeout period
 				//DalActivePort::Instance->CurrentPort->ReadTimeout = serialCommand->timeoutPeriod;
-				DalActivePort::Instance->CurrentPort->ReadTimeout = SerialPort::InfiniteTimeout ;
-				//TODO: maybe we should move this to the setPortProperrties if we are not going to change it
+				//DalActivePort::Instance->CurrentPort->ReadTimeout = SerialPort::InfiniteTimeout ;
+			
 
 				//Setting to infinite timeout for testing new read/write class
 				//The timeout value is still active. see if it can be used or if infinite is fine
@@ -682,6 +682,9 @@ namespace AtCor{
 					streamingPacketProcessingTimer = gcnew Timers::Timer(DalConstants::StreamingPacketReadInterval); 
 					streamingPacketProcessingTimer->Elapsed += gcnew ElapsedEventHandler(this, &DalCommandInterface::StreamingPacketReadHandler ); 
 					streamingPacketProcessingTimer->Enabled = true;
+
+					//Initialize the timeout checker.
+					DalActivePort::Instance->StartStreamingTimeoutChecker();
 					
 				}
 				catch(Exception^ excepObj)
@@ -731,6 +734,9 @@ namespace AtCor{
 					////_serialPort->DataReceived -= gcnew SerialDataReceivedEventHandler(DataCaptureSinglePacketHandler);
 					//DalActivePort::Instance->CurrentPort->DataReceived -= gcnew SerialDataReceivedEventHandler(DataCaptureMultiplePacketHandler);
 
+					//Stop the timeout checker.
+					DalActivePort::Instance->StopStreamingTimeoutChecker();
+
 					streamingPacketProcessingTimer->Enabled = false; //stop the timer
 
 					//Inform the Staging que of the mode
@@ -750,30 +756,7 @@ namespace AtCor{
 				return true;
 			}
 
-			unsigned short DalCommandInterface::TranslateTwoBytes( array <unsigned char>^ sourceArray, int startPostion)
-			{
-				//get the status flag
-				EM4StatusFlag flagUn;
-
-				flagUn.ucStatusBytes[1] = sourceArray[startPostion]; //UT fix
-				flagUn.ucStatusBytes[0] = sourceArray[startPostion + 1];
-
-				return flagUn.ulStatusFlag ;
-			}
-
-
-			unsigned long DalCommandInterface::TranslateFourBytes( array <unsigned char>^ sourceArray, int startPostion)
-			{
-				//get the status flag
-				EM4ErrorAlarmSourceFlag flagUn;
-				//UT fix
-				flagUn.ucStatusBytes[3] = sourceArray[startPostion];
-				flagUn.ucStatusBytes[2] = sourceArray[startPostion + 1];
-				flagUn.ucStatusBytes[1] = sourceArray[startPostion + 2];
-				flagUn.ucStatusBytes[0] = sourceArray[startPostion + 3];
-
-				return flagUn.ulStatusFlag ;
-			}
+			
 
 			//bool DalCommandInterface::SetSerialPortProperties()
 			//{
@@ -1089,37 +1072,38 @@ namespace AtCor{
 			}
 
 
-			void DalCommandInterface::CheckSerialPortInputBuffer(Object^ sender, ElapsedEventArgs^ args)
-			{
-				sender; //Dummy statement to get rid of C4100 warning
-				args; //Dummy statement to get rid of C4100 warning
 
-				static int previousBufferedCount = -1;
-				int currentBufferedCount;
+			//void DalCommandInterface::CheckSerialPortInputBuffer(Object^ sender, ElapsedEventArgs^ args)
+			//{
+			//	sender; //Dummy statement to get rid of C4100 warning
+			//	args; //Dummy statement to get rid of C4100 warning
 
-				int singlePacketSize = DalConstants::PWVCaptureDataSize + DalConstants::EM4ZeroDataResponsePacketSize +1 ;
+			//	static int previousBufferedCount = -1;
+			//	int currentBufferedCount;
 
-				int numberofPacketsToRead = DalConstants::DeviceNumberOfReadsPerInterval ;
+			//	int singlePacketSize = DalConstants::PWVCaptureDataSize + DalConstants::EM4ZeroDataResponsePacketSize +1 ;
+
+			//	int numberofPacketsToRead = DalConstants::DeviceNumberOfReadsPerInterval ;
 
 
-				currentBufferedCount= DalActivePort::Instance->CurrentPort->BytesToRead;
+			//	currentBufferedCount= DalActivePort::Instance->CurrentPort->BytesToRead;
 
-				if (currentBufferedCount < (singlePacketSize * numberofPacketsToRead))
-				{
-					if (currentBufferedCount == previousBufferedCount)
-					{
-						//raise event
-						String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureTimeout, DalFormatterStrings::PrintEnumName);
-						DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
-						DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
-						////CrxLogger::Instance->Write("Timeout Event raised :" + BufferEmptyCounter);
-					}
-					else
-					{
-						previousBufferedCount = currentBufferedCount;
-					}
-				}
-			}
+			//	if (currentBufferedCount < (singlePacketSize * numberofPacketsToRead))
+			//	{
+			//		if (currentBufferedCount == previousBufferedCount)
+			//		{
+			//			//raise event
+			//			String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureTimeout, DalFormatterStrings::PrintEnumName);
+			//			DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
+			//			DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+			//			////CrxLogger::Instance->Write("Timeout Event raised :" + BufferEmptyCounter);
+			//		}
+			//		else
+			//		{
+			//			previousBufferedCount = currentBufferedCount;
+			//		}
+			//	}
+			//}
 
 
 
@@ -1235,6 +1219,13 @@ namespace AtCor{
 
 			bool DalCommandInterface::ProcessSingleStreamingPacket(array<unsigned char> ^streamingPacket)
 			{
+				CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket called with parameter: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " End");
+
+				if (nullptr == streamingPacket)
+				{
+					CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket returning false" );
+					return false;
+				}
 				try
 				{
 
@@ -1262,10 +1253,10 @@ namespace AtCor{
 					}
 
 					//everything is fine now get the data. and write it to the variables
-					pwvDataObject.tonometerData = TranslateTwoBytes(capturePacket->em4ResponseData, _tonometerDataIndex);
-					pwvDataObject.cuffPulseData = TranslateTwoBytes(capturePacket->em4ResponseData, _cuffPulseDataIndex);
-					pwvDataObject.cuffPressure  = TranslateTwoBytes(capturePacket->em4ResponseData, _cuffPressureDataIndex);
-					pwvDataObject.countdownTimer = TranslateTwoBytes(capturePacket->em4ResponseData, _countdownTimerDataIndex);
+					pwvDataObject.tonometerData = DalBinaryConversions::TranslateTwoBytes(capturePacket->em4ResponseData, _tonometerDataIndex);
+					pwvDataObject.cuffPulseData = DalBinaryConversions::TranslateTwoBytes(capturePacket->em4ResponseData, _cuffPulseDataIndex);
+					pwvDataObject.cuffPressure  = DalBinaryConversions::TranslateTwoBytes(capturePacket->em4ResponseData, _cuffPressureDataIndex);
+					pwvDataObject.countdownTimer = DalBinaryConversions::TranslateTwoBytes(capturePacket->em4ResponseData, _countdownTimerDataIndex);
 
 					if(!dataBufferObj->WriteDataToBuffer(pwvDataObject))
 					{
@@ -1292,6 +1283,8 @@ namespace AtCor{
 					//It would result in  a lot of code refactoring.
 					
 					//TODO: mention this in release note
+
+					CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket ScorException caught and deleted : " + scorExObj->ErrorMessageKey + " Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket) + " :End");  
 					delete scorExObj ;
 					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, DalFormatterStrings::PrintEnumName);
 					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
@@ -1300,6 +1293,8 @@ namespace AtCor{
 				catch(Exception^ excepObj)
 				{
 					//see note above.
+					CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket Exception caught and deleted : " + excepObj->StackTrace + ">>>"+ excepObj->Message + "Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " :End");  
+					
 					delete excepObj;
 					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, DalFormatterStrings::PrintEnumName);
 					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
@@ -1333,9 +1328,6 @@ namespace AtCor{
 					}
 					//TODO: test if zero sleep afect perofrmance
 					Thread::Sleep(0);
-
-					//todo: do we delete it?
-
 				}
 
 				return true; 

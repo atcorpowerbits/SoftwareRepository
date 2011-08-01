@@ -112,13 +112,12 @@ namespace AtCor{
 					*/
 					static DalErrorAlarmStatusFlag TranslateAlarmStatusBits(unsigned long statusFlags); 
 
-					//TODO: move to another class
-					/**
-					* Converts the input array into a hexadecimal string representation.
-					* @param	inputArray	The input array
-					* @return	A string representation of the input array
-					*/
-					static String^ ConvertBytesToString(array<unsigned char>^ inputArray);
+					///*
+					//* Converts the input array into a hexadecimal string representation.
+					//* @param	inputArray	The input array
+					//* @return	A string representation of the input array
+					//*/
+					//static String^ ConvertBytesToString(array<unsigned char>^ inputArray);
 
 					/**
 					* Dumps the tonometer and cuff data to a backup file @n

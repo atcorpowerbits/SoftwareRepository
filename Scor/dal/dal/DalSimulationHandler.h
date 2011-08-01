@@ -60,11 +60,38 @@ namespace AtCor{
 					DalSimulationHandler(); //Constructor , made private to implement singleton
 					
 				public:
-					//virtual bool StartCapture(); //Start the simulation capture //Non parameterized method is obsolete
-
+					
+					/**
+					* Start the data capture fromt the device. @n
+					* Creates a buffer suitable for the specified time and sampling rate.
+					* @param[in]	captureTime	the time frame in seconds for the capture window
+					* @param[in]	samplingRate	The number of samples per second
+					* @return A boolean value indicating succes of the operation
+					*
+					*/
 					virtual bool StartCapture(int captureTime, int samplingRate); //new parametrized method
+					
+					/**
+					* Stops an ongoing data capture.
+					*
+					* @return A boolean value inidcating the status of the operation.
+					*/
 					virtual bool StopCapture(); //Stop the simulation capture
+					
+					/**
+					* Returns the connection status. ie if device is connected or not on the given commport.
+					*
+					* @return A boolean value indicating if the device is connected or not.
+					*/
 					virtual bool GetConnectionStatus(); //Dummy method to return connection status
+					
+					/**
+					* Gets thhe configuration info of the rdevice.
+					*
+					* @param[in] deviceConfigItem	The configuration item whose information is requested.
+					* @param[in,out]	deviceConfigInfo	The structure to return the configuration item information.
+					* @warning This is a stub only. Not yet implemented.
+					*/
 					virtual bool GetConfigurationInfo(DalDeviceConfigUsageEnum deviceConfigItem, 
 											  DalDeviceConfigUsageStruct ^%deviceConfigInfo );//Dummy method to return configuration info.
 

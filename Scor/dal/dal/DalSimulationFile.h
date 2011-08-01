@@ -41,11 +41,15 @@ namespace AtCor{
 								public:
 									/**
 									* Opens the file specified by @c DalSimulationFile::filePath.
+									*
+									* @return The status of the operation
 									*/
 									bool OpenFile();
 
 									/**
 									* Closes an open file.
+									*
+									* @return The status of the operation
 									*/
 									bool CloseFile();
 
@@ -78,19 +82,7 @@ namespace AtCor{
 									* @see GetNextValues(signed int *value1, signed int *value2, signed int value3)
 									*/
 									bool GetNextValues(unsigned long *value1, unsigned long *value2);
-									
-									/**
-									* Reads a line from the simlation file and returns three integer values.
-									* @param[out] value1 Unsigned integer value from the first column in the file.
-									* @param[out] value2 Unsigned integer value from the second column in the file.
-									* @param[out] value3 Unsigned integer value from the third column in the file.
-									*
-									* @return the status of the operation: true if successful
-									*
-									* @see GetNextValues(signed int *value1, signed int *value2);
-									*/									
-									//bool GetNextValues(signed int *value1, signed int *value2, signed int *value3); //commented out as it is no longer needed. 
-
+																		
 									/**
 									* Reads a line from the simlation file and returns four values.
 									* @param[out] value1 Unsigned integer value from the first column in the file.
@@ -103,7 +95,6 @@ namespace AtCor{
 									* @see GetNextValues(signed int *value1, signed int *value2);
 									*/									
 									bool GetNextValues(unsigned long  *value1, unsigned long *value2, unsigned long *value3, unsigned long *value4 );
-									
 									
 									/**
 									* Resets the simulation source file to point to begining of file.
@@ -128,7 +119,7 @@ namespace AtCor{
 									*
 									* @param[in] tonometerData	Tonometer value
 									* @param[in] cuffPulse	Cuff Pulse value
-									* @return  true if the operation was successful.
+									* @return  @c true if the operation was successful.
 									*/
 									bool SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse); 
 									
