@@ -18,6 +18,15 @@
 		<TonometerFlags>N</TonometerFlags>
 		<UnusedBits>N</UnusedBits>
    </ProcessStatusFlagParts>
+  <Gui>
+    <WaitButtonDelay>5</WaitButtonDelay>
+    <AutoPWAProgressbarDelay>15</AutoPWAProgressbarDelay>
+  </Gui>
+	<Crx>
+		<Logging>
+			<Enable>N</Enable>
+	   </Logging>
+	</Crx>
    <MyTestValues>
 		<Value1>1</Value1>
 		<Value2>2</Value2>

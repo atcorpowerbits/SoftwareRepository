@@ -13,15 +13,26 @@
 #include "CrxLogger.h"
 #include "CrxMessaging.h"
 #include "ScorException.h"
+#include "CrxSystemParametersReader.h"
 
 
 using namespace AtCor::Scor::CrossCutting::Logging;
 using namespace AtCor::Scor::CrossCutting::Messaging;
+using namespace AtCor::Scor::CrossCutting::Configuration;
 
 //Constructor for CrxLogger
 CrxLogger::CrxLogger()
 {
-	
+	//Temporary code to enable or disable logging from the system Parameters file.
+	if (CrxSytemParameters::Instance->GetStringTagValue("Crx.Logging.Enable") == "Y")
+	{
+		enableLogging = true;
+	}
+	else
+	{
+		enableLogging = false;
+	}
+
 	GetLastWrittenLineNumber();
 
 	//Get the LogWriter from enterprise library
@@ -32,6 +43,12 @@ CrxLogger::CrxLogger()
 //Write method to write to log file and event logger
 void CrxLogger::Write(String^ message)
 {
+	if (!enableLogging)
+	{
+		//If the logging is not enabled in the System Parameters 
+		//file , do not make any log entries
+		return;
+	}
 
 	if (entryLineNumber == 0)
 	{

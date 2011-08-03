@@ -55,6 +55,7 @@ private ref struct CrxLogStructInternal
 
 										LogWriter ^CrxLogWriter; /**< Variable to point to LogWriter instance.*/
 										int entryLineNumber;
+										bool enableLogging; //Temp Variable to enale or disable logging.
 										
 
 										/**
