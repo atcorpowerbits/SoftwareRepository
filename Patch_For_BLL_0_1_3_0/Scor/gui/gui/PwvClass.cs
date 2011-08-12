@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AtCor.Scor.BusinessLogic;
+using AtCor.Scor.CrossCutting.Configuration;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -12,6 +13,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         public Pwv()
         {
+            BizSession.Instance().SwitchMeasurement(BizMode.PWV);
             bizObject = (BizPWV)BizSession.Instance().measurement; 
         }
 

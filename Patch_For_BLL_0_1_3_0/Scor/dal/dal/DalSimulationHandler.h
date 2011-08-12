@@ -41,6 +41,8 @@ namespace AtCor{
 					static DalSimulationFile^ _tonometerSimulationFile; //Pointer to first simulation file
 					static DalSimulationFile^ _cuffTimerSimulationFile; //pointer to second simulation file (for other cuff related measurements)
 					Timers::Timer ^captureTimer;  //Timer to fire simulated data events
+					static bool cuffInUse = false; // to indicate cuff is inflating, inflated, or deflating
+
 					//static void OnTimerGetValuesAndRaiseEvents(Object^ sender, ElapsedEventArgs^ args); //Method to raise events at a specific time imterval //Obsolete
 					static void OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args); //read multiple events in each interval
 					//static void ReadMultipleEventsInLoop(); //making non static in order to raise events. static members cannot have this pointer
@@ -154,6 +156,7 @@ namespace AtCor{
 					*/
 					virtual bool SetIdleMode();
 
+					virtual bool IsCuffDeflated();
 			};
 		}
 	}

@@ -110,6 +110,8 @@ namespace AtCor{
 					* @return A boolean value indicating the status of the operation
 					*/
 					bool SetIdleMode();
+
+					bool IsCuffDeflated();
 			};
 
 		}

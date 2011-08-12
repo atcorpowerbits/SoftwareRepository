@@ -1760,6 +1760,7 @@ int CrxDBManager::SaveCuffPWAMeasurementDetails(AtCor::Scor::CrossCutting::Datab
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::FloatSpare1,DbType::Single,pwaMD->FloatSpare1);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::DataRev,DbType::Int32,pwaMD->DataRev);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::SubType,DbType::String,pwaMD->SubType);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::CaptureTime,DbType::String,pwaMD->CaptureTime);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::SampleRate,DbType::Int32,pwaMD->SampleRate);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::SignalUpSampleRate,DbType::Int32,pwaMD->SignalUpSampleRate);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::ExpPulseUpSampleRate,DbType::Int32,pwaMD->ExpPulseUpSampleRate);

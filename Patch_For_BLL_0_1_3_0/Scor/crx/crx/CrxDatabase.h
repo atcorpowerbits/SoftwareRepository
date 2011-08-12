@@ -368,6 +368,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static String^		FloatSpare1			=		"@floatSpare1";
 		static String^		DataRev				=		"@datarRev";
 		static String^		SubType				=		"@subType";
+		static String^		CaptureTime			=		"@captureTime";
 		static String^		SampleRate			=		"@sampleRate";
 		static String^		SignalUpSampleRate	=		"@signalUpSampleRate";
 		static String^		ExpPulseUpSampleRate=		"@expPulseUpSampleRate";
@@ -677,6 +678,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		float	FloatSpare1;
 		int		DataRev;
 		String^	SubType;
+		short	CaptureTime;
 		int		SampleRate;
 		int		SignalUpSampleRate;
 		int		ExpPulseUpSampleRate;

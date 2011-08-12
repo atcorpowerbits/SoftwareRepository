@@ -381,8 +381,8 @@ namespace AtCor{
 								//Raise the event.
 								if(_DalCuffStatusEventHandler)
 								{
-									_DalCuffStatusEventHandler->Invoke(sender, args);
 									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() );
+									_DalCuffStatusEventHandler->Invoke(sender, args);
 							
 								}
 							}

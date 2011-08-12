@@ -1781,14 +1781,40 @@ void CrxConfigManager::GetPwaAugmentationIndexAtHR75(String^ SubSection, String^
 
 void CrxConfigManager::GetPwaCaptureInput(String^ SubSection, String^ ReaderValue)
 {
+	//Get the PWV Distance Units Details
+	//Temporary variables
+	int CaptureInput = 0; 
+	String^ tempValue  = nullptr;
+	String^ chkVal = nullptr;
+
+	tempValue  = ReaderValue->ToUpper();
+	chkVal = CrxConfigPwaCaptureInput::CompareStr;
+
+	tempValue = tempValue->Replace(CrxConfigXmlTag::Blank,String::Empty);
+
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
+	{
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+
+	CaptureInput = (tempValue == CrxConfigPwaCaptureInput::PressureCuff ? Convert::ToInt32(CrxPwaCaptureInput::Cuff) : Convert::ToInt32(CrxPwaCaptureInput::Tonometer));
 	if(SubSection == CrxConfigXmlTag::Default)
+	{
+		_pwaSetInternal->CaptureInput = CaptureInput;
+	}
+	else
+	{
+		_instance->_pwaSettings->CaptureInput = CaptureInput;
+	}
+
+	/*if(SubSection == CrxConfigXmlTag::Default)
 	{
 		_pwaSetInternal->CaptureInput = ReaderValue;
 	}
 	else
 	{
 		_instance->_pwaSettings->CaptureInput = ReaderValue;
-	}
+	}*/
 }
 
 //Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
@@ -2475,14 +2501,23 @@ void CrxConfigManager::SetPwaAugmentationIndexAtHR75(CrxStructPwaSetting^ pwas, 
 
 void CrxConfigManager::SetPwaCaptureInput(CrxStructPwaSetting^ pwas, XmlNode^ node)
 {
-	if(pwas->CaptureInput != nullptr) 
+	/*if(pwas->CaptureInput != nullptr) 
     {
         node->InnerText = pwas->CaptureInput;
     }
     else 
     {
 		node->InnerText = CrxConfigXmlTag::Blank; 
-    }
+    }*/
+	if((pwas->CaptureInput == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxPwaCaptureInput::Cuff)))
+	{
+		node->InnerText = CrxConfigPwaCaptureInput::CuffSetValue;								
+	}
+	else
+	if((pwas->CaptureInput == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxPwaCaptureInput::Tonometer)))
+	{
+		node->InnerText = CrxConfigPwaCaptureInput::TonometerSetValue;
+	}
 }
 
 //Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011

@@ -194,6 +194,16 @@ namespace AtCor{
 				* @return	The date when the system was last calibrated.
 				*/
 				DateTime GetLastCalibrationDate();
+
+				bool IsCuffDeflated(); // TS to implement it formally
+
+				// VA: Added stubs for unit testing purpose only
+				property unsigned int requestedPressure;
+
+				void SetDeviceNull();
+				void SimulateActive();
+				void SimulateWarning();
+				void SimulateError();
 			};
 		}
 	}

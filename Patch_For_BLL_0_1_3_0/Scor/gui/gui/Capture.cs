@@ -817,8 +817,9 @@ namespace AtCor.Scor.Gui.Presentation
             // hourglass cursor             
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             
-            BizSession.Instance().StopCapture();            
+//VA:?            BizSession.Instance().StopCapture();            
             StopTimers();
+            BizSession.Instance().StopCapture();            
 
             CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
               

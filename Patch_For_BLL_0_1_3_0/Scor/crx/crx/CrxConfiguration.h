@@ -303,7 +303,30 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		PWA,
 		NIBP
 	};      
+	
+	//Declaring enum for CaptureInput Values
+	/**
+	* @enum CrxPwaCaptureInput
+	 * @brief Container for Capture Input Values. 
+	 */
+	public enum class CrxPwaCaptureInput
+	{
+		Cuff = 0,
+		Tonometer = 1,
+	};    
 
+	/**
+	 * @struct CrxConfigPwaCaptureInput
+	 * @brief Container for CaptureInput. 	
+	 */
+	private ref struct CrxConfigPwaCaptureInput
+	{
+		static String^ PressureCuff = "PRESSURECUFF";	
+		static String^ CompareStr = "'PRESSURECUFF', 'TONOMETER'";
+
+		static String^ CuffSetValue = "Pressure Cuff";
+		static String^ TonometerSetValue = "Tonometer";		
+	};
 
 	// Creating CrxStructSetting Structure and variables
 	/**
@@ -407,7 +430,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		bool AutoCapture;
 		bool AugmentationIndex;
 		bool AugmentationIndexAtHR75;
-		String^ CaptureInput;
+		//String^ CaptureInput;
+		int CaptureInput;
 		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
 		String^ SimulationType;	/**< Shows the String Selected*/
 		//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
@@ -423,7 +447,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			AutoCapture				= true;
 			AugmentationIndex		= true;
 			AugmentationIndexAtHR75	= false;
-			CaptureInput			= "Pressure Cuff";
+			//CaptureInput			= "Pressure Cuff";
+			CaptureInput			= 0;
 			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
 			SimulationType			= nullptr;
 			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011

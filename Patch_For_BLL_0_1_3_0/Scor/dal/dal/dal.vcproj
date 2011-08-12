@@ -246,6 +246,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalModuleStub.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalResponsePacketBuffer.cpp"
 				>
 			</File>

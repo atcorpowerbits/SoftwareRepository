@@ -123,7 +123,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // initialize servername string
                 serverNameString = GuiCommon.ServerNameString();
-                obj = (BizPWV)BizSession.Instance().measurement;
+//VA:?                obj = (BizPWV)BizSession.Instance().measurement;
 
                 // subscribe report tab click event
                 DefaultWindow.OnReportTabClick += Report_Load;
@@ -201,7 +201,8 @@ namespace AtCor.Scor.Gui.Presentation
 
             // Clearing the capture time label on load.
             objDefaultWindow.radlblCaptureTime.Text = string.Empty;
-            
+
+            obj = (BizPWV)BizSession.Instance().measurement;
             bobj = GuiConstants.SystemId;
             GuiCommon.CaptureToSetup = false;
             GuiCommon.SystemIdentifier = bobj;

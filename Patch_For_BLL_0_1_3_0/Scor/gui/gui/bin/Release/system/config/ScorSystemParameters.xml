@@ -24,9 +24,22 @@
   </Gui>
 	<Crx>
 		<Logging>
-			<Enable>N</Enable>
+			<Enable>Y</Enable>
 	   </Logging>
 	</Crx>
+  <PWV>
+    <Cuff>
+      <Inflation>
+        <Timeout>15</Timeout>
+      </Inflation>
+      <Deflation>
+        <Timeout>10</Timeout>
+      </Deflation>
+      <Reinflation>
+        <Rest>0</Rest>
+      </Reinflation>
+    </Cuff>
+  </PWV>
    <MyTestValues>
 		<Value1>1</Value1>
 		<Value2>2</Value2>

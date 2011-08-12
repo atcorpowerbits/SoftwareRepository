@@ -137,8 +137,8 @@ namespace AtCor.Scor.Gui.Presentation
                 }
 
                 // launches splash screen                
-                splsh.Show();
-                splsh.Update(); 
+                //splsh.Show();
+                //splsh.Update(); 
 
                 // get current application directory
                 currentpath = Directory.GetCurrentDirectory();
@@ -220,7 +220,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                     PopulateCurrentModeDropDown();
                     ValidateStartUpMode();
-                    SetStrategy(crxMgrObject.GeneralSettings.StartupMode);
+//VA:?                    SetStrategy(crxMgrObject.GeneralSettings.StartupMode);
                 }
                 else
                 {

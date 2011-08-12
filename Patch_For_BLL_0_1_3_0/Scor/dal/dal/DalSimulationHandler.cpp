@@ -144,7 +144,7 @@ namespace AtCor{
 					//Read n elements in a loop. 
 					for (int counter = 0; counter < numberOfReads ; counter++)
 					{
-						if (locCountdownTimer <=0) 
+						if (locCountdownTimer <=0 && cuffInUse) 
 						{
 							//get next set of values from the cufff simulation file
 							_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &locEASourceFlag);
@@ -153,6 +153,12 @@ namespace AtCor{
 							//store the Error/alarm SOURCE in the global variable. If an event is raised we need to retrive the stored value to find the source.
 							_currentEASourceFlag = locEASourceFlag;
 
+							if (DalCuffStateFlags::CUFF_STATE_DEFLATED == (DalCuffStateFlags)(statusBytes & 0x7))
+							{
+								// Finished cuff until another inflation
+								cuffInUse = false;
+								locCountdownTimer = 0;
+							}
 							//The DalSimulationHandler::SchecStatusFlag(,) function has been 
 							//replaced by the //DalStatusHandler::ProcessStatusFlag() method
 							//CheckStatusFlag(statusBytes, currentCuffStateIsInflated);
@@ -173,6 +179,12 @@ namespace AtCor{
 						{
 							tempPWVDataVar.countdownTimer = 0;
 						}
+						if (cuffInUse)
+						{
+							//decrement the cuff timer as long as it's used
+							locCountdownTimer -= DalConstants::DataSamplingInterval;
+						}
+
 						tempPWVDataVar.cuffPressure = (short)cuffAbsolutePressure;
 						tempPWVDataVar.tonometerData = (short)tonoData;
 						tempPWVDataVar.cuffPulseData = (short)cuffPulseData;
@@ -180,9 +192,6 @@ namespace AtCor{
 
 						//write data to buffer
 						dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
-
-						//decrement the timer after every write operation
-						locCountdownTimer -= DalConstants::DataSamplingInterval;
 					}
 				}
 				catch(ScorException^)
@@ -245,11 +254,17 @@ namespace AtCor{
 				try
 				{
 					//Stop the capture timer
-					captureTimer->Enabled = false;
+					if (captureTimer)
+					{
+						captureTimer->Enabled = false;
 
-					//reset the filestrea position
-					_tonometerSimulationFile->ResetFileStreamPosition();
-					_cuffTimerSimulationFile->ResetFileStreamPosition();
+						//reset the filestrea position
+						_tonometerSimulationFile->ResetFileStreamPosition();
+						_cuffTimerSimulationFile->ResetFileStreamPosition();
+
+						// clear the status when requested to stop, i.e. simulate cuff is deflated
+//VA:no good						ProcessStatusFlag(0);
+					}
 					return true;
 				}
 				catch(ScorException^)
@@ -330,6 +345,21 @@ namespace AtCor{
 				newPressure; //Dummy statement to get rid of C4100 warning
 				cuffBoard ; //Dummy statement to get rid of C4100 warning
 
+				if (newPressure > 0)
+				{
+					// cuff is now in use as soon as it's inflated
+					cuffInUse = true;
+					if (captureTimer)
+					{
+						// Reset only when the simulation file is being read
+						_cuffTimerSimulationFile->ResetFileStreamPosition();
+					}
+				}
+				else
+				{
+					// simulate cuff is deflated
+					ProcessStatusFlag(0);
+				}
 
 				//This should always return true 
 				//to pretend that the pressure has been set/
@@ -344,6 +374,10 @@ namespace AtCor{
 				return true;
 			}
 
+			bool DalSimulationHandler::IsCuffDeflated()
+			{
+				return true;
+			}
 
 		}//END DataAccess namespace
 	}

@@ -180,7 +180,7 @@ namespace AtCor{
 					*/
 					virtual bool SetIdleMode();
 
-
+					virtual bool IsCuffDeflated();
 			};
 		}
 	}

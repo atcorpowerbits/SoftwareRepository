@@ -109,7 +109,7 @@ namespace AtCor.Scor.Gui.Presentation
                 Report.OnPwvMeasurementChangedEvent += SettingsChangedEventHandler;
                 DefaultWindow.OnSetupScreenTabClick += SetFocusOnPatientList;
                 DefaultWindow.OnRestoreOptionClick += CheckIfInInsertMode;  
-                obj = (BizPWV)BizSession.Instance().measurement;              
+//VA:?                obj = (BizPWV)BizSession.Instance().measurement;              
                 
                 // initialize servername string
                 serverNameString = GuiCommon.ServerNameString();
@@ -299,7 +299,8 @@ namespace AtCor.Scor.Gui.Presentation
                     Invoke(new EventHandler(Setup_Load));
                     return;
                 }
-                    
+
+                obj = (BizPWV)BizSession.Instance().measurement;
                 bobj = GuiConstants.SystemId;
                 GuiCommon.SystemIdentifier = bobj;
                 objValidation = new GuiFieldValidation(guipnlMeasurementDetails);

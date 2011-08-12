@@ -569,6 +569,12 @@ namespace AtCor{
 				}
 			}
 
+
+			bool DalDeviceHandler::IsCuffDeflated()
+			{
+				return (DalCuffStateFlags::CUFF_STATE_DEFLATED == currentCuffState);
+			}
+
 		}// end namespaces
 	}
 }

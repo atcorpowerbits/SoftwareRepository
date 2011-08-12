@@ -2033,4 +2033,28 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
   <data name="SIGNAL_HEIGHT_MIN_TOO_SMALL" xml:space="preserve">
     <value>Signal height min {0} is too small</value>
   </data>
+  <data name="CUFF_DEFLATED_TIME_NOT_MONITORED" xml:space="preserve">
+    <value>Cuff deflated time was not monitored.</value>
+  </data>
+  <data name="CUFF_INFLATED_TIME_NOT_MONITORED" xml:space="preserve">
+    <value>Cuff inflated time was not monitored.</value>
+  </data>
+  <data name="CUFF_DEFLATION_FAILED" xml:space="preserve">
+    <value>Failed to deflate the cuff. Press the stop button on the electronic module to deflate!</value>
+  </data>
+  <data name="CUFF_DEFLATION_TIMED_OUT" xml:space="preserve">
+    <value>Cuff is not deflated in time. Press the stop button on the electronic module to deflate!</value>
+  </data>
+  <data name="CUFF_INFLATION_FAILED" xml:space="preserve">
+    <value>Failed to inflate the cuff</value>
+  </data>
+  <data name="CUFF_INFLATION_TIMED_OUT" xml:space="preserve">
+    <value>Cuff is not inflated in time</value>
+  </data>
+  <data name="CUFF_REINFLATING" xml:space="preserve">
+    <value>Cuff is reinflating</value>
+  </data>
+  <data name="CAPTURE_FAILED_TO_STOP" xml:space="preserve">
+    <value>Data capture failed to stop</value>
+  </data>
 </root>
