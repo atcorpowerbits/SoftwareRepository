@@ -1083,12 +1083,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9DFB611F339E41F69C3EC02286F61382"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_A2ED90CA501CDE5B96AD9EDE9335BEFA"
         "OwnerKey" = "8:_4A56210907D7431A6E274A2D7ED679DD"
         "MsmSig" = "8:_UNDEFINED"
@@ -1264,12 +1258,6 @@
         "Entry"
         {
         "MsmKey" = "8:_C46FE4CE2E914DD798147C65738072C6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C4C09EA4CC6C4C32A062B709995C7189"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1552,12 +1540,6 @@
         "Entry"
         {
         "MsmKey" = "8:_FB673D5D3C0D47FABE3142C4227C1557"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FBE3E97CF49645A19EFA9674443F4A4D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3386,11 +3368,6 @@
             "AssemblyAsmDisplayName" = "8:crx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_71EDDDBAD090A00839DFC4DD9A057AA6"
-                    {
-                    "Name" = "8:crx.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:crx.dll"
             "TargetName" = "8:"
@@ -4100,26 +4077,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9DFB611F339E41F69C3EC02286F61382"
-            {
-            "SourcePath" = "8:..\\..\\..\\TM-D2S2-As-Is\\Scor\\gui\\gui\\bin\\Debug\\simulation\\abc.dat"
-            "TargetName" = "8:abc.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_1AB158E32C9844719D097CB85092BB8F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A2ED90CA501CDE5B96AD9EDE9335BEFA"
             {
             "AssemblyRegister" = "3:1"
@@ -4552,26 +4509,6 @@
             "TargetName" = "8:Simulation_stub.dat"
             "Tag" = "8:"
             "Folder" = "8:_55481954BD1F42F7BA2D601F95F92113"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C4C09EA4CC6C4C32A062B709995C7189"
-            {
-            "SourcePath" = "8:..\\..\\..\\TM-D2S2-As-Is\\Scor\\gui\\gui\\bin\\Debug\\simulation\\xyz.dat"
-            "TargetName" = "8:xyz.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_1AB158E32C9844719D097CB85092BB8F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5344,26 +5281,6 @@
             "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_DocumentTabStrip.xml"
             "Tag" = "8:"
             "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FBE3E97CF49645A19EFA9674443F4A4D"
-            {
-            "SourcePath" = "8:..\\..\\..\\TM-D2S2-As-Is\\Scor\\gui\\gui\\bin\\Debug\\simulation\\Default.dat"
-            "TargetName" = "8:Default.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_1AB158E32C9844719D097CB85092BB8F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
