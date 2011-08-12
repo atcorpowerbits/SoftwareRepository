@@ -1,0 +1,139 @@
+Line SphygmoCor Log File ~ 17/03/2011 ~ 12:03:27
+
+1 17/03/2011 ~ 12:03:27.880 ~ Error: 101 : File does not exist.
+
+
+2 17/03/2011 ~ 12:05:16.934 ~ Error: 101 : File does not exist.
+
+
+3 17/03/2011 ~ 12:07:06.942 ~ Connection established succesfully with serverMUM-9638
+
+4 17/03/2011 ~ 12:07:16.130 ~ Scor application loaded successfully.
+
+5 17/03/2011 ~ 12:08:40.933 ~ Patient name : Nitesh Chhedda
+
+6 17/03/2011 ~ 12:08:40.980 ~ Normal range length : 71
+
+7 17/03/2011 ~ 12:08:40.980 ~ Reference range length : 71
+
+8 17/03/2011 ~ 12:08:55.762 ~ Error: 1013 : Port is not open or connected.
+
+
+9 17/03/2011 ~ 12:09:00.731 ~ Error: 1013 : Port is not open or connected.
+
+
+10 17/03/2011 ~ 12:09:02.919 ~ Error: 1013 : Port is not open or connected.
+
+
+11 17/03/2011 ~ 12:09:41.812 ~ Error: 1013 : Port is not open or connected.
+
+
+12 17/03/2011 ~ 12:10:06.329 ~ Error: 1013 : Port is not open or connected.
+
+
+13 17/03/2011 ~ 12:11:16.444 ~ Application exited successfully.
+
+14 17/03/2011 ~ 12:12:49.716 ~ Connection established succesfully with serverMUM-9638
+
+15 17/03/2011 ~ 12:13:00.248 ~ Scor application loaded successfully.
+
+16 17/03/2011 ~ 12:13:20.218 ~ Application exited successfully.
+
+17 17/03/2011 ~ 12:14:45.802 ~ Connection established succesfully with serverMUM-9638
+
+18 17/03/2011 ~ 12:16:44.779 ~ Connection established succesfully with serverMUM-9638
+
+19 17/03/2011 ~ 12:16:51.655 ~ Scor application loaded successfully.
+
+20 17/03/2011 ~ 12:16:57.264 ~ Application exited successfully.
+
+21 17/03/2011 ~ 12:18:36.209 ~ Connection established succesfully with serverMUM-9638
+
+22 17/03/2011 ~ 12:23:41.887 ~ Connection established succesfully with serverMUM-9638
+
+23 17/03/2011 ~ 12:23:49.200 ~ Scor application loaded successfully.
+
+24 17/03/2011 ~ 12:25:23.691 ~ Connection established succesfully with serverMUM-9638
+
+25 17/03/2011 ~ 12:25:30.488 ~ Scor application loaded successfully.
+
+26 17/03/2011 ~ 12:27:01.370 ~ Connection established succesfully with serverMUM-9638
+
+27 17/03/2011 ~ 12:27:08.245 ~ Scor application loaded successfully.
+
+28 17/03/2011 ~ 12:30:00.835 ~ Connection established succesfully with serverMUM-9638
+
+29 17/03/2011 ~ 12:30:07.976 ~ Scor application loaded successfully.
+
+30 17/03/2011 ~ 12:30:23.915 ~ Application exited successfully.
+
+31 17/03/2011 ~ 12:30:36.728 ~ Connection established succesfully with serverMUM-9638
+
+32 17/03/2011 ~ 12:30:43.729 ~ Scor application loaded successfully.
+
+33 17/03/2011 ~ 12:42:53.312 ~ Connection established succesfully with serverMUM-9638
+
+34 17/03/2011 ~ 12:43:01.250 ~ Scor application loaded successfully.
+
+35 17/03/2011 ~ 14:11:15.372 ~ Connection established succesfully with serverMUM-9638
+
+36 17/03/2011 ~ 14:11:22.342 ~ Scor application loaded successfully.
+
+37 17/03/2011 ~ 14:12:46.035 ~ Loading Capture Form
+
+38 17/03/2011 ~ 14:12:48.379 ~ Reading Configuration Settings
+
+39 17/03/2011 ~ 14:12:48.379 ~ Subscribing to Events
+
+40 17/03/2011 ~ 14:12:48.394 ~ BLL_START_CAPTURE
+
+41 17/03/2011 ~ 14:12:48.473 ~ Capture Form Loading DONE
+
+42 17/03/2011 ~ 14:12:52.629 ~ error alarm source not avaialble yet
+
+43 17/03/2011 ~ 14:12:53.114 ~ COUNTDOWN: 29000
+
+44 17/03/2011 ~ 14:55:22.465 ~ Connection established succesfully with serverMUM-9638
+
+45 17/03/2011 ~ 14:55:29.325 ~ Scor application loaded successfully.
+
+46 17/03/2011 ~ 14:56:43.111 ~ Application exited successfully.
+
+47 17/03/2011 ~ 14:58:10.195 ~ Connection established succesfully with serverMUM-9638
+
+48 17/03/2011 ~ 14:58:17.618 ~ Scor application loaded successfully.
+
+49 17/03/2011 ~ 14:58:22.634 ~ Application exited successfully.
+
+50 17/03/2011 ~ 15:08:00.065 ~ Connection established succesfully with serverMUM-9638
+
+51 17/03/2011 ~ 15:08:07.144 ~ Scor application loaded successfully.
+
+52 17/03/2011 ~ 15:08:54.397 ~ Application exited successfully.
+
+53 18/03/2011 ~ 13:02:39.761 ~ Connection established succesfully with serverMUM-9638
+
+54 18/03/2011 ~ 13:02:52.278 ~ Scor application loaded successfully.
+
+55 18/03/2011 ~ 13:03:09.607 ~ Loading Capture Form
+
+56 18/03/2011 ~ 13:03:09.607 ~ Reading Configuration Settings
+
+57 18/03/2011 ~ 13:03:09.607 ~ Subscribing to Events
+
+58 18/03/2011 ~ 13:03:09.779 ~ BLL_START_CAPTURE
+
+59 18/03/2011 ~ 13:03:09.857 ~ Capture Form Loading DONE
+
+60 18/03/2011 ~ 13:03:11.669 ~ error alarm source not avaialble yet
+
+61 18/03/2011 ~ 13:03:11.810 ~ COUNTDOWN: 30000
+
+62 18/03/2011 ~ 13:03:12.529 ~ 550
+
+63 18/03/2011 ~ 13:03:13.654 ~ 550
+
+64 18/03/2011 ~ 13:03:15.466 ~ BLL_STOP_CAPTURE
+
+65 18/03/2011 ~ 13:03:18.326 ~ Application exited successfully.
+

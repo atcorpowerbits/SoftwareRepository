@@ -1,0 +1,16 @@
+C:\Documents and Settings\smarajit.mishra\My Documents\Visual Studio 2008\Projects\CreateDatabase\CreateDatabase\bin\Debug\CreateDatabase.exe
+C:\Documents and Settings\smarajit.mishra\My Documents\Visual Studio 2008\Projects\CreateDatabase\CreateDatabase\bin\Debug\CreateDatabase.pdb
+C:\Documents and Settings\smarajit.mishra\My Documents\Visual Studio 2008\Projects\CreateDatabase\CreateDatabase\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\smarajit.mishra\My Documents\Visual Studio 2008\Projects\CreateDatabase\CreateDatabase\obj\Debug\CreateDatabase.Form1.resources
+C:\Documents and Settings\smarajit.mishra\My Documents\Visual Studio 2008\Projects\CreateDatabase\CreateDatabase\obj\Debug\CreateDatabase.Properties.Resources.resources
+C:\Documents and Settings\smarajit.mishra\My Documents\Visual Studio 2008\Projects\CreateDatabase\CreateDatabase\obj\Debug\Create-Drop-Database.csproj.GenerateResource.Cache
+C:\Documents and Settings\smarajit.mishra\My Documents\Visual Studio 2008\Projects\CreateDatabase\CreateDatabase\obj\Debug\CreateDatabase.exe
+C:\Documents and Settings\smarajit.mishra\My Documents\Visual Studio 2008\Projects\CreateDatabase\CreateDatabase\obj\Debug\CreateDatabase.pdb
+D:\Sprint12\CreateDatabase\CreateDatabase\bin\Debug\Create-Drop-Database.exe
+D:\Sprint12\CreateDatabase\CreateDatabase\bin\Debug\Create-Drop-Database.pdb
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Debug\ResolveAssemblyReference.cache
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Debug\CreateDatabase.Form1.resources
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Debug\CreateDatabase.Properties.Resources.resources
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Debug\Create-Drop-Database.csproj.GenerateResource.Cache
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Debug\Create-Drop-Database.exe
+D:\Sprint12\CreateDatabase\CreateDatabase\obj\Debug\Create-Drop-Database.pdb

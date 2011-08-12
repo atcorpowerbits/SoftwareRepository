@@ -1,0 +1,5 @@
+D:\Atcor_Projct_Solution\Scor\gui\gui_stub\bin\Debug\gui_stub.dll
+D:\Atcor_Projct_Solution\Scor\gui\gui_stub\bin\Debug\gui_stub.pdb
+D:\Atcor_Projct_Solution\Scor\gui\gui_stub\obj\Debug\ResolveAssemblyReference.cache
+D:\Atcor_Projct_Solution\Scor\gui\gui_stub\obj\Debug\gui_stub.dll
+D:\Atcor_Projct_Solution\Scor\gui\gui_stub\obj\Debug\gui_stub.pdb

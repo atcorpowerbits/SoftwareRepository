@@ -1,0 +1,84 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+     Filename     :      CrxMessaging.cpp
+        
+	 Author       :      Smarajit Mishra
+ 
+     Description  :      Functionality implementation for messaging manager
+*/
+#include "stdafx.h"
+#include "CrxMessaging.h"
+#include "ScorException.h"
+
+using namespace System;// For String, Console
+using namespace System::Text; //For String manipulation
+
+// Add application specific namespaces
+using namespace AtCor::Scor::CrossCutting::Messaging;
+using namespace System::Xml;// For XML classes and enums
+using namespace System::IO;// For FileStream
+using namespace AtCor::Scor::CrossCutting;
+
+
+CrxMessagingManager::CrxMessagingManager()
+{
+	// Initialize the resource managers with appropriate resource files
+	errRsrcMsg = gcnew ResourceManager("Scor.ApplicationMessages", Assembly::GetExecutingAssembly());
+
+}
+
+//Returns an error message corresponding to the specified errorcode.Calling to main overloaded function
+String ^CrxMessagingManager::GetMessage(int errorCode) 
+{
+	String^ tempValue		= nullptr;//Temporary string to convert int to string, set to null
+	String^ retErrorString	= nullptr;//Get error string and return, set to null
+
+	//converts error code to string
+	tempValue = Convert::ToString(errorCode);
+	
+	//get the string from the related resx file
+	retErrorString = CrxMessagingManager::GetMessage(tempValue);
+
+	//return the string to gui layer
+	return retErrorString;
+}
+
+//Returns an error message corresponding to the specified errorcode.
+String ^CrxMessagingManager::GetMessage(String^ strCode) 
+{
+	String^	errorString		= nullptr;//Get error string and return, set to null
+	
+	try
+	{			
+		//Check whether default resource file is exists or not
+		if(!File::Exists(_nameOfAppResxfile))
+		{ 
+			//throw gcnew CrxException(L"Resource file not found"); // File not found
+			errorString = "200 Resource file not found.";
+			return errorString;
+		}
+
+		//Get the message string through resource manager object
+		errorString = errRsrcMsg->GetString(strCode);
+
+		//validation to check string is returned or not, 
+		//if string length is equals to zero then send the string "Error Code not found"
+		if(errorString->Length == 0)
+		{
+			errorString = "201 Error Code not found.";
+		}
+
+		return errorString;
+	}
+	catch(Exception^ eObj)
+	{
+		// rethrow the exception
+		throw gcnew ScorException(eObj);
+	}
+	finally 
+	{
+		// kept here for future reference and use
+	}
+}
+

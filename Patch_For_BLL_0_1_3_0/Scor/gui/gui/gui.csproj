@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2C08D735-4AD3-4AB4-9C5A-38685356CAA0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>gui</RootNamespace>
+    <AssemblyName>scor</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <ApplicationIcon>atcor.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="biz, Version=0.9.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Debug\biz.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="dal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Debug\dal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\AtcorLibraries\System.Windows.Forms.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.WinControls, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Docking, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.GridView, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RadChart, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RadDock, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RadMarkupEditor, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Scheduler, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.Themes.Breeze, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
+    <Reference Include="Telerik.WinControls.Themes.BreezeExtended, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
+    <Reference Include="Telerik.WinControls.Themes.Office2010, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
+    <Reference Include="Telerik.WinControls.Themes.Telerik, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
+    <Reference Include="Telerik.WinControls.Themes.Vista, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
+    <Reference Include="Telerik.WinControls.UI, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="TelerikCommon, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\AtcorLibraries\TelerikCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikData, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnalysisPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnalysisPreview.Designer.cs">
+      <DependentUpon>AnalysisPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Capture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Capture.Designer.cs">
+      <DependentUpon>Capture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CryPwvAnalysis.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryPwvAnalysis.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CryPwvPatientReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryPwvPatientReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CryPwvReport.cs">
+      <SubType>Component</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CryPwvReport.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DefaultWindow.Designer.cs">
+      <DependentUpon>DefaultWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DsPwvPatientReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DsPwvPatientReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="GuiConstants.cs" />
+    <Compile Include="GUIExceptionHandler.cs" />
+    <Compile Include="GuiFieldValidation.cs" />
+    <Compile Include="Migrate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Migrate.Designer.cs">
+      <DependentUpon>Migrate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AnalysisPreview.resx">
+      <DependentUpon>AnalysisPreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Capture.resx">
+      <DependentUpon>Capture.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CryPwvAnalysis.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryPwvAnalysis.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CryPwvPatientReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryPwvPatientReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CryPwvReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CryPwvReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DefaultWindow.resx">
+      <DependentUpon>DefaultWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrate.resx">
+      <DependentUpon>Migrate.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PwvPatientReport.resx">
+      <DependentUpon>PwvPatientReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RadAboutBox.resx">
+      <DependentUpon>RadAboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportPreview.resx">
+      <DependentUpon>ReportPreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsWindow.resx">
+      <DependentUpon>SettingsWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setup.resx">
+      <DependentUpon>Setup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SQLInstanceList.resx">
+      <DependentUpon>SQLInstanceList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="PwaClass.cs" />
+    <Compile Include="PWAReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PWAReport.designer.cs">
+      <DependentUpon>PWAReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PwvClass.cs" />
+    <Compile Include="PwvPatientReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PwvPatientReport.Designer.cs">
+      <DependentUpon>PwvPatientReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RadAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RadAboutBox.Designer.cs">
+      <DependentUpon>RadAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RadSplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report.designer.cs">
+      <DependentUpon>Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportPreview.Designer.cs">
+      <DependentUpon>ReportPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScorController.cs" />
+    <Compile Include="ScorStratergy.cs" />
+    <Compile Include="SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen.Designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GuiCommon.cs" />
+    <Compile Include="SettingsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsWindow.Designer.cs">
+      <DependentUpon>SettingsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setup.Designer.cs">
+      <DependentUpon>Setup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SQLInstanceList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SQLInstanceList.Designer.cs">
+      <DependentUpon>SQLInstanceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemKey.Designer.cs">
+      <DependentUpon>SystemKey.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="atcor.ico" />
+    <None Include="Resources\SetupScreenDirect_Small.jpg" />
+    <None Include="Resources\PWA_diagram.jpg" />
+    <Content Include="Theme\Atcor_DockSplitContainer.xml" />
+    <Content Include="Theme\Atcor_RadCheckmark.xml" />
+    <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_RootRadElement.xml" />
+    <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewOutlookElement.xml" />
+    <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewStackElement.xml" />
+    <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewStripElement.xml" />
+    <Content Include="Theme\Atcor_Repository.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_ColumnChooserControl.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_DesktopAlertPopup.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_AutoHideTabStrip.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_DocumentContainer.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_DocumentTabStrip.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_FloatingWindow.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_QuickNavigator.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_RadDock.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_Docking_ToolTabStrip.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadApplicationMenu.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadApplicationMenuDropDown.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadCalendar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadCalendarFastNavigationControl.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadCheckBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadComboBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadDateTimePicker.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadDropDownButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadDropDownList.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadDropDownMenu.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadForm.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadGridView.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadGroupBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadLabel.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadListBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadListControl.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadMaskedEditBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadMenu.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadPanel.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadPanelBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadProgressBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadRadioButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadRepeatButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadRibbonBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadRibbonForm.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadScheduler.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadSchedulerNavigator.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadScrollablePanel.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadScrollBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadSizablePopupControl.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadSpinEditor.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadSplitButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadSplitContainer.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadStatusStrip.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTabStrip.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTextBox.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTitleBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadToggleButton.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTrackBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTreeView.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadWaitingBar.xml" />
+    <Content Include="Theme\Atcor_Telerik_WinControls_UI_SplitPanel.xml" />
+    <None Include="Resources\cap_arrow5.JPG" />
+    <None Include="Resources\cap_arrow6.JPG" />
+    <None Include="SetupScreenDirect_Small.jpg" />
+    <None Include="SetupScreenSubtracting_small.jpg" />
+    <None Include="Resources\SetupScreenSubtracting.jpg" />
+    <None Include="Resources\SetupScreenDirect.jpg" />
+    <None Include="Resources\newarrowpart211.jpg" />
+    <None Include="Resources\newarrowpart111.jpg" />
+    <None Include="DsPwvPatientReport.xsc">
+      <DependentUpon>DsPwvPatientReport.xsd</DependentUpon>
+    </None>
+    <None Include="DsPwvPatientReport.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DsPwvPatientReport.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DsPwvPatientReport.xss">
+      <DependentUpon>DsPwvPatientReport.xsd</DependentUpon>
+    </None>
+    <EmbeddedResource Include="PWAReport.resx">
+      <DependentUpon>PWAReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemKey.resx">
+      <DependentUpon>SystemKey.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Theme\Atcor.tssp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\crx\crx\crx.vcproj">
+      <Project>{24748540-BFD1-4293-99F5-D556338366C4}</Project>
+      <Name>crx</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

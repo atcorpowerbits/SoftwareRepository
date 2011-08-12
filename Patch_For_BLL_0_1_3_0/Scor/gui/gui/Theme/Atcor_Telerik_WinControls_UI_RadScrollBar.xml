@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XmlTheme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ThemeName="Atcor" ThemeVersion="2.0">
+  <BuilderRegistrations>
+    <XmlStyleBuilderRegistration>
+      <BuilderData xsi:type="XmlStyleSheet" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <PropertySettingGroups>
+          <XmlPropertySettingGroup BasedOn="ScrollBarThumbNormalFill">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="95, 105, 154" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="95, 105, 154" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="95, 105, 154" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="95, 105, 154" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarThumb">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarThumbFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarThumbMouseDownFill">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="95, 105, 154" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="95, 105, 154" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="95, 105, 154" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="95, 105, 154" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarThumb.Pressed">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarThumbFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBatThumbMouseOverFill">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarThumb.MouseOver">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarThumbFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarThumbNormalBorder">
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarThumb">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarThumbBorder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarThumbMouseDownBorder">
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarThumb.Pressed">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarThumbBorder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarThumbMouseOverBorder">
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarThumb.MouseOver">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarThumbBorder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="TransparentFill">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.GradientAngle" Value="0" />
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarFirstButton">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarButtonFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="TransparentFill">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.GradientAngle" Value="0" />
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarSecondButton">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarButtonFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="TransparentBorder(OuterInner)">
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarFirstButton">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarButtonBorder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="TransparentBorder(OuterInner)">
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarSecondButton">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarButtonBorder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarNormalFill">
+            <Selectors>
+              <XmlTypeSelector ElementType="Telerik.WinControls.UI.RadScrollBarElement">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlTypeSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="BlackText">
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarFirstButton" />
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="BlackText">
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarSecondButton" />
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="RoundRectShape1">
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarThumb" />
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarButtonMouseOverFill">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarFirstButton.MouseOver">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarButtonFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarButtonMouseOverFill">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarFirstButton.Pressed">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarButtonFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarButtonMouseOverFill">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarSecondButton.MouseOver">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarButtonFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarButtonMouseOverFill">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarSecondButton.Pressed">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarButtonFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarButtonMouseOverBorder">
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarSecondButton.MouseOver">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarButtonBorder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="ScrollBarButtonMouseOverBorder">
+            <Selectors>
+              <XmlVisualStateSelector VisualState="ScrollBarFirstButton.MouseOver">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarButtonBorder" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="RadScrollBarElement.Disabled">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="RadScrollBarElement">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="RadScrollBarElement.MouseOver">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+          <XmlPropertySettingGroup BasedOn="">
+            <PropertySettings>
+              <XmlPropertySetting Property="Telerik.WinControls.VisualElement.BackColor" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor2" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor3" Value="142, 150, 186" />
+              <XmlPropertySetting Property="Telerik.WinControls.Primitives.FillPrimitive.BackColor4" Value="142, 150, 186" />
+            </PropertySettings>
+            <Selectors>
+              <XmlVisualStateSelector VisualState="RadScrollBarElement.MouseOver">
+                <ChildSelector xsi:type="XmlClassSelector" ElementClass="ScrollBarPressedFill" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+              </XmlVisualStateSelector>
+            </Selectors>
+          </XmlPropertySettingGroup>
+        </PropertySettingGroups>
+      </BuilderData>
+      <StylesheetRelations>
+        <RadStylesheetRelation ControlType="Telerik.WinControls.UI.RadScrollBar" ElementType="Telerik.WinControls.RootRadElement" />
+        <RadStylesheetRelation RegistrationType="ElementTypeDefault" ElementType="Telerik.WinControls.UI.RadScrollBarElement" />
+      </StylesheetRelations>
+    </XmlStyleBuilderRegistration>
+  </BuilderRegistrations>
+</XmlTheme>
