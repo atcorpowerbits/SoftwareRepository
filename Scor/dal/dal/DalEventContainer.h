@@ -382,7 +382,7 @@ namespace AtCor{
 								if(_DalCuffStatusEventHandler)
 								{
 									_DalCuffStatusEventHandler->Invoke(sender, args);
-									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() );
+									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() );
 							
 								}
 							}
@@ -440,7 +440,7 @@ namespace AtCor{
 								if(_dalModuleErrorAlarmEventHandler)
 								{
 									_dalModuleErrorAlarmEventHandler->Invoke(sender, args);
-									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Error Alarm event raised in DAL: "+ args->ErrorAlarmStatus.ToString() + " : " + args->AlarmSourceName  );
+									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Error Alarm event raised in DAL: "+ args->ErrorAlarmStatus.ToString() + " : " + args->AlarmSourceName  );
 								}
 							
 							}
@@ -499,7 +499,7 @@ namespace AtCor{
 								if(_dalTonometerStatusEventHandler)
 								{
 									_dalTonometerStatusEventHandler->Invoke(sender, args);
-									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Tonometer event raised in DAL: "+ args->TonometerStateFlag.ToString() );
+									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Tonometer event raised in DAL: "+ args->TonometerStateFlag.ToString() );
 								}
 							}
 						}
@@ -559,7 +559,7 @@ namespace AtCor{
 								if(_dalUnusedStatusFlagChangedEventHandler)
 								{
 									_dalUnusedStatusFlagChangedEventHandler->Invoke(sender, args);
-									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> UnusedStatusFlagChangedEvent raised in DAL: "+ args->UnusedStatusFlagChanged.ToString() + " : " + args->ValueSetReset.ToString()  );
+									////AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> UnusedStatusFlagChangedEvent raised in DAL: "+ args->UnusedStatusFlagChanged.ToString() + " : " + args->ValueSetReset.ToString()  );
 								}
 							}
 						}

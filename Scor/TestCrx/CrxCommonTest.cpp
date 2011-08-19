@@ -173,6 +173,19 @@ public: [TestMethod]
 			
 			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 		}
+		/// <summary>
+		///A test for ApplicationEnvironment
+		///</summary>
+public: [TestMethod]
+		void ApplicationEnvironmentTest()
+		{
+			String^  expected = "Clinical";//System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			CrxCommon::ApplicationEnvironment = expected;
+			actual = CrxCommon::ApplicationEnvironment;
+			Assert::AreEqual(expected, actual);
+			//Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
 };
 }
 namespace TestCrx {

@@ -78,10 +78,10 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void op_AssignTest()
 			{
-				DalResponsePacketBuffer_Accessor^  target = (gcnew DalResponsePacketBuffer_Accessor()); 
-				DalResponsePacketBuffer_Accessor^  unnamed = target; 
-				DalResponsePacketBuffer_Accessor^  expected = target; 
-				DalResponsePacketBuffer_Accessor^  actual;
+				DalResponsePacketQueue_Accessor^  target = (gcnew DalResponsePacketQueue_Accessor()); 
+				DalResponsePacketQueue_Accessor^  unnamed = target; 
+				DalResponsePacketQueue_Accessor^  expected = target; 
+				DalResponsePacketQueue_Accessor^  actual;
 				actual = (target = unnamed);
 				Assert::AreEqual(expected, actual);
 			}
@@ -91,7 +91,7 @@ namespace TestDal {
 	public: [TestMethod]
 			void EnqueueTest()
 			{
-				DalResponsePacketBuffer_Accessor^  target = gcnew DalResponsePacketBuffer_Accessor(); 
+				DalResponsePacketQueue_Accessor^  target = gcnew DalResponsePacketQueue_Accessor(); 
 				cli::array< unsigned char >^  packet = gcnew array<unsigned char> {0x01, 0x02, 0x03}; 
 				target->Enqueue(packet);
 
@@ -112,7 +112,7 @@ namespace TestDal {
 	//public: [TestMethod]
 	//		void DisposeTest1()
 	//		{
-	//			DalResponsePacketBuffer_Accessor^  target = (gcnew DalResponsePacketBuffer_Accessor()); // TODO: Initialize to an appropriate value
+	//			DalResponsePacketQueue_Accessor^  target = (gcnew DalResponsePacketQueue_Accessor()); // TODO: Initialize to an appropriate value
 	//			target->Dispose();
 	//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
 	//		}
@@ -123,7 +123,7 @@ namespace TestDal {
 	//		[DeploymentItem(L"dal.dll")]
 	//		void DisposeTest()
 	//		{
-	//			DalResponsePacketBuffer_Accessor^  target = (gcnew DalResponsePacketBuffer_Accessor()); // TODO: Initialize to an appropriate value
+	//			DalResponsePacketQueue_Accessor^  target = (gcnew DalResponsePacketQueue_Accessor()); // TODO: Initialize to an appropriate value
 	//			bool unnamed = false; // TODO: Initialize to an appropriate value
 	//			target->Dispose(unnamed);
 	//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
@@ -137,7 +137,7 @@ namespace TestDal {
 	public: [TestMethod]
 			void DequeueEmptyQueueTest()
 			{
-				DalResponsePacketBuffer_Accessor^  target = (gcnew DalResponsePacketBuffer_Accessor()); 
+				DalResponsePacketQueue_Accessor^  target = (gcnew DalResponsePacketQueue_Accessor()); 
 				cli::array< unsigned char >^  expected = nullptr; 
 				cli::array< unsigned char >^  actual;
 
@@ -155,7 +155,7 @@ namespace TestDal {
 	public: [TestMethod]
 			void DequeueWithDataTest()
 			{
-				DalResponsePacketBuffer_Accessor^  target = (gcnew DalResponsePacketBuffer_Accessor()); 
+				DalResponsePacketQueue_Accessor^  target = (gcnew DalResponsePacketQueue_Accessor()); 
 				cli::array< unsigned char >^  expected = gcnew array<unsigned char> {0x01, 0x02, 0x03}; 
 				cli::array< unsigned char >^  actual;
 
@@ -182,7 +182,7 @@ namespace TestDal {
 	public: [TestMethod]
 			void ClearTest()
 			{
-				DalResponsePacketBuffer_Accessor^  target = (gcnew DalResponsePacketBuffer_Accessor()); 
+				DalResponsePacketQueue_Accessor^  target = (gcnew DalResponsePacketQueue_Accessor()); 
 				//Preinitialize  by enquing some data to clear
 				cli::array< unsigned char >^  expected = gcnew array<unsigned char> {0x01, 0x02, 0x03}; 
 				
@@ -206,7 +206,7 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void DalResponsePacketQueueDestructorTest()
 			{
-				DalResponsePacketBuffer_Accessor^  target = (gcnew DalResponsePacketBuffer_Accessor()); 
+				DalResponsePacketQueue_Accessor^  target = (gcnew DalResponsePacketQueue_Accessor()); 
 
 				//Preinitialize  by enquing some data to clear
 				cli::array< unsigned char >^  expected = gcnew array<unsigned char> {0x01, 0x02, 0x03}; 
@@ -243,7 +243,7 @@ namespace TestDal {
 			[DeploymentItem(L"dal.dll")]
 			void DalResponsePacketQueueConstructorTest()
 			{
-				DalResponsePacketBuffer_Accessor^  target = (gcnew DalResponsePacketBuffer_Accessor());
+				DalResponsePacketQueue_Accessor^  target = (gcnew DalResponsePacketQueue_Accessor());
 				Assert::IsNotNull(target);
 			}
 	};

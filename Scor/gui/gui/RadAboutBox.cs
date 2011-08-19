@@ -49,8 +49,8 @@ namespace AtCor.Scor.Gui.Presentation
             MaximumSize = Size;
             MinimumSize = Size;
             SetAboutBoxInformation();
-           GuiCommon.SetShape(guiradlblCompanyName, guiradlblCopyrightNotice, guiradlblVersion, guiradlblSecurityMode, guiradlblInstalledID, guiradlblPWV, guiradlblPWA, guiradlblBP, guiradlblmoduleInfo, guiradlblLastCalibrationDate);
-           GuiCommon.SetShape(guiradbtnPrint, guiradbtnOk);
+            GuiCommon.SetShape(guiradlblCompanyName, guiradlblCopyrightNotice, guiradlblVersion, guiradlblSecurityMode, guiradlblInstalledID, guiradlblPWV, guiradlblPWA, guiradlblBP, guiradlblmoduleInfo, guiradlblLastCalibrationDate);
+            GuiCommon.SetShape(guiradbtnPrint, guiradbtnOk);            
         }
 
         /** Begin: AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,4 july 2011

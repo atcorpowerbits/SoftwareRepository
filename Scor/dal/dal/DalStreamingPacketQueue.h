@@ -21,31 +21,59 @@ namespace AtCor{
 	namespace Scor { 
 		namespace DataAccess{
 
+			/**
+			* @class	DalStreamingPacketQueue
+			* @brief	Implements a queue for streaming packets.
+			*/
 			public ref class DalStreamingPacketQueue: public IDalPacketQueue
 			{
 				private:
-					DalStreamingPacketQueue();
-					~DalStreamingPacketQueue();
-					DalStreamingPacketQueue(DalStreamingPacketQueue^);
-					DalStreamingPacketQueue^ operator = (DalStreamingPacketQueue^);
+					DalStreamingPacketQueue(); //constructor
+					~DalStreamingPacketQueue(); //destructor
+					DalStreamingPacketQueue(DalStreamingPacketQueue^);//copyt constructor
+					DalStreamingPacketQueue^ operator = (DalStreamingPacketQueue^); //overloaded assignment operator
 
-					static DalStreamingPacketQueue^ _instance = gcnew DalStreamingPacketQueue();
-
-					Queue<array<unsigned char>^> ^streamingPacketQueue;
-					static Mutex^ _mutex = gcnew Mutex();
+					static DalStreamingPacketQueue^ _instance = gcnew DalStreamingPacketQueue(); //internal instance variable
+ 
+					Queue<array<unsigned char>^> ^streamingPacketQueue; //A queue of pointers that point to the streaming packets
+					static Mutex^ _mutex = gcnew Mutex(); //mutex for access synchronization
 
 
 				public:
 
+					/**
+					* Instance propoerty that returns a pointer to the singleton instance.
+					*/
 					static property DalStreamingPacketQueue^ Instance
 					{
 						DalStreamingPacketQueue^ get();
 					};
 
+					/**
+					* Gets the topmost pakcet from the queue and removes it from the queue.
+					*
+					* @return	A byte array containing the data packet
+					*/
 					virtual array<unsigned char>^ Dequeue();
+					
+					
+					/**
+					* Adds the specified packet to the end of the queue
+					*
+					* @param[in]	packet	The packet to enqueue
+					*/
 					virtual void Enqueue(array<unsigned char>^ packet);
 
+					/**
+					* Empties the buffer and deletes all the contents.
+					*/
 					virtual void Clear();
+
+					/**
+					* Gets the number of packtes available in this array
+					*
+					* @return	The number of elements
+					*/
 					int Count();
 
 			};

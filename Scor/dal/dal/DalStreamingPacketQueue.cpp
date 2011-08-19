@@ -56,13 +56,13 @@ array<unsigned char>^ DalStreamingPacketQueue::Dequeue()
 	if (this->streamingPacketQueue->Count != 0)
 	{
 		returnValue=  this->streamingPacketQueue->Dequeue();
-		//CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count + " Dequeued " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(returnValue) );
-		CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count );
+		////CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count + " Dequeued " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(returnValue) );
+		//CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count );
 	}
 	else
 	{
 		returnValue = nullptr; 
-		//CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count + " UNDERFLOW" );
+		////CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count + " UNDERFLOW" );
 	}
 	
 	_mutex->ReleaseMutex();
@@ -75,8 +75,8 @@ void DalStreamingPacketQueue::Enqueue(array<unsigned char> ^packet)
 	_mutex->WaitOne();
 
 	this->streamingPacketQueue->Enqueue(packet);
-	//CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Enqueue Total : "+ this->streamingPacketQueue->Count + " Added new packet: " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(packet) );
-	CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Enqueue Total : "+ this->streamingPacketQueue->Count );
+	////CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Enqueue Total : "+ this->streamingPacketQueue->Count + " Added new packet: " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(packet) );
+	//CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Enqueue Total : "+ this->streamingPacketQueue->Count );
 	
 	
 	_mutex->ReleaseMutex();

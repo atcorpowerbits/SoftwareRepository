@@ -34,7 +34,7 @@ namespace AtCor{
 			{
 				try
 				{
-					logObj = CrxLogger::Instance;
+					//logObj = CrxLogger::Instance;
 					messagingMgr = CrxMessagingManager::Instance;
 				}
 				catch(ScorException^)
@@ -51,18 +51,9 @@ namespace AtCor{
 				//_currentCommandState = DalCommandStateReady::Instance;
 			}
 
-			//obsolete
-			//bool DalDeviceHandler::StartCapture()
-			//{
-			//	// this code has been left for compatibility with the DAL stub
-			//	//no parameters received. assume capture time and sampling rate
-			//	//since this function will be done away with , we are not moving the constants
-			//	return StartCapture( 10, 256);
-			//}
-
 			bool DalDeviceHandler::StartCapture(int captureTime, int samplingRate)
 			{
-				CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StartCapture Called");
+				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StartCapture Called");
 
 				//create a buffer of the required size
 				try
@@ -80,17 +71,25 @@ namespace AtCor{
 					throw gcnew ScorException(excepObj);
 				}
 
-				//first check if the device is connected on the comm port mention in Config.
-				if(!CheckIfDeviceIsConnected())
-				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrConfigPortNotConnectedErrCd, CrxStructCommonResourceMsg::DalErrConfigPortNotConnected, ErrorSeverity::Information);
-				}
+				//GUI checks if device is connected beofre calling this function . So no
+				//need to do it again. This is as per Alistairs mail on4-5th August 20111
 
-				//check if tonometer is connected. Capture cannot proceed if it is disconnectd
-				if(!CheckIfTonometerIsConnected())
-				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrTonoNotConnectedErrCd, CrxStructCommonResourceMsg::DalErrTonoNotConnected, ErrorSeverity::Information);
-				}
+				////first check if the device is connected on the comm port mention in Config.
+				//if(!CheckIfDeviceIsConnected())
+				//{
+				//	//sufficient to return false
+				//	//throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrConfigPortNotConnectedErrCd, CrxStructCommonResourceMsg::DalErrConfigPortNotConnected, ErrorSeverity::Information);
+
+				//	return false;
+				//}
+
+				//No need to check if tonometer is connected
+				//The resukt will not be correct from EM4
+				////check if tonometer is connected. Capture cannot proceed if it is disconnectd
+				//if(!CheckIfTonometerIsConnected())
+				//{
+				//	throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrTonoNotConnectedErrCd, CrxStructCommonResourceMsg::DalErrTonoNotConnected, ErrorSeverity::Information);
+				//}
 				
 				//Set Idle mode
 				bool boolReturnValue;
@@ -131,8 +130,8 @@ namespace AtCor{
 
 			bool DalDeviceHandler::StopCapture()
 			{
-				CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture Called");
-				CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture START");
+				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture Called");
+				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture START");
 					
 				//check if  the comand interface isnt already created
 				if (nullptr == _commandInterface)
@@ -147,12 +146,12 @@ namespace AtCor{
 
 				returnValue = _commandInterface->SendCommandAndGetResponse(startCaptureCommand); //renamed oringinal method
 
-				CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture returnValue" + returnValue.ToString());
+				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture returnValue" + returnValue.ToString());
 
 				//deregister the data capture handler after the call to stop capture and see
 				//if(!(_commandInterface->StopDataCaptureMode()))
 				//{
-				//	CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture EXCEPTION");
+				//	//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture EXCEPTION");
 				//	//failed to deregister the data capture handler
 				//	throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed, ErrorSeverity::Information); 
 				//}
@@ -160,7 +159,7 @@ namespace AtCor{
 				///TODO: replacing the state machine dependent method with the direct call.
 				if(!(_commandInterface->StopDataCaptureModeInternal()))
 				{
-					CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopDataCaptureMode returned false");
+					//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopDataCaptureMode returned false");
 				}
 
 				//Free up the reserved sequence number so that it can be reused
@@ -298,7 +297,7 @@ namespace AtCor{
 
 				for each (String ^ portName in listOfSerialPorts)
 				{
-					//CrxLogger::Instance->Write("Ports Listed: " + portName);
+					////CrxLogger::Instance->Write("Ports Listed: " + portName);
 					if (CheckIfDeviceIsConnected(portName))
 					{
 						//Device is present on another com port
@@ -407,7 +406,7 @@ namespace AtCor{
 
 			bool DalDeviceHandler::SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard)
 			{
-				CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure called with pressure:" + newPressure);
+				//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure called with pressure:" + newPressure);
 				unsigned short pressureToSet = (unsigned short)newPressure;
 
 				unsigned char pressureMSB, pressureLSB, commandByte;
@@ -438,13 +437,13 @@ namespace AtCor{
 
 					if (_commandInterface->SendCommandAndGetResponse(setPressureCommand) ==DalReturnValue::Success) //renamed oringinal method
 					{
-						CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Successful" );
+						//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Successful" );
 				
 						return true; 
 					}
 					else
 					{
-						CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Failed" );
+						//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Failed" );
 						return false;
 					}
 				}
@@ -456,43 +455,44 @@ namespace AtCor{
 			}
 
 
-			bool DalDeviceHandler::CheckIfTonometerIsConnected()
-			{
-				unsigned short statusFlag; 
+			//bool DalDeviceHandler::CheckIfTonometerIsConnected()
+			//{
+			//	unsigned short statusFlag; 
 
-				if (nullptr == _commandInterface)
-				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNoInterfaceErrCd, CrxStructCommonResourceMsg::DalErrNoInterface,ErrorSeverity::Warning );
-				}
-				
-				DalReturnValue returnedValue = DalReturnValue::Failure ;
+			//	if (nullptr == _commandInterface)
+			//	{
+			//		throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNoInterfaceErrCd, CrxStructCommonResourceMsg::DalErrNoInterface,ErrorSeverity::Warning );
+			//	}
+			//	
+			//	DalReturnValue returnedValue = DalReturnValue::Failure ;
 
-				DalEM4Command^ serialCommand = gcnew DalEM4Command(Em4CommandCodes::GetConfigInfo, gcnew array<unsigned char> (1){Em4CommandCodes::GetConfigInfoDataDeviceSerialNumber});
-				serialCommand->expectedResponseLength = Em4ResponseRequiredLength::GetConfigInfoDataDeviceSerialNumber;
-				
-				returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); //renamed oringinal method
-				
-				if (returnedValue == DalReturnValue::Success)
-				{
-					serialCommand->BreakupEM4Response();
-					statusFlag = serialCommand->em4StatusFlag ;
+			//	DalEM4Command^ serialCommand = gcnew DalEM4Command(Em4CommandCodes::GetConfigInfo, gcnew array<unsigned char> (1){Em4CommandCodes::GetConfigInfoDataDeviceSerialNumber});
+			//	serialCommand->expectedResponseLength = Em4ResponseRequiredLength::GetConfigInfoDataDeviceSerialNumber;
+			//	
+			//	returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); //renamed oringinal method
+			//	
+			//	if (returnedValue == DalReturnValue::Success)
+			//	{
+			//		serialCommand->BreakupEM4Response();
+			//		statusFlag = serialCommand->em4StatusFlag ;
 
-					DalTonometerState tonoState;
-					tonoState = (DalTonometerState)(statusFlag & (unsigned short)DalTonometerStatusBitMask::TonometerNotConnectedBits);
-					if (DalTonometerState::Disconnected == tonoState)
-					{
-						return false;
-					}
-					else
-					{
-						return true;
-					}
-				}
-				else
-				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed,ErrorSeverity::Warning );
-				}
-			}
+			//		DalTonometerState tonoState;
+			//		tonoState = (DalTonometerState)(statusFlag & (unsigned short)DalTonometerStatusBitMask::TonometerNotConnectedBits);
+			//		if (DalTonometerState::Disconnected == tonoState)
+			//		{
+			//			return false;
+			//		}
+			//		else
+			//		{
+			//			return true;
+			//		}
+			//	}
+			//	else
+			//	{
+			//		throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed,ErrorSeverity::Warning );
+			//	}
+			//}
+
 
 			bool DalDeviceHandler::GetConfigDeviceSerialMumber(String ^% moduleSerialNumber)
 			{
@@ -522,17 +522,20 @@ namespace AtCor{
 			{
 				try
 				{
-					bool returnValue;
+					//bool returnValue;
 
-					//first check if device is connected
-					returnValue = CheckIfDeviceIsConnected();
+					//Dont check device connection within this function.
+					//Check before calling it.
 
-					//if device is not connected we cannot set the mode
-					if (false == returnValue)
-					{
-						return false;
-					}
-					//else create a command and send it
+					////first check if device is connected
+					//returnValue = CheckIfDeviceIsConnected();
+
+					////if device is not connected we cannot set the mode
+					//if (false == returnValue)
+					//{
+					//	return false;
+					//}
+					////else create a command and send it
 
 					//create a command object
 					DalEM4Command^ setIdleCommand;

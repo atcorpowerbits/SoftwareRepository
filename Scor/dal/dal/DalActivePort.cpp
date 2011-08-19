@@ -253,7 +253,7 @@ namespace AtCor{
 				}
 				catch(Exception^ excepObj)
 				{
-					CrxLogger::Instance->Write("Deepak>>> DalActivePort::SendPacket Failed to send:  " +  DalBinaryConversions::ConvertBytesToString(dataToSend));
+					//CrxLogger::Instance->Write("Deepak>>> DalActivePort::SendPacket Failed to send:  " +  DalBinaryConversions::ConvertBytesToString(dataToSend));
 					throw gcnew ScorException(excepObj);
 				}
 			}
@@ -265,29 +265,29 @@ namespace AtCor{
 			//we will simply interupt a sleeping thread.
 			void DalActivePort::DataReceviedHandler(Object ^, SerialDataReceivedEventArgs ^)
 			{
-				CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event raised Avalibale "+ _serialPort->BytesToRead);
+				//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event raised Avalibale "+ _serialPort->BytesToRead);
 			
-			//	//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING 1st Time");
+			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING 1st Time");
 				Thread::Sleep(0);
 
 				//Call directly instead of from a thread. that wy, the event is not raised repeatedly
 				ReadDataFromPort();
 
-			//	//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Signalling DalStagingQueue");
+			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Signalling DalStagingQueue");
 				//Inform the DalStagingQueue that data is available
 				DalStagingQueue::Instance->SignalDataAvailable();
 
-				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING 2nd Time ");
+				//////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING 2nd Time ");
 				//Thread::Sleep(0);
 
 				serialDataWasRecieved = true; //set the marker to true to let the checker know that we got the data
 
-				//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler exiting Avalibale "+ _serialPort->BytesToRead);
+				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler exiting Avalibale "+ _serialPort->BytesToRead);
 			}
 
 			//void DalActivePort::DataReceviedHandler(Object ^, SerialDataReceivedEventArgs ^)
 			//{
-			//	//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event raised Avalibale "+ _serialPort->BytesToRead);
+			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event raised Avalibale "+ _serialPort->BytesToRead);
 
 			//	//tRY INTERUPTING BEFORE YOU CALL THE SLEEP METHOS
 			//	//interupt the new thread
@@ -295,30 +295,30 @@ namespace AtCor{
 			//	readerThread->Interrupt();
 			//	
 
-			//	//	//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING");
+			//	//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING");
 			//	Thread::Sleep(50); 
 			//	//Zero sleep does not prevent this method from raising repeatedly. Multiple event rises tend to hog the system
 			//	//and prevent other threads from running. 25 is a good sleep period but doesnt work well 
 			//	//. We will set it for 50 in order to test
 
 			//	//Call directly instead of from a thread. that wy, the event is not raised repeatedly
-			//	//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler exiting Avalibale "+ _serialPort->BytesToRead);
+			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler exiting Avalibale "+ _serialPort->BytesToRead);
 			//}
 
 			void DalActivePort::ReadDataFromPort()
 			{
-				//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort START " );
+				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort START " );
 				int bytesAvaliable; //variable to find how many bytes of data is avaiable
 				array<unsigned char>^ serialData; //to recieve the data
 			
 				//Find out how many bytes are available
 				bytesAvaliable = _serialPort->BytesToRead;
-				//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort Avaliable data: " +  bytesAvaliable );
+				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort Avaliable data: " +  bytesAvaliable );
 
 				//if no bytes are available then return back
 				if (0 == bytesAvaliable)
 				{
-					//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort Zero data return back");
+					////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort Zero data return back");
 					return; //end this process
 				}
 
@@ -332,23 +332,23 @@ namespace AtCor{
 
 				//copy it to the staging area
 				DalStagingQueue::Instance->EnqueueArray(serialData);
-				//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort EXITING " );
+				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort EXITING " );
 
 			}
 
 			//void DalActivePort::ThreadMethod()
 			//{
-			//	//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Enter");
+			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Enter");
 			//	
 			//	do 
 			//	{
-			//		////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Inside DO_BLOCK");
+			//		//////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Inside DO_BLOCK");
 			//		try
 			//		{
 			//			if( _serialPort->BytesToRead)
 			//			{
 			//			
-			//				//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Call ReadDataFromPort");
+			//				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Call ReadDataFromPort");
 			//				ReadDataFromPort();
 			//				//dataAvaliable = false;
 
@@ -356,23 +356,23 @@ namespace AtCor{
 			//				DalStagingQueue::Instance->SignalDataAvailable();
 			//			}
 			//		
-			//			//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Sleep for infinite time");
+			//			////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Sleep for infinite time");
 			//			Thread::Sleep(Timeout::Infinite ); 	//sleep until woken again
 			//		}
 			//		catch(ThreadInterruptedException^ ex)
 			//		{
 			//			delete ex;
-			//			//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod ThreadInterruptedException raised");
+			//			////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod ThreadInterruptedException raised");
 			//			continue;
 			//		}
 			//		catch(ScorException ^ scorEx)
 			//		{
-			//			//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod ScorException deleted" + scorEx->ErrorMessageKey);
+			//			////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod ScorException deleted" + scorEx->ErrorMessageKey);
 			//			delete scorEx;
 			//		}
 			//	}
 			//	while(true); //will throw a warning. leave it as it is
-			//	//CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Exit");
+			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Exit");
 			//}
 
 			void DalActivePort::CheckStreamingTimeout(Object^, ElapsedEventArgs^ )
@@ -388,7 +388,7 @@ namespace AtCor{
 				//check if the flag is false
 				if (serialDataWasRecieved)
 				{
-					CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout true" );
+					//CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout true" );
 
 					//if true, it means that data was recieved and timeout has not occured
 					//set the flag to false and give the reader a chance to set it to true again
@@ -400,7 +400,7 @@ namespace AtCor{
 				{
 					//increment the counter
 					BufferEmptyCounter++;
-					CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout false BufferEmptyCounter = " + BufferEmptyCounter);
+					//CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout false BufferEmptyCounter = " + BufferEmptyCounter);
 
 
 					
@@ -415,7 +415,7 @@ namespace AtCor{
 				
 					//change the state
 					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
-					CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout Timeout occured Raising event." );
+					//CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout Timeout occured Raising event." );
 
 					
 					//raise event 

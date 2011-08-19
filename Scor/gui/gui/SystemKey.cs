@@ -8,19 +8,11 @@
      Description  :     Functionality implemented for handling system key
 */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using System.Diagnostics;
-using AtCor.Scor.CrossCutting;
-using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.Messaging;
-using Telerik.WinControls.UI;
-using Telerik.WinControls.Primitives;
 using AtCor.Scor.BusinessLogic;
 
 namespace AtCor.Scor.Gui.Presentation
@@ -65,11 +57,11 @@ namespace AtCor.Scor.Gui.Presentation
 
             if (GuiCommon.SystemKeyWindowValue == GuiCommon.SystemKeyWindowValues.Update)
             {
-                this.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FrmNewSystemKey);
+                Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FrmNewSystemKey);
             }
             else
             {
-                this.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FrmSystemKey);
+                Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FrmSystemKey);
             }
         }
 
@@ -125,7 +117,7 @@ namespace AtCor.Scor.Gui.Presentation
             if (GuiCommon.SystemKeyWindowValue == GuiCommon.SystemKeyWindowValues.Update)
             {
                 // If form in opened from system key menu then clicking cancel button will just close system key form and user can proceed with application.
-                this.Close();
+                Close();
             }
             else
             {
@@ -138,7 +130,7 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void guiradtxtKeyPart1_TextChanged(object sender, EventArgs e)
         {
-            guiradtxtKeyPart1.Text = guiradtxtKeyPart1.Text.Trim();
+            guiradtxtKeyPart1.Text = guiradtxtKeyPart1.Text.Replace(" ", string.Empty);
             if (guiradtxtKeyPart1.Text.Length == 5)
             {
                 guiradtxtKeyPart2.Focus();                
@@ -147,18 +139,16 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void guiradtxtKeyPart2_TextChanged(object sender, EventArgs e)
         {
-            guiradtxtKeyPart2.Text = guiradtxtKeyPart2.Text.Trim();       
+            guiradtxtKeyPart2.Text = guiradtxtKeyPart2.Text.Replace(" ", string.Empty);     
             if (guiradtxtKeyPart2.Text.Length == 5)
             {
                 guiradtxtKeyPart3.Focus();
             }
         }
 
-
-
         private void guiradtxtKeyPart3_TextChanged(object sender, EventArgs e)
         {
-            guiradtxtKeyPart3.Text = guiradtxtKeyPart3.Text.Trim();
+            guiradtxtKeyPart3.Text = guiradtxtKeyPart3.Text.Replace(" ", string.Empty);
             if (guiradtxtKeyPart3.Text.Length == 5)
             {
                 guiradtxtKeyPart4.Focus();
@@ -167,7 +157,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void guiradtxtKeyPart4_TextChanged(object sender, EventArgs e)
         {
-            guiradtxtKeyPart4.Text = guiradtxtKeyPart4.Text.Trim();
+            guiradtxtKeyPart4.Text = guiradtxtKeyPart4.Text.Replace(" ", string.Empty);
             if (guiradtxtKeyPart4.Text.Length == 5)
             {
                 guiradtxtKeyPart5.Focus();
@@ -178,6 +168,11 @@ namespace AtCor.Scor.Gui.Presentation
         {
             AcceptButton = guiradbtnOk;
             CancelButton = guiradbtnCancel;
+        }
+
+        private void guiradtxtKeyPart5_TextChanged(object sender, EventArgs e)
+        {
+            guiradtxtKeyPart5.Text = guiradtxtKeyPart5.Text.Replace(" ", string.Empty);
         }          
     }
 }

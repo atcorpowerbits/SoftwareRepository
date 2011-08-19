@@ -190,7 +190,7 @@ namespace AtCor{
 										*
 										* @see	GetValueAt()
 										*/
-										int DalDataBuffer::GetNextValues(int requestedValues, int % readStartIndex );
+										int GetNextValues(int requestedValues, int % readStartIndex );
 
 										/**
 										* Checks if the buffer is empty.

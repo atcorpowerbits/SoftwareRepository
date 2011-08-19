@@ -44,13 +44,13 @@ namespace AtCor{
 				DalModule( DalModule^);
 				DalModule^ operator= ( DalModule);
 
-				CaptureType _captureDataType;
+				DalStreamingMode _currentStreamingMode;
 
 				static void ConfigCommsPortSettingChangeHandler(Object^ sender, CommsPortEventArgs^ args);
 
 
 			internal:	
-				static IDalHandler^ _currentDevice; 
+				static IDalHandler^ _currentDevice;  //A pointer to the current device
 				
 			public:
 				
@@ -63,6 +63,18 @@ namespace AtCor{
 					{
 						return DalModule::_instance;
 					};
+				};
+
+				/**
+				* Returns the current streaming mode.
+				*/
+				property DalStreamingMode StreamingMode
+				{
+					DalStreamingMode get()
+					{
+						return this->_currentStreamingMode;
+					};
+
 				};
 
 				/**
@@ -194,6 +206,13 @@ namespace AtCor{
 				* @return	The date when the system was last calibrated.
 				*/
 				DateTime GetLastCalibrationDate();
+
+				/**
+				* Sets the current streaming mode
+				*
+				* @param[in]	newMode	The new mode of operation
+				*/
+				void SetStreamingMode(DalStreamingMode newMode);
 			};
 		}
 	}

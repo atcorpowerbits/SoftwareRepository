@@ -121,13 +121,13 @@ namespace AtCor.Scor.Gui.Presentation
             Series tonometerOnsetSeries = new Series
                                               {
                 ChartType = SeriesChartType.FastPoint,
-                Color = Color.Red
+                Color = Color.Green
             };
 
             Series tonometerOnsetSeries2 = new Series
                                                {
                 ChartType = SeriesChartType.FastPoint,
-                Color = Color.Green
+                Color = Color.Red
             };
 
             tonometerOnsetSeries2.Points.Clear();

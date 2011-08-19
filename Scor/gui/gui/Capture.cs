@@ -90,7 +90,7 @@ namespace AtCor.Scor.Gui.Presentation
             // bizObj.SaveCaptureData();
             // string captureFilePath = DalModule.Instance.GetSavedFilePath();
             // RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiWaveformSaveMsg) + Environment.NewLine + captureFilePath, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);            
-            GenerateReportWhenCaptureIsEnabled();
+            GenerateReportWhenCaptureIsEnabled();            
         }
 
         /** This method is called to set the text for the label controls.
@@ -475,6 +475,9 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     chartTonometer.ChartAreas[0].AxisY.Maximum = (dbuff.GetValueAt(startIndex, 0).tonometerData + 1) * GuiConstants.ChartAreaMaximumY;
                     chartTonometer.ChartAreas[0].AxisY.Minimum  = (dbuff.GetValueAt(startIndex, 0).tonometerData - 1) * GuiConstants.ChartAreaMinimumY;
+
+                    /**guichartFemoralCuff.ChartAreas[0].AxisY.Maximum = (dbuff.GetValueAt(startIndex, 0).cuffPulseData + 1) * GuiConstants.ChartAreaMaximumY;
+                    guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = (dbuff.GetValueAt(startIndex, 0).cuffPulseData - 1) * GuiConstants.ChartAreaMinimumY; */
                 }                               
             }
             catch (Exception ex)
@@ -561,10 +564,9 @@ namespace AtCor.Scor.Gui.Presentation
                     // System.Diagnostics.Debug.Write("newSeries.Points[0].XValue + screenwidth : " + newSeries.Points[0].XValue + screenwidth + "\r\n");
                     chartTonometer.ChartAreas[0].AxisX.Maximum = newSeries.Points[0].XValue + screenwidth;
                 }
-
-                // Here we plot the data points only, nothing to be done with respect to the axis.
                 else if (xCoordinateTonometer >= screenwidth)
                 {
+                    // Here we plot the data points only, nothing to be done with respect to the axis.
                     // Nothing to be done.
                 }                
                 else
@@ -885,7 +887,9 @@ namespace AtCor.Scor.Gui.Presentation
                 else
                 {
                     // invoke load method of report screen
-                    OnReportTabClick.Invoke(this, new EventArgs());
+                    GuiCommon.ScorControllerObject.LoadReport();
+
+                    // OnReportTabClick.Invoke(this, new EventArgs());                   
                 }
 
                 // disable setting tab on menu bar
@@ -1081,7 +1085,9 @@ namespace AtCor.Scor.Gui.Presentation
             else
             {
                 CrossButtonAction();
-            }                
+            }
+
+            GuiCommon.MessageToBeDisplayed = string.Empty;   
          }
 
         private void Capture_OnCaptureScreenTabClick(object sender, EventArgs e)

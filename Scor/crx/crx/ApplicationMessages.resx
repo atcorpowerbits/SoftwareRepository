@@ -226,7 +226,7 @@
     <value>Defaults</value>
   </data>
   <data name="DOC_PWV_SETTINGS" xml:space="preserve">
-    <value>PWV Settings</value>
+    <value>PWV</value>
   </data>
   <data name="GRP_PWV_DISTANCE_METHOD" xml:space="preserve">
     <value>PWV Distance Method</value>
@@ -291,9 +291,6 @@
   <data name="COMPORT_SIMULATION" xml:space="preserve">
     <value>Simulation</value>
   </data>
-  <data name="SYS_SIM_FILE_PATH_DEBUG" xml:space="preserve">
-    <value>D:\Atcor_SVN\src\trunk\Scor\gui\gui\bin\Debug\Simulation\PWV</value>
-  </data>
   <data name="SYS_IMAGE_FILE_WILDCARD" xml:space="preserve">
     <value>jpg files (*.jpg)|*.jpg|bmp files(*.bmp)|*.bmp</value>
   </data>
@@ -319,7 +316,7 @@
     <value>Patient Privacy</value>
   </data>
   <data name="DOC_GENERAL_SETTINGS" xml:space="preserve">
-    <value>General Settings</value>
+    <value>General</value>
   </data>
   <data name="PWV_SETTINGS" xml:space="preserve">
     <value>PWV Settings</value>
@@ -846,7 +843,7 @@
     <value>Standard Deviation</value>
   </data>
   <data name="CAPTURE_TICK_MSG" xml:space="preserve">
-    <value>Do you want to generate Report?</value>
+    <value>Do you want to generate SphygmoCor Report?</value>
   </data>
   <data name="CONTACT_ATCOR_SUPPORT" xml:space="preserve">
     <value>If the problem persists, check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html</value>
@@ -884,10 +881,10 @@
   <data name="DB_CORRUPT" xml:space="preserve">
     <value>Possible database corruption.</value>
   </data>
-  <data name="FEMALE_TXT" xml:space="preserve">
+  <data name="FEMALE" xml:space="preserve">
     <value>Female</value>
   </data>
-  <data name="MALE_TXT" xml:space="preserve">
+  <data name="MALE" xml:space="preserve">
     <value>Male</value>
   </data>
   <data name="DELETE_PWV_MSG" xml:space="preserve">
@@ -1828,10 +1825,10 @@ Press Ok to Remind later or Cancel to ignore.</value>
     <value>Get BP</value>
   </data>
   <data name="DOC_BP_SETTINGS" xml:space="preserve">
-    <value>BP Settings</value>
+    <value>Brachial BP</value>
   </data>
   <data name="DOC_PWA_SETTINGS" xml:space="preserve">
-    <value>PWA Settings</value>
+    <value>PWA</value>
   </data>
   <data name="GRP_AUGMENTATION_INDEX" xml:space="preserve">
     <value>Augmentation Index</value>
@@ -1867,10 +1864,10 @@ Press Ok to Remind later or Cancel to ignore.</value>
     <value>Guidance Bars</value>
   </data>
   <data name="GRP_IF_PP" xml:space="preserve">
-    <value> If PP &amp;lt;=</value>
+    <value>If PP &gt;=</value>
   </data>
   <data name="GRP_IF_SP" xml:space="preserve">
-    <value>If SP &amp;gt;=</value>
+    <value>If SP &gt;=</value>
   </data>
   <data name="GRP_NO_OF_ASSESSMENTS" xml:space="preserve">
     <value>Number of Assessments</value>
@@ -1879,8 +1876,7 @@ Press Ok to Remind later or Cancel to ignore.</value>
     <value>Other</value>
   </data>
   <data name="GRP_PRESSURE_CUFF" xml:space="preserve">
-    <value>Pressure Cuff
- </value>
+    <value>Pressure Cuff</value>
   </data>
   <data name="PWA" xml:space="preserve">
     <value>PWA</value>
@@ -2032,5 +2028,76 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
   </data>
   <data name="SIGNAL_HEIGHT_MIN_TOO_SMALL" xml:space="preserve">
     <value>Signal height min {0} is too small</value>
+  </data>
+  <data name="PWV PATIENT REPORT" xml:space="preserve">
+    <value>PWV Patient Report</value>
+    <comment>For Maintaining Culture Neutral Settings</comment>
+  </data>
+  <data name="PWV SUMMARY REPORT" xml:space="preserve">
+    <value>PWV Summary Report</value>
+    <comment>For Maintaining Culture Neutral Settings</comment>
+  </data>
+  <data name="SIMULATION" xml:space="preserve">
+    <value>Simulation</value>
+  </data>
+  <data name="GUI_PRINT_PWV_ANALYSIS_BPCHART_VALUE" xml:space="preserve">
+    <value>No SP or DP values exist for the selected assessments</value>
+  </data>
+  <data name="BTN_START" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="BTN_STOP" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="BTN_WAIT" xml:space="preserve">
+    <value>Wait....</value>
+  </data>
+  <data name="FRM_BRACHIAL_BP_CONFIGURATION" xml:space="preserve">
+    <value>Brachial BP Configuration</value>
+  </data>
+  <data name="FRM_GENERAL_CONFIGURATION" xml:space="preserve">
+    <value>General Configuration</value>
+  </data>
+  <data name="FRM_PWA_CONFIGURATION" xml:space="preserve">
+    <value>PWA Configuration</value>
+  </data>
+  <data name="FRM_PWV_CONFIGURATION" xml:space="preserve">
+    <value>PWV Configuration</value>
+  </data>
+  <data name="GRP_IF_DP" xml:space="preserve">
+    <value>If DP &gt;=</value>
+  </data>
+  <data name="LBL_SETUP_BRACHIALBP" xml:space="preserve">
+    <value>Brachial BP</value>
+  </data>
+  <data name="MSG_THRESHOLDBLANKVALUE" xml:space="preserve">
+    <value>Threshold value should not be blank.</value>
+  </data>
+  <data name="MSG_THRESHOLDNUMERICVALUE" xml:space="preserve">
+    <value>Threshold value should be numeric.</value>
+  </data>
+  <data name="SYS_SIM_FILE_PATH_PWA" xml:space="preserve">
+    <value>.\\simulation\PWA</value>
+  </data>
+  <data name="BP_SETTINGS_DP_THRESHOLD_VALIDATION" xml:space="preserve">
+    <value>Threshold value for DP should not be blank.</value>
+  </data>
+  <data name="BP_SETTINGS_DP_VALIDATION" xml:space="preserve">
+    <value>Value entered for DP is too large.</value>
+  </data>
+  <data name="BP_SETTINGS_PP_THRESHOLD_VALIDATION" xml:space="preserve">
+    <value>Threshold value for PP should not be blank.</value>
+  </data>
+  <data name="BP_SETTINGS_PP_VALIDATION" xml:space="preserve">
+    <value>Value entered for PP is too large.</value>
+  </data>
+  <data name="BP_SETTINGS_SP_THRESHOLD_VALIDATION" xml:space="preserve">
+    <value>Threshold value for SP should not be blank.</value>
+  </data>
+  <data name="BP_SETTINGS_SP_VALIDATION" xml:space="preserve">
+    <value>Value entered for SP is too large.</value>
+  </data>
+  <data name="DAL_CONST_SIM_FOLDER_PATH_PWA" xml:space="preserve">
+    <value>.\\simulation\\PWA\\</value>
   </data>
 </root>

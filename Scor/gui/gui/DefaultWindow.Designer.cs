@@ -639,7 +639,7 @@
             // 
             this.guicmbxCurrentMode.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guicmbxCurrentMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guicmbxCurrentMode.Location = new System.Drawing.Point(12, 71);
+            this.guicmbxCurrentMode.Location = new System.Drawing.Point(12, 69);
             this.guicmbxCurrentMode.Name = "guicmbxCurrentMode";
             // 
             // 
@@ -648,6 +648,7 @@
             this.guicmbxCurrentMode.Size = new System.Drawing.Size(147, 23);
             this.guicmbxCurrentMode.TabIndex = 23;
             this.guicmbxCurrentMode.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.guicmbxCurrentMode_SelectedIndexChanged);
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guicmbxCurrentMode.GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
             // radpgTabCollection
             // 
@@ -665,11 +666,12 @@
             // 
             this.radpgTabCollection.RootElement.AutoSize = false;
             this.radpgTabCollection.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radpgTabCollection.SelectedPage = this.guiradgrpbxPwvDistanceMethod;
+            this.radpgTabCollection.SelectedPage = this.radtabCapture;
             this.radpgTabCollection.Size = new System.Drawing.Size(1036, 637);
             this.radpgTabCollection.TabIndex = 18;
             this.radpgTabCollection.Text = "Report";
             this.radpgTabCollection.ThemeName = "Atcor";
+            this.radpgTabCollection.MouseDown += new System.Windows.Forms.MouseEventHandler(this.radpgTabCollection_MouseDown);
             this.radpgTabCollection.Click += new System.EventHandler(this.radpgTabCollection_Click);
             this.radpgTabCollection.SelectedPageChanged += new System.EventHandler(this.radpgTabCollection_SelectedPageChanged);
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radpgTabCollection.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
@@ -684,9 +686,9 @@
             ((Telerik.WinControls.UI.RadPageViewContentAreaElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(1))).BorderWidth = 0F;
             ((Telerik.WinControls.UI.RadPageViewContentAreaElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(1))).BorderColor = System.Drawing.SystemColors.Control;
             ((Telerik.WinControls.UI.RadPageViewContentAreaElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(2))).Text = "Setup";
+            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(2))).Text = "Capture";
             ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(3))).Text = "Setup";
+            ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(3))).Text = "Capture";
             ((Telerik.WinControls.UI.RadPageViewLabelElement)(this.radpgTabCollection.GetChildAt(0).GetChildAt(3))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             // 
             // guiradgrpbxPwvDistanceMethod
@@ -704,7 +706,7 @@
             this.radtabCapture.Location = new System.Drawing.Point(9, 39);
             this.radtabCapture.Margin = new System.Windows.Forms.Padding(0);
             this.radtabCapture.Name = "radtabCapture";
-            this.radtabCapture.Size = new System.Drawing.Size(1005, 588);
+            this.radtabCapture.Size = new System.Drawing.Size(1017, 588);
             this.radtabCapture.Text = "Capture";
             // 
             // radtabReport

@@ -4,6 +4,7 @@
 using namespace System::Data;
 using namespace System::IO;
 using namespace System::Data::OleDb;
+using namespace System::Data::SqlClient;
 
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::CrossCutting::DatabaseManager;
@@ -795,7 +796,9 @@ namespace TestCrx {
 				CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); 
 				CrxLogger^  objLog = nullptr; 
 				cli::array< String^  >^  skipPatientlog = gcnew array<String^>(2);; 
-				int totskipresult = 0; 	
+				int totskipresult = 0; 
+				String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
+				SetPath();
 				objLog = CrxLogger::Instance ; 
 				
 				try
@@ -805,7 +808,7 @@ namespace TestCrx {
 
 					target->MigrationLogDetail(objLog, skipPatientlog, totskipresult);
 
-					String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
+					
 
 					if(File::Exists(path + "scor.log"))					
 					{	
@@ -2532,27 +2535,30 @@ public: [TestMethod]
 				expected = 1;
 				////preparing test data into database///
 				//-------------------------------------
-				pd->SystemIdentifier = 65421;
+				pd->SystemIdentifier = 12;
 				//pd->PatientNumberInternal = 26;
 				pd->LastName = "Test_Patient_Last";
 				pd->FirstName = "Test_Patient_First";
 				pd->DateOfBirth = Convert::ToDateTime("08/09/1985");
 				pd->Gender = "Test";
 				pd->PatientIDExternalReference = "TestER";
-				pd->GroupName = "Test_Group_PWA";
+				pd->GroupName = "Clinical";
 				//pd->GroupIdentifier = 24;
 				target->SavePatientData(pd);
 
 				DataSet^ dbRecords2 = target->GetPatientDemographicRecords();
-				int SysId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[0][0]);
-				int PatIntId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[0][1]);
+				int dbRecordCnt = dbRecords2->Tables[0]->Rows->Count;
+				int SysId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[dbRecordCnt-1][0]);
+				int PatIntId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[dbRecordCnt-1][1]);
+				int GrpId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[dbRecordCnt-1][8]);
 
-				DataSet^ dbRecordsGrp = target->GetGroupLists();
-				int GrpId = Convert::ToInt32(dbRecordsGrp->Tables[0]->Rows[0][0]);
+				//DataSet^ dbRecordsGrp = target->GetGroupLists();
+				//int dbGrpRecordCnt = dbRecordsGrp->Tables[0]->Rows->Count;
+				//int GrpId = Convert::ToInt32(dbRecordsGrp->Tables[0]->Rows[dbGrpRecordCnt-1][0]);
 
 				pwaMd->SystemIdentifier = SysId;
 				pwaMd->PatientNumberInternal = PatIntId;
-				pwaMd->GroupIdentifier = 1;
+				pwaMd->GroupIdentifier = GrpId;
 				pwaMd->C_RAW_SIGNALS = gcnew array<float>(1);
 				pwaMd->C_RAW_SIGNALS[0] = 1234.12f;
 				pwaMd->C_AV_PULSE = gcnew array<float>(1);
@@ -2588,11 +2594,18 @@ public: [TestMethod]
 
 				actual = target->SaveCuffPWAMeasurementDetails(pwaMd, cuffPwaMd);
 				Assert::AreEqual(expected, actual);
+
+				target->DeletePatientData(pd);
 			}
 			catch(Exception^)
 			{
-				//target->DeletePatientData(pd);
+				target->DeletePatientData(pd);
+				Assert::Fail();
 			}
+
+			DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+			int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+			Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
 		}
 		/// <summary>
 		///A test for CommonShortArrtoByteArr
@@ -2640,6 +2653,358 @@ public: [TestMethod]
 			
 			//actual = target->CommonShortArrtoByteArr(len, shrtarr);
 			//Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for UpdateCuffPWAMeasurementDetails
+		///</summary>
+public: [TestMethod]
+		void UpdateCuffPWAMeasurementDetailsTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			//CrxStructPWAMeasurementData^  pwaMD = nullptr; // TODO: Initialize to an appropriate value
+			//CrxStructCuffPWAMeasurementData^  cuffPwaMD = nullptr; // TODO: Initialize to an appropriate value
+			int expected = 1; // TODO: Initialize to an appropriate value
+			int actual;
+			//actual = target->UpdateCuffPWAMeasurementDetails(pwaMD, cuffPwaMD);
+			//Assert::AreEqual(expected, actual);
+			//Assert::Inconclusive(L"Verify the correctness of this test method.");
+			CrxStructPWAMeasurementData^  pwaMd = gcnew CrxStructPWAMeasurementData();
+			CrxStructCuffPWAMeasurementData^  cuffPwaMd = gcnew CrxStructCuffPWAMeasurementData();
+
+			try
+			{
+				actual = target->UpdateCuffPWAMeasurementDetails(pwaMd, cuffPwaMd);
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If exception occur then test case pass.");
+			}
+
+			String^ CulturalNeutralDateFormat = "yyyy-MM-dd HH:mm:ss";
+
+			CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();	
+			//CrxStructPWAMeasurementData^  pwaMd = gcnew CrxStructPWAMeasurementData();
+			//CrxStructCuffPWAMeasurementData^  cuffPwaMd = gcnew CrxStructCuffPWAMeasurementData();
+
+			SetServerMachineName();
+			target->SetConnection(serverName, sourceName);
+
+			DataSet^ dbRecords = target->GetPatientDemographicRecords();
+			int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+
+			SqlDataReader^ sqldatareader;
+			DateTime datTime;
+			DateTime AuddatTime;
+			String^ sysid;
+			int pwaId = 0;
+			int i = 0;
+			
+			String^ ConnStr  = String::Format("server={0};database={1};Integrated Security=true" , serverName, "AtCor");
+
+			try
+			{
+				expected = 1;
+				////preparing test data into database///
+				//-------------------------------------
+				pd->SystemIdentifier = 12;
+				//pd->PatientNumberInternal = 26;
+				pd->LastName = "Test_Patient_Last";
+				pd->FirstName = "Test_Patient_First";
+				pd->DateOfBirth = Convert::ToDateTime("08/09/1985");
+				pd->Gender = "Test";
+				pd->PatientIDExternalReference = "TestER";
+				pd->GroupName = "Clinical";
+				//pd->GroupIdentifier = 24;
+				target->SavePatientData(pd);
+
+				DataSet^ dbRecords2 = target->GetPatientDemographicRecords();
+				int dbRecordCnt = dbRecords2->Tables[0]->Rows->Count;
+				int SysId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[dbRecordCnt-1][0]);
+				int PatIntId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[dbRecordCnt-1][1]);
+				int GrpId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[dbRecordCnt-1][8]);
+
+				//DataSet^ dbRecordsGrp = target->GetGroupLists();
+				//int GrpId = Convert::ToInt32(dbRecordsGrp->Tables[0]->Rows[0][0]);
+
+				pwaMd->SystemIdentifier = SysId;
+				pwaMd->PatientNumberInternal = PatIntId;
+				pwaMd->GroupIdentifier = GrpId;
+				pwaMd->C_RAW_SIGNALS = gcnew array<float>(1);
+				pwaMd->C_RAW_SIGNALS[0] = 1234.12f;
+				pwaMd->C_AV_PULSE = gcnew array<float>(1);
+				pwaMd->C_AV_PULSE[0] = 1234.12f;
+				pwaMd->C_TRIGS = gcnew array<short>(1);
+				pwaMd->C_TRIGS[0] = 1344;
+				pwaMd->C_ONSETS = gcnew array<short>(1);
+				pwaMd->C_ONSETS[0] = 1344;
+				pwaMd->C_Uncal_Av = gcnew array<float>(1);
+				pwaMd->C_Uncal_Av[0] = 1234.12f;
+				pwaMd->C_ResemblePulse = gcnew array<float>(1);
+				pwaMd->C_ResemblePulse[0] = 1234.12f;
+				pwaMd->C_Flow = gcnew array<float>(1);
+				pwaMd->C_Flow[0] = 1234.12f;
+				pwaMd->C_Forward = gcnew array<float>(1);
+				pwaMd->C_Forward[0] = 1234.12f;
+				pwaMd->C_Backward = gcnew array<float>(1);
+				pwaMd->C_Backward[0] = 1234.12f;
+
+				//Cuff PWA
+				cuffPwaMd->P_RAW_SIGNALS = gcnew array<float>(1);
+				cuffPwaMd->P_RAW_SIGNALS[0] = 1234.12f;
+				cuffPwaMd->P_AV_PULSE = gcnew array<float>(1);
+				cuffPwaMd->P_AV_PULSE[0] = 1234.12f;
+				cuffPwaMd->P_TRIGS = gcnew array<short>(1);
+				cuffPwaMd->P_TRIGS[0] = 1234;
+				cuffPwaMd->P_ONSETS = gcnew array<short>(1);
+				cuffPwaMd->P_ONSETS[0] = 1234;
+				cuffPwaMd->P_UNCAL_AV = gcnew array<float>(1);
+				cuffPwaMd->P_UNCAL_AV[0] = 1234.12f;
+				cuffPwaMd->P_ResemblePulse = gcnew array<float>(1);
+				cuffPwaMd->P_ResemblePulse[0] = 1234.12f;
+
+				actual = target->SaveCuffPWAMeasurementDetails(pwaMd, cuffPwaMd);
+				//Assert::AreEqual(expected, actual);
+
+				//Create Connection object to check connection
+				SqlConnection^ connection = gcnew SqlConnection(ConnStr);
+
+				//Clear all connected Pools
+				connection->ClearAllPools();
+
+				//Open the connection to check connection can be established or not
+				connection->Open();					
+
+				SqlCommand^ sqlCmd = gcnew SqlCommand();
+				
+				sqlCmd->CommandText = "Select * from dbo.PWAMeasurement";
+				sqlCmd->CommandType = CommandType::Text;
+				sqlCmd->Connection = connection;
+
+				sqldatareader = sqlCmd->ExecuteReader();
+
+				if(sqldatareader->HasRows)
+				{
+					while(sqldatareader->Read())
+					{
+						sysid = sqldatareader->GetString(0);
+						
+						i  = sqldatareader->GetInt32(1);
+						datTime = sqldatareader->GetDateTime(3);
+						AuddatTime = sqldatareader->GetDateTime(5);
+						pwaId = sqldatareader->GetInt32(4);
+						if(sysid == "12")
+						{
+							break;
+						}
+					}
+				}
+
+				connection->Close();
+
+				SetServerMachineName();
+				target->SetConnection(serverName, sourceName);
+
+				String^ ckh = datTime.ToString(CulturalNeutralDateFormat);
+				String^ studyDateTimeArrStr =  ckh + ",";
+				pwaMd->StudyDateTime = datTime;
+				pwaMd->PWA_Id = pwaId;
+				pwaMd->AuditChange = AuddatTime;
+				actual = target->UpdateCuffPWAMeasurementDetails(pwaMd, cuffPwaMd);
+				Assert::AreEqual(expected, actual);
+	
+				target->DeletePatientData(pd);
+			}
+			catch(Exception^ eObj)
+			{
+				String^ ckh = eObj->Message;
+				target->DeletePatientData(pd);
+				Assert::Fail();
+			}	
+
+			DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+			int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+			Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+		}
+		/// <summary>
+		///A test for ManipulatePatientData
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void ManipulatePatientDataTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			DataSet^  patientdataset = nullptr; // TODO: Initialize to an appropriate value
+			DataSet^  expected = nullptr; // TODO: Initialize to an appropriate value
+			DataSet^  actual;
+
+			SetServerMachineName();
+			target->SetConnection(serverName, sourceName);
+			
+			patientdataset = gcnew DataSet();
+			patientdataset = target->GetPatientDemographicRecords();
+			expected = gcnew DataSet();
+			expected = target->GetPatientDemographicRecords();
+			expected = target->ManipulatePatientData(expected);
+			String^ chk1 = Convert::ToString(expected->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetPatientDetails::Gender)]);
+
+			actual = target->ManipulatePatientData(patientdataset);
+			String^ chk2 = Convert::ToString(actual->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetPatientDetails::Gender)]);
+			//Assert::AreEqual(expected, actual);
+			Assert::AreEqual(chk1, chk2);
+		}
+		/// <summary>
+		///A test for DeleteCuffPWAMeasurementDetails
+		///</summary>
+public: [TestMethod]
+		void DeleteCuffPWAMeasurementDetailsTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			CrxStructPWAMeasurementData^  pwaMD = nullptr; // TODO: Initialize to an appropriate value
+			String^  studyDateTimeArrStr = System::String::Empty; // TODO: Initialize to an appropriate value
+			int expected = 0; // TODO: Initialize to an appropriate value
+			int actual;
+			String^ CulturalNeutralDateFormat = "yyyy-MM-dd HH:mm:ss";
+
+			CrxStructPatientDemographicData^ pd = gcnew CrxStructPatientDemographicData();	
+			CrxStructPWAMeasurementData^  pwaMd = gcnew CrxStructPWAMeasurementData();
+			CrxStructCuffPWAMeasurementData^  cuffPwaMd = gcnew CrxStructCuffPWAMeasurementData();
+
+			SetServerMachineName();
+			target->SetConnection(serverName, sourceName);
+
+			//Begin Smarajit Mishra 19 Apr 2011 
+			DataSet^ dbRecords = target->GetPatientDemographicRecords();
+			int dbRecordsCount = dbRecords->Tables[0]->Rows->Count;
+			//End Smarajit Mishra 19 Apr 2011 
+
+			SqlDataReader^ sqldatareader;
+			DateTime datTime;
+			String^ sysid;
+			int i = 0;
+			
+			String^ ConnStr  = String::Format("server={0};database={1};Integrated Security=true" , serverName, "AtCor");
+
+			try
+			{
+				expected = 1;
+				////preparing test data into database///
+				//-------------------------------------
+				pd->SystemIdentifier = 12;
+				//pd->PatientNumberInternal = 26;
+				pd->LastName = "Test_Patient_Last";
+				pd->FirstName = "Test_Patient_First";
+				pd->DateOfBirth = Convert::ToDateTime("08/09/1985");
+				pd->Gender = "Test";
+				pd->PatientIDExternalReference = "TestER";
+				pd->GroupName = "Clinical";
+				//pd->GroupIdentifier = 24;
+				target->SavePatientData(pd);
+
+				DataSet^ dbRecords2 = target->GetPatientDemographicRecords();
+				int dbRecordCnt = dbRecords2->Tables[0]->Rows->Count;
+				int SysId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[dbRecordCnt-1][0]);
+				int PatIntId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[dbRecordCnt-1][1]);
+				int GrpId =  Convert::ToInt32(dbRecords2->Tables[0]->Rows[dbRecordCnt-1][8]);
+
+				//DataSet^ dbRecordsGrp = target->GetGroupLists();
+				//int GrpId = Convert::ToInt32(dbRecordsGrp->Tables[0]->Rows[0][0]);
+
+				pwaMd->SystemIdentifier = SysId;
+				pwaMd->PatientNumberInternal = PatIntId;
+				pwaMd->GroupIdentifier = GrpId;
+				pwaMd->C_RAW_SIGNALS = gcnew array<float>(1);
+				pwaMd->C_RAW_SIGNALS[0] = 1234.12f;
+				pwaMd->C_AV_PULSE = gcnew array<float>(1);
+				pwaMd->C_AV_PULSE[0] = 1234.12f;
+				pwaMd->C_TRIGS = gcnew array<short>(1);
+				pwaMd->C_TRIGS[0] = 1344;
+				pwaMd->C_ONSETS = gcnew array<short>(1);
+				pwaMd->C_ONSETS[0] = 1344;
+				pwaMd->C_Uncal_Av = gcnew array<float>(1);
+				pwaMd->C_Uncal_Av[0] = 1234.12f;
+				pwaMd->C_ResemblePulse = gcnew array<float>(1);
+				pwaMd->C_ResemblePulse[0] = 1234.12f;
+				pwaMd->C_Flow = gcnew array<float>(1);
+				pwaMd->C_Flow[0] = 1234.12f;
+				pwaMd->C_Forward = gcnew array<float>(1);
+				pwaMd->C_Forward[0] = 1234.12f;
+				pwaMd->C_Backward = gcnew array<float>(1);
+				pwaMd->C_Backward[0] = 1234.12f;
+
+				//Cuff PWA
+				cuffPwaMd->P_RAW_SIGNALS = gcnew array<float>(1);
+				cuffPwaMd->P_RAW_SIGNALS[0] = 1234.12f;
+				cuffPwaMd->P_AV_PULSE = gcnew array<float>(1);
+				cuffPwaMd->P_AV_PULSE[0] = 1234.12f;
+				cuffPwaMd->P_TRIGS = gcnew array<short>(1);
+				cuffPwaMd->P_TRIGS[0] = 1234;
+				cuffPwaMd->P_ONSETS = gcnew array<short>(1);
+				cuffPwaMd->P_ONSETS[0] = 1234;
+				cuffPwaMd->P_UNCAL_AV = gcnew array<float>(1);
+				cuffPwaMd->P_UNCAL_AV[0] = 1234.12f;
+				cuffPwaMd->P_ResemblePulse = gcnew array<float>(1);
+				cuffPwaMd->P_ResemblePulse[0] = 1234.12f;
+
+				actual = target->SaveCuffPWAMeasurementDetails(pwaMd, cuffPwaMd);
+				//Assert::AreEqual(expected, actual);
+
+				//Create Connection object to check connection
+				SqlConnection^ connection = gcnew SqlConnection(ConnStr);
+
+				//Clear all connected Pools
+				connection->ClearAllPools();
+
+				//Open the connection to check connection can be established or not
+				connection->Open();					
+
+				SqlCommand^ sqlCmd = gcnew SqlCommand();
+				
+				sqlCmd->CommandText = "Select * from dbo.PWAMeasurement";
+				sqlCmd->CommandType = CommandType::Text;
+				sqlCmd->Connection = connection;
+
+				sqldatareader = sqlCmd->ExecuteReader();
+
+				if(sqldatareader->HasRows)
+				{
+					while(sqldatareader->Read())
+					{
+						sysid = sqldatareader->GetString(0);
+						
+						i  = sqldatareader->GetInt32(1);
+						datTime = sqldatareader->GetDateTime(3);
+						if(sysid == "12")
+						{
+							break;
+						}
+					}
+				}
+
+				connection->Close();
+
+				SetServerMachineName();
+				target->SetConnection(serverName, sourceName);
+
+				String^ ckh = datTime.ToString(CulturalNeutralDateFormat);
+				String^ studyDateTimeArrStr =  ckh + ",";
+				actual = target->DeleteCuffPWAMeasurementDetails(pwaMd, studyDateTimeArrStr);
+				Assert::AreEqual(expected, actual);
+	
+				target->DeletePatientData(pd);
+			}
+			catch(Exception^ eObj)
+			{
+				String^ ckh = eObj->Message;
+				target->DeletePatientData(pd);
+				Assert::Fail();
+			}	
+
+			DataSet^ dbRecordsFinal = target->GetPatientDemographicRecords();
+			int dbRecordsCountFinal = dbRecordsFinal->Tables[0]->Rows->Count;
+			Assert::AreEqual(dbRecordsCount,dbRecordsCountFinal);
+			//actual = target->DeleteCuffPWAMeasurementDetails(pwaMD, studyDateTimeArrStr);
+			//Assert::AreEqual(expected, actual);
+			//Assert::Inconclusive(L"Verify the correctness of this test method.");
 		}
 };
 }

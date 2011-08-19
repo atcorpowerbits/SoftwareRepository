@@ -18,7 +18,6 @@ using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.CrossCutting;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Configuration;
-using System.Globalization;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -496,7 +495,8 @@ namespace AtCor.Scor.Gui.Presentation
                     }
                     else
                     {
-                        PWVAnalysisData.BpChartTextValue = "No SP,DP or MP values exist for the selected assessments";
+                        // Show mwssage in the BP Chart if no BP values available for the selected assessment
+                        PWVAnalysisData.BpChartTextValue = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiPrintPwvAnalysisBpChartValue);
                         PWVAnalysisData.BPChartValidation = true;
                     }                
 
@@ -575,41 +575,38 @@ namespace AtCor.Scor.Gui.Presentation
                 MarkerSize = 0
             };
 
-            // to plot line for BP graph,MP value. 
-            Series bp3Line = new Series(((int)SeriesType.MpLine).ToString())
-            {
-                Color = Color.Blue,
-                ChartType = SeriesChartType.FastLine,
-                XValueType = ChartValueType.Int32,
-                
-                MarkerStyle = MarkerStyle.Square,
-                MarkerBorderColor = Color.DarkGreen,
-                MarkerColor = Color.DarkGreen,
-                MarkerSize = 80,
-                MarkerBorderWidth = 50,
-                LegendText = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mp)
-            };
-
-            // to plot point for BP graph.,MP value
-            Series bp3Point = new Series(((int)SeriesType.MpPoint).ToString())
-            {
-                Color = Color.DarkGreen,
-                ChartType = SeriesChartType.Bubble,
-                XValueType = ChartValueType.Int32,
-                CustomProperties = BubbleMaxSize + (20 - (labelInterval * 2) + 1),
-                MarkerStyle = MarkerStyle.Square,
-                ShadowOffset = 0,
-                LegendText = " ",
-                MarkerSize = 0
-            };
-
+            //// to plot line for BP graph,MP value. 
+            // Series bp3Line = new Series(((int)SeriesType.MpLine).ToString())
+            // {
+            //    Color = Color.Blue,
+            //    ChartType = SeriesChartType.FastLine,
+            //    XValueType = ChartValueType.Int32,                
+            //    MarkerStyle = MarkerStyle.Square,
+            //    MarkerBorderColor = Color.DarkGreen,
+            //    MarkerColor = Color.DarkGreen,
+            //    MarkerSize = 80,
+            //    MarkerBorderWidth = 50,
+            //    LegendText = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mp)
+            // };
+            //// to plot point for BP graph.,MP value
+            // Series bp3Point = new Series(((int)SeriesType.MpPoint).ToString())
+            // {
+            //    Color = Color.DarkGreen,
+            //    ChartType = SeriesChartType.Bubble,
+            //    XValueType = ChartValueType.Int32,
+            //    CustomProperties = BubbleMaxSize + (20 - (labelInterval * 2) + 1),
+            //    MarkerStyle = MarkerStyle.Square,
+            //    ShadowOffset = 0,
+            //    LegendText = " ",
+            //    MarkerSize = 0
+            // };
             bp1Line.Points.Clear();
             bp1Point.Points.Clear();
             bp2Line.Points.Clear();
             bp2Point.Points.Clear();
-            bp3Line.Points.Clear();
-            bp3Point.Points.Clear();
 
+            // bp3Line.Points.Clear();
+            // bp3Point.Points.Clear();
             for (int i = 0; i < bloodPressure1.Count; i++)
             {
                 // check if value is 9999
@@ -638,26 +635,26 @@ namespace AtCor.Scor.Gui.Presentation
                 }
             }
 
-            for (int j = 0; j < bloodPressure3.Count; j++)
-            {
-                // check if value is 9999
-                if (!bloodPressure3[j].Equals(dfBPVlaue))
-                {
-                    bp3Line.Points.AddXY(j, double.Parse(bloodPressure3[j]));
-                    bp3Point.Points.AddXY(j, double.Parse(bloodPressure3[j]));
-                }
-                else
-                {
-                    bp3Point.Points.AddXY(j, double.Parse(ZeroValue));
-                }
-            }
-
+            // for (int j = 0; j < bloodPressure3.Count; j++)
+            // {
+            //    // check if value is 9999
+            //    if (!bloodPressure3[j].Equals(dfBPVlaue))
+            //    {
+            //        bp3Line.Points.AddXY(j, double.Parse(bloodPressure3[j]));
+            //        bp3Point.Points.AddXY(j, double.Parse(bloodPressure3[j]));
+            //    }
+            //    else
+            //    {
+            //        bp3Point.Points.AddXY(j, double.Parse(ZeroValue));
+            //    }
+            // }
             trendChart.Series.Add(bp1Line);
             trendChart.Series.Add(bp1Point);
             trendChart.Series.Add(bp2Line);
             trendChart.Series.Add(bp2Point);
-            trendChart.Series.Add(bp3Line);
-            trendChart.Series.Add(bp3Point);
+
+            // trendChart.Series.Add(bp3Line);
+            // trendChart.Series.Add(bp3Point);
             trendChart.Invalidate();
         }
 

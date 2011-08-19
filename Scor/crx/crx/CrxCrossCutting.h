@@ -54,6 +54,9 @@ namespace AtCor
 				//declare constant for default cultural settings
 				static String^ _defaultCulture;
 
+				//holds the environment Settings
+				static String^ _applicationEnvironment;
+
 				//Default Constructor, also initializes all the structure references.
 				CrxCommon()
 				{
@@ -101,6 +104,22 @@ namespace AtCor
 
 				//holds the neutral culture info name 
 				static CultureInfo^ nCI;
+
+				//holds the environment Settings 
+				//static String^ ApplicationEnvironment;
+
+				property static String^ ApplicationEnvironment
+				{
+					String^ get()
+					{
+						return _applicationEnvironment;
+					}
+
+					void set(String^ envStr)
+					{
+						_applicationEnvironment = envStr;
+					}
+				}
 			};
 
 			// TODO: After finalizing ScorException we need to remove this class, 

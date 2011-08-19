@@ -37,8 +37,8 @@ namespace AtCor.Scor.Gui.Presentation
         CrxConfigManager crxMgrObject;
         CrxDBManager dbMagr;
         BizPWV obj;
-        GuiFieldValidation objValidateReport;
 
+       // GuiFieldValidation objValidateReport;
         CrxStructPWVMeasurementData crxPWV = new CrxStructPWVMeasurementData();
 
         int bobj;
@@ -50,13 +50,13 @@ namespace AtCor.Scor.Gui.Presentation
         private DefaultWindow objDefaultWindow;
 
         // bool oneRecordSelect = true; // this variable is used to denote whether one single assessment record is selected and accordingly display report data
-        string[] date; // date array to be used on analysis screen
-        string[] heartRate; // heart rate array to be used on analysis screen
-        string[] pWv; // pwv velocity array to be used on analysis screen
-        string[] isStdDeviationValid; // standard deviation array to be used on analysis screen
-        int[] xCoordinate; // array of x coordinates to display data to the closest datapoint
+       // string[] date; // date array to be used on analysis screen
+       // string[] heartRate; // heart rate array to be used on analysis screen
+       // string[] pWv; // pwv velocity array to be used on analysis screen
+       // string[] isStdDeviationValid; // standard deviation array to be used on analysis screen
+       // int[] xCoordinate; // array of x coordinates to display data to the closest datapoint
 
-        int labelInterval;
+       // int labelInterval;
 
         // denotes chart type on analysis screen
         enum ChartName
@@ -88,8 +88,8 @@ namespace AtCor.Scor.Gui.Presentation
             ReportCalculationFailed
         }
 
-        ChartName chartSelected; // this is used to hold value for current chart hovered / selected on analysis screen       
-
+        // this is used to hold value for current chart hovered / selected on analysis screen       
+       // ChartName chartSelected; 
         public PWAReport(DefaultWindow defWindow)
         {
             try
@@ -111,11 +111,11 @@ namespace AtCor.Scor.Gui.Presentation
                 obj = (BizPWV)BizSession.Instance().measurement;
 
                 // subscribe report tab click event
-                DefaultWindow.OnReportTabClick += PWAReport_Load;
+                DefaultWindow.OnPWAReportTabClick += PWAReport_Load;
 
                 // DefaultWindow.OnExitSaveReportChanges += guiradbtnreportsave_Click;
                 // DefaultWindow.OnReportMenuItemClick += SaveChangesOnMenuFocus;                
-                Presentation.Capture.OnReportTabClick += PWAReport_Load;
+                Presentation.Capture.OnPWAReportTabClick += PWAReport_Load;
 
                 // GuiCommon.OnCaptureClosing += EnableRepeatAndCaptureTab;
                 // guichartSuperImposedWaveform.BackColor = Color.White;
@@ -125,6 +125,51 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GUIExceptionHandler.HandleException(ex, this);
             }
+        }
+
+        public void LoadPWAReport()
+        {
+            bobj = GuiConstants.SystemId;
+            GuiCommon.CaptureToSetup = false;
+            GuiCommon.SystemIdentifier = bobj;
+            GuiCommon.ReportLoadCount++;
+
+            // SetTextForReportScreen();
+            // SetReportTagForValidation();
+            // objValidateReport = new GuiFieldValidation(guipnlReportPatientMeasurementDetails, guiradpnlEditPWVdistance);
+
+            // set default text for report tab
+            objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
+
+            InitializeReportAssessmentList();
+            SetDefaultValuesOnLoad();
+
+            // fill demographic & pwv measurement details & bring the LHS to browse mode
+            FillDemographicDetailsReport();
+
+            // initialize crx when user moves from setup to report... call populate method
+            InitializeCrxFromSetupToReport(string.Empty);
+
+            // binds assessment details related to patient
+            FillPatientAssessmentDetailsReport();
+
+            // to check if wait interval is imposed and accordingly disable/ enable capture tab & repeat buttons
+            // CheckWaitIntervalImposed();
+            // guichartSuperImposedWaveform.ChartAreas[0].BackColor = Color.White;
+            // guichartSuperImposedWaveform.ChartAreas[0].ShadowColor = System.Drawing.Color.Transparent; 
+            // Begin: AtCor-Drop2-Sprint1, TM, Prototype,9th June, 2011
+            ShowAixTracker();
+
+            ShowSpTracker();
+
+            ShowPpTracker();
+
+            ShowApTracker();
+
+            ShowReferenceAgeTracker();
+
+            guipnlPWAReport.Visible = true;
+            guipnlPWAReportAnalysis.Visible = false;         
         }
 
         // AtCor-Drop2-Sprint1
@@ -187,9 +232,10 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.SetShape(guiradtxtReportBloodPressure1, guiradtxtReportBloodPressure2, guiradtxtReportOperator, guiradtxtReportHeightInches, guiradtxtReportHeight, guiradtxtReportBloodPressure3);
         }
 
+        // End: AtCor-Drop2-Sprint1, TM, Prototype,9th June, 2011
+
         /**This method is used to round the text boxes and the label controls on the Report screen.
          */
-
         private void PWAReport_Load(object sender, EventArgs e)
         {                           
             // below statement checks if Invoke required and calls the report load event again to populate report data
@@ -202,55 +248,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             LoadPWAReport();
         }
-
-        public void LoadPWAReport()
-        {
-            bobj = GuiConstants.SystemId;
-            GuiCommon.CaptureToSetup = false;
-            GuiCommon.SystemIdentifier = bobj;
-            GuiCommon.ReportLoadCount++;
-
-            // SetTextForReportScreen();
-            // SetReportTagForValidation();
-            // objValidateReport = new GuiFieldValidation(guipnlReportPatientMeasurementDetails, guiradpnlEditPWVdistance);
-
-            // set default text for report tab
-            objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
-
-            InitializeReportAssessmentList();
-            SetDefaultValuesOnLoad();
-
-            // fill demographic & pwv measurement details & bring the LHS to browse mode
-            FillDemographicDetailsReport();
-
-            // initialize crx when user moves from setup to report... call populate method
-            InitializeCrxFromSetupToReport(string.Empty);
-
-            // binds assessment details related to patient
-            FillPatientAssessmentDetailsReport();
-
-            // to check if wait interval is imposed and accordingly disable/ enable capture tab & repeat buttons
-            // CheckWaitIntervalImposed();
-            // guichartSuperImposedWaveform.ChartAreas[0].BackColor = Color.White;
-            // guichartSuperImposedWaveform.ChartAreas[0].ShadowColor = System.Drawing.Color.Transparent; 
-            // Begin: AtCor-Drop2-Sprint1, TM, Prototype,9th June, 2011
-
-            ShowAixTracker();
-
-            ShowSpTracker();
-
-            ShowPpTracker();
-
-            ShowApTracker();
-
-            ShowReferenceAgeTracker();
-                          
-            guipnlPWAReport.Visible = true;
-            guipnlPWAReportAnalysis.Visible = false;
-
-            // End: AtCor-Drop2-Sprint1, TM, Prototype,9th June, 2011
-        }
-
+        
         /**This method fill assessment details for a particular patient
         * */
         void FillPatientAssessmentDetailsReport()
@@ -339,7 +337,7 @@ namespace AtCor.Scor.Gui.Presentation
         * */
         void FillPWVMeasurementDetailsReport()
         {
-            const int LblReportNotesDisplayMaximumLength = 44; // denotes the maximum length of guiradlblReportNotesDisplay label
+           // const int LblReportNotesDisplayMaximumLength = 44; // denotes the maximum length of guiradlblReportNotesDisplay label
             // const int LblReportOperatorDisplayMaxLength = 13; // denotes the maximum length of guiradlblReportOperatordisplay label
 
             //// make display panel visible for PWV distance
@@ -998,13 +996,12 @@ namespace AtCor.Scor.Gui.Presentation
 
                 guiradbtnAnalysisPrint.SendToBack();
                 guiradbtnAnalysisPrint.Enabled = false;
-            }
-
-            // if value is false then show Analysis Print button.
-            // To see patient analysis report,disable and send back the report print button and
-            // at the same time enable and bring in front the Analysis print button.
+            }          
             else
-            {
+            {  
+                // if value is false then show Analysis Print button.
+                // To see patient analysis report,disable and send back the report print button and
+                // at the same time enable and bring in front the Analysis print button.
                 guiradbtnPrint.SendToBack();
                 guiradbtnPrint.Enabled = false;
 
@@ -1181,7 +1178,7 @@ namespace AtCor.Scor.Gui.Presentation
             smallChart.BorderSkin.BorderColor = Color.Transparent;
             smallChart.BorderSkin.BorderDashStyle = ChartDashStyle.Solid;
             smallChart.BorderSkin.BorderWidth = 2;
-            smallChart.BorderSkin.PageColor = Color.FromArgb((142), (150), (186));
+            smallChart.BorderSkin.PageColor = Color.FromArgb(142, 150, 186);
             smallChart.SendToBack();
 
             ElementPosition obj = new ElementPosition();
@@ -1292,10 +1289,10 @@ namespace AtCor.Scor.Gui.Presentation
             int spGoodRangeMin = 96;
             int spGoodRangeMax = 120;
 
-            guilblSPValue.Left = guilblSPSlider.Left + (spValue - spMinValue) * (guilblSPSlider.Width / (spMaxValue - spMinValue));
+            guilblSPValue.Left = guilblSPSlider.Left + ((spValue - spMinValue) * (guilblSPSlider.Width / (spMaxValue - spMinValue)));
 
-            guilblSPGoodMinText.Left = guilblSPGoodMin.Left = guilblSPSlider.Left + (spGoodRangeMin - spMinValue) * (guilblSPSlider.Width / (spMaxValue - spMinValue));
-            guilblSPGoodMax.Left = guilblSPSlider.Left + (spGoodRangeMax - spMinValue) * (guilblSPSlider.Width / (spMaxValue - spMinValue));
+            guilblSPGoodMinText.Left = guilblSPGoodMin.Left = guilblSPSlider.Left + ((spGoodRangeMin - spMinValue) * (guilblSPSlider.Width / (spMaxValue - spMinValue)));
+            guilblSPGoodMax.Left = guilblSPSlider.Left + ((spGoodRangeMax - spMinValue) * (guilblSPSlider.Width / (spMaxValue - spMinValue)));
 
             guilblSPValueText.Left = guilblSPValue.Left - (guilblSPValueText.Width / 3) - 2;
             guilblSPGoodMaxText.Left = guilblSPGoodMax.Left - (guilblSPGoodMaxText.Width / 3);
@@ -1328,10 +1325,10 @@ namespace AtCor.Scor.Gui.Presentation
             int ppGoodRangeMin = 5;
             int ppGoodRangeMax = 20;
 
-            guilblPPValue.Left = guilblPPSlider.Left + (ppValue - ppMinValue) * (guilblPPSlider.Width / (ppMaxValue - ppMinValue));
+            guilblPPValue.Left = guilblPPSlider.Left + ((ppValue - ppMinValue) * (guilblPPSlider.Width / (ppMaxValue - ppMinValue)));
 
-            guilblPPGoodMinText.Left = guilblPPGoodMin.Left = guilblPPSlider.Left + (ppGoodRangeMin - ppMinValue) * (guilblPPSlider.Width / (ppMaxValue - ppMinValue));
-            guilblPPGoodMax.Left = guilblPPSlider.Left + (ppGoodRangeMax - ppMinValue) * (guilblPPSlider.Width / (ppMaxValue - ppMinValue));
+            guilblPPGoodMinText.Left = guilblPPGoodMin.Left = guilblPPSlider.Left + ((ppGoodRangeMin - ppMinValue) * (guilblPPSlider.Width / (ppMaxValue - ppMinValue)));
+            guilblPPGoodMax.Left = guilblPPSlider.Left + ((ppGoodRangeMax - ppMinValue) * (guilblPPSlider.Width / (ppMaxValue - ppMinValue)));
 
             guilblPPValueText.Left = guilblPPValue.Left - (guilblPPValueText.Width / 3) + 1;
             guilblPPGoodMaxText.Left = guilblPPGoodMax.Left - (guilblPPGoodMaxText.Width / 3);
@@ -1364,10 +1361,10 @@ namespace AtCor.Scor.Gui.Presentation
             int apGoodRangeMin = -3;
             int apGoodRangeMax = 9;
 
-            guilblAPValue.Left = guilblAPSlider.Left + (apValue - apMinValue) * (guilblAPSlider.Width / (apMaxValue - apMinValue));
+            guilblAPValue.Left = guilblAPSlider.Left + ((apValue - apMinValue) * (guilblAPSlider.Width / (apMaxValue - apMinValue)));
 
-            guilblAPGoodMinText.Left = guilblAPGoodMin.Left = guilblAPSlider.Left + (apGoodRangeMin - apMinValue) * (guilblAPSlider.Width / (apMaxValue - apMinValue));
-            guilblAPGoodMax.Left = guilblAPSlider.Left + (apGoodRangeMax - apMinValue) * (guilblAPSlider.Width / (apMaxValue - apMinValue));
+            guilblAPGoodMinText.Left = guilblAPGoodMin.Left = guilblAPSlider.Left + ((apGoodRangeMin - apMinValue) * (guilblAPSlider.Width / (apMaxValue - apMinValue)));
+            guilblAPGoodMax.Left = guilblAPSlider.Left + ((apGoodRangeMax - apMinValue) * (guilblAPSlider.Width / (apMaxValue - apMinValue)));
 
             guilblAPValueText.Left = guilblAPValue.Left - (guilblAPValueText.Width / 3) + 3;
             guilblAPGoodMaxText.Left = guilblAPGoodMax.Left - (guilblAPGoodMaxText.Width / 3);
@@ -1405,23 +1402,23 @@ namespace AtCor.Scor.Gui.Presentation
             int scale70 = 70;
             int scale80 = 80;
 
-            guilblRefAgeValue.Left = guilblRefAgeSlider.Left + (refAgeValue - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue));
+            guilblRefAgeValue.Left = guilblRefAgeSlider.Left + ((refAgeValue - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue)));
             guilblRefAgeValueText.Left = guilblRefAgeValue.Left - (guilblRefAgeValueText.Width / 3);
             guilblRefAgeValueText.Text = refAgeValue.ToString();
 
-            guilblRefAgeValueMark1.Left = guilblRefAgeSlider.Left + (scale20 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue));
+            guilblRefAgeValueMark1.Left = guilblRefAgeSlider.Left + ((scale20 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue)));
             guilblRefAgeValueMark1Text.Left = guilblRefAgeValueMark1.Left - (guilblRefAgeValueMark1.Width / 3) - 4;
-            guilblRefAgeValueMark2.Left = guilblRefAgeSlider.Left + (scale30 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue));
+            guilblRefAgeValueMark2.Left = guilblRefAgeSlider.Left + ((scale30 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue)));
             guilblRefAgeValueMark2Text.Left = guilblRefAgeValueMark2.Left - (guilblRefAgeValueMark2.Width / 3) - 4;
-            guilblRefAgeValueMark3.Left = guilblRefAgeSlider.Left + (scale40 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue));
+            guilblRefAgeValueMark3.Left = guilblRefAgeSlider.Left + ((scale40 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue)));
             guilblRefAgeValueMark3Text.Left = guilblRefAgeValueMark3.Left - (guilblRefAgeValueMark3.Width / 3) - 4;
-            guilblRefAgeValueMark4.Left = guilblRefAgeSlider.Left + (scale50 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue));
+            guilblRefAgeValueMark4.Left = guilblRefAgeSlider.Left + ((scale50 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue)));
             guilblRefAgeValueMark4Text.Left = guilblRefAgeValueMark4.Left - (guilblRefAgeValueMark4.Width / 3) - 4;
-            guilblRefAgeValueMark5.Left = guilblRefAgeSlider.Left + (scale60 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue));
+            guilblRefAgeValueMark5.Left = guilblRefAgeSlider.Left + ((scale60 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue)));
             guilblRefAgeValueMark5Text.Left = guilblRefAgeValueMark5.Left - (guilblRefAgeValueMark5.Width / 3) - 4;
-            guilblRefAgeValueMark6.Left = guilblRefAgeSlider.Left + (scale70 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue));
+            guilblRefAgeValueMark6.Left = guilblRefAgeSlider.Left + ((scale70 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue)));
             guilblRefAgeValueMark6Text.Left = guilblRefAgeValueMark6.Left - (guilblRefAgeValueMark6.Width / 3) - 4;
-            guilblRefAgeValueMark7.Left = guilblRefAgeSlider.Left + (scale80 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue));
+            guilblRefAgeValueMark7.Left = guilblRefAgeSlider.Left + ((scale80 - refAgeMinValue) * (guilblRefAgeSlider.Width / (refAgeMaxValue - refAgeMinValue)));
             guilblRefAgeValueMark7Text.Left = guilblRefAgeValueMark7.Left - (guilblRefAgeValueMark7.Width / 3) - 4;
 
             // Sphygmocor Reference Age Tracker: End   

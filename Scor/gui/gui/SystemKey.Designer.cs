@@ -142,6 +142,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtKeyPart5.Size = new System.Drawing.Size(60, 23);
             this.guiradtxtKeyPart5.TabIndex = 5;
             this.guiradtxtKeyPart5.TabStop = false;
+            this.guiradtxtKeyPart5.TextChanged += new System.EventHandler(this.guiradtxtKeyPart5_TextChanged);
             // 
             // guiradbtnOk
             // 

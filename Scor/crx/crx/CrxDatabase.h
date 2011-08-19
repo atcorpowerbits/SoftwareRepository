@@ -255,6 +255,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static	String^	UpdatePatientDetails				=	"UpdatePatientDetails";
 		static	String^	InsertCuffPWAMeasurementDetails		=	"InsertCuffPWAMeasurementDetails";
 		static	String^	InsertTonoPWAMeasurementDetails		=	"InsertTonoPWAMeasurementDetails";
+		static  String^ UpdateCuffPWAMeasurementDetails		=	"UpdateCuffPWAMeasurementDetails";
+		static  String^ DeleteCuffPWAMeasurementDetails		=	"DeleteCuffPWAMeasurementDetails";
 	};
 
 	/**
@@ -360,7 +362,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		//static String^		HeightInCentimetres			=		"@heightInCentimetres";
 		//static String^		HeightInInches				=		"@heightInInches";
 		//static String^		BodyMassIndex				=		"@bodyMassIndex";
-		static String^		AuditChange			=		"@auditChange datetime ";
+		static String^		PwaId				=		"@Pwa_id";
+		static String^		AuditChange			=		"@auditChange";
 		static String^		MemSpare1			=		"@memSpare1";
 		static String^		MemSpare2			=		"@memSpare2";
 		static String^		Simulation			=		"@simulation";
@@ -368,6 +371,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static String^		FloatSpare1			=		"@floatSpare1";
 		static String^		DataRev				=		"@datarRev";
 		static String^		SubType				=		"@subType";
+		static String^		CaptureTime			=		"@captureTime";
 		static String^		SampleRate			=		"@sampleRate";
 		static String^		SignalUpSampleRate	=		"@signalUpSampleRate";
 		static String^		ExpPulseUpSampleRate=		"@expPulseUpSampleRate";
@@ -677,6 +681,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		float	FloatSpare1;
 		int		DataRev;
 		String^	SubType;
+		short	CaptureTime;
 		int		SampleRate;
 		int		SignalUpSampleRate;
 		int		ExpPulseUpSampleRate;
@@ -995,6 +1000,11 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* To rename migration file to old as per the file type(e.g scor.xyz to scor.xyz.old)
 		*/
 		void MigrationFileRename(int fileType);
+		
+		/**
+		* To Manipulate the dataset for Gender Row
+		*/
+		DataSet^ ManipulatePatientData(DataSet^ patientdataset);
 
 		
 	public:		
@@ -1127,7 +1137,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* To save PWA measurement record in the database @n
 		* Conversion of short/float arrays to byte arrays values to store in varbinary type at database
 		* @return if 1 if successfully saved else not successful
-		* @param[in] md CrxStructPWAMeasurementData handle to Measurement Details structure
+		* @param[in] pwaMD CrxStructPWAMeasurementData handle to Measurement Details structure
+		* @param[in] cuffPwaMD CrxStructCuffPWAMeasurementData handle to Measurement Details structure
 		*/
 		int SaveCuffPWAMeasurementDetails(CrxStructPWAMeasurementData^ pwaMD,CrxStructCuffPWAMeasurementData^ cuffPwaMD);
 	
@@ -1141,6 +1152,16 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		int UpdatePWVMeasurementDetails(CrxStructPWVMeasurementData^ md);
 
 		/**
+		* To update cuff PWA measurement record in the database @n
+		* Conversion of short/float arrays to byte arrays values to store in varbinary type at database
+		* @return if 1 if successfully saved else not successful
+		* @param[in] pwaMD CrxStructPWAMeasurementData handle to Measurement Details structure
+		* @param[in] cuffPwaMD CrxStructCuffPWAMeasurementData handle to Measurement Details structure
+		*/
+		int UpdateCuffPWAMeasurementDetails(CrxStructPWAMeasurementData^ pwaMD,CrxStructCuffPWAMeasurementData^ cuffPwaMD);
+	
+
+		/**
 		* To update measurement record in the database @n
 		* Conversion of short/float arrays to byte arrays values to store in varbinary type at database
 		* @return if 1 if successfully saved else not successful
@@ -1148,6 +1169,15 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* @param[in] studyDateTimeArrStr String to store the study datetime list to be deleted
 		*/
 		int DeletePWVMeasurementDetails(CrxStructPWVMeasurementData^ md, String^ studyDateTimeArrStr);
+
+		/**
+		* To update cuff PWA measurement record in the database @n
+		* Conversion of short/float arrays to byte arrays values to store in varbinary type at database
+		* @return if 1 if successfully saved else not successful
+		* @param[in] pwaMD CrxStructPWAMeasurementData handle to Measurement Details structure
+		* @param[in] studyDateTimeArrStr String to store the study datetime list to be deleted
+		*/
+		int DeleteCuffPWAMeasurementDetails(CrxStructPWAMeasurementData^ pwaMD, String^ studyDateTimeArrStr);
 
 		/**
 		* To convert Byte Array to float Array 

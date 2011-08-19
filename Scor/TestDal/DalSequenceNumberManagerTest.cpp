@@ -1,10 +1,5 @@
 ﻿
 #include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
 using namespace System::IO;

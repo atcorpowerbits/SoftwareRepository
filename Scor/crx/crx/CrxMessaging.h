@@ -68,6 +68,13 @@ namespace AtCor {
 				static  String^ const  BpNormalRange							=	"BP_NORMAL_RANGE";
 				static  String^ const  BpOptimal								=	"BP_OPTIMAL";
 				static  String^ const  BpOptimalRange							=	"BP_OPTIMAL_RANGE";
+
+				static  String^ const  BpSettingsDpThresholdValidation			=	"BP_SETTINGS_DP_THRESHOLD_VALIDATION";
+				static  String^ const  BpSettingsDpValidation					=	"BP_SETTINGS_DP_VALIDATION";
+				static  String^ const  BpSettingsPpThresholdValidation			=	"BP_SETTINGS_PP_THRESHOLD_VALIDATION";
+				static  String^ const  BpSettingsPpValidation					=	"BP_SETTINGS_PP_VALIDATION";
+				static  String^ const  BpSettingsSpThresholdValidation			=	"BP_SETTINGS_SP_THRESHOLD_VALIDATION";
+				static  String^ const  BpSettingsSpValidation					=	"BP_SETTINGS_SP_VALIDATION";
 				
 				static  String^ const  BtnCancel								=	"BTN_CANCEL";
 				static  String^ const  BtnCapture								=	"BTN_CAPTURE";
@@ -88,6 +95,9 @@ namespace AtCor {
 				static  String^ const  BtnSave									=	"BTN_SAVE";
 				static  String^ const  BtnSearch								=	"BTN_SEARCH";
 				static  String^ const  BtnSettings								=	"BTN_SETTINGS";
+				static  String^ const  BtnStart									=	"BTN_START";
+				static  String^ const  BtnStop									=	"BTN_STOP";
+				static  String^ const  BtnWait									=   "BTN_WAIT";
 				static  String^ const  CDrive									=	"C_DRIVE";
 				static  String^ const  CaptureDeviceErrMsg						=	"CAPTURE_DEVICE_ERR_MSG";
 				static  String^ const  CaptureFailed							=	"CAPTURE_FAILED";
@@ -182,6 +192,7 @@ namespace AtCor {
 				static  String^ const  DalConstGciSerialNumber					=	"DAL_CONST_GCI_SERIAL_NUMBER";
 				static  String^ const  DalConstGciType							=	"DAL_CONST_GCI_TYPE";
 				static  String^ const  DalConstSimFolderPath					=	"DAL_CONST_SIM_FOLDER_PATH";
+				static  String^ const  DalConstSimFolderPathPwa					=	"DAL_CONST_SIM_FOLDER_PATH_PWA";
 
 				static  String^ const  DalErrActivePortCloseFailed				=	"DAL_ERR_ACTIVE_PORT_CLOSE_FAILED";
 				static	const   int	   DalErrActivePortCloseFailedErrCd			=	1025;
@@ -300,7 +311,7 @@ namespace AtCor {
 				static  String^ const  Exitstr									=	"EXITSTR";
 				static  String^ const  ExpanderInital							=	"EXPANDER_INITAL";
 				static  String^ const  Feet										=	"FEET";
-				static  String^ const  FemaleTxt								=	"FEMALE_TXT";
+				static  String^ const  FemaleTxt								=	"FEMALE";
 				static  String^ const  Femoral2CuffOutOfRange					=	"FEMORAL_2_CUFF_OUT_OF_RANGE";
 				static  String^ const  FemoralSignalBufferNotFullYet			=	"FEMORAL_SIGNAL_BUFFER_NOT_FULL_YET";
 				static  String^ const  FemoralSignalCaptureFailed				=	"FEMORAL_SIGNAL_CAPTURE_FAILED";
@@ -318,7 +329,11 @@ namespace AtCor {
 				static  String^ const  FieldValidationLimitsAre					=	"FIELD_VALIDATION_LIMITS_ARE";
 				static  String^ const  FieldValidationMustBeNumber				=	"FIELD_VALIDATION_MUST_BE_NUMBER";
 				static  String^ const  FileNotFound								=	"FILE_NOT_FOUND";
+				static  String^ const  FrmBrachialBpConfiguration				=	"FRM_BRACHIAL_BP_CONFIGURATION";
+				static  String^ const  FrmGeneralConfiguration					=   "FRM_GENERAL_CONFIGURATION";
 				static  String^ const  FrmNewSystemKey							=	"FRM_NEWSYSTEM_KEY";
+				static  String^ const  FrmPwaConfiguration						=	"FRM_PWA_CONFIGURATION";
+				static  String^ const  FrmPwvConfiguration						=	"FRM_PWV_CONFIGURATION";
 				static  String^ const  FrmSystemKey								=	"FRM_SYSTEM_KEY";
 				static  String^ const  GroupnameEmpty							=	"GROUPNAME_EMPTY";
 				static  String^ const  GroupnameExists							=	"GROUPNAME_EXISTS";
@@ -338,6 +353,7 @@ namespace AtCor {
 				static  String^ const  GrpCuffLocation							=	"GRP_CUFF_LOCATION";
 				static  String^ const  GrpGuidanceBars                          =   "GRP_GUIDANCE_BAR";
 				static  String^ const  GrpHeightWeightUnits						=	"GRP_HEIGHT_WEIGHT_UNITS";
+				static  String^ const  GrpIfDp									=	"GRP_IF_DP";
 				static  String^ const  GrpIfPp									=	"GRP_IF_PP";
 				static  String^ const  GrpIfSp									=	"GRP_IF_SP";
 				static  String^ const  GrpNoOfAssessments						=	"GRP_NO_OF_ASSESSMENTS";
@@ -438,6 +454,7 @@ namespace AtCor {
 
 				static  String^ const  GuiOperatorGuideMenu					=	"GUI_OPERATOR_GUIDE_MENU";
 				static  String^ const  GuiPleaseEnterFormat					=	"GUI_PLEASE_ENTER_FORMAT";
+				static  String^ const  GuiPrintPwvAnalysisBpChartValue		=	"GUI_PRINT_PWV_ANALYSIS_BPCHART_VALUE";
 				static  String^ const  GuiPrintPwvAnalysisLegendTitle		=	"GUI_PRINT_PWV_ANALYSIS_LEGEND_TITLE";
 				static  String^ const  GuiPrintPwvAnalysisTitle				=	"GUI_PRINT_PWV_ANALYSIS_TITLE";
 				static  String^ const  GuiPrintPwvRptTitle					=	"GUI_PRINT_PWV_RPT_TITLE";
@@ -559,12 +576,13 @@ namespace AtCor {
 				static  String^ const  LblReportStdDeviation				=	"LBL_REPORT_STD_DEVIATION";
 				static  String^ const  LblReportStudyData					=	"LBL_REPORT_STUDYDATA";
 				static  String^ const  LblReportTitle						=	"LBL_REPORT_TITLE";
+				static  String^ const  LblSetupBrachialBp				    =   "LBL_SETUP_BRACHIALBP";
 				static  String^ const  LblSpStar							=	"LBL_SP*";
 				static  String^ const  LblTimestatus						=	"LBL_TIMESTATUS";
 				static  String^ const  LblTonometer							=	"LBL_TONOMETER";
 				static  String^ const  LblWeight							=	"LBL_WEIGHT";
 				static  String^ const  Lbs									=	"LBS";
-				static  String^ const  MaleTxt								=	"MALE_TXT";
+				static  String^ const  MaleTxt								=	"MALE";
 				static  String^ const  MathError							=	"MATH_ERROR";
 				static  String^ const  MeasureInvalidCaptureTime			=	"MEASURE_INVALID_CAPTURE_TIME";
 				static  String^ const  MeasureInvalidSampleRate				=	"MEASURE_INVALID_SAMPLE_RATE";
@@ -598,6 +616,8 @@ namespace AtCor {
 				static  String^ const  MsgSaveSettings						=	"MSG_SAVE_SETTINGS";
 				static  String^ const  MsgSelectLogo						=	"MSG_SELECT_LOGO";
 				static  String^ const  MsgSpecialCharacter					=	"MSG_SPECIALCHARACTER";
+				static  String^ const  MsgThresholdBlankValue  			    =   "MSG_THRESHOLDBLANKVALUE";
+				static  String^ const  MsgThresholdNumericValue  			=   "MSG_THRESHOLDNUMERICVALUE";
 				static  String^ const  MsgValidatingSystemKey				=	"MSG_VALIDATING_SYSTEM_KEY";
 				static  String^ const  NoRecordsToDelete					=	"NO_RECORDS_TO_DELETE";
 				static  String^ const  NoRecordsToEdit						=	"NO_RECORDS_TO_EDIT";
@@ -648,6 +668,9 @@ namespace AtCor {
 				static  String^ const  PrtPwvTextScor						=	"PRT_PWV_TEXT_SCOR";
 				static  String^ const  Pwv									=	"PWV";
 				static  String^ const  Pwa									=	"PWA";
+				static  String^ const  PwvPatientReport						=	"PWV PATIENT REPORT";
+				static  String^ const  PwvSummaryReport						=	"PWV SUMMARY REPORT";
+
 
 				static  String^ const  PwvBlText							=	"PWV_BL_TEXT";
 				static  String^ const  PwvCalcDistOutOfRange				=	"PWV_CALC_DIST_OUT_OF_RANGE";
@@ -729,6 +752,7 @@ namespace AtCor {
 				static  String^ const  SignalTooManyOnsets					=	"SIGNAL_TOO_MANY_ONSETS";
 				static  String^ const  SignalTooShort						=	"SIGNAL_TOO_SHORT";
 				static  String^ const  SignalTooSmall						=	"SIGNAL_TOO_SMALL";
+				static  String^ const  Simulation							=	"SIMULATION";
 				static  String^ const  Sp									=	"SP";
 				static  String^ const  SpDpTooClose							=	"SP_DP_TOO_CLOSE";
 				static  String^ const  SpMpTooClose							=	"SP_MP_TOO_CLOSE";
@@ -757,6 +781,7 @@ namespace AtCor {
 				static  String^ const  SysImageFileWildcard					=	"SYS_IMAGE_FILE_WILDCARD";
 				static  String^ const  SysSimFilePath						=	"SYS_SIM_FILE_PATH";
 				static  String^ const  SysSimFilePathDebug					=	"SYS_SIM_FILE_PATH_DEBUG";
+				static String^ const   SysSimFilePathPwa					=	"SYS_SIM_FILE_PATH_PWA";
 				static  String^ const  SysSimFileWildcard					=	"SYS_SIM_FILE_WILDCARD";
 				static  String^ const  SystemError							=	"SYSTEM_ERROR";
 				static  String^ const  SystemId								=	"SYSTEM_ID";

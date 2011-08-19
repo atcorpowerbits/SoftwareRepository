@@ -39,7 +39,8 @@ void CrxConfigManager::GetGeneralDefaultSettings(CrxStructGeneralSetting^ objGen
 	objGenSettings->MachineName					= _gSetInternal->MachineName;
 	objGenSettings->StartupMode					= _gSetInternal->StartupMode;
 	objGenSettings->StartupScreen				= _gSetInternal->StartupScreen;
-	objGenSettings->EnvironmentSettings			= CrxConfigStructInternal::DefaultEnvironment;
+	//objGenSettings->EnvironmentSettings			= CrxConfigStructInternal::DefaultEnvironment;
+	objGenSettings->EnvironmentSettings			=  CrxCommon::ApplicationEnvironment;
 	objGenSettings->PrinterName					= _gSetInternal->PrinterName;
 	objGenSettings->Key							= _gSetInternal->Key;
 	/*objGenSettings->Id							= _gSetInternal->Id;
@@ -340,12 +341,12 @@ void CrxConfigManager::SetGeneralSettingsNode(CrxStructGeneralSetting^ gs, XmlNo
 	{	
 		CrxConfigManager::SetHeightWeight(gs, node);
 	}
-	//Calls function if node element is Blood Pressure Option
-    else
-	if (SubSectionNodeName == CrxConfigXmlTag::BloodPressureEntryOptions)
-	{	
-		CrxConfigManager::SetBloodPressureOption(gs, node);		
-	}
+	////Calls function if node element is Blood Pressure Option
+ //   else
+	//if (SubSectionNodeName == CrxConfigXmlTag::BloodPressureEntryOptions)
+	//{	
+	//	CrxConfigManager::SetBloodPressureOption(gs, node);		
+	//}
 	//Calls function if node element is Comms Port
 	else
 	if(SubSectionNodeName == CrxConfigXmlTag::CommsPort)
@@ -579,11 +580,11 @@ void CrxConfigManager::SetBpSettingsNode(CrxStructBpSetting^ bps, XmlNode^ node)
 	{	
 		CrxConfigManager::SetBpAutoPWA(bps, node);		
 	}
-	else
+	/*else
 	if (SubSectionNodeName == CrxConfigXmlTag::BloodPressure)
 	{	
 		CrxConfigManager::SetBpBloodPressure(bps, node);		
-	}	
+	}	*/
 	else
 	if (SubSectionNodeName == CrxConfigXmlTag::AutoPWASP)
 	{	
@@ -655,7 +656,7 @@ void CrxConfigManager::GetSettings(String^ Section, String^ SubSection)
 				case XmlNodeType::XmlDeclaration: 
 				//Check if node is for Whitespace Declarations
 				case XmlNodeType::Whitespace: 
-				//Check if node is foe Comment Type
+				//Check if node is for Comment Type
 				case XmlNodeType::Comment:
 					break;
 
@@ -784,12 +785,12 @@ void CrxConfigManager::GetGeneralSettingsNode(String^ SubSection, String^ SubSec
 		CrxConfigManager::GetHeightWeight(SubSection,ReaderValue);
 
 	}
-	//Calls function if node element is Blood Pressure Option
-	else
-	if(SubSectionNode == CrxConfigXmlTag::BloodPressureEntryOptions)
-	{
-		CrxConfigManager::GetBloodPressureOption(SubSection,ReaderValue);
-	}
+	////Calls function if node element is Blood Pressure Option
+	//else
+	//if(SubSectionNode == CrxConfigXmlTag::BloodPressureEntryOptions)
+	//{
+	//	CrxConfigManager::GetBloodPressureOption(SubSection,ReaderValue);
+	//}
 	//Calls function if node element is Comms Port
 	else
 	if(SubSectionNode == CrxConfigXmlTag::CommsPort)
@@ -1004,11 +1005,11 @@ void CrxConfigManager::GetBpSettingsNode(String^ SubSection, String^ SubSectionN
 	{
 		CrxConfigManager::GetBpAutoPWA(SubSection,ReaderValue);
 	}
-	//Calls function if node element is BloodPressure
-	else if(SubSectionNode == CrxConfigXmlTag::BloodPressure)
-	{
-		CrxConfigManager::GetBpBloodPressure(SubSection,ReaderValue);
-	}
+	////Calls function if node element is BloodPressure
+	//else if(SubSectionNode == CrxConfigXmlTag::BloodPressure)
+	//{
+	//	CrxConfigManager::GetBpBloodPressure(SubSection,ReaderValue);
+	//}
 	else
 	if (SubSectionNode == CrxConfigXmlTag::AutoPWASP)
 	{	
@@ -1105,48 +1106,48 @@ void CrxConfigManager::GetHeightWeight(String^ SubSection, String^ ReaderValue)
 	}
 }
 
-void CrxConfigManager::GetBloodPressureOption(String^ SubSection, String^ ReaderValue)
-{
-	//Get the Get Blood Pressure Details
-	//Temporary variables
-	int BloodPressureValue = 0;
-	String^ tempValue  = nullptr;
-	
-	tempValue  = ReaderValue->ToUpper();
-
-	tempValue = tempValue->Replace(CrxConfigXmlTag::Blank,String::Empty);
-
-	if(tempValue == CrxConfigBloodPressureOption::SPandDP)
-	{
-		//BloodPressureValue = 0;
-		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandDP);
-	}
-	else 
-	if(tempValue == CrxConfigBloodPressureOption::SPandMP)
-	{
-		//BloodPressureValue = 1;
-		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandMP);
-	}
-	else 
-	if(tempValue == CrxConfigBloodPressureOption::MPandDP)
-	{
-		//BloodPressureValue = 2;
-		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptMPandDP);
-	}
-	else
-	{
-		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
-	}
-
-	if(SubSection == CrxConfigXmlTag::Default)
-	{
-		_gSetInternal->BloodPressureEntryOptions = BloodPressureValue;
-	}
-	else
-	{
-		_instance->_generalSettings->BloodPressureEntryOptions = BloodPressureValue;
-	}
-}
+//void CrxConfigManager::GetBloodPressureOption(String^ SubSection, String^ ReaderValue)
+//{
+//	//Get the Get Blood Pressure Details
+//	//Temporary variables
+//	int BloodPressureValue = 0;
+//	String^ tempValue  = nullptr;
+//	
+//	tempValue  = ReaderValue->ToUpper();
+//
+//	tempValue = tempValue->Replace(CrxConfigXmlTag::Blank,String::Empty);
+//
+//	if(tempValue == CrxConfigBloodPressureOption::SPandDP)
+//	{
+//		//BloodPressureValue = 0;
+//		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandDP);
+//	}
+//	else 
+//	if(tempValue == CrxConfigBloodPressureOption::SPandMP)
+//	{
+//		//BloodPressureValue = 1;
+//		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandMP);
+//	}
+//	else 
+//	if(tempValue == CrxConfigBloodPressureOption::MPandDP)
+//	{
+//		//BloodPressureValue = 2;
+//		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptMPandDP);
+//	}
+//	else
+//	{
+//		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+//	}
+//
+//	if(SubSection == CrxConfigXmlTag::Default)
+//	{
+//		_gSetInternal->BloodPressureEntryOptions = BloodPressureValue;
+//	}
+//	else
+//	{
+//		_instance->_generalSettings->BloodPressureEntryOptions = BloodPressureValue;
+//	}
+//}
 
 void CrxConfigManager::GetCommsPort(String^ SubSection, String^ ReaderValue)
 {
@@ -1781,14 +1782,32 @@ void CrxConfigManager::GetPwaAugmentationIndexAtHR75(String^ SubSection, String^
 
 void CrxConfigManager::GetPwaCaptureInput(String^ SubSection, String^ ReaderValue)
 {
+	//Get the PWA Capture Input Details
+	//Temporary variables
+	int CaptureInput = 0; 
+	String^ tempValue  = nullptr;
+	String^ chkVal = nullptr;
+
+	tempValue  = ReaderValue->ToUpper();
+	chkVal = CrxConfigPwaCaptureInput::CompareStr;
+
+	tempValue = tempValue->Replace(CrxConfigXmlTag::Blank,String::Empty);
+
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
+	{
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+
+	//CaptureInput = (tempValue == CrxConfigPwaCaptureInput::PressureCuff ? Convert::ToInt32(CrxPwaCaptureInput::Cuff) : Convert::ToInt32(CrxPwaCaptureInput::Tonometer));
+	CaptureInput = (tempValue == CrxConfigPwaCaptureInput::Tonometer);
 	if(SubSection == CrxConfigXmlTag::Default)
 	{
-		_pwaSetInternal->CaptureInput = ReaderValue;
+		_pwaSetInternal->CaptureInput = CaptureInput;
 	}
 	else
 	{
-		_instance->_pwaSettings->CaptureInput = ReaderValue;
-	}
+		_instance->_pwaSettings->CaptureInput = CaptureInput;
+	}	
 }
 
 //Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
@@ -1892,59 +1911,56 @@ void CrxConfigManager::GetBpAutoPWA(String^ SubSection, String^ ReaderValue)
 		_instance->_bpSettings->AutoPWA = ReaderValue;
 	}	
 }
-void CrxConfigManager::GetBpBloodPressure(String^ SubSection, String^ ReaderValue)
-{
-	
-	////Get Blood Pressure details
-	//if(SubSection == CrxConfigXmlTag::Default)
-	//{
-	//	_bpSetInternal->BloodPressure = nullptr;
-	//}
-	//else
-	//{
-	//	_instance->_bpSettings->BloodPressure = ReaderValue;
-	//}	
-
-	//Get the Get Blood Pressure Details
-	//Temporary variables
-	int BloodPressureValue = 0;
-	String^ tempValue  = nullptr;
-	
-	tempValue  = ReaderValue->ToUpper();
-
-	tempValue = tempValue->Replace(CrxConfigXmlTag::Blank,String::Empty);
-
-	if(tempValue == CrxConfigBloodPressureOption::SPandDP)
-	{
-		//BloodPressureValue = 0;
-		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandDP);
-	}
-	else 
-	if(tempValue == CrxConfigBloodPressureOption::SPandMP)
-	{
-		//BloodPressureValue = 1;
-		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandMP);
-	}
-	else 
-	if(tempValue == CrxConfigBloodPressureOption::MPandDP)
-	{
-		//BloodPressureValue = 2;
-		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptMPandDP);
-	}
-	else
-	{
-		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
-	}
-
-	if(SubSection == CrxConfigXmlTag::Default)
-	{
-		_bpSetInternal->BloodPressure = BloodPressureValue;
-	}
-	else
-	{
-		_instance->_bpSettings->BloodPressure = BloodPressureValue;
-	}
-}
+//void CrxConfigManager::GetBpBloodPressure(String^ SubSection, String^ ReaderValue)
+//{
+//	
+//	////Get Blood Pressure details
+//	//if(SubSection == CrxConfigXmlTag::Default)
+//	//{
+//	//	_bpSetInternal->BloodPressure = nullptr;
+//	//}
+//	//else
+//	//{
+//	//	_instance->_bpSettings->BloodPressure = ReaderValue;
+//	//}	
+//
+//	//Get the Get Blood Pressure Details
+//	//Temporary variables
+//	int BloodPressureValue = 0;
+//	String^ tempValue  = nullptr;
+//	
+//	tempValue  = ReaderValue->ToUpper();
+//
+//	tempValue = tempValue->Replace(CrxConfigXmlTag::Blank,String::Empty);
+//
+//	if(tempValue == CrxConfigBloodPressureOption::SPandDP)
+//	{
+//		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxBloodPressureInput::CrxGenBPOptSPandDP);
+//	}
+//	else 
+//	if(tempValue == CrxConfigBloodPressureOption::SPandMP)
+//	{
+//		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxBloodPressureInput::CrxGenBPOptSPandMP);
+//	}
+//	else 
+//	if(tempValue == CrxConfigBloodPressureOption::MPandDP)
+//	{
+//		BloodPressureValue = Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxBloodPressureInput::CrxGenBPOptMPandDP);
+//	}
+//	else
+//	{
+//		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+//	}
+//
+//	if(SubSection == CrxConfigXmlTag::Default)
+//	{
+//		_bpSetInternal->BloodPressure = BloodPressureValue;
+//	}
+//	else
+//	{
+//		_instance->_bpSettings->BloodPressure = BloodPressureValue;
+//	}
+//}
 void CrxConfigManager::GetBpAutoPWASP(String^ SubSection, String^ ReaderValue)
 {
 	//Get the Patient Privacy Details
@@ -2093,26 +2109,26 @@ void CrxConfigManager::SetHeightWeight(CrxStructGeneralSetting^ gs, XmlNode^ nod
 		node->InnerText = CrxConfigHeightandWeightUnits::ImperialSetValue;
 	}
 }
-void CrxConfigManager::SetBloodPressureOption(CrxStructGeneralSetting^ gs, XmlNode^ node)
-{
-	//if(gs->BloodPressureEntryOptions == 0)
-	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandDP)))
-	{
-		node->InnerText = CrxConfigBloodPressureOption::SPandDPSetValue;								
-	}
-	else
-	//if(gs->BloodPressureEntryOptions == 1)
-	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandMP)))
-	{
-		node->InnerText = CrxConfigBloodPressureOption::SPandMPSetValue;
-	}
-	else
-	//if(gs->BloodPressureEntryOptions == 2)
-	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptMPandDP)))
-	{
-		node->InnerText = CrxConfigBloodPressureOption::MPandDPSetValue;
-	}
-}
+//void CrxConfigManager::SetBloodPressureOption(CrxStructGeneralSetting^ gs, XmlNode^ node)
+//{
+//	//if(gs->BloodPressureEntryOptions == 0)
+//	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandDP)))
+//	{
+//		node->InnerText = CrxConfigBloodPressureOption::SPandDPSetValue;								
+//	}
+//	else
+//	//if(gs->BloodPressureEntryOptions == 1)
+//	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandMP)))
+//	{
+//		node->InnerText = CrxConfigBloodPressureOption::SPandMPSetValue;
+//	}
+//	else
+//	//if(gs->BloodPressureEntryOptions == 2)
+//	if((gs->BloodPressureEntryOptions == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptMPandDP)))
+//	{
+//		node->InnerText = CrxConfigBloodPressureOption::MPandDPSetValue;
+//	}
+//}
 void CrxConfigManager::SetCommsPort(CrxStructGeneralSetting^ gs, XmlNode^ node)
 {
 	if(gs->CommsPort != nullptr) 
@@ -2474,15 +2490,24 @@ void CrxConfigManager::SetPwaAugmentationIndexAtHR75(CrxStructPwaSetting^ pwas, 
 }
 
 void CrxConfigManager::SetPwaCaptureInput(CrxStructPwaSetting^ pwas, XmlNode^ node)
-{
-	if(pwas->CaptureInput != nullptr) 
-    {
-        node->InnerText = pwas->CaptureInput;
-    }
-    else 
-    {
-		node->InnerText = CrxConfigXmlTag::Blank; 
-    }
+{	
+	/*if((pwas->CaptureInput == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxPwaCaptureInput::Cuff)))
+	{
+		node->InnerText = CrxConfigPwaCaptureInput::CuffSetValue;								
+	}
+	else
+	if((pwas->CaptureInput == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxPwaCaptureInput::Tonometer)))
+	{
+		node->InnerText = CrxConfigPwaCaptureInput::TonometerSetValue;
+	}*/
+	if(pwas->CaptureInput)
+	{
+		node->InnerText = CrxConfigPwaCaptureInput::TonometerSetValue;
+	}
+	else
+	{
+		node->InnerText = CrxConfigPwaCaptureInput::CuffSetValue;
+	}
 }
 
 //Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
@@ -2544,32 +2569,32 @@ void CrxConfigManager::SetBpAutoPWA(CrxStructBpSetting^ bps, XmlNode^ node)
 }
 
 //Set Blood Pressure from config file
-void CrxConfigManager::SetBpBloodPressure(CrxStructBpSetting^ bps, XmlNode^ node)
-{
-	/*if(bps->BloodPressure != nullptr) 
-    {
-        node->InnerText = bps->BloodPressure;
-    }
-    else 
-    {
-		node->InnerText = CrxConfigXmlTag::Blank; 
-    }*/	
-	if((bps->BloodPressure == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandDP)))
-	{
-		node->InnerText = CrxConfigBloodPressureOption::SPandDPSetValue;								
-	}
-	else
-	if((bps->BloodPressure == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptSPandMP)))
-	{
-		node->InnerText = CrxConfigBloodPressureOption::SPandMPSetValue;
-	}
-	else
-	if((bps->BloodPressure == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxGenPwvValue::CrxGenBPOptMPandDP)))
-	{
-		node->InnerText = CrxConfigBloodPressureOption::MPandDPSetValue;
-	}
-	
-}
+//void CrxConfigManager::SetBpBloodPressure(CrxStructBpSetting^ bps, XmlNode^ node)
+//{
+//	/*if(bps->BloodPressure != nullptr) 
+//    {
+//        node->InnerText = bps->BloodPressure;
+//    }
+//    else 
+//    {
+//		node->InnerText = CrxConfigXmlTag::Blank; 
+//    }*/	
+//	if((bps->BloodPressure == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxBloodPressureInput::CrxGenBPOptSPandDP)))
+//	{
+//		node->InnerText = CrxConfigBloodPressureOption::SPandDPSetValue;								
+//	}
+//	else
+//	if((bps->BloodPressure == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxBloodPressureInput::CrxGenBPOptSPandMP)))
+//	{
+//		node->InnerText = CrxConfigBloodPressureOption::SPandMPSetValue;
+//	}
+//	else
+//	if((bps->BloodPressure == Convert::ToInt32(AtCor::Scor::CrossCutting::Configuration::CrxBloodPressureInput::CrxGenBPOptMPandDP)))
+//	{
+//		node->InnerText = CrxConfigBloodPressureOption::MPandDPSetValue;
+//	}
+//	
+//}
 void CrxConfigManager::SetBpAutoPWASP(CrxStructBpSetting^ bps, XmlNode^ node)
 {
 	if(bps->AutoPWASP == false)

@@ -391,14 +391,21 @@ namespace TestDal {
 				try
 				{
 				  expected1	= target->GetAllValues(fromIndex, toIndex);
-				  Assert::AreEqual(expected1, actual1);
+				  if (fromIndex == -1 && toIndex == -1)
+				  {
+						Assert::AreEqual(expected1, actual1);
+				  }
+				  else
+				  {
+						Assert::AreEqual(expected1, actual2);
+				  }
 				}
 				catch(AtCor::Scor::CrossCutting::ScorException ^ )
 				{
 					//Assert::IsTrue(true);
 					expected2 = true;
+					Assert::AreEqual(expected2, actual2);
 				}
-				Assert::AreEqual(expected2, actual2);
 			}
 
 

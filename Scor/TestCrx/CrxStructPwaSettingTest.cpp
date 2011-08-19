@@ -83,7 +83,7 @@ namespace TestCrx {
 				Assert::AreEqual(target->CaptureTime,5);
 				Assert::IsTrue(target->AugmentationIndex);
 				Assert::IsFalse(target->AugmentationIndexAtHR75,"False");
-				Assert::AreEqual(target->CaptureInput,"Pressure Cuff");
+				Assert::AreEqual(target->CaptureInput,0);
 				Assert::AreEqual(target->GuidanceBars, true);
 					
 

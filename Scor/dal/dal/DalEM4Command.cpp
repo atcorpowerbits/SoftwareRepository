@@ -170,7 +170,7 @@ namespace AtCor{
 				}
 				catch(Exception^ )
 				{
-					//CrxLogger::Instance->Write("Inside DALEM4Command::BreakupResponse()");
+					////CrxLogger::Instance->Write("Inside DALEM4Command::BreakupResponse()");
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrResponseInvalidErrCd, CrxStructCommonResourceMsg::DalErrResponseInvalid, ErrorSeverity::Exception );
 				}
 			}

@@ -623,7 +623,7 @@ namespace TestCrx {
 				Assert::AreEqual("12345", target->_instance->GeneralSettings->Cksum);*/
 				
 				
-				gs->BloodPressureEntryOptions = 1;
+				gs->BloodPressureEntryOptions = 0;
 				gs->CommsPort = nullptr;
 				gs->HeightandWeightUnit= 1;
 				gs->PatientPrivacy = false;
@@ -647,7 +647,7 @@ namespace TestCrx {
 				target->GetGeneralUserSettings();
 				//target->GeneralSettings
 
-				Assert::AreEqual(1, target->_instance->GeneralSettings->BloodPressureEntryOptions);
+				Assert::AreEqual(0, target->_instance->GeneralSettings->BloodPressureEntryOptions);
 				Assert::AreEqual(1, target->_instance->GeneralSettings->HeightandWeightUnit);
 				Assert::AreEqual(false, target->_instance->GeneralSettings->PatientPrivacy);
 				/*Assert::AreEqual(" ", target->_instance->GeneralSettings->CommsPort);
@@ -658,13 +658,13 @@ namespace TestCrx {
 				Assert::AreEqual(" ", target->_instance->GeneralSettings->CultureInfo);*/
 				
 
-				gs->BloodPressureEntryOptions = 2;
+				gs->BloodPressureEntryOptions = 0;
 
 				target->SetGeneralUserSettings(gs);
 
 				target->GetGeneralUserSettings();
 
-				Assert::AreEqual(2, target->_instance->GeneralSettings->BloodPressureEntryOptions);
+				Assert::AreEqual(0, target->_instance->GeneralSettings->BloodPressureEntryOptions);
 
 				//****************************//
 				gs->BloodPressureEntryOptions = 0;
@@ -1849,7 +1849,7 @@ public: [TestMethod]
 
 				Assert::AreEqual(20, target->_instance->PwvSettings->CaptureTime);
 			}
-						/// <summary>
+			/*/// <summary>
 			///A test for GetBloodPressureOption
 			///</summary>
 	public: [TestMethod]
@@ -1860,9 +1860,9 @@ public: [TestMethod]
 
 				target->GetBloodPressureOption("USER", "SPANDDP");
 				Assert::AreEqual(0, target->_instance->GeneralSettings->BloodPressureEntryOptions);
-			}
+			}*/
 
-	public: [TestMethod]
+	/*public: [TestMethod]
 			[DeploymentItem(L"crx.dll")]
 			void GetBloodPressureOptionTest1()
 			{
@@ -1870,9 +1870,9 @@ public: [TestMethod]
 
 				target->GetBloodPressureOption("USER", "SPANDMP");
 				Assert::AreEqual(1, target->_instance->GeneralSettings->BloodPressureEntryOptions);
-			}
+			}*/
 
-	public: [TestMethod]
+	/*public: [TestMethod]
 			[DeploymentItem(L"crx.dll")]
 			void GetBloodPressureOptionTest2()
 			{
@@ -1880,9 +1880,9 @@ public: [TestMethod]
 
 				target->GetBloodPressureOption("USER", "MPANDDP");
 				Assert::AreEqual(2, target->_instance->GeneralSettings->BloodPressureEntryOptions);
-			}
+			}*/
 
-	public: [TestMethod]
+	/*public: [TestMethod]
 			[DeploymentItem(L"crx.dll")]
 			void GetBloodPressureOptionTest3()
 			{
@@ -1890,9 +1890,9 @@ public: [TestMethod]
 
 				target->GetBloodPressureOption("DEFAULT", "MPANDDP");
 				Assert::AreEqual(2, target->_gSetInternal->BloodPressureEntryOptions);
-			}
+			}*/
 
-	public: [TestMethod]
+	/*public: [TestMethod]
 			[DeploymentItem(L"crx.dll")]
 			void GetBloodPressureOptionTest4()
 			{
@@ -1908,7 +1908,7 @@ public: [TestMethod]
 				}
 				
 				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
-			}
+			}*/
 			/// <summary>
 			///A test for CrxConfigManager Constructor
 			///</summary>
@@ -2080,14 +2080,14 @@ public: [TestMethod]
 			Assert::AreEqual(true, actual->AutoCapture);
 			Assert::AreEqual(true, actual->AugmentationIndex);
 			Assert::AreEqual(false, actual->AugmentationIndexAtHR75);
-			Assert::AreEqual("Pressure Cuff", actual->CaptureInput);
+			Assert::AreEqual(0, actual->CaptureInput);
 
 			expected->CaptureTime = 10;
 			expected->GuidanceBars = false;
 			expected->AutoCapture = false;
 			expected->AugmentationIndex = false;
 			expected->AugmentationIndexAtHR75 = false;
-			expected->CaptureInput = "Tonometer";
+			expected->CaptureInput = 0;
 			expected->SimulationType = "Simulation";
 
 			//Setting the CaptureTime member of structure CrxStructPwvSetting
@@ -2230,7 +2230,7 @@ public: [TestMethod]
 			pwas->GuidanceBars=true;
 			pwas->AugmentationIndex=true;
 			pwas->AugmentationIndexAtHR75=true;
-			pwas->CaptureInput="Pressure Cuff";
+			pwas->CaptureInput=0;
 			pwas->SimulationType = "Simulation";
 
 			target->SetPwaUserSettings(pwas);
@@ -2241,14 +2241,14 @@ public: [TestMethod]
 			Assert::AreEqual(true, target->_instance->PwaSettings->GuidanceBars);
 			Assert::AreEqual(true, target->_instance->PwaSettings->AugmentationIndex);
 			Assert::AreEqual(true, target->_instance->PwaSettings->AugmentationIndexAtHR75);
-			Assert::AreEqual("Pressure Cuff", target->_instance->PwaSettings->CaptureInput);
+			Assert::AreEqual(0, target->_instance->PwaSettings->CaptureInput);
 			Assert::AreEqual(pwas->SimulationType, target->_instance->PwaSettings->SimulationType);
 
 			pwas->CaptureTime = 10;
 			pwas->GuidanceBars = false;
 			pwas->AugmentationIndex = false;
 			pwas->AugmentationIndexAtHR75 = false;
-			pwas->CaptureInput = nullptr;
+			pwas->CaptureInput = 1;
 			pwas->AutoCapture = false;
 			pwas->SimulationType = nullptr;
 
@@ -2260,7 +2260,7 @@ public: [TestMethod]
 			Assert::AreEqual(false, target->_instance->PwaSettings->GuidanceBars);
 			Assert::AreEqual(false, target->_instance->PwaSettings->AugmentationIndex);
 			Assert::AreEqual(false, target->_instance->PwaSettings->AugmentationIndexAtHR75);
-			//Assert::AreEqual(" ", target->_instance->PwaSettings->CaptureInput);
+			Assert::AreEqual(1, target->_instance->PwaSettings->CaptureInput);
 			Assert::AreEqual(false, target->_instance->PwaSettings->AutoCapture );
 
 			pwas->CaptureTime = 20;
@@ -2277,7 +2277,7 @@ public: [TestMethod]
 			pwas->GuidanceBars=true;
 			pwas->AugmentationIndex=true;
 			pwas->AugmentationIndexAtHR75=true;
-			pwas->CaptureInput="Pressure Cuff";
+			pwas->CaptureInput=0;
 			pwas->SimulationType = "Simulation";
 
 			target->SetPwaUserSettings(pwas);
@@ -2440,13 +2440,13 @@ public: [TestMethod]
 			bps->Device = "SPHYGMOCOR";
 			bps->NumberofAssessments = 3;
 			bps->AutoPWA= "Yes";
-			bps->BloodPressure = 2;
+			bps->BloodPressure = 0;
 			bps->AutoPWADP = true;
 			bps->AutoPWAPP = true;
 			bps->AutoPWASP = true;
-			bps->AutoPWADPThreshold = 130;
-			bps->AutoPWASPThreshold = 30;
-			bps->AutoPWAPPThreshold = 150;
+			bps->AutoPWADPThreshold = 0;
+			bps->AutoPWASPThreshold = 0;
+			bps->AutoPWAPPThreshold = 0;
 			
 			target->SetBpUserSettings(bps);
 			
@@ -2465,14 +2465,14 @@ public: [TestMethod]
 			
 			bps->Device = nullptr;
 			bps->NumberofAssessments = 3;
-			bps->BloodPressure = 1;
+			bps->BloodPressure = 0;
 			bps->AutoPWA= nullptr;
 			bps->AutoPWADP = false;
 			bps->AutoPWAPP = false;
 			bps->AutoPWASP = false;
-			bps->AutoPWADPThreshold = 1;
-			bps->AutoPWASPThreshold = 1;
-			bps->AutoPWAPPThreshold = 1;
+			bps->AutoPWADPThreshold = 0;
+			bps->AutoPWASPThreshold = 0;
+			bps->AutoPWAPPThreshold = 0;
 			//bps->BloodPressure = nullptr;
 			
 			target->SetBpUserSettings(bps);
@@ -2494,14 +2494,14 @@ public: [TestMethod]
 			//Set to default values
 			bps->Device = "Sphygmocor";
 			bps->NumberofAssessments = 1;
-			bps->BloodPressure = 1;
+			bps->BloodPressure = 0;
 			bps->AutoPWA= nullptr;
 			bps->AutoPWADP = true;
 			bps->AutoPWAPP = true;
 			bps->AutoPWASP = true;
-			bps->AutoPWADPThreshold = 90;
-			bps->AutoPWASPThreshold = 130;
-			bps->AutoPWAPPThreshold = 50;
+			bps->AutoPWADPThreshold = 0;//90;
+			bps->AutoPWASPThreshold = 0;//130;
+			bps->AutoPWAPPThreshold = 0;//50;
 
 			target->SetBpUserSettings(bps);
 
@@ -2747,7 +2747,7 @@ public: [TestMethod]
 			Assert::AreEqual(true, target->_instance->PwaSettings->GuidanceBars);
 			//Assert::AreEqual(false, target->_instance->PwaSettings->AugmentationIndex);
 			//Assert::AreEqual(false, target->_instance->PwaSettings->AugmentationIndexAtHR75);
-			//Assert::AreEqual("Pressure Cuff", target->_instance->PwaSettings->CaptureInput);
+			Assert::AreEqual(0, target->_instance->PwaSettings->CaptureInput);
 
 		}
 		/// <summary>
@@ -2831,7 +2831,7 @@ public: [TestMethod]
 			Assert::AreEqual(true, objPwaSettings->AutoCapture);
 			Assert::AreEqual(true, objPwaSettings->AugmentationIndex);
 			Assert::AreEqual(false, objPwaSettings->AugmentationIndexAtHR75);
-			Assert::AreEqual("Pressure Cuff", objPwaSettings->CaptureInput);
+			Assert::AreEqual(0, objPwaSettings->CaptureInput);
 
 		}
 		/// <summary>
@@ -2879,10 +2879,10 @@ public: [TestMethod]
 			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
 
 			String^  SubSection = L"USER";
-			String^  ReaderValue = L"Yes";
+			String^  ReaderValue = L"Pressure Cuff";
 
 			target->GetPwaCaptureInput(SubSection, ReaderValue);
-			Assert::AreEqual(ReaderValue, target->_instance->PwaSettings->CaptureInput);
+			Assert::AreEqual(0, target->_instance->PwaSettings->CaptureInput);
 
 		}
 		/// <summary>
@@ -3091,15 +3091,15 @@ public: [TestMethod]
 			
 			bps->Device = "Sphygmocor";
 			bps->NumberofAssessments = 3;
-			bps->AutoPWA= "Yes";
+			//bps->AutoPWA= "Yes";
 			bps->BloodPressure = 0;
 			bps->AutoPWA= nullptr;
 			bps->AutoPWADP = true;
 			bps->AutoPWAPP = true;
 			bps->AutoPWASP = true;
-			bps->AutoPWADPThreshold = 90;
-			bps->AutoPWASPThreshold = 130;
-			bps->AutoPWAPPThreshold = 50;
+			bps->AutoPWADPThreshold = 0;//90;
+			bps->AutoPWASPThreshold = 0;//130;
+			bps->AutoPWAPPThreshold = 0;//50;
 			
 			target->SetBpUserSettings(bps);
 			
@@ -3107,7 +3107,6 @@ public: [TestMethod]
 
 			Assert::AreEqual(bps->Device, target->_instance->BpSettings->Device);
 			Assert::AreEqual(bps->NumberofAssessments, target->_instance->BpSettings->NumberofAssessments);
-			Assert::AreEqual(bps->AutoPWA, target->_instance->BpSettings->AutoPWA);
 			Assert::AreEqual(bps->BloodPressure, target->_instance->BpSettings->BloodPressure);
 
 			bps->NumberofAssessments = 0;
@@ -3243,75 +3242,75 @@ public: [TestMethod]
 			//Assert::AreEqual(1, objBpSettings->NumberofAssessments);
 
 		}
-		/// <summary>
-		///A test for GetBpBloodPressure
-		///</summary>
-public: [TestMethod]
-		[DeploymentItem(L"crx.dll")]
-		void GetBpBloodPressureTest()
-		{
-			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-			String^  SubSection = L"USER";
-			String^  ReaderValue = L"SP and DP";
-
-			target->GetBpBloodPressure(SubSection, ReaderValue);
-			Assert::AreEqual(0, target->_instance->BpSettings->BloodPressure);
-			
-		}
-public: [TestMethod]
-		[DeploymentItem(L"crx.dll")]
-		void GetBpBloodPressureTest1()
-		{
-			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-			String^  SubSection = L"DEFAULT";
-			String^  ReaderValue = L"XX";
-
-			try
-			{	
-				target->GetBpBloodPressure(SubSection, ReaderValue);
-				Assert::Fail("If error does not occur then test fail");
-            }
-            catch(Exception^)
-            {
-                  Assert::IsTrue(true,"If error occur then test pass");
-            }
-		}
-		public: [TestMethod]
-		[DeploymentItem(L"crx.dll")]
-		void GetBpBloodPressureTest2()
-		{
-			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-			String^  SubSection = L"USER";
-			String^  ReaderValue = L"SP and MP";
-
-			target->GetBpBloodPressure(SubSection, ReaderValue);
-			Assert::AreEqual(1, target->_instance->BpSettings->BloodPressure);
-			
-		}
-		public: [TestMethod]
-		[DeploymentItem(L"crx.dll")]
-		void GetBpBloodPressureTest3()
-		{
-			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-			String^  SubSection = L"DEFAULT";
-			String^  ReaderValue = L"MP and DP";
-
-			target->GetBpBloodPressure(SubSection, ReaderValue);
-			Assert::AreEqual(2, target->_bpSetInternal->BloodPressure);
-			
-		}
-		public: [TestMethod]
-		[DeploymentItem(L"crx.dll")]
-		void GetBpBloodPressureTest4()
-		{
-			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
-			String^  SubSection = L"USER";
-			String^  ReaderValue = L"MP and DP";
-
-			target->GetBpBloodPressure(SubSection, ReaderValue);
-			Assert::AreEqual(2, target->_instance->BpSettings->BloodPressure);
-			
-		}
+//		/// <summary>
+//		///A test for GetBpBloodPressure
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetBpBloodPressureTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			String^  SubSection = L"USER";
+//			String^  ReaderValue = L"SP and DP";
+//
+//			target->GetBpBloodPressure(SubSection, ReaderValue);
+//			Assert::AreEqual(0, target->_instance->BpSettings->BloodPressure);
+//			
+//		}
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetBpBloodPressureTest1()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			String^  SubSection = L"DEFAULT";
+//			String^  ReaderValue = L"XX";
+//
+//			try
+//			{	
+//				target->GetBpBloodPressure(SubSection, ReaderValue);
+//				Assert::Fail("If error does not occur then test fail");
+//            }
+//            catch(Exception^)
+//            {
+//                  Assert::IsTrue(true,"If error occur then test pass");
+//            }
+//		}
+//		public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetBpBloodPressureTest2()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			String^  SubSection = L"USER";
+//			String^  ReaderValue = L"SP and MP";
+//
+//			target->GetBpBloodPressure(SubSection, ReaderValue);
+//			Assert::AreEqual(1, target->_instance->BpSettings->BloodPressure);
+//			
+//		}
+//		public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetBpBloodPressureTest3()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			String^  SubSection = L"DEFAULT";
+//			String^  ReaderValue = L"MP and DP";
+//
+//			target->GetBpBloodPressure(SubSection, ReaderValue);
+//			Assert::AreEqual(2, target->_bpSetInternal->BloodPressure);
+//			
+//		}
+//		public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void GetBpBloodPressureTest4()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			String^  SubSection = L"USER";
+//			String^  ReaderValue = L"MP and DP";
+//
+//			target->GetBpBloodPressure(SubSection, ReaderValue);
+//			Assert::AreEqual(2, target->_instance->BpSettings->BloodPressure);
+//			
+//		}
 		/// <summary>
 		///A test for GetBpAutoPWA
 		///</summary>

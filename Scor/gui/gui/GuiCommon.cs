@@ -39,7 +39,7 @@ namespace AtCor.Scor.Gui.Presentation
        public static bool IsValidatedLicenseKey = false; // This flag is used to check whether LicenseKey is valdiated or not.
        public static SystemKeyWindowValues SystemKeyWindowValue = SystemKeyWindowValues.ADD; // values :0.Add 1.Update     Checking whether system key form is called for updating or adding system key.
        public static string CurrentMode = string.Empty;
-       public static string CurrentScreen = CrxStructCommonResourceMsg.Setup;
+       public static string CurrentScreen = CrxStructCommonResourceMsg.Setup;       
        public static bool SetupToReport = false;
        public static bool CaptureToReport = false;
        public static bool CaptureToSetup = false;
@@ -59,8 +59,14 @@ namespace AtCor.Scor.Gui.Presentation
        public static bool IsMandatoryFieldEmpty = false;  
        public static int ReportLoadCount = 0;
        public static int ExitApp = 0;
+       public static int OnLoadPwvDistanceMethod; 
        public static string MessageToBeDisplayed = string.Empty;       
        public static ScorController ScorControllerObject = new ScorController();
+
+       public static bool AutoPWA = true;
+       public static int AutoPWADelay = 15;
+       public static int RepeatDelay = 5;    
+
        #endregion
 
        #region Main / Parent window Handle
@@ -127,7 +133,7 @@ namespace AtCor.Scor.Gui.Presentation
                // in this case we need to stop the capture on the capture screen.
                MessageToBeDisplayed = e.data;
                object dummySender = new object();
-               OnBizErrorEventInvocation.Invoke(dummySender, new EventArgs());               
+               OnBizErrorEventInvocation.Invoke(dummySender, new EventArgs());
             }
            else
            {
@@ -403,8 +409,8 @@ namespace AtCor.Scor.Gui.Presentation
                     return;
                 }
             }
-        }
-        
+        }    
+  
         // End : AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,12 July 2011
 
         /** This method sets font configured in app.config for the controls on form
@@ -441,14 +447,13 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
         #endregion
-    }
+   }
 
     /**
  * @class PWVReportData
  * @brief This class is used to define properties which will be used for generating PWV report
      * The property values will be set in report screen once the user clicks print "PWV report" and these values
-     * will be passed to Crystal report for printing PWV Report
- */
+     * will be passed to Crystal report for printing PWV Report*/
     public static class PWVReportData
     {
         public static string RptTitle { get; set; }

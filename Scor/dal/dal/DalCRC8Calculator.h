@@ -52,7 +52,7 @@ namespace AtCor{
 
 					/**
 					* Computes the CRC value for the array
-					* @param[in] commandArray	The array for whcioh CRC8 is to be calculated
+					* @param[in] commandArray	The array for which CRC8 is to be calculated
 					* @param[in]	arrayLength	Length of the array
 					* @param[out]	crc8ForArray	The computed CRC8 value for the array
 					* @return		boolean value indicating the status of the operation.

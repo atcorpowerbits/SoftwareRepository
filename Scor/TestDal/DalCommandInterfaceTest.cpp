@@ -54,7 +54,7 @@ namespace TestDal {
 				try
 				{
 					commInterfaceObject = DalCommandInterface_Accessor::Instance;
-					DalActivePort_Accessor::Instance->SetActivePort(comPortName);
+					commInterfaceObject->SetActivePort(comPortName);
 				}
 				catch (AtCor::Scor::CrossCutting::ScorException^ scorExObj)
 				{
@@ -100,7 +100,7 @@ namespace TestDal {
 				DalCommandInterface_Accessor ^ target = DalCommandInterface_Accessor::Instance;
 				try
 				{
-					DalActivePort_Accessor::Instance->CloseActivePort();
+					target->CloseActivePort();
 				}
 				catch(Exception^ ex)
 				{
@@ -130,7 +130,7 @@ namespace TestDal {
 
 					//DalCommandInterface_Accessor^  target = (gcnew DalCommandInterface_Accessor());
 					DalCommandInterface_Accessor ^ target = DalCommandInterface_Accessor::Instance;
-					//target->CreateAndOpenNewSerialPort(comPortName);
+					target->CreateAndOpenNewSerialPort(comPortName);
 					Assert::IsNotNull(target->_serialPort);
 					Assert::IsTrue(target->_serialPort->IsOpen);
 

@@ -408,6 +408,8 @@ private:	static String^ comPortName  = "Simulation";
 				String^ path = Directory::GetCurrentDirectory(); 
 				
 				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+				DalModule^ DalModuleAccessor = DalModule::Instance;
+				DalModuleAccessor->SetStreamingMode(DalStreamingMode::Pwv);
 				bool expected = true;
 				bool actual;
 				
@@ -431,9 +433,50 @@ private:	static String^ comPortName  = "Simulation";
 				Assert::IsTrue(retValue);
 
 				//Now test if cuff file is opened properly
-				Assert::AreEqual(".\\simulation\\cuff_timer\\cuff_timer.dat", cuffTimerFilePath);
-
+				Assert::AreEqual(".\\\\simulation\\\\cuff_timer\\\\cuff_timer.dat", cuffTimerFilePath);
 			}
+
+			/// Will test for cPwaMode
+			///A test for GetFileNameFromConfgAndOpen
+			///</summary>
+			//this test need to be made run indipendently.
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void GetFileNameFromConfgAndOpenForCPwaModeTest()
+			{
+
+				SetPath();
+				String^ path = Directory::GetCurrentDirectory(); 
+				
+				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+				DalModule^ DalModuleAccessor = DalModule::Instance;
+				DalModuleAccessor->SetStreamingMode(DalStreamingMode::cPwa);
+				bool expected = true;
+				bool actual;
+				
+				actual = target->GetFileNameFromConfgAndOpen();
+				Assert::AreEqual(expected, actual);
+
+				//check if the objects have been created
+				Assert::IsNotNull(target->_cuffTimerSimulationFile);
+				Assert::IsNotNull(target->_tonometerSimulationFile);
+				
+				String^ cuffTimerFilePath = target->_cuffTimerSimulationFile->filePath ;
+				String^ tonometerSimFilePath = target->_tonometerSimulationFile->filePath ;
+
+				//get the settings from config directly to test if the correct tono file is opened
+				String^ tonoFileNameInConfig;
+				CrxConfigManager ^configMgr = CrxConfigManager::Instance;
+				configMgr->GetGeneralUserSettings();
+				configMgr->GetPwaUserSettings();
+				tonoFileNameInConfig = configMgr->PwaSettings->SimulationType+ ".dat";
+				bool retValue = tonometerSimFilePath->Contains(tonoFileNameInConfig);
+				Assert::IsTrue(retValue);
+
+				//Now test if cuff file is opened properly
+				Assert::AreEqual(".\\\\simulation\\\\cuff_timer\\\\cuff_timer.dat", cuffTimerFilePath);
+			}
+
 			/// <summary>
 			///A test for GetConnectionStatus
 			///</summary>

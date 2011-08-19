@@ -40,7 +40,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         public static void ShowStatusMessage(object sender, CrxShowStatusEventArgs args)
         {
-            Form obj =  new Form();
+            Form obj = new Form();
             HandleException(args.ObjScorException, obj);
         }  
 
@@ -245,7 +245,7 @@ namespace AtCor.Scor.Gui.Presentation
             RadMessageBox.Show((IWin32Window)currentWindow, ex.Message, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
 
             // log exception message alongwith stack trace
-            OLogObject.Write(ex.Message + Environment.NewLine + ex.Source + Environment.NewLine + ex.StackTrace);
+            OLogObject.Write(ex.Message + Environment.NewLine + ex.Source + Environment.NewLine + ex.StackTrace);        
         } // End HandleGeneralException
 
         /** This event gets called when alert message timer on default window ticks         

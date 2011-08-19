@@ -1,5 +1,7 @@
 ﻿
 #include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
 using namespace AtCor::Scor::CrossCutting;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
@@ -73,12 +75,14 @@ namespace TestDal {
 			//{
 			//}
 			//
+
 			//Use TestInitialize to run code before running each test
-			//public: [TestInitialize]
-			//System::Void MyTestInitialize()
-			//{
-			//}
-			//
+			public: [TestInitialize]
+			System::Void MyTestInitialize()
+			{
+				SetPath();
+			}
+			
 			//Use TestCleanup to run code after each test has run
 			//public: [TestCleanup]
 			//System::Void MyTestCleanup()
@@ -112,6 +116,34 @@ namespace TestDal {
 				}
 			}
 
+		
+		/// <summary>
+		///A test for SetDeviceStrategy
+		///</summary>
+		public: [TestMethod]
+		void SetDeviceStrategyTest3()
+		{
+			String^  commPort = "SIMULATION";
+			
+			SetPath();
+			DalModule_Accessor ^ target = gcnew DalModule_Accessor();
+			try
+			{
+				//We have reverted the change in signature.
+				//it will be done later so the test for return value is commented out.
+
+				//bool returnValue = false;
+				target->SetDeviceStrategy(commPort);
+				
+				Assert::IsNotNull(target->_currentDevice);
+				
+			}
+			catch(ScorException ^ scorexObj)
+			{
+				Assert::Fail("Exception thrown: " + scorexObj->ErrorMessageKey);
+			}
+			
+		}
 
 		/// <summary>
 		///A test for SetDeviceStrategy
@@ -314,7 +346,33 @@ public: [TestMethod]
 				Assert::IsNotNull(target);
 				Assert::IsNotNull(target->_currentDevice);
 			}
-	};
+			/// <summary>
+			///A test for SetStreamingMode
+			///</summary>
+public: [TestMethod]
+		void SetStreamingModeTest()
+		{
+			DalModule_Accessor^  target = (gcnew DalModule_Accessor()); 
+			DalStreamingMode newMode = DalStreamingMode::cPwa; 
+			target->_currentStreamingMode = DalStreamingMode::None;
+			
+			target->SetStreamingMode(newMode);
+			Assert::AreEqual(newMode, target->_currentStreamingMode);
+		}
+		/// <summary>
+		///A test for StreamingMode
+		///</summary>
+public: [TestMethod]
+		void StreamingModeTest()
+		{
+			DalModule_Accessor^  target = (gcnew DalModule_Accessor()); 
+			DalStreamingMode expected = DalStreamingMode::cPwa;
+			target->_currentStreamingMode = expected;
+			DalStreamingMode actual;
+			actual = target->StreamingMode;
+			Assert::AreEqual(expected, actual);
+		}
+};
 }
 namespace TestDal {
     

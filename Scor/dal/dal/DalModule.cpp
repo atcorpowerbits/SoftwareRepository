@@ -62,7 +62,7 @@ namespace AtCor{
 						//set the com port as simulation in Config file
 						configMgr->GeneralSettings->CommsPort = comPortInConfig;
 						configMgr->SetGeneralUserSettings(configMgr->GeneralSettings);
-						CrxLogger::Instance->Write(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalMsgDefaultModeSelectedSim));
+						//CrxLogger::Instance->Write(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalMsgDefaultModeSelectedSim));
 					}
 
 					SetDeviceStrategy(comPortInConfig); 
@@ -92,7 +92,7 @@ namespace AtCor{
 					}
 	                
 					//Compare with the "simulation" string CrxMessaging
-              		if (String::Compare(commPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), oMsg->GetMessage(CrxStructCommonResourceMsg::ComportSimulation), false) == 0)
+              		if (String::Compare(commPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), oMsg->GetMessage(CrxStructCommonResourceMsg::ComportSimulation), true) == 0)
 					{
 						//if config manager returns "simulation" initialize the DalSimulationHander
 						//create a new simulation handler
@@ -343,7 +343,7 @@ namespace AtCor{
 			{
 				//sender; //Dummy statement to get rid of C4100 warning
 
-				//CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting );
+				////CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting );
 				SetDeviceStrategy(args->commsPortSetting);
 
 			}
@@ -370,7 +370,7 @@ namespace AtCor{
 					{
 						continue;
 					}
-					//CrxLogger::Instance->Write("Ports Listed: " + portName);
+					////CrxLogger::Instance->Write("Ports Listed: " + portName);
 					if (DalDeviceHandler::Instance->CheckIfDeviceIsConnected(portName)) 
 					{
 
@@ -437,6 +437,12 @@ namespace AtCor{
 			{
 				//Stub method. will be replaced by actual code later
 				return DateTime(2010, 5, 9);
+			}
+
+			void DalModule::SetStreamingMode(DalStreamingMode newMode)
+			{
+				//Set the current mode
+				_currentStreamingMode = newMode;
 			}
 
 

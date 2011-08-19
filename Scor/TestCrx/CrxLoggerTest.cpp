@@ -58,11 +58,12 @@ namespace TestCrx {
 			//You can use the following additional attributes as you write your tests:
 			//
 			//Use ClassInitialize to run code before running the first test in the class
-			//public: [ClassInitialize]
-			//static System::Void MyClassInitialize(TestContext^  testContext)
-			//{
-			//}
-			//
+			/*public: [ClassInitialize]
+			static System::Void MyClassInitialize(TestContext^  testContext)
+			{
+				SetPath();
+			}*/
+			
 			//Use ClassCleanup to run code after all tests in a class have run
 			//public: [ClassCleanup]
 			//static System::Void MyClassCleanup()
@@ -91,6 +92,7 @@ namespace TestCrx {
 			void InstanceTest()
 			{
 				CrxLogger^  actual;
+				SetPath();
 				actual = CrxLogger::Instance;
 				Assert::IsNotNull(actual);
 			}
@@ -103,15 +105,19 @@ namespace TestCrx {
 			{
 				try
 				{
+					//delete target;
+					StreamReader ^curLogFileFileStream;
+					String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
+
+					SetPath();
+
 					// write into file
 					//File::Delete("system\\logs\\scor.log");
 					CrxLogger^  target = CrxLogger::Instance ; 
 					String^  message = "ThisIsForTestOnly"; 
 					target->Write(message);
 
-					//delete target;
-					StreamReader ^curLogFileFileStream;
-					String ^ path = Directory::GetCurrentDirectory() + "\\system\\logs\\";
+				
 
 					if(File::Exists(path + "scor.log"))					
 					{
@@ -129,7 +135,7 @@ namespace TestCrx {
 						Assert::AreEqual(lastLine, message);
 					}
 				}
-				catch(Exception^ )
+				catch(Exception^ eobj)
 				{
 					Assert::Fail("Error occured in 'WriteTest'.");
 				}
@@ -173,7 +179,7 @@ namespace TestCrx {
 			[DeploymentItem(L"crx.dll")]
 			void CrxLoggerConstructorTest1()
 			{
-				
+				SetPath();
 				CrxLogger^  unnamed = CrxLogger::Instance ; 
 				CrxLogger_Accessor^  target = (gcnew CrxLogger_Accessor(unnamed));
 				Assert::IsNotNull(target);

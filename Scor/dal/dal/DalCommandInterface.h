@@ -231,14 +231,14 @@ namespace AtCor{
 					*/
 					bool StopDataCaptureMode();
 
-					/**
+					/*
 					* Sets the current SerialPort Object to the specified port name
 					* @param  serialPortName The serial port to set
 					* @return	status of the operation
 					*/
 					//bool SetActivePort( String^ serialPortName);
 
-					/**
+					/*
 					* Sets the port name for the current serial port object.
 					* @param  serialPortName The serial port to set
 					* @return	status of the operation
@@ -246,7 +246,7 @@ namespace AtCor{
 					*/
 					//bool SetActivePortInstance(String^ serialPortName);
 
-					/**
+					/*
 					* Sets the properties of the internal serialPort object
 					* @return	status of the operation
 					*/
@@ -267,7 +267,7 @@ namespace AtCor{
 						};
 					};
 
-					///**
+					///*
 					//* Returns the name of the currently active serial port.
 					//* @warning Will return @c null if the current serial port object is not set.
 					//*/
@@ -289,7 +289,7 @@ namespace AtCor{
 
 					
 
-					///**
+					///*
 					//* Cleans the input buffer and dumps the unread packets into the log file.
 					//* Called when there an illegal data packet is received @n
 					//* cleans the input buffer and dumps the remaining values into the logfile.
@@ -320,6 +320,16 @@ namespace AtCor{
 
 
 					/**
+					* Public exposed member that is called via the state machine.
+					* Internally calls CheckIfTimeoutHasOccurredInternal in the correct state.
+					*
+					* @param[in]	sender	The object that raised this event.
+					* @param[out]	args	The timer event arguments.
+					*
+					*/
+					static void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args);
+
+					/**
 					* Event handler to check if data buffer is empty.
 					* Increments a counter if the buffer is empty and resets it to zero
 					* if it is not . If the counter reaches @ref DalConstants::MaxStreamingTimeoutOccurrences 
@@ -329,21 +339,42 @@ namespace AtCor{
 					* @param[out]	args	The timer event arguments.
 					*
 					*/
-					static void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args);
-
 					static void CheckIfTimeoutHasOccurredInternal(Object^ sender, ElapsedEventArgs^ args);
 
-					//TODO: Repalce with a new method that will fit into the new logic.
-					//static void CheckSerialPortInputBuffer(Object^ sender, ElapsedEventArgs^ args);
-
+					/**
+					* Processes a single packet from the streamign packet buffer.
+					* @param[in]	streamingPacket A byte array to be processed
+					* @return	The status of the operaton
+					*/
 					bool ProcessSingleStreamingPacket(array<unsigned char> ^ streamingPacket);
 
+					/**
+					* Loops throug all available streaming packets and processes them
+					*
+					* @return	The status of the operaton
+					*/
 					bool ProcessStreamingPackets();
 
+					/**
+					* TImer event handler which processes all available packets when raised
+					*
+					* @param[in]	sender	The object which raised the event
+					* @param[in]	e	The ElapsedEventArgs for this timer 
+					*/
 					void StreamingPacketReadHandler(Object ^sender, ElapsedEventArgs^ e);
 
+					/**
+					*	Asynchronous lostener that waits for a response to arrive in the response buffer
+					*	Times out if no data is recieved within the expected time as specifed in the repsonsePacket
+					*
+					*	@param[in,out]	responsePacket	The EM4 command-repsonse object in which the response is copied 
+					*/
 					void ResponseListenerThreadMethod(Object^ responsePacket);
 
+					/**
+					* Lets the processing thread know that there are streaming packets witing for processing in the queue
+					*
+					*/
 					void SignalResponsePacketAvailable();
 
 				

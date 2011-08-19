@@ -109,8 +109,10 @@ namespace TestDal {
 				unsigned int  dataLength = 3;
 				EM4DataCapturePacket_Accessor^  target = (gcnew EM4DataCapturePacket_Accessor(dataLength)); 
 				target->em4ResponsePacketLength = 8; //this is set externally in the listener
+				
 				//fill with dummy data to test breakup
-				target->em4Response = gcnew array <unsigned char> {0x01, 0x08, 0x30, 0x04, 0x05, 0x06, 0x07, 0x09, 0x0A};
+				target->em4Response = gcnew array <unsigned char> {0x01, 0x08, 0x37, 0x04, 0x05, 0x06, 0x07, 0x09, 0x0A};
+				
 				bool expected = true; 
 				bool actual;
 				actual = target->BreakupEM4Response();
@@ -123,7 +125,7 @@ namespace TestDal {
 				
 				Assert::AreEqual((unsigned char)0x01, target->em4ResponseAckNackByte);
 				Assert::AreEqual((unsigned char)0x08, target->em4ResponseLengthByte);
-				Assert::AreEqual((unsigned char)0x03, target->em4ResponseSequenceNumber);
+				Assert::AreEqual((unsigned char)0x37, target->em4ResponseSequenceNumber); //sequence number will be carried as it is for breakup
 				//check the data bits
 				Assert::AreEqual((unsigned char)0x04, target->em4ResponseData[0]);
 				Assert::AreEqual((unsigned char)0x05, target->em4ResponseData[1]);

@@ -97,6 +97,29 @@ using namespace AtCor::Scor::CrossCutting;
 		//Close the reader
 		reader->Close();
 	}
+
+	bool DalSimulationFile::GetNextValues(unsigned long *value1)
+	{
+		String ^singleLine; //temporary variable to store string
+		
+		if (reader == nullptr)
+		{
+			 //Simulation file has not been opened before attempting to read
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
+		}
+		
+		//Check if we have reached end of file and reset pointer to the start.
+		if ( reader->EndOfStream)
+		{
+			reader->BaseStream->Seek(0, SeekOrigin::Begin);
+		}
+		singleLine = reader->ReadLine();
+		
+		//return values to calling function
+		*value1 = (short)Single::Parse(singleLine);
+		//successful
+		return true;
+	}
 	
 	bool DalSimulationFile::GetNextValues(unsigned long *value1, unsigned long *value2)
 	{

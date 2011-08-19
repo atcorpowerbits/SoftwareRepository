@@ -48,7 +48,7 @@ public:
 	/**
 	* Gets the value of the specified tag as an integer.
 	* 
-	* @param[in] The name of the tag whose value is required. @n
+	* @param[in] tagName	The name of the tag whose value is required. @n
 	*				The string must be in a @c "ParenTag.ChildTag" format,
 	*				excluding the "Parameters" tag. 
 	* @return The value of the tag if it is an integer. 
@@ -60,7 +60,7 @@ public:
 	/**
 	* Gets the value of the specified tag as an string.
 	* 
-	* @param[in] The name of the tag whose value is required. @n
+	* @param[in] tagName	The name of the tag whose value is required. @n
 	*				The string must be in a @c "ParenTag.ChildTag" format,
 	*				excluding the "Parameters" tag. 
 	* @return The value of the tag. 

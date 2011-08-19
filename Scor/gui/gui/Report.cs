@@ -21,13 +21,11 @@ using AtCor.Scor.CrossCutting.Logging;
 using AtCor.Scor.CrossCutting.DatabaseManager;
 using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.DataAccess;
-using Telerik.WinControls.Enumerations;
 using AtCor.Scor.BusinessLogic;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Collections;
 using System.Text;
 using System.Configuration;
-using System.Globalization;
 using Telerik.WinControls.Primitives;
 
 namespace AtCor.Scor.Gui.Presentation
@@ -125,11 +123,14 @@ namespace AtCor.Scor.Gui.Presentation
                 serverNameString = GuiCommon.ServerNameString();
                 obj = (BizPWV)BizSession.Instance().measurement;
 
-                // subscribe report tab click event
+                // subscribe report tab click event                
                 DefaultWindow.OnReportTabClick += Report_Load;
+
                 DefaultWindow.OnExitSaveReportChanges += guiradbtnreportsave_Click;
                 DefaultWindow.OnReportMenuItemClick += SaveChangesOnMenuFocus;
+                
                 Presentation.Capture.OnReportTabClick += Report_Load;
+
                 GuiCommon.OnCaptureClosing += EnableRepeatAndCaptureTab;
                 guichartSuperImposedWaveform.BackColor = Color.White;                
                 guiradlblReportCarotid.ForeColor = Color.Blue;  
@@ -365,7 +366,8 @@ namespace AtCor.Scor.Gui.Presentation
             guiradbtnRepeat.Enabled = false;
             objDefaultWindow.radtabCapture.Enabled = false;
 
-            GuiCommon.IsFormChanged = false;
+            // GuiCommon.IsFormChanged = false;
+            GuiCommon.IsFormChanged = true;
         }
         
          /**This method sets Carotid, cuff & femoral to cuff values for editing as per PWV distance method
@@ -436,35 +438,37 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 // Pritam
                 // switch (crxMgrObject.GeneralSettings.BloodPressureEntryOptions)
-                switch (crxMgrObject.BpSettings.BloodPressure)
-                {
-                    case (int)CrxGenPwvValue.CrxGenBPOptSPandDP:
-                        // SP & DP
-                        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp); 
-                        guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp); 
+                guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp);
+                guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp);
 
-                        guiradtxtReportBloodPressure1.Text = (obj.bloodPressure.SP == null || obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
-                        guiradtxtReportBloodPressure2.Text = (obj.bloodPressure.DP == null || obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.DP.Reading.ToString();
-                        break;
-                    case (int)CrxGenPwvValue.CrxGenBPOptSPandMP:
-                        // SP & MP
-                        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp); 
-                        guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelMp); 
+                guiradtxtReportBloodPressure1.Text = (obj.bloodPressure.SP == null || obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
+                guiradtxtReportBloodPressure2.Text = (obj.bloodPressure.DP == null || obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.DP.Reading.ToString();
 
-                        guiradtxtReportBloodPressure1.Text = (obj.bloodPressure.SP == null || obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
-                        guiradtxtReportBloodPressure2.Text = (obj.bloodPressure.MP == null || obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
-                        break;
-                    case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
-                        // MP & DP
-                        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mp);
-                        guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp);
+                // switch (crxMgrObject.BpSettings.BloodPressure)
+                // {
+                //    case (int)CrxGenPwvValue.CrxGenBPOptSPandDP:
+                //        // SP & DP
+                       
+                ////       break;
+                //    case (int)CrxGenPwvValue.CrxGenBPOptSPandMP:
+                //        // SP & MP
+                //        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp); 
+                //        guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelMp); 
 
-                        guiradtxtReportBloodPressure1.Text = (obj.bloodPressure.MP == null || obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
-                        guiradtxtReportBloodPressure2.Text = (obj.bloodPressure.DP == null || obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.DP.Reading.ToString();
-                        break;
-                    default:
-                        break;
-                }
+                ////       guiradtxtReportBloodPressure1.Text = (obj.bloodPressure.SP == null || obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
+                //        guiradtxtReportBloodPressure2.Text = (obj.bloodPressure.MP == null || obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
+                //        break;
+                //    case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
+                //        // MP & DP
+                //        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mp);
+                //        guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp);
+
+                // guiradtxtReportBloodPressure1.Text = (obj.bloodPressure.MP == null || obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
+                // guiradtxtReportBloodPressure2.Text = (obj.bloodPressure.DP == null || obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue)) ? string.Empty : obj.bloodPressure.DP.Reading.ToString();
+                // break;
+                // default:
+                //        break;
+                // }
             }
             else
             {
@@ -479,14 +483,14 @@ namespace AtCor.Scor.Gui.Presentation
         {
            // call method to bring report screen to display mode
             SetPWVDsiplayMode();
+            GuiCommon.IsFormChanged = false;
         }
 
         /** This method brings report screen left side measurement details section in display mode
          * It hides cancel & save button & unhides edit button
          * */
         private void SetPWVDsiplayMode()
-        {
-            GuiCommon.IsFormChanged = false;
+        {            
             objDefaultWindow.radlblMessage.Text = string.Empty;
 
             // make display panel visible
@@ -531,9 +535,13 @@ namespace AtCor.Scor.Gui.Presentation
                 // guilblReportGroupValue.Text = GuiCommon.GroupName;
                 guiradlblReportPatientName.Text = string.IsNullOrEmpty(patientObj.firstName) ? patientObj.lastName : patientObj.firstName + "  " + patientObj.lastName;
                 guilblReportPatientIdValue.Text = patientObj.patientId;
-                guilblReportDobValue.Text = patientObj.dateOfBirth.ToString(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportDateTimeFormat));
+
+                // guilblReportDobValue.Text = patientObj.dateOfBirth.ToString(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportDateTimeFormat),CrxCommon.gCI);
+                guilblReportDobValue.Text = patientObj.dateOfBirth.ToShortDateString();
                 guilblReportAgeValue.Text = obj.patientAge.ToString();
-                guilblReportGenderValue.Text = patientObj.gender;
+                guilblReportGenderValue.Text = patientObj.gender.Equals(CrxStructCommonResourceMsg.MaleTxt) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MaleTxt) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemaleTxt); 
+
+                // guilblReportGenderValue.Text = patientObj.gender;
                 ReportPWVDisplayMode(true);
             }
             catch (Exception ex)
@@ -891,34 +899,36 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         void SetBloodPressureDisplayText()
         {
-            switch (obj.bloodPressureEntryOption)
-            {
-                case (int)CrxGenPwvValue.CrxGenBPOptSPandDP:
-                    // sp & dp
-                    guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp);
-                    guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp); 
-                    guiradlblreportSPdisplay.Text = obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
-                    guiradlblReportBloodPressure2.Text = obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.DP.Reading.ToString();
-                    break;
-                case (int)CrxGenPwvValue.CrxGenBPOptSPandMP:
-                    // sp & mp
-                    guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp); // hardcoded for internal use while changing user settings.
-                    guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelMp); // hardcoded for internal use while changing user settings.
-                    guiradlblreportSPdisplay.Text = obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
-                    guiradlblReportBloodPressure2.Text = obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
-                    break;
-                case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
-                    // mp & dp
-                    guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mp); // hardcoded for internal use while changing user settings.
-                    guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp); // hardcoded for internal use while changing user settings.
-                    guiradlblreportSPdisplay.Text = obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
-                    guiradlblReportBloodPressure2.Text = obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.DP.Reading.ToString();
-                    break;
-                default:
-                    break;
-            }
+            guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp);
+            guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp);
+            guiradlblreportSPdisplay.Text = obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
+            guiradlblReportBloodPressure2.Text = obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.DP.Reading.ToString();
+
+            // switch (obj.bloodPressureEntryOption)
+            // {
+            //    case (int)CrxGenPwvValue.CrxGenBPOptSPandDP:
+            //       // sp & dp                   
+            ////       break;
+            //    case (int)CrxGenPwvValue.CrxGenBPOptSPandMP:
+            //        // sp & mp
+            //        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp); // hardcoded for internal use while changing user settings.
+            //        guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelMp); // hardcoded for internal use while changing user settings.
+            //        guiradlblreportSPdisplay.Text = obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.SP.Reading.ToString();
+            //        guiradlblReportBloodPressure2.Text = obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
+            //        break;
+            //    case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
+            //        // mp & dp
+            //        guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mp); // hardcoded for internal use while changing user settings.
+            //        guiradlblBloodPressure2.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDp); // hardcoded for internal use while changing user settings.
+            //        guiradlblreportSPdisplay.Text = obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.MP.Reading.ToString();
+            //        guiradlblReportBloodPressure2.Text = obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) ? string.Empty : obj.bloodPressure.DP.Reading.ToString();
+            //        break;
+            //    default:
+            //        break;
+            // }
             
-            CheckBloodPressure();
+           // CheckBloodPressure();
+            CheckAgeLimit(obj.patientAge);
         }
 
         /** This method checks for blood pressure values & 
@@ -941,12 +951,15 @@ namespace AtCor.Scor.Gui.Presentation
             }
             else
             {
-                guiradlblReportReferenceRange.Visible = true;
-                guiradlblReportBpRange.Visible = true;
-                guiradlblRefRangeDescription.Visible = true;
-                guichartReferenceRange.Visible = true;
-                guireportradlblReferenceMsg.Visible = false;
-                guireportradlblReferenceMsg.SendToBack();
+                if (CrxConfigManager.Instance.PwvSettings.ReferenceRange)
+                {
+                    guiradlblReportReferenceRange.Visible = true;
+                    guiradlblReportBpRange.Visible = true;
+                    guiradlblRefRangeDescription.Visible = true;
+                    guichartReferenceRange.Visible = true;
+                    guireportradlblReferenceMsg.Visible = false;
+                    guireportradlblReferenceMsg.SendToBack();
+                }
             }
         }
         
@@ -1180,31 +1193,31 @@ namespace AtCor.Scor.Gui.Presentation
             crxPWV.Notes = dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Notes].ToString();
             crxPWV.BloodPressureEntryOption = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BloodPressureEntryOption].ToString());
 
-            // sets SP, DP & MP value
-            switch (crxPWV.BloodPressureEntryOption)
-            {
-                case (int)CrxGenPwvValue.CrxGenBPOptSPandDP: 
-                    // sp & dp
-                    crxPWV.SP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.SP].ToString());
-                    crxPWV.DP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.DP].ToString());
-                    crxPWV.MP = GuiConstants.SdefaultValue;
-                    break;
-                case (int)CrxGenPwvValue.CrxGenBPOptSPandMP: 
-                    // sp & mp
-                    crxPWV.SP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.SP].ToString());
-                    crxPWV.DP = GuiConstants.SdefaultValue;
-                    crxPWV.MP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.MP].ToString());
-                    break;
-                case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
-                    // dp & mp
-                    crxPWV.SP = GuiConstants.SdefaultValue;
-                    crxPWV.MP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.MP].ToString());
-                    crxPWV.DP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.DP].ToString());
-                    break;
-                default:
-                    break;
-            }
+            crxPWV.SP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.SP].ToString());
+            crxPWV.DP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.DP].ToString());
+            crxPWV.MP = GuiConstants.SdefaultValue;
 
+            // sets SP, DP & MP value
+            // switch (crxPWV.BloodPressureEntryOption)
+            // {
+            //    case (int)CrxGenPwvValue.CrxGenBPOptSPandDP: 
+            //        // sp & dp                  
+            ////       break;
+            //    case (int)CrxGenPwvValue.CrxGenBPOptSPandMP: 
+            //        // sp & mp
+            //        crxPWV.SP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.SP].ToString());
+            //        crxPWV.DP = GuiConstants.SdefaultValue;
+            //        crxPWV.MP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.MP].ToString());
+            //        break;
+            //    case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
+            //        // dp & mp
+            //        crxPWV.SP = GuiConstants.SdefaultValue;
+            //        crxPWV.MP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.MP].ToString());
+            //        crxPWV.DP = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.DP].ToString());
+            //        break;
+            //    default:
+            //        break;
+            // }
             crxPWV.PWVDistanceMethod = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.PWVDistanceMethod].ToString());
             crxPWV.PWVDistance = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.PWVDistance].ToString());
             crxPWV.Direct = short.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Direct].ToString());
@@ -1341,29 +1354,29 @@ namespace AtCor.Scor.Gui.Presentation
         private void InitializeBPValues(CrxStructPWVMeasurementData crxPWV)
         {          
             // sets SP, DP & MP value
-            switch (crxPWV.BloodPressureEntryOption)
-            {
-                case (int)CrxGenPwvValue.CrxGenBPOptSPandDP: 
+            // switch (crxPWV.BloodPressureEntryOption)
+            // {
+            //    case (int)CrxGenPwvValue.CrxGenBPOptSPandDP: 
                     // sp & dp
                     crxPWV.SP = string.IsNullOrEmpty(guiradtxtReportBloodPressure1.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportBloodPressure1.Text.Trim());
                     crxPWV.DP = string.IsNullOrEmpty(guiradtxtReportBloodPressure2.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportBloodPressure2.Text.Trim());
                     crxPWV.MP = GuiConstants.SdefaultValue;
-                    break;
-                case (int)CrxGenPwvValue.CrxGenBPOptSPandMP: 
-                    // sp & mp
-                    crxPWV.SP = string.IsNullOrEmpty(guiradtxtReportBloodPressure1.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportBloodPressure1.Text.Trim());
-                    crxPWV.DP = GuiConstants.SdefaultValue;
-                    crxPWV.MP = string.IsNullOrEmpty(guiradtxtReportBloodPressure2.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportBloodPressure2.Text.Trim());
-                    break;
-                case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
-                    // dp & mp
-                    crxPWV.SP = GuiConstants.SdefaultValue;
-                    crxPWV.MP = string.IsNullOrEmpty(guiradtxtReportBloodPressure1.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportBloodPressure1.Text.Trim());
-                    crxPWV.DP = string.IsNullOrEmpty(guiradtxtReportBloodPressure2.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportBloodPressure2.Text.Trim());
-                    break;
-                default:
-                    break;
-            }
+            ////        break;
+            //    case (int)CrxGenPwvValue.CrxGenBPOptSPandMP: 
+            //        // sp & mp
+            //        crxPWV.SP = string.IsNullOrEmpty(guiradtxtReportBloodPressure1.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportBloodPressure1.Text.Trim());
+            //        crxPWV.DP = GuiConstants.SdefaultValue;
+            //        crxPWV.MP = string.IsNullOrEmpty(guiradtxtReportBloodPressure2.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportBloodPressure2.Text.Trim());
+            //        break;
+            //    case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
+            //        // dp & mp
+            //        crxPWV.SP = GuiConstants.SdefaultValue;
+            //        crxPWV.MP = string.IsNullOrEmpty(guiradtxtReportBloodPressure1.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportBloodPressure1.Text.Trim());
+            //        crxPWV.DP = string.IsNullOrEmpty(guiradtxtReportBloodPressure2.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportBloodPressure2.Text.Trim());
+            //        break;
+            //    default:
+            //        break;
+            // }
         }
 
         /** This method validates session data
@@ -1386,30 +1399,30 @@ namespace AtCor.Scor.Gui.Presentation
             // Pritam
 
             // switch (crxMgrObject.GeneralSettings.BloodPressureEntryOptions)
-            switch (crxMgrObject.BpSettings.BloodPressure)
-            {
-                case (int)CrxGenPwvValue.CrxGenBPOptSPandDP: 
+            // switch (crxMgrObject.BpSettings.BloodPressure)
+            // {
+            //    case (int)CrxGenPwvValue.CrxGenBPOptSPandDP: 
                     // sp & dp
                     obj.bloodPressure.SP.Reading = string.IsNullOrEmpty(guiradtxtReportBloodPressure1.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportBloodPressure1.Text.Trim());
                     obj.bloodPressure.DP.Reading = string.IsNullOrEmpty(guiradtxtReportBloodPressure2.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportBloodPressure2.Text.Trim());
                     obj.bloodPressure.MP.Reading = GuiConstants.DefaultValue;
-                    break;
-                case (int)CrxGenPwvValue.CrxGenBPOptSPandMP:
-                    // sp & mp
-                    obj.bloodPressure.SP.Reading = string.IsNullOrEmpty(guiradtxtReportBloodPressure1.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportBloodPressure1.Text.Trim());
-                    obj.bloodPressure.DP.Reading = GuiConstants.DefaultValue;
-                    obj.bloodPressure.MP.Reading = string.IsNullOrEmpty(guiradtxtReportBloodPressure2.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportBloodPressure2.Text.Trim());
-                    break;
-                case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
-                    // dp & mp
-                    obj.bloodPressure.SP.Reading = GuiConstants.DefaultValue;
-                    obj.bloodPressure.MP.Reading = string.IsNullOrEmpty(guiradtxtReportBloodPressure1.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportBloodPressure1.Text.Trim());
-                    obj.bloodPressure.DP.Reading = string.IsNullOrEmpty(guiradtxtReportBloodPressure2.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportBloodPressure2.Text.Trim());
-                    break;
-                default:
-                    break;
-            }
 
+            ////        break;
+            //    case (int)CrxGenPwvValue.CrxGenBPOptSPandMP:
+            //        // sp & mp
+            //        obj.bloodPressure.SP.Reading = string.IsNullOrEmpty(guiradtxtReportBloodPressure1.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportBloodPressure1.Text.Trim());
+            //        obj.bloodPressure.DP.Reading = GuiConstants.DefaultValue;
+            //        obj.bloodPressure.MP.Reading = string.IsNullOrEmpty(guiradtxtReportBloodPressure2.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportBloodPressure2.Text.Trim());
+            //        break;
+            //    case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
+            //        // dp & mp
+            //        obj.bloodPressure.SP.Reading = GuiConstants.DefaultValue;
+            //        obj.bloodPressure.MP.Reading = string.IsNullOrEmpty(guiradtxtReportBloodPressure1.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportBloodPressure1.Text.Trim());
+            //        obj.bloodPressure.DP.Reading = string.IsNullOrEmpty(guiradtxtReportBloodPressure2.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportBloodPressure2.Text.Trim());
+            //        break;
+            //    default:
+            //        break;
+            // }
             return obj.Validate();            
         }
 
@@ -1650,13 +1663,13 @@ namespace AtCor.Scor.Gui.Presentation
             Series tonometerOnsetSeries = new Series
                                               {
                 ChartType = SeriesChartType.Point,
-                Color = Color.Red
+                Color = Color.Green 
             };
 
             Series tonometerOnsetSeries2 = new Series
                                                {
                 ChartType = SeriesChartType.Point,
-                Color = Color.Green
+                Color = Color.Red
             };
 
             tonometerOnsetSeries2.Points.Clear();
@@ -2570,6 +2583,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void SubscribeReportFormChanges()
         {
             // subscribe text change events to determine any form changes
+            /**
             guiradtxtReportCuff.TextChanged += GuiCommon.FormChanged;
             guiradtxtCarotid.TextChanged += GuiCommon.FormChanged;
             guiradtxtReportFemoToCuff.TextChanged += GuiCommon.FormChanged;
@@ -2577,11 +2591,13 @@ namespace AtCor.Scor.Gui.Presentation
             guiradtxtReportHeightInches.TextChanged += GuiCommon.FormChanged;
             guiradtxtReportOperator.TextChanged += GuiCommon.FormChanged;
             guiradtxtReportBloodPressure1.TextChanged += GuiCommon.FormChanged;
+           
 
             // Commenting the below code as group name is not included in Clinical mode.
             // guiradtxtReportWeight.TextChanged += GuiCommon.FormChanged;
             guiradtxtReportBloodPressure2.TextChanged += GuiCommon.FormChanged;
             guiradtxtReportNotes.TextChanged += GuiCommon.FormChanged;
+             */
 
             // subscribe key press events for measurement fields to allow numeric values
             guiradtxtCarotid.KeyPress += GuiCommon.CheckForNumericValues;
@@ -2775,11 +2791,15 @@ namespace AtCor.Scor.Gui.Presentation
             }
             else
             {
-                // Hide the label and show the chart for Normal range garph.
-                guiradlblReportNormalMsg.Visible = false;
-                guiradlblReportNormalMsg.SendToBack();
-                guichartNormalRange.Visible = true;
-                guiradlbReportNormalRange.Visible = true;               
+                if (CrxConfigManager.Instance.PwvSettings.NormalRange)
+                {
+                    // Hide the label and show the chart for Normal range garph.
+                    guiradlblReportNormalMsg.Visible = false;
+                    guiradlblReportNormalMsg.SendToBack();
+                    guichartNormalRange.Visible = true;
+                    guiradlbReportNormalRange.Visible = true;
+                }
+
                 CheckBloodPressure();
             }          
         }
@@ -2790,7 +2810,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void FillStructForPWVReport()
         {
            // PWVReportData pwvRpt;
-            PWVReportData.RptHeader = string.IsNullOrEmpty(crxMgrObject.GeneralSettings.ReportTitle) ? BizInfo.Instance().GetCompanyName().Replace("(R)", "\u00AE") : crxMgrObject.GeneralSettings.ReportTitle;
+            PWVReportData.RptHeader = string.IsNullOrEmpty(crxMgrObject.GeneralSettings.ReportTitle) ? BizInfo.Instance().GetCompanyName().Replace("(R)", "\u00AE") : crxMgrObject.GeneralSettings.ReportTitle.Replace("(R)", "\u00AE");
 
             // PWVReportData.RptHeader = BizInfo.Instance().GetCompanyName().Replace("(R)", "\u00AE");
             PWVReportData.RptPatientAge = guiradlblReportAge.Text;
@@ -2809,7 +2829,7 @@ namespace AtCor.Scor.Gui.Presentation
             PWVReportData.RptPatientDobValue = patientObj.dateOfBirth.ToString(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportDateTimeFormat));
             PWVReportData.RptPatientFemoral = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportRecordedFemoral);
             PWVReportData.RptPatientGender = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportGender);
-            PWVReportData.RptPatientGenderValue = patientObj.gender;
+            PWVReportData.RptPatientGenderValue = patientObj.gender.Equals(CrxStructCommonResourceMsg.MaleTxt) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MaleTxt) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemaleTxt); // patientObj.gender;
             PWVReportData.RptPatientGeneralPop = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportReferenceRange);
             PWVReportData.RptPatientHealthyPop = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportNormalRange);
             PWVReportData.RptPatientHeartRate = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportHR);
@@ -2863,20 +2883,22 @@ namespace AtCor.Scor.Gui.Presentation
             string blpValue = string.Empty;
             if (!((obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue)) || (obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue)) || (obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue))))
             {
-                switch (obj.bloodPressureEntryOption)
-                {
-                    case (int)CrxGenPwvValue.CrxGenBPOptSPandDP:
-                        blpValue = obj.bloodPressure.SP.Reading.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash) + obj.bloodPressure.DP.Reading.ToString();
-                        break;
-                    case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
-                        blpValue = obj.bloodPressure.MP.Reading.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash) + obj.bloodPressure.DP.Reading.ToString();
-                        break;
-                    case (int)CrxGenPwvValue.CrxGenBPOptSPandMP:
-                        blpValue = obj.bloodPressure.SP.Reading.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash) + obj.bloodPressure.MP.Reading.ToString();
-                        break;
-                    default:
-                        break;
-                }
+                blpValue = obj.bloodPressure.SP.Reading.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash) + obj.bloodPressure.DP.Reading.ToString();
+
+                // switch (obj.bloodPressureEntryOption)
+                // {
+                //    case (int)CrxGenPwvValue.CrxGenBPOptSPandDP:
+                      
+                // break;
+                //    case (int)CrxGenPwvValue.CrxGenBPOptMPandDP:
+                //        blpValue = obj.bloodPressure.MP.Reading.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash) + obj.bloodPressure.DP.Reading.ToString();
+                //        break;
+                //    case (int)CrxGenPwvValue.CrxGenBPOptSPandMP:
+                //        blpValue = obj.bloodPressure.SP.Reading.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash) + obj.bloodPressure.MP.Reading.ToString();
+                //        break;
+                //    default:
+                //        break;
+                // }
             }
 
             return blpValue;
@@ -3095,13 +3117,12 @@ namespace AtCor.Scor.Gui.Presentation
 
                 guiradbtnAnalysisPrint.SendToBack();
                 guiradbtnAnalysisPrint.Enabled = false;
-            }
-
-            // if value is false then show Analysis Print button.
-            // To see patient analysis report,disable and send back the report print button and
-            // at the same time enable and bring in front the Analysis print button.
+            }            
             else
-            {               
+            {
+                // if value is false then show Analysis Print button.
+                // To see patient analysis report,disable and send back the report print button and
+                // at the same time enable and bring in front the Analysis print button.
                 guiradbtnPrint.SendToBack();
                 guiradbtnPrint.Enabled = false;
 
@@ -3259,12 +3280,20 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void CalculatePwvDistanceForSubtractionMethod()
         {
-            if ((guiradtxtCarotid.Text.Length > 0) && (guiradtxtReportCuff.Text.Length > 0) && (guiradtxtReportFemoToCuff.Text.Length > 0))
+            // if ((guiradtxtCarotid.Text.Length > 0) && (guiradtxtReportCuff.Text.Length > 0) && (guiradtxtReportFemoToCuff.Text.Length > 0))
+            if ((guiradtxtCarotid.Text.Length > 0) && (guiradtxtReportCuff.Text.Length > 0))
             {
                 obj.myPWVDirectDistance.distance = GuiConstants.DefaultValue;
                 obj.myCarotidDistance.distance = (crxMgrObject.PwvSettings.PWVDistanceUnits.Equals((int)CrxGenPwvValue.CrxPwvDistDistUnitsCM)) ? (ushort)(ushort.Parse(guiradtxtCarotid.Text.Trim()) * GuiConstants.DivisionFactor) : ushort.Parse(guiradtxtCarotid.Text.Trim());
                 obj.myCuffDistance.distance = (crxMgrObject.PwvSettings.PWVDistanceUnits.Equals((int)CrxGenPwvValue.CrxPwvDistDistUnitsCM)) ? (ushort)(ushort.Parse(guiradtxtReportCuff.Text.Trim()) * GuiConstants.DivisionFactor) : ushort.Parse(guiradtxtReportCuff.Text.Trim());
-                obj.myFemoral2CuffDistance.distance = (crxMgrObject.PwvSettings.PWVDistanceUnits.Equals((int)CrxGenPwvValue.CrxPwvDistDistUnitsCM)) ? (ushort)(ushort.Parse(guiradtxtReportFemoToCuff.Text.Trim()) * GuiConstants.DivisionFactor) : ushort.Parse(guiradtxtReportFemoToCuff.Text.Trim());
+                if (guiradtxtReportFemoToCuff.Text.Trim().Equals(string.Empty))
+                {
+                    obj.myFemoral2CuffDistance.distance = 0;
+                }
+                else
+                {
+                    obj.myFemoral2CuffDistance.distance = (crxMgrObject.PwvSettings.PWVDistanceUnits.Equals((int)CrxGenPwvValue.CrxPwvDistDistUnitsCM)) ? (ushort)(ushort.Parse(guiradtxtReportFemoToCuff.Text.Trim()) * GuiConstants.DivisionFactor) : ushort.Parse(guiradtxtReportFemoToCuff.Text.Trim());
+                }
             }
         }
 
@@ -3277,8 +3306,15 @@ namespace AtCor.Scor.Gui.Presentation
                 obj.myPWVDirectDistance.distance = (crxMgrObject.PwvSettings.PWVDistanceUnits.Equals((int)CrxGenPwvValue.CrxPwvDistDistUnitsCM)) ? (ushort)(ushort.Parse(guiradtxtCarotid.Text.Trim()) * GuiConstants.DivisionFactor) : ushort.Parse(guiradtxtCarotid.Text.Trim());
                 obj.myCarotidDistance.distance = GuiConstants.DefaultValue;
                 obj.myCuffDistance.distance = GuiConstants.DefaultValue;
-                obj.myFemoral2CuffDistance.distance = (crxMgrObject.PwvSettings.PWVDistanceUnits.Equals((int)CrxGenPwvValue.CrxPwvDistDistUnitsCM)) ? (ushort)(ushort.Parse(guiradtxtReportFemoToCuff.Text.Trim()) * GuiConstants.DivisionFactor) : ushort.Parse(guiradtxtReportFemoToCuff.Text.Trim());
+                if (guiradtxtReportFemoToCuff.Text.Trim().Equals(string.Empty))
+                {
+                    obj.myFemoral2CuffDistance.distance = 0;
+                }
+                else
+                {
+                    obj.myFemoral2CuffDistance.distance = (crxMgrObject.PwvSettings.PWVDistanceUnits.Equals((int)CrxGenPwvValue.CrxPwvDistDistUnitsCM)) ? (ushort)(ushort.Parse(guiradtxtReportFemoToCuff.Text.Trim()) * GuiConstants.DivisionFactor) : ushort.Parse(guiradtxtReportFemoToCuff.Text.Trim());
+                }
             }
-        }
+        }       
     }
 }

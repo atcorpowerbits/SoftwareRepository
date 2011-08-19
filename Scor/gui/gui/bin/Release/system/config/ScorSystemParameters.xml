@@ -19,7 +19,7 @@
 		<UnusedBits>N</UnusedBits>
    </ProcessStatusFlagParts>
   <Gui>
-    <WaitButtonDelay>5</WaitButtonDelay>
+    <WaitButtonDelay>10</WaitButtonDelay>
     <AutoPWAProgressbarDelay>15</AutoPWAProgressbarDelay>
   </Gui>
 	<Crx>

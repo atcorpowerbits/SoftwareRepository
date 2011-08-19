@@ -35,9 +35,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 	{
 		CrxGenHeightWeightMetric		= 0,
 		CrxGenHeightWeightImperial		= 1,
-		CrxGenBPOptSPandDP				= 0,
+		/*CrxGenBPOptSPandDP				= 0,
 		CrxGenBPOptSPandMP				= 1,
-		CrxGenBPOptMPandDP				= 2,		
+		CrxGenBPOptMPandDP				= 2,*/		
 		CrxPwvDistDistUnitsMM			= 0,
 		CrxPwvDistDistUnitsCM			= 1,		
 		CrxPwvDistMethodSubtract		= 0,
@@ -53,8 +53,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 	{
 		CrxPwaCapture5Seconds			= 5,
 		CrxPwaCapture10Seconds			= 10,
-		CrxPwaCapture20Seconds			= 20,
-		
+		CrxPwaCapture20Seconds			= 20,		
 	};	
 	//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
 
@@ -65,7 +64,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 	private ref struct CrxConfigStructInternal
 	{
 		static String^ ConfigFilePath = ".\\system\\config\\scor.config";
-		static String^ DefaultEnvironment = "Clinical";
+		//static String^ DefaultEnvironment = "Clinical";
 
 
 	};
@@ -82,7 +81,11 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		static String^ Pwv = "PWV";
 		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
 		//static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION'";
-		static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION' , 'PWA' ,'GUIDANCEBARS','AUTOCAPTURE','MINPULSEHEIGHT','MAXPULSEHEIGHTVARIATION','MAXDIASTOLICVARIATION','AUGMENTATIONINDEX','AUGMENTATIONINDEXATHR75','BLINDSTUDY','CAPTUREINPUT','DEFAULTREPORTSCREEN', 'BP', 'DEVICE' ,'NUMBEROFASSESSMENTS', 'AUTOPWA', 'SPTHRESHOLD', 'PPTHRESHOLD', 'BLOODPRESSURE','SIMULATIONTYPE','KEY' ,'AUTOPWASP','AUTOPWAPP','AUTOPWADP','AUTOPWASPTHRESHOLD','AUTOPWAPPTHRESHOLD','AUTOPWADPTHRESHOLD'";
+		//Begin: AtCor-Drop2-Sprint3
+		//static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION' , 'PWA' ,'GUIDANCEBARS','AUTOCAPTURE','MINPULSEHEIGHT','MAXPULSEHEIGHTVARIATION','MAXDIASTOLICVARIATION','AUGMENTATIONINDEX','AUGMENTATIONINDEXATHR75','BLINDSTUDY','CAPTUREINPUT','DEFAULTREPORTSCREEN', 'BP', 'DEVICE' ,'NUMBEROFASSESSMENTS', 'AUTOPWA', 'SPTHRESHOLD', 'PPTHRESHOLD', 'BLOODPRESSURE','SIMULATIONTYPE','KEY' ,'AUTOPWASP','AUTOPWAPP','AUTOPWADP','AUTOPWASPTHRESHOLD','AUTOPWAPPTHRESHOLD','AUTOPWADPTHRESHOLD'";
+		//static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION' , 'PWA' ,'GUIDANCEBARS','AUTOCAPTURE','MINPULSEHEIGHT','MAXPULSEHEIGHTVARIATION','MAXDIASTOLICVARIATION','AUGMENTATIONINDEX','AUGMENTATIONINDEXATHR75','BLINDSTUDY','CAPTUREINPUT','DEFAULTREPORTSCREEN', 'BP', 'DEVICE' ,'NUMBEROFASSESSMENTS', 'AUTOPWA', 'SPTHRESHOLD', 'PPTHRESHOLD', 'BLOODPRESSURE','SIMULATIONTYPE','KEY' ,'AUTOPWASP','AUTOPWAPP','AUTOPWADP','AUTOPWASPTHRESHOLD','AUTOPWAPPTHRESHOLD','AUTOPWADPTHRESHOLD'";
+		static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION' , 'PWA' ,'GUIDANCEBARS','AUTOCAPTURE','MINPULSEHEIGHT','MAXPULSEHEIGHTVARIATION','MAXDIASTOLICVARIATION','AUGMENTATIONINDEX','AUGMENTATIONINDEXATHR75','BLINDSTUDY','CAPTUREINPUT','DEFAULTREPORTSCREEN', 'BP', 'DEVICE' ,'NUMBEROFASSESSMENTS', 'AUTOPWA', 'SPTHRESHOLD', 'PPTHRESHOLD','SIMULATIONTYPE','KEY' ,'AUTOPWASP','AUTOPWAPP','AUTOPWADP','AUTOPWASPTHRESHOLD','AUTOPWAPPTHRESHOLD','AUTOPWADPTHRESHOLD'";
+		//End: AtCor-Drop2-Sprint3
 		//End   : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
 		
 		static String^ TagSeparator	=	"'";
@@ -108,7 +111,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 
 		static String^ PatientPrivacy = "PATIENTPRIVACY";
 		static String^ HeightAndWeightUnits = "HEIGHTANDWEIGHTUNITS";
-		static String^ BloodPressureEntryOptions = "BLOODPRESSUREENTRYOPTIONS";
+		//static String^ BloodPressureEntryOptions = "BLOODPRESSUREENTRYOPTIONS";
 		static String^ CommsPort = "COMMSPORT";
 		static String^ ReportTitle = "REPORTTITLE";
 		static String^ ReportLogoPath = "REPORTLOGOPATH";
@@ -149,7 +152,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		static String^ Device = "DEVICE" ;
 		static String^ NumberofAssessments = "NUMBEROFASSESSMENTS";
 		static String^ AutoPWA = "AUTOPWA";
-		static String^ BloodPressure = "BLOODPRESSURE";
+		//static String^ BloodPressure = "BLOODPRESSURE";
 		static String^ AutoPWASP = "AUTOPWASP";
 		static String^ AutoPWAPP = "AUTOPWAPP";
 		static String^ AutoPWADP = "AUTOPWADP";
@@ -176,21 +179,21 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		static String^ CompareStr = "'METRIC', 'IMPERIAL'";
 	};
 
-	/**
-	 * @struct CrxConfigBloodPressureOption
-	 * @brief Container for BloodPressureOption. 	
-	 */
-	private ref struct CrxConfigBloodPressureOption
-	{
-		static String^ SPandDP = "SPANDDP";
-		static String^ SPandMP = "SPANDMP";
-		static String^ MPandDP = "MPANDDP";
+	///**
+	// * @struct CrxConfigBloodPressureOption
+	// * @brief Container for BloodPressureOption. 	
+	// */
+	//private ref struct CrxConfigBloodPressureOption
+	//{
+	//	static String^ SPandDP = "SPANDDP";
+	//	static String^ SPandMP = "SPANDMP";
+	//	static String^ MPandDP = "MPANDDP";
 
-		static String^ SPandDPSetValue = "SP and DP";
-		static String^ SPandMPSetValue = "SP and MP";
-		static String^ MPandDPSetValue = "MP and DP";
+	//	static String^ SPandDPSetValue = "SP and DP";
+	//	static String^ SPandMPSetValue = "SP and MP";
+	//	static String^ MPandDPSetValue = "MP and DP";
 
-	};
+	//};
 
 	/**
 	 * @struct CrxConfigPwvDistanceUnits
@@ -303,7 +306,43 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		PWA,
 		NIBP
 	};      
+	
+	//Declaring enum for CaptureInput Values
+	/**
+	* @enum CrxPwaCaptureInput
+	 * @brief Container for Capture Input Values. 
+	 */
+	public enum class CrxPwaCaptureInput
+	{
+		Cuff = 0,
+		Tonometer = 1,
+	};    
+	
+	//Declaring enum for Blood Pressure Values
+	/**
+	* @enum CrxBloodPressureInput
+	 * @brief Container for Blood Pressure Values. 
+	 */
+	public enum class CrxBloodPressureInput
+	{
+		CrxGenBPOptSPandDP				= 0,
+		CrxGenBPOptSPandMP				= 1,
+		CrxGenBPOptMPandDP				= 2,
+	};    
 
+	/**
+	 * @struct CrxConfigPwaCaptureInput
+	 * @brief Container for CaptureInput. 	
+	 */
+	private ref struct CrxConfigPwaCaptureInput
+	{
+		static String^ PressureCuff = "PRESSURECUFF";
+		static String^ Tonometer = "TONOMETER";
+		static String^ CompareStr = "'PRESSURECUFF', 'TONOMETER'";
+
+		static String^ CuffSetValue = "Pressure Cuff";
+		static String^ TonometerSetValue = "Tonometer";		
+	};
 
 	// Creating CrxStructSetting Structure and variables
 	/**
@@ -407,7 +446,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		bool AutoCapture;
 		bool AugmentationIndex;
 		bool AugmentationIndexAtHR75;
-		String^ CaptureInput;
+		//String^ CaptureInput;
+		int CaptureInput;
 		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
 		String^ SimulationType;	/**< Shows the String Selected*/
 		//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
@@ -423,7 +463,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			AutoCapture				= true;
 			AugmentationIndex		= true;
 			AugmentationIndexAtHR75	= false;
-			CaptureInput			= "Pressure Cuff";
+			//CaptureInput			= "Pressure Cuff";
+			CaptureInput			= 0;
 			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
 			SimulationType			= nullptr;
 			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
@@ -618,8 +659,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetPatientPrivacy(String^ SubSection, String^ ReaderValue);
 			//Get Height and weight value from config file
 			void GetHeightWeight(String^ SubSection, String^ ReaderValue);
-			//Get Blood Pressure Option from config file
-			void GetBloodPressureOption(String^ SubSection, String^ ReaderValue);
+			////Get Blood Pressure Option from config file
+			//void GetBloodPressureOption(String^ SubSection, String^ ReaderValue);
 			//Get Comms Port from config file
 			void GetCommsPort(String^ SubSection, String^ ReaderValue);
 			//Get Report Title from config file
@@ -659,8 +700,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void SetPatientPrivacy(CrxStructGeneralSetting^ gs, XmlNode^ node);
 			//Set Height and weight value in config file
 			void SetHeightWeight(CrxStructGeneralSetting^ gs, XmlNode^ node);
-			//Set Blood Pressure Option in config file
-			void SetBloodPressureOption(CrxStructGeneralSetting^ gs, XmlNode^ node);
+			////Set Blood Pressure Option in config file
+			//void SetBloodPressureOption(CrxStructGeneralSetting^ gs, XmlNode^ node);
 			//Set Comms Port in config file
 			void SetCommsPort(CrxStructGeneralSetting^ gs, XmlNode^ node);
 			//Set Report Title in config file
@@ -799,8 +840,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetBpNumberofAssessments(String^ SubSection, String^ ReaderValue);
 			//Get Auto PWA from config file
 			void GetBpAutoPWA(String^ SubSection, String^ ReaderValue);
-			//Get Blood Pressure from config file
-			void GetBpBloodPressure(String^ SubSection, String^ ReaderValue);
+			////Get Blood Pressure from config file
+			//void GetBpBloodPressure(String^ SubSection, String^ ReaderValue);
 			//Get Auto PWV SP from config file
 			void GetBpAutoPWASP(String^ SubSection, String^ ReaderValue);
 			//Get Auto PWV PP from config file
@@ -821,8 +862,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void SetBpNumberofAssessments(CrxStructBpSetting^ bps, XmlNode^ node);
 			//Set Auto PWA from config file
 			void SetBpAutoPWA(CrxStructBpSetting^ bps, XmlNode^ node);
-			//Set Blood Pressure from config file
-			void SetBpBloodPressure(CrxStructBpSetting^ bps, XmlNode^ node);
+			////Set Blood Pressure from config file
+			//void SetBpBloodPressure(CrxStructBpSetting^ bps, XmlNode^ node);
 			//Set Auto PWV SP from config file
 			void SetBpAutoPWASP(CrxStructBpSetting^ bps, XmlNode^ node);
 			//Set Auto PWV PP from config file

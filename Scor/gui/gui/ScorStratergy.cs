@@ -1,11 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AtCor.Scor.BusinessLogic;
+﻿/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+     Filename     :     System Key
+        
+     Author       :     Nitesh Chhedda 
+ 
+     Description  :     This class defines an interface wherein diferent methods are declared which need to implemented for other modes.
+*/
 
+/**
+ * @namespace AtCor.Scor.Gui.Presentation
+ * @brief This namespace implements Presentation related classes.
+ * 
+ */
 namespace AtCor.Scor.Gui.Presentation
 {
+    /**
+   * @class IScorStrategy
+   * @brief IScorStrategy is an inteface wherein different methods for different modes are declared.    
+   */
+
     public interface IScorStrategy
     {
         // Creating a property for bizobject.
@@ -19,6 +33,14 @@ namespace AtCor.Scor.Gui.Presentation
         void DispatchCaptureData();
 
         void LoadReport();
+
+        void FillSession();
+
+        void SetHeightWeightUnits();
+
+        void SetDistanceMethodAndUnits();
+
+        void SetBloodPressure();
 
         // bool StartCapture();
         // void StopCapture();

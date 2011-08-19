@@ -69,6 +69,18 @@ namespace AtCor{
 								}; // End CaptureType
 
 								/**
+								* @enum	DalStreamingMode
+								* @brief	The mode of operation such as PWV, PWA	
+								*/
+								public enum class DalStreamingMode
+								{
+									None, /**<Default*/
+									Pwv, /**< Pulse Wave Velocity */
+									cPwa, /**< Pulse Wave Analysis - Cuff */
+									tPwa /**< Pulse Wave Analysis - Cuff */
+								};
+
+								/**
 								* @enum	DalDeviceConfigUsageEnum
 								* @brief	The configuration information item requested in DalDeviceConfigUsageStruct
 								*/
@@ -475,24 +487,19 @@ namespace AtCor{
 										
 								};
 
+								/**
+								* @enum DalPacketType
+								* @brief The type of the dal packet 
+								*/
 								private enum class DalPacketType
 								{
-									Unknown,
-									StreamingDataPacket,
-									AckedResponsePakcet,
-									NackedResponsePacket
+									Unknown, /**< The type could not be determined*/
+									StreamingDataPacket,	 /**< A streaming packet type*/
+									AckedResponsePakcet,	 /**< Acked response t a particular command*/
+									NackedResponsePacket	 /**< Nacked response*/
 								};
 
 
-								/*private ref class DalExceptionHandler
-								{
-								public:
-									static void HandleDalExceptions(Exception^ ex, Object^ sender)
-									{
-										ex;
-										sender;
-									}
-								};*/
 
 		} // End Namespace DataAccess
 	} // End Namespace Scor

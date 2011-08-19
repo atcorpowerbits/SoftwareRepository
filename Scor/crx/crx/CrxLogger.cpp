@@ -32,7 +32,7 @@ CrxLogger::CrxLogger()
 	{
 		enableLogging = false;
 	}
-
+	
 	GetLastWrittenLineNumber();
 
 	//Get the LogWriter from enterprise library

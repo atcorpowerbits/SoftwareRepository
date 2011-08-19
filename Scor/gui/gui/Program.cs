@@ -41,7 +41,7 @@ namespace AtCor.Scor.Gui.Presentation
                 Application.SetCompatibleTextRenderingDefault(false);
                 defWindow = new DefaultWindow();
                 DataAccess.DalModule dm = DataAccess.DalModule.Instance;   
-                
+            
                 Application.Run(defWindow);
             }
             catch (Exception ex)

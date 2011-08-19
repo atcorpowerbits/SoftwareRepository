@@ -31,6 +31,26 @@ namespace AtCor.Scor.Gui.Presentation
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSettingsWindow));
             this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
+            this.docWndPWASettings = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.guiradgrpbxPWASimulationFiles = new Telerik.WinControls.UI.RadGroupBox();
+            this.comboSimulationFilesPwa = new Telerik.WinControls.UI.RadDropDownList();
+            this.radgrpbxCaptureGuidePWA = new Telerik.WinControls.UI.RadGroupBox();
+            this.radchkAutoCapturePWA = new Telerik.WinControls.UI.RadCheckBox();
+            this.radchkGuidanceBars = new Telerik.WinControls.UI.RadCheckBox();
+            this.radchkBlindStudy = new Telerik.WinControls.UI.RadCheckBox();
+            this.radgrpbxClinicalReport = new Telerik.WinControls.UI.RadGroupBox();
+            this.guiradradioAumentationIndexHR75 = new Telerik.WinControls.UI.RadRadioButton();
+            this.guiradradioAumentationIndex = new Telerik.WinControls.UI.RadRadioButton();
+            this.radgrpbxCaptureInput = new Telerik.WinControls.UI.RadGroupBox();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.radradiobtnTonometer = new Telerik.WinControls.UI.RadRadioButton();
+            this.radradiobtnPressureCuff = new Telerik.WinControls.UI.RadRadioButton();
+            this.radgrpbxCaptureTime = new Telerik.WinControls.UI.RadGroupBox();
+            this.guiradPwa20Seconds = new Telerik.WinControls.UI.RadRadioButton();
+            this.guiradPwa5Seconds = new Telerik.WinControls.UI.RadRadioButton();
+            this.guiradPwa10Seconds = new Telerik.WinControls.UI.RadRadioButton();
+            this.documentContainer1 = new Telerik.WinControls.UI.Docking.DocumentContainer();
+            this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
             this.docWndGeneralSettings = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radgrpbxstartupMode = new Telerik.WinControls.UI.RadGroupBox();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
@@ -55,8 +75,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.radradiobtnMetric = new Telerik.WinControls.UI.RadRadioButton();
             this.radgrpbxSetupScreen = new Telerik.WinControls.UI.RadGroupBox();
             this.radchkbxPatientPrivacy = new Telerik.WinControls.UI.RadCheckBox();
-            this.documentContainer1 = new Telerik.WinControls.UI.Docking.DocumentContainer();
-            this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
             this.docWndPWVSettings = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radgrpbxCaptureGuide = new Telerik.WinControls.UI.RadGroupBox();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
@@ -66,7 +84,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.comboDefaultReport = new Telerik.WinControls.UI.RadDropDownList();
             this.guiradgrpDefaultReport = new Telerik.WinControls.UI.RadGroupBox();
             this.radgrpbxSimulationTypes = new Telerik.WinControls.UI.RadGroupBox();
-            this.comboSimulationFiles = new Telerik.WinControls.UI.RadDropDownList();
+            this.comboSimulationFilesPwv = new Telerik.WinControls.UI.RadDropDownList();
             this.radgrpSimulationFiles = new Telerik.WinControls.UI.RadGroupBox();
             this.radgrpCaptureTime = new Telerik.WinControls.UI.RadGroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -86,32 +104,12 @@ namespace AtCor.Scor.Gui.Presentation
             this.tblPWVDistanceMethod = new System.Windows.Forms.TableLayoutPanel();
             this.radDirect = new Telerik.WinControls.UI.RadRadioButton();
             this.radSubtracting = new Telerik.WinControls.UI.RadRadioButton();
-            this.docWndPWASettings = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.guiradgrpbxPWASimulationFiles = new Telerik.WinControls.UI.RadGroupBox();
-            this.radDropDownList3 = new Telerik.WinControls.UI.RadDropDownList();
-            this.radgrpbxCaptureGuidePWA = new Telerik.WinControls.UI.RadGroupBox();
-            this.radchkAutoCapturePWA = new Telerik.WinControls.UI.RadCheckBox();
-            this.radchkGuidanceBars = new Telerik.WinControls.UI.RadCheckBox();
-            this.radgrpbxClinicalReport = new Telerik.WinControls.UI.RadGroupBox();
-            this.radchkBlindStudy = new Telerik.WinControls.UI.RadCheckBox();
-            this.radchkAumentationIndexHR75 = new Telerik.WinControls.UI.RadCheckBox();
-            this.radchkAumentationIndex = new Telerik.WinControls.UI.RadCheckBox();
-            this.radgrpbxCaptureInput = new Telerik.WinControls.UI.RadGroupBox();
-            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.radradiobtnTonometer = new Telerik.WinControls.UI.RadRadioButton();
-            this.radradiobtnPressureCuff = new Telerik.WinControls.UI.RadRadioButton();
-            this.radgrpbxCaptureTime = new Telerik.WinControls.UI.RadGroupBox();
-            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.rad5SecondsPWA = new Telerik.WinControls.UI.RadRadioButton();
-            this.rad10SecondsPWA = new Telerik.WinControls.UI.RadRadioButton();
-            this.rad20SecondsPWA = new Telerik.WinControls.UI.RadRadioButton();
-            this.documentWindow4 = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.docWndBPSettings = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.radgrpbxBloodPressures = new Telerik.WinControls.UI.RadGroupBox();
-            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            this.radradiobtnMPandDP = new Telerik.WinControls.UI.RadRadioButton();
-            this.radradiobtnSPandDP = new Telerik.WinControls.UI.RadRadioButton();
-            this.radradiobtnSPandMP = new Telerik.WinControls.UI.RadRadioButton();
+            this.radgrpbxBPDevice = new Telerik.WinControls.UI.RadGroupBox();
+            this.radradiobtnOther = new Telerik.WinControls.UI.RadRadioButton();
+            this.radradiobtnSphygcomor = new Telerik.WinControls.UI.RadRadioButton();
+            this.radgrpbxNumberOfAssessments = new Telerik.WinControls.UI.RadGroupBox();
+            this.comboBpNumberOfAssesments = new Telerik.WinControls.UI.RadDropDownList();
             this.radgrpbxAutoPWA = new Telerik.WinControls.UI.RadGroupBox();
             this.guipnlBPAutoPWARangeDetails = new System.Windows.Forms.Panel();
             this.guiradtxtDPThreshold = new Telerik.WinControls.UI.RadTextBox();
@@ -120,21 +118,11 @@ namespace AtCor.Scor.Gui.Presentation
             this.radradiochkDP = new Telerik.WinControls.UI.RadCheckBox();
             this.radradiochkPP = new Telerik.WinControls.UI.RadCheckBox();
             this.radradiochkSP = new Telerik.WinControls.UI.RadCheckBox();
-            this.radgrpbxNumberOfAssessments = new Telerik.WinControls.UI.RadGroupBox();
-            this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
-            this.radradiobtnAssessment5 = new Telerik.WinControls.UI.RadRadioButton();
-            this.radradiobtnAssessment1 = new Telerik.WinControls.UI.RadRadioButton();
-            this.radradiobtnAssessment2 = new Telerik.WinControls.UI.RadRadioButton();
-            this.radradiobtnAssessment3 = new Telerik.WinControls.UI.RadRadioButton();
-            this.radradiobtnAssessment4 = new Telerik.WinControls.UI.RadRadioButton();
-            this.radgrpbxBPDevice = new Telerik.WinControls.UI.RadGroupBox();
-            this.radradiobtnOther = new Telerik.WinControls.UI.RadRadioButton();
-            this.radradiobtnSphygcomor = new Telerik.WinControls.UI.RadRadioButton();
-            this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.radRadioButton1 = new Telerik.WinControls.UI.RadRadioButton();
-            this.radRadioButton4 = new Telerik.WinControls.UI.RadRadioButton();
-            this.radRadioButton5 = new Telerik.WinControls.UI.RadRadioButton();
+            this.radgrpbxBloodPressures = new Telerik.WinControls.UI.RadGroupBox();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.radradiobtnMPandDP = new Telerik.WinControls.UI.RadRadioButton();
+            this.radradiobtnSPandDP = new Telerik.WinControls.UI.RadRadioButton();
+            this.radradiobtnSPandMP = new Telerik.WinControls.UI.RadRadioButton();
             this.radbtnDefaults = new Telerik.WinControls.UI.RadButton();
             this.radbtnCancel = new Telerik.WinControls.UI.RadButton();
             this.radbtnSave = new Telerik.WinControls.UI.RadButton();
@@ -142,12 +130,37 @@ namespace AtCor.Scor.Gui.Presentation
             this.radRadioButton2 = new Telerik.WinControls.UI.RadRadioButton();
             this.radRadioButton3 = new Telerik.WinControls.UI.RadRadioButton();
             this.object_2c8b2f0f_b093_4256_82f7_ffe6d52c17dc = new Telerik.WinControls.RootRadElement();
-            this.documentWindow2 = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.documentWindow3 = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radgrpbxBloodPressure = new Telerik.WinControls.UI.RadGroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
+            this.docWndPWASettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradgrpbxPWASimulationFiles)).BeginInit();
+            this.guiradgrpbxPWASimulationFiles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboSimulationFilesPwa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureGuidePWA)).BeginInit();
+            this.radgrpbxCaptureGuidePWA.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radchkAutoCapturePWA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radchkGuidanceBars)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radchkBlindStudy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxClinicalReport)).BeginInit();
+            this.radgrpbxClinicalReport.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradradioAumentationIndexHR75)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradradioAumentationIndex)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureInput)).BeginInit();
+            this.radgrpbxCaptureInput.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnTonometer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnPressureCuff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureTime)).BeginInit();
+            this.radgrpbxCaptureTime.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradPwa20Seconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradPwa5Seconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradPwa10Seconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).BeginInit();
+            this.documentContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
+            this.documentTabStrip1.SuspendLayout();
             this.docWndGeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxstartupMode)).BeginInit();
             this.radgrpbxstartupMode.SuspendLayout();
@@ -178,10 +191,6 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxSetupScreen)).BeginInit();
             this.radgrpbxSetupScreen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radchkbxPatientPrivacy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).BeginInit();
-            this.documentContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
-            this.documentTabStrip1.SuspendLayout();
             this.docWndPWVSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureGuide)).BeginInit();
             this.radgrpbxCaptureGuide.SuspendLayout();
@@ -194,7 +203,7 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradgrpDefaultReport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxSimulationTypes)).BeginInit();
             this.radgrpbxSimulationTypes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.comboSimulationFiles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboSimulationFilesPwv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpSimulationFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpCaptureTime)).BeginInit();
             this.radgrpCaptureTime.SuspendLayout();
@@ -219,38 +228,14 @@ namespace AtCor.Scor.Gui.Presentation
             this.tblPWVDistanceMethod.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDirect)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radSubtracting)).BeginInit();
-            this.docWndPWASettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradgrpbxPWASimulationFiles)).BeginInit();
-            this.guiradgrpbxPWASimulationFiles.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radDropDownList3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureGuidePWA)).BeginInit();
-            this.radgrpbxCaptureGuidePWA.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkAutoCapturePWA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkGuidanceBars)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxClinicalReport)).BeginInit();
-            this.radgrpbxClinicalReport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkBlindStudy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkAumentationIndexHR75)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkAumentationIndex)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureInput)).BeginInit();
-            this.radgrpbxCaptureInput.SuspendLayout();
-            this.tableLayoutPanel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnTonometer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnPressureCuff)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureTime)).BeginInit();
-            this.radgrpbxCaptureTime.SuspendLayout();
-            this.tableLayoutPanel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rad5SecondsPWA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rad10SecondsPWA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rad20SecondsPWA)).BeginInit();
-            this.documentWindow4.SuspendLayout();
             this.docWndBPSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxBloodPressures)).BeginInit();
-            this.radgrpbxBloodPressures.SuspendLayout();
-            this.tableLayoutPanel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnMPandDP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSPandDP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSPandMP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxBPDevice)).BeginInit();
+            this.radgrpbxBPDevice.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnOther)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSphygcomor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxNumberOfAssessments)).BeginInit();
+            this.radgrpbxNumberOfAssessments.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBpNumberOfAssesments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxAutoPWA)).BeginInit();
             this.radgrpbxAutoPWA.SuspendLayout();
             this.guipnlBPAutoPWARangeDetails.SuspendLayout();
@@ -260,24 +245,12 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radradiochkDP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radradiochkPP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radradiochkSP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxNumberOfAssessments)).BeginInit();
-            this.radgrpbxNumberOfAssessments.SuspendLayout();
-            this.tableLayoutPanel14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnAssessment5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnAssessment1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnAssessment2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnAssessment3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnAssessment4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxBPDevice)).BeginInit();
-            this.radgrpbxBPDevice.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnOther)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSphygcomor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
-            this.radGroupBox1.SuspendLayout();
-            this.tableLayoutPanel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radRadioButton1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radRadioButton4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radRadioButton5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxBloodPressures)).BeginInit();
+            this.radgrpbxBloodPressures.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnMPandDP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSPandDP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSPandMP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radbtnDefaults)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radbtnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radbtnSave)).BeginInit();
@@ -311,6 +284,502 @@ namespace AtCor.Scor.Gui.Presentation
             this.radDock1.TabIndex = 0;
             this.radDock1.TabStop = false;
             this.radDock1.Text = "PWV Settings";
+            // 
+            // docWndPWASettings
+            // 
+            this.docWndPWASettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.docWndPWASettings.Controls.Add(this.guiradgrpbxPWASimulationFiles);
+            this.docWndPWASettings.Controls.Add(this.radgrpbxCaptureGuidePWA);
+            this.docWndPWASettings.Controls.Add(this.radchkBlindStudy);
+            this.docWndPWASettings.Controls.Add(this.radgrpbxClinicalReport);
+            this.docWndPWASettings.Controls.Add(this.radgrpbxCaptureInput);
+            this.docWndPWASettings.Controls.Add(this.radgrpbxCaptureTime);
+            this.docWndPWASettings.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
+            this.docWndPWASettings.Location = new System.Drawing.Point(6, 33);
+            this.docWndPWASettings.Name = "docWndPWASettings";
+            this.docWndPWASettings.Size = new System.Drawing.Size(540, 372);
+            this.docWndPWASettings.Text = "PWA Settings";
+            // 
+            // guiradgrpbxPWASimulationFiles
+            // 
+            this.guiradgrpbxPWASimulationFiles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guiradgrpbxPWASimulationFiles.Controls.Add(this.comboSimulationFilesPwa);
+            this.guiradgrpbxPWASimulationFiles.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradgrpbxPWASimulationFiles.FooterImageIndex = -1;
+            this.guiradgrpbxPWASimulationFiles.FooterImageKey = "";
+            this.guiradgrpbxPWASimulationFiles.HeaderImageIndex = -1;
+            this.guiradgrpbxPWASimulationFiles.HeaderImageKey = "";
+            this.guiradgrpbxPWASimulationFiles.HeaderMargin = new System.Windows.Forms.Padding(0);
+            this.guiradgrpbxPWASimulationFiles.HeaderText = "Simulation Types";
+            this.guiradgrpbxPWASimulationFiles.Location = new System.Drawing.Point(22, 257);
+            this.guiradgrpbxPWASimulationFiles.Name = "guiradgrpbxPWASimulationFiles";
+            this.guiradgrpbxPWASimulationFiles.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            // 
+            // 
+            // 
+            this.guiradgrpbxPWASimulationFiles.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            this.guiradgrpbxPWASimulationFiles.ShowItemToolTips = false;
+            this.guiradgrpbxPWASimulationFiles.Size = new System.Drawing.Size(223, 63);
+            this.guiradgrpbxPWASimulationFiles.TabIndex = 2;
+            this.guiradgrpbxPWASimulationFiles.Text = "Simulation Types";
+            ((Telerik.WinControls.UI.GroupBoxContent)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
+            ((Telerik.WinControls.UI.GroupBoxHeader)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
+            // 
+            // comboSimulationFilesPwa
+            // 
+            this.comboSimulationFilesPwa.AllowShowFocusCues = true;
+            this.comboSimulationFilesPwa.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboSimulationFilesPwa.AutoSize = false;
+            this.comboSimulationFilesPwa.DropDownHeight = 80;
+            this.comboSimulationFilesPwa.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
+            this.comboSimulationFilesPwa.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboSimulationFilesPwa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.comboSimulationFilesPwa.Location = new System.Drawing.Point(14, 25);
+            this.comboSimulationFilesPwa.Name = "comboSimulationFilesPwa";
+            // 
+            // 
+            // 
+            this.comboSimulationFilesPwa.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.comboSimulationFilesPwa.Size = new System.Drawing.Size(192, 25);
+            this.comboSimulationFilesPwa.TabIndex = 8;
+            this.comboSimulationFilesPwa.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.comboDefaultReport_SelectedIndexChanged);
+            // 
+            // radgrpbxCaptureGuidePWA
+            // 
+            this.radgrpbxCaptureGuidePWA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radgrpbxCaptureGuidePWA.Controls.Add(this.radchkAutoCapturePWA);
+            this.radgrpbxCaptureGuidePWA.Controls.Add(this.radchkGuidanceBars);
+            this.radgrpbxCaptureGuidePWA.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxCaptureGuidePWA.FooterImageIndex = -1;
+            this.radgrpbxCaptureGuidePWA.FooterImageKey = "";
+            this.radgrpbxCaptureGuidePWA.HeaderImageIndex = -1;
+            this.radgrpbxCaptureGuidePWA.HeaderImageKey = "";
+            this.radgrpbxCaptureGuidePWA.HeaderMargin = new System.Windows.Forms.Padding(0);
+            this.radgrpbxCaptureGuidePWA.HeaderText = "Capture Guide";
+            this.radgrpbxCaptureGuidePWA.Location = new System.Drawing.Point(22, 163);
+            this.radgrpbxCaptureGuidePWA.Name = "radgrpbxCaptureGuidePWA";
+            this.radgrpbxCaptureGuidePWA.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            // 
+            // 
+            // 
+            this.radgrpbxCaptureGuidePWA.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            this.radgrpbxCaptureGuidePWA.Size = new System.Drawing.Size(223, 80);
+            this.radgrpbxCaptureGuidePWA.TabIndex = 1;
+            this.radgrpbxCaptureGuidePWA.Text = "Capture Guide";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
+            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
+            // 
+            // radchkAutoCapturePWA
+            // 
+            this.radchkAutoCapturePWA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radchkAutoCapturePWA.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radchkAutoCapturePWA.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radchkAutoCapturePWA.Location = new System.Drawing.Point(20, 47);
+            this.radchkAutoCapturePWA.Name = "radchkAutoCapturePWA";
+            // 
+            // 
+            // 
+            this.radchkAutoCapturePWA.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radchkAutoCapturePWA.Size = new System.Drawing.Size(113, 21);
+            this.radchkAutoCapturePWA.TabIndex = 1;
+            this.radchkAutoCapturePWA.Text = "Auto Capture";
+            this.radchkAutoCapturePWA.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
+            // 
+            // radchkGuidanceBars
+            // 
+            this.radchkGuidanceBars.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radchkGuidanceBars.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radchkGuidanceBars.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radchkGuidanceBars.Location = new System.Drawing.Point(20, 23);
+            this.radchkGuidanceBars.Name = "radchkGuidanceBars";
+            // 
+            // 
+            // 
+            this.radchkGuidanceBars.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radchkGuidanceBars.Size = new System.Drawing.Size(124, 21);
+            this.radchkGuidanceBars.TabIndex = 0;
+            this.radchkGuidanceBars.Text = "Guidance Bars";
+            this.radchkGuidanceBars.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
+            // 
+            // radchkBlindStudy
+            // 
+            this.radchkBlindStudy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radchkBlindStudy.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radchkBlindStudy.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radchkBlindStudy.Location = new System.Drawing.Point(22, 326);
+            this.radchkBlindStudy.Name = "radchkBlindStudy";
+            // 
+            // 
+            // 
+            this.radchkBlindStudy.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radchkBlindStudy.Size = new System.Drawing.Size(104, 21);
+            this.radchkBlindStudy.TabIndex = 2;
+            this.radchkBlindStudy.Text = "Blind Study ";
+            this.radchkBlindStudy.Visible = false;
+            this.radchkBlindStudy.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
+            // 
+            // radgrpbxClinicalReport
+            // 
+            this.radgrpbxClinicalReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radgrpbxClinicalReport.Controls.Add(this.guiradradioAumentationIndexHR75);
+            this.radgrpbxClinicalReport.Controls.Add(this.guiradradioAumentationIndex);
+            this.radgrpbxClinicalReport.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxClinicalReport.FooterImageIndex = -1;
+            this.radgrpbxClinicalReport.FooterImageKey = "";
+            this.radgrpbxClinicalReport.HeaderImageIndex = -1;
+            this.radgrpbxClinicalReport.HeaderImageKey = "";
+            this.radgrpbxClinicalReport.HeaderMargin = new System.Windows.Forms.Padding(0);
+            this.radgrpbxClinicalReport.HeaderText = "Clinical Report";
+            this.radgrpbxClinicalReport.Location = new System.Drawing.Point(276, 47);
+            this.radgrpbxClinicalReport.Name = "radgrpbxClinicalReport";
+            this.radgrpbxClinicalReport.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            // 
+            // 
+            // 
+            this.radgrpbxClinicalReport.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            this.radgrpbxClinicalReport.Size = new System.Drawing.Size(235, 102);
+            this.radgrpbxClinicalReport.TabIndex = 3;
+            this.radgrpbxClinicalReport.Text = "Clinical Report";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
+            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
+            // 
+            // guiradradioAumentationIndexHR75
+            // 
+            this.guiradradioAumentationIndexHR75.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guiradradioAumentationIndexHR75.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradradioAumentationIndexHR75.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradradioAumentationIndexHR75.Location = new System.Drawing.Point(16, 53);
+            this.guiradradioAumentationIndexHR75.Name = "guiradradioAumentationIndexHR75";
+            // 
+            // 
+            // 
+            this.guiradradioAumentationIndexHR75.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradradioAumentationIndexHR75.Size = new System.Drawing.Size(215, 21);
+            this.guiradradioAumentationIndexHR75.TabIndex = 4;
+            this.guiradradioAumentationIndexHR75.Text = "Augmentation Index@HR75 ";
+            this.guiradradioAumentationIndexHR75.Click += new System.EventHandler(this.radradiobtnImperial_Click);
+            // 
+            // guiradradioAumentationIndex
+            // 
+            this.guiradradioAumentationIndex.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guiradradioAumentationIndex.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradradioAumentationIndex.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradradioAumentationIndex.Location = new System.Drawing.Point(16, 27);
+            this.guiradradioAumentationIndex.Name = "guiradradioAumentationIndex";
+            // 
+            // 
+            // 
+            this.guiradradioAumentationIndex.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradradioAumentationIndex.Size = new System.Drawing.Size(163, 21);
+            this.guiradradioAumentationIndex.TabIndex = 3;
+            this.guiradradioAumentationIndex.Text = "Augmentation Index ";
+            this.guiradradioAumentationIndex.Click += new System.EventHandler(this.radradiobtnImperial_Click);
+            // 
+            // radgrpbxCaptureInput
+            // 
+            this.radgrpbxCaptureInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radgrpbxCaptureInput.Controls.Add(this.tableLayoutPanel10);
+            this.radgrpbxCaptureInput.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxCaptureInput.FooterImageIndex = -1;
+            this.radgrpbxCaptureInput.FooterImageKey = "";
+            this.radgrpbxCaptureInput.HeaderImageIndex = -1;
+            this.radgrpbxCaptureInput.HeaderImageKey = "";
+            this.radgrpbxCaptureInput.HeaderMargin = new System.Windows.Forms.Padding(0);
+            this.radgrpbxCaptureInput.HeaderText = "Capture Input";
+            this.radgrpbxCaptureInput.Location = new System.Drawing.Point(276, 163);
+            this.radgrpbxCaptureInput.Name = "radgrpbxCaptureInput";
+            this.radgrpbxCaptureInput.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            // 
+            // 
+            // 
+            this.radgrpbxCaptureInput.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            this.radgrpbxCaptureInput.Size = new System.Drawing.Size(235, 80);
+            this.radgrpbxCaptureInput.TabIndex = 4;
+            this.radgrpbxCaptureInput.Text = "Capture Input";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
+            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.tableLayoutPanel10.ColumnCount = 1;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.Controls.Add(this.radradiobtnTonometer, 0, 1);
+            this.tableLayoutPanel10.Controls.Add(this.radradiobtnPressureCuff, 0, 0);
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(15, 20);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 2;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(215, 55);
+            this.tableLayoutPanel10.TabIndex = 3;
+            // 
+            // radradiobtnTonometer
+            // 
+            this.radradiobtnTonometer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radradiobtnTonometer.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiobtnTonometer.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiobtnTonometer.Location = new System.Drawing.Point(3, 30);
+            this.radradiobtnTonometer.Name = "radradiobtnTonometer";
+            // 
+            // 
+            // 
+            this.radradiobtnTonometer.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiobtnTonometer.Size = new System.Drawing.Size(170, 22);
+            this.radradiobtnTonometer.TabIndex = 1;
+            this.radradiobtnTonometer.Text = "Tonometer";
+            this.radradiobtnTonometer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
+            // 
+            // radradiobtnPressureCuff
+            // 
+            this.radradiobtnPressureCuff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radradiobtnPressureCuff.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiobtnPressureCuff.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiobtnPressureCuff.Location = new System.Drawing.Point(3, 3);
+            this.radradiobtnPressureCuff.Name = "radradiobtnPressureCuff";
+            // 
+            // 
+            // 
+            this.radradiobtnPressureCuff.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiobtnPressureCuff.Size = new System.Drawing.Size(170, 21);
+            this.radradiobtnPressureCuff.TabIndex = 0;
+            this.radradiobtnPressureCuff.Text = "Pressure Cuff";
+            this.radradiobtnPressureCuff.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
+            this.radradiobtnPressureCuff.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
+            // 
+            // radgrpbxCaptureTime
+            // 
+            this.radgrpbxCaptureTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radgrpbxCaptureTime.Controls.Add(this.guiradPwa20Seconds);
+            this.radgrpbxCaptureTime.Controls.Add(this.guiradPwa5Seconds);
+            this.radgrpbxCaptureTime.Controls.Add(this.guiradPwa10Seconds);
+            this.radgrpbxCaptureTime.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxCaptureTime.FooterImageIndex = -1;
+            this.radgrpbxCaptureTime.FooterImageKey = "";
+            this.radgrpbxCaptureTime.HeaderImageIndex = -1;
+            this.radgrpbxCaptureTime.HeaderImageKey = "";
+            this.radgrpbxCaptureTime.HeaderMargin = new System.Windows.Forms.Padding(0);
+            this.radgrpbxCaptureTime.HeaderText = "CaptureTime";
+            this.radgrpbxCaptureTime.Location = new System.Drawing.Point(22, 47);
+            this.radgrpbxCaptureTime.Name = "radgrpbxCaptureTime";
+            this.radgrpbxCaptureTime.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            // 
+            // 
+            // 
+            this.radgrpbxCaptureTime.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            this.radgrpbxCaptureTime.Size = new System.Drawing.Size(223, 102);
+            this.radgrpbxCaptureTime.TabIndex = 0;
+            this.radgrpbxCaptureTime.Text = "CaptureTime";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
+            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
+            // 
+            // guiradPwa20Seconds
+            // 
+            this.guiradPwa20Seconds.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guiradPwa20Seconds.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradPwa20Seconds.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradPwa20Seconds.Location = new System.Drawing.Point(20, 71);
+            this.guiradPwa20Seconds.Name = "guiradPwa20Seconds";
+            // 
+            // 
+            // 
+            this.guiradPwa20Seconds.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradPwa20Seconds.Size = new System.Drawing.Size(137, 20);
+            this.guiradPwa20Seconds.TabIndex = 2;
+            this.guiradPwa20Seconds.Text = "20 seconds";
+            this.guiradPwa20Seconds.Click += new System.EventHandler(this.radradiobtnImperial_Click);
+            // 
+            // guiradPwa5Seconds
+            // 
+            this.guiradPwa5Seconds.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guiradPwa5Seconds.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradPwa5Seconds.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradPwa5Seconds.Location = new System.Drawing.Point(20, 22);
+            this.guiradPwa5Seconds.Name = "guiradPwa5Seconds";
+            // 
+            // 
+            // 
+            this.guiradPwa5Seconds.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradPwa5Seconds.Size = new System.Drawing.Size(137, 21);
+            this.guiradPwa5Seconds.TabIndex = 0;
+            this.guiradPwa5Seconds.Text = "5 seconds";
+            this.guiradPwa5Seconds.Click += new System.EventHandler(this.radradiobtnImperial_Click);
+            // 
+            // guiradPwa10Seconds
+            // 
+            this.guiradPwa10Seconds.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guiradPwa10Seconds.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradPwa10Seconds.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradPwa10Seconds.Location = new System.Drawing.Point(20, 46);
+            this.guiradPwa10Seconds.Name = "guiradPwa10Seconds";
+            // 
+            // 
+            // 
+            this.guiradPwa10Seconds.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradPwa10Seconds.Size = new System.Drawing.Size(137, 21);
+            this.guiradPwa10Seconds.TabIndex = 1;
+            this.guiradPwa10Seconds.Text = "10 seconds";
+            this.guiradPwa10Seconds.Click += new System.EventHandler(this.radradiobtnImperial_Click);
+            // 
+            // documentContainer1
+            // 
+            this.documentContainer1.CausesValidation = false;
+            this.documentContainer1.Controls.Add(this.documentTabStrip1);
+            this.documentContainer1.Location = new System.Drawing.Point(0, 0);
+            this.documentContainer1.Name = "documentContainer1";
+            // 
+            // 
+            // 
+            this.documentContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.documentContainer1.Size = new System.Drawing.Size(552, 411);
+            this.documentContainer1.SizeInfo.SizeMode = Telerik.WinControls.UI.Docking.SplitPanelSizeMode.Fill;
+            this.documentContainer1.SplitterWidth = 4;
+            this.documentContainer1.TabIndex = 0;
+            this.documentContainer1.TabStop = false;
+            // 
+            // documentTabStrip1
+            // 
+            this.documentTabStrip1.CausesValidation = false;
+            this.documentTabStrip1.Controls.Add(this.docWndGeneralSettings);
+            this.documentTabStrip1.Controls.Add(this.docWndPWVSettings);
+            this.documentTabStrip1.Controls.Add(this.docWndPWASettings);
+            this.documentTabStrip1.Controls.Add(this.docWndBPSettings);
+            this.documentTabStrip1.Font = new System.Drawing.Font("Arial", 11.25F);
+            this.documentTabStrip1.Location = new System.Drawing.Point(0, 0);
+            this.documentTabStrip1.Name = "documentTabStrip1";
+            // 
+            // 
+            // 
+            this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.documentTabStrip1.SelectedIndex = 1;
+            this.documentTabStrip1.ShowItemToolTips = false;
+            this.documentTabStrip1.Size = new System.Drawing.Size(552, 411);
+            this.documentTabStrip1.TabIndex = 0;
+            this.documentTabStrip1.TabStop = false;
+            this.documentTabStrip1.Click += new System.EventHandler(this.documentTabStrip1_Click);
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
+            ((Telerik.WinControls.UI.RadTabStripElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2))).SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.UI.RadTabStripElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2))).AllowDragDrop = false;
+            ((Telerik.WinControls.UI.TabLayoutPanel)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0))).AutoSize = true;
+            ((Telerik.WinControls.Layouts.BoxLayout)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0))).StretchVertically = false;
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).Text = "General Settings";
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.BottomLeft;
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).StretchHorizontally = false;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(230)))), ((int)(((byte)(249)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).InnerColor2 = System.Drawing.SystemColors.Control;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.UI.RadImageButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor2 = System.Drawing.SystemColors.Control;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor3 = System.Drawing.SystemColors.ControlDark;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor4 = System.Drawing.SystemColors.ControlLightLight;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).Font = new System.Drawing.Font("Arial", 11.25F);
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).Text = "PWV Settings";
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).Alignment = System.Drawing.ContentAlignment.BottomLeft;
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).StretchHorizontally = false;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(230)))), ((int)(((byte)(249)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(1))).InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Layouts.ImageAndTextLayoutPanel)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(2))).StretchHorizontally = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(2).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(2).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(2).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(2).GetChildAt(1))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadImageButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(3))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(3).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(3).GetChildAt(1).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(3).GetChildAt(1).GetChildAt(1))).TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(3).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(3).GetChildAt(1).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(3).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.FocusPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(3).GetChildAt(3))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2))).Text = "PWA Settings";
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.BottomLeft;
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2))).StretchHorizontally = false;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(230)))), ((int)(((byte)(249)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(1))).InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Layouts.ImageAndTextLayoutPanel)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(2))).StretchHorizontally = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(2).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(2).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(2).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(2).GetChildAt(1))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadImageButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(3))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(3).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(3).GetChildAt(1).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(3).GetChildAt(1).GetChildAt(1))).TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(3).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(3).GetChildAt(1).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(3).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.FocusPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(3).GetChildAt(3))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3))).Text = "BP Settings";
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3))).Alignment = System.Drawing.ContentAlignment.BottomLeft;
+            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3))).StretchHorizontally = false;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(230)))), ((int)(((byte)(249)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(1))).InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Layouts.ImageAndTextLayoutPanel)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(2))).StretchHorizontally = false;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(2).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(2).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(2).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(2).GetChildAt(1))).Alignment = System.Drawing.ContentAlignment.MiddleLeft;
+            ((Telerik.WinControls.UI.RadImageButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(3))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(3).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(3).GetChildAt(1).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(3).GetChildAt(1).GetChildAt(1))).TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(3).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            ((Telerik.WinControls.Primitives.TextPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(3).GetChildAt(1).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(177)))), ((int)(((byte)(211)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(1).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.UI.RadButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(0))).Enabled = false;
+            ((Telerik.WinControls.UI.RadButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.UI.OverflowDropDownButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(1))).OverflowMode = false;
+            ((Telerik.WinControls.UI.OverflowDropDownButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(1))).Enabled = false;
+            ((Telerik.WinControls.UI.OverflowDropDownButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
+            ((Telerik.WinControls.UI.ActionButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(1).GetChildAt(1).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             // 
             // docWndGeneralSettings
             // 
@@ -367,12 +836,12 @@ namespace AtCor.Scor.Gui.Presentation
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel12.Controls.Add(this.radradiobtnPWVMode, 0, 0);
             this.tableLayoutPanel12.Controls.Add(this.radradiobtnPWAMode, 0, 1);
-            this.tableLayoutPanel12.Location = new System.Drawing.Point(17, 25);
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(17, 23);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.RowCount = 2;
-            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.93877F));
-            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.06123F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(189, 45);
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.98039F));
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.01961F));
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(189, 51);
             this.tableLayoutPanel12.TabIndex = 3;
             // 
             // radradiobtnPWVMode
@@ -386,7 +855,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.radradiobtnPWVMode.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnPWVMode.Size = new System.Drawing.Size(183, 14);
+            this.radradiobtnPWVMode.Size = new System.Drawing.Size(183, 19);
             this.radradiobtnPWVMode.TabIndex = 6;
             this.radradiobtnPWVMode.Text = "PWV";
             this.radradiobtnPWVMode.Click += new System.EventHandler(this.radradiobtnImperial_Click);
@@ -396,13 +865,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.radradiobtnPWAMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.radradiobtnPWAMode.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radradiobtnPWAMode.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnPWAMode.Location = new System.Drawing.Point(3, 24);
+            this.radradiobtnPWAMode.Location = new System.Drawing.Point(3, 28);
             this.radradiobtnPWAMode.Name = "radradiobtnPWAMode";
             // 
             // 
             // 
             this.radradiobtnPWAMode.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnPWAMode.Size = new System.Drawing.Size(183, 17);
+            this.radradiobtnPWAMode.Size = new System.Drawing.Size(183, 19);
             this.radradiobtnPWAMode.TabIndex = 7;
             this.radradiobtnPWAMode.Text = "PWA";
             this.radradiobtnPWAMode.Click += new System.EventHandler(this.radradiobtnImperial_Click);
@@ -445,12 +914,12 @@ namespace AtCor.Scor.Gui.Presentation
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel7.Controls.Add(this.radradiobtnQuickStart, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.radradiobtnSetup, 0, 1);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(17, 23);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(17, 21);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 2;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.93877F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.06123F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(189, 49);
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.97959F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.02041F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(189, 53);
             this.tableLayoutPanel7.TabIndex = 3;
             // 
             // radradiobtnQuickStart
@@ -464,7 +933,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.radradiobtnQuickStart.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnQuickStart.Size = new System.Drawing.Size(183, 16);
+            this.radradiobtnQuickStart.Size = new System.Drawing.Size(183, 19);
             this.radradiobtnQuickStart.TabIndex = 4;
             this.radradiobtnQuickStart.Text = "Quick Start";
             this.radradiobtnQuickStart.Click += new System.EventHandler(this.radradiobtnImperial_Click);
@@ -474,13 +943,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.radradiobtnSetup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.radradiobtnSetup.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radradiobtnSetup.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnSetup.Location = new System.Drawing.Point(3, 25);
+            this.radradiobtnSetup.Location = new System.Drawing.Point(3, 28);
             this.radradiobtnSetup.Name = "radradiobtnSetup";
             // 
             // 
             // 
             this.radradiobtnSetup.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnSetup.Size = new System.Drawing.Size(183, 21);
+            this.radradiobtnSetup.Size = new System.Drawing.Size(183, 20);
             this.radradiobtnSetup.TabIndex = 5;
             this.radradiobtnSetup.Text = "Setup";
             this.radradiobtnSetup.Click += new System.EventHandler(this.radradiobtnImperial_Click);
@@ -544,7 +1013,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.radlblReportLogo.RootElement.ForeColor = System.Drawing.Color.White;
-            this.radlblReportLogo.Size = new System.Drawing.Size(93, 21);
+            this.radlblReportLogo.Size = new System.Drawing.Size(213, 21);
             this.radlblReportLogo.TabIndex = 1;
             this.radlblReportLogo.Text = "Report Logo";
             // 
@@ -560,7 +1029,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.radtxtReportTitle.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.radtxtReportTitle.Size = new System.Drawing.Size(213, 23);
+            this.radtxtReportTitle.Size = new System.Drawing.Size(213, 24);
             this.radtxtReportTitle.TabIndex = 9;
             this.radtxtReportTitle.TabStop = false;
             this.radtxtReportTitle.TextChanged += new System.EventHandler(this.radtxtReportTitle_TextChanged);
@@ -575,7 +1044,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.radlblReportTitle.RootElement.ForeColor = System.Drawing.Color.White;
-            this.radlblReportTitle.Size = new System.Drawing.Size(87, 21);
+            this.radlblReportTitle.Size = new System.Drawing.Size(213, 18);
             this.radlblReportTitle.TabIndex = 0;
             this.radlblReportTitle.Text = "Report Title";
             // 
@@ -644,6 +1113,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // comboBoxCommsPort
             // 
+            this.comboBoxCommsPort.AllowShowFocusCues = true;
             this.comboBoxCommsPort.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.comboBoxCommsPort.AutoSize = false;
             this.comboBoxCommsPort.CausesValidation = false;
@@ -701,7 +1171,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.93617F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.06383F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(189, 47);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(189, 56);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // radradiobtnImperial
@@ -709,13 +1179,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.radradiobtnImperial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.radradiobtnImperial.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radradiobtnImperial.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnImperial.Location = new System.Drawing.Point(3, 25);
+            this.radradiobtnImperial.Location = new System.Drawing.Point(3, 30);
             this.radradiobtnImperial.Name = "radradiobtnImperial";
             // 
             // 
             // 
             this.radradiobtnImperial.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnImperial.Size = new System.Drawing.Size(137, 19);
+            this.radradiobtnImperial.Size = new System.Drawing.Size(137, 23);
             this.radradiobtnImperial.TabIndex = 3;
             this.radradiobtnImperial.Text = "Imperial";
             this.radradiobtnImperial.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
@@ -732,7 +1202,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.radradiobtnMetric.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnMetric.Size = new System.Drawing.Size(137, 16);
+            this.radradiobtnMetric.Size = new System.Drawing.Size(137, 21);
             this.radradiobtnMetric.TabIndex = 2;
             this.radradiobtnMetric.Text = "Metric";
             this.radradiobtnMetric.Click += new System.EventHandler(this.radradiobtnImperial_Click);
@@ -785,108 +1255,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.radchkbxPatientPrivacy.TabIndex = 1;
             this.radchkbxPatientPrivacy.Text = "Patient Privacy";
             this.radchkbxPatientPrivacy.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // documentContainer1
-            // 
-            this.documentContainer1.CausesValidation = false;
-            this.documentContainer1.Controls.Add(this.documentTabStrip1);
-            this.documentContainer1.Location = new System.Drawing.Point(0, 0);
-            this.documentContainer1.Name = "documentContainer1";
-            // 
-            // 
-            // 
-            this.documentContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentContainer1.Size = new System.Drawing.Size(552, 411);
-            this.documentContainer1.SizeInfo.SizeMode = Telerik.WinControls.UI.Docking.SplitPanelSizeMode.Fill;
-            this.documentContainer1.SplitterWidth = 4;
-            this.documentContainer1.TabIndex = 0;
-            this.documentContainer1.TabStop = false;
-            // 
-            // documentTabStrip1
-            // 
-            this.documentTabStrip1.CausesValidation = false;
-            this.documentTabStrip1.Controls.Add(this.docWndGeneralSettings);
-            this.documentTabStrip1.Controls.Add(this.docWndPWVSettings);
-            this.documentTabStrip1.Controls.Add(this.docWndPWASettings);
-            this.documentTabStrip1.Controls.Add(this.documentWindow4);
-            this.documentTabStrip1.Font = new System.Drawing.Font("Arial", 11.25F);
-            this.documentTabStrip1.Location = new System.Drawing.Point(0, 0);
-            this.documentTabStrip1.Name = "documentTabStrip1";
-            // 
-            // 
-            // 
-            this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 1;
-            this.documentTabStrip1.ShowItemToolTips = false;
-            this.documentTabStrip1.Size = new System.Drawing.Size(552, 411);
-            this.documentTabStrip1.TabIndex = 0;
-            this.documentTabStrip1.TabStop = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
-            ((Telerik.WinControls.UI.RadTabStripElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2))).SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.UI.RadTabStripElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2))).AllowDragDrop = false;
-            ((Telerik.WinControls.UI.TabLayoutPanel)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0))).AutoSize = true;
-            ((Telerik.WinControls.Layouts.BoxLayout)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0))).StretchVertically = false;
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).Text = "General Settings";
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).Alignment = System.Drawing.ContentAlignment.BottomLeft;
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).StretchHorizontally = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(230)))), ((int)(((byte)(249)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).Text = "PWV Settings";
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).Alignment = System.Drawing.ContentAlignment.BottomLeft;
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1))).StretchHorizontally = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(230)))), ((int)(((byte)(249)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(1))).InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2))).Text = "PWA Settings";
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2))).Alignment = System.Drawing.ContentAlignment.BottomLeft;
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2))).StretchHorizontally = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(230)))), ((int)(((byte)(249)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(1))).InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2).GetChildAt(1))).Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3))).Text = "BP Settings";
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3))).Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3))).Alignment = System.Drawing.ContentAlignment.BottomLeft;
-            ((Telerik.WinControls.UI.TabStripItem)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3))).StretchHorizontally = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(240)))), ((int)(((byte)(249)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(230)))), ((int)(((byte)(249)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(0))).Font = new System.Drawing.Font("Arial", 11.25F);
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(1))).InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(1))).Font = new System.Drawing.Font("Arial", 11.25F);
-            ((Telerik.WinControls.Layouts.ImageAndTextLayoutPanel)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(2))).StretchHorizontally = false;
-            ((Telerik.WinControls.UI.RadImageButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(3))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            ((Telerik.WinControls.Primitives.FocusPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(3).GetChildAt(3).GetChildAt(3))).Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(177)))), ((int)(((byte)(211)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(1).GetChildAt(0))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.documentTabStrip1.GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.UI.RadButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(0))).Enabled = false;
-            ((Telerik.WinControls.UI.RadButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            ((Telerik.WinControls.UI.OverflowDropDownButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(1))).OverflowMode = false;
-            ((Telerik.WinControls.UI.OverflowDropDownButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(1))).Enabled = false;
-            ((Telerik.WinControls.UI.OverflowDropDownButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Collapsed;
-            ((Telerik.WinControls.UI.ActionButtonElement)(this.documentTabStrip1.GetChildAt(0).GetChildAt(3).GetChildAt(1).GetChildAt(1).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             // 
             // docWndPWVSettings
             // 
@@ -1014,6 +1382,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // comboDefaultReport
             // 
+            this.comboDefaultReport.AllowShowFocusCues = true;
             this.comboDefaultReport.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.comboDefaultReport.AutoSize = false;
             this.comboDefaultReport.DropDownHeight = 80;
@@ -1060,7 +1429,7 @@ namespace AtCor.Scor.Gui.Presentation
             // radgrpbxSimulationTypes
             // 
             this.radgrpbxSimulationTypes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radgrpbxSimulationTypes.Controls.Add(this.comboSimulationFiles);
+            this.radgrpbxSimulationTypes.Controls.Add(this.comboSimulationFilesPwv);
             this.radgrpbxSimulationTypes.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpbxSimulationTypes.FooterImageIndex = -1;
             this.radgrpbxSimulationTypes.FooterImageKey = "";
@@ -1087,23 +1456,24 @@ namespace AtCor.Scor.Gui.Presentation
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxSimulationTypes.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxSimulationTypes.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
             // 
-            // comboSimulationFiles
+            // comboSimulationFilesPwv
             // 
-            this.comboSimulationFiles.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.comboSimulationFiles.AutoSize = false;
-            this.comboSimulationFiles.DropDownHeight = 80;
-            this.comboSimulationFiles.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
-            this.comboSimulationFiles.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboSimulationFiles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.comboSimulationFiles.Location = new System.Drawing.Point(14, 22);
-            this.comboSimulationFiles.Name = "comboSimulationFiles";
+            this.comboSimulationFilesPwv.AllowShowFocusCues = true;
+            this.comboSimulationFilesPwv.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboSimulationFilesPwv.AutoSize = false;
+            this.comboSimulationFilesPwv.DropDownHeight = 80;
+            this.comboSimulationFilesPwv.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
+            this.comboSimulationFilesPwv.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboSimulationFilesPwv.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.comboSimulationFilesPwv.Location = new System.Drawing.Point(14, 22);
+            this.comboSimulationFilesPwv.Name = "comboSimulationFilesPwv";
             // 
             // 
             // 
-            this.comboSimulationFiles.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.comboSimulationFiles.Size = new System.Drawing.Size(185, 23);
-            this.comboSimulationFiles.TabIndex = 8;
-            this.comboSimulationFiles.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.comboSimulationFiles_SelectedIndexChanged);
+            this.comboSimulationFilesPwv.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.comboSimulationFilesPwv.Size = new System.Drawing.Size(185, 23);
+            this.comboSimulationFilesPwv.TabIndex = 8;
+            this.comboSimulationFilesPwv.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.comboDefaultReport_SelectedIndexChanged);
             // 
             // radgrpSimulationFiles
             // 
@@ -1170,13 +1540,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.tableLayoutPanel4.Controls.Add(this.rad5Seconds, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.rad10Seconds, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.rad20Seconds, 0, 2);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(18, 24);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(18, 16);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 3;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(189, 60);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(189, 77);
             this.tableLayoutPanel4.TabIndex = 5;
             // 
             // rad5Seconds
@@ -1190,7 +1560,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.rad5Seconds.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad5Seconds.Size = new System.Drawing.Size(110, 14);
+            this.rad5Seconds.Size = new System.Drawing.Size(110, 19);
             this.rad5Seconds.TabIndex = 0;
             this.rad5Seconds.Text = "5 seconds";
             this.rad5Seconds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
@@ -1201,13 +1571,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.rad10Seconds.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.rad10Seconds.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rad10Seconds.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad10Seconds.Location = new System.Drawing.Point(3, 23);
+            this.rad10Seconds.Location = new System.Drawing.Point(3, 28);
             this.rad10Seconds.Name = "rad10Seconds";
             // 
             // 
             // 
             this.rad10Seconds.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad10Seconds.Size = new System.Drawing.Size(110, 14);
+            this.rad10Seconds.Size = new System.Drawing.Size(110, 19);
             this.rad10Seconds.TabIndex = 1;
             this.rad10Seconds.Text = "10 seconds";
             this.rad10Seconds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
@@ -1218,13 +1588,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.rad20Seconds.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.rad20Seconds.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rad20Seconds.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad20Seconds.Location = new System.Drawing.Point(3, 43);
+            this.rad20Seconds.Location = new System.Drawing.Point(3, 53);
             this.rad20Seconds.Name = "rad20Seconds";
             // 
             // 
             // 
             this.rad20Seconds.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad20Seconds.Size = new System.Drawing.Size(110, 14);
+            this.rad20Seconds.Size = new System.Drawing.Size(110, 21);
             this.rad20Seconds.TabIndex = 2;
             this.rad20Seconds.Text = "20 seconds";
             this.rad20Seconds.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
@@ -1326,12 +1696,12 @@ namespace AtCor.Scor.Gui.Presentation
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel6.Controls.Add(this.radmm, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.radcm, 0, 1);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(18, 23);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(18, 21);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.93617F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.06383F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(189, 47);
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.97959F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.02041F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(189, 49);
             this.tableLayoutPanel6.TabIndex = 4;
             // 
             // radmm
@@ -1345,7 +1715,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.radmm.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radmm.Size = new System.Drawing.Size(110, 16);
+            this.radmm.Size = new System.Drawing.Size(110, 17);
             this.radmm.TabIndex = 0;
             this.radmm.Text = "mm";
             this.radmm.Click += new System.EventHandler(this.radradiobtnImperial_Click);
@@ -1355,13 +1725,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.radcm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.radcm.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radcm.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radcm.Location = new System.Drawing.Point(3, 25);
+            this.radcm.Location = new System.Drawing.Point(3, 26);
             this.radcm.Name = "radcm";
             // 
             // 
             // 
             this.radcm.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radcm.Size = new System.Drawing.Size(110, 14);
+            this.radcm.Size = new System.Drawing.Size(110, 19);
             this.radcm.TabIndex = 1;
             this.radcm.Text = "cm";
             this.radcm.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
@@ -1451,7 +1821,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.tblPWVDistanceMethod.RowCount = 2;
             this.tblPWVDistanceMethod.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblPWVDistanceMethod.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblPWVDistanceMethod.Size = new System.Drawing.Size(484, 47);
+            this.tblPWVDistanceMethod.Size = new System.Drawing.Size(484, 55);
             this.tblPWVDistanceMethod.TabIndex = 3;
             // 
             // radDirect
@@ -1459,13 +1829,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.radDirect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.radDirect.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radDirect.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radDirect.Location = new System.Drawing.Point(3, 26);
+            this.radDirect.Location = new System.Drawing.Point(3, 30);
             this.radDirect.Name = "radDirect";
             // 
             // 
             // 
             this.radDirect.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radDirect.Size = new System.Drawing.Size(478, 18);
+            this.radDirect.Size = new System.Drawing.Size(478, 22);
             this.radDirect.TabIndex = 1;
             this.radDirect.Text = "Direct (carotid to cuff)";
             this.radDirect.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
@@ -1481,405 +1851,282 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.radSubtracting.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radSubtracting.Size = new System.Drawing.Size(478, 17);
+            this.radSubtracting.Size = new System.Drawing.Size(478, 21);
             this.radSubtracting.TabIndex = 0;
             this.radSubtracting.Text = "Subtracting (sternal notch to cuff – sternal notch to carotid)";
             this.radSubtracting.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
             // 
-            // docWndPWASettings
-            // 
-            this.docWndPWASettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.docWndPWASettings.Controls.Add(this.guiradgrpbxPWASimulationFiles);
-            this.docWndPWASettings.Controls.Add(this.radgrpbxCaptureGuidePWA);
-            this.docWndPWASettings.Controls.Add(this.radgrpbxClinicalReport);
-            this.docWndPWASettings.Controls.Add(this.radgrpbxCaptureInput);
-            this.docWndPWASettings.Controls.Add(this.radgrpbxCaptureTime);
-            this.docWndPWASettings.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.docWndPWASettings.Location = new System.Drawing.Point(6, 33);
-            this.docWndPWASettings.Name = "docWndPWASettings";
-            this.docWndPWASettings.Size = new System.Drawing.Size(540, 372);
-            this.docWndPWASettings.Text = "PWA Settings";
-            // 
-            // guiradgrpbxPWASimulationFiles
-            // 
-            this.guiradgrpbxPWASimulationFiles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.guiradgrpbxPWASimulationFiles.Controls.Add(this.radDropDownList3);
-            this.guiradgrpbxPWASimulationFiles.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradgrpbxPWASimulationFiles.FooterImageIndex = -1;
-            this.guiradgrpbxPWASimulationFiles.FooterImageKey = "";
-            this.guiradgrpbxPWASimulationFiles.HeaderImageIndex = -1;
-            this.guiradgrpbxPWASimulationFiles.HeaderImageKey = "";
-            this.guiradgrpbxPWASimulationFiles.HeaderMargin = new System.Windows.Forms.Padding(0);
-            this.guiradgrpbxPWASimulationFiles.HeaderText = "Simulation Types";
-            this.guiradgrpbxPWASimulationFiles.Location = new System.Drawing.Point(22, 257);
-            this.guiradgrpbxPWASimulationFiles.Name = "guiradgrpbxPWASimulationFiles";
-            this.guiradgrpbxPWASimulationFiles.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            // 
-            // 
-            // 
-            this.guiradgrpbxPWASimulationFiles.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.guiradgrpbxPWASimulationFiles.ShowItemToolTips = false;
-            this.guiradgrpbxPWASimulationFiles.Size = new System.Drawing.Size(223, 50);
-            this.guiradgrpbxPWASimulationFiles.TabIndex = 2;
-            this.guiradgrpbxPWASimulationFiles.Text = "Simulation Types";
-            ((Telerik.WinControls.UI.GroupBoxContent)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
-            ((Telerik.WinControls.UI.GroupBoxHeader)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradgrpbxPWASimulationFiles.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
-            // 
-            // radDropDownList3
-            // 
-            this.radDropDownList3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.radDropDownList3.AutoSize = false;
-            this.radDropDownList3.DropDownHeight = 80;
-            this.radDropDownList3.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
-            this.radDropDownList3.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radDropDownList3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.radDropDownList3.Location = new System.Drawing.Point(13, 18);
-            this.radDropDownList3.Name = "radDropDownList3";
-            // 
-            // 
-            // 
-            this.radDropDownList3.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.radDropDownList3.Size = new System.Drawing.Size(163, 23);
-            this.radDropDownList3.TabIndex = 8;
-            this.radDropDownList3.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.comboSimulationFiles_SelectedIndexChanged);
-            // 
-            // radgrpbxCaptureGuidePWA
-            // 
-            this.radgrpbxCaptureGuidePWA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radgrpbxCaptureGuidePWA.Controls.Add(this.radchkAutoCapturePWA);
-            this.radgrpbxCaptureGuidePWA.Controls.Add(this.radchkGuidanceBars);
-            this.radgrpbxCaptureGuidePWA.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radgrpbxCaptureGuidePWA.FooterImageIndex = -1;
-            this.radgrpbxCaptureGuidePWA.FooterImageKey = "";
-            this.radgrpbxCaptureGuidePWA.HeaderImageIndex = -1;
-            this.radgrpbxCaptureGuidePWA.HeaderImageKey = "";
-            this.radgrpbxCaptureGuidePWA.HeaderMargin = new System.Windows.Forms.Padding(0);
-            this.radgrpbxCaptureGuidePWA.HeaderText = "Capture Guide";
-            this.radgrpbxCaptureGuidePWA.Location = new System.Drawing.Point(22, 163);
-            this.radgrpbxCaptureGuidePWA.Name = "radgrpbxCaptureGuidePWA";
-            this.radgrpbxCaptureGuidePWA.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            // 
-            // 
-            // 
-            this.radgrpbxCaptureGuidePWA.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxCaptureGuidePWA.Size = new System.Drawing.Size(223, 80);
-            this.radgrpbxCaptureGuidePWA.TabIndex = 1;
-            this.radgrpbxCaptureGuidePWA.Text = "Capture Guide";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
-            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureGuidePWA.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
-            // 
-            // radchkAutoCapturePWA
-            // 
-            this.radchkAutoCapturePWA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radchkAutoCapturePWA.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radchkAutoCapturePWA.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkAutoCapturePWA.Location = new System.Drawing.Point(20, 47);
-            this.radchkAutoCapturePWA.Name = "radchkAutoCapturePWA";
-            // 
-            // 
-            // 
-            this.radchkAutoCapturePWA.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkAutoCapturePWA.Size = new System.Drawing.Size(113, 21);
-            this.radchkAutoCapturePWA.TabIndex = 1;
-            this.radchkAutoCapturePWA.Text = "Auto Capture";
-            this.radchkAutoCapturePWA.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // radchkGuidanceBars
-            // 
-            this.radchkGuidanceBars.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radchkGuidanceBars.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radchkGuidanceBars.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkGuidanceBars.Location = new System.Drawing.Point(20, 23);
-            this.radchkGuidanceBars.Name = "radchkGuidanceBars";
-            // 
-            // 
-            // 
-            this.radchkGuidanceBars.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkGuidanceBars.Size = new System.Drawing.Size(124, 21);
-            this.radchkGuidanceBars.TabIndex = 0;
-            this.radchkGuidanceBars.Text = "Guidance Bars";
-            this.radchkGuidanceBars.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // radgrpbxClinicalReport
-            // 
-            this.radgrpbxClinicalReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radgrpbxClinicalReport.Controls.Add(this.radchkBlindStudy);
-            this.radgrpbxClinicalReport.Controls.Add(this.radchkAumentationIndexHR75);
-            this.radgrpbxClinicalReport.Controls.Add(this.radchkAumentationIndex);
-            this.radgrpbxClinicalReport.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radgrpbxClinicalReport.FooterImageIndex = -1;
-            this.radgrpbxClinicalReport.FooterImageKey = "";
-            this.radgrpbxClinicalReport.HeaderImageIndex = -1;
-            this.radgrpbxClinicalReport.HeaderImageKey = "";
-            this.radgrpbxClinicalReport.HeaderMargin = new System.Windows.Forms.Padding(0);
-            this.radgrpbxClinicalReport.HeaderText = "Clinical Report";
-            this.radgrpbxClinicalReport.Location = new System.Drawing.Point(276, 47);
-            this.radgrpbxClinicalReport.Name = "radgrpbxClinicalReport";
-            this.radgrpbxClinicalReport.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            // 
-            // 
-            // 
-            this.radgrpbxClinicalReport.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxClinicalReport.Size = new System.Drawing.Size(235, 102);
-            this.radgrpbxClinicalReport.TabIndex = 3;
-            this.radgrpbxClinicalReport.Text = "Clinical Report";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
-            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
-            // 
-            // radchkBlindStudy
-            // 
-            this.radchkBlindStudy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radchkBlindStudy.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radchkBlindStudy.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkBlindStudy.Location = new System.Drawing.Point(16, 70);
-            this.radchkBlindStudy.Name = "radchkBlindStudy";
-            // 
-            // 
-            // 
-            this.radchkBlindStudy.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkBlindStudy.Size = new System.Drawing.Size(104, 21);
-            this.radchkBlindStudy.TabIndex = 2;
-            this.radchkBlindStudy.Text = "Blind Study ";
-            this.radchkBlindStudy.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // radchkAumentationIndexHR75
-            // 
-            this.radchkAumentationIndexHR75.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radchkAumentationIndexHR75.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radchkAumentationIndexHR75.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkAumentationIndexHR75.Location = new System.Drawing.Point(16, 49);
-            this.radchkAumentationIndexHR75.Name = "radchkAumentationIndexHR75";
-            // 
-            // 
-            // 
-            this.radchkAumentationIndexHR75.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkAumentationIndexHR75.Size = new System.Drawing.Size(218, 21);
-            this.radchkAumentationIndexHR75.TabIndex = 1;
-            this.radchkAumentationIndexHR75.Text = "Augmentation Index@HR75 ";
-            this.radchkAumentationIndexHR75.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // radchkAumentationIndex
-            // 
-            this.radchkAumentationIndex.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radchkAumentationIndex.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radchkAumentationIndex.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkAumentationIndex.Location = new System.Drawing.Point(16, 28);
-            this.radchkAumentationIndex.Name = "radchkAumentationIndex";
-            // 
-            // 
-            // 
-            this.radchkAumentationIndex.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkAumentationIndex.Size = new System.Drawing.Size(163, 21);
-            this.radchkAumentationIndex.TabIndex = 0;
-            this.radchkAumentationIndex.Text = "Augmentation Index ";
-            this.radchkAumentationIndex.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // radgrpbxCaptureInput
-            // 
-            this.radgrpbxCaptureInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radgrpbxCaptureInput.Controls.Add(this.tableLayoutPanel10);
-            this.radgrpbxCaptureInput.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radgrpbxCaptureInput.FooterImageIndex = -1;
-            this.radgrpbxCaptureInput.FooterImageKey = "";
-            this.radgrpbxCaptureInput.HeaderImageIndex = -1;
-            this.radgrpbxCaptureInput.HeaderImageKey = "";
-            this.radgrpbxCaptureInput.HeaderMargin = new System.Windows.Forms.Padding(0);
-            this.radgrpbxCaptureInput.HeaderText = "Capture Input";
-            this.radgrpbxCaptureInput.Location = new System.Drawing.Point(276, 163);
-            this.radgrpbxCaptureInput.Name = "radgrpbxCaptureInput";
-            this.radgrpbxCaptureInput.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            // 
-            // 
-            // 
-            this.radgrpbxCaptureInput.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxCaptureInput.Size = new System.Drawing.Size(235, 80);
-            this.radgrpbxCaptureInput.TabIndex = 4;
-            this.radgrpbxCaptureInput.Text = "Capture Input";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
-            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
-            // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.tableLayoutPanel10.ColumnCount = 1;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.Controls.Add(this.radradiobtnTonometer, 0, 1);
-            this.tableLayoutPanel10.Controls.Add(this.radradiobtnPressureCuff, 0, 0);
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(15, 23);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 2;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(176, 47);
-            this.tableLayoutPanel10.TabIndex = 3;
-            // 
-            // radradiobtnTonometer
-            // 
-            this.radradiobtnTonometer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiobtnTonometer.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiobtnTonometer.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnTonometer.Location = new System.Drawing.Point(3, 26);
-            this.radradiobtnTonometer.Name = "radradiobtnTonometer";
-            // 
-            // 
-            // 
-            this.radradiobtnTonometer.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnTonometer.Size = new System.Drawing.Size(170, 18);
-            this.radradiobtnTonometer.TabIndex = 1;
-            this.radradiobtnTonometer.Text = "Tonometer";
-            this.radradiobtnTonometer.Visible = false;
-            this.radradiobtnTonometer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // radradiobtnPressureCuff
-            // 
-            this.radradiobtnPressureCuff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiobtnPressureCuff.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiobtnPressureCuff.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnPressureCuff.Location = new System.Drawing.Point(3, 3);
-            this.radradiobtnPressureCuff.Name = "radradiobtnPressureCuff";
-            // 
-            // 
-            // 
-            this.radradiobtnPressureCuff.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnPressureCuff.Size = new System.Drawing.Size(170, 17);
-            this.radradiobtnPressureCuff.TabIndex = 0;
-            this.radradiobtnPressureCuff.Text = "Pressure Cuff";
-            this.radradiobtnPressureCuff.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-            this.radradiobtnPressureCuff.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // radgrpbxCaptureTime
-            // 
-            this.radgrpbxCaptureTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radgrpbxCaptureTime.Controls.Add(this.tableLayoutPanel9);
-            this.radgrpbxCaptureTime.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radgrpbxCaptureTime.FooterImageIndex = -1;
-            this.radgrpbxCaptureTime.FooterImageKey = "";
-            this.radgrpbxCaptureTime.HeaderImageIndex = -1;
-            this.radgrpbxCaptureTime.HeaderImageKey = "";
-            this.radgrpbxCaptureTime.HeaderMargin = new System.Windows.Forms.Padding(0);
-            this.radgrpbxCaptureTime.HeaderText = "CaptureTime";
-            this.radgrpbxCaptureTime.Location = new System.Drawing.Point(22, 47);
-            this.radgrpbxCaptureTime.Name = "radgrpbxCaptureTime";
-            this.radgrpbxCaptureTime.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            // 
-            // 
-            // 
-            this.radgrpbxCaptureTime.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxCaptureTime.Size = new System.Drawing.Size(223, 102);
-            this.radgrpbxCaptureTime.TabIndex = 0;
-            this.radgrpbxCaptureTime.Text = "CaptureTime";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
-            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxCaptureTime.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
-            // 
-            // tableLayoutPanel9
-            // 
-            this.tableLayoutPanel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.tableLayoutPanel9.ColumnCount = 1;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel9.Controls.Add(this.rad5SecondsPWA, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.rad10SecondsPWA, 0, 1);
-            this.tableLayoutPanel9.Controls.Add(this.rad20SecondsPWA, 0, 2);
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(17, 25);
-            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 3;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(189, 67);
-            this.tableLayoutPanel9.TabIndex = 6;
-            // 
-            // rad5SecondsPWA
-            // 
-            this.rad5SecondsPWA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.rad5SecondsPWA.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rad5SecondsPWA.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad5SecondsPWA.Location = new System.Drawing.Point(3, 3);
-            this.rad5SecondsPWA.Name = "rad5SecondsPWA";
-            // 
-            // 
-            // 
-            this.rad5SecondsPWA.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad5SecondsPWA.Size = new System.Drawing.Size(110, 14);
-            this.rad5SecondsPWA.TabIndex = 0;
-            this.rad5SecondsPWA.Text = "5 seconds";
-            this.rad5SecondsPWA.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // rad10SecondsPWA
-            // 
-            this.rad10SecondsPWA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.rad10SecondsPWA.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rad10SecondsPWA.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad10SecondsPWA.Location = new System.Drawing.Point(3, 26);
-            this.rad10SecondsPWA.Name = "rad10SecondsPWA";
-            // 
-            // 
-            // 
-            this.rad10SecondsPWA.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad10SecondsPWA.Size = new System.Drawing.Size(110, 14);
-            this.rad10SecondsPWA.TabIndex = 1;
-            this.rad10SecondsPWA.Text = "10 seconds";
-            this.rad10SecondsPWA.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // rad20SecondsPWA
-            // 
-            this.rad20SecondsPWA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.rad20SecondsPWA.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rad20SecondsPWA.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad20SecondsPWA.Location = new System.Drawing.Point(3, 49);
-            this.rad20SecondsPWA.Name = "rad20SecondsPWA";
-            // 
-            // 
-            // 
-            this.rad20SecondsPWA.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rad20SecondsPWA.Size = new System.Drawing.Size(110, 14);
-            this.rad20SecondsPWA.TabIndex = 2;
-            this.rad20SecondsPWA.Text = "20 seconds";
-            this.rad20SecondsPWA.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // documentWindow4
-            // 
-            this.documentWindow4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.documentWindow4.Controls.Add(this.docWndBPSettings);
-            this.documentWindow4.Controls.Add(this.radGroupBox1);
-            this.documentWindow4.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.documentWindow4.Location = new System.Drawing.Point(6, 33);
-            this.documentWindow4.Name = "documentWindow4";
-            this.documentWindow4.Size = new System.Drawing.Size(540, 372);
-            this.documentWindow4.Text = "BP Settings";
-            // 
             // docWndBPSettings
             // 
             this.docWndBPSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.docWndBPSettings.Controls.Add(this.radgrpbxBloodPressures);
-            this.docWndBPSettings.Controls.Add(this.radgrpbxAutoPWA);
-            this.docWndBPSettings.Controls.Add(this.radgrpbxNumberOfAssessments);
             this.docWndBPSettings.Controls.Add(this.radgrpbxBPDevice);
+            this.docWndBPSettings.Controls.Add(this.radgrpbxNumberOfAssessments);
+            this.docWndBPSettings.Controls.Add(this.radgrpbxAutoPWA);
+            this.docWndBPSettings.Controls.Add(this.radgrpbxBloodPressures);
             this.docWndBPSettings.DocumentButtons = Telerik.WinControls.UI.Docking.DocumentStripButtons.None;
-            this.docWndBPSettings.Location = new System.Drawing.Point(-5, -5);
+            this.docWndBPSettings.Location = new System.Drawing.Point(6, 33);
             this.docWndBPSettings.Name = "docWndBPSettings";
             this.docWndBPSettings.Size = new System.Drawing.Size(540, 372);
             this.docWndBPSettings.Text = "BP Settings";
+            // 
+            // radgrpbxBPDevice
+            // 
+            this.radgrpbxBPDevice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radgrpbxBPDevice.Controls.Add(this.radradiobtnOther);
+            this.radgrpbxBPDevice.Controls.Add(this.radradiobtnSphygcomor);
+            this.radgrpbxBPDevice.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxBPDevice.FooterImageIndex = -1;
+            this.radgrpbxBPDevice.FooterImageKey = "";
+            this.radgrpbxBPDevice.HeaderImageIndex = -1;
+            this.radgrpbxBPDevice.HeaderImageKey = "";
+            this.radgrpbxBPDevice.HeaderMargin = new System.Windows.Forms.Padding(0);
+            this.radgrpbxBPDevice.HeaderText = "BP Device";
+            this.radgrpbxBPDevice.Location = new System.Drawing.Point(3, 269);
+            this.radgrpbxBPDevice.Name = "radgrpbxBPDevice";
+            this.radgrpbxBPDevice.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            // 
+            // 
+            // 
+            this.radgrpbxBPDevice.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            this.radgrpbxBPDevice.Size = new System.Drawing.Size(235, 90);
+            this.radgrpbxBPDevice.TabIndex = 9;
+            this.radgrpbxBPDevice.TabStop = false;
+            this.radgrpbxBPDevice.Text = "BP Device";
+            this.radgrpbxBPDevice.Visible = false;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
+            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
+            // 
+            // radradiobtnOther
+            // 
+            this.radradiobtnOther.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radradiobtnOther.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiobtnOther.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiobtnOther.Location = new System.Drawing.Point(20, 67);
+            this.radradiobtnOther.Name = "radradiobtnOther";
+            // 
+            // 
+            // 
+            this.radradiobtnOther.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiobtnOther.Size = new System.Drawing.Size(110, 17);
+            this.radradiobtnOther.TabIndex = 3;
+            this.radradiobtnOther.TabStop = false;
+            this.radradiobtnOther.Text = "Other ";
+            // 
+            // radradiobtnSphygcomor
+            // 
+            this.radradiobtnSphygcomor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radradiobtnSphygcomor.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiobtnSphygcomor.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiobtnSphygcomor.Location = new System.Drawing.Point(20, 43);
+            this.radradiobtnSphygcomor.Name = "radradiobtnSphygcomor";
+            // 
+            // 
+            // 
+            this.radradiobtnSphygcomor.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiobtnSphygcomor.Size = new System.Drawing.Size(110, 17);
+            this.radradiobtnSphygcomor.TabIndex = 2;
+            this.radradiobtnSphygcomor.TabStop = false;
+            this.radradiobtnSphygcomor.Text = "Sphygmocor";
+            // 
+            // radgrpbxNumberOfAssessments
+            // 
+            this.radgrpbxNumberOfAssessments.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radgrpbxNumberOfAssessments.Controls.Add(this.comboBpNumberOfAssesments);
+            this.radgrpbxNumberOfAssessments.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxNumberOfAssessments.FooterImageIndex = -1;
+            this.radgrpbxNumberOfAssessments.FooterImageKey = "";
+            this.radgrpbxNumberOfAssessments.HeaderImageIndex = -1;
+            this.radgrpbxNumberOfAssessments.HeaderImageKey = "";
+            this.radgrpbxNumberOfAssessments.HeaderMargin = new System.Windows.Forms.Padding(0);
+            this.radgrpbxNumberOfAssessments.HeaderText = "Number of Assessments";
+            this.radgrpbxNumberOfAssessments.Location = new System.Drawing.Point(142, 213);
+            this.radgrpbxNumberOfAssessments.Name = "radgrpbxNumberOfAssessments";
+            this.radgrpbxNumberOfAssessments.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            // 
+            // 
+            // 
+            this.radgrpbxNumberOfAssessments.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            this.radgrpbxNumberOfAssessments.Size = new System.Drawing.Size(227, 63);
+            this.radgrpbxNumberOfAssessments.TabIndex = 2;
+            this.radgrpbxNumberOfAssessments.Text = "Number of Assessments";
+            this.radgrpbxNumberOfAssessments.Visible = false;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
+            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
+            // 
+            // comboBpNumberOfAssesments
+            // 
+            this.comboBpNumberOfAssesments.AllowShowFocusCues = true;
+            this.comboBpNumberOfAssesments.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBpNumberOfAssesments.AutoSize = false;
+            this.comboBpNumberOfAssesments.DropDownHeight = 80;
+            this.comboBpNumberOfAssesments.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
+            this.comboBpNumberOfAssesments.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBpNumberOfAssesments.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.comboBpNumberOfAssesments.Location = new System.Drawing.Point(17, 25);
+            this.comboBpNumberOfAssesments.Name = "comboBpNumberOfAssesments";
+            // 
+            // 
+            // 
+            this.comboBpNumberOfAssesments.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.comboBpNumberOfAssesments.Size = new System.Drawing.Size(192, 25);
+            this.comboBpNumberOfAssesments.TabIndex = 6;
+            this.comboBpNumberOfAssesments.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.comboBoxCommsPort_SelectionChangeCommitted);
+            // 
+            // radgrpbxAutoPWA
+            // 
+            this.radgrpbxAutoPWA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radgrpbxAutoPWA.Controls.Add(this.guipnlBPAutoPWARangeDetails);
+            this.radgrpbxAutoPWA.Controls.Add(this.radradiochkDP);
+            this.radgrpbxAutoPWA.Controls.Add(this.radradiochkPP);
+            this.radgrpbxAutoPWA.Controls.Add(this.radradiochkSP);
+            this.radgrpbxAutoPWA.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxAutoPWA.FooterImageIndex = -1;
+            this.radgrpbxAutoPWA.FooterImageKey = "";
+            this.radgrpbxAutoPWA.HeaderImageIndex = -1;
+            this.radgrpbxAutoPWA.HeaderImageKey = "";
+            this.radgrpbxAutoPWA.HeaderMargin = new System.Windows.Forms.Padding(0);
+            this.radgrpbxAutoPWA.HeaderText = "Auto PWA";
+            this.radgrpbxAutoPWA.Location = new System.Drawing.Point(142, 51);
+            this.radgrpbxAutoPWA.Name = "radgrpbxAutoPWA";
+            this.radgrpbxAutoPWA.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            // 
+            // 
+            // 
+            this.radgrpbxAutoPWA.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            this.radgrpbxAutoPWA.Size = new System.Drawing.Size(227, 120);
+            this.radgrpbxAutoPWA.TabIndex = 1;
+            this.radgrpbxAutoPWA.Text = "Auto PWA";
+            this.radgrpbxAutoPWA.Visible = false;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
+            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
+            // 
+            // guipnlBPAutoPWARangeDetails
+            // 
+            this.guipnlBPAutoPWARangeDetails.Controls.Add(this.guiradtxtDPThreshold);
+            this.guipnlBPAutoPWARangeDetails.Controls.Add(this.guiradtxtPPThreshold);
+            this.guipnlBPAutoPWARangeDetails.Controls.Add(this.guiradtxtSPThreshold);
+            this.guipnlBPAutoPWARangeDetails.Location = new System.Drawing.Point(97, 27);
+            this.guipnlBPAutoPWARangeDetails.Name = "guipnlBPAutoPWARangeDetails";
+            this.guipnlBPAutoPWARangeDetails.Size = new System.Drawing.Size(100, 83);
+            this.guipnlBPAutoPWARangeDetails.TabIndex = 7;
+            this.guipnlBPAutoPWARangeDetails.TabStop = true;
+            // 
+            // guiradtxtDPThreshold
+            // 
+            this.guiradtxtDPThreshold.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtDPThreshold.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            this.guiradtxtDPThreshold.Location = new System.Drawing.Point(4, 28);
+            this.guiradtxtDPThreshold.MaxLength = 10;
+            this.guiradtxtDPThreshold.Name = "guiradtxtDPThreshold";
+            // 
+            // 
+            // 
+            this.guiradtxtDPThreshold.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            this.guiradtxtDPThreshold.Size = new System.Drawing.Size(50, 23);
+            this.guiradtxtDPThreshold.TabIndex = 4;
+            this.guiradtxtDPThreshold.TabStop = false;
+            this.guiradtxtDPThreshold.TextChanged += new System.EventHandler(this.guiradtxtSPThreshold_TextChanged);
+            // 
+            // guiradtxtPPThreshold
+            // 
+            this.guiradtxtPPThreshold.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtPPThreshold.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            this.guiradtxtPPThreshold.Location = new System.Drawing.Point(4, 54);
+            this.guiradtxtPPThreshold.MaxLength = 10;
+            this.guiradtxtPPThreshold.Name = "guiradtxtPPThreshold";
+            // 
+            // 
+            // 
+            this.guiradtxtPPThreshold.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            this.guiradtxtPPThreshold.Size = new System.Drawing.Size(50, 23);
+            this.guiradtxtPPThreshold.TabIndex = 5;
+            this.guiradtxtPPThreshold.TabStop = false;
+            this.guiradtxtPPThreshold.TextChanged += new System.EventHandler(this.guiradtxtSPThreshold_TextChanged);
+            // 
+            // guiradtxtSPThreshold
+            // 
+            this.guiradtxtSPThreshold.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradtxtSPThreshold.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            this.guiradtxtSPThreshold.Location = new System.Drawing.Point(4, 2);
+            this.guiradtxtSPThreshold.MaxLength = 10;
+            this.guiradtxtSPThreshold.Name = "guiradtxtSPThreshold";
+            // 
+            // 
+            // 
+            this.guiradtxtSPThreshold.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            this.guiradtxtSPThreshold.Size = new System.Drawing.Size(50, 23);
+            this.guiradtxtSPThreshold.TabIndex = 3;
+            this.guiradtxtSPThreshold.TabStop = false;
+            this.guiradtxtSPThreshold.TextChanged += new System.EventHandler(this.guiradtxtSPThreshold_TextChanged);
+            // 
+            // radradiochkDP
+            // 
+            this.radradiochkDP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radradiochkDP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiochkDP.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiochkDP.Location = new System.Drawing.Point(16, 56);
+            this.radradiochkDP.Name = "radradiochkDP";
+            // 
+            // 
+            // 
+            this.radradiochkDP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiochkDP.RootElement.StretchHorizontally = true;
+            this.radradiochkDP.RootElement.StretchVertically = true;
+            this.radradiochkDP.Size = new System.Drawing.Size(80, 21);
+            this.radradiochkDP.TabIndex = 1;
+            this.radradiochkDP.Text = "If DP >=";
+            this.radradiochkDP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.radradiochkDP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radradiochkDP_MouseClick);
+            // 
+            // radradiochkPP
+            // 
+            this.radradiochkPP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radradiochkPP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiochkPP.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiochkPP.Location = new System.Drawing.Point(16, 84);
+            this.radradiochkPP.Name = "radradiochkPP";
+            // 
+            // 
+            // 
+            this.radradiochkPP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiochkPP.RootElement.StretchHorizontally = true;
+            this.radradiochkPP.RootElement.StretchVertically = true;
+            this.radradiochkPP.Size = new System.Drawing.Size(80, 21);
+            this.radradiochkPP.TabIndex = 2;
+            this.radradiochkPP.Text = "If PP >=";
+            this.radradiochkPP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.radradiochkPP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radradiochkPP_MouseClick);
+            // 
+            // radradiochkSP
+            // 
+            this.radradiochkSP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radradiochkSP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radradiochkSP.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiochkSP.Location = new System.Drawing.Point(16, 29);
+            this.radradiochkSP.Name = "radradiochkSP";
+            // 
+            // 
+            // 
+            this.radradiochkSP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radradiochkSP.RootElement.StretchHorizontally = true;
+            this.radradiochkSP.RootElement.StretchVertically = true;
+            this.radradiochkSP.Size = new System.Drawing.Size(80, 21);
+            this.radradiochkSP.TabIndex = 0;
+            this.radradiochkSP.Text = "If SP >=";
+            this.radradiochkSP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.radradiochkSP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radradiochkSP_MouseClick);
             // 
             // radgrpbxBloodPressures
             // 
@@ -1892,7 +2139,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.radgrpbxBloodPressures.HeaderImageKey = "";
             this.radgrpbxBloodPressures.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpbxBloodPressures.HeaderText = "Blood Pressures";
-            this.radgrpbxBloodPressures.Location = new System.Drawing.Point(290, 186);
+            this.radgrpbxBloodPressures.Location = new System.Drawing.Point(3, 29);
             this.radgrpbxBloodPressures.Name = "radgrpbxBloodPressures";
             this.radgrpbxBloodPressures.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
@@ -1900,7 +2147,8 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.radgrpbxBloodPressures.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             this.radgrpbxBloodPressures.Size = new System.Drawing.Size(235, 161);
-            this.radgrpbxBloodPressures.TabIndex = 3;
+            this.radgrpbxBloodPressures.TabIndex = 8;
+            this.radgrpbxBloodPressures.TabStop = false;
             this.radgrpbxBloodPressures.Text = "Blood Pressures";
             this.radgrpbxBloodPressures.Visible = false;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxBloodPressures.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
@@ -1928,7 +2176,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel11.Size = new System.Drawing.Size(189, 70);
-            this.tableLayoutPanel11.TabIndex = 3;
+            this.tableLayoutPanel11.TabIndex = 0;
             // 
             // radradiobtnMPandDP
             // 
@@ -1943,9 +2191,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.radradiobtnMPandDP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.radradiobtnMPandDP.Size = new System.Drawing.Size(145, 15);
             this.radradiobtnMPandDP.TabIndex = 2;
+            this.radradiobtnMPandDP.TabStop = false;
             this.radradiobtnMPandDP.Text = "MP and DP";
-            this.radradiobtnMPandDP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            this.radradiobtnMPandDP.Click += new System.EventHandler(this.radradiobtnImperial_Click);
             // 
             // radradiobtnSPandDP
             // 
@@ -1960,9 +2207,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.radradiobtnSPandDP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.radradiobtnSPandDP.Size = new System.Drawing.Size(145, 18);
             this.radradiobtnSPandDP.TabIndex = 0;
+            this.radradiobtnSPandDP.TabStop = false;
             this.radradiobtnSPandDP.Text = "SP and DP";
-            this.radradiobtnSPandDP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            this.radradiobtnSPandDP.Click += new System.EventHandler(this.radradiobtnImperial_Click);
             // 
             // radradiobtnSPandMP
             // 
@@ -1977,439 +2223,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.radradiobtnSPandMP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.radradiobtnSPandMP.Size = new System.Drawing.Size(145, 18);
             this.radradiobtnSPandMP.TabIndex = 1;
+            this.radradiobtnSPandMP.TabStop = false;
             this.radradiobtnSPandMP.Text = "SP and MP";
-            this.radradiobtnSPandMP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            this.radradiobtnSPandMP.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // radgrpbxAutoPWA
-            // 
-            this.radgrpbxAutoPWA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radgrpbxAutoPWA.Controls.Add(this.guipnlBPAutoPWARangeDetails);
-            this.radgrpbxAutoPWA.Controls.Add(this.radradiochkDP);
-            this.radgrpbxAutoPWA.Controls.Add(this.radradiochkPP);
-            this.radgrpbxAutoPWA.Controls.Add(this.radradiochkSP);
-            this.radgrpbxAutoPWA.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radgrpbxAutoPWA.FooterImageIndex = -1;
-            this.radgrpbxAutoPWA.FooterImageKey = "";
-            this.radgrpbxAutoPWA.HeaderImageIndex = -1;
-            this.radgrpbxAutoPWA.HeaderImageKey = "";
-            this.radgrpbxAutoPWA.HeaderMargin = new System.Windows.Forms.Padding(0);
-            this.radgrpbxAutoPWA.HeaderText = "Auto PWA";
-            this.radgrpbxAutoPWA.Location = new System.Drawing.Point(17, 44);
-            this.radgrpbxAutoPWA.Name = "radgrpbxAutoPWA";
-            this.radgrpbxAutoPWA.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            // 
-            // 
-            // 
-            this.radgrpbxAutoPWA.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxAutoPWA.Size = new System.Drawing.Size(255, 120);
-            this.radgrpbxAutoPWA.TabIndex = 0;
-            this.radgrpbxAutoPWA.Text = "Auto PWA";
-            this.radgrpbxAutoPWA.Visible = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
-            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxAutoPWA.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
-            // 
-            // guipnlBPAutoPWARangeDetails
-            // 
-            this.guipnlBPAutoPWARangeDetails.Controls.Add(this.guiradtxtDPThreshold);
-            this.guipnlBPAutoPWARangeDetails.Controls.Add(this.guiradtxtPPThreshold);
-            this.guipnlBPAutoPWARangeDetails.Controls.Add(this.guiradtxtSPThreshold);
-            this.guipnlBPAutoPWARangeDetails.Location = new System.Drawing.Point(126, 24);
-            this.guipnlBPAutoPWARangeDetails.Name = "guipnlBPAutoPWARangeDetails";
-            this.guipnlBPAutoPWARangeDetails.Size = new System.Drawing.Size(100, 83);
-            this.guipnlBPAutoPWARangeDetails.TabIndex = 7;
-            // 
-            // guiradtxtDPThreshold
-            // 
-            this.guiradtxtDPThreshold.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtDPThreshold.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            this.guiradtxtDPThreshold.Location = new System.Drawing.Point(4, 59);
-            this.guiradtxtDPThreshold.Name = "guiradtxtDPThreshold";
-            // 
-            // 
-            // 
-            this.guiradtxtDPThreshold.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            this.guiradtxtDPThreshold.Size = new System.Drawing.Size(50, 23);
-            this.guiradtxtDPThreshold.TabIndex = 6;
-            this.guiradtxtDPThreshold.TabStop = false;
-            this.guiradtxtDPThreshold.Leave += new System.EventHandler(this.guiradtxtDPThreshold_Leave);
-            this.guiradtxtDPThreshold.TextChanged += new System.EventHandler(this.guiradtxtSPThreshold_TextChanged);
-            // 
-            // guiradtxtPPThreshold
-            // 
-            this.guiradtxtPPThreshold.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtPPThreshold.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            this.guiradtxtPPThreshold.Location = new System.Drawing.Point(4, 30);
-            this.guiradtxtPPThreshold.Name = "guiradtxtPPThreshold";
-            // 
-            // 
-            // 
-            this.guiradtxtPPThreshold.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            this.guiradtxtPPThreshold.Size = new System.Drawing.Size(50, 23);
-            this.guiradtxtPPThreshold.TabIndex = 6;
-            this.guiradtxtPPThreshold.TabStop = false;
-            this.guiradtxtPPThreshold.Leave += new System.EventHandler(this.guiradtxtPPThreshold_Leave);
-            this.guiradtxtPPThreshold.TextChanged += new System.EventHandler(this.guiradtxtSPThreshold_TextChanged);
-            // 
-            // guiradtxtSPThreshold
-            // 
-            this.guiradtxtSPThreshold.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradtxtSPThreshold.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            this.guiradtxtSPThreshold.Location = new System.Drawing.Point(4, 4);
-            this.guiradtxtSPThreshold.Name = "guiradtxtSPThreshold";
-            // 
-            // 
-            // 
-            this.guiradtxtSPThreshold.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            this.guiradtxtSPThreshold.Size = new System.Drawing.Size(50, 23);
-            this.guiradtxtSPThreshold.TabIndex = 5;
-            this.guiradtxtSPThreshold.TabStop = false;
-            this.guiradtxtSPThreshold.Leave += new System.EventHandler(this.guiradtxtSPThreshold_Leave);
-            this.guiradtxtSPThreshold.TextChanged += new System.EventHandler(this.guiradtxtSPThreshold_TextChanged);
-            this.guiradtxtSPThreshold.Click += new System.EventHandler(this.guiradtxtSPThreshold_TextChanged);
-            // 
-            // radradiochkDP
-            // 
-            this.radradiochkDP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiochkDP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiochkDP.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiochkDP.Location = new System.Drawing.Point(17, 83);
-            this.radradiochkDP.Name = "radradiochkDP";
-            // 
-            // 
-            // 
-            this.radradiochkDP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiochkDP.RootElement.StretchHorizontally = true;
-            this.radradiochkDP.RootElement.StretchVertically = true;
-            this.radradiochkDP.Size = new System.Drawing.Size(95, 21);
-            this.radradiochkDP.TabIndex = 4;
-            this.radradiochkDP.Text = "    If DP >=";
-            this.radradiochkDP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // radradiochkPP
-            // 
-            this.radradiochkPP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiochkPP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiochkPP.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiochkPP.Location = new System.Drawing.Point(17, 56);
-            this.radradiochkPP.Name = "radradiochkPP";
-            // 
-            // 
-            // 
-            this.radradiochkPP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiochkPP.RootElement.StretchHorizontally = true;
-            this.radradiochkPP.RootElement.StretchVertically = true;
-            this.radradiochkPP.Size = new System.Drawing.Size(94, 21);
-            this.radradiochkPP.TabIndex = 2;
-            this.radradiochkPP.Text = "    If PP >=";
-            this.radradiochkPP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // radradiochkSP
-            // 
-            this.radradiochkSP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiochkSP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiochkSP.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiochkSP.Location = new System.Drawing.Point(17, 29);
-            this.radradiochkSP.Name = "radradiochkSP";
-            // 
-            // 
-            // 
-            this.radradiochkSP.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiochkSP.RootElement.StretchHorizontally = true;
-            this.radradiochkSP.RootElement.StretchVertically = true;
-            this.radradiochkSP.Size = new System.Drawing.Size(94, 21);
-            this.radradiochkSP.TabIndex = 0;
-            this.radradiochkSP.Text = "    If SP >=";
-            this.radradiochkSP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            // 
-            // radgrpbxNumberOfAssessments
-            // 
-            this.radgrpbxNumberOfAssessments.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radgrpbxNumberOfAssessments.Controls.Add(this.tableLayoutPanel14);
-            this.radgrpbxNumberOfAssessments.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radgrpbxNumberOfAssessments.FooterImageIndex = -1;
-            this.radgrpbxNumberOfAssessments.FooterImageKey = "";
-            this.radgrpbxNumberOfAssessments.HeaderImageIndex = -1;
-            this.radgrpbxNumberOfAssessments.HeaderImageKey = "";
-            this.radgrpbxNumberOfAssessments.HeaderMargin = new System.Windows.Forms.Padding(0);
-            this.radgrpbxNumberOfAssessments.HeaderText = "Number of Assessments";
-            this.radgrpbxNumberOfAssessments.Location = new System.Drawing.Point(17, 186);
-            this.radgrpbxNumberOfAssessments.Name = "radgrpbxNumberOfAssessments";
-            this.radgrpbxNumberOfAssessments.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            // 
-            // 
-            // 
-            this.radgrpbxNumberOfAssessments.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxNumberOfAssessments.Size = new System.Drawing.Size(255, 161);
-            this.radgrpbxNumberOfAssessments.TabIndex = 1;
-            this.radgrpbxNumberOfAssessments.Text = "Number of Assessments";
-            this.radgrpbxNumberOfAssessments.Visible = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
-            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxNumberOfAssessments.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
-            // 
-            // tableLayoutPanel14
-            // 
-            this.tableLayoutPanel14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.tableLayoutPanel14.ColumnCount = 1;
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.Controls.Add(this.radradiobtnAssessment5, 0, 4);
-            this.tableLayoutPanel14.Controls.Add(this.radradiobtnAssessment1, 0, 0);
-            this.tableLayoutPanel14.Controls.Add(this.radradiobtnAssessment2, 0, 1);
-            this.tableLayoutPanel14.Controls.Add(this.radradiobtnAssessment3, 0, 2);
-            this.tableLayoutPanel14.Controls.Add(this.radradiobtnAssessment4, 0, 3);
-            this.tableLayoutPanel14.Location = new System.Drawing.Point(17, 32);
-            this.tableLayoutPanel14.Name = "tableLayoutPanel14";
-            this.tableLayoutPanel14.RowCount = 5;
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(189, 117);
-            this.tableLayoutPanel14.TabIndex = 6;
-            // 
-            // radradiobtnAssessment5
-            // 
-            this.radradiobtnAssessment5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiobtnAssessment5.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiobtnAssessment5.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnAssessment5.Location = new System.Drawing.Point(3, 95);
-            this.radradiobtnAssessment5.Name = "radradiobtnAssessment5";
-            // 
-            // 
-            // 
-            this.radradiobtnAssessment5.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnAssessment5.Size = new System.Drawing.Size(110, 17);
-            this.radradiobtnAssessment5.TabIndex = 4;
-            this.radradiobtnAssessment5.Text = "5";
-            this.radradiobtnAssessment5.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // radradiobtnAssessment1
-            // 
-            this.radradiobtnAssessment1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiobtnAssessment1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiobtnAssessment1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnAssessment1.Location = new System.Drawing.Point(3, 3);
-            this.radradiobtnAssessment1.Name = "radradiobtnAssessment1";
-            // 
-            // 
-            // 
-            this.radradiobtnAssessment1.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnAssessment1.Size = new System.Drawing.Size(110, 17);
-            this.radradiobtnAssessment1.TabIndex = 0;
-            this.radradiobtnAssessment1.Text = "1";
-            this.radradiobtnAssessment1.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // radradiobtnAssessment2
-            // 
-            this.radradiobtnAssessment2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiobtnAssessment2.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiobtnAssessment2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnAssessment2.Location = new System.Drawing.Point(3, 26);
-            this.radradiobtnAssessment2.Name = "radradiobtnAssessment2";
-            // 
-            // 
-            // 
-            this.radradiobtnAssessment2.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnAssessment2.Size = new System.Drawing.Size(110, 17);
-            this.radradiobtnAssessment2.TabIndex = 1;
-            this.radradiobtnAssessment2.Text = "2";
-            this.radradiobtnAssessment2.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // radradiobtnAssessment3
-            // 
-            this.radradiobtnAssessment3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiobtnAssessment3.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiobtnAssessment3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnAssessment3.Location = new System.Drawing.Point(3, 49);
-            this.radradiobtnAssessment3.Name = "radradiobtnAssessment3";
-            // 
-            // 
-            // 
-            this.radradiobtnAssessment3.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnAssessment3.Size = new System.Drawing.Size(110, 14);
-            this.radradiobtnAssessment3.TabIndex = 2;
-            this.radradiobtnAssessment3.Text = "3";
-            this.radradiobtnAssessment3.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // radradiobtnAssessment4
-            // 
-            this.radradiobtnAssessment4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiobtnAssessment4.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiobtnAssessment4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnAssessment4.Location = new System.Drawing.Point(3, 72);
-            this.radradiobtnAssessment4.Name = "radradiobtnAssessment4";
-            // 
-            // 
-            // 
-            this.radradiobtnAssessment4.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnAssessment4.Size = new System.Drawing.Size(110, 17);
-            this.radradiobtnAssessment4.TabIndex = 3;
-            this.radradiobtnAssessment4.Text = "4";
-            this.radradiobtnAssessment4.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // radgrpbxBPDevice
-            // 
-            this.radgrpbxBPDevice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radgrpbxBPDevice.Controls.Add(this.radradiobtnOther);
-            this.radgrpbxBPDevice.Controls.Add(this.radradiobtnSphygcomor);
-            this.radgrpbxBPDevice.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radgrpbxBPDevice.FooterImageIndex = -1;
-            this.radgrpbxBPDevice.FooterImageKey = "";
-            this.radgrpbxBPDevice.HeaderImageIndex = -1;
-            this.radgrpbxBPDevice.HeaderImageKey = "";
-            this.radgrpbxBPDevice.HeaderMargin = new System.Windows.Forms.Padding(0);
-            this.radgrpbxBPDevice.HeaderText = "BP Device";
-            this.radgrpbxBPDevice.Location = new System.Drawing.Point(290, 44);
-            this.radgrpbxBPDevice.Name = "radgrpbxBPDevice";
-            this.radgrpbxBPDevice.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            // 
-            // 
-            // 
-            this.radgrpbxBPDevice.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxBPDevice.Size = new System.Drawing.Size(235, 120);
-            this.radgrpbxBPDevice.TabIndex = 2;
-            this.radgrpbxBPDevice.Text = "BP Device";
-            this.radgrpbxBPDevice.Visible = false;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
-            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxBPDevice.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
-            // 
-            // radradiobtnOther
-            // 
-            this.radradiobtnOther.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiobtnOther.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiobtnOther.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnOther.Location = new System.Drawing.Point(20, 67);
-            this.radradiobtnOther.Name = "radradiobtnOther";
-            // 
-            // 
-            // 
-            this.radradiobtnOther.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnOther.Size = new System.Drawing.Size(110, 17);
-            this.radradiobtnOther.TabIndex = 3;
-            this.radradiobtnOther.Text = "Other ";
-            this.radradiobtnOther.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // radradiobtnSphygcomor
-            // 
-            this.radradiobtnSphygcomor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radradiobtnSphygcomor.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radradiobtnSphygcomor.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnSphygcomor.Location = new System.Drawing.Point(20, 43);
-            this.radradiobtnSphygcomor.Name = "radradiobtnSphygcomor";
-            // 
-            // 
-            // 
-            this.radradiobtnSphygcomor.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radradiobtnSphygcomor.Size = new System.Drawing.Size(110, 17);
-            this.radradiobtnSphygcomor.TabIndex = 2;
-            this.radradiobtnSphygcomor.Text = "Sphygmocor";
-            this.radradiobtnSphygcomor.Click += new System.EventHandler(this.radradiobtnImperial_Click);
-            // 
-            // radGroupBox1
-            // 
-            this.radGroupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radGroupBox1.Controls.Add(this.tableLayoutPanel8);
-            this.radGroupBox1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radGroupBox1.FooterImageIndex = -1;
-            this.radGroupBox1.FooterImageKey = "";
-            this.radGroupBox1.HeaderImageIndex = -1;
-            this.radGroupBox1.HeaderImageKey = "";
-            this.radGroupBox1.HeaderMargin = new System.Windows.Forms.Padding(0);
-            this.radGroupBox1.HeaderText = "Blood Pressures";
-            this.radGroupBox1.Location = new System.Drawing.Point(298, 187);
-            this.radGroupBox1.Name = "radGroupBox1";
-            this.radGroupBox1.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            // 
-            // 
-            // 
-            this.radGroupBox1.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radGroupBox1.Size = new System.Drawing.Size(228, 128);
-            this.radGroupBox1.TabIndex = 2;
-            this.radGroupBox1.Text = "Blood Pressures";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
-            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radGroupBox1.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radGroupBox1.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
-            // 
-            // tableLayoutPanel8
-            // 
-            this.tableLayoutPanel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.tableLayoutPanel8.ColumnCount = 1;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel8.Controls.Add(this.radRadioButton1, 0, 2);
-            this.tableLayoutPanel8.Controls.Add(this.radRadioButton4, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.radRadioButton5, 0, 1);
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(11, 36);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 3;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(189, 64);
-            this.tableLayoutPanel8.TabIndex = 3;
-            // 
-            // radRadioButton1
-            // 
-            this.radRadioButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radRadioButton1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radRadioButton1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radRadioButton1.Location = new System.Drawing.Point(3, 45);
-            this.radRadioButton1.Name = "radRadioButton1";
-            // 
-            // 
-            // 
-            this.radRadioButton1.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radRadioButton1.Size = new System.Drawing.Size(110, 16);
-            this.radRadioButton1.TabIndex = 2;
-            this.radRadioButton1.Text = "MP and DP";
-            // 
-            // radRadioButton4
-            // 
-            this.radRadioButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radRadioButton4.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radRadioButton4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radRadioButton4.Location = new System.Drawing.Point(3, 3);
-            this.radRadioButton4.Name = "radRadioButton4";
-            // 
-            // 
-            // 
-            this.radRadioButton4.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radRadioButton4.Size = new System.Drawing.Size(110, 15);
-            this.radRadioButton4.TabIndex = 0;
-            this.radRadioButton4.Text = "SP and DP";
-            // 
-            // radRadioButton5
-            // 
-            this.radRadioButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radRadioButton5.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radRadioButton5.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radRadioButton5.Location = new System.Drawing.Point(3, 24);
-            this.radRadioButton5.Name = "radRadioButton5";
-            // 
-            // 
-            // 
-            this.radRadioButton5.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radRadioButton5.Size = new System.Drawing.Size(110, 15);
-            this.radRadioButton5.TabIndex = 1;
-            this.radRadioButton5.Text = "SP and MP";
             // 
             // radbtnDefaults
             // 
@@ -2423,7 +2238,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.radbtnDefaults.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.radbtnDefaults.Size = new System.Drawing.Size(80, 25);
-            this.radbtnDefaults.TabIndex = 13;
+            this.radbtnDefaults.TabIndex = 14;
             this.radbtnDefaults.Text = "Defaults";
             this.radbtnDefaults.Click += new System.EventHandler(this.radbtnDefaults_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.radbtnDefaults.GetChildAt(0))).Text = "Defaults";
@@ -2445,7 +2260,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.radbtnCancel.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.radbtnCancel.Size = new System.Drawing.Size(80, 25);
-            this.radbtnCancel.TabIndex = 12;
+            this.radbtnCancel.TabIndex = 13;
             this.radbtnCancel.Text = "Cancel";
             this.radbtnCancel.Click += new System.EventHandler(this.radbtnCancel_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.radbtnCancel.GetChildAt(0))).Text = "Cancel";
@@ -2467,7 +2282,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.radbtnSave.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.radbtnSave.Size = new System.Drawing.Size(80, 25);
-            this.radbtnSave.TabIndex = 11;
+            this.radbtnSave.TabIndex = 12;
             this.radbtnSave.Text = " Save ";
             this.radbtnSave.Click += new System.EventHandler(this.radbtnSave_Click);
             ((Telerik.WinControls.UI.RadButtonElement)(this.radbtnSave.GetChildAt(0))).Text = " Save ";
@@ -2513,20 +2328,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.object_2c8b2f0f_b093_4256_82f7_ffe6d52c17dc.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             this.object_2c8b2f0f_b093_4256_82f7_ffe6d52c17dc.StretchHorizontally = true;
             this.object_2c8b2f0f_b093_4256_82f7_ffe6d52c17dc.StretchVertically = true;
-            // 
-            // documentWindow2
-            // 
-            this.documentWindow2.Location = new System.Drawing.Point(0, 0);
-            this.documentWindow2.Name = "documentWindow2";
-            this.documentWindow2.Size = new System.Drawing.Size(200, 200);
-            this.documentWindow2.Text = "documentWindow2";
-            // 
-            // documentWindow3
-            // 
-            this.documentWindow3.Location = new System.Drawing.Point(0, 0);
-            this.documentWindow3.Name = "documentWindow3";
-            this.documentWindow3.Size = new System.Drawing.Size(200, 200);
-            this.documentWindow3.Text = "documentWindow3";
             // 
             // radgrpbxBloodPressure
             // 
@@ -2592,10 +2393,39 @@ namespace AtCor.Scor.Gui.Presentation
             this.RootElement.ApplyShapeToControl = true;
             this.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "User Settings";
+            this.Text = "Settings";
             this.Load += new System.EventHandler(this.SettingsWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).EndInit();
             this.radDock1.ResumeLayout(false);
+            this.docWndPWASettings.ResumeLayout(false);
+            this.docWndPWASettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradgrpbxPWASimulationFiles)).EndInit();
+            this.guiradgrpbxPWASimulationFiles.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.comboSimulationFilesPwa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureGuidePWA)).EndInit();
+            this.radgrpbxCaptureGuidePWA.ResumeLayout(false);
+            this.radgrpbxCaptureGuidePWA.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radchkAutoCapturePWA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radchkGuidanceBars)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radchkBlindStudy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxClinicalReport)).EndInit();
+            this.radgrpbxClinicalReport.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.guiradradioAumentationIndexHR75)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradradioAumentationIndex)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureInput)).EndInit();
+            this.radgrpbxCaptureInput.ResumeLayout(false);
+            this.tableLayoutPanel10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnTonometer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnPressureCuff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureTime)).EndInit();
+            this.radgrpbxCaptureTime.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.guiradPwa20Seconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradPwa5Seconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradPwa10Seconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).EndInit();
+            this.documentContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
+            this.documentTabStrip1.ResumeLayout(false);
             this.docWndGeneralSettings.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxstartupMode)).EndInit();
             this.radgrpbxstartupMode.ResumeLayout(false);
@@ -2628,10 +2458,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.radgrpbxSetupScreen.ResumeLayout(false);
             this.radgrpbxSetupScreen.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radchkbxPatientPrivacy)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).EndInit();
-            this.documentContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
-            this.documentTabStrip1.ResumeLayout(false);
             this.docWndPWVSettings.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureGuide)).EndInit();
             this.radgrpbxCaptureGuide.ResumeLayout(false);
@@ -2645,7 +2471,7 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradgrpDefaultReport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxSimulationTypes)).EndInit();
             this.radgrpbxSimulationTypes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.comboSimulationFiles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboSimulationFilesPwv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpSimulationFiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpCaptureTime)).EndInit();
             this.radgrpCaptureTime.ResumeLayout(false);
@@ -2672,40 +2498,14 @@ namespace AtCor.Scor.Gui.Presentation
             this.tblPWVDistanceMethod.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radDirect)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radSubtracting)).EndInit();
-            this.docWndPWASettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guiradgrpbxPWASimulationFiles)).EndInit();
-            this.guiradgrpbxPWASimulationFiles.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radDropDownList3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureGuidePWA)).EndInit();
-            this.radgrpbxCaptureGuidePWA.ResumeLayout(false);
-            this.radgrpbxCaptureGuidePWA.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkAutoCapturePWA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkGuidanceBars)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxClinicalReport)).EndInit();
-            this.radgrpbxClinicalReport.ResumeLayout(false);
-            this.radgrpbxClinicalReport.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkBlindStudy)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkAumentationIndexHR75)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkAumentationIndex)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureInput)).EndInit();
-            this.radgrpbxCaptureInput.ResumeLayout(false);
-            this.tableLayoutPanel10.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnTonometer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnPressureCuff)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureTime)).EndInit();
-            this.radgrpbxCaptureTime.ResumeLayout(false);
-            this.tableLayoutPanel9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.rad5SecondsPWA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rad10SecondsPWA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rad20SecondsPWA)).EndInit();
-            this.documentWindow4.ResumeLayout(false);
             this.docWndBPSettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxBloodPressures)).EndInit();
-            this.radgrpbxBloodPressures.ResumeLayout(false);
-            this.tableLayoutPanel11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnMPandDP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSPandDP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSPandMP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxBPDevice)).EndInit();
+            this.radgrpbxBPDevice.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnOther)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSphygcomor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxNumberOfAssessments)).EndInit();
+            this.radgrpbxNumberOfAssessments.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.comboBpNumberOfAssesments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxAutoPWA)).EndInit();
             this.radgrpbxAutoPWA.ResumeLayout(false);
             this.radgrpbxAutoPWA.PerformLayout();
@@ -2717,24 +2517,12 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radradiochkDP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radradiochkPP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radradiochkSP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxNumberOfAssessments)).EndInit();
-            this.radgrpbxNumberOfAssessments.ResumeLayout(false);
-            this.tableLayoutPanel14.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnAssessment5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnAssessment1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnAssessment2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnAssessment3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnAssessment4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxBPDevice)).EndInit();
-            this.radgrpbxBPDevice.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnOther)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSphygcomor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
-            this.radGroupBox1.ResumeLayout(false);
-            this.tableLayoutPanel8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radRadioButton1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radRadioButton4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radRadioButton5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxBloodPressures)).EndInit();
+            this.radgrpbxBloodPressures.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnMPandDP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSPandDP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radradiobtnSPandMP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radbtnDefaults)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radbtnCancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radbtnSave)).EndInit();
@@ -2801,18 +2589,10 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadRadioButton radradiobtnQuickStart;
         private Telerik.WinControls.UI.RadRadioButton radradiobtnSetup;
         private Telerik.WinControls.UI.Docking.DocumentWindow docWndPWASettings;
-        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow2;
-        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow3;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxstartupMode;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
         private Telerik.WinControls.UI.RadRadioButton radradiobtnPWVMode;
         private Telerik.WinControls.UI.RadRadioButton radradiobtnPWAMode;
-        private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow4;
-        private Telerik.WinControls.UI.RadGroupBox radGroupBox1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-        private Telerik.WinControls.UI.RadRadioButton radRadioButton1;
-        private Telerik.WinControls.UI.RadRadioButton radRadioButton4;
-        private Telerik.WinControls.UI.RadRadioButton radRadioButton5;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxBloodPressure;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxCaptureGuide;
@@ -2822,49 +2602,43 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadGroupBox radgrpbxDefaultReport;
         private Telerik.WinControls.UI.RadDropDownList comboDefaultReport;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxSimulationTypes;
-        private Telerik.WinControls.UI.RadDropDownList comboSimulationFiles;
+        private Telerik.WinControls.UI.RadDropDownList comboSimulationFilesPwv;
         private Telerik.WinControls.UI.RadGroupBox guiradgrpbxPWASimulationFiles;
-        private Telerik.WinControls.UI.RadDropDownList radDropDownList3;
+        private Telerik.WinControls.UI.RadDropDownList comboSimulationFilesPwa;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxCaptureGuidePWA;
         private Telerik.WinControls.UI.RadCheckBox radchkAutoCapturePWA;
         private Telerik.WinControls.UI.RadCheckBox radchkGuidanceBars;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxClinicalReport;
         private Telerik.WinControls.UI.RadCheckBox radchkBlindStudy;
-        private Telerik.WinControls.UI.RadCheckBox radchkAumentationIndexHR75;
-        private Telerik.WinControls.UI.RadCheckBox radchkAumentationIndex;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxCaptureInput;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private Telerik.WinControls.UI.RadRadioButton radradiobtnTonometer;
         private Telerik.WinControls.UI.RadRadioButton radradiobtnPressureCuff;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxCaptureTime;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
-        private Telerik.WinControls.UI.RadRadioButton rad5SecondsPWA;
-        private Telerik.WinControls.UI.RadRadioButton rad10SecondsPWA;
-        private Telerik.WinControls.UI.RadRadioButton rad20SecondsPWA;
+        private Telerik.WinControls.UI.RadRadioButton guiradPwa5Seconds;
+        private Telerik.WinControls.UI.RadRadioButton guiradPwa10Seconds;
+        private Telerik.WinControls.UI.RadRadioButton guiradPwa20Seconds;
+        private Telerik.WinControls.UI.RadRadioButton guiradradioAumentationIndex;
+        private Telerik.WinControls.UI.RadRadioButton guiradradioAumentationIndexHR75;
         private Telerik.WinControls.UI.Docking.DocumentWindow docWndBPSettings;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxBloodPressures;
+        private Telerik.WinControls.UI.RadGroupBox radgrpbxNumberOfAssessments;
+        private Telerik.WinControls.UI.RadDropDownList comboBpNumberOfAssesments;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private Telerik.WinControls.UI.RadRadioButton radradiobtnMPandDP;
         private Telerik.WinControls.UI.RadRadioButton radradiobtnSPandDP;
         private Telerik.WinControls.UI.RadRadioButton radradiobtnSPandMP;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxAutoPWA;
-        private Telerik.WinControls.UI.RadCheckBox radradiochkDP;
-        private Telerik.WinControls.UI.RadCheckBox radradiochkPP;
-        private Telerik.WinControls.UI.RadCheckBox radradiochkSP;
-        private Telerik.WinControls.UI.RadGroupBox radgrpbxNumberOfAssessments;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
-        private Telerik.WinControls.UI.RadRadioButton radradiobtnAssessment5;
-        private Telerik.WinControls.UI.RadRadioButton radradiobtnAssessment1;
-        private Telerik.WinControls.UI.RadRadioButton radradiobtnAssessment2;
-        private Telerik.WinControls.UI.RadRadioButton radradiobtnAssessment3;
-        private Telerik.WinControls.UI.RadRadioButton radradiobtnAssessment4;
-        private Telerik.WinControls.UI.RadGroupBox radgrpbxBPDevice;
-        private Telerik.WinControls.UI.RadRadioButton radradiobtnOther;
-        private Telerik.WinControls.UI.RadRadioButton radradiobtnSphygcomor;
+        private System.Windows.Forms.Panel guipnlBPAutoPWARangeDetails;
         private Telerik.WinControls.UI.RadTextBox guiradtxtDPThreshold;
         private Telerik.WinControls.UI.RadTextBox guiradtxtPPThreshold;
         private Telerik.WinControls.UI.RadTextBox guiradtxtSPThreshold;
-        private System.Windows.Forms.Panel guipnlBPAutoPWARangeDetails;
+        private Telerik.WinControls.UI.RadCheckBox radradiochkDP;
+        private Telerik.WinControls.UI.RadCheckBox radradiochkPP;
+        private Telerik.WinControls.UI.RadCheckBox radradiochkSP;
+        private Telerik.WinControls.UI.RadGroupBox radgrpbxBPDevice;
+        private Telerik.WinControls.UI.RadRadioButton radradiobtnOther;
+        private Telerik.WinControls.UI.RadRadioButton radradiobtnSphygcomor;
     }
 }
 

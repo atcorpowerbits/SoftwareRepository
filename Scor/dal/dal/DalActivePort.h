@@ -128,7 +128,7 @@ namespace AtCor{
 			/**
 			* Event handler for the serial port's Data recieved event
 			* @param[in]	sender	The object which raised this event
-			* @param[in]	The arguements for the event.
+			* @param[in]	e	The arguements for the event.
 			*/
 			void DataReceviedHandler(
 											Object^ sender,
@@ -139,10 +139,24 @@ namespace AtCor{
 			*/
 			void ReadDataFromPort();
 
-			 void CheckStreamingTimeout(Object^ sender, ElapsedEventArgs^ args);
+			/**
+			* Timer Event handler whcih checks if th data is avaialabe in the serial port or not.
+			* If there is no data avialable in the specified number of consecutive checks, it raises 
+			* an alarm and stops checking.
+			*
+			* @param[in]	sender	The object which raised this event
+			* @param[in]	args	The arguements for the event.
+			*/
+			void CheckStreamingTimeout(Object^ sender, ElapsedEventArgs^ args);
 
+			/**
+			* Starts the streaming timout check.
+			*/
 			void StartStreamingTimeoutChecker();
 
+			/**
+			* Stops the streaming timout check.
+			*/
 			void StopStreamingTimeoutChecker();
 
 	};

@@ -38,7 +38,7 @@ namespace AtCor{
 				private:
 					String^ _commPort; //The current comm port name. Can be a real port or simulation
 					DalCommandInterface^ _commandInterface;
-					CrxLogger ^logObj;
+					//CrxLogger ^logObj;
 					CrxMessagingManager ^ messagingMgr;
 					DalDataBuffer ^dataBufferObj; //to hold pointer to object
 					static DalDeviceHandler^ _instance = gcnew DalDeviceHandler();
@@ -141,11 +141,13 @@ namespace AtCor{
 					*/
 					virtual bool SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard);	
 					
-					/**
-					* Checks if the tonometer is connected
-					* @return @c true if the tonometer is connected properly
-					*/
-					bool CheckIfTonometerIsConnected();
+					//No need to chjeck tonometer status 
+					//It wont be returned correctly by EM4
+					///*
+					//* Checks if the tonometer is connected
+					//* @return @c true if the tonometer is connected properly
+					//*/
+					//bool CheckIfTonometerIsConnected();
 
 					/**
 					*  property with custom get method to supply instance.@n

@@ -45,6 +45,9 @@ namespace AtCor{
 			bool DalSimulationHandler::GetFileNameFromConfgAndOpen()
 			{
 				bool result = false;
+				String^ tempFilePath;
+				String^ tempFileExt;
+
                 try
                 {
 					//First check if the files are open
@@ -64,19 +67,51 @@ namespace AtCor{
                     // Read simulation file name from configuration
                     //obtain the setting from config manager.
 			        CrxConfigManager ^configMgr = CrxConfigManager::Instance;
+
+					//Get the file extension
+					tempFileExt = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstDatFileExtn);
+
+					//pick the cuff timer sim file from another directory
+					//_cuffTimerSimulationFile = gcnew DalSimulationFile(CrxMessagingManager::Instance->GetMessage("DAL_CONST_CUFFTIMER_FILE_PATH"));
+					_cuffTimerSimulationFile = gcnew DalSimulationFile(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstCufftimerFilePath));
+							
+					//get the streaming mode and open the file for the current mode
+					if(DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
+					{
                     configMgr->GetPwvUserSettings();
 
                     // construct the simulation file path, based on the file name selected
                     // by user in "system - settings - PWV Settings - simulation type"
-                    //String^ tempFilePath =CrxMessagingManager::Instance->GetMessage("DAL_CONST_SIM_FOLDER_PATH");
-					String^ tempFilePath =CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPath);
-                    //String^ tempFileExt = CrxMessagingManager::Instance->GetMessage("DAL_CONST_DAT_FILE_EXTN");
-					String^ tempFileExt = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstDatFileExtn);
+                   		tempFilePath =CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPath);
                     _tonometerSimulationFile = gcnew DalSimulationFile(tempFilePath + configMgr->PwvSettings->SimulationType + tempFileExt);
 				
-					//pick the cuff timer sim file from another directory
-					//_cuffTimerSimulationFile = gcnew DalSimulationFile(CrxMessagingManager::Instance->GetMessage("DAL_CONST_CUFFTIMER_FILE_PATH"));
-					_cuffTimerSimulationFile = gcnew DalSimulationFile(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstCufftimerFilePath));
+					}
+					else if (DalStreamingMode::cPwa == DalModule::Instance->StreamingMode)
+					{
+						//get the PWa settings from config file.
+						//It contains the file name 
+						configMgr->GetPwaUserSettings();
+
+						tempFilePath =CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPathPwa);
+                   		_tonometerSimulationFile = gcnew DalSimulationFile(tempFilePath + configMgr->PwaSettings->SimulationType + tempFileExt);
+
+					}
+					else
+					{
+						result = false;
+					}
+
+     //               configMgr->GetPwvUserSettings();
+
+     //               // construct the simulation file path, based on the file name selected
+     //               // by user in "system - settings - PWV Settings - simulation type"
+     //              	String^ tempFilePath =CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPath);
+     //              	String^ tempFileExt = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstDatFileExtn);
+     //               _tonometerSimulationFile = gcnew DalSimulationFile(tempFilePath + configMgr->PwvSettings->SimulationType + tempFileExt);
+				
+					////pick the cuff timer sim file from another directory
+					////_cuffTimerSimulationFile = gcnew DalSimulationFile(CrxMessagingManager::Instance->GetMessage("DAL_CONST_CUFFTIMER_FILE_PATH"));
+					//_cuffTimerSimulationFile = gcnew DalSimulationFile(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstCufftimerFilePath));
 
 
 					result = true;
@@ -134,7 +169,7 @@ namespace AtCor{
 				{				
 					if (firstReadAfterCaptureStarted == true)
 					{
-						//CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString());
+						////CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString());
 						ResetAllStaticMembers();
 
 						tonoData = cuffPulseData = cuffAbsolutePressure = locCountdownTimer = statusBytes =  0;
@@ -148,7 +183,7 @@ namespace AtCor{
 						{
 							//get next set of values from the cufff simulation file
 							_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &locEASourceFlag);
-							//CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X2) + " ,locEASourceFlag" + locEASourceFlag.ToString("X2));
+							////CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X2) + " ,locEASourceFlag" + locEASourceFlag.ToString("X2));
 
 							//store the Error/alarm SOURCE in the global variable. If an event is raised we need to retrive the stored value to find the source.
 							_currentEASourceFlag = locEASourceFlag;
@@ -161,8 +196,19 @@ namespace AtCor{
 
 						}
 
+						//check between the modes
+						if(DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
+						{
 						//get the next set of values from the tonometer simulation file.
 						_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
+						}
+						else if (DalStreamingMode::cPwa == DalModule::Instance->StreamingMode)
+						{
+							//get the next set of values from the CPWA simulation file.
+							_tonometerSimulationFile->GetNextValues(&cuffPulseData);
+						}
+
+						
 
 						if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
 						{
@@ -176,7 +222,7 @@ namespace AtCor{
 						tempPWVDataVar.cuffPressure = (short)cuffAbsolutePressure;
 						tempPWVDataVar.tonometerData = (short)tonoData;
 						tempPWVDataVar.cuffPulseData = (short)cuffPulseData;
-						//CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer );
+						////CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer );
 
 						//write data to buffer
 						dataBufferObj->WriteDataToBuffer(tempPWVDataVar);

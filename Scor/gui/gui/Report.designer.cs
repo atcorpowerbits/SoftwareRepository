@@ -118,10 +118,16 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradtxtReportNotes = new Telerik.WinControls.UI.RadTextBox();
             this.guiradlblReportOperatordisplay = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportNotesDisplay = new Telerik.WinControls.UI.RadLabel();
+            this.guiradpnldisplayPWVDistance = new Telerik.WinControls.UI.RadPanel();
+            this.guiradlblreportpwvdistancedisplay1 = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportPwvDistance1 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel29 = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportPwvDitanceUnits1 = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportPwvDistanceMethod = new Telerik.WinControls.UI.RadLabel();
+            this.guiradlblReportPwvDistanceMethodType = new Telerik.WinControls.UI.RadLabel();
             this.guiradpnlEditPWVdistance = new System.Windows.Forms.Panel();
             this.guiradtxtCarotid = new Telerik.WinControls.UI.RadTextBox();
             this.guiradlblReportCuff = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportCuffUnits = new Telerik.WinControls.UI.RadLabel();
             this.guiradtxtReportCuff = new Telerik.WinControls.UI.RadTextBox();
             this.guiradlblCarotid = new Telerik.WinControls.UI.RadLabel();
@@ -137,13 +143,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWVDistance = new Telerik.WinControls.UI.RadLabel();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportPwvDitanceUnits = new Telerik.WinControls.UI.RadLabel();
-            this.guiradpnldisplayPWVDistance = new Telerik.WinControls.UI.RadPanel();
-            this.guiradlblreportpwvdistancedisplay1 = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportPwvDistance1 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel29 = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportPwvDitanceUnits1 = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportPwvDistanceMethod = new Telerik.WinControls.UI.RadLabel();
-            this.guiradlblReportPwvDistanceMethodType = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblReportAssesmentCount = new Telerik.WinControls.UI.RadLabel();
             this.guipnlReportPatientDemographicDetails = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -219,10 +218,18 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportNotes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportOperatordisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportNotesDisplay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradpnldisplayPWVDistance)).BeginInit();
+            this.guiradpnldisplayPWVDistance.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportpwvdistancedisplay1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistance1)).BeginInit();
+            this.guiradlblReportPwvDistance1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel29)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethodType)).BeginInit();
             this.guiradpnlEditPWVdistance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtCarotid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuff)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuffUnits)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportCuff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotid)).BeginInit();
@@ -240,15 +247,6 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWVDistance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradpnldisplayPWVDistance)).BeginInit();
-            this.guiradpnldisplayPWVDistance.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportpwvdistancedisplay1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistance1)).BeginInit();
-            this.guiradlblReportPwvDistance1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel29)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethod)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethodType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportAssesmentCount)).BeginInit();
             this.guipnlReportPatientDemographicDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guilblReportAgeValue)).BeginInit();
@@ -1051,8 +1049,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradtxtReportNotes);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportOperatordisplay);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradlblReportNotesDisplay);
-            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradpnlEditPWVdistance);
             this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradpnldisplayPWVDistance);
+            this.guipnlReportPatientMeasurementDetails.Controls.Add(this.guiradpnlEditPWVdistance);
             this.guipnlReportPatientMeasurementDetails.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guipnlReportPatientMeasurementDetails.Location = new System.Drawing.Point(1, 143);
             this.guipnlReportPatientMeasurementDetails.Name = "guipnlReportPatientMeasurementDetails";
@@ -1516,11 +1514,103 @@ namespace AtCor.Scor.Gui.Presentation
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportNotesDisplay.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportNotesDisplay.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
             // 
+            // guiradpnldisplayPWVDistance
+            // 
+            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblreportpwvdistancedisplay1);
+            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDistance1);
+            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDitanceUnits1);
+            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDistanceMethod);
+            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDistanceMethodType);
+            this.guiradpnldisplayPWVDistance.Font = new System.Drawing.Font("Verdana", 8F);
+            this.guiradpnldisplayPWVDistance.Location = new System.Drawing.Point(6, 153);
+            this.guiradpnldisplayPWVDistance.Name = "guiradpnldisplayPWVDistance";
+            this.guiradpnldisplayPWVDistance.Size = new System.Drawing.Size(318, 108);
+            this.guiradpnldisplayPWVDistance.TabIndex = 0;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradpnldisplayPWVDistance.GetChildAt(0).GetChildAt(1))).Width = 0F;
+            // 
+            // guiradlblreportpwvdistancedisplay1
+            // 
+            this.guiradlblreportpwvdistancedisplay1.AutoSize = false;
+            this.guiradlblreportpwvdistancedisplay1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            this.guiradlblreportpwvdistancedisplay1.BorderVisible = true;
+            this.guiradlblreportpwvdistancedisplay1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblreportpwvdistancedisplay1.Location = new System.Drawing.Point(179, 58);
+            this.guiradlblreportpwvdistancedisplay1.Name = "guiradlblreportpwvdistancedisplay1";
+            this.guiradlblreportpwvdistancedisplay1.Size = new System.Drawing.Size(45, 20);
+            this.guiradlblreportpwvdistancedisplay1.TabIndex = 0;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0))).BorderVisible = true;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            // 
+            // guiradlblReportPwvDistance1
+            // 
+            this.guiradlblReportPwvDistance1.AutoSize = false;
+            this.guiradlblReportPwvDistance1.Controls.Add(this.radLabel29);
+            this.guiradlblReportPwvDistance1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportPwvDistance1.Location = new System.Drawing.Point(23, 57);
+            this.guiradlblReportPwvDistance1.Name = "guiradlblReportPwvDistance1";
+            this.guiradlblReportPwvDistance1.Size = new System.Drawing.Size(150, 19);
+            this.guiradlblReportPwvDistance1.TabIndex = 110;
+            this.guiradlblReportPwvDistance1.Text = "PWV Distance:";
+            this.guiradlblReportPwvDistance1.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // radLabel29
+            // 
+            this.radLabel29.AutoSize = false;
+            this.radLabel29.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radLabel29.Location = new System.Drawing.Point(150, 3);
+            this.radLabel29.Name = "radLabel29";
+            this.radLabel29.Size = new System.Drawing.Size(45, 21);
+            this.radLabel29.TabIndex = 90;
+            // 
+            // guiradlblReportPwvDitanceUnits1
+            // 
+            this.guiradlblReportPwvDitanceUnits1.AutoSize = false;
+            this.guiradlblReportPwvDitanceUnits1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportPwvDitanceUnits1.Location = new System.Drawing.Point(229, 59);
+            this.guiradlblReportPwvDitanceUnits1.Name = "guiradlblReportPwvDitanceUnits1";
+            this.guiradlblReportPwvDitanceUnits1.Size = new System.Drawing.Size(50, 19);
+            this.guiradlblReportPwvDitanceUnits1.TabIndex = 111;
+            this.guiradlblReportPwvDitanceUnits1.Text = "mm";
+            // 
+            // guiradlblReportPwvDistanceMethod
+            // 
+            this.guiradlblReportPwvDistanceMethod.AutoSize = false;
+            this.guiradlblReportPwvDistanceMethod.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportPwvDistanceMethod.Location = new System.Drawing.Point(23, 28);
+            this.guiradlblReportPwvDistanceMethod.Name = "guiradlblReportPwvDistanceMethod";
+            this.guiradlblReportPwvDistanceMethod.Size = new System.Drawing.Size(150, 19);
+            this.guiradlblReportPwvDistanceMethod.TabIndex = 86;
+            this.guiradlblReportPwvDistanceMethod.Text = "PWV Method:";
+            this.guiradlblReportPwvDistanceMethod.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradlblReportPwvDistanceMethodType
+            // 
+            this.guiradlblReportPwvDistanceMethodType.AutoSize = false;
+            this.guiradlblReportPwvDistanceMethodType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            this.guiradlblReportPwvDistanceMethodType.BorderVisible = true;
+            this.guiradlblReportPwvDistanceMethodType.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportPwvDistanceMethodType.Location = new System.Drawing.Point(179, 30);
+            this.guiradlblReportPwvDistanceMethodType.Name = "guiradlblReportPwvDistanceMethodType";
+            this.guiradlblReportPwvDistanceMethodType.Size = new System.Drawing.Size(100, 20);
+            this.guiradlblReportPwvDistanceMethodType.TabIndex = 0;
+            this.guiradlblReportPwvDistanceMethodType.Text = "Subtracting";
+            this.guiradlblReportPwvDistanceMethodType.TextWrap = false;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0))).BorderVisible = true;
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0))).Text = "Subtracting";
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
+            // 
             // guiradpnlEditPWVdistance
             // 
             this.guiradpnlEditPWVdistance.Controls.Add(this.guiradtxtCarotid);
             this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblReportCuff);
-            this.guiradpnlEditPWVdistance.Controls.Add(this.radLabel4);
             this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblReportCuffUnits);
             this.guiradpnlEditPWVdistance.Controls.Add(this.guiradtxtReportCuff);
             this.guiradpnlEditPWVdistance.Controls.Add(this.guiradlblCarotid);
@@ -1570,21 +1660,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportCuff.TabIndex = 0;
             this.guiradlblReportCuff.Text = "Sternal notch to Cuff*:";
             this.guiradlblReportCuff.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // radLabel4
-            // 
-            this.radLabel4.AutoSize = false;
-            this.radLabel4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.radLabel4.Location = new System.Drawing.Point(229, 4);
-            this.radLabel4.Name = "radLabel4";
-            // 
-            // 
-            // 
-            this.radLabel4.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.radLabel4.Size = new System.Drawing.Size(40, 19);
-            this.radLabel4.TabIndex = 0;
-            this.radLabel4.Text = "mm";
             // 
             // guiradlblReportCuffUnits
             // 
@@ -1810,99 +1885,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportPwvDitanceUnits.Size = new System.Drawing.Size(50, 19);
             this.guiradlblReportPwvDitanceUnits.TabIndex = 106;
             this.guiradlblReportPwvDitanceUnits.Text = "mm";
-            // 
-            // guiradpnldisplayPWVDistance
-            // 
-            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblreportpwvdistancedisplay1);
-            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDistance1);
-            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDitanceUnits1);
-            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDistanceMethod);
-            this.guiradpnldisplayPWVDistance.Controls.Add(this.guiradlblReportPwvDistanceMethodType);
-            this.guiradpnldisplayPWVDistance.Font = new System.Drawing.Font("Verdana", 8F);
-            this.guiradpnldisplayPWVDistance.Location = new System.Drawing.Point(6, 154);
-            this.guiradpnldisplayPWVDistance.Name = "guiradpnldisplayPWVDistance";
-            this.guiradpnldisplayPWVDistance.Size = new System.Drawing.Size(318, 108);
-            this.guiradpnldisplayPWVDistance.TabIndex = 0;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradpnldisplayPWVDistance.GetChildAt(0).GetChildAt(1))).Width = 0F;
-            // 
-            // guiradlblreportpwvdistancedisplay1
-            // 
-            this.guiradlblreportpwvdistancedisplay1.AutoSize = false;
-            this.guiradlblreportpwvdistancedisplay1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            this.guiradlblreportpwvdistancedisplay1.BorderVisible = true;
-            this.guiradlblreportpwvdistancedisplay1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblreportpwvdistancedisplay1.Location = new System.Drawing.Point(179, 58);
-            this.guiradlblreportpwvdistancedisplay1.Name = "guiradlblreportpwvdistancedisplay1";
-            this.guiradlblreportpwvdistancedisplay1.Size = new System.Drawing.Size(45, 20);
-            this.guiradlblreportpwvdistancedisplay1.TabIndex = 0;
-            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0))).BorderVisible = true;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblreportpwvdistancedisplay1.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            // 
-            // guiradlblReportPwvDistance1
-            // 
-            this.guiradlblReportPwvDistance1.AutoSize = false;
-            this.guiradlblReportPwvDistance1.Controls.Add(this.radLabel29);
-            this.guiradlblReportPwvDistance1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportPwvDistance1.Location = new System.Drawing.Point(23, 57);
-            this.guiradlblReportPwvDistance1.Name = "guiradlblReportPwvDistance1";
-            this.guiradlblReportPwvDistance1.Size = new System.Drawing.Size(150, 19);
-            this.guiradlblReportPwvDistance1.TabIndex = 110;
-            this.guiradlblReportPwvDistance1.Text = "PWV Distance:";
-            this.guiradlblReportPwvDistance1.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // radLabel29
-            // 
-            this.radLabel29.AutoSize = false;
-            this.radLabel29.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radLabel29.Location = new System.Drawing.Point(150, 3);
-            this.radLabel29.Name = "radLabel29";
-            this.radLabel29.Size = new System.Drawing.Size(45, 21);
-            this.radLabel29.TabIndex = 90;
-            // 
-            // guiradlblReportPwvDitanceUnits1
-            // 
-            this.guiradlblReportPwvDitanceUnits1.AutoSize = false;
-            this.guiradlblReportPwvDitanceUnits1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportPwvDitanceUnits1.Location = new System.Drawing.Point(229, 59);
-            this.guiradlblReportPwvDitanceUnits1.Name = "guiradlblReportPwvDitanceUnits1";
-            this.guiradlblReportPwvDitanceUnits1.Size = new System.Drawing.Size(50, 19);
-            this.guiradlblReportPwvDitanceUnits1.TabIndex = 111;
-            this.guiradlblReportPwvDitanceUnits1.Text = "mm";
-            // 
-            // guiradlblReportPwvDistanceMethod
-            // 
-            this.guiradlblReportPwvDistanceMethod.AutoSize = false;
-            this.guiradlblReportPwvDistanceMethod.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportPwvDistanceMethod.Location = new System.Drawing.Point(23, 28);
-            this.guiradlblReportPwvDistanceMethod.Name = "guiradlblReportPwvDistanceMethod";
-            this.guiradlblReportPwvDistanceMethod.Size = new System.Drawing.Size(150, 19);
-            this.guiradlblReportPwvDistanceMethod.TabIndex = 86;
-            this.guiradlblReportPwvDistanceMethod.Text = "PWV Method:";
-            this.guiradlblReportPwvDistanceMethod.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // guiradlblReportPwvDistanceMethodType
-            // 
-            this.guiradlblReportPwvDistanceMethodType.AutoSize = false;
-            this.guiradlblReportPwvDistanceMethodType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            this.guiradlblReportPwvDistanceMethodType.BorderVisible = true;
-            this.guiradlblReportPwvDistanceMethodType.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblReportPwvDistanceMethodType.Location = new System.Drawing.Point(179, 30);
-            this.guiradlblReportPwvDistanceMethodType.Name = "guiradlblReportPwvDistanceMethodType";
-            this.guiradlblReportPwvDistanceMethodType.Size = new System.Drawing.Size(100, 20);
-            this.guiradlblReportPwvDistanceMethodType.TabIndex = 0;
-            this.guiradlblReportPwvDistanceMethodType.Text = "Subtracting";
-            this.guiradlblReportPwvDistanceMethodType.TextWrap = false;
-            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0))).BorderVisible = true;
-            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0))).Text = "Subtracting";
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0).GetChildAt(1))).ForeColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblReportPwvDistanceMethodType.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
             // 
             // guiradlblReportAssesmentCount
             // 
@@ -2250,7 +2232,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.ShowItemToolTips = false;
             this.Text = "Report";
             this.ThemeName = "Atcor";
-            this.Load += new System.EventHandler(this.Report_Load);            
+            this.Load += new System.EventHandler(this.Report_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Report_KeyUp);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Report_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.guichartSuperImposedWaveform)).EndInit();
@@ -2313,11 +2295,19 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportNotes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportOperatordisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportNotesDisplay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradpnldisplayPWVDistance)).EndInit();
+            this.guiradpnldisplayPWVDistance.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportpwvdistancedisplay1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistance1)).EndInit();
+            this.guiradlblReportPwvDistance1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel29)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethod)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethodType)).EndInit();
             this.guiradpnlEditPWVdistance.ResumeLayout(false);
             this.guiradpnlEditPWVdistance.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtCarotid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuff)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportCuffUnits)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradtxtReportCuff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotid)).EndInit();
@@ -2335,15 +2325,6 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblPWVDistance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradpnldisplayPWVDistance)).EndInit();
-            this.guiradpnldisplayPWVDistance.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblreportpwvdistancedisplay1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistance1)).EndInit();
-            this.guiradlblReportPwvDistance1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel29)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDitanceUnits1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethod)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportPwvDistanceMethodType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblReportAssesmentCount)).EndInit();
             this.guipnlReportPatientDemographicDetails.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guilblReportAgeValue)).EndInit();
@@ -2470,7 +2451,6 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadMenuItem guiPrintPatientReport;
         private Telerik.WinControls.UI.RadMenuItem guiprintPwvReport;
         private Telerik.WinControls.UI.RadLabel guiradlblReportAssessments;
-        private Telerik.WinControls.UI.RadLabel radLabel4;
         private Telerik.WinControls.UI.RadLabel radLabel3;
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private Telerik.WinControls.UI.RadLabel radLabel1;
