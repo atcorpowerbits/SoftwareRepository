@@ -91,14 +91,15 @@ private:	static String^ comPortName  = "Simulation";
 			/// <summary>
 			///A test for Instance
 			///</summary>
-	public: [TestMethod]
+	/*public: [TestMethod]
 			[DeploymentItem(L"dal.dll")]
 			void InstanceTest()
 			{
 				DalSimulationHandler_Accessor^  actual;
 				actual = DalSimulationHandler_Accessor::Instance;
 				Assert::IsNotNull(actual);	
-			}
+			}*/
+
 			/// <summary>
 			///A test for StopCapture
 			///</summary>
@@ -107,7 +108,9 @@ private:	static String^ comPortName  = "Simulation";
 			void StopCaptureTest()
 			{
 				SetPath();
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+
+				//Creating child class object as DalSimulationHandler class is abstuct class
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
 				
 				bool expected = true; 
 				bool actual;
@@ -130,52 +133,58 @@ private:	static String^ comPortName  = "Simulation";
 			///A test for StartCapture
 			///</summary>
 			//Commeneted as per disscussion
-			/*public: [TestMethod]             
+			public: [TestMethod]             
 			[DeploymentItem(L"dal.dll")]
 			void StartCaptureTest1()
 			{
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); // TODO: Initialize to an appropriate value
+				//Creating child class object as DalSimulationHandler class is abstuct class
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
+				
 				bool expected = false; 
 				bool actual;
 				SetPath();
-				actual = target->StartCapture();
-				Assert::AreEqual(expected, actual);
-			}*/
+				actual = target->StartCapture(10,20);
+				Assert::IsTrue(actual);
+			}
+
 			/// <summary>
 			///A test for StartCapture
 			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void StartCaptureTest()
-			{
-				SetPath();
 				
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
-				int captureTime = 10; 
-				int samplingRate = 256; 
-				bool expected = true;
-				bool actual;
-				try
-				{
-					//target->dataBufferObj->GetAllValues(startIndex, endIndex);
-					//Assert::AreEqual(-1, startIndex); //values will be -1 if no data has been put in buffer
-					//Assert::AreEqual(-1, endIndex);
+			//TODO: This test will move to DalPWVSimulationHandler
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+	//		void StartCaptureTest()
+	//		{
+	//			SetPath();
+	//			
+	//			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+	//			int captureTime = 10; 
+	//			int samplingRate = 256; 
+	//			bool expected = true;
+	//			bool actual;
+	//			try
+	//			{
+	//				//target->dataBufferObj->GetAllValues(startIndex, endIndex);
+	//				//Assert::AreEqual(-1, startIndex); //values will be -1 if no data has been put in buffer
+	//				//Assert::AreEqual(-1, endIndex);
 
-					actual = target->StartCapture(captureTime, samplingRate);
-					Assert::AreEqual(expected, actual);
+	//				actual = target->StartCapture(captureTime, samplingRate);
+	//				Assert::AreEqual(expected, actual);
 
-					//Deepak: recheck why this is giving -1
-					//Threading::Thread::Sleep(3000); //Sleep to give the process enough time to add data to the buffer
-					//target->StopCapture();
-					//target->dataBufferObj->GetAllValues(startIndex, endIndex); //call to get the updated indices from buffer.
-					//Assert::AreNotEqual(-1, endIndex); //This should not be true. If true it means that the buffer hassned been updated.
-					//Assert::AreNotEqual(0, endIndex);
-				}
-				catch(ScorException ^ scorExObj)
-				{
-					Assert::Fail("Scor Exception thrown: " + scorExObj->ErrorMessageKey );
-				}
-			}
+	//				//Deepak: recheck why this is giving -1
+	//				//Threading::Thread::Sleep(3000); //Sleep to give the process enough time to add data to the buffer
+	//				//target->StopCapture();
+	//				//target->dataBufferObj->GetAllValues(startIndex, endIndex); //call to get the updated indices from buffer.
+	//				//Assert::AreNotEqual(-1, endIndex); //This should not be true. If true it means that the buffer hassned been updated.
+	//				//Assert::AreNotEqual(0, endIndex);
+	//			}
+	//			catch(ScorException ^ scorExObj)
+	//			{
+	//				Assert::Fail("Scor Exception thrown: " + scorExObj->ErrorMessageKey );
+	//			}
+	//		}
+
 			/// <summary>
 			///A test for SetPressure
 			///</summary>
@@ -183,10 +192,12 @@ private:	static String^ comPortName  = "Simulation";
 			[DeploymentItem(L"dal.dll")]
 			void SetPressureTest()
 			{
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+				//Creating child class object as DalSimulationHandler class is abstuct class
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
+				
 				int newPressure = 0; 
 				EM4CuffBoard cuffBoard = EM4CuffBoard(); 
-				bool expected = false; 
+				bool expected = true; 
 				bool actual;
 				try
 				{
@@ -198,6 +209,7 @@ private:	static String^ comPortName  = "Simulation";
 					Assert::Fail("Scor Exception thrown: " + scorExObj->ErrorMessageKey );
 				}
 			}
+
 			/// <summary>
 			///A test for SaveCaptureData
 			///</summary>
@@ -206,7 +218,9 @@ private:	static String^ comPortName  = "Simulation";
 			void SaveCaptureDataTest()
 			{
 				SetPath();
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 				
+				//Creating child class object as DalSimulationHandler class is abstuct class
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
+				//DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 				
 				cli::array< unsigned short >^  tonometerData = gcnew array< unsigned short > {0xA1, 0xA1, 0xA1, 0xA1, 0xA1, 0xA1}; 
 				cli::array< unsigned short >^  cuffPulse = gcnew array< unsigned short > {0xB1, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6}; 
 				unsigned short bufferSize = 6;  
@@ -236,6 +250,7 @@ private:	static String^ comPortName  = "Simulation";
 				Assert::AreNotEqual(excepRaised, expected);
 				
 			}
+
 			/// Confing file should have any valid simulaation file set
 			///A test for ReadMultipleEventsInLoop
 			///</summary>
@@ -247,7 +262,9 @@ private:	static String^ comPortName  = "Simulation";
 				int startIndex = -1;
 				int endIndex = -1;
 
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 				
+				//Creating child class object as DalSimulationHandler class is abstuct class
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
+				//DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 				
 				Object^  sender = this; 
 
 				
@@ -290,6 +307,7 @@ private:	static String^ comPortName  = "Simulation";
 				Assert::AreEqual(expected, actual);
 				Assert::Inconclusive(L"Verify the correctness of this test method.");
 			}*/
+
 			/// <summary>
 			///A test for OnTimerReadMultipleEvents
 			///</summary>
@@ -302,7 +320,9 @@ private:	static String^ comPortName  = "Simulation";
 				Object^  sender = this; 
 				ElapsedEventArgs^  args = nullptr; //Diesnt matter , unused in actual method
 				
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 				
+				//Creating child class object as DalSimulationHandler class is abstuct class
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
+				//DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 				
 
 				int startIndex = 0;
 				int endIndex = 0;
@@ -361,6 +381,7 @@ private:	static String^ comPortName  = "Simulation";
 
 			//	DalSimulationHandler_Accessor::OnTimerGetValuesAndRaiseEvents(sender, args);
 			//}
+
 			/// <summary>
 			///A test for GetSavedFileName
 			///</summary>
@@ -369,7 +390,9 @@ private:	static String^ comPortName  = "Simulation";
 			void GetSavedFileNameTest()				
 			{
 				SetPath();
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+				//Creating child class object as DalSimulationHandler class is abstuct class
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
+				//DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
 				//target->_commandInterface->CreateAndOpenNewSerialPort(comPortName);
 				
 				cli::array< unsigned short >^  tonometerData = gcnew array< unsigned short > {0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6}; 
@@ -383,10 +406,6 @@ private:	static String^ comPortName  = "Simulation";
 				String  ^ currentDateTimeStr = currentDateTime.ToString("yyyyMMMddHHmm");
 				currentDateTimeStr = tempCapture+ currentDateTimeStr ;
 
-				
-
-				//target->SaveCaptureData(tonometerData, cuffPulse, bufferSize);
-				
 				String^  expected = target->_savedDataFilePath;
 				String^  actual;
 				actual = target->GetSavedFileName();
@@ -395,6 +414,7 @@ private:	static String^ comPortName  = "Simulation";
 				//Assert::IsTrue(actual->Contains(currentDateTimeStr));
 				//Assert::IsNotNull(actual->Contains(currentDateTimeStr));
 			}
+
 			/// <summary>
 			///A test for GetFileNameFromConfgAndOpen
 			///</summary>
@@ -407,7 +427,9 @@ private:	static String^ comPortName  = "Simulation";
 				SetPath();
 				String^ path = Directory::GetCurrentDirectory(); 
 				
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+				//Creating child class object as DalSimulationHandler class is abstuct class
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
+				//DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
 				DalModule^ DalModuleAccessor = DalModule::Instance;
 				DalModuleAccessor->SetStreamingMode(DalStreamingMode::Pwv);
 				bool expected = true;
@@ -440,42 +462,46 @@ private:	static String^ comPortName  = "Simulation";
 			///A test for GetFileNameFromConfgAndOpen
 			///</summary>
 			//this test need to be made run indipendently.
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void GetFileNameFromConfgAndOpenForCPwaModeTest()
-			{
-
-				SetPath();
-				String^ path = Directory::GetCurrentDirectory(); 
+			//TODO: This test will be moved to DalCPwcSimulationHandler; 
+	//			
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+			//void GetFileNameFromConfgAndOpenForCPwaModeTest()
+			//{
 				
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
-				DalModule^ DalModuleAccessor = DalModule::Instance;
-				DalModuleAccessor->SetStreamingMode(DalStreamingMode::cPwa);
-				bool expected = true;
-				bool actual;
+			//	SetPath();
+			//	String^ path = Directory::GetCurrentDirectory(); 
+			//	
+			//	//Creating child class object as DalSimulationHandler class is abstuct class
+			//	DalCPwaSimulationHandler_Accessor^  target = (gcnew DalCPwaSimulationHandler_Accessor()); 
+			//	//DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+			//	DalModule^ DalModuleAccessor = DalModule::Instance;
+			//	DalModuleAccessor->SetStreamingMode(DalStreamingMode::cPwa);
+			//	bool expected = true;
+			//	bool actual;
+			//	
+			//	actual = target->GetFileNameFromConfgAndOpen();
+			//	Assert::AreEqual(expected, actual);
+
+			//	//check if the objects have been created
+			//	Assert::IsNotNull(target->_cuffTimerSimulationFile);
+			//	Assert::IsNotNull(target->_tonometerSimulationFile);
+			//	
+			//	String^ cuffTimerFilePath = target->_cuffTimerSimulationFile->filePath ;
+			//	String^ tonometerSimFilePath = target->_tonometerSimulationFile->filePath ;
 				
-				actual = target->GetFileNameFromConfgAndOpen();
-				Assert::AreEqual(expected, actual);
+			//	//get the settings from config directly to test if the correct tono file is opened
+			//	String^ tonoFileNameInConfig;
+			//	CrxConfigManager ^configMgr = CrxConfigManager::Instance;
+			//	configMgr->GetGeneralUserSettings();
+			//	configMgr->GetPwaUserSettings();
+			//	tonoFileNameInConfig = configMgr->PwaSettings->SimulationType+ ".dat";
+			//	bool retValue = tonometerSimFilePath->Contains(tonoFileNameInConfig);
+			//	Assert::IsTrue(retValue);
 
-				//check if the objects have been created
-				Assert::IsNotNull(target->_cuffTimerSimulationFile);
-				Assert::IsNotNull(target->_tonometerSimulationFile);
-				
-				String^ cuffTimerFilePath = target->_cuffTimerSimulationFile->filePath ;
-				String^ tonometerSimFilePath = target->_tonometerSimulationFile->filePath ;
-
-				//get the settings from config directly to test if the correct tono file is opened
-				String^ tonoFileNameInConfig;
-				CrxConfigManager ^configMgr = CrxConfigManager::Instance;
-				configMgr->GetGeneralUserSettings();
-				configMgr->GetPwaUserSettings();
-				tonoFileNameInConfig = configMgr->PwaSettings->SimulationType+ ".dat";
-				bool retValue = tonometerSimFilePath->Contains(tonoFileNameInConfig);
-				Assert::IsTrue(retValue);
-
-				//Now test if cuff file is opened properly
-				Assert::AreEqual(".\\\\simulation\\\\cuff_timer\\\\cuff_timer.dat", cuffTimerFilePath);
-			}
+			//	//Now test if cuff file is opened properly
+			//	Assert::AreEqual(".\\\\simulation\\\\cuff_timer\\\\cuff_timer.dat", cuffTimerFilePath);
+			//}
 
 			/// <summary>
 			///A test for GetConnectionStatus
@@ -484,7 +510,9 @@ private:	static String^ comPortName  = "Simulation";
 			[DeploymentItem(L"dal.dll")]
 			void GetConnectionStatusTest()
 			{
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+				//Creating child class object as DalSimulationHandler class is abstuct class
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
+				//DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
 				
 				bool expected = true; 
 				bool actual;
@@ -493,59 +521,61 @@ private:	static String^ comPortName  = "Simulation";
 				//This method will always return true for simulation mode
 			}
 
-
 			/// Check varios flag combinations to test the output
 			///A test for GetConnectionStatus
 			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void CheckStatusFlagsChangedTest()
-			{
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
-			
-				target->_currentCuffStatusFlag = 0;
-				target->_currentAlarmStatusFlag  = 0;
-			
-				unsigned long Current_cuffStatusBytes = 0x0400; //first expected value
-				unsigned long Current_eaStatusBytes = 0x0000; //first expected value
-				unsigned long statusBytes = 0x0400; 
-				bool expected = true; 
-				bool actual;
-				bool cuffIsInflated;  
+			//TODO: this test will be moved to some other file
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+	//		void CheckStatusFlagsChangedTest()
+	//		{
+	//			//Creating child class object as DalSimulationHandler class is abstuct class
+	//			DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
+	//			//DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+	//			
+	//			target->_currentCuffStatusFlag = 0;
+	//			target->_currentAlarmStatusFlag  = 0;
+	//		
+	//			unsigned long Current_cuffStatusBytes = 0x0400; //first expected value
+	//			unsigned long Current_eaStatusBytes = 0x0000; //first expected value
+	//			unsigned long statusBytes = 0x0400; 
+	//			bool expected = true; 
+	//			bool actual;
+	//			bool cuffIsInflated;  
 
-				actual = target->CheckStatusFlagsChanged(statusBytes);
-			
-				Assert::AreEqual(expected, actual);
-				Assert::AreEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
-				Assert::AreEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
+	//			actual = target->CheckStatusFlagsChanged(statusBytes);
+	//		
+	//			Assert::AreEqual(expected, actual);
+	//			//Assert::AreEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
+	//			Assert::AreEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
 
-				//now assign the current values for checking
-				Current_cuffStatusBytes = target->_currentCuffStatusFlag;
-				Current_eaStatusBytes = target->_currentAlarmStatusFlag ;
+	//			//now assign the current values for checking
+	//			Current_cuffStatusBytes = target->_currentCuffStatusFlag;
+	//			Current_eaStatusBytes = target->_currentAlarmStatusFlag ;
 
-				//change alarm flags without changing cuff flags
-				statusBytes = 0x0408;
-				target->CheckStatusFlagsChanged(statusBytes);
-				Assert::AreEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
-				Assert::AreNotEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
-				Assert::IsFalse(cuffIsInflated);
+	//			//change alarm flags without changing cuff flags
+	//			statusBytes = 0x0408;
+	//			Current_eaStatusBytes = 0x0080; 
+	//			target->CheckStatusFlagsChanged(statusBytes);
+	//			Assert::AreEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
+	//			Assert::AreNotEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
+	//			Assert::IsFalse(cuffIsInflated);
 
-				//reset back to normal position . we wont chek the status this time
-				statusBytes = 0x0400;
-				target->CheckStatusFlagsChanged(statusBytes);
-				Current_cuffStatusBytes = target->_currentCuffStatusFlag;
-				Current_eaStatusBytes = target->_currentAlarmStatusFlag ;
-				Assert::IsFalse(cuffIsInflated);
+	//			//reset back to normal position . we wont chek the status this time
+	//			statusBytes = 0x0400;
+	//			target->CheckStatusFlagsChanged(statusBytes);
+	//			Current_cuffStatusBytes = target->_currentCuffStatusFlag;
+	//			Current_eaStatusBytes = target->_currentAlarmStatusFlag ;
+	//			Assert::IsFalse(cuffIsInflated);
 
-				//now change cuff flags without changing alarm
-				statusBytes = 0x0900;
-				target->CheckStatusFlagsChanged(statusBytes);
-				Assert::AreNotEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
-				Assert::AreEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
-				Assert::IsTrue(cuffIsInflated); //0x900 means cuff is inflated so this should be true
-
-			}
-
+	//			//now change cuff flags without changing alarm
+	//			statusBytes = 0x1000;
+	//			//Current_eaStatusBytes = 0x0000; 
+	//			target->CheckStatusFlagsChanged(statusBytes);
+	//			Assert::AreNotEqual(Current_cuffStatusBytes, target->_currentCuffStatusFlag);
+	//			Assert::AreEqual(Current_eaStatusBytes, target->_currentAlarmStatusFlag );
+	//			Assert::IsTrue(cuffIsInflated); //0x900 means cuff is inflated so this should be true
+	//		}
 
 			/// <summary>
 			///A test for GetConfigurationInfo
@@ -555,7 +585,7 @@ private:	static String^ comPortName  = "Simulation";
 			void GetConfigurationInfoTest()
 			{
 				SetPath();
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
 				DalDeviceConfigUsageEnum deviceConfigItem = DalDeviceConfigUsageEnum::ModuleSerialNumber ; 
 				DalDeviceConfigUsageStruct^  deviceConfigInfo = gcnew  DalDeviceConfigUsageStruct() ; 
 				bool expected = true; 
@@ -565,7 +595,6 @@ private:	static String^ comPortName  = "Simulation";
 				Assert::IsNotNull(deviceConfigInfo->ModuleSerialNumber);
 			}
 
-			
 			/// <summary>
 			///A test for CheckIfDeviceIsConnected
 			///</summary>
@@ -573,12 +602,13 @@ private:	static String^ comPortName  = "Simulation";
 			[DeploymentItem(L"dal.dll")]
 			void CheckIfDeviceIsConnectedTest()
 			{
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor()); 
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
 				bool expected = true; 
 				bool actual;
 				actual = target->CheckIfDeviceIsConnected();
 				Assert::AreEqual(expected, actual);
 			}
+			
 			/// <summary>
 			///A test for DalSimulationHandler Constructor
 			///</summary>
@@ -586,7 +616,7 @@ private:	static String^ comPortName  = "Simulation";
 			[DeploymentItem(L"dal.dll")]
 			void DalSimulationHandlerConstructorTest()
 			{
-				DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor());
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
 				Assert::IsNotNull(target);
 			}
 	};

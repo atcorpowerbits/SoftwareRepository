@@ -15,16 +15,19 @@
 #include "DalStreamingPacketQueue.h"
 #include "DalActivePort.h"
 #include "DalBinaryConversions.h"
+#include "DalStatusHandler.h"
 
 using namespace AtCor::Scor::DataAccess;
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Logging;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 
 
 DalStagingQueue::DalStagingQueue()
 {
 	this->stagingQueue = gcnew  List<unsigned char> ;
 	_nackPacketStandardLength = DalConstants::EM4ZeroDataResponsePacketSize + DalConstants::EM4NackPacketDataLength ;
+	//TODO: _streamingPacketSize  should change based on PWV/PWA mode
 	_streamingPacketSize = DalConstants::PWVCaptureDataSize + DalConstants::EM4ZeroDataResponsePacketSize;
 
 	//_processQueueAsyncCaller = gcnew ProcessQueueAsyncCaller(this, &DalStagingQueue::ProcessQueue);
@@ -188,7 +191,7 @@ void DalStagingQueue::EnqueueArray(array<unsigned char,1> ^sourceArray)
 {
 	if (nullptr == sourceArray)
 	{
-		throw gcnew ScorException(111, "KEY", ErrorSeverity::Warning);
+		throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrorNullParamErrCd, CrxStructCommonResourceMsg::DalErrorNullParam, ErrorSeverity::Warning);
 	}
 
 	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::EnqueueArray stagingMutex LOCK");
@@ -300,7 +303,7 @@ bool DalStagingQueue::ProcessSinglePacket()
 	//TEst Code only: TODO
 	if (DalPacketType::Unknown == packetType)
 	{
-		//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket Buffer: " + DalBinaryConversions::ConvertBytesToString(this->stagingQueue->ToArray()));
+		CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket Buffer: " + DalBinaryConversions::ConvertBytesToString(this->stagingQueue->ToArray()));
 	}
 	
 	stagingMutex->ReleaseMutex();
@@ -411,30 +414,48 @@ void DalStagingQueue::PartiallyClearBuffer()
 void DalStagingQueue::ProcessingThreadMethod()
 {
 	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessingThreadMethod Enter");
-
-	do
+	try
 	{
-		try
-		{
-			if(this->stagingQueue->Count)
-			{
-				////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessingThreadMethod Calling ProcessQueue()");
-				ProcessQueue();
 
+		do
+		{
+			try
+			{
+				if(this->stagingQueue->Count)
+				{
+					////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessingThreadMethod Calling ProcessQueue()");
+					ProcessQueue();
+
+				}
+
+				Thread::Sleep(Timeout::Infinite ); 	//sleep until woken again
+			}
+			catch(ThreadInterruptedException^ ex)
+			{
+				//This exception is raised wne thread->Interrupt is called. 
+				//It is not a real expception
+				delete ex;
+				////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessingThreadMethod ThreadInterruptedException raised");
+				continue;
 			}
 
-			Thread::Sleep(Timeout::Infinite ); 	//sleep until woken again
-		}
-		catch(ThreadInterruptedException^ ex)
-		{
-			delete ex;
-			////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessingThreadMethod ThreadInterruptedException raised");
-			continue;
-		}
 
-
+		}
+		while(true);
 	}
-	while(true);
+	catch(ScorException^ scorExObj)
+	{
+		//throw; //dont throw an excpetion from a thread . convert it to an event
+
+		DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, scorExObj);
+	}
+	catch(Exception^ excepObj)
+	{
+		
+		//throw gcnew ScorException(excepObj);//dont throw an excpetion from a thread . convert it to an event
+
+		DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, gcnew ScorException(excepObj));
+	}
 
 
 
@@ -468,6 +489,7 @@ int DalStagingQueue::GetIndexOfNextStreamingPacketHead()
 			}
 			else
 			{
+				//TODO: THis will change for PWA mode
 				//then check if the next element is 0DH
 				if(stagingQueue[indexFound + 1] == 0x0D)
 				{

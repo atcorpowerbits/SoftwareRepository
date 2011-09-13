@@ -454,7 +454,49 @@ namespace TestDal {
 
 			//}
 
-	};
+			/// <summary>
+			///A test for SaveCurrentValues
+			///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SaveCurrentValuesTest1()
+		{
+			SetPath();
+
+			DalSimulationFile_Accessor^  target = (gcnew DalSimulationFile_Accessor()); 
+			unsigned short cuffPulse = 456;
+			bool expected = true; 
+			bool actual;
+
+			String^ path = Directory::GetCurrentDirectory(); 
+			String^ filePath = path + "\\simulation\\pwa\\test.dat";
+
+			try
+			{
+				//Create the file and pass it to new streamwiter.
+				target->writer = File::CreateText(filePath);
+			}
+			catch(ScorException ^ scorexObj)
+			{
+				Assert::Fail("Exception thrown: " + scorexObj->ErrorMessageKey);
+			}
+		
+			actual = target->SaveCurrentValues(cuffPulse);
+			target->CloseFile();	//close file
+			Assert::AreEqual(expected, actual);
+
+			//now open the file manually and check if the value is written
+			FileStream ^ checkFileStream = File::Open(filePath, FileMode::Open );
+			StreamReader ^ checkFileReader = gcnew StreamReader(checkFileStream);
+
+			String ^singleLine = checkFileReader->ReadLine();
+			unsigned short value1;
+
+			singleLine = target->RemoveSpecialCharacters(singleLine);
+			value1 = (short)Single::Parse(singleLine);
+			Assert::AreEqual(cuffPulse, value1);
+		}
+};
 }
 namespace TestDal {
     

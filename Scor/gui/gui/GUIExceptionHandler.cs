@@ -54,6 +54,8 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         public static void HandleException(Exception ex, object currentWindow)
         {
+            System.Diagnostics.Debug.Write("Error Message:" +ex.Message);
+            System.Diagnostics.Debug.Write("Stack Trace:" + ex.StackTrace);   
             if (ex.GetType() == typeof(ScorException))
             {
                 HandleScorException((ScorException)ex, currentWindow);

@@ -16,6 +16,7 @@
 
 using namespace System;
 using namespace msclr;
+using namespace AtCor::Scor::CrossCutting;
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -126,12 +127,31 @@ namespace AtCor{
 						property String^ AlarmSourceName;
 
 						/**
+						* The source of the alarm as an enum
+						*/
+						property DalAlarmSource SpecificAlarmSource;
+
+						property ScorException^ ScorExceptionObject; 
+
+						/**
 						* Constructor for the class.
 						*
-						* @param[in] alarmStatus	The type of alarm raised.
-						* @param[in]	alarmSource	The name of the alarm source from the Alarm Flags.	
+						* @param[in]	alarmStatus	The type of alarm raised.
+						* @param[in]	alarmSourceName	The name of the alarm source from the Alarm Flags.	
+						* @param[in]	alarmSourceEnum	The alarm source as a DalAlarmSource enum
 						*/
-						DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag alarmStatus, String^ alarmSource);
+						DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag alarmStatus, String^ alarmSourceName, DalAlarmSource alarmSourceEnum);
+
+						/**
+						* Constructor for the class.
+						*
+						* @param[in]	alarmStatus	The type of alarm raised.
+						* @param[in]	alarmSourceName	The name of the alarm source from the Alarm Flags.	
+						* @param[in]	alarmSourceEnum	The alarm source as a DalAlarmSource enum
+						* @param[in]	scorExcptionObject	The exception object, if this event is being raised in liue of an exception throw.
+						*/
+						DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag alarmStatus, String^ alarmSourceName, DalAlarmSource alarmSourceEnum, ScorException^ scorExcptionObject);
+
 				};
 
 				/**
@@ -381,9 +401,9 @@ namespace AtCor{
 								//Raise the event.
 								if(_DalCuffStatusEventHandler)
 								{
+									//Moved log comment to the top and uncommented it as per TS stub
+									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() );
 									_DalCuffStatusEventHandler->Invoke(sender, args);
-									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() );
-							
 								}
 							}
 						}

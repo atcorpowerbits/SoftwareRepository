@@ -104,6 +104,12 @@
     <Compile Include="AnalysisPreview.Designer.cs">
       <DependentUpon>AnalysisPreview.cs</DependentUpon>
     </Compile>
+    <Compile Include="BPAssessments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BPAssessments.Designer.cs">
+      <DependentUpon>BPAssessments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Capture.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,12 +243,24 @@
     <Compile Include="PWAReport.designer.cs">
       <DependentUpon>PWAReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="PWATestResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PWATestResult.Designer.cs">
+      <DependentUpon>PWATestResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="PwvClass.cs" />
     <Compile Include="PwvPatientReport.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PwvPatientReport.Designer.cs">
       <DependentUpon>PwvPatientReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuickStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuickStart.Designer.cs">
+      <DependentUpon>QuickStart.cs</DependentUpon>
     </Compile>
     <Compile Include="RadAboutBox.cs">
       <SubType>Form</SubType>
@@ -303,6 +321,7 @@
     <Content Include="atcor.ico" />
     <None Include="Resources\SetupScreenDirect_Small.jpg" />
     <None Include="Resources\PWA_diagram.jpg" />
+    <None Include="Resources\atcor_logo.JPG" />
     <Content Include="Theme\Atcor_DockSplitContainer.xml" />
     <Content Include="Theme\Atcor_RadCheckmark.xml" />
     <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_RootRadElement.xml" />
@@ -381,9 +400,18 @@
     <None Include="DsPwvPatientReport.xss">
       <DependentUpon>DsPwvPatientReport.xsd</DependentUpon>
     </None>
+    <EmbeddedResource Include="BPAssessments.resx">
+      <DependentUpon>BPAssessments.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PWAReport.resx">
       <DependentUpon>PWAReport.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PWATestResult.resx">
+      <DependentUpon>PWATestResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuickStart.resx">
+      <DependentUpon>QuickStart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SystemKey.resx">
       <DependentUpon>SystemKey.cs</DependentUpon>

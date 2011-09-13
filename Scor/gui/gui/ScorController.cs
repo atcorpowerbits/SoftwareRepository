@@ -13,6 +13,7 @@
  * @brief This namespace implements Presentation related classes.
  * 
  */
+using AtCor.Scor.BusinessLogic;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -24,7 +25,7 @@ namespace AtCor.Scor.Gui.Presentation
     public class ScorController
     {
         private IScorStrategy scorStrategy;
-
+       
         // public string mode = string.Empty;
         public void SetScorStrategy(IScorStrategy newStrategy)
         {
@@ -44,7 +45,7 @@ namespace AtCor.Scor.Gui.Presentation
         public void FillSession()
         {
             scorStrategy.FillSession();  
-        }
+        }     
 
         public void SetHeightWeightUnits()
         {
@@ -59,6 +60,41 @@ namespace AtCor.Scor.Gui.Presentation
         public void SetBloodPressure()
         {
             scorStrategy.SetBloodPressure();
+        }
+
+        public void ActionPerformedAfterClickingCancel()
+        {
+            scorStrategy.ActionPerformedAfterClickingCancel(); 
+        }
+
+        public bool StartCapture()
+        {
+           return scorStrategy.StartCapture();  
+        }
+
+        public bool StopCapture()
+        {
+           return scorStrategy.StopCapture(); 
+        }
+
+        public void CalculateReportAfterSuccessfulCapture()
+        {
+            scorStrategy.CalculateReportAfterSuccessfulCapture();  
+        }
+
+        public void SaveCaptureData()
+        {
+            scorStrategy.SaveCapturedData();
+        }
+
+        public void InitialiseCaptureScreen()
+        {
+            scorStrategy.InitialiseCaptureScreen(); 
+        }
+
+        public void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e)
+        {
+            scorStrategy.HandleKeyDownEventOnCaptureScreen(e);
         }
     }
 }

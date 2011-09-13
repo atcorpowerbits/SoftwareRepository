@@ -265,13 +265,13 @@
     <value>Capture Time</value>
   </data>
   <data name="RAD_5_SEC" xml:space="preserve">
-    <value>5 seconds</value>
+    <value>5 secs</value>
   </data>
   <data name="RAD_10_SEC" xml:space="preserve">
-    <value>10 seconds</value>
+    <value>10 secs</value>
   </data>
   <data name="RAD_20_SEC" xml:space="preserve">
-    <value>20 seconds</value>
+    <value>20 secs</value>
   </data>
   <data name="SYS_SIM_FILE_WILDCARD" xml:space="preserve">
     <value>.\\simulation\PWV\*.dat</value>
@@ -1909,7 +1909,7 @@ Press Ok to Remind later or Cancel to ignore.</value>
     <value>Average Central Aortic Pulse</value>
   </data>
   <data name="LBL_BRACHIAL_SP_DP_MP" xml:space="preserve">
-    <value>Brachial SP/DP(MP):</value>
+    <value>Brachial SP/DP:</value>
   </data>
   <data name="LBL_CPWA" xml:space="preserve">
     <value>cPWA</value>
@@ -1921,7 +1921,7 @@ Press Ok to Remind later or Cancel to ignore.</value>
     <value>DP*:</value>
   </data>
   <data name="LBL_HR" xml:space="preserve">
-    <value>HR</value>
+    <value>HR:</value>
   </data>
   <data name="LBL_PP" xml:space="preserve">
     <value>PP</value>
@@ -1932,9 +1932,6 @@ Press Ok to Remind later or Cancel to ignore.</value>
   <data name="LBL_PWA_ANALYSIS_OPENINGBRACE" xml:space="preserve">
     <value>(</value>
   </data>
-  <data name="LBL_PWA_ANALYSIS_SP_DP_MP" xml:space="preserve">
-    <value>SP / DP ( MP):</value>
-  </data>
   <data name="LBL_PWA_CUFF_PRESSURE" xml:space="preserve">
     <value>Cuff Pressure:</value>
   </data>
@@ -1942,7 +1939,7 @@ Press Ok to Remind later or Cancel to ignore.</value>
     <value>Interpretation:</value>
   </data>
   <data name="LBL_PWA_QUALITY_CONTROL" xml:space="preserve">
-    <value>Quality Control</value>
+    <value>Quality Control:</value>
   </data>
   <data name="LBL_PWA_SETUP_PROGRESSBAR_END_MSG" xml:space="preserve">
     <value>PWA enabled in 0:15</value>
@@ -1951,7 +1948,7 @@ Press Ok to Remind later or Cancel to ignore.</value>
     <value>PWA enabled in 0:</value>
   </data>
   <data name="LBL_PWA_SYPHYMOCOR_REF_AGE" xml:space="preserve">
-    <value>Sphygmocor Reference Age</value>
+    <value>SphygmoCor Reference Age</value>
   </data>
   <data name="LBL_SP*" xml:space="preserve">
     <value>SP*:</value>
@@ -1981,7 +1978,7 @@ Press Ok to Remind later or Cancel to ignore.</value>
     <value>Please relaunch application to reflect new system key changes.</value>
   </data>
   <data name="CLINICAL_ENV" xml:space="preserve">
-    <value>Clinical</value>
+    <value>SphygmoCor Clinical</value>
   </data>
   <data name="MODE_MISMATCH_MSG" xml:space="preserve">
     <value>Current startup mode or screen is not allowed in the system key.
@@ -2068,7 +2065,7 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>If DP &gt;=</value>
   </data>
   <data name="LBL_SETUP_BRACHIALBP" xml:space="preserve">
-    <value>Brachial BP</value>
+    <value>Brachial Calibration</value>
   </data>
   <data name="MSG_THRESHOLDBLANKVALUE" xml:space="preserve">
     <value>Threshold value should not be blank.</value>
@@ -2099,5 +2096,194 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
   </data>
   <data name="DAL_CONST_SIM_FOLDER_PATH_PWA" xml:space="preserve">
     <value>.\\simulation\\PWA\\</value>
+  </data>
+  <data name="CAPTURE_FAILED_TO_STOP" xml:space="preserve">
+    <value>Data capture failed to stop</value>
+  </data>
+  <data name="CUFF_DEFLATED_TIME_NOT_MONITORED" xml:space="preserve">
+    <value>Cuff deflated time was not monitored.</value>
+  </data>
+  <data name="CUFF_DEFLATION_FAILED" xml:space="preserve">
+    <value>Failed to deflate the cuff. Press the stop button on the electronic module to deflate!</value>
+  </data>
+  <data name="CUFF_DEFLATION_TIMED_OUT" xml:space="preserve">
+    <value>Cuff is not deflated in time. Press the stop button on the electronic module to deflate!</value>
+  </data>
+  <data name="CUFF_INFLATED_TIME_NOT_MONITORED" xml:space="preserve">
+    <value>Cuff inflated time was not monitored.</value>
+  </data>
+  <data name="CUFF_INFLATION_FAILED" xml:space="preserve">
+    <value>Failed to inflate the cuff</value>
+  </data>
+  <data name="CUFF_INFLATION_TIMED_OUT" xml:space="preserve">
+    <value>Cuff is not inflated in time</value>
+  </data>
+  <data name="CUFF_REINFLATING" xml:space="preserve">
+    <value>Cuff is reinflating</value>
+  </data>
+  <data name="LBL_CENTRAL_DP" xml:space="preserve">
+    <value>Central DP:</value>
+  </data>
+  <data name="LBL_REPORT_PWA_BRACHIAL_MP" xml:space="preserve">
+    <value>Brachial MP:</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_AORTIC_AIX" xml:space="preserve">
+    <value>Aortic Augmentation Index &gt; 50%.</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_AORTIC_TI" xml:space="preserve">
+    <value>Waveform Timing out of Range. [Aortic T1]</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_MAXDPDT" xml:space="preserve">
+    <value>Systolic Upstroke out of Range. [&lt;350mmHg/s]</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_OPERATOR_INDEX" xml:space="preserve">
+    <value>Operator Index low. [&lt;75]</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_PERIPHERAL_TI" xml:space="preserve">
+    <value>Waveform Timing out of Range. [Peripheral T1]</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_T1_RATIO" xml:space="preserve">
+    <value>Waveform Timing out of Range. [T1 Difference]</value>
+  </data>
+  <data name="PWA_ERROR_APPEND" xml:space="preserve">
+    <value>Error appending raw signals into memory</value>
+  </data>
+  <data name="PWA_ERROR_BUFFER_NOT_FULL" xml:space="preserve">
+    <value>PWA buffer is not full yet</value>
+  </data>
+  <data name="PWA_ERROR_CALCULATE" xml:space="preserve">
+    <value>Error calculating PWA report</value>
+  </data>
+  <data name="PWA_ERROR_DATABASE" xml:space="preserve">
+    <value>Database Input-Output Error</value>
+  </data>
+  <data name="PWA_ERROR_INITIALISE_BIZEXT" xml:space="preserve">
+    <value>Error initialising PWA</value>
+  </data>
+  <data name="PWA_ERROR_INVALID_MEASURETYPE" xml:space="preserve">
+    <value>Unknown peripheral artery selected</value>
+  </data>
+  <data name="PWA_ERROR_INVALID_UPSAMPLERATE" xml:space="preserve">
+    <value>Invalid rate of up-sampling</value>
+  </data>
+  <data name="PWA_ERROR_LOAD_BIZEXT" xml:space="preserve">
+    <value>Error loading BizExt</value>
+  </data>
+  <data name="PWA_ERROR_NOTLOADED_BIZEXT" xml:space="preserve">
+    <value>BizExt is not loaded</value>
+  </data>
+  <data name="PWA_ERROR_NO_PERIPH_ED" xml:space="preserve">
+    <value>Ejection Duration could not be found</value>
+  </data>
+  <data name="PWA_ERROR_POPULATE" xml:space="preserve">
+    <value>Error reading record from database</value>
+  </data>
+  <data name="PWA_ERROR_STORE" xml:space="preserve">
+    <value>Error saving record to the database</value>
+  </data>
+  <data name="PWA_ERROR_TIME_OUT_OF_RANGE" xml:space="preserve">
+    <value>Time value is out of Pulse range</value>
+  </data>
+  <data name="PWA_ERROR_UNLOAD_BIZEXT" xml:space="preserve">
+    <value>Error unloading BizExt</value>
+  </data>
+  <data name="PWA_ERROR_WRONG_PULSE" xml:space="preserve">
+    <value>Invalid or unrecognisable pulse detected</value>
+  </data>
+  <data name="PWA_ERROR_WRONG_PULSE_SAMPLERATE" xml:space="preserve">
+    <value>Incorrect sample rate for pulse</value>
+  </data>
+  <data name="PWA_MSG_AI_OUT" xml:space="preserve">
+    <value>The value for Augmentation Index is outside the acceptable range. AI = {0}</value>
+  </data>
+  <data name="PWA_MSG_AVPULSE_ERR" xml:space="preserve">
+    <value>Error calculating Average Pulse</value>
+  </data>
+  <data name="PWA_MSG_CALCPULSES_ERR" xml:space="preserve">
+    <value>Error calculating Pulses</value>
+  </data>
+  <data name="PWA_MSG_CALCSYSTONSET_ERR" xml:space="preserve">
+    <value>Error calculating Systolic Onset</value>
+  </data>
+  <data name="PWA_MSG_DPDT_OUT" xml:space="preserve">
+    <value>The Maximum rate of change of pressure (Max dp/dt) is out of the bounds of the recommended range</value>
+  </data>
+  <data name="PWA_MSG_DP_OUT" xml:space="preserve">
+    <value>The value for Diastolic Pressure is out of range. DP = {0}</value>
+  </data>
+  <data name="PWA_MSG_ESP_OUT" xml:space="preserve">
+    <value>The value for End Systolic Pressure is out of range. ESP = {0}</value>
+  </data>
+  <data name="PWA_MSG_HR_OUT" xml:space="preserve">
+    <value>The value for Heart Rate is out of range. HR = {0}</value>
+  </data>
+  <data name="PWA_MSG_MPD_OUT" xml:space="preserve">
+    <value>The value for Mean Diastolic Pressure is out of range. MPD = {0}</value>
+  </data>
+  <data name="PWA_MSG_MPS_OUT" xml:space="preserve">
+    <value>The value for Mean Systolic Pressure is out of range. MPS = {0}</value>
+  </data>
+  <data name="PWA_MSG_MP_OUT" xml:space="preserve">
+    <value>The value for Mean Pressure is out of range. MeanP = {0}</value>
+  </data>
+  <data name="PWA_MSG_NEG_AVPULSE" xml:space="preserve">
+    <value>Invalid Average Pulse. Negative value at index</value>
+  </data>
+  <data name="PWA_MSG_NEG_SIGNAL" xml:space="preserve">
+    <value>Invalid Signal. Signal was negative and has been truncated</value>
+  </data>
+  <data name="PWA_MSG_NOT_FOUND_PEAK" xml:space="preserve">
+    <value>Main peak for pulse not found</value>
+  </data>
+  <data name="PWA_MSG_OUT_OF_PULSE" xml:space="preserve">
+    <value>Interval is out of pulse range. Pulse Length, Interval Begin = {0}, End = {1}</value>
+  </data>
+  <data name="PWA_MSG_P1H_OUT" xml:space="preserve">
+    <value>Central pressure P1 is out of range. P1Height = {0}</value>
+  </data>
+  <data name="PWA_MSG_PERIPH_CENTRAL_ED" xml:space="preserve">
+    <value>Central and Peripheral Ejection Duration are not the same</value>
+  </data>
+  <data name="PWA_MSG_PERIPH_CENTRAL_LENGTH" xml:space="preserve">
+    <value>Length of Peripheral and Central pulses are not the same</value>
+  </data>
+  <data name="PWA_MSG_POINT_OUT_OF_PULSE" xml:space="preserve">
+    <value>Point is out of Pulse range. Point, Pulse Begin = {0}, End = {1}</value>
+  </data>
+  <data name="PWA_MSG_SIGNAL_TOO_LONG" xml:space="preserve">
+    <value>The Signal length is too long and has been truncated</value>
+  </data>
+  <data name="PWA_MSG_SIGNAL_TOO_SHORT" xml:space="preserve">
+    <value>The Signal length is too short to proceed with the calculation</value>
+  </data>
+  <data name="PWA_MSG_SP_OUT" xml:space="preserve">
+    <value>The value for Systolic Pressure is out of range. SP = {0}</value>
+  </data>
+  <data name="PWA_MSG_TOO_BAD_SIGNAL" xml:space="preserve">
+    <value>Signal quality is too poor to calculate parameters</value>
+  </data>
+  <data name="PWA_MSG_TRIGGER_ERR" xml:space="preserve">
+    <value>Error calculating Trigger Points</value>
+  </data>
+  <data name="PWA_MSG_TRIGGER_TOO_SHORT" xml:space="preserve">
+    <value>Invalid TriggerPoints array extracted from database</value>
+  </data>
+  <data name="PWA_MSG_WRONG_PERIPH_ED" xml:space="preserve">
+    <value>Invalid Ejection Duration (less than pulse peak time) for Peripheral Average Pulse</value>
+  </data>
+  <data name="PWA_MSG_WRONG_RANGE" xml:space="preserve">
+    <value>Incorrect range to determine gain and offset for pulse. SP = {0}, DP = {1}</value>
+  </data>
+  <data name="GUI_SIMULATION_MODE_MESSAGE" xml:space="preserve">
+    <value>Simulation Mode, not actual patient data.</value>
+  </data>
+  <data name="MSG_IN_PROGRESS" xml:space="preserve">
+    <value>In Progress...</value>
+  </data>
+  <data name="LBL_PWA_REPORT_ AIX75" xml:space="preserve">
+    <value>AIx75</value>
+  </data>
+  <data name="LBL_BRACHIALCUFF" xml:space="preserve">
+    <value>Brachial Cuff</value>
   </data>
 </root>

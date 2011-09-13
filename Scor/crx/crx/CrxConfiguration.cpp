@@ -80,6 +80,8 @@ void CrxConfigManager::GetPwvDefaultSettings(CrxStructPwvSetting^ objPwvSettings
 	objPwvSettings->NormalRange			= _pSetInternal->NormalRange;
 	objPwvSettings->SimulationType		= _pSetInternal->SimulationType;
 	objPwvSettings->DefaultReport		= _pSetInternal->DefaultReport;
+	objPwvSettings->AutoCapture			= _pSetInternal->AutoCapture;
+	objPwvSettings->GuidanceBars		= _pSetInternal->GuidanceBars;
 }
 
 //To get PWV User Settings from the file
@@ -502,6 +504,18 @@ void CrxConfigManager::SetPwvSettingsNode(CrxStructPwvSetting^ ps, XmlNode^ node
 	if(SubSectionNodeName == CrxConfigXmlTag::DefaultReport)
 	{
 		CrxConfigManager::SetDefaultReport(ps, node);
+	}
+	//Calls function if node is Auto Capture
+	else
+	if (SubSectionNodeName == CrxConfigXmlTag::AutoCapture)
+	{	
+		CrxConfigManager::SetPwvAutoCapture(ps, node);		
+	}
+	//Calls function if node is Guidance Bars
+	else
+	if (SubSectionNodeName == CrxConfigXmlTag::GuidanceBars)
+	{	
+		CrxConfigManager::SetPwvGuidanceBars(ps, node);		
 	}
 	else
 	{
@@ -937,6 +951,16 @@ void CrxConfigManager::GetPwvSettingsNode(String^ SubSection, String^ SubSection
 	{
 		CrxConfigManager::GetDefaultReport(SubSection,ReaderValue);
 	}	
+	//Calls function if node element is PWV AutoCapture
+	else if(SubSectionNode == CrxConfigXmlTag::AutoCapture)
+	{
+		CrxConfigManager::GetPwvAutoCapture(SubSection,ReaderValue);
+	}
+	//Calls function if node element is PWV GuidanceBars
+	else if(SubSectionNode == CrxConfigXmlTag::GuidanceBars)
+	{
+		CrxConfigManager::GetPwvGuidanceBars(SubSection,ReaderValue);
+	}
 	else
 	{
 		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
@@ -1625,6 +1649,58 @@ void CrxConfigManager::GetDefaultReport(String^ SubSection, String^ ReaderValue)
 	else
 	{
 		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+}
+void CrxConfigManager::GetPwvAutoCapture(String^ SubSection, String^ ReaderValue)
+{
+	//Get the Auto Capture Details
+	//Temporary variables
+	bool AutoCapture = false;
+	String^ tempValue  = nullptr;
+	String^ chkVal = nullptr;
+
+	tempValue  = ReaderValue->ToUpper();
+	chkVal = CrxConfigXmlTag::CheckYesNoValue;
+
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
+	{
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+	AutoCapture = (tempValue == CrxConfigXmlTag::UpperYES);
+
+	if(SubSection == CrxConfigXmlTag::Default)
+	{
+		_pSetInternal->AutoCapture = AutoCapture;
+	}
+	else
+	{
+		_instance->_pwvSettings->AutoCapture = AutoCapture;
+	}
+}
+void CrxConfigManager::GetPwvGuidanceBars(String^ SubSection, String^ ReaderValue)
+{
+	//Get the Guidance Bar Details
+	//Temporary variables
+	bool GuidanceBars = false;
+	String^ tempValue  = nullptr;
+	String^ chkVal = nullptr;
+
+	tempValue  = ReaderValue->ToUpper();
+	chkVal = CrxConfigXmlTag::CheckYesNoValue;
+
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
+	{
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+	GuidanceBars = (tempValue == CrxConfigXmlTag::UpperYES);
+
+	if(SubSection == CrxConfigXmlTag::Default)
+	{
+		_pSetInternal->GuidanceBars = GuidanceBars;
+	}
+	else
+	{
+		_instance->_pwvSettings->GuidanceBars = GuidanceBars;
 	}
 }
 //Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
@@ -2413,7 +2489,31 @@ void CrxConfigManager::SetDefaultReport(AtCor::Scor::CrossCutting::Configuration
 		node->InnerText = CrxConfigXmlTag::Blank; 
     }
 }
+void CrxConfigManager::SetPwvAutoCapture(CrxStructPwvSetting^ ps, XmlNode^ node)
+{
+	if(ps->AutoCapture == false)
+	{
+		node->InnerText = CrxConfigXmlTag::LowerNo;								
+	}
+	else
+		if(ps->AutoCapture == true)
+	{
+		node->InnerText = CrxConfigXmlTag::LowerYes;
+	}
 
+}
+void CrxConfigManager::SetPwvGuidanceBars(CrxStructPwvSetting^ ps, XmlNode^ node)
+{
+	if(ps->GuidanceBars == false)
+	{
+		node->InnerText = CrxConfigXmlTag::LowerNo;								
+	}
+	else
+		if(ps->GuidanceBars == true)
+	{
+		node->InnerText = CrxConfigXmlTag::LowerYes;
+	}
+}
 //***********************************************************************************
 //Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
 //********************************************

@@ -119,7 +119,9 @@ namespace AtCor{
 					}
 
 					//change state before the latency wait
-					DalCommandInterface::Instance->ChangeCommandState(DalCommandStateWaiting::Instance);
+					//DalCommandInterface::Instance->ChangeCommandState(DalCommandStateWaiting::Instance);
+					ChangeCommandState(DalCommandStateWaiting::Instance); //call directly so that it is applicable for its children too
+
 
 					////wait to allow the response to arrive
 					//Thread::Sleep(DalConstants::EM4LatencyPeriod); //TODO: rechek if necessary
@@ -144,7 +146,9 @@ namespace AtCor{
 					//if not then process the command
 					responseReturnValue =  _currentCommandState->ValidateResponsePacket(serialCommand);
 
-					DalCommandInterface::Instance->ChangeCommandState(DalCommandStateReady::Instance);
+					//DalCommandInterface::Instance->ChangeCommandState(DalCommandStateReady::Instance);
+					ChangeCommandState(DalCommandStateReady::Instance); //call directly so that it is applicable for its children too
+					
 					return responseReturnValue;
 				}
 			}
@@ -178,7 +182,9 @@ namespace AtCor{
 				{
 					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ListenForEM4Response() : No data recieved : timing out");
 
-					DalCommandInterface::Instance->ChangeCommandState(DalCommandStateTimeout::Instance);
+					//DalCommandInterface::Instance->ChangeCommandState(DalCommandStateTimeout::Instance);
+					ChangeCommandState(DalCommandStateTimeout::Instance); //call directly so that it is applicable for its children too
+					
 					
 					//we still recived no data so we are timing out
 					serialCommand->retryNumber++; //increment the counter
@@ -188,7 +194,9 @@ namespace AtCor{
 				//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ListenForEM4Response() : recievedData:" + DalBinaryConversions::ConvertBytesToString(serialCommand->em4Response));
 
 				//we have recieved data so signify that we have recieved it
-				DalCommandInterface::Instance->ChangeCommandState(DalCommandStateResponseReceived::Instance);
+				//DalCommandInterface::Instance->ChangeCommandState(DalCommandStateResponseReceived::Instance);
+				ChangeCommandState(DalCommandStateResponseReceived::Instance); //call directly so that it is applicable for its children too
+
 
 				//Set the length. The length could either be of the desired size or it could be a NACK lengt.
 				serialCommand->em4ResponsePacketLength = serialCommand->em4Response->Length - 1; //excluding CRC
@@ -264,7 +272,7 @@ namespace AtCor{
 				{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrEmptyResponseValidationErrCd, CrxStructCommonResourceMsg::DalErrEmptyResponseValidation, ErrorSeverity::Exception);
 				}
-				////CrxLogger::Instance->Write("Deepak>>> ValidateResponsePacket() : " + ConvertBytesToString(serialCommand->em4Response));
+				CrxLogger::Instance->Write("Deepak>>> ValidateResponsePacket() : " + DalBinaryConversions::ConvertBytesToString(serialCommand->em4Response));
 
 				//Call the method to break the response into individual partes;
 				if (!serialCommand->BreakupEM4Response())
@@ -339,12 +347,6 @@ namespace AtCor{
 				statusBytes = (unsigned long) capturePacket->em4StatusFlag ;
 				
 				//no need to return value based on the status flag. ACK/NACK is enough 
-				//In any case ProcessStatusFlag returns true
-				/*if (!ProcessStatusFlag(statusBytes))
-				{
-					return DalReturnValue::Failure ;
-				}*/
-
 				ProcessStatusFlag(statusBytes);
 
 				if (CrxSytemParameters::Instance->GetStringTagValue("ProcessSequenceNumber.StreamingPackets") == "Y")
@@ -449,22 +451,25 @@ namespace AtCor{
 					//reset the pointer
 					BufferEmptyCounter = 0;
 
-					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateWaiting::Instance);
+					//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateWaiting::Instance);
+					ChangeCaptureState(DalCaptureStateWaiting::Instance); //call directly so that it is applicable for its children too
 					
 				}
 
 				if (BufferEmptyCounter >=  DalConstants::MaxStreamingTimeoutOccurrences)
 				{
-					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
+					//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
+					ChangeCaptureState(DalCaptureStateTimeout::Instance); //call directly so that it is applicable for its children too
 					
 					//raise event 
 					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureTimeout, DalFormatterStrings::PrintEnumName);
-					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
+					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::DataCaptureTimeout));
 					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 
 					//////CrxLogger::Instance->Write("Timeout Event raised :" + BufferEmptyCounter);
 
-					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
+					//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
+					ChangeCaptureState(DalCaptureStateNotListening::Instance); //call directly so that it is applicable for its children too
 				}
 			}
 
@@ -526,7 +531,7 @@ namespace AtCor{
 
 			bool DalCommandInterface::ProcessSingleStreamingPacket(array<unsigned char> ^streamingPacket)
 			{
-				//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket called with parameter: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " End");
+				CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket called with parameter: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " End");
 
 				if (nullptr == streamingPacket)
 				{
@@ -549,14 +554,15 @@ namespace AtCor{
 					//breakup the byte array into the individual components
 					 if (! capturePacket->BreakupEM4Response())
 					 {
-						 return false; //signal failure
+						// return false; //signal failure
+						 throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCaptureInvalidPacketErrCd,CrxStructCommonResourceMsg::DalErrCaptureInvalidPacket, ErrorSeverity::Information);
 					 }
 
 					//validate the data.
 					if (DalReturnValue::Success != ValidateResponsePacket(capturePacket))
 					{
-						return false;// anyways we cannot catch the exception
-						//throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCaptureInvalidPacketErrCd,CrxStructCommonResourceMsg::DalErrCaptureInvalidPacket, ErrorSeverity::Information);
+						//return false;// anyways we cannot catch the exception
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCaptureInvalidPacketErrCd,CrxStructCommonResourceMsg::DalErrCaptureInvalidPacket, ErrorSeverity::Information);
 					}
 
 					//everything is fine now get the data. and write it to the variables
@@ -567,9 +573,9 @@ namespace AtCor{
 
 					if(!dataBufferObj->WriteDataToBuffer(pwvDataObject))
 					{
-						return false;
+						//return false;
 						////////CrxLogger::Instance->Write("DataCaptureMultiplePacketHandler>> write to buff failed ");
-						//throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferWriteFailedErrCd, CrxStructCommonResourceMsg::DalErrBufferWriteFailed, ErrorSeverity::Exception);
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferWriteFailedErrCd, CrxStructCommonResourceMsg::DalErrBufferWriteFailed, ErrorSeverity::Exception);
 					}
 					return true; //everything fine
 				}
@@ -584,17 +590,13 @@ namespace AtCor{
 					//This particular type (DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket) needs to be handled by
 					//upper layers which need to decide what to do in this case.
 
-					//Attempting to deregister the serial port DataRecieved event handler is useless because
-					//serial port cannot be modified in a static method. 
-					//we also tried calling Stop capture in GUI but that needs the method to be static.
-					//It would result in  a lot of code refactoring.
-					
-					//TODO: mention this in release note
-
 					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket ScorException caught and deleted : " + scorExObj->ErrorMessageKey + " Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket) + " :End");  
-					delete scorExObj ;
-					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, DalFormatterStrings::PrintEnumName);
-					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
+					//delete scorExObj ; //do not delete, pass it as an object in the exception event
+
+					//TODO: Change alarm type from InvalidPacket to StreamingException only after TS is aware of it
+					DalErrorAlarmStatusFlag alarmType = DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket;
+					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, alarmType, DalFormatterStrings::PrintEnumName);
+					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(alarmType, sourceName, DalBinaryConversions::ConvertAlarmType(alarmType), scorExObj);
 					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 				}
 				catch(Exception^ excepObj)
@@ -602,11 +604,15 @@ namespace AtCor{
 					//see note above.
 					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket Exception caught and deleted : " + excepObj->StackTrace + ">>>"+ excepObj->Message + "Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " :End");  
 					
-					delete excepObj;
-					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, DalFormatterStrings::PrintEnumName);
-					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName);
-					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+					//delete excepObj; //do not delete
+					ScorException^ scorExObj = gcnew ScorException(excepObj);
 
+					//TODO: Change alarm type from InvalidPacket to StreamingException only after TS is aware of it
+					
+					DalErrorAlarmStatusFlag alarmType = DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket;
+					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, alarmType, DalFormatterStrings::PrintEnumName);
+					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(alarmType, sourceName, DalBinaryConversions::ConvertAlarmType(alarmType), scorExObj);
+					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 				}
 
 				return false;
@@ -626,6 +632,11 @@ namespace AtCor{
 					//get the packet
 					currentPacket = DalStreamingPacketQueue::Instance->Dequeue();
 
+					if (nullptr == currentPacket)
+					{
+						return false;
+					}
+
 					//process it
 					returnValue = ProcessSingleStreamingPacket(currentPacket);
 
@@ -633,7 +644,7 @@ namespace AtCor{
 					{
 						return false;
 					}
-					//TODO: test if zero sleep afect perofrmance
+					
 					Thread::Sleep(0);
 				}
 
@@ -660,39 +671,69 @@ namespace AtCor{
 			{
 				////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod START.");
 
-				DalEM4Command^ commandObject = (DalEM4Command ^) responsePacket;
-
-				//create a sperate array pointer to read the response. 
-				array <unsigned char>^ recievedData ;
-
 				try
-				{	
-					//sleep until timeout expires or the thread is woken up
-					Thread::Sleep(commandObject->timeoutPeriod); 
-				}
-				catch(ThreadInterruptedException^ threadInterruptEx)
 				{
-					delete threadInterruptEx;
-					////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod ThreadInterruptedException raised");
+
+
+					DalEM4Command^ commandObject = (DalEM4Command ^) responsePacket;
+
+					//create a sperate array pointer to read the response. 
+					array <unsigned char>^ recievedData ;
+
+					try
+					{	
+						//sleep until timeout expires or the thread is woken up
+						Thread::Sleep(commandObject->timeoutPeriod); 
+					}
+					catch(ThreadInterruptedException^ threadInterruptEx)
+					{
+						//this exception is not a real exception
+						//it is only thrown when a thread->Interrupt() method is called
+						delete threadInterruptEx;
+						////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod ThreadInterruptedException raised");
+					}
+					finally
+					{
+						//now read from the queue and see if we got a response
+						//check if the data is available
+						recievedData= DalResponsePacketBuffer::Instance->Dequeue();
+
+						//assign the recieved value to the parameter
+						//responsePacket = recievedData;
+
+						commandObject->em4Response  = recievedData; //copy the array to the command response
+					
+						////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod EXIT.");
+					}
 				}
-				finally
+				catch(ScorException^ scorExObj)
 				{
-					//now read from the queue and see if we got a response
-					//check if the data is available
-					recievedData= DalResponsePacketBuffer::Instance->Dequeue();
-
-					//assign the recieved value to the parameter
-					//responsePacket = recievedData;
-
-					commandObject->em4Response  = recievedData; //copy the array to the command response
-				
-					////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod EXIT.");
+					//Raise an event instead of throwing an exception
+					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException , scorExObj);
+				}
+				catch(Exception^ excepObj)
+				{
+					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, gcnew ScorException(excepObj));
 				}
 			}
 
 			void DalCommandInterface::SignalResponsePacketAvailable()
 			{
 				listenerThread->Interrupt();
+			}
+
+			void DalCommandInterface::SetInstanceObject(DalCommandInterface ^newObject)
+			{
+				if (nullptr == newObject)
+				{
+					//cannot accept null for this
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrInvalidArgsErrCd, CrxStructCommonResourceMsg::DalErrInvalidArgs, ErrorSeverity::Exception);
+				}
+
+				_instance = newObject;
+
+
+
 			}
 
 

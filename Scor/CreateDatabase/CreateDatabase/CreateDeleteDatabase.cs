@@ -21,6 +21,6 @@ namespace CreateDatabase
         public const string BatchFileName           =   "\\CreateDropDatabase.bat";
         public const string CreateScriptFileName    =   "CreateDatabase.sql";
         public const string DeleteScriptFileName    =   "DeleteDatabase.sql";
-        public const string ServerNameFormat        =   "{0}\\SQLEXPRESS";
+        public const string ServerNameFormat        =   "{0}\\ATCORSERVER";
     }
 }

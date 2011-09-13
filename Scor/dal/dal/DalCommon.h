@@ -203,22 +203,25 @@ namespace AtCor{
 									DataCaptureErrorInvalidPacket = 3,
 									DataCaptureTimeout = 4,
 									StopButtonPressed = 5,
-									PowerUpEvent = 6
+									PowerUpEvent = 6,
+									ThreadException = 7,
+									
 								};
 
-								/**
-								* @enum DalAlarmSource
-								* @brief	This enum contains a mapping of bit flags from the Error Alarm Status flag against various alarm source.
-								*/
-								public enum class DalAlarmSource {
-									AlarmSourceUnknown = 0x0000,
-									OverPressure     = 0x0001,
-									InflatedOverTime = 0x0004,
-									//Brought over from the older DalErrorSource Enum for mergin
-									//TODO: verify and add anyu more if necessary
-									CuffLeak    = 0x0008,
-									DualSensors = 0x0020	
-								};
+								//replaced by newer enum Delete
+								///*
+								//* @enum DalAlarmSource
+								//* @brief	This enum contains a mapping of bit flags from the Error Alarm Status flag against various alarm source.
+								//*/
+								//public enum class DalAlarmSource {
+								//	AlarmSourceUnknown = 0x0000,
+								//	OverPressure     = 0x0001,
+								//	InflatedOverTime = 0x0004,
+								//	//Brought over from the older DalErrorSource Enum for mergin
+								//	//TODO: verify and add anyu more if necessary
+								//	CuffLeak    = 0x0008,
+								//	DualSensors = 0x0020	
+								//};
 
 
 								/**
@@ -362,6 +365,7 @@ namespace AtCor{
 								private class Em4CommandCodes
 								{
 									public:
+										static const unsigned char CaptureCommandDataCPWAMode = 0x02;
 										static const unsigned char CaptureCommandDataPWVMode = 0x03;
 										static const unsigned char StartDataCapture = 0x06;
 										static const unsigned char StopDataCapture = 0x08;
@@ -497,6 +501,64 @@ namespace AtCor{
 									StreamingDataPacket,	 /**< A streaming packet type*/
 									AckedResponsePakcet,	 /**< Acked response t a particular command*/
 									NackedResponsePacket	 /**< Nacked response*/
+								};
+
+								public enum class DalAlarmSource
+								{
+									PowerUp= 0, // From DalAlarmFlagBitPosition
+									HighInflationRate = 1,
+									CuffMPower = 2,
+									CuffLeak = 3,
+									HighDeflationRate = 4,
+									DualSensors = 5,
+									Temperature = 6,
+									LowPumpSpeed = 7,
+									SupplyRails = 8,
+									SourceID0 = 9,
+									SourceID1 = 10,
+									SourceID2 = 11,
+									Spare = 12,
+									LowDeflationRate= 13,
+									Reserved14 = 14,
+									Reserved15 = 15,
+									OverPressure = 16,
+									InflatedOvertimeOverpressure = 17,
+									InflatedOvertime = 18,
+									ShortWaitPeriod = 19,
+									Reserved20 = 20,
+									Reserved21 = 21,
+									Reserved22 = 22,
+									Reserved23 = 23,
+									Reserved24 = 24,
+									Reserved25 = 25,
+									Reserved26 = 26,
+									Reserved27 = 27,
+									Reserved28 = 28,
+									Reserved29 = 29,
+									Reserved30 = 30,
+									Reserved31 = 31,
+									TotalBitCount = 32, // From DalAlarmFlagBitPosition
+
+									SupplyRailNoAlarm  = 100, //Form DalAlarmSupplyRailFlag
+									Vin ,
+									Source5VD ,
+									VPump ,
+									VValve ,
+									VTono ,
+									Source5VA ,
+									Reserved, //Form DalAlarmSupplyRailFlag
+
+									ActiveStatus = 200,
+									RecoverableStatus ,
+									UnrecoverableStatus ,
+									DataCaptureErrorInvalidPacket ,
+									DataCaptureTimeout ,
+									StopButtonPressed ,
+									PowerUpEvent, 
+									ThreadException,
+
+									NoAlarmDefined, //Default value
+
 								};
 
 

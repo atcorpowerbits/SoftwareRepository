@@ -46,10 +46,7 @@ namespace AtCor{
 					*/
 					static property DalResponsePacketBuffer^ Instance
 					{
-						/**
-						* Returns a pointer to the current instance.
-						* @return	The current instance.
-						*/
+						
 						DalResponsePacketBuffer^ get();
 					}
 

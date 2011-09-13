@@ -42,7 +42,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         readonly string serverNameString = string.Empty;
         readonly BizPatient patientObj = BizPatient.Instance();
-
+        bool analysisMode = false;
         CrxMessagingManager oMsgMgr;
         CrxConfigManager crxMgrObject;
         CrxDBManager dbMagr;
@@ -52,6 +52,7 @@ namespace AtCor.Scor.Gui.Presentation
         CrxStructPWVMeasurementData crxPWV = new CrxStructPWVMeasurementData();
         
         int bobj;
+        int numeberOfRecordsSelected;
 
         // bool isControlAndUpArrowKeyPressed = false; 
         string dateToCompare = string.Empty; // used to compare dates when 30 sec wait interval is imposed to enable / disable repeat button based on last record selected
@@ -179,22 +180,6 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        /**This is invoked on the load of report window.
-         *fetches & binds report screen data 
-         */
-        private void Report_Load(object sender, EventArgs e)
-        {
-            // below statement checks if Invoke required and calls the report load event again to populate report data
-            // without this report data will not be loaded when it this event is invoked from other windows
-            if (InvokeRequired)
-            {
-                Invoke(new EventHandler(Report_Load));
-                return;
-            }
-
-            LoadPWVReport();
-        }
-
         public void LoadPWVReport()
         {
             // This variable is set when the user is on Report screen.
@@ -231,6 +216,23 @@ namespace AtCor.Scor.Gui.Presentation
             CheckWaitIntervalImposed();
         }
 
+        /**This is invoked on the load of report window.
+        *fetches & binds report screen data 
+        */
+        private void Report_Load(object sender, EventArgs e)
+        {
+            // below statement checks if Invoke required and calls the report load event again to populate report data
+            // without this report data will not be loaded when it this event is invoked from other windows
+            if (InvokeRequired)
+            {
+                Invoke(new EventHandler(Report_Load));
+                return;
+            }
+
+            LoadPWVReport();
+            CheckForSimualtionMode();
+        }
+
          /** This method set default options for buttons on report screen & calculates patients age
          * */
         private void SetDefaultValuesOnLoad()
@@ -240,9 +242,13 @@ namespace AtCor.Scor.Gui.Presentation
             guiradbtnreportedit.Visible = true;
             guiradbtnreportsave.Visible = false;
             guiradpnlAnalysis.Visible = false;
-            objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);          
-            
-            obj.CalculateAge();
+            objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
+
+            if (crxMgrObject.GeneralSettings.StartupScreen != oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart))
+            {
+                obj.CalculateAge();
+            }
+
             objDefaultWindow.radlblMessage.Text = string.Empty;
 
             guiradlblReportDateTime.Visible = false;
@@ -321,8 +327,8 @@ namespace AtCor.Scor.Gui.Presentation
             guiradlblReportheightWeight.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeight);
             guiradtxtReportHeight.Tag = crxMgrObject.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeight) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeightFoot);
             guiradtxtReportHeightInches.Tag = crxMgrObject.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) ? string.Empty : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeightInch);
-
-            // Commenting the below code as group name is not included in Clinical mode.
+            
+           // Commenting the below code as group name is not included in Clinical mode.
            // guiradlblReportWeight.Tag = guiradtxtReportWeight.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientWeight);
         }
 
@@ -349,7 +355,7 @@ namespace AtCor.Scor.Gui.Presentation
             guiradlblReportCuffUnits.Text = guiradlblReportFemoralCuffUnits.Text = guiradlblCarotidUnits.Text = crxMgrObject.PwvSettings.PWVDistanceUnits.Equals(0) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mm) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Cm);
             ushort tempVal = obj.myFemoral2CuffDistance.distance;
             guiradtxtReportFemoToCuff.Text = crxMgrObject.PwvSettings.PWVDistanceUnits.Equals((int)CrxGenPwvValue.CrxPwvDistDistUnitsCM) ? (tempVal / GuiConstants.DivisionFactor).ToString() : tempVal.ToString();
-
+            guiradtxtReportFemoToCuff.Text = guiradtxtReportFemoToCuff.Text.Equals("0") ? string.Empty : guiradtxtReportFemoToCuff.Text;
             SetPwvDistanceFieldForEditing();
             
             // set height & weight details
@@ -375,12 +381,19 @@ namespace AtCor.Scor.Gui.Presentation
         private void SetPwvDistanceFieldForEditing()
         {
             ushort tempVal;
-
-            switch (crxMgrObject.PwvSettings.PWVDistanceMethod)
+           
+           
+            // This line is commented to show pwv distance method details according to database
+            // value for that perticuler assesment instead of showing for the latest Config value, so it
+            // will not give error which was appearing on edit when we were changing distance method from settings to 
+            // other distance method(different than which was actual for that record) (22 august 2011  PWVSW-368)
+            // switch (crxMgrObject.PwvSettings.PWVDistanceMethod)
+            switch (crxPWV.PWVDistanceMethod)
             {
                 case (int)CrxGenPwvValue.CrxPwvDistMethodSubtract:
                     // subtracting
                     // display & populate carotid, cuff & femoral to cuff textboxes
+                   guiradlblReportCuff.Tag = guiradtxtReportCuff.Tag = crxPWV.PWVDistanceMethod.Equals((int)CrxGenPwvValue.CrxPwvDistMethodSubtract) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemoralDistanceSternalNotchToFemoralCuff) : string.Empty;
                     guiradlblCarotid.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelCarotid);
                     guiradlblReportCuff.Visible = true;
                     guiradtxtReportCuff.Visible = true;
@@ -404,6 +417,7 @@ namespace AtCor.Scor.Gui.Presentation
                 case (int)CrxGenPwvValue.CrxPwvDistMethodDirect:
                     // direct
                     // display & populate direct & femoral to cuff textboxes
+                    guiradlblCarotid.Tag = guiradtxtCarotid.Tag = crxPWV.PWVDistanceMethod.Equals((int)CrxGenPwvValue.CrxPwvDistMethodSubtract) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemoralDistanceCarotidToSternalCuff) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemoralDistanceCarotidToFemoralCuff);
                     guiradlblCarotid.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelDirect);
                     guiradlblReportCuff.Visible = false;
                     guiradtxtReportCuff.Visible = false;
@@ -483,6 +497,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
            // call method to bring report screen to display mode
             SetPWVDsiplayMode();
+            CheckForSimualtionMode();
             GuiCommon.IsFormChanged = false;
         }
 
@@ -529,7 +544,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblReportPatientIdValue.Text = string.Empty;
                 guilblReportDobValue.Text = string.Empty;
                 guilblReportAgeValue.Text = string.Empty;
-                guilblReportGenderValue.Text = string.Empty;
+                guilblReportGenderValue.Text = string.Empty;                
 
                 // Commenting the below code as group name is not used anymore in Clinical environment.
                 // guilblReportGroupValue.Text = GuiCommon.GroupName;
@@ -571,6 +586,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradgridReportAssessment.Columns[1].Width = 275;
                 guiradgridReportAssessment.Columns[1].IsVisible = true;
                 guiradgridReportAssessment.Columns[1].ReadOnly = true;
+                guiradgridReportAssessment.Columns[1].FormatString = "{0:g}";
                 guiradgridReportAssessment.Columns[1].SortOrder = RadSortOrder.Ascending;
                 guiradgridReportAssessment.GridElement.AlternatingRowColor = Color.LightGray;
                 guiradgridReportAssessment.TableElement.EndUpdate();
@@ -970,7 +986,7 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 objDefaultWindow.radlblMessage.Text = string.Empty;
-               
+                
                 // check if mandatory fields are entered
                 if (!objValidateReport.CheckMandatoryFields())
                 {
@@ -1017,6 +1033,8 @@ namespace AtCor.Scor.Gui.Presentation
                         }
                     }
                 }
+
+                CheckForSimualtionMode();
             }          
             catch (Exception ex)
             {
@@ -1121,7 +1139,10 @@ namespace AtCor.Scor.Gui.Presentation
                     if (dsPWV.Tables[0].Rows.Count > 0)
                     {
                         crxPWV.StudyDateTime = DateTime.Parse(dsPWV.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.StudyDateTime].ToString(), CrxCommon.gCI);
-                        guiradlblReportDateTimeDisplay.Text = dsPWV.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.StudyDateTime].ToString();
+                        DateTime formatdate;
+                        formatdate = Convert.ToDateTime(dsPWV.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.StudyDateTime].ToString());
+                        guiradlblReportDateTimeDisplay.Text = string.Format("{0:g}", formatdate);
+                        
                         GuiCommon.PwvCurrentStudyDatetime = dsPWV.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.StudyDateTime].ToString();
                         CrxLogger.Instance.Write("crxPWV.StudyDateTime:(PopulateBizFromCrx) " + crxPWV.StudyDateTime);   
                         byte[] buffer = (byte[])dsPWV.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.NormalRange];
@@ -1390,7 +1411,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             // Pritam
             // obj.bloodPressureEntryOption = ushort.Parse(crxMgrObject.GeneralSettings.BloodPressureEntryOptions.ToString());
-            obj.bloodPressureEntryOption = ushort.Parse(crxMgrObject.BpSettings.BloodPressure.ToString());
+             obj.bloodPressureEntryOption = ushort.Parse(crxMgrObject.BpSettings.BloodPressure.ToString());
 
             CalculateHeightAndWeightToValidateSession();
             CalculatePwvDistanceToValidateSession();
@@ -1482,8 +1503,14 @@ namespace AtCor.Scor.Gui.Presentation
        * */
         void CalculatePwvDistanceToValidateSession()
         {
-            // initially form session obj            
-            obj.distanceMethod = ushort.Parse(crxMgrObject.PwvSettings.PWVDistanceMethod.ToString());
+            // initially form session obj      
+
+            // This line is commented to show pwv distance method details according to database
+            // value for that perticuler assesment instead of showing for the latest Config value, so it
+            // will not give error which was appearing on edit when we were changing distance method from settings to 
+            // other distance method(different than which was actual for that record) (22 august 2011 PWVSW-368)
+            // obj.distanceMethod = ushort.Parse(crxMgrObject.PwvSettings.PWVDistanceMethod.ToString());
+            obj.distanceMethod = ushort.Parse(crxPWV.PWVDistanceMethod.ToString());
                         
             // calculate & intialise PWV distance only if there is change
             switch (obj.distanceMethod)
@@ -1592,7 +1619,7 @@ namespace AtCor.Scor.Gui.Presentation
         /**This method is a generic method which decides which chart needs to be plotted i.e. either Femoral or Carotid.
          * This method was written to avoid duplicate code.
          */ 
-        private void PlotSuperImposedWaveform(IList<ushort> femoralSignalToPlot, float[] femoralOnSetPoints, IList<ushort> carotidSignalToPlot, float[] carotidOnSetPoints, ushort signalLength)
+        private void PlotSuperImposedWaveform(IList<ushort> femoralSignalToPlot, float[] femoralOnSetPoints, IList<ushort> carotidSignalToPlot, float[]carotidOnSetPoints, ushort signalLength)
         {
             const double ChartHeight = 500;
             const double MinXValue = 0;
@@ -1602,78 +1629,91 @@ namespace AtCor.Scor.Gui.Presentation
 
             // new chart area
             guichartSuperImposedWaveform.ChartAreas.Clear();
-            guichartSuperImposedWaveform.ChartAreas.Add(new ChartArea("ChartArea1"));
-            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Enabled = AxisEnabled.False;
-            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisX.Enabled = AxisEnabled.False;
-            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisX.MajorGrid.Enabled = false;
+            guichartSuperImposedWaveform.ChartAreas.Add(new ChartArea("area"));
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY.Enabled = AxisEnabled.False;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisX.Enabled = AxisEnabled.False;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisX.MajorGrid.Enabled = false;
+           
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY2.MajorGrid.Enabled = false;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY2.Interval = 1;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY2.Minimum = ChartHeight * GuiConstants.ChartAreaMinimumY;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY2.Maximum = ChartHeight * GuiConstants.ChartAreaMaximumY;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY2.LabelStyle.Enabled = false;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY2.MajorTickMark.Enabled = false;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY2.LineDashStyle = ChartDashStyle.NotSet;
 
             // set y axis
-            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Minimum = ChartHeight * GuiConstants.ChartAreaMinimumY;
-            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Maximum = ChartHeight * GuiConstants.ChartAreaMaximumY;
-            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Interval = 1;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY.Minimum = ChartHeight * GuiConstants.ChartAreaMinimumY;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY.Maximum = ChartHeight * GuiConstants.ChartAreaMaximumY;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY.Interval = 1;
 
             // set x axis
-            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisX.Minimum = MinXValue;
-            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisX.Maximum = dblMaxXValue;
-            guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisX.Interval = 1;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisX.Minimum = MinXValue;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisX.Maximum = dblMaxXValue;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisX.Interval = 1;
 
             // initialize series,chartype,add points to series and finally add series to chart.
             // Series for tonometer
             guichartSuperImposedWaveform.Series.Clear();
-
+            
             // plot carotid series
-            PlotCarotidFemoralSeries(carotidSignalToPlot, carotidOnSetPoints, signalLength, Color.Blue);
+            PlotCarotidSeries(carotidSignalToPlot, carotidOnSetPoints, signalLength, Color.Blue);
             
             // plot femoral series
-            PlotCarotidFemoralSeries(femoralSignalToPlot, femoralOnSetPoints, signalLength, Color.FromArgb(54, 64, 86));                       
+            PlotFemoralSeries(femoralSignalToPlot, femoralOnSetPoints, signalLength, Color.FromArgb(54, 64, 86));                       
         }
 
-        /** This method plots series & onSet points for both femoral & carotid series
-         * */
-        private void PlotCarotidFemoralSeries(IList<ushort> signalToPlot, float[] onSetPoints, ushort signalLength, Color seriesColor)
+        /** This method plots series & onSet points for carotid series
+        * */
+        private void PlotCarotidSeries(IList<ushort> signalToPlot, float[] onSetPoints, ushort signalLength, Color seriesColor)
         {
-            Series tonometerSeries = new Series
-                                         {
+            Series tonometerOneSeries = new Series
+            {
                 ChartType = SeriesChartType.FastLine,
                 Color = seriesColor,
                 XValueType = ChartValueType.Auto,
                 YValuesPerPoint = 1,
-                ChartArea = "ChartArea1"
+                ChartArea = "area",
+                YAxisType = AxisType.Secondary,
             };
 
             Hashtable carotidFemoralTable = new Hashtable();
-            tonometerSeries.Points.Clear();
+            tonometerOneSeries.Points.Clear();
 
-            for (int i = 0; i < signalLength; i++)
-            {
-                if (signalToPlot[i] > guichartSuperImposedWaveform.ChartAreas[0].AxisY.Maximum)
-                {
-                    guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Maximum = signalToPlot[i] * GuiConstants.ChartAreaMaximumY;
-                }
+                    for (int i = 0; i < signalLength; i++)
+                    {
+                        if (signalToPlot[i] > guichartSuperImposedWaveform.ChartAreas[0].AxisY2.Maximum)
+                        {
+                            guichartSuperImposedWaveform.ChartAreas["area"].AxisY2.Maximum = signalToPlot[i] * GuiConstants.ChartAreaMaximumY;
+                        }
 
-                if (signalToPlot[i] < guichartSuperImposedWaveform.ChartAreas[0].AxisY.Minimum)
-                {
-                    guichartSuperImposedWaveform.ChartAreas["ChartArea1"].AxisY.Minimum = signalToPlot[i] * GuiConstants.ChartAreaMinimumY;
-                }
+                        if (signalToPlot[i] < guichartSuperImposedWaveform.ChartAreas[0].AxisY2.Minimum)
+                        {
+                            guichartSuperImposedWaveform.ChartAreas["area"].AxisY2.Minimum = signalToPlot[i] * GuiConstants.ChartAreaMinimumY;
+                        }
 
-                tonometerSeries.Points.AddXY(i, signalToPlot[i]);
-                carotidFemoralTable[i] = signalToPlot[i];
-            }
+                        /*Begin: AtCor-<Drop2>-<Sprint4>, TM, <PWVSW-327>,<16 August 2011>
+                 */
+                        tonometerOneSeries.Points.AddXY(i, signalToPlot[i]);
+                        carotidFemoralTable[i] = signalToPlot[i];
+                    }
 
-            Series tonometerOnsetSeries = new Series
-                                              {
-                ChartType = SeriesChartType.Point,
-                Color = Color.Green 
-            };
+                    Series tonometerCarotidOnsetSeriesOne = new Series
+                    {
+                        ChartType = SeriesChartType.Point,
+                        Color = Color.Green,
+                        YAxisType = AxisType.Secondary
+                    };
 
-            Series tonometerOnsetSeries2 = new Series
-                                               {
-                ChartType = SeriesChartType.Point,
-                Color = Color.Red
-            };
+                    Series tonometerCarotidOnsetSeriesTwo = new Series
+                    {
+                        ChartType = SeriesChartType.Point,
+                        Color = Color.Red,
+                        YAxisType = AxisType.Secondary,
+                    };
 
-            tonometerOnsetSeries2.Points.Clear();
-            tonometerOnsetSeries.Points.Clear();
+                    tonometerCarotidOnsetSeriesOne.Points.Clear();
+                    tonometerCarotidOnsetSeriesTwo.Points.Clear();
 
             for (int j = 0; j < onSetPoints.Length; j++)
             {
@@ -1682,20 +1722,94 @@ namespace AtCor.Scor.Gui.Presentation
 
                 if (valueToPLot < 0)
                 {
-                    tonometerOnsetSeries2.Points.AddXY(valueToPLot1, carotidFemoralTable[valueToPLot1]);
-                    tonometerOnsetSeries2.Points[tonometerOnsetSeries2.Points.Count - 1].MarkerStyle = MarkerStyle.Circle;
+                    tonometerCarotidOnsetSeriesTwo.Points.AddXY(valueToPLot1, carotidFemoralTable[valueToPLot1]);
+                    tonometerCarotidOnsetSeriesTwo.Points[tonometerCarotidOnsetSeriesTwo.Points.Count - 1].MarkerStyle = MarkerStyle.Circle;
                 }
                 else
                 {
-                    tonometerOnsetSeries.Points.AddXY(valueToPLot1, carotidFemoralTable[valueToPLot1]);
-                    tonometerOnsetSeries.Points[tonometerOnsetSeries.Points.Count - 1].MarkerStyle = MarkerStyle.Circle;
+                    tonometerCarotidOnsetSeriesOne.Points.AddXY(valueToPLot1, carotidFemoralTable[valueToPLot1]);
+                    tonometerCarotidOnsetSeriesOne.Points[tonometerCarotidOnsetSeriesOne.Points.Count - 1].MarkerStyle = MarkerStyle.Circle;
                 }
             }
 
-            guichartSuperImposedWaveform.Series.Add(tonometerSeries);
-            guichartSuperImposedWaveform.Series.Add(tonometerOnsetSeries);
-            guichartSuperImposedWaveform.Series.Add(tonometerOnsetSeries2);
-            
+            guichartSuperImposedWaveform.Series.Add(tonometerOneSeries);
+            guichartSuperImposedWaveform.Series.Add(tonometerCarotidOnsetSeriesOne);
+            guichartSuperImposedWaveform.Series.Add(tonometerCarotidOnsetSeriesTwo);
+            guichartSuperImposedWaveform.Invalidate();
+        }
+
+        /** This method plots series & onSet points for femoral series
+* */
+        private void PlotFemoralSeries(IList<ushort> signalToPlot, float[] onSetPoints, ushort signalLength, Color seriesColor)
+        {
+            const double ChartHeight = 500;
+            Series tonometerTwoSeries = new Series
+            {
+                ChartType = SeriesChartType.FastLine,
+                Color = seriesColor,
+                XValueType = ChartValueType.Auto,
+                YValuesPerPoint = 1,
+                ChartArea = "area"
+            };
+
+            Hashtable carotidFemoralTable = new Hashtable();
+            tonometerTwoSeries.Points.Clear();
+
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY.Minimum = ChartHeight * GuiConstants.ChartAreaMinimumY;
+            guichartSuperImposedWaveform.ChartAreas["area"].AxisY.Maximum = ChartHeight * GuiConstants.ChartAreaMaximumY;
+            for (int i = 0; i < signalLength; i++)
+            {
+                if (signalToPlot[i] > guichartSuperImposedWaveform.ChartAreas[0].AxisY.Maximum)
+                {
+                    guichartSuperImposedWaveform.ChartAreas["area"].AxisY.Maximum = signalToPlot[i] * GuiConstants.ChartAreaMaximumY;
+                }
+
+                if (signalToPlot[i] < guichartSuperImposedWaveform.ChartAreas[0].AxisY.Minimum)
+                {
+                    guichartSuperImposedWaveform.ChartAreas["area"].AxisY.Minimum = signalToPlot[i] * GuiConstants.ChartAreaMinimumY;
+                }
+
+                /*Begin: AtCor-<Drop2>-<Sprint4>, TM, <PWVSW-327>,<16 August 2011>
+         */
+                tonometerTwoSeries.Points.AddXY(i, signalToPlot[i]);
+                carotidFemoralTable[i] = signalToPlot[i];
+            }
+
+            Series tonometerFemoralOnsetSeriesOne = new Series
+            {
+                ChartType = SeriesChartType.Point,
+                Color = Color.Green
+            };
+
+            Series tonometerFemoralOnsetSeriesTwo = new Series
+            {
+                ChartType = SeriesChartType.Point,
+                Color = Color.Red
+            };
+
+            tonometerFemoralOnsetSeriesTwo.Points.Clear();
+            tonometerFemoralOnsetSeriesOne.Points.Clear();
+
+            for (int j = 0; j < onSetPoints.Length; j++)
+            {
+                int valueToPLot = int.Parse(Math.Round(double.Parse(onSetPoints[j].ToString()), MidpointRounding.ToEven).ToString());
+                int valueToPLot1 = Math.Abs(valueToPLot);
+
+                if (valueToPLot < 0)
+                {
+                    tonometerFemoralOnsetSeriesTwo.Points.AddXY(valueToPLot1, carotidFemoralTable[valueToPLot1]);
+                    tonometerFemoralOnsetSeriesTwo.Points[tonometerFemoralOnsetSeriesTwo.Points.Count - 1].MarkerStyle = MarkerStyle.Circle;
+                }
+                else
+                {
+                    tonometerFemoralOnsetSeriesOne.Points.AddXY(valueToPLot1, carotidFemoralTable[valueToPLot1]);
+                    tonometerFemoralOnsetSeriesOne.Points[tonometerFemoralOnsetSeriesOne.Points.Count - 1].MarkerStyle = MarkerStyle.Circle;
+                }
+            }
+
+            guichartSuperImposedWaveform.Series.Add(tonometerTwoSeries);
+            guichartSuperImposedWaveform.Series.Add(tonometerFemoralOnsetSeriesOne);
+            guichartSuperImposedWaveform.Series.Add(tonometerFemoralOnsetSeriesTwo);
             guichartSuperImposedWaveform.Invalidate();
         }
 
@@ -1719,15 +1833,18 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradbtnDelete.Enabled = true;
                 if (recordSelected == 1)
                 {
+                    analysisMode = false;
                     dateToCompare = datetime.Replace(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma), string.Empty);
                 }
 
+                analysisMode = true;
                 DisplayAnalysisScreen();
                 PlotAnalysisTrendCharts(datetime);
                 objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabAnalysis);
             }
             else if (recordSelected == 1)
             {
+                analysisMode = false;
                 EnableDisableReportPrintButton(true);
 
                 // if only 1 record is selected in assessment grid bind the measurement details 
@@ -1745,6 +1862,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             else if (recordSelected > 1)
             {
+                analysisMode = true;
                 DisplayAnalysisScreen();
 
                 // EnableDisableReportPrintButton(false);
@@ -1952,8 +2070,10 @@ namespace AtCor.Scor.Gui.Presentation
                         FillPatientAssessmentDetailsReport();
 
                         // guiradlblReportPwvDistanceMethodType.Text = crxMgrObject.PwvSettings.PWVDistanceMethod.Equals((int)CrxGenPwvValue.CrxPwvDistMethodDirect) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportLblDirect) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportLblSubtracting); 
-                    }
+                    }                    
                 }
+
+                CheckForSimualtionMode();
             }
             catch (Exception ex)
             {
@@ -2083,7 +2203,8 @@ namespace AtCor.Scor.Gui.Presentation
                 }
 
                 date = dateSelected.Split(GuiConstants.Separator);
-                guiradlblReportDateTimeDisplay.Text = date[date.Length - 1];
+
+                guiradlblReportDateTimeDisplay.Text = string.Format("{0:g}", Convert.ToDateTime(date[date.Length - 1]));
 
                 // check for connection
                 if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
@@ -2225,7 +2346,8 @@ namespace AtCor.Scor.Gui.Presentation
                     trendChart.ChartAreas[0].AxisX.LabelStyle.Angle = LblHorizontalAngle;
                 }
 
-                trendChart.ChartAreas[0].AxisX.CustomLabels.Add(hrseries1 - 1, hrseries1 + 1, date[hrseries1].ToString());
+                // trendChart.ChartAreas[0].AxisX.CustomLabels.Add(hrseries1 - 1, hrseries1 + 1, date[hrseries1].ToString());
+                trendChart.ChartAreas[0].AxisX.CustomLabels.Add(hrseries1 - 1, hrseries1 + 1, string.Format("{0:g}", Convert.ToDateTime(date[hrseries1].ToString())));
             }
         }
 
@@ -2369,7 +2491,7 @@ namespace AtCor.Scor.Gui.Presentation
                                                                          oMsgMgr.GetMessage(CrxStructCommonResourceMsg.HeartrateUnit);
                                     guiradlblReportPWVValue.Text = pWv[i] + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwvUnit);
                                     guiradlblStdDeviationImage.ImageIndex = int.Parse(isStdDeviationValid[i]);
-                                    guiradlblReportDateTimeDisplay.Text = date[i];
+                                    guiradlblReportDateTimeDisplay.Text = string.Format("{0:g}", Convert.ToDateTime(date[i]));
                                 }
                                 else
                                 {
@@ -2381,7 +2503,7 @@ namespace AtCor.Scor.Gui.Presentation
                                                                    oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwvUnit);
                                     guiradlblStdDeviationImage.ImageIndex =
                                         int.Parse(isStdDeviationValid[i - 1]);
-                                    guiradlblReportDateTimeDisplay.Text = date[i - 1];
+                                    guiradlblReportDateTimeDisplay.Text = string.Format("{0:g}", Convert.ToDateTime(date[i - 1]));
                                     pointSelected = i - 1;
                                 }
                             }
@@ -2393,7 +2515,7 @@ namespace AtCor.Scor.Gui.Presentation
                                 guiradlblReportPWVValue.Text = pWv[i] + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwvUnit);
                                 
                                 guiradlblStdDeviationImage.ImageIndex = int.Parse(isStdDeviationValid[i]);
-                                guiradlblReportDateTimeDisplay.Text = date[i];
+                                guiradlblReportDateTimeDisplay.Text = string.Format("{0:g}", Convert.ToDateTime(date[i]));
                             }
 
                             if (chartSelected == ChartName.Pwv)
@@ -2450,7 +2572,7 @@ namespace AtCor.Scor.Gui.Presentation
                                                               };
 
                     // GuiCommon.captureChildForm = new Capture();
-                    var page = objDefaultWindow.radpgTabCollection.Pages[1];
+                    var page = objDefaultWindow.radtabCapture;
                     GuiCommon.CaptureChildForm.Parent = page;
                     page.Controls.Clear();
 
@@ -2508,12 +2630,14 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     foreach (CustomLabel cl in guiradchartPulseWaveVelocity.ChartAreas[0].AxisX.CustomLabels)
                     {
-                        cl.Text = DateTime.Parse(cl.Text).ToShortDateString() + Environment.NewLine + DateTime.Parse(cl.Text).ToLongTimeString();
+                       // cl.Text = DateTime.Parse(cl.Text).ToShortDateString() + Environment.NewLine + DateTime.Parse(cl.Text).ToLongTimeString();
+                        cl.Text = DateTime.Parse(cl.Text).ToShortDateString() + Environment.NewLine + DateTime.Parse(cl.Text).ToShortTimeString();
                     }
 
                     foreach (CustomLabel cl in guiradchartHeartRate.ChartAreas[0].AxisX.CustomLabels)
                     {
-                        cl.Text = DateTime.Parse(cl.Text).ToShortDateString() + Environment.NewLine + DateTime.Parse(cl.Text).ToLongTimeString();
+                        // cl.Text = DateTime.Parse(cl.Text).ToShortDateString() + Environment.NewLine + DateTime.Parse(cl.Text).ToLongTimeString();
+                        cl.Text = DateTime.Parse(cl.Text).ToShortDateString() + Environment.NewLine + DateTime.Parse(cl.Text).ToShortTimeString();
                     }
                 }
             }
@@ -2530,7 +2654,7 @@ namespace AtCor.Scor.Gui.Presentation
           // oneRecordSelect = true;
             int recordSelected = 0;
             dateWithComma = string.Empty;
-            objDefaultWindow.radlblMessage.Text = string.Empty;
+            objDefaultWindow.radlblMessage.Text = string.Empty;            
 
             // below line of code will keep focus on current record selection in assessment grid
             IGridViewEventListener navigatorListener = guiradgridReportAssessment.GridNavigator as IGridViewEventListener;
@@ -2542,14 +2666,15 @@ namespace AtCor.Scor.Gui.Presentation
             foreach (GridViewRowInfo row in guiradgridReportAssessment.Rows)
             {
                 if (row.IsSelected) 
-                {                   
-                    recordSelected++;                        
-                    dateWithComma += DateTime.Parse(row.Cells[1].Value.ToString()).ToString(CulturalNeutralDateFormat) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);                   
+                {                         
+                    recordSelected++;
+                    dateWithComma += DateTime.Parse(row.Cells[1].Value.ToString()).ToString(CulturalNeutralDateFormat) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);                              
                 }                             
             }
 
-            GuiConstants.DateWithComma = dateWithComma;  
-            recordsToDelete = recordSelected;
+            GuiConstants.DateWithComma = dateWithComma;
+            numeberOfRecordsSelected = recordsToDelete = recordSelected;
+            CheckForSimualtionMode();
 
             // below line of code will keep focus on current record selection in assessment grid
             guiradgridReportAssessment.MasterTemplate.EndUpdate(new DataViewChangedEventArgs(ViewChangedAction.DataChanged));
@@ -2738,16 +2863,16 @@ namespace AtCor.Scor.Gui.Presentation
           * It checks if the value entered in textbox is within valid range and shows error accordingly
           * */
         private void guiradtxtReportHeight_Leave(object sender, EventArgs e)
-        {
-            objValidateReport.CheckFieldLimits(guiradtxtReportHeight);
+        { 
+            objValidateReport.CheckIntegerFieldLimits(guiradtxtReportHeight);
         }
 
         /** This event gets fired when focus is moved from text box which takes height in inches values.
           * It checks if the value entered in textbox is within valid range and shows error accordingly
           * */
         private void guiradtxtReportHeightInches_Leave(object sender, EventArgs e)
-        {
-            objValidateReport.CheckFieldLimits(guiradtxtReportHeightInches);
+        {            
+            objValidateReport.CheckIntegerFieldLimits(guiradtxtReportHeightInches);
         }
 
         /** This event gets fired when focus is moved from text box which takes weight in lbs || kgs values.
@@ -2816,7 +2941,7 @@ namespace AtCor.Scor.Gui.Presentation
             PWVReportData.RptPatientAge = guiradlblReportAge.Text;
             PWVReportData.RptPatientAgeValue = obj.patientAge.ToString();
             PWVReportData.RptPatientAssessment = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportAssessment);
-            PWVReportData.RptPatientAssessmentValue = GuiCommon.PwvCurrentStudyDatetime;
+            PWVReportData.RptPatientAssessmentValue = string.Format("{0:g}", Convert.ToDateTime(GuiCommon.PwvCurrentStudyDatetime)); // GuiCommon.PwvCurrentStudyDatetime;
             PWVReportData.RptPatientBP = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportBp);
             PWVReportData.RptPatientBPValue = SetBPForPWVReport();
             
@@ -2923,19 +3048,6 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 e.SuppressKeyPress = false;
             }
-
-            /*
-            if (e.Control && e.KeyCode == Keys.Up)
-            {
-                // if the above condition is true then set a falg which needs to be checked in the row formatting event and highlight 
-                // selected row's border.
-                IsControlAndUpArrowKeyPressed = true;
-            }
-
-            if (e.Control && e.KeyCode == Keys.Space)
-            {
-                Invoke(new EventHandler(guiradgridReportAssessment_SelectionChanged));               
-            }*/
         }
 
         /** This method sets height for passing it to the crystal report for print reports
@@ -3315,6 +3427,30 @@ namespace AtCor.Scor.Gui.Presentation
                     obj.myFemoral2CuffDistance.distance = (crxMgrObject.PwvSettings.PWVDistanceUnits.Equals((int)CrxGenPwvValue.CrxPwvDistDistUnitsCM)) ? (ushort)(ushort.Parse(guiradtxtReportFemoToCuff.Text.Trim()) * GuiConstants.DivisionFactor) : ushort.Parse(guiradtxtReportFemoToCuff.Text.Trim());
                 }
             }
-        }       
+        }
+
+        /*Begin: AtCor-<Drop2>-<Sprint4>, TM, <PWVSW-392>,<11 August 2011>
+         */
+
+        /**This method is used to check if the report is generate in the Simulation mode or not.
+         * If it is generated in Simulation mode then display appropiate message in the message alert area.
+         */ 
+        private void CheckForSimualtionMode()
+        {   
+            if (!(numeberOfRecordsSelected > 1))
+            {
+                if (crxMgrObject.GeneralSettings.CommsPort.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Simulation).ToUpper()) && guiradgridReportAssessment.Rows.Count > 0)
+                {
+                    objDefaultWindow.radlblMessage.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiSimulationModeMessage);                    
+                }
+                else
+                {
+                    objDefaultWindow.radlblMessage.Text = string.Empty;
+                }                          
+            }
+        }
+
+        /*End: AtCor-<Drop2>-<Sprint4>, TM, <PWVSW-392>,<11 August 2011>
+         */
     }
 }

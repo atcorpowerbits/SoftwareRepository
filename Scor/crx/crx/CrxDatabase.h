@@ -221,6 +221,160 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 	};
 
 	/**
+	* @enum CrxDBGetCuffPWAMeasurementDetails
+	 * @brief Container for Database Cuff PWA Measurement Details by Id. 
+	 */
+	public enum class CrxDBGetCuffPWAMeasurementDetails
+	{
+		SystemIdentifier = 0,
+		GroupIdentifier,
+		PatientNumberInternal,
+		StudyDateTime,
+		PWA_Id,
+		AuditChange,
+		BloodPressureRange,
+		BloodPressureEntryOption,
+		Age,
+		Notes,
+		SP,
+		DP,
+		MP,
+		Operator,
+		WeightInKilograms,
+		WeightInPounds,
+		HeightInCentimetres,
+		HeightInInches,
+		BodyMassIndex,
+		MemSpare1,
+		MemSpare2,
+		Simulation,
+		IntSpare2,
+		FloatSpare1,
+		DataRev,
+		SubType,
+		CaptureTime,
+		SampleRate,
+		SignalUpSampleRate,
+		ExpPulseUpSampleRate,
+		Flow,
+		Medication,
+		Message,
+		Units,
+		CalSP,
+		CalDP,
+		CalMP,
+		HR,
+		ED,
+		CalcED,
+		QualityED,
+		EDMin,
+		EDMax,
+		EDOther,
+		CaptureInput,
+		C_RAW_SIGNALS,
+		C_AV_PULSE,
+		C_TRIGS,
+		C_ONSETS,
+		C_Uncal_Av,
+		C_ResemblePulse,
+		C_Ole_Spare,
+		C_Math_Params,
+		C_Sp,
+		C_Dp,
+		C_Meanp,
+		C_T1,
+		C_T2,
+		C_T1i,
+		C_T1r,
+		C_T1m,
+		C_T1other,
+		C_T2i,
+		C_T2R,
+		C_T2M,
+		C_T2Other,
+		C_Quality_T1,
+		C_Quality_T2,
+		C_P1,
+		C_P2,
+		C_T1ED,
+		C_T2ED,
+		C_Ai,
+		C_Esp,
+		C_Ap,
+		C_Mps,
+		C_Mpd,
+		C_Tti,
+		C_Dti,
+		C_Svi,
+		C_Period,
+		C_Dd,
+		C_EdPeriod,
+		C_DdPeriod,
+		C_Ph,
+		C_P1_Height,
+		C_Agph,
+		C_Qc_Other1,
+		C_Qc_Other2,
+		C_Qc_Other3,
+		C_Qc_Other4,
+		C_IntSpare1,
+		C_IntSpare2,
+		C_FloatSpare1,
+		C_FloatSpare2,
+		C_MemSpare1,
+		C_MemSpare2,
+		C_Al,
+		C_Ati,
+		C_Flow,
+		C_Forward,
+		C_Backward,
+		C_Avi,
+		C_Pptt,
+		C_Avd,
+		C_Pwv,
+		C_Forward_Area,
+		C_Backward_Area,
+		C_Area_Ratio,
+		C_Pulse_Ratio,
+		C_PWA_Id,
+		P_RAW_SIGNALS,
+		P_AV_PULSE,
+		P_TRIGS,
+		P_ONSETS,
+		P_UNCAL_AV,
+		P_ResemblePulse,
+		P_OLE_SPARE,
+		P_MATH_PARAMS,
+		P_SP,
+		P_DP,
+		P_MEANP,
+		P_T1I,
+		P_T1R,
+		P_T1M,
+		P_T1Other,
+		P_T2I,
+		P_T2R,
+		P_T2M,
+		P_T2Other,
+		P_MAX_DPDT,
+		P_MEMSPARE1,
+		P_MEMSPARE2,
+		P_INTSPARE1,
+		P_INTSPARE2,
+		P_FLOATSPARE1,
+		P_FLOATSPARE2,
+		P_NOISE_FACTOR,
+		P_QC_PH,
+		P_QC_PHV,
+		P_QC_PLV,
+		P_QC_DV,
+		P_QC_OTHER1,
+		P_QC_OTHER2,
+		P_QC_OTHER3,
+		P_QC_OTHER4,
+	};
+
+	/**
 	* @enum CrxDBAccessFileNameList
 	 * @brief Container for Migration Access File List. 
 	 */
@@ -257,6 +411,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static	String^	InsertTonoPWAMeasurementDetails		=	"InsertTonoPWAMeasurementDetails";
 		static  String^ UpdateCuffPWAMeasurementDetails		=	"UpdateCuffPWAMeasurementDetails";
 		static  String^ DeleteCuffPWAMeasurementDetails		=	"DeleteCuffPWAMeasurementDetails";
+		static	String^ GetCuffPWAMeasurementDetails		=	"GetCuffPWAMeasurementDetails";
+		static	String^ GetPWATrendData						=	"GetPWATrendData";
 	};
 
 	/**
@@ -369,7 +525,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static String^		Simulation			=		"@simulation";
 		static String^		IntSpare2			=		"@intSpare2";
 		static String^		FloatSpare1			=		"@floatSpare1";
-		static String^		DataRev				=		"@datarRev";
+		static String^		DataRev				=		"@dataRev";
 		static String^		SubType				=		"@subType";
 		static String^		CaptureTime			=		"@captureTime";
 		static String^		SampleRate			=		"@sampleRate";
@@ -455,6 +611,12 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static String^		C_Backward_Area		=		"@c_Backward_Area";
 		static String^		C_Area_Ratio		=		"@c_Area_Ratio";
 		static String^		C_Pulse_Ratio		=		"@c_Pulse_Ratio ";
+		static String^		PwaIdArrStr			=		"@PwaIdArrStr";
+		static String^		HrValidArrStr		=		"@HrValidArrStr";
+		static String^		ApValidArrStr		=		"@ApValidArrStr";
+		static String^		SpValidArrStr		=		"@SpValidArrStr";
+		static String^		DpValidArrStr		=		"@DpValidArrStr";
+		static String^		MpValidArrStr		=		"@MpValidArrStr";
 		
 	};
 	/**
@@ -649,6 +811,21 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		String^ MpValidArrStr;
 	};
 
+	// Creating CrxStructPWATrendData Structure and variables
+	
+	/**
+	 * @struct CrxStructPWATrendData
+	 * @brief Container for PWA trend data. 	
+	 */
+	public ref struct CrxStructPWATrendData
+	{
+		String^ HrValidArrStr;
+		String^ ApValidArrStr;		
+		String^ SpValidArrStr;
+		String^ DpValidArrStr;
+		String^ MpValidArrStr;
+	};
+
 	/**
 	 * @struct CrxStructPWAMeasurementData
 	 * @brief Container for PWA main measurement data. 	
@@ -692,9 +869,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		int	CalSP;
 		int	CalDP;
 		int	CalMP;
-		int	HR;
-		int	ED;
-		int	CalcED;
+		float	HR;
+		float	ED;
+		float	CalcED;
 		int	QualityED;
 		int	EDMin;
 		int	EDMax;
@@ -1102,6 +1279,26 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		DataSet^ GetPWVMeasurementDetails(CrxStructPWVMeasurementData^ md);
 
 		/**
+		* To get specific patient cuff PWA measurement details from database by joining the tables Patient,Group,PatientGroupRelation,PWVMeasurement
+		* @return Return One or more than one assessments records related to patient number, group id, system id
+		* @param[in] patientNumberInternal Patient internal number in database
+		* @param[in] systemIdentifier SystemInstallationID in database		
+		* @param[in] groupIdentifier Group Identifier is related to the patient in database
+		*/
+		DataSet^ GetCuffPWAMeasurementDetails(int patientNumberInternal, int groupIdentifier, int systemIdentifier );
+
+		/**
+		* Overloaded Function, To get specific patient measurement details from database by joining the tables PWAMeasurement and cPWAMeasurement
+		* @return Return one assessment record related to patient number, group id, system id, date time@n
+		*		  Conversion of byte arrays to short/float arrays values from database and store all values in structure
+		* @param[in,out] pwaMD CrxStructPWAMeasurementData handle to PWA Measurement Details structure@n	
+		*					As output, handle to Measurement Details structure storing all the values got from the database in proper datatype format.	
+		* @param[in,out] cuffPwaMD CrxStructCuffPWAMeasurementData handle to Cuff PWA Measurement Details structure@n	
+		*					As output, handle to Measurement Details structure storing all the values got from the database in proper datatype format.	
+		*/
+		DataSet^ GetCuffPWAMeasurementDetails(CrxStructPWAMeasurementData^ pwaMD,CrxStructCuffPWAMeasurementData^ cuffPwaMD);
+
+		/**
 		* To save patient record in the database 
 		* @return 1 if successfully saved else not successful
 		* @param[in,out] pd CrxStructPatientDemographicData handle to Patient Demographic structure@n
@@ -1174,10 +1371,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* To update cuff PWA measurement record in the database @n
 		* Conversion of short/float arrays to byte arrays values to store in varbinary type at database
 		* @return if 1 if successfully saved else not successful
-		* @param[in] pwaMD CrxStructPWAMeasurementData handle to Measurement Details structure
-		* @param[in] studyDateTimeArrStr String to store the study datetime list to be deleted
+		* @param[in] pwaIdArrStr String to store the PwaId list to be deleted
 		*/
-		int DeleteCuffPWAMeasurementDetails(CrxStructPWAMeasurementData^ pwaMD, String^ studyDateTimeArrStr);
+		int DeleteCuffPWAMeasurementDetails(String^ pwaIdArrStr);
 
 		/**
 		* To convert Byte Array to float Array 
@@ -1187,12 +1383,19 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		*/
 		array<float>^ CommonByteArrtoFloatArr(int len, array<Byte>^ bytearr);
 		/**
-		* To convert Byte Array to short Array 
-		* @return short array data
+		* To convert Byte Array to unsigned short Array 
+		* @return unsigned short array data
 		* @param[in] len Length of the array
 		* @param[in] bytearr Byte array values
 		*/
 		array<unsigned short>^ CommonByteArrtoShortArr(int len, array<Byte>^ bytearr);
+		/**
+		* Overloaded method to convert Byte Array to short Array 
+		* @return short array data
+		* @param[in] bytearr Byte array values
+		* @param[in] len Length of the array
+		*/
+		array<short>^ CommonByteArrtoShortArr(array<Byte>^ bytearr,int len);
 		/**
 		* To convert float Array to Byte Array 
 		* @return Byte array data
@@ -1252,6 +1455,13 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		* @param[out] trendDataStruct CrxStructPWVTrendData handle to PWV Trend Details
 		*/
 		void GetPWVTrendData(int patientNumberInternal, int groupIdentifier, int systemIdentifier, String^ studyDateTimeArrStr, CrxStructPWVTrendData^ trendDataStruct);
+		/**
+		* To get PWV Trend Data from AtCor database
+		* @param[in] pwaIdArrStr String to store the pwaId list
+		* @param[out] trendDataStruct CrxStructPWATrendData handle to PWV Trend Details
+		*/
+		void GetPWATrendData(String^ pwaIdArrStr, CrxStructPWATrendData^ trendDataStruct);
+
 	
 	};
 }

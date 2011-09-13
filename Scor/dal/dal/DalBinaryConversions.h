@@ -11,6 +11,7 @@
 #pragma once
 
 #include "stdafx.h"
+#include "DalCommon.h"
 
 
 using namespace System;
@@ -55,6 +56,14 @@ namespace AtCor{
 				* @return	An  unsigned long integer containing the translated bytes
 				*/
 				static unsigned long TranslateFourBytes( array <unsigned char>^ sourceArray, int startPostion);
+
+				static DalAlarmSource ConvertAlarmType(DalAlarmFlagBitPosition alarmType);
+				static DalAlarmSource ConvertAlarmType(DalAlarmSupplyRailFlag alarmType);
+
+				static DalAlarmSource ConvertAlarmType(DalErrorAlarmStatusFlag alarmType);
+
+				static DalAlarmSource ConvertAlarmType(String^ alarmName);
+
 			};
 
 			

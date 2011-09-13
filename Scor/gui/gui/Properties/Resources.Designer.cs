@@ -60,6 +60,13 @@ namespace gui.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap atcor_logo {
+            get {
+                object obj = ResourceManager.GetObject("atcor_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap cap_arrow5 {
             get {
                 object obj = ResourceManager.GetObject("cap_arrow5", resourceCulture);

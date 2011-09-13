@@ -101,6 +101,7 @@ namespace AtCor {
 				static  String^ const  CDrive									=	"C_DRIVE";
 				static  String^ const  CaptureDeviceErrMsg						=	"CAPTURE_DEVICE_ERR_MSG";
 				static  String^ const  CaptureFailed							=	"CAPTURE_FAILED";
+				static  String^ const  CaptureFailedToStop						=	"CAPTURE_FAILED_TO_STOP";
 				static  String^ const  CaptureTickMsg							=	"CAPTURE_TICK_MSG";
 				static  String^ const  CaptureTimeOutOfRange					=	"CAPTURE_TIME_OUT_OF_RANGE";
 				static  String^ const  CaptureTimeToInflation					=	"CAPTURE_TIME_TO_INFLATION";
@@ -180,8 +181,17 @@ namespace AtCor {
 				static  String^ const  CrxUnknownException						=	"CRX_UNKNOWN_EXCEPTION";
 				static  const   int	   CrxUnknownExceptionErrCd					=	104;
 
+				static  String^ const  CuffDeflatedTimeNotMonitored				=	"CUFF_DEFLATED_TIME_NOT_MONITORED";
+				static  String^ const  CuffDeflationFailed						=	"CUFF_DEFLATION_FAILED";
+				static  String^ const  CuffDeflationTimedOut					=	"CUFF_DEFLATION_TIMED_OUT";
 				static  String^ const  CuffDistOutOfRange						=	"CUFF_DIST_OUT_OF_RANGE";
+				static  String^ const  CuffInflatedTimeNotMonitored				=	"CUFF_INFLATED_TIME_NOT_MONITORED";
+				static  String^ const  CuffInflationFailed						=	"CUFF_INFLATION_FAILED";
+				static  String^ const  CuffInflationTimedOut					=	"CUFF_INFLATION_TIMED_OUT";
+
+
 				static  String^ const  CuffPulseAppendFailed					=	"CUFF_PULSE_APPEND_FAILED";
+				static  String^ const  CuffReinflating							=	"CUFF_REINFLATING";
 				static  String^ const  CuffStateInvalid							=	"CUFF_STATE_INVALID";
 				static  String^ const  Cuffleak									=	"CuffLeak";
 
@@ -481,6 +491,7 @@ namespace AtCor {
 				static  String^ const  GuiSettingsPwvReport					=	"GUI_SETTINGS_PWV_REPORT";
 				static  String^ const  GuiSettingsWindow					=	"GUI_SETTINGS_WINDOW";
 				static  String^ const  GuiSetupSearchExitMsg				=	"GUI_SETUP_SEARCH_EXIT_MSG";
+				static  String^ const  GuiSimulationModeMessage				=	"GUI_SIMULATION_MODE_MESSAGE";
 				static  String^ const  GuiSqlInstanceConnect				=	"GUI_SQL_INSTANCE_CONNECT";
 				static  String^ const  GuiStartCaptureFailed				=	"GUI_START_CAPTURE_FAILED";
 				static  String^ const  GuiWarningTxt						=	"GUI_WARNING_TXT";
@@ -492,6 +503,12 @@ namespace AtCor {
 				static  String^ const  HideCaps								=	"HIDE_CAPS";
 				static  String^ const  HideSmall							=	"HIDE_SMALL";
 				static  String^ const  Inch									=	"INCH";
+				static  String^ const  InconclusiveNoteAORTIC_AIX			=	"INCONCLUSIVE_NOTE_AORTIC_AIX";
+				static  String^ const  InconclusiveNoteAORTIC_TI			=	"INCONCLUSIVE_NOTE_AORTIC_TI";
+				static  String^ const  InconclusiveNotePERIPHERAL_TI		=	"INCONCLUSIVE_NOTE_PERIPHERAL_TI";
+				static  String^ const  InconclusiveNoteT1_RATIO				=	"INCONCLUSIVE_NOTE_T1_RATIO";
+				static  String^ const  InconclusiveNoteOPERATOR_INDEX		=	"INCONCLUSIVE_NOTE_OPERATOR_INDEX";
+				static  String^ const  InconclusiveNoteMAXDPDT				=	"INCONCLUSIVE_NOTE_MAXDPDT";
 				static  String^ const  Inflatedovertime						=	"InflatedOverTime";
 				static  String^ const  Information							=	"INFORMATION";
 				static  String^ const  InsertMode							=	"INSERT_MODE";
@@ -509,6 +526,8 @@ namespace AtCor {
 				static  String^ const  LblAp								=	"LBL_AP";
 				static  String^ const  LblAvgCentralAorticPulse				=	"LBL_AVG_CENTRAL_AORTIC_PULSE";
 				static  String^ const  LblBrachialSpDpMp					=	"LBL_BRACHIAL_SP_DP_MP";
+				static  String^ const  LblBrachialCuff						=	"LBL_BRACHIALCUFF";
+				static  String^ const  LblCentralDp							=	"LBL_CENTRAL_DP";
 				static  String^ const  LblCpwa								=	"LBL_CPWA";
 				static  String^ const  LblDob								=	"LBL_DOB";
 				static  String^ const  LblDp								=	"LBL_DP";
@@ -541,10 +560,10 @@ namespace AtCor {
 				static  String^ const  LblPP								=	"LBL_PP";
 				static  String^ const  LblPwaAnalysisClosingBrace			=	"LBL_PWA_ANALYSIS_CLOSINGBRACE";
 				static  String^ const  LblPwaAnalysisOpeningBrace			=	"LBL_PWA_ANALYSIS_OPENINGBRACE";
-				static  String^ const  LblPwaAnalysisSpDpMp					=	"LBL_PWA_ANALYSIS_SP_DP_MP";
 				static  String^ const  LblPwaCuffPressure					=	"LBL_PWA_CUFF_PRESSURE";
 				static  String^ const  LblPwaInterpretation					=	"LBL_PWA_INTERPRETATION";
 				static  String^ const  LblPwaQualityControl					=	"LBL_PWA_QUALITY_CONTROL";
+				static  String^ const  LblPwaReportAIX75					=	"LBL_PWA_REPORT_ AIX75";
 				static  String^ const  LblPwaSetupProgressBarEndMsg			=	"LBL_PWA_SETUP_PROGRESSBAR_END_MSG";
 				static  String^ const  LblPwaSetupProgressBarStartMsg		=	"LBL_PWA_SETUP_PROGRESSBAR_START_MSG";
 				static  String^ const  LblPwaSyphymocorRefAge				=	"LBL_PWA_SYPHYMOCOR_REF_AGE";
@@ -566,6 +585,7 @@ namespace AtCor {
 				static  String^ const  LblReportLogo						=	"LBL_REPORT_LOGO";
 				static  String^ const  LblReportNormalRange					=	"LBL_REPORT_NORMAL_RANGE";
 				static  String^ const  LblReportPatientData					=	"LBL_REPORT_PATIENTDATA";
+				static  String^ const  LblReportPwaBrachialMp				=	"LBL_REPORT_PWA_BRACHIAL_MP";
 				static  String^ const  LblReportPwv							=	"LBL_REPORT_PWV";
 				static  String^ const  LblReportPwvLbl						=	"LBL_REPORT_PWV_LBL";
 				static  String^ const  LblReportPwvmethod					=	"LBL_REPORT_PWVMETHOD";
@@ -611,6 +631,7 @@ namespace AtCor {
 				static  String^ const  MpDpTooClose							=	"MP_DP_TOO_CLOSE";
 				static  String^ const  MpOutOfRange							=	"MP_OUT_OF_RANGE";
 				static  String^ const  MsgDesert							=	"MSG_DESERT";
+				static  String^ const  MsgInProgress						=	"MSG_IN_PROGRESS";
 				static  String^ const  MsgPleaseRelaunch					=	"MSG_PLEASE_RELAUNCH";
 				static  String^ const  MsgSaveChange						=	"MSG_SAVE_CHANGE";
 				static  String^ const  MsgSaveSettings						=	"MSG_SAVE_SETTINGS";
@@ -666,8 +687,51 @@ namespace AtCor {
 				static  String^ const  PrtPwvTextRptDesc					=	"PRT_PWV_TEXT_RPT_DESCRIPTION";
 				static  String^ const  PrtPwvTextRptHeader					=	"PRT_PWV_TEXT_RPT_HEADER";
 				static  String^ const  PrtPwvTextScor						=	"PRT_PWV_TEXT_SCOR";
-				static  String^ const  Pwv									=	"PWV";
 				static  String^ const  Pwa									=	"PWA";
+				static  String^ const  PWA_ERROR_LoadBizExt					=	"PWA_ERROR_LOAD_BIZEXT";
+				static  String^ const  PWA_ERROR_UnloadBizExt				=	"PWA_ERROR_UNLOAD_BIZEXT";
+				static  String^ const  PWA_ERROR_NotLoadedBizExt			=	"PWA_ERROR_NOTLOADED_BIZEXT";
+				static  String^ const  PWA_ERROR_InitialiseBizExt			=	"PWA_ERROR_INITIALISE_BIZEXT";
+				static  String^ const  PWA_ERROR_Populate					=	"PWA_ERROR_POPULATE";
+				static  String^ const  PWA_ERROR_Store						=	"PWA_ERROR_STORE";
+				static  String^ const  PWA_ERROR_Database					=	"PWA_ERROR_DATABASE";
+				static  String^ const  PWA_ERROR_InvalidMeasureType			=	"PWA_ERROR_INVALID_MEASURETYPE";
+				static  String^ const  PWA_ERROR_InvalidUpSampleRate		=	"PWA_ERROR_INVALID_UPSAMPLERATE";
+				static  String^ const  PWA_ERROR_Append						=	"PWA_ERROR_APPEND";
+				static  String^ const  PWA_ERROR_BufferNotFull				=	"PWA_ERROR_BUFFER_NOT_FULL";
+				static  String^ const  PWA_ERROR_Calculate					=	"PWA_ERROR_CALCULATE";
+				static  String^ const  PWA_ERROR_NoPeriphED					=	"PWA_ERROR_NO_PERIPH_ED";
+				static  String^ const  PWA_MSG_MPS_OUT						=	"PWA_MSG_MPS_OUT";
+				static  String^ const  PWA_MSG_MPD_OUT						=	"PWA_MSG_MPD_OUT";
+				static  String^ const  PWA_MSG_ESP_OUT						=	"PWA_MSG_ESP_OUT";
+				static  String^ const  PWA_MSG_P1H_OUT						=	"PWA_MSG_P1H_OUT";
+				static  String^ const  PWA_MSG_AI_OUT						=	"PWA_MSG_AI_OUT";
+				static  String^ const  PWA_MSG_DPDT_OUT						=	"PWA_MSG_DPDT_OUT";
+				static  String^ const  PWA_MSG_OUT_OF_PULSE					=	"PWA_MSG_OUT_OF_PULSE";
+				static  String^ const  PWA_ERROR_WRONG_PULSE				=	"PWA_ERROR_WRONG_PULSE";
+				static  String^ const  PWA_ERROR_WRONG_PULSE_SAMPLERATE		=	"PWA_ERROR_WRONG_PULSE_SAMPLERATE";
+				static  String^ const  PWA_ERROR_TIME_OUT_OF_RANGE			=	"PWA_ERROR_TIME_OUT_OF_RANGE";
+				static  String^ const  PWA_MSG_SIGNAL_TOO_SHORT				=	"PWA_MSG_SIGNAL_TOO_SHORT";
+				static  String^ const  PWA_MSG_TRIGGER_TOO_SHORT			=	"PWA_MSG_TRIGGER_TOO_SHORT";
+				static  String^ const  PWA_MSG_SP_OUT						=	"PWA_MSG_SP_OUT";
+				static  String^ const  PWA_MSG_DP_OUT						=	"PWA_MSG_DP_OUT";
+				static  String^ const  PWA_MSG_MP_OUT						=	"PWA_MSG_MP_OUT";
+				static  String^ const  PWA_MSG_NEG_AVPULSE					=	"PWA_MSG_NEG_AVPULSE";
+				static  String^ const  PWA_MSG_NEG_SIGNAL					=	"PWA_MSG_NEG_SIGNAL";
+				static  String^ const  PWA_MSG_SIGNAL_TOO_LONG				=	"PWA_MSG_SIGNAL_TOO_LONG";
+				static  String^ const  PWA_MSG_TRIGGER_ERR					=	"PWA_MSG_TRIGGER_ERR";
+				static  String^ const  PWA_MSG_TOO_BAD_SIGNAL				=	"PWA_MSG_TOO_BAD_SIGNAL";
+				static  String^ const  PWA_MSG_WRONG_RANGE					=	"PWA_MSG_WRONG_RANGE";
+				static  String^ const  PWA_MSG_POINT_OUT_OF_PULSE			=	"PWA_MSG_POINT_OUT_OF_PULSE";
+				static  String^ const  PWA_MSG_PERIPH_CENTRAL_LENGTH		=	"PWA_MSG_PERIPH_CENTRAL_LENGTH";
+				static  String^ const  PWA_MSG_PERIPH_CENTRAL_ED			=	"PWA_MSG_PERIPH_CENTRAL_ED";
+				static  String^ const  PWA_MSG_CALCPULSES_ERR				=	"PWA_MSG_CALCPULSES_ERR";
+				static  String^ const  PWA_MSG_AVPULSE_ERR					=	"PWA_MSG_AVPULSE_ERR";
+				static  String^ const  PWA_MSG_CALCSYSTONSET_ERR			=	"PWA_MSG_CALCSYSTONSET_ERR";
+				static  String^ const  PWA_MSG_NOT_FOUND_PEAK				=	"PWA_MSG_NOT_FOUND_PEAK";
+				static  String^ const  PWA_MSG_WRONG_PERIPH_ED				=	"PWA_MSG_WRONG_PERIPH_ED";
+				static  String^ const  PWA_MSG_HR_OUT						=	"PWA_MSG_HR_OUT";
+				static  String^ const  Pwv									=	"PWV";
 				static  String^ const  PwvPatientReport						=	"PWV PATIENT REPORT";
 				static  String^ const  PwvSummaryReport						=	"PWV SUMMARY REPORT";
 
@@ -781,7 +845,7 @@ namespace AtCor {
 				static  String^ const  SysImageFileWildcard					=	"SYS_IMAGE_FILE_WILDCARD";
 				static  String^ const  SysSimFilePath						=	"SYS_SIM_FILE_PATH";
 				static  String^ const  SysSimFilePathDebug					=	"SYS_SIM_FILE_PATH_DEBUG";
-				static String^ const   SysSimFilePathPwa					=	"SYS_SIM_FILE_PATH_PWA";
+				static  String^ const  SysSimFilePathPwa					=	"SYS_SIM_FILE_PATH_PWA";
 				static  String^ const  SysSimFileWildcard					=	"SYS_SIM_FILE_WILDCARD";
 				static  String^ const  SystemError							=	"SYSTEM_ERROR";
 				static  String^ const  SystemId								=	"SYSTEM_ID";

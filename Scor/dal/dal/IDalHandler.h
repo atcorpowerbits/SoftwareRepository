@@ -66,7 +66,7 @@ namespace AtCor{
 					* Returns the name of the last error or alarm source
 					* @return	A string contianing the name of the source
 					*/
-					String^ GetAlarmSource();
+					String^ GetAlarmSource(DalAlarmSource% translatedAlarmSource);
 
 					/**
 					* Checks if the device is connected on the port specified in conifg
@@ -83,6 +83,15 @@ namespace AtCor{
 					* @return	 @c true if the operation was successful
 					*/
 					bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
+
+					/**
+					* Dumps the tonometer and cuff data to a backup file @n
+					* Obtain the name using @c GetSavedFileName
+					* @param[in]	cuffPulse	Array with cuff pulse data values
+					* @param[in]	bufferSize	The size of the buffer to be dumped
+					* @return	 @c true if the operation was successful
+					*/
+					bool SaveCaptureData(array< unsigned short >^ cuffPulse, unsigned short bufferSize);
 
 					/**
 					* Returns the name and filepath of the dump file saved by @c SaveCaptureData
@@ -110,6 +119,11 @@ namespace AtCor{
 					* @return A boolean value indicating the status of the operation
 					*/
 					bool SetIdleMode();
+
+					//TS Stub
+					bool IsCuffDeflated();
+
+					void CloseFiles(); 
 			};
 
 		}

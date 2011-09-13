@@ -62,7 +62,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(NoInherit)"
-				Version="0.1.3.0.1"
+				Version="0.1.4.3"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
@@ -137,7 +137,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(NoInherit)"
-				Version="0.1.3.0.1"
+				Version="0.1.4.3"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
@@ -198,6 +198,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalActiveDevice.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalActivePort.cpp"
 				>
 			</File>
@@ -215,6 +219,22 @@
 			</File>
 			<File
 				RelativePath=".\DalCommandState.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCPwaCommandInterface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCPwaDeviceHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCPwaMode.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCPwaSimulationHandler.cpp"
 				>
 			</File>
 			<File
@@ -242,7 +262,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalMeasurementMode.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalModule.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalPwvCommandInterface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalPwvDeviceHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalPwvMode.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalPwvSimulationHandler.cpp"
 				>
 			</File>
 			<File
@@ -300,6 +340,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\DalActiveDevice.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DalActivePort.h"
 				>
 			</File>
@@ -321,6 +365,22 @@
 			</File>
 			<File
 				RelativePath=".\DalCommon.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCPwaCommandInterface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCPwaDeviceHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCPwaMode.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalCPwaSimulationHandler.h"
 				>
 			</File>
 			<File
@@ -348,7 +408,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalMeasurementMode.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DalModule.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalPwvCommandInterface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalPwvDeviceHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalPwvMode.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalPwvSimulationHandler.h"
 				>
 			</File>
 			<File

@@ -1,7 +1,6 @@
 ﻿
 #include "StdAfx.h"
 
-
 //using namespace System;
 using namespace System::IO;// For FileStream
 using namespace System::Xml;
@@ -391,6 +390,8 @@ namespace TestCrx {
 				ps->SimulationType = "Default";
 				ps->DefaultReport = "PWV Report";
 				ps->NormalRange = true;
+				ps->AutoCapture = true;
+				ps->GuidanceBars = true;
 			
 				target->SetPwvUserSettings(ps);
 
@@ -403,6 +404,8 @@ namespace TestCrx {
 				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
 				Assert::AreEqual("PWV Report", target->_instance->PwvSettings->DefaultReport);
 				Assert::AreEqual(true, target->_instance->PwvSettings->NormalRange);
+				Assert::AreEqual(true, target->_instance->PwvSettings->AutoCapture);
+				Assert::AreEqual(true, target->_instance->PwvSettings->GuidanceBars);
 
 				ps->PWVDistanceMethod = 1;
 				ps->FemoralToCuff = false;
@@ -412,6 +415,8 @@ namespace TestCrx {
 				ps->SimulationType = nullptr;
 				ps->DefaultReport = nullptr;
 				ps->NormalRange = false;
+				ps->AutoCapture = false;
+				ps->GuidanceBars = false;
 			
 				target->SetPwvUserSettings(ps);
 
@@ -423,6 +428,8 @@ namespace TestCrx {
 				Assert::AreEqual(10, target->_instance->PwvSettings->CaptureTime);
 				Assert::AreEqual(false, target->_instance->PwvSettings->ReferenceRange);
 				Assert::AreEqual(false, target->_instance->PwvSettings->NormalRange);
+				Assert::AreEqual(false, target->_instance->PwvSettings->AutoCapture);
+				Assert::AreEqual(false, target->_instance->PwvSettings->GuidanceBars);
 				
 				ps->CaptureTime = 20;
 
@@ -440,6 +447,8 @@ namespace TestCrx {
 				ps->SimulationType = "Simulation";
 				ps->DefaultReport = "PWV Report";
 				ps->NormalRange = true;
+				ps->AutoCapture = true;
+				ps->GuidanceBars = true;
 
 				target->SetPwvUserSettings(ps);
 			}
@@ -1298,6 +1307,8 @@ public: [TestMethod]
 				Assert::AreEqual(5, target->_instance->PwvSettings->CaptureTime);
 				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
 				Assert::AreEqual("Simulation", target->_instance->PwvSettings->SimulationType);
+				Assert::AreEqual(true, target->_instance->PwvSettings->AutoCapture);
+				Assert::AreEqual(true, target->_instance->PwvSettings->GuidanceBars);
 			}
 
 			/// <summary>
@@ -1440,6 +1451,8 @@ public: [TestMethod]
 				Assert::AreEqual(5, objPwvSettings->CaptureTime);
 				Assert::AreEqual(true, objPwvSettings->ReferenceRange);
 				Assert::AreEqual("Simulation", objPwvSettings->SimulationType);
+				Assert::AreEqual(true, objPwvSettings->AutoCapture);
+				Assert::AreEqual(true, objPwvSettings->GuidanceBars);
 			}
 			/// <summary>
 			///A test for GetPatientPrivacy
@@ -2919,6 +2932,20 @@ public: [TestMethod]
 				Assert::IsTrue(true,"If error occur then test pass");
 			}
 		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaAutoCaptureTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			SubSection = L"DEFAULT";
+			ReaderValue = L"No";
+			
+			target->GetPwaAutoCapture(SubSection, ReaderValue);
+			Assert::AreEqual(false, target->_pwaSetInternal->AutoCapture);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
 		/// <summary>
 		///A test for GetPwaAugmentationIndexAtHR75
 		///</summary>
@@ -3785,6 +3812,133 @@ public: [TestMethod]
 				Assert::IsTrue(true,"If error occur then test pass");
 			}			
 		}
+//		/// <summary>
+//		///A test for SetPwvAutoCapture
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetPwvAutoCaptureTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetPwvAutoCapture(ps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for GetPwvAutoCapture
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwvAutoCaptureTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			SubSection = L"USER";
+			ReaderValue = L"Yes";
+			
+			target->GetPwvAutoCapture(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_instance->PwvSettings->AutoCapture);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwvAutoCaptureTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			SubSection = L"DEFAULT";
+			ReaderValue = L"No";
+			
+			target->GetPwvAutoCapture(SubSection, ReaderValue);
+			Assert::AreEqual(false, target->_pSetInternal->AutoCapture);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwvAutoCaptureTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			SubSection = L"USER";
+			ReaderValue = L"XX-XX";
+			try
+			{
+				target->GetPwvAutoCapture(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}			
+		}
+//		/// <summary>
+//		///A test for SetPwvGuidanceBars
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetPwvGuidanceBarsTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetPwvGuidanceBars(ps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for GetPwvGuidanceBars
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwvGuidanceBarsTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			SubSection = L"USER";
+			ReaderValue = L"Yes";
+			
+			target->GetPwvGuidanceBars(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_instance->PwvSettings->GuidanceBars);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwvGuidanceBarsTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			SubSection = L"DEFAULT";
+			ReaderValue = L"No";
+			
+			target->GetPwvGuidanceBars(SubSection, ReaderValue);
+			Assert::AreEqual(false, target->_pSetInternal->GuidanceBars);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwvGuidanceBarsTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			SubSection = L"USER";
+			ReaderValue = L"XX-XX";
+			try
+			{
+				target->GetPwvGuidanceBars(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}			
+		}
+
 };
 }
 namespace TestCrx {

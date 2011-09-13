@@ -10,7 +10,7 @@
 
 using AtCor.Scor.BusinessLogic;
 using AtCor.Scor.DataAccess;
-
+using AtCor.Scor.CrossCutting.Configuration;
 /**
  * @namespace AtCor.Scor.Gui.Presentation
  * @brief This namespace implements Presentation related classes.
@@ -24,13 +24,11 @@ namespace AtCor.Scor.Gui.Presentation
     * This class is part of the strategy implementation for the different modes.
     */
     public class Pwv : IScorStrategy
-    {
-
-        BizPWV bizObject;
-
+    {        
         public Pwv()
         {
-            bizObject = (BizPWV)BizSession.Instance().measurement;
+            BizSession.Instance().SwitchMeasurement(BizMode.PWV);
+            GuiCommon.bizObject = (BizPWV)BizSession.Instance().measurement;
             DalModule.Instance.SetStreamingMode(DalStreamingMode.Pwv);     
         }
 
@@ -49,7 +47,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             ((Setup)GuiCommon.SetupChildForm).FillPwvDetailsSession();   
         }
-
+        
         public void SetHeightWeightUnits()
         {
             ((Setup)GuiCommon.SetupChildForm).SetPwvHeightWeightUnits();
@@ -62,7 +60,42 @@ namespace AtCor.Scor.Gui.Presentation
 
         public void SetBloodPressure()
         {
-            ((Setup)GuiCommon.SetupChildForm).SetPwvBloodPressure();
+            ((Setup)GuiCommon.SetupChildForm).SetPwvBloodPressure();                
+        }
+
+        public bool StartCapture()
+        {
+           return GuiCommon.bizObject.StartCapture(); 
+        }
+
+        public bool StopCapture()
+        {
+            return GuiCommon.bizObject.StopCapture();
+        }
+
+        public void ActionPerformedAfterClickingCancel()
+        {
+            ((Capture)GuiCommon.CaptureChildForm).ActionPerformedAfterClickingCancelForPwvMode();   
+        }
+
+        public void CalculateReportAfterSuccessfulCapture()
+        {
+            ((Capture)GuiCommon.CaptureChildForm).TickButtonAction();  
+        }
+
+        public void SaveCapturedData()
+        {
+            GuiCommon.bizObject.SaveCaptureData();  
+        }
+
+        public void InitialiseCaptureScreen()
+        {
+            ((Capture)GuiCommon.CaptureChildForm).InitialSettingsForPwvModeCapture();  
+        }
+
+        public void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e)
+        {
+            ((Capture)GuiCommon.CaptureChildForm).HandleKeyDownEventForPwvMode(e);   
         }
     }
 }

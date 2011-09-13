@@ -39,10 +39,11 @@ namespace AtCor.Scor.Gui.Presentation
        public static bool IsValidatedLicenseKey = false; // This flag is used to check whether LicenseKey is valdiated or not.
        public static SystemKeyWindowValues SystemKeyWindowValue = SystemKeyWindowValues.ADD; // values :0.Add 1.Update     Checking whether system key form is called for updating or adding system key.
        public static string CurrentMode = string.Empty;
-       public static string CurrentScreen = CrxStructCommonResourceMsg.Setup;       
+       public static string CurrentScreen = CrxStructCommonResourceMsg.SetupScreen;       
        public static bool SetupToReport = false;
        public static bool CaptureToReport = false;
        public static bool CaptureToSetup = false;
+       public static bool SetupToTestResult = false;
        public static bool HasMeasurementDetails = false;
        public static bool IsPatientListEmpty = false; // this flag is used to check if the patient list on the setup screen is empty or not. 
        public static bool CaptureTabClick = true;
@@ -56,6 +57,7 @@ namespace AtCor.Scor.Gui.Presentation
        // is out of range.After the out of range message is shown the tabselection_changed event has already been fired due to which the capture functionality starts.
        // As this is wrong we are using the below variable to see if it is true then stop the tab from changing.
        public static bool IsValueOutsideLimits = false;
+       public static bool IsValueOutsideIntegerLimits = false;
        public static bool IsMandatoryFieldEmpty = false;  
        public static int ReportLoadCount = 0;
        public static int ExitApp = 0;
@@ -65,8 +67,11 @@ namespace AtCor.Scor.Gui.Presentation
 
        public static bool AutoPWA = true;
        public static int AutoPWADelay = 15;
-       public static int RepeatDelay = 5;    
+       public static int RepeatDelay = 5;
 
+       public static BizPWV bizObject;
+       public static BizPWA bizPwaobject;
+       public static CrxStructGeneralSetting generalSettingsStruct = new CrxStructGeneralSetting();
        #endregion
 
        #region Main / Parent window Handle
@@ -94,6 +99,10 @@ namespace AtCor.Scor.Gui.Presentation
            ADD = 0,
            Update = 1
        }
+
+       // Child Form Handles
+       public static RadForm QuickStartChildForm;
+
        #endregion
 
        #region Child Form Handles
@@ -102,6 +111,7 @@ namespace AtCor.Scor.Gui.Presentation
        public static RadForm SetupChildForm;
        public static RadForm FrmRptBlnk;
        public static RadForm PWAReportChildForm;
+       public static RadForm PWATestResultChildForm;
 
        public static event EventHandler OnBizErrorEventInvocation;       
        #endregion  
@@ -364,7 +374,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        /** Begin: AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,04 July 2011
+        /** Begin: AtCor-Drop2-Sprint2, TM, UserStory1,04 July 2011
         /* This method restricts input values to integers and characters only.
          * This method is called on keypress event of the textbox.
                * */

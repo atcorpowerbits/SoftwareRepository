@@ -38,6 +38,7 @@ DalResponsePacketBuffer^ DalResponsePacketBuffer::operator =(DalResponsePacketBu
 	return this;
 }
 
+
 DalResponsePacketBuffer^ DalResponsePacketBuffer::Instance::get()
 {
 	return _instance;

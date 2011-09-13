@@ -92,7 +92,14 @@ namespace TestDal {
 				//DalSequenceNumberManager_Accessor ^target;
 				actual = DalSequenceNumberManager_Accessor::NextCommandSequenceNumber;
 				//actual =(target->NextCommandSequenceNumber);
-				Assert::AreEqual((unsigned char)0, actual);
+				if (DalSequenceNumberManager_Accessor::_nextCommandSequenceNumber > DalSequenceNumberManager_Accessor::_packetSequenceMaxValue)
+				{
+					Assert::AreEqual((unsigned char)0, actual);
+				}
+				else
+				{
+					Assert::AreNotEqual((unsigned char)0, actual);
+				}
 			}
 
 			/// Test for entire range in a loop. 

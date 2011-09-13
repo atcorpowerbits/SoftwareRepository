@@ -42,7 +42,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.radlblTimeStatus = new Telerik.WinControls.UI.RadLabel();
             this.radbtnCross = new Telerik.WinControls.UI.RadButton();
             this.radbtnTick = new Telerik.WinControls.UI.RadButton();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tmrPwvCaptureMode = new System.Windows.Forms.Timer(this.components);
             this.radProgressBarQualityIndicator = new Telerik.WinControls.UI.RadProgressBar();
             this.object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac = new Telerik.WinControls.RootRadElement();
             this.radProgressBarFemoralIndicator = new Telerik.WinControls.UI.RadProgressBar();
@@ -54,6 +54,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblFemoralThresholdPart2 = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblTonometerThresholdPart1 = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblFemoralThresholdPart1 = new Telerik.WinControls.UI.RadLabel();
+            this.tmrPwaCaptureMode = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.chartTonometer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidTonometer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblFemoralCuff)).BeginInit();
@@ -266,10 +267,10 @@ namespace AtCor.Scor.Gui.Presentation
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radbtnTick.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(228)))), ((int)(((byte)(243)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radbtnTick.GetChildAt(0).GetChildAt(2))).ForeColor = System.Drawing.Color.White;
             // 
-            // timer1
+            // tmrPwvCaptureMode
             // 
-            this.timer1.Interval = 125;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.tmrPwvCaptureMode.Interval = 125;
+            this.tmrPwvCaptureMode.Tick += new System.EventHandler(this.tmrPwvCaptureMode_Tick);
             // 
             // radProgressBarQualityIndicator
             // 
@@ -498,6 +499,11 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblFemoralThresholdPart1.TabIndex = 18;
             this.guiradlblFemoralThresholdPart1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tmrPwaCaptureMode
+            // 
+            this.tmrPwaCaptureMode.Interval = 125;
+            this.tmrPwaCaptureMode.Tick += new System.EventHandler(this.tmrPwaCaptureMode_Tick);
+            // 
             // Capture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -565,7 +571,7 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadLabel radlblTimeStatus;
         private Telerik.WinControls.UI.RadButton radbtnTick;
         private Telerik.WinControls.UI.RadProgressBar guiradprgbarTimeToInflatioDeflation;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer tmrPwvCaptureMode;
         private Telerik.WinControls.UI.RadProgressBar radProgressBarQualityIndicator;
         private Telerik.WinControls.RootRadElement object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac;
         private Telerik.WinControls.UI.RadProgressBar radProgressBarFemoralIndicator;
@@ -578,6 +584,7 @@ namespace AtCor.Scor.Gui.Presentation
         public Telerik.WinControls.UI.RadButton radbtnCross;
         private Telerik.WinControls.UI.RadLabel guiradlblFemoralThresholdPart2;
         private Telerik.WinControls.UI.RadLabel guiradlblTonometerThresholdPart2;
+        private System.Windows.Forms.Timer tmrPwaCaptureMode;
     }
 }
 

@@ -42,7 +42,7 @@ namespace AtCor.Scor.Gui.Presentation
                 defWindow = new DefaultWindow();
                 DataAccess.DalModule dm = DataAccess.DalModule.Instance;   
             
-                Application.Run(defWindow);
+            Application.Run(defWindow);
             }
             catch (Exception ex)
             {

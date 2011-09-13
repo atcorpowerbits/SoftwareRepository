@@ -9,7 +9,9 @@
 */
 
 using System;
+using AtCor.Scor.BusinessLogic;
 using AtCor.Scor.DataAccess;
+using AtCor.Scor.CrossCutting.Configuration;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -37,10 +39,21 @@ namespace AtCor.Scor.Gui.Presentation
 
         public abstract void SetBloodPressure();
 
-        // bool StartCapture();
-        // void StopCapture();
-        // void AppendCaptureData();
-        // void SaveCapturedData();
+        public abstract bool StartCapture();
+
+        public abstract bool StopCapture();
+
+        public abstract void ActionPerformedAfterClickingCancel();
+
+        public abstract void CalculateReportAfterSuccessfulCapture();
+
+        public abstract void SaveCapturedData();
+
+        public abstract void InitialiseCaptureScreen();
+
+        public abstract void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e);
+
+        // void AppendCaptureData();        
         // void CalculateReport();
         // void CalculateAge();
         // void Populate(crxPwv);
@@ -52,9 +65,11 @@ namespace AtCor.Scor.Gui.Presentation
     }
 
     public class CuffPwa : PwaClass 
-    {
+    {        
         public CuffPwa()
         {
+          BizSession.Instance().SwitchMeasurement(BizMode.PWA);
+          GuiCommon.bizPwaobject = (BizPWA)BizSession.Instance().measurement;
           DalModule.Instance.SetStreamingMode(DalStreamingMode.cPwa);
         }
 
@@ -83,7 +98,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             ((Setup)GuiCommon.SetupChildForm).FillPwaDetailsSession();
         }
-
+      
         public override void SetHeightWeightUnits()
         {
             ((Setup)GuiCommon.SetupChildForm).SetPwaHeightWeightUnits();
@@ -95,6 +110,42 @@ namespace AtCor.Scor.Gui.Presentation
 
         public override void SetBloodPressure()
         {           
+
         }
+
+        public override bool StartCapture()
+        {
+           return GuiCommon.bizPwaobject.StartCapture();
+        }
+
+        public override bool StopCapture()
+        {
+           return GuiCommon.bizPwaobject.StopCapture(); 
+        }
+
+        public override void ActionPerformedAfterClickingCancel()
+        {
+            ((Capture)GuiCommon.CaptureChildForm).ActionPerformedAfterClickingCancelForPwaMode();    
+        }
+
+        public override void CalculateReportAfterSuccessfulCapture()
+        {
+            ((Capture)GuiCommon.CaptureChildForm).TickButtonActionForPwaMode();  
+        }
+
+        public override void SaveCapturedData()
+        {
+            GuiCommon.bizPwaobject.SaveCaptureData();  
+        }
+
+        public override void InitialiseCaptureScreen()
+        {
+            ((Capture)GuiCommon.CaptureChildForm).InitialSettingsForPwaModeCapture();   
+        }
+
+        public override void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e)
+        {
+            ((Capture)GuiCommon.CaptureChildForm).HandleKeyDownEventForPwaMode(e);    
+        } 
     }
 }

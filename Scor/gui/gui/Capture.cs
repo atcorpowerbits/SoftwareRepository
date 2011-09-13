@@ -21,8 +21,16 @@ using AtCor.Scor.CrossCutting.Logging;
 using AtCor.Scor.DataAccess;
 using System.Configuration;
 
+/**
+ * @namespace AtCor.Scor.Gui.Presentation
+ * @brief This namespace implements Presentation related classes.  
+ */
 namespace AtCor.Scor.Gui.Presentation
 {
+    /**
+   * @class Capture
+   * @brief This class will handle displaying of the Capture screen controls.It will also check for exception handling and logging of events.
+   */
     public partial class Capture : Telerik.WinControls.UI.RadForm
     {
         #region Set constant values
@@ -42,9 +50,11 @@ namespace AtCor.Scor.Gui.Presentation
         readonly CrxDBManager dbMagr = CrxDBManager.Instance;
         static uint xCoordinateTonometer = 0;
         static uint xCoordinateFemoralCuff = 0;
+        static uint xCoordinatePwaChart = 0;
         private DefaultWindow objDefaultWindow;
-        bool carotidFlag = false; // to check for carotid quality indicator
-        bool femoralFlag = false; // to check for femoral quality indicator        
+        bool carotidFlag = false; // to check for carotid quality indicator for PWV
+        bool femoralFlag = false; // to check for femoral quality indicator for PWV    
+        bool femoralFlagPwaMode = false; // to check for femoral quality indicator for PWA
         volatile bool femoralPlotSwitch = false;
         volatile bool cuffstatechangeFlag = false;
 
@@ -54,17 +64,21 @@ namespace AtCor.Scor.Gui.Presentation
 
         public static event EventHandler OnPWAReportTabClick;
 
+        public static event EventHandler OnPWATestResultTabClick;
+
         Series newSeries;
         Series femoralCuffSeries;
 
         double screenwidth;
+        double screenwidthForCuffChartInPWAMode;
         double signalStrength;
         ProgressBarPrimitive prim1;
         ProgressBarPrimitive prim2;
+        StripLine bottomStrip = new StripLine();
+        StripLine topStrip = new StripLine();
 
         // object of Config Manager                 
-        CrxConfigManager obj;
-        BizPWV bizObj;
+        CrxConfigManager obj;        
 
         public Capture()
         {
@@ -84,13 +98,8 @@ namespace AtCor.Scor.Gui.Presentation
         /** This event is fired when the user clicks on the cross button.
         */
         public void radbtnCross_Click(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-
-            // bizObj.SaveCaptureData();
-            // string captureFilePath = DalModule.Instance.GetSavedFilePath();
-            // RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiWaveformSaveMsg) + Environment.NewLine + captureFilePath, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);            
-            GenerateReportWhenCaptureIsEnabled();            
+        {          
+            GuiCommon.ScorControllerObject.ActionPerformedAfterClickingCancel();            
         }
 
         /** This method is called to set the text for the label controls.
@@ -118,26 +127,19 @@ namespace AtCor.Scor.Gui.Presentation
         private void Capture_Load(object sender, EventArgs e)
         {
             try
-            {
+            {               
                 objDefaultWindow.guicmbxCurrentMode.Enabled = false;  
                 GuiCommon.CaptureFormLoaded = true;
-                bizObj = (BizPWV)BizSession.Instance().measurement;
-                                
                 radbtnCross.Focus();
 
                 // tmrInflationTimer.Enabled = true;                
                 obj = CrxConfigManager.Instance;
                 obj.GetGeneralUserSettings();
                 obj.GetPwvUserSettings();
+                obj.GetPwaUserSettings(); 
 
-                BizEventContainer.Instance.OnBizCarotidQualityEvent += qualityIndicator_CarotidQualityEvent;
-                BizEventContainer.Instance.OnBizFemoralQualityEvent += qualityIndicator_FemoraCuffEvent;
-                BizEventContainer.Instance.OnBizCuffStateEvent += UpdateCuffState;
-                DefaultWindow.OnCaptureScreenTabClick += Capture_OnCaptureScreenTabClick;
-                GuiCommon.OnBizErrorEventInvocation += GuiCommon_OnBizErrorEventInvocation;  
-                SetTonometerWaveformProperties();
-                SetFemoralCuffWaveformProperties(); // setting femoral properties as need to show flat line 
-                StartCarotidTonometerCapture();
+                SubscribeToEvents();              
+                GuiCommon.ScorControllerObject.InitialiseCaptureScreen();  
 
                 // initially make progress bar & labels invisible
                 guiradprgbarTimeToInflatioDeflation.Visible = false;
@@ -163,9 +165,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // disable seup & report tabs
                 objDefaultWindow.radtabReport.Enabled = false;
-                objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = false;               
-
-                DisplayCaptureTime();                
+                objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = false;              
             }
             catch (Exception ex)
             {
@@ -181,8 +181,9 @@ namespace AtCor.Scor.Gui.Presentation
 
         /** This method displays capture time in bottom area
          * */
-        void DisplayCaptureTime()
+        void DisplayCaptureTimeForPwvCapture()
         {
+            // objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureTime) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + CrxConfigManager.Instance.PwaSettings.CaptureTime.ToString();   
             // set capture time in labels
             CrxConfigManager config = CrxConfigManager.Instance;
             switch (config.PwvSettings.CaptureTime)
@@ -192,7 +193,7 @@ namespace AtCor.Scor.Gui.Presentation
                     break;
 
                 case (int)CrxGenPwvValue.CrxPwvCapture10Seconds:
-                    objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureTime) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad10Sec);                    
+                    objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureTime) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad10Sec);
                     break;
 
                 case (int)CrxGenPwvValue.CrxPwvCapture20Seconds:
@@ -213,10 +214,12 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
+                // System.Diagnostics.Debug.Write(Environment.NewLine + "At the start of UpdateCuffState.");
                 // value "inflated" is coming from biz e.data which determines whether cuff state is inflated or not
                 // used for internal purpose
                 if (e.data.ToLower().Equals("inflated"))
                 {
+                    // System.Diagnostics.Debug.Write(Environment.NewLine + "Cuff Inflated.");
                     guiradprgbarTimeToInflatioDeflation.Visible = true;
                     objDefaultWindow.radlblMessage.Text = string.Empty;
                     radlblTimeStatus.Visible = true;
@@ -246,7 +249,7 @@ namespace AtCor.Scor.Gui.Presentation
                     prim2.BackColor3 = Color.FromArgb(210, 67, 39);
                     prim2.BackColor4 = Color.FromArgb(248, 237, 234);
                     radProgressBarFemoralIndicator.Value1 = BadFemoralQualityIndicatorValue;                   
-                }
+                }               
             }
             catch (Exception ex)
             {
@@ -258,28 +261,67 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                femoralFlag = e.enableOkayButton;                
-                RefreshOkButton();
-
-                if (e.signalStrengthIsGood)
+                if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
                 {
-                    // show green color in the progress bar.
-                    prim2.BackColor = Color.FromArgb(225, 240, 225);
-                    prim2.BackColor2 = Color.FromArgb(1, 92, 1);
-                    prim2.BackColor3 = Color.FromArgb(1, 92, 1);
-                    prim2.BackColor4 = Color.FromArgb(225, 240, 225);
-                    radProgressBarFemoralIndicator.Value1 = GoodFemoralQualityIndicatorValue; 
+                    femoralFlag = e.enableOkayButton;
+                    RefreshOkButton();
+
+                    if (e.signalStrengthIsGood)
+                    {
+                        // show green color in the progress bar.
+                        prim2.BackColor = Color.FromArgb(225, 240, 225);
+                        prim2.BackColor2 = Color.FromArgb(1, 92, 1);
+                        prim2.BackColor3 = Color.FromArgb(1, 92, 1);
+                        prim2.BackColor4 = Color.FromArgb(225, 240, 225);
+                        radProgressBarFemoralIndicator.Value1 = GoodFemoralQualityIndicatorValue;
+                    }
+
+                    if (!e.signalStrengthIsGood)
+                    {
+                        // show red color in the progress bar.                
+                        prim2.BackColor = Color.FromArgb(248, 237, 234);
+                        prim2.BackColor2 = Color.FromArgb(210, 67, 39);
+                        prim2.BackColor3 = Color.FromArgb(210, 67, 39);
+                        prim2.BackColor4 = Color.FromArgb(248, 237, 234);
+
+                        radProgressBarFemoralIndicator.Value1 = BadFemoralQualityIndicatorValue;
+                    }
                 }
 
-                if (!e.signalStrengthIsGood)
+                if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
                 {
-                    // show red color in the progress bar.                
-                    prim2.BackColor = Color.FromArgb(248, 237, 234);
-                    prim2.BackColor2 = Color.FromArgb(210, 67, 39);
-                    prim2.BackColor3 = Color.FromArgb(210, 67, 39);
-                    prim2.BackColor4 = Color.FromArgb(248, 237, 234);
+                   // System.Diagnostics.Debug.Write(Environment.NewLine + "Inside qualityIndicator_FemoraCuffEvent for PWa mode.");
+                    femoralFlagPwaMode = e.enableOkayButton; 
+                    RefreshOkButton();
+                    if (e.signalStrengthIsGood)
+                    {
+                       // System.Diagnostics.Debug.Write(Environment.NewLine + "Signal Strength is good for PWA mode.");   
+                        // show green color in the progress bar.
+                        prim2.BackColor = Color.FromArgb(225, 240, 225);
+                        prim2.BackColor2 = Color.FromArgb(1, 92, 1);
+                        prim2.BackColor3 = Color.FromArgb(1, 92, 1);
+                        prim2.BackColor4 = Color.FromArgb(225, 240, 225);
 
-                    radProgressBarFemoralIndicator.Value1 = BadFemoralQualityIndicatorValue;
+                        // Changing the color of the Guidance bar.
+                      //  bottomStrip.BackColor = topStrip.BackColor = Color.Green; 
+                      //  bottomStrip.StripWidth = topStrip.StripWidth  =10;
+                        radProgressBarFemoralIndicator.Value1 = GoodFemoralQualityIndicatorValue;
+                    }
+
+                    if (!e.signalStrengthIsGood)
+                    {
+                       // System.Diagnostics.Debug.Write(Environment.NewLine + "Signal Strength is bad for PWA mode.");   
+                        // show red color in the progress bar.                
+                        prim2.BackColor = Color.FromArgb(248, 237, 234);
+                        prim2.BackColor2 = Color.FromArgb(210, 67, 39);
+                        prim2.BackColor3 = Color.FromArgb(210, 67, 39);
+                        prim2.BackColor4 = Color.FromArgb(248, 237, 234);
+
+                        // Changing the color of the Guidance bar.
+                       // bottomStrip.BackColor = topStrip.BackColor = Color.Red;
+                      //  bottomStrip.StripWidth = topStrip.StripWidth = 10;
+                        radProgressBarFemoralIndicator.Value1 = BadFemoralQualityIndicatorValue;
+                    }
                 }
             }
             catch (Exception ex)
@@ -374,7 +416,7 @@ namespace AtCor.Scor.Gui.Presentation
                 // dalDataBufferObj = DalDataBuffer.Instance;
                 // Start capturing    
                 // Check the return value of biz.StartCapture
-                if (!bizObj.StartCapture())
+                if (!GuiCommon.ScorControllerObject.StartCapture())
                 {
                     // Show the following error message to the user."Capture cannot be started. If the problem persists check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html"
                    // string tempMessage = "Capture cannot be started. If the problem persists check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html";
@@ -385,12 +427,29 @@ namespace AtCor.Scor.Gui.Presentation
                 }                
                 else
                 {
-                    timer1.Enabled = true;
+                    tmrPwvCaptureMode.Enabled = true;
                 }
             }
             catch (Exception ex)
             {
                 GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        private void StartPwaCapture()
+        {
+            if (!GuiCommon.ScorControllerObject.StartCapture())
+            {
+                // Show the following error message to the user."Capture cannot be started. If the problem persists check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html"
+                // string tempMessage = "Capture cannot be started. If the problem persists check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html";
+                RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiStartCaptureFailed), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK);
+
+                // Navigate the user to Setup screen.
+                objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+            }
+            else
+            {
+                tmrPwaCaptureMode.Enabled = true;
             }
         }
 
@@ -459,7 +518,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                         ushort femoralCuffData = structData.cuffPulseData;
                         PlotFemoralCuffData(femoralCuffData);
-                        bizObj.Append(structData.tonometerData, structData.cuffPulseData);
+                       GuiCommon.bizObject.Append(structData.tonometerData, structData.cuffPulseData);
                     }
                     else
                     {
@@ -467,7 +526,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                         // plot flat line for femoral when cuff is not inflated as value 0
                         PlotFemoralCuffData(0);
-                        bizObj.Append(structData.tonometerData, 0);
+                         GuiCommon.bizObject.Append(structData.tonometerData, 0);
                     }
                 }
                 
@@ -475,14 +534,11 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     chartTonometer.ChartAreas[0].AxisY.Maximum = (dbuff.GetValueAt(startIndex, 0).tonometerData + 1) * GuiConstants.ChartAreaMaximumY;
                     chartTonometer.ChartAreas[0].AxisY.Minimum  = (dbuff.GetValueAt(startIndex, 0).tonometerData - 1) * GuiConstants.ChartAreaMinimumY;
-
-                    /**guichartFemoralCuff.ChartAreas[0].AxisY.Maximum = (dbuff.GetValueAt(startIndex, 0).cuffPulseData + 1) * GuiConstants.ChartAreaMaximumY;
-                    guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = (dbuff.GetValueAt(startIndex, 0).cuffPulseData - 1) * GuiConstants.ChartAreaMinimumY; */
                 }                               
             }
             catch (Exception ex)
             {
-                timer1.Enabled = false;
+                tmrPwvCaptureMode.Enabled = false;
                 GUIExceptionHandler.HandleException(ex, this);                
                 if (radbtnTick.Enabled)
                 {
@@ -599,12 +655,12 @@ namespace AtCor.Scor.Gui.Presentation
                 // when cuff is not inflated data will have value 0 to plot, setting minimum y axis range for femoral chart to -10 to show flat line
                 if (data == 0)
                 {
-                    guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = -10;
+                    guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = -100;
                 }
                 else
                 {
                     // if minimum value is less than 0 set it normal (data * ChartAreaMinimumY;)
-                    if (guichartFemoralCuff.ChartAreas[0].AxisY.Minimum == -10)
+                    if (guichartFemoralCuff.ChartAreas[0].AxisY.Minimum == -100)
                     {
                         guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = data * GuiConstants.ChartAreaMinimumY;
                     }
@@ -745,29 +801,28 @@ namespace AtCor.Scor.Gui.Presentation
        */
         private void radbtnTick_Click(object sender, EventArgs e)
         {            
-            // BizErrorEventArgs bize = new BizErrorEventArgs ("mess");
-            // GuiCommon.Instance_OnBizErrorEvent(this, bize);   
             if (!radbtnTick.Enabled)
             {
                 return;
             }
 
-            TickButtonAction();
+            // TickButtonAction();
+            GuiCommon.ScorControllerObject.CalculateReportAfterSuccessfulCapture();   
             Close();
         }       
 
         /**This method enables the tabs and the ribbion and navigates the user to the Reports tab.          
          */
-        private void TickButtonAction()
+        public void TickButtonAction()
         {
             try
             {
-                timer1.Enabled = false;
+                tmrPwvCaptureMode.Enabled = false;
 
                 objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiCaptureGeneratingReport);
                 CrxStructPWVMeasurementData cdata = new CrxStructPWVMeasurementData();
 
-                if (bizObj.CalculatePWVReport(cdata))
+                if (GuiCommon.bizObject.CalculatePWVReport(cdata))
                 {
                     // report calculation successful save report & navigate to report screen
                     StopCaptureAndSaveReport(cdata);
@@ -799,7 +854,8 @@ namespace AtCor.Scor.Gui.Presentation
 
             // report calculation failed save captured data in text file                
             // this will create text file & will save data captured so far
-            bizObj.SaveCaptureData();
+            // GuiCommon.bizObject.SaveCaptureData();
+            GuiCommon.ScorControllerObject.SaveCaptureData();  
 
             // GetSavedfile path should only be called once
             string captureFilePath = DalModule.Instance.GetSavedFilePath();
@@ -819,7 +875,8 @@ namespace AtCor.Scor.Gui.Presentation
             // hourglass cursor             
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             
-            BizSession.Instance().StopCapture();            
+            // BizSession.Instance().StopCapture();            
+            GuiCommon.ScorControllerObject.StopCapture();  
             StopTimers();
 
             CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
@@ -914,7 +971,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                timer1.Enabled = false;
+                tmrPwvCaptureMode.Enabled = false;
                 DialogResult ds = RadMessageBox.Show(this, GuiCommon.MessageToBeDisplayed + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureFailed), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNo, RadMessageIcon.Info);
                 if (ds == DialogResult.Yes)
                 {
@@ -923,7 +980,7 @@ namespace AtCor.Scor.Gui.Presentation
                 }
                 else
                 {
-                    timer1.Enabled = true;
+                    tmrPwvCaptureMode.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -936,8 +993,7 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         void ShowSetupAfterCaptureAbort()
         {
-            BizSession.Instance().StopCapture();
-                       
+            GuiCommon.ScorControllerObject.StopCapture();
             StopTimers();
 
             // Clear and remove the femoral waveform.
@@ -977,7 +1033,7 @@ namespace AtCor.Scor.Gui.Presentation
         /** This event is fired when the timer is enabled.
         * The tick event of the timer is called every 125 milliseconds.
         */
-        private void timer1_Tick(object sender, EventArgs e)
+        private void tmrPwvCaptureMode_Tick(object sender, EventArgs e)
         {
             ReadValueFromBuffer();
             BizSession.Instance().DispatchCaptureData();
@@ -987,29 +1043,23 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void Capture_KeyDown(object sender, KeyEventArgs e)
         {
-            timer1.Enabled = false;
-            if (e.KeyCode == Keys.Escape)
-            {                
-                GenerateReportWhenCaptureIsEnabled();
-            }
-            else if (e.KeyCode == Keys.Space && radbtnTick.Enabled)
-            {
-                TickButtonAction();
-                Close();
-            }
-            else if (e.KeyCode == Keys.Space && !radbtnTick.Enabled)
-            {
-                e.SuppressKeyPress = true;
-                timer1.Enabled = true;
-            }           
+            GuiCommon.ScorControllerObject.HandleKeyDownEventOnCaptureScreen(e);           
         }
 
         /** This method stops all the timers,runing on the capture screen.
          * */
         private void StopTimers()
         {
-            // Disable all the timers on the capture screen
-            timer1.Stop();
+            if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
+            {
+                // Disable all the timers on the capture screen
+                tmrPwvCaptureMode.Stop();
+            }
+               
+            if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
+            {
+                tmrPwaCaptureMode.Stop(); 
+            }
         }
 
         /** This method is used to enable/disable the ok button on the Capture screen.
@@ -1017,14 +1067,23 @@ namespace AtCor.Scor.Gui.Presentation
        */
         private void RefreshOkButton()
         {
-            // to enable tick button if both the events return true for enableokbutton
-            if (carotidFlag && femoralFlag)
+            if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
             {
-                radbtnTick.Enabled = true;
+                // to enable tick button if both the events return true for enableokbutton
+                if (carotidFlag && femoralFlag)
+                {
+                    radbtnTick.Enabled = true;
+                }
+                else
+                {
+                    radbtnTick.Enabled = false;
+                }
             }
-            else
+
+            if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
             {
-                radbtnTick.Enabled = false;
+                // to enable tick button if both the events return true for enableokbutton
+                radbtnTick.Enabled = femoralFlagPwaMode;
             }
         }
 
@@ -1053,7 +1112,9 @@ namespace AtCor.Scor.Gui.Presentation
                 GuiCommon.IsWaitIntervalImposed = true;
                 objDefaultWindow.tmrImposeWaitTime.Start();
                 objDefaultWindow.guicmbxCurrentMode.Enabled = true;
-                this.Dispose(false);
+                Dispose(false);
+                xCoordinatePwaChart = xCoordinateFemoralCuff = xCoordinateTonometer = 0;
+                screenwidth = screenwidthForCuffChartInPWAMode = 0;
             }
             catch (Exception ex)
             {
@@ -1093,6 +1154,547 @@ namespace AtCor.Scor.Gui.Presentation
         private void Capture_OnCaptureScreenTabClick(object sender, EventArgs e)
         {           
            radbtnCross.Focus();            
-        }        
+        }
+
+        // Begin: AtCor-<Drop2>-<Sprint4>, TM, <SWREQ2022,SWREQ20223,SWREQ2024,SWREQ2015>,<17 August 2011>
+
+        /**This method is used to set the Capture screen according to PWA mode.
+         * It hides the tonometer chart and displays a enlarged cuff chart,it also shows an enlarge quality indicator.
+         */ 
+        private void ChangeCaptureScreenForPwaMode()
+        {
+            radProgressBarQualityIndicator.Visible = false;
+            chartTonometer.Visible = false;
+            guiradlblCarotidTonometer.Visible = false;
+            guiradlblTonometerThresholdPart1.Visible = false;
+            guiradlblTonometerThresholdPart2.Visible = false;
+            guiradlblFemoralCuff.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblBrachialCuff);
+
+            guiradlblFemoralCuff.Top = guiradlblCarotidTonometer.Top;
+            guichartFemoralCuff.Top = chartTonometer.Top;
+            radProgressBarFemoralIndicator.Top = radProgressBarQualityIndicator.Top;
+            guichartFemoralCuff.Height = Height - tableLayoutPanel1.Height - guiradlblFemoralCuff.Height - 30;
+
+            radProgressBarFemoralIndicator.Height = guichartFemoralCuff.Height;
+            guiradlblFemoralThresholdPart1.Top = radProgressBarQualityIndicator.Top + (radProgressBarFemoralIndicator.Height * 60 / 100);
+            guiradlblFemoralThresholdPart2.Top = radProgressBarQualityIndicator.Top + (radProgressBarFemoralIndicator.Height * 60 / 100) - (guiradlblFemoralThresholdPart2.Height / 2);
+            
+            // For Future use.
+            // if (GuiCommon.Workflow == GuiCommon.Workflows.Quick)
+            // {
+            //    objDefaultWindow.radtabQuickStart.Enabled = false;
+            //    objDefaultWindow.radtabResult.Enabled = false;
+            // }
+        }
+
+        /**This method is used to initialise the Capture screen as per the mode selected by the user.
+         */ 
+        public void InitialSettingsForPwvModeCapture()
+        {
+            SetTonometerWaveformProperties();
+            SetFemoralCuffWaveformProperties();
+            StartCarotidTonometerCapture();
+            DisplayCaptureTimeForPwvCapture();
+        }
+
+        /**This method is used to initialise the Capture screen as per the mode 
+         */ 
+        public void InitialSettingsForPwaModeCapture()
+        {          
+            SetChartPropertiesForPwaChart();          
+            StartPwaCapture();          
+            DisplayCaptureTimeForPwaCapture();          
+            ChangeCaptureScreenForPwaMode();
+        }
+
+        /**This method is called in the load function of the Capture screen,it is used to subscribe to events from Dal and Business logic.
+         */ 
+        private void SubscribeToEvents()
+        {
+            // Subscribing to PWV events.
+            BizEventContainer.Instance.OnBizCarotidQualityEvent += qualityIndicator_CarotidQualityEvent;
+            BizEventContainer.Instance.OnBizFemoralQualityEvent += qualityIndicator_FemoraCuffEvent;
+            BizEventContainer.Instance.OnBizCuffStateEvent += UpdateCuffState;
+            DefaultWindow.OnCaptureScreenTabClick += Capture_OnCaptureScreenTabClick;
+            GuiCommon.OnBizErrorEventInvocation += GuiCommon_OnBizErrorEventInvocation;
+
+            // Subscribing to PWA events.
+            BizEventContainer.Instance.OnBizCuffPulseEvent += new BizCuffPulseEventHandler(Instance_OnBizCuffPulseEvent);
+            BizEventContainer.Instance.OnBizTonometerDataEvent += new BizTonometerDataEventHandler(Instance_OnBizTonometerDataEvent);
+        }
+
+        private void Instance_OnBizTonometerDataEvent(object sender, BizTonometerDataEventArgs e)
+        {
+           // System.Diagnostics.Debug.Write(Environment.NewLine + "Value from OnBizTonometerDataEvent:" + e.data); 
+        }
+
+        private void Instance_OnBizCuffPulseEvent(object sender, BizCuffPulseEventArgs e)
+        {
+           // System.Diagnostics.Debug.Write(Environment.NewLine + "Value from OnBizCuffPulseEvent:" + e.data); 
+        }
+
+        /**This method is used to display the capture time on the capture screen when the capture is in progress.
+         */ 
+        private void DisplayCaptureTimeForPwaCapture()
+        {
+           // objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureTime) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + CrxConfigManager.Instance.PwaSettings.CaptureTime.ToString();
+            switch (CrxConfigManager.Instance.PwaSettings.CaptureTime)
+            {
+                case (int)CrxGenPwaValue.CrxPwaCapture5Seconds:
+                    objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureTime) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad5Sec);
+                    break;
+
+                case (int)CrxGenPwaValue.CrxPwaCapture10Seconds:
+                    objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureTime) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad10Sec);
+                    break;
+
+                case (int)CrxGenPwaValue.CrxPwaCapture20Seconds:
+                    objDefaultWindow.radlblCaptureTime.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureTime) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad20Sec);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /**This method is used to set the chart properties for PWA chart.
+         */ 
+        private void SetChartPropertiesForPwaChart()
+        {
+            xCoordinatePwaChart = 0;
+            screenwidthForCuffChartInPWAMode = (CrxConfigManager.Instance.PwaSettings.CaptureTime + HandShakePeriod) * SampleRate;
+
+            // Reset number of series in the chart.
+            guichartFemoralCuff.Series.Clear();
+
+            // set y axis
+            guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = TonometerHeight - 1;
+            guichartFemoralCuff.ChartAreas[0].AxisY.Maximum = TonometerHeight + 1;
+            signalStrength = 0;
+
+            // set x axis
+            guichartFemoralCuff.ChartAreas[0].AxisX.Minimum = 0;
+            guichartFemoralCuff.ChartAreas[0].AxisX.Maximum = screenwidth;
+
+            // series used for plotting the points,its chart type and the color of the graph.
+            femoralCuffSeries = new Series
+            {
+                ChartType = SeriesChartType.FastLine,
+                Color = Color.Yellow,
+                XValueType = ChartValueType.Int32,  
+                YValueType = ChartValueType.Int32
+            };
+
+            // Add the series to the chart.
+            guichartFemoralCuff.Series.Add(femoralCuffSeries);
+            guichartFemoralCuff.ChartAreas[0].AxisY.StripLines.Add(topStrip);
+            guichartFemoralCuff.ChartAreas[0].AxisY.StripLines.Add(bottomStrip);
+        }
+
+        /**This event is fired on the tick of the timer for PWA capture,it fires every 125 milliseconds.
+         */ 
+        private void tmrPwaCaptureMode_Tick(object sender, EventArgs e)
+        {          
+            ReadValueFromBufferForPwa();         
+            BizSession.Instance().DispatchCaptureData();
+        }
+
+        /** This method is called to read value from the buffer, to be plotted on the graph.This method is called during PWA capture.
+         */
+        private void ReadValueFromBufferForPwa()
+        {
+            int countdowntimerInMillisecondsForPwa = 0;
+            bool cdtimerIncrementedflagForPwa = false;
+
+            try
+            {
+                int startIndex = -1;
+                DalPwvDataStruct structData;
+                int returnedValues = DalDataBuffer.Instance.GetNextValues(RequestedValues, ref startIndex);
+
+                for (int i = 0; i < returnedValues; i++)
+                {
+                    structData = DalDataBuffer.Instance.GetValueAt(startIndex, i);
+
+                    // this is done so that during the second inflated time the progress bar starts from 0%.
+                    // previously, it used to show 100% for a fraction of a second.
+                    if ((structData.countdownTimer * 1000) > countdowntimerInMillisecondsForPwa)
+                    {
+                        cdtimerIncrementedflagForPwa = true;
+                    }
+
+                    // since countdown timer is in seconds now converting it into milliseconds
+                    countdowntimerInMillisecondsForPwa = structData.countdownTimer * 1000;
+
+                    // if (CrxConfigManager.Instance.PwaSettings.CaptureInput.Equals(Convert.ToInt32(CrxPwaCaptureInput.Tonometer)))
+                    // {
+                    //    ushort tonometerData = structData.tonometerData;
+                    //    PlotTonometerData(tonometerData);
+                    //    GuiCommon.bizPwaobject.Append(tonometerData); 
+                    // }
+
+                    // if (CrxConfigManager.Instance.PwaSettings.CaptureInput.Equals(Convert.ToInt32(CrxPwaCaptureInput.Cuff)))
+                    // {
+                    //    ushort femoralCuffData = structData.cuffPulseData;
+                    //    PlotFemoralCuffData(femoralCuffData);
+                    //    GuiCommon.bizPwaobject.Append(femoralCuffData); 
+                    // }
+                    if (femoralPlotSwitch)
+                    {
+                        if (cuffstatechangeFlag && cdtimerIncrementedflagForPwa)
+                        {
+                           // System.Diagnostics.Debug.Write(Environment.NewLine + "Value for time to deflattion timer is set to 0.");
+                            guiradprgbarTimeToInflatioDeflation.Minimum = 0;
+                            if (countdowntimerInMillisecondsForPwa > 0)
+                            {
+                               // System.Diagnostics.Debug.Write(Environment.NewLine + "Value for time to deflattion timer is incrementing.");
+                                guiradprgbarTimeToInflatioDeflation.Maximum = countdowntimerInMillisecondsForPwa; // - int.Parse(deflationTime.ToString()); // (int)structData.countdownTimer
+                            }
+
+                          // System.Diagnostics.Debug.Write(Environment.NewLine + "Value1 for time to deflattion timer is set to 0.");
+                            guiradprgbarTimeToInflatioDeflation.Value1 = 0;
+                            cuffstatechangeFlag = false;
+                            cdtimerIncrementedflagForPwa = false;
+                        }
+
+                        if ((guiradprgbarTimeToInflatioDeflation.Maximum - countdowntimerInMillisecondsForPwa) > 0)
+                        {
+                           // System.Diagnostics.Debug.Write(Environment.NewLine + "Value1 for time to deflattion timer is set to countodown timer value which is :" + (guiradprgbarTimeToInflatioDeflation.Maximum - countdowntimerInMillisecondsForPwa).ToString()); 
+                            guiradprgbarTimeToInflatioDeflation.Value1 = guiradprgbarTimeToInflatioDeflation.Maximum - countdowntimerInMillisecondsForPwa; // (int)structData.countdownTimer; // -int.Parse(deflationTime.ToString());
+                        }
+
+                        // Get time to display
+                        // conver miliseconds to seconds first
+                        uint seconds = structData.countdownTimer;
+
+                        // now get minutes and seconds 
+                        uint minutes = (seconds >= 60) ? (seconds / 60) : 0;
+                        seconds = (seconds >= 60) ? (seconds % 60) : seconds;
+                        radlblTimeStatus.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblTimestatus) + " " + minutes + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon) + ((seconds >= 10) ? string.Empty : "0") + seconds;
+                        if (CrxConfigManager.Instance.PwaSettings.CaptureInput.Equals(Convert.ToInt32(CrxPwaCaptureInput.Cuff)))
+                        {
+                            ushort femoralCuffData = structData.cuffPulseData;
+
+                            // PlotFemoralCuffData(femoralCuffData);
+                            PlotFemoralCuffInPwaMode(femoralCuffData);  
+                            GuiCommon.bizPwaobject.Append(femoralCuffData);
+                        }
+                    }
+                    else
+                    {
+                        guiradprgbarTimeToInflatioDeflation.Maximum = 0;
+
+                        // plot flat line for femoral when cuff is not inflated as value 0
+                        // PlotFemoralCuffData(0);
+                        PlotFemoralCuffInPwaMode(0); 
+                        GuiCommon.bizPwaobject.Append(0);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                tmrPwaCaptureMode.Enabled = false;
+                GUIExceptionHandler.HandleException(ex, this);
+                if (radbtnTick.Enabled)
+                {
+                    DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiCaptureError), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNoCancel, RadMessageIcon.Error);
+                    switch (ds)
+                    {
+                        case DialogResult.Yes:
+                            TickButtonActionForPwaMode();
+                            break;
+                        case DialogResult.No:
+                            ShowSetupAfterCaptureAbort();
+                            break;
+                        default:
+                            // BizSession.Instance().StopCapture();
+                            GuiCommon.ScorControllerObject.StopCapture();  
+                            StopTimers();
+                            guichartFemoralCuff.Series.Clear();
+                            guichartFemoralCuff.Series.Remove(femoralCuffSeries);
+                            chartTonometer.Series.Clear();
+                            chartTonometer.Series.Remove(newSeries);
+                            Invoke(new EventHandler(Capture_Load));
+                            break;
+                    }
+                }
+            }
+        }
+
+        /**This method is called when the user wants to generate a report in PWV mode.
+         */ 
+        public void ActionPerformedAfterClickingCancelForPwvMode()
+        {
+            tmrPwvCaptureMode.Enabled = false;
+            GenerateReportWhenCaptureIsEnabled();
+        }
+
+        /**This method is called when the user wants to generate a report in PWA mode.
+         */ 
+        public void ActionPerformedAfterClickingCancelForPwaMode()
+        {
+            tmrPwaCaptureMode.Enabled = false;
+            GenerateReportWhenCaptureIsEnabledForPwaMode();
+        }
+
+        /**This method is called when the user wants to generate a report in PWA mode.
+        */ 
+        private void GenerateReportWhenCaptureIsEnabledForPwaMode()
+        {
+             // if Ok btn is enabled and user clicks on Cancel then ask the user if he wants to generate report or abort.
+            if (radbtnTick.Enabled)
+            {
+                DialogResult ds = RadMessageBox.Show(this, GuiCommon.MessageToBeDisplayed + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureTickMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNo, RadMessageIcon.Info);
+                if (ds == DialogResult.Yes)
+                {
+                    TickButtonActionForPwaMode();
+                }
+                else
+                {
+                    // navigate user to Setup screen
+                    ShowSetupAfterCaptureAbort();
+                }
+
+                Close();
+            }
+            else
+            {
+                CrossButtonActionForPwaMode();
+            }
+
+            GuiCommon.MessageToBeDisplayed = string.Empty; 
+        }
+
+        /**This method is called when the user wants to generate a report in PWA mode.
+        */ 
+        public void TickButtonActionForPwaMode()
+        {
+            // Adding a temporary message box saying "Calculation of Report not yet implemented."
+            tmrPwaCaptureMode.Enabled = false;
+            RadMessageBox.Show("Calculation of Report for PWA is not yet implemented.");
+            ShowSetupAfterCaptureAbort(); 
+            return;
+
+            // This part of code is under implementation and is not part of Drop 2 sprint 4 delivery.
+            //try
+            //{
+            //    // Disable Pwa timer.
+            //    tmrPwaCaptureMode.Enabled = false;
+            //    objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiCaptureGeneratingReport);
+
+            //    // Following code needs to be reviewed for PWA report calculation.
+            //    CrxStructPWAMeasurementData pwaData = new CrxStructPWAMeasurementData();
+            //    object pDataSetPeriph;
+
+            //    if (CrxConfigManager.Instance.PwaSettings.CaptureInput.Equals(Convert.ToInt32(CrxPwaCaptureInput.Tonometer)))
+            //    {
+            //        pDataSetPeriph = new CrxStructTonoPWAMeasurementData();
+            //    }
+            //    else
+            //    {
+            //        pDataSetPeriph = new CrxStructCuffPWAMeasurementData();
+            //    }
+
+            //    // Implementation of report generation for PWA report.
+            //    if (GuiCommon.bizPwaobject.CalculatePWAReport(pwaData, pDataSetPeriph))
+            //    {
+            //        // report calculation successful save report & navigate to report screen
+            //        StopCaptureAndSaveReportForPwaMode();
+            //    }
+            //    else
+            //    {
+            //        // report calculation failed create text file and navigate to setup
+            //        CreateTextFileOnReportFailedForPwaMode();
+            //        ShowSetupAfterCaptureAbort(); 
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    // for any exception during report calculation create text file, show error message & report calculation failed message
+            //    StopTimers();
+            //    CrxLogger.Instance.Write(ex.StackTrace);
+            //    CreateTextFileOnReportFailed();
+            //    GUIExceptionHandler.HandleException(ex, this);
+            //    ShowSetupAfterCaptureAbort();
+            //}
+        }
+
+        /**This method is used to stop the capture and save the report generated into the database.
+         */ 
+        private void StopCaptureAndSaveReportForPwaMode()
+        {
+            // to be implemented.
+        }
+
+        /**This method is used to create a text file if the report calcuation fails.
+         */ 
+        private void CreateTextFileOnReportFailedForPwaMode()
+        {
+            StopTimers();
+            objDefaultWindow.radlblMessage.Text = string.Empty;
+
+            // report calculation failed save captured data in text file                
+            // this will create text file & will save data captured so far            
+            // GuiCommon.bizPwaobject.SaveCaptureData();   
+            GuiCommon.ScorControllerObject.SaveCaptureData();   
+
+            // GetSavedfile path should only be called once.
+            string captureFilePath = DalModule.Instance.GetSavedFilePath();
+
+            // show error message alongwith filename
+            RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportCalFailMsg) + Environment.NewLine + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiWaveformSaveMsg) + Environment.NewLine + captureFilePath, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+
+            // log the error
+            CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportCalFailMsg) + Environment.NewLine + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiWaveformSaveMsg) + Environment.NewLine + captureFilePath);
+        }
+
+        /**This method is called when the user clicks the cancel button to stop the capture in PWA mode.
+         */ 
+        private void CrossButtonActionForPwaMode()
+        {
+            try
+            {
+                tmrPwaCaptureMode.Enabled = false;
+                DialogResult ds = RadMessageBox.Show(this, GuiCommon.MessageToBeDisplayed + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureFailed), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNo, RadMessageIcon.Info);
+                if (ds == DialogResult.Yes)
+                {
+                    ShowSetupAfterCaptureAbort();
+                    Close();
+                }
+                else
+                {
+                    tmrPwaCaptureMode.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        /**This method is used to handle keyboard events for PWV mode.
+         */ 
+        public void HandleKeyDownEventForPwvMode(KeyEventArgs e)
+        {
+            tmrPwvCaptureMode.Enabled = false;
+            if (e.KeyCode == Keys.Escape)
+            {
+                GenerateReportWhenCaptureIsEnabled();
+            }
+            else if (e.KeyCode == Keys.Space && radbtnTick.Enabled)
+            {
+                TickButtonAction();
+                Close();
+            }
+            else if (e.KeyCode == Keys.Space && !radbtnTick.Enabled)
+            {
+                e.SuppressKeyPress = true;
+                tmrPwvCaptureMode.Enabled = true;
+            }
+        }
+
+        /**This method is used to handle keyboard events for PWA mode.
+         */ 
+        public void HandleKeyDownEventForPwaMode(KeyEventArgs e)
+        {
+            tmrPwaCaptureMode.Enabled = false;
+            if (e.KeyCode == Keys.Escape)
+            {
+                GenerateReportWhenCaptureIsEnabledForPwaMode();
+            }
+            else if (e.KeyCode == Keys.Space && radbtnTick.Enabled)
+            {
+                TickButtonActionForPwaMode();
+                Close();
+            }
+            else if (e.KeyCode == Keys.Space && !radbtnTick.Enabled)
+            {
+                e.SuppressKeyPress = true;
+                tmrPwaCaptureMode.Enabled = true;
+            }
+        }
+
+        /**This method is used to plot the cuff waveform in PWA mode.
+         * This method is called every 125 milliseconds.
+         */ 
+        private void PlotFemoralCuffInPwaMode(ushort data)
+        {
+            try
+            {
+                // when cuff is not inflated data will have value 0 to plot, setting minimum y axis range for femoral chart to -10 to show flat line
+                if (data == 0)
+                {
+                    guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = -100;
+                }
+                else
+                {
+                    // if minimum value is less than 0 set it normal (data * ChartAreaMinimumY;)
+                    if (guichartFemoralCuff.ChartAreas[0].AxisY.Minimum == -100)
+                    {
+                        guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = data * GuiConstants.ChartAreaMinimumY;
+                    }
+                    else
+                    {
+                        if (data < guichartFemoralCuff.ChartAreas[0].AxisY.Minimum)
+                        {
+                            guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = data * GuiConstants.ChartAreaMinimumY;
+                        }
+                    }
+                }
+
+                // set the maximum y-axis,if the incoming data has a point greater than the existing y-axis value then set the new data point as the y-axix maximum.
+                if (data > guichartFemoralCuff.ChartAreas[0].AxisY.Maximum)
+                {
+                    guichartFemoralCuff.ChartAreas[0].AxisY.Maximum = data * GuiConstants.ChartAreaMaximumY;
+                }
+
+                // Add new data point to its series.                               
+                femoralCuffSeries.Points.AddXY(xCoordinatePwaChart, data);
+                xCoordinatePwaChart++;
+
+                if ((xCoordinatePwaChart > screenwidthForCuffChartInPWAMode) && (xCoordinatePwaChart - screenwidthForCuffChartInPWAMode) % TwoSecondsWindow == 1)
+                {
+                    for (int i = 1; i <= TwoSecondsWindow; i++)
+                    {
+                        femoralCuffSeries.Points.RemoveAt(0);
+                    }
+
+                    // Finding the max and min values for y-axis available in the series.
+                    DataPoint dpMaxFemoral = femoralCuffSeries.Points.FindMaxByValue();
+
+                   // topStrip.IntervalOffset = Convert.ToDouble(dpMaxFemoral);
+                    DataPoint dpMinFemoral = femoralCuffSeries.Points.FindMinByValue();
+                    
+                   // bottomStrip.IntervalOffset = Convert.ToDouble(dpMinFemoral);
+
+                    // Adjusting the max and min y axis of the chart to the max and min values respectively
+                    // available in the series.
+                    guichartFemoralCuff.ChartAreas[0].AxisY.Maximum = (dpMaxFemoral.YValues[0] + 1) * GuiConstants.ChartAreaMaximumY;
+                    guichartFemoralCuff.ChartAreas[0].AxisY.Minimum = (dpMinFemoral.YValues[0] - 1) * GuiConstants.ChartAreaMinimumY;
+
+                    // Adjusting the x-axis min and max after the 2 second shift.
+                    guichartFemoralCuff.ChartAreas[0].AxisX.Minimum = femoralCuffSeries.Points[0].XValue;
+                    guichartFemoralCuff.ChartAreas[0].AxisX.Maximum = femoralCuffSeries.Points[0].XValue + screenwidthForCuffChartInPWAMode;
+                }
+                else if (xCoordinatePwaChart >= screenwidthForCuffChartInPWAMode)
+                {
+                    // do nothing in this condition.
+                }
+                else
+                {
+                    // set the x axis's minimum and maximum values.
+                    guichartFemoralCuff.ChartAreas[0].AxisX.Minimum = femoralCuffSeries.Points[0].XValue;
+                    guichartFemoralCuff.ChartAreas[0].AxisX.Maximum = femoralCuffSeries.Points[0].XValue + screenwidthForCuffChartInPWAMode;
+                }
+
+                guichartFemoralCuff.Invalidate();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        // End: AtCor-<Drop2>-<Sprint4>, TM, <SWREQ2022,SWREQ2023,SWREQ2024,SWREQ2025>,<17 August 2011>
     }
 }

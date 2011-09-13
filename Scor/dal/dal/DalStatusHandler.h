@@ -16,6 +16,7 @@
 
 using namespace System;
 using namespace System::IO;
+using namespace AtCor::Scor::CrossCutting;
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -59,15 +60,15 @@ namespace AtCor{
 					static void ResetAllStaticMembers();
 
 					/**
-					* Returns a string with he name of the supply rails alarm which triggered the AS flag 
+					* Returns a string with the name of the supply rails alarm which triggered the AS flag 
 					* Called internally from GetAlarmSource().
 					*/
-					String^ GetSupplyRailsAlarmSource();
+					String^ GetSupplyRailsAlarmSource(DalAlarmSource% translatedAlarmSource);
 
 					/**
 					* Returns a string with he name of the supply rails alarm which triggered the AS flag 
 					*/
-					String^ GetNameofRaisedAlarmFlag();
+					String^ GetNameofRaisedAlarmFlag(DalAlarmSource% translatedAlarmSource);
 
 				
 				public:
@@ -75,7 +76,7 @@ namespace AtCor{
 					* Returns the source of alarm
 					* @return	The name of the alarm source 
 					*/
-					virtual String^ GetAlarmSource(); 
+					virtual String^ GetAlarmSource(DalAlarmSource% translatedAlarmSource); 
 
 					/**
 					* Checks if there is a change in cuff status. 
@@ -112,12 +113,7 @@ namespace AtCor{
 					*/
 					static DalErrorAlarmStatusFlag TranslateAlarmStatusBits(unsigned long statusFlags); 
 
-					///*
-					//* Converts the input array into a hexadecimal string representation.
-					//* @param	inputArray	The input array
-					//* @return	A string representation of the input array
-					//*/
-					//static String^ ConvertBytesToString(array<unsigned char>^ inputArray);
+					
 
 					/**
 					* Dumps the tonometer and cuff data to a backup file @n
@@ -129,6 +125,15 @@ namespace AtCor{
 					*/
 					virtual bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
 					
+
+					/**
+					* Dumps the tonometer and cuff data to a backup file @n
+					* Obtain the name using @c GetSavedFileName
+					* @param[in]	cuffPulse	Array with cuff pulse data values
+					* @param[in]	bufferSize	The size of the buffer to be dumped
+					* @return	 @c true if the operation was successful
+					*/
+					virtual bool SaveCaptureData(array< unsigned short >^ cuffPulse, unsigned short bufferSize);
 
 					/**
 					* Returns the name and filepath of the dump file saved by @c SaveCaptureData
@@ -205,6 +210,10 @@ namespace AtCor{
 					* @param[in]	unusedFlagType	The flag name.
 					*/
 					static void ProcessUnusedBit( unsigned long & oldFlag , const unsigned long  & newFlag, DalUnusedStatusFlagBit unusedFlagType);
+
+
+					static void RaiseEventForException(DalErrorAlarmStatusFlag alarmType, ScorException^ excptionObject);
+
 
 
 					

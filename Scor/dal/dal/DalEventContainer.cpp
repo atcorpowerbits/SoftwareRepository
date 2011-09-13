@@ -54,19 +54,25 @@ namespace AtCor{
 				return this;
 			}
 
-			//Deepak: No event to get EA source. It will be called by method
-			//DalErrorAlarmSourceEventArgs::DalErrorAlarmSourceEventArgs(String^ data)
-			//{
-			//	//assign the parameter to class member
-			//	this->ErrorAlarmSource  = data;
-			//}
-
-			DalModuleErrorAlarmEventArgs::DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag data, String^ alarmSource)
+			DalModuleErrorAlarmEventArgs::DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag data, String^ alarmSource, DalAlarmSource alarmSourceEnum)
 			{
 				//assign the parameter to class member
 				this->ErrorAlarmStatus = data;
 
 				this->AlarmSourceName = alarmSource;
+				this->SpecificAlarmSource = alarmSourceEnum;
+				
+			}
+
+			DalModuleErrorAlarmEventArgs::DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag data, String^ alarmSource, DalAlarmSource alarmSourceEnum, ScorException^ scorExceptionObject)
+			{
+				//assign the parameter to class member
+				this->ErrorAlarmStatus = data;
+
+				this->AlarmSourceName = alarmSource;
+				this->SpecificAlarmSource = alarmSourceEnum;
+
+				this->ScorExceptionObject = scorExceptionObject;
 				
 			}
 

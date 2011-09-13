@@ -265,45 +265,34 @@ namespace AtCor{
 			//we will simply interupt a sleeping thread.
 			void DalActivePort::DataReceviedHandler(Object ^, SerialDataReceivedEventArgs ^)
 			{
-				//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event raised Avalibale "+ _serialPort->BytesToRead);
-			
-			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING 1st Time");
-				Thread::Sleep(0);
+				try
+				{
+					CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event raised Avalibale "+ _serialPort->BytesToRead);
+				
+					Thread::Sleep(0);
 
-				//Call directly instead of from a thread. that wy, the event is not raised repeatedly
-				ReadDataFromPort();
+					//Call directly instead of from a thread. that wy, the event is not raised repeatedly
+					ReadDataFromPort();
 
-			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Signalling DalStagingQueue");
-				//Inform the DalStagingQueue that data is available
-				DalStagingQueue::Instance->SignalDataAvailable();
+					//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Signalling DalStagingQueue");
+					
+					//Inform the DalStagingQueue that data is available
+					DalStagingQueue::Instance->SignalDataAvailable();
 
-				//////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING 2nd Time ");
-				//Thread::Sleep(0);
+					serialDataWasRecieved = true; //set the marker to true to let the checker know that we got the data
+				}
+				catch(ScorException^ scorExObj)
+				{
+					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException , scorExObj);
+				}
+				catch(Exception^ excepObj)
+				{
+					//throw gcnew ScorException(excepObj);
+					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, gcnew ScorException(excepObj));
+				}
 
-				serialDataWasRecieved = true; //set the marker to true to let the checker know that we got the data
-
-				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler exiting Avalibale "+ _serialPort->BytesToRead);
 			}
 
-			//void DalActivePort::DataReceviedHandler(Object ^, SerialDataReceivedEventArgs ^)
-			//{
-			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event raised Avalibale "+ _serialPort->BytesToRead);
-
-			//	//tRY INTERUPTING BEFORE YOU CALL THE SLEEP METHOS
-			//	//interupt the new thread
-			//	/*dataAvaliable =  true;*/
-			//	readerThread->Interrupt();
-			//	
-
-			//	//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler SLEEPING");
-			//	Thread::Sleep(50); 
-			//	//Zero sleep does not prevent this method from raising repeatedly. Multiple event rises tend to hog the system
-			//	//and prevent other threads from running. 25 is a good sleep period but doesnt work well 
-			//	//. We will set it for 50 in order to test
-
-			//	//Call directly instead of from a thread. that wy, the event is not raised repeatedly
-			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event Handler exiting Avalibale "+ _serialPort->BytesToRead);
-			//}
 
 			void DalActivePort::ReadDataFromPort()
 			{
@@ -415,12 +404,14 @@ namespace AtCor{
 				
 					//change the state
 					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
+					//ChangeCaptureState(DalCaptureStateTimeout::Instance); //call directly so that it is applicable for its children too
+										
 					//CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout Timeout occured Raising event." );
 
 					
 					//raise event 
 					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureTimeout, DalFormatterStrings::PrintEnumName);
-					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureTimeout, sourceName);
+					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureTimeout, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::DataCaptureTimeout));
 					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 
 					//after raising a timout event , subsequent checks will also timout. 
@@ -428,6 +419,7 @@ namespace AtCor{
 					timeoutCheckTimer->Enabled = false;
 
 					DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
+					//ChangeCaptureState(DalCaptureStateNotListening::Instance); //call directly so that it is applicable for its children too
 				}
 			}
 

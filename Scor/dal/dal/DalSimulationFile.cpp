@@ -16,6 +16,7 @@ using namespace AtCor::Scor::DataAccess;
 using namespace AtCor::Scor::CrossCutting::Logging;
 using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace AtCor::Scor::CrossCutting;
+using namespace System::Text;
 
 
 	bool DalSimulationFile::OpenFile()
@@ -88,6 +89,7 @@ using namespace AtCor::Scor::CrossCutting;
 	{
 		//asign the source path to filePAth and open file
 		filePath = sourceFilePath;
+		
 		//Open the source file.
 		OpenFile();
 	}
@@ -101,7 +103,8 @@ using namespace AtCor::Scor::CrossCutting;
 	bool DalSimulationFile::GetNextValues(unsigned long *value1)
 	{
 		String ^singleLine; //temporary variable to store string
-		
+		try
+		{
 		if (reader == nullptr)
 		{
 			 //Simulation file has not been opened before attempting to read
@@ -115,14 +118,38 @@ using namespace AtCor::Scor::CrossCutting;
 		}
 		singleLine = reader->ReadLine();
 		
+		//Removing special characters from the string
+		singleLine = RemoveSpecialCharacters(singleLine);
+		
 		//return values to calling function
+		//CrxLogger::Instance->Write(singleLine);
 		*value1 = (short)Single::Parse(singleLine);
 		//successful
 		return true;
+		}
+		catch(Exception^ ex)
+		{
+			throw gcnew ScorException(ex);
+		}
 	}
 	
+	String^ DalSimulationFile::RemoveSpecialCharacters(String^ str)
+    {
+
+        StringBuilder^ sb = gcnew StringBuilder();
+        for (int i = 0; i < str->Length; i++)
+        {
+            if ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'A' && str[i] <= 'z' || (str[i] == '.' || str[i] == '_')))
+                sb->Append(str[i]);
+        }
+
+        return sb->ToString();
+    }
+
 	bool DalSimulationFile::GetNextValues(unsigned long *value1, unsigned long *value2)
 	{
+		try
+		{
 		String ^singleLine; //temporary variable to store string
 		array<String^> ^DataStrings; //string array to store the returned numbers
 
@@ -146,10 +173,17 @@ using namespace AtCor::Scor::CrossCutting;
 		//successful
 		return true;
 	}
+		catch(ScorException^ exObj)
+		{
+			throw gcnew ScorException(exObj);
+		}
+	}
 
 
 	bool DalSimulationFile::GetNextValues(unsigned long *value1, unsigned long *value2, unsigned long *value3, unsigned long *value4) 
 	{
+		try
+		{
 		String ^singleLine; //temporary variable to store string
 		array<String^> ^DataStrings; //string array to store the returned numbers
 
@@ -179,6 +213,11 @@ using namespace AtCor::Scor::CrossCutting;
 				
 		return true;
 	}
+		catch(Exception^ exObj)
+		{
+			throw gcnew ScorException(exObj);
+		}
+	}
 
 	bool DalSimulationFile::ResetFileStreamPosition()
 	{
@@ -194,8 +233,8 @@ using namespace AtCor::Scor::CrossCutting;
 		return true;
 	}
 
-bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse)
-{
+	bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse)
+	{
 	String ^singleLine = tonometerData.ToString() + DalFormatterStrings::tabSeparatorString + cuffPulse.ToString();
 
 	try
@@ -207,10 +246,23 @@ bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned
 	{
 		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
 	}
-}
+	}
+
+	bool DalSimulationFile::SaveCurrentValues(unsigned short cuffPulse)
+	{
+		try
+		{
+			writer->WriteLine(cuffPulse.ToString());
+			return true;
+		}
+		catch(System::Exception^)
+		{
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
+		}
+	}
 
 	bool DalSimulationFile::CreateFile(String^ outputFilePath)
-{
+	{
 	filePath = outputFilePath;
 	//String^ currentDir = Directory::GetCurrentDirectory();
 
@@ -224,5 +276,5 @@ bool DalSimulationFile::SaveCurrentValues(unsigned short tonometerData, unsigned
 	{
 		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
 	}
-}
+	}
 

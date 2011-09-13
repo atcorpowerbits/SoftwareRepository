@@ -1,5 +1,8 @@
 ﻿
 #include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
+#include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
 namespace TestDal {
@@ -103,6 +106,79 @@ namespace TestDal {
 				DalBinaryConversions_Accessor^  target = (gcnew DalBinaryConversions_Accessor());
 				Assert::Inconclusive(L"TODO: Implement code to verify target");
 			}*/
+
+			/// <summary>
+			///A test for ConvertAlarmType
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void ConvertAlarmType_DalAlarmFlagBitPosition_Test()
+			{
+				DalAlarmFlagBitPosition  alarmType = DalAlarmFlagBitPosition::HighDeflationRate ; 
+				DalAlarmSource expected = DalAlarmSource::HighDeflationRate ; // should have same name as the source but the result is of a different enum
+				DalAlarmSource actual;
+				actual = DalBinaryConversions_Accessor::ConvertAlarmType(alarmType);
+				Assert::AreEqual(expected, actual);
+				
+			}
+			/// <summary>
+			///A test for ConvertAlarmType
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void ConvertAlarmType_DalAlarmSupplyRailFlag_Test()
+			{
+				DalAlarmSupplyRailFlag  alarmType = DalAlarmSupplyRailFlag::Source5VD ; //Taken at random
+				DalAlarmSource expected = DalAlarmSource::Source5VD ; // should have same name
+				DalAlarmSource actual;
+				actual = DalBinaryConversions_Accessor::ConvertAlarmType(alarmType);
+				Assert::AreEqual(expected, actual);
+			}
+			/// <summary>
+			///A test for ConvertAlarmType
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void ConvertAlarmType_DalErrorAlarmStatusFlag_Test()
+			{				
+				DalErrorAlarmStatusFlag  alarmType = DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket ; 
+				DalAlarmSource expected = DalAlarmSource::DataCaptureErrorInvalidPacket; 
+				DalAlarmSource actual;
+				actual = DalBinaryConversions_Accessor::ConvertAlarmType(alarmType);
+				Assert::AreEqual(expected, actual);
+				
+			}
+
+			/// <summary>
+			///A test for ConvertAlarmType
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void ConvertAlarmType_String_Test()
+			{				
+				String^ alarmName = "RecoverableStatus" ;
+				DalAlarmSource expected = DalAlarmSource::RecoverableStatus; 
+				DalAlarmSource actual;
+				actual = DalBinaryConversions_Accessor::ConvertAlarmType(alarmName);
+				Assert::AreEqual(expected, actual);
+				
+			}
+
+
+			/// <summary>
+			///A test for ConvertAlarmType
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void ConvertAlarmType_String_Neg_Test()
+			{				
+				String^ alarmName = "Garbage" ;
+				DalAlarmSource expected = DalAlarmSource::NoAlarmDefined; 
+				DalAlarmSource actual;
+				actual = DalBinaryConversions_Accessor::ConvertAlarmType(alarmName);
+				Assert::AreEqual(expected, actual);
+				
+			}
 	};
 }
 namespace TestDal {

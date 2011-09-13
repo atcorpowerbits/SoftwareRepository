@@ -30,23 +30,22 @@ namespace AtCor{
 			* @brief Class to operate in simulation mode. Holds references to simulation file handles. 
 			*/
 			//Inherit from IDalHandler
-			private ref class DalSimulationHandler : public IDalHandler , public DalStatusHandler 
+			private ref class DalSimulationHandler abstract: public IDalHandler , public DalStatusHandler 
 			{
 				private:
-					 static bool firstReadAfterCaptureStarted = false;
-
+					 
 					static DalDataBuffer ^dataBufferObj; //to hold pointer to object
 
 					//Making these two variables static. They need to be accessed from static member functions.
 					static DalSimulationFile^ _tonometerSimulationFile; //Pointer to first simulation file
 					static DalSimulationFile^ _cuffTimerSimulationFile; //pointer to second simulation file (for other cuff related measurements)
-					Timers::Timer ^captureTimer;  //Timer to fire simulated data events
-					//static void OnTimerGetValuesAndRaiseEvents(Object^ sender, ElapsedEventArgs^ args); //Method to raise events at a specific time imterval //Obsolete
-					static void OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args); //read multiple events in each interval
-					//static void ReadMultipleEventsInLoop(); //making non static in order to raise events. static members cannot have this pointer
+					
+		
+					
+					//static void OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args); //read multiple events in each interval
 					static void ReadMultipleEventsInLoop(Object^ sender);
 					
-					static DalSimulationHandler^ _instance = gcnew DalSimulationHandler();
+					//static DalSimulationHandler^ _instance = gcnew DalSimulationHandler();
 
 					/**
 					 * Overloaded assignment Operator. @n
@@ -54,11 +53,20 @@ namespace AtCor{
 					 */
 					DalSimulationHandler^ operator=(DalSimulationHandler^) 
 					{
-						return this;
+						//return this;
+						return nullptr;
 					}  
+			protected:
+					static bool firstReadAfterCaptureStarted ;
 
+					//Added by TS Stub
+					static bool cuffInUse = false; // to indicate cuff is inflating, inflated, or deflating
+		
 					DalSimulationHandler(); //Constructor , made private to implement singleton
-					
+					static void OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args); //read multiple events in each interval
+					//static void ReadMultipleEventsInLoop(Object^ sender);
+					virtual ~DalSimulationHandler();
+					Timers::Timer ^captureTimer;  //Timer to fire simulated data events
 				public:
 					
 					/**
@@ -112,7 +120,7 @@ namespace AtCor{
 					*
 					* @return The status of the operation
 					*/
-					bool GetFileNameFromConfgAndOpen();
+					virtual bool GetFileNameFromConfgAndOpen();
 
 
 					//function is being moved to DalStatusHandler for unification
@@ -130,20 +138,20 @@ namespace AtCor{
 					* Property with custom get method to supply instance.@n
 					* Used to implement singleton
 					*/
-					static property DalSimulationHandler^ Instance
-					{
+					//static property DalSimulationHandler^ Instance
+					//{
 
-						/**
-						* Custom get method. @n
-						* Returns a pointer to this singleton instance.
-						*
-						* @return	Pointer to this instance
-						*/
-						DalSimulationHandler^ get()
-						{
-							return DalSimulationHandler::_instance;
-						};
-					};
+					//	/**
+					//	* Custom get method. @n
+					//	* Returns a pointer to this singleton instance.
+					//	*
+					//	* @return	Pointer to this instance
+					//	*/
+					//	DalSimulationHandler^ get()
+					//	{
+					//		//return DalSimulationHandler::_instance;
+					//	};
+					//};
 
 
 					/**
@@ -153,6 +161,10 @@ namespace AtCor{
 					* @warning This is a stub method for simulationa and will always return @c true
 					*/
 					virtual bool SetIdleMode();
+
+					virtual bool IsCuffDeflated();
+
+					virtual void CloseFiles();
 
 			};
 		}

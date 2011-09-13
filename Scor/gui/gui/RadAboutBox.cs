@@ -53,7 +53,7 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.SetShape(guiradbtnPrint, guiradbtnOk);            
         }
 
-        /** Begin: AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,4 july 2011
+        /** Begin: AtCor-Drop2-Sprint2, TM, UserStory1,4 july 2011
          * This function returns supported features for the current key.      
          */
         public string SetKeyFeatures()
@@ -102,7 +102,7 @@ namespace AtCor.Scor.Gui.Presentation
             return strFeatures;
         }
 
-        // end  AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,4 july 2011
+        /* end  AtCor-Drop2-Sprint2, TM, UserStory1,4 july 2011
 
         /** This method sets about box information in respective labels
          * */

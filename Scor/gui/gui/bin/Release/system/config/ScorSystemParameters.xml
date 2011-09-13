@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <Parameters> 
    <TonometerPulseHeightVariationHigh>20</TonometerPulseHeightVariationHigh> 
    <TonometerPulseHeightVariationLow>10</TonometerPulseHeightVariationLow> 
@@ -19,16 +20,49 @@
 		<UnusedBits>N</UnusedBits>
    </ProcessStatusFlagParts>
   <Gui>
-    <WaitButtonDelay>10</WaitButtonDelay>
+    <WaitButtonDelay>5</WaitButtonDelay>
     <AutoPWAProgressbarDelay>15</AutoPWAProgressbarDelay>
   </Gui>
 	<Crx>
 		<Logging>
-			<Enable>N</Enable>
+			<Enable>Y</Enable>
 	   </Logging>
 	</Crx>
+  <PWV>
+    <Cuff>
+      <Inflation>
+        <Timeout>15</Timeout>
+      </Inflation>
+      <Deflation>
+        <Timeout>10</Timeout>
+      </Deflation>
+      <Reinflation>
+        <Rest>0</Rest>
+      </Reinflation>
+    </Cuff>
+  </PWV>
    <MyTestValues>
 		<Value1>1</Value1>
 		<Value2>2</Value2>
    </MyTestValues>
+   <log4net>
+		<appender name="LogFileAppender" type="log4net.Appender.RollingFileAppender" >
+			<param name="File" value="./system/Logs/scor.log" />
+			<param name="AppendToFile" value="true" />
+			<rollingStyle value="Composite" />
+			<maxSizeRollBackups value="10" />
+			<maximumFileSize value="70KB" />
+			<staticLogFileName value="true" />
+			<layout type="log4net.Layout.PatternLayout">			
+        <param name="ConversionPattern" value="%d{MM/dd/yyyy} ~ %d{HH:mm:ss.fff} ~ [%c] - %m%n%n" />
+			</layout>
+		</appender>
+		<root>
+			<priority value="ALL" />
+			<appender-ref ref="LogFileAppender" />
+		</root>
+		<category name="Scor">
+			<priority value="ALL" />
+		</category>
+	</log4net>
 </Parameters>

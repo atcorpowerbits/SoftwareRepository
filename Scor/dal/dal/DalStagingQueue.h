@@ -102,12 +102,13 @@ namespace AtCor{
 				*/
 				bool ProcessSinglePacket();
 
-				//A delegate to call using begininvoke. Should have the same signature as the method being called
-				//Since we are using it within this class itself it has been defined as a class member and not outside.
-				 delegate void ProcessQueueAsyncCaller();
+				//unused
+				////A delegate to call using begininvoke. Should have the same signature as the method being called
+				////Since we are using it within this class itself it has been defined as a class member and not outside.
+				// delegate void ProcessQueueAsyncCaller();
 
-				 //Delegate to call the read method in case of an underflow
-				 delegate void AttemptUnderFlowReadCaller();
+				// //Delegate to call the read method in case of an underflow
+				// delegate void AttemptUnderFlowReadCaller();
 
 				 //Clears the buffer partially.
 				 //If it is in streming mode it clears the array till the next streaming pacet.

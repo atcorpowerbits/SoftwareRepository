@@ -125,7 +125,58 @@ namespace AtCor.Scor.Gui.Presentation
                 GUIExceptionHandler.HandleException(ex, radtxtCtrl.FindForm());
             }
         }
-     
+
+        /** This method takes parameter as textbox. It checks whether the value in textbox is within the limits and range defined for that textbox
+        * If not within valid range, it will show error message
+        * */
+        public void CheckIntegerFieldLimits(RadTextBox radtxtCtrl)
+        {
+            try
+            {
+                if (radtxtCtrl.Text.Length > 0)
+                {
+                    int fieldValue = int.Parse(radtxtCtrl.Text.Trim());
+                    GetIntegerValidationErrorMsg(fieldValue, radtxtCtrl);
+                }
+            }
+            catch (OverflowException)
+            {
+                GetIntegerValidationErrorMsg(-1, radtxtCtrl);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, radtxtCtrl.FindForm());
+            }
+        }
+
+        /** This method checks the field values within range from Biz logic 
+        * and shows error message if it doesn't fall within the range
+        * */
+        private void GetIntegerValidationErrorMsg(int fieldValue, RadTextBox radtxtCtrl)
+        {
+            isFieldEmpty = false;
+
+            // read limits
+            int min = UInt16.MinValue;
+            int max = UInt16.MaxValue;
+
+            // check if value is within min & max limits
+            if (fieldValue > max || fieldValue < min)
+            {
+                // field validation error
+                isFieldEmpty = true;
+                GuiCommon.IsValueOutsideIntegerLimits = true;
+                string field = GetLabelText(radtxtCtrl.Tag.ToString());
+               // radtxtCtrl.Text = string.Empty;
+                string err = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiLimitsFormat), field, min, string.Empty, max, string.Empty);
+                RadMessageBox.Show(err, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+            }
+            else
+            {
+                GuiCommon.IsValueOutsideIntegerLimits = false;
+            }
+        }
+
         /** This method checks if mandatory fields are entered and accordingly displays missing field error message
          * */
         public bool CheckMandatoryFields()

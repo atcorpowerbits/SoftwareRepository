@@ -37,10 +37,9 @@ namespace AtCor{
 			{
 				private:
 					String^ _commPort; //The current comm port name. Can be a real port or simulation
-					DalCommandInterface^ _commandInterface;
+					
 					//CrxLogger ^logObj;
 					CrxMessagingManager ^ messagingMgr;
-					DalDataBuffer ^dataBufferObj; //to hold pointer to object
 					static DalDeviceHandler^ _instance = gcnew DalDeviceHandler();
 
 					/**
@@ -51,20 +50,16 @@ namespace AtCor{
 					{
 						return this;
 					}  
+				protected:
+					DalDataBuffer ^dataBufferObj; //to hold pointer to object
+					DalCommandInterface^ _commandInterface;
+					
 					
 				public:
 					/**
 					* Constructor for the class.
 					*/
 					DalDeviceHandler(); 
-
-
-					///*
-					//* Start the data capture fromt the device.
-					//*
-					//* @warning This is a stub only. It is not meant to be used and is only retained for compatibility with stub.
-					//*/
-					//virtual bool StartCapture(); //obsolete
 
 					/**
 					* Start the data capture fromt the device. @n
@@ -104,7 +99,7 @@ namespace AtCor{
 					* Returns the name of the last error or alarm source
 					* @return	A string contianing the name of the source
 					*/
-					virtual String^ GetAlarmSource() new; 
+					virtual String^ GetAlarmSource(DalAlarmSource% translatedAlarmSource) new; 
 
 					/**
 					* Looks for the EM4 module on the serial ports
@@ -182,6 +177,10 @@ namespace AtCor{
 					*/
 					virtual bool SetIdleMode();
 
+					//TS Stub
+					virtual bool IsCuffDeflated();
+
+					virtual void CloseFiles();
 
 			};
 		}

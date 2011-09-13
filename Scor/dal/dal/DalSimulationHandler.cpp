@@ -15,6 +15,7 @@
 #include "DalDataBuffer.h"
 #include "DalModule.h"
 #include "DalCommon.h"
+#include "DalBinaryConversions.h"
 
 
 using namespace System;
@@ -40,6 +41,25 @@ namespace AtCor{
 				_currentStatusFlag = 0;
 
 				dataBufferObj = DalDataBuffer::Instance;
+			}
+
+			void DalSimulationHandler::CloseFiles()
+			{
+			}
+
+			DalSimulationHandler::~DalSimulationHandler()
+			{
+				if (_tonometerSimulationFile != nullptr)
+				{
+					_tonometerSimulationFile->CloseFile();
+					_tonometerSimulationFile = nullptr;
+				}
+
+				if (_cuffTimerSimulationFile != nullptr)
+				{
+					_cuffTimerSimulationFile->CloseFile();
+					_cuffTimerSimulationFile = nullptr;
+				}
 			}
 
 			bool DalSimulationHandler::GetFileNameFromConfgAndOpen()
@@ -76,30 +96,30 @@ namespace AtCor{
 					_cuffTimerSimulationFile = gcnew DalSimulationFile(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstCufftimerFilePath));
 							
 					//get the streaming mode and open the file for the current mode
-					if(DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
-					{
-                    configMgr->GetPwvUserSettings();
+					/*if(DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
+					{*/
+						configMgr->GetPwvUserSettings();
 
-                    // construct the simulation file path, based on the file name selected
-                    // by user in "system - settings - PWV Settings - simulation type"
+						// construct the simulation file path, based on the file name selected
+						// by user in "system - settings - PWV Settings - simulation type"
                    		tempFilePath =CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPath);
-                    _tonometerSimulationFile = gcnew DalSimulationFile(tempFilePath + configMgr->PwvSettings->SimulationType + tempFileExt);
-				
-					}
-					else if (DalStreamingMode::cPwa == DalModule::Instance->StreamingMode)
-					{
-						//get the PWa settings from config file.
-						//It contains the file name 
-						configMgr->GetPwaUserSettings();
+                   		_tonometerSimulationFile = gcnew DalSimulationFile(tempFilePath + configMgr->PwvSettings->SimulationType + tempFileExt);
+					
+					//}
+					//else if (DalStreamingMode::cPwa == DalModule::Instance->StreamingMode)
+					//{
+					//	//get the PWa settings from config file.
+					//	//It contains the file name 
+					//	configMgr->GetPwaUserSettings();
 
-						tempFilePath =CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPathPwa);
-                   		_tonometerSimulationFile = gcnew DalSimulationFile(tempFilePath + configMgr->PwaSettings->SimulationType + tempFileExt);
+					//	tempFilePath =CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPathPwa);
+     //              		_tonometerSimulationFile = gcnew DalSimulationFile(tempFilePath + configMgr->PwaSettings->SimulationType + tempFileExt);
 
-					}
-					else
+					//}
+					/*else
 					{
 						result = false;
-					}
+					}*/
 
      //               configMgr->GetPwvUserSettings();
 
@@ -179,7 +199,8 @@ namespace AtCor{
 					//Read n elements in a loop. 
 					for (int counter = 0; counter < numberOfReads ; counter++)
 					{
-						if (locCountdownTimer <=0) 
+						//if (locCountdownTimer <=0)  //Changed by TS
+						if (locCountdownTimer <=0 && cuffInUse) 
 						{
 							//get next set of values from the cufff simulation file
 							_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &locEASourceFlag);
@@ -187,6 +208,14 @@ namespace AtCor{
 
 							//store the Error/alarm SOURCE in the global variable. If an event is raised we need to retrive the stored value to find the source.
 							_currentEASourceFlag = locEASourceFlag;
+
+							//Added by TS Stub
+							if (DalCuffStateFlags::CUFF_STATE_DEFLATED == (DalCuffStateFlags)(statusBytes & 0x7))
+							{
+								// Finished cuff until another inflation
+								cuffInUse = false;
+								locCountdownTimer = 0;
+							}
 
 							//The DalSimulationHandler::SchecStatusFlag(,) function has been 
 							//replaced by the //DalStatusHandler::ProcessStatusFlag() method
@@ -197,16 +226,18 @@ namespace AtCor{
 						}
 
 						//check between the modes
-						if(DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
-						{
-						//get the next set of values from the tonometer simulation file.
-						_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
-						}
-						else if (DalStreamingMode::cPwa == DalModule::Instance->StreamingMode)
-						{
-							//get the next set of values from the CPWA simulation file.
-							_tonometerSimulationFile->GetNextValues(&cuffPulseData);
-						}
+							_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
+
+						//if(DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
+						//{
+						//	//get the next set of values from the tonometer simulation file.
+						//	_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
+						//}
+						//else if (DalStreamingMode::cPwa == DalModule::Instance->StreamingMode)
+						//{
+						//	//get the next set of values from the CPWA simulation file.
+						//	_tonometerSimulationFile->GetNextValues(&cuffPulseData);
+						//}
 
 						
 
@@ -219,83 +250,125 @@ namespace AtCor{
 						{
 							tempPWVDataVar.countdownTimer = 0;
 						}
+
+						//added by TS Stub
+						if (cuffInUse)
+						{
+							//decrement the cuff timer as long as it's used
+							locCountdownTimer -= DalConstants::DataSamplingInterval;
+						}
+
 						tempPWVDataVar.cuffPressure = (short)cuffAbsolutePressure;
 						tempPWVDataVar.tonometerData = (short)tonoData;
 						tempPWVDataVar.cuffPulseData = (short)cuffPulseData;
 						////CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer );
-
+						
 						//write data to buffer
 						dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
 
-						//decrement the timer after every write operation
-						locCountdownTimer -= DalConstants::DataSamplingInterval;
+						//moved up by TS stub
+						////decrement the timer after every write operation
+						//locCountdownTimer -= DalConstants::DataSamplingInterval;
 					}
 				}
-				catch(ScorException^)
+				catch(ScorException^ scorExObj)
 				{
-					throw;
+					//throw; //dont throw an excpetion from a thread . convert it to an event
+
+					/*DalErrorAlarmStatusFlag alarmType = DalErrorAlarmStatusFlag::ThreadException;
+					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, alarmType, DalFormatterStrings::PrintEnumName);
+					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(alarmType, sourceName, DalBinaryConversions::ConvertAlarmType(alarmType), scorExObj);
+					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);*/
+
+					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, scorExObj);
 				}
 				catch(Exception^ excepObj)
 				{
-					/*if (InvokeRequired)
-					{
-						System::Windows::
-					}*/
-					throw gcnew ScorException(excepObj);
+					//throw gcnew ScorException(excepObj);
+					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, gcnew ScorException(excepObj));
 				}
 			}
 
-			bool DalSimulationHandler::StartCapture(int captureTime, int samplingRate)
+			bool DalSimulationHandler::StartCapture(int, int )
 			{
-				//TODO: clear all static variables  and members before starting capture
-				try
-				{
-					//flag this valiable to true so that we know that 
-					//the capture has started fresh and it is not a re-capture
-					firstReadAfterCaptureStarted = true;
-
-					dataBufferObj = DalDataBuffer::Instance;
-					//create array
-					dataBufferObj->CreateBuffer(captureTime, samplingRate);
-							
-					//call the method which will open the simulation file specified in config.
-					GetFileNameFromConfgAndOpen();
-					
-					//move file to start in case it isn't alreay at start.
-					_tonometerSimulationFile->ResetFileStreamPosition();
-					_cuffTimerSimulationFile->ResetFileStreamPosition();
-
-					//PWVS-1 create a new timer to tick every 1 ms 
-					captureTimer = gcnew Timers::Timer(DalConstants::SimulationWriteTimerInterval);
-					
-					//specify the event handler to handle timer events
-					captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerReadMultipleEvents); 
-					
-					//Start the timer.
-					captureTimer->Enabled = true;
-
 					return true;
-				}
-				catch(ScorException^)
-				{
-					throw;
-				}
-                catch(Exception^ sysExObj)
-                {
-                    throw gcnew ScorException(sysExObj);
-                }
 			}
+			
+			//bool DalSimulationHandler::StartCapture(int captureTime, int samplingRate)
+			//{
+			//	//TODO: clear all static variables  and members before starting capture
+			//	try
+			//	{
+			//		//flag this valiable to true so that we know that 
+			//		//the capture has started fresh and it is not a re-capture
+			//		firstReadAfterCaptureStarted = true;
+
+			//		dataBufferObj = DalDataBuffer::Instance;
+			//		//create array
+			//		dataBufferObj->CreateBuffer(captureTime, samplingRate);
+			//				
+			//		//call the method which will open the simulation file specified in config.
+			//		
+			//		if (!(GetFileNameFromConfgAndOpen()))
+			//		{
+			//			return false;
+			//		}
+			//		
+			//		//move file to start in case it isn't alreay at start.
+			//		_tonometerSimulationFile->ResetFileStreamPosition();
+			//		_cuffTimerSimulationFile->ResetFileStreamPosition();
+
+			//		//PWVS-1 create a new timer to tick every 1 ms 
+			//		captureTimer = gcnew Timers::Timer(DalConstants::SimulationWriteTimerInterval);
+			//		
+			//		//specify the event handler to handle timer events
+			//		captureTimer->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerReadMultipleEvents); 
+			//		
+			//		//Start the timer.
+			//		captureTimer->Enabled = true;
+
+			//		return true;
+			//	}
+			//	catch(ScorException^)
+			//	{
+			//		throw;
+			//	}
+   //             catch(Exception^ sysExObj)
+   //             {
+   //                 throw gcnew ScorException(sysExObj);
+   //             }
+			//}
 
 			bool DalSimulationHandler::StopCapture()
 			{
 				try
 				{
 					//Stop the capture timer
-					captureTimer->Enabled = false;
+					//changed by TS Stub
+					//captureTimer->Enabled = false;
+					if (captureTimer)
+					{
+						captureTimer->Enabled = false;
 
-					//reset the filestrea position
-					_tonometerSimulationFile->ResetFileStreamPosition();
-					_cuffTimerSimulationFile->ResetFileStreamPosition();
+						//reset the filestream position
+						//_tonometerSimulationFile->ResetFileStreamPosition();
+						//_cuffTimerSimulationFile->ResetFileStreamPosition();
+						if (_tonometerSimulationFile != nullptr)
+						{
+							_tonometerSimulationFile->CloseFile();
+							_tonometerSimulationFile = nullptr;
+						}
+
+						if (_cuffTimerSimulationFile != nullptr)
+						{
+							_cuffTimerSimulationFile->CloseFile();
+							_cuffTimerSimulationFile = nullptr;
+						}
+
+
+						// clear the status when requested to stop, i.e. simulate cuff is deflated
+						//VA:no good		ProcessStatusFlag(0);
+					}
 					return true;
 				}
 				catch(ScorException^)
@@ -376,6 +449,29 @@ namespace AtCor{
 				newPressure; //Dummy statement to get rid of C4100 warning
 				cuffBoard ; //Dummy statement to get rid of C4100 warning
 
+				//CrxLogger::Instance->Write("DalSimulationHandler::SetPressure newPressure: " + newPressure);
+
+
+				//Added by TS Stub
+				if (newPressure > 0)
+				{
+					//CrxLogger::Instance->Write("DalSimulationHandler::SetPressure cuffInUse set to true " );
+					// cuff is now in use as soon as it's inflated
+					cuffInUse = true;
+					if (captureTimer)
+					{
+						// Reset only when the simulation file is being read
+						if(_cuffTimerSimulationFile != nullptr)
+						{
+							_cuffTimerSimulationFile->ResetFileStreamPosition();
+						}
+					}
+				}
+				else
+				{
+					// simulate cuff is deflated
+					ProcessStatusFlag(0);
+				}
 
 				//This should always return true 
 				//to pretend that the pressure has been set/
@@ -388,6 +484,13 @@ namespace AtCor{
 			{
 				//simulation mode will always retur true .
 				return true;
+			}
+
+			//TS Stub
+			bool DalSimulationHandler::IsCuffDeflated()
+			{
+				return (DalCuffStateFlags::CUFF_STATE_DEFLATED == currentCuffState);
+				//return true; //TODO: recheck with TS if they want this to always return true.
 			}
 
 

@@ -34,7 +34,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         void LoadReport();
 
-        void FillSession();
+        void FillSession();      
 
         void SetHeightWeightUnits();
 
@@ -42,10 +42,21 @@ namespace AtCor.Scor.Gui.Presentation
 
         void SetBloodPressure();
 
-        // bool StartCapture();
-        // void StopCapture();
-        // void AppendCaptureData();
-        // void SaveCapturedData();
+        bool StartCapture();
+
+        bool StopCapture();
+
+        void ActionPerformedAfterClickingCancel();
+
+        void CalculateReportAfterSuccessfulCapture();
+
+        void SaveCapturedData();
+
+        void InitialiseCaptureScreen();
+
+        void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e);        
+
+        // void AppendCaptureData();       
         // void CalculateReport();
         // void CalculateAge();
         // void Populate(crxPwv);

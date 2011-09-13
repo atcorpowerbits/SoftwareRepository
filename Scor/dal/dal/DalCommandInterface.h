@@ -49,7 +49,7 @@ namespace AtCor{
 					static int _tonometerDataIndex = 0;
 					static int _cuffPulseDataIndex = 2;
 					static int _cuffPressureDataIndex = 4;
-					static int _countdownTimerDataIndex = 6; //TODO: maybe we better send this to another structure or class
+					static int _countdownTimerDataIndex = 6; 
 
 					static DalCommandInterface^ _instance = gcnew DalCommandInterface();
 					DalCommandInterface^ operator= ( DalCommandInterface);
@@ -57,12 +57,8 @@ namespace AtCor{
 					bool ValidateCommand(DalEM4Command^ serialCommand);
 					DalReturnValue ValidateCommandResult(DalEM4Command^ serialCommand, DalReturnValue responseReturnValue);
 
-					//static SerialPort ^_serialPort;
-				//	static DalActivePort^ _serialPort;
-
 					Timers::Timer^ streamingStoppedCheckTimer;  //A timer to check whether the serial port data streaming has stopped.
 
-					Timers::Timer^ streamingPacketProcessingTimer; //Timer to start the method that will process x packets in each tick
 					
 					static DalCommandState^ _currentCommandState; //pointer to the current state object of the command state machine
 
@@ -75,6 +71,8 @@ namespace AtCor{
 
 					
 				internal:
+					Timers::Timer^ streamingPacketProcessingTimer; //Timer to start the method that will process x packets in each tick
+					
 					
 					
 			
@@ -188,19 +186,26 @@ namespace AtCor{
 					*
 					* @param[in]	newCaptureState	The new state of the capture state machine
 					*/
-					void ChangeCaptureState(DalCaptureState^ newCaptureState);
+					static void ChangeCaptureState(DalCaptureState^ newCaptureState);
 
 					/**
 					* Registers the DataCaptureSinglePacketHandler to listen to data caputre packets
 					* @return	status of the operation
 					*/
-					bool InitiateDataCaptureModeInternal();
+					virtual bool InitiateDataCaptureModeInternal();
 
 					/**
 					* De-registers the DataCaptureSinglePacketHandler to listen to data caputre packets
 					* @return	status of the operation
 					*/
 					bool StopDataCaptureModeInternal();
+
+					/**
+					* Sets the internal instance variable to the specified object
+					*
+					* @param newObject	Pointer to the new object which should be acccesed when DalCommandINterface::Instance is called
+					*/
+					static void SetInstanceObject(DalCommandInterface^ newObject);
 					
 				public:
 
@@ -346,7 +351,7 @@ namespace AtCor{
 					* @param[in]	streamingPacket A byte array to be processed
 					* @return	The status of the operaton
 					*/
-					bool ProcessSingleStreamingPacket(array<unsigned char> ^ streamingPacket);
+					virtual bool ProcessSingleStreamingPacket(array<unsigned char> ^ streamingPacket);
 
 					/**
 					* Loops throug all available streaming packets and processes them
@@ -364,7 +369,7 @@ namespace AtCor{
 					void StreamingPacketReadHandler(Object ^sender, ElapsedEventArgs^ e);
 
 					/**
-					*	Asynchronous lostener that waits for a response to arrive in the response buffer
+					*	Asynchronous listener that waits for a response to arrive in the response buffer
 					*	Times out if no data is recieved within the expected time as specifed in the repsonsePacket
 					*
 					*	@param[in,out]	responsePacket	The EM4 command-repsonse object in which the response is copied 

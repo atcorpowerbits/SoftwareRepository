@@ -226,7 +226,7 @@ namespace AtCor.Scor.Gui.Presentation
             radDirect.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RadDirect);
             radgrpCuffLocation.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCuffLocation);
             radchkFemoralToCuff.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ChkFemoralCuff);
-            radgrpSimulationFiles.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpSimulationFiles);
+            radgrpbxSimulationTypes.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpSimulationFiles);
             radgrpReportScreen.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpReportScreen);
             radchkReferenceRange.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ChkReferenceRange);
             radchkNormalRange.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ChkNormalRange);
@@ -1138,7 +1138,8 @@ namespace AtCor.Scor.Gui.Presentation
                     comboSimulationFilesPwv.Items.Clear();
                 }
 
-                foreach (FileInfo file in dirInfo.GetFiles())
+                // Hardcoding extension as it will be used for internal purpose.
+                foreach (FileInfo file in dirInfo.GetFiles("*.dat"))
                 {
                     if (mode == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Pwv))
                     {
@@ -1664,6 +1665,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 obj = CrxConfigManager.Instance;
                 obj.SetGeneralUserSettings(gnrlSettingsStruct);
+                GuiCommon.generalSettingsStruct = gnrlSettingsStruct;
                 if (bizObj.OptionPWV)
                 {
                     obj.SetPwvUserSettings(pwvSettingsStruct);
@@ -1886,6 +1888,46 @@ namespace AtCor.Scor.Gui.Presentation
                     radradiobtnTonometer.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
                 }
             }
+        }       
+
+        private void radradiochkSP_Click(object sender, EventArgs e)
+        {
+            if (radradiochkSP.ToggleState.Equals(Telerik.WinControls.Enumerations.ToggleState.On))
+            {
+                guiradtxtSPThreshold.Text = string.Empty;
+            }
+
+            radbtnSave.Enabled = true;
+        }
+
+        private void radradiochkDP_Click(object sender, EventArgs e)
+        {
+            if (radradiochkDP.ToggleState.Equals(Telerik.WinControls.Enumerations.ToggleState.On))
+            {
+                guiradtxtDPThreshold.Text = string.Empty;
+            }
+
+            radbtnSave.Enabled = true;
+        }
+
+        private void radradiochkPP_Click(object sender, EventArgs e)
+        {
+            if (radradiochkPP.ToggleState.Equals(Telerik.WinControls.Enumerations.ToggleState.On))
+            {
+                guiradtxtPPThreshold.Text = string.Empty;
+            }
+
+            radbtnSave.Enabled = true;
+        }
+
+        private void radchkGuidanceBars_Click(object sender, EventArgs e)
+        {
+            radbtnSave.Enabled = true;
+        }
+
+        private void radchkbxPatientPrivacy_Click(object sender, EventArgs e)
+        {
+            radbtnSave.Enabled = true;
         }
 
         // End: AtCor-Drop2-Sprint2, TM, SWREQ2004, 29-Jun-2011

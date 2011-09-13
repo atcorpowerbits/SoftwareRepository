@@ -35,7 +35,6 @@ namespace AtCor.Scor.Gui.Presentation
     {
         #region Global declarations
         public static int AutoProgressbarDelay = 0, WaitButtonDelay = 0;
-        const int PatientMinChar = 14; // minimum characters required to display patient name on current lable width
         const int FemoralToCuffDefaultMmValue = 200; // default femoral to cuff value in mm
         const int FemoralToCuffDefaultCmValue = FemoralToCuffDefaultMmValue / 10; // convert default femoral to cuff value to cm
         const int PatientListHideValue = 10; // minimum splitter distance to hide patient list
@@ -43,15 +42,17 @@ namespace AtCor.Scor.Gui.Presentation
                 
         readonly CrxDBManager dbMagr = CrxDBManager.Instance;
         readonly string serverNameString = string.Empty;
-        readonly CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
+        readonly CrxConfigManager crxMgrObject = CrxConfigManager.Instance;         
         readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         int heightInCentiConversion = 0, heightInFeetConversion = 0, heightInInchConversion = 0;
         int bobj;
 
         // AtCor-Drop2-Sprint3, TM, Userstory 12,27th July, 2011
-        private int timer = 0, waitTimer = 0;            
-        BizPWV obj;
+        private int timer = 0, waitTimer = 0;
+        private int counter = 0;
         GuiFieldValidation objValidation;
+
+        public static event EventHandler StartButtonClick;     
 
         // denotes the current mode of setup screen
        public enum CurrentMode
@@ -82,9 +83,9 @@ namespace AtCor.Scor.Gui.Presentation
 */
         string orgPatientIdExt = string.Empty;
         private DefaultWindow objDefaultWindow;
-        
+        private BPAssessments objBpAssessment = new BPAssessments();
         #endregion
-              
+
         /**Parameterized Constructor, used to display messages in default window      
       */
         public Setup(DefaultWindow defWindow)
@@ -98,6 +99,8 @@ namespace AtCor.Scor.Gui.Presentation
                 ReadSettings();
                 SetTextForSetupTab();
                 SetSetupTagForValidations();
+
+                crxMgrObject.GetBpUserSettings();
 
                 // Get delay values from ScorSystemParameters.xml file and set auto progress bar and wait button delay
                 SetDelayValues();
@@ -115,15 +118,15 @@ namespace AtCor.Scor.Gui.Presentation
                 Report.OnPwvMeasurementChangedEvent += SettingsChangedEventHandler;
                 DefaultWindow.OnSetupScreenTabClick += SetFocusOnPatientList;
                 DefaultWindow.OnRestoreOptionClick += CheckIfInInsertMode;
-                obj = (BizPWV)BizSession.Instance().measurement;
-
+                StartButtonClick += guiradbtnGetBp_Click;              
+                   
                 // subscribe to Mode change event from Modes dropdown
                 DefaultWindow.OnModeChangeEvent += ModeChangeEventHandler;
 
                 // initialize servername string
                 serverNameString = GuiCommon.ServerNameString();
                 GuiCommon.SetShape(guilblLastNameDisplay, guilblFirstnameDisplay, guilblPatientIdDisplay, guilblFirstnameDisplay, guilblGender, guilblDay, guilblMonth, guilblYear, guiradlblPWASPDisplay, guiradlblPWAPPDisplay, guiradlblPWAMPDisplay, guiradlblPWADPDisplay, guiradlblCuffPressureValue);
-                GuiCommon.SetShape(guiradtxtsetupheight, guiradtxtImperialHeight, guiradtxtOperator, guiradtxtMedication, guiradtxtSP, guiradtxtDP, guiradtxtCarotid, guiradtxtCuff, guiradtxtFemoralToCuff, guiradtxtPatientID, guiradtxtFirstName, guiradtxtLastName, guiradtxtPWAHeight, guiradtxtPWAImperialHeight, guiradtxtOthDevPWASP, guiradtxtOthDevPWADP);
+                GuiCommon.SetShape(guiradtxtsetupheight, guiradtxtImperialHeight, guiradtxtOperator, guiradtxtMedication, guiradtxtSP, guiradtxtDP, guiradtxtCarotid, guiradtxtCuff, guiradtxtFemoralToCuff, guiradtxtPatientID, guiradtxtFirstName, guiradtxtLastName, guiradtxtPWAHeight, guiradtxtPWAImperialHeight, guiradtxtOthDevPWASP, guiradtxtOthDevPWADP, guiradtxtPwaOperator, guiradtxtMedicationNotes);
                 GuiCommon.SetShape(guicmbDay, guicmbxMonth, guicmbxYear, guicmbxYear, guicmbxGender);
             }
             catch (Exception ex)
@@ -181,8 +184,7 @@ namespace AtCor.Scor.Gui.Presentation
       */
         private void SetTextForSetupTab()
         {
-            // guiradlblPatient.Text is commented because according to new requirement label is not needed anymore
-            // guiradlblPatient.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPateints);
+            guiradlblPatient.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPateints);
             guiradlblPatientId.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPatientId);
             guiradlblGroup.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblGroup);
             guiradlblFirstName.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblFirstName);
@@ -206,6 +208,9 @@ namespace AtCor.Scor.Gui.Presentation
             guiradlblFemoralToCuffUnits.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mm);
             guiradlblPwvDistanceCalculation.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LabelPwvDistance);
             guiradlblPwvDistanceUnits.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mm);
+            guiradllblPWAHeight.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblHeight);
+            guiradlblPwaMedicationNotes.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblNotes);
+            guiradlblPwaOperator.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblOperator);
             guiradbtnCapture.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCapture);
             guiradbtnNew.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnNew);
             guiradbtnSearch.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnSearch);
@@ -245,7 +250,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             guiradtxtPWAHeight.Tag = crxMgrObject.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeight) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeightFoot);
             guiradtxtPWAImperialHeight.Tag = crxMgrObject.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) ? string.Empty : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeightInch);
-
+         
             // guiradlblWeight.Tag = guiradtxtWeight.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientWeight); 
         }
                
@@ -263,7 +268,8 @@ namespace AtCor.Scor.Gui.Presentation
                 }               
 
                 // reset the measurement text fields and update according to the new settings.
-                ResetPatientMeasurementFields();
+               // ResetPatientMeasurementFields();
+                ResetPatientMeasurementDetailsAfterSavingSettings();
                 GuiCommon.ScorControllerObject.SetHeightWeightUnits();
 
                // SetBloodPressure();
@@ -277,11 +283,14 @@ namespace AtCor.Scor.Gui.Presentation
 
                 guiradtxtPWAHeight.Tag = crxMgrObject.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeight) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeightFoot); 
                 guiradtxtPWAImperialHeight.Tag = crxMgrObject.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) ? string.Empty : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHeightInch);
-
+              
                 SetSetupTagForValidations();
 
                 // set mandatory fields again after settings are changed from settings window
-                objValidation.SetMandatoryFields(guipnlMeasurementDetails);
+                if (crxMgrObject.GeneralSettings.StartupScreen.ToUpper() != oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart).ToUpper())
+                {
+                    objValidation.SetMandatoryFields(guipnlMeasurementDetails);
+                }
                 
                 if (!string.IsNullOrEmpty(radlblpatientinternalnumber.Text.Trim()) && !string.IsNullOrEmpty(radlblgroupid.Text))
                 {
@@ -297,7 +306,15 @@ namespace AtCor.Scor.Gui.Presentation
                 CheckForResettingPwvDistanceFields();
                 if (!GuiCommon.IsOnReportForm)
                 {
-                    bool value = obj.Initialise();
+                    if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
+                    {
+                        bool value = GuiCommon.bizObject.Initialise();
+                    }
+                    else
+                    {
+                        // Initialse PWA object.
+                       // bool value = GuiCommon.bizPwaobject.Initialise(CrxPwaCaptureInput ;
+                    }
                 }
             }
             catch (Exception ex)
@@ -315,6 +332,24 @@ namespace AtCor.Scor.Gui.Presentation
 
             guiradtxtsetupheight.Text = string.Empty;
             guiradtxtImperialHeight.Text = string.Empty;            
+            guiradtxtSP.Text = string.Empty;
+            guiradtxtDP.Text = string.Empty;
+
+            guiradtxtCarotid.Text = string.Empty;
+            guiradtxtCuff.Text = string.Empty;
+            guiradlblResult.Text = string.Empty;
+            guiradtxtMedication.Text = string.Empty;
+            guiradtxtOperator.Text = string.Empty;
+        }
+
+        /**This method is called to reset the measurement data fields on Setup RHS after editing the settings on the settings window. 
+      */
+        private void ResetPatientMeasurementDetailsAfterSavingSettings()
+        {
+            guiradtxtPWAHeight.Text = string.Empty;
+            guiradtxtPWAImperialHeight.Text = string.Empty;
+            guiradtxtsetupheight.Text = string.Empty;
+            guiradtxtImperialHeight.Text = string.Empty;
             guiradtxtSP.Text = string.Empty;
             guiradtxtDP.Text = string.Empty;
 
@@ -340,6 +375,7 @@ namespace AtCor.Scor.Gui.Presentation
                 bobj = GuiConstants.SystemId;
                 GuiCommon.SystemIdentifier = bobj;
                 objValidation = new GuiFieldValidation(guipnlMeasurementDetails);
+                objValidation = new GuiFieldValidation(guipnlPWAMeasurementDetails);
                                 
                 SetPatientPrivacy();
                 FillGender();
@@ -348,7 +384,11 @@ namespace AtCor.Scor.Gui.Presentation
                 LoadGroupNames();
                 InitializePatientList();
                 LoadPatientList();
-                guiradlblPWASPDisplay.Font = guiradlblPWASPDisplay.Font = guiradlblPWAPPDisplay.Font = guiradlblPWAMPDisplay.Font = guiradlblPWADPDisplay.Font = guiradlblCuffPressureValue.Font = new Font("Arial", 11);
+                if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
+                {
+                    objDefaultWindow.radtabCapture.Enabled = false;
+                }
+                guiradlblPWASPDisplay.Font = guiradlblPWASPDisplay.Font = guiradlblPWAPPDisplay.Font = guiradlblPWAMPDisplay.Font = guiradlblPWADPDisplay.Font = guiradlblCuffPressureValue.Font = guiradlblBpAssessmentsStatus.Font = new Font("Arial", 11);
             }
             catch (Exception ex)
             {
@@ -552,9 +592,8 @@ namespace AtCor.Scor.Gui.Presentation
                     {
                         mode = CurrentMode.None;
                         guiradgrdPatientList.Enabled = true;
-
-                        // guiradlblNumberOfPatients.Text is commented because according to new requirement label is not needed anymore
-                        // guiradlblNumberOfPatients.Text = ds.Tables[0].Rows.Count.ToString();
+                                                
+                        guiradlblNumberOfPatients.Text = ds.Tables[0].Rows.Count.ToString();
 
                         // Display last record details into the demographic fields.
                         GridViewRowInfo lastRow = guiradgrdPatientList.Rows[guiradgrdPatientList.Rows.Count - 1];
@@ -670,7 +709,7 @@ namespace AtCor.Scor.Gui.Presentation
                         GuiCommon.GroupName = guicmbGroup.Text;
                         GuiCommon.PatientInternalNumber = int.Parse(radlblpatientinternalnumber.Text);
                         GuiCommon.SystemIdentifier = bobj;
-                                              
+                          
                         if (crxMgrObject.PwvSettings.FemoralToCuff)
                         {
                             guiradtxtFemoralToCuff.ReadOnly = false;
@@ -911,7 +950,10 @@ namespace AtCor.Scor.Gui.Presentation
 
                             // below line of code enables capture tab based on 30 sec wait interval imposed by EM4
                             // if IsWaitIntervalImposed is true then disable capture button & vice versa
+                            if(GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
+                            {
                             objDefaultWindow.radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+                            }
                             break;
                         case DialogResult.No:
                             // do not exit search mode
@@ -966,7 +1008,10 @@ namespace AtCor.Scor.Gui.Presentation
 
                             // below line of code enables capture tab based on 30 sec wait interval imposed by EM4
                             // if IsWaitIntervalImposed is true then disable capture button & vice versa
-                            objDefaultWindow.radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+                            if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
+                            {
+                                objDefaultWindow.radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+                            }
                             break;
                     }
 
@@ -1370,7 +1415,10 @@ namespace AtCor.Scor.Gui.Presentation
         {
             // if record added / updated successfully 
             guipnlMeasurementDetails.Visible = true;
+            if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
+            {
             objDefaultWindow.radtabCapture.Enabled = guiradbtnCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+                }
             GuiCommon.ScorControllerObject.SetHeightWeightUnits();
             GuiCommon.ScorControllerObject.SetBloodPressure();
              GuiCommon.ScorControllerObject.SetDistanceMethodAndUnits();
@@ -1816,6 +1864,9 @@ namespace AtCor.Scor.Gui.Presentation
                     {
                         mode = CurrentMode.None;
                         DisplayLastRecord(patientIdInternal, groupId);
+                        GridViewRowInfo lastRow = guiradgrdPatientList.Rows[guiradgrdPatientList.Rows.Count - 1];
+                        lastRow.IsCurrent = true;
+                        lastRow.IsSelected = true;    
                     }                    
                 }
                 else
@@ -1834,7 +1885,10 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // below line of code enables capture tab based on 30 sec wait interval imposed by EM4
                 // if IsWaitIntervalImposed is true then disable capture button & vice versa
-                objDefaultWindow.radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+                if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
+                {
+                    objDefaultWindow.radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+                }
             }
             catch (Exception ex)
             {
@@ -1878,14 +1932,16 @@ namespace AtCor.Scor.Gui.Presentation
                     dvSearch.RowFilter = searchString;
 
                     guiradgrdPatientList.DataSource = dvSearch;
-                    
+
+                    // Assignes count of total no of patient searched. 
+                    guiradlblNumberOfPatients.Text = dvSearch.Count.ToString();
                     if (dvSearch.Count == 1)
                     {
                         // dvSearch.AllowEdit = true;
                         prevMode = CurrentMode.SearchMode;
                         mode = CurrentMode.None;
                         DisplayLastRecord(int.Parse(guiradgrdPatientList.Rows[0].Cells[1].Value.ToString()), int.Parse(guiradgrdPatientList.Rows[0].Cells[2].Value.ToString()));
-                        guiradbtnSearch.Enabled = false;
+                        guiradbtnSearch.Enabled = true;
                         guiradbtnCancel.Enabled = true;
                     }
                     else if (dvSearch.Count > 1)
@@ -2092,7 +2148,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        /** Begin: AtCor-<Drop2>-<Sprint3>, TM, <SWREQ2011>,<21 july 2011>
+        /** Begin: AtCor-Drop2-Sprint3, TM, SWREQ2011,21 july 2011
           /** This method fills PWA measurement details from DB in Bizsession
       * */
         public void FillPwaDetailsSession()
@@ -2105,23 +2161,23 @@ namespace AtCor.Scor.Gui.Presentation
 
                 GuiCommon.PwvCurrentStudyDatetime = dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.StudyDateTime].ToString();
 
-                FillSessionData(dsPwv);
+                FillPwaSessionData(dsPwv);
 
                 // filling RHS pwv measurement data on setup screen 
                 switch (crxMgrObject.GeneralSettings.HeightandWeightUnit)
                 {
                     // converting to int as crxMgrObject.GeneralSettings.HeightandWeightUnit returns int
                     case (int)CrxGenPwvValue.CrxGenHeightWeightMetric:
-                        performHeightMetricConversion(ref heightInCentiConversion); 
+                        PerformPwaHeightMetricConversion(ref heightInCentiConversion); 
 
                         // Nitesh
                      // guiradtxtPWAHeight.Text = heightInCentiConversion.ToString();
                         guiradtxtPWAHeight.Text = heightInCentiConversion.ToString().Equals("0") ? string.Empty : heightInCentiConversion.ToString();
                         break;
                     case (int)CrxGenPwvValue.CrxGenHeightWeightImperial:
-                        if (obj.heightAndWeight.heightInInches != GuiConstants.DefaultValue)
+                        if (GuiCommon.bizPwaobject.heightAndWeight.heightInInches != GuiConstants.DefaultValue)
                         {
-                            performHeightImperialConversion(ref heightInFeetConversion, ref heightInInchConversion);
+                            PerformPwaHeightImperialConversion(ref heightInFeetConversion, ref heightInInchConversion);
 
                             // Nitesh
                           //  guiradtxtPWAHeight.Text = heightInFeetConversion.ToString();
@@ -2144,7 +2200,9 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // below line of code enables capture tab based on 30 sec wait interval imposed by EM4
                 // if IsWaitIntervalImposed is true then disable capture button & vice versa
-                objDefaultWindow.radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+
+               // objDefaultWindow.radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+
                 GuiCommon.HasMeasurementDetails = false;
                 GuiCommon.PwvCurrentStudyDatetime = string.Empty;
 
@@ -2155,17 +2213,32 @@ namespace AtCor.Scor.Gui.Presentation
 
         /** This method is used calculate the metric conversion for height.
         */ 
-        private void performHeightMetricConversion(ref int heightInCentiConversion)
+        private void PerformHeightMetricConversion(ref int heightInCentiConversion)
         {
-            heightInCentiConversion = obj.heightAndWeight.heightInCentimetres.ToString().Equals(GuiConstants.DefaultValue.ToString()) ? 0 : int.Parse(obj.heightAndWeight.heightInCentimetres.ToString());
+            heightInCentiConversion = GuiCommon.bizObject.heightAndWeight.heightInCentimetres.ToString().Equals(GuiConstants.DefaultValue.ToString()) ? 0 : int.Parse(GuiCommon.bizObject.heightAndWeight.heightInCentimetres.ToString());
         }
 
         /** This method is used calculate the Imperial conversion for height.
-       */ 
-        private void performHeightImperialConversion(ref int heightInFeetConversion, ref int heightInInchConversion)
+       */
+        private void PerformHeightImperialConversion(ref int heightInFeetConversion, ref int heightInInchConversion)
         {
-            heightInInchConversion = int.Parse(obj.heightAndWeight.heightInInches.ToString()) % 12;
-            heightInFeetConversion = int.Parse(obj.heightAndWeight.heightInInches.ToString()) / 12;
+            heightInInchConversion = int.Parse(GuiCommon.bizObject.heightAndWeight.heightInInches.ToString()) % 12;
+            heightInFeetConversion = int.Parse(GuiCommon.bizObject.heightAndWeight.heightInInches.ToString()) / 12;
+        }
+
+        /** This method is used calculate the metric conversion for height for pwa mode.
+       */
+        private void PerformPwaHeightMetricConversion(ref int heightInCentiConversion)
+        {
+            heightInCentiConversion = GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres.ToString().Equals(GuiConstants.DefaultValue.ToString()) ? 0 : int.Parse(GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres.ToString());
+        }
+
+        /** This method is used calculate the Imperial conversion for height for pwa mode.
+       */
+        private void PerformPwaHeightImperialConversion(ref int heightInFeetConversion, ref int heightInInchConversion)
+        {
+            heightInInchConversion = int.Parse(GuiCommon.bizPwaobject.heightAndWeight.heightInInches.ToString()) % 12;
+            heightInFeetConversion = int.Parse(GuiCommon.bizPwaobject.heightAndWeight.heightInInches.ToString()) / 12;
         }
 
         // End : AtCor-<Drop2>-<Sprint3>, TM, <SWREQ2011>,<21 july 2011>
@@ -2188,13 +2261,13 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     // converting to int as crxMgrObject.GeneralSettings.HeightandWeightUnit returns int
                     case (int)CrxGenPwvValue.CrxGenHeightWeightMetric:
-                        performHeightMetricConversion(ref heightInCentiConversion);
+                        PerformHeightMetricConversion(ref heightInCentiConversion);
                         guiradtxtsetupheight.Text = heightInCentiConversion.ToString();        
                         break;
                     case (int)CrxGenPwvValue.CrxGenHeightWeightImperial:
-                        if (obj.heightAndWeight.heightInInches != GuiConstants.DefaultValue)
+                        if (GuiCommon.bizObject.heightAndWeight.heightInInches != GuiConstants.DefaultValue)
                         {
-                            performHeightImperialConversion(ref heightInFeetConversion, ref heightInInchConversion);
+                            PerformHeightImperialConversion(ref heightInFeetConversion, ref heightInInchConversion);
                             guiradtxtsetupheight.Text = heightInFeetConversion.ToString();
                             guiradtxtImperialHeight.Text = heightInInchConversion.ToString();
                         }
@@ -2254,52 +2327,90 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        /** This method initializes biz session object each time a patient record is selected/edited/added
+        /** This method initializes biz session object each time a patient record is selected/edited/added for pwv mode
         */
         private void FillSessionData(DataSet dsPwv)
         {
             FillSessionWithBloodPressureValues(dsPwv);
             FillSessionWithOtherValues(dsPwv);
-           
-            obj.systemId = (uint)bobj;
-            obj.groupStudyId = (uint)GuiCommon.GroupId;
+
+            GuiCommon.bizObject.systemId = (uint)bobj;
+            GuiCommon.bizObject.groupStudyId = (uint)GuiCommon.GroupId;
 
             objDefaultWindow.radtabReport.Enabled = true;
             objDefaultWindow.radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
-            obj.patientNumber = (uint)GuiCommon.PatientInternalNumber;           
+            GuiCommon.bizObject.patientNumber = (uint)GuiCommon.PatientInternalNumber;           
         }
 
-        /** This method fills session with height & weight, distance values
+         /** This method initializes biz session object each time a patient record is selected/edited/added for pwa mode
+        */      
+        private void FillPwaSessionData(DataSet dsPwv)
+        {
+            FillPwaSessionWithBloodPressureValues(dsPwv);
+            FillPwaSessionWithOtherValues(dsPwv);
+
+            GuiCommon.bizPwaobject.systemId = (uint)bobj;
+            GuiCommon.bizPwaobject.groupStudyId = (uint)GuiCommon.GroupId;
+
+            objDefaultWindow.radtabReport.Enabled = true;
+
+            //objDefaultWindow.radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+            GuiCommon.bizPwaobject.patientNumber = (uint)GuiCommon.PatientInternalNumber;
+        }
+
+        /** This method fills session with height & weight, distance values for pwa mode
+        * */
+        private void FillPwaSessionWithOtherValues(DataSet dsPwv)
+        {
+            GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInCentimetres].ToString()) ? GuiCommon.bizObject.heightAndWeight.heightInCentimetres : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInCentimetres].ToString());
+            GuiCommon.bizPwaobject.heightAndWeight.heightInInches = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInInches].ToString()) ? GuiCommon.bizObject.heightAndWeight.heightInInches : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInInches].ToString());
+            GuiCommon.bizPwaobject.heightAndWeight.weightInKilograms = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInKilograms].ToString()) ? GuiCommon.bizObject.heightAndWeight.weightInKilograms : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInKilograms].ToString());
+            GuiCommon.bizPwaobject.heightAndWeight.weightInPounds = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInPounds].ToString()) ? GuiCommon.bizObject.heightAndWeight.weightInPounds : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInPounds].ToString());
+            GuiCommon.bizPwaobject.notes = dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Notes].ToString();
+            GuiCommon.bizPwaobject.operatorId = dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Operator].ToString();
+            GuiCommon.bizPwaobject.heightAndWeight.bodyMassIndex = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BodyMassIndex].ToString()) ? 0 : float.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BodyMassIndex].ToString());         
+        }
+
+        /** This method fills session with blood pressure values for pwa mode
+         * */
+        private void FillPwaSessionWithBloodPressureValues(DataSet dsPwv)
+        {
+            GuiCommon.bizPwaobject.bloodPressureEntryOption = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BloodPressureEntryOption].ToString()) ? (ushort)0 : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BloodPressureEntryOption].ToString());
+            GuiCommon.bizPwaobject.bloodPressure.SP.Reading = ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.SP].ToString());
+            GuiCommon.bizPwaobject.bloodPressure.DP.Reading = ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.DP].ToString());            
+        }
+
+        /** This method fills session with height & weight, distance values for pwv mode
          * */
         private void FillSessionWithOtherValues(DataSet dsPwv)
         {
-            obj.calculatedDistance = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.PWVDistance].ToString()) ? (ushort)0 : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.PWVDistance].ToString());
-            obj.heightAndWeight.heightInCentimetres = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInCentimetres].ToString()) ? obj.heightAndWeight.heightInCentimetres : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInCentimetres].ToString());
-            obj.heightAndWeight.heightInInches = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInInches].ToString()) ? obj.heightAndWeight.heightInInches : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInInches].ToString());
-            obj.heightAndWeight.weightInKilograms = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInKilograms].ToString()) ? obj.heightAndWeight.weightInKilograms : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInKilograms].ToString());
-            obj.heightAndWeight.weightInPounds = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInPounds].ToString()) ? obj.heightAndWeight.weightInPounds : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInPounds].ToString());
-            obj.notes = dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Notes].ToString();
-            obj.operatorId = dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Operator].ToString();
-            obj.myCarotidDistance.distance = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Carotid].ToString()) ? obj.myCarotidDistance.distance : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Carotid].ToString());
-            obj.myCuffDistance.distance = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Cuff].ToString()) ? obj.myCuffDistance.distance : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Cuff].ToString());
-            obj.myFemoral2CuffDistance.distance = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.FemoraltoCuff].ToString()) ? obj.myFemoral2CuffDistance.distance : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.FemoraltoCuff].ToString());
-            obj.myPWVDirectDistance.distance = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Direct].ToString()) ? obj.myPWVDirectDistance.distance : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Direct].ToString());
-            obj.heightAndWeight.bodyMassIndex = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BodyMassIndex].ToString()) ? 0 : float.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BodyMassIndex].ToString());
-            obj.distanceMethod = ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.PWVDistanceMethod].ToString());          
+            GuiCommon.bizObject.calculatedDistance = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.PWVDistance].ToString()) ? (ushort)0 : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.PWVDistance].ToString());
+            GuiCommon.bizObject.heightAndWeight.heightInCentimetres = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInCentimetres].ToString()) ? GuiCommon.bizObject.heightAndWeight.heightInCentimetres : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInCentimetres].ToString());
+            GuiCommon.bizObject.heightAndWeight.heightInInches = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInInches].ToString()) ? GuiCommon.bizObject.heightAndWeight.heightInInches : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.HeightInInches].ToString());
+            GuiCommon.bizObject.heightAndWeight.weightInKilograms = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInKilograms].ToString()) ? GuiCommon.bizObject.heightAndWeight.weightInKilograms : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInKilograms].ToString());
+            GuiCommon.bizObject.heightAndWeight.weightInPounds = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInPounds].ToString()) ? GuiCommon.bizObject.heightAndWeight.weightInPounds : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.WeightInPounds].ToString());
+            GuiCommon.bizObject.notes = dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Notes].ToString();
+            GuiCommon.bizObject.operatorId = dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Operator].ToString();
+            GuiCommon.bizObject.myCarotidDistance.distance = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Carotid].ToString()) ? GuiCommon.bizObject.myCarotidDistance.distance : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Carotid].ToString());
+            GuiCommon.bizObject.myCuffDistance.distance = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Cuff].ToString()) ? GuiCommon.bizObject.myCuffDistance.distance : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Cuff].ToString());
+            GuiCommon.bizObject.myFemoral2CuffDistance.distance = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.FemoraltoCuff].ToString()) ? GuiCommon.bizObject.myFemoral2CuffDistance.distance : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.FemoraltoCuff].ToString());
+            GuiCommon.bizObject.myPWVDirectDistance.distance = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Direct].ToString()) ? GuiCommon.bizObject.myPWVDirectDistance.distance : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.Direct].ToString());
+            GuiCommon.bizObject.heightAndWeight.bodyMassIndex = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BodyMassIndex].ToString()) ? 0 : float.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BodyMassIndex].ToString());
+            GuiCommon.bizObject.distanceMethod = ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.PWVDistanceMethod].ToString());          
         }
 
-        /** This method fills session with blood pressure values
+        /** This method fills session with blood pressure values for pwv mode
          * */
         private void FillSessionWithBloodPressureValues(DataSet dsPwv)
         {
-            obj.bloodPressureEntryOption = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BloodPressureEntryOption].ToString()) ? (ushort)0 : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BloodPressureEntryOption].ToString());
-
+            GuiCommon.bizObject.bloodPressureEntryOption = string.IsNullOrEmpty(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BloodPressureEntryOption].ToString()) ? (ushort)0 : ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.BloodPressureEntryOption].ToString());
+              
             // switch (obj.bloodPressureEntryOption)
             // {
             //    // converting to ushort as obj.bloodPressureEntryOption returns ushort
             //    case (ushort)CrxGenPwvValue.CrxGenBPOptSPandDP:
-                    obj.bloodPressure.SP.Reading = ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.SP].ToString());
-                    obj.bloodPressure.DP.Reading = ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.DP].ToString());
+            GuiCommon.bizObject.bloodPressure.SP.Reading = ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.SP].ToString());
+            GuiCommon.bizObject.bloodPressure.DP.Reading = ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.DP].ToString());
             ////        break;
             //    case (ushort)CrxGenPwvValue.CrxGenBPOptSPandMP:
             //        obj.bloodPressure.SP.Reading = ushort.Parse(dsPwv.Tables[0].Rows[0][(int)CrxDBPWVMeasurementTableList.SP].ToString());
@@ -2323,16 +2434,16 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 // converting to int as crxMgrObject.GeneralSettings.HeightandWeightUnit returns int
                 case (int)CrxGenPwvValue.CrxGenHeightWeightMetric:
-                    guiradtxtsetupheight.Text = obj.heightAndWeight.heightInCentimetres.ToString().Equals(GuiConstants.DefaultValue.ToString()) ? string.Empty : obj.heightAndWeight.heightInCentimetres.ToString();
+                    guiradtxtsetupheight.Text = GuiCommon.bizObject.heightAndWeight.heightInCentimetres.ToString().Equals(GuiConstants.DefaultValue.ToString()) ? string.Empty : GuiCommon.bizObject.heightAndWeight.heightInCentimetres.ToString();
 
                    // guiradtxtWeight.Text = obj.heightAndWeight.weightInKilograms.ToString().Equals(GuiConstants.DefaultValue.ToString()) ? string.Empty : obj.heightAndWeight.weightInKilograms.ToString();
                     break;
                 case (int)CrxGenPwvValue.CrxGenHeightWeightImperial:
-                    if (obj.heightAndWeight.heightInInches != GuiConstants.DefaultValue)
+                    if (GuiCommon.bizObject.heightAndWeight.heightInInches != GuiConstants.DefaultValue)
                     {
                         // convert height in inches to feet & inches
-                        heightInInches = int.Parse(obj.heightAndWeight.heightInInches.ToString()) % 12;
-                        heigthInFeet = int.Parse(obj.heightAndWeight.heightInInches.ToString()) / 12;
+                        heightInInches = int.Parse(GuiCommon.bizObject.heightAndWeight.heightInInches.ToString()) % 12;
+                        heigthInFeet = int.Parse(GuiCommon.bizObject.heightAndWeight.heightInInches.ToString()) / 12;
 
                         guiradtxtsetupheight.Text = heigthInFeet.ToString();
                         guiradtxtImperialHeight.Text = heightInInches.ToString();
@@ -2490,89 +2601,33 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void StartCaptureProcess(object sender, EventArgs e)
         {
-            if (ValidatePatientAge())
+            if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
             {
-                if (!objValidation.CheckMandatoryFields())
-                {
-                    // check for electronic module is connected. 
-                    if (DalModule.Instance.CheckIfDeviceIsConnected())
-                    {
-                        FillSessionWithModifiedMeasuremt();
-
-                        // check for valid measurement details
-                        if (obj.Validate())
-                        {
-                            // go to capture screen once electonic module is found & data is valid                   
-                            GuiCommon.CaptureChildForm = new Capture(objDefaultWindow)
-                                                                      {
-                                                                          TopLevel = false,
-                                                                          Dock = DockStyle.Fill,
-                                                                          FormBorderStyle = FormBorderStyle.None
-                                                                      };
-
-                            // adds capture form under parent window control
-                            var page = objDefaultWindow.radpgTabCollection.Pages[1];
-                            GuiCommon.CaptureChildForm.Parent = page;
-                            page.Controls.Clear();
-
-                            page.Controls.Add(GuiCommon.CaptureChildForm);
-                            GuiCommon.CaptureChildForm.Show();
-
-                            // GuiCommon.CaptureTabClick = false;
-                            objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabCapture;
-                        }
-                        else
-                        {
-                            if (GuiCommon.CaptureTabClick)
-                            {
-                                // whenever exception is thrown while validating measurement details,
-                                // navigate the user back to Setup screen.                            
-                                objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
-                            }
-
-                            // capture tab & capture button
-                            RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ErrorValidating), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                        }
-                    }
-                    else
-                    {
-                        // device not connected show error message
-                        RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureDeviceErrMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                        if (GuiCommon.CaptureTabClick)
-                        {
-                            objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
-                            objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
-                        }
-                    }
-                }               
+                ValidationBeforePwaCapture();
             }
             else
             {
-                if (GuiCommon.CaptureTabClick)
-                {
-                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
-                    objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
-                }
-            }          
+                ValidationBeforePwvCapture();
+            }                 
         }
 
         /** This method fills session object with measurement data
           * */
         private void FillSessionWithModifiedMeasuremt()
         {
-            obj.groupStudyId = (uint)GuiCommon.GroupId;
-            obj.systemId = (uint)GuiCommon.SystemIdentifier;
-            obj.patientNumber = (uint)GuiCommon.PatientInternalNumber;
+            GuiCommon.bizObject.groupStudyId = (uint)GuiCommon.GroupId;
+            GuiCommon.bizObject.systemId = (uint)GuiCommon.SystemIdentifier;
+            GuiCommon.bizObject.patientNumber = (uint)GuiCommon.PatientInternalNumber;
             
             SetSessionWithModifiedHeightWeight();
             SetSessionWithModifiedBP();
             SetSessionWithModifiedDistance();
 
-            obj.notes = guiradtxtMedication.Text;
-            obj.operatorId = guiradtxtOperator.Text;
+            GuiCommon.bizObject.notes = guiradtxtMedication.Text;
+            GuiCommon.bizObject.operatorId = guiradtxtOperator.Text;
             
             // obj.bloodPressureEntryOption = (ushort)crxMgrObject.GeneralSettings.BloodPressureEntryOptions;
-            obj.bloodPressureEntryOption = (ushort)crxMgrObject.BpSettings.BloodPressure;
+            GuiCommon.bizObject.bloodPressureEntryOption = (ushort)crxMgrObject.BpSettings.BloodPressure;
         }
 
         /** This method fills session with modified height & weights
@@ -2584,7 +2639,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 // converting to int as crxMgrObject.GeneralSettings.HeightandWeightUnit returns int
                 case (int)CrxGenPwvValue.CrxGenHeightWeightMetric:
-                    obj.heightAndWeight.heightInCentimetres = string.IsNullOrEmpty(guiradtxtsetupheight.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtsetupheight.Text);
+                    GuiCommon.bizObject.heightAndWeight.heightInCentimetres = string.IsNullOrEmpty(guiradtxtsetupheight.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtsetupheight.Text);
 
                     // obj.heightAndWeight.weightInKilograms = string.IsNullOrEmpty(guiradtxtWeight.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtWeight.Text);
                     break;
@@ -2597,11 +2652,11 @@ namespace AtCor.Scor.Gui.Presentation
                         string guiRadTxtImperialHeight = guiradtxtImperialHeight.Text.Equals(string.Empty) ? "0" : guiradtxtImperialHeight.Text;
                         string guiRadTxtSetUpheight = guiradtxtsetupheight.Text.Equals(string.Empty) ? "0" : guiradtxtsetupheight.Text;                        
                         int heightInInches = (int.Parse(guiRadTxtSetUpheight) * 12) + int.Parse(guiRadTxtImperialHeight);
-                        obj.heightAndWeight.heightInInches = (ushort)heightInInches;
+                        GuiCommon.bizObject.heightAndWeight.heightInInches = (ushort)heightInInches;
                     }
                     else
                     {
-                        obj.heightAndWeight.heightInInches = GuiConstants.DefaultValue;
+                        GuiCommon.bizObject.heightAndWeight.heightInInches = GuiConstants.DefaultValue;
                     }
 
                     // Commenting the following code as weight is not required in PWV.
@@ -2617,9 +2672,9 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void SetSessionWithModifiedBP()
         {
-            obj.bloodPressure.SP.Reading = string.IsNullOrEmpty(guiradtxtSP.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtSP.Text);
-            obj.bloodPressure.DP.Reading = string.IsNullOrEmpty(guiradtxtDP.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtDP.Text);
-            obj.bloodPressure.MP.Reading = GuiConstants.DefaultValue;
+            GuiCommon.bizObject.bloodPressure.SP.Reading = string.IsNullOrEmpty(guiradtxtSP.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtSP.Text);
+            GuiCommon.bizObject.bloodPressure.DP.Reading = string.IsNullOrEmpty(guiradtxtDP.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtDP.Text);
+            GuiCommon.bizObject.bloodPressure.MP.Reading = GuiConstants.DefaultValue;
 
             //// blood pressure values
             // switch (obj.bloodPressureEntryOption)
@@ -2649,7 +2704,7 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void SetSessionWithModifiedDistance()
         {
-            obj.distanceMethod = (ushort)crxMgrObject.PwvSettings.PWVDistanceMethod;
+            GuiCommon.bizObject.distanceMethod = (ushort)crxMgrObject.PwvSettings.PWVDistanceMethod;
 
             // distance values
             switch (crxMgrObject.PwvSettings.PWVDistanceMethod)
@@ -2657,23 +2712,23 @@ namespace AtCor.Scor.Gui.Presentation
                 case (int)CrxGenPwvValue.CrxPwvDistMethodSubtract:
                     // subtracting
                     // populate carotid, cuff & femoral to cuff textboxes
-                    obj.myCarotidDistance.distance = string.IsNullOrEmpty(guiradtxtCarotid.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtCarotid.Text);
-                    obj.myCuffDistance.distance = string.IsNullOrEmpty(guiradtxtCuff.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtCuff.Text);
-                    obj.myFemoral2CuffDistance.distance = string.IsNullOrEmpty(guiradtxtFemoralToCuff.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtFemoralToCuff.Text);
+                    GuiCommon.bizObject.myCarotidDistance.distance = string.IsNullOrEmpty(guiradtxtCarotid.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtCarotid.Text);
+                    GuiCommon.bizObject.myCuffDistance.distance = string.IsNullOrEmpty(guiradtxtCuff.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtCuff.Text);
+                    GuiCommon.bizObject.myFemoral2CuffDistance.distance = string.IsNullOrEmpty(guiradtxtFemoralToCuff.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtFemoralToCuff.Text);
 
                     // obj.calculatedDistance = string.IsNullOrEmpty(guiradlblResult.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradlblResult.Text);
-                    obj.myPWVDirectDistance.distance = GuiConstants.DefaultValue;
+                    GuiCommon.bizObject.myPWVDirectDistance.distance = GuiConstants.DefaultValue;
                     break;
 
                 case (int)CrxGenPwvValue.CrxPwvDistMethodDirect:
                     // direct
                     // populate direct & femoral to cuff textboxes
-                    obj.myCarotidDistance.distance = GuiConstants.DefaultValue;
-                    obj.myCuffDistance.distance = GuiConstants.DefaultValue;
-                    obj.myFemoral2CuffDistance.distance = string.IsNullOrEmpty(guiradtxtFemoralToCuff.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtFemoralToCuff.Text);
+                    GuiCommon.bizObject.myCarotidDistance.distance = GuiConstants.DefaultValue;
+                    GuiCommon.bizObject.myCuffDistance.distance = GuiConstants.DefaultValue;
+                    GuiCommon.bizObject.myFemoral2CuffDistance.distance = string.IsNullOrEmpty(guiradtxtFemoralToCuff.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtFemoralToCuff.Text);
 
                     // obj.calculatedDistance = string.IsNullOrEmpty(guiradlblResult.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradlblResult.Text);
-                    obj.myPWVDirectDistance.distance = string.IsNullOrEmpty(guiradtxtCuff.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtCuff.Text);
+                    GuiCommon.bizObject.myPWVDirectDistance.distance = string.IsNullOrEmpty(guiradtxtCuff.Text) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtCuff.Text);
                     break;
 
                 default:
@@ -2682,10 +2737,10 @@ namespace AtCor.Scor.Gui.Presentation
 
             if (crxMgrObject.PwvSettings.PWVDistanceUnits.Equals((int)CrxGenPwvValue.CrxPwvDistDistUnitsCM))
             {
-                obj.myCarotidDistance.distance = obj.myCarotidDistance.distance.Equals(GuiConstants.DefaultValue) ? obj.myCarotidDistance.distance : (ushort)(obj.myCarotidDistance.distance * GuiConstants.DivisionFactor);
-                obj.myCuffDistance.distance = obj.myCuffDistance.distance.Equals(GuiConstants.DefaultValue) ? obj.myCuffDistance.distance : (ushort)(obj.myCuffDistance.distance * GuiConstants.DivisionFactor);
-                obj.myFemoral2CuffDistance.distance = obj.myFemoral2CuffDistance.distance.Equals(GuiConstants.DefaultValue) ? obj.myFemoral2CuffDistance.distance : (ushort)(obj.myFemoral2CuffDistance.distance * GuiConstants.DivisionFactor);
-                obj.myPWVDirectDistance.distance = obj.myPWVDirectDistance.distance.Equals(GuiConstants.DefaultValue) ? obj.myPWVDirectDistance.distance : (ushort)(obj.myPWVDirectDistance.distance * GuiConstants.DivisionFactor);  
+                GuiCommon.bizObject.myCarotidDistance.distance = GuiCommon.bizObject.myCarotidDistance.distance.Equals(GuiConstants.DefaultValue) ? GuiCommon.bizObject.myCarotidDistance.distance : (ushort)(GuiCommon.bizObject.myCarotidDistance.distance * GuiConstants.DivisionFactor);
+                GuiCommon.bizObject.myCuffDistance.distance = GuiCommon.bizObject.myCuffDistance.distance.Equals(GuiConstants.DefaultValue) ? GuiCommon.bizObject.myCuffDistance.distance : (ushort)(GuiCommon.bizObject.myCuffDistance.distance * GuiConstants.DivisionFactor);
+                GuiCommon.bizObject.myFemoral2CuffDistance.distance = GuiCommon.bizObject.myFemoral2CuffDistance.distance.Equals(GuiConstants.DefaultValue) ? GuiCommon.bizObject.myFemoral2CuffDistance.distance : (ushort)(GuiCommon.bizObject.myFemoral2CuffDistance.distance * GuiConstants.DivisionFactor);
+                GuiCommon.bizObject.myPWVDirectDistance.distance = GuiCommon.bizObject.myPWVDirectDistance.distance.Equals(GuiConstants.DefaultValue) ? GuiCommon.bizObject.myPWVDirectDistance.distance : (ushort)(GuiCommon.bizObject.myPWVDirectDistance.distance * GuiConstants.DivisionFactor);  
             }
         }
 
@@ -2732,6 +2787,11 @@ namespace AtCor.Scor.Gui.Presentation
                     radlblpatientinternalnumber.Text = e.CurrentRow.Cells[1].Value.ToString();
                     radlblgroupid.Text = e.CurrentRow.Cells[2].Value.ToString();
                     DisplayLastRecord(int.Parse(e.CurrentRow.Cells[1].Value.ToString()), int.Parse(radlblgroupid.Text));
+                    guiradbtnGetBp.Visible = true;
+                    if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
+                    {
+                        objDefaultWindow.radtabCapture.Enabled = false;
+                    }
                     DisableTimer();
                 }
             }
@@ -2757,7 +2817,7 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void guiradtxtsetupheight_Leave(object sender, EventArgs e)
         {
-            objValidation.CheckFieldLimits(guiradtxtsetupheight);
+            objValidation.CheckIntegerFieldLimits(guiradtxtsetupheight);
         }
 
         /** This event gets fired when focus is moved from height in inches text box.
@@ -2765,7 +2825,7 @@ namespace AtCor.Scor.Gui.Presentation
         * */
         private void guiradtxtImperialHeight_Leave(object sender, EventArgs e)
         {
-            objValidation.CheckFieldLimits(guiradtxtImperialHeight);
+           objValidation.CheckIntegerFieldLimits(guiradtxtImperialHeight);
         }      
 
         /** This event gets fired when focus is moved from SP text box.
@@ -2975,12 +3035,7 @@ namespace AtCor.Scor.Gui.Presentation
         /** This method is used to Validate age of the patient before validating measurement details.
          */ 
         private bool ValidatePatientAge()
-        {
-            // if (GuiCommon.CaptureChildForm.Equals(null))
-            // {
-            //    GuiCommon.CaptureChildForm.Close();
-            //    // GuiCommon.CaptureChildForm = null;
-            // }
+        {           
             bool retVal = false;
 
             if (GuiCommon.IsValueOutsideLimits)
@@ -2993,8 +3048,18 @@ namespace AtCor.Scor.Gui.Presentation
 
             try
             {
-                string message = string.Empty;
-                switch (obj.ValidateAgeLimit(ref message))
+                string message = string.Empty;                
+                BizCaptureGate captureEnum;
+                if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
+                {
+                    captureEnum = GuiCommon.bizPwaobject.ValidateAgeLimit(ref message);
+                }
+                else
+                {
+                    captureEnum = GuiCommon.bizObject.ValidateAgeLimit(ref message);
+                }
+
+                switch (captureEnum)
                 {
                     case BizCaptureGate.CAPTURE_GOAHEAD:
                         // Go ahead with the capture.No Confirmation required.                        
@@ -3046,6 +3111,12 @@ namespace AtCor.Scor.Gui.Presentation
         private void SetFocusOnPatientList(object sender, EventArgs e)
         {
             guiradgrdPatientList.Focus();
+            if (guiradbtnGetBp.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnRepeat) && (!ProgressBarTimeStatusTimer.Enabled))
+            {
+                // objDefaultWindow.guiradmnuScor.Enabled = true;
+                objDefaultWindow.guiradmnuDatabase.Enabled = true;
+                objDefaultWindow.guiradmnuSystem.Enabled = true;
+            }           
         }
 
         private void CheckIfFieldValueIsOutsideRange()
@@ -3058,7 +3129,7 @@ namespace AtCor.Scor.Gui.Presentation
             }            
         }
 
-        /** Begin: AtCor-<Drop2>-<Sprint3>, TM, <SWREQ2012,SWREQ2013,SWREQ2014,SWREQ2015>,<27 july 2011>
+        /** Begin: AtCor-Drop2-Sprint3, TM, SWREQ2012,SWREQ2013,SWREQ2014,SWREQ2015,27 july 2011
 
         /** This method is used to make all timer disable on mode change and on selected record change event in gridview.
         * This is needed because when we ar changing patient from grid and we are in middle of measurement of previous patient then measurement process should start from begining on selection 
@@ -3066,15 +3137,28 @@ namespace AtCor.Scor.Gui.Presentation
         */
         void DisableTimer()
         {
+            guiradgrdPatientList.Enabled = true;
             SetupScreenTimer.Enabled = false;
             ProgressBarTimeStatusTimer.Enabled = false;
             EnableWaitButtonTimer.Enabled = false;
             guiradlblBPProgressBar.Visible = false;
             guiradbtnAutoPWACancel.Visible = false;
             guiradlblCuffPressureValue.Text = string.Empty;
+            guiradlblCuffPressure.Visible = false;
+            guiradlblCuffPressureValue.Visible = false;
+            guiradlblCuffPressureUnit.Visible = false;
+            guiradbtnAssessmentsDetails.Visible = false;
             guiradbtnGetBp.Enabled = true;
+            counter = 0;
+            guiradlblBpAssessmentsStatus.Visible = false;
+            guiradbtnAssessmentsDetails.Visible = false;
             guiradbtnGetBp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnStart);
             ResetMeasurementFields();
+
+            // objDefaultWindow.guiradmnuScor.Enabled = true;
+            objDefaultWindow.guiradmnuDatabase.Enabled = true;
+            objDefaultWindow.guiradmnuSystem.Enabled = true;
+            objDefaultWindow.radtabCapture.Enabled = false;
         } 
 
         /**This event gets fired on mode change from dropdown
@@ -3085,59 +3169,135 @@ namespace AtCor.Scor.Gui.Presentation
             DisplayLastRecord(GuiCommon.PatientInternalNumber, GuiCommon.GroupId);
         }
 
+        /** This function makes patient list,controls for demographic details and action buttons below patient list enable/disable depeding on measurement is in progress or not
+         */
+        void BrowsemodeForMeasurement(bool value)
+        {
+            objDefaultWindow.radtabReport.Enabled = value;
+            objDefaultWindow.guicmbxCurrentMode.Enabled = value;
+            guiradtxtPWAHeight.Enabled = value;
+            guiradtxtPWAImperialHeight.Enabled = value;
+            guiradtxtPwaOperator.Enabled = value;
+            guiradtxtMedicationNotes.Enabled = value;
+            guiradgrdPatientList.Enabled = value;
+
+           // guiradtxtFirstName.Enabled = value;
+           // guiradtxtLastName.Enabled = value;
+           // guiradtxtPatientID.Enabled = value;
+
+            guicmbGroup.Enabled = value;
+
+           // guicmbxGender.Enabled = value;
+           // guicmbDay.Enabled = value;
+           // guicmbxMonth.Enabled = value;
+            //guicmbxYear.Enabled = value;
+           // guiradbtnCancel.Enabled = value;
+           // guiradbtnSave.Enabled = value;
+
+            guiradbtnSearch.Enabled = value;
+            guiradbtnNew.Enabled = value;
+            guiradbtnEdit.Enabled = value;
+            guiradbtnExpander.Enabled = value;
+            guiradbtnDelete.Enabled = value;  
+        }
+
         /**This event is fired when the user wants to get the BP values in the PWA mode.
          */ 
         private void guiradbtnGetBp_Click(object sender, EventArgs e)
         {
+            if(counter ==0)
+            {
+            // Following function validates height field value to be in range of ushort integer.
             CheckFieldLimitsForPWAHeight();    
         
-            // if (GuiCommon.IsValueOutsideLimits && (!guiradtxtPWAHeight.Text.Equals(string.Empty)) && !guiradtxtPWAImperialHeight.Text.Equals(string.Empty))
-            if (GuiCommon.IsValueOutsideLimits)
-             {
-                 return;
-             }
+            // // if (GuiCommon.IsValueOutsideLimits && (!guiradtxtPWAHeight.Text.Equals(string.Empty)) && !guiradtxtPWAImperialHeight.Text.Equals(string.Empty))
+                if (GuiCommon.IsValueOutsideIntegerLimits)
+                {
+                    return;
+
+                }
+            }           
 
          // Following code will be change when values will be read from Bp measurement Device
             try
             {
                 timer = 0;
+                int noOfAssessments = crxMgrObject.BpSettings.NumberofAssessments;             
+                objDefaultWindow.guiradmnuDatabase.Enabled = false;
+                objDefaultWindow.guiradmnuSystem.Enabled = false;
 
                 // If Button text is "Start" or "Repeat"
-                if ((guiradbtnGetBp.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnStart)) || (guiradbtnGetBp.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnRepeat)))
+                if ((guiradbtnGetBp.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnStart)) || (guiradbtnGetBp.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnRepeat)) || (guiradbtnGetBp.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnWait)))
                 {
-                    // Clear all measurement labels
-                    guiradbtnGetBp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnStop);
-                    guiradbtnAutoPWACancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCancel);
-                    ResetMeasurementFields();
+                    BrowsemodeForMeasurement(false);
 
-                    // Display Cuff Pressure labels
-                    guiradlblCuffPressure.Visible = true;
-                    guiradlblCuffPressureValue.Visible = true;
-                    guiradlblCuffPressureUnit.Visible = true;
+                    // Capture tab is disable when measurement is in progress
+                    objDefaultWindow.radtabCapture.Enabled = false;
 
-                    // Start the dummy timer to display BP readings
-                    SetupScreenTimer.Enabled = true;
+                    // showing message(assessment in progress) in message progress bar 
+                    objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportAssessment) + " " + Convert.ToString(counter + 1) + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgInProgress);
+                        
+                        // guiradlblBpAssessmentsStatus.Text = "Assessment: " + Convert.ToString(counter + 1) + " In Progress...";
+                        // guiradlblBpAssessmentsStatus.Visible = true;
 
-                    // Hide progress bar
-                    guiradlblBPProgressBar.Visible = false;
-                    guiradbtnAutoPWACancel.Visible = false;
+                        // Clear all measurement labels
+                        guiradbtnGetBp.Enabled = true;
+                        guiradbtnGetBp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnStop);
+                        guiradbtnAutoPWACancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCancel);
+                        ResetMeasurementFields();
+                        guiradbtnAssessmentsDetails.Visible = false;
 
-                    // Stop cPWA timers
-                    ProgressBarTimeStatusTimer.Enabled = false;
-                
-                    // Reset Progressbar values
-                    guiradlblCuffPressureValue.Text = "0";
-                    guiradlblBPProgressBar.Minimum = 0;
-                    guiradlblBPProgressBar.Maximum = AutoProgressbarDelay;
-                    guiradlblBPProgressBar.Value1 = 0;
+                        // Display Cuff Pressure labels
+                        guiradlblCuffPressure.Visible = true;
+                        guiradlblCuffPressureValue.Visible = true;
+                        guiradlblCuffPressureUnit.Visible = true;
 
-                   // guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarEndMsg);
-                   guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg) + AutoProgressbarDelay;
+                        // Start the dummy timer to display BP readings
+                        SetupScreenTimer.Enabled = true;
+
+                        // Hide progress bar
+                        guiradlblBPProgressBar.Visible = false;
+                        guiradbtnAutoPWACancel.Visible = false;
+
+                        // Stop cPWA timers
+                        ProgressBarTimeStatusTimer.Enabled = false;
+
+                        // Reset Progressbar values
+                        guiradlblCuffPressureValue.Text = "0";
+                        guiradlblBPProgressBar.Minimum = 0;
+                        guiradlblBPProgressBar.Maximum = AutoProgressbarDelay;
+                        guiradlblBPProgressBar.Value1 = 0;
+
+                        // guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarEndMsg);
+                        guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg) + AutoProgressbarDelay;
+
+                    // Commented on 26 august to implement 2018 userstory's 3 acceptance criteria
+                       // counter++;                   
                 }
                 else if (guiradbtnGetBp.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnStop))
                 {
+                    // Added on 26 august to implement 2018 userstory's 3 acceptance criteria
+                    if (counter >= 1 && !GuiCommon.IsValueOutsideIntegerLimits)
+                    {
+                        setAvgBpMeasurementData(counter);
+                        guiradbtnAutoPWACancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCapture);
+                        guiradbtnAutoPWACancel.Visible = true;
+                        objDefaultWindow.radtabCapture.Enabled = true;
+                    }
+
+                    BrowsemodeForMeasurement(true);
+                    counter = 0;
+                    objDefaultWindow.radlblMessage.Text = string.Empty;
+                    guiradlblBpAssessmentsStatus.Visible = false;
                     SetupScreenTimer.Enabled = false;
                     guiradbtnGetBp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnRepeat);
+                    if (!ProgressBarTimeStatusTimer.Enabled)
+                    {
+                        // objDefaultWindow.guiradmnuScor.Enabled = true;
+                        objDefaultWindow.guiradmnuDatabase.Enabled = true;
+                        objDefaultWindow.guiradmnuSystem.Enabled = true;
+                    }
+
                     guiradlblCuffPressure.Visible = false;
                     guiradlblCuffPressureValue.Visible = false;
                     guiradlblCuffPressureUnit.Visible = false;
@@ -3159,44 +3319,174 @@ namespace AtCor.Scor.Gui.Presentation
             guiradlblPWADPDisplay.Text = string.Empty;
         }
 
+        /** When there are more than one assessment,after every assessment this event fires.It wait for some time which is defined 
+         * in xml file and calls guiradbtnGetBp click event to do next assessment.
+         * */
         private void EnableWaitButtonTimer_Tick(object sender, EventArgs e)
         {
             if (waitTimer >= (WaitButtonDelay - 1))
             {
-                guiradbtnGetBp.Enabled = true;
-                guiradbtnGetBp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnRepeat);
-                guiradbtnAutoPWACancel.Visible = true;               
-                EnableWaitButtonTimer.Stop();
-
+                // guiradbtnGetBp.Enabled = true;
+                // guiradbtnGetBp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnRepeat);
+                // guiradbtnAutoPWACancel.Visible = true;               
+                    EnableWaitButtonTimer.Stop();
+               
                 // Start progress bar for auto capture
-                guiradlblBPProgressBar.Visible = true;
-                ProgressBarTimeStatusTimer.Start();            
+                // guiradlblBPProgressBar.Visible = true;
+                // ProgressBarTimeStatusTimer.Start();
+                objDefaultWindow.radlblMessage.Text = string.Empty;
+                StartButtonClick.Invoke(sender, e);
+                guiradbtnGetBp.Visible = true;
             }
             else
-            {
+            {              
                 waitTimer = waitTimer + 1;               
             }
         }
 
         /**This is a stub method used to populate the BP values in PWA mode.
          * Values have been hardcoded for time being as these values will be coming from the device via the dal layer.
-         */ 
-        private void setBpMeasurementData()
+         */
+        private void setBpMeasurementData(int counter)
         {
             // This is stub method for reading Bp measurement data
-            guiradlblPWASPDisplay.Text = "120";
-            guiradlblPWAPPDisplay.Text = "70";
-            guiradlblPWAMPDisplay.Text = "100";
-            guiradlblPWADPDisplay.Text = "80";
+            switch (counter)
+            {
+                case 1:
+
+                    guiradlblPWASPDisplay.Text = "140";
+                    guiradlblPWAPPDisplay.Text = "60";
+                    guiradlblPWAMPDisplay.Text = "110";
+                    guiradlblPWADPDisplay.Text = "80";
+                    break;
+                case 2:
+                    guiradlblPWASPDisplay.Text = "155";
+                    guiradlblPWAPPDisplay.Text = "50";
+                    guiradlblPWAMPDisplay.Text = "150";
+                    guiradlblPWADPDisplay.Text = "90";
+                    break;
+                case 3:
+                    guiradlblPWASPDisplay.Text = "140";
+                    guiradlblPWAPPDisplay.Text = "70";
+                    guiradlblPWAMPDisplay.Text = "140";
+                    guiradlblPWADPDisplay.Text = "70";
+                    break;
+                case 4:
+                    guiradlblPWASPDisplay.Text = "155";
+                    guiradlblPWAPPDisplay.Text = "70";
+                    guiradlblPWAMPDisplay.Text = "120";
+                    guiradlblPWADPDisplay.Text = "90";
+                    break;
+                case 5:
+                    guiradlblPWASPDisplay.Text = "160";
+                    guiradlblPWAPPDisplay.Text = "70";
+                    guiradlblPWAMPDisplay.Text = "130";
+                    guiradlblPWADPDisplay.Text = "85";
+                    break;
+            }
         }
 
+        /**This is a stub method used to populate the Average BP values in PWA mode when all the assessments done.
+       * Values have been hardcoded for time being as these values will be coming from the device via the dal layer.
+       */
+        private void setAvgBpMeasurementData(int counter)
+        { // This is stub method for reading Bp measurement data
+            switch (counter)
+            {
+                case 1:
+
+                    guiradlblPWASPDisplay.Text = "140";
+                    guiradlblPWAPPDisplay.Text = "60";
+                    guiradlblPWAMPDisplay.Text = "110";
+                    guiradlblPWADPDisplay.Text = "80";
+                    break;
+                case 2:
+                    guiradlblPWASPDisplay.Text = "148"; // round(140+155/2)
+                    guiradlblPWAPPDisplay.Text = "55";  // 60+50/2
+                    guiradlblPWAMPDisplay.Text = "130"; // 110+150/2
+                    guiradlblPWADPDisplay.Text = "85"; // 80+90/2
+                    break;
+                case 3:
+                    guiradlblPWASPDisplay.Text = "145";  // round(140+155+140/3)
+                    guiradlblPWAPPDisplay.Text = "60";    // round(60+50+70/3)
+                    guiradlblPWAMPDisplay.Text = "133"; // round(110+150+140/3)
+                    guiradlblPWADPDisplay.Text = "80"; // round(80+90+70/3)
+                    break;
+                case 4:
+                    guiradlblPWASPDisplay.Text = "148";  // round(140+155+140+155/4)
+                    guiradlblPWAPPDisplay.Text = "63";  // round(60+50+70+70/4)
+                    guiradlblPWAMPDisplay.Text = "130"; // round(110+150+140+120/4)
+                    guiradlblPWADPDisplay.Text = "90";  // round(80+90+70+90/4)
+                    break;
+                case 5:
+                    guiradlblPWASPDisplay.Text = "150"; // round(140+155+140+155+160/5)
+                    guiradlblPWAPPDisplay.Text = "64";  // round(60+50+70+70+70/5)
+                    guiradlblPWAMPDisplay.Text = "130"; // round(110+150+140+120+130/5)
+                    guiradlblPWADPDisplay.Text = "83";  // round(80+90+70+90+85/5)
+                    break;
+            }
+        }
+
+        /** This is dummy timer used to set Bp measurement stub values after 5 seconds. 
+        * It checkes for assessment in progress and after completion of all assessment it enable
+        * auto pwa progress bar.
+        * */
         private void SetupScreenTimer_Tick(object sender, EventArgs e)
         {
             // Display reading values
             guiradlblCuffPressureValue.Text = timer.ToString();
             if (timer >= 50)
             {
-                setBpMeasurementData();
+                if (crxMgrObject.BpSettings.NumberofAssessments > 1 && counter < crxMgrObject.BpSettings.NumberofAssessments - 1)
+                {
+                    guiradlblBpAssessmentsStatus.Visible = false;
+                    EnableWaitButtonTimer.Start();
+                    objDefaultWindow.radlblMessage.Text = "                " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnWait);
+                   guiradbtnGetBp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnWait);
+
+                    // When measurement is in wait mode guiradbtnGetBp is hidden
+                    guiradbtnGetBp.Visible = false;
+                    guiradbtnGetBp.Enabled = false;                    
+                    guiradlblBPProgressBar.Visible = false;
+                    counter++; 
+                    setBpMeasurementData(counter);
+                }
+                else
+                {
+                    // When all the assessment finished it will come in else part.
+                    counter++; 
+                    setAvgBpMeasurementData(counter);
+                    guiradbtnGetBp.Enabled = true;
+                    guiradbtnGetBp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnRepeat);
+                    counter = 0;
+                    objDefaultWindow.radlblMessage.Text = string.Empty;  
+                  
+                    // disable display button if number of assessments is 1
+                    // if (crxMgrObject.BpSettings.NumberofAssessments != 1)
+                    // {
+                    //    guiradbtnAssessmentsDetails.Visible = true;
+                    // }
+                    guiradlblBpAssessmentsStatus.Visible = false;
+                    guiradbtnAutoPWACancel.Visible = true;
+                    if (crxMgrObject.BpSettings.AutoPWASP || crxMgrObject.BpSettings.AutoPWAPP || crxMgrObject.BpSettings.AutoPWADP)
+                    {
+                        guiradlblBPProgressBar.Visible = true;      
+                
+                        // Start progress bar for auto capture
+                        ProgressBarTimeStatusTimer.Enabled = true;
+                    }
+                    else
+                    {
+                        // objDefaultWindow.guiradmnuScor.Enabled = true;
+                        objDefaultWindow.guiradmnuDatabase.Enabled = true;
+                        objDefaultWindow.guiradmnuSystem.Enabled = true;
+                        objDefaultWindow.radtabCapture.Enabled = true;
+                        guiradbtnAutoPWACancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCapture);
+                        BrowsemodeForMeasurement(true);
+                        objDefaultWindow.radtabReport.Enabled = false;
+                    }                 
+                }
+               
                 waitTimer = 0;
 
                 // Hide Cuff Pressure labels
@@ -3205,18 +3495,14 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblCuffPressureUnit.Visible = false;
 
                 // Stop timer
-                SetupScreenTimer.Enabled = false;
-                guiradlblBPProgressBar.Visible = false;
+                SetupScreenTimer.Enabled = false;            
                 guiradlblBPProgressBar.Minimum = 0;
                 guiradlblBPProgressBar.Maximum = AutoProgressbarDelay;
                 guiradlblBPProgressBar.Value1 = 0;
 
                 // guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarEndMsg);
                 // Below line will assign text to Progress bar depending on delay assigned in System XML file PWA enabled in 0:5 
-                guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg) + AutoProgressbarDelay;
-                EnableWaitButtonTimer.Start();
-                guiradbtnGetBp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnWait);
-                guiradbtnGetBp.Enabled = false;              
+                guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg) + AutoProgressbarDelay;                           
             }
             else
             {
@@ -3224,6 +3510,11 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
+        /** This timer ticks every 1 sec and it ticks for time set in xml file and    
+         * after time reaches to time set in xml file it start capture process automatically.
+         * Before time reaches to specified value every sec it shows how much time is remaining 
+         * for auto pwa in progress bar text area.
+        * */
         private void ProgressBarTimeStatusTimer_Tick(object sender, EventArgs e)
         {
             if (guiradlblBPProgressBar.Value1 >= AutoProgressbarDelay)
@@ -3234,9 +3525,13 @@ namespace AtCor.Scor.Gui.Presentation
                 // Hide Progress Bar
                 guiradlblBPProgressBar.Visible = false;
                 guiradbtnAutoPWACancel.Visible = false;
+                
+                // Closes BpAssessment Form
+                objBpAssessment.Close();
                 CheckFieldLimitsForPWAHeight();
-                if (GuiCommon.IsValueOutsideLimits)
-                {
+
+                 if (GuiCommon.IsValueOutsideIntegerLimits) 
+                 {                   
                     return;
                 }
 
@@ -3246,9 +3541,16 @@ namespace AtCor.Scor.Gui.Presentation
                     // check if device is connected
                     // fill the biz session object with measurement details
                     // if validation succeeds start capture process
-                    // GuiCommon.CaptureTabClick = false;
-                    // StartCaptureProcess(sender, e);
-                    // GuiCommon.CaptureTabClick = true;
+                    GuiCommon.CaptureTabClick = false;
+                   
+                    objDefaultWindow.radtabCapture.Enabled = true;
+                    objDefaultWindow.guiradmnuDatabase.Enabled = true;
+                    objDefaultWindow.guiradmnuSystem.Enabled = true;                    
+                    StartCaptureProcess(sender, e);
+                    BrowsemodeForMeasurement(true);
+                    objDefaultWindow.guicmbxCurrentMode.Enabled = false;
+                    objDefaultWindow.radtabReport.Enabled = false;
+                    GuiCommon.CaptureTabClick = true;
                 }
                 catch (Exception ex)
                 {
@@ -3266,6 +3568,9 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
+        /** This event is used to cancel auto pwa or start manual capture.When text of the button is "cancel" then click event will
+         * cancel auto pwa.When text of the button is "Capture" then click event will call capture process.
+       * */
         private void guiradbtnAutoPWACancel_Click(object sender, EventArgs e)
         {
             if (guiradbtnAutoPWACancel.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCancel))
@@ -3277,6 +3582,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblBPProgressBar.Minimum = 0;
                 guiradlblBPProgressBar.Maximum = AutoProgressbarDelay;
                 guiradlblBPProgressBar.Value1 = 0;
+                objDefaultWindow.radtabCapture.Enabled = true;
 
                 // guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarEndMsg);
                 guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg) + AutoProgressbarDelay;
@@ -3284,24 +3590,46 @@ namespace AtCor.Scor.Gui.Presentation
 
                 ProgressBarTimeStatusTimer.Stop();
                 ProgressBarTimeStatusTimer.Enabled = false;
+                BrowsemodeForMeasurement(true);
+                objDefaultWindow.radtabReport.Enabled = false;
+                if (guiradbtnGetBp.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnRepeat) && (!ProgressBarTimeStatusTimer.Enabled))
+                {                    
+                    objDefaultWindow.guiradmnuDatabase.Enabled = true;
+                    objDefaultWindow.guiradmnuSystem.Enabled = true;
+                }
             }
             else
-            {
+            {               
                 // Call a method to go to Capture Screen
                 CheckFieldLimitsForPWAHeight();
-                if (GuiCommon.IsValueOutsideLimits)
-                {
-                    return;
-                }
 
+                if (GuiCommon.IsValueOutsideIntegerLimits)
+                {                    
+                  return;
+                }
                 try
-                {
-                    // check if device is connected
-                    // fill the biz session object with measurement details
-                    // if validation succeeds start capture process
-                    // GuiCommon.CaptureTabClick = false;
-                    // StartCaptureProcess(sender, e);
-                    // GuiCommon.CaptureTabClick = true;
+                {                    
+                    // Coding for PWA mode.
+                    CrxPwaCaptureInput pwaCaptureInput = new CrxPwaCaptureInput();
+
+                    // pwaObj = (BizPWA)BizSession.Instance().measurement;
+                    GuiCommon.bizPwaobject.Sp = 140; // float.Parse(guiradlblPWASPDisplay.Text);
+                    GuiCommon.bizPwaobject.Dp = 80; // float.Parse(guiradlblPWADPDisplay.Text);
+                    GuiCommon.bizPwaobject.MeasureType = PWA_MEASURE_TYPE.PWA_RADIAL;
+                    bool value = GuiCommon.bizPwaobject.GetCurrentCaptureInput(ref pwaCaptureInput);
+                    if (!Convert.ToInt32(pwaCaptureInput).Equals(crxMgrObject.PwaSettings.CaptureInput))
+                    {
+                        GuiCommon.bizPwaobject.Initialise(crxMgrObject.PwaSettings.CaptureInput.Equals(Convert.ToInt32(CrxPwaCaptureInput.Tonometer)) ? CrxPwaCaptureInput.Tonometer : CrxPwaCaptureInput.Cuff);
+                    }                   
+                     GuiCommon.CaptureTabClick = false;
+                     objDefaultWindow.radtabCapture.Enabled = true;
+                 
+                     StartCaptureProcess(sender, e);
+                     BrowsemodeForMeasurement(true);
+                     objDefaultWindow.radtabReport.Enabled = false;
+                     objDefaultWindow.guicmbxCurrentMode.Enabled = false;
+                     objDefaultWindow.radtabCapture.Enabled = true; 
+                     GuiCommon.CaptureTabClick = true;
                 }
                 catch (Exception ex)
                 {
@@ -3333,35 +3661,244 @@ namespace AtCor.Scor.Gui.Presentation
             // Nitesh,if the user enters 0 the validation will pass.When the user again tries to capture 
             // the value of GuiCommon.IsValueOutsideLimits is set to true becoause of which Bp measurement 
             // will not start.hence setting the value to false.
-            GuiCommon.IsValueOutsideLimits = false;
+            GuiCommon.IsValueOutsideIntegerLimits = false;
 
             if (crxMgrObject.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) && (!guiradtxtPWAHeight.Text.Equals(string.Empty)))
-            {              
-                objValidation.CheckFieldLimits(guiradtxtPWAHeight);                
+            {
+                objValidation.CheckIntegerFieldLimits(guiradtxtPWAHeight);
             }
 
             if (crxMgrObject.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightImperial))
             {
                 if (!guiradtxtPWAHeight.Text.Equals(string.Empty))
                 {
-                    objValidation.CheckFieldLimits(guiradtxtPWAHeight);
-                    if (GuiCommon.IsValueOutsideLimits)
+                    objValidation.CheckIntegerFieldLimits(guiradtxtPWAHeight);
+                    if (GuiCommon.IsValueOutsideIntegerLimits)
                     {
-                        objValidation.CheckFieldLimits(guiradtxtPWAImperialHeight);
-                        GuiCommon.IsValueOutsideLimits = true;
-                    }                    
+                        objValidation.CheckIntegerFieldLimits(guiradtxtPWAImperialHeight);
+                        GuiCommon.IsValueOutsideIntegerLimits = true;
+                    }
+                    else
+                    {
+                        if (!guiradtxtPWAImperialHeight.Text.Equals(string.Empty))
+                        {
+                            objValidation.CheckIntegerFieldLimits(guiradtxtPWAImperialHeight);
+                        }
+                    }
                 }
                 else
                 {
                     if (!guiradtxtPWAImperialHeight.Text.Equals(string.Empty))
                     {
-                        objValidation.CheckFieldLimits(guiradtxtPWAImperialHeight);
+                        objValidation.CheckIntegerFieldLimits(guiradtxtPWAImperialHeight);
                     }
-                }                
+                }
             }
-        }      
+        }
 
-       /** Begin: AtCor-<Drop2>-<Sprint3>, TM, <SWREQ2012,SWREQ2013,SWREQ2014,SWREQ2015>,<1 August 2011>
+        /** This event is used to show BP Assesment Dialog
+         * */
+        private void guiradbtnAssessmentsDetails_Click(object sender, EventArgs e)
+        {
+            if (objBpAssessment != null)
+            {
+                objBpAssessment = null;
+
+                // objBpAssessment.ShowDialog();
+            }
+
+            objBpAssessment = new BPAssessments();
+            objBpAssessment.ShowDialog();            
+        }
+
+        private void ValidationBeforePwaCapture()
+        {
+            if (ValidatePatientAge())
+            {
+                if (DalModule.Instance.CheckIfDeviceIsConnected())
+                {
+                    // go to capture screen once electonic module is found & data is valid                   
+                    GuiCommon.CaptureChildForm = new Capture(objDefaultWindow)
+                    {
+                        TopLevel = false,
+                        Dock = DockStyle.Fill,
+                        FormBorderStyle = FormBorderStyle.None
+                    };
+
+                    // adds capture form under parent window control
+                    var page = objDefaultWindow.radtabCapture;
+                    GuiCommon.CaptureChildForm.Parent = page;
+                    page.Controls.Clear();
+
+                    page.Controls.Add(GuiCommon.CaptureChildForm);
+                    GuiCommon.CaptureChildForm.Show();
+
+                    // GuiCommon.CaptureTabClick = false;
+                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabCapture;
+                }
+                else
+                {
+                    // device not connected show error message
+                    RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureDeviceErrMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                    if (GuiCommon.CaptureTabClick)
+                    {
+                        // AtCor-Drop2-Sprint1
+                        /* if ((GuiCommon.Mode == GuiCommon.Modes.cPWA) && (GuiCommon.Workflow == GuiCommon.Workflows.Quick))
+                          {
+                             objdefaultwindow.radpgtabcollection.selectedpage = objdefaultwindow.radtabquickstart;
+                             objdefaultwindow.radtabquickstart.enabled = true;
+                             objdefaultwindow.radtabresult.enabled = true;
+                          }
+                          else
+                          { */
+
+                        objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                        objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+
+                        // }
+                    }
+                }
+            }
+            else
+            {
+                if (GuiCommon.CaptureTabClick)
+                {
+                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                    objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                }
+            } 
+        }
+
+        private void ValidationBeforePwvCapture()
+        {
+            if (ValidatePatientAge())
+            {
+                if (!objValidation.CheckMandatoryFields())
+                {
+                    // check for electronic module is connected. 
+                    if (DalModule.Instance.CheckIfDeviceIsConnected())
+                    {
+                        FillSessionWithModifiedMeasuremt();
+
+                        // check for valid measurement details
+                        if (GuiCommon.bizObject.Validate())
+                        {
+                            // go to capture screen once electonic module is found & data is valid                   
+                            GuiCommon.CaptureChildForm = new Capture(objDefaultWindow)
+                            {
+                                TopLevel = false,
+                                Dock = DockStyle.Fill,
+                                FormBorderStyle = FormBorderStyle.None
+                            };
+
+                            // adds capture form under parent window control
+                            var page = objDefaultWindow.radtabCapture;
+                            GuiCommon.CaptureChildForm.Parent = page;
+                            page.Controls.Clear();
+
+                            page.Controls.Add(GuiCommon.CaptureChildForm);
+                            GuiCommon.CaptureChildForm.Show();
+
+                            // GuiCommon.CaptureTabClick = false;
+                            objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabCapture;
+                        }
+                        else
+                        {
+                            if (GuiCommon.CaptureTabClick)
+                            {
+                                // whenever exception is thrown while validating measurement details,
+                                // navigate the user back to Setup screen.                            
+                                objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                            }
+
+                            // capture tab & capture button
+                            RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ErrorValidating), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        // device not connected show error message
+                        RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.CaptureDeviceErrMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                        if (GuiCommon.CaptureTabClick)
+                        {
+                            objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                            objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (GuiCommon.CaptureTabClick)
+                {
+                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                    objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                }
+            } 
+        }
+
+        private bool ValidatePatientAgeForPwaMode()
+        {
+            bool retVal = false;
+            if (GuiCommon.IsValueOutsideLimits)
+            {
+                GuiCommon.IsValueOutsideLimits = false;
+                objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                return retVal;
+            }
+            
+            try
+            {
+                string message = string.Empty;
+                switch (GuiCommon.bizPwaobject.ValidateAgeLimit(ref message))
+                {
+                    case BizCaptureGate.CAPTURE_GOAHEAD:
+                        // Go ahead with the capture.No Confirmation required.                        
+                        retVal = true;
+                        break;
+
+                    case BizCaptureGate.CAPTURE_CANCEL:
+                        // Cancel the capture and bring the user back to setup screen.
+                        // Show the user ,warning message recevied from the biz.dll
+                        RadMessageBox.Show(this, message, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+                        retVal = false;
+                        break;
+
+                    case BizCaptureGate.CAPTURE_CONFIRM:
+                        GuiCommon.ReportChildForm.Close();
+                        DialogResult result = RadMessageBox.Show(this, message, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNo, RadMessageIcon.Exclamation);
+
+                        // Show a popup box to the user with the string provided with Yes and No button.
+                        // Yes is proceed with capture.
+                        switch (result)
+                        {
+                            case DialogResult.Yes:
+                                retVal = true;
+                                break;
+                            case DialogResult.No:
+                                retVal = false;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        break;
+
+                    default:
+                        break;
+                }
+
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+                return retVal;
+            }
+        }
+
+       /** End: AtCor-Drop2-Sprint3, TM, SWREQ2012,SWREQ2013,SWREQ2014,SWREQ2015, 1 August 2011
         */
     }   
 }

@@ -16,6 +16,8 @@
 #include "DalModule.h"
 #include "DalCommon.h"
 #include "DalStatusHandler.h"
+#include "DalActiveDevice.h"
+#include "DalBinaryConversions.h"
 
 
 using namespace System;
@@ -33,20 +35,22 @@ namespace AtCor{
 	namespace Scor{
 		namespace DataAccess{
 
-			String^ DalStatusHandler::GetAlarmSource()
+			String^ DalStatusHandler::GetAlarmSource(DalAlarmSource% translatedAlarmSource)
 			{
 				String ^ alarmSourceName;
+				
 				if ( _currentEASourceFlag  & (int)DalAlarmSourceFlagBitMask::SupplyRailsBitMask)
 				{
-					alarmSourceName =  GetSupplyRailsAlarmSource();
+					alarmSourceName =  GetSupplyRailsAlarmSource(translatedAlarmSource);
 				}
 				else
 				{
-					alarmSourceName = GetNameofRaisedAlarmFlag();
+					alarmSourceName = GetNameofRaisedAlarmFlag(translatedAlarmSource); //add the enum here too TODO
 				}
 
 				if (String::IsNullOrEmpty(alarmSourceName))
 				{
+					translatedAlarmSource = DalAlarmSource::NoAlarmDefined; //give a null indicator
 					alarmSourceName = Enum::Format(DalAlarmStatusBitMask::typeid, DalAlarmStatusBitMask::NoAlarm, DalFormatterStrings::PrintEnumName);
 
 				}
@@ -54,7 +58,7 @@ namespace AtCor{
 				return alarmSourceName;
 			}
 
-			String^ DalStatusHandler::GetSupplyRailsAlarmSource()
+			String^ DalStatusHandler::GetSupplyRailsAlarmSource(DalAlarmSource% translatedAlarmSource)
 			{
 				DalAlarmSupplyRailFlag railAlarmFlag;
 
@@ -68,10 +72,15 @@ namespace AtCor{
 					{
 						//then convert to the appropriate rail source
 						railAlarmFlag = (DalAlarmSupplyRailFlag)_currentEASourceFlag;
+
+						//return the reference parameter
+						translatedAlarmSource = DalBinaryConversions::ConvertAlarmType(railAlarmFlag);
 						return Enum::Format(DalAlarmSupplyRailFlag::typeid, railAlarmFlag, DalFormatterStrings::PrintEnumName);
 					}
 					else
 					{
+						//signal the enum as a false data
+						translatedAlarmSource = DalAlarmSource::NoAlarmDefined;
 						//no error return empty.
 						return  String::Empty ;
 					}
@@ -82,7 +91,7 @@ namespace AtCor{
 				}
 			}
 
-			String ^ DalStatusHandler::GetNameofRaisedAlarmFlag()
+			String ^ DalStatusHandler::GetNameofRaisedAlarmFlag(DalAlarmSource% translatedAlarmSource)
 			{
 				String ^ alarmSourceName;
 				int alarmFlagBitIndex;
@@ -99,6 +108,9 @@ namespace AtCor{
 							 //find the number and convert to a string
 
 							 raisedFlag = safe_cast<DalAlarmFlagBitPosition>(alarmFlagBitIndex);
+
+							 //translate it to DalAlarmSource
+							 translatedAlarmSource = DalBinaryConversions::ConvertAlarmType(raisedFlag);
 
 							 //now that we have the enum name , return the string form
 							alarmSourceName = Enum::Format(DalAlarmFlagBitPosition::typeid, raisedFlag, DalFormatterStrings::PrintEnumName);
@@ -209,17 +221,13 @@ namespace AtCor{
 					case DalAlarmStatusBitMask::NoAlarm  :
 						retAlarmValue = DalErrorAlarmStatusFlag::ActiveStatus;
 						break;
-					/*case DalAlarmStatusBitMask::ErrorStatus:
-						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
-						break;*/
 					
-					//TODO: confirm with Victor if Alram status should be marked as recvoerable or not
+						//TS has suggested using Unrecoverable status until PWVSW-395 is complete.
 					case DalAlarmStatusBitMask::AlarmStatus:
-						retAlarmValue = DalErrorAlarmStatusFlag::RecoverableStatus;
-						break;
-					/*case DalAlarmStatusBitMask::ErrorAndAlarmStatus:
+						//retAlarmValue = DalErrorAlarmStatusFlag::RecoverableStatus;
 						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
-						break;*/
+						break;
+					
 					default:
 						retAlarmValue = DalErrorAlarmStatusFlag::UnrecoverableStatus;
 						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag, ErrorSeverity::Warning);
@@ -230,19 +238,6 @@ namespace AtCor{
 				
 				return retAlarmValue;
 			}
-
-			//String^ DalStatusHandler::ConvertBytesToString(array<unsigned char>^ inputArray)
-			//{
-			//	String ^ packetData = String::Empty ;
-
-			//	for each (unsigned char singleByte in inputArray)
-			//	{
-			//		packetData += singleByte.ToString(DalFormatterStrings::PrintByte) + DalFormatterStrings::SingleSpaceString ;
-			//	}
-
-			//	return packetData;
-
-			//}
 
 
 			bool DalStatusHandler::SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize)
@@ -299,6 +294,59 @@ namespace AtCor{
 				}
 			}
 			
+			bool DalStatusHandler::SaveCaptureData(array< unsigned short >^ cuffPulse, unsigned short bufferSize)
+			{
+				unsigned short index = 0;
+				
+				String^ tempFilePath = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPathPwa); //TODO: put this somewhere too
+				String^ tempCapture	 = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstCaptureFilePrefix); //TODO
+				String^ tempFileExt  = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstDatFileExtn);
+
+				DateTime currentDateTime = System::DateTime::Now;;
+				//currentDateTime = System::DateTime::Now;
+
+				try
+				{
+
+					//create the file name using current date time
+					String^ currentDateTimeStr = currentDateTime.ToString(DalFormatterStrings::FullDateTimeFormat);
+	
+					//currentDateTimeStr = tempFilePath + tempCapture + currentDateTimeStr+ tempFileExt; 
+					currentDateTimeStr = String::Concat(tempFilePath, tempCapture, currentDateTimeStr, tempFileExt); 
+					
+					DalSimulationFile^ simulationOutputFile = gcnew DalSimulationFile();; //Pointer to first simulation file
+					//simulationOutputFile = gcnew DalSimulationFile();
+
+					if(simulationOutputFile->CreateFile(currentDateTimeStr))
+					{
+						//Remove the duplicate backslashes from the string 
+						String^ str = simulationOutputFile->filePath->Replace(DalFormatterStrings::FourSlashes, DalFormatterStrings::TwoSlashes );  
+													
+						//save the filepath to a variable.
+						//this variable will be called by another funciton to get the value
+
+						//remove the dot at the begining
+						_savedDataFilePath = String::Concat(Directory::GetCurrentDirectory(), str->Substring(1));  
+
+						while (index < bufferSize)
+						{
+							simulationOutputFile->SaveCurrentValues(cuffPulse[index]);
+							index++;
+						}
+					}
+					simulationOutputFile->CloseFile();
+					return true;
+				}
+				catch(ScorException ^)
+				{
+					return false;
+				}
+				catch(Exception ^)
+				{
+					return false;
+				}
+			}
+
 			String^ DalStatusHandler::GetSavedFileName()
 			{
 				String^ returnValue = _savedDataFilePath;
@@ -448,7 +496,7 @@ namespace AtCor{
 					 alarmSource= DalModule::Instance->GetErrorAlarmSource();
 
 					 //raise an event only after getting the source of the error
-					 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(TranslateAlarmStatusBits(_newAlarmStatusBytes), alarmSource));
+					 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(TranslateAlarmStatusBits(_newAlarmStatusBytes), alarmSource, DalBinaryConversions::ConvertAlarmType(alarmSource)));
 					//CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
 
 					 }
@@ -459,15 +507,12 @@ namespace AtCor{
 			{
 				if (_newStopButtonStatusBytes)
 				{
-					//If a capture operation is in progress ,
-					//it must be stopped
-					//DalDeviceHandler::Instance->StopCapture(); //the bit can also be raised during simulation mode
-					//DalModule::Instance->StopMeasurement();
-					//Just raise the event . let the handler decidethe current mode and decide what actions need to be taken.
-					//TODO: add an handler
+					CrxLogger::Instance->Write("DalStatusHandler::ProcessStopButtonBitMask >>> Raising OnDalModuleErrorAlarmEvent with StopButtonPressed");
 
+					//Just raise the event . let the handler decidethe current mode and decide what actions need to be taken.
+					
 					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::StopButtonPressed, DalFormatterStrings::PrintEnumName);
-					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::StopButtonPressed, sourceName);
+					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::StopButtonPressed, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::StopButtonPressed));
 					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 
 					
@@ -478,15 +523,14 @@ namespace AtCor{
 			{
 				if (_newPowerUpStatusBytes)
 				{
-					//If a capture operation is in progress ,
-					//it must be stopped
-					//DalDeviceHandler::Instance->StopCapture();
-					//DalModule::Instance->StopMeasurement();
-					//Just raise the event . let the handler decidethe current mode and decide what actions need to be taken.
-					//TODO: add an handler
+					CrxLogger::Instance->Write("DalStatusHandler::ProcessPowerUpBitMask >>> Raising OnDalModuleErrorAlarmEvent with PowerUpEvent");
 
+
+					//Just raise the event. 
+					//Let the handler decidethe current mode and decide what actions need to be taken.
+					
 					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::PowerUpEvent , DalFormatterStrings::PrintEnumName);
-					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::PowerUpEvent, sourceName);
+					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::PowerUpEvent, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::PowerUpEvent));
 					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 				}
 			}
@@ -590,6 +634,14 @@ namespace AtCor{
 
 				return currentTonoMeterState;
 			}
+
+			void DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag alarmType, ScorException^ excptionObject)
+			{
+				String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, alarmType, DalFormatterStrings::PrintEnumName);
+				DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(alarmType, sourceName, DalBinaryConversions::ConvertAlarmType(alarmType), excptionObject);
+				DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+			}
+
 
 
 		} //End of DataAccess namespace

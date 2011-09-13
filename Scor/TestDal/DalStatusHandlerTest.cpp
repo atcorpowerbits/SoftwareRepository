@@ -1,8 +1,5 @@
 ﻿
 #include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
 
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
@@ -314,7 +311,7 @@ namespace TestDal {
 				
 				try
 				{
-					cuffStatusFlags = 0x2300 ; //New flag not previously added to the enum
+					cuffStatusFlags = 0x0300 ; //New flag not previously added to the enum
 					DalCuffStateFlags actual;
 					DalCuffStateFlags expected = DalCuffStateFlags::CUFF_STATE_DEFLATING  ; 
 					actual = DalStatusHandler_Accessor::TranslateCuffStatusBits(cuffStatusFlags);
@@ -380,17 +377,25 @@ namespace TestDal {
 			{
 				DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor()); 
 				target->_currentEASourceFlag =0x10000;
-				String^  expected = DalAlarmSource::OverPressure.ToString();
+				String^  expected = DalAlarmFlagBitPosition::OverPressure.ToString();
 		
 				String^  actual;
-				actual = target->GetAlarmSource();
+
+				DalAlarmSource actualAlarmSource;
+				DalAlarmSource expectedAlarmSource = DalAlarmSource::OverPressure ; //same as  expected string
+
+				actual = target->GetAlarmSource(actualAlarmSource);
 				Assert::AreEqual(expected, actual);
 
+				Assert::AreEqual(expectedAlarmSource,actualAlarmSource); //check the returned enum
+
 				target->_currentEASourceFlag =0x20;
-				expected = DalAlarmSource::DualSensors.ToString();
+				expected = DalAlarmFlagBitPosition::DualSensors.ToString();
+				expectedAlarmSource = DalAlarmSource::DualSensors;
 		
-				actual = target->GetAlarmSource();
-				Assert::AreEqual(expected, actual);
+				actual = target->GetAlarmSource(actualAlarmSource);
+				Assert::AreEqual(expected, actual); //check the returned string
+				Assert::AreEqual(expectedAlarmSource,actualAlarmSource); //check the returned enum
 			
 			}
 			/// <summary>
@@ -532,7 +537,7 @@ public: [TestMethod]
 			cli::array< unsigned short >^  tonometerData = nullptr; // TODO: Initialize to an appropriate value
 			cli::array< unsigned short >^  cuffPulse = nullptr; // TODO: Initialize to an appropriate value
 			unsigned short bufferSize = 0; // TODO: Initialize to an appropriate value
-			bool expected = false; // TODO: Initialize to an appropriate value
+			bool expected = true; // TODO: Initialize to an appropriate value
 			bool actual;
 			actual = target->SaveCaptureData(tonometerData, cuffPulse, bufferSize);
 			Assert::AreEqual(expected, actual);
@@ -560,8 +565,11 @@ public: [TestMethod]
 			Assert::AreEqual(target->_currentUnusedStatusFlag, 	target->_newUnusedStatusBytes);
 			Assert::IsTrue(eventRaised);
 			Assert::AreEqual(expected, unusedFlagName);
-		}
 
+			
+
+	
+		}
 		/// <summary>
 		///A test for ProcessTonoStatusFlag
 		///</summary>
@@ -656,6 +664,7 @@ public: [TestMethod]
 			unsigned long statusBytes = 0xD0FF; //valid cuff flag
 			bool actual = false;
 			bool exceptionThrown = false;
+			target->_currentAlarmStatusFlag = 0x0000;
 			try
 			{
 				actual = DalStatusHandler_Accessor::ProcessStatusFlag(statusBytes);
@@ -667,12 +676,15 @@ public: [TestMethod]
 				//we just want to test if the flags have been split properly
 				exceptionThrown = true;
 			}
-			
+				
 			Assert::IsTrue(exceptionThrown);
-			Assert::AreEqual( statusBytes, target->_currentStatusFlag);
-			Assert::AreEqual((unsigned long)0x0000, (target->_currentCuffStatusFlag) );
-			Assert::AreEqual((unsigned long)0x5000, (target->_currentTonoStatusFlag));
-			Assert::AreEqual((unsigned long)0x0008, (target->_currentAlarmStatusFlag)); //AS bit has changed
+			if (!exceptionThrown)
+			{
+				Assert::AreEqual( statusBytes, target->_currentStatusFlag);
+				Assert::AreEqual((unsigned long)0x0000, (target->_currentCuffStatusFlag) );
+				//Assert::AreEqual((unsigned long)0x5000, (target->_currentTonoStatusFlag));
+				Assert::AreEqual((unsigned long)0x0008, (target->_currentAlarmStatusFlag)); //AS bit has changed
+			}
 		}
 		/// <summary>
 		///A test for ProcessPowerUpBitMask
@@ -827,7 +839,6 @@ public: [TestMethod]
 			
 			Assert::IsTrue(exceptionRaised); //exception should be raised.
 		}
-
 		/// <summary>
 		///A test for ProcessAlarmStatusFlag
 		///</summary>
@@ -856,6 +867,8 @@ public: [TestMethod]
 				//Register the event handler before calling
 				DalEventContainer::Instance->OnDalModuleErrorAlarmEvent  += gcnew DalModuleErrorAlarmEventHandler(&TestDal::DalStatusHandlerTest::MyAlarmEventRaisedTester);
 		
+
+
 				target->ProcessStatusFlag(statusBytes);
 				Assert::AreEqual((unsigned long)0x0008, (unsigned long)target->_currentAlarmStatusFlag);
 				Assert::IsTrue(eventRaised);
@@ -879,8 +892,8 @@ public: [TestMethod]
 				
 				//first give a "clear flag
 				unsigned long statusBytes = 0x0; 
-				/*target->ProcessStatusFlag(statusBytes);
-				Assert::AreEqual((unsigned long)0x0, (unsigned long)target->_currentAlarmStatusFlag);*/
+				target->ProcessStatusFlag(statusBytes);
+				Assert::AreEqual((unsigned long)0x0, (unsigned long)target->_currentAlarmStatusFlag);
 
 				//now raise an alarm
 				statusBytes = 0x0008;
@@ -939,10 +952,14 @@ public: [TestMethod]
 			DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor()); 
 			target->_currentEASourceFlag = 0x00000001; //this one has an alarm but not supply rails error
 
+			DalAlarmSource actualAlarmSource;
+			DalAlarmSource expectedAlarmSource = DalAlarmSource::NoAlarmDefined;
+
 			String^  expected = System::String::Empty;  //empty string expected
 			String^  actual;
-			actual = target->GetSupplyRailsAlarmSource();
+			actual = target->GetSupplyRailsAlarmSource(actualAlarmSource);
 			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(expectedAlarmSource,actualAlarmSource);
 		}
 		/// Testing for a supply error
 		///A test for GetSupplyRailsAlarmSource
@@ -955,8 +972,13 @@ public: [TestMethod]
 			target->_currentEASourceFlag = 0x0D00;
 			String^  expected = "Source5VA";  //expected 5Va for flag
 			String^  actual;
-			actual = target->GetSupplyRailsAlarmSource();
+
+			DalAlarmSource actualAlarmSource;
+			DalAlarmSource expectedAlarmSource = DalAlarmSource::Source5VA ; //same as expected string
+
+			actual = target->GetSupplyRailsAlarmSource(actualAlarmSource);
 			Assert::AreEqual(expected, actual);
+			Assert::AreEqual(expectedAlarmSource,actualAlarmSource);
 		}
 		/// Test alarm for non supplyh related alarm
 		///A test for GetNameofRaisedAlarmFlag
@@ -970,8 +992,14 @@ public: [TestMethod]
 			
 			String^  expected = "OverPressure"; 
 			String^  actual;
-			actual = target->GetNameofRaisedAlarmFlag();
+
+			DalAlarmSource actualAlarmSource;
+			DalAlarmSource expectedAlarmSource = DalAlarmSource::OverPressure ; //same as expected string
+
+			actual = target->GetNameofRaisedAlarmFlag(actualAlarmSource);
 			Assert::AreEqual(expected, actual);
+
+			Assert::AreEqual(expectedAlarmSource,actualAlarmSource);
 		}
 
 		/// <summary>
@@ -1056,6 +1084,46 @@ public: [TestMethod]
 //			Assert::AreEqual(expected, actual);
 //			Assert::Inconclusive(L"Verify the correctness of this test method.");
 //		}
+		/// <summary>
+		///A test for SaveCaptureData
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SaveCaptureDataTest2()
+		{
+			SetPath();
+
+			DalStatusHandler_Accessor^  target = gcnew DalStatusHandler_Accessor(); 
+		
+			cli::array< unsigned short >^  cuffPulse = gcnew array< unsigned short > {0xB1, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6}; 
+			unsigned short bufferSize = 6; 
+			bool expected = true; 
+			bool actual;
+			bool excepRaised = false;
+			
+			actual = target->SaveCaptureData(cuffPulse, bufferSize);
+			Assert::AreEqual(expected, actual);
+
+			//verify that the file exists in the specified path
+			String^ savedFileName = target->GetSavedFileName();
+			Assert::IsNotNull(savedFileName);
+
+			StreamReader^ savedFileReader = gcnew StreamReader(savedFileName);
+
+			try
+			{
+				for(int i=0; i<bufferSize; i++)
+				{
+					Assert::IsNotNull(savedFileReader->ReadLine());
+				}
+			}
+			catch(Exception^)
+			{
+				excepRaised = true;
+			}
+
+			Assert::IsFalse(excepRaised);
+		}
 };
 }
 namespace TestDal {

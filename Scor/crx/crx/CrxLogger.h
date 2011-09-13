@@ -9,6 +9,7 @@
 */
  
 #include "CrxCrossCutting.h"
+#include "ScorException.h"
 
 #pragma once
 
@@ -18,6 +19,9 @@ using namespace System::IO;
 using namespace Microsoft::Practices::EnterpriseLibrary::Logging;
 using namespace Microsoft::Practices::EnterpriseLibrary::Common::Configuration;
 using namespace Microsoft::Practices::EnterpriseLibrary::Logging::Configuration;
+using namespace log4net;
+using namespace log4net::Config;
+using namespace log4net::Core;
 
 //Namepsace CrxLogging to include all Logging realted functionalities
 /**
@@ -40,6 +44,7 @@ private ref struct CrxLogStructInternal
 	static	String^	DateTimeFormat			=	"yyyyMMMddHHmmss";
 	static	String^	LogFileName			=	"system\\logs\\scor_";
 	static	String^	LogFileExt			=	".log";
+	static	String^ LogSystemParameterFilePath = "system\\config\\ScorSystemParameters.xml";
 };
 
 								/**
@@ -86,20 +91,20 @@ private ref struct CrxLogStructInternal
 												 return this;
 										  }  
 
-										  /**
-										  * Takes the last line nuber number from the current rolling file.
-										  */
-										  void GetLastWrittenLineNumber();
-										  
-											/**
-											* Archives the current log file and creates a fresh current file.
-											*/
-										  bool RollLogFile();
+										 // /**
+										 // * Takes the last line nuber number from the current rolling file.
+										 // */
+										 // void GetLastWrittenLineNumber();
+										 // 
+											///**
+											//* Archives the current log file and creates a fresh current file.
+											//*/
+										 // bool RollLogFile();
 
-											/**
-											* Destructor for the class
-											*/
-										  ~CrxLogger();
+											///**
+											//* Destructor for the class
+											//*/
+										 // ~CrxLogger();
 										  
 
 										  
@@ -111,6 +116,14 @@ private ref struct CrxLogStructInternal
 										* @param[in]	message	The string to be written to log file.
 										*/
 										void Write(String^ message); 
+
+										/**
+										* Overloaded Write method@n
+										* User can pass string to write it to log.
+										* @param[in]	message	The string to be written to log file.
+										* @param[in]	lvl		The level of warning to log file.
+										*/
+										void Write(String^ message , ErrorSeverity	lvl);										
 									
 										/**
 										* Add property with custom get method to supply instance.@n
@@ -129,6 +142,8 @@ private ref struct CrxLogStructInternal
 													return CrxLogger::_instance;
 											  };
 										};
+
+										ILog^ log;
 								};
 
 

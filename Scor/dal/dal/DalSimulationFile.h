@@ -33,11 +33,12 @@ namespace AtCor{
                                     static const unsigned int DAL_FAILTOCREATE_ERR    = 303; //TODO:STUB
                                     static const unsigned int DAL_FAILTOWRITE_ERR     = 304; //TODO:STUB
 
-									
 									StreamReader ^reader; //variable to store the File stream reader
 									StreamWriter ^writer; //variable to store the File stream writer 
+
 								internal:
 									String^ filePath;	//path of the file on the disk
+
 								public:
 									/**
 									* Opens the file specified by @c DalSimulationFile::filePath.
@@ -71,7 +72,7 @@ namespace AtCor{
 									* Closes open filereaders and relaes files.
 									*/
 									~DalSimulationFile(); //Destructor
-									
+
 									/**
 									* Reads a line from the simlation file and returns a single integer value.
 									* @param[out] value1 Unsigned integer value from the first column in the file.
@@ -119,7 +120,6 @@ namespace AtCor{
 									*/
 									bool CreateFile(String^ outputFilePath);
 									
-
 									/**
 									* Writes the values passed to the dump file
 									*
@@ -129,7 +129,15 @@ namespace AtCor{
 									*/
 									bool SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse); 
 									
+					/**
+					* Writes the values passed to the dump file
+					*
+					* @param[in] cuffPulse	Cuff Pulse value
+					* @return  @c true if the operation was successful.
+					*/
+					bool DalSimulationFile::SaveCurrentValues(unsigned short cuffPulse);								
 									
+					String^ RemoveSpecialCharacters(String^ str);
 								};
 		}
 	}

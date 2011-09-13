@@ -12,13 +12,14 @@
 
 
 #include "stdafx.h"
-#include "DalCommon.h"
-#include "IDalHandler.h"
-#include "DalDeviceHandler.h"
-#include "DalEventContainer.h"
-#include "DalSimulationFile.h"
-#include "DalSimulationHandler.h"
-#include "DalStatusHandler.h"
+//#include "DalCommon.h"
+//#include "IDalHandler.h"
+//#include "DalDeviceHandler.h"
+//#include "DalEventContainer.h"
+//#include "DalSimulationFile.h"
+//#include "DalSimulationHandler.h"
+//#include "DalStatusHandler.h"
+#include "DalMeasurementMode.h"
 
 using namespace System;
 using namespace AtCor::Scor::CrossCutting;
@@ -45,12 +46,11 @@ namespace AtCor{
 				DalModule^ operator= ( DalModule);
 
 				DalStreamingMode _currentStreamingMode;
-
-				static void ConfigCommsPortSettingChangeHandler(Object^ sender, CommsPortEventArgs^ args);
-
+				//DalMeasurementMode^ _currentMeasurementMode;
 
 			internal:	
-				static IDalHandler^ _currentDevice;  //A pointer to the current device
+				//static IDalHandler^ _currentDevice;  //A pointer to the current device
+				//SetMeasurementMode(DalMeasurementMode^ newMeasurmentMode); //TODO: Deepak
 				
 			public:
 				
@@ -72,9 +72,9 @@ namespace AtCor{
 				{
 					DalStreamingMode get()
 					{
-						return this->_currentStreamingMode;
+						//return this->_currentStreamingMode;
+						return DalModule::_currentStreamingMode;
 					};
-
 				};
 
 				/**
@@ -82,7 +82,8 @@ namespace AtCor{
 				*
 				* @return	A boolean value specifying the success/failure of the operation.
 				*/
-				static bool SetDeviceStrategy();
+				//static bool SetDeviceStrategy();
+				bool SetDeviceStrategy();
 
 				/**
 				* Obtains the current com port settig from Configuration and sets the current strategy.
@@ -91,6 +92,8 @@ namespace AtCor{
 				* @return	A boolean value specifying the success/failure of the operation.
 				*/
 				static bool SetDeviceStrategy(String^ commPort);
+
+				static bool SetDeviceStrategy(String^ commPort, DalStreamingMode streamingMode);
 
 				/**
 				* Starts the data capture process from the selected device after creating a 
@@ -161,20 +164,31 @@ namespace AtCor{
 				virtual bool SaveCaptureData(array< unsigned short >^ tonometerData, array< unsigned short >^ cuffPulse, unsigned short bufferSize);
 
 				/**
+				* Dumps the tonometer and cuff data to a backup file @n
+				* Obtain the name using @c GetSavedFileName
+				* @param[in]	cuffPulse	Array with cuff pulse data values
+				* @param[in]	bufferSize	The size of the buffer to be dumped
+				* @return	 @c true if the operation was successful
+				*/
+				virtual bool SaveCaptureData(array< unsigned short >^ cuffPulse, unsigned short bufferSize);
+
+				/**
 				* Returns the name and filepath of the dump file saved by @c SaveCaptureData
 				* @return	The filepath of the saved file
 				* @see	SaveCaptureData
 				*/
 				String^ GetSavedFilePath();
 
-				/**
-				* Searches all available ports  for the EM4 module
-				* @param[out]	foundPortName	The name of the port on which the EM4 device was located
-				* @param[in]	excludePort	The port to be excluded from the search if it has already been searched.
-				*							@n It can be null
-				* @return	 @c true if the operation was successful
-				*/
-				bool SearchAllPortsforDevice(String ^%foundPortName, String ^excludePort);
+				//moved to DalActiveDevice class. Since it is called internally by
+				//FindModule(). we dont need to expose it.
+				///*
+				//* Searches all available ports  for the EM4 module
+				//* @param[out]	foundPortName	The name of the port on which the EM4 device was located
+				//* @param[in]	excludePort	The port to be excluded from the search if it has already been searched.
+				//*							@n It can be null
+				//* @return	 @c true if the operation was successful
+				//*/
+				//bool SearchAllPortsforDevice(String ^%foundPortName, String ^excludePort);
 
 
 				/**
@@ -213,6 +227,12 @@ namespace AtCor{
 				* @param[in]	newMode	The new mode of operation
 				*/
 				void SetStreamingMode(DalStreamingMode newMode);
+
+				// TS stub
+				bool IsCuffDeflated(); 
+				
+				// TS stub
+				void SetDeviceNull();
 			};
 		}
 	}

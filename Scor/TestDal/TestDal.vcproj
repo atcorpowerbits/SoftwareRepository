@@ -212,6 +212,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalActiveDeviceTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalActivePortTest.cpp"
 				>
 			</File>
@@ -224,7 +228,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalCPwaSimulationHandlerTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalCuffStatusEventArgsTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalDataBuffer.cpp"
 				>
 			</File>
 			<File
@@ -236,6 +248,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalDeviceHandlerTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalEM4CommandTest.cpp"
 				>
 			</File>
@@ -244,15 +260,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DalModuleErrorAlarmEventArgs_ORITest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DalModuleTest.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\DalPwvDataStructTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalPwvSimulationHandlerTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalResponsePacketBufferTest.cpp"
 				>
 			</File>
 			<File

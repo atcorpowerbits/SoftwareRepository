@@ -51,6 +51,10 @@ namespace AtCor{
 				//_currentCommandState = DalCommandStateReady::Instance;
 			}
 
+			void DalDeviceHandler::CloseFiles()
+			{
+			}
+
 			bool DalDeviceHandler::StartCapture(int captureTime, int samplingRate)
 			{
 				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StartCapture Called");
@@ -74,23 +78,9 @@ namespace AtCor{
 				//GUI checks if device is connected beofre calling this function . So no
 				//need to do it again. This is as per Alistairs mail on4-5th August 20111
 
-				////first check if the device is connected on the comm port mention in Config.
-				//if(!CheckIfDeviceIsConnected())
-				//{
-				//	//sufficient to return false
-				//	//throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrConfigPortNotConnectedErrCd, CrxStructCommonResourceMsg::DalErrConfigPortNotConnected, ErrorSeverity::Information);
-
-				//	return false;
-				//}
-
 				//No need to check if tonometer is connected
-				//The resukt will not be correct from EM4
-				////check if tonometer is connected. Capture cannot proceed if it is disconnectd
-				//if(!CheckIfTonometerIsConnected())
-				//{
-				//	throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrTonoNotConnectedErrCd, CrxStructCommonResourceMsg::DalErrTonoNotConnected, ErrorSeverity::Information);
-				//}
-				
+				//The result will not be correct from EM4
+								
 				//Set Idle mode
 				bool boolReturnValue;
 				boolReturnValue = SetIdleMode();
@@ -148,14 +138,7 @@ namespace AtCor{
 
 				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture returnValue" + returnValue.ToString());
 
-				//deregister the data capture handler after the call to stop capture and see
-				//if(!(_commandInterface->StopDataCaptureMode()))
-				//{
-				//	//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture EXCEPTION");
-				//	//failed to deregister the data capture handler
-				//	throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed, ErrorSeverity::Information); 
-				//}
-
+				
 				///TODO: replacing the state machine dependent method with the direct call.
 				if(!(_commandInterface->StopDataCaptureModeInternal()))
 				{
@@ -228,13 +211,14 @@ namespace AtCor{
 			}
 
 			//name changed. see if the functionality needs changing
-			String^ DalDeviceHandler::GetAlarmSource() 
+			String^ DalDeviceHandler::GetAlarmSource(DalAlarmSource% translatedAlarmSource) 
 			{
 				
 				//We need to call a command to get the error alrm source
 				DalReturnValue returnedValue;
 				DalEM4Command^ serialCommand;
 				unsigned long eaSourceFlag;
+				//DalAlarmSource translatedAlarmSource;
 
 				try
 				{
@@ -249,7 +233,7 @@ namespace AtCor{
 						_currentAlarmStatusFlag = (serialCommand->em4StatusFlag) & (unsigned long)DalStatusFlagBitMask::AlarmStatusBitsMask;
 
 						// call parent method
-						return DalStatusHandler::GetAlarmSource();
+						return DalStatusHandler::GetAlarmSource(translatedAlarmSource);
 					}
 					else
 					{
@@ -570,6 +554,42 @@ namespace AtCor{
 				{
 					throw gcnew ScorException(excepObj);
 				}
+			}
+
+			//TS Stub
+			bool DalDeviceHandler::IsCuffDeflated()
+			{
+				//Use the same command that is required to get the alarm source
+				DalReturnValue returnedValue;
+				DalEM4Command^ serialCommand;
+				//unsigned long eaSourceFlag;
+
+				try
+				{
+					serialCommand = gcnew DalEM4Command(Em4CommandCodes::GetAlarmStatus, nullptr);
+					serialCommand->expectedResponseLength = Em4ResponseRequiredLength::GetAlarmStatus ;
+					returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); 
+					
+					if (returnedValue == DalReturnValue::Success)
+					{
+						
+						//the status flag will be checked and any eventt raised
+						//now we need to obtain the status flag and extract the cuff state
+						return (DalCuffStateFlags::CUFF_STATE_DEFLATED == currentCuffState);
+					}
+					else
+					{
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommandFailedErrCd, CrxStructCommonResourceMsg::DalErrCommandFailed, ErrorSeverity::Information );
+					}
+
+				}
+				catch(ScorException^)
+				{
+					// rethrow the exception
+					throw;
+				}
+
+				
 			}
 
 		}// end namespaces

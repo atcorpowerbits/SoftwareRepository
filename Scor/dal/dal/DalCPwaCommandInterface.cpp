@@ -1,0 +1,119 @@
+/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      DalCPwaCommandInterface.cpp
+        
+     Author       :		 Deepak D'Souza
+ 
+     Description  :     Code file for DalCPwaCommandInterface class
+*/
+#pragma once
+
+#include "stdafx.h"
+#include "DalCPwaCommandInterface.h"
+
+#include "DalDeviceHandler.h"
+#include "DalCommon.h"
+#include "DalEventContainer.h"
+#include "DalCaptureState.h"
+#include "DalStagingQueue.h"
+#include "DalSequenceNumberManager.h"
+#include "DalResponsePacketBuffer.h"
+#include "DalBinaryConversions.h"
+
+using namespace AtCor::Scor::DataAccess;
+using namespace AtCor::Scor::CrossCutting;
+
+DalCPwaCommandInterface::DalCPwaCommandInterface()
+{
+	DalCommandInterface::SetInstanceObject(this);
+}
+
+//bool DalCPwaCommandInterface::ProcessSingleStreamingPacket(array<unsigned char> ^streamingPacket)
+//{
+//	CrxLogger::Instance->Write("Deepak>>> DalPwvCommandInterface::ProcessSingleStreamingPacket called with parameter: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " End");
+//
+//	if (nullptr == streamingPacket)
+//	{
+//		//CrxLogger::Instance->Write("Deepak>>> DalPwvCommandInterface::ProcessSingleStreamingPacket returning false" );
+//		return false;
+//	}
+//	try
+//	{
+//
+//		EM4DataCapturePacket^ capturePacket = gcnew EM4DataCapturePacket(DalConstants::PWVCaptureDataSize);
+//		DalPwvDataStruct pwvDataObject ;
+//		DalDataBuffer^ dataBufferObj = DalDataBuffer::Instance; //maybe we can move it out of the looper so that this will save one operation? TODO
+//
+//		//copy the array to the capture packet
+//		capturePacket->em4Response = streamingPacket;
+//
+//		//set the length to the size received from the port -1 9for CRC)
+//		capturePacket->em4ResponsePacketLength = streamingPacket->Length - 1;
+//
+//		//breakup the byte array into the individual components
+//		 if (! capturePacket->BreakupEM4Response())
+//		 {
+//			// return false; //signal failure
+//			 throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCaptureInvalidPacketErrCd,CrxStructCommonResourceMsg::DalErrCaptureInvalidPacket, ErrorSeverity::Information);
+//		 }
+//
+//		//validate the data.
+//		if (DalReturnValue::Success != ValidateResponsePacket(capturePacket))
+//		{
+//			//return false;// anyways we cannot catch the exception
+//			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCaptureInvalidPacketErrCd,CrxStructCommonResourceMsg::DalErrCaptureInvalidPacket, ErrorSeverity::Information);
+//		}
+//
+//		//everything is fine now get the data. and write it to the variables
+//		//For CPWA mode there are only three elements
+//		//pwvDataObject.tonometerData = DalBinaryConversions::TranslateTwoBytes(capturePacket->em4ResponseData, _tonometerDataIndex);
+//		pwvDataObject.cuffPulseData = DalBinaryConversions::TranslateTwoBytes(capturePacket->em4ResponseData, _cuffPulseDataIndex);
+//		pwvDataObject.countdownTimer = DalBinaryConversions::TranslateTwoBytes(capturePacket->em4ResponseData, _countdownTimerDataIndex);
+//		pwvDataObject.cuffPressure  = DalBinaryConversions::TranslateTwoBytes(capturePacket->em4ResponseData, _cuffPressureDataIndex);
+//		
+//
+//		if(!dataBufferObj->WriteDataToBuffer(pwvDataObject))
+//		{
+//			//return false;
+//			////////CrxLogger::Instance->Write("DataCaptureMultiplePacketHandler>> write to buff failed ");
+//			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferWriteFailedErrCd, CrxStructCommonResourceMsg::DalErrBufferWriteFailed, ErrorSeverity::Exception);
+//		}
+//		return true; //everything fine
+//	}
+//	catch(ScorException^ scorExObj)
+//	{
+//		//if we rethrow this exception , it will be unhandled. 
+//		//This is because this exception is raised in a 
+//		//method which has no caller and operates on its own thread.
+//		//THos causes the application to crash due to unhandled exception even though there is an exception handler in GUI.
+//		//So we are deleting this exception instead of rethrowing it.
+//		//To inform the upper layers, we are raising an OnDalModuleErrorAlarmEvent event.
+//		//This particular type (DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket) needs to be handled by
+//		//upper layers which need to decide what to do in this case.
+//
+//		//Attempting to deregister the serial port DataRecieved event handler is useless because
+//		//serial port cannot be modified in a static method. 
+//		//we also tried calling Stop capture in GUI but that needs the method to be static.
+//		//It would result in  a lot of code refactoring.
+//		
+//		//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket ScorException caught and deleted : " + scorExObj->ErrorMessageKey + " Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket) + " :End");  
+//		delete scorExObj ;
+//		String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, DalFormatterStrings::PrintEnumName);
+//		DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket));
+//		DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+//	}
+//	catch(Exception^ excepObj)
+//	{
+//		//see note above.
+//		//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket Exception caught and deleted : " + excepObj->StackTrace + ">>>"+ excepObj->Message + "Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " :End");  
+//		
+//		delete excepObj;
+//		String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, DalFormatterStrings::PrintEnumName);
+//		DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket));
+//		DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+//
+//	}
+//
+//	return false;
+//}

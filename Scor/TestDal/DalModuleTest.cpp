@@ -1,7 +1,6 @@
 ﻿
 #include "StdAfx.h"
-#include "StdAfx.h"
-#include "StdAfx.h"
+
 using namespace AtCor::Scor::CrossCutting;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
@@ -75,7 +74,6 @@ namespace TestDal {
 			//{
 			//}
 			//
-
 			//Use TestInitialize to run code before running each test
 			public: [TestInitialize]
 			System::Void MyTestInitialize()
@@ -126,7 +124,8 @@ namespace TestDal {
 			String^  commPort = "SIMULATION";
 			
 			SetPath();
-			DalModule_Accessor ^ target = gcnew DalModule_Accessor();
+			//DalModule_Accessor ^ target = gcnew DalModule_Accessor();
+			DalActiveDevice_Accessor^ target = gcnew DalActiveDevice_Accessor();
 			try
 			{
 				//We have reverted the change in signature.
@@ -152,7 +151,8 @@ namespace TestDal {
 		void SetDeviceStrategyTest2()
 		{
 			SetPath();
-			DalModule_Accessor ^ target = gcnew DalModule_Accessor();
+			//DalModule_Accessor ^ target = gcnew DalModule_Accessor();
+			DalActiveDevice_Accessor^ target = gcnew DalActiveDevice_Accessor();
 			try
 			{
 				//We have reverted the change in signature.
@@ -178,26 +178,40 @@ public: [TestMethod]
 		void SetDeviceStrategyTest1()
 		{
 			SetPath();
-			DalModule_Accessor^ target = gcnew DalModule_Accessor();
+			//DalModule_Accessor ^ target = gcnew DalModule_Accessor();
+			DalActiveDevice_Accessor^ target = gcnew DalActiveDevice_Accessor();
+			
 			target->SetDeviceStrategy("Simulation");
 
 			String^  commPort = comPortName ; 
 			
 			//We have reverted the change in signature.
 			//it will be done later so the test for return value is commented out.
+			
+			String^  foundPortName = System::String::Empty; 
+			//String^  foundPortNameExpected = comPortName; //expected result COM3
+			String^  excludePort = System::String::Empty; //null value let it search for all ports
+			bool expected = true; 
+			bool actual;
 
-			try
+			actual = target->SearchAllPortsforDevice(foundPortName, excludePort);
+			
+			if (actual)
 			{
-				//bool returnValue = false;
-
-				target->SetDeviceStrategy(commPort);
-				//Assert::IsTrue(returnValue);
+				try
+				{
+					//bool returnValue = false;
+					if (foundPortName != nullptr)
+					{
+						target->SetDeviceStrategy(commPort);
+					}
+					//Assert::IsTrue(returnValue);
+				}
+				catch(ScorException ^excepObj)
+				{
+					Assert::Fail("Excetion thrown: " + excepObj->ErrorMessageKey );
+				}
 			}
-			catch(ScorException ^excepObj)
-			{
-				Assert::Fail("Excetion thrown: " + excepObj->ErrorMessageKey );
-			}
-
 			//For some reason GetType does not reveal the class type of the IDalHandler derived class
 			//Trying to cast the IDalHandler_Impl pointer has also not produced the derised effect so we cannot  test this
 
@@ -247,23 +261,7 @@ public: [TestMethod]
 				}
 				
 			}
-			/// <summary>
-			///A test for SearchAllPortsforDevice
-			///</summary>
-	public: [TestMethod]
-			void SearchAllPortsforDeviceTest()
-			{
-				DalModule_Accessor^  target = (gcnew DalModule_Accessor()); 
-				String^  foundPortName = System::String::Empty; 
-				String^  foundPortNameExpected = comPortName; //expected result COM3
-				String^  excludePort = System::String::Empty; //null value let it search for all ports
-				bool expected = true; 
-				bool actual;
-
-				actual = target->SearchAllPortsforDevice(foundPortName, excludePort);
-				Assert::AreEqual(foundPortNameExpected, foundPortName);
-				Assert::AreEqual(expected, actual);
-			}
+			
 			/// Call find moduke to search on all ports
 			///A test for FindModule
 			///</summary>
@@ -300,24 +298,6 @@ public: [TestMethod]
 				Assert::AreEqual(deviceFoundPortExpected, deviceFoundPort);
 			}
 
-
-
-			/// <summary>
-			///A test for ConfigCommsPortSettingChangeHandler
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void ConfigCommsPortSettingChangeHandlerTest()
-			{
-				SetPath();
-				DalModule_Accessor ^ target = gcnew DalModule_Accessor();
-				Object^  sender = this; 
-				CommsPortEventArgs^  args = gcnew  CommsPortEventArgs(comPortName); 
-				target->ConfigCommsPortSettingChangeHandler(sender, args);
-				DalDeviceHandler_Accessor ^currentDalDevice = dynamic_cast<DalDeviceHandler_Accessor^>(target->_currentDevice);
-				Assert::AreEqual(comPortName, DalActivePort_Accessor::Instance->ActiveSerialPortName);
-
-			}
 			
 			/// <summary>
 			///A test for DalModule Constructor
@@ -344,7 +324,7 @@ public: [TestMethod]
 				DalModule_Accessor^  target = gcnew DalModule_Accessor(); 
 				target->SetDeviceStrategy("Simulation");
 				Assert::IsNotNull(target);
-				Assert::IsNotNull(target->_currentDevice);
+
 			}
 			/// <summary>
 			///A test for SetStreamingMode
@@ -371,6 +351,43 @@ public: [TestMethod]
 			DalStreamingMode actual;
 			actual = target->StreamingMode;
 			Assert::AreEqual(expected, actual);
+		}
+		/// <summary>
+		///A test for SaveCaptureData
+		///</summary>
+public: [TestMethod]
+		void SaveCaptureDataTest()
+		{
+				SetPath();
+				//Creating child class object as DalSimulationHandler class is abstuct class
+				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
+
+				cli::array< unsigned short >^  cuffPulse = gcnew array< unsigned short > {0xB1, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6}; 
+				unsigned short bufferSize = 6;  
+				bool expected = true; 
+				bool actual;
+				bool excepRaised = false;
+
+				actual = target->SaveCaptureData(cuffPulse, bufferSize);
+				Assert::AreEqual(expected, actual);
+				//verify that the file exists in the specified path
+				String^ savedFileName = target->GetSavedFileName();
+				Assert::IsNotNull(savedFileName);
+				StreamReader ^ savedFileReader = gcnew StreamReader(savedFileName);
+
+				try
+				{
+					for(int i = 0; i<bufferSize; i++)
+					{
+						Assert::IsNotNull(savedFileReader->ReadLine());
+					}
+				}
+				catch(Exception^)
+				{
+					excepRaised = true;
+				}
+				Assert::AreNotEqual(excepRaised, expected);
+
 		}
 };
 }

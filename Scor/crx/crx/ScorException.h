@@ -24,9 +24,12 @@ namespace AtCor {
 */
 public enum class ErrorSeverity
 {
+	Debug,
 	Information,
 	Warning,
-	Exception
+	Error,
+	Fatal,
+	Exception // TODO: Will be removed from all layers and replaced with Error
 };
 
 /**

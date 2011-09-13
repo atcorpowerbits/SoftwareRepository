@@ -416,6 +416,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		int CaptureTime;		/**<5 : if 5 seconds is selected 10:10 seconds is selected 20:20 seconds is selected */
 		String^ SimulationType;	/**< Shows the String Selected*/
 		String^ DefaultReport;	/**< Shows the default report string selected*/
+		bool AutoCapture;		/**< true: if Auto Capture is selected, false: if not selcted */
+		bool GuidanceBars;		/**< true: if Guidance bar is selected, false: if not selcted */
+
 		
 		/**
 		* Default constructor to initialize the structure members
@@ -430,6 +433,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			CaptureTime			= Convert::ToInt32(CrxGenPwvValue::CrxPwvCapture5Seconds); 
 			SimulationType		= nullptr;
 			DefaultReport		= nullptr;
+			AutoCapture			= true;
+			GuidanceBars		= true;
 		}
 	};
 
@@ -752,6 +757,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetSimulationType(String^ SubSection, String^ ReaderValue);
 			//Get Default Report value from config file
 			void GetDefaultReport(String^ SubSection, String^ ReaderValue);
+			//Get Auto Capture value from config file
+			void GetPwvAutoCapture(String^ SubSection, String^ ReaderValue);
+			//Get Guidance Bar value from config file
+			void GetPwvGuidanceBars(String^ SubSection, String^ ReaderValue);
 	
 		
 			//-------------------Set PWV Setting User Values-------------------
@@ -769,8 +778,12 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void SetCaptureTime(CrxStructPwvSetting^ ps, XmlNode^ node);
 			//Set Simulation Type value in config file
 			void SetSimulationType(CrxStructPwvSetting^ ps, XmlNode^ node);
-			//Set Default Report value from config file
+			//Set Default Report value in config file
 			void SetDefaultReport(CrxStructPwvSetting^ ps, XmlNode^ node);
+			//Set Auto Capture value in config file
+			void SetPwvAutoCapture(CrxStructPwvSetting^ ps, XmlNode^ node);
+			//Set Guidance Bar value in config file
+			void SetPwvGuidanceBars(CrxStructPwvSetting^ ps, XmlNode^ node);
 
 			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
 			//-------------------Get PWA Setting Values-------------------
