@@ -218,7 +218,43 @@ namespace AtCor{
 				*/
 				public delegate void DalUnusedStatusFlagChangedEventHandler(Object^ sender, DalUnusedStatusFlagEventArgs ^args);
 
+				//TS STUB
+				/**
+				* @class DalNIBPDataEventArgs
+				* @brief Class to contain arguments for OnDalNIBPDataEvent.
+				*/
+				public ref class DalNIBPDataEventArgs: public EventArgs
+				{
+					public:
+						/**
+						* Data for the event.
+						*/
+						property unsigned short nibpError;
+						property unsigned short nibpSP;
+						property unsigned short nibpDP;
+						property unsigned short nibpMP;
+						property unsigned short nibpHR;
+						
+						/**
+						* Constructor for the class.
+						*
+						* @param[in] error  NIBP Error code
+						* @param[in] sp     NIBP Systolic value in mmHg
+						* @param[in] dp     NIBP Systolic value in mmHg
+						* @param[in] mp     NIBP Mean arterial pressure value in mmHg
+						* @param[in] hr     NIBP Heart rate in beats per min
+						*/
+						DalNIBPDataEventArgs(unsigned short error,
+											 unsigned short sp,
+											 unsigned short dp,
+											 unsigned short mp, 
+											 unsigned short hr);
+				};
 
+ 				/**
+				* Delegate for NIBP data event
+				*/
+				public delegate void DalNIBPDataEventHandler(Object^ sender, DalNIBPDataEventArgs ^args);
 
 
 				/**
@@ -243,6 +279,9 @@ namespace AtCor{
 						DalTonometerStatusEventHandler^ _dalTonometerStatusEventHandler; //handler for tonometer status change events
 
 						DalUnusedStatusFlagChangedEventHandler^ _dalUnusedStatusFlagChangedEventHandler; //unused status flag changed event handler
+
+						//TS STUB
+						DalNIBPDataEventHandler^ _dalNIBPDataEventHandler; // NIBP data event handler
 						
 					public:
 						/**
@@ -583,7 +622,64 @@ namespace AtCor{
 								}
 							}
 						}
+				
 
+						/**
+						* Unused status flag raised event.
+						*/
+						event DalNIBPDataEventHandler^ OnDalNIBPDataEvent
+						{
+							/**
+							* Registers specifed handler method as a listener to this event.
+							*
+							* @param[in] handler	The handler method to be registered as a listener. @n
+							*						Should match the signature of DalNIBPDataEventHandler
+							*/
+							void add(DalNIBPDataEventHandler^ handler)
+							{
+								lock lockEvents(this);
+								//add the specified handler as listener.
+								_dalNIBPDataEventHandler += handler;
+							}
+							
+							/**
+							* Removes specifed handler method from the list of listners. @n
+							* The handler can no  longer listen to this event.
+							*
+							* @param[in] handler	The handler method to be de-registered as a listener. @n
+							*						Should be already added as a listener.
+							*/
+							void remove(DalNIBPDataEventHandler^ handler)
+							{
+								lock lockEvents(this);
+								//Remove the specified handler from the list of listeners
+								_dalNIBPDataEventHandler -= handler;
+							}
+
+							/**
+							* Overloaded raise method.
+							* Needed to raise an event.
+							*
+							* @param[in]	sender	Reference to object that raised the event.
+							* @param[in[	args	The arguments for this event. Should be of the type DalTonometerDataEventArgs.
+							*/
+							void raise(Object^ sender, DalNIBPDataEventArgs^ args)
+							{
+								if (nullptr == args )
+								{
+									//validation of param based on FxCop
+									//No need to validate the sender as it is unimportant.
+									return;
+								}
+
+								//Raise the event.
+								if(_dalNIBPDataEventHandler)
+								{
+									_dalNIBPDataEventHandler->Invoke(sender, args);
+								}
+							}
+						}
+						
 				}; // End class DalEventContainer
 		}
 	}

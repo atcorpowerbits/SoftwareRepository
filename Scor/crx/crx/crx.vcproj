@@ -403,6 +403,26 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ApplicationMessages.es-ES.resx"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCManagedResourceCompilerTool"
+						ResourceFileName="..\..\gui\gui\bin\$(IntDir)\System\Resources\$(SolutionName).ApplicationMessages.es-ES.resources"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCManagedResourceCompilerTool"
+						ResourceFileName="..\..\gui\gui\bin\$(IntDir)\System\Resources\$(SolutionName).ApplicationMessages.es-ES.resources"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\ApplicationMessages.resx"
 				SubType="Designer"
 				>

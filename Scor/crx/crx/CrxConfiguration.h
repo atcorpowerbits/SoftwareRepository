@@ -408,7 +408,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 	public ref struct CrxStructPwvSetting
 	{
 		
-		bool FemoralToCuff;		/**< true: if Femoral to Cuff is selected, false: if not selcted */		
+		//bool FemoralToCuff;		/**< true: if Femoral to Cuff is selected, false: if not selcted */		
+		String^	FemoralToCuff;	/**< Shows the String Femoral to Cuff selected*/
 		bool ReferenceRange;	/**< true: if Reference Range is selected, false: if not selcted */
 		bool NormalRange;		/**< true: if Normal Range is selected, false: if not selcted */
 		int PWVDistanceUnits;	/**<0 : if mm is selected, 1: If cm is selected */
@@ -425,7 +426,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		*/
 		CrxStructPwvSetting()
 		{
-			FemoralToCuff		= false;
+			//FemoralToCuff		= false;
+			FemoralToCuff		= nullptr;
 			ReferenceRange		= false;
 			NormalRange			= false;
 			PWVDistanceUnits	= 0;
@@ -456,6 +458,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
 		String^ SimulationType;	/**< Shows the String Selected*/
 		//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+		String^ DefaultReport;	/**< Shows the default report string selected*/
 		
 
 		/**
@@ -473,6 +476,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
 			SimulationType			= nullptr;
 			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+			DefaultReport			= nullptr;
 		}
 	};
 	//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
@@ -813,6 +817,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			//Get Simulation Type value from config file
 			void GetPwaSimulationType(String^ SubSection, String^ ReaderValue);
 			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+			//Get Default Report value from config file
+			void GetPwaDefaultReport(String^ SubSection, String^ ReaderValue);
 
 
 			//-------------------Set PWA Setting Values-------------------
@@ -843,6 +849,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			//Set Simulation Type value in config file
 			void SetPwaSimulationType(CrxStructPwaSetting^ pwas, XmlNode^ node);
 			//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+			//Set Default Report value in config file
+			void SetPwaDefaultReport(CrxStructPwaSetting^ pwas, XmlNode^ node);
 
 
 			//-------------------Get BP Setting Values-------------------

@@ -15,7 +15,7 @@ namespace AtCor.Scor.Gui.Presentation
         readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
 
         List<RadLabel> mandatoryLabels = new List<RadLabel>();
-        List<RadTextBox> mandatoryTextboxes = new List<RadTextBox>();
+       public List<RadTextBox> mandatoryTextboxes = new List<RadTextBox>();
 
         bool isFieldEmpty = false;
 
@@ -167,6 +167,7 @@ namespace AtCor.Scor.Gui.Presentation
                 isFieldEmpty = true;
                 GuiCommon.IsValueOutsideIntegerLimits = true;
                 string field = GetLabelText(radtxtCtrl.Tag.ToString());
+
                // radtxtCtrl.Text = string.Empty;
                 string err = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiLimitsFormat), field, min, string.Empty, max, string.Empty);
                 RadMessageBox.Show(err, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);

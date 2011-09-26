@@ -230,10 +230,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DalCPwaMode.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DalCPwaSimulationHandler.cpp"
 				>
 			</File>
@@ -262,11 +258,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DalMeasurementMode.cpp"
+				RelativePath=".\DalModule.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DalModule.cpp"
+				RelativePath=".\DalNibpCommandInterface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalNibpDeviceHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalNibpSimulationHandler.cpp"
 				>
 			</File>
 			<File
@@ -275,10 +279,6 @@
 			</File>
 			<File
 				RelativePath=".\DalPwvDeviceHandler.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DalPwvMode.cpp"
 				>
 			</File>
 			<File
@@ -376,10 +376,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DalCPwaMode.h"
-				>
-			</File>
-			<File
 				RelativePath=".\DalCPwaSimulationHandler.h"
 				>
 			</File>
@@ -408,11 +404,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DalMeasurementMode.h"
+				RelativePath=".\DalModule.h"
 				>
 			</File>
 			<File
-				RelativePath=".\DalModule.h"
+				RelativePath=".\DalNibpCommandInterface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalNibpDeviceHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalNibpSimulationHandler.h"
 				>
 			</File>
 			<File
@@ -421,10 +425,6 @@
 			</File>
 			<File
 				RelativePath=".\DalPwvDeviceHandler.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DalPwvMode.h"
 				>
 			</File>
 			<File
@@ -461,6 +461,10 @@
 			</File>
 			<File
 				RelativePath=".\IDalHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IDalNibpHandler.h"
 				>
 			</File>
 			<File

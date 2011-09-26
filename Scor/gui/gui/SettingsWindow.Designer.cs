@@ -35,7 +35,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.radgrpbxSimulationTypes = new Telerik.WinControls.UI.RadGroupBox();
             this.comboSimulationFilesPwv = new Telerik.WinControls.UI.RadDropDownList();
             this.radgrpCuffLocation = new Telerik.WinControls.UI.RadGroupBox();
-            this.radchkFemoralToCuff = new Telerik.WinControls.UI.RadCheckBox();
+            this.radlblFemoralToCuffUnits = new Telerik.WinControls.UI.RadLabel();
+            this.radtxtFemoralToCuff = new Telerik.WinControls.UI.RadTextBox();
             this.radgrpbxCaptureGuide = new Telerik.WinControls.UI.RadGroupBox();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.radchkAutoInflate = new Telerik.WinControls.UI.RadCheckBox();
@@ -86,6 +87,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.radgrpbxSetupScreen = new Telerik.WinControls.UI.RadGroupBox();
             this.radchkbxPatientPrivacy = new Telerik.WinControls.UI.RadCheckBox();
             this.docWndPWASettings = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.radgrpbxDefaultPwaReport = new Telerik.WinControls.UI.RadGroupBox();
+            this.comboDefaultPwaReport = new Telerik.WinControls.UI.RadDropDownList();
             this.guiradgrpbxPWASimulationFiles = new Telerik.WinControls.UI.RadGroupBox();
             this.comboSimulationFilesPwa = new Telerik.WinControls.UI.RadDropDownList();
             this.radgrpbxCaptureGuidePWA = new Telerik.WinControls.UI.RadGroupBox();
@@ -131,6 +134,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.object_2c8b2f0f_b093_4256_82f7_ffe6d52c17dc = new Telerik.WinControls.RootRadElement();
             this.radgrpbxBloodPressure = new Telerik.WinControls.UI.RadGroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.guipnlFemoralToCuffDistance = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
             this.docWndPWVSettings.SuspendLayout();
@@ -139,7 +143,8 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.comboSimulationFilesPwv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpCuffLocation)).BeginInit();
             this.radgrpCuffLocation.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkFemoralToCuff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radlblFemoralToCuffUnits)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radtxtFemoralToCuff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureGuide)).BeginInit();
             this.radgrpbxCaptureGuide.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
@@ -204,6 +209,9 @@ namespace AtCor.Scor.Gui.Presentation
             this.radgrpbxSetupScreen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radchkbxPatientPrivacy)).BeginInit();
             this.docWndPWASettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxDefaultPwaReport)).BeginInit();
+            this.radgrpbxDefaultPwaReport.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboDefaultPwaReport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradgrpbxPWASimulationFiles)).BeginInit();
             this.guiradgrpbxPWASimulationFiles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comboSimulationFilesPwa)).BeginInit();
@@ -256,6 +264,7 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radRadioButton2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radRadioButton3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxBloodPressure)).BeginInit();
+            this.guipnlFemoralToCuffDistance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -354,14 +363,14 @@ namespace AtCor.Scor.Gui.Presentation
             // radgrpCuffLocation
             // 
             this.radgrpCuffLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radgrpCuffLocation.Controls.Add(this.radchkFemoralToCuff);
+            this.radgrpCuffLocation.Controls.Add(this.guipnlFemoralToCuffDistance);
             this.radgrpCuffLocation.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radgrpCuffLocation.FooterImageIndex = -1;
             this.radgrpCuffLocation.FooterImageKey = "";
             this.radgrpCuffLocation.HeaderImageIndex = -1;
             this.radgrpCuffLocation.HeaderImageKey = "";
             this.radgrpCuffLocation.HeaderMargin = new System.Windows.Forms.Padding(0);
-            this.radgrpCuffLocation.HeaderText = "Cuff Location";
+            this.radgrpCuffLocation.HeaderText = "Femoral to Cuff Distance";
             this.radgrpCuffLocation.Location = new System.Drawing.Point(10, 84);
             this.radgrpCuffLocation.Name = "radgrpCuffLocation";
             this.radgrpCuffLocation.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
@@ -371,7 +380,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.radgrpCuffLocation.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             this.radgrpCuffLocation.Size = new System.Drawing.Size(254, 56);
             this.radgrpCuffLocation.TabIndex = 1;
-            this.radgrpCuffLocation.Text = "Cuff Location";
+            this.radgrpCuffLocation.Text = "Femoral to Cuff Distance";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpCuffLocation.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpCuffLocation.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
             ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpCuffLocation.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -379,22 +388,30 @@ namespace AtCor.Scor.Gui.Presentation
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpCuffLocation.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpCuffLocation.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
             // 
-            // radchkFemoralToCuff
+            // radlblFemoralToCuffUnits
             // 
-            this.radchkFemoralToCuff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
-            this.radchkFemoralToCuff.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radchkFemoralToCuff.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkFemoralToCuff.Location = new System.Drawing.Point(14, 16);
-            this.radchkFemoralToCuff.Name = "radchkFemoralToCuff";
-            // 
+            this.radlblFemoralToCuffUnits.AutoSize = false;
+            this.radlblFemoralToCuffUnits.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radlblFemoralToCuffUnits.Location = new System.Drawing.Point(57, 8);
+            this.radlblFemoralToCuffUnits.Name = "radlblFemoralToCuffUnits";
             // 
             // 
-            this.radchkFemoralToCuff.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkFemoralToCuff.Size = new System.Drawing.Size(125, 21);
-            this.radchkFemoralToCuff.TabIndex = 0;
-            this.radchkFemoralToCuff.Text = "Femoral to cuff";
-            this.radchkFemoralToCuff.MouseClick += new System.Windows.Forms.MouseEventHandler(this.radchkbxPatientPrivacy_MouseClick);
-            this.radchkFemoralToCuff.Click += new System.EventHandler(this.radchkbxPatientPrivacy_Click);
+            // 
+            this.radlblFemoralToCuffUnits.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.radlblFemoralToCuffUnits.Size = new System.Drawing.Size(43, 21);
+            this.radlblFemoralToCuffUnits.TabIndex = 1;
+            this.radlblFemoralToCuffUnits.Text = "mm";
+            // 
+            // radtxtFemoralToCuff
+            // 
+            this.radtxtFemoralToCuff.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radtxtFemoralToCuff.Location = new System.Drawing.Point(3, 5);
+            this.radtxtFemoralToCuff.Name = "radtxtFemoralToCuff";
+            this.radtxtFemoralToCuff.Size = new System.Drawing.Size(50, 23);
+            this.radtxtFemoralToCuff.TabIndex = 0;
+            this.radtxtFemoralToCuff.TabStop = false;
+            this.radtxtFemoralToCuff.Leave += new System.EventHandler(this.radtxtFemoralToCuff_Leave);
+            this.radtxtFemoralToCuff.TextChanged += new System.EventHandler(this.radchkGuidanceBars_Click);
             // 
             // radgrpbxCaptureGuide
             // 
@@ -678,7 +695,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.radchkReferenceRange.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.radchkReferenceRange.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radchkReferenceRange.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radchkReferenceRange.Location = new System.Drawing.Point(14, 32);
+            this.radchkReferenceRange.Location = new System.Drawing.Point(14, 28);
             this.radchkReferenceRange.Name = "radchkReferenceRange";
             // 
             // 
@@ -1479,6 +1496,7 @@ namespace AtCor.Scor.Gui.Presentation
             // docWndPWASettings
             // 
             this.docWndPWASettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.docWndPWASettings.Controls.Add(this.radgrpbxDefaultPwaReport);
             this.docWndPWASettings.Controls.Add(this.guiradgrpbxPWASimulationFiles);
             this.docWndPWASettings.Controls.Add(this.radgrpbxCaptureGuidePWA);
             this.docWndPWASettings.Controls.Add(this.radchkBlindStudy);
@@ -1490,6 +1508,53 @@ namespace AtCor.Scor.Gui.Presentation
             this.docWndPWASettings.Name = "docWndPWASettings";
             this.docWndPWASettings.Size = new System.Drawing.Size(540, 372);
             this.docWndPWASettings.Text = "PWA Settings";
+            // 
+            // radgrpbxDefaultPwaReport
+            // 
+            this.radgrpbxDefaultPwaReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.radgrpbxDefaultPwaReport.Controls.Add(this.comboDefaultPwaReport);
+            this.radgrpbxDefaultPwaReport.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radgrpbxDefaultPwaReport.FooterImageIndex = -1;
+            this.radgrpbxDefaultPwaReport.FooterImageKey = "";
+            this.radgrpbxDefaultPwaReport.HeaderImageIndex = -1;
+            this.radgrpbxDefaultPwaReport.HeaderImageKey = "";
+            this.radgrpbxDefaultPwaReport.HeaderMargin = new System.Windows.Forms.Padding(0);
+            this.radgrpbxDefaultPwaReport.HeaderText = "Default Report";
+            this.radgrpbxDefaultPwaReport.Location = new System.Drawing.Point(268, 257);
+            this.radgrpbxDefaultPwaReport.Name = "radgrpbxDefaultPwaReport";
+            this.radgrpbxDefaultPwaReport.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            // 
+            // 
+            // 
+            this.radgrpbxDefaultPwaReport.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
+            this.radgrpbxDefaultPwaReport.Size = new System.Drawing.Size(250, 63);
+            this.radgrpbxDefaultPwaReport.TabIndex = 5;
+            this.radgrpbxDefaultPwaReport.Text = "Default Report";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxDefaultPwaReport.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxDefaultPwaReport.GetChildAt(0).GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(199)))), ((int)(((byte)(220)))));
+            ((Telerik.WinControls.UI.GroupBoxHeader)(this.radgrpbxDefaultPwaReport.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.Color.WhiteSmoke;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxDefaultPwaReport.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxDefaultPwaReport.GetChildAt(0).GetChildAt(1).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.radgrpbxDefaultPwaReport.GetChildAt(0).GetChildAt(1).GetChildAt(1))).Width = 0F;
+            // 
+            // comboDefaultPwaReport
+            // 
+            this.comboDefaultPwaReport.AllowShowFocusCues = true;
+            this.comboDefaultPwaReport.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboDefaultPwaReport.AutoSize = false;
+            this.comboDefaultPwaReport.DropDownHeight = 80;
+            this.comboDefaultPwaReport.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
+            this.comboDefaultPwaReport.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboDefaultPwaReport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.comboDefaultPwaReport.Location = new System.Drawing.Point(14, 25);
+            this.comboDefaultPwaReport.Name = "comboDefaultPwaReport";
+            // 
+            // 
+            // 
+            this.comboDefaultPwaReport.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.comboDefaultPwaReport.Size = new System.Drawing.Size(221, 23);
+            this.comboDefaultPwaReport.TabIndex = 0;
+            this.comboDefaultPwaReport.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.comboDefaultReport_SelectedIndexChanged);
             // 
             // guiradgrpbxPWASimulationFiles
             // 
@@ -1632,14 +1697,14 @@ namespace AtCor.Scor.Gui.Presentation
             this.radgrpbxClinicalReport.HeaderImageKey = "";
             this.radgrpbxClinicalReport.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpbxClinicalReport.HeaderText = "Clinical Report";
-            this.radgrpbxClinicalReport.Location = new System.Drawing.Point(276, 47);
+            this.radgrpbxClinicalReport.Location = new System.Drawing.Point(268, 47);
             this.radgrpbxClinicalReport.Name = "radgrpbxClinicalReport";
             this.radgrpbxClinicalReport.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
             // 
             // 
             this.radgrpbxClinicalReport.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxClinicalReport.Size = new System.Drawing.Size(235, 102);
+            this.radgrpbxClinicalReport.Size = new System.Drawing.Size(250, 102);
             this.radgrpbxClinicalReport.TabIndex = 3;
             this.radgrpbxClinicalReport.Text = "Clinical Report";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxClinicalReport.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
@@ -1692,14 +1757,14 @@ namespace AtCor.Scor.Gui.Presentation
             this.radgrpbxCaptureInput.HeaderImageKey = "";
             this.radgrpbxCaptureInput.HeaderMargin = new System.Windows.Forms.Padding(0);
             this.radgrpbxCaptureInput.HeaderText = "Capture Input";
-            this.radgrpbxCaptureInput.Location = new System.Drawing.Point(276, 163);
+            this.radgrpbxCaptureInput.Location = new System.Drawing.Point(268, 163);
             this.radgrpbxCaptureInput.Name = "radgrpbxCaptureInput";
             this.radgrpbxCaptureInput.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
             // 
             // 
             // 
             this.radgrpbxCaptureInput.RootElement.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.radgrpbxCaptureInput.Size = new System.Drawing.Size(235, 80);
+            this.radgrpbxCaptureInput.Size = new System.Drawing.Size(250, 80);
             this.radgrpbxCaptureInput.TabIndex = 4;
             this.radgrpbxCaptureInput.Text = "Capture Input";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.radgrpbxCaptureInput.GetChildAt(0).GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
@@ -2355,6 +2420,15 @@ namespace AtCor.Scor.Gui.Presentation
             this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 100);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // guipnlFemoralToCuffDistance
+            // 
+            this.guipnlFemoralToCuffDistance.Controls.Add(this.radtxtFemoralToCuff);
+            this.guipnlFemoralToCuffDistance.Controls.Add(this.radlblFemoralToCuffUnits);
+            this.guipnlFemoralToCuffDistance.Location = new System.Drawing.Point(17, 17);
+            this.guipnlFemoralToCuffDistance.Name = "guipnlFemoralToCuffDistance";
+            this.guipnlFemoralToCuffDistance.Size = new System.Drawing.Size(128, 32);
+            this.guipnlFemoralToCuffDistance.TabIndex = 2;
+            // 
             // frmSettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2387,8 +2461,8 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.comboSimulationFilesPwv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpCuffLocation)).EndInit();
             this.radgrpCuffLocation.ResumeLayout(false);
-            this.radgrpCuffLocation.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radchkFemoralToCuff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radlblFemoralToCuffUnits)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radtxtFemoralToCuff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxCaptureGuide)).EndInit();
             this.radgrpbxCaptureGuide.ResumeLayout(false);
             this.tableLayoutPanel13.ResumeLayout(false);
@@ -2458,6 +2532,9 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radchkbxPatientPrivacy)).EndInit();
             this.docWndPWASettings.ResumeLayout(false);
             this.docWndPWASettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radgrpbxDefaultPwaReport)).EndInit();
+            this.radgrpbxDefaultPwaReport.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.comboDefaultPwaReport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradgrpbxPWASimulationFiles)).EndInit();
             this.guiradgrpbxPWASimulationFiles.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.comboSimulationFilesPwa)).EndInit();
@@ -2513,6 +2590,8 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.radRadioButton2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radRadioButton3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radgrpbxBloodPressure)).EndInit();
+            this.guipnlFemoralToCuffDistance.ResumeLayout(false);
+            this.guipnlFemoralToCuffDistance.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -2563,7 +2642,6 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadGroupBox guiradgrpDefaultReport;
         private Telerik.WinControls.UI.RadCheckBox radchkNormalRange;
         private Telerik.WinControls.UI.RadCheckBox radchkReferenceRange;
-        private Telerik.WinControls.UI.RadCheckBox radchkFemoralToCuff;
         private Telerik.WinControls.RootRadElement object_2c8b2f0f_b093_4256_82f7_ffe6d52c17dc;
         private Telerik.WinControls.UI.RadDropDownList comboBoxCommsPort;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxStartupScreen;
@@ -2621,6 +2699,11 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadRadioButton radradiobtnSphygcomor;
         private Telerik.WinControls.UI.RadGroupBox radgrpbxSimulationTypes;
         private Telerik.WinControls.UI.RadDropDownList comboSimulationFilesPwv;
+        private Telerik.WinControls.UI.RadTextBox radtxtFemoralToCuff;
+        private Telerik.WinControls.UI.RadLabel radlblFemoralToCuffUnits;
+        private Telerik.WinControls.UI.RadGroupBox radgrpbxDefaultPwaReport;
+        private Telerik.WinControls.UI.RadDropDownList comboDefaultPwaReport;
+        private System.Windows.Forms.Panel guipnlFemoralToCuffDistance;
     }
 }
 

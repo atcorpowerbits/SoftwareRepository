@@ -145,35 +145,6 @@ namespace AtCor{
 					*/
 					static DalReturnValue ValidateResponsePacket(EM4DataCapturePacket ^ capturePacket);
 
-					//function is being moved to DalStatusHandler for unification
-					///*
-					//* Checks the status flag parameter and raises events on cuff or error_alarm status change
-					//* @param[in] statusBytes	The status flag to check
-					//* @return	status of the operation
-					//*/
-					//static bool CheckStatusFlag(unsigned long statusBytes);
-
-					//moved to a different class
-					/*
-					* Property to obtain the a sequence number for the EM4 command 
-					* Starts from 0x00 to 0x0F and rolls over.
-					*/
-					/*static property unsigned char SentPacketSequenceNumber
-					{
-						unsigned char get()
-						{
-							unsigned char returnValue;
-							
-							returnValue = _sentPacketSequenceNumber++;
-							if (_sentPacketSequenceNumber > _packetSequenceMaxValue)
-							{
-								_sentPacketSequenceNumber = _packetSequenceMinValue;
-							}
-							
-							return returnValue;
-						};
-					};*/
-
 					/**
 					* Sets the current state of the command State machine
 					*
@@ -215,15 +186,6 @@ namespace AtCor{
 					*/
 					DalCommandInterface();
 					
-					///*
-					//* Handler for the events raised during data capture. @n
-					//* Reads multiple events in a loop
-					//* @param[in]	sender	Event sender. 
-					//* @param[in]	e	Event arguments
-					//*/
-					//static void DataCaptureMultiplePacketHandler(Object^ sender, SerialDataReceivedEventArgs^ e);
-			
-
 					/**
 					* Registers the DataCaptureSinglePacketHandler to listen to data caputre packets
 					* @return	status of the operation
@@ -236,31 +198,6 @@ namespace AtCor{
 					*/
 					bool StopDataCaptureMode();
 
-					/*
-					* Sets the current SerialPort Object to the specified port name
-					* @param  serialPortName The serial port to set
-					* @return	status of the operation
-					*/
-					//bool SetActivePort( String^ serialPortName);
-
-					/*
-					* Sets the port name for the current serial port object.
-					* @param  serialPortName The serial port to set
-					* @return	status of the operation
-					* @warning Check if the serialport instance is not null before calling.
-					*/
-					//bool SetActivePortInstance(String^ serialPortName);
-
-					/*
-					* Sets the properties of the internal serialPort object
-					* @return	status of the operation
-					*/
-					//bool SetSerialPortProperties();
-
-					//bool CreateAndOpenNewSerialPort(String^ newPortName);
-
-					//bool CloseActivePort();
-
 					/**
 					* Returns the current singleton instance.
 					*/
@@ -272,58 +209,7 @@ namespace AtCor{
 						};
 					};
 
-					///*
-					//* Returns the name of the currently active serial port.
-					//* @warning Will return @c null if the current serial port object is not set.
-					//*/
-					//property String^ ActiveSerialPortName
-					//{
-					//	String^ get()
-					//	{
-					//		if (_serialPort)
-					//		{
-					//			return _serialPort->PortName;
-					//		}
-					//		else
-					//		{
-					//			//we will return a null string to indicate that the serialPort object hasnt been initialized.
-					//			return nullptr;
-					//		}
-					//	};
-					//}
-
-					
-
-					///*
-					//* Cleans the input buffer and dumps the unread packets into the log file.
-					//* Called when there an illegal data packet is received @n
-					//* cleans the input buffer and dumps the remaining values into the logfile.
-					//* @param[in]	serialPort	The serial port object
-					//* @param[in]	currentDataPacket	The data packet to be dumped. 
-					//*/
-					//static bool DumpInputBufferOnFailure(SerialPort^ serialPort, array<unsigned char> ^currentDataPacket);
-
-
-					///*
-					//* Processes the input buffer for data packets. @n
-					//* Reads multiple data packets in a loop and writes them to the circula buffer.
-					//* @param[in]	sender	Event sender. 
-					//* @param[in]	e	Event arguments
-					//* @see DataCaptureMultiplePacketHandler
-					//*/
-					//static void ReadFromPortAndWriteToBuffer(Object^ sender, SerialDataReceivedEventArgs^ e);
-
-					///*
-					//* Searches for the response to a particulr serial command in a large array. @n
-					//* @param[in]	serialCommand	The command whose response we need to search in the array. 
-					//* @param[in]	sourceArray		The array in which the search is conducted
-					//* @return		A boolan value indicating the status of the operation: @n
-					//*				@c true if a valid response to the command was found( can be an Ack or nack)
-					//*				@c false if no response was found.
-					//*/
-					//bool ExtractRequiredResponseFromArray(DalEM4Command^ serialCommand, array <unsigned char> ^ sourceArray);
-
-
+					//moved to DalActivePort
 					/**
 					* Public exposed member that is called via the state machine.
 					* Internally calls CheckIfTimeoutHasOccurredInternal in the correct state.
@@ -332,8 +218,9 @@ namespace AtCor{
 					* @param[out]	args	The timer event arguments.
 					*
 					*/
-					static void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args);
+					//static void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args);
 
+					//moved to DalActivePort
 					/**
 					* Event handler to check if data buffer is empty.
 					* Increments a counter if the buffer is empty and resets it to zero
@@ -344,7 +231,7 @@ namespace AtCor{
 					* @param[out]	args	The timer event arguments.
 					*
 					*/
-					static void CheckIfTimeoutHasOccurredInternal(Object^ sender, ElapsedEventArgs^ args);
+					//static void CheckIfTimeoutHasOccurredInternal(Object^ sender, ElapsedEventArgs^ args);
 
 					/**
 					* Processes a single packet from the streamign packet buffer.

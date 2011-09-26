@@ -373,7 +373,7 @@
             this.radlblCaptureTime.BackColor = System.Drawing.Color.Transparent;
             this.radlblCaptureTime.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radlblCaptureTime.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radlblCaptureTime.Location = new System.Drawing.Point(174, 19);
+            this.radlblCaptureTime.Location = new System.Drawing.Point(40, 19);
             this.radlblCaptureTime.Name = "radlblCaptureTime";
             // 
             // 
@@ -397,6 +397,7 @@
             this.radlblPatientName.Size = new System.Drawing.Size(150, 25);
             this.radlblPatientName.TabIndex = 1;
             this.radlblPatientName.TextWrap = false;
+            this.radlblPatientName.Visible = false;
             // 
             // radPanel1
             // 

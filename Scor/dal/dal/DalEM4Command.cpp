@@ -168,7 +168,7 @@ namespace AtCor{
 					//sepearte the data packet and also its length
 					return BreakResponseDataPart();
 				}
-				catch(Exception^ )
+				catch(Exception^ exobj)
 				{
 					////CrxLogger::Instance->Write("Inside DALEM4Command::BreakupResponse()");
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrResponseInvalidErrCd, CrxStructCommonResourceMsg::DalErrResponseInvalid, ErrorSeverity::Exception );

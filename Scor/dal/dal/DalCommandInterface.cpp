@@ -87,15 +87,6 @@ namespace AtCor{
 			{
 				DalReturnValue responseReturnValue = DalReturnValue::Failure; //initialize to failure
 
-				//set the timeout period
-				//DalActivePort::Instance->CurrentPort->ReadTimeout = serialCommand->timeoutPeriod;
-				//DalActivePort::Instance->CurrentPort->ReadTimeout = SerialPort::InfiniteTimeout ;
-			
-
-				//Setting to infinite timeout for testing new read/write class
-				//The timeout value is still active. see if it can be used or if infinite is fine
-				//TODO: attend to this
-
 				//Retry as many times as specified for the command 
 				do 
 				{
@@ -112,6 +103,10 @@ namespace AtCor{
 						//Instead of directly sending command we will call the dallActive port function
 						DalActivePort::Instance->SendPacket(serialCommand->em4Command);
 
+					}
+					catch(ScorException^ scorEx)
+					{
+						throw;
 					}
 					catch(Exception^ excepObj)
 					{
@@ -435,43 +430,44 @@ namespace AtCor{
 
 
 
-			void DalCommandInterface::CheckIfTimeoutHasOccurredInternal(System::Object ^sender, System::Timers::ElapsedEventArgs ^args)
-			{
-				sender; //Dummy statement to get rid of C4100 warning
-				args; //Dummy statement to get rid of C4100 warning
+			//Moved to another class
+			//void DalCommandInterface::CheckIfTimeoutHasOccurredInternal(System::Object ^sender, System::Timers::ElapsedEventArgs ^args)
+			//{
+			//	sender; //Dummy statement to get rid of C4100 warning
+			//	args; //Dummy statement to get rid of C4100 warning
 
-				static unsigned int BufferEmptyCounter = 0;
+			//	static unsigned int BufferEmptyCounter = 0;
 
-				if (DalDataBuffer::Instance->IsBufferEmpty())
-				{
-					BufferEmptyCounter++;
-				}
-				else
-				{
-					//reset the pointer
-					BufferEmptyCounter = 0;
+			//	if (DalDataBuffer::Instance->IsBufferEmpty())
+			//	{
+			//		BufferEmptyCounter++;
+			//	}
+			//	else
+			//	{
+			//		//reset the pointer
+			//		BufferEmptyCounter = 0;
 
-					//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateWaiting::Instance);
-					ChangeCaptureState(DalCaptureStateWaiting::Instance); //call directly so that it is applicable for its children too
-					
-				}
+			//		//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateWaiting::Instance);
+			//		ChangeCaptureState(DalCaptureStateWaiting::Instance); //call directly so that it is applicable for its children too
+			//		
+			//	}
 
-				if (BufferEmptyCounter >=  DalConstants::MaxStreamingTimeoutOccurrences)
-				{
-					//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
-					ChangeCaptureState(DalCaptureStateTimeout::Instance); //call directly so that it is applicable for its children too
-					
-					//raise event 
-					String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureTimeout, DalFormatterStrings::PrintEnumName);
-					DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::DataCaptureTimeout));
-					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+			//	if (BufferEmptyCounter >=  DalConstants::MaxStreamingTimeoutOccurrences)
+			//	{
+			//		//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
+			//		ChangeCaptureState(DalCaptureStateTimeout::Instance); //call directly so that it is applicable for its children too
+			//		
+			//		//raise event 
+			//		String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureTimeout, DalFormatterStrings::PrintEnumName);
+			//		DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::DataCaptureTimeout));
+			//		DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 
-					//////CrxLogger::Instance->Write("Timeout Event raised :" + BufferEmptyCounter);
+			//		//////CrxLogger::Instance->Write("Timeout Event raised :" + BufferEmptyCounter);
 
-					//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
-					ChangeCaptureState(DalCaptureStateNotListening::Instance); //call directly so that it is applicable for its children too
-				}
-			}
+			//		//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
+			//		ChangeCaptureState(DalCaptureStateNotListening::Instance); //call directly so that it is applicable for its children too
+			//	}
+			//}
 
 
 
@@ -524,10 +520,11 @@ namespace AtCor{
 				return _currentCaptureState->StopDataCaptureMode();
 			}
 
-			void DalCommandInterface::CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args)
+			//moved to DalActivePort
+			/*void DalCommandInterface::CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args)
 			{
 				_currentCaptureState->CheckIfTimeoutHasOccurred(sender, args);
-			}
+			}*/
 
 			bool DalCommandInterface::ProcessSingleStreamingPacket(array<unsigned char> ^streamingPacket)
 			{

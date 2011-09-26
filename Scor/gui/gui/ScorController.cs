@@ -96,5 +96,10 @@ namespace AtCor.Scor.Gui.Presentation
         {
             scorStrategy.HandleKeyDownEventOnCaptureScreen(e);
         }
+
+        public void CreateTextFileForFailedCapture()
+        {
+            scorStrategy.CreateTextFileForFailedCapture(); 
+        }
     }
 }

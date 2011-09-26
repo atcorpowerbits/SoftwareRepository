@@ -97,5 +97,10 @@ namespace AtCor.Scor.Gui.Presentation
         {
             ((Capture)GuiCommon.CaptureChildForm).HandleKeyDownEventForPwvMode(e);   
         }
+
+        public void CreateTextFileForFailedCapture()
+        {
+            ((Capture)GuiCommon.CaptureChildForm).CreateTextFileOnReportFailed();
+        }
     }
 }

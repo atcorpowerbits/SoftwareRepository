@@ -72,7 +72,7 @@ namespace TestCrx {
 				CrxStructPwvSetting^  target = (gcnew CrxStructPwvSetting());
 				Assert::IsNotNull(target);
 
-				Assert::IsFalse(target->FemoralToCuff);
+				//Assert::IsFalse(target->FemoralToCuff);
 				Assert::IsFalse(target->ReferenceRange);
 				Assert::AreEqual(target->PWVDistanceUnits, 0);
 				Assert::AreEqual(target->PWVDistanceMethod, 0);

@@ -83,9 +83,38 @@ namespace AtCor{
 								
 				//Set Idle mode
 				bool boolReturnValue;
-				boolReturnValue = SetIdleMode();
+				//Alok 
+				//
+				//boolReturnValue = SetIdleMode();
+				
+				int countRetry;
+				int count = 0;
+				int sleepTime = 0;
+				
+				sleepTime = Convert::ToInt32(CrxSytemParameters::Instance->GetStringTagValue("IdleModeSleepTime"));
+				countRetry = (15000/sleepTime) + 1;
+
+				Object^ obj;
+				do
+				{
+					//ToDo: //Send message to GUI ("Please wait...Device is in Idle Mode")	
+					ScorException^ check = gcnew ScorException (1001, CrxStructCommonResourceMsg::Dal_DeviceIdling_Message, ErrorSeverity::Information);	
+					CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+
+					boolReturnValue = SetIdleMode();
+					if(!boolReturnValue)
+					{
+						count++;
+						Threading::Thread::Sleep(sleepTime); //Wait for 3 sec to re-check the idle mode
+					}
+				}
+				while(!boolReturnValue || count > countRetry);
+				//Alok
+
 				if (false == boolReturnValue )
 				{
+					ScorException^ check = gcnew ScorException (1002, CrxStructCommonResourceMsg::Dal_DeviceNotReady_Message, ErrorSeverity::Information);	
+					CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
 					return false;
 				}
 
@@ -202,6 +231,12 @@ namespace AtCor{
 						//deviceConfigInfo->ModuleType = CrxMessagingManager::Instance->GetMessage("DAL_CONST_GCI_TYPE"); 
 						deviceConfigInfo->ModuleType = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstGciType); 
 						break;
+					case DalDeviceConfigUsageEnum::PwaCuffMeasurementsCounter:
+						String^ tempPwaCuffMeasurementsCounter;
+
+						returnValue = GetConfigPwaCuffMeasurementsCounter(tempPwaCuffMeasurementsCounter);
+						deviceConfigInfo->PwaCuffMeasurementsCounter = tempPwaCuffMeasurementsCounter; 
+						return returnValue;
 					default:
 						break;
 				}
@@ -502,6 +537,30 @@ namespace AtCor{
 
 			}
 
+			bool DalDeviceHandler::GetConfigPwaCuffMeasurementsCounter(String ^% PwaCuffMeasurementsCounter)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::GetConfigInfoDataPwaCuffMeasurementsCounter};
+
+				serialCommand = gcnew DalEM4Command(Em4CommandCodes::GetConfigInfo, dataCode);
+				serialCommand->expectedResponseLength = Em4ResponseRequiredLength::GetConfigInfoDataPwaCuffMeasurementsCounter ;
+				
+				returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); ////renamed oringinal method
+				
+				if (returnedValue == DalReturnValue::Success)
+				{
+					PwaCuffMeasurementsCounter = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
+					delete serialCommand;
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+
+			}
+
 			bool DalDeviceHandler::SetIdleMode()
 			{
 				try
@@ -529,7 +588,7 @@ namespace AtCor{
 					//this command can only be sent once
 					setIdleCommand->retriesAllowed = 1;
 					//set timeout to 15 seconds
-					setIdleCommand->timeoutPeriod = 15000; //miliseconds
+					//setIdleCommand->timeoutPeriod = 15000; //miliseconds (Default is 50 ms)
 
 					setIdleCommand->expectedResponseLength = 5;
 
@@ -538,6 +597,8 @@ namespace AtCor{
 					commandReturnValue = _commandInterface->SendCommandAndGetResponse(setIdleCommand);
 
 					if (DalReturnValue::Success == commandReturnValue)
+					//---if (DalReturnValue::Ack == commandReturnValue)
+					//Alok
 					{
 						return true;
 					}

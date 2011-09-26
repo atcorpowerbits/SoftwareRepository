@@ -51,7 +51,7 @@ namespace AtCor{
 										static const unsigned int RightShiftOneNibble = 4;
 										static const unsigned int EM4NackPacketDataLength = 1; //Nack packet contains only one packet
 										static const unsigned int StreamingPacketReadInterval = 125; /**< Interval at which the timer for reading packets should fire.*/
-										
+										static String^ PwaCuffMeasurementsCounter  = "1"; /**< PwaCuffMeasurementsCounter */
 								};
 
 								/**
@@ -91,7 +91,8 @@ namespace AtCor{
 									ModuleMainFirmwareVersion, /**< Firmware version */
 									ModuleConfigId, /**< Config ID */
 									ModuleConfigDate, /**< Configuation Date */
-									ModuleCalibrationDate /**< Last calibration date */
+									ModuleCalibrationDate, /**< Last calibration date */
+									PwaCuffMeasurementsCounter /**< Number of PWA cuff measurements */
 
 								}; // End DalDeviceConfigUsageEnum
 
@@ -108,31 +109,8 @@ namespace AtCor{
 										property unsigned short ModuleConfigId; /**< Config ID */
 										property DateTime ModuleConfigDate; /**< Configuation Date */
 										property DateTime ModuleCalibrationDate; /**< Last calibration date */
-
+										property String^ PwaCuffMeasurementsCounter; /**< Number of PWA cuff measurements */
 								}; // End DalDeviceConfigUsageStruct
-
-								/*
-								* @enum DalCuffStatusBitMask
-								* @brief	Contains the bit masks against which the status flags will be comapred to obtain the cuff status bits.
-								* This will be used in combination with DalCuffStateFlags.
-								*/
-								//public enum class DalCuffStatusBitMask{
-								//	CUFF_STATUS_BITS_UNKNOWN = 0xFFFF,  //marked as a clear flag. cannot use 0 becuase it is another valid value
-								//	
-								//	CUFF_DISCONNECTED_STATUS_BITS = 0x2000,
-								//										
-								//	CUFF_DEFLATED_STATUS_BITS     = 0x0000,
-								//
-								//	CUFF_INFLATING_STATUS_BITS    = 0x0100,
-								//	
-								//	CUFF_DISCONNECTED_INFLATING_STATUS_BITS    = 0x2100, //same as INFLATING but thhe CN bit changes
-								//	
-								//	CUFF_INFLATED_STATUS_BITS     = 0x0A00,
-								//	
-								//	CUFF_DEFLATING_STATUS_BITS    = 0x0300,
-
-								//	CUFF_DISCONNECTED_DEFLATING_STATUS_BITS    = 0x2300//Same as deflating with the CN bit set to 1
-								//};
 
 								//Replaced with a new version of the flags. Wait for TS to approve before finalizing
 								/**
@@ -233,7 +211,8 @@ namespace AtCor{
 									Failure,
 									Success,
 									Timeout,
-									NoAck
+									NoAck,
+									Ack
 								};
 
 								/**
@@ -375,6 +354,8 @@ namespace AtCor{
 										static const unsigned char GetConfigInfoDataDeviceSerialNumber = 0x08;
 										static const unsigned char GetAlarmStatus = 0x11;
 										static const unsigned char SetIdleMode = 0x1A;
+										static const unsigned char GetConfigInfoDataPwaCuffMeasurementsCounter = 0x0B;
+										static const unsigned char NibpConnectDisconnect = 0x05;
 								};
 
 								/**
@@ -389,6 +370,9 @@ namespace AtCor{
 										static const int SetPressure = 5;
 										static const int GetConfigInfoDataDeviceSerialNumber = 17;
 										static const int GetAlarmStatus = 9;
+										static const int GetConfigInfoDataPwaCuffMeasurementsCounter = 3;
+										static const int ZeroDataResponsePacket = 5;
+
 								};
 
 
@@ -561,6 +545,16 @@ namespace AtCor{
 
 								};
 
+								//TS STUB
+								/* @enum	DalFindModuleResult
+								* @brief	An enum defining the return values for FindModule function.
+								*/
+								public enum class DalNIBPMode
+								{
+									Adult = 0, /**< Adult mode blood pressure measurement. */
+									Pediatric = 1, /**< Pediatric mode blood pressure measurement. */
+									Neonate = 2 /**< Neonate mode blood pressure measurement. */
+								};
 
 
 		} // End Namespace DataAccess

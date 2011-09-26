@@ -38,9 +38,9 @@ namespace AtCor{
 
 				static DalPwvMode^ _instance = gcnew DalPwvMode();
 
-				DalPwvMode();
+				/*DalPwvMode();
 				DalPwvMode(DalPwvMode^);
-				DalPwvMode^ operator= (DalPwvMode);
+				DalPwvMode^ operator= (DalPwvMode);*/
 
 			internal:	
 				
@@ -49,13 +49,13 @@ namespace AtCor{
 				/**
 				* Returns the current singleton instance.
 				*/
-				static property DalPwvMode^ Instance
+				/*static property DalPwvMode^ Instance
 				{
 					DalPwvMode^ get()
 					{
 						return DalPwvMode::_instance;
 					};
-				};
+				};*/
 			};
 		}
 	}

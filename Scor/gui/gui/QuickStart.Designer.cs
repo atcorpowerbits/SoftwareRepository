@@ -133,7 +133,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblBpAssessmentsStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.guiradlblBpAssessmentsStatus.Controls.Add(this.guiradbtnAssessmentsDetails);
             this.guiradlblBpAssessmentsStatus.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiradlblBpAssessmentsStatus.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblBpAssessmentsStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
             this.guiradlblBpAssessmentsStatus.Location = new System.Drawing.Point(36, 506);
             this.guiradlblBpAssessmentsStatus.Name = "guiradlblBpAssessmentsStatus";
             // 
@@ -183,6 +183,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWAMPDisplay.Size = new System.Drawing.Size(37, 23);
             this.guiradlblPWAMPDisplay.TabIndex = 57;
             this.guiradlblPWAMPDisplay.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.guiradlblPWAMPDisplay.Visible = false;
             ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAMPDisplay.GetChildAt(0))).BorderVisible = true;
             ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAMPDisplay.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWAMPDisplay.GetChildAt(0))).Text = "";
@@ -343,7 +344,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWAPP.AutoSize = false;
             this.guiradlblPWAPP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblPWAPP.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblPWAPP.Location = new System.Drawing.Point(5, 230);
+            this.guiradlblPWAPP.Location = new System.Drawing.Point(5, 266);
             this.guiradlblPWAPP.Name = "guiradlblPWAPP";
             // 
             // 
@@ -441,7 +442,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWAPPDisplay.BorderVisible = true;
             this.guiradlblPWAPPDisplay.Font = new System.Drawing.Font("Arial", 11F);
             this.guiradlblPWAPPDisplay.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblPWAPPDisplay.Location = new System.Drawing.Point(77, 230);
+            this.guiradlblPWAPPDisplay.Location = new System.Drawing.Point(77, 266);
             this.guiradlblPWAPPDisplay.Name = "guiradlblPWAPPDisplay";
             // 
             // 
@@ -473,6 +474,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWAMP.TabIndex = 58;
             this.guiradlblPWAMP.Text = "MP:";
             this.guiradlblPWAMP.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.guiradlblPWAMP.Visible = false;
             // 
             // guipnlPWABPOtherDevice
             // 

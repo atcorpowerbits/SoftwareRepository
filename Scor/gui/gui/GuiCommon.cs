@@ -36,10 +36,13 @@ namespace AtCor.Scor.Gui.Presentation
     public static class GuiCommon
    {       
        #region Global variable declaration
+       public static CrxStructPWAMeasurementData crxPwaData;
+       public static CrxStructCuffPWAMeasurementData crxPwaCuffData;
        public static bool IsValidatedLicenseKey = false; // This flag is used to check whether LicenseKey is valdiated or not.
        public static SystemKeyWindowValues SystemKeyWindowValue = SystemKeyWindowValues.ADD; // values :0.Add 1.Update     Checking whether system key form is called for updating or adding system key.
        public static string CurrentMode = string.Empty;
-       public static string CurrentScreen = CrxStructCommonResourceMsg.SetupScreen;       
+       public static string CurrentScreen = CrxStructCommonResourceMsg.SetupScreen;
+       public static string InConclusiveMessageForPwaCapture = string.Empty;
        public static bool SetupToReport = false;
        public static bool CaptureToReport = false;
        public static bool CaptureToSetup = false;
@@ -56,6 +59,7 @@ namespace AtCor.Scor.Gui.Presentation
        // This variable is used during checking field limits on Setup screen.When user has clicked Rad tab capture and if one of the field has value which
        // is out of range.After the out of range message is shown the tabselection_changed event has already been fired due to which the capture functionality starts.
        // As this is wrong we are using the below variable to see if it is true then stop the tab from changing.
+       public static bool IsOnSetupScreen = false;  
        public static bool IsValueOutsideLimits = false;
        public static bool IsValueOutsideIntegerLimits = false;
        public static bool IsMandatoryFieldEmpty = false;  
@@ -68,10 +72,11 @@ namespace AtCor.Scor.Gui.Presentation
        public static bool AutoPWA = true;
        public static int AutoPWADelay = 15;
        public static int RepeatDelay = 5;
-
+       public static bool RepeatButtonClickedStartNibpOnSetup = false;
+       public static bool ErrorInCaptureProcess = false;
        public static BizPWV bizObject;
        public static BizPWA bizPwaobject;
-       public static CrxStructGeneralSetting generalSettingsStruct = new CrxStructGeneralSetting();
+       public static CrxStructGeneralSetting GeneralSettingsStruct = new CrxStructGeneralSetting();
        #endregion
 
        #region Main / Parent window Handle
@@ -121,6 +126,7 @@ namespace AtCor.Scor.Gui.Presentation
        static GuiCommon()
        {
            PwvCurrentStudyDatetime = string.Empty;
+           PwaCurrentStudyDatetime = string.Empty;
            GroupName = string.Empty;
            GroupId = 0;
            PatientInternalNumber = 0;
@@ -171,8 +177,11 @@ namespace AtCor.Scor.Gui.Presentation
 
         #region PWV settings properties
 
-       public static string PwvCurrentStudyDatetime { get; set; }             
+       public static string PwvCurrentStudyDatetime { get; set; }
 
+       public static string PwaCurrentStudyDatetime { get; set; }
+
+       public static string PwaCurrentId { get; set; }  
        #endregion
 
         #region methods..
@@ -593,5 +602,176 @@ namespace AtCor.Scor.Gui.Presentation
         public static bool BPChartValidation { get; set; }
 
         public static string BpChartTextValue { get; set; }
+    }
+
+    /**
+* @class PWACommonReportData
+* @brief This class is used to define properties which will be used for generating PWA Clinical/Evaluation report
+  * The property values will be set in report screen once the user clicks print "PWA Clinical/Evaluation report" and these values
+  * will be passed to Crystal report for printing PWA Patient Report
+*/
+    public static class PWACommonReportData
+    {
+        public static string RptPrintType { get; set; }
+
+        public static int RptPwaId { get; set; }
+
+        public static string RptReferenceAgeValue { get; set; }
+
+        public static string RptHeader { get; set; }
+
+        public static string RptPatientDataHeader { get; set; }
+
+        public static string RptPatientName { get; set; }
+
+        public static string RptPatientNameValue { get; set; }
+
+        public static string RptPatientId { get; set; }
+
+        public static string RptPatientIdValue { get; set; }
+
+        public static string RptPatientDob { get; set; }
+
+        public static string RptPatientDobValue { get; set; }
+
+        public static string RptPatientAge { get; set; }
+
+        public static string RptPatientAgeValue { get; set; }
+
+        public static string RptPatientGender { get; set; }
+
+        public static string RptPatientGenderValue { get; set; }
+
+        public static string RptStudyDataHeader { get; set; }
+
+        public static string RptPatientAssessment { get; set; }
+
+        public static string RptPatientAssessmentValue { get; set; }
+
+        public static string RptPatientBP { get; set; }
+
+        public static string RptPatientBPValue { get; set; }
+      
+        public static string RptPatientHeight { get; set; }
+
+        public static string RptPatientHeightValue { get; set; }
+
+        public static string RptDatabaseVersionTitle { get; set; }
+
+        public static string RptDatabaseVersionValue { get; set; }
+
+        public static string RptWaveformPlotTitle { get; set; }
+
+        public static string RptWaveformPlotValue { get; set; }
+
+        public static string RptNumberOfWaveformsTitle { get; set; }
+
+        public static string RptNumberOfWaveformsValue { get; set; }
+
+        public static string RptQualityControlTitle { get; set; }
+
+        public static string RptQualityControlValue { get; set; }
+
+        public static string RptSignatureTitle { get; set; }
+
+        public static string RptPhysicianTitle { get; set; }
+
+        public static string RptSimulationModeTitle { get; set; }
+    }
+
+    /**
+* @class PWAClinicalReportData
+* @brief This class is used to define properties which will be used for generating PWA Clinical report
+  * The property values will be set in report screen once the user clicks print "PWA Clinical report" and these values
+  * will be passed to Crystal report for printing PWV Clinical Report
+*/
+    public static class PWAClinicalReportData
+    {
+        public static string RptClinicalParametersTitle { get; set; }
+
+        public static string RptCentralPressureWaveformTitle { get; set; }
+
+        public static string RptBrachialTitle { get; set; }
+
+        public static string RptAroticTitle { get; set; }
+
+        public static string RptSPTitle { get; set; }
+
+        public static string RptSPBrachialValue { get; set; }
+
+        public static string RptSPAroticValue { get; set; }
+
+        public static string RptDPTitle { get; set; }
+
+        public static string RptDPBrachialValue { get; set; }
+
+        public static string RptDPAroticValue { get; set; }
+
+        public static string RptMPTitle { get; set; }
+
+        public static string RptMPBrachialValue { get; set; }
+
+        public static string RptMPAroticValue { get; set; }
+
+        public static string RptPPTitle { get; set; }
+
+        public static string RptPPBrachialValue { get; set; }
+
+        public static string RptPPAroticValue { get; set; }
+
+        public static string RptHRTitle { get; set; }
+
+        public static string RptHRBrachialValue { get; set; }
+
+        public static string RptHRAroticValue { get; set; }
+
+        public static string RptInterpretationTitle { get; set; }
+
+        public static string RptInterpretationValue { get; set; }      
+    }
+
+    /**
+* @class PWAEvaluationReportData
+* @brief This class is used to define properties which will be used for generating PWA Evaluation report
+   * The property values will be set in report screen once the user clicks print "PWA Evaluation report" and these values
+   * will be passed to Crystal report for printing PWA Evaluation Report
+*/
+    public static class PWAEvaluationReportData
+    {
+        public static string RptCentralPressureWaveformTitle { get; set; }
+
+        public static string RptHeartRatePeriodTitle { get; set; }
+
+        public static string RptHeartRatePeriodValue { get; set; }
+
+        public static string RptCentralHaemodynamicParametersTitle { get; set; }
+
+        public static string RptAroticT1T2Title { get; set; }
+
+        public static string RptAorticT1T2Value { get; set; }
+
+        public static string RptP1HeightTitle { get; set; }
+
+        public static string RptP1HeightValue { get; set; }
+
+        public static string RptAorticAixTitle { get; set; }
+
+        public static string RptAorticAixValue { get; set; }
+
+        public static string RptAorticAIxHR75Title { get; set; }
+
+        public static string RptAorticAIxHR75Value { get; set; }
+
+        public static string RptAorticAugmentationAP_PPTitle { get; set; }
+
+        public static string RptAorticAugmentationAP_PPValue { get; set; }
+
+        public static string RptEndSystolicPressureTitle { get; set; }
+
+        public static string RptEndSystolicPressureValue { get; set; }
+
+        public static string RptMPSystoleDiastoleTitle { get; set; }
+
+        public static string RptMPSystoleDiastoleValue { get; set; }
     }
 }

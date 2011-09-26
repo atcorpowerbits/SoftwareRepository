@@ -171,6 +171,13 @@ namespace AtCor{
 					bool GetConfigDeviceSerialMumber(String ^% moduleSerialNumber);
 
 					/**
+					* Gets the Pwa Cuff Measurements Counter of the device from config
+					* @param[out]	PwaCuffMeasurementsCounter	The Pwa Cuff Measurements Counter obtained from the device
+					* @return	Status of the operation
+					*/
+					bool GetConfigPwaCuffMeasurementsCounter(String ^% PwaCuffMeasurementsCounter);
+					
+					/**
 					* Sets the EM4 mode to Idle mode
 					*
 					* @return The result of the operation
@@ -181,6 +188,15 @@ namespace AtCor{
 					virtual bool IsCuffDeflated();
 
 					virtual void CloseFiles();
+
+					//TS STUB
+					virtual bool StartBP(DalNIBPMode nibpMode, unsigned short initialPressure){nibpMode; initialPressure; return true;};
+					virtual bool StartBP(DalNIBPMode nibpMode){nibpMode; return true;};
+					virtual bool FinishBP(){return true;};
+					virtual bool AbortBP(){return true;};
+					//static void OnTimerNIBPDataEvent(Object^ sender, ElapsedEventArgs^ args){true;};
+
+
 
 			};
 		}

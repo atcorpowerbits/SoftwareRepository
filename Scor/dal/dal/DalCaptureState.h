@@ -69,7 +69,7 @@ namespace AtCor{
 			* @param[out]	args	The timer event arguments.
 			*
 			*/
-			virtual void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args);
+			//virtual void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args);
 	};
 
 
@@ -134,7 +134,7 @@ namespace AtCor{
 			* Stops the data capture process
 			*/
 			virtual bool StopDataCaptureMode() override;
-			virtual void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args) override;
+			//virtual void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args) override;
 	};
 
 	/**

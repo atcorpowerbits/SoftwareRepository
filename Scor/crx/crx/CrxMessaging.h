@@ -56,7 +56,9 @@ namespace AtCor {
 				static  String^ const  BackupFail								=	"BACKUP_FAIL";
 				static  String^ const  BackupProgress							=	"BACKUP_PROGRESS";
 				static  String^ const  BackupTitle								=	"BACKUP_TITLE";
+				static  String^ const  BllCuffDeflating							=	"BLL_CUFF_DEFLATING";
 				static  String^ const  BllStartCaptureFailed					=	"BLL_START_CAPTURE_FAILED";
+				static  String^ const  BllStopCaptureFailed						=	"BLL_STOP_CAPTURE_FAILED";
 				static  String^ const  BpGradeIht								=	"BP_GRADE_I_HT";
 				static  String^ const  BpGradeIhtRange							=	"BP_GRADE_I_HT_RANGE";
 				static  String^ const  BpGradeIiAndIiiHt						=	"BP_GRADE_II_AND_III_HT";
@@ -203,7 +205,8 @@ namespace AtCor {
 				static  String^ const  DalConstGciType							=	"DAL_CONST_GCI_TYPE";
 				static  String^ const  DalConstSimFolderPath					=	"DAL_CONST_SIM_FOLDER_PATH";
 				static  String^ const  DalConstSimFolderPathPwa					=	"DAL_CONST_SIM_FOLDER_PATH_PWA";
-
+				static  String^ const  Dal_DeviceIdling_Message		            =   "DAL_DEVICE_IDLING_MESSAGE";
+				static  String^ const  Dal_DeviceNotReady_Message				=   "DAL_DEVICE_NOT_READY_MESSAGE";      
 				static  String^ const  DalErrActivePortCloseFailed				=	"DAL_ERR_ACTIVE_PORT_CLOSE_FAILED";
 				static	const   int	   DalErrActivePortCloseFailedErrCd			=	1025;
 
@@ -333,6 +336,7 @@ namespace AtCor {
 				static  String^ const  FieldPatientHeight						=	"FIELD_PATIENT_HEIGHT";
 				static  String^ const  FieldPatientHeightFoot					=	"FIELD_PATIENT_HEIGHT_FOOT";
 				static  String^ const  FieldPatientHeightInch					=	"FIELD_PATIENT_HEIGHT_INCH";
+				static  String^ const  FieldPatientHr							=	"FIELD_PATIENT_HR";
 				static  String^ const  FieldPatientPp							=	"FIELD_PATIENT_PP";
 				static  String^ const  FieldPatientSp							=	"FIELD_PATIENT_SP";
 				static  String^ const  FieldPatientWeight						=	"FIELD_PATIENT_WEIGHT";
@@ -402,6 +406,7 @@ namespace AtCor {
 				static  String^ const  GuiAtcorHomepageMenu					=	"GUI_ATCOR_HOMEPAGE_MENU";
 				static  String^ const  GuiBackupMenu						=	"GUI_BACKUP_MENU";
 				static  String^ const  GuiCaptureCuffInflated				=	"GUI_CAPTURE_CUFF_INFLATED";
+				static  String^ const  GuiCaptureCuffInflatingMsg			=	"GUI_CAPTURE_CUFF_INFLATING_MSG";
 				static  String^ const  GuiCaptureDeflatedMsg				=	"GUI_CAPTURE_DEFLATED_MSG";
 				static  String^ const  GuiCaptureError						=	"GUI_CAPTURE_ERROR";
 				static  String^ const  GuiCaptureGeneratingReport			=	"GUI_CAPTURE_GENERATING_REPORT";
@@ -446,6 +451,7 @@ namespace AtCor {
 				static  String^ const  GuiFemoral							=	"GUI_FEMORAL";
 				static  String^ const  GuiFindModuleMenu					=	"GUI_FIND_MODULE_MENU";
 				static  String^ const  GuiGrpDefaultReport					=	"GUI_GRP_DEFAULT_REPORT";
+				static  String^ const  GuiInConclusivePwaReportInitialMesg	=	"GUI_INCONCLUSIVE_PWA_REPORT_INITIAL_MESSAGE";
 				static  String^ const  GuiInfoTxt							=	"GUI_INFO_TXT";
 				static  String^ const  GuiLimitsFormat						=	"GUI_LIMITS_FORMAT";
 				static  String^ const  GuiMenuSupport						=	"GUI_MENU_SUPPORT";
@@ -464,11 +470,16 @@ namespace AtCor {
 
 				static  String^ const  GuiOperatorGuideMenu					=	"GUI_OPERATOR_GUIDE_MENU";
 				static  String^ const  GuiPleaseEnterFormat					=	"GUI_PLEASE_ENTER_FORMAT";
+				static  String^ const  GuiPrintPwaClinicalTitle				=	"GUI_PRINT_PWA_CLINICAL_TITLE";
+				static  String^ const  GuiPrintPwaEvaluationTitle			=	"GUI_PRINT_PWA_EVALUATION_TITLE";
 				static  String^ const  GuiPrintPwvAnalysisBpChartValue		=	"GUI_PRINT_PWV_ANALYSIS_BPCHART_VALUE";
 				static  String^ const  GuiPrintPwvAnalysisLegendTitle		=	"GUI_PRINT_PWV_ANALYSIS_LEGEND_TITLE";
 				static  String^ const  GuiPrintPwvAnalysisTitle				=	"GUI_PRINT_PWV_ANALYSIS_TITLE";
 				static  String^ const  GuiPrintPwvRptTitle					=	"GUI_PRINT_PWV_RPT_TITLE";
 				static  String^ const  GuiPrinterSetup						=	"GUI_PRINTER_SETUP";
+				static  String^ const  GuiReportActual						=	"GUI_REPORT_ACTUAL";
+				static  String^ const  PwaClinicalReport					=	"PWA CLINICAL REPORT";
+				static  String^ const  PwaEvaluationReport					=	"PWA EVALUATION REPORT";
 				static  String^ const  GuiReportAgeOutsideRange				=	"GUI_REPORT_AGE_OUTSIDE_RANGE";
 				static  String^ const  GuiReportBpColon						=	"GUI_REPORT_BP_COLON";
 				static  String^ const  GuiReportGenPopDesc					=	"GUI_REPORT_GENERAL_POP_DESCRIPTION";
@@ -476,8 +487,10 @@ namespace AtCor {
 				static  String^ const  GuiReportGreenArea					=	"GUI_REPORT_GREEN_AREA";
 				static  String^ const  GuiReportLblBpRange					=	"GUI_REPORT_LBL_BP_RANGE";
 				static  String^ const  GuiReportNoBp						=	"GUI_REPORT_NO_BP";
+				static  String^ const  GuiReportPatientHeightOutsideRange	=	"GUI_REPORT_PATIENT_HEIGHT_OUTSIDE_RANGE";
 				static  String^ const  GuiReportPwvColon					=	"GUI_REPORT_PWV_COLON";
 				static  String^ const  GuiReportRedArea						=	"GUI_REPORT_RED_AREA";
+				static  String^ const  GuiReportTypical						=	"GUI_REPORT_TYPICAL";
 				static  String^ const  GuiRestoreMenu						=	"GUI_RESTORE_MENU";
 				static  String^ const  GuiRptRefRangeDesc					=	"GUI_RPT_REF_RANGE_DESC";
 				static  String^ const  GuiScreenResolutionMsg				=	"GUI_SCREEN_RESOLUTION_MSG";
@@ -498,7 +511,6 @@ namespace AtCor {
 				static  String^ const  GuiWaveformSaveMsg					=	"GUI_WAVEFORM_SAVE_MSG";
 				static  String^ const  HeartrateLblAnalysis					=	"HEARTRATE_LBL_ANALYSIS";
 				static  String^ const  HeartrateUnit						=	"HEARTRATE_UNIT";
-				static  String^ const  HeightOutOfRange						=	"HEIGHT_OUT_OF_RANGE";
 				static  String^ const  HeightRequired						=	"HEIGHT_REQUIRED";
 				static  String^ const  HideCaps								=	"HIDE_CAPS";
 				static  String^ const  HideSmall							=	"HIDE_SMALL";
@@ -527,6 +539,7 @@ namespace AtCor {
 				static  String^ const  LblAvgCentralAorticPulse				=	"LBL_AVG_CENTRAL_AORTIC_PULSE";
 				static  String^ const  LblBrachialSpDpMp					=	"LBL_BRACHIAL_SP_DP_MP";
 				static  String^ const  LblBrachialCuff						=	"LBL_BRACHIALCUFF";
+				static  String^ const  LblCentralAorticClinicalParameters	=	"LBL_CENTRAL_AORTIC_CLINICAL_PARAMETERS";
 				static  String^ const  LblCentralDp							=	"LBL_CENTRAL_DP";
 				static  String^ const  LblCpwa								=	"LBL_CPWA";
 				static  String^ const  LblDob								=	"LBL_DOB";
@@ -564,9 +577,9 @@ namespace AtCor {
 				static  String^ const  LblPwaInterpretation					=	"LBL_PWA_INTERPRETATION";
 				static  String^ const  LblPwaQualityControl					=	"LBL_PWA_QUALITY_CONTROL";
 				static  String^ const  LblPwaReportAIX75					=	"LBL_PWA_REPORT_ AIX75";
-				static  String^ const  LblPwaSetupProgressBarEndMsg			=	"LBL_PWA_SETUP_PROGRESSBAR_END_MSG";
 				static  String^ const  LblPwaSetupProgressBarStartMsg		=	"LBL_PWA_SETUP_PROGRESSBAR_START_MSG";
 				static  String^ const  LblPwaSyphymocorRefAge				=	"LBL_PWA_SYPHYMOCOR_REF_AGE";
+				static  String^ const  LblPwvReportTime						=	"LBL_PWV_REPORT_TIME";
 				static  String^ const  LblReportAge							=	"LBL_REPORT_AGE";
 				static  String^ const  LblReportAssessment					=	"LBL_REPORT_ASSESSMENT";
 				static  String^ const  LblReportAssessments					=	"LBL_REPORT_ASSESSMENTS";
@@ -606,7 +619,6 @@ namespace AtCor {
 				static  String^ const  MathError							=	"MATH_ERROR";
 				static  String^ const  MeasureInvalidCaptureTime			=	"MEASURE_INVALID_CAPTURE_TIME";
 				static  String^ const  MeasureInvalidSampleRate				=	"MEASURE_INVALID_SAMPLE_RATE";
-				static  String^ const  MeasurementDateInFuture				=	"MEASUREMENT_DATE_IN_FUTURE";
 				static  String^ const  MenuDatabase							=	"MENU_DATABASE";
 				static  String^ const  MenuHelp								=	"MENU_HELP";
 				static  String^ const  MenuSystem							=	"MENU_SYSTEM";
@@ -791,6 +803,33 @@ namespace AtCor {
 				static  String^ const  RestoreProgress						=	"RESTORE_PROGRESS";
 				static  String^ const  RestoreTitle							=	"RESTORE_TITLE";
 				static  String^ const  RibbionbarText						=	"RIBBIONBAR_TEXT";
+				static  String^ const  RptAgeTitle							=	"RPT_AGE_TITLE";
+				static  String^ const  RptAorticAIxHR75Title				=	"RPT_AORTIC_AIXHR75_TITLE";
+				static  String^ const  RptAorticAugmentationAP_PPTitle		=	"RPT_AORTIC_AUGMENTATION_AP_PP_TITLE";
+				static  String^ const  RptAorticAixTitle					=	"RPT_AORTICAIX_TITLE";
+				static  String^ const  RptAroticT1T2Title					=	"RPT_AROTIC_T1T2_TITLE";
+				static  String^ const  RptAroticTitle						=	"RPT_AROTIC_TITLE";
+				static  String^ const  RptBrachialBp						=	"RPT_BRACHIAL_BP";
+				static  String^ const  RptBrachialTitle						=	"RPT_BRACHIAL_TITLE";
+				static  String^ const  RptCentralPressureWaveformTitle		=	"RPT_CENTRAL_PRESSURE_WAVEFORM_TITLE";
+				static  String^ const  RptCentralHaemodynamicParametersTitle=	"RPT_CENTRALHAEMODYNAMIC_PARAMETERS_TITLE";
+				static  String^ const  RptClinicalParametersTitle			=	"RPT_CLINICAL_PARAMETERS_TITLE";
+				static  String^ const  RptDatabaseVersionTitle				=	"RPT_DATABASE_VERSION_TITLE";
+				static  String^ const  RptDateAndTime						=	"RPT_DATE_AND_TIME";
+				static	String^ const  RptEndSystolicPressureTitle			=	"RPT_ENDSYSTOLIC_PRESSURE_TITLE";
+				static	String^ const  RptHeartRatePeriodTitle				=	"RPT_HEARTRATE_PERIOD_TITLE";
+				static	String^ const  RptInterpretationTitle				=	"RPT_INTERPRETATION_TITLE";
+				static  String^ const  RptMapTitle							=	"RPT_MAP_TITLE";
+				static  String^ const  RptMeasurementData					=	"RPT_MEASUREMENT_DATA";
+				static  String^ const  RptMPSystoleDiastoleTitle			=	"RPT_MP_SYSTOLE_DIASTOLE_TITLE";
+				static  String^ const  RptNumberOfWaveformsTitle			=	"RPT_NUMBEROFWAVEFORMS_TITLE";
+				static  String^ const  RptP1HeightTitle						=	"RPT_P1HEIGHT_TITLE";
+				static  String^ const  RptPatientDataTitle					=	"RPT_PATIENTDATA_TITLE";
+				static  String^ const  RptPhysicianTitle					=	"RPT_PHYSICIAN_TITLE";
+				static  String^ const  RptQualityControlTitle				=	"RPT_QUALITY_CONTROL_TITLE";
+				static  String^ const  RptSignatureTitle					=	"RPT_SIGNATURE_TITLE";
+				static  String^ const  RptSimulationModeTitle				=	"RPT_SIMULATIONMODE_TITLE";
+				static  String^ const  RptWaveformPlotTitle					=	"RPT_WAVEFORM_PLOT_TITLE";
 				static  String^ const  SampleRateOutOfRange					=	"SAMPLE_RATE_OUT_OF_RANGE";
 				static  String^ const  SearchMode							=	"SEARCH_MODE";
 				static  String^ const  SecurityMode							=	"SECURITY_MODE";
@@ -852,6 +891,7 @@ namespace AtCor {
 				static  String^ const  SystemIdInvalid						=	"SYSTEM_ID_INVALID";
 				static  String^ const  TabAnalysis							=	"TAB_ANALYSIS";
 				static  String^ const  TabCapture							=	"TAB_CAPTURE";
+				static  String^ const  TabPatient							=	"TAB_PATIENT";
 				static  String^ const  TabReport							=	"TAB_REPORT";
 				//static  String^ const  TabSetup								=	"TAB_SETUP";
 				static  String^ const  TonometerDataAppendFailed			=	"TONOMETER_DATA_APPEND_FAILED";

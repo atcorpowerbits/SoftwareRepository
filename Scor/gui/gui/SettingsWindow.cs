@@ -141,8 +141,8 @@ namespace AtCor.Scor.Gui.Presentation
 
             // Populate the text value for PWA settings form controls
             SetTextForPwaSettingsTab();
-            GuiCommon.SetShape(radtxtReportTitle, guiradtxtDPThreshold, guiradtxtPPThreshold, guiradtxtSPThreshold);
-            GuiCommon.SetShape(comboDefaultReport, comboSimulationFilesPwv, comboBoxCommsPort, comboSimulationFilesPwa, comboBoxCommsPort, comboSimulationFilesPwv, comboDefaultReport, comboBpNumberOfAssesments);
+            GuiCommon.SetShape(radtxtReportTitle, guiradtxtDPThreshold, guiradtxtPPThreshold, guiradtxtSPThreshold, radtxtFemoralToCuff);
+            GuiCommon.SetShape(comboDefaultReport, comboDefaultPwaReport, comboSimulationFilesPwv, comboBoxCommsPort, comboSimulationFilesPwa, comboBoxCommsPort, comboSimulationFilesPwv, comboDefaultReport, comboBpNumberOfAssesments);
         }
 
         /**This method sets the test for the labels ,buttons ,group boxes and so on, for the General settings on the GUI.
@@ -225,7 +225,9 @@ namespace AtCor.Scor.Gui.Presentation
             radSubtracting.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RadSubtracting);
             radDirect.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RadDirect);
             radgrpCuffLocation.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCuffLocation);
-            radchkFemoralToCuff.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ChkFemoralCuff);
+
+            // radchkFemoralToCuff.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ChkFemoralCuff);
+            radtxtFemoralToCuff.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ChkFemoralCuff);
             radgrpbxSimulationTypes.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpSimulationFiles);
             radgrpReportScreen.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpReportScreen);
             radchkReferenceRange.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ChkReferenceRange);
@@ -268,9 +270,12 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
+                // Set tag for femoral to cuff field.
+                radtxtFemoralToCuff.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemoralDistanceFemoraltoCuff);
                 guiradtxtDPThreshold.KeyPress += GuiCommon.CheckForNumericValues;
                 guiradtxtPPThreshold.KeyPress += GuiCommon.CheckForNumericValues;
                 guiradtxtSPThreshold.KeyPress += GuiCommon.CheckForNumericValues;
+                radtxtFemoralToCuff.KeyPress += GuiCommon.CheckForNumericValues;
 
                 // On windows load set the windows size to maximum.                 
                 MinimizeBox = false;
@@ -289,6 +294,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // This method load the drop down with PWV Report and PWV Pateint Report type and PWA Report and PWA Patient Report Type.
                 PopulateDefaultReportDropDown();
+                PopulateDefaultPwaReportDropDown();
 
                 // Event to read Scor.config file containing the General User Settings.                 
                 OnDisplayUserSettings += DisplaySetings;
@@ -389,7 +395,16 @@ namespace AtCor.Scor.Gui.Presentation
                 // Set PWV tab fields
                 if (pwvStructObj != null && bizObj.OptionPWV)
                 {
-                    radchkFemoralToCuff.Checked = pwvStructObj.FemoralToCuff;
+                   // radchkFemoralToCuff.Checked = pwvStructObj.FemoralToCuff;
+                    if (pwvStructObj.FemoralToCuff == null || pwvStructObj.FemoralToCuff.Equals(string.Empty))
+                    {
+                        radtxtFemoralToCuff.Text = string.Empty;
+                    }
+                    else
+                    {
+                        radtxtFemoralToCuff.Text = pwvStructObj.FemoralToCuff;
+                    }
+
                     radchkReferenceRange.Checked = pwvStructObj.ReferenceRange;
                     radchkNormalRange.Checked = pwvStructObj.NormalRange;
 
@@ -439,6 +454,8 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // This method is used to set the PWA tab settings to the corresponding GUI control in PWA tab.
                     SetPwaSettingsOnLoad(pwaStructObj);
+
+                    SetDefaultPwaReport(pwaStructObj.DefaultReport);   
 
                     // This method is used to set the Guidance Bar value to the corresponding GUI control in PWA tab.
                    // SetGuidanceBars(pwaStructObj.GuidanceBars);
@@ -756,6 +773,23 @@ namespace AtCor.Scor.Gui.Presentation
             var.Value = reportType;
             var.Text = reportType;
             comboDefaultReport.SelectedValue = reportType;
+        }
+
+        /** This method is used to set the Default PWA Print report type to the corresponding GUI control.
+         */
+        private void SetDefaultPwaReport(string defaultReport)
+        {
+            if (defaultReport == null)
+            {
+                PopulateDefaultPwaReportDropDown();
+                return;
+            }
+
+            string reportType = oMsgMgr.GetMessage(defaultReport.ToUpper());
+            RadListDataItem var = new RadListDataItem();
+            var.Value = reportType;
+            var.Text = reportType;
+            comboDefaultPwaReport.SelectedValue = reportType;
         }
 
         /**This method is used to set the height weight units value to the corresponding GUI control.
@@ -1221,6 +1255,40 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
+        private void PopulateDefaultPwaReportDropDown()
+        {
+            RadListDataItem defaultReportType;
+            try
+            {
+                comboDefaultPwaReport.Items.Clear();
+
+                defaultReportType = new RadListDataItem
+                {
+                    Value = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwaClinicalReport),
+                    Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwaClinicalReport)
+                };
+                comboDefaultPwaReport.Items.Add(defaultReportType);
+
+                /* defaultReportType = new RadListDataItem
+                 {
+                     Value =
+                         oMsgMgr.GetMessage(
+                             CrxStructCommonResourceMsg.PwaEvaluationReport),
+                     Text =
+                         oMsgMgr.GetMessage(
+                             CrxStructCommonResourceMsg.PwaEvaluationReport)
+                 };                
+                 comboDefaultPwaReport.Items.Add(defaultReportType);
+                 */
+
+                comboDefaultPwaReport.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
         /**This method is invoked on the Cancel button.It will close the Settings window without saving any data.
          *If any exception occurs it will be caught and displayed to the user using a message box.
          *The corresponding exception will also be logged in the log file.
@@ -1379,10 +1447,13 @@ namespace AtCor.Scor.Gui.Presentation
         */
         private void ReadPwvSettingsFromGui()
         {
-            pwvSettingsStruct.FemoralToCuff = false;
-            if (radchkFemoralToCuff != null && radchkFemoralToCuff.Checked)
+            if (radtxtFemoralToCuff.Text.Trim().Equals(string.Empty))
             {
-                pwvSettingsStruct.FemoralToCuff = true;
+                pwvSettingsStruct.FemoralToCuff = string.Empty;
+            }
+            else
+            {
+                pwvSettingsStruct.FemoralToCuff = radtxtFemoralToCuff.Text.Trim();
             }
 
             pwvSettingsStruct.ReferenceRange = false;
@@ -1524,7 +1595,8 @@ namespace AtCor.Scor.Gui.Presentation
                 pwaSettingsStruct.CaptureInput = 1;
             }
 
-            pwaSettingsStruct.SimulationType = comboSimulationFilesPwa.Text;
+            pwaSettingsStruct.SimulationType = comboSimulationFilesPwa.Text;            
+            pwaSettingsStruct.DefaultReport = comboDefaultPwaReport.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwaClinicalReport)) ? CrxStructCommonResourceMsg.PwaClinicalReport : CrxStructCommonResourceMsg.PwaEvaluationReport; 
         }
 
         /**This method is invoked on click of Save button.
@@ -1665,7 +1737,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 obj = CrxConfigManager.Instance;
                 obj.SetGeneralUserSettings(gnrlSettingsStruct);
-                GuiCommon.generalSettingsStruct = gnrlSettingsStruct;
+                GuiCommon.GeneralSettingsStruct = gnrlSettingsStruct;
                 if (bizObj.OptionPWV)
                 {
                     obj.SetPwvUserSettings(pwvSettingsStruct);
@@ -1928,6 +2000,12 @@ namespace AtCor.Scor.Gui.Presentation
         private void radchkbxPatientPrivacy_Click(object sender, EventArgs e)
         {
             radbtnSave.Enabled = true;
+        }
+
+        private void radtxtFemoralToCuff_Leave(object sender, EventArgs e)
+        {
+            GuiFieldValidation objValidation = new GuiFieldValidation(guipnlFemoralToCuffDistance);
+            objValidation.CheckFieldLimits(radtxtFemoralToCuff);
         }
 
         // End: AtCor-Drop2-Sprint2, TM, SWREQ2004, 29-Jun-2011

@@ -44,7 +44,7 @@ CrxLogger::CrxLogger()
 	  String^ errMessage = "ScorSystemParameters File Not Found";
 	  throw gcnew ScorException(303,errMessage , ErrorSeverity::Exception);// File not found
 	}
-	log = LogManager::GetLogger("Scor:");
+	log = LogManager::GetLogger("Scor");
 
 }
 

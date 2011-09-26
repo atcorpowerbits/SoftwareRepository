@@ -53,6 +53,8 @@ namespace AtCor.Scor.Gui.Presentation
 
         public abstract void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e);
 
+        public abstract void CreateTextFileForFailedCapture();
+
         // void AppendCaptureData();        
         // void CalculateReport();
         // void CalculateAge();
@@ -110,7 +112,6 @@ namespace AtCor.Scor.Gui.Presentation
 
         public override void SetBloodPressure()
         {           
-
         }
 
         public override bool StartCapture()
@@ -146,6 +147,11 @@ namespace AtCor.Scor.Gui.Presentation
         public override void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e)
         {
             ((Capture)GuiCommon.CaptureChildForm).HandleKeyDownEventForPwaMode(e);    
+        }
+
+        public override void CreateTextFileForFailedCapture()
+        {
+            ((Capture)GuiCommon.CaptureChildForm).CreateTextFileOnReportFailedForPwaMode();
         } 
     }
 }

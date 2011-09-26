@@ -103,6 +103,9 @@ namespace AtCor{
 									*/									
 									bool GetNextValues(unsigned long  *value1, unsigned long *value2, unsigned long *value3, unsigned long *value4 );
 									
+									//TS Stub
+									bool GetNextValues(unsigned short  *value1, unsigned short *value2, unsigned short *value3, unsigned short *value4, unsigned short *value5, unsigned short *value6, unsigned short *value7 );
+
 									/**
 									* Resets the simulation source file to point to begining of file.
 									*
@@ -136,9 +139,15 @@ namespace AtCor{
 					* @return  @c true if the operation was successful.
 					*/
 					bool DalSimulationFile::SaveCurrentValues(unsigned short cuffPulse);								
-									
+					
+					/**
+					* Removes special characters from the string
+					*
+					* @param[in] str	String value
+					* @return  @c modified string  if the operation was successful.
+					*/
 					String^ RemoveSpecialCharacters(String^ str);
-								};
+			};
 		}
 	}
 }

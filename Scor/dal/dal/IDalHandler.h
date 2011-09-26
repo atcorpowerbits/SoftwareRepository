@@ -15,7 +15,7 @@
 
 
 using namespace System;
-
+using namespace System::Timers;
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -124,6 +124,13 @@ namespace AtCor{
 					bool IsCuffDeflated();
 
 					void CloseFiles(); 
+
+					//TS STUB
+					bool StartBP(DalNIBPMode nibpMode, unsigned short initialPressure);
+					bool StartBP(DalNIBPMode nibpMode);
+					bool FinishBP();
+					bool AbortBP();
+
 			};
 
 		}

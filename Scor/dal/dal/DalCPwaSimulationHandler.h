@@ -14,6 +14,7 @@
 #include "DalCommon.h"
 #include "IDalHandler.h"
 #include "DalDataBuffer.h"
+#include "IDalNibpHandler.h"
 #include "DalStatusHandler.h"
 #include "DalSimulationFile.h"
 
@@ -35,7 +36,8 @@ namespace AtCor{
 				private:
 					//static bool firstReadAfterCaptureStarted = false;
 
-					static DalDataBuffer ^dataBufferObj; //to hold pointer to object
+					static DalDataBuffer^ dataBufferObj; //to hold pointer to object
+					static DalDataBuffer^ nibpBufferObj; //to hold pointer to object
 
 					//Making these two variables static. They need to be accessed from static member functions.
 					static DalSimulationFile^ _tonometerSimulationFile; //Pointer to first simulation file
@@ -63,8 +65,22 @@ namespace AtCor{
 					DalCPwaSimulationHandler();//Constructor , made private to implement singleton
 					virtual ~DalCPwaSimulationHandler();
 					
+			internal:
+					static IDalNibpHandler^ _nibp;  //A pointer to the current device
+
 				public:
 					
+					/**
+					* Returns the NIBP.
+					*/
+					static property IDalNibpHandler^ NIBP
+					{
+						IDalNibpHandler^ get()
+						{
+							return _nibp;
+						};
+					};
+
 					/**
 					* Start the data capture fromt the device. @n
 					* Creates a buffer suitable for the specified time and sampling rate.
@@ -108,6 +124,11 @@ namespace AtCor{
 					* Closes any opened files
 					*/
 					virtual void CloseFiles() override;
+
+					virtual bool StartBP(DalNIBPMode nibpMode, unsigned short initialPressure) override;
+					virtual bool StartBP(DalNIBPMode nibpMode) override;
+					virtual bool FinishBP() override;
+					virtual bool AbortBP() override;
 			};
 		}
 	}

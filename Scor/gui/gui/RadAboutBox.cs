@@ -165,7 +165,8 @@ namespace AtCor.Scor.Gui.Presentation
                 sBPrint.AppendLine(guiradlblInstalledID.Text);
                 sBPrint.AppendLine(string.Format("\t{0}", guiradlblPWV.Text));
                 sBPrint.AppendLine(string.Format("\t{0}", guiradlblPWA.Text));
-                sBPrint.AppendLine(string.Format("\t{0}\n", guiradlblBP.Text));                
+                sBPrint.AppendLine(string.Format("\t{0}", guiradlblBP.Text));
+                sBPrint.AppendLine(string.Format("\t{0}\n", guiradlblKeyFeatures.Text));
                 sBPrint.AppendLine(guiradlblmoduleInfo.Text);
                 sBPrint.AppendLine(guiradlblLastCalibrationDate.Text);
                 sBPrint.AppendLine(string.Empty);

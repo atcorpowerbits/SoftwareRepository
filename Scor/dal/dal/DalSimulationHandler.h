@@ -166,6 +166,13 @@ namespace AtCor{
 
 					virtual void CloseFiles();
 
+					//TS STUB
+					virtual bool StartBP(DalNIBPMode nibpMode, unsigned short initialPressure);
+					virtual bool StartBP(DalNIBPMode nibpMode);
+					virtual bool FinishBP();
+					virtual bool AbortBP();
+
+
 			};
 		}
 	}

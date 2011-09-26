@@ -44,13 +44,13 @@ namespace AtCor{
 		//Do nothing
 	}
 
-	void DalCaptureState::CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args)
-	{
-		sender; //Dummy statement to get rid of C4100 warning
-		args; //Dummy statement to get rid of C4100 warning
+	//void DalCaptureState::CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args)
+	//{
+	//	sender; //Dummy statement to get rid of C4100 warning
+	//	args; //Dummy statement to get rid of C4100 warning
 
-		//do nothing
-	}
+	//	//do nothing
+	//}
 
 
 
@@ -104,12 +104,12 @@ namespace AtCor{
 		return returnValue;
 	}
 
-	void DalCaptureStateWaiting::CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args)
-	{
-		//The state change is done in the method itself
-		DalCommandInterface::Instance->CheckIfTimeoutHasOccurredInternal (sender, args);
-		
-	}
+	//void DalCaptureStateWaiting::CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args)
+	//{
+	//	//The state change is done in the method itself
+	//	DalCommandInterface::Instance->CheckIfTimeoutHasOccurredInternal (sender, args);
+	//	
+	//}
 
 
 

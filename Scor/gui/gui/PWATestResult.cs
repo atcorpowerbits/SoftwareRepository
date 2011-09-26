@@ -8,12 +8,18 @@ using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.Primitives;
 using Telerik.WinControls.UI;
+using AtCor.Scor.CrossCutting.Messaging;
+using AtCor.Scor.CrossCutting.Configuration;
+using AtCor.Scor.CrossCutting.Logging;
+using AtCor.Scor.CrossCutting.DatabaseManager;
 
 namespace AtCor.Scor.Gui.Presentation
 {
     public partial class PWATestResult : Telerik.WinControls.UI.RadForm
     {
-        private DefaultWindow objDefaultWindow;      
+        private DefaultWindow objDefaultWindow;
+
+        CrxMessagingManager oMsgMgr;
        
         public PWATestResult(DefaultWindow defWindow)
         {
@@ -71,7 +77,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void PWATestResult_Load(object sender, EventArgs e)
         {   
             // Set Shapes of Labels 
-            SetShape(guiradlblSPValueText, guiradlblPPValueText, guiradlblAPValueText, guiradlblAIxValueText, guiradlblHRValueText, guiradlblDPValueText, guiradlblTestSPDisplay, guiradlblPWADPDisplay, guiradlblPWAMPDisplay, guiradlblQualityControlValue);
+            SetShape(guiradlblSPValueText, guiradlblPPValueText, guiradlblAPValueText, guiradlblAIxValueText, guiradlblHRValueText, guiradlblDPValueText, guiradlblTestSPDisplay, guiradlblPWADPDisplay, guiradlblTestResultMapDisplay, guiradlblQualityControlValue);
 
             // Display Calculated data on screen
         }

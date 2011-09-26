@@ -116,6 +116,12 @@
     <Compile Include="Capture.Designer.cs">
       <DependentUpon>Capture.cs</DependentUpon>
     </Compile>
+    <Compile Include="CrystalPwaEvalution.cs">
+      <DependentUpon>CrystalPwaEvalution.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="CryPwvAnalysis.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -134,11 +140,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CryPwvReport.rpt</DependentUpon>
     </Compile>
+    <Compile Include="CrystalPwaClinical.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalPwaClinical.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DefaultWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DefaultWindow.Designer.cs">
       <DependentUpon>DefaultWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DsPwaPrintReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DsPwaPrintReport.xsd</DependentUpon>
     </Compile>
     <Compile Include="DsPwvPatientReport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -237,6 +254,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="PwaClass.cs" />
+    <Compile Include="PWAClinicalPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PWAClinicalPreview.Designer.cs">
+      <DependentUpon>PWAClinicalPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PWAPrintReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PWAPrintReport.Designer.cs">
+      <DependentUpon>PWAPrintReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="PWAReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -319,6 +348,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="atcor.ico" />
+    <None Include="DsPwaPrintReport.xsc">
+      <DependentUpon>DsPwaPrintReport.xsd</DependentUpon>
+    </None>
+    <None Include="DsPwaPrintReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DsPwaPrintReport.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DsPwaPrintReport.xss">
+      <DependentUpon>DsPwaPrintReport.xsd</DependentUpon>
+    </None>
     <None Include="Resources\SetupScreenDirect_Small.jpg" />
     <None Include="Resources\PWA_diagram.jpg" />
     <None Include="Resources\atcor_logo.JPG" />
@@ -402,6 +442,20 @@
     </None>
     <EmbeddedResource Include="BPAssessments.resx">
       <DependentUpon>BPAssessments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalPwaEvalution.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalPwaEvalution.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalPwaClinical.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalPwaClinical.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PWAClinicalPreview.resx">
+      <DependentUpon>PWAClinicalPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PWAPrintReport.resx">
+      <DependentUpon>PWAPrintReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PWAReport.resx">
       <DependentUpon>PWAReport.cs</DependentUpon>

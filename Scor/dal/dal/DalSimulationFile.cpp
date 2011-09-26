@@ -219,6 +219,40 @@ using namespace System::Text;
 		}
 	}
 
+	bool DalSimulationFile::GetNextValues(unsigned short *value1, unsigned short *value2, unsigned short *value3, unsigned short *value4, unsigned short *value5, unsigned short *value6, unsigned short *value7 )
+	{
+		String ^singleLine; //temporary variable to store string
+		array<String^> ^DataStrings; //string array to store the returned numbers
+
+		if (reader == nullptr)
+		{
+			//Simulation file has not been opened before attempting to read
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
+		}
+		
+		//Check if we have reached end of file and reset pointer to the start
+		if ( reader->EndOfStream)
+		{
+			reader->BaseStream->Seek(0, SeekOrigin::Begin);
+		}
+
+		//read a line from the file
+		singleLine = reader->ReadLine();
+
+		//extract substrings from this file
+	DataStrings = singleLine->Split(DalFormatterStrings::tabSeparator, 7);
+
+		//parse individual values 
+		*value1 = (short)Single::Parse(DataStrings[0]);
+		*value2 = (short)Single::Parse(DataStrings[1]);
+		*value3 = (short)Single::Parse(DataStrings[2]);
+		*value4 = (short)Single::Parse(DataStrings[3]);
+		*value5 = (short)Single::Parse(DataStrings[4]);
+		*value6 = (short)Single::Parse(DataStrings[5]);
+		*value7 = (short)Single::Parse(DataStrings[6]);
+				
+		return true;
+	}
 	bool DalSimulationFile::ResetFileStreamPosition()
 	{
 		if (reader)

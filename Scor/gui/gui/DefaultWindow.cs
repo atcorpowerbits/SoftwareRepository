@@ -487,6 +487,9 @@ namespace AtCor.Scor.Gui.Presentation
                         guiradmnuScor.Enabled = false;
                         radpgTabCollection.Enabled = false;
 
+                        // added for regression defect
+                        guicmbxCurrentMode.Enabled = false;
+
                    // }
                 }
             }
@@ -798,6 +801,9 @@ namespace AtCor.Scor.Gui.Presentation
                         // disable menu & tab page while backup is on
                         guiradmnuScor.Enabled = false;
                         radpgTabCollection.Enabled = false;
+
+                        // added for regression defect
+                        guicmbxCurrentMode.Enabled = false;
                     }
                 }
             }
@@ -892,6 +898,9 @@ namespace AtCor.Scor.Gui.Presentation
             guiradmnuScor.Enabled = true;
             radpgTabCollection.Enabled = true;
 
+            // added for regression defect
+            guicmbxCurrentMode.Enabled = true;
+
             // show status message for restore & backup & migration.... dbOperation will contain respective messages
             radlblMessage.Text = dbOperation;
             OnRestoreOptionClick.Invoke(this, new EventArgs());     
@@ -916,6 +925,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                         // User is navigating away from the Report screen.
                         GuiCommon.IsOnReportForm = false;
+                        GuiCommon.IsOnSetupScreen = false;
                         GuiCommon.CheckIfMandatoryFieldIsEmpty();                    
                 }
                 else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport), StringComparison.CurrentCultureIgnoreCase))
@@ -924,6 +934,7 @@ namespace AtCor.Scor.Gui.Presentation
                    
                     GuiCommon.TabFocused = radtabReport;
                     GuiCommon.IsFormChanged = false;
+                    GuiCommon.IsOnSetupScreen = false;
                 }
                 else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Setup), StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -974,7 +985,10 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void NavigateToSetup()
         {
-            radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;            
+            if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
+            {
+                radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+            }
 
             // InitializeSetupScreen(); 
             radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
@@ -1174,6 +1188,9 @@ namespace AtCor.Scor.Gui.Presentation
                                 // disable menu & tab page while restore is on
                                 guiradmnuScor.Enabled = false;
                                 radpgTabCollection.Enabled = false;
+
+                                // added for regression defect
+                                guicmbxCurrentMode.Enabled = false;
                             }
                             else
                             {
@@ -1758,6 +1775,7 @@ namespace AtCor.Scor.Gui.Presentation
             radpgTabCollection.Pages.ChangeIndex(radtabCapture, 2);
             radpgTabCollection.Pages.ChangeIndex(radtabReport, 3);
             radpgTabCollection.Pages.ChangeIndex(radtabResult, 4);
+            guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Setup);
 
             // radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
             // GuiCommon.TabFocused = guiradgrpbxPwvDistanceMethod;
@@ -1791,8 +1809,7 @@ namespace AtCor.Scor.Gui.Presentation
                 GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipicboxPWAGetBp"].Visible = false;
 
                 // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipnlPWABPOtherDevice"].Controls["pictureBox1"].Visible = false;
-
-                // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guichartPWAReport"].Visible = true;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guichartPWAReport"].Visible = true;
                 GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnGetBp"].Visible = false;
                 GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAssessmentsDetails"].Visible = false;
 
@@ -1800,10 +1817,11 @@ namespace AtCor.Scor.Gui.Presentation
                 // GuiCommon.QuickStartChildForm.Controls["QSEnableRepeatBttnTimer"].Enabled = false;
                 // GuiCommon.QuickStartChildForm.Controls["QSProgressBarTimeStatusTimer"].Enabled = false;
                 // OnModeChangeDisableTimer.Invoke(Invoke(this, new EventArgs());
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guichartPWAReport"].Visible = true;
                 GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblAvgCentralAorticPulse"].Visible = true;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAPP"].Location = new Point(4, 325);
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAPPDisplay"].Location = new Point(76, 325);
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblBrachialBPMeasurement"].Visible = false;
+
+               // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAPP"].Location = new Point(4, 325);
+               // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAPPDisplay"].Location = new Point(76, 325);
                 GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMP"].Visible = false;
                 GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMPDisplay"].Visible = false;
                 radtabQuickStart.Item.Visibility = ElementVisibility.Visible;
@@ -1817,6 +1835,7 @@ namespace AtCor.Scor.Gui.Presentation
                 radpgTabCollection.Pages.ChangeIndex(radtabResult, 2);
                 radpgTabCollection.Pages.ChangeIndex(guiradgrpbxPwvDistanceMethod, 3);
                 radpgTabCollection.Pages.ChangeIndex(radtabReport, 4);
+                guiradgrpbxPwvDistanceMethod.Text = "Patient";
 
                 radpgTabCollection.SelectedPage = radtabQuickStart;
                 GuiCommon.TabFocused = radtabQuickStart;
@@ -1827,6 +1846,10 @@ namespace AtCor.Scor.Gui.Presentation
                 GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Text = "Cancel";
                 GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Visible = false;
                 GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnDisplayReport"].Visible = false;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guichartPWAReport"].Visible = false;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipicboxPWAGetBp"].Visible = true;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblAvgCentralAorticPulse"].Visible = false;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblBrachialBPMeasurement"].Visible = true;
 
                 radtabQuickStart.Item.Visibility = ElementVisibility.Hidden;
                 radtabCapture.Item.Visibility = ElementVisibility.Visible;
@@ -1839,6 +1862,7 @@ namespace AtCor.Scor.Gui.Presentation
                 radpgTabCollection.Pages.ChangeIndex(radtabCapture, 2);
                 radpgTabCollection.Pages.ChangeIndex(radtabReport, 3);
                 radpgTabCollection.Pages.ChangeIndex(radtabResult, 4);
+                guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Setup);
                 
                 // radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
                 // GuiCommon.TabFocused = guiradgrpbxPwvDistanceMethod;
@@ -1849,7 +1873,7 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void guicmbxCurrentMode_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
-            SetStrategy(guicmbxCurrentMode.Text);   
+           SetStrategy(guicmbxCurrentMode.Text);   
         }
 
         /** Begin: AtCor-Drop2-Sprint2, TM, UserStory2,4 july 2011
@@ -1910,22 +1934,22 @@ namespace AtCor.Scor.Gui.Presentation
         private void SaveModeInConfigFile()
         {
             CrxConfigManager.Instance.GetGeneralUserSettings();
-            GuiCommon.generalSettingsStruct.BloodPressureEntryOptions = CrxConfigManager.Instance.GeneralSettings.BloodPressureEntryOptions;
-            GuiCommon.generalSettingsStruct.CommsPort = CrxConfigManager.Instance.GeneralSettings.CommsPort;
-            GuiCommon.generalSettingsStruct.CultureInfo = CrxConfigManager.Instance.GeneralSettings.CultureInfo;
-            GuiCommon.generalSettingsStruct.HeightandWeightUnit = CrxConfigManager.Instance.GeneralSettings.HeightandWeightUnit;
-            GuiCommon.generalSettingsStruct.Key = CrxConfigManager.Instance.GeneralSettings.Key;
-            GuiCommon.generalSettingsStruct.MachineName = CrxConfigManager.Instance.GeneralSettings.MachineName;
-            GuiCommon.generalSettingsStruct.PatientPrivacy = CrxConfigManager.Instance.GeneralSettings.PatientPrivacy;
-            GuiCommon.generalSettingsStruct.PrinterName = CrxConfigManager.Instance.GeneralSettings.PrinterName;
-            GuiCommon.generalSettingsStruct.ReportLogoPath = CrxConfigManager.Instance.GeneralSettings.ReportLogoPath;
-            GuiCommon.generalSettingsStruct.ReportTitle = CrxConfigManager.Instance.GeneralSettings.ReportTitle;
-            GuiCommon.generalSettingsStruct.ServerName = CrxConfigManager.Instance.GeneralSettings.ServerName;
-            GuiCommon.generalSettingsStruct.SourceData = CrxConfigManager.Instance.GeneralSettings.SourceData;
-            GuiCommon.generalSettingsStruct.StartupMode = CrxConfigManager.Instance.GeneralSettings.StartupMode;
-            GuiCommon.generalSettingsStruct.StartupScreen = CrxConfigManager.Instance.GeneralSettings.StartupScreen;
-            GuiCommon.generalSettingsStruct.EnvironmentSettings = CrxCommon.ApplicationEnvironment;
-            CrxConfigManager.Instance.SetGeneralUserSettings(GuiCommon.generalSettingsStruct);                        
+            GuiCommon.GeneralSettingsStruct.BloodPressureEntryOptions = CrxConfigManager.Instance.GeneralSettings.BloodPressureEntryOptions;
+            GuiCommon.GeneralSettingsStruct.CommsPort = CrxConfigManager.Instance.GeneralSettings.CommsPort;
+            GuiCommon.GeneralSettingsStruct.CultureInfo = CrxConfigManager.Instance.GeneralSettings.CultureInfo;
+            GuiCommon.GeneralSettingsStruct.HeightandWeightUnit = CrxConfigManager.Instance.GeneralSettings.HeightandWeightUnit;
+            GuiCommon.GeneralSettingsStruct.Key = CrxConfigManager.Instance.GeneralSettings.Key;
+            GuiCommon.GeneralSettingsStruct.MachineName = CrxConfigManager.Instance.GeneralSettings.MachineName;
+            GuiCommon.GeneralSettingsStruct.PatientPrivacy = CrxConfigManager.Instance.GeneralSettings.PatientPrivacy;
+            GuiCommon.GeneralSettingsStruct.PrinterName = CrxConfigManager.Instance.GeneralSettings.PrinterName;
+            GuiCommon.GeneralSettingsStruct.ReportLogoPath = CrxConfigManager.Instance.GeneralSettings.ReportLogoPath;
+            GuiCommon.GeneralSettingsStruct.ReportTitle = CrxConfigManager.Instance.GeneralSettings.ReportTitle;
+            GuiCommon.GeneralSettingsStruct.ServerName = CrxConfigManager.Instance.GeneralSettings.ServerName;
+            GuiCommon.GeneralSettingsStruct.SourceData = CrxConfigManager.Instance.GeneralSettings.SourceData;
+            GuiCommon.GeneralSettingsStruct.StartupMode = CrxConfigManager.Instance.GeneralSettings.StartupMode;
+            GuiCommon.GeneralSettingsStruct.StartupScreen = CrxConfigManager.Instance.GeneralSettings.StartupScreen;
+            GuiCommon.GeneralSettingsStruct.EnvironmentSettings = CrxCommon.ApplicationEnvironment;
+            CrxConfigManager.Instance.SetGeneralUserSettings(GuiCommon.GeneralSettingsStruct);                        
         }
 
         /**  End   : AtCor-Drop2-Sprint2, TM, UserStory2,4 july 2011

@@ -54,7 +54,9 @@ namespace AtCor.Scor.Gui.Presentation
 
         void InitialiseCaptureScreen();
 
-        void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e);        
+        void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e);
+
+        void CreateTextFileForFailedCapture();
 
         // void AppendCaptureData();       
         // void CalculateReport();

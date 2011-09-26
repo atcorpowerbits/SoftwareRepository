@@ -83,7 +83,10 @@ namespace AtCor{
 										*/
 										DalDataBuffer^ operator= ( DalDataBuffer);
 										
+										int CalStartIndexForBuffIndexLessThanStartIndex(int requestedValues, int % readStartIndex);
+										int CalStartIndexForBuffIndexMoreThanStartIndex(int requestedValues, int % readStartIndex);
 										
+									
 									public:
 
 										/**

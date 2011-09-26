@@ -154,7 +154,7 @@
     <value>Femoral Cuff</value>
   </data>
   <data name="LBL_TIMESTATUS" xml:space="preserve">
-    <value>Time to Deflation</value>
+    <value>Time to Deflation  {0}{1}{2} seconds</value>
   </data>
   <data name="LBL_PATIENT_DEFAULT_NAME" xml:space="preserve">
     <value>Default Patient</value>
@@ -181,7 +181,7 @@
     <value>Setup Screen</value>
   </data>
   <data name="GRP_HEIGHT_WEIGHT_UNITS" xml:space="preserve">
-    <value>Height and Weight Units</value>
+    <value>Height Units</value>
   </data>
   <data name="RAD_METRIC" xml:space="preserve">
     <value>Metric</value>
@@ -238,7 +238,7 @@
     <value>Direct (carotid to cuff)</value>
   </data>
   <data name="GRP_CUFF_LOCATION" xml:space="preserve">
-    <value>Default distance</value>
+    <value>Femoral to Cuff Distance</value>
   </data>
   <data name="CHK_FEMORAL_CUFF" xml:space="preserve">
     <value>Femoral to Cuff</value>
@@ -840,7 +840,7 @@
     <value>European General Population</value>
   </data>
   <data name="LBL_REPORT_STD_DEVIATION" xml:space="preserve">
-    <value>Standard Deviation</value>
+    <value>QC</value>
   </data>
   <data name="CAPTURE_TICK_MSG" xml:space="preserve">
     <value>Do you want to generate SphygmoCor Report?</value>
@@ -1012,13 +1012,6 @@
   <data name="FEMORAL_SIGNAL_CAPTURE_FAILED" xml:space="preserve">
     <value>Femoral signal capture failed</value>
   </data>
-  <data name="HEIGHT_OUT_OF_RANGE" xml:space="preserve">
-    <value>Height is not within the valid range between {0} and {1} ({2})</value>
-    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. inches, cm</comment>
-  </data>
-  <data name="MEASUREMENT_DATE_IN_FUTURE" xml:space="preserve">
-    <value>Measurement date cannot be in future date.</value>
-  </data>
   <data name="MP_DP_TOO_CLOSE" xml:space="preserve">
     <value>MP should be higher than DP by {0} mmHg</value>
   </data>
@@ -1095,7 +1088,7 @@
     <value>PWV counter failed</value>
   </data>
   <data name="PWV_DELTAS_NOT_ENOUGH" xml:space="preserve">
-    <value>{0} deltas not enough for PWV</value>
+    <value>Enough time differences ({0}) were not found</value>
   </data>
   <data name="PWV_SET_DEFAULTS_FAILED" xml:space="preserve">
     <value>PWV failed to set defaults</value>
@@ -1107,7 +1100,7 @@
     <value>PWV {0} is too small for an adult</value>
   </data>
   <data name="PWV_VALID_DELTAS_NOT_ENOUGH" xml:space="preserve">
-    <value>{0} valid deltas not enough for PWV</value>
+    <value>Enough pulse wave velocities ({0}) were not found</value>
   </data>
   <data name="TONOMETER_DATA_APPEND_FAILED" xml:space="preserve">
     <value>Failed to append tonometer data</value>
@@ -1161,7 +1154,7 @@
     <value>Version: 10.0.2.0 (clinical)</value>
   </data>
   <data name="HEARTRATE_LBL_ANALYSIS" xml:space="preserve">
-    <value>Heart Rate(bpm)</value>
+    <value>Heart Rate (bpm)</value>
   </data>
   <data name="PWV_LBL_ANALYSIS" xml:space="preserve">
     <value>PWV (m/s)</value>
@@ -1906,7 +1899,7 @@ Press Ok to Remind later or Cancel to ignore.</value>
     <value>AP</value>
   </data>
   <data name="LBL_AVG_CENTRAL_AORTIC_PULSE" xml:space="preserve">
-    <value>Average Central Aortic Pulse</value>
+    <value>Average Central Aortic Waveform</value>
   </data>
   <data name="LBL_BRACHIAL_SP_DP_MP" xml:space="preserve">
     <value>Brachial SP/DP:</value>
@@ -1941,11 +1934,8 @@ Press Ok to Remind later or Cancel to ignore.</value>
   <data name="LBL_PWA_QUALITY_CONTROL" xml:space="preserve">
     <value>Quality Control:</value>
   </data>
-  <data name="LBL_PWA_SETUP_PROGRESSBAR_END_MSG" xml:space="preserve">
-    <value>PWA enabled in 0:15</value>
-  </data>
   <data name="LBL_PWA_SETUP_PROGRESSBAR_START_MSG" xml:space="preserve">
-    <value>PWA enabled in 0:</value>
+    <value>PWA enabled in {0} seconds</value>
   </data>
   <data name="LBL_PWA_SYPHYMOCOR_REF_AGE" xml:space="preserve">
     <value>SphygmoCor Reference Age</value>
@@ -2125,7 +2115,7 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Central DP:</value>
   </data>
   <data name="LBL_REPORT_PWA_BRACHIAL_MP" xml:space="preserve">
-    <value>Brachial MP:</value>
+    <value>MAP:</value>
   </data>
   <data name="INCONCLUSIVE_NOTE_AORTIC_AIX" xml:space="preserve">
     <value>Aortic Augmentation Index &gt; 50%.</value>
@@ -2285,5 +2275,137 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
   </data>
   <data name="LBL_BRACHIALCUFF" xml:space="preserve">
     <value>Brachial Cuff</value>
+  </data>
+  <data name="BLL_STOP_CAPTURE_FAILED" xml:space="preserve">
+    <value>Stop Capture failed.</value>
+  </data>
+  <data name="GUI_PRINT_PWA_CLINICAL_TITLE" xml:space="preserve">
+    <value>Pulse Wave Analysis Clinical report</value>
+  </data>
+  <data name="GUI_PRINT_PWA_EVALUATION_TITLE" xml:space="preserve">
+    <value>Pulse Wave Analysis Evaluation report</value>
+  </data>
+  <data name="RPT_BRACHIAL_BP" xml:space="preserve">
+    <value>Brachial BP:</value>
+  </data>
+  <data name="RPT_DATABASE_VERSION_TITLE" xml:space="preserve">
+    <value>Database:</value>
+  </data>
+  <data name="RPT_DATE_AND_TIME" xml:space="preserve">
+    <value>Date and Time:</value>
+  </data>
+  <data name="RPT_MEASUREMENT_DATA" xml:space="preserve">
+    <value>Measurement Data:</value>
+  </data>
+  <data name="RPT_NUMBEROFWAVEFORMS_TITLE" xml:space="preserve">
+    <value>Number Of Waveforms:</value>
+  </data>
+  <data name="RPT_QUALITY_CONTROL_TITLE" xml:space="preserve">
+    <value>Quality Control:</value>
+  </data>
+  <data name="RPT_WAVEFORM_PLOT_TITLE" xml:space="preserve">
+    <value>Waveform Plot:</value>
+  </data>
+  <data name="PWA CLINICAL REPORT" xml:space="preserve">
+    <value>PWA Clinical Report</value>
+  </data>
+  <data name="PWA EVALUATION REPORT" xml:space="preserve">
+    <value>PWA Evaluation Report</value>
+  </data>
+  <data name="TAB_PATIENT" xml:space="preserve">
+    <value>Patient</value>
+  </data>
+  <data name="FIELD_PATIENT_HR" xml:space="preserve">
+    <value>HR</value>
+  </data>
+  <data name="RPT_AROTIC_TITLE" xml:space="preserve">
+    <value>Aortic</value>
+  </data>
+  <data name="RPT_BRACHIAL_TITLE" xml:space="preserve">
+    <value>Brachial</value>
+  </data>
+  <data name="RPT_CENTRAL_PRESSURE_WAVEFORM_TITLE" xml:space="preserve">
+    <value>Central Pressure Waveform:</value>
+  </data>
+  <data name="RPT_CLINICAL_PARAMETERS_TITLE" xml:space="preserve">
+    <value>Clinical Parameters:</value>
+  </data>
+  <data name="RPT_INTERPRETATION_TITLE" xml:space="preserve">
+    <value>Interpretation:</value>
+  </data>
+  <data name="RPT_PHYSICIAN_TITLE" xml:space="preserve">
+    <value>Physician:</value>
+  </data>
+  <data name="RPT_SIGNATURE_TITLE" xml:space="preserve">
+    <value>Signature:</value>
+  </data>
+  <data name="RPT_AORTICAIX_TITLE" xml:space="preserve">
+    <value>Aortic AIx:</value>
+  </data>
+  <data name="RPT_AORTIC_AIXHR75_TITLE" xml:space="preserve">
+    <value>Aortic AIx @HR75:</value>
+  </data>
+  <data name="RPT_AORTIC_AUGMENTATION_AP_PP_TITLE" xml:space="preserve">
+    <value>Aortic augmentation (AP/PP):</value>
+  </data>
+  <data name="RPT_AROTIC_T1T2_TITLE" xml:space="preserve">
+    <value>Aortic T1, T2, Tr:</value>
+  </data>
+  <data name="RPT_CENTRALHAEMODYNAMIC_PARAMETERS_TITLE" xml:space="preserve">
+    <value>Central Haemodynamic Parameters:</value>
+  </data>
+  <data name="RPT_ENDSYSTOLIC_PRESSURE_TITLE" xml:space="preserve">
+    <value>End Systolic Pressure:</value>
+  </data>
+  <data name="RPT_HEARTRATE_PERIOD_TITLE" xml:space="preserve">
+    <value>Heart Rate, Period:</value>
+  </data>
+  <data name="RPT_MP_SYSTOLE_DIASTOLE_TITLE" xml:space="preserve">
+    <value>MP (Systole, Diastole):</value>
+  </data>
+  <data name="RPT_P1HEIGHT_TITLE" xml:space="preserve">
+    <value>P1 Height:</value>
+  </data>
+  <data name="GUI_INCONCLUSIVE_PWA_REPORT_INITIAL_MESSAGE" xml:space="preserve">
+    <value>Note-</value>
+  </data>
+  <data name="GUI_CAPTURE_CUFF_INFLATING_MSG" xml:space="preserve">
+    <value>Cuff Inflating.</value>
+  </data>
+  <data name="LBL_CENTRAL_AORTIC_CLINICAL_PARAMETERS" xml:space="preserve">
+    <value>Central Aortic Clinical Parameters</value>
+  </data>
+  <data name="DAL_DEVICE_IDLING_MESSAGE" xml:space="preserve">
+    <value>Please wait...Device is Idling</value>
+  </data>
+  <data name="DAL_DEVICE_NOT_READY_MESSAGE" xml:space="preserve">
+    <value>Device is not ready</value>
+  </data>
+  <data name="RPT_AGE_TITLE" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="RPT_MAP_TITLE" xml:space="preserve">
+    <value>MAP</value>
+  </data>
+  <data name="RPT_PATIENTDATA_TITLE" xml:space="preserve">
+    <value>Patient Data:</value>
+  </data>
+  <data name="LBL_PWV_REPORT_TIME" xml:space="preserve">
+    <value>PWV Time</value>
+  </data>
+  <data name="RPT_SIMULATIONMODE_TITLE" xml:space="preserve">
+    <value>SIMULATION MODE</value>
+  </data>
+  <data name="BLL_CUFF_DEFLATING" xml:space="preserve">
+    <value>Wait for cuff to be deflated.</value>
+  </data>
+  <data name="GUI_REPORT_PATIENT_HEIGHT_OUTSIDE_RANGE" xml:space="preserve">
+    <value>Patient's height is outside the range to see  the comparison of Euopean General Population</value>
+  </data>
+  <data name="GUI_REPORT_ACTUAL" xml:space="preserve">
+    <value>Actual</value>
+  </data>
+  <data name="GUI_REPORT_TYPICAL" xml:space="preserve">
+    <value>Typical</value>
   </data>
 </root>

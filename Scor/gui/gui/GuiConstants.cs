@@ -152,7 +152,67 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string BpChartTitle = "BpChartTitle";
         public static readonly string BPChartValidation = "BPChartValidation";
         public static readonly string BpChartTextValue = "BpChartTextValue";
+        
+
+        // PWA Clinical 
+        public static readonly string DatabaseVersionTitle      = "DatabaseVersionTitle";
+        public static readonly string DatabaseVersionValue      = "DatabaseVersionValue";
+        public static readonly string WaveformPlotTitle         = "WaveformPlotTitle";
+        public static readonly string WaveformPlotValue         = "WaveformPlotValue";
+        public static readonly string NumberOfWaveformsTitle    = "NumberOfWaveformsTitle";
+        public static readonly string NumberOfWaveformsValue    = "NumberOfWaveformsValue";
+        public static readonly string QualityControlTitle       = "QualityControlTitle";
+        public static readonly string QualityControlValue       = "QualityControlValue";
+        public static readonly string SimulationModeTitle       = "SimulationModeTitle";
+
+        public static readonly string InterpretationTitle = "InterpretationTitle";
+        public static readonly string InterpretationValue = "InterpretationValue";
+        public static readonly string PhysicianTitle = "PhysicianTitle";
+        public static readonly string SignatureTitle = "SignatureTitle";
+        public static readonly string ClinicalParametersTitle = "ClinicalParametersTitle";
+        public static readonly string CentralPressureWaveformTitle = "CentralPressureWaveformTitle";
+        public static readonly string BrachialTitle = "BrachialTitle";
+        public static readonly string AorticTitle = "AorticTitle";
+
+        public static readonly string SPTitle = "SPTitle";
+        public static readonly string DPTitle = "DPTitle";
+        public static readonly string MPTitle = "MPTitle";
+        public static readonly string PPTitle = "PPTitle";
+        public static readonly string HRTitle = "HRTitle";
+
+        public static readonly string SPBrachialValue = "SPBrachialValue";
+        public static readonly string DPBrachialValue = "DPBrachialValue";
+        public static readonly string MPBrachialValue = "MPBrachialValue";
+        public static readonly string PPBrachialValue = "PPBrachialValue";
+        public static readonly string HRBrachialValue = "HRBrachialValue";
+
+        public static readonly string SPAorticValue = "SPAorticValue";
+        public static readonly string DPAorticValue = "DPAorticValue";
+        public static readonly string MPAorticValue = "MPAorticValue";
+        public static readonly string PPAorticValue = "PPAorticValue";
+        public static readonly string HRAorticValue = "HRAorticValue";
+
+        // PWA Evaluation 
+        public static readonly string HeartRatePeriodTitle = "HeartRatePeriodTitle";
+        public static readonly string HeartRatePeriodValue = "HeartRatePeriodValue";
+        public static readonly string CentralHaemodynamicParametersTitle = "CentralHaemodynamicParametersTitle";
+        public static readonly string AroticT1T2Title = "AroticT1T2Title";
+        public static readonly string AorticT1T2Value = "AorticT1T2Value";
+        public static readonly string P1HeightValue = "P1HeightValue";
+        public static readonly string P1HeightTitle = "P1HeightTitle";
+        public static readonly string AorticAixTitle = "AorticAixTitle";
+        public static readonly string AorticAixValue = "AorticAixValue";
+        public static readonly string AorticAIxHR75Title = "AorticAIxHR75Title";
+        public static readonly string AorticAIxHR75Value = "AorticAIxHR75Value";
+        public static readonly string EndSystolicPressureTitle = "EndSystolicPressureTitle";
+        public static readonly string EndSystolicPressureValue = "EndSystolicPressureValue";
+        public static readonly string MPSystoleDiastoleTitle = "MPSystoleDiastoleTitle";
+        public static readonly string MPSystoleDiastoleValue = "MPSystoleDiastoleValue";
+        public static readonly string AorticAugmentationAP_PPTitle = "AorticAugmentationAP_PPTitle";
+        public static readonly string AorticAugmentationAP_PPValue = "AorticAugmentationAP_PPValue";
+
         public static string DateWithComma = string.Empty;
+        public static string PwaIdWithComma = string.Empty;
 
         public enum AppConfigParams
         {

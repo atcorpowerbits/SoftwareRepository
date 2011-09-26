@@ -273,6 +273,8 @@ namespace AtCor{
 				}
 				catch(ScorException^ scorExObj)
 				{
+					CrxLogger::Instance->Write(" Simulation ScorException raised:" + scorExObj->ErrorMessageKey );
+						
 					//throw; //dont throw an excpetion from a thread . convert it to an event
 
 					/*DalErrorAlarmStatusFlag alarmType = DalErrorAlarmStatusFlag::ThreadException;
@@ -284,6 +286,7 @@ namespace AtCor{
 				}
 				catch(Exception^ excepObj)
 				{
+					CrxLogger::Instance->Write(" Simulation Exception raised:" + excepObj->Message);
 					//throw gcnew ScorException(excepObj);
 					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, gcnew ScorException(excepObj));
 				}
@@ -430,6 +433,9 @@ namespace AtCor{
 						//lets the  requestor know which device it is.
 						deviceConfigInfo->ModuleType = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation);
 						break;
+					case DalDeviceConfigUsageEnum::PwaCuffMeasurementsCounter:
+						deviceConfigInfo->PwaCuffMeasurementsCounter = DalConstants::PwaCuffMeasurementsCounter ; //dummy vale
+						break;
 					default:
 						break;
 				}
@@ -493,6 +499,26 @@ namespace AtCor{
 				//return true; //TODO: recheck with TS if they want this to always return true.
 			}
 
+			bool DalSimulationHandler::StartBP(DalNIBPMode nibpMode, unsigned short initialPressure)
+			{
+				nibpMode;
+				initialPressure;
+
+				return true;
+			}
+			bool DalSimulationHandler::StartBP(DalNIBPMode nibpMode)
+			{
+				nibpMode;
+				return true;
+			}
+			bool DalSimulationHandler::FinishBP()
+			{
+				return true;
+			}
+			bool DalSimulationHandler::AbortBP()
+			{
+				return true;
+			}
 
 		}//END DataAccess namespace
 	}

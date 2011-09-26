@@ -54,7 +54,7 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         public static void HandleException(Exception ex, object currentWindow)
         {
-            System.Diagnostics.Debug.Write("Error Message:" +ex.Message);
+            System.Diagnostics.Debug.Write("Error Message:" + ex.Message);
             System.Diagnostics.Debug.Write("Stack Trace:" + ex.StackTrace);   
             if (ex.GetType() == typeof(ScorException))
             {
@@ -146,7 +146,8 @@ namespace AtCor.Scor.Gui.Presentation
                         GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiInfoTxt) + eMsg);
                         GuiCommon.DefaultWindowForm.radlblMessage.Text = eMsg;
-                        GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.InfoImage.ToString()]));
+
+                       // GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.InfoImage.ToString()]));
                         GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = true;
                         GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick += guialertmsgTimer_Tick;
                         break;
@@ -252,7 +253,12 @@ namespace AtCor.Scor.Gui.Presentation
 
         /** This event gets called when alert message timer on default window ticks         
          * */
-        private static void guialertmsgTimer_Tick(object sender, EventArgs e)
+        public static void guialertmsgTimer_Tick(object sender, EventArgs e)
+        {
+            DisableTimerAndClearMessageFromStatusBar();
+        }
+
+        public static void DisableTimerAndClearMessageFromStatusBar()
         {
             GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = false;
             GuiCommon.DefaultWindowForm.guipictureboxError.Image = null;

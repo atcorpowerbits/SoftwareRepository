@@ -13,8 +13,8 @@
 #include "DalActiveDevice.h"
 #include "DalPwvSimulationHandler.h"
 #include "DalCPwaSimulationHandler.h"
-#include "DalMeasurementMode.h"
-#include "DalPwvMode.h"
+//#include "DalMeasurementMode.h"
+//#include "DalPwvMode.h"
 #include "DalModule.h"
 #include "DalPwvDeviceHandler.h"
 #include "DalCPwaDeviceHandler.h"
@@ -206,6 +206,7 @@ namespace AtCor{
 						else
 						{
 							_currentDevice = nullptr;
+							throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNoInterfaceErrCd, CrxStructCommonResourceMsg::DalErrNoInterface, ErrorSeverity::Exception);	
 						}
 					}
 					else //This is an EM4 device port

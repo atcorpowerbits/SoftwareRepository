@@ -122,7 +122,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblBPProgressBar.Minimum = 0;
                 guiradlblBPProgressBar.Maximum = GuiCommon.AutoPWADelay;
                 guiradlblBPProgressBar.Value1 = 0;
-                guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarEndMsg);
+                guiradlblBPProgressBar.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg), GuiCommon.AutoPWADelay.ToString());
             }
             else
             {
@@ -321,7 +321,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblBPProgressBar.Minimum = 0;
                 guiradlblBPProgressBar.Maximum = GuiCommon.AutoPWADelay;
                 guiradlblBPProgressBar.Value1 = 0;
-                guiradlblBPProgressBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarEndMsg);
+                guiradlblBPProgressBar.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg), GuiCommon.AutoPWADelay.ToString());
                 counter++;
                 }
             }

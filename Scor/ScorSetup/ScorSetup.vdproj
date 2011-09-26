@@ -57,25 +57,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_054EB190632F483D8837B8C5EC1B8314"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_06003B5102CF47FF9476CDBEAFBA1EE0"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0B313C1848834858AB23E820954EE6C0"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0DBAB45A54284234834454E89A054A08"
+        "MsmKey" = "8:_06ED19A0A99D43749ABFDDD87C094768"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -93,18 +75,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_0FD342F0B2CD45A0803DE37BF96B6099"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_10DCE39515F64E37B20082D03F463FEA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_125967C778FA49EEAB11EDA2BCBE623E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -117,24 +87,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_14FA613DC35C453EB395E5488E5E62B6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1699723588DB440D9ACD980C9D270E42"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_16C954518ED44067835F81E67A2F2DEC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_182E8B3938324458AE2748EFDCFFA7F1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -142,12 +94,6 @@
         "Entry"
         {
         "MsmKey" = "8:_1AE0E0B15DF34E36936A653F65F61092"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1CDA629DBBEC4BB0A413C3349FA497E9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -171,6 +117,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2148C2D91A5849ECABF1AD06CC5C0297"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2159BC330FAA40DD8748C961ACDDBD99"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2231722F8915499EB2B573D11C7A167D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -183,7 +141,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_27AAB19B82C449E192556E19F1DB2414"
+        "MsmKey" = "8:_2DB6091DA629430D95D299B07A1DB859"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -209,12 +167,6 @@
         {
         "MsmKey" = "8:_2EE01CC9DDD4305C581B5A551BDE474F"
         "OwnerKey" = "8:_C1553FF5F28C70015D70E2AB712C253D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_302ADC42F31D404BAF3A25965EEC90A2"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -267,6 +219,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_32F1FE96508F467CBD9EAE1B799BEB96"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_33EC008954721810057D781966053B73"
         "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
         "MsmSig" = "8:_UNDEFINED"
@@ -275,12 +233,6 @@
         {
         "MsmKey" = "8:_35BF24CE0F17A1F0F862B476E97FF0D0"
         "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_35FFD5DD83D541689EB94A6EEA78675A"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -298,12 +250,6 @@
         "Entry"
         {
         "MsmKey" = "8:_38EFA41910F04AAAB02E729800E54182"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3973F0FDE273412D85FB57A99E8AA979"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -363,36 +309,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3A8338798A2E4D28A8BE703F32EB23CB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3AEDC78FE6234853A29118647B95D0BF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3B9A6370D3814875BD364CDDAE983153"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3D7AF6706A5B46A09BECB155F254AF4A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3D9C24454A5549BD9A48465D8B2DF424"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_3FB9CE9C891341FEBFC08FB8CF224821"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -405,13 +321,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4145B78BA54A4F77997B7C11AD0F586F"
+        "MsmKey" = "8:_410CB2D157FF43248C84A59703C88325"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4433D757E1F1496B8E20200BAC81EAB2"
+        "MsmKey" = "8:_421A5A00AD1C4E92B36509BB359D93BD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -423,19 +339,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_46FF2DE99D7944D58FB58B5763933D52"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_497D38C3BD644F6FA8D39E42FBEDC0C0"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_49C7441871E94163B61106852E0D0396"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -459,26 +363,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4A76D9431C854D76A51CF565B5C87120"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_4B6075BBD4A44BD87AA27132198E00FC"
         "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4C43871D680C4BD4B3F26CF1BA4B930B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4E7F146B5C90404B927B4627F839D0F1"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -519,6 +405,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_5177A6F3246E40E1A07B4010C526D375"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5474C90976EC47DCAD3332280D6E3530"
         "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
         "MsmSig" = "8:_UNDEFINED"
@@ -532,12 +424,6 @@
         "Entry"
         {
         "MsmKey" = "8:_57B370AA9A884013902ABB791A69C9D6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5913C684C03149CB9D638B2AE8CA0E97"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -603,12 +489,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_647A9200BB18473F91569C407086B0CF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_65B21D52EFFE4D38A217C85F4312413A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -669,12 +549,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_686660EEBD5544B29D1D722C023E3D7D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_6879BCC57100A1040365EBFED9B64340"
         "OwnerKey" = "8:_3190523941F8270544A6B3659DC0934D"
         "MsmSig" = "8:_UNDEFINED"
@@ -723,12 +597,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6915741E9ADA4A49A7186337FFCBC5DA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_6C6385C079BED39FB34EB617D31DE46E"
         "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
         "MsmSig" = "8:_UNDEFINED"
@@ -742,12 +610,6 @@
         "Entry"
         {
         "MsmKey" = "8:_6D52B412B06A4C6E85C9B2B410D63BD9"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7029AD9B357143E89E50A5D345D743FA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -783,12 +645,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_72CAECF35C22457A9074D568B7D1C1C9"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_740C55E981767C1822C81DC1B72ECC3F"
         "OwnerKey" = "8:_D9DC7E061559F1615E9171D6E2B7CFE4"
         "MsmSig" = "8:_UNDEFINED"
@@ -819,12 +675,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_74D6B5E5AC2D42F6899CBAA62506EAA1"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_74D89568841F49B99EC5EA9EB5F24657"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -837,43 +687,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_75E123F072344A4784D87C3181EA33C5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_77698B7DF67941B8826811B324182D27"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_7998A6801AF7461A833198A6775B3A4C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_79A59A5686284F2C893489CC3CADD54B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7E13EC2314224C10A94D1DF93A1DA074"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7F7F6D81383D4946ABF95FCA5E3CBF0B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_80BE6B4EE399417C92B42D43C09A61FD"
+        "MsmKey" = "8:_81376B3172B64C9AA1436ACF6612D697"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -885,19 +705,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_82C24FD4F283450EB6893571D6992A21"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_83E3459EB0BC4595B59281594FAAACD9"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_848E6EE1E76844A098AF43C4656FABC8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -928,12 +736,6 @@
         "Entry"
         {
         "MsmKey" = "8:_888C1A28DC4F4EE7AA3C0EB754A3E608"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_88C8E7AFF4A14272AAFC9E48A5B28050"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1035,12 +837,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8E8F1FCF33A24000AA0635E76216D1B6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_8EB559BC445526BB57B2AF73CE272F86"
         "OwnerKey" = "8:_854B4352D73D73885C81B89BF386E229"
         "MsmSig" = "8:_UNDEFINED"
@@ -1049,6 +845,12 @@
         {
         "MsmKey" = "8:_8EB559BC445526BB57B2AF73CE272F86"
         "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8EB559BC445526BB57B2AF73CE272F86"
+        "OwnerKey" = "8:_C7C6482F63D6C2EB4F60F4D8CD5872D6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1065,25 +867,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8FD6FB846F054B0DBAF259E5459D64FA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_8FF65672D88C422AB0E415972AD70E7E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8FF685D48DCF49998C705BC54A75A68E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9058D97890524C9E8DB5056A0AEB33C9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1174,18 +958,6 @@
         "Entry"
         {
         "MsmKey" = "8:_9636A578282240B0BABA369305C8EE1F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_96BA4119C5184B518FFFBD00A45396D4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_96F1A3E04E5F4325A8F9C7A9E947E953"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1287,6 +1059,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_991861968B4E47A3B7FD24328BDC2914"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9AD9A531EDC809E8777FE22ABA8D1A52"
         "OwnerKey" = "8:_DF66E90BCA8A70F0B4598F9CEC2479A0"
         "MsmSig" = "8:_UNDEFINED"
@@ -1311,13 +1089,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9B6E2920109547DC91327FF27E07FC4F"
+        "MsmKey" = "8:_9B38179190DE441D8FBF51AAFE7FC051"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9EA471D5FE174C458F29B22FBC5FB305"
+        "MsmKey" = "8:_9B4F06B5264B4D84BAEDB63C72C637C8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9B6E2920109547DC91327FF27E07FC4F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1335,31 +1119,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A37EFAD93B2F4C78B78E9DB83F240F2C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_A398626DC2134DEC9933D15C2AD902F6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A4CDDE0FBDA34EB7BF52B033934B3A4E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_A52D16568DA54D2890F4318531A507DD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A76D7A5E6E0F47F7979F944AC4562211"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1419,25 +1185,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AF8D0B4E0A07463EA648C4F3A9581DCC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AFCE489779394966A942FA0BCB13C23E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_B055A32BD04F44BBAFA8581FDFA4CA6E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B6C0A7C5F7294936905B4E9D0BDC6DAC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1473,6 +1221,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B7692B46EF0642B08A52A9ED6B1D6B2B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B97EE8ACE265BC139CBD19DFF3120F1B"
         "OwnerKey" = "8:_4A56210907D7431A6E274A2D7ED679DD"
         "MsmSig" = "8:_UNDEFINED"
@@ -1481,36 +1235,6 @@
         {
         "MsmKey" = "8:_B97EE8ACE265BC139CBD19DFF3120F1B"
         "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BA14A26185C7419DB16FEC9DBB2D81B6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BA8A560758D44B879D84B50D399C4A2C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BAEBEE909B3D473CB611CAF19A1AE5D4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BB30B1BEA00B40BB830D4A0654885314"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BB8F2E4EFC8C444C8433E21B7CD9ED39"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1539,13 +1263,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C3B8DD9C73FB41F581142D94734561CA"
+        "MsmKey" = "8:_C3F3387610D6480C9061D0C1D1297D8F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C3F3387610D6480C9061D0C1D1297D8F"
+        "MsmKey" = "8:_C42F1925280D476E9A5F21D9E39D1EF4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1569,14 +1293,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C634515E787B45E68BB9EF0C83E11C2E"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_C69E6AAF0FDB02DC8BC3A8F1BC4DB688"
+        "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C69E6AAF0FDB02DC8BC3A8F1BC4DB688"
-        "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
+        "MsmKey" = "8:_C7A32F6C87A64371AB961AAD21C3EDEE"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1588,12 +1312,6 @@
         "Entry"
         {
         "MsmKey" = "8:_C7FB6D9FEF2A458BAB034C6460AA7F21"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C826CDFDBAF04EE3A0FD2B740D311757"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1611,13 +1329,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CC69D0112BF2425BA7454C1C962508F1"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CE528ECC23E94D0DA8108C03AAF69B81"
+        "MsmKey" = "8:_CB6F54B1BAA74CF3A96ACF167D8C4587"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1647,12 +1359,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D19EE3AF5CD54904A2B41C2E91B2B523"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_D1E119095A4346E6B3F29C85CF758AC8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1660,12 +1366,6 @@
         "Entry"
         {
         "MsmKey" = "8:_D2C98857DF3B4809978A1D86AAB143EA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D2DF52AB00CE49F8B87696792D17DB69"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1743,31 +1443,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DF83975E1513499A83F3870276BCFB63"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_DFB49739ECAD45F09A1CB3A59E723144"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E1132B85733941EAA3AF48608E0E23BA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E1EBCAE5E0D746DF91DA02D159FF0732"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E31F8DF3DAC14B059B32F4702150AB82"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1833,7 +1509,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E6FD1ED6245A4F5CBA275931BB530646"
+        "MsmKey" = "8:_EA708365C23345C5AEE5D7BD86B823BB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1853,12 +1529,6 @@
         {
         "MsmKey" = "8:_ED5D741C1B7F8F51759AE3931DCF7B7D"
         "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_EE217C13471C4A45815CC65C6F4B9663"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1881,19 +1551,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F4234AE75F30404FB736FEDBAA200EC8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_F47EA97B9A844D159E0E4A4A13CD50D2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F4A2164B7B594932A655CE41278B55F7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1911,31 +1569,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FA127681099A4FC2B27686DD20B3720E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FA3285F672494E3FACBB1801CA053D43"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_FB673D5D3C0D47FABE3142C4227C1557"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FC62D23F55224CA1A943B909D612FECC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FDFB7C5E763649489E37FFC78EDCF54F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1954,61 +1588,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DD1DB481D4853561A00D8262E256A4AF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F909D7FEE08A464EB826DA42C7932F26"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C4FF0464918E51D06D0177FDC60D725E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5474C90976EC47DCAD3332280D6E3530"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4A56210907D7431A6E274A2D7ED679DD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_ED5D741C1B7F8F51759AE3931DCF7B7D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A2ED90CA501CDE5B96AD9EDE9335BEFA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_661EB433B139140B0D241628BA3120FB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3998E235E723202BAFCCF6819C5A3D43"
+        "OwnerKey" = "8:_DD1DB481D4853561A00D8262E256A4AF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2020,25 +1606,31 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_740C55E981767C1822C81DC1B72ECC3F"
+        "OwnerKey" = "8:_C4FF0464918E51D06D0177FDC60D725E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4F6955ED08C5FA766A8A9DFD4AFD7F1C"
+        "OwnerKey" = "8:_C1553FF5F28C70015D70E2AB712C253D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_04813B27EF58ED17EEC8E97455E5F6DA"
+        "OwnerKey" = "8:_B97EE8ACE265BC139CBD19DFF3120F1B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5CE1BAAFB5F53DC57B22235C28438651"
+        "OwnerKey" = "8:_AB28462328C1F85ACB524B762AED228E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A2ED90CA501CDE5B96AD9EDE9335BEFA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2056,25 +1648,67 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B97EE8ACE265BC139CBD19DFF3120F1B"
+        "OwnerKey" = "8:_740C55E981767C1822C81DC1B72ECC3F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C1553FF5F28C70015D70E2AB712C253D"
+        "OwnerKey" = "8:_661EB433B139140B0D241628BA3120FB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AB28462328C1F85ACB524B762AED228E"
+        "OwnerKey" = "8:_5CE1BAAFB5F53DC57B22235C28438651"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5474C90976EC47DCAD3332280D6E3530"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4F6955ED08C5FA766A8A9DFD4AFD7F1C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4A56210907D7431A6E274A2D7ED679DD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3998E235E723202BAFCCF6819C5A3D43"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_2EE01CC9DDD4305C581B5A551BDE474F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_04813B27EF58ED17EEC8E97455E5F6DA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F909D7FEE08A464EB826DA42C7932F26"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A803B3E270F94341A3C14F7F225B382B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2425,72 +2059,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_054EB190632F483D8837B8C5EC1B8314"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_06ED19A0A99D43749ABFDDD87C094768"
             {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadForm.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadForm.xml.svn-base"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\Default.dat"
+            "TargetName" = "8:Default.dat"
             "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_06003B5102CF47FF9476CDBEAFBA1EE0"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewStripElement.xml.svn-base"
-            "TargetName" = "8:Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewStripElement.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0B313C1848834858AB23E820954EE6C0"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadCheckBox.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadCheckBox.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0DBAB45A54284234834454E89A054A08"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\system\\data\\scor.mdb"
-            "TargetName" = "8:scor.mdb"
-            "Tag" = "8:"
-            "Folder" = "8:_24A39822151B4F8DA9FAC52E6457BAD0"
+            "Folder" = "8:_9EE01C70B427417CA102F75D1AA5622E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2545,46 +2119,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0FD342F0B2CD45A0803DE37BF96B6099"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\manuals\\en\\ServiceManual.pdf"
-            "TargetName" = "8:ServiceManual.pdf"
-            "Tag" = "8:"
-            "Folder" = "8:_1D7BC4B466434D4A81503C4F7157B1EF"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_10DCE39515F64E37B20082D03F463FEA"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_ColumnChooserControl.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_ColumnChooserControl.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_125967C778FA49EEAB11EDA2BCBE623E"
             {
             "SourcePath" = "8:..\\gui\\gui\\app.config"
@@ -2611,66 +2145,6 @@
             "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadApplicationMenuDropDown.xml"
             "Tag" = "8:"
             "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_14FA613DC35C453EB395E5488E5E62B6"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadLabel.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadLabel.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1699723588DB440D9ACD980C9D270E42"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Repository.xml.svn-base"
-            "TargetName" = "8:Atcor_Repository.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_16C954518ED44067835F81E67A2F2DEC"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadScheduler.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadScheduler.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2718,26 +2192,6 @@
             "Hidden" = "11:FALSE"
             "System" = "11:TRUE"
             "Permanent" = "11:TRUE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1CDA629DBBEC4BB0A413C3349FA497E9"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadRadioButton.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadRadioButton.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
@@ -2805,6 +2259,46 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2148C2D91A5849ECABF1AD06CC5C0297"
+            {
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\Simulation_stub.dat"
+            "TargetName" = "8:Simulation_stub.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_9EE01C70B427417CA102F75D1AA5622E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2159BC330FAA40DD8748C961ACDDBD99"
+            {
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\system\\data\\scor.xyz"
+            "TargetName" = "8:scor.xyz"
+            "Tag" = "8:"
+            "Folder" = "8:_DC2BE6294035464D8FCA7B63D5C303A6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2231722F8915499EB2B573D11C7A167D"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_RadDateTimePicker.xml"
@@ -2845,12 +2339,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_27AAB19B82C449E192556E19F1DB2414"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2DB6091DA629430D95D299B07A1DB859"
             {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_Docking_AutoHideTabStrip.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_AutoHideTabStrip.xml.svn-base"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\system\\data\\scor.mdb"
+            "TargetName" = "8:scor.mdb"
             "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
+            "Folder" = "8:_DC2BE6294035464D8FCA7B63D5C303A6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2914,26 +2408,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_302ADC42F31D404BAF3A25965EEC90A2"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\manuals\\en\\OperatorsManual.pdf"
-            "TargetName" = "8:OperatorsManual.pdf"
-            "Tag" = "8:"
-            "Folder" = "8:_1D7BC4B466434D4A81503C4F7157B1EF"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_316B8E53FCE918F29C4F0DAE3AB590A6"
@@ -3018,6 +2492,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_32F1FE96508F467CBD9EAE1B799BEB96"
+            {
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\manuals\\English\\ServiceManual.pdf"
+            "TargetName" = "8:ServiceManual.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_7D68E86E6435468985491EC5DE949171"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_33EC008954721810057D781966053B73"
             {
             "AssemblyRegister" = "3:1"
@@ -3080,26 +2574,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_35FFD5DD83D541689EB94A6EEA78675A"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\system\\Resources\\Scor.ApplicationMessages.resources"
-            "TargetName" = "8:Scor.ApplicationMessages.resources"
-            "Tag" = "8:"
-            "Folder" = "8:_829B94E5674C453992A1C15AD1E8B584"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_366BF68BB2F74B8A871C939286A8C24D"
             {
             "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\Capture_Screen_Red.JPG"
@@ -3146,26 +2620,6 @@
             "TargetName" = "8:TickMark.png"
             "Tag" = "8:"
             "Folder" = "8:_655CBA5C7ED745E1BF5D080D003A5734"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3973F0FDE273412D85FB57A99E8AA979"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\system\\config\\scor.config"
-            "TargetName" = "8:scor.config"
-            "Tag" = "8:"
-            "Folder" = "8:_E4F28D1AE381429AAB46826E313C2C14"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3242,106 +2696,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3A8338798A2E4D28A8BE703F32EB23CB"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadCalendar.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadCalendar.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3AEDC78FE6234853A29118647B95D0BF"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\abc.dat"
-            "TargetName" = "8:abc.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_A6DE29C12B6040399533FAE127962C97"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3B9A6370D3814875BD364CDDAE983153"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadScrollablePanel.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadScrollablePanel.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3D7AF6706A5B46A09BECB155F254AF4A"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\Default.dat"
-            "TargetName" = "8:Default.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_A6DE29C12B6040399533FAE127962C97"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3D9C24454A5549BD9A48465D8B2DF424"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadPanel.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadPanel.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3FB9CE9C891341FEBFC08FB8CF224821"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_RadPanelBar.xml"
@@ -3382,12 +2736,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4145B78BA54A4F77997B7C11AD0F586F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_410CB2D157FF43248C84A59703C88325"
             {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadPanelBar.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadPanelBar.xml.svn-base"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\manuals\\en\\ServiceManual.pdf"
+            "TargetName" = "8:ServiceManual.pdf"
             "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
+            "Folder" = "8:_8E8AF6771AEB48DC925D134AA1186EE8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3402,12 +2756,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4433D757E1F1496B8E20200BAC81EAB2"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_421A5A00AD1C4E92B36509BB359D93BD"
             {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\system\\config\\ScorSystemParameters.xml"
-            "TargetName" = "8:ScorSystemParameters.xml"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwv\\Demo.dat"
+            "TargetName" = "8:Demo.dat"
             "Tag" = "8:"
-            "Folder" = "8:_E4F28D1AE381429AAB46826E313C2C14"
+            "Folder" = "8:_6E70864B264C4FBB9F91BB98E4ED0B97"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3442,52 +2796,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_46FF2DE99D7944D58FB58B5763933D52"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadRibbonForm.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadRibbonForm.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_497D38C3BD644F6FA8D39E42FBEDC0C0"
             {
             "SourcePath" = "8:..\\gui\\gui\\Properties\\Resources.resx"
             "TargetName" = "8:Resources.resx"
             "Tag" = "8:"
             "Folder" = "8:_655CBA5C7ED745E1BF5D080D003A5734"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_49C7441871E94163B61106852E0D0396"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadApplicationMenu.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadApplicationMenu.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3533,26 +2847,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4A76D9431C854D76A51CF565B5C87120"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadGroupBox.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadGroupBox.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4B6075BBD4A44BD87AA27132198E00FC"
             {
             "AssemblyRegister" = "3:1"
@@ -3584,46 +2878,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4C43871D680C4BD4B3F26CF1BA4B930B"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadSchedulerNavigator.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadSchedulerNavigator.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4E7F146B5C90404B927B4627F839D0F1"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_RadPageView_Telerik_WinControls_RootRadElement.xml.svn-base"
-            "TargetName" = "8:Atcor_RadPageView_Telerik_WinControls_RootRadElement.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4F6955ED08C5FA766A8A9DFD4AFD7F1C"
             {
             "AssemblyRegister" = "3:1"
@@ -3653,6 +2907,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5177A6F3246E40E1A07B4010C526D375"
+            {
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\cuff_timer\\cuff_timer.dat"
+            "TargetName" = "8:cuff_timer.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_CB5A8ABBC429452D86C0D4C4076A0F94"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5474C90976EC47DCAD3332280D6E3530"
@@ -3692,26 +2966,6 @@
             "TargetName" = "8:CEMarkSGS.JPG"
             "Tag" = "8:"
             "Folder" = "8:_655CBA5C7ED745E1BF5D080D003A5734"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5913C684C03149CB9D638B2AE8CA0E97"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_Docking_ToolTabStrip.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_ToolTabStrip.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -3899,26 +3153,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_647A9200BB18473F91569C407086B0CF"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadStatusStrip.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadStatusStrip.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_65B21D52EFFE4D38A217C85F4312413A"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_RadRibbonForm.xml"
@@ -4021,26 +3255,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_686660EEBD5544B29D1D722C023E3D7D"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadTextBox.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadTextBox.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6879BCC57100A1040365EBFED9B64340"
             {
             "AssemblyRegister" = "3:1"
@@ -4070,26 +3284,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6915741E9ADA4A49A7186337FFCBC5DA"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\system\\data\\scor.xyz"
-            "TargetName" = "8:scor.xyz"
-            "Tag" = "8:"
-            "Folder" = "8:_24A39822151B4F8DA9FAC52E6457BAD0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6C6385C079BED39FB34EB617D31DE46E"
@@ -4149,26 +3343,6 @@
             "TargetName" = "8:Atcor_Telerik_WinControls_UI_DesktopAlertPopup.xml"
             "Tag" = "8:"
             "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7029AD9B357143E89E50A5D345D743FA"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\xyz.dat"
-            "TargetName" = "8:xyz.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_A6DE29C12B6040399533FAE127962C97"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4254,26 +3428,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_72CAECF35C22457A9074D568B7D1C1C9"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadTrackBar.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadTrackBar.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_740C55E981767C1822C81DC1B72ECC3F"
             {
             "AssemblyRegister" = "3:1"
@@ -4303,26 +3457,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_74D6B5E5AC2D42F6899CBAA62506EAA1"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_Docking_RadDock.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_RadDock.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_74D89568841F49B99EC5EA9EB5F24657"
@@ -4365,26 +3499,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_75E123F072344A4784D87C3181EA33C5"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_Docking_FloatingWindow.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_FloatingWindow.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_77698B7DF67941B8826811B324182D27"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Repository.xml"
@@ -4405,92 +3519,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7998A6801AF7461A833198A6775B3A4C"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_81376B3172B64C9AA1436ACF6612D697"
             {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadScrollBar.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadScrollBar.xml.svn-base"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\abc.dat"
+            "TargetName" = "8:abc.dat"
             "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_79A59A5686284F2C893489CC3CADD54B"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewOutlookElement.xml.svn-base"
-            "TargetName" = "8:Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewOutlookElement.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7E13EC2314224C10A94D1DF93A1DA074"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadMaskedEditBox.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadMaskedEditBox.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7F7F6D81383D4946ABF95FCA5E3CBF0B"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadTabStrip.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadTabStrip.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_80BE6B4EE399417C92B42D43C09A61FD"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\Simulation.dat"
-            "TargetName" = "8:Simulation.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_A6DE29C12B6040399533FAE127962C97"
+            "Folder" = "8:_9EE01C70B427417CA102F75D1AA5622E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4536,52 +3570,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_82C24FD4F283450EB6893571D6992A21"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadApplicationMenuDropDown.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadApplicationMenuDropDown.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_83E3459EB0BC4595B59281594FAAACD9"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_RadRepeatButton.xml"
             "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadRepeatButton.xml"
             "Tag" = "8:"
             "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_848E6EE1E76844A098AF43C4656FABC8"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadDropDownList.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadDropDownList.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -4678,26 +3672,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_88C8E7AFF4A14272AAFC9E48A5B28050"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\manuals\\English\\OperatorsManual.pdf"
-            "TargetName" = "8:OperatorsManual.pdf"
-            "Tag" = "8:"
-            "Folder" = "8:_9D20DDD767A442CB81785BB731037267"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_890DED22FCE608165DD4F23FDC35D623"
             {
             "AssemblyRegister" = "3:1"
@@ -4780,26 +3754,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8E8F1FCF33A24000AA0635E76216D1B6"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadCalendarFastNavigationControl.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadCalendarFastNavigationControl.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8EB559BC445526BB57B2AF73CE272F86"
             {
             "AssemblyRegister" = "3:1"
@@ -4851,72 +3805,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8FD6FB846F054B0DBAF259E5459D64FA"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadProgressBar.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadProgressBar.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8FF65672D88C422AB0E415972AD70E7E"
             {
             "SourcePath" = "8:..\\gui\\gui\\atcor.ico"
             "TargetName" = "8:atcor.ico"
             "Tag" = "8:"
             "Folder" = "8:_655CBA5C7ED745E1BF5D080D003A5734"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8FF685D48DCF49998C705BC54A75A68E"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_SplitPanel.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_SplitPanel.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9058D97890524C9E8DB5056A0AEB33C9"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\entries"
-            "TargetName" = "8:entries"
-            "Tag" = "8:"
-            "Folder" = "8:_F84790AB2F0845EFAC794FD913D9A46C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5053,46 +3947,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_96BA4119C5184B518FFFBD00A45396D4"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\all-wcprops"
-            "TargetName" = "8:all-wcprops"
-            "Tag" = "8:"
-            "Folder" = "8:_F84790AB2F0845EFAC794FD913D9A46C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_96F1A3E04E5F4325A8F9C7A9E947E953"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadRibbonBar.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadRibbonBar.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_98B1D371051E4339AA17A5D0A13FC2C4"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_ColumnChooserControl.xml"
@@ -5164,6 +4018,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_991861968B4E47A3B7FD24328BDC2914"
+            {
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\manuals\\en\\OperatorsManual.pdf"
+            "TargetName" = "8:OperatorsManual.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_8E8AF6771AEB48DC925D134AA1186EE8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9AD9A531EDC809E8777FE22ABA8D1A52"
             {
             "AssemblyRegister" = "3:1"
@@ -5215,12 +4089,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9B6E2920109547DC91327FF27E07FC4F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9B38179190DE441D8FBF51AAFE7FC051"
             {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_Docking_RadDock.xml"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_RadDock.xml"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\manuals\\English\\OperatorsManual.pdf"
+            "TargetName" = "8:OperatorsManual.pdf"
             "Tag" = "8:"
-            "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
+            "Folder" = "8:_7D68E86E6435468985491EC5DE949171"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5235,12 +4109,32 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9EA471D5FE174C458F29B22FBC5FB305"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9B4F06B5264B4D84BAEDB63C72C637C8"
             {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadSpinEditor.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadSpinEditor.xml.svn-base"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\xyz.dat"
+            "TargetName" = "8:xyz.dat"
             "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
+            "Folder" = "8:_9EE01C70B427417CA102F75D1AA5622E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9B6E2920109547DC91327FF27E07FC4F"
+            {
+            "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_Docking_RadDock.xml"
+            "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_RadDock.xml"
+            "Tag" = "8:"
+            "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5286,26 +4180,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A37EFAD93B2F4C78B78E9DB83F240F2C"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadListControl.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadListControl.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A398626DC2134DEC9933D15C2AD902F6"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_RadApplicationMenu.xml"
@@ -5326,52 +4200,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A4CDDE0FBDA34EB7BF52B033934B3A4E"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\manuals\\English\\ServiceManual.pdf"
-            "TargetName" = "8:ServiceManual.pdf"
-            "Tag" = "8:"
-            "Folder" = "8:_9D20DDD767A442CB81785BB731037267"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A52D16568DA54D2890F4318531A507DD"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_RadComboBox.xml"
             "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadComboBox.xml"
             "Tag" = "8:"
             "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A76D7A5E6E0F47F7979F944AC4562211"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadTreeView.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadTreeView.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5508,72 +4342,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AF8D0B4E0A07463EA648C4F3A9581DCC"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadComboBox.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadComboBox.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AFCE489779394966A942FA0BCB13C23E"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_Docking_DocumentContainer.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_DocumentContainer.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B055A32BD04F44BBAFA8581FDFA4CA6E"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_RadTextBox.xml"
             "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadTextBox.xml"
             "Tag" = "8:"
             "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B6C0A7C5F7294936905B4E9D0BDC6DAC"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadSplitContainer.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadSplitContainer.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5639,6 +4413,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B7692B46EF0642B08A52A9ED6B1D6B2B"
+            {
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\system\\config\\ScorSystemParameters.xml"
+            "TargetName" = "8:ScorSystemParameters.xml"
+            "Tag" = "8:"
+            "Folder" = "8:_6F61D9A9A9324AD39C78946D02C0B907"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B97EE8ACE265BC139CBD19DFF3120F1B"
             {
             "AssemblyRegister" = "3:1"
@@ -5668,106 +4462,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BA14A26185C7419DB16FEC9DBB2D81B6"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadDateTimePicker.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadDateTimePicker.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BA8A560758D44B879D84B50D399C4A2C"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\Simulation_stub.dat"
-            "TargetName" = "8:Simulation_stub.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_A6DE29C12B6040399533FAE127962C97"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BAEBEE909B3D473CB611CAF19A1AE5D4"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadSplitButton.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadSplitButton.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BB30B1BEA00B40BB830D4A0654885314"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_Docking_DocumentTabStrip.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_DocumentTabStrip.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BB8F2E4EFC8C444C8433E21B7CD9ED39"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadTitleBar.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadTitleBar.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BC62DEDAFB674EE8A09FDFA4E6E9220B"
@@ -5821,12 +4515,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C3B8DD9C73FB41F581142D94734561CA"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C3F3387610D6480C9061D0C1D1297D8F"
             {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadToggleButton.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadToggleButton.xml.svn-base"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\info.gif"
+            "TargetName" = "8:info.gif"
             "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
+            "Folder" = "8:_655CBA5C7ED745E1BF5D080D003A5734"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5841,12 +4535,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C3F3387610D6480C9061D0C1D1297D8F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C42F1925280D476E9A5F21D9E39D1EF4"
             {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\info.gif"
-            "TargetName" = "8:info.gif"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\Simulation.dat"
+            "TargetName" = "8:Simulation.dat"
             "Tag" = "8:"
-            "Folder" = "8:_655CBA5C7ED745E1BF5D080D003A5734"
+            "Folder" = "8:_9EE01C70B427417CA102F75D1AA5622E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5943,26 +4637,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C634515E787B45E68BB9EF0C83E11C2E"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\cuff_timer\\cuff_timer_stub.dat"
-            "TargetName" = "8:cuff_timer_stub.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_489EE39B597E452CB67DE4227FD15F76"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C69E6AAF0FDB02DC8BC3A8F1BC4DB688"
             {
             "AssemblyRegister" = "3:1"
@@ -5994,11 +4668,31 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C7A32F6C87A64371AB961AAD21C3EDEE"
+            {
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\system\\config\\scor.config"
+            "TargetName" = "8:scor.config"
+            "Tag" = "8:"
+            "Folder" = "8:_6F61D9A9A9324AD39C78946D02C0B907"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C7C6482F63D6C2EB4F60F4D8CD5872D6"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:biz, Version=0.1.4.2, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:biz, Version=0.1.5.1, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
                     "_C7C6482F63D6C2EB4F60F4D8CD5872D6"
@@ -6031,26 +4725,6 @@
             "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadScrollBar.xml"
             "Tag" = "8:"
             "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C826CDFDBAF04EE3A0FD2B740D311757"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwv\\Demo.dat"
-            "TargetName" = "8:Demo.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_3F46B3BEA6B54024AF1F879AA95131C9"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6116,32 +4790,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CC69D0112BF2425BA7454C1C962508F1"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CB6F54B1BAA74CF3A96ACF167D8C4587"
             {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_RadCheckmark.xml.svn-base"
-            "TargetName" = "8:Atcor_RadCheckmark.xml.svn-base"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\pwa\\Demo.dat"
+            "TargetName" = "8:Demo.dat"
             "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CE528ECC23E94D0DA8108C03AAF69B81"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_DesktopAlertPopup.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_DesktopAlertPopup.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
+            "Folder" = "8:_9EE01C70B427417CA102F75D1AA5622E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6247,26 +4901,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D19EE3AF5CD54904A2B41C2E91B2B523"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadDropDownButton.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadDropDownButton.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D1E119095A4346E6B3F29C85CF758AC8"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_RadMenu.xml"
@@ -6293,26 +4927,6 @@
             "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadRadioButton.xml"
             "Tag" = "8:"
             "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D2DF52AB00CE49F8B87696792D17DB69"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_Docking_QuickNavigator.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_QuickNavigator.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6500,92 +5114,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DF83975E1513499A83F3870276BCFB63"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewStackElement.xml.svn-base"
-            "TargetName" = "8:Atcor_RadPageView_Telerik_WinControls_UI_RadPageViewStackElement.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DFB49739ECAD45F09A1CB3A59E723144"
             {
             "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\SetupScreenSubtracting_small.jpg"
             "TargetName" = "8:SetupScreenSubtracting_small.jpg"
             "Tag" = "8:"
             "Folder" = "8:_655CBA5C7ED745E1BF5D080D003A5734"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E1132B85733941EAA3AF48608E0E23BA"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\cuff_timer\\cuff_timer.dat"
-            "TargetName" = "8:cuff_timer.dat"
-            "Tag" = "8:"
-            "Folder" = "8:_489EE39B597E452CB67DE4227FD15F76"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E1EBCAE5E0D746DF91DA02D159FF0732"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadButton.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadButton.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E31F8DF3DAC14B059B32F4702150AB82"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadRepeatButton.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadRepeatButton.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6671,12 +5205,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E6FD1ED6245A4F5CBA275931BB530646"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EA708365C23345C5AEE5D7BD86B823BB"
             {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_DockSplitContainer.xml.svn-base"
-            "TargetName" = "8:Atcor_DockSplitContainer.xml.svn-base"
+            "SourcePath" = "8:..\\gui\\gui\\bin\\Release\\simulation\\cuff_timer\\cuff_timer_stub.dat"
+            "TargetName" = "8:cuff_timer_stub.dat"
             "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
+            "Folder" = "8:_CB5A8ABBC429452D86C0D4C4076A0F94"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6720,26 +5254,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EE217C13471C4A45815CC65C6F4B9663"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadMenu.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadMenu.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EFB33A4CE5F84E5FADC2BFD8D9881FBA"
@@ -6813,52 +5327,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F4234AE75F30404FB736FEDBAA200EC8"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadGridView.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadGridView.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F47EA97B9A844D159E0E4A4A13CD50D2"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_RadListBox.xml"
             "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadListBox.xml"
             "Tag" = "8:"
             "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F4A2164B7B594932A655CE41278B55F7"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadListBox.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadListBox.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6893,92 +5367,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FA127681099A4FC2B27686DD20B3720E"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadSizablePopupControl.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadSizablePopupControl.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FA3285F672494E3FACBB1801CA053D43"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor.tssp.svn-base"
-            "TargetName" = "8:Atcor.tssp.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FB673D5D3C0D47FABE3142C4227C1557"
             {
             "SourcePath" = "8:..\\gui\\gui\\Theme\\Atcor_Telerik_WinControls_UI_Docking_DocumentTabStrip.xml"
             "TargetName" = "8:Atcor_Telerik_WinControls_UI_Docking_DocumentTabStrip.xml"
             "Tag" = "8:"
             "Folder" = "8:_0C5DA7CB162A48229406FEB24A21080D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FC62D23F55224CA1A943B909D612FECC"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadDropDownMenu.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadDropDownMenu.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FDFB7C5E763649489E37FFC78EDCF54F"
-            {
-            "SourcePath" = "8:..\\gui\\gui\\Theme\\.svn\\text-base\\Atcor_Telerik_WinControls_UI_RadWaitingBar.xml.svn-base"
-            "TargetName" = "8:Atcor_Telerik_WinControls_UI_RadWaitingBar.xml.svn-base"
-            "Tag" = "8:"
-            "Folder" = "8:_B86C93DB318A4094A6955DAB3BDC19F3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -7060,277 +5454,189 @@
                     "Property" = "8:_02F97F04AC374426981F475A2805C42A"
                         "Folders"
                         {
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_F84790AB2F0845EFAC794FD913D9A46C"
-                            {
-                            "Name" = "8:.svn"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_725121312D464951BD8EEB393FFE116F"
-                                "Folders"
-                                {
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_040DA54D4D3C481BA2646B32C07DA807"
-                                    {
-                                    "Name" = "8:tmp"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_03CD55B1F15D4E9F84163C073B0FAC72"
-                                        "Folders"
-                                        {
-                                            "{9EF0B969-E518-4E46-987F-47570745A589}:_338FB709E8FC4956A4844EC3933E07BE"
-                                            {
-                                            "Name" = "8:props"
-                                            "AlwaysCreate" = "11:FALSE"
-                                            "Condition" = "8:"
-                                            "Transitive" = "11:FALSE"
-                                            "Property" = "8:_E7E9F716C99847569B62C20F04B59ED0"
-                                                "Folders"
-                                                {
-                                                }
-                                            }
-                                            "{9EF0B969-E518-4E46-987F-47570745A589}:_3BF8C641A92C4EC78B110A52FC770375"
-                                            {
-                                            "Name" = "8:prop-base"
-                                            "AlwaysCreate" = "11:FALSE"
-                                            "Condition" = "8:"
-                                            "Transitive" = "11:FALSE"
-                                            "Property" = "8:_730F837FB2224EBFAE97886F1D099BF4"
-                                                "Folders"
-                                                {
-                                                }
-                                            }
-                                            "{9EF0B969-E518-4E46-987F-47570745A589}:_781FE88EAB134AB78BF1532E3CA5E3D5"
-                                            {
-                                            "Name" = "8:text-base"
-                                            "AlwaysCreate" = "11:FALSE"
-                                            "Condition" = "8:"
-                                            "Transitive" = "11:FALSE"
-                                            "Property" = "8:_E75BE3DDE1424987ADF7315A820D84C0"
-                                                "Folders"
-                                                {
-                                                }
-                                            }
-                                        }
-                                    }
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_2D92328BAA6B479881F8182F9EA9D6F3"
-                                    {
-                                    "Name" = "8:prop-base"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_9E18423B387246999E6BB32DFB193669"
-                                        "Folders"
-                                        {
-                                        }
-                                    }
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_B86C93DB318A4094A6955DAB3BDC19F3"
-                                    {
-                                    "Name" = "8:text-base"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_8AB32F0F2B0F4D3C92DBEA348C6AE0C8"
-                                        "Folders"
-                                        {
-                                        }
-                                    }
-                                    "{9EF0B969-E518-4E46-987F-47570745A589}:_F82025288FDF4035B0576FE63679EC8F"
-                                    {
-                                    "Name" = "8:props"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "Property" = "8:_526CE3BD3CA44850840E233B1652DFD1"
-                                        "Folders"
-                                        {
-                                        }
-                                    }
-                                }
-                            }
                         }
                     }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_1DB2CDCD3C45423C87392B03CF399323"
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_1A2D6E13502140CE9553CEB01EDC70E7"
                     {
                     "Name" = "8:simulation"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
-                    "Property" = "8:_4A6FE09CD90E43789D3ABB3CD2D20370"
+                    "Property" = "8:_9E545DF700484ADDA196744942C3EB97"
                         "Folders"
                         {
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_3F46B3BEA6B54024AF1F879AA95131C9"
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_6E70864B264C4FBB9F91BB98E4ED0B97"
                             {
                             "Name" = "8:pwv"
                             "AlwaysCreate" = "11:FALSE"
                             "Condition" = "8:"
                             "Transitive" = "11:FALSE"
-                            "Property" = "8:_FFF25CE95CE34182B8B52EE1E63166CF"
+                            "Property" = "8:_28CF5B57F430493D967B34DE786F9F13"
                                 "Folders"
                                 {
                                 }
                             }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_489EE39B597E452CB67DE4227FD15F76"
-                            {
-                            "Name" = "8:cuff_timer"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_C2D3E644FD72498E8F86F9BE78BC1A4D"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_A6DE29C12B6040399533FAE127962C97"
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_9EE01C70B427417CA102F75D1AA5622E"
                             {
                             "Name" = "8:pwa"
                             "AlwaysCreate" = "11:FALSE"
                             "Condition" = "8:"
                             "Transitive" = "11:FALSE"
-                            "Property" = "8:_619AB46EC79D47B3B12D9861B7F5AFA0"
+                            "Property" = "8:_50D55F8626A744629901AC60AF8B60C6"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_CB5A8ABBC429452D86C0D4C4076A0F94"
+                            {
+                            "Name" = "8:cuff_timer"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_FF17FDEAEC24438B8DCFB65A7E7F4799"
                                 "Folders"
                                 {
                                 }
                             }
                         }
                     }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_21D0F4F8194441B88FF222832AAABE83"
-                    {
-                    "Name" = "8:system"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_C914471DD5FA4FA9928246D13A935973"
-                        "Folders"
-                        {
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_14D971EF2D9C41BC8C2C98D64AF744A7"
-                            {
-                            "Name" = "8:logs"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_5CF9F65F952D4570B61478368A374813"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_24A39822151B4F8DA9FAC52E6457BAD0"
-                            {
-                            "Name" = "8:data"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_298ECDF5F4194AAB9FD4755520903B00"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_829B94E5674C453992A1C15AD1E8B584"
-                            {
-                            "Name" = "8:Resources"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_0988F19DE1114C5BA1646E895F1B587F"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_E4F28D1AE381429AAB46826E313C2C14"
-                            {
-                            "Name" = "8:config"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_1F9624FB81A64499A1F6044E1A6F8AA5"
-                                "Folders"
-                                {
-                                }
-                            }
-                        }
-                    }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_288D4F5ABAEA4CACACF858AEAC73180B"
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_6AF933C9DAFF4889B990882E7DE48501"
                     {
                     "Name" = "8:manuals"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
-                    "Property" = "8:_E79129E067E14FE8991E87237BCC3B7E"
+                    "Property" = "8:_AE4AE3AABBD64888AB3810A82BBB0C24"
                         "Folders"
                         {
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_13BCB476EEF84D17A18F8643473E55F3"
-                            {
-                            "Name" = "8:pl"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_E45FE75EC1AA4E228F7A4DEF5A4D94BE"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_1D7BC4B466434D4A81503C4F7157B1EF"
-                            {
-                            "Name" = "8:en"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_D174AC31121142EBABF0BA196198BA5F"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_2119F3285C3B4140AF0FE87FFF191263"
-                            {
-                            "Name" = "8:es"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_714502B123C64768A43F893A94DA4432"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_3386D6A9297D455D885CF3D7A8CFDD54"
-                            {
-                            "Name" = "8:de"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_6825253B50E843369809B3B5A730DC36"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_9D20DDD767A442CB81785BB731037267"
-                            {
-                            "Name" = "8:English"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_3C030C2F1A8A489AB53F3A1D329E2039"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_A0CDDAD20E094E65AEB1E695D3EED0FB"
-                            {
-                            "Name" = "8:it"
-                            "AlwaysCreate" = "11:FALSE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_3C0DF6E4A9B64824B419D210C313AFEC"
-                                "Folders"
-                                {
-                                }
-                            }
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_F78C02E2AA98483F9933DD5393F57772"
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_111852D3A9154D6AA7FCFC5A521ABA55"
                             {
                             "Name" = "8:fr"
                             "AlwaysCreate" = "11:FALSE"
                             "Condition" = "8:"
                             "Transitive" = "11:FALSE"
-                            "Property" = "8:_25A316537D4241E4863E726B313A6B1D"
+                            "Property" = "8:_6DB23E466C0445FD90C4550BD2958FB2"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_471B45A3FE0D4E06BF9623321E121979"
+                            {
+                            "Name" = "8:it"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_B5D186D8D6694783A0FCFE3D0C1D3397"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_7C96C500A3364CC5B6799538838645F5"
+                            {
+                            "Name" = "8:pl"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_AEA4B18413564C898D039C6C2D5362B1"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_7D68E86E6435468985491EC5DE949171"
+                            {
+                            "Name" = "8:English"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_977EFBE3FCBA4624AEE6A6ABC2EFE478"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_8E8AF6771AEB48DC925D134AA1186EE8"
+                            {
+                            "Name" = "8:en"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_B53A5DA19858452E90B43F3A5FB9012B"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_9D348329A49C483E9B6595C6949E0D41"
+                            {
+                            "Name" = "8:de"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_4828ED72522648B3ABF279FF7D532640"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_BF0F86DB68F94462A73E86F8A9368BC4"
+                            {
+                            "Name" = "8:es"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_D80546807B1A471584629EA5BFAD734D"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_ABC9B65370F544E5BC8B5859FFDFC632"
+                    {
+                    "Name" = "8:system"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_01F3D53CB340494AA23EF51B0FE2A5EF"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_2D02877195BD45DDB9CE0C769B7B188A"
+                            {
+                            "Name" = "8:logs"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_32F2A8DE975846BD9D83E7CB226B988E"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_67A79CFFC74348839A4A9007F933F1CA"
+                            {
+                            "Name" = "8:Resources"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_EF9B3E3DC17844668E58ED94EED653B7"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_6F61D9A9A9324AD39C78946D02C0B907"
+                            {
+                            "Name" = "8:config"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_37BC5C6248514C38830CCD2C598812DC"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_DC2BE6294035464D8FCA7B63D5C303A6"
+                            {
+                            "Name" = "8:data"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_9244041D4C094B85A0973BDD0DB63C2E"
                                 "Folders"
                                 {
                                 }
@@ -7378,7 +5684,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Scor"
         "ProductCode" = "8:{59BABB7C-9501-47F0-BFAA-CCA67B4CDBBA}"
-        "PackageCode" = "8:{7D56A835-4F03-4D11-9E51-A648612FAA64}"
+        "PackageCode" = "8:{F728BEFE-206C-468A-8A79-17AB279BCF7C}"
         "UpgradeCode" = "8:{13E02030-1313-49DE-AFC1-E631B9E9305C}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"

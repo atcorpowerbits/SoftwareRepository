@@ -85,7 +85,7 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
             chartArea1.AxisX.IsLabelAutoFit = false;
             chartArea1.AxisX.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.LawnGreen;
             chartArea1.AxisY.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
             chartArea1.AxisY.MajorGrid.Enabled = false;
@@ -105,6 +105,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.chartTonometer.Size = new System.Drawing.Size(935, 297);
             this.chartTonometer.TabIndex = 14;
             this.chartTonometer.Text = "Carotid Tonometer";
+            this.chartTonometer.PrePaint += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs>(this.chartTonometer_PrePaint);
             // 
             // guiradlblCarotidTonometer
             // 
@@ -142,7 +143,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 84F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 103F));
             this.tableLayoutPanel1.Controls.Add(this.guiradprgbarTimeToInflatioDeflation, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.radlblTimeStatus, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.radlblTimeStatus, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.radbtnCross, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.radbtnTick, 2, 0);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Arial", 11.25F);
@@ -159,7 +160,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradprgbarTimeToInflatioDeflation.Dash = false;
             this.guiradprgbarTimeToInflatioDeflation.Font = new System.Drawing.Font("Arial", 11.25F);
             this.guiradprgbarTimeToInflatioDeflation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradprgbarTimeToInflatioDeflation.Location = new System.Drawing.Point(3, 3);
+            this.guiradprgbarTimeToInflatioDeflation.Location = new System.Drawing.Point(384, 3);
             this.guiradprgbarTimeToInflatioDeflation.Name = "guiradprgbarTimeToInflatioDeflation";
             // 
             // 
@@ -167,9 +168,10 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradprgbarTimeToInflatioDeflation.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradprgbarTimeToInflatioDeflation.ShowProgressIndicators = true;
             this.guiradprgbarTimeToInflatioDeflation.Size = new System.Drawing.Size(370, 25);
-            this.guiradprgbarTimeToInflatioDeflation.TabIndex = 8;
+            this.guiradprgbarTimeToInflatioDeflation.TabIndex = 29;
             this.guiradprgbarTimeToInflatioDeflation.Text = "0%";
             this.guiradprgbarTimeToInflatioDeflation.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.guiradprgbarTimeToInflatioDeflation.Visible = false;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgbarTimeToInflatioDeflation.GetChildAt(0))).ShowProgressIndicator = true;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgbarTimeToInflatioDeflation.GetChildAt(0))).Dash = false;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgbarTimeToInflatioDeflation.GetChildAt(0))).Value1 = 0;
@@ -205,15 +207,15 @@ namespace AtCor.Scor.Gui.Presentation
             this.radlblTimeStatus.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.radlblTimeStatus.Font = new System.Drawing.Font("Arial", 11.25F);
             this.radlblTimeStatus.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radlblTimeStatus.Location = new System.Drawing.Point(384, 5);
+            this.radlblTimeStatus.Location = new System.Drawing.Point(3, 5);
             this.radlblTimeStatus.Name = "radlblTimeStatus";
             // 
             // 
             // 
             this.radlblTimeStatus.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radlblTimeStatus.Size = new System.Drawing.Size(159, 21);
-            this.radlblTimeStatus.TabIndex = 5;
-            this.radlblTimeStatus.Text = "Time to Deflation 1:30";
+            this.radlblTimeStatus.Size = new System.Drawing.Size(208, 21);
+            this.radlblTimeStatus.TabIndex = 28;
+            this.radlblTimeStatus.Text = "Time to Deflation 90 seconds";
             this.radlblTimeStatus.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // radbtnCross
@@ -434,6 +436,7 @@ namespace AtCor.Scor.Gui.Presentation
             // guichartFemoralCuff
             // 
             this.guichartFemoralCuff.BackColor = System.Drawing.Color.Transparent;
+            chartArea5.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea5.BackColor = System.Drawing.Color.Black;
             chartArea5.InnerPlotPosition.Auto = false;
             chartArea5.InnerPlotPosition.Height = 100F;
@@ -448,6 +451,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guichartFemoralCuff.Size = new System.Drawing.Size(935, 186);
             this.guichartFemoralCuff.TabIndex = 17;
             this.guichartFemoralCuff.Text = "chart1";
+            this.guichartFemoralCuff.PrePaint += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs>(this.guichartFemoralCuff_PrePaint);
             // 
             // guiradlblTonometerThresholdPart2
             // 
@@ -568,9 +572,7 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadLabel guiradlblCarotidTonometer;
         private Telerik.WinControls.UI.RadLabel guiradlblFemoralCuff;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private Telerik.WinControls.UI.RadLabel radlblTimeStatus;
         private Telerik.WinControls.UI.RadButton radbtnTick;
-        private Telerik.WinControls.UI.RadProgressBar guiradprgbarTimeToInflatioDeflation;
         private System.Windows.Forms.Timer tmrPwvCaptureMode;
         private Telerik.WinControls.UI.RadProgressBar radProgressBarQualityIndicator;
         private Telerik.WinControls.RootRadElement object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac;
@@ -585,6 +587,8 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadLabel guiradlblFemoralThresholdPart2;
         private Telerik.WinControls.UI.RadLabel guiradlblTonometerThresholdPart2;
         private System.Windows.Forms.Timer tmrPwaCaptureMode;
+        private Telerik.WinControls.UI.RadProgressBar guiradprgbarTimeToInflatioDeflation;
+        private Telerik.WinControls.UI.RadLabel radlblTimeStatus;
     }
 }
 

@@ -14,6 +14,7 @@
 using namespace System::Threading;
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Messaging;
+using namespace AtCor::Scor::CrossCutting::Logging;
 
 namespace AtCor{
 	namespace Scor{
@@ -156,6 +157,118 @@ namespace AtCor{
 
 
 			//retun the requested rannge of values.
+			//int DalDataBuffer::GetNextValues(int requestedValues, int % readStartIndex )
+			//{
+			//	int returnedvalues = -1; //to singnal unready
+
+			//	if (bufferPointer == nullptr)
+			//	{
+			//		//array hasnt been created yet
+			//		throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferNotCreatedErrCd, CrxStructCommonResourceMsg::DalErrBufferNotCreated, ErrorSeverity::Exception);
+			//	}
+
+			//	if (requestedValues <=0)
+			//	{
+			//		//illegal parameter: the number of requested values must be positive integer
+			//		throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrInvalidArgsErrCd, CrxStructCommonResourceMsg::DalErrInvalidArgs,ErrorSeverity::Exception);
+			//	}
+			//	
+			//	if (requestedValues > (_arraySize -1))
+			//	{
+			//		//request size is larger than size of array.
+			//		throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrRequestTooLargeErrCd, CrxStructCommonResourceMsg::DalErrRequestTooLarge, ErrorSeverity::Exception);
+			//	}
+
+			//	
+			//	if (bufferIndex == startIndex)
+			//	{
+			//		//if buffer is empty
+			//		readStartIndex  = -1;
+			//		
+			//		return 0; //no elements to read
+			//	}
+			//	else if ( bufferIndex > startIndex)
+			//	{
+			//		//caluclate the start position and offset.
+			//		if ((startIndex) <= (bufferIndex -1))
+			//		{
+			//			//Set ReadstartIndex from the oldest element
+			//			readStartIndex =  startIndex ;
+			//		}
+			//		
+			//		if ((startIndex  + requestedValues -1 ) <= ( bufferIndex -1))
+			//		{ 
+			//			//if the requested values are less than or equal to the available values
+			//			returnedvalues = requestedValues;
+			//		}
+			//		else if ((startIndex  + requestedValues -1 ) > ( bufferIndex -1))
+			//		{
+			//			//if the requested values are too many then only return the actual number of events
+			//			returnedvalues =  (bufferIndex - 1) - startIndex + 1;
+			//		}
+
+			//		//increment the SI by the actual number of returned values only.
+			//		//ensure rollover is accounted for
+			//		startIndex= ((startIndex + returnedvalues)% _arraySize) ;
+			//	}
+			//	else if (bufferIndex < startIndex)
+			//	{
+			//		//set reading start position
+			//		readStartIndex = startIndex;
+
+			//		if ( (startIndex + requestedValues - 1) <=  (_arraySize - 1))
+			//		{
+			//			//if the requested values will not result in a rollover.
+			//			returnedvalues = requestedValues ;
+			//			//increment SI
+			//			startIndex = (startIndex + returnedvalues) % _arraySize;
+			//		}
+			//		else if ( (startIndex + requestedValues - 1) >  (_arraySize - 1))
+			//		{
+			//			//if the request will result in a rollover
+			//			int tempCount = 0; 
+			//			
+			//			// store the count of reads before a rollover
+			//			tempCount = (_arraySize - 1) - startIndex + 1;
+
+			//			if (bufferIndex == 0)
+			//			{
+			//				//If BI is at 0 there are no more elements to read from the front of the array
+			//				returnedvalues = tempCount;
+			//				startIndex = 0;
+			//			}
+			//			else
+			//			{
+			//				//elements to be read from front of array.
+
+			//				//fin the number of elements remaining to be read
+			//				//check if they will exceed the available range
+			//				if ((requestedValues - tempCount -1) <= (bufferIndex -1)) 
+			//				{
+			//					//the requested range is available
+			//					returnedvalues = requestedValues;
+			//					startIndex = (requestedValues - tempCount);
+			//				}
+			//				else
+			//				{
+			//					//calulate the available range taking rollover into account
+			//					//return only the actual 
+			//					returnedvalues = tempCount + (bufferIndex -1) + 1;
+			//					startIndex = bufferIndex;
+			//				}
+
+			//			}
+			//		}
+			//	}
+			//	//ToDo:Remove this comment: CrxLogger::Instance->Write("Alok: returnedvalues: " + returnedvalues + " requestedValues: " + requestedValues + " readStartIndex: " + readStartIndex);				
+			//	//finally return the actual count
+			//	return returnedvalues; 
+			//}
+
+
+		//get the value at a specified index. Account for rollover.
+
+
 			int DalDataBuffer::GetNextValues(int requestedValues, int % readStartIndex )
 			{
 				int returnedvalues = -1; //to singnal unready
@@ -178,94 +291,109 @@ namespace AtCor{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrRequestTooLargeErrCd, CrxStructCommonResourceMsg::DalErrRequestTooLarge, ErrorSeverity::Exception);
 				}
 
-				
 				if (bufferIndex == startIndex)
 				{
 					//if buffer is empty
 					readStartIndex  = -1;
-					
 					return 0; //no elements to read
 				}
 				else if ( bufferIndex > startIndex)
 				{
-					//caluclate the start position and offset.
-					if ((startIndex) <= (bufferIndex -1))
-					{
-						//Set ReadstartIndex from the oldest element
-						readStartIndex =  startIndex ;
-					}
-					
-					if ((startIndex  + requestedValues -1 ) <= ( bufferIndex -1))
-					{ 
-						//if the requested values are less than or equal to the available values
-						returnedvalues = requestedValues;
-					}
-					else if ((startIndex  + requestedValues -1 ) > ( bufferIndex -1))
-					{
-						//if the requested values are too many then only return the actual number of events
-						returnedvalues =  (bufferIndex - 1) - startIndex + 1;
-					}
-
-					//increment the SI by the actual number of returned values only.
-					//ensure rollover is accounted for
-					startIndex= ((startIndex + returnedvalues)% _arraySize) ;
+					returnedvalues = CalStartIndexForBuffIndexLessThanStartIndex(requestedValues, readStartIndex);
 				}
 				else if (bufferIndex < startIndex)
 				{
-					//set reading start position
-					readStartIndex = startIndex;
-
-					if ( (startIndex + requestedValues - 1) <=  (_arraySize - 1))
-					{
-						//if the requested values will not result in a rollover.
-						returnedvalues = requestedValues ;
-						//increment SI
-						startIndex = (startIndex + returnedvalues) % _arraySize;
-					}
-					else if ( (startIndex + requestedValues - 1) >  (_arraySize - 1))
-					{
-						//if the request will result in a rollover
-						int tempCount = 0; 
-						
-						// store the count of reads before a rollover
-						tempCount = (_arraySize - 1) - startIndex + 1;
-
-						if (bufferIndex == 0)
-						{
-							//If BI is at 0 there are no more elements to read from the front of the array
-							returnedvalues = tempCount;
-							startIndex = 0;
-						}
-						else
-						{
-							//elements to be read from front of array.
-
-							//fin the number of elements remaining to be read
-							//check if they will exceed the available range
-							if ((requestedValues - tempCount -1) <= (bufferIndex -1)) 
-							{
-								//the requested range is available
-								returnedvalues = requestedValues;
-								startIndex = (requestedValues - tempCount);
-							}
-							else
-							{
-								//calulate the available range taking rollover into account
-								//return only the actual 
-								returnedvalues = tempCount + (bufferIndex -1) + 1;
-								startIndex = bufferIndex;
-							}
-
-						}
-					}
+					returnedvalues = CalStartIndexForBuffIndexMoreThanStartIndex(requestedValues, readStartIndex);
 				}
 
+				//ToDo:Remove this comment: CrxLogger::Instance->Write("Alok: returnedvalues: " + returnedvalues + " requestedValues: " + requestedValues + " readStartIndex: " + readStartIndex);				
 				//finally return the actual count
 				return returnedvalues; 
 			}
+			
+			int DalDataBuffer::CalStartIndexForBuffIndexLessThanStartIndex(int requestedValues, int % readStartIndex)
+			{
+				int returnedvalues = -1; 
+				
+				//caluclate the start position and offset.
+				if ((startIndex) <= (bufferIndex -1))
+				{
+					//Set ReadstartIndex from the oldest element
+					readStartIndex =  startIndex ;
+				}
+				
+				if ((startIndex  + requestedValues -1 ) <= ( bufferIndex -1))
+				{ 
+					//if the requested values are less than or equal to the available values
+					returnedvalues = requestedValues;
+				}
+				else if ((startIndex  + requestedValues -1 ) > ( bufferIndex -1))
+				{
+					//if the requested values are too many then only return the actual number of events
+					returnedvalues =  (bufferIndex - 1) - startIndex + 1;
+				}
 
+				//increment the SI by the actual number of returned values only.
+				//ensure rollover is accounted for
+				startIndex = ((startIndex + returnedvalues)% _arraySize) ;
+				
+				return returnedvalues;
+			}
+			
+			int DalDataBuffer::CalStartIndexForBuffIndexMoreThanStartIndex(int requestedValues, int % readStartIndex)
+			{
+				int returnedvalues = -1; //to singnal unready
+				
+				//set reading start position
+				readStartIndex = startIndex;
 
-		//get the value at a specified index. Account for rollover.
+				if ( (startIndex + requestedValues - 1) <=  (_arraySize - 1))
+				{
+					//if the requested values will not result in a rollover.
+					returnedvalues = requestedValues ;
+					//increment SI
+					startIndex = (startIndex + returnedvalues) % _arraySize;
+				}
+				else if ( (startIndex + requestedValues - 1) >  (_arraySize - 1))
+				{
+					//if the request will result in a rollover
+					int tempCount = 0; 
+					
+					// store the count of reads before a rollover
+					tempCount = (_arraySize - 1) - startIndex + 1;
+
+					if (bufferIndex == 0)
+					{
+						//If BI is at 0 there are no more elements to read from the front of the array
+						returnedvalues = tempCount;
+						startIndex = 0;
+					}
+					else
+					{
+						//elements to be read from front of array.
+
+						//fin the number of elements remaining to be read
+						//check if they will exceed the available range
+						if ((requestedValues - tempCount -1) <= (bufferIndex -1)) 
+						{
+							//the requested range is available
+							returnedvalues = requestedValues;
+							startIndex = (requestedValues - tempCount);
+						}
+						else
+						{
+							//calulate the available range taking rollover into account
+							//return only the actual 
+							returnedvalues = tempCount + (bufferIndex -1) + 1;
+							startIndex = bufferIndex;
+						}
+
+					}
+				}
+					//finally return the actual count
+					return returnedvalues; 
+			}
+
 			DalPwvDataStruct^ DalDataBuffer::GetValueAt(int readStartIndex, int offsetFromReadStartIndex)
 			{
 				int indexCurElement; //to store the current element index
@@ -279,8 +407,20 @@ namespace AtCor{
 				//caclulate aexact index from offset and account for rollover.
 				indexCurElement = (readStartIndex + offsetFromReadStartIndex)%_arraySize;
 				
+				////return the element at the specified index.
+				//return (DalPwvDataStruct^)bufferPointer->GetValue(indexCurElement);
+
 				//return the element at the specified index.
-				return (DalPwvDataStruct^)bufferPointer->GetValue(indexCurElement);
+				//TS:Suggested conversion of EM4 data from 16 to 12 bits
+				DalPwvDataStruct^ tmpData = gcnew DalPwvDataStruct();
+				tmpData = (DalPwvDataStruct^)bufferPointer->GetValue(indexCurElement);
+				tmpData->tonometerData >>= 4;
+				tmpData->cuffPulseData >>= 4;
+				return tmpData;
+				////TM:original                
+				//return (DalPwvDataStruct^)bufferPointer->GetValue(indexCurElement);
+
+
 			}
 
 

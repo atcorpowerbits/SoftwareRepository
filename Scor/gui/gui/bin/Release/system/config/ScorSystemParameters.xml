@@ -25,7 +25,7 @@
   </Gui>
 	<Crx>
 		<Logging>
-			<Enable>Y</Enable>
+			<Enable>N</Enable>
 	   </Logging>
 	</Crx>
   <PWV>

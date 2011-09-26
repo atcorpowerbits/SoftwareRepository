@@ -14,14 +14,15 @@
 #include "stdafx.h"
 //#include "DalCommon.h"
 //#include "IDalHandler.h"
-//#include "DalDeviceHandler.h"
-//#include "DalEventContainer.h"
+#include "DalDeviceHandler.h"
+#include "DalEventContainer.h"
 //#include "DalSimulationFile.h"
 //#include "DalSimulationHandler.h"
 //#include "DalStatusHandler.h"
-#include "DalMeasurementMode.h"
+//#include "DalMeasurementMode.h"
 
 using namespace System;
+using namespace System::Threading;
 using namespace AtCor::Scor::CrossCutting;
 
 namespace AtCor{ 
@@ -47,6 +48,19 @@ namespace AtCor{
 
 				DalStreamingMode _currentStreamingMode;
 				//DalMeasurementMode^ _currentMeasurementMode;
+
+				//TS STUB
+				static DalSimulationFile^ _nibpSimulationFile; //pointer to NIBP simulation file
+				static Timers::Timer ^_nibpTimer = nullptr;  //Timer to fire simulated NIBP data event
+				static bool _nibpConnected = false;
+				static unsigned short _nibpStatus;
+				static unsigned short _nibpErrorCode;
+				static unsigned short _nibpSP;
+				static unsigned short _nibpDP;
+				static unsigned short _nibpMP;
+				static unsigned short _nibpHR;
+
+				bool SetBPInitialInflate(unsigned short initialPressure); //TS Stub
 
 			internal:	
 				//static IDalHandler^ _currentDevice;  //A pointer to the current device
@@ -229,10 +243,16 @@ namespace AtCor{
 				void SetStreamingMode(DalStreamingMode newMode);
 
 				// TS stub
-				bool IsCuffDeflated(); 
+				//bool IsCuffDeflated(); 
 				
 				// TS stub
 				void SetDeviceNull();
+
+				//TS STUB
+				bool StartBP(DalNIBPMode nibpMode, unsigned short initialPressure);
+				bool StartBP(DalNIBPMode nibpMode);
+				bool FinishBP();
+				bool AbortBP();
 			};
 		}
 	}

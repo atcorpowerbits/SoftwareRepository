@@ -88,6 +88,19 @@ namespace AtCor{
 				this->ValueSetReset = setResetValue;
 			}
 
+			//TS STUB
+			DalNIBPDataEventArgs::DalNIBPDataEventArgs(unsigned short error,
+													   unsigned short sp,
+													   unsigned short dp,
+													   unsigned short mp, 
+													   unsigned short hr)
+			{
+				this->nibpError = error;
+				this->nibpSP = sp;
+				this->nibpDP = dp;
+				this->nibpMP = mp;
+				this->nibpHR = hr;
+			}
 		}
 	}
 }

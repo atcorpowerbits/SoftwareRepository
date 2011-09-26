@@ -122,12 +122,12 @@ namespace TestCrx {
 				//Default values in the structure 	CrxStructPwvSetting are 5, false, 0 and 0 for CaptureTime,
 				//FemoralToCuff, PWVDistanceMethod and PWVDistanceUnits respectively
 				Assert::AreEqual(5, actual->CaptureTime);
-				Assert::AreEqual(false, actual->FemoralToCuff);
+				//Assert::AreEqual(false, actual->FemoralToCuff);
 				Assert::AreEqual(0, actual->PWVDistanceMethod);
 				Assert::AreEqual(0, actual->PWVDistanceUnits);
 
 				expected->CaptureTime = 10;
-				expected->FemoralToCuff = true;
+				//expected->FemoralToCuff = true;
 				expected->PWVDistanceMethod = 1;
 				expected->PWVDistanceUnits = 2;
 
@@ -383,7 +383,7 @@ namespace TestCrx {
 				CrxConfigManagerTest::SetPath();
 				
 				ps->PWVDistanceMethod = 0;
-				ps->FemoralToCuff = true;
+				ps->FemoralToCuff = "200";
 				ps->PWVDistanceUnits = 0;
 				ps->CaptureTime = 5;
 				ps->ReferenceRange = true;
@@ -398,7 +398,7 @@ namespace TestCrx {
 				target->GetPwvUserSettings();
 
 				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceMethod);
-				Assert::AreEqual(true, target->_instance->PwvSettings->FemoralToCuff);
+				Assert::AreEqual("200", target->_instance->PwvSettings->FemoralToCuff);
 				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceUnits);
 				Assert::AreEqual(5, target->_instance->PwvSettings->CaptureTime);
 				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
@@ -408,7 +408,7 @@ namespace TestCrx {
 				Assert::AreEqual(true, target->_instance->PwvSettings->GuidanceBars);
 
 				ps->PWVDistanceMethod = 1;
-				ps->FemoralToCuff = false;
+				ps->FemoralToCuff = "300";
 				ps->PWVDistanceUnits = 1;
 				ps->CaptureTime = 10;
 				ps->ReferenceRange = false;
@@ -423,7 +423,7 @@ namespace TestCrx {
 				target->GetPwvUserSettings();
 
 				Assert::AreEqual(1, target->_instance->PwvSettings->PWVDistanceMethod);
-				Assert::AreEqual(false, target->_instance->PwvSettings->FemoralToCuff);
+				Assert::AreEqual("300", target->_instance->PwvSettings->FemoralToCuff);
 				Assert::AreEqual(1, target->_instance->PwvSettings->PWVDistanceUnits);
 				Assert::AreEqual(10, target->_instance->PwvSettings->CaptureTime);
 				Assert::AreEqual(false, target->_instance->PwvSettings->ReferenceRange);
@@ -440,7 +440,7 @@ namespace TestCrx {
 
 				//************************//
 				ps->PWVDistanceMethod = 0;
-				ps->FemoralToCuff = true;
+				ps->FemoralToCuff = "200";
 				ps->PWVDistanceUnits = 0;
 				ps->CaptureTime = 5;
 				ps->ReferenceRange = true;
@@ -1302,7 +1302,7 @@ public: [TestMethod]
 				target->GetPwvUserSettings();
 
 				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceMethod);
-				Assert::AreEqual(true, target->_instance->PwvSettings->FemoralToCuff);
+				Assert::AreEqual("200", target->_instance->PwvSettings->FemoralToCuff);
 				Assert::AreEqual(0, target->_instance->PwvSettings->PWVDistanceUnits);
 				Assert::AreEqual(5, target->_instance->PwvSettings->CaptureTime);
 				Assert::AreEqual(true, target->_instance->PwvSettings->ReferenceRange);
@@ -1446,7 +1446,7 @@ public: [TestMethod]
 				target->GetPwvDefaultSettings(objPwvSettings);
 				
 				Assert::AreEqual(0, objPwvSettings->PWVDistanceMethod);
-				Assert::AreEqual(true, objPwvSettings->FemoralToCuff);
+				Assert::AreEqual("200", objPwvSettings->FemoralToCuff);
 				Assert::AreEqual(0, objPwvSettings->PWVDistanceUnits);
 				Assert::AreEqual(5, objPwvSettings->CaptureTime);
 				Assert::AreEqual(true, objPwvSettings->ReferenceRange);
@@ -1667,8 +1667,8 @@ public: [TestMethod]
 			{
 				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); 
 
-				target->GetFemoralToCuff("USER", "Yes");
-				Assert::AreEqual(true,  target->_instance->PwvSettings->FemoralToCuff);
+				target->GetFemoralToCuff("USER", "200");
+				Assert::AreEqual("200",  target->_instance->PwvSettings->FemoralToCuff);
 			}
 
 	public: [TestMethod]
@@ -1677,27 +1677,27 @@ public: [TestMethod]
 			{
 				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); 
 
-				target->GetFemoralToCuff("DEFAULT", "No");
-				Assert::AreEqual(false,  target->_pSetInternal->FemoralToCuff);
+				target->GetFemoralToCuff("DEFAULT", "200");
+				Assert::AreEqual("200",  target->_pSetInternal->FemoralToCuff);
 			}
 
-	public: [TestMethod]
-			[DeploymentItem(L"crx.dll")]
-			void GetFemoralToCuffTest2()
-			{
-				CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); 
-				
-				try
-				{
-					target->GetFemoralToCuff("USER", "XX");
-				}
-				//Catch if any of the exception occurs in XML Reader
-				catch (Exception^) 
-				{
-					target->_instance->PwvSettings->FemoralToCuff = true;
-				}
-				Assert::AreEqual(true, target->_instance->PwvSettings->FemoralToCuff);
-			}
+	//public: [TestMethod]
+	//		[DeploymentItem(L"crx.dll")]
+	//		void GetFemoralToCuffTest2()
+	//		{
+	//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); 
+	//			
+	//			try
+	//			{
+	//				target->GetFemoralToCuff("USER", "XX");
+	//			}
+	//			//Catch if any of the exception occurs in XML Reader
+	//			catch (Exception^) 
+	//			{
+	//				target->_instance->PwvSettings->FemoralToCuff = true;
+	//			}
+	//			Assert::AreEqual(true, target->_instance->PwvSettings->FemoralToCuff);
+	//		}
 			/// <summary>
 			///A test for GetCultureInfo
 			///</summary>
@@ -3939,6 +3939,55 @@ public: [TestMethod]
 			}			
 		}
 
+		/// <summary>
+		///A test for GetPwaDefaultReport
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaDefaultReportTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			//String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			//String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  SubSection =  "USER";
+			String^  ReaderValue = "PWA CLINICAL REPORT";
+			target->GetPwaDefaultReport(SubSection, ReaderValue);
+			Assert::AreEqual("PWA CLINICAL REPORT", target->_instance->PwaSettings->DefaultReport);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaDefaultReportTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			//String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			//String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  SubSection =  "DEFAULT";
+			String^  ReaderValue = "PWA CLINICAL REPORT";
+			target->GetPwaDefaultReport(SubSection, ReaderValue);
+			Assert::AreEqual("PWA CLINICAL REPORT", target->_pwaSetInternal->DefaultReport);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwaDefaultReportTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			//String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			//String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  SubSection =  "USER2";
+			String^  ReaderValue = "PWA CLINICAL REPORT";
+			try
+			{
+				target->GetPwaDefaultReport(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
 };
 }
 namespace TestCrx {

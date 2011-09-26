@@ -13,7 +13,10 @@
 #include "DalPwvDeviceHandler.h"
 #include "DalPwvCommandInterface.h"
 
+using namespace System::Threading;
+
 using namespace AtCor::Scor::CrossCutting;
+using namespace AtCor::Scor::CrossCutting::Configuration;
 
 DalPwvDeviceHandler::DalPwvDeviceHandler()
 {
@@ -51,9 +54,35 @@ bool DalPwvDeviceHandler::StartCapture(int captureTime, int samplingRate)
 					
 	//Set Idle mode
 	bool boolReturnValue;
-	boolReturnValue = SetIdleMode();
+
+	//boolReturnValue = SetIdleMode();
+	int countRetry;
+	int count = 0;
+	int sleepTime = 3000;
+
+	sleepTime = Convert::ToInt32(CrxSytemParameters::Instance->GetStringTagValue("IdleModeSleepTime"));
+	countRetry = (15000/sleepTime) + 1;
+	Object^ obj;
+	do
+	{
+		
+		ScorException^ check = gcnew ScorException (1001, CrxStructCommonResourceMsg::Dal_DeviceIdling_Message, ErrorSeverity::Information);	
+		CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+
+		boolReturnValue = SetIdleMode();
+		if(!boolReturnValue)
+		{
+			count++;
+			Threading::Thread::Sleep(sleepTime); //Wait for 3 sec to re-check the idle mode
+		}
+	}
+	while(!boolReturnValue || count > countRetry);
+
 	if (false == boolReturnValue )
 	{
+		ScorException^ check = gcnew ScorException (1002, CrxStructCommonResourceMsg::Dal_DeviceNotReady_Message, ErrorSeverity::Information);	
+		CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+
 		return false;
 	}
 

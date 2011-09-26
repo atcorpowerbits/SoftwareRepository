@@ -11,7 +11,7 @@
 #include "stdafx.h"
 #include "DalModule.h"
 #include "DalActiveDevice.h"
-#include "DalMeasurementMode.h"
+//#include "DalMeasurementMode.h"
 
 using namespace System::ComponentModel;
 using namespace AtCor::Scor::CrossCutting;
@@ -507,31 +507,31 @@ namespace AtCor{
 			}
 
 			//TS Stub
-			bool DalModule::IsCuffDeflated()
-			{
-				//if (_currentDevice)
-				//{
-				//	//call the active device method
-				//	return _currentDevice->IsCuffDeflated();
-				//}
-				//else
-				//{
-				//	return true;
-				//}
-				//if (0 == String::Compare(
-				//	"Simulation",
-				//	CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation),
-				//	false))
-				//{
-				//	return true;
-				//}
-				//else
-				//{
-				//	return false;
-				//}
+			//bool DalModule::IsCuffDeflated()
+			//{
+			//	//if (_currentDevice)
+			//	//{
+			//	//	//call the active device method
+			//	//	return _currentDevice->IsCuffDeflated();
+			//	//}
+			//	//else
+			//	//{
+			//	//	return true;
+			//	//}
+			//	//if (0 == String::Compare(
+			//	//	"Simulation",
+			//	//	CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation),
+			//	//	false))
+			//	//{
+			//	//	return true;
+			//	//}
+			//	//else
+			//	//{
+			//	//	return false;
+			//	//}
 
-				return DalActiveDevice::CurrentDevice->IsCuffDeflated();
-			}
+			//	return DalActiveDevice::CurrentDevice->IsCuffDeflated();
+			//}
 
 			//TS Stub
 			// Unit testing purpose only to force StartCapture to fail when 
@@ -542,7 +542,39 @@ namespace AtCor{
 			}
 
 
+			// Equivalent to NIBP CONNECT, START_BP & <O>
+			bool DalModule::StartBP(DalNIBPMode nibpMode)
+			{
+				return DalActiveDevice::CurrentDevice->StartBP(nibpMode);
+			}
 
-		}
+			// Equivalent to NIBP DISCONNECT
+			bool DalModule::FinishBP()
+			{
+				return DalActiveDevice::CurrentDevice->FinishBP();
+			}
+
+			// Equivalent to NIBP Abort_BP & <A>
+			bool DalModule::AbortBP()
+			{
+				return DalActiveDevice::CurrentDevice->AbortBP();
+			}
+
+
+			//TS Stub
+			// Equivalent to SET_INITIAL_INFLATE & <O> <K>
+			bool DalModule::SetBPInitialInflate(unsigned short initialPressure)
+			{
+				return true;
+			}
+
+			//TS Stub
+			// Start NIBP using initial inflate pressure
+			bool DalModule::StartBP(DalNIBPMode nibpMode, unsigned short initialPressure)
+			{
+				return DalActiveDevice::CurrentDevice->StartBP(nibpMode, initialPressure);
+			}
+
+		}//end namespaces
 	}
 }

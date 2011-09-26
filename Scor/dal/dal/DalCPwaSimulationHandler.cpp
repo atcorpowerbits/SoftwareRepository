@@ -18,7 +18,7 @@
 #include "DalSimulationFile.h"
 #include "DalSimulationHandler.h"
 #include "DalCPwaSimulationHandler.h"
-
+#include "DalNibpSimulationHandler.h"
 
 using namespace System;
 using namespace System::Threading;
@@ -42,7 +42,8 @@ namespace AtCor{
 				//_currentAlarmStatusFlag = 0;
 				//_currentStatusFlag = 0;
 
-				//dataBufferObj = DalDataBuffer::Instance;
+				nibpBufferObj = DalDataBuffer::Instance;
+				_nibp = DalNibpSimulationHandler::Instance;
 			}
 
 			void DalCPwaSimulationHandler::CloseFiles()
@@ -291,6 +292,36 @@ namespace AtCor{
                 {
                     throw gcnew ScorException(sysExObj);
                 }
+			}
+
+			
+			bool DalCPwaSimulationHandler::StartBP(DalNIBPMode nibpMode, unsigned short initialPressure)
+			{
+				DalPwvDataStruct tempNibpDataVar;
+				nibpBufferObj->CreateBuffer(1,5);	//This will creat buffer for 16 elements
+				
+				for(int i=1; i <= 16; i++)
+				{
+					tempNibpDataVar.cuffPressure = (unsigned short) i * 10;
+					nibpBufferObj->WriteDataToBuffer(tempNibpDataVar);
+				}
+
+				return NIBP->StartBP(nibpMode, initialPressure);		//DalNibpSimulationHandler::Instance->StartBP(nibpMode, initialPressure);
+			}
+
+			bool DalCPwaSimulationHandler::StartBP(DalNIBPMode nibpMode)
+			{
+				return NIBP->StartBP(nibpMode);	// DalNibpSimulationHandler::Instance->StartBP(nibpMode);
+			}
+
+			bool DalCPwaSimulationHandler::FinishBP()
+			{
+				return NIBP->FinishBP();	// DalNibpSimulationHandler::Instance->FinishBP();
+			}
+
+			bool DalCPwaSimulationHandler::AbortBP()
+			{
+				return NIBP->AbortBP();		//DalNibpSimulationHandler::Instance->AbortBP();
 			}
 		}
 	}

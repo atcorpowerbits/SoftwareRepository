@@ -1,0 +1,2425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveStatus" xml:space="preserve">
+    <value>Francés - Estado activo.</value>
+  </data>
+  <data name="AGE_NOT_SAFE" xml:space="preserve">
+    <value>Measurement is not safe and not validated. User is not allowed to proceed with the capture.</value>
+  </data>
+  <data name="AGE_WARNING_CUFF_FITTING" xml:space="preserve">
+    <value>Please ensure that the cuff size fits the patient and that the measurement is not currently validated for non-adult patients. Do you want to proceed?</value>
+  </data>
+  <data name="AGE_WARNING_NO_CLINICAL_DATA" xml:space="preserve">
+    <value>Please note that no clinical data to support and that the measurement is not currently validated for non-adult patients. Do you want to proceed?</value>
+  </data>
+  <data name="AlarmSourceUnknown" xml:space="preserve">
+    <value>El origen de la alarma es desconocido o no manipulado.</value>
+  </data>
+  <data name="AlarmStatus" xml:space="preserve">
+    <value>Se ha producido un evento de alarma.</value>
+  </data>
+  <data name="ANALYSIS_XAXIS_TITLE" xml:space="preserve">
+    <value>Evaluaciones</value>
+  </data>
+  <data name="APPLICATION_MESSAGE" xml:space="preserve">
+    <value>Mensaje de la aplicación</value>
+  </data>
+  <data name="APP_MSG" xml:space="preserve">
+    <value>Se está ejecutando otra instancia, no se puede continuar.</value>
+  </data>
+  <data name="APP_NAME" xml:space="preserve">
+    <value>scor</value>
+  </data>
+  <data name="APP_VERSION" xml:space="preserve">
+    <value>Versión 10.0.0.0</value>
+    <comment>About box info</comment>
+  </data>
+  <data name="BACKUP_DONE" xml:space="preserve">
+    <value>La copia de seguridad se ha realizado correctamente.</value>
+  </data>
+  <data name="BACKUP_FAIL" xml:space="preserve">
+    <value>Error en la copia de seguridad</value>
+  </data>
+  <data name="BACKUP_PROGRESS" xml:space="preserve">
+    <value>Copia de seguridad en curso...</value>
+  </data>
+  <data name="BACKUP_TITLE" xml:space="preserve">
+    <value>Copia de seguridad de la base de datos</value>
+  </data>
+  <data name="BLL_START_CAPTURE_FAILED" xml:space="preserve">
+    <value>Error al iniciar la captura.</value>
+  </data>
+  <data name="BP_GRADE_II_AND_III_HT" xml:space="preserve">
+    <value>Grado II e III HT</value>
+  </data>
+  <data name="BP_GRADE_II_AND_III_HT_RANGE" xml:space="preserve">
+    <value>PS &gt; 160</value>
+  </data>
+  <data name="BP_GRADE_I_HT" xml:space="preserve">
+    <value>Grado I HT</value>
+  </data>
+  <data name="BP_GRADE_I_HT_RANGE" xml:space="preserve">
+    <value>140 &lt;PS &lt;159</value>
+  </data>
+  <data name="BP_HIGH_NORMAL" xml:space="preserve">
+    <value>Normal alta</value>
+  </data>
+  <data name="BP_HIGH_NORMAL_RANGE" xml:space="preserve">
+    <value>130 &lt;PS &lt;139</value>
+  </data>
+  <data name="BP_LBL_ANALYSIS" xml:space="preserve">
+    <value>BP (mmHg)</value>
+  </data>
+  <data name="BP_NORMAL" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="BP_NORMAL_RANGE" xml:space="preserve">
+    <value>120 &lt;PS &lt;129</value>
+  </data>
+  <data name="BP_OPTIMAL" xml:space="preserve">
+    <value>Óptima</value>
+  </data>
+  <data name="BP_OPTIMAL_RANGE" xml:space="preserve">
+    <value>PS &lt;119</value>
+  </data>
+  <data name="BTN_CANCEL" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="BTN_CAPTURE" xml:space="preserve">
+    <value>Captura</value>
+  </data>
+  <data name="BTN_CHANGE" xml:space="preserve">
+    <value>Cambiar</value>
+  </data>
+  <data name="BTN_DEFAULTS" xml:space="preserve">
+    <value>Valores predeterminados</value>
+  </data>
+  <data name="BTN_DELETE" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="BTN_EDIT" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="BTN_EXIT" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="BTN_FINDMODULE" xml:space="preserve">
+    <value>Buscar módulo</value>
+  </data>
+  <data name="BTN_GET_BP" xml:space="preserve">
+    <value>Get BP</value>
+  </data>
+  <data name="BTN_MIGRATE" xml:space="preserve">
+    <value>Migrar</value>
+  </data>
+  <data name="BTN_NEW" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="BTN_OK" xml:space="preserve">
+    <value>Captura</value>
+  </data>
+  <data name="BTN_OK_TXT" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="BTN_PRINT" xml:space="preserve">
+    <value>Imprimir</value>
+  </data>
+  <data name="BTN_PRINTERSETUP" xml:space="preserve">
+    <value>Configuración de impresora</value>
+  </data>
+  <data name="BTN_REPEAT" xml:space="preserve">
+    <value>Repetir</value>
+  </data>
+  <data name="BTN_SAVE" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="BTN_SEARCH" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="BTN_SETTINGS" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="CAPTURE_DEVICE_ERR_MSG" xml:space="preserve">
+    <value>No se ha encontrado el módulo electrónico. Compruebe la conexión del puerto USB del módulo electrónico. Cuando conecte y encienda el módulo electrónico, haga clic en Sistema-&gt;Buscar módulo</value>
+  </data>
+  <data name="CAPTURE_FAILED" xml:space="preserve">
+    <value>¿Dese cancelar el proceso de captura?</value>
+  </data>
+  <data name="CAPTURE_TICK_MSG" xml:space="preserve">
+    <value>¿Desea generar el informe SphygmoCor?</value>
+  </data>
+  <data name="CAPTURE_TIME_OUT_OF_RANGE" xml:space="preserve">
+    <value>El tiempo de la captura no se encuentra en el intervalo válido, entre {0} y {1}</value>
+    <comment>{0}=lower range {1}=upper range</comment>
+  </data>
+  <data name="CAPTURE_TIME_TO_INFLATION" xml:space="preserve">
+    <value>Tiempo para inflado </value>
+  </data>
+  <data name="CAROTID_DIST_OUT_OF_RANGE" xml:space="preserve">
+    <value>La distancia de la carótida no se encuentra en el intervalo válido, entre {0} y {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. mm, cm</comment>
+  </data>
+  <data name="CAROTID_SIGNAL_BUFFER_NOT_FULL_YET" xml:space="preserve">
+    <value>El búfer de la señal de la carótida todavía no está lleno</value>
+  </data>
+  <data name="CAROTID_SIGNAL_CAPTURE_FAILED" xml:space="preserve">
+    <value>Error al capturar la señal de la carótida</value>
+  </data>
+  <data name="CHK_FEMORAL_CUFF" xml:space="preserve">
+    <value>De femoral a manguito</value>
+  </data>
+  <data name="CHK_NORMAL_RANGE" xml:space="preserve">
+    <value>Población sana</value>
+  </data>
+  <data name="CHK_PATIENT_PRIVACY" xml:space="preserve">
+    <value>Privacidad del paciente</value>
+  </data>
+  <data name="CHK_REFERENCE_RANGE" xml:space="preserve">
+    <value>Población general europea</value>
+  </data>
+  <data name="CM" xml:space="preserve">
+    <value>cm</value>
+  </data>
+  <data name="COMPANY_COPYRIGHT" xml:space="preserve">
+    <value>Copyright (c) 2011 AtCor Medical Pty Ltd. Todos los derechos reservados.</value>
+    <comment>About box info</comment>
+  </data>
+  <data name="COMPANY_NAME" xml:space="preserve">
+    <value>AtCor Medical [EL PRODUCTO] (R)</value>
+    <comment>About box info</comment>
+  </data>
+  <data name="COMPORT_SIMULATION" xml:space="preserve">
+    <value>Simulation</value>
+    <comment>Simulación</comment>
+  </data>
+  <data name="CONFIGURATION_ID" xml:space="preserve">
+    <value>ID de configuración</value>
+  </data>
+  <data name="CONFIG_NAME_INVALID" xml:space="preserve">
+    <value>Config. no válida</value>
+  </data>
+  <data name="CONFIG_NAME_PWV" xml:space="preserve">
+    <value>PWV</value>
+  </data>
+  <data name="CONTACT_ATCOR_SUPPORT" xml:space="preserve">
+    <value>Si el problema continúa, consulte la sección de solución de problemas en el manual del usuario o póngase en contacto con el servicio de asistencia técnica de AtCor en http://atcormedical.com/request_support.html</value>
+  </data>
+  <data name="CONTACT_ATCOR_SUPPORT1" xml:space="preserve">
+    <value>O bien póngase en contacto con el servicio de asistencia técnica de AtCor Medical en http://atcormedical.com/request_support.html</value>
+  </data>
+  <data name="CONTACT_ATCOR_SUPPORT2" xml:space="preserve">
+    <value>Póngase en contacto con el servicio de asistencia técnica de AtCor Medical en http://atcormedical.com/request_support.html</value>
+  </data>
+  <data name="CRX_ERR_DBMGR_CONVERSION" xml:space="preserve">
+    <value>No se ha podido convertir el tipo de datos.</value>
+  </data>
+  <data name="CRX_ERR_DBMGR_NO_PROVIDER" xml:space="preserve">
+    <value>No se ha podido establecer la conexión</value>
+  </data>
+  <data name="CRX_ERR_DBMGR_NO_SERVER_NAME" xml:space="preserve">
+    <value>El nombre del servidor está en blanco</value>
+  </data>
+  <data name="CRX_ERR_DBMGR_NO_SOURCE_NAME" xml:space="preserve">
+    <value>El nombre de la fuente está en blanco</value>
+  </data>
+  <data name="CRX_ERR_DBMGR_TRANS_FAILED" xml:space="preserve">
+    <value>Fallo en la transacción</value>
+  </data>
+  <data name="CRX_ERR_DBPERMISSION_REFER_MANUAL" xml:space="preserve">
+    <value>Fallo al restaurar la base de datos. 
+Si el problema continúa, consulte la sección de solución de problemas en el manual del usuario o póngase en contacto con el servicio de asistencia técnica de AtCor en http://atcormedical.com/request_support.html ¿Desea volver a intentarlo?</value>
+  </data>
+  <data name="CRX_ERR_FILE_ALREADY_EXIST" xml:space="preserve">
+    <value>Se ha intentado crear un archivo existente.</value>
+  </data>
+  <data name="CRX_ERR_FILE_CANNOT_ACCESS" xml:space="preserve">
+    <value>No se puede acceder al archivo de configuración del sistema.</value>
+  </data>
+  <data name="CRX_ERR_FILE_CORRUPT" xml:space="preserve">
+    <value>El archivo de configuración del sistema está dañado.</value>
+  </data>
+  <data name="CRX_ERR_FILE_NOT_EXIST" xml:space="preserve">
+    <value>El archivo de configuración del sistema no existe.</value>
+  </data>
+  <data name="CRX_ERR_MESSAGING_CANNOT_ACCESS_RESORUCE_FILE" xml:space="preserve">
+    <value>Se ha producido un error al intentar acceder al archivo de recursos.</value>
+  </data>
+  <data name="CRX_ERR_MESSAGING_GENERAL" xml:space="preserve">
+    <value>Se ha producido una excepción en el componente de Mensajería.</value>
+  </data>
+  <data name="CRX_ERR_MIGRATION_REFER_MANUAL" xml:space="preserve">
+    <value>El servidor de la base de datos no responde. 
+Error en la migración de los datos. 
+Si el problema continúa, consulte la sección de solución de problemas en el manual del usuario o póngase en contacto con el servicio de asistencia técnica de AtCor en http://atcormedical.com/request_support.html</value>
+  </data>
+  <data name="CRX_ERR_MSACCESS_FILE_NOT_EXIST" xml:space="preserve">
+    <value>El archivo de migración no existe.</value>
+  </data>
+  <data name="CRX_ERR_MSACCESS_FILE_OLD_ALREADY_EXIST" xml:space="preserve">
+    <value>Existe un archivo de migración ANTIGUO.</value>
+  </data>
+  <data name="CRX_ERR_XML_TAG_INCORRECT" xml:space="preserve">
+    <value>The specified XML tag was not found or may be in incorrect format.</value>
+  </data>
+  <data name="CRX_LOG_FILE_HEADER_LINE" xml:space="preserve">
+    <value>Línea del archivo de registro de Line SphygmoCor</value>
+  </data>
+  <data name="CRX_LOG_FILE_HEADER_SEPERATOR" xml:space="preserve">
+    <value> ~ </value>
+  </data>
+  <data name="CRX_UNKNOWN_EXCEPTION" xml:space="preserve">
+    <value>Excepción desconocida.</value>
+  </data>
+  <data name="CuffLeak" xml:space="preserve">
+    <value>El manguito tiene fugas.</value>
+  </data>
+  <data name="CUFF_DIST_OUT_OF_RANGE" xml:space="preserve">
+    <value>La distancia del manguito no se encuentra en el intervalo válido, entre {0} y {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. mm, cm</comment>
+  </data>
+  <data name="CUFF_PULSE_APPEND_FAILED" xml:space="preserve">
+    <value>Fallo al añadir el pulso del manguito</value>
+  </data>
+  <data name="CUFF_STATE_INVALID" xml:space="preserve">
+    <value>El estado del manguito {0} no es válido</value>
+  </data>
+  <data name="C_DRIVE" xml:space="preserve">
+    <value>C:</value>
+  </data>
+  <data name="DALUnknownModuleStatus" xml:space="preserve">
+    <value>Bits de estado del módulo desconocidos o no manipulados.</value>
+  </data>
+  <data name="DAL_CONST_CAPTURE_FILE_PREFIX" xml:space="preserve">
+    <value>captura_</value>
+  </data>
+  <data name="DAL_CONST_CUFFTIMER_FILE_PATH" xml:space="preserve">
+    <value>.\\simulation\\cuff_timer\\cuff_timer.dat</value>
+  </data>
+  <data name="DAL_CONST_DAT_FILE_EXTN" xml:space="preserve">
+    <value>.dat</value>
+  </data>
+  <data name="DAL_CONST_GCI_FIRMWARE_VERSION" xml:space="preserve">
+    <value>Sim - 0.1</value>
+  </data>
+  <data name="DAL_CONST_GCI_SERIAL_NUMBER" xml:space="preserve">
+    <value>Sim - 1234567890</value>
+  </data>
+  <data name="DAL_CONST_GCI_TYPE" xml:space="preserve">
+    <value>Dispositivo EM4 (stub)</value>
+  </data>
+  <data name="DAL_CONST_SIM_FOLDER_PATH" xml:space="preserve">
+    <value>.\\simulation\\pwv\\</value>
+  </data>
+  <data name="DAL_ERROR_NULL_PARAM" xml:space="preserve">
+    <value>Se ha transferido un parámetro nulo</value>
+  </data>
+  <data name="DAL_ERR_ACTIVE_PORT_CLOSE_FAILED" xml:space="preserve">
+    <value>Fallo al cerrar el puerto activo.</value>
+  </data>
+  <data name="DAL_ERR_ARRAY_CREATE_FAILED" xml:space="preserve">
+    <value>Fallo al crear una matriz con el tamaño especificado.</value>
+  </data>
+  <data name="DAL_ERR_BUFFER_NOT_CREATED" xml:space="preserve">
+    <value>Se ha intentado acceder al búfer antes de crearlo.</value>
+  </data>
+  <data name="DAL_ERR_BUFFER_WRITE_FAILED" xml:space="preserve">
+    <value>No se han podido escribir datos en el búfer.</value>
+  </data>
+  <data name="DAL_ERR_CAPTURE_INVALID_PACKET" xml:space="preserve">
+    <value>Se ha recibido un paquete no válido del dispositivo. </value>
+  </data>
+  <data name="DAL_ERR_COMMAND_FAILED" xml:space="preserve">
+    <value>Fallo al emitir el comando al dispositivo.</value>
+  </data>
+  <data name="DAL_ERR_COMMD_PACKET_CREATE_FAIL" xml:space="preserve">
+    <value>Fallo al crear el paquete de comando.</value>
+  </data>
+  <data name="DAL_ERR_COMPORT_NOT_SET" xml:space="preserve">
+    <value>Se ha transferido una cadena nula cuando estaba previsto un puerto de comunicación.</value>
+  </data>
+  <data name="DAL_ERR_CONFIG_PORT_NOT_CONNECTED" xml:space="preserve">
+    <value>No se ha encontrado el dispositivo en el puerto especificado en los ajustes de configuración.</value>
+  </data>
+  <data name="DAL_ERR_CRC_CALC_FAILED" xml:space="preserve">
+    <value>Fallo al calcular el código CRC de los datos indicados.</value>
+  </data>
+  <data name="DAL_ERR_CRC_TABLE_FAILED" xml:space="preserve">
+    <value>Fallo al crear la tabla de códigos CRC.</value>
+  </data>
+  <data name="DAL_ERR_EMPTY_COMMAND" xml:space="preserve">
+    <value>Se ha intentado transmitir un comando vacío o sin inicializar.</value>
+  </data>
+  <data name="DAL_ERR_EMPTY_RESPONSE_VALIDATION" xml:space="preserve">
+    <value>No se puede validar un paquete de respuestas vacío.</value>
+  </data>
+  <data name="DAL_ERR_EMPT_SIMULATION_FILE" xml:space="preserve">
+    <value>El archivo de simulación seleccionado está vacío. Seleccione otro archivo de simulación.</value>
+  </data>
+  <data name="DAL_ERR_FILE_NOT_SET" xml:space="preserve">
+    <value>No se ha especificado ningún archivo de simulación.</value>
+  </data>
+  <data name="DAL_ERR_INVALID_ARGS" xml:space="preserve">
+    <value>Los argumentos especificados no son válidos</value>
+  </data>
+  <data name="DAL_ERR_INVALID_PORT_CLOSE" xml:space="preserve">
+    <value>Se ha intentado cerrar un puerto que no estaba abierto.</value>
+  </data>
+  <data name="DAL_ERR_NO_COMMPORT_NAME" xml:space="preserve">
+    <value>No se ha indicado ningún nombre de puerto de comunicación al intentar crear una interfaz con el dispositivo.</value>
+  </data>
+  <data name="DAL_ERR_NO_INTERFACE" xml:space="preserve">
+    <value>No se ha inicializado la interfaz del dispositivo.</value>
+  </data>
+  <data name="DAL_ERR_PORT_NOT_OPEN" xml:space="preserve">
+    <value>El puerto no está abierto ni conectado.</value>
+  </data>
+  <data name="DAL_ERR_PORT_OPEN_FAILED" xml:space="preserve">
+    <value>Se ha encontrado el puerto, pero no se ha podido abrir. Puede que otra aplicación o proceso se esté comunicando con el mismo puerto. Compruébelo y cierre estas aplicaciones.</value>
+  </data>
+  <data name="DAL_ERR_PORT_SIMULATION" xml:space="preserve">
+    <value>Actualmente, el puerto está establecido en simulación.</value>
+  </data>
+  <data name="DAL_ERR_REQUEST_TOO_LARGE" xml:space="preserve">
+    <value>El tamaño de datos solicitado es demasiado largo para cumplirlo.</value>
+  </data>
+  <data name="DAL_ERR_RESPONSE_INVALID" xml:space="preserve">
+    <value>El paquete de respuestas que ha enviado el dispositivo no es válido.</value>
+  </data>
+  <data name="DAL_ERR_RESPONSE_RESOLVE_FAILURE" xml:space="preserve">
+    <value>Fallo a intentar resolver la respuesta del dispositivo.</value>
+  </data>
+  <data name="DAL_ERR_TONO_NOT_CONNECTED" xml:space="preserve">
+    <value>El tonómetro no está conectado. No se pueden capturar datos. Compruebe que el tonómetro está conectado e inténtelo de nuevo.</value>
+  </data>
+  <data name="DAL_ERR_UNKNOWN_BIT_FLAG" xml:space="preserve">
+    <value>El indicador de bits es desconocido o no manipulado.</value>
+  </data>
+  <data name="DAL_MSG_DEFAULT_MODE_SELECTED_SIM" xml:space="preserve">
+    <value>El puerto de comunicación no se ha establecido en la configuración. Cambio al modo de simulación de forma predeterminada. Haga clic en Buscar módulo para localizar el dispositivo EM4.</value>
+  </data>
+  <data name="DAL_MSG_ILLEGAL_PACKET_RCVD" xml:space="preserve">
+    <value>Paquete recibido no válido/incorrecto:</value>
+  </data>
+  <data name="DAL_MSG_PORT_BUFFER_DUMP" xml:space="preserve">
+    <value>Volcado del búfer de entradas: </value>
+  </data>
+  <data name="DATA_CAPTURE_INCONSISTENT" xml:space="preserve">
+    <value>Captura de datos incoherentes entre los datos de pulso del tonómetro y del manguito</value>
+  </data>
+  <data name="DATA_REV_INVALID" xml:space="preserve">
+    <value>La revisión de los datos {0} no es válida</value>
+  </data>
+  <data name="DAY" xml:space="preserve">
+    <value>Día</value>
+  </data>
+  <data name="DB_CORRUPT" xml:space="preserve">
+    <value>Posible daño en la base de datos.</value>
+  </data>
+  <data name="DELETE_PATEINT" xml:space="preserve">
+    <value>¿Desea eliminar el paciente seleccionado?</value>
+  </data>
+  <data name="DELETE_PWV_MSG" xml:space="preserve">
+    <value>Está a punto de eliminar {0} evaluaciones. ¿Desea continuar?</value>
+  </data>
+  <data name="DIRECT" xml:space="preserve">
+    <value>Directo</value>
+  </data>
+  <data name="DIRECT_METHOD" xml:space="preserve">
+    <value>Método directo:</value>
+  </data>
+  <data name="DOB_NOT_ENTERED" xml:space="preserve">
+    <value>No ha introducido la fecha de nacimiento</value>
+  </data>
+  <data name="DOC_BP_SETTINGS" xml:space="preserve">
+    <value>Brachial BP</value>
+  </data>
+  <data name="DOC_GENERAL_SETTINGS" xml:space="preserve">
+    <value>General</value>
+    <comment>Configuración general</comment>
+  </data>
+  <data name="DOC_PWA_SETTINGS" xml:space="preserve">
+    <value>PWA</value>
+  </data>
+  <data name="DOC_PWV_SETTINGS" xml:space="preserve">
+    <value>PWV</value>
+    <comment>Configuración de PWV</comment>
+  </data>
+  <data name="DP" xml:space="preserve">
+    <value>PD</value>
+  </data>
+  <data name="DP_OUT_OF_RANGE" xml:space="preserve">
+    <value>La presión diastólica no se encuentra en el intervalo válido, entre {0} y {1}</value>
+    <comment>{0}=lower range {1}=upper range</comment>
+  </data>
+  <data name="DualSensors" xml:space="preserve">
+    <value>Problema en los sensores duales.</value>
+  </data>
+  <data name="EDIT_MODE" xml:space="preserve">
+    <value>Modo de edición</value>
+  </data>
+  <data name="ENTER_LAST_NAME" xml:space="preserve">
+    <value>Introduzca el apellido</value>
+  </data>
+  <data name="ENV_CLINICAL_TEXT" xml:space="preserve">
+    <value>Clínico</value>
+  </data>
+  <data name="ErrorAndAlarmStatus" xml:space="preserve">
+    <value>Se ha producido a la vez un error y una alarma.</value>
+  </data>
+  <data name="ErrorSourceUnknown" xml:space="preserve">
+    <value>El origen del error es desconocido o no manipulado.</value>
+  </data>
+  <data name="ErrorStatus" xml:space="preserve">
+    <value>Se ha producido un error.</value>
+  </data>
+  <data name="ERROR_VALIDATING" xml:space="preserve">
+    <value>Error al validar los detalles de la medición.</value>
+  </data>
+  <data name="ERR_UNKNOWN_ERROR" xml:space="preserve">
+    <value>Error desconocido.</value>
+  </data>
+  <data name="EXEC_ERROR" xml:space="preserve">
+    <value>Error de ejecución de Scor</value>
+  </data>
+  <data name="EXITSTR" xml:space="preserve">
+    <value>Ha salido de la aplicación correctamente.</value>
+  </data>
+  <data name="EXPANDER_INITAL" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="FEET" xml:space="preserve">
+    <value>pies</value>
+  </data>
+  <data name="FEMALE" xml:space="preserve">
+    <value>Mujer</value>
+  </data>
+  <data name="FEMORAL_2_CUFF_OUT_OF_RANGE" xml:space="preserve">
+    <value>La distancia entre la femoral y el manguito no se encuentra en el intervalo válido, entre {0} y {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. mm, cm</comment>
+  </data>
+  <data name="FEMORAL_SIGNAL_BUFFER_NOT_FULL_YET" xml:space="preserve">
+    <value>El búfer de la señal de la femoral todavía no está lleno</value>
+  </data>
+  <data name="FEMORAL_SIGNAL_CAPTURE_FAILED" xml:space="preserve">
+    <value>Error al capturar la señal de la femoral</value>
+  </data>
+  <data name="FIELD_DISTANCE_CAROTID_TO_FEMORAL_CUFF" xml:space="preserve">
+    <value>Distancia de la carótida al manguito femoral</value>
+  </data>
+  <data name="FIELD_DISTANCE_CAROTID_TO_STERNAL_NOTCH" xml:space="preserve">
+    <value>Distancia de la carótida a la hendidura esternal</value>
+  </data>
+  <data name="FIELD_DISTANCE_FEMORAL_TO_CUFF" xml:space="preserve">
+    <value>Distancia de la femoral al manguito</value>
+  </data>
+  <data name="FIELD_DISTANCE_STERNAL_NOTCH_TO_FEMORAL_CUFF" xml:space="preserve">
+    <value>Distancia de la hendidura esternal al manguito femoral</value>
+  </data>
+  <data name="FIELD_PATIENT_DP" xml:space="preserve">
+    <value>PD</value>
+  </data>
+  <data name="FIELD_PATIENT_HEIGHT" xml:space="preserve">
+    <value>Altura</value>
+  </data>
+  <data name="FIELD_PATIENT_HEIGHT_FOOT" xml:space="preserve">
+    <value>Altura en pies</value>
+  </data>
+  <data name="FIELD_PATIENT_HEIGHT_INCH" xml:space="preserve">
+    <value>Altura en pulgadas</value>
+  </data>
+  <data name="FIELD_PATIENT_SP" xml:space="preserve">
+    <value>PS</value>
+  </data>
+  <data name="FIELD_PATIENT_WEIGHT" xml:space="preserve">
+    <value>Peso</value>
+  </data>
+  <data name="FIELD_VALIDATION_LIMITS_ARE" xml:space="preserve">
+    <value> los límites son: </value>
+  </data>
+  <data name="FIELD_VALIDATION_MUST_BE_NUMBER" xml:space="preserve">
+    <value> debe ser un número </value>
+  </data>
+  <data name="FILE_NOT_FOUND" xml:space="preserve">
+    <value>No se han encontrado archivos con la extensión .dat.</value>
+  </data>
+  <data name="FRM_NEWSYSTEM_KEY" xml:space="preserve">
+    <value>New System Key</value>
+  </data>
+  <data name="FRM_SYSTEM_KEY" xml:space="preserve">
+    <value>System Key</value>
+  </data>
+  <data name="GROUPNAME_EMPTY" xml:space="preserve">
+    <value>El nombre del grupo está vacío.</value>
+  </data>
+  <data name="GROUPNAME_EXISTS" xml:space="preserve">
+    <value>Seleccione un nombre de grupo válido de la lista.</value>
+  </data>
+  <data name="GRP_AUGMENTATION_INDEX" xml:space="preserve">
+    <value>Augmentation Index</value>
+  </data>
+  <data name="GRP_AUGMENTATION_INDEX_@HR75" xml:space="preserve">
+    <value>Augmentation Index@HR75</value>
+  </data>
+  <data name="GRP_AUTO_CAPTURE" xml:space="preserve">
+    <value>Auto Capture</value>
+  </data>
+  <data name="GRP_AUTO_INFLATE" xml:space="preserve">
+    <value>Auto Inflate</value>
+  </data>
+  <data name="GRP_AUTO_PWA" xml:space="preserve">
+    <value>Auto PWA</value>
+  </data>
+  <data name="GRP_BLIND_STUDY" xml:space="preserve">
+    <value>Blind Study</value>
+  </data>
+  <data name="GRP_BLOOD_PRESSURE" xml:space="preserve">
+    <value>Presiones sanguíneas</value>
+  </data>
+  <data name="GRP_BP_DEVICE" xml:space="preserve">
+    <value>BP Device</value>
+  </data>
+  <data name="GRP_CAPTURE_GUIDE" xml:space="preserve">
+    <value>Capture Guide</value>
+  </data>
+  <data name="GRP_CAPTURE_INPUT" xml:space="preserve">
+    <value>Capture Input</value>
+  </data>
+  <data name="GRP_CAPTURE_TIME" xml:space="preserve">
+    <value>Tiempo de captura</value>
+  </data>
+  <data name="GRP_CLINICAL_REPORT" xml:space="preserve">
+    <value>Clinical Report</value>
+  </data>
+  <data name="GRP_COMMS_PORT" xml:space="preserve">
+    <value>Puerto de comunicación</value>
+  </data>
+  <data name="GRP_CUFF_LOCATION" xml:space="preserve">
+    <value>Femoral to Cuff Distance</value>
+    <comment>Ubicación del manguito</comment>
+  </data>
+  <data name="GRP_GUIDANCE_BAR" xml:space="preserve">
+    <value>Guidance Bars</value>
+  </data>
+  <data name="GRP_HEIGHT_WEIGHT_UNITS" xml:space="preserve">
+    <value>Height Units</value>
+    <comment>Unidades de altura y peso</comment>
+  </data>
+  <data name="GRP_IF_PP" xml:space="preserve">
+    <value>If PP &gt;=</value>
+  </data>
+  <data name="GRP_IF_SP" xml:space="preserve">
+    <value>If SP &gt;=</value>
+  </data>
+  <data name="GRP_NO_OF_ASSESSMENTS" xml:space="preserve">
+    <value>Number of Assessments</value>
+  </data>
+  <data name="GRP_OTHER" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="GRP_PRESSURE_CUFF" xml:space="preserve">
+    <value>Pressure Cuff</value>
+  </data>
+  <data name="PWA" xml:space="preserve">
+    <value>PWA</value>
+  </data>
+  <data name="PWV" xml:space="preserve">
+    <value>PWV</value>
+  </data>
+  <data name="GRP_PWV_DISTANCE_METHOD" xml:space="preserve">
+    <value>Método de distancia de PWV</value>
+  </data>
+  <data name="GRP_PWV_DISTANCE_UNITS" xml:space="preserve">
+    <value>Unidades de distancia de PWV</value>
+  </data>
+  <data name="QUICK START" xml:space="preserve">
+    <value>Quick Start</value>
+  </data>
+  <data name="GRP_REPORTS" xml:space="preserve">
+    <value>Informes</value>
+  </data>
+  <data name="GRP_REPORT_SCREEN" xml:space="preserve">
+    <value>Pantalla del informe</value>
+  </data>
+  <data name="GRP_SETUP_SCREEN" xml:space="preserve">
+    <value>Pantalla de configuración</value>
+  </data>
+  <data name="GRP_SIMULATION_FILES" xml:space="preserve">
+    <value>Tipos de simulación</value>
+  </data>
+  <data name="GRP_SPHYCOMOR" xml:space="preserve">
+    <value>Sphygmocor</value>
+  </data>
+  <data name="GRP_STARTUP_MODE" xml:space="preserve">
+    <value>Startup Mode</value>
+  </data>
+  <data name="GRP_STARTUP_SCREEN" xml:space="preserve">
+    <value>Startup Screen</value>
+  </data>
+  <data name="GRP_TONOMETER" xml:space="preserve">
+    <value>Tonometer</value>
+  </data>
+  <data name="GUI_ABOUT_CALIB_DATE" xml:space="preserve">
+    <value>Última calibración: {0}</value>
+  </data>
+  <data name="GUI_ABOUT_CAPABILITY_TXT" xml:space="preserve">
+    <value>Capacidad</value>
+  </data>
+  <data name="GUI_ABOUT_CE_MARK" xml:space="preserve">
+    <value>Marca CE: 0120</value>
+  </data>
+  <data name="GUI_ABOUT_COMPANY" xml:space="preserve">
+    <value>AtCor Medical SphygmoCor</value>
+  </data>
+  <data name="GUI_ABOUT_COPYRIGHT" xml:space="preserve">
+    <value>CopyRight [c] 2011 AtCor Medical Pty Ltd. Todos los derechos reservados.</value>
+  </data>
+  <data name="GUI_ABOUT_FIRM_VERSION" xml:space="preserve">
+    <value>Versión del firmware</value>
+  </data>
+  <data name="GUI_ABOUT_INSTALL_ID" xml:space="preserve">
+    <value>Opciones instaladas:</value>
+  </data>
+  <data name="GUI_ABOUT_MEASUREMT_BP" xml:space="preserve">
+    <value>Presión sanguínea ({0} mediciones)</value>
+  </data>
+  <data name="GUI_ABOUT_MEASUREMT_PWA" xml:space="preserve">
+    <value>Análisis del pulso ({0} mediciones)</value>
+  </data>
+  <data name="GUI_ABOUT_MENU" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="GUI_ABOUT_MODULE_TXT" xml:space="preserve">
+    <value>Módulo: {0}, Versión: {1}, Número de serie: {2}</value>
+  </data>
+  <data name="GUI_ABOUT_MOD_TYPE" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="GUI_ABOUT_NO_MEASUREMT_PWV" xml:space="preserve">
+    <value>Velocidad del pulso ({0} mediciones)</value>
+  </data>
+  <data name="GUI_ABOUT_SEC_MODE" xml:space="preserve">
+    <value>Modo de seguridad: {0}</value>
+  </data>
+  <data name="GUI_ABOUT_SERIAL_NO" xml:space="preserve">
+    <value>Número de serie</value>
+  </data>
+  <data name="GUI_ABOUT_VERSION" xml:space="preserve">
+    <value>Versión: 10.0.2.0 (clínico)</value>
+  </data>
+  <data name="GUI_ANNUAL_CALLIBRATION_MESSAGE" xml:space="preserve">
+    <value>La calibración anual ha vencido, la última calibración se realizó el {0}. Pulse Aceptar para que se le recuerden más tarde o Cancelar para ignorar.</value>
+  </data>
+  <data name="GUI_ATCOR_HOMEPAGE_MENU" xml:space="preserve">
+    <value>Página inicial de Atcor</value>
+  </data>
+  <data name="GUI_BACKUP_MENU" xml:space="preserve">
+    <value>Copia de seguridad</value>
+  </data>
+  <data name="GUI_CAPTURE_CUFF_INFLATED" xml:space="preserve">
+    <value>Manguito inflado.</value>
+  </data>
+  <data name="GUI_CAPTURE_DEFLATED_MSG" xml:space="preserve">
+    <value>Espere, el manguito se volverá a inflar en breve.</value>
+  </data>
+  <data name="GUI_CAPTURE_ERROR" xml:space="preserve">
+    <value>"Se ha producido un error durante el proceso de captura.\r\nHaga clic en Sí para generar el informe.\r\nHaga clic en No para anular la generación del informe y volver a la pantalla Configuración.\r\nHaga clic en Cancelar para reiniciar el proceso de captura".</value>
+  </data>
+  <data name="GUI_CAPTURE_GENERATING_REPORT" xml:space="preserve">
+    <value>Generando informe.</value>
+  </data>
+  <data name="GUI_CAPTURE_SAVING_REPORT" xml:space="preserve">
+    <value>Guardando informe.</value>
+  </data>
+  <data name="GUI_DATETIME_TXT" xml:space="preserve">
+    <value>Fecha y hora</value>
+  </data>
+  <data name="GUI_DIRECT" xml:space="preserve">
+    <value>De carótida a manguito:</value>
+  </data>
+  <data name="GUI_DISPLAY_AMPERSAND" xml:space="preserve">
+    <value> y </value>
+  </data>
+  <data name="GUI_DISPLAY_ASTERISK_COLON" xml:space="preserve">
+    <value>*:</value>
+  </data>
+  <data name="GUI_DISPLAY_COLON" xml:space="preserve">
+    <value>:</value>
+  </data>
+  <data name="GUI_DISPLAY_COMMA" xml:space="preserve">
+    <value>,</value>
+  </data>
+  <data name="GUI_DISPLAY_DD_MM_YYYY" xml:space="preserve">
+    <value>dd/MM/aaaa</value>
+  </data>
+  <data name="GUI_DISPLAY_D_M_YYYY" xml:space="preserve">
+    <value>{0:{0}}</value>
+  </data>
+  <data name="GUI_DISPLAY_ERROR_EXCEPTION" xml:space="preserve">
+    <value>Se ha producido una excepción del sistema, no se puede determinar el código o mensaje del error.</value>
+  </data>
+  <data name="GUI_DISPLAY_FIRST_NAME" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="GUI_DISPLAY_GENDER" xml:space="preserve">
+    <value>Sexo</value>
+  </data>
+  <data name="GUI_DISPLAY_GROUP" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="GUI_DISPLAY_LAST_NAME" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="GUI_DISPLAY_LEFT_CURLY_BRACKET" xml:space="preserve">
+    <value>{</value>
+  </data>
+  <data name="GUI_DISPLAY_LEFT_SQR_BRACKET" xml:space="preserve">
+    <value>[</value>
+  </data>
+  <data name="GUI_DISPLAY_NO_VALUE_RESOURCE_STRING" xml:space="preserve">
+    <value>&lt;?&gt;</value>
+  </data>
+  <data name="GUI_DISPLAY_PATIENT_ID" xml:space="preserve">
+    <value>ID del paciente</value>
+  </data>
+  <data name="GUI_DISPLAY_RIGHT_CURLY_BRACKET" xml:space="preserve">
+    <value>}</value>
+  </data>
+  <data name="GUI_DISPLAY_RIGHT_SQR_BRACKET" xml:space="preserve">
+    <value>]</value>
+  </data>
+  <data name="GUI_DISPLAY_SEMICOLON" xml:space="preserve">
+    <value>;</value>
+  </data>
+  <data name="GUI_DISPLAY_SINGLE_QUOTE" xml:space="preserve">
+    <value>'</value>
+  </data>
+  <data name="GUI_DISPLAY_SLASH" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="GUI_DISPLAY_STUDY_DATE_TIME" xml:space="preserve">
+    <value>Fecha y hora estudio</value>
+  </data>
+  <data name="GUI_ELECTRONIC_MOD_FND" xml:space="preserve">
+    <value>Se ha encontrado el módulo electrónico.</value>
+  </data>
+  <data name="GUI_ELECTRONIC_MOD_FNDPORT" xml:space="preserve">
+    <value>Se ha encontrado el módulo electrónico en </value>
+  </data>
+  <data name="GUI_ELECTRONIC_MOD_NOTFND" xml:space="preserve">
+    <value>No se ha encontrado el módulo electrónico. Compruebe la conexión USB y la conexión de alimentación del dispositivo. ¿Buscar de nuevo?</value>
+  </data>
+  <data name="GUI_ERROR_TXT" xml:space="preserve">
+    <value>Error: </value>
+  </data>
+  <data name="GUI_EXIT_MENU" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="GUI_EXIT_MSG" xml:space="preserve">
+    <value>¿Desea salir de la aplicación?</value>
+  </data>
+  <data name="GUI_FEMORAL" xml:space="preserve">
+    <value>Femoral:</value>
+  </data>
+  <data name="GUI_FIND_MODULE_MENU" xml:space="preserve">
+    <value>Buscar módulo</value>
+  </data>
+  <data name="GUI_GRP_DEFAULT_REPORT" xml:space="preserve">
+    <value>Informe predeterminado para imprimir</value>
+  </data>
+  <data name="GUI_INFO_TXT" xml:space="preserve">
+    <value>Info: </value>
+  </data>
+  <data name="GUI_LIMITS_FORMAT" xml:space="preserve">
+    <value>{0} los límites son {1} {2} - {3} {4}</value>
+  </data>
+  <data name="GUI_MENU_SUPPORT" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="GUI_MONTH_APR" xml:space="preserve">
+    <value>Abr</value>
+  </data>
+  <data name="GUI_MONTH_AUG" xml:space="preserve">
+    <value>Ago</value>
+  </data>
+  <data name="GUI_MONTH_DEC" xml:space="preserve">
+    <value>Dic</value>
+  </data>
+  <data name="GUI_MONTH_FEB" xml:space="preserve">
+    <value>Feb</value>
+  </data>
+  <data name="GUI_MONTH_JAN" xml:space="preserve">
+    <value>Ene</value>
+  </data>
+  <data name="GUI_MONTH_JUL" xml:space="preserve">
+    <value>Jul</value>
+  </data>
+  <data name="GUI_MONTH_JUN" xml:space="preserve">
+    <value>Jun</value>
+  </data>
+  <data name="GUI_MONTH_MAR" xml:space="preserve">
+    <value>Mar</value>
+  </data>
+  <data name="GUI_MONTH_MAY" xml:space="preserve">
+    <value>May</value>
+  </data>
+  <data name="GUI_MONTH_NOV" xml:space="preserve">
+    <value>Nov</value>
+  </data>
+  <data name="GUI_MONTH_OCT" xml:space="preserve">
+    <value>Oct</value>
+  </data>
+  <data name="GUI_MONTH_SEP" xml:space="preserve">
+    <value>Sep</value>
+  </data>
+  <data name="GUI_OPERATOR_GUIDE_MENU" xml:space="preserve">
+    <value>Guía del operador</value>
+  </data>
+  <data name="GUI_PLEASE_ENTER_FORMAT" xml:space="preserve">
+    <value>Introduzca {0}</value>
+  </data>
+  <data name="GUI_PRINTER_SETUP" xml:space="preserve">
+    <value>Configuración de impresora</value>
+  </data>
+  <data name="GUI_PRINT_PWV_ANALYSIS_LEGEND_TITLE" xml:space="preserve">
+    <value>BP Chart Legends</value>
+  </data>
+  <data name="GUI_PRINT_PWV_ANALYSIS_TITLE" xml:space="preserve">
+    <value>Análisis de la velocidad del pulso</value>
+  </data>
+  <data name="GUI_PRINT_PWV_RPT_TITLE" xml:space="preserve">
+    <value>Informe sobre la velocidad del pulso</value>
+  </data>
+  <data name="GUI_REPORT_AGE_OUTSIDE_RANGE" xml:space="preserve">
+    <value>La edad del paciente se encuentra fuera del intervalo de edades del informe.</value>
+  </data>
+  <data name="GUI_REPORT_BP_COLON" xml:space="preserve">
+    <value>PS:</value>
+  </data>
+  <data name="GUI_REPORT_GENERAL_POP_DESCRIPTION" xml:space="preserve">
+    <value>Normalizada para la medición de la distancia</value>
+  </data>
+  <data name="GUI_REPORT_GENERAL_POP_TEXT" xml:space="preserve">
+    <value>Normalizada a la distancia arterial directa</value>
+  </data>
+  <data name="GUI_REPORT_GREEN_AREA" xml:space="preserve">
+    <value>Área VERDE</value>
+  </data>
+  <data name="GUI_REPORT_LBL_BP_RANGE" xml:space="preserve">
+    <value>(PS: 120-129 mmHg)</value>
+  </data>
+  <data name="GUI_REPORT_NO_BP" xml:space="preserve">
+    <value>Please enter patient's height and blood pressure to see the comparison of European General Population.</value>
+    <comment>Indique la altura y la presión sanguínea del paciente para ver la población general.</comment>
+  </data>
+  <data name="GUI_REPORT_PWV_COLON" xml:space="preserve">
+    <value>PWV:</value>
+  </data>
+  <data name="GUI_REPORT_RED_AREA" xml:space="preserve">
+    <value>Área ROJA</value>
+  </data>
+  <data name="GUI_RESTORE_MENU" xml:space="preserve">
+    <value>Restaurar</value>
+  </data>
+  <data name="GUI_SCREEN_RESOLUTION_MSG" xml:space="preserve">
+    <value>Screen resolution is too low. Application may not display properly. Best viewed in 1024 by 768 pixels.</value>
+  </data>
+  <data name="GUI_SEARCH_ELECTRONIC_MOD" xml:space="preserve">
+    <value>Buscando módulo electrónico...</value>
+  </data>
+  <data name="GUI_SELECT_SIMULATION_FILE" xml:space="preserve">
+    <value>Seleccione un archivo de simulación.</value>
+  </data>
+  <data name="GUI_SELECT_SQL_INSTANCE" xml:space="preserve">
+    <value>seleccione otro servidor de la lista de abajo.</value>
+  </data>
+  <data name="GUI_SERVICE_MANUAL_MENU" xml:space="preserve">
+    <value>Manual de servicio</value>
+  </data>
+  <data name="GUI_SETTINGS_MENU" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="GUI_SETTINGS_PWV_ANALYSIS" xml:space="preserve">
+    <value>Análisis de PWV</value>
+  </data>
+  <data name="GUI_SETTINGS_PWV_PATIENT_REPORT" xml:space="preserve">
+    <value>Informe del paciente PWV</value>
+  </data>
+  <data name="GUI_SETTINGS_PWV_REPORT" xml:space="preserve">
+    <value>PWV Summary Report</value>
+    <comment>Informe PWV</comment>
+  </data>
+  <data name="GUI_SETTINGS_WINDOW" xml:space="preserve">
+    <value>User Settings</value>
+  </data>
+  <data name="GUI_SETUP_SEARCH_EXIT_MSG" xml:space="preserve">
+    <value>¿Desea salir del modo de búsqueda?</value>
+  </data>
+  <data name="GUI_START_CAPTURE_FAILED" xml:space="preserve">
+    <value>Capture cannot be started. If the problem persists, check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html </value>
+  </data>
+  <data name="GUI_WARNING_TXT" xml:space="preserve">
+    <value>Advertencia: </value>
+  </data>
+  <data name="GUI_WAVEFORM_SAVE_MSG" xml:space="preserve">
+    <value>Las formas de ondas capturadas se han guardado en:</value>
+  </data>
+  <data name="HEARTRATE_LBL_ANALYSIS" xml:space="preserve">
+    <value>Frecuencia cardíaca (lpm)</value>
+  </data>
+  <data name="HEARTRATE_UNIT" xml:space="preserve">
+    <value>lpm</value>
+  </data>
+  <data name="HEIGHT_REQUIRED" xml:space="preserve">
+    <value>El valor de altura es necesario para el informe del intervalo de referencia</value>
+  </data>
+  <data name="HIDE_CAPS" xml:space="preserve">
+    <value>Ocultar</value>
+  </data>
+  <data name="HIDE_SMALL" xml:space="preserve">
+    <value>ocultar</value>
+  </data>
+  <data name="INCH" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="InflatedOverTime" xml:space="preserve">
+    <value>El manguito se ha inflado durante más tiempo del permitido.</value>
+  </data>
+  <data name="INFORMATION" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="INSERT_MODE" xml:space="preserve">
+    <value>Modo de inserción</value>
+  </data>
+  <data name="KG" xml:space="preserve">
+    <value>kg</value>
+  </data>
+  <data name="LABEL_CAROTID" xml:space="preserve">
+    <value>De carótida a hendidura esternal*:</value>
+  </data>
+  <data name="LABEL_CUFF" xml:space="preserve">
+    <value>De hendidura esternal a manguito*:</value>
+  </data>
+  <data name="LABEL_DIRECT" xml:space="preserve">
+    <value>De carótida a manguito*:</value>
+  </data>
+  <data name="LABEL_DP" xml:space="preserve">
+    <value>PD:</value>
+  </data>
+  <data name="LABEL_FEMORAL_CUFF" xml:space="preserve">
+    <value>De femoral a manguito:</value>
+  </data>
+  <data name="LABEL_MP" xml:space="preserve">
+    <value>PM:</value>
+  </data>
+  <data name="LABEL_PWV_DISTANCE" xml:space="preserve">
+    <value>Distancia de PWV:</value>
+  </data>
+  <data name="LABEL_SP" xml:space="preserve">
+    <value>PS:</value>
+  </data>
+  <data name="LABEL_SUBTRACTING" xml:space="preserve">
+    <value>Método de resta:</value>
+  </data>
+  <data name="LBL_AIX" xml:space="preserve">
+    <value>AIx</value>
+  </data>
+  <data name="LBL_AP" xml:space="preserve">
+    <value>AP</value>
+  </data>
+  <data name="LBL_AVG_CENTRAL_AORTIC_PULSE" xml:space="preserve">
+    <value>Average Central Aortic Waveform</value>
+  </data>
+  <data name="LBL_BRACHIAL_SP_DP_MP" xml:space="preserve">
+    <value>Brachial SP/DP:</value>
+  </data>
+  <data name="LBL_CPWA" xml:space="preserve">
+    <value>cPWA</value>
+  </data>
+  <data name="LBL_DOB" xml:space="preserve">
+    <value>Fecha de nacimiento*:</value>
+  </data>
+  <data name="LBL_DP" xml:space="preserve">
+    <value>DP</value>
+  </data>
+  <data name="LBL_DP*" xml:space="preserve">
+    <value>DP*:</value>
+  </data>
+  <data name="LBL_FEMORALCUFF" xml:space="preserve">
+    <value>Manguito femoral</value>
+  </data>
+  <data name="LBL_FIRST_NAME" xml:space="preserve">
+    <value>Nombre:</value>
+  </data>
+  <data name="LBL_GENDER" xml:space="preserve">
+    <value>Sexo*:</value>
+  </data>
+  <data name="LBL_GROUP" xml:space="preserve">
+    <value>Grupo:</value>
+  </data>
+  <data name="LBL_HEIGHT" xml:space="preserve">
+    <value>Altura:</value>
+  </data>
+  <data name="LBL_HR" xml:space="preserve">
+    <value>HR:</value>
+  </data>
+  <data name="LBL_INCHES" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="LBL_INVALID_KEY" xml:space="preserve">
+    <value>Invalid Key, please enter valid key.</value>
+  </data>
+  <data name="LBL_KEY" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="LBL_LAST_NAME" xml:space="preserve">
+    <value>Apellido*:</value>
+  </data>
+  <data name="LBL_NOTES" xml:space="preserve">
+    <value>Medicaciones/Notas:</value>
+  </data>
+  <data name="LBL_OPERATOR" xml:space="preserve">
+    <value>Operador:</value>
+  </data>
+  <data name="LBL_PATEINTS" xml:space="preserve">
+    <value>Pacientes</value>
+  </data>
+  <data name="LBL_PATIENT_DEFAULT_NAME" xml:space="preserve">
+    <value>Paciente predeterminado</value>
+  </data>
+  <data name="LBL_PATIENT_ID" xml:space="preserve">
+    <value>ID del paciente:</value>
+  </data>
+  <data name="LBL_PATIENT_NAME" xml:space="preserve">
+    <value>Nombre del paciente:</value>
+  </data>
+  <data name="LBL_PLEASE_ENTER_KEY" xml:space="preserve">
+    <value>Please enter a valid System Key</value>
+  </data>
+  <data name="LBL_PP" xml:space="preserve">
+    <value>PP</value>
+  </data>
+  <data name="LBL_PWA_ANALYSIS_CLOSINGBRACE" xml:space="preserve">
+    <value>)</value>
+  </data>
+  <data name="LBL_PWA_ANALYSIS_OPENINGBRACE" xml:space="preserve">
+    <value>(</value>
+  </data>
+  <data name="LBL_PWA_CUFF_PRESSURE" xml:space="preserve">
+    <value>Cuff Pressure:</value>
+  </data>
+  <data name="LBL_PWA_INTERPRETATION" xml:space="preserve">
+    <value>Interpretation:</value>
+  </data>
+  <data name="LBL_PWA_QUALITY_CONTROL" xml:space="preserve">
+    <value>Quality Control:</value>
+  </data>
+  <data name="LBL_PWA_SETUP_PROGRESSBAR_START_MSG" xml:space="preserve">
+    <value>PWA enabled in {0} seconds</value>
+  </data>
+  <data name="LBL_PWA_SYPHYMOCOR_REF_AGE" xml:space="preserve">
+    <value>SphygmoCor Reference Age</value>
+  </data>
+  <data name="LBL_REPORT_AGE" xml:space="preserve">
+    <value>Edad:</value>
+  </data>
+  <data name="LBL_REPORT_ASSESSMENT" xml:space="preserve">
+    <value>Evaluación:</value>
+  </data>
+  <data name="LBL_REPORT_ASSESSMENTS" xml:space="preserve">
+    <value>Evaluaciones:</value>
+  </data>
+  <data name="LBL_REPORT_BLOOD_PRESSURE" xml:space="preserve">
+    <value>BP</value>
+  </data>
+  <data name="LBL_REPORT_BMI" xml:space="preserve">
+    <value>BMI:</value>
+  </data>
+  <data name="LBL_REPORT_BP" xml:space="preserve">
+    <value>Presión sanguínea:</value>
+  </data>
+  <data name="LBL_REPORT_CAROTID" xml:space="preserve">
+    <value>Carótida</value>
+  </data>
+  <data name="LBL_REPORT_CAROTID_WITHCOLON" xml:space="preserve">
+    <value>De carótida a hendidura esternal:</value>
+  </data>
+  <data name="LBL_REPORT_CUFF_WITHCOLON" xml:space="preserve">
+    <value>De hendidura esternal a manguito:</value>
+  </data>
+  <data name="LBL_REPORT_DISTANCE" xml:space="preserve">
+    <value>Distancia:</value>
+  </data>
+  <data name="LBL_REPORT_DOB" xml:space="preserve">
+    <value>Fecha de nacimiento:</value>
+  </data>
+  <data name="LBL_REPORT_FEMORAL" xml:space="preserve">
+    <value>Femoral</value>
+  </data>
+  <data name="LBL_REPORT_GENDER" xml:space="preserve">
+    <value>Sexo:</value>
+  </data>
+  <data name="LBL_REPORT_HEART_RATE" xml:space="preserve">
+    <value>Frecuencia cardíaca</value>
+  </data>
+  <data name="LBL_REPORT_HR" xml:space="preserve">
+    <value>Frecuencia cardíaca:</value>
+  </data>
+  <data name="LBL_REPORT_LOGO" xml:space="preserve">
+    <value>Logotipo del informe</value>
+  </data>
+  <data name="LBL_REPORT_NORMAL_RANGE" xml:space="preserve">
+    <value>Población sana</value>
+  </data>
+  <data name="LBL_REPORT_PATIENTDATA" xml:space="preserve">
+    <value>Datos del paciente</value>
+  </data>
+  <data name="LBL_REPORT_PWV" xml:space="preserve">
+    <value>Velocidad del pulso</value>
+  </data>
+  <data name="LBL_REPORT_PWVMETHOD" xml:space="preserve">
+    <value>Método de PWV:</value>
+  </data>
+  <data name="LBL_REPORT_PWV_LBL" xml:space="preserve">
+    <value>Velocidad del pulso:</value>
+  </data>
+  <data name="LBL_REPORT_RECORED_CAROTID" xml:space="preserve">
+    <value>Forma de onda del pulso de la carótida registrada</value>
+  </data>
+  <data name="LBL_REPORT_RECORED_FEMORAL" xml:space="preserve">
+    <value>Forma de onda del pulso de la femoral registrada</value>
+  </data>
+  <data name="LBL_REPORT_REFERENCE_RANGE" xml:space="preserve">
+    <value>Población general europea</value>
+  </data>
+  <data name="LBL_REPORT_SD_LBL" xml:space="preserve">
+    <value>Desviación estándar:</value>
+  </data>
+  <data name="LBL_REPORT_STD_DEVIATION" xml:space="preserve">
+    <value>QC:</value>
+    <comment>Desviación estándar</comment>
+  </data>
+  <data name="LBL_REPORT_STUDYDATA" xml:space="preserve">
+    <value>Datos del estudio</value>
+  </data>
+  <data name="LBL_REPORT_TITLE" xml:space="preserve">
+    <value>Título del informe</value>
+  </data>
+  <data name="LBL_SP*" xml:space="preserve">
+    <value>SP*:</value>
+  </data>
+  <data name="LBL_TIMESTATUS" xml:space="preserve">
+    <value>Time to Deflation  {0}{1}{2} seconds</value>
+    <comment>Tiempo para desinflado</comment>
+  </data>
+  <data name="LBL_TONOMETER" xml:space="preserve">
+    <value>Tonómetro de carótida</value>
+  </data>
+  <data name="LBL_WEIGHT" xml:space="preserve">
+    <value>Peso:</value>
+  </data>
+  <data name="LBS" xml:space="preserve">
+    <value>libras</value>
+  </data>
+  <data name="MALE" xml:space="preserve">
+    <value>Hombre</value>
+  </data>
+  <data name="MATH_ERROR" xml:space="preserve">
+    <value>Error matemático</value>
+    <comment>Title</comment>
+  </data>
+  <data name="MEASURE_INVALID_CAPTURE_TIME" xml:space="preserve">
+    <value>#202 Tiempo de captura no válido.\n\nTiempo de captura = {0} segundos y el intervalo permitido = ({1} - {2}) segundos</value>
+  </data>
+  <data name="MEASURE_INVALID_SAMPLE_RATE" xml:space="preserve">
+    <value>#201 Frecuencia de muestreo no válida.\n\nFrecuencia de muestreo = {0} Hz y el intervalo permitido = ({1} - {2}) Hz</value>
+  </data>
+  <data name="MENU_DATABASE" xml:space="preserve">
+    <value>Base de datos</value>
+  </data>
+  <data name="MENU_HELP" xml:space="preserve">
+    <value>Ayuda</value>
+  </data>
+  <data name="MENU_SYSTEM" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="MESSAGE" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="MIGRATE_FILE_MSG1" xml:space="preserve">
+    <value>Se ha encontrado una base de datos de la versión anterior de la aplicación.</value>
+  </data>
+  <data name="MIGRATE_FILE_MSG2" xml:space="preserve">
+    <value>¿Desea migrar los registros del paciente a la base de datos actual?</value>
+  </data>
+  <data name="MIGRATE_HEADER_TXT" xml:space="preserve">
+    <value>Seleccione un nombre de grupo de la lista para migrar los registros.</value>
+  </data>
+  <data name="MIGRATE_TITLE_TXT" xml:space="preserve">
+    <value>Hay nombres de grupos disponibles</value>
+  </data>
+  <data name="MIGRATE_VALIDATION_MSG" xml:space="preserve">
+    <value>Seleccione un nombre de grupo</value>
+  </data>
+  <data name="MIGRATION_FAIL" xml:space="preserve">
+    <value>Error en la migración</value>
+  </data>
+  <data name="MIGRATION_SUCCESS_MESSAGE" xml:space="preserve">
+    <value>La migración se ha realizado correctamente.</value>
+  </data>
+  <data name="MM" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="MODE" xml:space="preserve">
+    <value>modo</value>
+  </data>
+  <data name="MODULE_CAPABILITY" xml:space="preserve">
+    <value>Capacidad del módulo</value>
+  </data>
+  <data name="MODULE_CONFIG_ID" xml:space="preserve">
+    <value>ID de configuración del módulo</value>
+  </data>
+  <data name="MODULE_SN" xml:space="preserve">
+    <value>Número de serie del módulo</value>
+  </data>
+  <data name="MODULE_TYPE" xml:space="preserve">
+    <value>Tipo de módulo</value>
+  </data>
+  <data name="MODULE_VERSION" xml:space="preserve">
+    <value>Versión del módulo</value>
+  </data>
+  <data name="MONTH" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="MP" xml:space="preserve">
+    <value>PM</value>
+  </data>
+  <data name="MP_DP_TOO_CLOSE" xml:space="preserve">
+    <value>La PM debe ser superior a la PD en {0} mmHg</value>
+  </data>
+  <data name="MP_OUT_OF_RANGE" xml:space="preserve">
+    <value>La presión media no se encuentra en el intervalo válido, entre {0} y {1}</value>
+    <comment>{0}=lower range {1}=upper range</comment>
+  </data>
+  <data name="MSG_DESERT" xml:space="preserve">
+    <value>Abandonar</value>
+  </data>
+  <data name="MSG_PLEASE_RELAUNCH" xml:space="preserve">
+    <value>Please relaunch application to reflect new system key changes.</value>
+  </data>
+  <data name="MSG_SAVE_CHANGE" xml:space="preserve">
+    <value>¿Desea guardar los cambios?</value>
+  </data>
+  <data name="MSG_SAVE_SETTINGS" xml:space="preserve">
+    <value>Guardar configuración</value>
+  </data>
+  <data name="MSG_SELECT_LOGO" xml:space="preserve">
+    <value>Seleccione un logotipo del informe</value>
+  </data>
+  <data name="MSG_VALIDATING_SYSTEM_KEY" xml:space="preserve">
+    <value>Validating System key...please wait</value>
+  </data>
+  <data name="NoErrorAlarm" xml:space="preserve">
+    <value>No hay errores ni alarmas</value>
+  </data>
+  <data name="NO_RECORDS_TO_DELETE" xml:space="preserve">
+    <value>No hay registros para eliminar.</value>
+  </data>
+  <data name="NO_RECORDS_TO_EDIT" xml:space="preserve">
+    <value>No hay registros para editar.</value>
+  </data>
+  <data name="NULL_MEASUREMENT_RECORD" xml:space="preserve">
+    <value>Registro de medición nulo</value>
+  </data>
+  <data name="OverPressure" xml:space="preserve">
+    <value>La presión del manguito excede el límite permitido.</value>
+  </data>
+  <data name="PATIENT_ADDED" xml:space="preserve">
+    <value>El registro del paciente se ha añadido correctamente.</value>
+  </data>
+  <data name="PATIENT_ALREADY_EXIST" xml:space="preserve">
+    <value>El ID del paciente ya existe. ¿Desea continuar?</value>
+  </data>
+  <data name="PATIENT_ALREADY_EXISTS" xml:space="preserve">
+    <value>El registro del paciente ya existe.</value>
+  </data>
+  <data name="PATIENT_ALREADY_EXIST_FOR_GROUP" xml:space="preserve">
+    <value>El registro del paciente ya existe para el grupo </value>
+  </data>
+  <data name="PATIENT_NOT_SAVED" xml:space="preserve">
+    <value>El registro del paciente no se ha guardado.</value>
+  </data>
+  <data name="PATIENT_NUM_INVALID" xml:space="preserve">
+    <value>El número interno del paciente {0} no es válido</value>
+  </data>
+  <data name="PDF_FILE_ERROR" xml:space="preserve">
+    <value>El archivo PDF no existe.</value>
+  </data>
+  <data name="PowerUpStatus" xml:space="preserve">
+    <value>Power Up Status</value>
+  </data>
+  <data name="PRT_PWV_BOX_TEXT_1" xml:space="preserve">
+    <value>Se han corregido los resultados para su presión sanguínea. Su presión sanguínea es _______. </value>
+  </data>
+  <data name="PRT_PWV_BOX_TEXT_2" xml:space="preserve">
+    <value>En función de su edad ______, y en comparación con los intervalos de presión sanguínea, su límite de PWV para el riesgo cardiovascular es:</value>
+  </data>
+  <data name="PRT_PWV_TEXT_1" xml:space="preserve">
+    <value>En este informe se explica la medición realizada sobre la velocidad de su pulso, una prueba utilizada para evaluar la rigidez de la arteria aorta. (la aorta es la gran arteria que transporta la sangre del corazón a los riñones, pulmones y cerebro).</value>
+  </data>
+  <data name="PRT_PWV_TEXT_10" xml:space="preserve">
+    <value>, su arteria es menos rígida que la </value>
+  </data>
+  <data name="PRT_PWV_TEXT_11" xml:space="preserve">
+    <value>de otras personas de su edad y, por lo tanto, tiene menos riesgo de sufrir derrames e infartos que otras personas de su edad.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_12" xml:space="preserve">
+    <value>Si la velocidad del pulso es </value>
+  </data>
+  <data name="PRT_PWV_TEXT_13" xml:space="preserve">
+    <value>, sus arterias son relativamente más rígidas y</value>
+  </data>
+  <data name="PRT_PWV_TEXT_14" xml:space="preserve">
+    <value>tiene más riesgo de desarrollar una enfermedad cardiovascular que otros pacientes de su edad y con la misma presión sanguínea que usted. Su médico puede recomendarle algunas actividades para reducir la velocidad del pulso, por ejemplo:
+
+    •   Dejar de fumar • Aumentar la práctica de ejercicio
+    •   Mejorar la dieta reduciendo el consumo de sal y de grasas
+    •   Tomar medicamentos antihipertensivos</value>
+  </data>
+  <data name="PRT_PWV_TEXT_15" xml:space="preserve">
+    <value>Comparación de su medición con una población sana (es decir, sin enfermedades cardiovasculares ni diabetes).</value>
+  </data>
+  <data name="PRT_PWV_TEXT_16" xml:space="preserve">
+    <value>Un estudio de la Universidad de Cambridge del Reino Unido ha determinado los niveles saludables de la velocidad del pulso para su edad.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_17" xml:space="preserve">
+    <value>Si su velocidad del pulso se encuentra en el área </value>
+  </data>
+  <data name="PRT_PWV_TEXT_18" xml:space="preserve">
+    <value>, su rigidez arterial es baja </value>
+  </data>
+  <data name="PRT_PWV_TEXT_19" xml:space="preserve">
+    <value>para el grupo de su edad. Esto está asociado a un menor riesgo de sufrir derrames e infartos.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_2" xml:space="preserve">
+    <value>Acerca de la velocidad del pulso de la aorta:</value>
+  </data>
+  <data name="PRT_PWV_TEXT_20" xml:space="preserve">
+    <value>Si su velocidad del pulso se encuentra en el área </value>
+  </data>
+  <data name="PRT_PWV_TEXT_21" xml:space="preserve">
+    <value>, su velocidad del pulso es superior al </value>
+  </data>
+  <data name="PRT_PWV_TEXT_22" xml:space="preserve">
+    <value>valor recomendado para su edad, lo que indica que sus arterias son más rígidas de lo normal para su grupo de edad. 
+
+Si su velocidad del pulso es alta, consulte con su médico para ver cómo puede reducirla, por ejemplo:
+
+   •   Dejar de fumar • Aumentar la práctica de ejercicio
+   •   Mejorar la dieta reduciendo el consumo de sal y de grasas
+   •   Tomar medicamentos antihipertensivos</value>
+  </data>
+  <data name="PRT_PWV_TEXT_3" xml:space="preserve">
+    <value>La velocidad del pulso es la medición que se utiliza a nivel internacional para determinar la rigidez de las arterias. Dado que la aorta está conectada directamente con todos los órganos vitales (cerebro, corazón, riñones), la rigidez de esta arteria desde el cuello hasta la pierna es el mejor indicador del riesgo cardiovascular. 
+
+El médico ha colocado una sonda, llamada tonómetro, en la arteria carótida (cuello) y un manguito alrededor de la arteria femoral (pierna). El manguito y el tonómetro han medido cuánto tardan los latidos de su corazón (o pulso) en llegar desde el cuello a la pierna. 
+
+Si sus arterias son jóvenes y están sanas, serán flexibles y estarán relajadas, por lo que el pulso viajará lentamente a través de la aorta. A medida que envejecemos, nuestras arterias son cada vez más rígidas y el pulso viaja más rápidamente. El tabaco, la falta de ejercicio, la hipertensión y la diabetes pueden acelerar la rigidez de las arterias. 
+
+Utilizando estas mediciones de tiempo y la longitud de sus arterias se puede calcular la velocidad de su pulso:</value>
+    <comment>La velocidad del pulso es la medición que se utiliza a nivel internacional para determinar la rigidez de las arterias. Dado que la aorta está conectada directamente con todos los órganos vitales (cerebro, corazón, riñones), la rigidez de esta arteria desde el cuello hasta la pierna es el mejor indicador del riesgo cardiovascular. 
+
+El médico ha colocado una sonda, llamada tonómetro, en la arteria carótida (cuello) y un manguito alrededor de la arteria femoral (pierna). El manguito y el tonómetro han medido cuánto tardan los latidos de su corazón (o pulso) en llegar desde el cuello a la pierna. 
+
+Si sus arterias son jóvenes y están sanas, serán flexibles y estarán relajadas, por lo que el pulso viajará lentamente a través de la aorta. A medida que envejecemos, nuestras arterias son cada vez más rígidas y el pulso viaja más rápidamente. El tabaco, la falta de ejercicio, la hipertensión y la diabetes pueden acelerar la rigidez de las arterias. 
+
+            Tiempo transcurrido desde el corazón a la arteria carótida (cuello): ______________ (ms) 
+
+            Tiempo transcurrido desde el corazón a la arteria femoral (pierna): __________ (ms) 
+
+Utilizando estas mediciones de tiempo y la longitud de sus arterias se puede calcular la velocidad de su pulso:</comment>
+  </data>
+  <data name="PRT_PWV_TEXT_4" xml:space="preserve">
+    <value>Si la velocidad de su pulso es: {0} (ms)</value>
+  </data>
+  <data name="PRT_PWV_TEXT_5" xml:space="preserve">
+    <value>Generalmente, sería mejor tener unos valores inferiores. Los valores inferiores están asociados a un menor riesgo de sufrir derrames e infartos.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_6" xml:space="preserve">
+    <value>Comparación entre su medición con la de la población general</value>
+  </data>
+  <data name="PRT_PWV_TEXT_7" xml:space="preserve">
+    <value>En uno de los ensayos clínicos más importantes realizados en Europa, se midió la velocidad del pulso a más de 11.000 pacientes sin diabetes. 
+
+Se han comparado sus mediciones con estos resultados.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_8" xml:space="preserve">
+    <value>Si su velocidad del pulso se encuentra entre las 2 líneas, significa que es normal para su edad y presión sanguínea.</value>
+  </data>
+  <data name="PRT_PWV_TEXT_9" xml:space="preserve">
+    <value>Si su velocidad del pulso se encuentra en el área </value>
+  </data>
+  <data name="PRT_PWV_TEXT_GREEN" xml:space="preserve">
+    <value>verde</value>
+  </data>
+  <data name="PRT_PWV_TEXT_NAME_LBL" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="PRT_PWV_TEXT_PAGE" xml:space="preserve">
+    <value>Página</value>
+  </data>
+  <data name="PRT_PWV_TEXT_PATIENT_DETAILS" xml:space="preserve">
+    <value>Detalles del paciente</value>
+  </data>
+  <data name="PRT_PWV_TEXT_PATIENT_REPORT" xml:space="preserve">
+    <value>INFORME DEL PACIENTE</value>
+  </data>
+  <data name="PRT_PWV_TEXT_RED" xml:space="preserve">
+    <value>roja</value>
+  </data>
+  <data name="PRT_PWV_TEXT_RPT_DESCRIPTION" xml:space="preserve">
+    <value>El estándar de referencia global sobre la velocidad del pulso</value>
+  </data>
+  <data name="PRT_PWV_TEXT_RPT_HEADER" xml:space="preserve">
+    <value>Informe del paciente de SphygmoCor</value>
+  </data>
+  <data name="PRT_PWV_TEXT_SCOR" xml:space="preserve">
+    <value>SphygmoCor</value>
+  </data>
+  <data name="PWV_BL_TEXT" xml:space="preserve">
+    <value>PWV &gt;</value>
+  </data>
+  <data name="PWV_CALC_DIST_OUT_OF_RANGE" xml:space="preserve">
+    <value>La distancia calculada de PWV no se encuentra en el intervalo válido, entre {0} y {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. mm, cm</comment>
+  </data>
+  <data name="PWV_COUNTER_FAILED" xml:space="preserve">
+    <value>Fallo del contador de PWV</value>
+  </data>
+  <data name="PWV_DELTAS_NOT_ENOUGH" xml:space="preserve">
+    <value>Enough time differences ({0}) were not found</value>
+  </data>
+  <data name="PWV_DEVIATION_HIGH" xml:space="preserve">
+    <value>#308 La desviación estándar se considera alta.\nPodría deberse a una medición de baja calidad.\n\nVelocidad del pulso = {0} m/s y la desviación estándar = {1} m/s</value>
+  </data>
+  <data name="PWV_DEVIATION_TOO_BIG" xml:space="preserve">
+    <value>#306 La desviación estándar es mayor que la velocidad del pulso.\nPodría deberse a una medición de baja calidad.\n\nVelocidad del pulso = {0} m/s y la desviación estándar = {1} m/s</value>
+  </data>
+  <data name="PWV_DIRECT_DIST_OUT_OF_RANGE" xml:space="preserve">
+    <value>La distancia directa de PWV no se encuentra en el intervalo válido, entre {0} y {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. mm, cm</comment>
+  </data>
+  <data name="PWV_INVALID" xml:space="preserve">
+    <value>#305 El valor de la velocidad del pulso está fuera del intervalo.\n\nIntervalo permitido =({0} - {1}) m/s.\n\nRepita la medición y asegúrese de que ha introducido correctamente la distancia de la velocidad del pulso.</value>
+  </data>
+  <data name="PWV_INVALID_ADULT" xml:space="preserve">
+    <value>#307 El valor de la velocidad del pulso se encuentra fuera del intervalo normal para adultos.\n\nVelocidad del pulso = {0} m/s y el intervalo para adultos = ({1} - {2}) m/s.\n\n¿Desea continuar y calcular un informe?</value>
+  </data>
+  <data name="PWV_INVALID_DISTANCE" xml:space="preserve">
+    <value>#301 El valor de la distancia de la velocidad del pulso está fuera del intervalo.\n\nDistancia de la velocidad del pulso = {0} mm y el intervalo permitido =({1} - {2}) mm</value>
+  </data>
+  <data name="PWV_INVALID_HEART_RATE" xml:space="preserve">
+    <value>#303 El valor de la frecuencia cardíaca está fuera del intervalo.\n\nFrecuencia cardíaca = {0} lpm y el intervalo permitido = ({1} - {2}) lpm</value>
+  </data>
+  <data name="PWV_LBL_ANALYSIS" xml:space="preserve">
+    <value>PWV (m/s)</value>
+  </data>
+  <data name="PWV_NOT_ENOUGH_DELTAS" xml:space="preserve">
+    <value>#304 La calidad de la señal es demasiado mala para calcular las diferencias de tiempo.</value>
+  </data>
+  <data name="PWV_SETTINGS" xml:space="preserve">
+    <value>Configuración de PWV</value>
+  </data>
+  <data name="PWV_SET_DEFAULTS_FAILED" xml:space="preserve">
+    <value>Fallo de PWV al establecer los valores predeterminados</value>
+  </data>
+  <data name="PWV_SIGNAL_TOO_BAD" xml:space="preserve">
+    <value>#302 La calidad de la señal del manguito femoral es demasiado mala para calcular la frecuencia cardíaca.</value>
+  </data>
+  <data name="PWV_STD_DEV_TO_LARGE" xml:space="preserve">
+    <value>La desviación estándar de PWV {0} es demasiado grande</value>
+  </data>
+  <data name="PWV_TOO_SMALL_FOR_ADULT" xml:space="preserve">
+    <value>PWV {0} es demasiado pequeño para un adulto</value>
+  </data>
+  <data name="PWV_UNIT" xml:space="preserve">
+    <value>m/s</value>
+  </data>
+  <data name="PWV_VALID_DELTAS_NOT_ENOUGH" xml:space="preserve">
+    <value>Enough pulse wave velocities ({0}) were not found</value>
+  </data>
+  <data name="RAD_10_SEC" xml:space="preserve">
+    <value>10 segundos</value>
+  </data>
+  <data name="RAD_20_SEC" xml:space="preserve">
+    <value>20 segundos</value>
+  </data>
+  <data name="RAD_5_SEC" xml:space="preserve">
+    <value>5 segundos</value>
+  </data>
+  <data name="RAD_CM" xml:space="preserve">
+    <value>cm</value>
+  </data>
+  <data name="RAD_DIRECT" xml:space="preserve">
+    <value>Directa (de carótida a manguito)</value>
+  </data>
+  <data name="RAD_IMPERIAL" xml:space="preserve">
+    <value>Imperial</value>
+  </data>
+  <data name="RAD_METRIC" xml:space="preserve">
+    <value>Métrica</value>
+  </data>
+  <data name="RAD_MM" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="RAD_MP_DP" xml:space="preserve">
+    <value>PM y PD</value>
+  </data>
+  <data name="RAD_SP_DP" xml:space="preserve">
+    <value>PS y PD</value>
+  </data>
+  <data name="RAD_SP_MP" xml:space="preserve">
+    <value>PS y PM</value>
+  </data>
+  <data name="RAD_SUBTRACTING" xml:space="preserve">
+    <value>Resta (de hendidura esternal a manguito – de hendidura esternal a carótida)</value>
+  </data>
+  <data name="RecoverableStatus" xml:space="preserve">
+    <value>Estado recuperable.</value>
+  </data>
+  <data name="REPORT_ASSESMENTS_FORMAT" xml:space="preserve">
+    <value>FechaHoraEstudio</value>
+  </data>
+  <data name="REPORT_ASSESMENT_RECORD_COUNT" xml:space="preserve">
+    <value>de</value>
+  </data>
+  <data name="REPORT_CALCULATE_ERROR" xml:space="preserve">
+    <value>Error al calcular el informe.</value>
+  </data>
+  <data name="REPORT_CAL_FAIL_MSG" xml:space="preserve">
+    <value>Error al generar el informe.</value>
+  </data>
+  <data name="REPORT_DATE_TIME_FORMAT" xml:space="preserve">
+    <value>dd/MM/yyyy</value>
+    <comment>This particular value is not supposed to be localized</comment>
+  </data>
+  <data name="REPORT_LBL_CAROTID" xml:space="preserve">
+    <value>Carótida</value>
+  </data>
+  <data name="REPORT_LBL_DIRECT" xml:space="preserve">
+    <value>Directo</value>
+  </data>
+  <data name="REPORT_LBL_SUBTRACTING" xml:space="preserve">
+    <value>Resta</value>
+  </data>
+  <data name="REPORT_NORMALRANGE_X_AXIS_TITLE" xml:space="preserve">
+    <value>Edad (años)</value>
+  </data>
+  <data name="REPORT_NORMALRANGE_Y_AXIS_TITLE" xml:space="preserve">
+    <value>PWV m/s</value>
+  </data>
+  <data name="REPORT_SAVE_ERR" xml:space="preserve">
+    <value>Error al guardar el informe.</value>
+  </data>
+  <data name="RESTORE_DONE" xml:space="preserve">
+    <value>La base de datos se ha restaurado correctamente</value>
+  </data>
+  <data name="RESTORE_FAIL" xml:space="preserve">
+    <value>Error en la restauración</value>
+  </data>
+  <data name="RESTORE_FILE_MSG" xml:space="preserve">
+    <value>Seleccione otro archivo .bak para la restauración</value>
+  </data>
+  <data name="RESTORE_MSG" xml:space="preserve">
+    <value>La restauración de la copia de seguridad eliminará los registros existentes. ¿Desea continuar?</value>
+  </data>
+  <data name="RESTORE_PROGRESS" xml:space="preserve">
+    <value>Restauración de la base de datos en curso...</value>
+  </data>
+  <data name="RESTORE_TITLE" xml:space="preserve">
+    <value>Restauración de la base de datos</value>
+  </data>
+  <data name="RIBBIONBAR_TEXT" xml:space="preserve">
+    <value>Scor</value>
+  </data>
+  <data name="SAMPLE_RATE_OUT_OF_RANGE" xml:space="preserve">
+    <value>La frecuencia de muestreo no se encuentra en el intervalo válido, entre {0} y {1}</value>
+    <comment>{0}=lower range {1}=upper range</comment>
+  </data>
+  <data name="SEARCH_MODE" xml:space="preserve">
+    <value>Modo de búsqueda</value>
+  </data>
+  <data name="SECURITY_MODE" xml:space="preserve">
+    <value>Predeterminado</value>
+  </data>
+  <data name="SELECT_CAPS" xml:space="preserve">
+    <value>--Seleccionar--</value>
+  </data>
+  <data name="SELECT_DOB" xml:space="preserve">
+    <value>Seleccione la fecha de nacimiento</value>
+  </data>
+  <data name="SELECT_GENDER" xml:space="preserve">
+    <value>Seleccione el sexo</value>
+  </data>
+  <data name="SELECT_SMALL" xml:space="preserve">
+    <value>--seleccionar--</value>
+  </data>
+  <data name="SETUP_SCREEN" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="SHOW_CAPS" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="SHOW_SMALL" xml:space="preserve">
+    <value>mostrar</value>
+  </data>
+  <data name="SIGNAL_FIND_ONSETS_FAILED" xml:space="preserve">
+    <value>Error de la señal para obtener inicios</value>
+  </data>
+  <data name="SIGNAL_HEIGHT_MIN_MAX_OUT_OF_RANGE" xml:space="preserve">
+    <value>La altura mínima o máxima de la señal no se encuentra en el intervalo válido, entre {0} y {1}</value>
+  </data>
+  <data name="SIGNAL_HEIGHT_MIN_TOO_LARGE" xml:space="preserve">
+    <value>La altura mínima de la señal {0} es demasiado grande</value>
+  </data>
+  <data name="SIGNAL_HEIGHT_TOO_SHORT" xml:space="preserve">
+    <value>La altura de la señal {0} no es lo suficientemente alta</value>
+  </data>
+  <data name="SIGNAL_INVALID_SAMPLE_RATE" xml:space="preserve">
+    <value>#103 Frecuencia de muestreo no válida.\n\nFrecuencia de muestreo = {0} Hz</value>
+  </data>
+  <data name="SIGNAL_LEN_MIN_MAX_OUT_OF_RANGE" xml:space="preserve">
+    <value>La longitud mínima o máxima de la señal no se encuentra en el intervalo válido, entre {0} y {1}</value>
+  </data>
+  <data name="SIGNAL_LEN_TOO_SHORT" xml:space="preserve">
+    <value>La longitud de la señal {0} no es lo suficientemente larga</value>
+  </data>
+  <data name="SIGNAL_NOT_ENOUGH_ONSETS" xml:space="preserve">
+    <value>#105 No hay suficientes inicios (puntos de activación).\n\nInicios calculados = {0} y el mínimo = {1}</value>
+  </data>
+  <data name="SIGNAL_ONSETS_ERROR" xml:space="preserve">
+    <value>#107 Error al calcular los inicios.\n\nCompruebe la calidad de los datos.</value>
+  </data>
+  <data name="SIGNAL_TOO_LONG" xml:space="preserve">
+    <value>#102 La longitud de la señal es demasiado larga y se ha truncado.\n\nLongitud de la señal = {0} y el máximo = {1}</value>
+  </data>
+  <data name="SIGNAL_TOO_MANY_ONSETS" xml:space="preserve">
+    <value>#106 Demasiados inicios (puntos de activación). Se han ignorado los inicios adicionales.\n\nInicios calculados = {0} y el máximo = {1}</value>
+  </data>
+  <data name="SIGNAL_TOO_SHORT" xml:space="preserve">
+    <value>#101 La longitud de la señal es demasiado corta para continuar con el cálculo.\n\nLongitud de la señal = {0} y el mínimo = {1}</value>
+  </data>
+  <data name="SIGNAL_TOO_SMALL" xml:space="preserve">
+    <value>#104 La amplitud de la señal es demasiado pequeña.\n\nAltura de la señal = {0} y el mínimo = {1}</value>
+  </data>
+  <data name="SP" xml:space="preserve">
+    <value>PS</value>
+  </data>
+  <data name="SPALSH_COPYRT_TXT" xml:space="preserve">
+    <value>Copyright AtCor Medical Pty. Ltd.1999-2011</value>
+  </data>
+  <data name="SPLASH_INI_MSG" xml:space="preserve">
+    <value>Cargando... </value>
+  </data>
+  <data name="SPLASH_LBL_SCOR_TXT" xml:space="preserve">
+    <value>SCOR CvMS</value>
+  </data>
+  <data name="SPLASH_LBL_VERSION_TXT" xml:space="preserve">
+    <value>Versión:</value>
+    <comment>Versión 10</comment>
+  </data>
+  <data name="SPLASH_SQL_CONN" xml:space="preserve">
+    <value>Se ha establecido una conexión con el servidor</value>
+  </data>
+  <data name="SPLASH_WAIT_MSG" xml:space="preserve">
+    <value>Espere</value>
+  </data>
+  <data name="SP_DP_TOO_CLOSE" xml:space="preserve">
+    <value>La PS debe ser superior a la PD en {0} mmHg</value>
+  </data>
+  <data name="SP_MP_TOO_CLOSE" xml:space="preserve">
+    <value>La PS debe ser superior a la PM en {0} mmHg</value>
+  </data>
+  <data name="SP_OUT_OF_RANGE" xml:space="preserve">
+    <value>La presión sistólica no se encuentra en el intervalo válido, entre {0} y {1}</value>
+    <comment>{0}=lower range {1}=upper range</comment>
+  </data>
+  <data name="SP_REQUIRED" xml:space="preserve">
+    <value>El valor de PS es necesario para el informe del intervalo de referencia</value>
+  </data>
+  <data name="SQL_EXPRESS" xml:space="preserve">
+    <value>\SQLEXPRESS</value>
+  </data>
+  <data name="SQL_LOCAL_ERROR_STRG" xml:space="preserve">
+    <value>Error en la operación de la base de datos. ¿Desea volver a intentarlo?</value>
+  </data>
+  <data name="SQL_NETWORK_ERROR_STRG" xml:space="preserve">
+    <value>Error durante la operación de la base de datos, compruebe la conexión de red. ¿Desea volver a intentarlo?</value>
+  </data>
+  <data name="SQL_RETRY_CONN_STRG" xml:space="preserve">
+    <value>¿Desea volver a intentarlo?</value>
+  </data>
+  <data name="SQL_SERVER_CHANGED_TO_DEFAULT" xml:space="preserve">
+    <value>Se ha cambiado el nombre del servidor predeterminado a SQLCLIENT.</value>
+  </data>
+  <data name="SQL_SERVER_CHANGED_TO_LOCAL" xml:space="preserve">
+    <value>Se ha cambiado el nombre del servidor predeterminado al nombre del ordenador.</value>
+  </data>
+  <data name="SQL_SERVER_CONNECTED" xml:space="preserve">
+    <value>La conexión con el servidor se ha establecido correctamente</value>
+  </data>
+  <data name="SQL_SERVER_CONN_FAILED" xml:space="preserve">
+    <value>Fallo al establecer una conexión con el servidor</value>
+  </data>
+  <data name="SQL_SERVER_FAILED" xml:space="preserve">
+    <value>Fallo de conexión con el servidor</value>
+  </data>
+  <data name="SQL_SERVER_UNABLE_TO_CONNECT" xml:space="preserve">
+    <value>No se ha podido establecer la conexión con el servidor </value>
+  </data>
+  <data name="STARTSTR" xml:space="preserve">
+    <value>La aplicación Scor se ha cargado correctamente.</value>
+  </data>
+  <data name="SUBTRACTING_METHOD" xml:space="preserve">
+    <value>Método de resta:</value>
+  </data>
+  <data name="SYSTEM_ERROR" xml:space="preserve">
+    <value>Scor</value>
+    <comment>Error de sistema de Scor</comment>
+  </data>
+  <data name="SYSTEM_ID" xml:space="preserve">
+    <value>ID de sistema</value>
+  </data>
+  <data name="SYSTEM_ID_INVALID" xml:space="preserve">
+    <value>El ID del sistema {0} no es válido</value>
+  </data>
+  <data name="SYS_DEFAULT_LOWCASE" xml:space="preserve">
+    <value>Predeterminado</value>
+  </data>
+  <data name="SYS_DEFAULT_UPPERCASE" xml:space="preserve">
+    <value>PREDETERMINADO</value>
+  </data>
+  <data name="SYS_IMAGE_FILE_WILDCARD" xml:space="preserve">
+    <value>archivos jpg (*.jpg)|*.jpg|archivos bmp (*.bmp)|*.bmp</value>
+  </data>
+  <data name="SYS_SIM_FILE_PATH" xml:space="preserve">
+    <value>.\\simulation\PWV</value>
+  </data>
+  <data name="SYS_SIM_FILE_WILDCARD" xml:space="preserve">
+    <value>.\\simulation\PWV\*.dat</value>
+  </data>
+  <data name="TAB_ANALYSIS" xml:space="preserve">
+    <value>Análisis</value>
+  </data>
+  <data name="TAB_CAPTURE" xml:space="preserve">
+    <value>Captura</value>
+  </data>
+  <data name="TAB_REPORT" xml:space="preserve">
+    <value>Informe</value>
+  </data>
+  <data name="SETUP" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="TONOMETER_DATA_APPEND_FAILED" xml:space="preserve">
+    <value>Fallo al añadir los datos del tonómetro</value>
+  </data>
+  <data name="TRANSFER_PATIENT" xml:space="preserve">
+    <value>¿Desea transferir los registros existentes del paciente a este grupo?</value>
+  </data>
+  <data name="UNITS_DISTANCE_CM" xml:space="preserve">
+    <value>cm</value>
+  </data>
+  <data name="UNITS_DISTANCE_FOOT" xml:space="preserve">
+    <value>pies</value>
+  </data>
+  <data name="UNITS_DISTANCE_INCH" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="UNITS_DISTANCE_MM" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="UNITS_PRESSURE_MMHG" xml:space="preserve">
+    <value>mmHg</value>
+  </data>
+  <data name="UNITS_WEIGHT_KG" xml:space="preserve">
+    <value>kg</value>
+  </data>
+  <data name="UNITS_WEIGHT_LBS" xml:space="preserve">
+    <value>libras</value>
+  </data>
+  <data name="UnrecoverableStatus" xml:space="preserve">
+    <value>Estado no recuperable.</value>
+  </data>
+  <data name="VALIDATION_ERROR" xml:space="preserve">
+    <value>Error de validación</value>
+    <comment>Title</comment>
+  </data>
+  <data name="WEIGHT_OUT_OF_RANGE" xml:space="preserve">
+    <value>El peso no se encuentra en el intervalo válido, entre {0} y {1} ({2})</value>
+    <comment>{0}=lower range {1}=upper range {2}=unit, e.g. lbs, kg</comment>
+  </data>
+  <data name="YEAR" xml:space="preserve">
+    <value>Año</value>
+  </data>
+  <data name="ZERO_AGE" xml:space="preserve">
+    <value>La edad no puede ser cero.</value>
+  </data>
+  <data name="CLINICAL_ENV" xml:space="preserve">
+    <value>SphygmoCor Clínico</value>
+    <comment>Clinical</comment>
+  </data>
+  <data name="MODE_MISMATCH_MSG" xml:space="preserve">
+    <value>Current startup mode or screen is not allowed in the system key.
+Please contact AtCor support  http://atcormedical.com/request_support.html</value>
+  </data>
+  <data name="RESEARCH_ENV" xml:space="preserve">
+    <value>Investigación</value>
+  </data>
+  <data name="GUI_RPT_REF_RANGE_DESC" xml:space="preserve">
+    <value>Normalised for distance measurement</value>
+  </data>
+  <data name="GUI_SQL_INSTANCE_CONNECT" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="LBL_OPTIONAUDITTRAIL" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="LBL_OPTIONCAPTUREGUIDE" xml:space="preserve">
+    <value>G</value>
+  </data>
+  <data name="LBL_OPTIONCLINICAL" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="LBL_OPTIONCPWA" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="LBL_OPTIONNIBP" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="LBL_OPTIONPWV" xml:space="preserve">
+    <value>V</value>
+  </data>
+  <data name="LBL_OPTIONRESEARCH" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="LBL_OPTIONTPWA" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="MSG_SPECIALCHARACTER" xml:space="preserve">
+    <value>Special characters are not allowed.</value>
+  </data>
+  <data name="FIELD_PATIENT_PP" xml:space="preserve">
+    <value>PP</value>
+  </data>
+  <data name="SIGNAL_HEIGHT_MIN_TOO_SMALL" xml:space="preserve">
+    <value>Signal height min {0} is too small</value>
+  </data>
+  <data name="PWV PATIENT REPORT" xml:space="preserve">
+    <value>Informe del paciente PWV</value>
+    <comment>For Maintaining Culture Neutral Settings </comment>
+  </data>
+  <data name="PWV SUMMARY REPORT" xml:space="preserve">
+    <value>Informe PWV</value>
+    <comment>For Maintaining Culture Neutral Settings</comment>
+  </data>
+  <data name="SIMULATION" xml:space="preserve">
+    <value>Simulación</value>
+  </data>
+  <data name="GUI_PRINT_PWV_ANALYSIS_BPCHART_VALUE" xml:space="preserve">
+    <value>No SP or DP values exist for the selected assessments</value>
+  </data>
+  <data name="BTN_START" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="BTN_STOP" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="BTN_WAIT" xml:space="preserve">
+    <value>Wait....</value>
+  </data>
+  <data name="FRM_BRACHIAL_BP_CONFIGURATION" xml:space="preserve">
+    <value>Brachial BP Configuration</value>
+  </data>
+  <data name="FRM_GENERAL_CONFIGURATION" xml:space="preserve">
+    <value>Configuración general</value>
+  </data>
+  <data name="FRM_PWA_CONFIGURATION" xml:space="preserve">
+    <value>Configuración de PWA</value>
+  </data>
+  <data name="FRM_PWV_CONFIGURATION" xml:space="preserve">
+    <value>Configuración de PWV</value>
+  </data>
+  <data name="GRP_IF_DP" xml:space="preserve">
+    <value>If DP &gt;=</value>
+  </data>
+  <data name="LBL_SETUP_BRACHIALBP" xml:space="preserve">
+    <value>Brachial Calibration</value>
+  </data>
+  <data name="MSG_THRESHOLDBLANKVALUE" xml:space="preserve">
+    <value>Threshold value should not be blank.</value>
+  </data>
+  <data name="MSG_THRESHOLDNUMERICVALUE" xml:space="preserve">
+    <value>Threshold value should be numeric.</value>
+  </data>
+  <data name="SYS_SIM_FILE_PATH_PWA" xml:space="preserve">
+    <value>.\\simulation\PWA</value>
+  </data>
+  <data name="BP_SETTINGS_DP_THRESHOLD_VALIDATION" xml:space="preserve">
+    <value>Threshold value for DP should not be blank.</value>
+  </data>
+  <data name="BP_SETTINGS_DP_VALIDATION" xml:space="preserve">
+    <value>Value entered for DP is too large.</value>
+  </data>
+  <data name="BP_SETTINGS_PP_THRESHOLD_VALIDATION" xml:space="preserve">
+    <value>Threshold value for PP should not be blank.</value>
+  </data>
+  <data name="BP_SETTINGS_PP_VALIDATION" xml:space="preserve">
+    <value>Value entered for PP is too large.</value>
+  </data>
+  <data name="BP_SETTINGS_SP_THRESHOLD_VALIDATION" xml:space="preserve">
+    <value>Threshold value for SP should not be blank.</value>
+  </data>
+  <data name="BP_SETTINGS_SP_VALIDATION" xml:space="preserve">
+    <value>Value entered for SP is too large.</value>
+  </data>
+  <data name="DAL_CONST_SIM_FOLDER_PATH_PWA" xml:space="preserve">
+    <value>.\\simulation\\PWA\\</value>
+  </data>
+  <data name="BLL_STOP_CAPTURE_FAILED" xml:space="preserve">
+    <value>Stop Capture failed.</value>
+  </data>
+  <data name="CAPTURE_FAILED_TO_STOP" xml:space="preserve">
+    <value>Data capture failed to stop</value>
+  </data>
+  <data name="CUFF_DEFLATED_TIME_NOT_MONITORED" xml:space="preserve">
+    <value>Cuff deflated time was not monitored.</value>
+  </data>
+  <data name="CUFF_DEFLATION_FAILED" xml:space="preserve">
+    <value>Failed to deflate the cuff. Press the stop button on the electronic module to deflate!</value>
+  </data>
+  <data name="CUFF_DEFLATION_TIMED_OUT" xml:space="preserve">
+    <value>Cuff is not deflated in time. Press the stop button on the electronic module to deflate!</value>
+  </data>
+  <data name="CUFF_INFLATED_TIME_NOT_MONITORED" xml:space="preserve">
+    <value>Cuff inflated time was not monitored.</value>
+  </data>
+  <data name="CUFF_INFLATION_FAILED" xml:space="preserve">
+    <value>Failed to inflate the cuff</value>
+  </data>
+  <data name="CUFF_INFLATION_TIMED_OUT" xml:space="preserve">
+    <value>Cuff is not inflated in time</value>
+  </data>
+  <data name="CUFF_REINFLATING" xml:space="preserve">
+    <value>Cuff is reinflating</value>
+  </data>
+  <data name="GUI_SIMULATION_MODE_MESSAGE" xml:space="preserve">
+    <value>Simulation Mode, not actual patient data.</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_AORTIC_AIX" xml:space="preserve">
+    <value>Aortic Augmentation Index &gt; 50%.</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_AORTIC_TI" xml:space="preserve">
+    <value>Waveform Timing out of Range. [Aortic T1]</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_MAXDPDT" xml:space="preserve">
+    <value>Systolic Upstroke out of Range. [&lt;350mmHg/s]</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_OPERATOR_INDEX" xml:space="preserve">
+    <value>Operator Index low. [&lt;75]</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_PERIPHERAL_TI" xml:space="preserve">
+    <value>Waveform Timing out of Range. [Peripheral T1]</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_T1_RATIO" xml:space="preserve">
+    <value>Waveform Timing out of Range. [T1 Difference]</value>
+  </data>
+  <data name="LBL_BRACHIALCUFF" xml:space="preserve">
+    <value>Brachial Cuff</value>
+  </data>
+  <data name="LBL_CENTRAL_DP" xml:space="preserve">
+    <value>Central DP:</value>
+  </data>
+  <data name="LBL_PWA_REPORT_ AIX75" xml:space="preserve">
+    <value>AIx75</value>
+  </data>
+  <data name="LBL_REPORT_PWA_BRACHIAL_MP" xml:space="preserve">
+    <value>MAP:</value>
+  </data>
+  <data name="MSG_IN_PROGRESS" xml:space="preserve">
+    <value>In Progress...</value>
+  </data>
+  <data name="PWA_ERROR_APPEND" xml:space="preserve">
+    <value>Error appending raw signals into memory</value>
+  </data>
+  <data name="PWA_ERROR_BUFFER_NOT_FULL" xml:space="preserve">
+    <value>PWA buffer is not full yet</value>
+  </data>
+  <data name="PWA_ERROR_CALCULATE" xml:space="preserve">
+    <value>Error calculating PWA report</value>
+  </data>
+  <data name="PWA_ERROR_DATABASE" xml:space="preserve">
+    <value>Database Input-Output Error</value>
+  </data>
+  <data name="PWA_ERROR_INITIALISE_BIZEXT" xml:space="preserve">
+    <value>Error initialising PWA</value>
+  </data>
+  <data name="PWA_ERROR_INVALID_MEASURETYPE" xml:space="preserve">
+    <value>Unknown peripheral artery selected</value>
+  </data>
+  <data name="PWA_ERROR_INVALID_UPSAMPLERATE" xml:space="preserve">
+    <value>Invalid rate of up-sampling</value>
+  </data>
+  <data name="PWA_ERROR_LOAD_BIZEXT" xml:space="preserve">
+    <value>Error loading BizExt</value>
+  </data>
+  <data name="PWA_ERROR_NOTLOADED_BIZEXT" xml:space="preserve">
+    <value>BizExt is not loaded</value>
+  </data>
+  <data name="PWA_ERROR_NO_PERIPH_ED" xml:space="preserve">
+    <value>Ejection Duration could not be found</value>
+  </data>
+  <data name="PWA_ERROR_POPULATE" xml:space="preserve">
+    <value>Error reading record from database</value>
+  </data>
+  <data name="PWA_ERROR_STORE" xml:space="preserve">
+    <value>Error saving record to the database</value>
+  </data>
+  <data name="PWA_ERROR_TIME_OUT_OF_RANGE" xml:space="preserve">
+    <value>Time value is out of Pulse range</value>
+  </data>
+  <data name="PWA_ERROR_UNLOAD_BIZEXT" xml:space="preserve">
+    <value>Error unloading BizExt</value>
+  </data>
+  <data name="PWA_ERROR_WRONG_PULSE" xml:space="preserve">
+    <value>Invalid or unrecognisable pulse detected</value>
+  </data>
+  <data name="PWA_ERROR_WRONG_PULSE_SAMPLERATE" xml:space="preserve">
+    <value>Incorrect sample rate for pulse</value>
+  </data>
+  <data name="PWA_MSG_AI_OUT" xml:space="preserve">
+    <value>The value for Augmentation Index is outside the acceptable range. AI = {0}</value>
+  </data>
+  <data name="PWA_MSG_AVPULSE_ERR" xml:space="preserve">
+    <value>Error calculating Average Pulse</value>
+  </data>
+  <data name="PWA_MSG_CALCPULSES_ERR" xml:space="preserve">
+    <value>Error calculating Pulses</value>
+  </data>
+  <data name="PWA_MSG_CALCSYSTONSET_ERR" xml:space="preserve">
+    <value>Error calculating Systolic Onset</value>
+  </data>
+  <data name="PWA_MSG_DPDT_OUT" xml:space="preserve">
+    <value>The Maximum rate of change of pressure (Max dp/dt) is out of the bounds of the recommended range</value>
+  </data>
+  <data name="PWA_MSG_DP_OUT" xml:space="preserve">
+    <value>The value for Diastolic Pressure is out of range. DP = {0}</value>
+  </data>
+  <data name="PWA_MSG_ESP_OUT" xml:space="preserve">
+    <value>The value for End Systolic Pressure is out of range. ESP = {0}</value>
+  </data>
+  <data name="PWA_MSG_HR_OUT" xml:space="preserve">
+    <value>The value for Heart Rate is out of range. HR = {0}</value>
+  </data>
+  <data name="PWA_MSG_MPD_OUT" xml:space="preserve">
+    <value>The value for Mean Diastolic Pressure is out of range. MPD = {0}</value>
+  </data>
+  <data name="PWA_MSG_MPS_OUT" xml:space="preserve">
+    <value>The value for Mean Systolic Pressure is out of range. MPS = {0}</value>
+  </data>
+  <data name="PWA_MSG_MP_OUT" xml:space="preserve">
+    <value>The value for Mean Pressure is out of range. MeanP = {0}</value>
+  </data>
+  <data name="PWA_MSG_NEG_AVPULSE" xml:space="preserve">
+    <value>Invalid Average Pulse. Negative value at index</value>
+  </data>
+  <data name="PWA_MSG_NEG_SIGNAL" xml:space="preserve">
+    <value>Invalid Signal. Signal was negative and has been truncated</value>
+  </data>
+  <data name="PWA_MSG_NOT_FOUND_PEAK" xml:space="preserve">
+    <value>Main peak for pulse not found</value>
+  </data>
+  <data name="PWA_MSG_OUT_OF_PULSE" xml:space="preserve">
+    <value>Interval is out of pulse range. Pulse Length, Interval Begin = {0}, End = {1}</value>
+  </data>
+  <data name="PWA_MSG_P1H_OUT" xml:space="preserve">
+    <value>Central pressure P1 is out of range. P1Height = {0}</value>
+  </data>
+  <data name="PWA_MSG_PERIPH_CENTRAL_ED" xml:space="preserve">
+    <value>Central and Peripheral Ejection Duration are not the same</value>
+  </data>
+  <data name="PWA_MSG_PERIPH_CENTRAL_LENGTH" xml:space="preserve">
+    <value>Length of Peripheral and Central pulses are not the same</value>
+  </data>
+  <data name="PWA_MSG_POINT_OUT_OF_PULSE" xml:space="preserve">
+    <value>Point is out of Pulse range. Point, Pulse Begin = {0}, End = {1}</value>
+  </data>
+  <data name="PWA_MSG_SIGNAL_TOO_LONG" xml:space="preserve">
+    <value>The Signal length is too long and has been truncated</value>
+  </data>
+  <data name="PWA_MSG_SIGNAL_TOO_SHORT" xml:space="preserve">
+    <value>The Signal length is too short to proceed with the calculation</value>
+  </data>
+  <data name="PWA_MSG_SP_OUT" xml:space="preserve">
+    <value>The value for Systolic Pressure is out of range. SP = {0}</value>
+  </data>
+  <data name="PWA_MSG_TOO_BAD_SIGNAL" xml:space="preserve">
+    <value>Signal quality is too poor to calculate parameters</value>
+  </data>
+  <data name="PWA_MSG_TRIGGER_ERR" xml:space="preserve">
+    <value>Error calculating Trigger Points</value>
+  </data>
+  <data name="PWA_MSG_TRIGGER_TOO_SHORT" xml:space="preserve">
+    <value>Invalid TriggerPoints array extracted from database</value>
+  </data>
+  <data name="PWA_MSG_WRONG_PERIPH_ED" xml:space="preserve">
+    <value>Invalid Ejection Duration (less than pulse peak time) for Peripheral Average Pulse</value>
+  </data>
+  <data name="PWA_MSG_WRONG_RANGE" xml:space="preserve">
+    <value>Incorrect range to determine gain and offset for pulse. SP = {0}, DP = {1}</value>
+  </data>
+  <data name="GUI_PRINT_PWA_CLINICAL_TITLE" xml:space="preserve">
+    <value>Pulse Wave Analysis Clinical report</value>
+  </data>
+  <data name="GUI_PRINT_PWA_EVALUATION_TITLE" xml:space="preserve">
+    <value>Pulse Wave Analysis Evaluation report</value>
+  </data>
+  <data name="RPT_BRACHIAL_BP" xml:space="preserve">
+    <value>Brachial BP:</value>
+  </data>
+  <data name="RPT_DATABASE_VERSION_TITLE" xml:space="preserve">
+    <value>Database:</value>
+  </data>
+  <data name="RPT_DATE_AND_TIME" xml:space="preserve">
+    <value>Date and Time:</value>
+  </data>
+  <data name="RPT_MEASUREMENT_DATA" xml:space="preserve">
+    <value>Measurement Data:</value>
+  </data>
+  <data name="RPT_NUMBEROFWAVEFORMS_TITLE" xml:space="preserve">
+    <value>Number Of Waveforms:</value>
+  </data>
+  <data name="RPT_QUALITY_CONTROL_TITLE" xml:space="preserve">
+    <value>Quality Control:</value>
+  </data>
+  <data name="RPT_WAVEFORM_PLOT_TITLE" xml:space="preserve">
+    <value>Waveform Plot:</value>
+  </data>
+  <data name="PWA CLINICAL REPORT" xml:space="preserve">
+    <value>PWA Clinical Report</value>
+  </data>
+  <data name="PWA EVALUATION REPORT" xml:space="preserve">
+    <value>PWA Evaluation Report</value>
+  </data>
+  <data name="TAB_PATIENT" xml:space="preserve">
+    <value>Patient</value>
+  </data>
+  <data name="FIELD_PATIENT_HR" xml:space="preserve">
+    <value>HR</value>
+  </data>
+  <data name="RPT_AROTIC_TITLE" xml:space="preserve">
+    <value>Aortic</value>
+  </data>
+  <data name="RPT_BRACHIAL_TITLE" xml:space="preserve">
+    <value>Brachial</value>
+  </data>
+  <data name="RPT_CENTRAL_PRESSURE_WAVEFORM_TITLE" xml:space="preserve">
+    <value>Central Pressure Waveform:</value>
+  </data>
+  <data name="RPT_CLINICAL_PARAMETERS_TITLE" xml:space="preserve">
+    <value>Clinical Parameters:</value>
+  </data>
+  <data name="RPT_INTERPRETATION_TITLE" xml:space="preserve">
+    <value>Interpretation:</value>
+  </data>
+  <data name="RPT_PHYSICIAN_TITLE" xml:space="preserve">
+    <value>Physician:</value>
+  </data>
+  <data name="RPT_SIGNATURE_TITLE" xml:space="preserve">
+    <value>Signature:</value>
+  </data>
+  <data name="RPT_AORTICAIX_TITLE" xml:space="preserve">
+    <value>Aortic AIx:</value>
+  </data>
+  <data name="RPT_AORTIC_AIXHR75_TITLE" xml:space="preserve">
+    <value>Aortic AIx @HR75:</value>
+  </data>
+  <data name="RPT_AORTIC_AUGMENTATION_AP_PP_TITLE" xml:space="preserve">
+    <value>Aortic augmentation (AP/PP):</value>
+  </data>
+  <data name="RPT_AROTIC_T1T2_TITLE" xml:space="preserve">
+    <value>Aortic T1, T2, Tr:</value>
+  </data>
+  <data name="RPT_CENTRALHAEMODYNAMIC_PARAMETERS_TITLE" xml:space="preserve">
+    <value>Central Haemodynamic Parameters:</value>
+  </data>
+  <data name="RPT_ENDSYSTOLIC_PRESSURE_TITLE" xml:space="preserve">
+    <value>End Systolic Pressure:</value>
+  </data>
+  <data name="RPT_HEARTRATE_PERIOD_TITLE" xml:space="preserve">
+    <value>Heart Rate, Period:</value>
+  </data>
+  <data name="RPT_MP_SYSTOLE_DIASTOLE_TITLE" xml:space="preserve">
+    <value>MP (Systole, Diastole):</value>
+  </data>
+  <data name="RPT_P1HEIGHT_TITLE" xml:space="preserve">
+    <value>P1 Height:</value>
+  </data>
+  <data name="GUI_INCONCLUSIVE_PWA_REPORT_INITIAL_MESSAGE" xml:space="preserve">
+    <value>Note-</value>
+  </data>
+  <data name="GUI_CAPTURE_CUFF_INFLATING_MSG" xml:space="preserve">
+    <value>Cuff Inflating.</value>
+  </data>
+  <data name="LBL_CENTRAL_AORTIC_CLINICAL_PARAMETERS" xml:space="preserve">
+    <value>Central Aortic Clinical Parameters</value>
+  </data>
+  <data name="DAL_DEVICE_IDLING_MESSAGE" xml:space="preserve">
+    <value>Please wait...Device is Idling</value>
+  </data>
+  <data name="DAL_DEVICE_NOT_READY_MESSAGE" xml:space="preserve">
+    <value>Device is not ready</value>
+  </data>
+  <data name="RPT_AGE_TITLE" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="RPT_MAP_TITLE" xml:space="preserve">
+    <value>MAP</value>
+  </data>
+  <data name="RPT_PATIENTDATA_TITLE" xml:space="preserve">
+    <value>Patient Data:</value>
+  </data>
+  <data name="LBL_PWV_REPORT_TIME" xml:space="preserve">
+    <value>PWV Time</value>
+  </data>
+  <data name="RPT_SIMULATIONMODE_TITLE" xml:space="preserve">
+    <value>SIMULATION MODE</value>
+  </data>
+  <data name="BLL_CUFF_DEFLATING" xml:space="preserve">
+    <value>Wait for cuff to be deflated.</value>
+  </data>
+  <data name="GUI_REPORT_PATIENT_HEIGHT_OUTSIDE_RANGE" xml:space="preserve">
+    <value>Patient's height is outside the range to see  the comparison of Euopean General Population</value>
+  </data>
+  <data name="GUI_REPORT_ACTUAL" xml:space="preserve">
+    <value>Actual</value>
+  </data>
+  <data name="GUI_REPORT_TYPICAL" xml:space="preserve">
+    <value>Typical</value>
+  </data>
+</root>

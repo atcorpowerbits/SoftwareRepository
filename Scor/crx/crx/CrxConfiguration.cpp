@@ -116,6 +116,7 @@ void CrxConfigManager::GetPwaDefaultSettings(CrxStructPwaSetting^ objPwaSettings
 	//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
 	objPwaSettings->SimulationType			= _pwaSetInternal->SimulationType;
 	//End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
+	objPwaSettings->DefaultReport			= _pwaSetInternal->DefaultReport;
 	
 
 }
@@ -565,7 +566,12 @@ void CrxConfigManager::SetPwaSettingsNode(CrxStructPwaSetting^ pwas, XmlNode^ no
 	{
 		CrxConfigManager::SetPwaSimulationType(pwas, node);
 	}
-
+	//Calls function if node element is Default Report
+	else
+	if(SubSectionNodeName == CrxConfigXmlTag::DefaultReport)
+	{
+		CrxConfigManager::SetPwaDefaultReport(pwas, node);
+	}
 	else
 	{
 		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file
@@ -1004,6 +1010,12 @@ void CrxConfigManager::GetPwaSettingsNode(String^ SubSection, String^ SubSection
 	{
 		CrxConfigManager::GetPwaSimulationType(SubSection,ReaderValue);
 	}
+	//Calls function if node element is Default Report
+	else
+	if(SubSectionNode == CrxConfigXmlTag::DefaultReport)
+	{
+		CrxConfigManager::GetPwaDefaultReport(SubSection,ReaderValue);
+	}	
 	else
 	{
 		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
@@ -1449,26 +1461,26 @@ void CrxConfigManager::GetFemoralToCuff(String^ SubSection, String^ ReaderValue)
 {
 	//Get the Femoral Cuff Details
 	//Temporary variables
-	bool FemoralCuff = false;
-	String^ tempValue  = nullptr;
-	String^ chkVal = nullptr;
+	//bool FemoralCuff = false;
+	//String^ tempValue  = nullptr;
+	//String^ chkVal = nullptr;
 
-	tempValue  = ReaderValue->ToUpper();
-	chkVal = CrxConfigXmlTag::CheckYesNoValue;
+	//tempValue  = ReaderValue->ToUpper();
+	//chkVal = CrxConfigXmlTag::CheckYesNoValue;
 
-	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
-	{
-		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
-	}
-	FemoralCuff = (tempValue == CrxConfigXmlTag::UpperYES);
+	//if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
+	//{
+	//	throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+	//}
+	//FemoralCuff = (tempValue == CrxConfigXmlTag::UpperYES);
 
 	if(SubSection == CrxConfigXmlTag::Default)
 	{
-		_pSetInternal->FemoralToCuff = FemoralCuff;
+		_pSetInternal->FemoralToCuff = ReaderValue;
 	}
 	else
 	{
-		_instance->_pwvSettings->FemoralToCuff = FemoralCuff;
+		_instance->_pwvSettings->FemoralToCuff = ReaderValue;
 	}
 }
 void CrxConfigManager::GetReferenceRange(String^ SubSection, String^ ReaderValue)
@@ -1906,6 +1918,23 @@ void CrxConfigManager::GetPwaSimulationType(String^ SubSection, String^ ReaderVa
 }
 //End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
 //End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+void CrxConfigManager::GetPwaDefaultReport(String^ SubSection, String^ ReaderValue)
+{
+	//Get the Default Report Details
+	//Temporary variables
+	if(SubSection == CrxConfigXmlTag::User)
+	{
+		_instance->_pwaSettings->DefaultReport = ReaderValue;
+	}
+	else if (SubSection == CrxConfigXmlTag::Default)
+	{
+		_pwaSetInternal->DefaultReport = ReaderValue;
+	}
+	else
+	{
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+}
 
 //Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
 //***********************************************************************
@@ -2385,7 +2414,7 @@ void CrxConfigManager::SetSystemKey(CrxStructGeneralSetting^ gs, XmlNode^ node)
 //********************************************
 void CrxConfigManager::SetFemoralToCuff(CrxStructPwvSetting^ ps, XmlNode^ node)
 {
-	if(ps->FemoralToCuff == false)
+	/*if(ps->FemoralToCuff == false)
 	{
 		node->InnerText = CrxConfigXmlTag::LowerNo;								
 	}
@@ -2393,7 +2422,16 @@ void CrxConfigManager::SetFemoralToCuff(CrxStructPwvSetting^ ps, XmlNode^ node)
 	if(ps->FemoralToCuff == true)
 	{
 		node->InnerText = CrxConfigXmlTag::LowerYes;
+	}*/
+	if(ps->FemoralToCuff != nullptr)
+	{
+		node->InnerText = ps->FemoralToCuff;
 	}
+	else
+	{
+		node->InnerText = CrxConfigXmlTag::Blank;
+	}
+
 }
 void CrxConfigManager::SetReferenceRange(CrxStructPwvSetting^ ps, XmlNode^ node)
 {
@@ -2625,6 +2663,17 @@ void CrxConfigManager::SetPwaSimulationType(CrxStructPwaSetting^ pwas, XmlNode^ 
 //End  : AtCor-Drop2-Sprint1, TM, SWREQ2245, 17-Jun-2011
 
 //End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+void CrxConfigManager::SetPwaDefaultReport(AtCor::Scor::CrossCutting::Configuration::CrxStructPwaSetting ^pwas, System::Xml::XmlNode ^node)
+{
+	if(pwas->DefaultReport != nullptr) 
+    {
+        node->InnerText = pwas->DefaultReport;
+    }
+    else 
+    {
+		node->InnerText = CrxConfigXmlTag::Blank; 
+    }
+}
 //Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 8-Jun-2011
 //********************************************
 //Set BP Settings Functions

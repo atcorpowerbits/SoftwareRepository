@@ -32,7 +32,6 @@ namespace AtCor{
 			/**
 			* @class DalModule
 			* @brief	Exposes main functionality for the DAL module. Singleton class.
-			* @warning. This class is not used and will be removed from the code in D2S5
 			*/
 			public ref class DalMeasurementMode abstract
 			{

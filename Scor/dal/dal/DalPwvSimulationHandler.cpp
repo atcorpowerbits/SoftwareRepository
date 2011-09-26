@@ -148,6 +148,8 @@ namespace AtCor{
 
 						//check between the modes
 						_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
+						CrxLogger::Instance->Write("tonoData" + tonoData + ", cuffPulseData:" + cuffPulseData );
+
 
 											
 
@@ -186,12 +188,15 @@ namespace AtCor{
 				}
 				catch(ScorException^ scorExObj)
 				{
+					CrxLogger::Instance->Write(" Simulation ScorException raised:" + scorExObj->ErrorMessageKey );
+					
 					//throw; //dont throw an excpetion from a thread . convert it to an event
 
 					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, scorExObj);
 				}
 				catch(Exception^ excepObj)
 				{
+					CrxLogger::Instance->Write(" Simulation Exception raised:" + excepObj->Message);
 					
 					//throw gcnew ScorException(excepObj);//dont throw an excpetion from a thread . convert it to an event
 
