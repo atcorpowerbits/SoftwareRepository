@@ -12,14 +12,16 @@ using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.Logging;
 using AtCor.Scor.CrossCutting.DatabaseManager;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace AtCor.Scor.Gui.Presentation
 {
     public partial class PWATestResult : Telerik.WinControls.UI.RadForm
     {
         private DefaultWindow objDefaultWindow;
-
-        CrxMessagingManager oMsgMgr;
+        Series avgAorticPulseActualSeries;
+        CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+        decimal AverageAorticXAxisInterval = Math.Round((decimal)(1000.0 / 256.0));
        
         public PWATestResult(DefaultWindow defWindow)
         {
@@ -78,12 +80,36 @@ namespace AtCor.Scor.Gui.Presentation
         {   
             // Set Shapes of Labels 
             SetShape(guiradlblSPValueText, guiradlblPPValueText, guiradlblAPValueText, guiradlblAIxValueText, guiradlblHRValueText, guiradlblDPValueText, guiradlblTestSPDisplay, guiradlblPWADPDisplay, guiradlblTestResultMapDisplay, guiradlblQualityControlValue);
-
+            
             // Display Calculated data on screen
+            LoadTemporaryReport();
+            
+            // objDefaultWindow.guicmbxCurrentMode.Enabled = false;  
+        }
+
+        public void LoadTemporaryReport()
+        {
+            guiradlblTestSPDisplay.Text = guiradlblPWADPDisplay.Text = guiradlblSPValueText.Text = guiradlblPPValueText.Text = guiradlblAPValueText.Text = guiradlblAIxValueText.Text = guiradlblTestResultMapDisplay.Text = guiradlblHRValueText.Text = guiradlblDPValueText.Text = guiradlblQualityControlValue.Text = string.Empty;
+            guiradlblTestSPDisplay.Text = GuiCommon.quickStartCrxPwaData.SP.ToString();            
+            guiradlblPWADPDisplay.Text = GuiCommon.quickStartCrxPwaData.DP.ToString();
+            guiradlblSPValueText.Text = Math.Round(GuiCommon.quickStartCrxPwaData.C_Sp).ToString();
+            guiradlblPPValueText.Text = Math.Round((GuiCommon.quickStartCrxPwaData.C_Sp - GuiCommon.quickStartCrxPwaData.C_Dp)).ToString();
+            guiradlblAPValueText.Text = Math.Round(GuiCommon.quickStartCrxPwaData.C_Ap).ToString();
+            guiradlblAIxValueText.Text = Math.Round(GuiCommon.quickStartCrxPwaData.C_Agph).ToString();
+            guiradlblTestResultMapDisplay.Text = Math.Round(GuiCommon.quickStartCrxPwaData.C_Meanp).ToString();
+            guiradlblHRValueText.Text = Math.Round(GuiCommon.quickStartCrxPwaData.HR).ToString();
+            guiradlblDPValueText.Text = Math.Round(GuiCommon.quickStartCrxPwaData.C_Dp).ToString();
+            guiradlblQualityControlValue.Text = Math.Round(GuiCommon.quickStartCrxPwaCuffData.OperatorIndex).ToString();
+
+            PlotAvgAorticPulseChart();
+            objDefaultWindow.guicmbxCurrentMode.Enabled = false;
+
+           // PlotAvgAorticPulseChart();
         }
 
         private void radbtnUpdate_Click(object sender, EventArgs e)
         {
+            /*
             objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
             objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
 
@@ -94,6 +120,78 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Visible = false;
             GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblBPProgressBar"].Visible = false;
             GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnDisplayReport"].Visible = true;            
+             */ 
+        }
+
+        private void PlotAvgAorticPulseChart()
+        {
+            // set y axis (normal range values from Bizsession object in float)
+            float[] avgAorticPulse = GuiCommon.quickStartCrxPwaData.C_AV_PULSE;
+            float[] avgTypicalAorticPulse = GuiCommon.quickStartCrxPwaData.C_Typical;
+
+            guichartPWAReport.Series.Clear();
+
+            // initialize series,chartype,add points to series and finally add series to chart.            
+            // set display properties for Avg Aortic Pulse graph
+            string name1 = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportActual).ToString();
+            Series newSeries = new Series
+                {
+                    ChartType = SeriesChartType.Spline,
+                    Color = Color.MediumBlue,
+                    BorderWidth = 2,
+
+                   // Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportActual),
+                };
+
+             avgAorticPulseActualSeries = new Series
+            {
+                ChartType = SeriesChartType.Spline,
+                Color = Color.MediumBlue,
+                BorderWidth = 2,
+                Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportActual),
+            };
+
+            // guichartPWAReport.Series.Clear();
+            avgAorticPulseActualSeries.Points.Clear();
+
+            for (int i = 0; i < avgAorticPulse.Length; i++)
+            {
+                if (avgAorticPulse[i] == 0)
+                {
+                    break;
+                }
+                else
+                {
+                    avgAorticPulseActualSeries.Points.AddXY(AverageAorticXAxisInterval * i, avgAorticPulse[i]);
+                }
+            }
+
+            guichartPWAReport.Series.Add(avgAorticPulseActualSeries);
+
+            // set properties for series 2 for plotting ideal graph
+            Series avgAorticPulseIdealSeries = new Series
+            {
+                ChartType = SeriesChartType.Spline,
+                Color = Color.DimGray,
+                BorderWidth = 2,
+
+               // Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportTypical),
+            };
+            avgAorticPulseIdealSeries.Points.Clear();
+            for (int i = 0; i < avgTypicalAorticPulse.Length; i++)
+            {
+                if (avgTypicalAorticPulse[i] == 0)
+                {
+                    break;
+                }
+                else
+                {
+                    avgAorticPulseIdealSeries.Points.AddXY(AverageAorticXAxisInterval * i, avgTypicalAorticPulse[i]);
+                }
+            }
+
+            guichartPWAReport.Series.Add(avgAorticPulseIdealSeries);
+            guichartPWAReport.Invalidate();
         }
     }
 }

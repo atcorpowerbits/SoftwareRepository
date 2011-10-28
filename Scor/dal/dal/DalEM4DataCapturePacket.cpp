@@ -54,13 +54,6 @@ namespace AtCor{
 					em4ResponseCRCByte = em4Response[(int)em4ResponseLengthByte];
 
 					//get the status flag
-					/*TwoBytesUnsignedShort flagUn;
-
-					flagUn.ucStatusBytes[1] = em4Response[em4ResponseLengthByte - 2];
-					flagUn.ucStatusBytes[0] = em4Response[em4ResponseLengthByte - 1];
-					
-					em4StatusFlag =  flagUn.ulStatusFlag ;*/
-
 					em4StatusFlag = DalBinaryConversions::TranslateTwoBytes(em4Response, em4ResponseLengthByte - 2);
 					
 					return BreakResponseDataPart();
@@ -80,7 +73,6 @@ namespace AtCor{
 			{
 				try
 				{
-					//empty constructor does noting
 					em4Response = gcnew array<unsigned char> (DalConstants::EM4ZeroDataResponsePacketSize + dataLength + 1); //+1 for CRC byte 
 					
 					if (0 == dataLength)
@@ -92,7 +84,7 @@ namespace AtCor{
 						em4ResponseData = gcnew array<unsigned char> (dataLength);
 					}
 
-					em4ResponseDataLength = 0;
+					//em4ResponseDataLength = 0; //FxCop
 					em4ResponseSequenceNumber = 0x00;
 					em4StatusFlag = 0x0000;
 					em4ResponseCRCByte = 0x00;

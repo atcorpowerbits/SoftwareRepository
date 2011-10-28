@@ -65,6 +65,7 @@ namespace AtCor.Scor.Gui.Presentation
         // Flag set when default button is clicked.
         bool defaultBtnClicked = false;
         int captureInputType;
+        int defaultValue = 200;
 
         // Events
         public static event EventHandler OnSettingsChangedEvent;
@@ -183,7 +184,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void SetTextForBPSettingsTab()
         {
             docWndBPSettings.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.DocBpSettings);
-            
+
             radgrpbxBPDevice.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpBpDevice);
             radradiobtnSphygcomor.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpSphycomor);
             radradiobtnOther.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpOther);
@@ -244,7 +245,10 @@ namespace AtCor.Scor.Gui.Presentation
             // AtCor-Drop2-Sprint1
             radgrpbxCaptureGuidePWA.Text = Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureGuide);
             radchkAutoInflate.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpAutoInflate);
-            radchkAutoCapture.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpAutoCapture);
+            radchkPwvAutoCapture.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpAutoCapture);
+
+            // Atcor -Drop 2-Sprint 6
+            radchkPwvGuidanceBar.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpGuidanceBars);
         }
 
         /**This method is used to prevents the user from rearranging the tabs horizontally and vertically.
@@ -342,6 +346,7 @@ namespace AtCor.Scor.Gui.Presentation
                 // Below line of code will,always set the focus on General Settings tab,everytime Settings window is loaded. 
                 docWndGeneralSettings.Select();
                 Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSettingsMenu);
+                GuiCommon.CheckPatientPrivacy = false;
             }
             catch (Exception ex)
             {
@@ -395,7 +400,7 @@ namespace AtCor.Scor.Gui.Presentation
                 // Set PWV tab fields
                 if (pwvStructObj != null && bizObj.OptionPWV)
                 {
-                   // radchkFemoralToCuff.Checked = pwvStructObj.FemoralToCuff;
+                    // radchkFemoralToCuff.Checked = pwvStructObj.FemoralToCuff;
                     if (pwvStructObj.FemoralToCuff == null || pwvStructObj.FemoralToCuff.Equals(string.Empty))
                     {
                         radtxtFemoralToCuff.Text = string.Empty;
@@ -407,6 +412,8 @@ namespace AtCor.Scor.Gui.Presentation
 
                     radchkReferenceRange.Checked = pwvStructObj.ReferenceRange;
                     radchkNormalRange.Checked = pwvStructObj.NormalRange;
+                    radchkPwvAutoCapture.Checked = pwvStructObj.AutoCapture;
+                    radchkPwvGuidanceBar.Checked = pwvStructObj.GuidanceBars;
 
                     // This method is used to set the PWV distance method value to the corresponding GUI control.       
                     SetPwvDistanceMethod(pwvStructObj.PWVDistanceMethod);
@@ -438,9 +445,9 @@ namespace AtCor.Scor.Gui.Presentation
                     SetAutoPwa(bpStructObj);
 
                     // This method is used to set the BP Settings PP checkbox to the corresponding GUI control.
-                   // SetAutoPwaPp(bpStructObj.AutoPWAPP);
+                    // SetAutoPwaPp(bpStructObj.AutoPWAPP);
                     // This method is used to set the BP Settings SP checkbox to the corresponding GUI control.
-                   // SetAutoPwaSp(bpStructObj.AutoPWASP);
+                    // SetAutoPwaSp(bpStructObj.AutoPWASP);
 
                     // This method is used to set the BP Settings Threshold Values to the corresponding GUI control.
                     SetBpThreshold(bpStructObj);
@@ -455,16 +462,16 @@ namespace AtCor.Scor.Gui.Presentation
                     // This method is used to set the PWA tab settings to the corresponding GUI control in PWA tab.
                     SetPwaSettingsOnLoad(pwaStructObj);
 
-                    SetDefaultPwaReport(pwaStructObj.DefaultReport);   
+                    SetDefaultPwaReport(pwaStructObj.DefaultReport);
 
                     // This method is used to set the Guidance Bar value to the corresponding GUI control in PWA tab.
-                   // SetGuidanceBars(pwaStructObj.GuidanceBars);
+                    // SetGuidanceBars(pwaStructObj.GuidanceBars);
 
                     // This method is used to set the Auto PWA Capture value to the corresponding GUI control in PWA tab.
-                   // SetAutoPwaCapture(pwaStructObj.AutoCapture);
+                    // SetAutoPwaCapture(pwaStructObj.AutoCapture);
 
                     // This method is used to set the AumentationIndex value to the corresponding GUI control in PWA tab.
-                   // SetAumentationIndex(pwaStructObj.AugmentationIndex);
+                    // SetAumentationIndex(pwaStructObj.AugmentationIndex);
 
                     // This method is used to set the AumentationIndexHR75 value to the corresponding GUI control in PWA tab.
                     // SetAumentationIndexHR75(pwaStructObj.AugmentationIndexAtHR75);
@@ -518,35 +525,35 @@ namespace AtCor.Scor.Gui.Presentation
                 GUIExceptionHandler.HandleException(ex, this);
             }
 
-           /*  switch (value)
-            {
-                case (int)NumberofAssessments.One:
-                    // radradiobtnAssessment1.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-                    comboBpNumberOfAssesments.SelectedIndex = 0;
-                    break;
-                case (int)NumberofAssessments.Two:
-                    comboBpNumberOfAssesments.SelectedIndex = 1;
-                    break;
-                case (int)NumberofAssessments.Three:
-                    comboBpNumberOfAssesments.SelectedIndex = 2;
-                    break;
-                case (int)NumberofAssessments.Four:
-                    comboBpNumberOfAssesments.SelectedIndex = 3;
-                    break;
-                case (int)NumberofAssessments.Five:
-                    comboBpNumberOfAssesments.SelectedIndex = 4;
-                    break;
+            /*  switch (value)
+             {
+                 case (int)NumberofAssessments.One:
+                     // radradiobtnAssessment1.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
+                     comboBpNumberOfAssesments.SelectedIndex = 0;
+                     break;
+                 case (int)NumberofAssessments.Two:
+                     comboBpNumberOfAssesments.SelectedIndex = 1;
+                     break;
+                 case (int)NumberofAssessments.Three:
+                     comboBpNumberOfAssesments.SelectedIndex = 2;
+                     break;
+                 case (int)NumberofAssessments.Four:
+                     comboBpNumberOfAssesments.SelectedIndex = 3;
+                     break;
+                 case (int)NumberofAssessments.Five:
+                     comboBpNumberOfAssesments.SelectedIndex = 4;
+                     break;
 
-                default:
-                    break;
-            }*/
+                 default:
+                     break;
+             }*/
         }
 
         /**This method is used to set the PWV distance method value to the corresponding GUI control.
         */
         private void SetPwvDistanceMethod(int value)
         {
-            GuiCommon.OnLoadPwvDistanceMethod = value; 
+            GuiCommon.OnLoadPwvDistanceMethod = value;
             switch (value)
             {
                 case (int)CrxGenPwvValue.CrxPwvDistMethodSubtract:
@@ -561,7 +568,7 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         // Begin: AtCor-Drop2-Sprint2, TM, SWREQ2007, 11-July-2011
-      
+
         /**This method is used to set the BP Settings Threshold Values to the corresponding GUI control.
         */
         private void SetBpThreshold(CrxStructBpSetting bpStructObj)
@@ -574,7 +581,7 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**This method is used to set the PWA settings on the GUI.
-         */ 
+         */
         private void SetAutoPwa(CrxStructBpSetting bpStructObj)
         {
             radradiochkDP.ToggleState = bpStructObj.AutoPWADP ? Telerik.WinControls.Enumerations.ToggleState.On : Telerik.WinControls.Enumerations.ToggleState.Off;
@@ -651,7 +658,7 @@ namespace AtCor.Scor.Gui.Presentation
             guiradradioAumentationIndex.ToggleState = pwaStructObj.AugmentationIndex ? Telerik.WinControls.Enumerations.ToggleState.On : Telerik.WinControls.Enumerations.ToggleState.Off;
             guiradradioAumentationIndexHR75.ToggleState = pwaStructObj.AugmentationIndexAtHR75 ? Telerik.WinControls.Enumerations.ToggleState.On : Telerik.WinControls.Enumerations.ToggleState.Off;
         }
-      
+
         /**This method is used to set the AumentationIndexHR75 value to the corresponding GUI control in PWA tab.
        */
         private void SetAumentationIndexHR75(bool value)
@@ -702,7 +709,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                     if (mode == CrxStructCommonResourceMsg.Pwa)
                     {
-                        dirInfo = new DirectoryInfo(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SysSimFilePathPwa));
+                        dirInfo = new DirectoryInfo(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.DalConstSimFolderPathPwa));
                     }
 
                     fileList.AddRange(dirInfo.GetFiles().Select(file => Path.GetFileNameWithoutExtension(file.ToString().ToUpper())));
@@ -815,7 +822,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void SetStartupScreen(string value)
         {
             // If mode is PWA and Research environment is disabled.
-            if ((bizObj.OptionCPWA || bizObj.OptionTPWA) && (!bizObj.OptionResearch) && (GuiCommon.CurrentMode == CrxStructCommonResourceMsg.Pwa))
+            if ((bizObj.OptionCPWA || bizObj.OptionTPWA) && (!bizObj.OptionResearch) && (obj.GeneralSettings.StartupMode == CrxStructCommonResourceMsg.Pwa))
             {
                 radradiobtnQuickStart.Enabled = true;
 
@@ -1159,7 +1166,7 @@ namespace AtCor.Scor.Gui.Presentation
                 DirectoryInfo dirInfo = new DirectoryInfo(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SysSimFilePath));
                 if (mode == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Pwa))
                 {
-                    dirInfo = new DirectoryInfo(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SysSimFilePathPwa));
+                    dirInfo = new DirectoryInfo(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.DalConstSimFolderPathPwa));
                 }
 
                 if (mode == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Pwa))
@@ -1269,17 +1276,16 @@ namespace AtCor.Scor.Gui.Presentation
                 };
                 comboDefaultPwaReport.Items.Add(defaultReportType);
 
-                /* defaultReportType = new RadListDataItem
+                defaultReportType = new RadListDataItem
                  {
                      Value =
                          oMsgMgr.GetMessage(
-                             CrxStructCommonResourceMsg.PwaEvaluationReport),
+                             CrxStructCommonResourceMsg.PwaPatientReport),
                      Text =
                          oMsgMgr.GetMessage(
-                             CrxStructCommonResourceMsg.PwaEvaluationReport)
-                 };                
-                 comboDefaultPwaReport.Items.Add(defaultReportType);
-                 */
+                             CrxStructCommonResourceMsg.PwaPatientReport)
+                 };
+                comboDefaultPwaReport.Items.Add(defaultReportType);
 
                 comboDefaultPwaReport.SelectedIndex = 0;
             }
@@ -1398,7 +1404,7 @@ namespace AtCor.Scor.Gui.Presentation
                 gnrlSettingsStruct.HeightandWeightUnit = 0;
             }
 
-           // gnrlSettingsStruct.BloodPressureEntryOptions = 0;
+            // gnrlSettingsStruct.BloodPressureEntryOptions = 0;
             // if (radradiobtnSPandMP.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
             // {
             //    gnrlSettingsStruct.BloodPressureEntryOptions = 1;
@@ -1448,8 +1454,12 @@ namespace AtCor.Scor.Gui.Presentation
         private void ReadPwvSettingsFromGui()
         {
             if (radtxtFemoralToCuff.Text.Trim().Equals(string.Empty))
-            {
+            {                
+                // DialogResult ds = RadMessageBox.Show(this, "Femoral To Cuff distance value cannot be empty,default value should be 200", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.OK, RadMessageIcon.Info);
+                // radtxtFemoralToCuff.Text = defaultValue.ToString();
                 pwvSettingsStruct.FemoralToCuff = string.Empty;
+
+                // pwvSettingsStruct.FemoralToCuff = radtxtFemoralToCuff.Text;                
             }
             else
             {
@@ -1465,6 +1475,18 @@ namespace AtCor.Scor.Gui.Presentation
             if (radchkNormalRange != null && radchkNormalRange.Checked)
             {
                 pwvSettingsStruct.NormalRange = true;
+            }
+
+            pwvSettingsStruct.GuidanceBars = false;
+            if (radchkPwvGuidanceBar.Checked)
+            {
+                pwvSettingsStruct.GuidanceBars = true;
+            }
+
+            pwvSettingsStruct.AutoCapture = false;
+            if (radchkPwvAutoCapture.Checked)
+            {
+                pwvSettingsStruct.AutoCapture = true;
             }
 
             pwvSettingsStruct.PWVDistanceMethod = 0;
@@ -1501,7 +1523,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 bpSettingsStruct.NumberofAssessments = comboBpNumberOfAssesments.SelectedIndex + 1;
                 bpSettingsStruct.BloodPressure = 0;
-                
+
                 if (radradiochkSP.Checked)
                 {
                     bpSettingsStruct.AutoPWASP = true;
@@ -1512,7 +1534,7 @@ namespace AtCor.Scor.Gui.Presentation
                     bpSettingsStruct.AutoPWASP = false;
                     bpSettingsStruct.AutoPWASPThreshold = 0;
                 }
-              
+
                 if (radradiochkPP.Checked)
                 {
                     bpSettingsStruct.AutoPWAPP = true;
@@ -1537,7 +1559,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);     
+                GUIExceptionHandler.HandleException(ex, this);
             }
 
             // if (radradiobtnSPandMP.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
@@ -1595,8 +1617,8 @@ namespace AtCor.Scor.Gui.Presentation
                 pwaSettingsStruct.CaptureInput = 1;
             }
 
-            pwaSettingsStruct.SimulationType = comboSimulationFilesPwa.Text;            
-            pwaSettingsStruct.DefaultReport = comboDefaultPwaReport.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwaClinicalReport)) ? CrxStructCommonResourceMsg.PwaClinicalReport : CrxStructCommonResourceMsg.PwaEvaluationReport; 
+            pwaSettingsStruct.SimulationType = comboSimulationFilesPwa.Text;
+            pwaSettingsStruct.DefaultReport = comboDefaultPwaReport.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwaClinicalReport)) ? CrxStructCommonResourceMsg.PwaClinicalReport : CrxStructCommonResourceMsg.PwaPatientReport;
         }
 
         /**This method is invoked on click of Save button.
@@ -1609,6 +1631,13 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
+                if (radtxtFemoralToCuff.Text.Trim().Equals(string.Empty))
+                {
+                    DialogResult ds = RadMessageBox.Show(this, "Femoral To Cuff distance value cannot be empty,default value should be 200", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.OK, RadMessageIcon.Info);
+                    radtxtFemoralToCuff.Text = defaultValue.ToString();
+                    return;
+                }                
+                
                 bool validateFlag = true;
 
                 // Reading General Settings values from GUI into the General settings structure.
@@ -1669,10 +1698,10 @@ namespace AtCor.Scor.Gui.Presentation
         /** Method to validate threshold values if perticuler chekckbox is selected in Autopwa
          */
         private bool ValidateThreshold(bool validateFlag)
-        {            
+        {
             int result = 0;
             if (radradiochkSP.Checked)
-            {                
+            {
                 if (guiradtxtSPThreshold.Text.Equals(string.Empty))
                 {
                     RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BpSettingsSpThresholdValidation), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
@@ -1684,13 +1713,13 @@ namespace AtCor.Scor.Gui.Presentation
                     RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BpSettingsSpValidation), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
                     guiradtxtSPThreshold.Focus();
                     validateFlag = false;
-                }         
-            } 
+                }
+            }
 
             if (radradiochkDP.Checked)
-            {                
+            {
                 if (guiradtxtDPThreshold.Text.Equals(string.Empty))
-                {                  
+                {
                     RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BpSettingsDpThresholdValidation), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
                     guiradtxtDPThreshold.Focus();
                     validateFlag = false;
@@ -1704,7 +1733,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
 
             if (radradiochkPP.Checked)
-            {                
+            {
                 if (guiradtxtPPThreshold.Text.Equals(string.Empty))
                 {
                     RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BpSettingsPpThresholdValidation), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
@@ -1721,7 +1750,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             return validateFlag;
         }
-      
+
         /**Method to close the settings window after Save button is clicked.
          */
         private void CloseSettingWindowAfterSave()
@@ -1778,8 +1807,12 @@ namespace AtCor.Scor.Gui.Presentation
          * mentioned settings,Save button is enabled.
         */
         private void radchkbxPatientPrivacy_MouseClick(object sender, MouseEventArgs e)
-        {            
+        {
             radbtnSave.Enabled = true;
+            if (radchkbxPatientPrivacy.Name == ((Control)sender).Name)
+            {
+                GuiCommon.CheckPatientPrivacy = true;
+            }
         }
 
         /**Enable Save button when text is changes in the Report Title.
@@ -1825,7 +1858,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             radbtnSave.Enabled = true;
         }
-        
+
         private void comboDefaultReport_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
             radbtnSave.Enabled = true;
@@ -1853,7 +1886,7 @@ namespace AtCor.Scor.Gui.Presentation
             guiradtxtPPThreshold.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientPp);
             guiradtxtDPThreshold.Tag = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientDp);
         }
-        
+
         /**Enable save button when user selects a value from the drop down list
                */
         private void comboSimulationFilesPwa_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
@@ -1884,7 +1917,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         /**This event is used to check the mouse click of the radradiochkSP check box,
          * if the check box is unchecked then its corresponding textbox is cleared.
-         */ 
+         */
         private void radradiochkSP_MouseClick(object sender, MouseEventArgs e)
         {
             if (radradiochkSP.ToggleState.Equals(Telerik.WinControls.Enumerations.ToggleState.On))
@@ -1897,7 +1930,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         /**This event is used to check the mouse click of the radradiochkDP check box,
         * if the check box is unchecked then its corresponding textbox is cleared.
-        */ 
+        */
         private void radradiochkDP_MouseClick(object sender, MouseEventArgs e)
         {
             if (radradiochkDP.ToggleState.Equals(Telerik.WinControls.Enumerations.ToggleState.On))
@@ -1910,7 +1943,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         /**This event is used to check the mouse click of the radradiochkPP check box,
        * if the check box is unchecked then its corresponding textbox is cleared.
-       */ 
+       */
         private void radradiochkPP_MouseClick(object sender, MouseEventArgs e)
         {
             if (radradiochkPP.ToggleState.Equals(Telerik.WinControls.Enumerations.ToggleState.On))
@@ -1923,7 +1956,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         /**Depending upon the mode set by the application we enable and disable the 
          * capture input in the settings screen for PWA tab.
-         */ 
+         */
         private void EnableDisableCaptureInput()
         {
             if (bizObj.OptionCPWA)
@@ -1946,10 +1979,10 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void documentTabStrip1_Click(object sender, EventArgs e)
         {
-           if (documentTabStrip1.SelectedTab.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.DocPwaSettings)))
+            if (documentTabStrip1.SelectedTab.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.DocPwaSettings)))
             {
-                EnableDisableCaptureInput(); 
-                
+                EnableDisableCaptureInput();
+
                 // If CPWA mode is availabel then display Pressure Cuff radiobutton
                 if (captureInputType == 0 && radradiobtnPressureCuff.Visible)
                 {
@@ -1960,7 +1993,7 @@ namespace AtCor.Scor.Gui.Presentation
                     radradiobtnTonometer.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
                 }
             }
-        }       
+        }
 
         private void radradiochkSP_Click(object sender, EventArgs e)
         {
@@ -2004,22 +2037,63 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void radtxtFemoralToCuff_Leave(object sender, EventArgs e)
         {
+            string femoralToCuffValue=radtxtFemoralToCuff.Text;
+            
+            // radtxtFemoralToCuff.Text=femoralToCuffValue;           
+
             GuiFieldValidation objValidation = new GuiFieldValidation(guipnlFemoralToCuffDistance);
             objValidation.CheckFieldLimits(radtxtFemoralToCuff);
+
+            //if (GuiCommon.IsValueOutsideLimits)
+            //{
+            //    radtxtFemoralToCuff.Text = defaultValue.ToString();
+            //    return;
+            //}
+
+            //if (radtxtFemoralToCuff.Text.Trim().Equals(string.Empty))
+            //{
+            //    DialogResult ds = RadMessageBox.Show(this, "Femoral To Cuff distance value cannot be empty,default value should be 200", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.OK, RadMessageIcon.Info);
+            //    radtxtFemoralToCuff.Text = defaultValue.ToString();
+            //    return;
+            //}
+
+            
         }
 
-        // End: AtCor-Drop2-Sprint2, TM, SWREQ2004, 29-Jun-2011
-    }
+        // This event is fired on Toogle change of PWV Mode
+        private void radradiobtnPWVMode_ToggleStateChanged(object sender, StateChangedEventArgs args)
+        {
+            if (radradiobtnPWVMode.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+            {
+                radradiobtnQuickStart.Enabled = false;
+                radradiobtnQuickStart.ToggleState = Telerik.WinControls.Enumerations.ToggleState.Off;
+                radradiobtnSetup.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
+            }
 
-    /**
-    * @class DisplaySettingEventArgs
-    * @brief This class is written to create user defined args types which are used in events. 
-    */
-    public class DisplaySettingsEventArgs : EventArgs
-    {
-        public CrxStructGeneralSetting GenObj;
-        public CrxStructPwvSetting PwvObj;
-        public CrxStructBpSetting BpObj;
-        public CrxStructPwaSetting PwaObj;
+            // End: AtCor-Drop2-Sprint2, TM, SWREQ2004, 29-Jun-2011
+        }
+
+        /**
+        * @class DisplaySettingEventArgs
+        * @brief This class is written to create user defined args types which are used in events. 
+        */
+        public class DisplaySettingsEventArgs : EventArgs
+        {
+            public CrxStructGeneralSetting GenObj;
+            public CrxStructPwvSetting PwvObj;
+            public CrxStructBpSetting BpObj;
+            public CrxStructPwaSetting PwaObj;
+        }
+
+        // This event is fired on Toogle change of PWA Mode
+        private void radradiobtnPWAMode_ToggleStateChanged(object sender, StateChangedEventArgs args)
+        {
+            if (radradiobtnPWAMode.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
+            {
+                radradiobtnQuickStart.Enabled = true;
+                radradiobtnQuickStart.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
+                radradiobtnSetup.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
+            }
+        }
     }
 }

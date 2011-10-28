@@ -102,7 +102,7 @@ namespace AtCor{
 			* Starts the data capture mode. 
 			* Calls the DalCommandInterface::InitiateDataCaptureModeInternal() method.
 			*/
-			virtual bool InitiateDataCaptureMode()override;
+			virtual bool InitiateDataCaptureMode() override;
 	};
 
 	/**
@@ -130,10 +130,11 @@ namespace AtCor{
 				};
 			};
 
-			/**
+			//Deepak: removed override because we need to stop capture regardless of current state
+			/*
 			* Stops the data capture process
 			*/
-			virtual bool StopDataCaptureMode() override;
+			//virtual bool StopDataCaptureMode() override; 
 			//virtual void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args) override;
 	};
 

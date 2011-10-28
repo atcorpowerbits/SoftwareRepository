@@ -315,18 +315,28 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void SetBloodPressureLabels()
         {
-            if (CrxConfigManager.Instance.PwvSettings.PWVDistanceMethod.Equals((int)CrxGenPwvValue.CrxPwvDistMethodSubtract) &&
-                ((obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue)) ||
-                (obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)) ||
-                (obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)))
-                || obj.heightAndWeight.heightInCentimetres.Equals(GuiConstants.DefaultValue) || obj.heightAndWeight.heightInInches.Equals(GuiConstants.DefaultValue))
+            // if (CrxConfigManager.Instance.PwvSettings.PWVDistanceMethod.Equals((int)CrxGenPwvValue.CrxPwvDistMethodSubtract) &&
+            //    ((obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue)) ||
+            //    (obj.bloodPressure.DP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)) ||
+            //    (obj.bloodPressure.MP.Reading.Equals(GuiConstants.DefaultValue) && obj.bloodPressure.SP.Reading.Equals(GuiConstants.DefaultValue)))
+            //    || obj.heightAndWeight.heightInCentimetres.Equals(GuiConstants.DefaultValue) || obj.heightAndWeight.heightInInches.Equals(GuiConstants.DefaultValue))
+            // {
+            //   guilblBPmsg.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportNoBp);
+            // }
+            // else
+            // {
+            //   guilblBPmsg.Text = string.Empty;
+            // }
+            if (PWVReportData.RptBpLabelsText.Equals(string.Empty))
             {
-               guilblBPmsg.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportNoBp);
+                guilblBPmsg.Text = string.Empty;
+                PWVReportData.RptPatientHeightInternalValue = PWVReportData.RptPatientHeightValue;
             }
             else
             {
-               guilblBPmsg.Text = string.Empty;
-            }
+                guilblBPmsg.Text = PWVReportData.RptBpLabelsText;
+                PWVReportData.RptPatientHeightInternalValue = string.Empty;
+            }            
         }
     }
 }

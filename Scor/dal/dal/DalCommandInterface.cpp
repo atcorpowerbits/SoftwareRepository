@@ -98,13 +98,13 @@ namespace AtCor{
 						DalResponsePacketBuffer::Instance->Clear();
 
 						//inform the StaqignQueManager that it should look for a response to this command
-						DalStagingQueue::Instance->LookForResponseToCommand(serialCommand->commandCode, (unsigned char)(serialCommand->expectedResponseLength), serialCommand->commandSequenceNumber);
+						DalStagingQueue::Instance->LookForResponseToCommand(serialCommand->commandCode, (unsigned char)(serialCommand->expectedResponseLength));
 						
 						//Instead of directly sending command we will call the dallActive port function
 						DalActivePort::Instance->SendPacket(serialCommand->em4Command);
 
 					}
-					catch(ScorException^ scorEx)
+					catch(ScorException^ )
 					{
 						throw;
 					}
@@ -167,7 +167,7 @@ namespace AtCor{
 
 			DalReturnValue DalCommandInterface::ListenForEM4Response(DalEM4Command^ serialCommand)
 			{
-				////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ListenForEM4Response() : Start" );
+				////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ListenForEM4Response() : Start" , ErrorSeverity::Debug);
 				listenerThread = gcnew Thread(gcnew ParameterizedThreadStart(this, &DalCommandInterface::ResponseListenerThreadMethod));
 
 				listenerThread->Start(serialCommand); //pass the command object so that we can copy the variable directly
@@ -175,7 +175,7 @@ namespace AtCor{
 				listenerThread->Join(); //Wait for the data to come 
 				if (nullptr == serialCommand->em4Response )
 				{
-					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ListenForEM4Response() : No data recieved : timing out");
+					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ListenForEM4Response() : No data recieved : timing out", ErrorSeverity::Debug);
 
 					//DalCommandInterface::Instance->ChangeCommandState(DalCommandStateTimeout::Instance);
 					ChangeCommandState(DalCommandStateTimeout::Instance); //call directly so that it is applicable for its children too
@@ -186,7 +186,7 @@ namespace AtCor{
 					return DalReturnValue::Timeout;
 				}
 
-				//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ListenForEM4Response() : recievedData:" + DalBinaryConversions::ConvertBytesToString(serialCommand->em4Response));
+				//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ListenForEM4Response() : recievedData:" + DalBinaryConversions::ConvertBytesToString(serialCommand->em4Response), ErrorSeverity::Debug);
 
 				//we have recieved data so signify that we have recieved it
 				//DalCommandInterface::Instance->ChangeCommandState(DalCommandStateResponseReceived::Instance);
@@ -267,7 +267,7 @@ namespace AtCor{
 				{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrEmptyResponseValidationErrCd, CrxStructCommonResourceMsg::DalErrEmptyResponseValidation, ErrorSeverity::Exception);
 				}
-				CrxLogger::Instance->Write("Deepak>>> ValidateResponsePacket() : " + DalBinaryConversions::ConvertBytesToString(serialCommand->em4Response));
+				//CrxLogger::Instance->Write("Deepak>>> ValidateResponsePacket() : " + DalBinaryConversions::ConvertBytesToString(serialCommand->em4Response), ErrorSeverity::Debug);
 
 				//Call the method to break the response into individual partes;
 				if (!serialCommand->BreakupEM4Response())
@@ -394,7 +394,7 @@ namespace AtCor{
 
 				try
 				{
-					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::StopDataCaptureModeInternal called");
+					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::StopDataCaptureModeInternal called", ErrorSeverity::Debug);
 
 					//Stop the timeout checker.
 					DalActivePort::Instance->StopStreamingTimeoutChecker();
@@ -462,7 +462,7 @@ namespace AtCor{
 			//		DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::DataCaptureTimeout));
 			//		DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 
-			//		//////CrxLogger::Instance->Write("Timeout Event raised :" + BufferEmptyCounter);
+			//		//////CrxLogger::Instance->Write("Timeout Event raised :" + BufferEmptyCounter, ErrorSeverity::Debug);
 
 			//		//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
 			//		ChangeCaptureState(DalCaptureStateNotListening::Instance); //call directly so that it is applicable for its children too
@@ -505,6 +505,8 @@ namespace AtCor{
 					//new state cannot be null
 				}
 
+				//CrxLogger::Instance->Write("DalCommandInterface::ChangeCaptureState called with: " + newCaptureState->GetType() , ErrorSeverity::Debug);
+
 				//set the parameter object as the new state
 				DalCommandInterface::_currentCaptureState  = newCaptureState;
 			}
@@ -528,11 +530,11 @@ namespace AtCor{
 
 			bool DalCommandInterface::ProcessSingleStreamingPacket(array<unsigned char> ^streamingPacket)
 			{
-				CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket called with parameter: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " End");
+				//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket called with parameter: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " End", ErrorSeverity::Debug);
 
 				if (nullptr == streamingPacket)
 				{
-					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket returning false" );
+					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket returning false" , ErrorSeverity::Debug);
 					return false;
 				}
 				try
@@ -571,7 +573,7 @@ namespace AtCor{
 					if(!dataBufferObj->WriteDataToBuffer(pwvDataObject))
 					{
 						//return false;
-						////////CrxLogger::Instance->Write("DataCaptureMultiplePacketHandler>> write to buff failed ");
+						////////CrxLogger::Instance->Write("DataCaptureMultiplePacketHandler>> write to buff failed ", ErrorSeverity::Debug);
 						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferWriteFailedErrCd, CrxStructCommonResourceMsg::DalErrBufferWriteFailed, ErrorSeverity::Exception);
 					}
 					return true; //everything fine
@@ -587,7 +589,7 @@ namespace AtCor{
 					//This particular type (DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket) needs to be handled by
 					//upper layers which need to decide what to do in this case.
 
-					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket ScorException caught and deleted : " + scorExObj->ErrorMessageKey + " Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket) + " :End");  
+					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket ScorException caught and deleted : " + scorExObj->ErrorMessageKey + " Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket) + " :End", ErrorSeverity::Debug);  
 					//delete scorExObj ; //do not delete, pass it as an object in the exception event
 
 					//TODO: Change alarm type from InvalidPacket to StreamingException only after TS is aware of it
@@ -599,7 +601,7 @@ namespace AtCor{
 				catch(Exception^ excepObj)
 				{
 					//see note above.
-					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket Exception caught and deleted : " + excepObj->StackTrace + ">>>"+ excepObj->Message + "Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " :End");  
+					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket Exception caught and deleted : " + excepObj->StackTrace + ">>>"+ excepObj->Message + "Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " :End", ErrorSeverity::Debug);  
 					
 					//delete excepObj; //do not delete
 					ScorException^ scorExObj = gcnew ScorException(excepObj);
@@ -618,7 +620,7 @@ namespace AtCor{
 			bool DalCommandInterface::ProcessStreamingPackets()
 			{
 				int totalPacketCount = DalStreamingPacketQueue::Instance->Count();
-				//CrxLogger::Instance->Write("Deepak>> DalCommandInterface::ProcessStreamingPackets available no. " + totalPacketCount);
+				//CrxLogger::Instance->Write("Deepak>> DalCommandInterface::ProcessStreamingPackets available no. " + totalPacketCount, ErrorSeverity::Debug);
 
 				int currentPacketIndex;
 				array<unsigned char> ^ currentPacket;
@@ -666,7 +668,7 @@ namespace AtCor{
 
 			void DalCommandInterface::ResponseListenerThreadMethod(Object^ responsePacket)
 			{
-				////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod START.");
+				////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod START.", ErrorSeverity::Debug);
 
 				try
 				{
@@ -687,7 +689,7 @@ namespace AtCor{
 						//this exception is not a real exception
 						//it is only thrown when a thread->Interrupt() method is called
 						delete threadInterruptEx;
-						////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod ThreadInterruptedException raised");
+						////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod ThreadInterruptedException raised", ErrorSeverity::Debug);
 					}
 					finally
 					{
@@ -700,7 +702,7 @@ namespace AtCor{
 
 						commandObject->em4Response  = recievedData; //copy the array to the command response
 					
-						////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod EXIT.");
+						////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod EXIT.", ErrorSeverity::Debug);
 					}
 				}
 				catch(ScorException^ scorExObj)

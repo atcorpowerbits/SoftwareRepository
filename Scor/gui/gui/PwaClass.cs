@@ -12,6 +12,7 @@ using System;
 using AtCor.Scor.BusinessLogic;
 using AtCor.Scor.DataAccess;
 using AtCor.Scor.CrossCutting.Configuration;
+using AtCor.Scor.CrossCutting.Messaging;    
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -55,6 +56,10 @@ namespace AtCor.Scor.Gui.Presentation
 
         public abstract void CreateTextFileForFailedCapture();
 
+        public abstract void LoadTemporaryReport();
+
+        public abstract void EnableDisableCaptureButton();
+
         // void AppendCaptureData();        
         // void CalculateReport();
         // void CalculateAge();
@@ -71,11 +76,10 @@ namespace AtCor.Scor.Gui.Presentation
         public CuffPwa()
         {
           BizSession.Instance().SwitchMeasurement(BizMode.PWA);
-          GuiCommon.bizPwaobject = (BizPWA)BizSession.Instance().measurement;
-          DalModule.Instance.SetStreamingMode(DalStreamingMode.cPwa);
+          GuiCommon.bizPwaobject = (BizPWA)BizSession.Instance().measurement;         
         }
 
-        override public void DispatchCaptureData()
+        public override void DispatchCaptureData()
         {           
         }
 
@@ -131,7 +135,14 @@ namespace AtCor.Scor.Gui.Presentation
 
         public override void CalculateReportAfterSuccessfulCapture()
         {
-            ((Capture)GuiCommon.CaptureChildForm).TickButtonActionForPwaMode();  
+            if (GuiCommon.StartupScreen.ToUpper().Equals(CrxStructCommonResourceMsg.QuickStart))
+            {
+                ((Capture)GuiCommon.CaptureChildForm).TickButtonActionForcPwaQuickStart();
+            }
+            else
+            {
+                ((Capture)GuiCommon.CaptureChildForm).TickButtonActionForPwaMode();
+            }
         }
 
         public override void SaveCapturedData()
@@ -152,6 +163,16 @@ namespace AtCor.Scor.Gui.Presentation
         public override void CreateTextFileForFailedCapture()
         {
             ((Capture)GuiCommon.CaptureChildForm).CreateTextFileOnReportFailedForPwaMode();
-        } 
+        }
+
+        public override void LoadTemporaryReport()
+        {
+            ((PWATestResult)GuiCommon.PWATestResultChildForm).LoadTemporaryReport(); 
+        }
+
+        public override void EnableDisableCaptureButton()
+        {
+            ((Capture)GuiCommon.CaptureChildForm).RefreshOkButtonForPwaMode(); 
+        }
     }
 }

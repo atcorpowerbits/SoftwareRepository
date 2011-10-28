@@ -48,6 +48,9 @@ namespace AtCor{
 				*/
 				static unsigned short TranslateTwoBytes( array <unsigned char>^ sourceArray, int startPostion);
 				
+				static signed short TranslateTwoBytesLsbFirst( array <unsigned char>^ sourceArray, int startPostion);
+	
+
 				/**
 				* Converts the specifed byte array into an unsigned long integer
 				* Converts four bytes to an unsigned long integer
@@ -63,6 +66,8 @@ namespace AtCor{
 				static DalAlarmSource ConvertAlarmType(DalErrorAlarmStatusFlag alarmType);
 
 				static DalAlarmSource ConvertAlarmType(String^ alarmName);
+
+				static unsigned char GenerateModulo256Checksum(array<unsigned char>^ sourceArray, unsigned int length);
 
 			};
 

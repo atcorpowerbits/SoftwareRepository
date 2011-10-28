@@ -15,6 +15,8 @@
 #include "DalCommon.h"
 
 using namespace AtCor::Scor::DataAccess;
+using namespace AtCor::Scor::CrossCutting;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace System::Text;
 //using namespace System::Globalization;
 
@@ -66,6 +68,18 @@ unsigned short DalBinaryConversions::TranslateTwoBytes( array <unsigned char>^ s
 	return flagUn.ulStatusFlag ;
 }
 
+signed short DalBinaryConversions::TranslateTwoBytesLsbFirst( array <unsigned char>^ sourceArray, int startPostion)
+{
+	//similar to TranslateTwoBytes() but the LSB is the first byte instead of second
+	//get the status flag
+	TwoBytesSignedShort  flagUn;
+
+	flagUn.ucStatusBytes[1] = sourceArray[startPostion +1];
+	flagUn.ucStatusBytes[0] = sourceArray[startPostion];
+
+	return flagUn.ssStatusFlag ;
+}
+
 
 unsigned long DalBinaryConversions::TranslateFourBytes( array <unsigned char>^ sourceArray, int startPostion)
 {
@@ -87,30 +101,50 @@ DalAlarmSource DalBinaryConversions::ConvertAlarmType(DalAlarmFlagBitPosition al
 	
 }
 
+//DalAlarmSource DalBinaryConversions::ConvertAlarmType(DalAlarmSupplyRailFlag alarmType)
+//{
+//	//this one requires a physical translation
+//	switch (alarmType)
+//	{
+//		case DalAlarmSupplyRailFlag::Reserved :
+//				return DalAlarmSource::Reserved;
+//		case DalAlarmSupplyRailFlag::Source5VA:
+//				return DalAlarmSource::Source5VA;
+//		case DalAlarmSupplyRailFlag::Source5VD :
+//				return DalAlarmSource::Source5VD;
+//		case DalAlarmSupplyRailFlag::SupplyRailNoAlarm :
+//				return DalAlarmSource::SupplyRailNoAlarm ;
+//		case DalAlarmSupplyRailFlag::Vin :
+//				return DalAlarmSource::Vin;
+//		case DalAlarmSupplyRailFlag::VPump :
+//				return DalAlarmSource::VPump ;
+//		case DalAlarmSupplyRailFlag::VTono :
+//				return DalAlarmSource::VTono;
+//		case DalAlarmSupplyRailFlag::VValve :
+//				return DalAlarmSource::VValve ;
+//		default:
+//			return DalAlarmSource::NoAlarmDefined;
+//	}
+//}
+
 DalAlarmSource DalBinaryConversions::ConvertAlarmType(DalAlarmSupplyRailFlag alarmType)
 {
-	//this one requires a physical translation
-	switch (alarmType)
+	try
 	{
-		case DalAlarmSupplyRailFlag::Reserved :
-				return DalAlarmSource::Reserved;
-		case DalAlarmSupplyRailFlag::Source5VA:
-				return DalAlarmSource::Source5VA;
-		case DalAlarmSupplyRailFlag::Source5VD :
-				return DalAlarmSource::Source5VD;
-		case DalAlarmSupplyRailFlag::SupplyRailNoAlarm :
-				return DalAlarmSource::SupplyRailNoAlarm ;
-		case DalAlarmSupplyRailFlag::Vin :
-				return DalAlarmSource::Vin;
-		case DalAlarmSupplyRailFlag::VPump :
-				return DalAlarmSource::VPump ;
-		case DalAlarmSupplyRailFlag::VTono :
-				return DalAlarmSource::VTono;
-		case DalAlarmSupplyRailFlag::VValve :
-				return DalAlarmSource::VValve ;
-		default:
+		String ^alarmName;
+		//first get the alarm name as a string from the source enum
+		alarmName = alarmType.ToString();
+
+		//then try to convert it to another type
+		return safe_cast<DalAlarmSource>(Enum::Parse(DalAlarmSource::typeid, alarmName));
+	}
+	catch(Exception ^)
+	{
+		//on exception return with a false type to signify that this type was not found.
 			return DalAlarmSource::NoAlarmDefined;
 	}
+
+	
 }
 
 DalAlarmSource DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag alarmType)
@@ -132,4 +166,28 @@ DalAlarmSource  DalBinaryConversions::ConvertAlarmType(String ^alarmName)
 		return DalAlarmSource::NoAlarmDefined;
 	}
 	
+}
+
+unsigned char DalBinaryConversions::GenerateModulo256Checksum(cli::array<unsigned char,1> ^sourceArray, unsigned int length)
+{
+	//throw an excpetion in case of a problem
+	if ((nullptr == sourceArray) || (0 == sourceArray->Length) || (0 == length))
+	{
+		throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrorNullParamErrCd, CrxStructCommonResourceMsg::DalErrorNullParam, ErrorSeverity::Exception);
+	}
+
+	//if not do the actual processing
+	unsigned int current = 0;
+	unsigned char moduloSum = 0x00;
+
+	while (current < length)
+	{
+		moduloSum +=sourceArray[current++];
+	}
+	
+	moduloSum = unsigned char((unsigned int)0x100 - (unsigned int)moduloSum);
+
+
+
+	return moduloSum; 
 }

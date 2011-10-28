@@ -57,7 +57,7 @@ namespace AtCor{
 					bool ValidateCommand(DalEM4Command^ serialCommand);
 					DalReturnValue ValidateCommandResult(DalEM4Command^ serialCommand, DalReturnValue responseReturnValue);
 
-					Timers::Timer^ streamingStoppedCheckTimer;  //A timer to check whether the serial port data streaming has stopped.
+					//Timers::Timer^ streamingStoppedCheckTimer;  //A timer to check whether the serial port data streaming has stopped.
 
 					
 					static DalCommandState^ _currentCommandState; //pointer to the current state object of the command state machine

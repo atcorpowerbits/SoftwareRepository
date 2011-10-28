@@ -24,6 +24,7 @@
 using namespace System;
 using namespace System::Threading;
 using namespace AtCor::Scor::CrossCutting;
+using namespace AtCor::Scor::CrossCutting::Configuration;
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -50,17 +51,17 @@ namespace AtCor{
 				//DalMeasurementMode^ _currentMeasurementMode;
 
 				//TS STUB
-				static DalSimulationFile^ _nibpSimulationFile; //pointer to NIBP simulation file
-				static Timers::Timer ^_nibpTimer = nullptr;  //Timer to fire simulated NIBP data event
-				static bool _nibpConnected = false;
-				static unsigned short _nibpStatus;
-				static unsigned short _nibpErrorCode;
-				static unsigned short _nibpSP;
-				static unsigned short _nibpDP;
-				static unsigned short _nibpMP;
-				static unsigned short _nibpHR;
+				//static DalSimulationFile^ _nibpSimulationFile; //pointer to NIBP simulation file
+				//static Timers::Timer ^_nibpTimer = nullptr;  //Timer to fire simulated NIBP data event
+				//static bool _nibpConnected = false;
+				//static unsigned short _nibpStatus;
+				//static unsigned short _nibpErrorCode;
+				//static unsigned short _nibpSP;
+				//static unsigned short _nibpDP;
+				//static unsigned short _nibpMP;
+				//static unsigned short _nibpHR;
 
-				bool SetBPInitialInflate(unsigned short initialPressure); //TS Stub
+				//bool SetBPInitialInflate(unsigned short initialPressure); //TS Stub
 
 			internal:	
 				//static IDalHandler^ _currentDevice;  //A pointer to the current device
@@ -92,6 +93,17 @@ namespace AtCor{
 				};
 
 				/**
+				* Returns the Nibp Cuff Data Interval.
+				*/
+				property unsigned short NibpCuffDataInterval
+				{
+					unsigned short get()
+					{
+						return (unsigned short)CrxSytemParameters::Instance->GetIntegerTagValue(DalSystemParameterNames::TagNibpCuffDataInterval);
+					};
+				};
+
+				/**
 				* Obtains the current com port settig from Configuration and sets the current strategy.
 				*
 				* @return	A boolean value specifying the success/failure of the operation.
@@ -99,13 +111,13 @@ namespace AtCor{
 				//static bool SetDeviceStrategy();
 				bool SetDeviceStrategy();
 
-				/**
-				* Obtains the current com port settig from Configuration and sets the current strategy.
-				* @param[in] commPort The Comm port setting.
-				*
-				* @return	A boolean value specifying the success/failure of the operation.
-				*/
-				static bool SetDeviceStrategy(String^ commPort);
+				///**
+				//* Obtains the current com port settig from Configuration and sets the current strategy.
+				//* @param[in] commPort The Comm port setting.
+				//*
+				//* @return	A boolean value specifying the success/failure of the operation.
+				//*/
+				//static bool SetDeviceStrategy(String^ commPort);
 
 				static bool SetDeviceStrategy(String^ commPort, DalStreamingMode streamingMode);
 

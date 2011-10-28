@@ -34,7 +34,8 @@ namespace AtCor.Scor.Gui.Presentation
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            this.chartTonometer = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            this.chartTonometer1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.guiradlblCarotidTonometer = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblFemoralCuff = new Telerik.WinControls.UI.RadLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -55,7 +56,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblTonometerThresholdPart1 = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblFemoralThresholdPart1 = new Telerik.WinControls.UI.RadLabel();
             this.tmrPwaCaptureMode = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.chartTonometer)).BeginInit();
+            this.chartTonometer = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTonometer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidTonometer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblFemoralCuff)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -74,12 +76,13 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblFemoralThresholdPart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblTonometerThresholdPart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblFemoralThresholdPart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTonometer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // chartTonometer
+            // chartTonometer1
             // 
-            this.chartTonometer.BackColor = System.Drawing.Color.Black;
+            this.chartTonometer1.BackColor = System.Drawing.Color.Black;
             chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea1.AxisX.Interval = 20;
             chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
@@ -99,13 +102,13 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea1.Position.Auto = false;
             chartArea1.Position.Height = 100F;
             chartArea1.Position.Width = 100F;
-            this.chartTonometer.ChartAreas.Add(chartArea1);
-            this.chartTonometer.Location = new System.Drawing.Point(10, 30);
-            this.chartTonometer.Name = "chartTonometer";
-            this.chartTonometer.Size = new System.Drawing.Size(935, 297);
-            this.chartTonometer.TabIndex = 14;
-            this.chartTonometer.Text = "Carotid Tonometer";
-            this.chartTonometer.PrePaint += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs>(this.chartTonometer_PrePaint);
+            this.chartTonometer1.ChartAreas.Add(chartArea1);
+            this.chartTonometer1.Location = new System.Drawing.Point(731, 45);
+            this.chartTonometer1.Name = "chartTonometer1";
+            this.chartTonometer1.Size = new System.Drawing.Size(70, 17);
+            this.chartTonometer1.TabIndex = 14;
+            this.chartTonometer1.Text = "Carotid Tonometer";
+            this.chartTonometer1.Visible = false;            
             // 
             // guiradlblCarotidTonometer
             // 
@@ -120,6 +123,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblCarotidTonometer.Size = new System.Drawing.Size(136, 21);
             this.guiradlblCarotidTonometer.TabIndex = 12;
             this.guiradlblCarotidTonometer.Text = "Carotid Tonometer";
+            this.guiradlblCarotidTonometer.Visible = false;
             // 
             // guiradlblFemoralCuff
             // 
@@ -134,6 +138,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblFemoralCuff.Size = new System.Drawing.Size(97, 21);
             this.guiradlblFemoralCuff.TabIndex = 15;
             this.guiradlblFemoralCuff.Text = "Femoral Cuff";
+            this.guiradlblFemoralCuff.Visible = false;
             // 
             // tableLayoutPanel1
             // 
@@ -291,6 +296,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.radProgressBarQualityIndicator.TabIndex = 21;
             this.radProgressBarQualityIndicator.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.radProgressBarQualityIndicator.Value1 = 40;
+            this.radProgressBarQualityIndicator.Visible = false;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).Orientation = Telerik.WinControls.ProgressOrientation.Bottom;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).ShowProgressIndicator = false;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarQualityIndicator.GetChildAt(0))).SweepAngle = 90;
@@ -352,6 +358,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.radProgressBarFemoralIndicator.TabIndex = 23;
             this.radProgressBarFemoralIndicator.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.radProgressBarFemoralIndicator.Value1 = 40;
+            this.radProgressBarFemoralIndicator.Visible = false;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarFemoralIndicator.GetChildAt(0))).Orientation = Telerik.WinControls.ProgressOrientation.Bottom;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarFemoralIndicator.GetChildAt(0))).ShowProgressIndicator = false;
             ((Telerik.WinControls.UI.RadProgressBarElement)(this.radProgressBarFemoralIndicator.GetChildAt(0))).SweepAngle = 90;
@@ -451,7 +458,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guichartFemoralCuff.Size = new System.Drawing.Size(935, 186);
             this.guichartFemoralCuff.TabIndex = 17;
             this.guichartFemoralCuff.Text = "chart1";
-            this.guichartFemoralCuff.PrePaint += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ChartPaintEventArgs>(this.guichartFemoralCuff_PrePaint);
+            this.guichartFemoralCuff.Visible = false;            
             // 
             // guiradlblTonometerThresholdPart2
             // 
@@ -461,6 +468,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblTonometerThresholdPart2.Name = "guiradlblTonometerThresholdPart2";
             this.guiradlblTonometerThresholdPart2.Size = new System.Drawing.Size(8, 10);
             this.guiradlblTonometerThresholdPart2.TabIndex = 26;
+            this.guiradlblTonometerThresholdPart2.Visible = false;
             // 
             // guiradlblFemoralThresholdPart2
             // 
@@ -470,6 +478,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblFemoralThresholdPart2.Name = "guiradlblFemoralThresholdPart2";
             this.guiradlblFemoralThresholdPart2.Size = new System.Drawing.Size(8, 10);
             this.guiradlblFemoralThresholdPart2.TabIndex = 25;
+            this.guiradlblFemoralThresholdPart2.Visible = false;
             // 
             // guiradlblTonometerThresholdPart1
             // 
@@ -486,6 +495,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblTonometerThresholdPart1.Size = new System.Drawing.Size(24, 2);
             this.guiradlblTonometerThresholdPart1.TabIndex = 19;
             this.guiradlblTonometerThresholdPart1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.guiradlblTonometerThresholdPart1.Visible = false;
             // 
             // guiradlblFemoralThresholdPart1
             // 
@@ -502,11 +512,32 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblFemoralThresholdPart1.Size = new System.Drawing.Size(24, 2);
             this.guiradlblFemoralThresholdPart1.TabIndex = 18;
             this.guiradlblFemoralThresholdPart1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.guiradlblFemoralThresholdPart1.Visible = false;
             // 
             // tmrPwaCaptureMode
             // 
             this.tmrPwaCaptureMode.Interval = 125;
             this.tmrPwaCaptureMode.Tick += new System.EventHandler(this.tmrPwaCaptureMode_Tick);
+            // 
+            // chartTonometer
+            // 
+            this.chartTonometer.BackColor = System.Drawing.Color.Transparent;
+            chartArea6.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea6.BackColor = System.Drawing.Color.Black;
+            chartArea6.InnerPlotPosition.Auto = false;
+            chartArea6.InnerPlotPosition.Height = 100F;
+            chartArea6.InnerPlotPosition.Width = 100F;
+            chartArea6.Name = "ChartArea1";
+            chartArea6.Position.Auto = false;
+            chartArea6.Position.Height = 100F;
+            chartArea6.Position.Width = 100F;
+            this.chartTonometer.ChartAreas.Add(chartArea6);
+            this.chartTonometer.Location = new System.Drawing.Point(10, 30);
+            this.chartTonometer.Name = "chartTonometer";
+            this.chartTonometer.Size = new System.Drawing.Size(935, 297);
+            this.chartTonometer.TabIndex = 27;
+            this.chartTonometer.Text = "chart1";
+            this.chartTonometer.Visible = false;            
             // 
             // Capture
             // 
@@ -514,12 +545,13 @@ namespace AtCor.Scor.Gui.Presentation
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.ClientSize = new System.Drawing.Size(992, 599);
-            this.Controls.Add(this.guichartFemoralCuff);
+            this.Controls.Add(this.guiradlblFemoralThresholdPart1);
+            this.Controls.Add(this.guiradlblTonometerThresholdPart1);
             this.Controls.Add(this.chartTonometer);
+            this.Controls.Add(this.guichartFemoralCuff);
+            this.Controls.Add(this.chartTonometer1);
             this.Controls.Add(this.guiradlblTonometerThresholdPart2);
             this.Controls.Add(this.guiradlblFemoralThresholdPart2);
-            this.Controls.Add(this.guiradlblTonometerThresholdPart1);
-            this.Controls.Add(this.guiradlblFemoralThresholdPart1);
             this.Controls.Add(this.radProgressBarFemoralIndicator);
             this.Controls.Add(this.radProgressBarQualityIndicator);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -540,7 +572,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.Load += new System.EventHandler(this.Capture_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Capture_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Capture_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.chartTonometer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTonometer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblCarotidTonometer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblFemoralCuff)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -560,6 +592,7 @@ namespace AtCor.Scor.Gui.Presentation
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblFemoralThresholdPart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblTonometerThresholdPart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblFemoralThresholdPart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTonometer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -568,7 +601,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         #endregion
 
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartTonometer;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartTonometer1;
         private Telerik.WinControls.UI.RadLabel guiradlblCarotidTonometer;
         private Telerik.WinControls.UI.RadLabel guiradlblFemoralCuff;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -589,6 +622,7 @@ namespace AtCor.Scor.Gui.Presentation
         private System.Windows.Forms.Timer tmrPwaCaptureMode;
         private Telerik.WinControls.UI.RadProgressBar guiradprgbarTimeToInflatioDeflation;
         private Telerik.WinControls.UI.RadLabel radlblTimeStatus;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartTonometer;
     }
 }
 

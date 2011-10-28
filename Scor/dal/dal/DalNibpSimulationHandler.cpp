@@ -11,6 +11,8 @@
 #include "stdafx.h"
 #include "DalEventContainer.h"
 #include "DalNibpSimulationHandler.h"
+#include "DalDataBuffer.h"
+#include "DalCommon.h"
 
 using namespace System::ComponentModel;
 using namespace AtCor::Scor::CrossCutting;
@@ -34,6 +36,18 @@ namespace AtCor{
 				unsigned short locHR;
 
 				nibpMode;
+
+				dataBufferObj = DalDataBuffer::Instance;
+
+				//create array
+				dataBufferObj->CreateBuffer(3, 3);
+				DalPwvDataStruct tempbuff;
+
+				for( unsigned short i=1; i<=16; i++)
+				{
+					tempbuff.cuffPressure = i*10;
+					dataBufferObj->WriteDataToBuffer(tempbuff);
+				}
 
 				if (!_nibpConnected)
 				{
@@ -120,7 +134,7 @@ namespace AtCor{
 
 			//TS Stub
 			// Equivalent to SET_INITIAL_INFLATE & <O> <K>
-			bool DalNibpSimulationHandler::SetBPInitialInflate(unsigned short initialPressure)
+			bool DalNibpSimulationHandler::SetBPInitialInflate(unsigned short )
 			{
 				return true;
 			}
@@ -132,7 +146,8 @@ namespace AtCor{
 				bool startOK = false;
 
 				// Set initial inflate pressure first before starting NIBP
-				if (startOK = SetBPInitialInflate(initialPressure))
+				startOK = SetBPInitialInflate(initialPressure);
+				if (startOK)
 				{
 					startOK = StartBP(nibpMode);
 				}

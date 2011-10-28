@@ -655,8 +655,75 @@ namespace TestDal {
 
 				returnedValues = target->GetNextValues(3, readStartIndex); 
 				Assert::AreEqual(0,returnedValues);
+			}
 				
+			public: [TestMethod]
+			void GetNextValues_CheckTooLargeRequest_Test()
+			{
+				DalDataBuffer^  target = (DalDataBuffer::Instance); 
+				int returnedValues;
+				bool exceptionThrown = false;
+				int writtenValues = 5;
+				int bufferSize = (10+1) ; 
+				int requestSize = bufferSize + 1000;
+				int readStartIndex = 0; 
 
+				DalPwvDataStruct dataToWrite;
+
+				target->CreateBuffer(10,1);
+
+				for (int i = 0; i<writtenValues; i++)
+				{
+					dataToWrite.tonometerData =i;
+					target->WriteDataToBuffer (dataToWrite);
+				}
+
+				try
+				{
+					//values asked for are more than the buffer size
+					returnedValues = target->GetNextValues(requestSize, readStartIndex); 
+				}
+				catch(ScorException^)
+				{
+					exceptionThrown = true;
+				}
+				
+				//Assert::IsTrue(exceptionThrown);
+				Assert::IsFalse(exceptionThrown); //we are changing the design to not throw an exception but to return the actual values
+				Assert::AreEqual(writtenValues, returnedValues);
+			}
+
+			public: [TestMethod]
+			void GetNextValues_CheckTooLargeRequestAfterRollover_Test4()
+			{
+				DalDataBuffer^  target = (DalDataBuffer::Instance); // TODO: Initialize to an appropriate value
+				int readStartIndex = 0; // TODO: Initialize to an appropriate value
+				int offsetFromReadStartIndex = 0; // TODO: Initialize to an appropriate value
+				int returnedValues;
+				bool writen;
+
+				bool expected = true;
+				
+				DalPwvDataStruct dataToWrite;
+
+				target->CreateBuffer(10,1);
+
+				for (int i = 0; i<=12; i++)
+				{
+					dataToWrite.tonometerData =i;
+					writen = target->WriteDataToBuffer (dataToWrite);
+					//Assert::IsTrue(writen);
+					Assert::AreEqual(expected, writen);
+				}
+
+				for (int i = 1; i<=12; i++)
+				{
+					returnedValues = target->GetNextValues(1, readStartIndex); 
+					Assert::AreNotEqual(0,returnedValues);
+				}
+
+				returnedValues = target->GetNextValues(1000, readStartIndex); 
+				Assert::AreEqual(0,returnedValues);
 			}
 
 
@@ -741,6 +808,81 @@ namespace TestDal {
 
 
 
+		/// <summary>
+		///A test for CalStartIndexForBuffIndexMoreThanStartIndex
+		///</summary>
+public: [TestMethod]
+		void CalStartIndexForBuffIndexMoreThanStartIndexTest()
+		{
+			DalDataBuffer_Accessor^  target = (gcnew DalDataBuffer_Accessor()); // TODO: Initialize to an appropriate value
+			int requestedValues = 0; // TODO: Initialize to an appropriate value
+			int readStartIndex = 0; // TODO: Initialize to an appropriate value
+			int readStartIndexExpected = 0; // TODO: Initialize to an appropriate value
+			int expected = 0; // TODO: Initialize to an appropriate value
+			int actual;
+			
+			target->startIndex = 9;
+			target->_arraySize = 25;
+			requestedValues = 10;
+
+			expected = requestedValues;
+			
+			actual = target->CalStartIndexForBuffIndexMoreThanStartIndex(requestedValues, readStartIndex);
+			Assert::AreEqual(actual, expected);
+			expected = (9 + actual) % target->_arraySize;;
+			Assert::AreEqual(target->startIndex,expected);
+			//------------------------------------
+			target->startIndex = 20;
+			target->_arraySize = 25;
+			target->bufferIndex = 0;
+			requestedValues = 10;
+
+			expected = (target->_arraySize-1) - target->startIndex +1;;
+			
+			actual = target->CalStartIndexForBuffIndexMoreThanStartIndex(requestedValues, readStartIndex);
+			Assert::AreEqual(actual, expected);
+			
+
+		}
+		/// <summary>
+		///A test for CalStartIndexForBuffIndexLessThanStartIndex
+		///</summary>
+public: [TestMethod]
+		void CalStartIndexForBuffIndexLessThanStartIndexTest()
+		{
+			DalDataBuffer_Accessor^  target = (gcnew DalDataBuffer_Accessor()); // TODO: Initialize to an appropriate value
+			int requestedValues = 0; // TODO: Initialize to an appropriate value
+			int readStartIndex = 0; // TODO: Initialize to an appropriate value
+			int readStartIndexExpected = 0; // TODO: Initialize to an appropriate value
+			int expected = 0; // TODO: Initialize to an appropriate value
+			int actual;
+
+			requestedValues = 20; 
+			//readStartIndex = 34;
+			
+			target->startIndex = 9;
+			target->bufferIndex = 10;
+			readStartIndexExpected = target->startIndex;
+			actual = target->CalStartIndexForBuffIndexLessThanStartIndex(requestedValues, readStartIndex);
+			Assert::AreEqual(readStartIndexExpected, readStartIndex);
+			//-------------------------------------
+
+			target->startIndex = 9;
+			target->bufferIndex = 29;
+			//readStartIndexExpected = target->startIndex;
+			actual = target->CalStartIndexForBuffIndexLessThanStartIndex(requestedValues, readStartIndex);
+			Assert::AreEqual(actual, requestedValues);
+			//---------------------------------------
+
+			target->startIndex = 9;
+			target->bufferIndex = 20;
+			expected = (target->bufferIndex-1) - target->startIndex +1;
+			actual = target->CalStartIndexForBuffIndexLessThanStartIndex(requestedValues, readStartIndex);
+			Assert::AreEqual(actual, expected);
+			
+			//Assert::AreEqual(expected, actual);
+			
+		}
 };
 }
 namespace TestDal {

@@ -264,6 +264,7 @@ namespace AtCor.Scor.Gui.Presentation
                 CryPwvReport1.SetParameterValue(GuiConstants.PatientBPValue, PWVReportData.RptPatientBPValue);
                 CryPwvReport1.SetParameterValue(GuiConstants.PatientHeightTitle, PWVReportData.RptPatientHeight);
                 CryPwvReport1.SetParameterValue(GuiConstants.PatientHeightValue, PWVReportData.RptPatientHeightValue);
+                CryPwvReport1.SetParameterValue(GuiConstants.PatientHeightInternalValue, PWVReportData.RptPatientHeightInternalValue);
                 CryPwvReport1.SetParameterValue(GuiConstants.PatientOperatiorTitle, PWVReportData.RptPatientOperation);
                 CryPwvReport1.SetParameterValue(GuiConstants.PatientOperatiorValue, PWVReportData.RptPatientOperationValue);
                 CryPwvReport1.SetParameterValue(GuiConstants.PatientNotesTitle, PWVReportData.RptPatientNotes);

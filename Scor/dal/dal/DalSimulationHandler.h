@@ -67,6 +67,8 @@ namespace AtCor{
 					//static void ReadMultipleEventsInLoop(Object^ sender);
 					virtual ~DalSimulationHandler();
 					Timers::Timer ^captureTimer;  //Timer to fire simulated data events
+					static void SetCountDownTimer(DalCuffStateFlags currentCuffState, unsigned long locCountdownTimer, DalPwvDataStruct^ dataVar);
+
 				public:
 					
 					/**

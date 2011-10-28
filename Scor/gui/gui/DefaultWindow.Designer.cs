@@ -47,7 +47,6 @@
             Telerik.WinControls.Elements.ClickCommand clickCommand3 = new Telerik.WinControls.Elements.ClickCommand();
             this.radStatusBar = new Telerik.WinControls.UI.RadStatusStrip();
             this.object_b537593d_058e_4cff_9f9f_429c5f332e49 = new Telerik.WinControls.RootRadElement();
-            this.guialertmsgTimer = new System.Windows.Forms.Timer(this.components);
             this.tmrImposeWaitTime = new System.Windows.Forms.Timer(this.components);
             this.object_bbfc195f_e97e_4154_8f63_2eec98f43230 = new Telerik.WinControls.RootRadElement();
             this.object_0187e6f3_872e_4cc9_b900_abc6b49863ca = new Telerik.WinControls.RootRadElement();
@@ -145,10 +144,6 @@
             this.object_b537593d_058e_4cff_9f9f_429c5f332e49.StretchHorizontally = true;
             this.object_b537593d_058e_4cff_9f9f_429c5f332e49.StretchVertically = true;
             // 
-            // guialertmsgTimer
-            // 
-            this.guialertmsgTimer.Interval = 7000;
-            // 
             // tmrImposeWaitTime
             // 
             this.tmrImposeWaitTime.Tick += new System.EventHandler(this.tmrImposeWaitTime_Tick);
@@ -174,7 +169,7 @@
             this.guiradgridReportAssessment.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.guiradgridReportAssessment.Location = new System.Drawing.Point(1, 479);
             // 
-            // guiradgridReportAssessment
+            // 
             // 
             this.guiradgridReportAssessment.MasterTemplate.AllowAddNewRow = false;
             this.guiradgridReportAssessment.MasterTemplate.AllowCellContextMenu = false;
@@ -838,7 +833,6 @@
         private Telerik.WinControls.UI.RadGridView guiradgridReportAssessment;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
-        public System.Windows.Forms.Timer guialertmsgTimer;
         private System.Windows.Forms.PrintDialog guiFindPrinterDialog;
         public System.Windows.Forms.Timer tmrImposeWaitTime;
        
@@ -856,7 +850,6 @@
         private Telerik.WinControls.UI.RadMenuItem guiradmnuHelp;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuFindModule;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuFindPrinter;
-        private Telerik.WinControls.UI.RadMenuItem guiradmenuBackup;
         private Telerik.WinControls.UI.RadMenuItem guiradmenuRestore;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuOperatorManual;
         private Telerik.WinControls.UI.RadMenuItem guiradmnuServiceManual;
@@ -875,10 +868,11 @@
         public Telerik.WinControls.UI.RadMenuItem guiradmnuSystemKey;
         public Telerik.WinControls.UI.RadDropDownList guicmbxCurrentMode;
         private System.Windows.Forms.PictureBox guipicbxlogo;
-        private Telerik.WinControls.UI.RadPageViewPage radtabQuickStart;
-        private Telerik.WinControls.UI.RadPageViewPage radtabResult;
+        public Telerik.WinControls.UI.RadPageViewPage radtabQuickStart;
+        public Telerik.WinControls.UI.RadPageViewPage radtabResult;
         public Telerik.WinControls.UI.RadMenuItem guiradmnuSystem;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;        
+        private System.Windows.Forms.Label label3;
+        public Telerik.WinControls.UI.RadMenuItem guiradmenuBackup;        
     }
 }

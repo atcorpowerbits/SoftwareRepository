@@ -59,6 +59,8 @@ namespace AtCor{
 					*/
 					bool BreakResponseDataPart();
 
+					
+
 			};
 			
 		}

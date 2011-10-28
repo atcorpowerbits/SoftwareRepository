@@ -112,7 +112,7 @@ namespace AtCor{
 				{				
 					if (firstReadAfterCaptureStarted == true)
 					{
-						////CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString());
+						////CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString(), ErrorSeverity::Debug);
 						ResetAllStaticMembers();
 
 						tonoData = cuffPulseData = cuffAbsolutePressure = locCountdownTimer = statusBytes =  0;
@@ -122,13 +122,13 @@ namespace AtCor{
 					//Read n elements in a loop. 
 					for (int counter = 0; counter < numberOfReads ; counter++)
 					{
-						//CrxLogger::Instance->Write("DalPwvSimulationHandler::ReadMultipleEventsInLoop forloop  start cuffInUse:" + cuffInUse.ToString() + "locCountdownTimer: " + locCountdownTimer); 
+						//CrxLogger::Instance->Write("DalPwvSimulationHandler::ReadMultipleEventsInLoop forloop  start cuffInUse:" + cuffInUse.ToString() + "locCountdownTimer: " + locCountdownTimer), ErrorSeverity::Debug; 
 						//if (locCountdownTimer <=0)  //Changed by TS
 						if (locCountdownTimer <=0 && cuffInUse) 
 						{
 							//get next set of values from the cufff simulation file
 							_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &locEASourceFlag);
-							////CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X2) + " ,locEASourceFlag" + locEASourceFlag.ToString("X2));
+							//CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X2") + " ,locEASourceFlag" + locEASourceFlag.ToString("X2"), ErrorSeverity::Debug);
 
 							//store the Error/alarm SOURCE in the global variable. If an event is raised we need to retrive the stored value to find the source.
 							_currentEASourceFlag = locEASourceFlag;
@@ -136,7 +136,7 @@ namespace AtCor{
 							//Added by TS Stub
 							if (DalCuffStateFlags::CUFF_STATE_DEFLATED == (DalCuffStateFlags)(statusBytes & 0x7))
 							{
-								//CrxLogger::Instance->Write("DalPwvSimulationHandler::ReadMultipleEventsInLoop  cuffInUse set to false and locCountdownTimer set to zero");
+								//CrxLogger::Instance->Write("DalPwvSimulationHandler::ReadMultipleEventsInLoop  cuffInUse set to false and locCountdownTimer set to zero", ErrorSeverity::Debug);
 								// Finished cuff until another inflation
 								cuffInUse = false;
 								locCountdownTimer = 0;
@@ -148,26 +148,27 @@ namespace AtCor{
 
 						//check between the modes
 						_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
-						CrxLogger::Instance->Write("tonoData" + tonoData + ", cuffPulseData:" + cuffPulseData );
+						//CrxLogger::Instance->Write("tonoData" + tonoData + ", cuffPulseData:" + cuffPulseData , ErrorSeverity::Debug);
 
 
+						//Replacing with another function call to meet coding metrics
+						SetCountDownTimer(currentCuffState, locCountdownTimer, %tempPWVDataVar);
 											
+						//if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
+						//{
+						//	//value is in miliseconds. The device returns it as seconds hece divide by thousand.
+						//	tempPWVDataVar.countdownTimer = (short)locCountdownTimer/1000;
+						//}
+						//else
+						//{
+						//	tempPWVDataVar.countdownTimer = 0;
+						//}
 
-						if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
-						{
-							//value is in miliseconds. The device returns it as seconds hece divide by thousand.
-							tempPWVDataVar.countdownTimer = (short)locCountdownTimer/1000;
-						}
-						else
-						{
-							tempPWVDataVar.countdownTimer = 0;
-						}
-
-						//CrxLogger::Instance->Write("DalPwvSimulationHandler::ReadMultipleEventsInLoop cuffinUse: " + cuffInUse.ToString());
+						//CrxLogger::Instance->Write("DalPwvSimulationHandler::ReadMultipleEventsInLoop cuffinUse: " + cuffInUse.ToString(), ErrorSeverity::Debug);
 						//added by TS Stub
 						if (cuffInUse)
 						{
-							//CrxLogger::Instance->Write("DalPwvSimulationHandler::ReadMultipleEventsInLoop cuffinUse: " + cuffInUse.ToString()+ "decremeting locCountdownTimer" );
+							//CrxLogger::Instance->Write("DalPwvSimulationHandler::ReadMultipleEventsInLoop cuffinUse: " + cuffInUse.ToString()+ "decremeting locCountdownTimer" , ErrorSeverity::Debug);
 						
 							//decrement the cuff timer as long as it's used
 							locCountdownTimer -= DalConstants::DataSamplingInterval;
@@ -176,7 +177,7 @@ namespace AtCor{
 						tempPWVDataVar.cuffPressure = (short)cuffAbsolutePressure;
 						tempPWVDataVar.tonometerData = (short)tonoData;
 						tempPWVDataVar.cuffPulseData = (short)cuffPulseData;
-						////CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer );
+						////CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer , ErrorSeverity::Debug);
 						
 						//write data to buffer
 						dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
@@ -188,7 +189,7 @@ namespace AtCor{
 				}
 				catch(ScorException^ scorExObj)
 				{
-					CrxLogger::Instance->Write(" Simulation ScorException raised:" + scorExObj->ErrorMessageKey );
+					CrxLogger::Instance->Write(" Simulation ScorException raised:" + scorExObj->ErrorMessageKey , ErrorSeverity::Debug);
 					
 					//throw; //dont throw an excpetion from a thread . convert it to an event
 
@@ -196,7 +197,7 @@ namespace AtCor{
 				}
 				catch(Exception^ excepObj)
 				{
-					CrxLogger::Instance->Write(" Simulation Exception raised:" + excepObj->Message);
+					CrxLogger::Instance->Write(" Simulation Exception raised:" + excepObj->Message, ErrorSeverity::Debug);
 					
 					//throw gcnew ScorException(excepObj);//dont throw an excpetion from a thread . convert it to an event
 

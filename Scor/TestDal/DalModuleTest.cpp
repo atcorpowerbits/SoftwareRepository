@@ -132,7 +132,7 @@ namespace TestDal {
 				//it will be done later so the test for return value is commented out.
 
 				//bool returnValue = false;
-				target->SetDeviceStrategy(commPort);
+				target->SetDeviceStrategy(commPort, DalStreamingMode::Pwv );
 				
 				Assert::IsNotNull(target->_currentDevice);
 				
@@ -159,7 +159,7 @@ namespace TestDal {
 				//it will be done later so the test for return value is commented out.
 
 				//bool returnValue = false;
-				target->SetDeviceStrategy("Simulation");
+				target->SetDeviceStrategy("Simulation",  DalStreamingMode::Pwv);
 				Assert::IsNotNull(target->_currentDevice);
 				//Assert::IsTrue(returnValue);
 			}
@@ -181,7 +181,7 @@ public: [TestMethod]
 			//DalModule_Accessor ^ target = gcnew DalModule_Accessor();
 			DalActiveDevice_Accessor^ target = gcnew DalActiveDevice_Accessor();
 			
-			target->SetDeviceStrategy("Simulation");
+			target->SetDeviceStrategy("Simulation", DalStreamingMode::Pwv);
 
 			String^  commPort = comPortName ; 
 			
@@ -203,7 +203,7 @@ public: [TestMethod]
 					//bool returnValue = false;
 					if (foundPortName != nullptr)
 					{
-						target->SetDeviceStrategy(commPort);
+						target->SetDeviceStrategy(commPort, DalStreamingMode::Pwv);
 					}
 					//Assert::IsTrue(returnValue);
 				}
@@ -240,7 +240,7 @@ public: [TestMethod]
 					//it will be done later so the test for return value is commented out.
 
 					//	bool returnValue = false;
-					target->SetDeviceStrategy(commPort);
+					target->SetDeviceStrategy(commPort, DalStreamingMode::Pwv);
 					//Assert::IsTrue(returnValue);
 					}
 					catch(ScorException ^excepObj)
@@ -270,7 +270,7 @@ public: [TestMethod]
 			{
 				SetPath();
 				DalModule_Accessor^  target = (gcnew DalModule_Accessor()); 
-				target->SetDeviceStrategy("Simulation"); //Set to simulation so that it will search all ports
+				target->SetDeviceStrategy("Simulation", DalStreamingMode::Pwv); //Set to simulation so that it will search all ports
 				 
 				String^  deviceFoundPort = System::String::Empty; 
 				String^  deviceFoundPortExpected =  comPortName; 
@@ -288,7 +288,7 @@ public: [TestMethod]
 			{
 				SetPath();
 				DalModule_Accessor^  target = (gcnew DalModule_Accessor()); 
-				target->SetDeviceStrategy(comPortName ); //Set to the correct port
+				target->SetDeviceStrategy(comPortName, DalStreamingMode::Pwv ); //Set to the correct port
 				String^  deviceFoundPort = System::String::Empty; 
 				String^  deviceFoundPortExpected =  comPortName; 
 				int expected = 1; //we should get 1 here
@@ -322,7 +322,7 @@ public: [TestMethod]
 			{
 				SetPath();
 				DalModule_Accessor^  target = gcnew DalModule_Accessor(); 
-				target->SetDeviceStrategy("Simulation");
+				target->SetDeviceStrategy("Simulation", DalStreamingMode::Pwv);
 				Assert::IsNotNull(target);
 
 			}
@@ -388,6 +388,61 @@ public: [TestMethod]
 				}
 				Assert::AreNotEqual(excepRaised, expected);
 
+		}
+		/// <summary>
+		///A test for StartBP
+		///</summary>
+public: [TestMethod]
+		void StartBPTest1()
+		{
+			DalModule_Accessor^  target = (gcnew DalModule_Accessor()); // TODO: Initialize to an appropriate value
+			DalNIBPMode nibpMode = DalNIBPMode(); // TODO: Initialize to an appropriate value
+			bool expected = false; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->StartBP(nibpMode);
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for StartBP
+		///</summary>
+public: [TestMethod]
+		void StartBPTest()
+		{
+			DalModule_Accessor^  target = (gcnew DalModule_Accessor()); // TODO: Initialize to an appropriate value
+			DalNIBPMode nibpMode = DalNIBPMode(); // TODO: Initialize to an appropriate value
+			unsigned short initialPressure = 0; // TODO: Initialize to an appropriate value
+			bool expected = false; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->StartBP(nibpMode, initialPressure);
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for FinishBP
+		///</summary>
+public: [TestMethod]
+		void FinishBPTest()
+		{
+			DalModule_Accessor^  target = (gcnew DalModule_Accessor()); // TODO: Initialize to an appropriate value
+			bool expected = false; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->FinishBP();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for AbortBP
+		///</summary>
+public: [TestMethod]
+		void AbortBPTest()
+		{
+			DalModule_Accessor^  target = (gcnew DalModule_Accessor()); // TODO: Initialize to an appropriate value
+			bool expected = false; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->AbortBP();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
 		}
 };
 }

@@ -13,6 +13,8 @@
 #include "DalCaptureState.h"
 #include "DalCommandInterface.h"
 
+using namespace AtCor::Scor::CrossCutting::Logging;
+
 
 namespace AtCor{
 	namespace Scor {
@@ -21,13 +23,23 @@ namespace AtCor{
 
 	bool DalCaptureState::InitiateDataCaptureMode()
 	{
+
+		//CrxLogger::Instance->Write("DalCaptureState::InitiateDataCaptureMode returns false", ErrorSeverity::Debug);
 		return false;
 		//default
 	}
 
 	bool DalCaptureState::StopDataCaptureMode()
 	{
-		return false;
+		//ca// should be routed to actual method regardless of current state
+		bool returnValue ;
+		returnValue  = DalCommandInterface::Instance->StopDataCaptureModeInternal();
+		if (true == returnValue)
+		{
+			DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
+	}
+
+		return returnValue;
 	}
 
 	//void DalCaptureState::ReadFromPortAndWriteToBuffer(Object ^sender, SerialDataReceivedEventArgs ^e)
@@ -76,6 +88,8 @@ namespace AtCor{
 		}
 		//if false then dont change state
 		
+		//CrxLogger::Instance->Write("DalCaptureStateNotListening::InitiateDataCaptureMode returns: "+ returnValue.ToString(), ErrorSeverity::Debug);
+		
 		return returnValue;
 	}
 	
@@ -92,7 +106,8 @@ namespace AtCor{
 	}
 
 
-	bool DalCaptureStateWaiting::StopDataCaptureMode()
+	//function has been removed
+	/*bool DalCaptureStateWaiting::StopDataCaptureMode()
 	{
 		bool returnValue ;
 		returnValue  = DalCommandInterface::Instance->StopDataCaptureModeInternal();
@@ -102,7 +117,7 @@ namespace AtCor{
 		}
 
 		return returnValue;
-	}
+	}*/
 
 	//void DalCaptureStateWaiting::CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args)
 	//{

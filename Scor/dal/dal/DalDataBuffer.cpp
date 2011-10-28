@@ -260,7 +260,7 @@ namespace AtCor{
 			//			}
 			//		}
 			//	}
-			//	//ToDo:Remove this comment: CrxLogger::Instance->Write("Alok: returnedvalues: " + returnedvalues + " requestedValues: " + requestedValues + " readStartIndex: " + readStartIndex);				
+			//	//ToDo:Remove this comment: CrxLogger::Instance->Write("Alok: returnedvalues: " + returnedvalues + " requestedValues: " + requestedValues + " readStartIndex: " + readStartIndex, ErrorSeverity::Debug);			
 			//	//finally return the actual count
 			//	return returnedvalues; 
 			//}
@@ -271,6 +271,8 @@ namespace AtCor{
 
 			int DalDataBuffer::GetNextValues(int requestedValues, int % readStartIndex )
 			{
+				//CrxLogger::Instance->Write("DalDataBuffer::GetNextValues called with requestedValues: " + requestedValues, ErrorSeverity::Debug);
+				
 				int returnedvalues = -1; //to singnal unready
 
 				if (bufferPointer == nullptr)
@@ -285,11 +287,13 @@ namespace AtCor{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrInvalidArgsErrCd, CrxStructCommonResourceMsg::DalErrInvalidArgs,ErrorSeverity::Exception);
 				}
 				
-				if (requestedValues > (_arraySize -1))
-				{
-					//request size is larger than size of array.
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrRequestTooLargeErrCd, CrxStructCommonResourceMsg::DalErrRequestTooLarge, ErrorSeverity::Exception);
-				}
+
+				//Change in design: If the request is too large then dont throw exception. Simply return whatever is available
+				//if (requestedValues > (_arraySize -1))
+				//{
+				//	//request size is larger than size of array.
+				//	throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrRequestTooLargeErrCd, CrxStructCommonResourceMsg::DalErrRequestTooLarge, ErrorSeverity::Exception);
+				//}
 
 				if (bufferIndex == startIndex)
 				{
@@ -306,7 +310,9 @@ namespace AtCor{
 					returnedvalues = CalStartIndexForBuffIndexMoreThanStartIndex(requestedValues, readStartIndex);
 				}
 
-				//ToDo:Remove this comment: CrxLogger::Instance->Write("Alok: returnedvalues: " + returnedvalues + " requestedValues: " + requestedValues + " readStartIndex: " + readStartIndex);				
+				//ToDo:Remove this comment: 
+				//CrxLogger::Instance->Write("DalDataBuffer::GetNextValues returns returnedvalues: " + returnedvalues + " requestedValues: " + requestedValues + " readStartIndex: " + readStartIndex, ErrorSeverity::Debug);				
+
 				//finally return the actual count
 				return returnedvalues; 
 			}
@@ -396,6 +402,9 @@ namespace AtCor{
 
 			DalPwvDataStruct^ DalDataBuffer::GetValueAt(int readStartIndex, int offsetFromReadStartIndex)
 			{
+				//CrxLogger::Instance->Write("DalDataBuffer::GetValueAt called with readStartIndex: " + readStartIndex + " offsetFromReadStartIndex: " + offsetFromReadStartIndex, ErrorSeverity::Debug);
+				try
+				{
 				int indexCurElement; //to store the current element index
 
 				if (bufferPointer == nullptr)
@@ -419,6 +428,17 @@ namespace AtCor{
 				return tmpData;
 				////TM:original                
 				//return (DalPwvDataStruct^)bufferPointer->GetValue(indexCurElement);
+				}
+				catch(ScorException ^)
+				{
+					throw ;
+				}
+				catch(Exception^ excepObj)
+				{
+					CrxLogger::Instance->Write("DalDataBuffer::GetValueAt Exception thrown readStartIndex: " + readStartIndex + " offsetFromReadStartIndex: " + offsetFromReadStartIndex+ " message: " +excepObj->Message + " " + excepObj->StackTrace , ErrorSeverity::Debug);
+				
+					throw gcnew ScorException(excepObj);
+				}
 
 
 			}

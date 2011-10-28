@@ -30,8 +30,13 @@ namespace AtCor{
 									public:
 										static const unsigned int DataSamplingInterval = 4; // in msec
 										static const unsigned int SimulationTimerInterval   = 4; // in msec
-										static const unsigned int SimulationWriteTimerInterval = 1000; /**< This is to signify the time interval in which the simulation will pick the number of values*/
-										static const unsigned int SimulationNumberOfReadsPerInterval = 256; /**< Number of items to read from tonometer sim file in each interval.*/
+										
+										//this should be the same as the GUI frequencey 125 ms
+										static const unsigned int SimulationWriteTimerInterval = 125; // = 1000; /**< This is to signify the time interval in which the simulation will pick the number of values*/
+										
+										//Keep this at 32 and run the thread every 125 ms
+										static const unsigned int SimulationNumberOfReadsPerInterval = 32; //= 256; /**< Number of items to read from tonometer sim file in each interval.*/
+										
 										static const unsigned int EM4NumberofRetries = 3; /**< Default number of retries for a command before failure*/
 										static const unsigned int EM4ResponseTimeout = 50; /**< Default timout to wait for an EM4 response*/
 										static const int PWVCaptureDataSize = 8; /**< Size of data in bytes for data capture in PWV */
@@ -52,6 +57,7 @@ namespace AtCor{
 										static const unsigned int EM4NackPacketDataLength = 1; //Nack packet contains only one packet
 										static const unsigned int StreamingPacketReadInterval = 125; /**< Interval at which the timer for reading packets should fire.*/
 										static String^ PwaCuffMeasurementsCounter  = "1"; /**< PwaCuffMeasurementsCounter */
+										//unsigned short NibpCuffDataInterval; /**< Interval at which the timer for reading NIBP packets should fire. */
 								};
 
 								/**
@@ -226,6 +232,16 @@ namespace AtCor{
 								};
 
 								/**
+								* @union TwoBytesSignedShort
+								* @brief Two byte union to translate EM4 status bits into a signed integer
+								*/
+								private union TwoBytesSignedShort
+								{
+									unsigned char ucStatusBytes[2];
+									signed short ssStatusFlag;
+								};
+
+								/**
 								* @union FourBytesUnsignedLong
 								* @brief Four byte union to translate EM4 error alarm source flag into a long integer
 								*/
@@ -332,7 +348,8 @@ namespace AtCor{
 								{
 									CommandCodeBitsMask = 0x7F,
 									AckNackStatusBitMask = 0x80,
-									DataCaptureCodeAckedByte = 0x87
+									DataCaptureCodeAckedByte = 0x87,
+									Em4NibpToHostCommandCode = 0x93,
 
 								};
 
@@ -472,6 +489,7 @@ namespace AtCor{
 									internal:
 										static String^ TagStdEM4Timeout = "StdEM4Timeout";
 										static String^ TagEM4NumberOfRetriesAllowed = "EM4NumberOfRetriesAllowed";
+										static String^ TagNibpCuffDataInterval = "NibpCuffDataInterval";
 										
 								};
 
@@ -484,7 +502,8 @@ namespace AtCor{
 									Unknown, /**< The type could not be determined*/
 									StreamingDataPacket,	 /**< A streaming packet type*/
 									AckedResponsePakcet,	 /**< Acked response t a particular command*/
-									NackedResponsePacket	 /**< Nacked response*/
+									NackedResponsePacket,	 /**< Nacked response*/
+									NibpPacket		/**<Packet from Nibp module to host*/
 								};
 
 								public enum class DalAlarmSource
@@ -554,6 +573,42 @@ namespace AtCor{
 									Adult = 0, /**< Adult mode blood pressure measurement. */
 									Pediatric = 1, /**< Pediatric mode blood pressure measurement. */
 									Neonate = 2 /**< Neonate mode blood pressure measurement. */
+								};
+
+								public enum class DalNibpCommandType
+								{
+									ForeGroundCommand,
+									BackgroundCommand
+								};
+
+								public enum class DalNibpForegroundCommandState
+								{
+									NotSent,
+									WaitingForO,
+									RecievedO,
+									RecievedK,
+									RecievedA,
+									Busy
+
+								};
+
+								public enum class DalNibpBackGroundCommandState
+								{
+									NotSent,
+									WaitingForResponse,
+									ResponseRecieved
+								};
+
+								public ref struct DalNibpData
+								{
+									internal:
+										unsigned int Sss;
+										unsigned int Ddd;
+										//unsigned char Btc; //unused for now
+										unsigned char Bps;
+										unsigned int Rate;
+										unsigned int Map;
+										unsigned char Ec;
 								};
 
 

@@ -189,7 +189,7 @@ namespace AtCor{
 				{				
 					if (firstReadAfterCaptureStarted == true)
 					{
-						////CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString());
+						////CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString(), ErrorSeverity::Debug);
 						ResetAllStaticMembers();
 
 						tonoData = cuffPulseData = cuffAbsolutePressure = locCountdownTimer = statusBytes =  0;
@@ -204,7 +204,7 @@ namespace AtCor{
 						{
 							//get next set of values from the cufff simulation file
 							_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &locEASourceFlag);
-							////CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X2) + " ,locEASourceFlag" + locEASourceFlag.ToString("X2));
+							////CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X2) + " ,locEASourceFlag" + locEASourceFlag.ToString("X2), ErrorSeverity::Debug);
 
 							//store the Error/alarm SOURCE in the global variable. If an event is raised we need to retrive the stored value to find the source.
 							_currentEASourceFlag = locEASourceFlag;
@@ -228,28 +228,18 @@ namespace AtCor{
 						//check between the modes
 							_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
 
-						//if(DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
-						//{
-						//	//get the next set of values from the tonometer simulation file.
-						//	_tonometerSimulationFile->GetNextValues(&tonoData, &cuffPulseData);
-						//}
-						//else if (DalStreamingMode::cPwa == DalModule::Instance->StreamingMode)
-						//{
-						//	//get the next set of values from the CPWA simulation file.
-						//	_tonometerSimulationFile->GetNextValues(&cuffPulseData);
-						//}
-
 						
-
-						if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
-						{
-							//value is in miliseconds. The device returns it as seconds hece divide by thousand.
-							tempPWVDataVar.countdownTimer = (short)locCountdownTimer/1000;
-						}
-						else
-						{
-							tempPWVDataVar.countdownTimer = 0;
-						}
+							//Replacing with another function call to meet coding metrics
+						SetCountDownTimer(currentCuffState, locCountdownTimer, %tempPWVDataVar);
+						//if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
+						//{
+						//	//value is in miliseconds. The device returns it as seconds hece divide by thousand.
+						//	tempPWVDataVar.countdownTimer = (short)locCountdownTimer/1000;
+						//}
+						//else
+						//{
+						//	tempPWVDataVar.countdownTimer = 0;
+						//}
 
 						//added by TS Stub
 						if (cuffInUse)
@@ -261,7 +251,7 @@ namespace AtCor{
 						tempPWVDataVar.cuffPressure = (short)cuffAbsolutePressure;
 						tempPWVDataVar.tonometerData = (short)tonoData;
 						tempPWVDataVar.cuffPulseData = (short)cuffPulseData;
-						////CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer );
+						////CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer , ErrorSeverity::Debug);
 						
 						//write data to buffer
 						dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
@@ -273,7 +263,7 @@ namespace AtCor{
 				}
 				catch(ScorException^ scorExObj)
 				{
-					CrxLogger::Instance->Write(" Simulation ScorException raised:" + scorExObj->ErrorMessageKey );
+					CrxLogger::Instance->Write(" Simulation ScorException raised:" + scorExObj->ErrorMessageKey , ErrorSeverity::Debug);
 						
 					//throw; //dont throw an excpetion from a thread . convert it to an event
 
@@ -286,7 +276,7 @@ namespace AtCor{
 				}
 				catch(Exception^ excepObj)
 				{
-					CrxLogger::Instance->Write(" Simulation Exception raised:" + excepObj->Message);
+					CrxLogger::Instance->Write(" Simulation Exception raised:" + excepObj->Message, ErrorSeverity::Debug);
 					//throw gcnew ScorException(excepObj);
 					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, gcnew ScorException(excepObj));
 				}
@@ -455,13 +445,13 @@ namespace AtCor{
 				newPressure; //Dummy statement to get rid of C4100 warning
 				cuffBoard ; //Dummy statement to get rid of C4100 warning
 
-				//CrxLogger::Instance->Write("DalSimulationHandler::SetPressure newPressure: " + newPressure);
+				//CrxLogger::Instance->Write("DalSimulationHandler::SetPressure newPressure: " + newPressure, ErrorSeverity::Debug);
 
 
 				//Added by TS Stub
 				if (newPressure > 0)
 				{
-					//CrxLogger::Instance->Write("DalSimulationHandler::SetPressure cuffInUse set to true " );
+					//CrxLogger::Instance->Write("DalSimulationHandler::SetPressure cuffInUse set to true " , ErrorSeverity::Debug);
 					// cuff is now in use as soon as it's inflated
 					cuffInUse = true;
 					if (captureTimer)
@@ -518,6 +508,19 @@ namespace AtCor{
 			bool DalSimulationHandler::AbortBP()
 			{
 				return true;
+			}
+
+			void DalSimulationHandler::SetCountDownTimer(DalCuffStateFlags currentCuffState, unsigned long locCountdownTimer, DalPwvDataStruct^ dataVar)
+			{
+				if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
+				{
+					//value is in miliseconds. The device returns it as seconds hece divide by thousand.
+					dataVar->countdownTimer = (short)locCountdownTimer/1000;
+				}
+				else
+				{
+					dataVar->countdownTimer = 0;
+				}
 			}
 
 		}//END DataAccess namespace

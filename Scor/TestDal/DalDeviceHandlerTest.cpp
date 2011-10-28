@@ -1,5 +1,6 @@
 ﻿
 #include "StdAfx.h"
+
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
 using namespace System::IO;
@@ -609,6 +610,23 @@ public: [TestMethod]
 			Assert::AreEqual(expected, actual);
 			
 		}
+		/// <summary>
+		///A test for GetConfigPwaCuffMeasurementsCounter
+		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"dal.dll")]
+//		void GetConfigPwaCuffMeasurementsCounterTest()
+//		{
+//			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+//			String^  PwaCuffMeasurementsCounter = System::String::Empty; // TODO: Initialize to an appropriate value
+//			String^  PwaCuffMeasurementsCounterExpected = System::String::Empty; // TODO: Initialize to an appropriate value
+//			bool expected = false; // TODO: Initialize to an appropriate value
+//			bool actual;
+//			actual = target->GetConfigPwaCuffMeasurementsCounter(PwaCuffMeasurementsCounter);
+//			Assert::AreEqual(PwaCuffMeasurementsCounterExpected, PwaCuffMeasurementsCounter);
+//			Assert::AreEqual(expected, actual);
+//			Assert::Inconclusive(L"Verify the correctness of this test method.");
+//		}
 };
 }
 namespace TestDal {

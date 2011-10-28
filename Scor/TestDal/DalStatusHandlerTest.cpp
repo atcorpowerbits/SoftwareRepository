@@ -579,7 +579,7 @@ public: [TestMethod]
 		{
 			SetPath();
 			DalModule_Accessor^ dalModule = gcnew DalModule_Accessor();
-			dalModule->SetDeviceStrategy("Simulation");
+			dalModule->SetDeviceStrategy("Simulation", DalStreamingMode::Pwv);
 			DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor()); 
 			target->ResetAllStaticMembers();
 
@@ -623,7 +623,7 @@ public: [TestMethod]
 
 			SetPath();
 			DalModule_Accessor^ dalModule = gcnew DalModule_Accessor();
-			dalModule->SetDeviceStrategy("Simulation");
+			dalModule->SetDeviceStrategy("Simulation", DalStreamingMode::Pwv);
 			DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor()); 
 
 			//initialize a handler for the event that will be raised
@@ -695,7 +695,7 @@ public: [TestMethod]
 		{
 				SetPath();
 			DalModule_Accessor^ dalModule = gcnew DalModule_Accessor();
-			dalModule->SetDeviceStrategy("Simulation");
+			dalModule->SetDeviceStrategy("Simulation", DalStreamingMode::Pwv);
 			DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor()); 
 
 			//initialize a handler for the event that will be raised
@@ -790,7 +790,7 @@ public: [TestMethod]
 		{
 			SetPath();
 			DalModule_Accessor^ dalModule = gcnew DalModule_Accessor();
-			dalModule->SetDeviceStrategy("Simulation");
+			dalModule->SetDeviceStrategy("Simulation", DalStreamingMode::Pwv);
 			DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor()); 
 			//reset the event raised flaf
 			eventRaised = false;
@@ -849,7 +849,7 @@ public: [TestMethod]
 			
 				SetPath();
 				DalModule_Accessor^ dalModule = gcnew DalModule_Accessor();
-				dalModule->SetDeviceStrategy("Simulation");
+				dalModule->SetDeviceStrategy("Simulation", DalStreamingMode::Pwv);
 				DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor()); 
 				target->ResetAllStaticMembers();
 				
@@ -886,7 +886,7 @@ public: [TestMethod]
 			
 				SetPath();
 				DalModule_Accessor^ dalModule = gcnew DalModule_Accessor();
-				dalModule->SetDeviceStrategy("Simulation");
+				dalModule->SetDeviceStrategy("Simulation", DalStreamingMode::Pwv);
 				DalStatusHandler_Accessor^  target = (gcnew DalStatusHandler_Accessor()); 
 				target->ResetAllStaticMembers();
 				

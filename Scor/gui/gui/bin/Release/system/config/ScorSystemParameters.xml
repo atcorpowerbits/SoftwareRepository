@@ -11,6 +11,7 @@
 		<CommandResponse>N</CommandResponse>
 		<StreamingPackets>N</StreamingPackets>
    </ProcessSequenceNumber>
+   <IdleModeSleepTime>3000</IdleModeSleepTime>
    <ProcessStatusFlagParts>
 		<StopButton>N</StopButton>
 		<PowerUpBit>N</PowerUpBit>
@@ -41,6 +42,53 @@
       </Reinflation>
     </Cuff>
   </PWV>
+  <PWA>
+    <Cuff>
+      <Inflation>
+        <Timeout>10</Timeout>
+      </Inflation>
+	   <Deflation>
+        <Timeout>10</Timeout>
+      </Deflation>
+      <Reinflation>
+        <Rest>0</Rest>
+      </Reinflation>
+    </Cuff>
+  </PWA>
+  <RTOF>
+ 		<PWVTonometer>
+			<MinNumberOfPulsesForAutoCapture>10</MinNumberOfPulsesForAutoCapture>
+			<VariationUpperFeedbackLimePoint>70</VariationUpperFeedbackLimePoint>
+			<VariationUpperFeedbackYellowPoint>85</VariationUpperFeedbackYellowPoint>
+			<VariationLowerFeedbackLimePoint>150</VariationLowerFeedbackLimePoint>
+			<VariationLowerFeedbackYellowPoint>160</VariationLowerFeedbackYellowPoint>
+			<PHFeedbackLimePoint>190</PHFeedbackLimePoint>
+			<PHFeedbackYellowPoint>220</PHFeedbackYellowPoint>
+ 		</PWVTonometer>
+ 		<PWVCuff>
+			<MinNumberOfPulsesForAutoCapture>10</MinNumberOfPulsesForAutoCapture>
+			<VariationUpperFeedbackLimePoint>68</VariationUpperFeedbackLimePoint>
+			<VariationUpperFeedbackYellowPoint>75</VariationUpperFeedbackYellowPoint>
+			<VariationLowerFeedbackLimePoint>8</VariationLowerFeedbackLimePoint>
+			<VariationLowerFeedbackYellowPoint>12</VariationLowerFeedbackYellowPoint>
+			<PHFeedbackLimePoint>55</PHFeedbackLimePoint>
+			<PHFeedbackYellowPoint>60</PHFeedbackYellowPoint>
+ 		</PWVCuff>
+ 		<PWATonometer>
+ 			<VariationFeedbackLimePoint>5</VariationFeedbackLimePoint>
+ 			<PHFeedbackYellowPoint>75</PHFeedbackYellowPoint>
+ 		</PWATonometer>
+ 		<PWACuff>		
+			<MinNumberOfPulsesForAutoCapture>10</MinNumberOfPulsesForAutoCapture>
+			<VariationUpperFeedbackLimePoint>65</VariationUpperFeedbackLimePoint>
+			<VariationUpperFeedbackYellowPoint>80</VariationUpperFeedbackYellowPoint>
+			<VariationLowerFeedbackLimePoint>12</VariationLowerFeedbackLimePoint>
+			<VariationLowerFeedbackYellowPoint>17</VariationLowerFeedbackYellowPoint>
+			<PHFeedbackLimePoint>190</PHFeedbackLimePoint>
+			<PHFeedbackYellowPoint>200</PHFeedbackYellowPoint>
+ 		</PWACuff>
+ 	</RTOF>
+  <NibpCuffDataInterval>200</NibpCuffDataInterval>
    <MyTestValues>
 		<Value1>1</Value1>
 		<Value2>2</Value2>
@@ -50,7 +98,7 @@
 			<param name="File" value="./system/Logs/scor.log" />
 			<param name="AppendToFile" value="true" />
 			<rollingStyle value="Composite" />
-			<maxSizeRollBackups value="10" />
+			<maxSizeRollBackups value="-1" />
 			<maximumFileSize value="70KB" />
 			<staticLogFileName value="true" />
 			<layout type="log4net.Layout.PatternLayout">			

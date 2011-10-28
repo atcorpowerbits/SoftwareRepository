@@ -13,10 +13,12 @@
 #include "stdafx.h"
 #include "DalCommon.h"
 #include <msclr\lock.h>
+#include "DalBinaryConversions.h"
 
 using namespace System;
 using namespace msclr;
 using namespace AtCor::Scor::CrossCutting;
+using namespace AtCor::Scor::CrossCutting::Logging;
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -257,6 +259,22 @@ namespace AtCor{
 				public delegate void DalNIBPDataEventHandler(Object^ sender, DalNIBPDataEventArgs ^args);
 
 
+				public ref class NibPacketArrivedEventArgs: public EventArgs
+				{
+					internal :
+						array<unsigned char>^ nibpPacket;
+
+					public:
+						NibPacketArrivedEventArgs(array<unsigned char>^ packet)
+						{
+							nibpPacket = packet;
+						}
+				};
+
+				public delegate void NibPPacketArrivedEventHandler(Object^ sender, NibPacketArrivedEventArgs ^ args); 
+
+
+
 				/**
 				* @class DalEventContainer
 				* @brief A container to initialize events for the DAL.
@@ -282,6 +300,8 @@ namespace AtCor{
 
 						//TS STUB
 						DalNIBPDataEventHandler^ _dalNIBPDataEventHandler; // NIBP data event handler
+						
+						NibPPacketArrivedEventHandler ^ _nibpDataArrivedHandler; //used internally
 						
 					public:
 						/**
@@ -441,7 +461,7 @@ namespace AtCor{
 								if(_DalCuffStatusEventHandler)
 								{
 									//Moved log comment to the top and uncommented it as per TS stub
-									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() );
+									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() , ErrorSeverity::Debug);
 									_DalCuffStatusEventHandler->Invoke(sender, args);
 								}
 							}
@@ -461,6 +481,11 @@ namespace AtCor{
 							*/
 							void add(DalModuleErrorAlarmEventHandler^ handler)
 							{
+								if (nullptr == handler)
+								{
+									return;
+								}
+								//CrxLogger::Instance->Write("Deepak>>>> DalModuleErrorAlarmEventHandler Handler Added: " + handler->ToString(), ErrorSeverity::Debug);
 								lock lockEvents(this);
 								//add the specified handler as listener.
 								_dalModuleErrorAlarmEventHandler += handler;
@@ -475,6 +500,12 @@ namespace AtCor{
 							*/
 							void remove(DalModuleErrorAlarmEventHandler^ handler)
 							{
+								if (nullptr == handler)
+								{
+									return;
+								}
+
+								//CrxLogger::Instance->Write("Deepak>>>> DalModuleErrorAlarmEventHandler Handler removed: " + handler->ToString(), ErrorSeverity::Debug);
 								lock lockEvents(this);
 								//Remove the specified handler from the list of listeners
 								_dalModuleErrorAlarmEventHandler -= handler;
@@ -499,7 +530,7 @@ namespace AtCor{
 								if(_dalModuleErrorAlarmEventHandler)
 								{
 									_dalModuleErrorAlarmEventHandler->Invoke(sender, args);
-									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Error Alarm event raised in DAL: "+ args->ErrorAlarmStatus.ToString() + " : " + args->AlarmSourceName  );
+									CrxLogger::Instance->Write("Deepak>>>> Error Alarm event raised in DAL: "+ args->ErrorAlarmStatus.ToString() + " : " + args->AlarmSourceName  , ErrorSeverity::Debug);
 								}
 							
 							}
@@ -558,7 +589,7 @@ namespace AtCor{
 								if(_dalTonometerStatusEventHandler)
 								{
 									_dalTonometerStatusEventHandler->Invoke(sender, args);
-									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Tonometer event raised in DAL: "+ args->TonometerStateFlag.ToString() );
+									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Tonometer event raised in DAL: "+ args->TonometerStateFlag.ToString() , ErrorSeverity::Debug);
 								}
 							}
 						}
@@ -618,7 +649,7 @@ namespace AtCor{
 								if(_dalUnusedStatusFlagChangedEventHandler)
 								{
 									_dalUnusedStatusFlagChangedEventHandler->Invoke(sender, args);
-									////AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> UnusedStatusFlagChangedEvent raised in DAL: "+ args->UnusedStatusFlagChanged.ToString() + " : " + args->ValueSetReset.ToString()  );
+									////AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> UnusedStatusFlagChangedEvent raised in DAL: "+ args->UnusedStatusFlagChanged.ToString() + " : " + args->ValueSetReset.ToString()  , ErrorSeverity::Debug);
 								}
 							}
 						}
@@ -679,6 +710,67 @@ namespace AtCor{
 								}
 							}
 						}
+
+
+					/**
+					* Internal NIBP Packet event
+					*/
+					event NibPPacketArrivedEventHandler^ OnDalNibpPacketEvent
+					{
+						/**
+						* Registers specifed handler method as a listener to this event.
+						*
+						* @param[in] handler	The handler method to be registered as a listener. @n
+						*						Should match the signature of NibPPacketArrivedEventHandler
+						*/
+						void add(NibPPacketArrivedEventHandler^ handler)
+						{
+							
+							lock lockEvents(this);
+							//add the specified handler as listener.
+							_nibpDataArrivedHandler += handler;
+							//CrxLogger::Instance->Write("Deepak>> OnDalNibpPacketEvent> Listerner Added", ErrorSeverity::Debug);
+						}
+						
+						/**
+						* Removes specifed handler method from the list of listners. @n
+						* The handler can no  longer listen to this event.
+						*
+						* @param[in] handler	The handler method to be de-registered as a listener. @n
+						*						Should be already added as a listener.
+						*/
+						void remove(NibPPacketArrivedEventHandler^ handler)
+						{
+							lock lockEvents(this);
+							//Remove the specified handler from the list of listeners
+							_nibpDataArrivedHandler -= handler;
+							//CrxLogger::Instance->Write("Deepak>> OnDalNibpPacketEvent> Listerner Removed", ErrorSeverity::Debug);
+						}
+
+						/**
+						* Overloaded raise method.
+						* Needed to raise an event.
+						*
+						* @param[in]	sender	Reference to object that raised the event.
+						* @param[in[	args	The arguments for this event. Should be of the type DalTonometerDataEventArgs.
+						*/
+						void raise(Object^ sender, NibPacketArrivedEventArgs^ args)
+						{
+							if (nullptr == args )
+							{
+								//validation of param based on FxCop
+								//No need to validate the sender as it is unimportant.
+								return;
+							}
+
+							//Raise the event.
+							if(_nibpDataArrivedHandler)
+							{
+								CrxLogger::Instance->Write("Deepak>> OnDalNibpPacketEvent> Raising event args" + DalBinaryConversions::ConvertBytesToString(args->nibpPacket), ErrorSeverity::Debug);
+								_nibpDataArrivedHandler->Invoke(sender, args);
+							}
+						}
+					}
 						
 				}; // End class DalEventContainer
 		}

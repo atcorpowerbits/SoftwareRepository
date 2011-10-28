@@ -58,7 +58,7 @@ namespace AtCor{
 					configMgr->GetGeneralUserSettings();
 					configMgr->GetPwvUserSettings();
 					//Get the simulation type as set in configuration.
-					comPortInConfig = configMgr->GeneralSettings->CommsPort;
+					comPortInConfig = configMgr->GeneralSettings->CommsPort->ToUpper();
 
 					currStreamingMode = DalModule::Instance->StreamingMode;
 					
@@ -82,12 +82,13 @@ namespace AtCor{
 					if (String::IsNullOrEmpty(comPortInConfig))
 					{
 						//make it simualtion by default Dont throw exception
-						comPortInConfig = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation);
+						//comPortInConfig = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation);
+						comPortInConfig = CrxStructCommonResourceMsg::Simulation;
 
 						//set the com port as simulation in Config file
-						configMgr->GeneralSettings->CommsPort = comPortInConfig;
+						configMgr->GeneralSettings->CommsPort = comPortInConfig->ToUpper();
 						configMgr->SetGeneralUserSettings(configMgr->GeneralSettings);
-						//CrxLogger::Instance->Write(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalMsgDefaultModeSelectedSim));
+						//CrxLogger::Instance->Write(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalMsgDefaultModeSelectedSim), ErrorSeverity::Debug);
 					}
 
 					//SetDeviceStrategy(comPortInConfig); 
@@ -105,14 +106,76 @@ namespace AtCor{
 				return true;
 			}
 
-			//TODO: This method will be removed in future as new over loaded method is created, which takes 
-			//		two arguments
-			bool DalActiveDevice::SetDeviceStrategy(String ^commPort)
+//			//TODO: This method will be removed in future as new over loaded method is created, which takes 
+//			//		two arguments
+//			bool DalActiveDevice::SetDeviceStrategy(String ^commPort)
+//			{
+//				try
+//				{
+//					CrxMessagingManager ^oMsg = CrxMessagingManager::Instance;
+//
+//					if (commPort == nullptr)
+//					{
+//						//A null string was passed when a comm port was expected.
+//						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrComportNotSetErrCd, CrxStructCommonResourceMsg::DalErrComportNotSet, ErrorSeverity::Exception);
+//					}
+//	                
+//					//Compare with the "simulation" string CrxMessaging
+//					if (String::Compare(commPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), CrxStructCommonResourceMsg::Simulation, true) == 0)
+//					{
+//						//if config manager returns "simulation" initialize the DalSimulationHander
+//						//create a new simulation handler
+////						if (DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
+//						{
+//							_currentDevice = DalPwvSimulationHandler::Instance;
+//						}
+////						else if(DalStreamingMode::cPwa == DalModule::Instance->StreamingMode)
+//						{
+//							//To Do: Change to cPwa
+//							//_currentDevice = DalPwvSimulationHandler::Instance;
+//						}
+////						else
+//						{
+//							//_currentDevice = nullptr;
+//						}
+//
+//					}
+//					else
+//					{
+//						if (DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
+//						{
+//							_currentDevice = gcnew DalPwvDeviceHandler();
+//						}
+//						else if (DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
+//						{
+//							_currentDevice = gcnew DalCPwaDeviceHandler();
+//						}
+//						else
+//						{
+//							_currentDevice = nullptr;
+//							throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNoInterfaceErrCd, CrxStructCommonResourceMsg::DalErrNoInterface, ErrorSeverity::Exception);
+//							
+//						}
+//					}
+//				}
+//				catch(ScorException ^)
+//				{
+//					throw;
+//				}
+//				catch(Exception ^ excepObj)
+//				{
+//					throw gcnew ScorException(excepObj);
+//				}
+//
+//				return true;
+//			}
+
+			bool DalActiveDevice::SetDeviceStrategy(String ^commPort, DalStreamingMode mode)
 			{
 				try
 				{
-					CrxMessagingManager ^oMsg = CrxMessagingManager::Instance;
-
+					//CrxMessagingManager ^oMsg = CrxMessagingManager::Instance;
+					
 					if (commPort == nullptr)
 					{
 						//A null string was passed when a comm port was expected.
@@ -120,32 +183,43 @@ namespace AtCor{
 					}
 	                
 					//Compare with the "simulation" string CrxMessaging
-              		if (String::Compare(commPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), oMsg->GetMessage(CrxStructCommonResourceMsg::ComportSimulation), true) == 0)
+					if (String::Compare(commPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), CrxStructCommonResourceMsg::Simulation, true) == 0)
 					{
-						//if config manager returns "simulation" initialize the DalSimulationHander
-						//create a new simulation handler
-//						if (DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
-						{
-							_currentDevice = DalPwvSimulationHandler::Instance;
-						}
-//						else if(DalStreamingMode::cPwa == DalModule::Instance->StreamingMode)
-						{
-							//To Do: Change to cPwa
-							//_currentDevice = DalPwvSimulationHandler::Instance;
-						}
-//						else
-						{
-							//_currentDevice = nullptr;
-						}
-
+						SetSimulationAsCurrent(mode);
+						//if(_currentDevice != nullptr)
+						//{
+						//	_currentDevice->CloseFiles();
+						//}
+						////if config manager returns "simulation" initialize the DalSimulationHander
+						////create a new simulation handler
+						//if (DalStreamingMode::Pwv == mode)
+						//{
+						//	_currentDevice = DalPwvSimulationHandler::Instance;
+						//}
+						//else if(DalStreamingMode::cPwa == mode)
+						//{
+						//	_currentDevice = DalCPwaSimulationHandler::Instance;
+						//}
+						//else if(DalStreamingMode::tPwa == mode)
+						//{
+						//	//To Do: Change to tPwa
+						//	_currentDevice = nullptr;
+						//}
+						//else
+						//{
+						//	_currentDevice = nullptr;
+						//	throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNoInterfaceErrCd, CrxStructCommonResourceMsg::DalErrNoInterface, ErrorSeverity::Exception);	
+						//}
 					}
-					else
+					else //This is an EM4 device port
 					{
-						if (DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
+
+						SetDeviceAsCurrent(mode);
+						/*if (DalStreamingMode::Pwv == mode)
 						{
 							_currentDevice = gcnew DalPwvDeviceHandler();
 						}
-						else if (DalStreamingMode::Pwv == DalModule::Instance->StreamingMode)
+							else if (DalStreamingMode::cPwa == mode)
 						{
 							_currentDevice = gcnew DalCPwaDeviceHandler();
 						}
@@ -154,7 +228,7 @@ namespace AtCor{
 							_currentDevice = nullptr;
 							throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNoInterfaceErrCd, CrxStructCommonResourceMsg::DalErrNoInterface, ErrorSeverity::Exception);
 							
-						}
+						}*/
 					}
 				}
 				catch(ScorException ^)
@@ -169,21 +243,8 @@ namespace AtCor{
 				return true;
 			}
 
-			bool DalActiveDevice::SetDeviceStrategy(String ^commPort, DalStreamingMode mode)
+			void DalActiveDevice::SetSimulationAsCurrent(DalStreamingMode mode)
 			{
-				try
-				{
-					CrxMessagingManager ^oMsg = CrxMessagingManager::Instance;
-					
-					if (commPort == nullptr)
-					{
-						//A null string was passed when a comm port was expected.
-						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrComportNotSetErrCd, CrxStructCommonResourceMsg::DalErrComportNotSet, ErrorSeverity::Exception);
-					}
-	                
-					//Compare with the "simulation" string CrxMessaging
-              		if (String::Compare(commPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), oMsg->GetMessage(CrxStructCommonResourceMsg::ComportSimulation), true) == 0)
-					{
 						if(_currentDevice != nullptr)
 						{
 							_currentDevice->CloseFiles();
@@ -209,7 +270,8 @@ namespace AtCor{
 							throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNoInterfaceErrCd, CrxStructCommonResourceMsg::DalErrNoInterface, ErrorSeverity::Exception);	
 						}
 					}
-					else //This is an EM4 device port
+
+			void DalActiveDevice::SetDeviceAsCurrent(DalStreamingMode mode)
 					{
 							if (DalStreamingMode::Pwv == mode)
 						{
@@ -225,18 +287,6 @@ namespace AtCor{
 							throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNoInterfaceErrCd, CrxStructCommonResourceMsg::DalErrNoInterface, ErrorSeverity::Exception);
 							
 						}
-					}
-				}
-				catch(ScorException ^)
-				{
-					throw;
-				}
-				catch(Exception ^ excepObj)
-				{
-					throw gcnew ScorException(excepObj);
-				}
-
-				return true;
 			}
 
 			DalActiveDevice^ DalActiveDevice::operator =(DalActiveDevice)
@@ -286,7 +336,7 @@ namespace AtCor{
 				//save it to a flag 
 				//if find module fails to locate a real device we will need to go back to simulation.
 				//use true to ignore the case
-				if (0 == String::Compare(configPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation), true) )
+				if (0 == String::Compare(configPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), CrxStructCommonResourceMsg::Simulation, true) )
 				{
 					//there was no real comms port in COnfig file
 					commsPortInConfig = nullptr;
@@ -425,7 +475,7 @@ namespace AtCor{
 			{
 				//sender; //Dummy statement to get rid of C4100 warning
 
-				////CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting );
+				CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting, ErrorSeverity::Debug);
 				//SetDeviceStrategy(args->commsPortSetting);
 				SetDeviceStrategy(args->commsPortSetting, DalModule::Instance->StreamingMode);
 
@@ -453,7 +503,7 @@ namespace AtCor{
 					{
 						continue;
 					}
-					////CrxLogger::Instance->Write("Ports Listed: " + portName);
+					////CrxLogger::Instance->Write("Ports Listed: " + portName, ErrorSeverity::Debug);
 					if (DalDeviceHandler::Instance->CheckIfDeviceIsConnected(portName)) 
 					{
 

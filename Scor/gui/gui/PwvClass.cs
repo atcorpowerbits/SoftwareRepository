@@ -28,8 +28,7 @@ namespace AtCor.Scor.Gui.Presentation
         public Pwv()
         {
             BizSession.Instance().SwitchMeasurement(BizMode.PWV);
-            GuiCommon.bizObject = (BizPWV)BizSession.Instance().measurement;
-            DalModule.Instance.SetStreamingMode(DalStreamingMode.Pwv);     
+            GuiCommon.bizObject = (BizPWV)BizSession.Instance().measurement;               
         }
 
         public void DispatchCaptureData()
@@ -101,6 +100,15 @@ namespace AtCor.Scor.Gui.Presentation
         public void CreateTextFileForFailedCapture()
         {
             ((Capture)GuiCommon.CaptureChildForm).CreateTextFileOnReportFailed();
+        }
+
+        public void LoadTemporaryReport()
+        {
+        }
+
+        public void EnableDisableCaptureButton()
+        {
+            ((Capture)GuiCommon.CaptureChildForm).RefreshOkButtonForPwvMode(); 
         }
     }
 }

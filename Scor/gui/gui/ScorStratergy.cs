@@ -58,6 +58,10 @@ namespace AtCor.Scor.Gui.Presentation
 
         void CreateTextFileForFailedCapture();
 
+        void LoadTemporaryReport();
+
+        void EnableDisableCaptureButton();
+
         // void AppendCaptureData();       
         // void CalculateReport();
         // void CalculateAge();

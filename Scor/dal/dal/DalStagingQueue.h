@@ -12,10 +12,14 @@
 
 #include "stdafx.h"
 #include "DalCommon.h"
+#include "DalNibpCommandInterface.h"
 
 using namespace System; //general
 using namespace System::Collections::Generic; //For Queue<T>
 using namespace System::Threading; //For mutex
+using namespace System::Runtime::InteropServices; 
+
+
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -44,6 +48,11 @@ namespace AtCor{
 				bool _captureMode; //a flag to know wheter we are in capture mode or command-response mode
 
 				Thread^ dataProcessingThread; //thread to process the data in the queue
+
+				// Create the delegate for NIBP calls
+				//static ProcessNibpToHostPacketAsyncCaller^ caller = gcnew ProcessNibpToHostPacketAsyncCaller(this, DalNibpCommandInterface::ProcessNibpToHostPacketAsyncCaller);
+
+
 
 
 				/**
@@ -82,6 +91,18 @@ namespace AtCor{
 				array <unsigned char>^ ExtractNackedResponsePacket();
 				
 				/**
+				* Dequeues a complete NIBP response packet from the head of the list. 
+				* This function assumes that the code in the first byte is an NIBp command 
+				* and the next byte represents the length of the Nibp Packet.
+				*
+				* @return	An Acked packet from the head of the array
+				*
+				* @warning First determine the packet type using DeterminePacketType. If the type and code are 
+				*			not corret then the funtion will throw an error.
+				*/
+				array <unsigned char>^ ExtractNibpPacket();
+				
+				/**
 				* Loops through all the bytes in the queue and classifies each accordign to the type
 				* It then calls the respective methods which extract the packet based on the type.
 				* Does this untill there is a complete packet left to pick.
@@ -102,13 +123,6 @@ namespace AtCor{
 				*/
 				bool ProcessSinglePacket();
 
-				//unused
-				////A delegate to call using begininvoke. Should have the same signature as the method being called
-				////Since we are using it within this class itself it has been defined as a class member and not outside.
-				// delegate void ProcessQueueAsyncCaller();
-
-				// //Delegate to call the read method in case of an underflow
-				// delegate void AttemptUnderFlowReadCaller();
 
 				 //Clears the buffer partially.
 				 //If it is in streming mode it clears the array till the next streaming pacet.
@@ -160,8 +174,8 @@ namespace AtCor{
 				*/
 				void LookForResponseToCommand( 
 												unsigned char commandCodeToLocate,
-												unsigned char expectedResponseLengthToLocate, //should be same as Em4ResponseRequiredLength enum
-												unsigned char expectedSequenceNumberToLocate
+												unsigned char expectedResponseLengthToLocate //should be same as Em4ResponseRequiredLength enum
+
 												);
 
 				/**
@@ -190,6 +204,8 @@ namespace AtCor{
 				* Clears the buffer.
 				*/
 				void EmptyBuffer();
+
+				
 
 			};
 

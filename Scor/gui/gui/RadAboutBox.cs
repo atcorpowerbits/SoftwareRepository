@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Text;
 using AtCor.Scor.CrossCutting.Messaging;
 using AtCor.Scor.CrossCutting.Printer;
+using AtCor.Scor.CrossCutting.Logging;   
 using AtCor.Scor.BusinessLogic;
 using System.Configuration;
 using Telerik.WinControls.UI;
@@ -123,10 +124,12 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblPWA.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtPwa), bizInformation.GetModuleNumberMeasurementsPWA());
                 guiradlblBP.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtBp), bizInformation.GetModuleNumberMeasurementsNIBP());
                 guiradlblSecurityMode.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutSecMode), bizInformation.GetSecurityMode());
-                guiradlblmoduleInfo.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutModuleTxt), bizInformation.GetModuleType(), bizInformation.GetModuleVersion(), bizInformation.GetModuleSN());
+
+                // bizInformation.GetModuleSN());
+                guiradlblmoduleInfo.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutModuleTxt), bizInformation.GetModuleType(), bizInformation.GetModuleVersion(), bizInformation.GetSystemID()); 
                 guiradlblKeyFeatures.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblKey) + ": " + SetKeyFeatures();
                 guiradlblLastCalibrationDate.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutCalibDate), bizInformation.GetModuleCalibrationDate());
-
+                CrxLogger.Instance.Write("Module Information : (bizInformation.GetModuleType()) :" + bizInformation.GetModuleType() + "bizInformation.GetModuleVersion(): " + bizInformation.GetModuleVersion() + "bizInformation.GetModuleSN() : " + bizInformation.GetModuleSN() + "bizInformation.GetSystemID(): " + bizInformation.GetSystemID());
                 if (string.IsNullOrEmpty(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.CeMarkImage.ToString()]))
                 {
                     guiradlblCeMark.BackColor = Color.FromArgb(191, 219, 255);

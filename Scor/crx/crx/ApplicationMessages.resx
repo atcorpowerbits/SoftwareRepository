@@ -1136,7 +1136,9 @@
     <value>Blood Pressure ({0} measurements)</value>
   </data>
   <data name="GUI_ABOUT_MODULE_TXT" xml:space="preserve">
-    <value>Module: {0}, Version: {1}, Serial no: {2}</value>
+    <value>Module: {0}, Version: {1}, System ID: {2}</value>
+    <comment>Module: {0}, Version: {1}, Serial no
+: {2}</comment>
   </data>
   <data name="GUI_ABOUT_MOD_TYPE" xml:space="preserve">
     <value>Type</value>
@@ -1471,7 +1473,7 @@ If the problem persists check troubleshooting section in user manual or contact 
     <value>'</value>
   </data>
   <data name="GUI_DIRECT" xml:space="preserve">
-    <value>Carotid To Cuff:</value>
+    <value>Carotid to Cuff:</value>
   </data>
   <data name="GUI_DISPLAY_AMPERSAND" xml:space="preserve">
     <value> and </value>
@@ -2085,7 +2087,7 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Value entered for SP is too large.</value>
   </data>
   <data name="DAL_CONST_SIM_FOLDER_PATH_PWA" xml:space="preserve">
-    <value>.\\simulation\\PWA\\</value>
+    <value>.\\simulation\\cPWA\\</value>
   </data>
   <data name="CAPTURE_FAILED_TO_STOP" xml:space="preserve">
     <value>Data capture failed to stop</value>
@@ -2400,12 +2402,290 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Wait for cuff to be deflated.</value>
   </data>
   <data name="GUI_REPORT_PATIENT_HEIGHT_OUTSIDE_RANGE" xml:space="preserve">
-    <value>Patient's height is outside the range to see  the comparison of Euopean General Population</value>
+    <value>Patient's height is outside the range to see  the comparison of European General Population</value>
   </data>
   <data name="GUI_REPORT_ACTUAL" xml:space="preserve">
     <value>Actual</value>
   </data>
   <data name="GUI_REPORT_TYPICAL" xml:space="preserve">
     <value>Typical</value>
+  </data>
+  <data name="LBL_SPHYGMOCOR_REFERENCE_AGE_NOT_CALCULTED" xml:space="preserve">
+    <value>SphygmoCor Reference Age Not Calculated</value>
+  </data>
+  <data name="RPT_NOTE_TITLE" xml:space="preserve">
+    <value>Note:</value>
+  </data>
+  <data name="TAB_QUICK_START" xml:space="preserve">
+    <value>QuickStart</value>
+  </data>
+  <data name="LBL_REPORT_PWA_NOT_CALCULATED" xml:space="preserve">
+    <value>Not Calculated</value>
+  </data>
+  <data name="PWA PATIENT REPORT" xml:space="preserve">
+    <value>PWA Patient Report</value>
+  </data>
+  <data name="UNITS_TIME_MS" xml:space="preserve">
+    <value>ms</value>
+  </data>
+  <data name="GUI_CAPTURE_CANNOT_CONTINUE" xml:space="preserve">
+    <value>Capture cannot continue</value>
+  </data>
+  <data name="GUI_NIBP_ASSESSMENT_PROGRESS_MSG" xml:space="preserve">
+    <value>Assessment {0} in Progress</value>
+  </data>
+  <data name="GUI_NIBP_CUFF_PRESSURE" xml:space="preserve">
+    <value>Cuff Pressure {0} mmHg</value>
+  </data>
+  <data name="PRT_PWA_TEXT_RPT_DESCRIPTION" xml:space="preserve">
+    <value>The Global Standard in Pulse Wave Analysis</value>
+  </data>
+  <data name="RPT_PWATEXT1" xml:space="preserve">
+    <value>This report explains your Pulse Wave Analysis measurement, a test used to assess your Central Blood pressure (the pressure at your heart) and the stiffness of your arterial system.</value>
+  </data>
+  <data name="RPT_PWATEXT2" xml:space="preserve">
+    <value>How is Pulse Wave Analysis different to normal cuff Blood pressure measurements?</value>
+  </data>
+  <data name="RPT_PWATEXT3" xml:space="preserve">
+    <value>When your Blood pressure is measured at your arm, your Doctor is measuring:
+
+a) the highest pressure reached in your arm (the systolic pressure).
+
+b) the lowest pressure measured in your arm ( the diastolic pressure).
+
+If your Doctor tells you your Blood pressure is 120 over 80 (often written like 120/80) then your systolic pressure is 120 and your diastolic pressure is 80. 
+
+The SphygmoCor Pulse Wave Analysis device provides this information, and 2 other important measurements:
+
+a) Central Blood pressure – this is the pressure in the aorta, the large artery carrying blood from the heart to the body. Many studies have shown that your central blood pressure is a better indicator of your risk of heart attack, stroke, diabetes and kidney disease than normal cuff pressure.
+
+b) Arterial stiffness – this is a measure of the elasticity of your arteries. The less elastic your arteries (or the stiffer your arteries are), the more likely you are to have hypertension or high blood pressure.</value>
+  </data>
+  <data name="RPT_PWATXT_PAGE" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="RPT_PWATXT_PATIENT_RPT_HEADER" xml:space="preserve">
+    <value>SphygmoCor PWA Patient Report</value>
+  </data>
+  <data name="RPT_PWATEXT4" xml:space="preserve">
+    <value>What is arterial stiffness and how is this related to my Blood pressure?</value>
+  </data>
+  <data name="RPT_PWATEXT5" xml:space="preserve">
+    <value>High central blood pressure is often caused by stiffening or hardening of the arteries. Your heart pumps blood through your arteries via the aorta, the major artery in your body.  The blood moves around the arterial system in waves.</value>
+  </data>
+  <data name="RPT_PWATEXT6" xml:space="preserve">
+    <value>Wherever the arteries break into smaller arteries, some of the pressure from the wave can be reflected back towards the heart. In young patients, the arteries will stretch and pressure reflected back to the heart is small or non existent.
+
+However, as we get older, and our arteries get stiffer, the pressure reflected back to the heart becomes greater. Over time, this increased pressure creates more work for the heart as it must pump the blood against this “back pressure” caused by the stiffness of the arterial system. This is why it is important to measure the pressure at your heart as well as at your arm, and your arterial stiffness.</value>
+  </data>
+  <data name="RPT_DIASTOLIC_BP_VALUE" xml:space="preserve">
+    <value>{0} Normal.</value>
+  </data>
+  <data name="RPT_PWATEXT10" xml:space="preserve">
+    <value>Diastolic:</value>
+  </data>
+  <data name="RPT_PWATEXT11" xml:space="preserve">
+    <value>Your current cuff Blood pressure is {0}, {1}.</value>
+  </data>
+  <data name="RPT_PWATEXT12" xml:space="preserve">
+    <value>Central Systolic Blood pressure.</value>
+  </data>
+  <data name="RPT_PWATEXT13" xml:space="preserve">
+    <value>Your central Systolic Blood pressure is the highest blood pressure measured in your heart (not at your arm). 
+
+High central Systolic Blood pressure is associated with higher risk of heart attacks and strokes, even in people with normal cuff Blood pressure.
+
+Your Central Systolic Blood pressure is {0}.
+
+The green line on the graph below shows the level of central systolic blood pressure from the age of 20 to the age of 90 years old. The red lines show an acceptable range of BP for each age.</value>
+  </data>
+  <data name="RPT_PWATEXT14" xml:space="preserve">
+    <value>If your measurement is on or below the green line: Congratulations your central Systolic Blood pressure is normal for your age or lower than normal for your age. Lower central Systolic Blood pressure is always better.</value>
+  </data>
+  <data name="RPT_PWATEXT15" xml:space="preserve">
+    <value>If your measurement is between the green line and the top red line, then your central Systolic Blood pressure is normal but is at the higher end of the normal range. You should continue to monitor your central Blood pressure regularly with your Doctor to make sure it is not increasing.
+
+If your measurement is above the top red line, your central Systolic Blood pressure is high compared to others your age.  Talk to your Doctor about things you can do to reduce your central systolic Blood pressure, such as:</value>
+  </data>
+  <data name="RPT_PWATEXT7" xml:space="preserve">
+    <value>Brachial (cuff) Blood pressure.</value>
+  </data>
+  <data name="RPT_PWATEXT8" xml:space="preserve">
+    <value>High Blood pressure measured at the arm is a traditional method for determining cardiovascular risk. Your cuff Blood pressure Measurement is:</value>
+  </data>
+  <data name="RPT_PWATEXT9" xml:space="preserve">
+    <value>Systolic:</value>
+  </data>
+  <data name="RPT_PWA_TXT_PATIENT_RPT_FOOTER" xml:space="preserve">
+    <value>These results are for information only as an aid to understanding and do not imply or diagnose a medical condition</value>
+  </data>
+  <data name="RPT_SYSTOLIC_BP_VALUE" xml:space="preserve">
+    <value>{0} High Normal</value>
+  </data>
+  <data name="RPT_PWATEXT16" xml:space="preserve">
+    <value>•	Stopping smoking</value>
+  </data>
+  <data name="RPT_PWATEXT17" xml:space="preserve">
+    <value>•	Increasing cardiovascular exercise such as walking or swimming</value>
+  </data>
+  <data name="RPT_PWATEXT18" xml:space="preserve">
+    <value>•	Improving your diet by cutting down on fat and salt</value>
+  </data>
+  <data name="RPT_PWATEXT19" xml:space="preserve">
+    <value>•	Taking anti-hypertensive medication</value>
+  </data>
+  <data name="RPT_PWATEXT20" xml:space="preserve">
+    <value>•	Reducing your weight if you are overweight</value>
+  </data>
+  <data name="RPT_PWATEXT21" xml:space="preserve">
+    <value>•	Increasing your fruit, vegetable and whole grain intake</value>
+  </data>
+  <data name="RPT_PWATEXT22" xml:space="preserve">
+    <value>•	Reducing stress</value>
+  </data>
+  <data name="RPT_PWATEXT23" xml:space="preserve">
+    <value>•	Reducing excessive alcohol consumption</value>
+  </data>
+  <data name="RPT_PWATEXT24" xml:space="preserve">
+    <value>Central Pulse Pressure (Aortic PP).</value>
+  </data>
+  <data name="RPT_PWATEXT25" xml:space="preserve">
+    <value>Your central Pulse pressure is your central systolic pressure minus your central diastolic pressure. It represents the change in pressure in your arteries every heart beat.
+
+Studies in the USA have shown that a central Pulse pressure of more than 50mmHG increases your risk of heart attack and stroke.
+
+Your central Pulse pressure is {0}.
+
+The green line on the graph below shows the healthy level of central Pulse pressure from the age of 20 to the age of 90 years old. The red lines show an acceptable range of Pulse pressure for each age.</value>
+  </data>
+  <data name="RPT_PWATEXT26" xml:space="preserve">
+    <value>If your measurement is on or below the green line: Congratulations, your central Pulse pressure is normal for your age or lower than normal for your age. 
+
+If your measurement is between the green line and the top red line, then your central Pulse pressure is normal but is at the higher end of the normal range. You should continue to monitor your central Pulse pressure regularly with visits to your Doctor to make sure it is not increasing.
+
+If your measurement is above the top red line, or above 50mmHG, your central Pulse pressure is high compared to others your age.  Talk to your doctor about things you can do to reduce your central Pulse pressure, such as:</value>
+  </data>
+  <data name="RPT_PWATEXT27" xml:space="preserve">
+    <value>•	Stopping smoking</value>
+  </data>
+  <data name="RPT_PWATEXT28" xml:space="preserve">
+    <value>•	Increasing cardiovascular exercise such as walking or swimming</value>
+  </data>
+  <data name="RPT_PWATEXT29" xml:space="preserve">
+    <value>•	Reducing your weight if you are overweight</value>
+  </data>
+  <data name="RPT_PWATEXT30" xml:space="preserve">
+    <value>•	Increasing your fruit, vegetable and whole grain intake</value>
+  </data>
+  <data name="RPT_PWATEXT31" xml:space="preserve">
+    <value>•	Improving your diet by cutting down on fat and salt</value>
+  </data>
+  <data name="RPT_PWATEXT32" xml:space="preserve">
+    <value>•	Taking anti-hypertensive medication</value>
+  </data>
+  <data name="RPT_PWATEXT33" xml:space="preserve">
+    <value>•	Reducing stress</value>
+  </data>
+  <data name="RPT_PWATEXT34" xml:space="preserve">
+    <value>•	Reducing excessive alcohol consumption</value>
+  </data>
+  <data name="RPT_PWATEXT35" xml:space="preserve">
+    <value>Central Augmented Pressure (Aortic AP).</value>
+  </data>
+  <data name="RPT_PWATEXT36" xml:space="preserve">
+    <value>Your central Augmented pressure is the additional pressure measured at your heart due to the stiffness of your arteries.  When your arteries are not stiff, the Augmented pressure will be low.
+
+Studies have shown that high central Augmented pressure is related to kidney failure and dementia, as increased arterial stiffness increases the pressure in the small arteries in the kidney and the brain.
+
+Your central Augmented pressure is {0}.
+
+The green line on the graph below shows the healthy level of Augemented pressure from the age of 20 to the age of 90 years old. The red lines show an acceptable range of Augmented pressure for each age.</value>
+  </data>
+  <data name="RPT_PWATEXT37" xml:space="preserve">
+    <value>If your measurement is on or below the green line: Congratulations, your central Augmented pressure, and therefore your arterial stiffness, are normal for your age or lower than normal for your age. 
+
+If your measurement is between the green line and the top red line, then your central Augmented pressure and arterial stiffness are normal but at the higher end of the normal range. You should continue to monitor your arterial stiffness regularly with your Doctor to make sure it is not increasing.
+
+If your measurement is above the top red line, your central Augmented pressure and arterial stiffness are high compared to others your age.  Talk to your Doctor about lifestyle changes and/or medication that can reduce your arterial stiffness.</value>
+  </data>
+  <data name="RPT_PWATEXT38" xml:space="preserve">
+    <value>Central Augmentation Index.</value>
+  </data>
+  <data name="RPT_PWATEXT39" xml:space="preserve">
+    <value>Your central Augmentation index is another measure of your arterial stiffness. When your arteries are not stiff, the central Augmentation index will be lower.
+
+Central Augmentation index can provide an early indication of arterial stiffness, well before the arterial stiffness results in an increase in cuff pressure.
+
+Your central Augmentation index is {0}.
+
+The green line on the graph below shows the healthy level of central Augmentation index from the age of 20 to the age of 90 years old. The red lines show an acceptable range of central Augmentation index for each age.</value>
+  </data>
+  <data name="RPT_PWATEXT40" xml:space="preserve">
+    <value>If your measurement is on or below the green line: Congratulations, your central Augmentation index, and therefore your arterial stiffness are normal for your age or lower than normal for your age. 
+
+If your measurement is between the green line and the top red line, then your central Augmentation index and arterial stiffness are normal but at the higher end of the normal range. You should continue to monitor your Central Augmentation index when you visit your Doctor to make sure your arterial stiffness is not increasing.
+
+If your measurement is above the top red line, your central Augmentation index and arterial stiffness are high compared to others your age.  Your Doctor will discuss appropriate lifestyle modifications and /or medication with you.</value>
+  </data>
+  <data name="RPT_PWATEXT41" xml:space="preserve">
+    <value>Resting heart rate.</value>
+  </data>
+  <data name="RPT_PWATEXT42" xml:space="preserve">
+    <value>Your Heart rate is {0} Beats per minute.
+
+Your Heart rate is measured in Beats per minute and will vary throughout the day, increasing when you are exercising and decreasing when you are resting.
+
+(Values to be added based on age)</value>
+  </data>
+  <data name="RPT_PWATEXT43" xml:space="preserve">
+    <value>Your SphygmoCor Reference age.</value>
+  </data>
+  <data name="RPT_PWATEXT44" xml:space="preserve">
+    <value>Your SphygmoCor Reference age measures the stiffness of your arteries and compares them with other people your age. 
+
+Your SphygmoCor reference age is &gt;{0}.
+
+If this age is less than your actual age: Congratulations you have young arteries.
+If this age is the same as your actual age: Your arterial stiffness is normal for your age.
+If this age is greater than your actual age: Your arteries are stiffer than is normal for your age and you should discuss this with your Doctor, who may suggest lifestyle changes and/ medication to reduce your arterial stiffness.</value>
+  </data>
+  <data name="RPT_PWA_ABOVE_AVERAGE_TEXT" xml:space="preserve">
+    <value>Above average</value>
+  </data>
+  <data name="RPT_PWA_AVERAGE_TEXT" xml:space="preserve">
+    <value>Average</value>
+  </data>
+  <data name="RPT_PWA_BELOW_AVERAGE_TEXT" xml:space="preserve">
+    <value>Below average</value>
+  </data>
+  <data name="RPT_PWA_EXCELLENT_TEXT" xml:space="preserve">
+    <value>Excellent</value>
+  </data>
+  <data name="RPT_PWA_GOOD_TEXT" xml:space="preserve">
+    <value>Good</value>
+  </data>
+  <data name="RPT_PWA_HIGH_NORMAL_TEXT" xml:space="preserve">
+    <value>High Normal</value>
+  </data>
+  <data name="RPT_PWA_MILD_HYPERTENSION_TEXT" xml:space="preserve">
+    <value>Mild Hypertension</value>
+  </data>
+  <data name="RPT_PWA_MODERATE_HYPERTENSION_TEXT" xml:space="preserve">
+    <value>Moderate hypertension</value>
+  </data>
+  <data name="RPT_PWA_NORMAL_TEXT" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="RPT_PWA_POOR_TEXT" xml:space="preserve">
+    <value>Poor</value>
+  </data>
+  <data name="RPT_PWA_SEVERE_TEXT" xml:space="preserve">
+    <value>Severe</value>
+  </data>
+  <data name="TAB_RESULT" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="RPT_DATE_AND_MEASUREMENT" xml:space="preserve">
+    <value>Date of measurement:</value>
   </data>
 </root>

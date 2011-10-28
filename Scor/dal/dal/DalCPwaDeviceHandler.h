@@ -12,6 +12,8 @@
 
 #include "stdafx.h"
 #include "DalDevicehandler.h"
+#include "IDalNibpHandler.h"
+#include "DalNibpDevicehandler.h"
 
 
 namespace AtCor{ 
@@ -22,6 +24,7 @@ namespace AtCor{
 			{	
 			internal:
 				DalCPwaDeviceHandler();
+				IDalNibpHandler^ _nibpHandler;
 			public:
 
 				/**
@@ -33,6 +36,12 @@ namespace AtCor{
 				*
 				*/
 				virtual bool StartCapture(int captureTime, int samplingRate) override;
+
+
+				virtual bool StartBP(DalNIBPMode nibpMode, unsigned short initialPressure) override;
+					virtual bool StartBP(DalNIBPMode nibpMode) override;
+					virtual bool FinishBP() override;
+					virtual bool AbortBP() override;
 			};
 
 		} //End namespaces

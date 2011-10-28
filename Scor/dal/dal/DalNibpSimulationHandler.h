@@ -14,6 +14,7 @@
 #include "DalCommon.h"
 #include "IDalNibpHandler.h"
 #include "DalSimulationFile.h"
+#include "DalDataBuffer.h"
 
 using namespace System;
 using namespace System::IO;
@@ -34,7 +35,7 @@ namespace AtCor{
 					//TS STUB
 					static DalSimulationFile^ _nibpSimulationFile; //pointer to NIBP simulation file
 					static Timers::Timer ^_nibpTimer = nullptr;  //Timer to fire simulated NIBP data event
-					static bool _nibpConnected = false;
+					static bool _nibpConnected ;
 					static unsigned short _nibpStatus;
 					static unsigned short _nibpErrorCode;
 					static unsigned short _nibpSP;
@@ -46,6 +47,7 @@ namespace AtCor{
 					
 					static DalNibpSimulationHandler^ _instance = gcnew DalNibpSimulationHandler();
 
+					static DalDataBuffer ^dataBufferObj; //to hold pointer to object
 				public:
 					
 					/**

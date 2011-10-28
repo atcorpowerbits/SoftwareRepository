@@ -3,8 +3,10 @@
 #include "StdAfx.h"
 #include "StdAfx.h"
 #include "StdAfx.h"
+#include "StdAfx.h"
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
+using namespace AtCor::Scor::CrossCutting;
 namespace TestDal {
     using namespace System;
     ref class DalBinaryConversionsTest;
@@ -134,6 +136,20 @@ namespace TestDal {
 				actual = DalBinaryConversions_Accessor::ConvertAlarmType(alarmType);
 				Assert::AreEqual(expected, actual);
 			}
+
+			/// <summary>
+			///A test for ConvertAlarmType
+			///</summary>
+	public: [TestMethod]
+			[DeploymentItem(L"dal.dll")]
+			void ConvertAlarmType_DalAlarmSupplyRailFlag2_Test()
+			{
+				DalAlarmSupplyRailFlag  alarmType = DalAlarmSupplyRailFlag::SupplyRailNoAlarm ; //Taken at random
+				DalAlarmSource expected = DalAlarmSource::SupplyRailNoAlarm ; // should have same name
+				DalAlarmSource actual;
+				actual = DalBinaryConversions_Accessor::ConvertAlarmType(alarmType);
+				Assert::AreEqual(expected, actual);
+			}
 			/// <summary>
 			///A test for ConvertAlarmType
 			///</summary>
@@ -179,7 +195,158 @@ namespace TestDal {
 				Assert::AreEqual(expected, actual);
 				
 			}
-	};
+			/// <summary>
+			///A test for GenerateModulo256Checksum
+			///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void GenerateModulo256ChecksumTest()
+		{
+			DalBinaryConversions_Accessor^  target = (gcnew DalBinaryConversions_Accessor()); 
+			//create an array with set inflate command9180 mmhg). deliberatetly do not make it of leegth 5
+			cli::array< unsigned char >^  sourcearray = gcnew array<unsigned char> (4) {0x3a, 0x17, 0xb4, 0x00}; 
+			int length = 4; 
+			unsigned char expected = 0xFB; // expected value as per doc
+			unsigned char actual;
+			actual = target->GenerateModulo256Checksum(sourcearray, length);
+			Assert::AreEqual(expected, actual);
+		}
+
+		/// <summary>
+		///A test for GenerateModulo256Checksum
+		///same as the previous one but we will add one more empty byte
+		//the length will remain the same 
+		//This is a typical scenario where we add an empty byte for Checksum
+		public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void GenerateModulo256Checksum_WithExtraByte_Test()
+		{
+			DalBinaryConversions_Accessor^  target = (gcnew DalBinaryConversions_Accessor()); 
+			//create an array with set inflate command180 mmhg). make it of leegth 5 with the 5th bit reserved for Checksum
+			cli::array< unsigned char >^  sourcearray = gcnew array<unsigned char> (5) {0x3a, 0x17, 0xb4, 0x00}; 
+			int length = 4; //this will be the actual length needed to be processed
+			unsigned char expected = 0xFB; // expected value as per doc
+			unsigned char actual;
+			actual = target->GenerateModulo256Checksum(sourcearray, length);
+			Assert::AreEqual(expected, actual);
+		}
+
+
+		/// <summary>
+			///A test for GenerateModulo256Checksum
+			///should throw an expcetion for an illegal parameter
+		public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void GenerateModulo256Checksum_ThrowsException_ForNullArray_Test()
+		{
+			DalBinaryConversions_Accessor^  target = (gcnew DalBinaryConversions_Accessor()); 
+			cli::array< unsigned char >^  sourcearray = nullptr; // Deliberately null so that it can throw excpetion
+			int length = 8; //Any valid integer. doesnt matter
+			unsigned char expected = 0; // Doesnt matter. We are looking for exception
+			unsigned char actual;
+			bool excptionThrown = false;
+
+			try
+			{
+				actual = target->GenerateModulo256Checksum(sourcearray, length);
+				Assert::AreEqual(expected, actual);
+			}
+			catch(ScorException ^ )
+			{
+				excptionThrown = true;
+			}
+
+			Assert::IsTrue(excptionThrown);
+		}
+
+		/// <summary>
+			///A test for GenerateModulo256Checksum
+			///should throw an expcetion for an illegal parameter
+		public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void GenerateModulo256Checksum_ThrowsException_ForEmptyArray_Test()
+		{
+			DalBinaryConversions_Accessor^  target = (gcnew DalBinaryConversions_Accessor()); 
+			cli::array< unsigned char >^  sourcearray = gcnew array<unsigned char> (0); // create an array of zero size
+			int length = 8; //Any valid integer. doesnt matter
+			unsigned char expected = 0; // Doesnt matter. We are looking for exception
+			unsigned char actual;
+			bool excptionThrown = false;
+
+			try
+			{
+				actual = target->GenerateModulo256Checksum(sourcearray, length);
+				Assert::AreEqual(expected, actual);
+			}
+			catch(ScorException ^ )
+			{
+				excptionThrown = true;
+			}
+
+			Assert::IsTrue(excptionThrown);
+		}
+
+		/// <summary>
+			///A test for GenerateModulo256Checksum
+			///should throw an expcetion for an illegal parameter
+		public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void GenerateModulo256Checksum_ThrowsException_ForZeroLength_Test()
+		{
+			DalBinaryConversions_Accessor^  target = (gcnew DalBinaryConversions_Accessor()); 
+			cli::array< unsigned char >^  sourcearray = gcnew array<unsigned char> {0x01,0x02}; // Any valid non-zero array
+			int length = 0; //Any valid integer. doesnt matter
+			unsigned char expected = 0; // Doesnt matter. We are looking for exception
+			unsigned char actual;
+			bool excptionThrown = false;
+
+			try
+			{
+				actual = target->GenerateModulo256Checksum(sourcearray, length);
+				Assert::AreEqual(expected, actual);
+			}
+			catch(ScorException ^ )
+			{
+				excptionThrown = true;
+			}
+
+			Assert::IsTrue(excptionThrown);
+		}
+
+
+		/// <summary>
+		///A test for TranslateTwoBytesLsbFirst
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void TranslateTwoBytesLsbFirstTest()
+		{
+			cli::array< unsigned char >^  sourceArray = gcnew array<unsigned char> {0x02, 0x01}; // should resolve to 258
+			int startPostion = 0;
+			short expected = 258; //for the specified byte
+			short actual;
+			actual = DalBinaryConversions_Accessor::TranslateTwoBytesLsbFirst(sourceArray, startPostion);
+			Assert::AreEqual(expected, actual);
+			
+		}
+
+	
+		/// <summary>
+		///A test for TranslateTwoBytesLsbFirst
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void TranslateTwoBytesLsbFirst_2_Test()
+		{
+			cli::array< unsigned char >^  sourceArray = gcnew array<unsigned char> {0x8E, 0x00}; // should resolve to 258
+			int startPostion = 0;
+			short expected = 142; //for the specified byte
+			short actual;
+			actual = DalBinaryConversions_Accessor::TranslateTwoBytesLsbFirst(sourceArray, startPostion);
+			Assert::AreEqual(expected, actual);
+			
+		}
+};
 }
 namespace TestDal {
     

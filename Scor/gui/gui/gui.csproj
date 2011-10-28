@@ -15,6 +15,7 @@
     <StartupObject>
     </StartupObject>
     <ApplicationIcon>atcor.ico</ApplicationIcon>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,6 +34,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="biz, Version=0.9.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -44,10 +53,6 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="dal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Debug\dal.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -116,6 +121,12 @@
     <Compile Include="Capture.Designer.cs">
       <DependentUpon>Capture.cs</DependentUpon>
     </Compile>
+    <Compile Include="cPwaQuickStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cPwaQuickStart.Designer.cs">
+      <DependentUpon>cPwaQuickStart.cs</DependentUpon>
+    </Compile>
     <Compile Include="CrystalPwaEvalution.cs">
       <DependentUpon>CrystalPwaEvalution.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -144,6 +155,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CrystalPwaClinical.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalPwaPatientReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalPwaPatientReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalPwaTrendAnalysis.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalPwaTrendAnalysis.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DefaultWindow.cs">
@@ -259,6 +282,12 @@
     </Compile>
     <Compile Include="PWAClinicalPreview.Designer.cs">
       <DependentUpon>PWAClinicalPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PWAPatientPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PWAPatientPreview.Designer.cs">
+      <DependentUpon>PWAPatientPreview.cs</DependentUpon>
     </Compile>
     <Compile Include="PWAPrintReport.cs">
       <SubType>Form</SubType>
@@ -443,6 +472,9 @@
     <EmbeddedResource Include="BPAssessments.resx">
       <DependentUpon>BPAssessments.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="cPwaQuickStart.resx">
+      <DependentUpon>cPwaQuickStart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CrystalPwaEvalution.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalPwaEvalution.cs</LastGenOutput>
@@ -451,8 +483,19 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalPwaClinical.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="CrystalPwaPatientReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalPwaPatientReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalPwaTrendAnalysis.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalPwaTrendAnalysis.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="PWAClinicalPreview.resx">
       <DependentUpon>PWAClinicalPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PWAPatientPreview.resx">
+      <DependentUpon>PWAPatientPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PWAPrintReport.resx">
       <DependentUpon>PWAPrintReport.cs</DependentUpon>
@@ -480,6 +523,10 @@
     <ProjectReference Include="..\..\crx\crx\crx.vcproj">
       <Project>{24748540-BFD1-4293-99F5-D556338366C4}</Project>
       <Name>crx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dal\dal\dal.vcproj">
+      <Project>{E274BA19-F920-40C0-8747-214688D2ABB3}</Project>
+      <Name>dal</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

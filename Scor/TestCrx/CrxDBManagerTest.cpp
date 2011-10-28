@@ -1210,6 +1210,13 @@ namespace TestCrx {
 					pwvmd->ReferenceRange[0] = 3456.34f;
 					pwvmd->NormalRange = gcnew array<float>(1);
 					pwvmd->NormalRange[0] =  4567.45f;
+					
+					pwvmd->SP = 120;
+					pwvmd->DP = 80;
+					pwvmd->MP = 100;
+					pwvmd->MeanCorrectedTime = 114.1f;
+
+
 					int i = target->SavePWVMeasurementDetails(pwvmd);
 
 					DataSet^ msrds = target->GetPWVMeasurementDetails(pwvmd->PatientNumberInternal,pwvmd->GroupIdentifier, pwvmd->SystemIdentifier);
@@ -1230,11 +1237,20 @@ namespace TestCrx {
 					Assert::AreEqual(trendDataStruct->StandardDeviationArrStr	,"3.3");
 					Assert::AreEqual(trendDataStruct->IsStdDevValidArrStr	,"1");
 
+					Assert::AreEqual(trendDataStruct->SpValidArrStr	,"120");
+					Assert::AreEqual(trendDataStruct->DpValidArrStr	,"80");
+					Assert::AreEqual(trendDataStruct->MpValidArrStr	,"100");
+					Assert::AreEqual(trendDataStruct->MeanCorrectedTimeArrStr	,"114");
+
 					//Clearing the structure
 					trendDataStruct->HeartRateArrStr = String::Empty;
 					trendDataStruct->PulseWaveVelocityArrStr = String::Empty;
 					trendDataStruct->StandardDeviationArrStr = String::Empty;
 					trendDataStruct->IsStdDevValidArrStr = String::Empty;
+					trendDataStruct->SpValidArrStr = String::Empty;
+					trendDataStruct->DpValidArrStr = String::Empty;
+					trendDataStruct->MpValidArrStr = String::Empty;
+					trendDataStruct->MeanCorrectedTimeArrStr = String::Empty;
 
 					////Testing with double value
 					//DateTime^ temp = System::DateTime::Now.ToString(CulturalNeutralDateFormat);
@@ -1245,12 +1261,21 @@ namespace TestCrx {
 					Assert::AreEqual(trendDataStruct->PulseWaveVelocityArrStr	,"4.4");
 					Assert::AreEqual(trendDataStruct->StandardDeviationArrStr	,"3.3");
 					Assert::AreEqual(trendDataStruct->IsStdDevValidArrStr	,"1");
+					Assert::AreEqual(trendDataStruct->SpValidArrStr	,"120");
+					Assert::AreEqual(trendDataStruct->DpValidArrStr	,"80");
+					Assert::AreEqual(trendDataStruct->MpValidArrStr	,"100");
+					Assert::AreEqual(trendDataStruct->MeanCorrectedTimeArrStr	,"114");
+
 
 					//Clearing the structure
 					trendDataStruct->HeartRateArrStr = String::Empty;
 					trendDataStruct->PulseWaveVelocityArrStr = String::Empty;
 					trendDataStruct->StandardDeviationArrStr = String::Empty;
 					trendDataStruct->IsStdDevValidArrStr = String::Empty;
+					trendDataStruct->SpValidArrStr = String::Empty;
+					trendDataStruct->DpValidArrStr = String::Empty;
+					trendDataStruct->MpValidArrStr = String::Empty;
+					trendDataStruct->MeanCorrectedTimeArrStr = String::Empty;
 
 					//Testing with invalid value
 					patientNumberInternal = 0;
@@ -1262,7 +1287,12 @@ namespace TestCrx {
 					Assert::AreEqual(trendDataStruct->PulseWaveVelocityArrStr	,String::Empty);
 					Assert::AreEqual(trendDataStruct->StandardDeviationArrStr	,String::Empty);
 					Assert::AreEqual(trendDataStruct->IsStdDevValidArrStr	,String::Empty);
-					
+
+					Assert::AreEqual(trendDataStruct->SpValidArrStr	,String::Empty);
+					Assert::AreEqual(trendDataStruct->DpValidArrStr	,String::Empty);
+					Assert::AreEqual(trendDataStruct->MpValidArrStr	,String::Empty);
+					Assert::AreEqual(trendDataStruct->MeanCorrectedTimeArrStr	,String::Empty);
+
 					target->DeletePatientData(pd);
 				}
 				catch(Exception^)
@@ -2574,8 +2604,8 @@ public: [TestMethod]
 				pwaMd->C_Uncal_Av[0] = 1234.12f;
 				pwaMd->C_ResemblePulse = gcnew array<float>(1);
 				pwaMd->C_ResemblePulse[0] = 1234.12f;
-				pwaMd->C_Flow = gcnew array<float>(1);
-				pwaMd->C_Flow[0] = 1234.12f;
+				pwaMd->C_Typical = gcnew array<float>(1);
+				pwaMd->C_Typical[0] = 1234.12f;
 				pwaMd->C_Forward = gcnew array<float>(1);
 				pwaMd->C_Forward[0] = 1234.12f;
 				pwaMd->C_Backward = gcnew array<float>(1);
@@ -2748,8 +2778,8 @@ public: [TestMethod]
 				pwaMd->C_Uncal_Av[0] = 1234.12f;
 				pwaMd->C_ResemblePulse = gcnew array<float>(1);
 				pwaMd->C_ResemblePulse[0] = 1234.12f;
-				pwaMd->C_Flow = gcnew array<float>(1);
-				pwaMd->C_Flow[0] = 1234.12f;
+				pwaMd->C_Typical = gcnew array<float>(1);
+				pwaMd->C_Typical[0] = 1234.12f;
 				pwaMd->C_Forward = gcnew array<float>(1);
 				pwaMd->C_Forward[0] = 1234.12f;
 				pwaMd->C_Backward = gcnew array<float>(1);
@@ -2839,7 +2869,7 @@ public: [TestMethod]
 				pwaMd->C_ONSETS = gcnew array<short>(0);
 				pwaMd->C_Uncal_Av = gcnew array<float>(0);
 				pwaMd->C_ResemblePulse = gcnew array<float>(0);
-				pwaMd->C_Flow = gcnew array<float>(0);
+				pwaMd->C_Typical = gcnew array<float>(0);
 				pwaMd->C_Forward = gcnew array<float>(0);
 				pwaMd->C_Backward = gcnew array<float>(0);
 				pwaMd->Medication = pwaMD->Medication;
@@ -3154,8 +3184,8 @@ public: [TestMethod]
 				pwaMd->C_Uncal_Av[0] = 1234.12f;
 				pwaMd->C_ResemblePulse = gcnew array<float>(1);
 				pwaMd->C_ResemblePulse[0] = 1234.12f;
-				pwaMd->C_Flow = gcnew array<float>(1);
-				pwaMd->C_Flow[0] = 1234.12f;
+				pwaMd->C_Typical = gcnew array<float>(1);
+				pwaMd->C_Typical[0] = 1234.12f;
 				pwaMd->C_Forward = gcnew array<float>(1);
 				pwaMd->C_Forward[0] = 1234.12f;
 				pwaMd->C_Backward = gcnew array<float>(1);
@@ -3313,8 +3343,8 @@ public: [TestMethod]
 				pwaMd->C_Uncal_Av[0] = 1234.12f;
 				pwaMd->C_ResemblePulse = gcnew array<float>(1);
 				pwaMd->C_ResemblePulse[0] = 1234.12f;
-				pwaMd->C_Flow = gcnew array<float>(1);
-				pwaMd->C_Flow[0] = 1234.12f;
+				pwaMd->C_Typical = gcnew array<float>(1);
+				pwaMd->C_Typical[0] = 1234.12f;
 				pwaMd->C_Forward = gcnew array<float>(1);
 				pwaMd->C_Forward[0] = 1234.12f;
 				pwaMd->C_Backward = gcnew array<float>(1);
@@ -3436,8 +3466,8 @@ public: [TestMethod]
 				pwaMd->C_Uncal_Av[0] = 1234.12f;
 				pwaMd->C_ResemblePulse = gcnew array<float>(1);
 				pwaMd->C_ResemblePulse[0] = 1234.12f;
-				pwaMd->C_Flow = gcnew array<float>(1);
-				pwaMd->C_Flow[0] = 1234.12f;
+				pwaMd->C_Typical = gcnew array<float>(1);
+				pwaMd->C_Typical[0] = 1234.12f;
 				pwaMd->C_Forward = gcnew array<float>(1);
 				pwaMd->C_Forward[0] = 1234.12f;
 				pwaMd->C_Backward = gcnew array<float>(1);
@@ -3548,8 +3578,8 @@ public: [TestMethod]
 				pwaMd->C_Uncal_Av[0] = 1234.12f;
 				pwaMd->C_ResemblePulse = gcnew array<float>(1);
 				pwaMd->C_ResemblePulse[0] = 1234.12f;
-				pwaMd->C_Flow = gcnew array<float>(1);
-				pwaMd->C_Flow[0] = 1234.12f;
+				pwaMd->C_Typical = gcnew array<float>(1);
+				pwaMd->C_Typical[0] = 1234.12f;
 				pwaMd->C_Forward = gcnew array<float>(1);
 				pwaMd->C_Forward[0] = 1234.12f;
 				pwaMd->C_Backward = gcnew array<float>(1);

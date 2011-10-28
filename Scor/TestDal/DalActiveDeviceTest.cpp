@@ -51,7 +51,7 @@ namespace TestDal {
 				}
 			}
 
-			private:	static String^ comPortName  = "COM3";
+			private:	static String^ comPortName  = "COM1";
 			private: String^ _currDir;
 
 #pragma region Additional test attributes
@@ -147,7 +147,7 @@ namespace TestDal {
 				bool expected = true;
 				bool actual;
 
-				actual = DalActiveDevice_Accessor::SetDeviceStrategy(commPort);
+				actual = DalActiveDevice_Accessor::SetDeviceStrategy(commPort, DalStreamingMode::Pwv);
 				
 				Assert::AreEqual(expected, actual);
 				
@@ -160,7 +160,7 @@ namespace TestDal {
 
 					try
 					{
-						target->SetDeviceStrategy(commPort);
+						target->SetDeviceStrategy(commPort, DalStreamingMode::Pwv);
 					}
 					catch(ScorException ^excepObj)
 					{
@@ -204,7 +204,7 @@ namespace TestDal {
 				
 					Assert::IsTrue(actual);
 				}
-				catch(Exception^ ex)
+				catch(Exception^ )
 				{
 					Assert::IsFalse(actual);
 				}
@@ -234,7 +234,7 @@ namespace TestDal {
 				SetPath();
 				
 				DalActiveDevice_Accessor^  target = (gcnew DalActiveDevice_Accessor()); // TODO: Initialize to an appropriate value
-				target->SetDeviceStrategy("Simulation"); //Set to simulation so that it will search all ports
+				target->SetDeviceStrategy("Simulation", DalStreamingMode::Pwv); //Set to simulation so that it will search all ports
 				
 				String^  deviceFoundPort = System::String::Empty; // TODO: Initialize to an appropriate value
 				DalFindModuleResult  actual;
@@ -252,9 +252,9 @@ public: [TestMethod]
 				DalActiveDevice_Accessor^  target = (gcnew DalActiveDevice_Accessor()); 
 				try
 				{
-					target->SetDeviceStrategy(comPortName ); //Set to the correct port
+					target->SetDeviceStrategy(comPortName, DalStreamingMode::Pwv ); //Set to the correct port
 				}
-				catch(Exception^ ex)
+				catch(Exception^ )
 				{
 					
 				}
@@ -268,7 +268,7 @@ public: [TestMethod]
 					Assert::AreEqual(expected, actual);
 					Assert::AreEqual(deviceFoundPortExpected, deviceFoundPort);
 				}
-				catch(Exception^ ex)
+				catch(Exception^ )
 				{
 					
 				}

@@ -303,7 +303,65 @@ namespace TestDal {
 				DalCPwaSimulationHandler_Accessor^  target = (gcnew DalCPwaSimulationHandler_Accessor());
 				Assert::IsNotNull(target);
 			}
-	};
+			/// <summary>
+			///A test for StartBP
+			///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void StartBPTest1()
+		{
+			DalCPwaSimulationHandler_Accessor^  target = (gcnew DalCPwaSimulationHandler_Accessor()); // TODO: Initialize to an appropriate value
+			DalNIBPMode nibpMode = DalNIBPMode(); // TODO: Initialize to an appropriate value
+			bool expected = true; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->StartBP(nibpMode);
+			Assert::AreEqual(expected, actual);
+			
+		}
+		/// <summary>
+		///A test for StartBP
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void StartBPTest()
+		{
+			DalCPwaSimulationHandler_Accessor^  target = (gcnew DalCPwaSimulationHandler_Accessor()); // TODO: Initialize to an appropriate value
+			DalNIBPMode nibpMode = DalNIBPMode(); // TODO: Initialize to an appropriate value
+			unsigned short initialPressure = 0; // TODO: Initialize to an appropriate value
+			bool expected = true; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->StartBP(nibpMode, initialPressure);
+			Assert::AreEqual(expected, actual);
+			
+		}
+		/// <summary>
+		///A test for FinishBP
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void FinishBPTest()
+		{
+			DalCPwaSimulationHandler_Accessor^  target = (gcnew DalCPwaSimulationHandler_Accessor()); // TODO: Initialize to an appropriate value
+			bool expected = true; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->FinishBP();
+			Assert::AreEqual(expected, actual);
+			
+		}
+		/// <summary>
+		///A test for AbortBP
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void AbortBPTest()
+		{
+			DalCPwaSimulationHandler_Accessor^  target = (gcnew DalCPwaSimulationHandler_Accessor()); // TODO: Initialize to an appropriate value
+			bool expected = true; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->AbortBP();
+			Assert::AreEqual(expected, actual);
+		}
+};
 }
 namespace TestDal {
     

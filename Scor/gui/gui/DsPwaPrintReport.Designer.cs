@@ -27,6 +27,8 @@ namespace gui {
         
         private ClinicalTableDataTable tableClinicalTable;
         
+        private PatientTableDataTable tablePatientTable;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -56,6 +58,9 @@ namespace gui {
                 if ((ds.Tables["ClinicalTable"] != null)) {
                     base.Tables.Add(new ClinicalTableDataTable(ds.Tables["ClinicalTable"]));
                 }
+                if ((ds.Tables["PatientTable"] != null)) {
+                    base.Tables.Add(new PatientTableDataTable(ds.Tables["PatientTable"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -80,6 +85,15 @@ namespace gui {
         public ClinicalTableDataTable ClinicalTable {
             get {
                 return this.tableClinicalTable;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public PatientTableDataTable PatientTable {
+            get {
+                return this.tablePatientTable;
             }
         }
         
@@ -145,6 +159,9 @@ namespace gui {
                 if ((ds.Tables["ClinicalTable"] != null)) {
                     base.Tables.Add(new ClinicalTableDataTable(ds.Tables["ClinicalTable"]));
                 }
+                if ((ds.Tables["PatientTable"] != null)) {
+                    base.Tables.Add(new PatientTableDataTable(ds.Tables["PatientTable"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -181,6 +198,12 @@ namespace gui {
                     this.tableClinicalTable.InitVars();
                 }
             }
+            this.tablePatientTable = ((PatientTableDataTable)(base.Tables["PatientTable"]));
+            if ((initTable == true)) {
+                if ((this.tablePatientTable != null)) {
+                    this.tablePatientTable.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -192,10 +215,17 @@ namespace gui {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableClinicalTable = new ClinicalTableDataTable();
             base.Tables.Add(this.tableClinicalTable);
+            this.tablePatientTable = new PatientTableDataTable();
+            base.Tables.Add(this.tablePatientTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private bool ShouldSerializeClinicalTable() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializePatientTable() {
             return false;
         }
         
@@ -254,6 +284,8 @@ namespace gui {
         
         public delegate void ClinicalTableRowChangeEventHandler(object sender, ClinicalTableRowChangeEvent e);
         
+        public delegate void PatientTableRowChangeEventHandler(object sender, PatientTableRowChangeEvent e);
+        
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
@@ -267,6 +299,10 @@ namespace gui {
             private global::System.Data.DataColumn columnClinicalParameter;
             
             private global::System.Data.DataColumn columnCentralPressureWaveform;
+            
+            private global::System.Data.DataColumn columnRawWaveformsChart;
+            
+            private global::System.Data.DataColumn columnRawMultiWaveformsChart;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ClinicalTableDataTable() {
@@ -320,6 +356,20 @@ namespace gui {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn RawWaveformsChartColumn {
+                get {
+                    return this.columnRawWaveformsChart;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn RawMultiWaveformsChartColumn {
+                get {
+                    return this.columnRawMultiWaveformsChart;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -348,12 +398,14 @@ namespace gui {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ClinicalTableRow AddClinicalTableRow(byte[] ImageLogo, byte[] ClinicalParameter, byte[] CentralPressureWaveform) {
+            public ClinicalTableRow AddClinicalTableRow(byte[] ImageLogo, byte[] ClinicalParameter, byte[] CentralPressureWaveform, byte[] RawWaveformsChart, byte[] RawMultiWaveformsChart) {
                 ClinicalTableRow rowClinicalTableRow = ((ClinicalTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ImageLogo,
                         ClinicalParameter,
-                        CentralPressureWaveform};
+                        CentralPressureWaveform,
+                        RawWaveformsChart,
+                        RawMultiWaveformsChart};
                 rowClinicalTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowClinicalTableRow);
                 return rowClinicalTableRow;
@@ -376,6 +428,8 @@ namespace gui {
                 this.columnImageLogo = base.Columns["ImageLogo"];
                 this.columnClinicalParameter = base.Columns["ClinicalParameter"];
                 this.columnCentralPressureWaveform = base.Columns["CentralPressureWaveform"];
+                this.columnRawWaveformsChart = base.Columns["RawWaveformsChart"];
+                this.columnRawMultiWaveformsChart = base.Columns["RawMultiWaveformsChart"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -386,6 +440,10 @@ namespace gui {
                 base.Columns.Add(this.columnClinicalParameter);
                 this.columnCentralPressureWaveform = new global::System.Data.DataColumn("CentralPressureWaveform", typeof(byte[]), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCentralPressureWaveform);
+                this.columnRawWaveformsChart = new global::System.Data.DataColumn("RawWaveformsChart", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRawWaveformsChart);
+                this.columnRawMultiWaveformsChart = new global::System.Data.DataColumn("RawMultiWaveformsChart", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRawMultiWaveformsChart);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -504,6 +562,281 @@ namespace gui {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class PatientTableDataTable : global::System.Data.TypedTableBase<PatientTableRow> {
+            
+            private global::System.Data.DataColumn columnImageLogo;
+            
+            private global::System.Data.DataColumn columnImageHumanLogo;
+            
+            private global::System.Data.DataColumn columnSpSlider;
+            
+            private global::System.Data.DataColumn columnDpSlider;
+            
+            private global::System.Data.DataColumn columnHrSlider;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PatientTableDataTable() {
+                this.TableName = "PatientTable";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal PatientTableDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected PatientTableDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn ImageLogoColumn {
+                get {
+                    return this.columnImageLogo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn ImageHumanLogoColumn {
+                get {
+                    return this.columnImageHumanLogo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn SpSliderColumn {
+                get {
+                    return this.columnSpSlider;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn DpSliderColumn {
+                get {
+                    return this.columnDpSlider;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn HrSliderColumn {
+                get {
+                    return this.columnHrSlider;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PatientTableRow this[int index] {
+                get {
+                    return ((PatientTableRow)(this.Rows[index]));
+                }
+            }
+            
+            public event PatientTableRowChangeEventHandler PatientTableRowChanging;
+            
+            public event PatientTableRowChangeEventHandler PatientTableRowChanged;
+            
+            public event PatientTableRowChangeEventHandler PatientTableRowDeleting;
+            
+            public event PatientTableRowChangeEventHandler PatientTableRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddPatientTableRow(PatientTableRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PatientTableRow AddPatientTableRow(byte[] ImageLogo, byte[] ImageHumanLogo, byte[] SpSlider, byte[] DpSlider, byte[] HrSlider) {
+                PatientTableRow rowPatientTableRow = ((PatientTableRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        ImageLogo,
+                        ImageHumanLogo,
+                        SpSlider,
+                        DpSlider,
+                        HrSlider};
+                rowPatientTableRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowPatientTableRow);
+                return rowPatientTableRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override global::System.Data.DataTable Clone() {
+                PatientTableDataTable cln = ((PatientTableDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new PatientTableDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnImageLogo = base.Columns["ImageLogo"];
+                this.columnImageHumanLogo = base.Columns["ImageHumanLogo"];
+                this.columnSpSlider = base.Columns["SpSlider"];
+                this.columnDpSlider = base.Columns["DpSlider"];
+                this.columnHrSlider = base.Columns["HrSlider"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnImageLogo = new global::System.Data.DataColumn("ImageLogo", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImageLogo);
+                this.columnImageHumanLogo = new global::System.Data.DataColumn("ImageHumanLogo", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImageHumanLogo);
+                this.columnSpSlider = new global::System.Data.DataColumn("SpSlider", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSpSlider);
+                this.columnDpSlider = new global::System.Data.DataColumn("DpSlider", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDpSlider);
+                this.columnHrSlider = new global::System.Data.DataColumn("HrSlider", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHrSlider);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PatientTableRow NewPatientTableRow() {
+                return ((PatientTableRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new PatientTableRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Type GetRowType() {
+                return typeof(PatientTableRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.PatientTableRowChanged != null)) {
+                    this.PatientTableRowChanged(this, new PatientTableRowChangeEvent(((PatientTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.PatientTableRowChanging != null)) {
+                    this.PatientTableRowChanging(this, new PatientTableRowChangeEvent(((PatientTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.PatientTableRowDeleted != null)) {
+                    this.PatientTableRowDeleted(this, new PatientTableRowChangeEvent(((PatientTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.PatientTableRowDeleting != null)) {
+                    this.PatientTableRowDeleting(this, new PatientTableRowChangeEvent(((PatientTableRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemovePatientTableRow(PatientTableRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DsPwaPrintReport ds = new DsPwaPrintReport();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "PatientTableDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
@@ -564,6 +897,37 @@ namespace gui {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] RawWaveformsChart {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableClinicalTable.RawWaveformsChartColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'RawWaveformsChart\' in table \'ClinicalTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableClinicalTable.RawWaveformsChartColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] RawMultiWaveformsChart {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableClinicalTable.RawMultiWaveformsChartColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'RawMultiWaveformsChart\' in table \'ClinicalTable\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableClinicalTable.RawMultiWaveformsChartColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsImageLogoNull() {
                 return this.IsNull(this.tableClinicalTable.ImageLogoColumn);
             }
@@ -592,6 +956,166 @@ namespace gui {
             public void SetCentralPressureWaveformNull() {
                 this[this.tableClinicalTable.CentralPressureWaveformColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsRawWaveformsChartNull() {
+                return this.IsNull(this.tableClinicalTable.RawWaveformsChartColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetRawWaveformsChartNull() {
+                this[this.tableClinicalTable.RawWaveformsChartColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsRawMultiWaveformsChartNull() {
+                return this.IsNull(this.tableClinicalTable.RawMultiWaveformsChartColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetRawMultiWaveformsChartNull() {
+                this[this.tableClinicalTable.RawMultiWaveformsChartColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class PatientTableRow : global::System.Data.DataRow {
+            
+            private PatientTableDataTable tablePatientTable;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal PatientTableRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablePatientTable = ((PatientTableDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] ImageLogo {
+                get {
+                    try {
+                        return ((byte[])(this[this.tablePatientTable.ImageLogoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ImageLogo\' in table \'PatientTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePatientTable.ImageLogoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] ImageHumanLogo {
+                get {
+                    try {
+                        return ((byte[])(this[this.tablePatientTable.ImageHumanLogoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ImageHumanLogo\' in table \'PatientTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePatientTable.ImageHumanLogoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] SpSlider {
+                get {
+                    try {
+                        return ((byte[])(this[this.tablePatientTable.SpSliderColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SpSlider\' in table \'PatientTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePatientTable.SpSliderColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] DpSlider {
+                get {
+                    try {
+                        return ((byte[])(this[this.tablePatientTable.DpSliderColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DpSlider\' in table \'PatientTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePatientTable.DpSliderColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] HrSlider {
+                get {
+                    try {
+                        return ((byte[])(this[this.tablePatientTable.HrSliderColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'HrSlider\' in table \'PatientTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePatientTable.HrSliderColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsImageLogoNull() {
+                return this.IsNull(this.tablePatientTable.ImageLogoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetImageLogoNull() {
+                this[this.tablePatientTable.ImageLogoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsImageHumanLogoNull() {
+                return this.IsNull(this.tablePatientTable.ImageHumanLogoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetImageHumanLogoNull() {
+                this[this.tablePatientTable.ImageHumanLogoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsSpSliderNull() {
+                return this.IsNull(this.tablePatientTable.SpSliderColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetSpSliderNull() {
+                this[this.tablePatientTable.SpSliderColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDpSliderNull() {
+                return this.IsNull(this.tablePatientTable.DpSliderColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDpSliderNull() {
+                this[this.tablePatientTable.DpSliderColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsHrSliderNull() {
+                return this.IsNull(this.tablePatientTable.HrSliderColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetHrSliderNull() {
+                this[this.tablePatientTable.HrSliderColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -612,6 +1136,37 @@ namespace gui {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ClinicalTableRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class PatientTableRowChangeEvent : global::System.EventArgs {
+            
+            private PatientTableRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PatientTableRowChangeEvent(PatientTableRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PatientTableRow Row {
                 get {
                     return this.eventRow;
                 }

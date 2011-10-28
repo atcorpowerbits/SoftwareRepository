@@ -48,7 +48,7 @@ DalResponsePacketBuffer^ DalResponsePacketBuffer::Instance::get()
 
 array<unsigned char> ^ DalResponsePacketBuffer::Dequeue()
 {
-	//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Dequeue Start ");
+	//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Dequeue Start ", ErrorSeverity::Debug);
 	
 	array< unsigned char>^ returnValue; 
 	_mutex->WaitOne();
@@ -56,11 +56,11 @@ array<unsigned char> ^ DalResponsePacketBuffer::Dequeue()
 	returnValue =  this->waitingResponse;
 	if(nullptr!= returnValue)
 	{
-		//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Dequeue Start " + DalBinaryConversions::ConvertBytesToString(returnValue));
+		//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Dequeue Start " + DalBinaryConversions::ConvertBytesToString(returnValue), ErrorSeverity::Debug);
 	}
 	else
 	{
-		//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Dequeue NULL PACKET RETURNED");
+		//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Dequeue NULL PACKET RETURNED", ErrorSeverity::Debug);
 
 	}
 	
@@ -82,11 +82,11 @@ void DalResponsePacketBuffer::Enqueue(array<unsigned char> ^packet)
 	//TODO : This code is for printing the response only //please delete after testing
 	if (waitingResponse)
 	{
-		//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Enqueue deleting the existing resposne: " + DalBinaryConversions::ConvertBytesToString(waitingResponse));
+		//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Enqueue deleting the existing resposne: " + DalBinaryConversions::ConvertBytesToString(waitingResponse), ErrorSeverity::Debug);
 		delete waitingResponse;
 	}
 
-	//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Enqueue Adding new packet: " + DalBinaryConversions::ConvertBytesToString(packet));
+	//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Enqueue Adding new packet: " + DalBinaryConversions::ConvertBytesToString(packet), ErrorSeverity::Debug);
 	//now write the new response packet
 	waitingResponse = packet;
 	

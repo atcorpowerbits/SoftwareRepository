@@ -31,11 +31,11 @@ DalCPwaCommandInterface::DalCPwaCommandInterface()
 
 //bool DalCPwaCommandInterface::ProcessSingleStreamingPacket(array<unsigned char> ^streamingPacket)
 //{
-//	CrxLogger::Instance->Write("Deepak>>> DalPwvCommandInterface::ProcessSingleStreamingPacket called with parameter: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " End");
+//	CrxLogger::Instance->Write("Deepak>>> DalPwvCommandInterface::ProcessSingleStreamingPacket called with parameter: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " End", ErrorSeverity::Debug);
 //
 //	if (nullptr == streamingPacket)
 //	{
-//		//CrxLogger::Instance->Write("Deepak>>> DalPwvCommandInterface::ProcessSingleStreamingPacket returning false" );
+//		//CrxLogger::Instance->Write("Deepak>>> DalPwvCommandInterface::ProcessSingleStreamingPacket returning false" , ErrorSeverity::Debug);
 //		return false;
 //	}
 //	try
@@ -76,7 +76,7 @@ DalCPwaCommandInterface::DalCPwaCommandInterface()
 //		if(!dataBufferObj->WriteDataToBuffer(pwvDataObject))
 //		{
 //			//return false;
-//			////////CrxLogger::Instance->Write("DataCaptureMultiplePacketHandler>> write to buff failed ");
+//			////////CrxLogger::Instance->Write("DataCaptureMultiplePacketHandler>> write to buff failed ", ErrorSeverity::Debug);
 //			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrBufferWriteFailedErrCd, CrxStructCommonResourceMsg::DalErrBufferWriteFailed, ErrorSeverity::Exception);
 //		}
 //		return true; //everything fine
@@ -97,7 +97,7 @@ DalCPwaCommandInterface::DalCPwaCommandInterface()
 //		//we also tried calling Stop capture in GUI but that needs the method to be static.
 //		//It would result in  a lot of code refactoring.
 //		
-//		//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket ScorException caught and deleted : " + scorExObj->ErrorMessageKey + " Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket) + " :End");  
+//		//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket ScorException caught and deleted : " + scorExObj->ErrorMessageKey + " Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket) + " :End", ErrorSeverity::Debug);  
 //		delete scorExObj ;
 //		String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, DalFormatterStrings::PrintEnumName);
 //		DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket));
@@ -106,7 +106,7 @@ DalCPwaCommandInterface::DalCPwaCommandInterface()
 //	catch(Exception^ excepObj)
 //	{
 //		//see note above.
-//		//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket Exception caught and deleted : " + excepObj->StackTrace + ">>>"+ excepObj->Message + "Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " :End");  
+//		//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ProcessSingleStreamingPacket Exception caught and deleted : " + excepObj->StackTrace + ">>>"+ excepObj->Message + "Raising ErrorAlarm Event for packet: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " :End", ErrorSeverity::Debug);  
 //		
 //		delete excepObj;
 //		String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, DalFormatterStrings::PrintEnumName);

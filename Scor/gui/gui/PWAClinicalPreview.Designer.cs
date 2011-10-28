@@ -28,35 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(45, 0);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(55, 35);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(65, 75);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(75, 105);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(85, 118);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(91, 121);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint7 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(95, 130);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint8 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(103, 156);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint9 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(106, 158);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint10 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(108, 160);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint11 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(114, 158);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint12 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(116, 156);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint13 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(117, 154);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint14 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(119, 140);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint15 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(125, 131);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint16 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(127, 130);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint17 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(136, 126);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint18 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(140, 120);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint19 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(145, 104);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint20 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(155, 73);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint21 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(165, 50);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint22 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(171, 40);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint23 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(176, 32);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint24 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(187, 21);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint25 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(195, 10);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint26 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(45, 0);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint27 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(55, 35);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint28 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(65, 75);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint29 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(75, 105);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint30 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(85, 118);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint31 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(91, 121);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint32 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(95, 130);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint33 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(103, 156);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint34 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(106, 158);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint35 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(108, 160);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint36 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(114, 158);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint37 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(116, 156);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint38 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(117, 154);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint39 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(119, 140);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint40 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(125, 131);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint41 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(127, 130);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint42 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(136, 126);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint43 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(140, 120);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint44 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(145, 104);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint45 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(155, 73);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint46 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(165, 50);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint47 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(171, 40);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint48 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(176, 32);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint49 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(187, 21);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint50 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(195, 10);
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.guiPicBoxReportLogo = new System.Windows.Forms.PictureBox();
             this.pnlCentralClinicalParameters = new System.Windows.Forms.Panel();
             this.guilblAIxValue = new System.Windows.Forms.Label();
@@ -97,6 +100,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlCentralClinicalWaveform = new System.Windows.Forms.Panel();
             this.guichartPWAReport = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.guichrtPrawSignals = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.guichrtCrawSignals = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.pnlRawWaveformChart = new System.Windows.Forms.Panel();
+            this.chartSinglePRawSignal = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.guiPicBoxReportLogo)).BeginInit();
             this.pnlCentralClinicalParameters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guilblAIxValueText)).BeginInit();
@@ -122,6 +129,10 @@
             this.panel1.SuspendLayout();
             this.pnlCentralClinicalWaveform.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guichartPWAReport)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guichrtPrawSignals)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guichrtCrawSignals)).BeginInit();
+            this.pnlRawWaveformChart.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartSinglePRawSignal)).BeginInit();
             this.SuspendLayout();
             // 
             // guiPicBoxReportLogo
@@ -137,6 +148,10 @@
             // 
             this.pnlCentralClinicalParameters.BackColor = System.Drawing.Color.Transparent;
             this.pnlCentralClinicalParameters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCentralClinicalParameters.Controls.Add(this.guilblAIxSlider);
+            this.pnlCentralClinicalParameters.Controls.Add(this.guilblAPSlider);
+            this.pnlCentralClinicalParameters.Controls.Add(this.guilblPPSlider);
+            this.pnlCentralClinicalParameters.Controls.Add(this.guilblSPSlider);
             this.pnlCentralClinicalParameters.Controls.Add(this.guilblAIxValue);
             this.pnlCentralClinicalParameters.Controls.Add(this.guilblAPValue);
             this.pnlCentralClinicalParameters.Controls.Add(this.guilblPPValue);
@@ -166,10 +181,6 @@
             this.pnlCentralClinicalParameters.Controls.Add(this.guilblSPGoodMaxText);
             this.pnlCentralClinicalParameters.Controls.Add(this.guilblSPGoodMinText);
             this.pnlCentralClinicalParameters.Controls.Add(this.guiradlblPWASP);
-            this.pnlCentralClinicalParameters.Controls.Add(this.guilblSPSlider);
-            this.pnlCentralClinicalParameters.Controls.Add(this.guilblPPSlider);
-            this.pnlCentralClinicalParameters.Controls.Add(this.guilblAPSlider);
-            this.pnlCentralClinicalParameters.Controls.Add(this.guilblAIxSlider);
             this.pnlCentralClinicalParameters.Location = new System.Drawing.Point(24, 139);
             this.pnlCentralClinicalParameters.Name = "pnlCentralClinicalParameters";
             this.pnlCentralClinicalParameters.Size = new System.Drawing.Size(349, 297);
@@ -544,6 +555,7 @@
             // guilblSPSlider
             // 
             this.guilblSPSlider.AutoSize = false;
+            this.guilblSPSlider.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.guilblSPSlider.Location = new System.Drawing.Point(68, 38);
             this.guilblSPSlider.Name = "guilblSPSlider";
             this.guilblSPSlider.Size = new System.Drawing.Size(265, 3);
@@ -557,6 +569,7 @@
             // guilblPPSlider
             // 
             this.guilblPPSlider.AutoSize = false;
+            this.guilblPPSlider.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.guilblPPSlider.Location = new System.Drawing.Point(68, 95);
             this.guilblPPSlider.Name = "guilblPPSlider";
             this.guilblPPSlider.Size = new System.Drawing.Size(265, 3);
@@ -570,6 +583,7 @@
             // guilblAPSlider
             // 
             this.guilblAPSlider.AutoSize = false;
+            this.guilblAPSlider.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.guilblAPSlider.Location = new System.Drawing.Point(68, 154);
             this.guilblAPSlider.Name = "guilblAPSlider";
             this.guilblAPSlider.Size = new System.Drawing.Size(265, 3);
@@ -583,6 +597,7 @@
             // guilblAIxSlider
             // 
             this.guilblAIxSlider.AutoSize = false;
+            this.guilblAIxSlider.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.guilblAIxSlider.Location = new System.Drawing.Point(68, 215);
             this.guilblAIxSlider.Name = "guilblAIxSlider";
             this.guilblAIxSlider.Size = new System.Drawing.Size(265, 3);
@@ -633,94 +648,142 @@
             // 
             this.guichartPWAReport.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.guichartPWAReport.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.AlignmentStyle = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentStyles.PlotPosition;
-            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea1.AxisX.IsLabelAutoFit = false;
-            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Arial", 8.25F);
-            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisX.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
-            chartArea1.AxisX.Title = "ms";
-            chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea1.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea1.AxisY.IsLabelAutoFit = false;
-            chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Arial", 8.25F);
-            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
-            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisY.Title = "mmHg";
-            chartArea1.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea1.AxisY2.IsReversed = true;
-            chartArea1.BackColor = System.Drawing.Color.LightGray;
-            chartArea1.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
-            chartArea1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea1.Name = "ChartArea1";
-            this.guichartPWAReport.ChartAreas.Add(chartArea1);
-            legend1.Alignment = System.Drawing.StringAlignment.Center;
-            legend1.AutoFitMinFontSize = 5;
-            legend1.BackColor = System.Drawing.Color.Transparent;
-            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend1.Font = new System.Drawing.Font("Arial", 8.25F);
-            legend1.IsTextAutoFit = false;
-            legend1.MaximumAutoSize = 20F;
-            legend1.Name = "Legend1";
-            legend1.TitleForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guichartPWAReport.Legends.Add(legend1);
+            chartArea5.AlignmentStyle = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentStyles.PlotPosition;
+            chartArea5.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea5.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea5.AxisX.IsLabelAutoFit = false;
+            chartArea5.AxisX.LabelStyle.Font = new System.Drawing.Font("Arial", 8.25F);
+            chartArea5.AxisX.LabelStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            chartArea5.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea5.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea5.AxisX.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Horizontal;
+            chartArea5.AxisX.Title = "ms";
+            chartArea5.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea5.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea5.AxisY.IsLabelAutoFit = false;
+            chartArea5.AxisY.LabelStyle.Font = new System.Drawing.Font("Arial", 8.25F);
+            chartArea5.AxisY.LabelStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            chartArea5.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
+            chartArea5.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea5.AxisY.Title = "mmHg";
+            chartArea5.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea5.AxisY2.IsReversed = true;
+            chartArea5.BackColor = System.Drawing.Color.LightGray;
+            chartArea5.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
+            chartArea5.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea5.Name = "ChartArea1";
+            this.guichartPWAReport.ChartAreas.Add(chartArea5);
+            legend2.Alignment = System.Drawing.StringAlignment.Center;
+            legend2.AutoFitMinFontSize = 5;
+            legend2.BackColor = System.Drawing.Color.Transparent;
+            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend2.Font = new System.Drawing.Font("Arial", 8.25F);
+            legend2.IsTextAutoFit = false;
+            legend2.MaximumAutoSize = 20F;
+            legend2.Name = "Legend1";
+            legend2.TitleForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guichartPWAReport.Legends.Add(legend2);
             this.guichartPWAReport.Location = new System.Drawing.Point(3, 6);
             this.guichartPWAReport.Name = "guichartPWAReport";
-            series1.BorderWidth = 2;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.MediumBlue;
-            series1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series1.LabelForeColor = System.Drawing.Color.Blue;
-            series1.Legend = "Legend1";
-            series1.Name = "Actual";
-            series2.BorderWidth = 2;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Color = System.Drawing.Color.DimGray;
-            series2.Legend = "Legend1";
-            series2.Name = "Typical";
-            series2.Points.Add(dataPoint1);
-            series2.Points.Add(dataPoint2);
-            series2.Points.Add(dataPoint3);
-            series2.Points.Add(dataPoint4);
-            series2.Points.Add(dataPoint5);
-            series2.Points.Add(dataPoint6);
-            series2.Points.Add(dataPoint7);
-            series2.Points.Add(dataPoint8);
-            series2.Points.Add(dataPoint9);
-            series2.Points.Add(dataPoint10);
-            series2.Points.Add(dataPoint11);
-            series2.Points.Add(dataPoint12);
-            series2.Points.Add(dataPoint13);
-            series2.Points.Add(dataPoint14);
-            series2.Points.Add(dataPoint15);
-            series2.Points.Add(dataPoint16);
-            series2.Points.Add(dataPoint17);
-            series2.Points.Add(dataPoint18);
-            series2.Points.Add(dataPoint19);
-            series2.Points.Add(dataPoint20);
-            series2.Points.Add(dataPoint21);
-            series2.Points.Add(dataPoint22);
-            series2.Points.Add(dataPoint23);
-            series2.Points.Add(dataPoint24);
-            series2.Points.Add(dataPoint25);
-            this.guichartPWAReport.Series.Add(series1);
-            this.guichartPWAReport.Series.Add(series2);
+            series3.BorderWidth = 2;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Color = System.Drawing.Color.MediumBlue;
+            series3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series3.LabelForeColor = System.Drawing.Color.Blue;
+            series3.Legend = "Legend1";
+            series3.Name = "Actual";
+            series4.BorderWidth = 2;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Color = System.Drawing.Color.DimGray;
+            series4.Legend = "Legend1";
+            series4.Name = "Typical";
+            series4.Points.Add(dataPoint26);
+            series4.Points.Add(dataPoint27);
+            series4.Points.Add(dataPoint28);
+            series4.Points.Add(dataPoint29);
+            series4.Points.Add(dataPoint30);
+            series4.Points.Add(dataPoint31);
+            series4.Points.Add(dataPoint32);
+            series4.Points.Add(dataPoint33);
+            series4.Points.Add(dataPoint34);
+            series4.Points.Add(dataPoint35);
+            series4.Points.Add(dataPoint36);
+            series4.Points.Add(dataPoint37);
+            series4.Points.Add(dataPoint38);
+            series4.Points.Add(dataPoint39);
+            series4.Points.Add(dataPoint40);
+            series4.Points.Add(dataPoint41);
+            series4.Points.Add(dataPoint42);
+            series4.Points.Add(dataPoint43);
+            series4.Points.Add(dataPoint44);
+            series4.Points.Add(dataPoint45);
+            series4.Points.Add(dataPoint46);
+            series4.Points.Add(dataPoint47);
+            series4.Points.Add(dataPoint48);
+            series4.Points.Add(dataPoint49);
+            series4.Points.Add(dataPoint50);
+            this.guichartPWAReport.Series.Add(series3);
+            this.guichartPWAReport.Series.Add(series4);
             this.guichartPWAReport.Size = new System.Drawing.Size(267, 280);
             this.guichartPWAReport.TabIndex = 186;
             this.guichartPWAReport.Text = "chart1";
+            // 
+            // guichrtPrawSignals
+            // 
+            chartArea6.Name = "ChartArea1";
+            this.guichrtPrawSignals.ChartAreas.Add(chartArea6);
+            this.guichrtPrawSignals.Location = new System.Drawing.Point(8, 8);
+            this.guichrtPrawSignals.Name = "guichrtPrawSignals";
+            this.guichrtPrawSignals.Size = new System.Drawing.Size(526, 92);
+            this.guichrtPrawSignals.TabIndex = 184;
+            this.guichrtPrawSignals.Text = "chart1";
+            // 
+            // guichrtCrawSignals
+            // 
+            chartArea7.Name = "ChartArea1";
+            this.guichrtCrawSignals.ChartAreas.Add(chartArea7);
+            this.guichrtCrawSignals.Location = new System.Drawing.Point(8, 113);
+            this.guichrtCrawSignals.Name = "guichrtCrawSignals";
+            this.guichrtCrawSignals.Size = new System.Drawing.Size(526, 92);
+            this.guichrtCrawSignals.TabIndex = 185;
+            this.guichrtCrawSignals.Text = "chart1";
+            // 
+            // pnlRawWaveformChart
+            // 
+            this.pnlRawWaveformChart.BackColor = System.Drawing.Color.Transparent;
+            this.pnlRawWaveformChart.Controls.Add(this.guichrtPrawSignals);
+            this.pnlRawWaveformChart.Controls.Add(this.guichrtCrawSignals);
+            this.pnlRawWaveformChart.Location = new System.Drawing.Point(24, 455);
+            this.pnlRawWaveformChart.Name = "pnlRawWaveformChart";
+            this.pnlRawWaveformChart.Size = new System.Drawing.Size(541, 213);
+            this.pnlRawWaveformChart.TabIndex = 186;
+            // 
+            // chartSinglePRawSignal
+            // 
+            this.chartSinglePRawSignal.BackColor = System.Drawing.Color.Transparent;
+            this.chartSinglePRawSignal.BorderlineColor = System.Drawing.Color.Transparent;
+            chartArea8.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea8.AxisX.MajorGrid.Enabled = false;
+            chartArea8.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea8.AxisY.MajorGrid.Enabled = false;
+            chartArea8.Name = "ChartArea1";
+            this.chartSinglePRawSignal.ChartAreas.Add(chartArea8);
+            this.chartSinglePRawSignal.Location = new System.Drawing.Point(639, 459);
+            this.chartSinglePRawSignal.Name = "chartSinglePRawSignal";
+            this.chartSinglePRawSignal.Size = new System.Drawing.Size(249, 165);
+            this.chartSinglePRawSignal.TabIndex = 187;
+            this.chartSinglePRawSignal.Text = "chart1";
             // 
             // PWAClinicalPreview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(732, 746);
+            this.ClientSize = new System.Drawing.Size(1028, 746);
+            this.Controls.Add(this.chartSinglePRawSignal);
+            this.Controls.Add(this.pnlRawWaveformChart);
             this.Controls.Add(this.pnlCentralClinicalWaveform);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlCentralClinicalParameters);
@@ -754,6 +817,10 @@
             this.panel1.ResumeLayout(false);
             this.pnlCentralClinicalWaveform.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guichartPWAReport)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guichrtPrawSignals)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guichrtCrawSignals)).EndInit();
+            this.pnlRawWaveformChart.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartSinglePRawSignal)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -800,5 +867,9 @@
         public System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Panel pnlCentralClinicalWaveform;
         private System.Windows.Forms.DataVisualization.Charting.Chart guichartPWAReport;
+        private System.Windows.Forms.DataVisualization.Charting.Chart guichrtPrawSignals;
+        private System.Windows.Forms.DataVisualization.Charting.Chart guichrtCrawSignals;
+        public System.Windows.Forms.Panel pnlRawWaveformChart;
+        public System.Windows.Forms.DataVisualization.Charting.Chart chartSinglePRawSignal;
     }
 }

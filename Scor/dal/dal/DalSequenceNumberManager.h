@@ -31,7 +31,7 @@ namespace AtCor{
 					static const unsigned char _packetSequenceMinValue = 0x00; //Max value for sequence number
 					static const unsigned char _reservedNumberInvalidIndicator = 0xFF; //to make the reservedCommandSequenceNumber "invalid"
 					
-					static bool reserveSequenceNumberForCapture = false; //indicator to indicate that a number has been reserved for capture
+					static bool reserveSequenceNumberForCapture; //indicator to indicate that a number has been reserved for capture
 					static unsigned char _nextCommandSequenceNumber; //stores the internal value of the command sequence numer 
 					static unsigned char reservedCommandSequenceNumber ; //stores the sequence number of the comand that cannot be used when a capture is in progress
 					static unsigned char _nextStreamingPacketSequnceNumber; //the next expected sequnce number of a streaming packet.

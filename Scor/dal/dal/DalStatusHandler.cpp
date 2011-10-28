@@ -132,7 +132,7 @@ namespace AtCor{
 
 			bool DalStatusHandler::CheckCuffStatusFlagsChanged(unsigned long newCuffStatusFlags) 
 			{
-				////CrxLogger::Instance->Write("CheckCuffStatusFlagsChanged currentflag " + _currentCuffStatusFlag.ToString("X2) + " newCuffStatusFlags: " + newCuffStatusFlags.ToString("X2));
+				////CrxLogger::Instance->Write("CheckCuffStatusFlagsChanged currentflag " + _currentCuffStatusFlag.ToString("X2) + " newCuffStatusFlags: " + newCuffStatusFlags.ToString("X2), ErrorSeverity::Debug);
 				if (newCuffStatusFlags != _currentCuffStatusFlag )
 				{
 					//Flags have changed . Assign the new flags 
@@ -149,11 +149,14 @@ namespace AtCor{
 
 			bool DalStatusHandler::CheckAlarmStatusFlagChanged(unsigned long newAlarmStatusFlag) 
 			{
-				////CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged _currentAlarmStatusFlag:" + _currentAlarmStatusFlag.ToString("X4") + " newEAStatusFlag:"+newEAStatusFlag.ToString("X4") );
+				////CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged _currentAlarmStatusFlag:" + _currentAlarmStatusFlag.ToString("X4") + " newEAStatusFlag:"+newEAStatusFlag.ToString("X4") , ErrorSeverity::Debug);
 						
 				if (newAlarmStatusFlag != _currentAlarmStatusFlag  )
 				{
-					////CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>Flags have changed");
+					CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>Flags have changed _currentAlarmStatusFlag:" + _currentAlarmStatusFlag.ToString("X4") + " newAlarmStatusFlag:"+newAlarmStatusFlag.ToString("X4") , ErrorSeverity::Debug);
+				
+					////CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>Flags have changed", ErrorSeverity::Debug);
+					
 					//Flags have changed . Assign the new flags 
 					_currentAlarmStatusFlag = newAlarmStatusFlag;
 					return true;
@@ -234,7 +237,7 @@ namespace AtCor{
 						break; 
 				}
 
-				////CrxLogger::Instance->Write("Deepak>>> TranslateAlarmStatusBits>>> statusFlags" + statusFlags.ToString("X4") + " data:" + data.ToString() + " retAlarmValue:" + retAlarmValue.ToString());
+				////CrxLogger::Instance->Write("Deepak>>> TranslateAlarmStatusBits>>> statusFlags" + statusFlags.ToString("X4") + " data:" + data.ToString() + " retAlarmValue:" + retAlarmValue.ToString(), ErrorSeverity::Debug);
 				
 				return retAlarmValue;
 			}
@@ -423,7 +426,7 @@ namespace AtCor{
 			{
 				if (newStatusFlag != _currentStatusFlag)
 				{
-					////CrxLogger::Instance->Write("CheckStatusFlagsChanged currentflag " + _currentStatusFlag.ToString("X2) + " newStatusFlags: " + newStatusFlag.ToString("X2));
+					////CrxLogger::Instance->Write("CheckStatusFlagsChanged currentflag " + _currentStatusFlag.ToString("X2) + " newStatusFlags: " + newStatusFlag.ToString("X2), ErrorSeverity::Debug);
 					//Flags have changed . Assign the new flags 
 					_currentStatusFlag  = newStatusFlag;
 					return true;
@@ -454,7 +457,7 @@ namespace AtCor{
 
 				_newUnusedStatusBytes = statusBytes & (unsigned long) DalStatusFlagBitMask::UnusedStatusBitsMask;
 								
-				////CrxLogger::Instance->Write("statusBytes:" + statusBytes.ToString("X4") +" cuffStatusBytes:" + cuffStatusBytes.ToString("X4") + " alarmStatusBytes:"+eaStatusBytes.ToString("X4") ); //debugging only
+				////CrxLogger::Instance->Write("statusBytes:" + statusBytes.ToString("X4") +" cuffStatusBytes:" + cuffStatusBytes.ToString("X4") + " alarmStatusBytes:"+eaStatusBytes.ToString("X4") ); //debugging on, ErrorSeverity::Debugly
 			}
 
 			 void DalStatusHandler::ProcessCuffStatusFlag()
@@ -497,7 +500,7 @@ namespace AtCor{
 
 					 //raise an event only after getting the source of the error
 					 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(TranslateAlarmStatusBits(_newAlarmStatusBytes), alarmSource, DalBinaryConversions::ConvertAlarmType(alarmSource)));
-					//CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>OnDalModuleErrorAlarmEvent event raised");
+					 CrxLogger::Instance->Write("ProcessAlarmStatusFlag>>>OnDalModuleErrorAlarmEvent event raised _newAlarmStatusBytes:" + _newAlarmStatusBytes, ErrorSeverity::Debug);
 
 					 }
 				 }
@@ -507,7 +510,7 @@ namespace AtCor{
 			{
 				if (_newStopButtonStatusBytes)
 				{
-					CrxLogger::Instance->Write("DalStatusHandler::ProcessStopButtonBitMask >>> Raising OnDalModuleErrorAlarmEvent with StopButtonPressed");
+					CrxLogger::Instance->Write("DalStatusHandler::ProcessStopButtonBitMask >>> Raising OnDalModuleErrorAlarmEvent with StopButtonPressed", ErrorSeverity::Debug);
 
 					//Just raise the event . let the handler decidethe current mode and decide what actions need to be taken.
 					
@@ -523,7 +526,7 @@ namespace AtCor{
 			{
 				if (_newPowerUpStatusBytes)
 				{
-					CrxLogger::Instance->Write("DalStatusHandler::ProcessPowerUpBitMask >>> Raising OnDalModuleErrorAlarmEvent with PowerUpEvent");
+					CrxLogger::Instance->Write("DalStatusHandler::ProcessPowerUpBitMask >>> Raising OnDalModuleErrorAlarmEvent with PowerUpEvent", ErrorSeverity::Debug);
 
 
 					//Just raise the event. 

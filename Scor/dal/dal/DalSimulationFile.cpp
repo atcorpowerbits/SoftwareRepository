@@ -122,7 +122,7 @@ using namespace System::Text;
 		singleLine = RemoveSpecialCharacters(singleLine);
 		
 		//return values to calling function
-		//CrxLogger::Instance->Write(singleLine);
+		//CrxLogger::Instance->Write(singleLine, ErrorSeverity::Debug);
 		*value1 = (short)Single::Parse(singleLine);
 		//successful
 		return true;

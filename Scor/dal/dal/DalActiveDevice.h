@@ -51,6 +51,9 @@ namespace AtCor{
 				* @return	 @c true if the operation was successful
 				*/
 				bool SearchAllPortsforDevice(String ^%foundPortName, String ^excludePort);
+				static void SetSimulationAsCurrent(DalStreamingMode mode);
+				static void SetDeviceAsCurrent(DalStreamingMode mode);
+
 
 			internal:	
 				static IDalHandler^ _currentDevice;  //A pointer to the current device
@@ -87,13 +90,13 @@ namespace AtCor{
 				*/
 				static bool SetDeviceStrategy();
 
-				/**
-				* Obtains the current com port settig from Configuration and sets the current strategy.
-				* @param[in] commPort The Comm port setting.
-				*
-				* @return	A boolean value specifying the success/failure of the operation.
-				*/
-				static bool SetDeviceStrategy(String^ commPort);
+				///**
+				//* Obtains the current com port settig from Configuration and sets the current strategy.
+				//* @param[in] commPort The Comm port setting.
+				//*
+				//* @return	A boolean value specifying the success/failure of the operation.
+				//*/
+				//static bool SetDeviceStrategy(String^ commPort);
 
 				/**
 				* Obtains the current com port settig from Configuration and sets the current strategy.

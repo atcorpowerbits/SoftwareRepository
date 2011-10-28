@@ -224,6 +224,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalCommandInterfaceTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalConstantsTest.cpp"
 				>
 			</File>
@@ -232,11 +236,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DalCuffStatusEventArgsTest.cpp"
+				RelativePath=".\DalCuffPressureCommandTest.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DalDataBuffer.cpp"
+				RelativePath=".\DalCuffStatusEventArgsTest.cpp"
 				>
 			</File>
 			<File
@@ -256,11 +260,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalEM4NibpToHostPacketTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalEventContainerTest.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\DalModuleTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalNibpCommandInterfaceTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalNibpDeviceHandlerTest.cpp"
 				>
 			</File>
 			<File

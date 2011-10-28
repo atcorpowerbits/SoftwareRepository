@@ -38,6 +38,8 @@ namespace AtCor.Scor.Gui.Presentation
        #region Global variable declaration
        public static CrxStructPWAMeasurementData crxPwaData;
        public static CrxStructCuffPWAMeasurementData crxPwaCuffData;
+       public static CrxStructPWAMeasurementData quickStartCrxPwaData;
+       public static CrxStructCuffPWAMeasurementData quickStartCrxPwaCuffData;
        public static bool IsValidatedLicenseKey = false; // This flag is used to check whether LicenseKey is valdiated or not.
        public static SystemKeyWindowValues SystemKeyWindowValue = SystemKeyWindowValues.ADD; // values :0.Add 1.Update     Checking whether system key form is called for updating or adding system key.
        public static string CurrentMode = string.Empty;
@@ -74,9 +76,15 @@ namespace AtCor.Scor.Gui.Presentation
        public static int RepeatDelay = 5;
        public static bool RepeatButtonClickedStartNibpOnSetup = false;
        public static bool ErrorInCaptureProcess = false;
+       public static bool IsBizErrorEventRaised = false;
+       public static bool CheckPatientPrivacy = false;
+       public static bool IsSetUpFormDirty = false;
        public static BizPWV bizObject;
        public static BizPWA bizPwaobject;
+       public static BizNIBP bizNibpObject = new BizNIBP();
        public static CrxStructGeneralSetting GeneralSettingsStruct = new CrxStructGeneralSetting();
+       public static bool AgeValidation = false;
+       public static SelectedChart SelChart = SelectedChart.sp;
        #endregion
 
        #region Main / Parent window Handle
@@ -90,15 +98,9 @@ namespace AtCor.Scor.Gui.Presentation
        public static event EventHandler OnEnterButtonClick;
 
        #region Global Varialbles
-        
-       // public static Modes CurrentMode = Modes.cPWA;
 
-       // public enum Modes
-       // { 
-       // PWV = 0,
-       // cPWA = 1,
-       // tPWA = 2
-       // }
+       public static string StartupScreen;
+
        public enum SystemKeyWindowValues
        {
            ADD = 0,
@@ -108,6 +110,24 @@ namespace AtCor.Scor.Gui.Presentation
        // Child Form Handles
        public static RadForm QuickStartChildForm;
 
+       public enum SelectedChart
+       {
+           sp,
+           dpMp,
+           pp,
+           hr,
+           aix,
+           ap
+       }
+
+       public enum BpButtonMode
+       { 
+         start,
+         repeat,
+         stopInProgress,
+         stopWait,
+         stopInWaitProgress
+       }
        #endregion
 
        #region Child Form Handles
@@ -145,11 +165,22 @@ namespace AtCor.Scor.Gui.Presentation
            // or the user has clicked on the Find module option under the System menu.
            if (CaptureFormLoaded)
            {
-               // Take action if capture screen is loaded and alarm flag is raised.
-               // in this case we need to stop the capture on the capture screen.
-               MessageToBeDisplayed = e.data;
-               object dummySender = new object();
-               OnBizErrorEventInvocation.Invoke(dummySender, new EventArgs());
+               if (!IsBizErrorEventRaised)
+               {
+                   IsBizErrorEventRaised = true;
+
+                   // Take action if capture screen is loaded and alarm flag is raised.
+                   // in this case we need to stop the capture on the capture screen.
+                   MessageToBeDisplayed = e.data;
+                   object dummySender = new object();
+
+                   ScorControllerObject.ActionPerformedAfterClickingCancel();                   
+               }
+               else
+               {
+                   RadMessageBox.Show(e.data, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+                   CrxLogger.Instance.Write(e.data);
+               }
             }
            else
            {
@@ -550,6 +581,10 @@ namespace AtCor.Scor.Gui.Presentation
         public static bool RptGeneralPopulation { get; set; }
 
         public static bool RptHealthyPopulation { get; set; }
+
+        public static string RptBpLabelsText { get; set; }
+
+        public static string RptPatientHeightInternalValue { get; set; }
     }
 
     /**
@@ -634,6 +669,10 @@ namespace AtCor.Scor.Gui.Presentation
 
         public static string RptPatientDobValue { get; set; }
 
+        public static string RptPatientAgeGender { get; set; }
+
+        public static string RptPatientAgeGenderValue { get; set; }
+
         public static string RptPatientAge { get; set; }
 
         public static string RptPatientAgeValue { get; set; }
@@ -677,6 +716,14 @@ namespace AtCor.Scor.Gui.Presentation
         public static string RptPhysicianTitle { get; set; }
 
         public static string RptSimulationModeTitle { get; set; }
+
+        public static string RptGroupNameTitle { get; set; }
+
+        public static string RptGroupNameValue { get; set; }
+
+        public static string RptNoteTitle { get; set; }
+
+        public static string RptNoteValue { get; set; }
     }
 
     /**
@@ -773,5 +820,16 @@ namespace AtCor.Scor.Gui.Presentation
         public static string RptMPSystoleDiastoleTitle { get; set; }
 
         public static string RptMPSystoleDiastoleValue { get; set; }
+    }
+
+    /**
+    * @class PWAPatientReportData
+    * @brief This class is used to define properties which will be used for generating PWA Clinical/Evaluation report
+      * The property values will be set in report screen once the user clicks print "PWA Patient report" and these values
+      * will be passed to Crystal report for printing PWA Patient Report
+    */
+    public static class PWAPatientReportData
+    {
+        public static string RptPatientAssessment { get; set; }
     }
 }

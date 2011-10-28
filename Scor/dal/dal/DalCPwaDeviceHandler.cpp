@@ -18,11 +18,12 @@ DalCPwaDeviceHandler::DalCPwaDeviceHandler()
 {
 	//set the command interface object
 	_commandInterface = gcnew DalCPwaCommandInterface();
+	_nibpHandler = DalNibpDeviceHandler::Instance;
 }
 
 bool DalCPwaDeviceHandler::StartCapture(int captureTime, int samplingRate)
 {
-	//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StartCapture Called");
+	//CrxLogger::Instance->Write("Deepak>>> DalCPwaDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
 
 	//create a buffer of the required size
 	try
@@ -78,7 +79,10 @@ bool DalCPwaDeviceHandler::StartCapture(int captureTime, int samplingRate)
 		//start the handler for data capture here
 		try
 		{
-			return _commandInterface->InitiateDataCaptureMode();
+			bool retValu;
+			retValu =  _commandInterface->InitiateDataCaptureMode();
+
+			return retValu;
 		}
 		catch(ScorException^)
 		{
@@ -87,4 +91,26 @@ bool DalCPwaDeviceHandler::StartCapture(int captureTime, int samplingRate)
 	}
 	
 	return false;
+}
+
+bool DalCPwaDeviceHandler::StartBP(DalNIBPMode nibpMode, unsigned short initialPressure)
+{
+	return _nibpHandler->StartBP(nibpMode, initialPressure);
+}
+
+bool DalCPwaDeviceHandler::StartBP(DalNIBPMode nibpMode) 
+{
+
+	return _nibpHandler->StartBP(nibpMode);
+}
+
+bool DalCPwaDeviceHandler::FinishBP()
+{
+	return _nibpHandler->FinishBP();
+}
+
+bool DalCPwaDeviceHandler::AbortBP()
+{
+
+	return _nibpHandler->AbortBP();
 }

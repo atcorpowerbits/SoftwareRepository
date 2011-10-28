@@ -16,6 +16,7 @@
 
 using namespace System;						
 using namespace System::Data;
+using namespace System::Drawing;
 
 using namespace System::Data::Common;
 using namespace System::Data::SqlClient;
@@ -245,10 +246,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		HeightInCentimetres,
 		HeightInInches,
 		BodyMassIndex,
-		MemSpare1,
-		MemSpare2,
+		Interpretation,
+		AuditReason,
 		Simulation,
-		IntSpare2,
+		AuditFlag,
 		FloatSpare1,
 		DataRev,
 		SubType,
@@ -325,7 +326,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		C_MemSpare2,
 		C_Al,
 		C_Ati,
-		C_Flow,
+		C_Typical,
 		C_Forward,
 		C_Backward,
 		C_Avi,
@@ -368,10 +369,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		P_QC_PHV,
 		P_QC_PLV,
 		P_QC_DV,
-		P_QC_OTHER1,
-		P_QC_OTHER2,
+		QC_Scale,
+		QC_ShapeDeviation,
 		P_QC_OTHER3,
-		P_QC_OTHER4,
+		OperatorIndex,
 	};
 
 	/**
@@ -494,6 +495,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static String^	DpValidArrStr						=	"@DpValidArrStr";
 		static String^	MpValidArrStr						=	"@MpValidArrStr";
 		static String^  FilePath							=	"@FilePath";
+		static String^  MeanCorrectedTimeArrStr				=	"@MeanCorrectedTimeArrStr";
 	};
 	
 	/**
@@ -520,10 +522,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		//static String^		BodyMassIndex				=		"@bodyMassIndex";
 		static String^		PwaId				=		"@Pwa_id";
 		static String^		AuditChange			=		"@auditChange";
-		static String^		MemSpare1			=		"@memSpare1";
-		static String^		MemSpare2			=		"@memSpare2";
+		static String^		Interpretation		=		"@interpretation";
+		static String^		AuditReason			=		"@auditReason";
 		static String^		Simulation			=		"@simulation";
-		static String^		IntSpare2			=		"@intSpare2";
+		static String^		AuditFlag			=		"@auditFlag";
 		static String^		FloatSpare1			=		"@floatSpare1";
 		static String^		DataRev				=		"@dataRev";
 		static String^		SubType				=		"@subType";
@@ -600,7 +602,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static String^		C_MemSpare2			=		"@c_MemSpare2";
 		static String^		C_Al				=		"@c_Al";
 		static String^		C_Ati				=		"@c_Ati";
-		static String^		C_Flow				=		"@c_Flow";
+		static String^		C_Typical			=		"@c_Typical";
 		static String^		C_Forward			=		"@c_Forward";
 		static String^		C_Backward			=		"@c_Backward";
 		static String^		C_Avi				=		"@c_Avi";
@@ -656,10 +658,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		static String^		P_Qc_Phv			=		"@p_Qc_Phv";
 		static String^		P_Qc_Plv			=		"@p_Qc_Plv";
 		static String^		P_Qc_Dv				=		"@p_Qc_Dv";
-		static String^		P_Qc_Other1			=		"@p_Qc_Other1";
-		static String^		P_Qc_Other2			=		"@p_Qc_Other2";
+		static String^		QC_Scale			=		"@QC_Scale";
+		static String^		QC_ShapeDeviation	=		"@QC_ShapeDeviation";
 		static String^		P_Qc_Other3			=		"@p_Qc_Other3";
-		static String^		P_Qc_Other4			=		"@p_Qc_Other4";
+		static String^		OperatorIndex		=		"@OperatorIndex";
 	};
 
 	/**
@@ -809,6 +811,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		String^ SpValidArrStr;
 		String^ DpValidArrStr;
 		String^ MpValidArrStr;
+		String^ MeanCorrectedTimeArrStr;
 	};
 
 	// Creating CrxStructPWATrendData Structure and variables
@@ -851,10 +854,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		short	HeightInCentimetres;
 		short	HeightInInches;
 		float	BodyMassIndex;
-		String^	MemSpare1;
-		String^	MemSpare2;
+		String^	Interpretation;
+		String^	AuditReason;
 		bool	Simulation;
-		int		IntSpare2;
+		int		AuditFlag;
 		float	FloatSpare1;
 		int		DataRev;
 		String^	SubType;
@@ -931,7 +934,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		float	C_MemSpare2;
 		float	C_Al;
 		float	C_Ati;
-		array<float>^	C_Flow;
+		array<float>^	C_Typical;
 		array<float>^	C_Forward;
 		array<float>^	C_Backward;
 		float	C_Avi;
@@ -983,10 +986,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		float	P_QC_PHV;
 		float	P_QC_PLV;
 		float	P_QC_DV;
-		float	P_QC_OTHER1;
-		float	P_QC_OTHER2;
+		float	QC_Scale;
+		float	QC_ShapeDeviation;
 		float	P_QC_OTHER3;
-		float	P_QC_OTHER4;
+		float	OperatorIndex;
 	};
 
 
@@ -1028,10 +1031,10 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		float	P_QC_PHV;
 		float	P_QC_PLV;
 		float	P_QC_DV;
-		float	P_QC_OTHER1;
-		float	P_QC_OTHER2;
+		float	QC_Scale;
+		float	QC_ShapeDeviation;
 		float	P_QC_OTHER3;
-		float	P_QC_OTHER4;
+		float	OperatorIndex;
 		float	P_T1;
 		float	P_T2;
 		float	P_AI;
@@ -1462,7 +1465,48 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		*/
 		void GetPWATrendData(String^ pwaIdArrStr, CrxStructPWATrendData^ trendDataStruct);
 
-	
+		/**
+		* To convert Integer array to String array
+		* @return String array data
+		* @param[in] sortArr Integer array to be converted to string array
+		*/
+		array<String^>^ CommonIntArrToStringArr(array<int>^ sortArr);
+		
+		/**
+		* To convert Float array to String array
+		* @return String array data
+		* @param[in] sortArr Float array to be converted to string array
+		*/
+		array<String^>^ CommonFloatArrToStringArr(array<float>^ sortArr);
+
+		/**
+		* To convert String array to Integer array
+		* @return Integer array data
+		* @param[in] sortArr string array to be converted to Integer array
+		*/
+		array<int>^ CommonStringArrToIntArr(array<String^>^ sortArr);
+		
+		
+		/**
+		* To convert String array to Float array
+		* @return Float array data
+		* @param[in] sortArr string array to be converted to Float array
+		*/
+		array<float>^ CommonStringArrToFloatArr(array<String^>^ sortArr);
+
+		/**
+		* To convert String array to Double array
+		* @return Double array data
+		* @param[in] sortArr string array to be converted to Double array
+		*/
+		array<double>^ CommonStringArrToDoubleArr(array<String^>^ sortArr);
+
+		/**
+		* To convert Image to Byte array
+		* @return Byte array data
+		* @param[in] imageIn Image to be converted to Byte array
+		*/
+		array<Byte>^ CommonImageToByteArr(Image^ imageIn);
 	};
 }
 }

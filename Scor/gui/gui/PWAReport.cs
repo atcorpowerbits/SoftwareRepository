@@ -14,48 +14,52 @@ using System.Windows.Forms.DataVisualization.Charting;
 using Telerik.WinControls.Primitives;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace AtCor.Scor.Gui.Presentation
 {
     public partial class PWAReport : RadForm
-    {
-        // Events              
-        // Using the same event as that of PWV for showing values on the Setup screen for PWA mode.
-        public static event EventHandler OnPwaMeasurementChangedEvent;
-
+    {           
+        readonly string serverNameString = string.Empty;
+        readonly BizPatient patientObj = BizPatient.Instance();
         const int MaxLabelYValue = 12; // this denotes the maximum number of values to be displayed on Y axis so that it does not overlap                      
         const int LblVerticalAngle = -90; // angle of labels to display vertically on analysis screen when more records are are selected
         const int LblHorizontalAngle = 0; // angle of labels to display horizontally on analysis screen when few records are are selected
         const string CulturalNeutralDateFormat = "yyyy-MM-dd HH:mm:ss"; // this is a cultural neutral format used for fetching data for different regional settings from back end
+        decimal AverageAorticXAxisInterval = Math.Round((decimal)(1000.0 / 256.0));
 
-        readonly string serverNameString = string.Empty;
-        readonly BizPatient patientObj = BizPatient.Instance();
+        // Events              
+        // Using the same event as that of PWV for showing values on the Setup screen for PWA mode.   
+        public static event EventHandler OnPwaMeasurementChangedEvent;
+        
         GuiFieldValidation objValidation;
         CrxMessagingManager oMsgMgr;
         CrxConfigManager crxMgrObject;
         CrxDBManager dbMagr;
-       // BizPWA obj;
+        private bool isValueChanged = false;
+        private bool IsHeightOutsideIntegerLimits = false;
 
-       // GuiFieldValidation objValidateReport;
         CrxStructPWAMeasurementData crxPwaData = new CrxStructPWAMeasurementData();
-       CrxStructCuffPWAMeasurementData crxPwaCuffData = new CrxStructCuffPWAMeasurementData();
-       CrxStructTonoPWAMeasurementData crxPwaTonoData = new CrxStructTonoPWAMeasurementData(); 
+        CrxStructCuffPWAMeasurementData crxPwaCuffData = new CrxStructCuffPWAMeasurementData();
+        CrxStructTonoPWAMeasurementData crxPwaTonoData = new CrxStructTonoPWAMeasurementData();
         int bobj;
         int numeberOfRecordsSelected;
         string dateToCompare = string.Empty; // used to compare dates when 30 sec wait interval is imposed to enable / disable repeat button based on last record selected
+        string dateWithComma = string.Empty;
         string pwaIdWithComma = string.Empty;
         int recordsToDelete; // this variable holds value for number of records to delete and is used across dfifferent methods 
         string lastAssessmentDate = string.Empty;
         string pwaIdToCompare = string.Empty; // used to compare Pwa id when 30 sec wait interval is imposed to enable / disable repeat button based on last record selected
         string lastAssessmentPwaId = string.Empty;
         private DefaultWindow objDefaultWindow;
-      
+        
+        string[] date; // date array to be used on analysis screen
+        bool isFromLoad = false; // This variable is used for crx initialization for selected record only to avoid calling initialization for each record in grid
         string[] apRate; // Ap rate array to be used on analysis screen
         string[] hrRate; // Hr rate array to be used on analysis screen
         string[] spRate; // Sp rate array to be used on analysis screen
         string[] dpRate; // Dp rate array to be used on analysis screen
         string[] mpRate; // Mp rate array to be used on analysis screen
-        string[] aix75Rate; // Aix rate array to be used on analysis screen
         string[] ppRate; // Pp rate array to be used on analysis screen
 
         // denotes tick and cross indexes to be assigned from ImageList
@@ -71,7 +75,7 @@ namespace AtCor.Scor.Gui.Presentation
             ValidationFailed,
             ReportCalculationFailed
         }
-        
+
         public PWAReport(DefaultWindow defWindow)
         {
             try
@@ -90,16 +94,18 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // initialize servername string
                 serverNameString = GuiCommon.ServerNameString();
-               // obj = (BizPWA)BizSession.Instance().measurement;
 
+                // obj = (BizPWA)BizSession.Instance().measurement;
                 // subscribe report tab click event
+                DefaultWindow.OnExitSavePwaReportChanges += guiradbtnreportsave_Click;
                 DefaultWindow.OnPWAReportTabClick += PWAReport_Load;
-                              
+
+                DefaultWindow.OnPwaReportMenuItemClick += SaveChangesOnMenuFocus;             
                 Presentation.Capture.OnPWAReportTabClick += PWAReport_Load;
                 guiradtxtReportHeightInches.KeyPress += GuiCommon.CheckForNumericValues;
                 guiradtxtReportHeight.KeyPress += GuiCommon.CheckForNumericValues;
-                 GuiCommon.OnCaptureClosing += EnableRepeatAndCaptureTab;                
-                 objValidation = new GuiFieldValidation(guipnlReportPatientMeasurementDetails);
+                GuiCommon.OnCaptureClosing += EnableRepeatAndCaptureTab;
+                objValidation = new GuiFieldValidation(guipnlReportPatientMeasurementDetails);
             }
             catch (Exception ex)
             {
@@ -114,7 +120,6 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                // GuiCommon.IsWaitIntervalImposed = !value;
                 GuiCommon.CaptureToSetup = !value;
 
                 objDefaultWindow.radtabCapture.Enabled = false;
@@ -138,9 +143,12 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.SystemIdentifier = bobj;
             GuiCommon.ReportLoadCount++;
 
+            // AtCor-Drop2-Sprint1
+            SetTextForPWAReport();
+
             // Clearing the capture time label on load.
             objDefaultWindow.radlblCaptureTime.Text = string.Empty;
-          
+
             // set default text for report tab
             objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
             objDefaultWindow.radtabCapture.Enabled = false;
@@ -151,12 +159,9 @@ namespace AtCor.Scor.Gui.Presentation
             // fill demographic & pwa measurement details & bring the LHS to browse mode
             FillDemographicDetailsReport();
 
-            // initialize crx when user moves from setup to report... call populate method
-            InitializeCrxFromSetupToReport(string.Empty);
-
             // binds assessment details related to patient
             FillPatientAssessmentDetailsReport();
-           
+
             // If Augumentation Index is checked in PWA Settings tab 
             if (crxMgrObject.PwaSettings.AugmentationIndex)
             {
@@ -166,17 +171,14 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 guiradlblReportAIx.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaReportAIX75);
             }
-             
+
             guipnlPWAReport.Visible = true;
             guipnlPWAReportAnalysis.Visible = false;
-            // if (!string.IsNullOrEmpty(GuiCommon.bizPwaobject.GetInconclusiveNoteMsgKey()))
+
             if (!string.IsNullOrEmpty(GuiCommon.InConclusiveMessageForPwaCapture))
             {
-                objDefaultWindow.radlblMessage.Text = string.Format("{0} {1}", CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiInConclusivePwaReportInitialMesg), GuiCommon.InConclusiveMessageForPwaCapture);
-                GuiCommon.InConclusiveMessageForPwaCapture = string.Empty;
-                GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = true;                
-                GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick += new EventHandler(DisplayInconclusiveMessage);                
-            }            
+                guiradlblInconclusiveMessage.Text = string.Format("{0} {1}", CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiInConclusivePwaReportInitialMesg), GuiCommon.InConclusiveMessageForPwaCapture);
+            }
         }
 
         /** This method sets tag property of textbox and labels for validating measurement details on report screen.
@@ -195,14 +197,12 @@ namespace AtCor.Scor.Gui.Presentation
             guiradlblReportPatientId.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPatientId);
             guiradlblReportPatientName.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPatientName);
             guiPwaClinicalReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwaClinicalReport);
-            // guiPwaEvaluationReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwaEvaluationReport);
-
-            // Commenting the below code as group name is not included in Clinical mode.
-            // guiradlblReportGroup.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblGroup);
+            guiPwaPatientReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.PwaPatientReport);
             guiradlblReportDOB.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportDob);
             guiradlblReportAge.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportAge);
-            guiradlblReportheightWeight.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblHeight);          
+            guiradlblReportheightWeight.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblHeight);
             guiradlblReportOperator.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblOperator);
+            guiradlblInconclusiveMessage.Text = String.Empty;
 
             // guiradlblNotes.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblNotes);
             guiradbtnreportsave.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnSave);
@@ -217,28 +217,34 @@ namespace AtCor.Scor.Gui.Presentation
             guiradlblReportAIx.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblAix);
             guiradlblReportHR.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblHr);
             guiradlblReportDP.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblCentralDp);
-            guiradlblSphygmocorReferenceAge.Text = String.Format("{0}{1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSyphymocorRefAge), " > 70");
+            guiradlblSphygmocorReferenceAge.Text = String.Format("{0}{1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSyphymocorRefAge), " > " + Math.Round(GuiCommon.bizPwaobject.ReferenceAge).ToString());
+            guiradlblAixNotCalc.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportPwaNotCalculated);
+            guiradlblApNotCalc.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportPwaNotCalculated);
+            guiradlblPpNotCalc.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportPwaNotCalculated);
+            guiradlblSpNotCalc.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportPwaNotCalculated);
+            if (GuiCommon.bizPwaobject.ReferenceAge == GuiConstants.DefaultValue)
+            {
+                guiradlblSphygmocorReferenceAge.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblSphygmoCorReferenceAgeNotCalculated);
+            }
+
             guioradlblAvgCentralAortlcPulse.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblAvgCentralAorticPulse);
             guiradlblQualityControl.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaQualityControl);
             slashlabel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash);
             guiradlblReportDPUnits.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.UnitsPressureMmhg);
             guiradlblInterpretation.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaInterpretation);
             guiradlblReportGender.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportGender);
-            // guiradbtnPrint.DefaultItem = crxMgrObject.PwaSettings.DefaultReport.Equals(CrxStructCommonResourceMsg.PwaClinicalReport) ? guiPwaClinicalReport : guiPwaEvaluationReport;
-            guiradbtnPrint.DefaultItem = guiPwaClinicalReport;
+
+            // guiradbtnPrint.DefaultItem = guiPwaClinicalReport;
+            guiradbtnPrint.DefaultItem = crxMgrObject.PwaSettings.DefaultReport.Equals(CrxStructCommonResourceMsg.PwaClinicalReport) ? guiPwaClinicalReport : guiPwaPatientReport;
         }
 
         private void InitializeReportScreenPWA()
         {
             dbMagr = CrxDBManager.Instance;
             oMsgMgr = CrxMessagingManager.Instance;
-            crxMgrObject = CrxConfigManager.Instance;
-
-            // AtCor-Drop2-Sprint1
-            SetTextForPWAReport();
-            
+            crxMgrObject = CrxConfigManager.Instance;        
             crxMgrObject.GetGeneralUserSettings();
-            
+
             crxMgrObject.GetPwvUserSettings();
 
             crxMgrObject.GetPwaUserSettings();
@@ -286,7 +292,7 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         private void PWAReport_Load(object sender, EventArgs e)
-        {                           
+        {
             // below statement checks if Invoke required and calls the report load event again to populate report data
             // without this report data will not be loaded when it this event is invoked from other windows
             if (InvokeRequired)
@@ -294,11 +300,11 @@ namespace AtCor.Scor.Gui.Presentation
                 Invoke(new EventHandler(PWAReport_Load));
                 return;
             }
-
+           
             LoadPWAReport();
             CheckForSimualtionMode();
         }
-        
+
         /**This method fill assessment details for a particular patient
         * */
         void FillPatientAssessmentDetailsReport()
@@ -307,64 +313,52 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 // check db connection
                 if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
-                {        
+                {
                     DataSet ds = dbMagr.GetCuffPWAMeasurementDetails(int.Parse(patientObj.patientNumber.ToString()), GuiCommon.GroupId, bobj);
-                                        
-                    guiradgridReportAssessment.DataSource = ds.Tables[0];
-
-                    // guiradchkAssesments.Checked = false;
+                    isFromLoad = false;
                     if (ds.Tables[0].Rows.Count > 0)
                     {
+                        lastAssessmentPwaId = pwaIdToCompare = ds.Tables[0].Rows[0]["PWA_Id"].ToString();
+                        pwaIdWithComma = ds.Tables[0].Rows[0]["PWA_Id"].ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
+                        guiradgridReportAssessment.DataSource = ds.Tables[0];
                         guiradbtnreportedit.Enabled = true;
 
                         // sets assessment count for a label                        
                         GuiCommon.HasMeasurementDetails = true;
-                        guiradgridReportAssessment.MasterTemplate.Rows[ds.Tables[0].Rows.Count - 1].Cells[0].Value = true;
                         guiradbtnDelete.Enabled = true;
                         guiradbtnPrint.Enabled = true;
                         guiradbtnRepeat.Enabled = true;
                         objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
-
-                       // lastAssessmentDate = dateToCompare = guiradgridReportAssessment.MasterTemplate.Rows[ds.Tables[0].Rows.Count - 1].Cells[1].Value.ToString();
-                        lastAssessmentPwaId = pwaIdToCompare = guiradgridReportAssessment.MasterTemplate.Rows[ds.Tables[0].Rows.Count - 1].Cells[2].Value.ToString();
-                        pwaIdWithComma = guiradgridReportAssessment.MasterTemplate.Rows[ds.Tables[0].Rows.Count - 1].Cells[2].Value.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
                         recordsToDelete = 1;
-
-                        if (!GuiCommon.SetupToReport)
-                        {
-                            // this will populate biz session obj from latest PWA details
-                            InitializeCrxOnLoad(guiradgridReportAssessment.MasterTemplate.Rows[ds.Tables[0].Rows.Count - 1].Cells[2].Value.ToString());
-                        }
-
+                        dateWithComma = DateTime.Parse(guiradgridReportAssessment.MasterTemplate.Rows[ds.Tables[0].Rows.Count - 1].Cells[0].Value.ToString()).ToString(CulturalNeutralDateFormat) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
+                        
+                        // if (!GuiCommon.SetupToReport)
+                        // {
+                        //    // this will populate biz session obj from latest PWA details
+                        //    InitializeCrxOnLoad(guiradgridReportAssessment.MasterTemplate.Rows[ds.Tables[0].Rows.Count - 1].Cells["PWA_Id"].Value.ToString());
+                        // }                       
                         GuiCommon.SetupToReport = false;
 
                         if (ds.Tables[0].Rows.Count == 1)
                         {
-                            // guiradchkAssesments.Checked = true;
-                            // guiradchkAssesments.Enabled = false;
-
-                            // Since there is only one record in the assessment grid, and it should be checked by default hence making the check box readonly.
-                            guiradgridReportAssessment.Rows[0].Cells[0].ReadOnly = true;
                             guipnlPWAReport.Visible = true;
                             guipnlPWAReportAnalysis.Visible = false;
                         }
 
                         FillPWAMeasurementDetailsReport();
-                        ShowAixTracker(26, -8, crxPwaData.C_Agph, -2, 20);
-                        ShowSpTracker(130, 90, crxPwaData.C_Sp, 96, 120);
-                        float centralPp;
-                        centralPp = crxPwaData.C_Sp - crxPwaData.C_Dp;
-                        ShowPpTracker(25, 0, centralPp, 5, 20);
-                        ShowApTracker(12, -6, crxPwaData.C_Ap, -3, 9);
-                        PlotAvgAorticPulseChart();                        
+                        DisplayClinicalParameterSliders();
+                        PlotAvgAorticPulseChart();
                     }
                     else
                     {
+                        guiradgridReportAssessment.DataSource = null;
                         guiradbtnreportedit.Enabled = false;
                         guiradbtnDelete.Enabled = false;
                         guiradbtnPrint.Enabled = false;
-                        ClearChartData();
+                        ClearData();
+                        DisplayClinicalParameterSliders();
                         ResetMeasurementFields();
+                        OnPwaMeasurementChangedEvent.Invoke(this, new EventArgs());
                         guipnlPWAReport.Visible = true;
                         guipnlPWAReportAnalysis.Visible = false;
                         GuiCommon.HasMeasurementDetails = false;
@@ -387,6 +381,115 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
+        // TODO: determine the line Low and High Values
+        private void DisplayClinicalParameterSliders() 
+        {            
+            short high = 0;
+            short low = 0;
+            
+            // If Augumentation Index is checked in PWA Settings tab 
+            if (crxMgrObject.PwaSettings.AugmentationIndex)
+            {
+               // crxPwaData.C_Agph = 9999;
+                if (crxPwaData.C_Agph != GuiConstants.DefaultValue)
+                {
+                    if (GuiCommon.bizPwaobject.GetAixRange(crxPwaData.C_Agph, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                    {
+                        double[] temp = setSliderMinMaxForXAxis(new double[] {crxPwaData.C_Agph, low, high});
+                        ShowAixTracker(((float)temp[0]), ((float)temp[1]), crxPwaData.C_Agph, low, high, true);
+                    }
+                    else
+                    {
+                        ShowAixTracker(0, 0, 0, 0, 0, false);
+                    }
+                }
+                else
+                {
+                    ShowAixTracker(0, 0, 0, 0, 0, false);
+                }
+            }
+            else
+            {
+               // GuiCommon.bizPwaobject.AGPH_HR75 = 9999;
+                if (GuiCommon.bizPwaobject.AGPH_HR75 != GuiConstants.DefaultValue)
+                {
+                    if (GuiCommon.bizPwaobject.GetAixhr75Range(GuiCommon.bizPwaobject.AGPH_HR75, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                    {
+                        double[] temp = setSliderMinMaxForXAxis(new double[] { GuiCommon.bizPwaobject.AGPH_HR75, low, high });
+                        ShowAixTracker(((float)temp[0]), ((float)temp[1]), GuiCommon.bizPwaobject.AGPH_HR75, low, high, true);
+                    }
+                    else
+                    {
+                        ShowAixTracker(0, 0, 0, 0, 0, false);
+                    }
+                }
+                else
+                {
+                    ShowAixTracker(0, 0, 0, 0, 0, false);
+                }
+            }
+
+           // crxPwaData.C_Sp = 9999;
+            if (crxPwaData.C_Sp != GuiConstants.DefaultValue)
+            {
+                if (GuiCommon.bizPwaobject.GetSPRange(crxPwaData.C_Sp, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                {
+                    double[] temp = setSliderMinMaxForXAxis(new double[] { crxPwaData.C_Sp, low, high });
+                    ShowSpTracker(((float)temp[0]), ((float)temp[1]), crxPwaData.C_Sp, low, high, true);
+                }
+                else
+                {
+                    ShowSpTracker(0, 0, 0, 0, 0, false);
+                }
+            }
+            else
+            {
+                ShowSpTracker(0, 0, 0, 0, 0, false);
+            }
+
+            // crxPwaData.C_Ap = 9999;
+            if (crxPwaData.C_Ap != GuiConstants.DefaultValue)
+            {
+                if (GuiCommon.bizPwaobject.GetAPRange(crxPwaData.C_Ap, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                {
+                    double[] temp = setSliderMinMaxForXAxis(new double[] { crxPwaData.C_Ap, low, high });
+                    ShowApTracker(((float)temp[0]), ((float)temp[1]), crxPwaData.C_Ap, low, high, true);
+                }
+                else
+                {
+                    ShowApTracker(0, 0, 0, 0, 0, false);
+                }
+
+            }
+            else
+            {
+                ShowApTracker(0, 0, 0, 0, 0, false);
+            }
+
+            float centralPp;
+            centralPp = crxPwaData.C_Sp - crxPwaData.C_Dp;
+
+            // centralPp = 9999;
+            if (centralPp != GuiConstants.DefaultValue)
+            {
+                if (GuiCommon.bizPwaobject.GetPPRange(centralPp, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                {
+                    double[] temp = setSliderMinMaxForXAxis(new double[] { centralPp, low, high });
+                    ShowPpTracker(((float)temp[0]), ((float)temp[1]), centralPp, low, high, true);
+                }
+                else
+                {
+                    ShowPpTracker(50, 0, 0, 0, 0, false);
+                }
+            }
+            else
+            {
+                ShowPpTracker(50, 0, 0, 0, 0, false);
+            }
+
+            guipnlPWAReport.Refresh();
+        }
+
         /**This method fill PWA measurement details for a particular patient
         * */
         void FillPWAMeasurementDetailsReport()
@@ -397,7 +500,7 @@ namespace AtCor.Scor.Gui.Presentation
             guiradlblReportOperatordisplay.Text = guiradtxtReportOperator.Text = GuiCommon.bizPwaobject.operatorId;
 
             guiradlblReportNotesDisplay.Text = guiradtxtMedicationNotesValue.Text = GuiCommon.bizPwaobject.notes;
-                    
+
             //// Since AutoEllipsis propert works only on singleline we are using code to check maximum length for label
             if (guiradlblReportNotesDisplay.Text.Length > LblReportNotesDisplayMaximumLength)
             {
@@ -406,11 +509,25 @@ namespace AtCor.Scor.Gui.Presentation
             }
 
             guiradlblInterpretationDisplay.Text = guiradtxtInterpretation.Text = GuiCommon.bizPwaobject.interpretation;
-            
+
             // set display text for SP, DP & MP labels
             SetBloodPressureDisplayText();
 
             guiradlblSphygmocorReferenceAge.Text = String.Format("{0}{1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaSyphymocorRefAge), " > " + Math.Round(GuiCommon.bizPwaobject.ReferenceAge).ToString());
+
+            if (GuiCommon.bizPwaobject.ReferenceAge == GuiConstants.DefaultValue)
+            {
+                guiradlblSphygmocorReferenceAge.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblSphygmoCorReferenceAgeNotCalculated);
+            }
+
+            if (!string.IsNullOrEmpty(GuiCommon.InConclusiveMessageForPwaCapture))
+            {
+                guiradlblInconclusiveMessage.Text = string.Format("{0} {1}", CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiInConclusivePwaReportInitialMesg), GuiCommon.InConclusiveMessageForPwaCapture);
+            }
+            else
+            { 
+                guiradlblInconclusiveMessage.Text = string.Empty;
+            }
 
             // calculates height & weight
             int heightInInches;
@@ -426,6 +543,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // guiradlblReportWeightUnits.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Kg);
                     guiradlblReportHeightUnits.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Cm);
+                    guiradtxtReportHeight.MaxLength = 3;
 
                     // guiradlblReportWeightdisplay.Text = GuiCommon.bizPwaobject.heightAndWeight.weightInKilograms.Equals(GuiConstants.DefaultValue) ? string.Empty : GuiCommon.bizPwaobject.heightAndWeight.weightInKilograms.ToString();                                     
                     break;
@@ -439,15 +557,19 @@ namespace AtCor.Scor.Gui.Presentation
                         guiradlblReportHeightDisplay.Text = heigthInFeet.ToString();
                         guiradlblReportHeightInches.Text = heightInInches.ToString();
                     }
-                 
+
+                    guiradtxtReportHeight.MaxLength = 2;
                     guiradlblReportHeightUnits.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Feet);
                     break;
                 default:
                     break;
             }
 
-            // for binding statistics
-            // BindPWVStatistics();
+            // set height details
+            guiradtxtReportHeight.Text = guiradlblReportHeightDisplay.Text;
+            guiradtxtReportHeightInches.Text = guiradlblReportHeightInches.Text;
+           
+            guiradtxtMedicationNotesValue.Text = guiradlblReportNotesDisplay.Text;
         }
 
         /**This method initializes Crx structure to update changes
@@ -465,7 +587,7 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         void SetBloodPressureDisplayText()
-        { 
+        {
             guiradlblReportBloodPressure1.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblBrachialSpDpMp);
             guiradlblReportMP.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportPwaBrachialMp);
             guiradlblreportSPdisplay.Text = GuiCommon.bizPwaobject.Sp.Equals(GuiConstants.DefaultValue) ? string.Empty : Math.Round(GuiCommon.bizPwaobject.Sp).ToString();
@@ -473,18 +595,18 @@ namespace AtCor.Scor.Gui.Presentation
             guiradlblreportMPdisplay.Text = crxPwaData.C_Meanp.Equals(GuiConstants.DefaultValue) ? string.Empty : Math.Round(crxPwaData.C_Meanp).ToString();
             guiradlblCentralDp.Text = crxPwaData.C_Dp.Equals(GuiConstants.DefaultValue) ? string.Empty : Math.Round(crxPwaData.C_Dp).ToString();
             guiradlblCentralHr.Text = crxPwaData.HR.Equals(GuiConstants.DefaultValue) ? string.Empty : Math.Round(crxPwaData.HR).ToString();
-            guiradlblCentralQualityControl.Text = crxPwaCuffData.P_QC_OTHER4.Equals(GuiConstants.DefaultValue) ? string.Empty : Math.Round(crxPwaCuffData.P_QC_OTHER4).ToString();           
+            guiradlblCentralQualityControl.Text = crxPwaCuffData.OperatorIndex.Equals(GuiConstants.DefaultValue) ? string.Empty : Math.Round(crxPwaCuffData.OperatorIndex).ToString();
         }
 
         /**This method initializes Crx structure to update changes
     * */
-        void InitializeCrxFromSetupToReport(string studydatetime)
+        void InitializeCrxFromSetupToReport(string pwaid)
         {
             try
             {
                 if (GuiCommon.SetupToReport)
                 {
-                    PopulateBizFromCrx(studydatetime);
+                    PopulateBizFromCrx(pwaid);
                 }
             }
             catch (Exception ex)
@@ -503,10 +625,10 @@ namespace AtCor.Scor.Gui.Presentation
             pwaData.C_ONSETS = new short[GuiCommon.bizPwaobject.GetTrigArraySize()];
             pwaData.C_Uncal_Av = new float[GuiCommon.bizPwaobject.GetPulseArraySize()];
             pwaData.C_ResemblePulse = new float[GuiCommon.bizPwaobject.GetResembleArraySize()];
-            pwaData.C_Flow = new float[GuiCommon.bizPwaobject.GetPulseArraySize()];
+            pwaData.C_Typical = new float[GuiCommon.bizPwaobject.GetPulseArraySize()];
             pwaData.C_Forward = new float[GuiCommon.bizPwaobject.GetPulseArraySize()];
             pwaData.C_Backward = new float[GuiCommon.bizPwaobject.GetPulseArraySize()];
-          
+
             // Initialising CrxStructCuffPWAMeasurementData structure.
             pwaCuffStruct.P_RAW_SIGNALS = new float[GuiCommon.bizPwaobject.GetRawSignalArraySize()];
             pwaCuffStruct.P_AV_PULSE = new float[GuiCommon.bizPwaobject.GetPulseArraySize()];
@@ -515,7 +637,7 @@ namespace AtCor.Scor.Gui.Presentation
             pwaCuffStruct.P_UNCAL_AV = new float[GuiCommon.bizPwaobject.GetPulseArraySize()];
             pwaCuffStruct.P_ResemblePulse = new float[GuiCommon.bizPwaobject.GetResembleArraySize()];
         }
-      
+
         /** This method popluates bizsession object based on single record selected for assessment
          * It fetches value based on datetime of assessment
          * */
@@ -527,10 +649,10 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 // check db connection
                 if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
-                {                   
+                {
                     if (string.IsNullOrEmpty(pwaid))
                     {
-                        dsPWA = dbMagr.GetCuffPWAMeasurementDetails(int.Parse(patientObj.patientNumber.ToString()), int.Parse(patientObj.groupStudyId.ToString()), bobj);                        
+                        dsPWA = dbMagr.GetCuffPWAMeasurementDetails(int.Parse(patientObj.patientNumber.ToString()), int.Parse(patientObj.groupStudyId.ToString()), bobj);
                     }
                     else
                     {
@@ -545,293 +667,41 @@ namespace AtCor.Scor.Gui.Presentation
                             PWA_Id = Convert.ToInt32(pwaid)
                         };
                         PrepareArrayObjectsForPwaMode(pdata, cdata);
-                        dsPWA = dbMagr.GetCuffPWAMeasurementDetails(pdata, cdata);                       
-                        
+                        dsPWA = dbMagr.GetCuffPWAMeasurementDetails(pdata, cdata);
                     }
 
                     if (dsPWA.Tables[0].Rows.Count > 0)
                     {
+                        GuiCommon.PwaCurrentId = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.PWA_Id].ToString();
                         GuiCommon.PwaCurrentStudyDatetime = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.StudyDateTime].ToString();
                         PrepareArrayObjectsForPwaMode(crxPwaData, crxPwaCuffData);
-                        crxPwaData.AuditChange = DateTime.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.AuditChange].ToString(), CrxCommon.gCI);
-                        crxPwaData.Age = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Age].ToString());
-                         crxPwaData.BloodPressureRange = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.BloodPressureRange].ToString();
-                        crxPwaData.BodyMassIndex = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.BodyMassIndex].ToString());
-                        crxPwaData.C_Agph = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Agph].ToString());
-                        crxPwaData.C_Ai = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Ai].ToString());
-                        crxPwaData.C_Al = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Al].ToString());
-                        crxPwaData.C_Ap = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Ap].ToString());
-                        crxPwaData.C_Area_Ratio = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Area_Ratio].ToString());
-                        crxPwaData.C_Ati = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Ati].ToString());
-                        byte[] buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_AV_PULSE];
-                        int len = buffer.Length / 4;
-                        float[] tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaData.C_AV_PULSE[i] = tempFloat[i];
-                        }
-                        
-                        crxPwaData.C_Avd = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Avd].ToString());
-                        crxPwaData.C_Avi = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Avi].ToString());
-
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Backward];
-                        len = buffer.Length / 4;
-                        tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaData.C_Backward[i] = tempFloat[i];
-                        }
-
-                        crxPwaData.C_Backward_Area = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Backward_Area].ToString());
-                        crxPwaData.C_Dd = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Dd].ToString());
-                        crxPwaData.C_DdPeriod = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_DdPeriod].ToString());
-                        crxPwaData.C_Dp = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Dp].ToString());
-                        crxPwaData.C_Dti = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Dti].ToString());
-                        crxPwaData.C_EdPeriod = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_EdPeriod].ToString());
-                        crxPwaData.C_Esp = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Esp].ToString());
-                        crxPwaData.C_FloatSpare1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_FloatSpare1].ToString());
-                        crxPwaData.C_FloatSpare2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_FloatSpare2].ToString());
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Flow];
-                        len = buffer.Length / 4;
-                        tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaData.C_Flow[i] = tempFloat[i];
-                        }
-                       
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Forward];
-                        len = buffer.Length / 4;
-                        tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaData.C_Forward[i] = tempFloat[i];
-                        }
-                        
-                        crxPwaData.C_Forward_Area = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Forward_Area].ToString());
-                        crxPwaData.C_IntSpare1 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_IntSpare1].ToString());
-                        crxPwaData.C_IntSpare2 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_IntSpare2].ToString());
-                        crxPwaData.C_Math_Params = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Math_Params].ToString());
-                        crxPwaData.C_Meanp = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Meanp].ToString());
-                        crxPwaData.C_MemSpare1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_MemSpare1].ToString());
-                        crxPwaData.C_MemSpare2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_MemSpare2].ToString());
-                        crxPwaData.C_Mpd = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Mpd].ToString());
-                        crxPwaData.C_Mps = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Mps].ToString());
-                        crxPwaData.C_Ole_Spare = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Ole_Spare].ToString();
-                        
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_ONSETS];
-                        len = buffer.Length / 4;
-                        short[] temp = dbMagr.CommonByteArrtoShortArr(buffer, len);
-                        for (int i = 0; i < temp.Length; i++)
-                        {
-                            crxPwaData.C_ONSETS[i] = temp[i];
-                        }
-
-                        for (int i = temp.Length; i < crxPwaData.C_ONSETS.Length; i++)
-                        {
-                            crxPwaData.C_ONSETS[i] = -1;
-                        }
-
-                        crxPwaData.C_P1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_P1].ToString());
-                        crxPwaData.C_P1_Height = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_P1_Height].ToString());
-                        crxPwaData.C_P2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_P2].ToString());
-                        crxPwaData.C_Period = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Period].ToString());
-                        crxPwaData.C_Ph = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Ph].ToString());
-                        crxPwaData.C_Pptt = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Pptt].ToString());
-                        crxPwaData.C_Pulse_Ratio = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Pulse_Ratio].ToString());
-                        crxPwaData.C_Pwv = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Pwv].ToString());
-                        crxPwaData.C_Qc_Other1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Qc_Other1].ToString());
-                        crxPwaData.C_Qc_Other2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Qc_Other2].ToString());
-                        crxPwaData.C_Qc_Other3 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Qc_Other3].ToString());
-                        crxPwaData.C_Qc_Other4 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Qc_Other4].ToString());
-                        crxPwaData.C_Quality_T1 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Quality_T1].ToString());
-                        crxPwaData.C_Quality_T2 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Quality_T2].ToString());
-
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_RAW_SIGNALS];
-                        len = buffer.Length / 4;
-                        tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaData.C_RAW_SIGNALS[i] = tempFloat[i];
-                        }
-
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_ResemblePulse];
-                        len = buffer.Length / 4;
-                        tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaData.C_ResemblePulse[i] = tempFloat[i];
-                        }
-
-                        crxPwaData.C_Sp = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Sp].ToString());
-                        crxPwaData.C_Svi = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Svi].ToString());
-                        crxPwaData.C_T1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1].ToString());
-                        crxPwaData.C_T1ED = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1ED].ToString());
-                        crxPwaData.C_T1i = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1i].ToString());
-                        crxPwaData.C_T1m = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1m].ToString());
-                        crxPwaData.C_T1other = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1other].ToString());
-                        crxPwaData.C_T1r = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1r].ToString());
-                        crxPwaData.C_T2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2].ToString());
-                        crxPwaData.C_T2ED = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2ED].ToString());
-                        crxPwaData.C_T2i = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2i].ToString());
-                        crxPwaData.C_T2M = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2M].ToString());
-                        crxPwaData.C_T2Other = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2Other].ToString());
-                        crxPwaData.C_T2R = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2R].ToString());
-
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_TRIGS];
-                        len = buffer.Length / 4;
-
-                       // crxPwaData.C_TRIGS = dbMagr.CommonByteArrtoShortArr(buffer,len);
-                        short[] temp1 = dbMagr.CommonByteArrtoShortArr(buffer, len);
-                        for (int i = 0; i < temp1.Length; i++)
-                        {
-                            crxPwaData.C_TRIGS[i] = temp1[i];
-                        }
-
-                        for (int i = temp1.Length; i < crxPwaData.C_TRIGS.Length; i++)
-                        {
-                            crxPwaData.C_TRIGS[i] = -1;
-                        }
-
-                        crxPwaData.C_Tti = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Tti].ToString());
-
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Uncal_Av];
-                        len = buffer.Length / 4;                       
-                        tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaData.C_Uncal_Av[i] = tempFloat[i];
-                        }
-
-                        crxPwaData.CalcED = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CalcED].ToString());
-                        crxPwaData.CalDP = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CalDP].ToString());
-                        crxPwaData.CalMP = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CalMP].ToString());
-                        crxPwaData.CalSP = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CalSP].ToString());
-                        crxPwaData.CaptureInput = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CaptureInput].ToString());
-                        crxPwaData.CaptureTime = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CaptureTime].ToString());
-                        crxPwaData.DataRev = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.DataRev].ToString());
-                        crxPwaData.DP = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.DP].ToString());
-                        crxPwaData.ED = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.ED].ToString());
-                        crxPwaData.EDMax = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.EDMax].ToString());
-                        crxPwaData.EDMin = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.EDMin].ToString());
-                        crxPwaData.EDOther = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.EDOther].ToString());
-                        crxPwaData.ExpPulseUpSampleRate = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.ExpPulseUpSampleRate].ToString());
-                        crxPwaData.FloatSpare1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.FloatSpare1].ToString());
-                        crxPwaData.Flow = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Flow].ToString());
-                        crxPwaData.GroupIdentifier = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.GroupIdentifier].ToString());
-                        crxPwaData.HeightInCentimetres = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.HeightInCentimetres].ToString());
-                        crxPwaData.HeightInInches = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.HeightInInches].ToString());
-                        crxPwaData.HR = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.HR].ToString());
-                        crxPwaData.IntSpare2 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.IntSpare2].ToString());
-                        crxPwaData.Medication = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Medication].ToString();
-                        crxPwaData.MemSpare1 = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.MemSpare1].ToString();
-                        crxPwaData.MemSpare2 = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.MemSpare2].ToString();
-                        crxPwaData.Message = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Message].ToString();
-                        crxPwaData.MP = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.MP].ToString());
-                        crxPwaData.Notes = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Notes].ToString();
-                        crxPwaData.Operator = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Operator].ToString();
-                        crxPwaData.PatientNumberInternal = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.PatientNumberInternal].ToString());
-                        crxPwaData.PWA_Id = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.PWA_Id].ToString());
-                        crxPwaData.QualityED = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.QualityED].ToString());
-                        crxPwaData.SampleRate = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.SampleRate].ToString());
-                        crxPwaData.SignalUpSampleRate = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.SignalUpSampleRate].ToString());
-                        crxPwaData.Simulation = bool.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Simulation].ToString());
-                        crxPwaData.SP = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.SP].ToString());
-                        crxPwaData.StudyDateTime = DateTime.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.StudyDateTime].ToString());
-                        crxPwaData.SubType = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.SubType].ToString();
-                        crxPwaData.SystemIdentifier = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.SystemIdentifier].ToString());
-                        crxPwaData.Units = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Units].ToString();
-                        crxPwaData.WeightInKilograms = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.WeightInKilograms].ToString());
-                        crxPwaData.WeightInPounds = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.WeightInPounds].ToString());
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_AV_PULSE];
-                        len = buffer.Length / 4;
-                        tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaCuffData.P_AV_PULSE[i] = tempFloat[i];
-                        }
-
-                        crxPwaCuffData.P_DP = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_DP].ToString());
-                        crxPwaCuffData.P_FLOATSPARE1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_FLOATSPARE1].ToString());
-                        crxPwaCuffData.P_FLOATSPARE2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_FLOATSPARE2].ToString());
-                        crxPwaCuffData.P_INTSPARE1 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_INTSPARE1].ToString());
-                        crxPwaCuffData.P_INTSPARE2 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_INTSPARE2].ToString());
-                        crxPwaCuffData.P_MATH_PARAMS = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_MATH_PARAMS].ToString());
-                        crxPwaCuffData.P_MAX_DPDT = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_MAX_DPDT].ToString());
-                        crxPwaCuffData.P_MEANP = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_MEANP].ToString());
-                        crxPwaCuffData.P_MEMSPARE1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_MEMSPARE1].ToString());
-                        crxPwaCuffData.P_MEMSPARE2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_MEMSPARE2].ToString());
-                        crxPwaCuffData.P_NOISE_FACTOR = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_NOISE_FACTOR].ToString());
-                        crxPwaCuffData.P_OLE_SPARE = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_OLE_SPARE].ToString();
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_ONSETS];
-                        len = buffer.Length / 4;
-                        temp1 = dbMagr.CommonByteArrtoShortArr(buffer, len);
-                        for (int i = 0; i < temp1.Length; i++)
-                        {
-                            crxPwaCuffData.P_ONSETS[i] = temp1[i];
-                        }
-
-                        crxPwaCuffData.P_QC_DV = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_DV].ToString());
-                        crxPwaCuffData.P_QC_OTHER1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_OTHER1].ToString());
-                        crxPwaCuffData.P_QC_OTHER2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_OTHER2].ToString());
-                        crxPwaCuffData.P_QC_OTHER3 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_OTHER3].ToString());
-                        crxPwaCuffData.P_QC_OTHER4 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_OTHER4].ToString());
-                        crxPwaCuffData.P_QC_PH = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_PH].ToString());
-                        crxPwaCuffData.P_QC_PHV = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_PHV].ToString());
-                        crxPwaCuffData.P_QC_PLV = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_PLV].ToString());
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_RAW_SIGNALS];
-                        len = buffer.Length / 4;
-                        tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaCuffData.P_RAW_SIGNALS[i] = tempFloat[i];
-                        }
-                      
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_ResemblePulse];
-                        len = buffer.Length / 4;
-                        tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaCuffData.P_ResemblePulse[i] = tempFloat[i];
-                        }
-
-                        crxPwaCuffData.P_SP = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_SP].ToString());
-                        crxPwaCuffData.P_T1I = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T1I].ToString());
-                        crxPwaCuffData.P_T1M = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T1M].ToString());
-                        crxPwaCuffData.P_T1Other = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T1Other].ToString());
-                        crxPwaCuffData.P_T1R = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T1R].ToString());
-                        crxPwaCuffData.P_T2I = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T2I].ToString());
-                        crxPwaCuffData.P_T2M = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T2M].ToString());
-                        crxPwaCuffData.P_T2Other = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T2Other].ToString());
-                        crxPwaCuffData.P_T2R = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T2R].ToString());
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_TRIGS];
-                        len = buffer.Length / 4;
-                        temp1 = dbMagr.CommonByteArrtoShortArr(buffer, len);
-                        for (int i = 0; i < temp1.Length; i++)
-                        {
-                            crxPwaCuffData.P_TRIGS[i] = temp1[i];
-                        }
-
-                        buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_UNCAL_AV];
-                        len = buffer.Length / 4;                      
-                        tempFloat = dbMagr.CommonByteArrtoFloatArr(len, buffer);
-                        for (int i = 0; i < tempFloat.Length; i++)
-                        {
-                            crxPwaCuffData.P_UNCAL_AV[i] = tempFloat[i];
-                        }
-
+                        crxPwaData = getCrxPWAData(dsPWA, crxPwaData);
+                        crxPwaCuffData = getCrxPWACuffData(dsPWA, crxPwaCuffData);
                         CrxPwaCaptureInput pwaCaptureInput = new CrxPwaCaptureInput();
                         bool value = GuiCommon.bizPwaobject.GetCurrentCaptureInput(ref pwaCaptureInput);
 
                         if (!Convert.ToInt32(pwaCaptureInput).Equals(crxPwaData.CaptureInput))
                         {
                             GuiCommon.bizPwaobject.Initialise(crxPwaData.CaptureInput.Equals(Convert.ToInt32(CrxPwaCaptureInput.Tonometer)) ? CrxPwaCaptureInput.Tonometer : CrxPwaCaptureInput.Cuff);
-                        }  
+                        }
+
+                        if (!string.IsNullOrEmpty(GuiCommon.bizPwaobject.GetInconclusiveNoteMsgKey()))
+                        {
+                            GuiCommon.InConclusiveMessageForPwaCapture = string.Empty;
+                            GuiCommon.InConclusiveMessageForPwaCapture = CrxMessagingManager.Instance.GetMessage(GuiCommon.bizPwaobject.GetInconclusiveNoteMsgKey());                           
+                        }
+                        else
+                        {
+                            GuiCommon.InConclusiveMessageForPwaCapture = string.Empty; 
+                        }
 
                         GuiCommon.bizPwaobject.Populate(crxPwaData, crxPwaCuffData);
+                       
                         GuiCommon.bizPwaobject.Validate();
+                    
                         GuiCommon.crxPwaData = crxPwaData;
                         GuiCommon.crxPwaCuffData = crxPwaCuffData;
-                    }                   
+                    }
                 }
                 else
                 {
@@ -847,7 +717,7 @@ namespace AtCor.Scor.Gui.Presentation
                 CrxLogger.Instance.Write(ex.StackTrace);
                 GUIExceptionHandler.HandleException(ex, this);
             }
-        }        
+        }
 
         /** This method binds demographic details of patient on report screen
       */
@@ -865,7 +735,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblReportPatientIdValue.Text = patientObj.patientId;
                 guilblReportDobValue.Text = patientObj.dateOfBirth.ToShortDateString();
                 guilblReportAgeValue.Text = GuiCommon.bizPwaobject.patientAge.ToString();
-                guilblReportGenderValue.Text = patientObj.gender;
+                guilblReportGenderValue.Text = patientObj.gender.Equals(CrxStructCommonResourceMsg.MaleTxt) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MaleTxt) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemaleTxt); 
                 ReportPWADisplayMode(true);
             }
             catch (Exception ex)
@@ -883,31 +753,22 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradgridReportAssessment.Columns.Clear();
                 guiradgridReportAssessment.TableElement.BeginUpdate();
 
-                // object initialiser property, assigned checkbox column type to name
-                GridViewCheckBoxColumn checkBoxColumn = new GridViewCheckBoxColumn { Name = "CheckBox" };
-
-                guiradgridReportAssessment.Columns.Add(checkBoxColumn);
+                guiradgridReportAssessment.Columns.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentsFormat), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayStudyDateTime), "StudyDateTime");
+                guiradgridReportAssessment.Columns[0].Width = 275;
                 guiradgridReportAssessment.Columns[0].IsVisible = true;
-                guiradgridReportAssessment.Columns[0].Width = 22;
-                guiradgridReportAssessment.Columns[0].ReadOnly = false;
-                guiradgridReportAssessment.Columns[0].IsVisible = false;
-
-                guiradgridReportAssessment.Columns.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentsFormat), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayStudyDateTime), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportAssesmentsFormat));
-                guiradgridReportAssessment.Columns[1].Width = 275;
-                guiradgridReportAssessment.Columns[1].IsVisible = true;
-                guiradgridReportAssessment.Columns[1].ReadOnly = true;
+                guiradgridReportAssessment.Columns[0].ReadOnly = true;
 
                 guiradgridReportAssessment.Columns.Add("PWA_Id", "PWA_Id", "PWA_Id");
-                guiradgridReportAssessment.Columns[2].Width = 50;
-                guiradgridReportAssessment.Columns[2].IsVisible = false;
-                guiradgridReportAssessment.Columns[2].ReadOnly = true;    
+                guiradgridReportAssessment.Columns[1].Width = 50;
+                guiradgridReportAssessment.Columns[1].IsVisible = false;
+                guiradgridReportAssessment.Columns[1].ReadOnly = true;
 
-                guiradgridReportAssessment.Columns[2].SortOrder = RadSortOrder.Ascending;
+                guiradgridReportAssessment.Columns[1].SortOrder = RadSortOrder.Ascending;
                 guiradgridReportAssessment.GridElement.AlternatingRowColor = Color.LightGray;
-                guiradgridReportAssessment.Columns[1].FormatString = "{0:g}";                     
-          
+                guiradgridReportAssessment.Columns[0].FormatString = "{0:g}";
+
                 guiradgridReportAssessment.TableElement.EndUpdate();
-                guiradgridReportAssessment.AutoGenerateColumns = false;          
+                guiradgridReportAssessment.AutoGenerateColumns = false;
             }
             catch (Exception ex)
             {
@@ -925,11 +786,11 @@ namespace AtCor.Scor.Gui.Presentation
             guiradbtnreportsave.Visible = false;
             objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
 
-            if (crxMgrObject.GeneralSettings.StartupScreen != oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart))
+            if (GuiCommon.StartupScreen != oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart))
             {
                 GuiCommon.bizPwaobject.CalculateAge();
             }
-            
+
             objDefaultWindow.radlblMessage.Text = string.Empty;
         }
 
@@ -938,20 +799,25 @@ namespace AtCor.Scor.Gui.Presentation
             // edit mode            
             // Show edit mode in the status bar.
             // objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.EditMode);
+            objDefaultWindow.guiradmnuDatabase.Enabled = false;
             ReportPWADisplayMode(false);
 
             // set height details
             guiradtxtReportHeight.Text = guiradlblReportHeightDisplay.Text;
             guiradtxtReportHeightInches.Text = guiradlblReportHeightInches.Text;
-          
+
             // guiradtxtReportOperator.Text = guiradlblReportOperatordisplay.Text;
-                guiradtxtMedicationNotesValue.Text = guiradlblReportNotesDisplay.Text;
-          
+            guiradtxtMedicationNotesValue.Text = guiradlblReportNotesDisplay.Text;
+
+            guiradbtnreportcancel.Visible = true;
+            guiradbtnreportedit.Visible = false;
+            guiradbtnreportsave.Visible = true;
+
             // in edit mode disable repeat & capture buttons
             guiradbtnRepeat.Enabled = false;
             objDefaultWindow.radtabCapture.Enabled = false;
 
-            GuiCommon.IsFormChanged = false;
+            GuiCommon.IsFormChanged = true;
         }
 
         /** This method displays PWA measurement section in display & edit mode
@@ -965,11 +831,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradbtnreportedit.Focus();
                 guiradbtnreportsave.Visible = false;
                 guiradbtnDelete.Enabled = true;
-
-                // guiradbtnPrint.Enabled = true;
-                // guiradchkAssesments.Enabled = guiradgridReportAssessment.Rows.Count > 1 ? true : false;
                 guiradgridReportAssessment.Enabled = true;
-
                 guiradtxtReportBloodPressure1.Visible = false;
                 guiradtxtReportBloodPressure2.Visible = false;
                 guiradtxtReportBloodPressure3.Visible = false;
@@ -977,11 +839,12 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradtxtCentralDpValue.Visible = false;
                 guiradtxtCentralHrValue.Visible = false;
                 guiradtxtMedicationNotesValue.Visible = false;
-                guiradtxtInterpretation.Visible = false;
-                guiradtxtCentralQualityControlValue.Visible = false;
-                //guiradtxtInterpretation.Text = string.Empty;
-                guiradtxtReportHeight.Visible = false;
 
+                // guiradtxtInterpretation.Visible = false;
+                guiradtxtCentralQualityControlValue.Visible = false;
+
+                // guiradtxtInterpretation.Text = string.Empty;
+                guiradtxtReportHeight.Visible = false;
                 guiradtxtReportOperator.Visible = false;
 
                 // Commenting the below code as group name is not included in Clinical mode.
@@ -996,14 +859,14 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblCentralHr.BringToFront();
                 guiradlblCentralQualityControl.BringToFront();
 
-                // guiradlblReportNotesDisplay.BringToFront();
+                guiradlblReportNotesDisplay.BringToFront();
                 guiradlblCentralDp.Visible = true;
                 guiradlblCentralHr.Visible = true;
                 guiradlblCentralQualityControl.Visible = true;
 
-                // guiradlblReportNotesDisplay.Visible = true;
-                guiradlblInterpretationDisplay.Visible = true;
-              
+                guiradlblReportNotesDisplay.Visible = true;
+
+                // guiradlblInterpretationDisplay.Visible = true;
                 switch (crxMgrObject.GeneralSettings.HeightandWeightUnit)
                 {
                     case (int)CrxGenPwvValue.CrxGenHeightWeightMetric: // metric
@@ -1024,11 +887,7 @@ namespace AtCor.Scor.Gui.Presentation
                 }
             }
             else
-            {
-                guiradbtnreportcancel.Visible = true;
-                guiradbtnreportedit.Visible = false;
-                guiradbtnreportsave.Visible = true;
-
+            {          
                 guiradbtnDelete.Enabled = false;
                 guiradbtnPrint.Enabled = false;
                 guiradbtnRepeat.Enabled = false;
@@ -1036,8 +895,9 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // edit PWA details (show text boxes)               
                 guiradtxtReportHeight.Visible = true;
-                guiradtxtInterpretation.Visible = true;
+                guiradtxtMedicationNotesValue.Visible = true;
 
+                // guiradtxtInterpretation.Visible = true;
                 // guiradtxtReportBloodPressure1.Focus();
                 guiradlblreportSPdisplay.SendToBack();
                 guiradlblreportDPdisplay.SendToBack();
@@ -1049,13 +909,14 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblCentralHr.SendToBack();
                 guiradlblCentralQualityControl.SendToBack();
                 guiradlblInterpretationDisplay.SendToBack();
+                guiradlblReportNotesDisplay.SendToBack();
                 guiradlblCentralDp.Visible = true;
                 guiradlblCentralHr.Visible = true;
                 guiradlblCentralQualityControl.Visible = true;
+                guiradlblReportNotesDisplay.Visible = true;
 
-                // guiradlblReportNotesDisplay.Visible = true;
-                guiradlblInterpretationDisplay.Visible = true;             
-                guiradtxtReportBloodPressure1.BringToFront();           
+                // guiradlblInterpretationDisplay.Visible = true;             
+                guiradtxtReportBloodPressure1.BringToFront();
                 guiradtxtReportHeight.BringToFront();
 
                 switch (crxMgrObject.GeneralSettings.HeightandWeightUnit)
@@ -1084,6 +945,7 @@ namespace AtCor.Scor.Gui.Presentation
             // call method to bring report screen to display mode
             SetPWADsiplayMode();
             CheckForSimualtionMode();
+            GuiCommon.IsFormChanged = false;
         }
 
         /** This method brings report screen left side measurement details section in display mode
@@ -1093,6 +955,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             GuiCommon.IsFormChanged = false;
             objDefaultWindow.radlblMessage.Text = string.Empty;
+            objDefaultWindow.guiradmnuDatabase.Enabled = true;
 
             // cancels editing PWA details
             ReportPWADisplayMode(true);
@@ -1118,16 +981,15 @@ namespace AtCor.Scor.Gui.Presentation
                 setValue = !GuiCommon.IsWaitIntervalImposed;
             }
             else
-            {               
+            {
                 lastAssessmentPwaId = string.IsNullOrEmpty(lastAssessmentPwaId) ? string.Empty : lastAssessmentPwaId;
                 pwaId = string.IsNullOrEmpty(pwaId) ? string.Empty : pwaId;
                 setValue = lastAssessmentPwaId.Equals(pwaId) && guiradbtnreportedit.Visible && objDefaultWindow.radtabReport.Text != oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabAnalysis) && guiradgridReportAssessment.Rows.Count > 0;
             }
 
-            // objDefaultWindow.radtabCapture.Enabled = setValue;
             guiradbtnRepeat.Enabled = setValue;
-        }    
- 
+        }
+
         private void guiradgridReportAssessment_ContextMenuOpening(object sender, ContextMenuOpeningEventArgs e)
         {
             e.Cancel = true;
@@ -1192,6 +1054,7 @@ namespace AtCor.Scor.Gui.Presentation
             // oneRecordSelect = true;
             int recordSelected = 0;
             pwaIdWithComma = string.Empty;
+            dateWithComma = string.Empty;
             objDefaultWindow.radlblMessage.Text = string.Empty;
 
             // below line of code will keep focus on current record selection in assessment grid
@@ -1206,7 +1069,18 @@ namespace AtCor.Scor.Gui.Presentation
                 if (row.IsSelected)
                 {
                     recordSelected++;
-                    pwaIdWithComma += row.Cells[2].Value.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
+                    pwaIdWithComma += row.Cells["PWA_Id"].Value.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
+
+                    // pwaIdWithComma += row.Cells[2].Value.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
+                }
+            }
+
+            foreach (GridViewRowInfo row in guiradgridReportAssessment.Rows)
+            {
+                if (row.IsSelected)
+                {
+                    // recordSelected++;
+                    dateWithComma += DateTime.Parse(row.Cells[0].Value.ToString()).ToString(CulturalNeutralDateFormat) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
                 }
             }
 
@@ -1218,10 +1092,8 @@ namespace AtCor.Scor.Gui.Presentation
             guiradgridReportAssessment.MasterTemplate.EndUpdate(new DataViewChangedEventArgs(ViewChangedAction.DataChanged));
             guiradgridReportAssessment.MasterTemplate.SynchronizationService.AddListener(navigatorListener);
 
-            // guiradchkAssesments.Enabled = guiradgridReportAssessment.Rows.Count == 1 ? false : true;
-
             // display analysis / report screen based on records selected
-            DisplayReportOnSelection(recordSelected, pwaIdWithComma);
+            DisplayReportOnSelection(recordSelected, pwaIdWithComma, dateWithComma);
         }
 
         /** This method binds data to report screen as per the selected assesment
@@ -1233,38 +1105,15 @@ namespace AtCor.Scor.Gui.Presentation
                 InitializeCrxOnLoad(pwaid);
                 FillPWAMeasurementDetailsReport();
                 PlotAvgAorticPulseChart();
-                ShowAixTracker(26, -8, crxPwaData.C_Agph, -2, 20);
-                ShowSpTracker(130, 90, crxPwaData.C_Sp, 96, 120);
-                float centralPp;
-                centralPp = crxPwaData.C_Sp - crxPwaData.C_Dp;
-                ShowPpTracker(25, 0, centralPp, 5, 20);
-                ShowApTracker(12, -6, crxPwaData.C_Ap, -3, 9);               
+                DisplayClinicalParameterSliders();
             }
         }
 
-        private void DisplayReportOnSelection(int recordSelected, string pwaid)
-        {           
-            dateToCompare = string.Empty;
+        private void DisplayReportOnSelection(int recordSelected, string pwaid, string dateTime)
+        {
             pwaIdToCompare = string.Empty;
 
-            // check assessment checkbox if all assessments are selected in grid
-            if (recordSelected == guiradgridReportAssessment.Rows.Count)
-            {
-                guiradbtnDelete.Enabled = true;
-
-                if (recordSelected == 1)
-                {
-                    // dateToCompare = datetime.Replace(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma), string.Empty);
-                    pwaIdToCompare = pwaid.Replace(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma), string.Empty);
-                }
-
-                guipnlPWAReportAnalysis.Visible = true;
-                guipnlPWAReport.Visible = false;
-
-                PlotAnalysisTrendCharts();
-                objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabAnalysis);
-            }
-            else if (recordSelected == 1)
+            if (recordSelected == 1)
             {
                 EnableDisableReportPrintButton(true);
 
@@ -1272,40 +1121,64 @@ namespace AtCor.Scor.Gui.Presentation
                 // pertaining to that patient                
                 guipnlPWAReportAnalysis.Visible = false;
                 guipnlPWAReport.Visible = true;
- 
+
                 guipnlPWAReportAnalysis.SendToBack();
                 guipnlPWAReport.BringToFront();
 
                 guiradbtnDelete.Enabled = true;
-                 
+
                 objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
 
-               // dateToCompare = datetime.Replace(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma), string.Empty);
                 pwaIdToCompare = pwaid.Replace(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma), string.Empty);
                 guiradbtnreportedit.Enabled = true;
 
                 CheckLastAssessmentSelected(pwaIdToCompare);
 
                 // when record selected is only one display record as per assessment selected
-                DisplayReportForSelectedAssesment(pwaIdToCompare);
+                if (lastAssessmentPwaId == pwaIdToCompare || isFromLoad)
+                {
+                    DisplayReportForSelectedAssesment(pwaIdToCompare);
+                    isFromLoad = true;
+                }
             }
             else if (recordSelected > 1)
             {
-                // DisplayAnalysisScreen();
                 guipnlPWAReportAnalysis.Visible = true;
                 guipnlPWAReport.Visible = false;
+                guiradbtnRepeat.Enabled = false;
+                guiradbtnreportedit.Enabled = false;
+                PlotAnalysisTrendCharts(dateTime);
+                if (GuiCommon.SelChart == GuiCommon.SelectedChart.sp)
+                {
+                    RenderEnlargedChart(guiradAnalysisChartSP);
+                }
+                else if (GuiCommon.SelChart == GuiCommon.SelectedChart.pp)
+                {
+                    RenderEnlargedChart(guiradAnalysisChartPP);
+                }
+                else if (GuiCommon.SelChart == GuiCommon.SelectedChart.ap)
+                {
+                    RenderEnlargedChart(guiradAnalysisChartAP);
+                }
+                else if (GuiCommon.SelChart == GuiCommon.SelectedChart.dpMp)
+                {
+                    RenderEnlargedChart(guiradAnalysisChartDPMP);
+                    guilblLargeDPLegend.Visible = true;
+                    guilblLargeMPLegend.Visible = true;
+                }
+                else if (GuiCommon.SelChart == GuiCommon.SelectedChart.hr)
+                {
+                    RenderEnlargedChart(guiradAnalysisChartHR);
+                }
+                else if (GuiCommon.SelChart == GuiCommon.SelectedChart.aix)
+                {
+                    RenderEnlargedChart(guiradAnalysisChartAix75);
+                }
 
-                // EnableDisableReportPrintButton(false);
-
-                //// display analysis screen
-                // guiradbtnreportedit.Enabled = false;
-                // guiradpnlAnalysis.Visible = true;
-                // guiradbtnRepeat.Enabled = false;
-                // guiradbtnDelete.Enabled = true;
-                // objDefaultWindow.radtabCapture.Enabled = false;
-                // ReportPWADisplayMode(true);
-                 PlotAnalysisTrendCharts();
+                guiradLargeChart.ChartAreas[0].Position = new ElementPosition(3, 3, 94, 94);
+                guiradLargeChart.ChartAreas[0].AxisX.Maximum = date.Length;
                 objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabAnalysis);
+                BindCustomLabelForTrendCharts(date.Length);
             }
             else if (recordSelected == 0)
             {
@@ -1315,7 +1188,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradbtnDelete.Enabled = false;
                 guiradbtnreportedit.Enabled = false;
 
-                 CheckLastAssessmentSelected(string.Empty);
+                CheckLastAssessmentSelected(string.Empty);
             }
             else
             {
@@ -1324,24 +1197,26 @@ namespace AtCor.Scor.Gui.Presentation
                 // for any other condition besides above, show report screen & enable capture & repeat buttons
                 guiradbtnreportedit.Enabled = false;
                 guipnlPWAReportAnalysis.Visible = false;
-
-                // if (!GuiCommon.IsWaitIntervalImposed)
-                // {
-                    guiradbtnRepeat.Enabled = true;
-
-                // objDefaultWindow.radtabCapture.Enabled = true;
-                // }
+                guiradbtnRepeat.Enabled = true;
                 objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
             }
         }
 
         /** This method shows analysis trend graph
                  * */
-        private void PlotAnalysisTrendCharts()
+        private void PlotAnalysisTrendCharts(string dateSelected)
         {
             try
             {
                 guiradbtnreportedit.Enabled = false;
+
+                // if date ends with comma, truncate it as it creates empty value in array for dates
+                if (dateSelected.EndsWith(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma)))
+                {
+                    dateSelected = dateSelected.Remove(dateSelected.Length - 1);
+                }
+
+                date = dateSelected.Split(GuiConstants.Separator);
 
                 // check for connection
                 if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
@@ -1349,10 +1224,8 @@ namespace AtCor.Scor.Gui.Presentation
                     CrxStructPWATrendData trendData = new CrxStructPWATrendData();
 
                     // fetch records for selected assessments
-                    // dbMagr.GetPWVTrendData(GuiCommon.PatientInternalNumber, GuiCommon.GroupId, GuiCommon.SystemIdentifier, dateSelected + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma), trendData);
                     dbMagr.GetPWATrendData(pwaIdWithComma, trendData);
 
-                    // if (!string.IsNullOrEmpty(trendData.ApValidArrStr) && !string.IsNullOrEmpty(trendData.PulseWaveVelocityArrStr))
                     if (!string.IsNullOrEmpty(trendData.ApValidArrStr) && !string.IsNullOrEmpty(trendData.HrValidArrStr) && !string.IsNullOrEmpty(trendData.SpValidArrStr) && !string.IsNullOrEmpty(trendData.DpValidArrStr) && !string.IsNullOrEmpty(trendData.MpValidArrStr))
                     {
                         PlotApTrendData(trendData);
@@ -1360,6 +1233,8 @@ namespace AtCor.Scor.Gui.Presentation
                         PlotSpTrendData(trendData);
                         PlotDpMpTrendData(trendData);
                         PlotPpTrendData(trendData);
+                        PlotAixTrendData(pwaIdWithComma);
+                        guiradLargeChart.GetToolTipText += Chart_GetToolTipText;
                     }
                 }
                 else
@@ -1367,7 +1242,7 @@ namespace AtCor.Scor.Gui.Presentation
                     DialogResult result = RadMessageBox.Show(this, GuiCommon.ConnectionErrorString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
                     if (result == DialogResult.Retry)
                     {
-                        PlotAnalysisTrendCharts();
+                        PlotAnalysisTrendCharts(dateSelected);
                     }
                 }
             }
@@ -1392,9 +1267,9 @@ namespace AtCor.Scor.Gui.Presentation
 
                 guiradbtnAnalysisPrint.SendToBack();
                 guiradbtnAnalysisPrint.Enabled = false;
-            }          
+            }
             else
-            {  
+            {
                 // if value is false then show Analysis Print button.
                 // To see patient analysis report,disable and send back the report print button and
                 // at the same time enable and bring in front the Analysis print button.
@@ -1407,12 +1282,12 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         private void guiradAnalysisChartDPMP_DoubleClick(object sender, EventArgs e)
-        {           
+        {
+            GuiCommon.SelChart = GuiCommon.SelectedChart.dpMp;
             RenderEnlargedChart(guiradAnalysisChartDPMP);
-
+            BindCustomLabelForTrendCharts(date.Length);
             guilblLargeDPLegend.Visible = true;
             guilblLargeMPLegend.Visible = true;
-
             guiradAnalysisChartSP.Update();
             guiradAnalysisChartPP.Update();
             guiradAnalysisChartHR.Update();
@@ -1421,9 +1296,10 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         private void guiradAnalysisChartHR_DoubleClick(object sender, EventArgs e)
-        {           
+        {
+            GuiCommon.SelChart = GuiCommon.SelectedChart.hr;
             RenderEnlargedChart(guiradAnalysisChartHR);
-
+            BindCustomLabelForTrendCharts(date.Length);
             guiradAnalysisChartSP.Update();
             guiradAnalysisChartPP.Update();
             guiradAnalysisChartDPMP.Update();
@@ -1432,9 +1308,10 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         private void guiradAnalysisChartSP_DoubleClick(object sender, EventArgs e)
-        {           
+        {
+            GuiCommon.SelChart = GuiCommon.SelectedChart.sp;
             RenderEnlargedChart(guiradAnalysisChartSP);
-
+            BindCustomLabelForTrendCharts(date.Length);
             guiradAnalysisChartHR.Update();
             guiradAnalysisChartPP.Update();
             guiradAnalysisChartDPMP.Update();
@@ -1443,9 +1320,10 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         private void guiradAnalysisChartSphygmocorRefAge_DoubleClick(object sender, EventArgs e)
-        {           
+        {
+            GuiCommon.SelChart = GuiCommon.SelectedChart.aix;
             RenderEnlargedChart(guiradAnalysisChartAix75);
-
+            BindCustomLabelForTrendCharts(date.Length);
             guiradAnalysisChartHR.Update();
             guiradAnalysisChartAP.Update();
             guiradAnalysisChartPP.Update();
@@ -1454,9 +1332,10 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         private void guiradAnalysisChartAP_DoubleClick(object sender, EventArgs e)
-        {            
+        {
+            GuiCommon.SelChart = GuiCommon.SelectedChart.ap;
             RenderEnlargedChart(guiradAnalysisChartAP);
-            
+            BindCustomLabelForTrendCharts(date.Length);
             guiradAnalysisChartHR.Update();
             guiradAnalysisChartPP.Update();
             guiradAnalysisChartDPMP.Update();
@@ -1465,8 +1344,10 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         private void guiradAnalysisChartPP_DoubleClick(object sender, EventArgs e)
-        {            
+        {
+            GuiCommon.SelChart = GuiCommon.SelectedChart.pp;
             RenderEnlargedChart(guiradAnalysisChartPP);
+            BindCustomLabelForTrendCharts(date.Length);
             guiradAnalysisChartHR.Update();
             guiradAnalysisChartAP.Update();
             guiradAnalysisChartDPMP.Update();
@@ -1474,108 +1355,31 @@ namespace AtCor.Scor.Gui.Presentation
             guiradAnalysisChartSP.Update();
         }
 
-        private void RenderEnlargedChart(Chart smallChart)
+        private void RenderEnlargedChart(Chart selectedChart)
         {
-            guiradAnalysisChartPP.BorderlineColor = Color.White;
-            guiradAnalysisChartPP.BorderlineDashStyle = ChartDashStyle.Solid;
-            guiradAnalysisChartPP.BorderlineWidth = 1;
-            guiradAnalysisChartPP.BorderSkin.SkinStyle = BorderSkinStyle.None;
-            guiradAnalysisChartPP.BorderSkin.BackColor = Color.Gray;
-            guiradAnalysisChartPP.BorderSkin.BackGradientStyle = GradientStyle.None;
-            guiradAnalysisChartPP.BorderSkin.BackHatchStyle = ChartHatchStyle.None;
-            guiradAnalysisChartPP.BorderSkin.BorderColor = Color.Black;
-            guiradAnalysisChartPP.BorderSkin.BorderDashStyle = ChartDashStyle.NotSet;
-            guiradAnalysisChartPP.BorderSkin.BorderWidth = 1;
-            guiradAnalysisChartPP.BorderSkin.PageColor = Color.White;
-            guiradAnalysisChartPP.BringToFront();
+            setSmallChartProperties(guiradAnalysisChartPP);
+            setSmallChartProperties(guiradAnalysisChartAP);
+            setSmallChartProperties(guiradAnalysisChartDPMP);
+            setSmallChartProperties(guiradAnalysisChartAix75);
+            setSmallChartProperties(guiradAnalysisChartSP);
+            setSmallChartProperties(guiradAnalysisChartHR);
 
-            guiradAnalysisChartAP.BorderlineColor = Color.White;
-            guiradAnalysisChartAP.BorderlineDashStyle = ChartDashStyle.Solid;
-            guiradAnalysisChartAP.BorderlineWidth = 1;
-            guiradAnalysisChartAP.BorderSkin.SkinStyle = BorderSkinStyle.None;
-            guiradAnalysisChartAP.BorderSkin.BackColor = Color.Gray;
-            guiradAnalysisChartAP.BorderSkin.BackGradientStyle = GradientStyle.None;
-            guiradAnalysisChartAP.BorderSkin.BackHatchStyle = ChartHatchStyle.None;
-            guiradAnalysisChartAP.BorderSkin.BorderColor = Color.Black;
-            guiradAnalysisChartAP.BorderSkin.BorderDashStyle = ChartDashStyle.NotSet;
-            guiradAnalysisChartAP.BorderSkin.BorderWidth = 1;
-            guiradAnalysisChartAP.BorderSkin.PageColor = Color.White;
-            guiradAnalysisChartAP.BringToFront();
-
-            guiradAnalysisChartHR.BorderlineColor = Color.White;
-            guiradAnalysisChartHR.BorderlineDashStyle = ChartDashStyle.Solid;
-            guiradAnalysisChartHR.BorderlineWidth = 1;
-            guiradAnalysisChartHR.BorderSkin.SkinStyle = BorderSkinStyle.None;
-            guiradAnalysisChartHR.BorderSkin.BackColor = Color.Gray;
-            guiradAnalysisChartHR.BorderSkin.BackGradientStyle = GradientStyle.None;
-            guiradAnalysisChartHR.BorderSkin.BackHatchStyle = ChartHatchStyle.None;
-            guiradAnalysisChartHR.BorderSkin.BorderColor = Color.Black;
-            guiradAnalysisChartHR.BorderSkin.BorderDashStyle = ChartDashStyle.NotSet;
-            guiradAnalysisChartHR.BorderSkin.BorderWidth = 1;
-            guiradAnalysisChartHR.BorderSkin.PageColor = Color.White;
-            guiradAnalysisChartHR.BringToFront();
-
-            guiradAnalysisChartDPMP.BorderlineColor = Color.White;
-            guiradAnalysisChartDPMP.BorderlineDashStyle = ChartDashStyle.Solid;
-            guiradAnalysisChartDPMP.BorderlineWidth = 1;
-            guiradAnalysisChartDPMP.BorderSkin.SkinStyle = BorderSkinStyle.None;
-            guiradAnalysisChartDPMP.BorderSkin.BackColor = Color.Gray;
-            guiradAnalysisChartDPMP.BorderSkin.BackGradientStyle = GradientStyle.None;
-            guiradAnalysisChartDPMP.BorderSkin.BackHatchStyle = ChartHatchStyle.None;
-            guiradAnalysisChartDPMP.BorderSkin.BorderColor = Color.Black;
-            guiradAnalysisChartDPMP.BorderSkin.BorderDashStyle = ChartDashStyle.NotSet;
-            guiradAnalysisChartDPMP.BorderSkin.BorderWidth = 1;
-            guiradAnalysisChartDPMP.BorderSkin.PageColor = Color.White;
-            guiradAnalysisChartDPMP.BringToFront();
             lblDPLegend.BringToFront();
             lblMPLegend.BringToFront();
 
-            guiradAnalysisChartAix75.BorderlineColor = Color.White;
-            guiradAnalysisChartAix75.BorderlineDashStyle = ChartDashStyle.Solid;
-            guiradAnalysisChartAix75.BorderlineWidth = 1;
-            guiradAnalysisChartAix75.BorderSkin.SkinStyle = BorderSkinStyle.None;
-            guiradAnalysisChartAix75.BorderSkin.BackColor = Color.Gray;
-            guiradAnalysisChartAix75.BorderSkin.BackGradientStyle = GradientStyle.None;
-            guiradAnalysisChartAix75.BorderSkin.BackHatchStyle = ChartHatchStyle.None;
-            guiradAnalysisChartAix75.BorderSkin.BorderColor = Color.Black;
-            guiradAnalysisChartAix75.BorderSkin.BorderDashStyle = ChartDashStyle.NotSet;
-            guiradAnalysisChartAix75.BorderSkin.BorderWidth = 1;
-            guiradAnalysisChartAix75.BorderSkin.PageColor = Color.White;
-            guiradAnalysisChartAix75.BringToFront();
-
-            guiradAnalysisChartSP.BorderlineColor = Color.White;
-            guiradAnalysisChartSP.BorderlineDashStyle = ChartDashStyle.Solid;
-            guiradAnalysisChartSP.BorderlineWidth = 1;
-            guiradAnalysisChartSP.BorderSkin.SkinStyle = BorderSkinStyle.None;
-            guiradAnalysisChartSP.BorderSkin.BackColor = Color.Gray;
-            guiradAnalysisChartSP.BorderSkin.BackGradientStyle = GradientStyle.None;
-            guiradAnalysisChartSP.BorderSkin.BackHatchStyle = ChartHatchStyle.None;
-            guiradAnalysisChartSP.BorderSkin.BorderColor = Color.Black;
-            guiradAnalysisChartSP.BorderSkin.BorderDashStyle = ChartDashStyle.NotSet;
-            guiradAnalysisChartSP.BorderSkin.BorderWidth = 1;
-            guiradAnalysisChartSP.BorderSkin.PageColor = Color.White;
-            guiradAnalysisChartSP.BringToFront();
-
-            guiradAnalysisChartPP.Update();
-            guiradAnalysisChartHR.Update();
-            guiradAnalysisChartAP.Update();
-            guiradAnalysisChartDPMP.Update();
-            guiradAnalysisChartAix75.Update();
-            guiradAnalysisChartSP.Update();
-
             // Setting the properties for Clicked Chart
-            smallChart.BorderlineColor = Color.White;
-            smallChart.BorderlineDashStyle = ChartDashStyle.Solid;
-            smallChart.BorderlineWidth = 3;
-            smallChart.BorderSkin.SkinStyle = BorderSkinStyle.Emboss;
-            smallChart.BorderSkin.BackColor = Color.Transparent;
-            smallChart.BorderSkin.BackGradientStyle = GradientStyle.None;
-            smallChart.BorderSkin.BackHatchStyle = ChartHatchStyle.BackwardDiagonal;
-            smallChart.BorderSkin.BorderColor = Color.Transparent;
-            smallChart.BorderSkin.BorderDashStyle = ChartDashStyle.Solid;
-            smallChart.BorderSkin.BorderWidth = 2;
-            smallChart.BorderSkin.PageColor = Color.FromArgb(142, 150, 186);
-            smallChart.SendToBack();
+            selectedChart.BorderlineColor = Color.White;
+            selectedChart.BorderlineDashStyle = ChartDashStyle.Solid;
+            selectedChart.BorderlineWidth = 3;
+            selectedChart.BorderSkin.SkinStyle = BorderSkinStyle.Emboss;
+            selectedChart.BorderSkin.BackColor = Color.Transparent;
+            selectedChart.BorderSkin.BackGradientStyle = GradientStyle.None;
+            selectedChart.BorderSkin.BackHatchStyle = ChartHatchStyle.BackwardDiagonal;
+            selectedChart.BorderSkin.BorderColor = Color.Transparent;
+            selectedChart.BorderSkin.BorderDashStyle = ChartDashStyle.Solid;
+            selectedChart.BorderSkin.BorderWidth = 2;
+            selectedChart.BorderSkin.PageColor = Color.FromArgb(142, 150, 186);     
+            selectedChart.SendToBack();
 
             ElementPosition obj = new ElementPosition();
             obj.X = Convert.ToInt32(6.926702);
@@ -1583,88 +1387,124 @@ namespace AtCor.Scor.Gui.Presentation
             obj.Height = 79;
             obj.Width = Convert.ToInt32(84.18234);
 
-            smallChart.ChartAreas[0].Position = obj;
-
-            guiradLargeChart.Titles.Clear();
-            guiradLargeChart.Titles.Add(smallChart.Titles[0].Text);
+            selectedChart.ChartAreas[0].Position = obj;
+            guiradLargeChart.Titles[0].Text = selectedChart.Titles[0].Text;
             guiradLargeChart.Titles[0].ForeColor = Color.WhiteSmoke;
-            guiradLargeChart.Titles[0].Font = new Font("Arial", 11, FontStyle.Bold);
+            guiradLargeChart.Titles[0].Font = new Font("Arial", 8, FontStyle.Bold);
+            guiradLargeChart.Titles[0].Position = new ElementPosition(3f, 1f, 94f, 3.119616f);
 
-            guiradLargeChart.ChartAreas[0].AxisX.Minimum = smallChart.ChartAreas[0].AxisX.Minimum;
-            guiradLargeChart.ChartAreas[0].AxisX.Maximum = smallChart.ChartAreas[0].AxisX.Maximum;
-            guiradLargeChart.ChartAreas[0].AxisX.Interval = smallChart.ChartAreas[0].AxisX.Interval;
-            guiradLargeChart.ChartAreas[0].AxisX.Crossing = smallChart.ChartAreas[0].AxisX.Crossing;
-            guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Enabled = smallChart.ChartAreas[0].AxisX.LabelStyle.Enabled;
+            guiradLargeChart.ChartAreas[0].AxisX.Minimum = selectedChart.ChartAreas[0].AxisX.Minimum;
+            guiradLargeChart.ChartAreas[0].AxisX.Maximum = selectedChart.ChartAreas[0].AxisX.Maximum;
+            guiradLargeChart.ChartAreas[0].AxisX.Interval = selectedChart.ChartAreas[0].AxisX.Interval;
+            guiradLargeChart.ChartAreas[0].AxisX.Crossing = selectedChart.ChartAreas[0].AxisX.Crossing;
+            guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Enabled = selectedChart.ChartAreas[0].AxisX.LabelStyle.Enabled;
 
-            guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.Enabled = smallChart.ChartAreas[0].AxisX.MajorGrid.Enabled;
-            guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.LineColor = smallChart.ChartAreas[0].AxisX.MajorGrid.LineColor;
-            guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = smallChart.ChartAreas[0].AxisX.MajorGrid.LineDashStyle;
-            guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.LineWidth = smallChart.ChartAreas[0].AxisX.MajorGrid.LineWidth;
+            guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.Enabled = selectedChart.ChartAreas[0].AxisX.MajorGrid.Enabled;
+            guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.LineColor = selectedChart.ChartAreas[0].AxisX.MajorGrid.LineColor;
+            guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = selectedChart.ChartAreas[0].AxisX.MajorGrid.LineDashStyle;
+            guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.LineWidth = selectedChart.ChartAreas[0].AxisX.MajorGrid.LineWidth;
             guiradLargeChart.ChartAreas[0].AxisX.MajorTickMark.Enabled = false;
 
-            guiradLargeChart.ChartAreas[0].AxisX.MinorGrid.Enabled = smallChart.ChartAreas[0].AxisX.MinorGrid.Enabled;
-            guiradLargeChart.ChartAreas[0].AxisX.MinorGrid.LineColor = smallChart.ChartAreas[0].AxisX.MinorGrid.LineColor;
-            guiradLargeChart.ChartAreas[0].AxisX.MinorGrid.LineDashStyle = smallChart.ChartAreas[0].AxisX.MinorGrid.LineDashStyle;
-            guiradLargeChart.ChartAreas[0].AxisX.MinorGrid.LineWidth = smallChart.ChartAreas[0].AxisX.MinorGrid.LineWidth;
+            guiradLargeChart.ChartAreas[0].AxisX.MinorGrid.Enabled = selectedChart.ChartAreas[0].AxisX.MinorGrid.Enabled;
+            guiradLargeChart.ChartAreas[0].AxisX.MinorGrid.LineColor = selectedChart.ChartAreas[0].AxisX.MinorGrid.LineColor;
+            guiradLargeChart.ChartAreas[0].AxisX.MinorGrid.LineDashStyle = selectedChart.ChartAreas[0].AxisX.MinorGrid.LineDashStyle;
+            guiradLargeChart.ChartAreas[0].AxisX.MinorGrid.LineWidth = selectedChart.ChartAreas[0].AxisX.MinorGrid.LineWidth;
             guiradLargeChart.ChartAreas[0].AxisX.MinorTickMark.Enabled = false;
 
-            guiradLargeChart.ChartAreas[0].AxisY.Minimum = smallChart.ChartAreas[0].AxisY.Minimum;
-            guiradLargeChart.ChartAreas[0].AxisY.Maximum = smallChart.ChartAreas[0].AxisY.Maximum;
-            guiradLargeChart.ChartAreas[0].AxisY.Interval = smallChart.ChartAreas[0].AxisY.Interval;
-            guiradLargeChart.ChartAreas[0].AxisY.Crossing = smallChart.ChartAreas[0].AxisY.Crossing;
+            guiradLargeChart.ChartAreas[0].AxisY.Minimum = selectedChart.ChartAreas[0].AxisY.Minimum;
+            guiradLargeChart.ChartAreas[0].AxisY.Maximum = selectedChart.ChartAreas[0].AxisY.Maximum;
+            guiradLargeChart.ChartAreas[0].AxisY.Interval = selectedChart.ChartAreas[0].AxisY.Interval;
+            guiradLargeChart.ChartAreas[0].AxisY.Crossing = selectedChart.ChartAreas[0].AxisY.Crossing;
 
-            guiradLargeChart.ChartAreas[0].AxisY.MajorGrid.Enabled = smallChart.ChartAreas[0].AxisY.MajorGrid.Enabled;
-            guiradLargeChart.ChartAreas[0].AxisY.MajorGrid.LineColor = smallChart.ChartAreas[0].AxisY.MajorGrid.LineColor;
-            guiradLargeChart.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = smallChart.ChartAreas[0].AxisY.MajorGrid.LineDashStyle;
-            guiradLargeChart.ChartAreas[0].AxisY.MajorGrid.LineWidth = smallChart.ChartAreas[0].AxisY.MajorGrid.LineWidth;
-            guiradLargeChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = smallChart.ChartAreas[0].AxisY.LabelStyle.ForeColor;
+            guiradLargeChart.ChartAreas[0].AxisY.MajorGrid.Enabled = selectedChart.ChartAreas[0].AxisY.MajorGrid.Enabled;
+            guiradLargeChart.ChartAreas[0].AxisY.MajorGrid.LineColor = selectedChart.ChartAreas[0].AxisY.MajorGrid.LineColor;
+            guiradLargeChart.ChartAreas[0].AxisY.MajorGrid.LineDashStyle = selectedChart.ChartAreas[0].AxisY.MajorGrid.LineDashStyle;
+            guiradLargeChart.ChartAreas[0].AxisY.MajorGrid.LineWidth = selectedChart.ChartAreas[0].AxisY.MajorGrid.LineWidth;
+            guiradLargeChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = selectedChart.ChartAreas[0].AxisY.LabelStyle.ForeColor;
 
-            guiradLargeChart.ChartAreas[0].AxisY.MinorGrid.Enabled = smallChart.ChartAreas[0].AxisY.MinorGrid.Enabled;
-            guiradLargeChart.ChartAreas[0].AxisY.MinorGrid.LineColor = smallChart.ChartAreas[0].AxisY.MinorGrid.LineColor;
-            guiradLargeChart.ChartAreas[0].AxisY.MinorGrid.LineDashStyle = smallChart.ChartAreas[0].AxisY.MinorGrid.LineDashStyle;
-            guiradLargeChart.ChartAreas[0].AxisY.MinorGrid.LineWidth = smallChart.ChartAreas[0].AxisY.MinorGrid.LineWidth;
+            guiradLargeChart.ChartAreas[0].AxisY.MinorGrid.Enabled = selectedChart.ChartAreas[0].AxisY.MinorGrid.Enabled;
+            guiradLargeChart.ChartAreas[0].AxisY.MinorGrid.LineColor = selectedChart.ChartAreas[0].AxisY.MinorGrid.LineColor;
+            guiradLargeChart.ChartAreas[0].AxisY.MinorGrid.LineDashStyle = selectedChart.ChartAreas[0].AxisY.MinorGrid.LineDashStyle;
+            guiradLargeChart.ChartAreas[0].AxisY.MinorGrid.LineWidth = selectedChart.ChartAreas[0].AxisY.MinorGrid.LineWidth;
             guiradLargeChart.ChartAreas[0].AxisY.MinorTickMark.Enabled = false;
+            guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Enabled = true;
+            guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.WhiteSmoke;
 
+            // guiradLargeChart.ChartAreas[0].Position = new ElementPosition(3, 3, 94, 94);
             guilblLargeDPLegend.Visible = false;
             guilblLargeMPLegend.Visible = false;
 
             guiradLargeChart.Series.Clear();
 
-            foreach (Series series in smallChart.Series)
+            foreach (Series series in selectedChart.Series)
             {
                 guiradLargeChart.Series.Add(series);
             }
 
-            guiradLargeChart.Invalidate();
+            foreach (Series series in guiradLargeChart.Series)
+            {
+                series.CustomProperties = "BubbleMaxSize=7";
+            }
+
+            // guiradLargeChart.Invalidate();
+        }
+
+        private void setSmallChartProperties(Chart smallChart)
+        {
+            smallChart.BorderlineColor = Color.White;
+            smallChart.BorderlineDashStyle = ChartDashStyle.Solid;
+            smallChart.BorderlineWidth = 1;
+            smallChart.BorderSkin.SkinStyle = BorderSkinStyle.None;
+            smallChart.BorderSkin.BackColor = Color.Gray;
+            smallChart.BorderSkin.BackGradientStyle = GradientStyle.None;
+            smallChart.BorderSkin.BackHatchStyle = ChartHatchStyle.None;
+            smallChart.BorderSkin.BorderColor = Color.Black;
+            smallChart.BorderSkin.BorderDashStyle = ChartDashStyle.NotSet;
+            smallChart.BorderSkin.BorderWidth = 1;
+            smallChart.BorderSkin.PageColor = Color.White;
+            foreach (Series item in smallChart.Series)
+            {
+                item.CustomProperties = "BubbleMaxSize=15";
+            }
+
+            smallChart.BringToFront();
+            smallChart.Update();
         }
 
         /** This method clears all chart series for tonometer, normal & reference range
        * */
-        void ClearChartData()
-        {           
-           guichartPWAReport.Series.Clear();           
+        private void ClearData()
+        {
+            guichartPWAReport.Series.Clear();
+            GuiCommon.bizPwaobject.AGPH_HR75 = GuiConstants.DefaultValue;
+            crxPwaData.C_Agph = GuiConstants.DefaultValue;
+            crxPwaData.C_Sp = GuiConstants.DefaultValue;
+            crxPwaData.C_Ap = GuiConstants.DefaultValue;
+            crxPwaData.C_Dp = 0;
+            guiradlblInconclusiveMessage.Text = String.Empty;
+            guiradlblSphygmocorReferenceAge.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblSphygmoCorReferenceAgeNotCalculated);
         }
 
         /** This method resets all PWA measurement fields
        * */
-        void ResetMeasurementFields()
-        {           
+        private void ResetMeasurementFields()
+        {
             guiradlblCentralDp.Text = string.Empty;
             guiradlblCentralHr.Text = string.Empty;
             guiradlblCentralQualityControl.Text = string.Empty;
             guiradlblInterpretationDisplay.Text = string.Empty;
             guiradlblReportOperatordisplay.Text = string.Empty;
-         
+
             guiradtxtReportHeight.Text = string.Empty;
             guiradlblReportHeightDisplay.Text = string.Empty;
             guiradtxtReportHeightInches.Text = string.Empty;
             guiradlblReportHeightInches.Text = string.Empty;
-                      
+
             guiradtxtReportOperator.Text = string.Empty;
             guiradlblReportOperatordisplay.Text = string.Empty;
             guiradtxtInterpretation.Text = string.Empty;
             guiradlblReportNotesDisplay.Text = string.Empty;
-
+            guiradtxtMedicationNotesValue.Text = string.Empty;
             guiradtxtReportBloodPressure1.Text = string.Empty;
             guiradtxtReportBloodPressure2.Text = string.Empty;
             guiradlblreportDPdisplay.Text = string.Empty;
@@ -1673,12 +1513,13 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**This method plots  Average Aortic Pulse graph
-       * */        
+       * */
         private void PlotAvgAorticPulseChart()
         {
             // set y axis (normal range values from Bizsession object in float)
-            float[] avgAorticPulse = crxPwaData.C_AV_PULSE;          
-            guichartPWAReport.Series.Clear();            
+            float[] avgAorticPulse = crxPwaData.C_AV_PULSE;
+            float[] avgTypicalAorticPulse = crxPwaData.C_Typical;
+            guichartPWAReport.Series.Clear();
 
             // initialize series,chartype,add points to series and finally add series to chart.            
             // set display properties for Avg Aortic Pulse graph
@@ -1688,14 +1529,20 @@ namespace AtCor.Scor.Gui.Presentation
                 Color = Color.MediumBlue,
                 BorderWidth = 2,
                 Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportActual),
-                  
             };
 
             avgAorticPulseActualSeries.Points.Clear();
 
             for (int i = 0; i < avgAorticPulse.Length; i++)
             {
-                avgAorticPulseActualSeries.Points.AddXY(i, avgAorticPulse[i]);
+                if (avgAorticPulse[i] == 0)
+                {
+                    break;
+                }
+                else
+                {
+                    avgAorticPulseActualSeries.Points.AddXY(AverageAorticXAxisInterval * i, avgAorticPulse[i]);
+                }
             }
 
             guichartPWAReport.Series.Add(avgAorticPulseActualSeries);
@@ -1710,145 +1557,141 @@ namespace AtCor.Scor.Gui.Presentation
             };
 
             avgAorticPulseIdealSeries.Points.Clear();
-            AddDataPointsIdealgraph(avgAorticPulseIdealSeries);
-
-            guichartPWAReport.Series.Add(avgAorticPulseIdealSeries);
-
-            guichartPWAReport.Invalidate();          
-        }
-
-        private void AddDataPointsIdealgraph(Series avgAorticPulseSeries2)
-        {
-            avgAorticPulseSeries2.Points.AddXY(45, 0);
-            avgAorticPulseSeries2.Points.AddXY(55, 35);
-            avgAorticPulseSeries2.Points.AddXY(65, 75);
-            avgAorticPulseSeries2.Points.AddXY(75, 105);
-            avgAorticPulseSeries2.Points.AddXY(85, 118);
-            avgAorticPulseSeries2.Points.AddXY(91, 121);
-            avgAorticPulseSeries2.Points.AddXY(95, 130);
-            avgAorticPulseSeries2.Points.AddXY(103, 156);
-            avgAorticPulseSeries2.Points.AddXY(106, 158);
-            avgAorticPulseSeries2.Points.AddXY(108, 160);
-            avgAorticPulseSeries2.Points.AddXY(114, 158);
-            avgAorticPulseSeries2.Points.AddXY(116, 156);
-            avgAorticPulseSeries2.Points.AddXY(117, 154);
-            avgAorticPulseSeries2.Points.AddXY(119, 140);
-            avgAorticPulseSeries2.Points.AddXY(125, 131);
-            avgAorticPulseSeries2.Points.AddXY(127, 130);
-            avgAorticPulseSeries2.Points.AddXY(136, 126);
-            avgAorticPulseSeries2.Points.AddXY(140, 120);
-            avgAorticPulseSeries2.Points.AddXY(145, 104);
-            avgAorticPulseSeries2.Points.AddXY(155, 73);
-            avgAorticPulseSeries2.Points.AddXY(165, 50);
-            avgAorticPulseSeries2.Points.AddXY(171, 40);
-            avgAorticPulseSeries2.Points.AddXY(176, 32);
-            avgAorticPulseSeries2.Points.AddXY(187, 21);
-            avgAorticPulseSeries2.Points.AddXY(195, 10);
-        }
+            for (int i = 0; i < avgTypicalAorticPulse.Length; i++)
+            {
+                if (avgTypicalAorticPulse[i] == 0)
+                {
+                    break;
+                }
+                else
+                {
+                    avgAorticPulseIdealSeries.Points.AddXY(AverageAorticXAxisInterval * i, avgTypicalAorticPulse[i]);
+                }
+            }
+            
+            guichartPWAReport.Series.Add(avgAorticPulseIdealSeries);            
+            guichartPWAReport.Invalidate();
+        }        
 
         /**This method is used to show the Aix tracker on the PWA Report screen, depending upon its value.
          */
-        private void ShowAixTracker(float maxValue, float minValue, float value, float goodRangeMin, float goodRangeMax)
+        private void ShowAixTracker(float maxValue, float minValue, float value, float goodRangeMin, float goodRangeMax, bool visible)
         {
-            // AIx Tracker: Begin
-            maxValue = 26;
-            minValue = -8;
-            value = 22;
-            goodRangeMin = -2;
-            goodRangeMax = 20;
 
-            guilblAIxValue.Left = guilblAIxSlider.Left + (int)((value - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
+            // Hide/Show Aix Slider Labels
+            guilblAIxValueText.Visible = visible;
+            guilblAIxValue.Visible = visible;
+            guilblAIxGoodMin.Visible = visible;
+            guilblAIxGoodMinText.Visible = visible;
+            guilblAIxGoodMaxText.Visible = visible;
+            guilblAIxGoodMax.Visible = visible;
+            guiradlblAixNotCalc.Visible = !visible;
 
-            guilblAIxGoodMin.Left = guilblAIxSlider.Left + (int)((goodRangeMin - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
-            guilblAIxGoodMax.Left = guilblAIxSlider.Left + (int)((goodRangeMax - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
-
-            guilblAIxValueText.Left = guilblAIxValue.Left - (guilblAIxValueText.Width / 3) + 4;
-            guilblAIxGoodMaxText.Left = guilblAIxGoodMax.Left - (guilblAIxGoodMaxText.Width / 3);
-            guilblAIxGoodMinText.Left = guilblAIxGoodMin.Left - (guilblAIxGoodMinText.Width / 3);
-
-            guilblAIxValueText.Text = Math.Round(value).ToString();
-            guilblAIxGoodMaxText.Text = goodRangeMax.ToString();
-            guilblAIxGoodMinText.Text = goodRangeMin.ToString();
-
-            if ((value < goodRangeMin) || (value > goodRangeMax))
+            if (visible)
             {
-                guilblAIxValue.BackColor = Color.Red;
-            }
-            else
-            {
-                guilblAIxValue.BackColor = Color.LimeGreen;
-            }
+                guilblAIxValue.Left = guilblAIxSlider.Left + (int)((value - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
+
+                guilblAIxGoodMin.Left = guilblAIxSlider.Left + (int)((goodRangeMin - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
+                guilblAIxGoodMax.Left = guilblAIxSlider.Left + (int)((goodRangeMax - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
+
+                guilblAIxValueText.Left = guilblAIxValue.Left - (guilblAIxValueText.Width / 3) + 4;
+                guilblAIxGoodMaxText.Left = guilblAIxGoodMax.Left - (guilblAIxGoodMaxText.Width / 3);
+                guilblAIxGoodMinText.Left = guilblAIxGoodMin.Left - (guilblAIxGoodMinText.Width / 3);
+
+                guilblAIxValueText.Text = Math.Round(value).ToString();
+                guilblAIxGoodMaxText.Text = goodRangeMax.ToString();
+                guilblAIxGoodMinText.Text = goodRangeMin.ToString();
+
+                if ((value < goodRangeMin) || (value > goodRangeMax))
+                {
+                    guilblAIxValue.BackColor = Color.Red;
+                }
+                else
+                {
+                    guilblAIxValue.BackColor = Color.LimeGreen;
+                }
+            }           
 
             // AIx Tracker: End
         }
 
         /**This method is used to show the SP tracker on the PWA Report screen, depending upon its value.
         */
-        private void ShowSpTracker(float spMaxValue, float spMinValue, float spValue, float spGoodRangeMin, float spGoodRangeMax)
+        private void ShowSpTracker(float spMaxValue, float spMinValue, float spValue, float spGoodRangeMin, float spGoodRangeMax, bool visible)
         {
-            // SP Tracker: Begin
-            spMaxValue = 130;
-            spMinValue = 90;
-            spValue = 105;
-            spGoodRangeMin = 96;
-            spGoodRangeMax = 120;
 
-            guilblSPValue.Left = guilblSPSlider.Left + ((int)(spValue - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
+            // Hide/Show Sp Slider Labels
+            guilblSPValueText.Visible = visible;
+            guilblSPValue.Visible = visible;
+            guilblSPGoodMin.Visible = visible;
+            guilblSPGoodMinText.Visible = visible;
+            guilblSPGoodMaxText.Visible = visible;
+            guilblSPGoodMax.Visible = visible;
+            guiradlblSpNotCalc.Visible = !visible;
 
-            guilblSPGoodMin.Left = guilblSPSlider.Left + ((int)(spGoodRangeMin - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
-            guilblSPGoodMinText.Left = guilblSPGoodMin.Left - (guilblSPGoodMinText.Width / 3);
-            guilblSPGoodMax.Left = guilblSPSlider.Left + ((int)(spGoodRangeMax - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
+            if (visible) 
+            {             
+                guilblSPValue.Left = guilblSPSlider.Left + ((int)(spValue - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
+                guilblSPGoodMin.Left = guilblSPSlider.Left + ((int)(spGoodRangeMin - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
+                guilblSPGoodMinText.Left = guilblSPGoodMin.Left - (guilblSPGoodMinText.Width / 3);
+                guilblSPGoodMax.Left = guilblSPSlider.Left + ((int)(spGoodRangeMax - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
 
-            guilblSPValueText.Left = guilblSPValue.Left - (guilblSPValueText.Width / 3) + 2;
-            guilblSPGoodMaxText.Left = guilblSPGoodMax.Left - (guilblSPGoodMaxText.Width / 3);            
+                guilblSPValueText.Left = guilblSPValue.Left - (guilblSPValueText.Width / 3) + 2;
+                guilblSPGoodMaxText.Left = guilblSPGoodMax.Left - (guilblSPGoodMaxText.Width / 3);
 
-            guilblSPValueText.Text = Math.Round(spValue).ToString();
-            guilblSPGoodMaxText.Text = spGoodRangeMax.ToString();
-            guilblSPGoodMinText.Text = spGoodRangeMin.ToString();
+                guilblSPValueText.Text = Math.Round(spValue).ToString();
+                guilblSPGoodMaxText.Text = spGoodRangeMax.ToString();
+                guilblSPGoodMinText.Text = spGoodRangeMin.ToString();
 
-            if ((spValue < spGoodRangeMin) || (spValue > spGoodRangeMax))
-            {
-                guilblSPValue.BackColor = Color.Red;
+                if ((spValue < spGoodRangeMin) || (spValue > spGoodRangeMax))
+                {
+                    guilblSPValue.BackColor = Color.Red;
+                }
+                else
+                {
+                    guilblSPValue.BackColor = Color.LimeGreen;
+                }
             }
-            else
-            {
-                guilblSPValue.BackColor = Color.LimeGreen;
-            }
-
+            
             // SP Tracker: End
         }
 
         /**This method is used to show the PP tracker on the PWA Report screen, depending upon its value.
         */
-        private void ShowPpTracker(float ppMaxValue, float ppMinValue, float ppValue, float ppGoodRangeMin, float ppGoodRangeMax)
+        private void ShowPpTracker(float ppMaxValue, float ppMinValue, float ppValue, float ppGoodRangeMin, float ppGoodRangeMax, bool visible)
         {
-            // PP Tracker: Begin
-            ppMaxValue = 25;
-            ppMinValue = 0;
-            ppValue = 23;
-            ppGoodRangeMin = 5;
-            ppGoodRangeMax = 20;
+            // Hide/Show Pp Slider Labels
+            guilblPPValueText.Visible = visible;
+            guilblPPValue.Visible = visible;
+            guilblPPGoodMin.Visible = visible;
+            guilblPPGoodMinText.Visible = visible;
+            guilblPPGoodMaxText.Visible = visible;
+            guilblPPGoodMax.Visible = visible;
+            guiradlblPpNotCalc.Visible = !visible;
 
-            guilblPPValue.Left = guilblPPSlider.Left + ((int)(ppValue - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
-
-            guilblPPGoodMin.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMin - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
-            guilblPPGoodMax.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMax - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
-
-            guilblPPValueText.Left = guilblPPValue.Left - (guilblPPValueText.Width / 3) + 3;
-            guilblPPGoodMaxText.Left = guilblPPGoodMax.Left - (guilblPPGoodMaxText.Width / 3);
-            guilblPPGoodMinText.Left = guilblPPGoodMin.Left - (guilblPPGoodMinText.Width / 3);
-
-            guilblPPValueText.Text = Math.Round(ppValue).ToString();
-            guilblPPGoodMaxText.Text = ppGoodRangeMax.ToString();
-            guilblPPGoodMinText.Text = ppGoodRangeMin.ToString();
-
-            if ((ppValue < ppGoodRangeMin) || (ppValue > ppGoodRangeMax))
+            if (visible)
             {
-                guilblPPValue.BackColor = Color.Red;
-            }
-            else
-            {
-                guilblPPValue.BackColor = Color.LimeGreen;
+                guilblPPValue.Left = guilblPPSlider.Left + ((int)(ppValue - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
+
+                guilblPPGoodMin.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMin - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
+                guilblPPGoodMax.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMax - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
+
+                guilblPPValueText.Left = guilblPPValue.Left - (guilblPPValueText.Width / 3) + 3;
+                guilblPPGoodMaxText.Left = guilblPPGoodMax.Left - (guilblPPGoodMaxText.Width / 3);
+                guilblPPGoodMinText.Left = guilblPPGoodMin.Left - (guilblPPGoodMinText.Width / 3);
+
+                guilblPPValueText.Text = Math.Round(ppValue).ToString();
+                guilblPPGoodMaxText.Text = ppGoodRangeMax.ToString();
+                guilblPPGoodMinText.Text = ppGoodRangeMin.ToString();
+
+                if ((ppValue < ppGoodRangeMin) || (ppValue > ppGoodRangeMax))
+                {
+                    guilblPPValue.BackColor = Color.Red;
+                }
+                else
+                {
+                    guilblPPValue.BackColor = Color.LimeGreen;
+                }
             }
 
             // PP Tracker: End
@@ -1856,42 +1699,44 @@ namespace AtCor.Scor.Gui.Presentation
 
         /**This method is used to show the AP tracker on the PWA Report screen, depending upon its value.
         */
-        private void ShowApTracker(float apMaxValue, float apMinValue, float apValue, float apGoodRangeMin, float apGoodRangeMax)
+        private void ShowApTracker(float apMaxValue, float apMinValue, float apValue, float apGoodRangeMin, float apGoodRangeMax, bool visible)
         {
-            // AP Tracker: Begin
-            apMaxValue = 12;
-            apMinValue = -6;
-            apValue = 4;
-            apGoodRangeMin = -3;
-            apGoodRangeMax = 9;
+            // Hide/Show Ap Slider Labels
+            guilblAPValueText.Visible = visible;
+            guilblAPValue.Visible = visible;
+            guilblAPGoodMin.Visible = visible;
+            guilblAPGoodMinText.Visible = visible;
+            guilblAPGoodMaxText.Visible = visible;
+            guilblAPGoodMax.Visible = visible;
+            guiradlblApNotCalc.Visible = !visible;
 
-            guilblAPValue.Left = guilblAPSlider.Left + ((int)(apValue - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
-
-            guilblAPGoodMin.Left = guilblAPSlider.Left + ((int)(apGoodRangeMin - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
-            guilblAPGoodMax.Left = guilblAPSlider.Left + ((int)(apGoodRangeMax - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
-
-            guilblAPValueText.Left = guilblAPValue.Left - (guilblAPValueText.Width / 3) + 5;
-            guilblAPGoodMaxText.Left = guilblAPGoodMax.Left - (guilblAPGoodMaxText.Width / 3);
-            guilblAPGoodMinText.Left = guilblAPGoodMin.Left - (guilblAPGoodMinText.Width / 3);
-
-            guilblAPValueText.Text = Math.Round(apValue).ToString();
-            guilblAPGoodMaxText.Text = apGoodRangeMax.ToString();
-            guilblAPGoodMinText.Text = apGoodRangeMin.ToString();
-
-            if ((apValue < apGoodRangeMin) || (apValue > apGoodRangeMax))
+            if (visible) 
             {
-                guilblAPValue.BackColor = Color.Red;
-            }
-            else
-            {
-                guilblAPValue.BackColor = Color.LimeGreen;
+                guilblAPValue.Left = guilblAPSlider.Left + ((int)(apValue - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
+
+                guilblAPGoodMin.Left = guilblAPSlider.Left + ((int)(apGoodRangeMin - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
+                guilblAPGoodMax.Left = guilblAPSlider.Left + ((int)(apGoodRangeMax - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
+
+                guilblAPValueText.Left = guilblAPValue.Left - (guilblAPValueText.Width / 3) + 5;
+                guilblAPGoodMaxText.Left = guilblAPGoodMax.Left - (guilblAPGoodMaxText.Width / 3);
+                guilblAPGoodMinText.Left = guilblAPGoodMin.Left - (guilblAPGoodMinText.Width / 3);
+
+                guilblAPValueText.Text = Math.Round(apValue).ToString();
+                guilblAPGoodMaxText.Text = apGoodRangeMax.ToString();
+                guilblAPGoodMinText.Text = apGoodRangeMin.ToString();
+
+                if ((apValue < apGoodRangeMin) || (apValue > apGoodRangeMax))
+                {
+                    guilblAPValue.BackColor = Color.Red;
+                }
+                else
+                {
+                    guilblAPValue.BackColor = Color.LimeGreen;
+                }
             }
 
             // AP Tracker: End
         }
-
-        /**This method is used to show the Scor refernce range tracker on the PWA Report screen, depending upon its value.
-        */ 
 
         /** This method Populates data point values on the mouse hover in guiradLargeChart Chart
         */
@@ -1906,7 +1751,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             SetToolTip(((Chart)sender));
         }
-       
+
         /** This method Populates data point values on the mouse hover in guiradAnalysisChartSP Chart
                 */
         private void guiradAnalysisChartSP_Paint(object sender, PaintEventArgs e)
@@ -1949,8 +1794,8 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 int columnIndex = chart.Series[i].Points.Count;
                 for (int j = 0; j < columnIndex; j++)
-                {
-                    chart.Series[i].Points[j].ToolTip = "(#VALX,#VAL)";
+                {                    
+                    chart.Series[i].Points[j].ToolTip = "(#VAL)";
                 }
             }
         }
@@ -1967,7 +1812,7 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**This event is fired when the user tried to repeat a PWA capture.In this case, the user will be redirected to 
-         */ 
+         */
         private void guiradbtnRepeat_Click(object sender, EventArgs e)
         {
             try
@@ -2002,11 +1847,11 @@ namespace AtCor.Scor.Gui.Presentation
                         // records deleted successfully, bind assessment grid
                         FillPatientAssessmentDetailsReport();
                         CheckLastAssessmentSelected(pwaIdToCompare);
-
-                        // guiradlblReportPwvDistanceMethodType.Text = crxMgrObject.PwvSettings.PWVDistanceMethod.Equals((int)CrxGenPwvValue.CrxPwvDistMethodDirect) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportLblDirect) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportLblSubtracting); 
                     }
                 }
 
+                guipnlPWAReport.Refresh();
+                guipnlPatientDetails.Refresh();
                 CheckForSimualtionMode();
             }
             catch (Exception ex)
@@ -2015,11 +1860,70 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
+        /** This method is used to set the maximum and minimum value for X Axis on Slider
+        * */
+        private double[] setSliderMinMaxForXAxis(double[] data)
+        {
+            double max = 0.0;
+            double min = 0.0;
+            Array.Sort(data);
+            double value = Math.Round(data[0] * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+            value = ((int)Math.Round(value / 10)) * 10;
+            min = value - 10;
+            value = Math.Round((data[data.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+            value = ((int)Math.Round(value / 10)) * 10;
+            max = value + 10;
+            return new double[] {max, min};
+        }
+
+        /** This method is used to set the maximum and minimum value for Y- Axis
+         * */
+        private void setChartMinMaxForYAxis(Chart chartObject, double[] data) 
+        {
+            Array.Sort(data);
+            double value = Math.Round(data[0] * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+            value = ((int)Math.Round(value / 10)) * 10;
+            chartObject.ChartAreas[0].AxisY.Minimum = value - 10;
+            value = Math.Round((data[data.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+            value = ((int)Math.Round(value / 10)) * 10;
+            chartObject.ChartAreas[0].AxisY.Maximum = value + 10;
+            chartObject.ChartAreas[0].AxisY.Interval = 10;
+        }
+
+        /** This method plots Aix trend graph
+         * */
+        private void PlotAixTrendData(string pwaIdWithComma)
+        {
+            double[] aixDataArr = prepareAix75Data(pwaIdWithComma);
+
+            guiradAnalysisChartAix75.Series[0].Points.Clear();
+            guiradAnalysisChartAix75.Series[1].Points.Clear();
+
+             setChartMinMaxForYAxis(guiradAnalysisChartAix75, aixDataArr);
+
+            // plot Aix rate series
+            if (aixDataArr.Length > 0)
+            {
+                for (int series = 0; series < aixDataArr.Length; series++)
+                {
+                    guiradAnalysisChartAix75.Series[0].Points.AddXY(series, aixDataArr[series]);
+                    guiradAnalysisChartAix75.Series[1].Points.AddXY(series, aixDataArr[series]);
+                }
+
+                guiradAnalysisChartAix75.ChartAreas[0].AxisX.Maximum = aixDataArr.Length;
+            }
+        }
+
         /** This method plots Ap trend graph
          * */
         private void PlotApTrendData(CrxStructPWATrendData trendData)
         {
+            guiradAnalysisChartAP.Series[0].Points.Clear();
+            guiradAnalysisChartAP.Series[1].Points.Clear();
+
             apRate = trendData.ApValidArrStr.Split(GuiConstants.Separator);
+            double[] tempDouble = CrxDBManager.Instance.CommonStringArrToDoubleArr(trendData.ApValidArrStr.Split(GuiConstants.Separator));
+            setChartMinMaxForYAxis(guiradAnalysisChartAP, tempDouble);
 
             // plot heart rate series
             if (apRate.Length > 0)
@@ -2030,7 +1934,7 @@ namespace AtCor.Scor.Gui.Presentation
                     guiradAnalysisChartAP.Series[1].Points.AddXY(series, double.Parse(apRate[series], CrxCommon.nCI));
                 }
 
-                guiradAnalysisChartAP.Invalidate();
+                guiradAnalysisChartAP.ChartAreas[0].AxisX.Maximum = apRate.Length;
             }
         }
 
@@ -2039,6 +1943,11 @@ namespace AtCor.Scor.Gui.Presentation
         private void PlotHrTrendData(CrxStructPWATrendData trendData)
         {
             hrRate = trendData.HrValidArrStr.Split(GuiConstants.Separator);
+
+            guiradAnalysisChartHR.Series[0].Points.Clear();
+            guiradAnalysisChartHR.Series[1].Points.Clear();
+            double[] tempDouble = CrxDBManager.Instance.CommonStringArrToDoubleArr(trendData.HrValidArrStr.Split(GuiConstants.Separator));
+            setChartMinMaxForYAxis(guiradAnalysisChartHR, tempDouble);
 
             // plot heart rate series
             if (hrRate.Length > 0)
@@ -2049,7 +1958,7 @@ namespace AtCor.Scor.Gui.Presentation
                     guiradAnalysisChartHR.Series[1].Points.AddXY(series, double.Parse(hrRate[series], CrxCommon.nCI));
                 }
 
-                guiradAnalysisChartHR.Invalidate();
+                guiradAnalysisChartHR.ChartAreas[0].AxisX.Maximum = hrRate.Length;
             }
         }
 
@@ -2057,13 +1966,20 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void PlotPpTrendData(CrxStructPWATrendData trendData)
         {
+            guiradAnalysisChartPP.Series[0].Points.Clear();
+            guiradAnalysisChartPP.Series[1].Points.Clear();
+
             spRate = trendData.SpValidArrStr.Split(GuiConstants.Separator);
             dpRate = trendData.DpValidArrStr.Split(GuiConstants.Separator);
             ppRate = new string[spRate.Length];
+
             for (int index = 0; index < spRate.Length; index++)
             {
                 ppRate[index] = Convert.ToString(double.Parse(spRate[index]) - double.Parse(dpRate[index]));
             }
+
+            double[] tempDouble = CrxDBManager.Instance.CommonStringArrToDoubleArr(ppRate);
+            setChartMinMaxForYAxis(guiradAnalysisChartPP, tempDouble);
 
             // plot Pp rate series
             if (ppRate.Length > 0)
@@ -2074,7 +1990,7 @@ namespace AtCor.Scor.Gui.Presentation
                     guiradAnalysisChartPP.Series[1].Points.AddXY(series, double.Parse(ppRate[series], CrxCommon.nCI));
                 }
 
-                guiradAnalysisChartPP.Invalidate();
+                guiradAnalysisChartPP.ChartAreas[0].AxisX.Maximum = ppRate.Length;
             }
         }
 
@@ -2082,7 +1998,12 @@ namespace AtCor.Scor.Gui.Presentation
         * */
         private void PlotSpTrendData(CrxStructPWATrendData trendData)
         {
+            guiradAnalysisChartSP.Series[0].Points.Clear();
+            guiradAnalysisChartSP.Series[1].Points.Clear();
+
             spRate = trendData.SpValidArrStr.Split(GuiConstants.Separator);
+            double[] tempDouble = CrxDBManager.Instance.CommonStringArrToDoubleArr(trendData.SpValidArrStr.Split(GuiConstants.Separator));
+            setChartMinMaxForYAxis(guiradAnalysisChartSP, tempDouble);
             if (spRate.Length > 0)
             {
                 for (int series = 0; series < spRate.Length; series++)
@@ -2091,7 +2012,7 @@ namespace AtCor.Scor.Gui.Presentation
                     guiradAnalysisChartSP.Series[1].Points.AddXY(series, double.Parse(spRate[series], CrxCommon.nCI));
                 }
 
-                guiradAnalysisChartSP.Invalidate();
+                guiradAnalysisChartSP.ChartAreas[0].AxisX.Maximum = spRate.Length;
             }
         }
 
@@ -2099,8 +2020,17 @@ namespace AtCor.Scor.Gui.Presentation
        * */
         private void PlotDpMpTrendData(CrxStructPWATrendData trendData)
         {
+            guiradAnalysisChartDPMP.Series[0].Points.Clear();
+            guiradAnalysisChartDPMP.Series[1].Points.Clear();
+            guiradAnalysisChartDPMP.Series[2].Points.Clear();
+            guiradAnalysisChartDPMP.Series[3].Points.Clear();
+
             dpRate = trendData.DpValidArrStr.Split(GuiConstants.Separator);
             mpRate = trendData.MpValidArrStr.Split(GuiConstants.Separator);
+
+            double[] tempDouble = CrxDBManager.Instance.CommonStringArrToDoubleArr((trendData.DpValidArrStr + GuiConstants.Separator 
+                + trendData.MpValidArrStr).Split(GuiConstants.Separator));
+            setChartMinMaxForYAxis(guiradAnalysisChartDPMP, tempDouble);
 
             // plot Dp & Mp series
             if (dpRate.Length > 0 && mpRate.Length > 0)
@@ -2113,7 +2043,7 @@ namespace AtCor.Scor.Gui.Presentation
                     guiradAnalysisChartDPMP.Series[3].Points.AddXY(series, double.Parse(mpRate[series], CrxCommon.nCI));
                 }
 
-                guiradAnalysisChartDPMP.Invalidate();
+                guiradAnalysisChartDPMP.ChartAreas[0].AxisX.Maximum = mpRate.Length;
             }
         }
 
@@ -2144,11 +2074,15 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 // Convert the user input to height and inches
                 int heightinches = (int.Parse((string.IsNullOrEmpty(guiradtxtReportHeight.Text.Trim()) ? "0" : guiradtxtReportHeight.Text.Trim())) * 12) + int.Parse((string.IsNullOrEmpty(guiradtxtReportHeightInches.Text.Trim()) ? "0" : guiradtxtReportHeightInches.Text.Trim()));
+                          
+                // check if value is within min & max limits               
+                GetValidationForHeight(heightinches);
                 GuiCommon.bizPwaobject.heightAndWeight.heightInInches = heightinches == 0 ? GuiConstants.DefaultValue : ushort.Parse(heightinches.ToString());
             }
             else
             {
                 GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres = string.IsNullOrEmpty(guiradtxtReportHeight.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportHeight.Text.Trim());
+                IsHeightOutsideIntegerLimits = false;
             }
         }
 
@@ -2163,27 +2097,62 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 int heightinches = (int.Parse((string.IsNullOrEmpty(guiradtxtReportHeight.Text.Trim()) ? "0" : guiradtxtReportHeight.Text.Trim())) * 12) + int.Parse((string.IsNullOrEmpty(guiradtxtReportHeightInches.Text.Trim()) ? "0" : guiradtxtReportHeightInches.Text.Trim()));
                 crxPwa.HeightInInches = heightinches == 0 ? GuiConstants.SdefaultValue : short.Parse(heightinches.ToString());
-
-                // crxPwv.WeightInPounds = string.IsNullOrEmpty(guiradtxtReportWeight.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportWeight.Text.Trim());        
+                crxPwa.HeightInCentimetres = GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres == GuiConstants.SdefaultValue ? GuiConstants.SdefaultValue : short.Parse(GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres.ToString());
             }
             else
             {
                 crxPwa.HeightInCentimetres = string.IsNullOrEmpty(guiradtxtReportHeight.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportHeight.Text.Trim());
-
-                // crxPwv.WeightInKilograms = string.IsNullOrEmpty(guiradtxtReportWeight.Text.Trim()) ? GuiConstants.SdefaultValue : short.Parse(guiradtxtReportWeight.Text.Trim());
+                crxPwa.HeightInInches = GuiCommon.bizPwaobject.heightAndWeight.heightInInches == GuiConstants.SdefaultValue ? GuiConstants.SdefaultValue : short.Parse(GuiCommon.bizPwaobject.heightAndWeight.heightInInches.ToString());
             }
-        }        
+        }
+
+        /** Below function restrict user from adding invalid value for the height
+         */
+        private void GetValidationForHeight(int heightValue)
+        {
+            if (heightValue > short.MaxValue || heightValue < 0)
+            {
+                string field = objValidation.GetLabelText(guiradtxtReportHeight.Tag.ToString());
+                IsHeightOutsideIntegerLimits = true;
+                string err = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiLimitsFormat), field, 0, string.Empty, short.MaxValue, string.Empty);
+                RadMessageBox.Show(err, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                guiradtxtReportHeight.Focus();
+                guiradtxtReportHeight.Text = string.Empty;
+            }
+            else
+            {
+                IsHeightOutsideIntegerLimits = false;
+            }
+        }
 
         /** This method validates session data
         * */
         bool ValidateSession(CrxStructPWAMeasurementData crxPwa)
         {
             GuiCommon.bizPwaobject.Sp = string.IsNullOrEmpty(guiradlblreportSPdisplay.Text.Trim()) ? GuiConstants.DefaultValue : float.Parse(guiradlblreportSPdisplay.Text.Trim());
-            GuiCommon.bizPwaobject.Dp = string.IsNullOrEmpty(guiradlblreportDPdisplay.Text.Trim()) ? GuiConstants.DefaultValue : float.Parse(guiradlblreportDPdisplay.Text.Trim()); 
+            GuiCommon.bizPwaobject.Dp = string.IsNullOrEmpty(guiradlblreportDPdisplay.Text.Trim()) ? GuiConstants.DefaultValue : float.Parse(guiradlblreportDPdisplay.Text.Trim());
             GuiCommon.bizPwaobject.MeasureType = PWA_MEASURE_TYPE.PWA_RADIAL;
-            CalculateHeightAndWeightToValidateSession();            
-            return GuiCommon.bizPwaobject.Validate();
-        }        
+            CalculateHeightAndWeightToValidateSession();
+            GuiCommon.bizPwaobject.notes = guiradtxtMedicationNotesValue.Text.Trim();
+
+            if (!IsHeightOutsideIntegerLimits)
+            {
+                bool isValidate = GuiCommon.bizPwaobject.Validate();
+                if (isValidate)
+                {
+                    GetValidationForHeight(int.Parse(GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres.ToString()));
+                    return !IsHeightOutsideIntegerLimits;
+                }
+                else
+                {
+                    return isValidate;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         /**This method initializes Crx structure to update changes
       * */
@@ -2199,12 +2168,13 @@ namespace AtCor.Scor.Gui.Presentation
                 crxCuffPwa.PWA_Id = int.Parse(GuiCommon.PwaCurrentId);
                 CalculateHeightAndWeightToUpdate(crxPwa);
 
-                crxPwa.MemSpare1 = guiradtxtInterpretation.Text.Trim();           
+                crxPwa.Interpretation = guiradtxtInterpretation.Text.Trim();
+                crxPwa.Notes = guiradtxtMedicationNotesValue.Text.Trim();
 
                 crxPwa.SystemIdentifier = bobj;
                 crxPwa.GroupIdentifier = GuiCommon.GroupId;
-                crxPwa.PatientNumberInternal = GuiCommon.PatientInternalNumber;             
-                
+                crxPwa.PatientNumberInternal = GuiCommon.PatientInternalNumber;
+
                 // call recalculatepwareport which will calculate PWA statistics values & will update biz session object.                             
                 if (GuiCommon.bizPwaobject.Populate(crxPwa, crxCuffPwa))
                 {
@@ -2216,7 +2186,7 @@ namespace AtCor.Scor.Gui.Presentation
                     }
                 }
                 else
-                { 
+                {
                     // error populating data
                     // do not save in database
                     flag = 2;
@@ -2250,7 +2220,7 @@ namespace AtCor.Scor.Gui.Presentation
                 GuiCommon.PwaCurrentId = crxPWA.PWA_Id.ToString();
                 CrxLogger.Instance.Write("GuiCommon.PwaCurrentStudyDatetime:(SaveMeasurementData) " + GuiCommon.PwvCurrentStudyDatetime);
 
-                FillPatientAssessmentDetailsReport();              
+                FillPatientAssessmentDetailsReport();
 
                 // re populate label fields again and display mode = true
                 ReportPWADisplayMode(true);
@@ -2265,67 +2235,75 @@ namespace AtCor.Scor.Gui.Presentation
         private void guiradbtnreportsave_Click(object sender, EventArgs e)
         {
             try
-            {
+            {                
                 objDefaultWindow.radlblMessage.Text = string.Empty;
-               
-                    // check db connection
-                    if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
+                objDefaultWindow.guiradmnuDatabase.Enabled = true;
+                GuiCommon.IsMenuItemShown = true; 
+
+                // check db connection
+                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
+                {
+                    // save PWA details in database and session object
+
+                    /* InitializeCrx(crxPwaData,crxPwaCuffData) returns integer
+                     * 0 => update measurement data
+                     * 1 => validation failed
+                     * 2 => report calculation failed
+                     */
+                    switch (InitializeCrx(crxPwaData, crxPwaCuffData))
                     {
-                        // save PWA details in database and session object
-                        // CrxStructPWAMeasurementData crxPwaData = new CrxStructPWAMeasurementData();
-                        // CrxStructCuffPWAMeasurementData crxPwaCuffData = new CrxStructCuffPWAMeasurementData();
+                        case (int)InitializeCrxValue.UpdateData:
 
-                        /* InitializeCrx(crxPwaData,crxPwaCuffData) returns integer
-                         * 0 => update measurement data
-                         * 1 => validation failed
-                         * 2 => report calculation failed
-                         */
-                        switch (InitializeCrx(crxPwaData, crxPwaCuffData))
-                        {
-                            case (int)InitializeCrxValue.UpdateData:
-                                // update measurement data
-                                // save data                            
-                                SaveMeasurementData(crxPwaData, crxPwaCuffData);
-                                CheckLastAssessmentSelected(pwaIdToCompare);
-                                guiradgridReportAssessment.Enabled = true;
-                                break;
-                            case (int)InitializeCrxValue.ValidationFailed:
-                                // GuiCommon.bizPwaobject validation failed                            
-                                RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ErrorValidating), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                                break;
-                            case (int)InitializeCrxValue.ReportCalculationFailed:
-                                // report calculation failed
-                                RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportCalculateError), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                                break;
-                            default:
-                                break;
-                        }
+                            // update measurement data
+                            // save data                            
+                            SaveMeasurementData(crxPwaData, crxPwaCuffData);
+                            CheckLastAssessmentSelected(pwaIdToCompare);
+                            guiradgridReportAssessment.Enabled = true;
+                            break;
+                        case (int)InitializeCrxValue.ValidationFailed:
+                            if (!IsHeightOutsideIntegerLimits)
+                            {                     
+                              RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ErrorValidating), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                            }
 
-                        GuiCommon.IsFormChanged = false;
+                            PopulateBizFromCrx(pwaIdToCompare);
+                            break;
+
+                        case (int)InitializeCrxValue.ReportCalculationFailed:
+
+                            // report calculation failed
+                            RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportCalculateError), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                            break;
+                        default:
+                            break;
                     }
-                    else
-                    {
-                        DialogResult result = RadMessageBox.Show(this, GuiCommon.ConnectionErrorString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
-                        if (result == DialogResult.Retry)
-                        {
-                            Invoke(new EventHandler(guiradbtnreportsave_Click));
-                        }
-                    }                
 
-                CheckForSimualtionMode();
+                    isValueChanged = false;
+                    GuiCommon.IsFormChanged = false;
+                }
+                else
+                {
+                    DialogResult result = RadMessageBox.Show(this, GuiCommon.ConnectionErrorString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                    if (result == DialogResult.Retry)
+                    {
+                        Invoke(new EventHandler(guiradbtnreportsave_Click));
+                    }
+                } 
+
+                    CheckForSimualtionMode();   
             }
             catch (Exception ex)
             {
                 GUIExceptionHandler.HandleException(ex, this);
-            }    
-        }      
-       
+            }
+        }
+
         /** This event gets fired when focus is moved from height in inches text box.
        * It checks if the value entered in textbox is within valid range and shows error accordingly
-       * */  
+       * */
         private void guiradtxtReportHeightInches_Leave(object sender, EventArgs e)
         {
-            objValidation.CheckIntegerFieldLimits(guiradtxtReportHeightInches);
+            objValidation.CheckIntegerFieldLimitsRemoveInvalidValue(guiradtxtReportHeightInches);
         }
 
         /** This event gets fired when focus is moved from height in centimeteres & height in feet text box.
@@ -2333,7 +2311,7 @@ namespace AtCor.Scor.Gui.Presentation
        * */
         private void guiradtxtReportHeight_Leave(object sender, EventArgs e)
         {
-            objValidation.CheckIntegerFieldLimits(guiradtxtReportHeight);
+            objValidation.CheckIntegerFieldLimitsRemoveInvalidValue(guiradtxtReportHeight);
         }
 
         /** This method fille structure "PWAClinicalEvaluationReport" with the values to be printed on PWV report.
@@ -2356,20 +2334,27 @@ namespace AtCor.Scor.Gui.Presentation
             PWACommonReportData.RptPatientIdValue = patientObj.patientId;
 
             PWACommonReportData.RptPatientDob = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportDob);
-            //PWACommonReportData.RptPatientDobValue = patientObj.dateOfBirth.ToString(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportDateTimeFormat));
+
             PWACommonReportData.RptPatientDobValue = patientObj.dateOfBirth.ToShortDateString();
 
-            PWACommonReportData.RptPatientAge = string.Format("{0},{1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptAgeTitle), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportGender));
-            //PWACommonReportData.RptPatientAgeValue = obj.patientAge.ToString();
-            PWACommonReportData.RptPatientAgeValue = string.Format("{0},{1}", GuiCommon.bizPwaobject.patientAge.ToString(), oMsgMgr.GetMessage(patientObj.gender));
+            PWACommonReportData.RptPatientAgeGender = string.Format("{0}, {1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptAgeTitle), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportGender));
 
-            //PWACommonReportData.RptPatientGender = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportGender);
-            //PWACommonReportData.RptPatientGenderValue = oMsgMgr.GetMessage(patientObj.gender);
+            PWACommonReportData.RptPatientAgeGenderValue = string.Format("{0}, {1}", GuiCommon.bizPwaobject.patientAge.ToString(), oMsgMgr.GetMessage(patientObj.gender));
 
+            PWACommonReportData.RptPatientAge = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportAge);
+            
+            PWACommonReportData.RptPatientAgeValue = GuiCommon.bizPwaobject.patientAge.ToString();
+            
+            PWACommonReportData.RptPatientGender = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblReportGender);
+            
+            PWACommonReportData.RptPatientGenderValue = oMsgMgr.GetMessage(patientObj.gender);
+            
             PWACommonReportData.RptStudyDataHeader = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptMeasurementData);
 
             PWACommonReportData.RptPatientAssessment = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptDateAndTime);
-            PWACommonReportData.RptPatientAssessmentValue = string.Format("{0:g}.", Convert.ToDateTime(GuiCommon.PwaCurrentStudyDatetime)); // GuiCommon.PwvCurrentStudyDatetime;
+
+            // GuiCommon.PwvCurrentStudyDatetime;
+            PWACommonReportData.RptPatientAssessmentValue = string.Format("{0:g}.", Convert.ToDateTime(GuiCommon.PwaCurrentStudyDatetime)); 
 
             PWACommonReportData.RptPatientBP = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptBrachialBp);
 
@@ -2378,10 +2363,12 @@ namespace AtCor.Scor.Gui.Presentation
             PWACommonReportData.RptPatientHeight = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblHeight);
 
             PWACommonReportData.RptPatientHeightValue = SetPatientHeightValue();
-            
-            PWACommonReportData.RptDatabaseVersionTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptDatabaseVersionTitle);
 
-            PWACommonReportData.RptDatabaseVersionValue = GuiCommon.bizPwaobject.dataRevision.ToString();// string.Empty;
+            // PWACommonReportData.RptDatabaseVersionTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptDatabaseVersionTitle);
+            // PWACommonReportData.RptDatabaseVersionValue = GuiCommon.bizPwaobject.dataRevision.ToString();// string.Empty;
+            PWACommonReportData.RptGroupNameTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblGroup);
+
+            PWACommonReportData.RptGroupNameValue = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.EnvClinicalText);
 
             PWACommonReportData.RptWaveformPlotTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptWaveformPlotTitle);
 
@@ -2389,17 +2376,20 @@ namespace AtCor.Scor.Gui.Presentation
 
             PWACommonReportData.RptNumberOfWaveformsTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptNumberOfWaveformsTitle);
 
-            PWACommonReportData.RptNumberOfWaveformsValue = string.Empty;
-
+            // PWACommonReportData.RptNumberOfWaveformsValue = string.Empty;
             PWACommonReportData.RptQualityControlTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptQualityControlTitle);
 
-            PWACommonReportData.RptQualityControlValue = crxPwaCuffData.P_QC_OTHER4.ToString();
+            PWACommonReportData.RptQualityControlValue = crxPwaCuffData.OperatorIndex.ToString();
 
             PWACommonReportData.RptSignatureTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptSignatureTitle);
 
             PWACommonReportData.RptPhysicianTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptPhysicianTitle);
 
-            PWACommonReportData.RptSimulationModeTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptSimulationModeTitle);
+            PWACommonReportData.RptSimulationModeTitle = crxPwaData.Simulation.Equals(true) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptSimulationModeTitle) : string.Empty;
+
+            PWACommonReportData.RptNoteTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptNoteTitle);
+
+            PWACommonReportData.RptNoteValue = GuiCommon.InConclusiveMessageForPwaCapture.Equals(string.Empty) ? string.Empty : GuiCommon.InConclusiveMessageForPwaCapture;
         }
 
         /** This method fille structure "PWAClinicalReport" with the values to be printed on PWV report.
@@ -2411,11 +2401,11 @@ namespace AtCor.Scor.Gui.Presentation
 
             PWAClinicalReportData.RptCentralPressureWaveformTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptCentralPressureWaveformTitle);
 
-            //PWAClinicalReportData.RptInterpretationTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptInterpretationTitle);
+            // PWAClinicalReportData.RptInterpretationTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptInterpretationTitle);
             PWAClinicalReportData.RptInterpretationTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblNotes);
 
-            PWAClinicalReportData.RptInterpretationValue = crxPwaData.Medication;// string.Empty;
-           
+            PWAClinicalReportData.RptInterpretationValue = crxPwaData.Notes;
+
             PWAClinicalReportData.RptBrachialTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptBrachialTitle);
 
             PWAClinicalReportData.RptAroticTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptAroticTitle);
@@ -2485,28 +2475,26 @@ namespace AtCor.Scor.Gui.Presentation
             PWAEvaluationReportData.RptMPSystoleDiastoleValue = string.Format("{0},{1}", Math.Round(crxPwaData.C_Mps), Math.Round(crxPwaData.C_Mpd));
         }
 
+         /** This method fill structure "PWAPatientReport" with the values to be printed on PWV report.
+       * This values will be used in Crystal Reports.
+       * */
+        private void FillStructForPWAPatientReport()
+        {
+            PWAClinicalReportData.RptSPAroticValue = crxPwaData.C_Sp.Equals(GuiConstants.DefaultValue) ? string.Empty : Math.Round(crxPwaData.C_Sp).ToString();
+            PWAClinicalReportData.RptDPAroticValue = crxPwaData.C_Dp.Equals(GuiConstants.DefaultValue) ? string.Empty : Math.Round(crxPwaData.C_Dp).ToString();
+            RptPwaFillAroticValue();
+            PWAClinicalReportData.RptHRAroticValue = crxPwaData.HR.Equals(GuiConstants.DefaultValue) ? string.Empty : Math.Round(crxPwaData.HR).ToString();
+            PWAPatientReportData.RptPatientAssessment = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptDateAndMeasurement);
+        }
+
         /** This method "SetBPForPWAReport" will return string for BP values
       * This values will be used in Crystal Reports.
       * */
         private string SetBPForPWAReport()
         {
             string blpValue = string.Empty;
-            blpValue = GuiCommon.bizPwaobject.bloodPressure.SP.Reading.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash) + GuiCommon.bizPwaobject.bloodPressure.DP.Reading.ToString();                    
+            blpValue = string.Format("{0} {1}", GuiCommon.bizPwaobject.bloodPressure.SP.Reading.ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash) + GuiCommon.bizPwaobject.bloodPressure.DP.Reading.ToString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.UnitsPressureMmhg));
             return blpValue;
-        }
-
-        /** This event "guiradbtnPrint_Click" is called when user click print button 
-         * */
-        private void guiradbtnPrint_Click(object sender, EventArgs e)
-        {
-            FillStructForPWACommonReport();
-            FillStructForPWAClinicalReport();
-            FillStructForPWAEvaluationReport();
-            
-            PWACommonReportData.RptPrintType = crxMgrObject.PwaSettings.DefaultReport;
-
-            PWAClinicalPreview rpPreview = new PWAClinicalPreview();
-            rpPreview.Show();
         }
 
         /** This event "guiPwaClinicalReport_Click" is called when user click "Clinical" print button 
@@ -2516,8 +2504,53 @@ namespace AtCor.Scor.Gui.Presentation
             FillStructForPWACommonReport();
             FillStructForPWAClinicalReport();
             PWACommonReportData.RptPrintType = CrxStructCommonResourceMsg.PwaClinicalReport;
-            PWAClinicalPreview rpPreview = new PWAClinicalPreview();    
+            PWAClinicalPreview rpPreview = new PWAClinicalPreview();
             rpPreview.Show();
+        }
+
+        /** This event "guiPwaPatientReport_Click" is called when user click "Patient" print button 
+      * */
+        private void guiPwaPatientReport_Click(object sender, EventArgs e)
+        {
+            PWACommonReportData.RptPrintType = CrxStructCommonResourceMsg.PwaPatientReport;
+            FillStructForPWACommonReport();
+            FillStructForPWAPatientReport();
+            PWAPatientPreview rpPreview = new PWAPatientPreview();
+            rpPreview.Show();
+        }
+
+        /** This event fires when user tries to navigate to top menu tabs on report screen
+         * It prompts user to save changes if user is in edit mode and accordingly navigates to top menu
+         */
+        private void SaveChangesOnMenuFocus(object sender, EventArgs e)
+        {
+            GuiCommon.IsMenuItemShown = true;
+            if (!guiradbtnreportedit.Visible)
+            {
+                if (isValueChanged)
+                {
+                    DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgSaveChange), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNoCancel, RadMessageIcon.Question);
+
+                    // Keeping Yes and No separate for future use.                     
+                    switch (ds)
+                    {
+                        case DialogResult.Yes:
+                            // save changes before navigating to report screen
+                            Invoke(new EventHandler(guiradbtnreportsave_Click));
+                        
+                            break;
+                        case DialogResult.No:
+                            // navigate to menu item without saving changes
+                            SetPWADsiplayMode();
+                            isValueChanged = false;
+                            break;
+                        default:
+                            // stay on report screen
+                            GuiCommon.IsMenuItemShown = false;
+                            break;
+                    }
+                }
+            }
         }
 
         /** This method "RptPwaFillBrachialValue" will return string for filling Brachial values
@@ -2574,7 +2607,6 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void DisplayInconclusiveMessage(object sender, EventArgs e)
         {
-            GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = false;
             if (GuiCommon.IsOnSetupScreen)
             {
                 objDefaultWindow.radlblMessage.Text = string.Empty;
@@ -2583,7 +2615,6 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 objDefaultWindow.radlblMessage.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiSimulationModeMessage);
             }
-            GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick -= new EventHandler(DisplayInconclusiveMessage);
         }
 
         /** This method "SetPatientHeightValue" will return string for filling Height Weight values
@@ -2595,11 +2626,354 @@ namespace AtCor.Scor.Gui.Presentation
 
             int heigthInFeet = int.Parse(GuiCommon.bizPwaobject.heightAndWeight.heightInInches.ToString()) / 12;
 
-            string HeightValue = CrxConfigManager.Instance.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) ?
+            string heightValue = CrxConfigManager.Instance.GeneralSettings.HeightandWeightUnit.Equals((int)CrxGenPwvValue.CrxGenHeightWeightMetric) ?
                 GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres.Equals(GuiConstants.DefaultValue) ? string.Empty : GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres.ToString() + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Cm)
-                : GuiCommon.bizPwaobject.heightAndWeight.heightInInches.Equals(GuiConstants.DefaultValue) ? string.Empty : heigthInFeet.ToString() + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Feet) + " , " + heightInInches + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Inch);//string.Empty;            
+                : GuiCommon.bizPwaobject.heightAndWeight.heightInInches.Equals(GuiConstants.DefaultValue) ? string.Empty : heigthInFeet.ToString() + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Feet) + " , " + heightInInches + " " + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Inch);            
 
-            return HeightValue;
+            return heightValue;
+        }
+
+        private void guipnlSliderControls_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, this.guipnlSliderControls.DisplayRectangle, System.Drawing.Color.WhiteSmoke, ButtonBorderStyle.Solid); 
+        }
+
+        private void guipnlAverageAorticChart_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, this.guipnlAverageAorticChart.DisplayRectangle, System.Drawing.Color.WhiteSmoke, ButtonBorderStyle.Solid); 
+        }
+
+        /** This method is used to bind custom labels for X-Axis for both Heart rate & Pwv Velocity trend chart
+        * */
+        private void BindCustomLabelForTrendCharts(int seriesLength)
+        {
+            Font labelFontMax = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMax.ToString()].ToString()));  // sets font max size for analysis chart x axis labels
+            Font labelFontMin = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMin.ToString()].ToString())); // sets font min size for analysis chart x axis labels
+            guiradLargeChart.ChartAreas[0].AxisX.CustomLabels.Clear();
+            guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Angle = LblHorizontalAngle;
+            guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = labelFontMax;
+            for (int hrseries1 = 0; hrseries1 < seriesLength; hrseries1++)
+            {
+                // if (hrseries1 > (5 * labelInterval))
+                if (hrseries1 == 1)
+                {
+                    guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMax.ToString()].ToString()) - 2);
+                }
+                else if (hrseries1 == 2)
+                {
+                    guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMin.ToString()].ToString()) + 1);
+                }
+                else if (hrseries1 >= 3)
+                {
+                    guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMin.ToString()].ToString()) + 1);
+                    guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Angle = LblVerticalAngle;
+                }
+
+                if (seriesLength > 20)
+                {
+                    if (hrseries1 % 2 == 0)
+                    {
+                        guiradLargeChart.ChartAreas[0].AxisX.CustomLabels.Add(hrseries1 - 1, hrseries1 + 1, string.Format("{0:g}", Convert.ToDateTime(date[hrseries1].ToString())));
+                    }
+                }
+                else
+                {
+                    guiradLargeChart.ChartAreas[0].AxisX.CustomLabels.Add(hrseries1 - 1, hrseries1 + 1, string.Format("{0:g}", Convert.ToDateTime(date[hrseries1].ToString())));
+                }
+            }
+        }
+
+        private CrxStructPWAMeasurementData getCrxPWAData(DataSet dsPWA, CrxStructPWAMeasurementData crxPwaData1)
+        {
+            if (dsPWA.Tables[0].Rows.Count > 0)
+            {
+                crxPwaData1.AuditChange = DateTime.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.AuditChange].ToString(), CrxCommon.gCI);
+                crxPwaData1.Age = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Age].ToString());
+                crxPwaData1.BloodPressureRange = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.BloodPressureRange].ToString();
+                crxPwaData1.BodyMassIndex = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.BodyMassIndex].ToString());
+                crxPwaData1.C_Agph = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Agph].ToString());
+                crxPwaData1.C_Ai = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Ai].ToString());
+                crxPwaData1.C_Al = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Al].ToString());
+                crxPwaData1.C_Ap = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Ap].ToString());
+                crxPwaData1.C_Area_Ratio = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Area_Ratio].ToString());
+                crxPwaData1.C_Ati = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Ati].ToString());
+                byte[] buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_AV_PULSE];
+                int len = buffer.Length / 4;
+                crxPwaData1.C_AV_PULSE = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+                crxPwaData1.C_Avd = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Avd].ToString());
+                crxPwaData1.C_Avi = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Avi].ToString());
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Backward];
+                len = buffer.Length / 4;
+                crxPwaData1.C_Backward = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+                crxPwaData1.C_Backward_Area = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Backward_Area].ToString());
+                crxPwaData1.C_Dd = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Dd].ToString());
+                crxPwaData1.C_DdPeriod = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_DdPeriod].ToString());
+                crxPwaData1.C_Dp = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Dp].ToString());
+                crxPwaData1.C_Dti = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Dti].ToString());
+                crxPwaData1.C_EdPeriod = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_EdPeriod].ToString());
+                crxPwaData1.C_Esp = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Esp].ToString());
+                crxPwaData1.C_FloatSpare1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_FloatSpare1].ToString());
+                crxPwaData1.C_FloatSpare2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_FloatSpare2].ToString());
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Typical];
+                len = buffer.Length / 4;
+                crxPwaData1.C_Typical = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Forward];
+                len = buffer.Length / 4;
+                crxPwaData1.C_Forward = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+                crxPwaData1.C_Forward_Area = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Forward_Area].ToString());
+                crxPwaData1.C_IntSpare1 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_IntSpare1].ToString());
+                crxPwaData1.C_IntSpare2 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_IntSpare2].ToString());
+                crxPwaData1.C_Math_Params = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Math_Params].ToString());
+                crxPwaData1.C_Meanp = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Meanp].ToString());
+                crxPwaData1.C_MemSpare1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_MemSpare1].ToString());
+                crxPwaData1.C_MemSpare2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_MemSpare2].ToString());
+                crxPwaData1.C_Mpd = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Mpd].ToString());
+                crxPwaData1.C_Mps = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Mps].ToString());
+                crxPwaData1.C_Ole_Spare = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Ole_Spare].ToString();
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_ONSETS];
+                len = buffer.Length / 2;
+                crxPwaData1.C_ONSETS = dbMagr.CommonByteArrtoShortArr(buffer, len);               
+                crxPwaData1.C_P1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_P1].ToString());
+                crxPwaData1.C_P1_Height = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_P1_Height].ToString());
+                crxPwaData1.C_P2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_P2].ToString());
+                crxPwaData1.C_Period = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Period].ToString());
+                crxPwaData1.C_Ph = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Ph].ToString());
+                crxPwaData1.C_Pptt = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Pptt].ToString());
+                crxPwaData1.C_Pulse_Ratio = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Pulse_Ratio].ToString());
+                crxPwaData1.C_Pwv = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Pwv].ToString());
+                crxPwaData1.C_Qc_Other1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Qc_Other1].ToString());
+                crxPwaData1.C_Qc_Other2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Qc_Other2].ToString());
+                crxPwaData1.C_Qc_Other3 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Qc_Other3].ToString());
+                crxPwaData1.C_Qc_Other4 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Qc_Other4].ToString());
+                crxPwaData1.C_Quality_T1 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Quality_T1].ToString());
+                crxPwaData1.C_Quality_T2 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Quality_T2].ToString());
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_RAW_SIGNALS];
+                len = buffer.Length / 4;
+                crxPwaData1.C_RAW_SIGNALS = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_ResemblePulse];
+                len = buffer.Length / 4;
+                crxPwaData1.C_ResemblePulse = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+                crxPwaData1.C_Sp = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Sp].ToString());
+                crxPwaData1.C_Svi = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Svi].ToString());
+                crxPwaData1.C_T1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1].ToString());
+                crxPwaData1.C_T1ED = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1ED].ToString());
+                crxPwaData1.C_T1i = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1i].ToString());
+                crxPwaData1.C_T1m = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1m].ToString());
+                crxPwaData1.C_T1other = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1other].ToString());
+                crxPwaData1.C_T1r = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T1r].ToString());
+                crxPwaData1.C_T2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2].ToString());
+                crxPwaData1.C_T2ED = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2ED].ToString());
+                crxPwaData1.C_T2i = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2i].ToString());
+                crxPwaData1.C_T2M = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2M].ToString());
+                crxPwaData1.C_T2Other = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2Other].ToString());
+                crxPwaData1.C_T2R = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_T2R].ToString());
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_TRIGS];
+                len = buffer.Length / 2;
+                crxPwaData1.C_TRIGS = dbMagr.CommonByteArrtoShortArr(buffer, len);
+                crxPwaData1.C_Tti = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Tti].ToString());
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.C_Uncal_Av];
+                len = buffer.Length / 4;
+                crxPwaData1.C_Uncal_Av = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+                crxPwaData1.CalcED = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CalcED].ToString());
+                crxPwaData1.CalDP = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CalDP].ToString());
+                crxPwaData1.CalMP = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CalMP].ToString());
+                crxPwaData1.CalSP = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CalSP].ToString());
+                crxPwaData1.CaptureInput = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CaptureInput].ToString());
+                crxPwaData1.CaptureTime = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.CaptureTime].ToString());
+                crxPwaData1.DataRev = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.DataRev].ToString());
+                crxPwaData1.DP = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.DP].ToString());
+                crxPwaData1.ED = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.ED].ToString());
+                crxPwaData1.EDMax = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.EDMax].ToString());
+                crxPwaData1.EDMin = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.EDMin].ToString());
+                crxPwaData1.EDOther = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.EDOther].ToString());
+                crxPwaData1.ExpPulseUpSampleRate = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.ExpPulseUpSampleRate].ToString());
+                crxPwaData1.FloatSpare1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.FloatSpare1].ToString());
+                crxPwaData1.Flow = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Flow].ToString());
+                crxPwaData1.GroupIdentifier = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.GroupIdentifier].ToString());
+                crxPwaData1.HeightInCentimetres = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.HeightInCentimetres].ToString());
+                crxPwaData1.HeightInInches = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.HeightInInches].ToString());
+                crxPwaData1.HR = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.HR].ToString());
+                crxPwaData1.AuditFlag = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.AuditFlag].ToString());
+                crxPwaData1.Medication = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Medication].ToString();
+                crxPwaData1.Interpretation = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Interpretation].ToString();
+                crxPwaData1.AuditReason = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.AuditReason].ToString();
+                crxPwaData1.Message = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Message].ToString();
+                crxPwaData1.MP = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.MP].ToString());
+                crxPwaData1.Notes = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Notes].ToString();
+                crxPwaData1.Operator = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Operator].ToString();
+                crxPwaData1.PatientNumberInternal = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.PatientNumberInternal].ToString());
+                crxPwaData1.PWA_Id = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.PWA_Id].ToString());
+                crxPwaData1.QualityED = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.QualityED].ToString());
+                crxPwaData1.SampleRate = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.SampleRate].ToString());
+                crxPwaData1.SignalUpSampleRate = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.SignalUpSampleRate].ToString());
+                crxPwaData1.Simulation = bool.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Simulation].ToString());
+                crxPwaData1.SP = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.SP].ToString());
+                crxPwaData1.StudyDateTime = DateTime.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.StudyDateTime].ToString());
+                crxPwaData1.SubType = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.SubType].ToString();
+                crxPwaData1.SystemIdentifier = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.SystemIdentifier].ToString());
+                crxPwaData1.Units = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.Units].ToString();
+                crxPwaData1.WeightInKilograms = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.WeightInKilograms].ToString());
+                crxPwaData1.WeightInPounds = short.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.WeightInPounds].ToString());
+            }
+
+            return crxPwaData1;
+        }
+
+        private CrxStructCuffPWAMeasurementData getCrxPWACuffData(DataSet dsPWA, CrxStructCuffPWAMeasurementData crxPwaCuffData1)
+        {
+            if (dsPWA.Tables[0].Rows.Count > 0)
+            {
+                byte[] buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_AV_PULSE];
+                int len = buffer.Length / 4;               
+                crxPwaCuffData1.P_AV_PULSE = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+                crxPwaCuffData1.P_DP = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_DP].ToString());
+                crxPwaCuffData1.P_FLOATSPARE1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_FLOATSPARE1].ToString());
+                crxPwaCuffData1.P_FLOATSPARE2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_FLOATSPARE2].ToString());
+                crxPwaCuffData1.P_INTSPARE1 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_INTSPARE1].ToString());
+                crxPwaCuffData1.P_INTSPARE2 = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_INTSPARE2].ToString());
+                crxPwaCuffData1.P_MATH_PARAMS = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_MATH_PARAMS].ToString());
+                crxPwaCuffData1.P_MAX_DPDT = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_MAX_DPDT].ToString());
+                crxPwaCuffData1.P_MEANP = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_MEANP].ToString());
+                crxPwaCuffData1.P_MEMSPARE1 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_MEMSPARE1].ToString());
+                crxPwaCuffData1.P_MEMSPARE2 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_MEMSPARE2].ToString());
+                crxPwaCuffData1.P_NOISE_FACTOR = int.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_NOISE_FACTOR].ToString());
+                crxPwaCuffData1.P_OLE_SPARE = dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_OLE_SPARE].ToString();
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_ONSETS];
+                len = buffer.Length / 2;
+                crxPwaCuffData1.P_ONSETS = dbMagr.CommonByteArrtoShortArr(buffer, len);
+                crxPwaCuffData1.P_QC_DV = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_DV].ToString());
+                crxPwaCuffData1.QC_Scale = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.QC_Scale].ToString());
+                crxPwaCuffData1.QC_ShapeDeviation = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.QC_ShapeDeviation].ToString());
+                crxPwaCuffData1.P_QC_OTHER3 = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_OTHER3].ToString());
+                crxPwaCuffData1.OperatorIndex = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.OperatorIndex].ToString());
+                crxPwaCuffData1.P_QC_PH = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_PH].ToString());
+                crxPwaCuffData1.P_QC_PHV = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_PHV].ToString());
+                crxPwaCuffData1.P_QC_PLV = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_QC_PLV].ToString());
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_RAW_SIGNALS];
+                len = buffer.Length / 4;
+                crxPwaCuffData1.P_RAW_SIGNALS = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_ResemblePulse];
+                len = buffer.Length / 4;
+                crxPwaCuffData1.P_ResemblePulse = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+                crxPwaCuffData1.P_SP = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_SP].ToString());
+                crxPwaCuffData1.P_T1I = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T1I].ToString());
+                crxPwaCuffData1.P_T1M = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T1M].ToString());
+                crxPwaCuffData1.P_T1Other = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T1Other].ToString());
+                crxPwaCuffData1.P_T1R = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T1R].ToString());
+                crxPwaCuffData1.P_T2I = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T2I].ToString());
+                crxPwaCuffData1.P_T2M = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T2M].ToString());
+                crxPwaCuffData1.P_T2Other = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T2Other].ToString());
+                crxPwaCuffData1.P_T2R = float.Parse(dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_T2R].ToString());
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_TRIGS];
+                len = buffer.Length / 2;
+                crxPwaCuffData1.P_TRIGS = dbMagr.CommonByteArrtoShortArr(buffer, len);
+
+                buffer = (byte[])dsPWA.Tables[0].Rows[0][(int)CrxDBGetCuffPWAMeasurementDetails.P_UNCAL_AV];
+                len = buffer.Length / 4;
+                crxPwaCuffData1.P_UNCAL_AV = dbMagr.CommonByteArrtoFloatArr(len, buffer);
+            }
+
+            return (crxPwaCuffData1);
+        }
+
+        private double[] prepareAix75Data(string selectedAssesmentIds)
+        {
+            string[] selectedIds = selectedAssesmentIds.Split(GuiConstants.Separator);
+            double[] aixData = new double[selectedIds.Length - 1];
+
+            BizPWA aixBizPWA = (BizPWA)BizSession.Instance().measurement;
+            CrxPwaCaptureInput pwaCaptureInput = new CrxPwaCaptureInput();
+            bool value = GuiCommon.bizPwaobject.GetCurrentCaptureInput(ref pwaCaptureInput);
+            if (!Convert.ToInt32(pwaCaptureInput).Equals(crxPwaData.CaptureInput))
+            {
+                if (crxPwaData.CaptureInput.Equals(Convert.ToInt32(CrxPwaCaptureInput.Tonometer)))
+                {
+                    aixBizPWA.Initialise(CrxPwaCaptureInput.Tonometer);
+                }
+                else
+                {
+                    aixBizPWA.Initialise(CrxPwaCaptureInput.Cuff);
+                }
+            }
+
+            for (int counter = 0; counter < aixData.Length; counter++)
+            {
+                CrxStructCuffPWAMeasurementData cdataAix = new CrxStructCuffPWAMeasurementData
+                {
+                    PWA_Id = Convert.ToInt32(selectedIds[counter])
+                };
+                CrxStructPWAMeasurementData pdataAix = new CrxStructPWAMeasurementData
+                {
+                    PWA_Id = Convert.ToInt32(selectedIds[counter])
+                };
+                PrepareArrayObjectsForPwaMode(pdataAix, cdataAix);
+
+                DataSet dsPWAAix = dbMagr.GetCuffPWAMeasurementDetails(pdataAix, cdataAix);
+
+                CrxStructPWAMeasurementData crxPwaDataAix = new CrxStructPWAMeasurementData();
+                CrxStructCuffPWAMeasurementData crxPwaCuffDataAix = new CrxStructCuffPWAMeasurementData();
+
+                PrepareArrayObjectsForPwaMode(crxPwaDataAix, crxPwaCuffDataAix);
+                
+                crxPwaDataAix = getCrxPWAData(dsPWAAix, crxPwaDataAix);
+                crxPwaCuffDataAix = getCrxPWACuffData(dsPWAAix, crxPwaCuffDataAix);
+
+                aixBizPWA.Populate(crxPwaDataAix, crxPwaCuffDataAix);
+                aixBizPWA.Validate();
+                aixData[counter] = Math.Round(aixBizPWA.AGPH_HR75, 2);
+                CrxLogger.Instance.Write("Aix75 Data :" + Math.Round(aixBizPWA.AGPH_HR75, 2));
+            }
+
+            return aixData;
+        }
+
+        private void guiradtxtImperialHeight_TextChanged(object sender, EventArgs e)
+        {
+            if (!guiradbtnreportedit.Visible)
+            {
+                isValueChanged = true;
+            }
+        }
+
+        private void guiradtxtReportHeight_TextChanged(object sender, EventArgs e)
+        {
+            if (!guiradbtnreportedit.Visible)
+            {
+                isValueChanged = true;
+            }
+        }
+
+        private void guiradtxtMedicationNotesValue_TextChanged(object sender, EventArgs e)
+        {
+            if (!guiradbtnreportedit.Visible)
+            {
+                isValueChanged = true;
+            }
+        }
+
+        /** This event fires when mouse pointer is hovered over PWV / heart rate trend analysis chart. 
+         * It fetches datapoints (x & y values) for that control and displays data elated to it
+         * */
+        private void Chart_GetToolTipText(object sender, ToolTipEventArgs e)
+        {
+            try
+            {
+                  switch (e.HitTestResult.ChartElementType)
+                  {
+                // Check selected chart element and set tooltip text   
+                // if it is axislabel get the text of it to show as tool tip
+                      case ChartElementType.AxisLabels:
+                  CustomLabel s = (CustomLabel)e.HitTestResult.Object;
+                   e.Text = s.Text;
+                   break;
+                      default:
+                   break;
+            }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
     }
 }

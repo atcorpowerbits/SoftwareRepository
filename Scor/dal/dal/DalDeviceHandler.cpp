@@ -57,7 +57,7 @@ namespace AtCor{
 
 			bool DalDeviceHandler::StartCapture(int captureTime, int samplingRate)
 			{
-				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StartCapture Called");
+				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
 
 				//create a buffer of the required size
 				try
@@ -149,8 +149,8 @@ namespace AtCor{
 
 			bool DalDeviceHandler::StopCapture()
 			{
-				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture Called");
-				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture START");
+				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture Called", ErrorSeverity::Debug);
+				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture START", ErrorSeverity::Debug);
 					
 				//check if  the comand interface isnt already created
 				if (nullptr == _commandInterface)
@@ -165,13 +165,12 @@ namespace AtCor{
 
 				returnValue = _commandInterface->SendCommandAndGetResponse(startCaptureCommand); //renamed oringinal method
 
-				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture returnValue" + returnValue.ToString());
+				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture returnValue" + returnValue.ToString(), ErrorSeverity::Debug);
 
 				
-				///TODO: replacing the state machine dependent method with the direct call.
-				if(!(_commandInterface->StopDataCaptureModeInternal()))
+				if(!(_commandInterface->StopDataCaptureMode()))
 				{
-					//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopDataCaptureMode returned false");
+					//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopDataCaptureMode returned false", ErrorSeverity::Debug);
 				}
 
 				//Free up the reserved sequence number so that it can be reused
@@ -316,7 +315,7 @@ namespace AtCor{
 
 				for each (String ^ portName in listOfSerialPorts)
 				{
-					////CrxLogger::Instance->Write("Ports Listed: " + portName);
+					////CrxLogger::Instance->Write("Ports Listed: " + portName, ErrorSeverity::Debug);
 					if (CheckIfDeviceIsConnected(portName))
 					{
 						//Device is present on another com port
@@ -425,7 +424,7 @@ namespace AtCor{
 
 			bool DalDeviceHandler::SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard)
 			{
-				//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure called with pressure:" + newPressure);
+				//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure called with pressure:" + newPressure, ErrorSeverity::Debug);
 				unsigned short pressureToSet = (unsigned short)newPressure;
 
 				unsigned char pressureMSB, pressureLSB, commandByte;
@@ -456,13 +455,13 @@ namespace AtCor{
 
 					if (_commandInterface->SendCommandAndGetResponse(setPressureCommand) ==DalReturnValue::Success) //renamed oringinal method
 					{
-						//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Successful" );
+						//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Successful" , ErrorSeverity::Debug);
 				
 						return true; 
 					}
 					else
 					{
-						//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Failed" );
+						//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Failed" , ErrorSeverity::Debug);
 						return false;
 					}
 				}

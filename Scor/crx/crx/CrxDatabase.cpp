@@ -161,6 +161,7 @@ void CrxDBManager::GetPWVTrendData(int patientNumberInternal, int groupIdentifie
 		_objDB->AddOutParameter(addCommand,CrxDbStructParametersList::SpValidArrStr,DbType::String,studyDateTimeArrStr->Length);
 		_objDB->AddOutParameter(addCommand,CrxDbStructParametersList::DpValidArrStr,DbType::String,studyDateTimeArrStr->Length);
 		_objDB->AddOutParameter(addCommand,CrxDbStructParametersList::MpValidArrStr,DbType::String,studyDateTimeArrStr->Length);
+		_objDB->AddOutParameter(addCommand,CrxDbStructParametersList::MeanCorrectedTimeArrStr,DbType::String,studyDateTimeArrStr->Length);
 		
 		//Execute stored procedure
 		_objDB->ExecuteNonQuery(addCommand);
@@ -172,6 +173,7 @@ void CrxDBManager::GetPWVTrendData(int patientNumberInternal, int groupIdentifie
 		trendDataStruct->SpValidArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,CrxDbStructParametersList::SpValidArrStr),CrxCommon::gCI);
 		trendDataStruct->DpValidArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,CrxDbStructParametersList::DpValidArrStr),CrxCommon::gCI);
 		trendDataStruct->MpValidArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,CrxDbStructParametersList::MpValidArrStr),CrxCommon::gCI);
+		trendDataStruct->MeanCorrectedTimeArrStr = Convert::ToString(_objDB->GetParameterValue(addCommand,CrxDbStructParametersList::MeanCorrectedTimeArrStr),CrxCommon::gCI);
 	}
 	catch(ScorException^ crxObj)
 	{
@@ -1312,7 +1314,7 @@ int CrxDBManager::DatabaseBackup(System::String ^filePath)
 		{
 			errorMessage = CrxDbStructInternal::BackupFail;
 		}	
-		objLog->Write(errorMessage);
+		objLog->Write(errorMessage,ErrorSeverity::Information);
 	}
 }
 int CrxDBManager::DatabaseRestore(System::String ^filePath)
@@ -1363,7 +1365,7 @@ int CrxDBManager::DatabaseRestore(System::String ^filePath)
 		{
 			errorMessage = CrxDbStructInternal::RestoreFail;
 		}	
-		objLog->Write(errorMessage);
+		objLog->Write(errorMessage,ErrorSeverity::Information);
 	}
 }
 
@@ -1559,9 +1561,9 @@ int CrxDBManager::MigrationInternal(OleDbDataReader ^rdr, CrxLogger^ objLog, int
 		//Create and begin transaction
 		dbtransaction = dbconnection->BeginTransaction();
 
-		objLog->Write(CrxDbStructInternal::MigrationStartedStr);
+		objLog->Write(CrxDbStructInternal::MigrationStartedStr,ErrorSeverity::Information);
 		details = CrxDbStructInternal::MigrationPatientListHeaderFormat;
-		objLog->Write(details);
+		objLog->Write(details,ErrorSeverity::Information);
 		details = nullptr;
 
 		array<String^>^ skipPatientlog = gcnew array<String^>(rowNum);
@@ -1623,16 +1625,16 @@ int CrxDBManager::MigrationInternal(OleDbDataReader ^rdr, CrxLogger^ objLog, int
 
 		totDetailsMigrated = String::Format(CrxDbStructInternal::MigrationPatientTotMigratedFormat,totresult); 
 		totDetailsSkipped = String::Format(CrxDbStructInternal::MigrationPatientTotSkippedFormat,totskipresult); 
-		objLog->Write(totDetailsSkipped);
-		objLog->Write(totDetailsMigrated);	
+		objLog->Write(totDetailsSkipped,ErrorSeverity::Information);
+		objLog->Write(totDetailsMigrated,ErrorSeverity::Information);	
 
-		objLog->Write(CrxDbStructInternal::MigrationCompletedStr);
+		objLog->Write(CrxDbStructInternal::MigrationCompletedStr,ErrorSeverity::Information);
 
 		return result = 0;	
 	}
 	catch(Exception^)
 	{
-		objLog->Write(CrxDbStructInternal::MigrationFailedStr);	
+		objLog->Write(CrxDbStructInternal::MigrationFailedStr,ErrorSeverity::Information);	
 
 		try
 		{
@@ -1661,7 +1663,7 @@ void CrxDBManager::MigrationLogDetail(CrxLogger^ objLog, array<String^>^ skipPat
 	//Log total patient migrated and skipped in the scor.log file
 	for(int arr= 0; arr < totskipresult; arr++ )
 	{		
-		objLog->Write(skipPatientlog[arr]);
+		objLog->Write(skipPatientlog[arr],ErrorSeverity::Information);
 	}
 }
 
@@ -1782,10 +1784,10 @@ int CrxDBManager::SaveCuffPWAMeasurementDetails(AtCor::Scor::CrossCutting::Datab
 		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::HeightInInches,DbType::Int16,pwaMD->HeightInInches);
 		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::BodyMassIndex,DbType::Single,pwaMD->BodyMassIndex);
 
-		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::MemSpare1,DbType::String,pwaMD->MemSpare1);
-		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::MemSpare2,DbType::String,pwaMD->MemSpare2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::Interpretation,DbType::String,pwaMD->Interpretation);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::AuditReason,DbType::String,pwaMD->AuditReason);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::Simulation,DbType::Boolean,pwaMD->Simulation);
-		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::IntSpare2,DbType::Int32,pwaMD->IntSpare2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::AuditFlag,DbType::Int32,pwaMD->AuditFlag);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::FloatSpare1,DbType::Single,pwaMD->FloatSpare1);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::DataRev,DbType::Int32,pwaMD->DataRev);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::SubType,DbType::String,pwaMD->SubType);
@@ -1951,15 +1953,15 @@ int CrxDBManager::SaveCuffPWAMeasurementDetails(AtCor::Scor::CrossCutting::Datab
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Ati,DbType::Single,pwaMD->C_Ati);
 
 		//get the length of array
-		len = pwaMD->C_Flow->Length;
+		len = pwaMD->C_Typical->Length;
 		//initiaze the size of the array
 		buffarr = gcnew array<Byte>(len*sizeof(float));
 		//Calling common function convert to byte array
-		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_Flow);
+		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_Typical);
 		//initializing sqlparameter object to pass the parameter value
 		parameter = nullptr;
 		parameter = gcnew SqlParameter();
-		parameter->ParameterName = CrxDbStructPwaParametersList::C_Flow;         
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_Typical;         
 		parameter->SqlDbType = SqlDbType::VarBinary;  	
 		parameter->Direction = ParameterDirection::Input;         
 		parameter->Value = buffarr;
@@ -2128,10 +2130,10 @@ int CrxDBManager::SaveCuffPWAMeasurementDetails(AtCor::Scor::CrossCutting::Datab
 		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Plv,DbType::Single,cuffPwaMD->P_QC_PLV);
 		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Dv,DbType::Single,cuffPwaMD->P_QC_DV);
 
-		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other1,DbType::Single,cuffPwaMD->P_QC_OTHER1);
-		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other2,DbType::Single,cuffPwaMD->P_QC_OTHER2);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::QC_Scale,DbType::Single,cuffPwaMD->QC_Scale);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::QC_ShapeDeviation,DbType::Single,cuffPwaMD->QC_ShapeDeviation);
 		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other3,DbType::Single,cuffPwaMD->P_QC_OTHER3);
-		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other4,DbType::Single,cuffPwaMD->P_QC_OTHER4);		
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::OperatorIndex,DbType::Single,cuffPwaMD->OperatorIndex);		
 		
 		//Execute stored procedure and return int result how many rows affected
 		result = _objDB->ExecuteNonQuery(addCommand);	
@@ -2194,10 +2196,10 @@ int CrxDBManager::UpdateCuffPWAMeasurementDetails(AtCor::Scor::CrossCutting::Dat
 		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::HeightInInches,DbType::Int16,pwaMD->HeightInInches);
 		_objDB->AddInParameter(addCommand,CrxDbStructParametersList::BodyMassIndex,DbType::Single,pwaMD->BodyMassIndex);
 
-		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::MemSpare1,DbType::String,pwaMD->MemSpare1);
-		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::MemSpare2,DbType::String,pwaMD->MemSpare2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::Interpretation,DbType::String,pwaMD->Interpretation);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::AuditReason,DbType::String,pwaMD->AuditReason);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::Simulation,DbType::Boolean,pwaMD->Simulation);
-		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::IntSpare2,DbType::Int32,pwaMD->IntSpare2);
+		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::AuditFlag,DbType::Int32,pwaMD->AuditFlag);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::FloatSpare1,DbType::Single,pwaMD->FloatSpare1);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::DataRev,DbType::Int32,pwaMD->DataRev);
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::SubType,DbType::String,pwaMD->SubType);
@@ -2363,15 +2365,15 @@ int CrxDBManager::UpdateCuffPWAMeasurementDetails(AtCor::Scor::CrossCutting::Dat
 		_objDB->AddInParameter(addCommand,CrxDbStructPwaParametersList::C_Ati,DbType::Single,pwaMD->C_Ati);
 
 		//get the length of array
-		len = pwaMD->C_Flow->Length;
+		len = pwaMD->C_Typical->Length;
 		//initiaze the size of the array
 		buffarr = gcnew array<Byte>(len*sizeof(float));
 		//Calling common function convert to byte array
-		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_Flow);
+		buffarr = CommonFloatArrtoByteArr(len,pwaMD->C_Typical);
 		//initializing sqlparameter object to pass the parameter value
 		parameter = nullptr;
 		parameter = gcnew SqlParameter();
-		parameter->ParameterName = CrxDbStructPwaParametersList::C_Flow;         
+		parameter->ParameterName = CrxDbStructPwaParametersList::C_Typical;         
 		parameter->SqlDbType = SqlDbType::VarBinary;  	
 		parameter->Direction = ParameterDirection::Input;         
 		parameter->Value = buffarr;
@@ -2540,10 +2542,10 @@ int CrxDBManager::UpdateCuffPWAMeasurementDetails(AtCor::Scor::CrossCutting::Dat
 		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Plv,DbType::Single,cuffPwaMD->P_QC_PLV);
 		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Dv,DbType::Single,cuffPwaMD->P_QC_DV);
 
-		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other1,DbType::Single,cuffPwaMD->P_QC_OTHER1);
-		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other2,DbType::Single,cuffPwaMD->P_QC_OTHER2);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::QC_Scale,DbType::Single,cuffPwaMD->QC_Scale);
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::QC_ShapeDeviation,DbType::Single,cuffPwaMD->QC_ShapeDeviation);
 		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other3,DbType::Single,cuffPwaMD->P_QC_OTHER3);
-		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::P_Qc_Other4,DbType::Single,cuffPwaMD->P_QC_OTHER4);		
+		_objDB->AddInParameter(addCommand,CrxDbStructCuffPwaParametersList::OperatorIndex,DbType::Single,cuffPwaMD->OperatorIndex);		
 		
 		//Execute stored procedure and return int result how many rows affected
 		result = _objDB->ExecuteNonQuery(addCommand);	
@@ -2697,11 +2699,11 @@ DataSet^ CrxDBManager::GetCuffPWAMeasurementDetails(CrxStructPWAMeasurementData 
 		pwaMD->HeightInInches				= Convert::ToInt16(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::HeightInInches,CrxCommon::gCI)],CrxCommon::gCI);
 		pwaMD->BodyMassIndex				= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::BodyMassIndex,CrxCommon::gCI)],CrxCommon::gCI);
 
-		pwaMD->MemSpare1					= Convert::ToString(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::MemSpare1,CrxCommon::gCI)],CrxCommon::gCI);
-		pwaMD->MemSpare2					= Convert::ToString(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::MemSpare2,CrxCommon::gCI)],CrxCommon::gCI);
+		pwaMD->Interpretation				= Convert::ToString(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::Interpretation,CrxCommon::gCI)],CrxCommon::gCI);
+		pwaMD->AuditReason					= Convert::ToString(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::AuditReason,CrxCommon::gCI)],CrxCommon::gCI);
 		pwaMD->Simulation					= Convert::ToBoolean(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::Simulation,CrxCommon::gCI)],CrxCommon::gCI);
 
-		pwaMD->IntSpare2					= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::IntSpare2,CrxCommon::gCI)],CrxCommon::gCI);
+		pwaMD->AuditFlag					= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::AuditFlag,CrxCommon::gCI)],CrxCommon::gCI);
 		pwaMD->FloatSpare1					= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::FloatSpare1,CrxCommon::gCI)],CrxCommon::gCI);
 
 		pwaMD->DataRev						= Convert::ToInt32(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::DataRev,CrxCommon::gCI)],CrxCommon::gCI);
@@ -2816,10 +2818,10 @@ DataSet^ CrxDBManager::GetCuffPWAMeasurementDetails(CrxStructPWAMeasurementData 
 		pwaMD->C_Al							= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::C_Al,CrxCommon::gCI)],CrxCommon::gCI);
 		pwaMD->C_Ati						= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::C_Ati,CrxCommon::gCI)],CrxCommon::gCI);
 
-		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::C_Flow,CrxCommon::gCI)]);
+		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::C_Typical,CrxCommon::gCI)]);
 		len = buffarr->Length/CrxDbStructInternal::FloatSize;
-		pwaMD->C_Flow = gcnew array<float>(len);
-		pwaMD->C_Flow = CommonByteArrtoFloatArr(len,buffarr);
+		pwaMD->C_Typical = gcnew array<float>(len);
+		pwaMD->C_Typical = CommonByteArrtoFloatArr(len,buffarr);
 
 		buffarr = (array<Byte>^)(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::C_Forward,CrxCommon::gCI)]);
 		len = buffarr->Length/CrxDbStructInternal::FloatSize;
@@ -2902,10 +2904,10 @@ DataSet^ CrxDBManager::GetCuffPWAMeasurementDetails(CrxStructPWAMeasurementData 
 		cuffPwaMD->P_QC_PHV					= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::P_QC_PHV,CrxCommon::gCI)],CrxCommon::gCI);
 		cuffPwaMD->P_QC_PLV					= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::P_QC_PLV,CrxCommon::gCI)],CrxCommon::gCI);
 		cuffPwaMD->P_QC_DV					= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::P_QC_DV,CrxCommon::gCI)],CrxCommon::gCI);
-		cuffPwaMD->P_QC_OTHER1				= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::P_QC_OTHER1,CrxCommon::gCI)],CrxCommon::gCI);
-		cuffPwaMD->P_QC_OTHER2				= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::P_QC_OTHER2,CrxCommon::gCI)],CrxCommon::gCI);
+		cuffPwaMD->QC_Scale					= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::QC_Scale,CrxCommon::gCI)],CrxCommon::gCI);
+		cuffPwaMD->QC_ShapeDeviation		= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::QC_ShapeDeviation,CrxCommon::gCI)],CrxCommon::gCI);
 		cuffPwaMD->P_QC_OTHER3				= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::P_QC_OTHER3,CrxCommon::gCI)],CrxCommon::gCI);
-		cuffPwaMD->P_QC_OTHER4				= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::P_QC_OTHER4,CrxCommon::gCI)],CrxCommon::gCI);
+		cuffPwaMD->OperatorIndex			= Convert::ToSingle(measurementdataset->Tables[0]->Rows[0][Convert::ToInt32(CrxDBGetCuffPWAMeasurementDetails::OperatorIndex,CrxCommon::gCI)],CrxCommon::gCI);
 
 				
 		return measurementdataset;
@@ -2957,4 +2959,72 @@ void CrxDBManager::GetPWATrendData(System::String ^pwaIdArrStr, CrxStructPWATren
 		// throw the exception
 		throw gcnew ScorException(eObj);
 	}	
+}
+
+array<String^>^ CrxDBManager::CommonIntArrToStringArr(cli::array<int,1> ^sortArr)
+{
+	array<String^>^ bpSort = gcnew array<String^>(sortArr->Length);
+
+    for (int i = 0; i < sortArr->Length; i++)
+    {
+		bpSort[i] = Convert::ToString(sortArr[i]);
+    }
+
+    return bpSort;
+}
+
+array<String^>^ CrxDBManager::CommonFloatArrToStringArr(cli::array<float,1> ^sortArr)
+{
+	array<String^>^ bpSort = gcnew array<String^>(sortArr->Length);
+
+    for (int i = 0; i < sortArr->Length; i++)
+    {
+		bpSort[i] = Convert::ToString(sortArr[i]);
+    }
+
+    return bpSort;
+}
+
+
+array<int>^ CrxDBManager::CommonStringArrToIntArr(cli::array<System::String ^,1> ^sortArr)
+{
+	array<int>^ bpSort = gcnew array<int>(sortArr->Length);
+
+    for (int i = 0; i < sortArr->Length; i++)
+    {
+		bpSort[i] = Convert::ToInt32(sortArr[i]);
+    }
+
+    return bpSort; 
+}
+
+array<float>^ CrxDBManager::CommonStringArrToFloatArr(cli::array<System::String ^,1> ^sortArr)
+{
+	array<float>^ bpSort = gcnew array<float>(sortArr->Length);
+
+    for (int i = 0; i < sortArr->Length; i++)
+    {
+		bpSort[i] = Convert::ToSingle(sortArr[i]);
+    }
+
+    return bpSort; 
+}
+
+array<double>^ CrxDBManager::CommonStringArrToDoubleArr(cli::array<System::String ^,1> ^sortArr)
+{
+	array<double>^ bpSort = gcnew array<double>(sortArr->Length);
+
+    for (int i = 0; i < sortArr->Length; i++)
+    {
+		bpSort[i] = Convert::ToSingle(sortArr[i]);
+    }
+
+    return bpSort; 
+}
+
+array<Byte>^ CrxDBManager::CommonImageToByteArr(System::Drawing::Image ^imageIn)
+{
+	MemoryStream^ ms = gcnew MemoryStream();
+	imageIn->Save(ms, System::Drawing::Imaging::ImageFormat::Bmp);
+    return ms->ToArray();
 }

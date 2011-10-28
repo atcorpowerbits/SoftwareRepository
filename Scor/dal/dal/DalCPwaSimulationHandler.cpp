@@ -88,10 +88,8 @@ namespace AtCor{
 			}
 
 			//new method to to read data in a loop 
-			void DalCPwaSimulationHandler::ReadMultipleEventsInLoop(Object^ sender)
+			void DalCPwaSimulationHandler::ReadMultipleEventsInLoop(Object^)
 			{
-				sender; //Dummy statement to get rid of C4100 warning
-
 				DalPwvDataStruct tempPWVDataVar;
 			
 				//variables to hold the tonometer and cuff pulse readings
@@ -102,33 +100,33 @@ namespace AtCor{
 				static bool currentCuffStateIsInflated = false;
 				
 				//Pick the number of reads from DalConstants
-				int numberOfReads = DalConstants::SimulationNumberOfReadsPerInterval;
+				//int numberOfReads = DalConstants::SimulationNumberOfReadsPerInterval;
 
 				try
 				{				
 					if (firstReadAfterCaptureStarted == true)
 					{
-						//CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString());
+						//CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString(), ErrorSeverity::Debug);
 						ResetAllStaticMembers();
 
 						tonoData = cuffPulseData = cuffAbsolutePressure = locCountdownTimer = statusBytes =  0;
 						currentCuffStateIsInflated = firstReadAfterCaptureStarted = false;
-						//CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IInd = " + firstReadAfterCaptureStarted.ToString());
+						//CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IInd = " + firstReadAfterCaptureStarted.ToString(), ErrorSeverity::Debug);
 					}
 				
 					//Read n elements in a loop. 
-					for (int counter = 0; counter < numberOfReads ; counter++)
+					for (int counter = 0; counter < DalConstants::SimulationNumberOfReadsPerInterval ; counter++)
 					{
-						//CrxLogger::Instance->Write(" for loop = " + counter.ToString() + " " +numberOfReads.ToString() + " " + locCountdownTimer.ToString());
-						//CrxLogger::Instance->Write(" cuffInUse = " + cuffInUse.ToString());
+						//CrxLogger::Instance->Write(" for loop = " + counter.ToString() + " " +numberOfReads.ToString() + " " + locCountdownTimer.ToString(), ErrorSeverity::Debug);
+						//CrxLogger::Instance->Write(" cuffInUse = " + cuffInUse.ToString(), ErrorSeverity::Debug);
 						//if (locCountdownTimer <=0)  //Changed by TS
 						if (locCountdownTimer <=0 && cuffInUse) 
 						{
-							//CrxLogger::Instance->Write(" locCountdownTimer <=0 && cuffInUse = " + locCountdownTimer.ToString() +" " + cuffInUse.ToString());
+							//CrxLogger::Instance->Write(" locCountdownTimer <=0 && cuffInUse = " + locCountdownTimer.ToString() +" " + cuffInUse.ToString(), ErrorSeverity::Debug);
 
 							//get next set of values from the cufff simulation file
 							_cuffTimerSimulationFile->GetNextValues(&locCountdownTimer, &cuffAbsolutePressure, &statusBytes, &locEASourceFlag);
-							//CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X2") + " ,locEASourceFlag" + locEASourceFlag.ToString("X2"));
+							//CrxLogger::Instance->Write("locCountdownTimer" + locCountdownTimer + ", cuffAbsolutePressure:" + cuffAbsolutePressure + ", statusBytes" + statusBytes.ToString("X2") + " ,locEASourceFlag" + locEASourceFlag.ToString("X2"), ErrorSeverity::Debug);
 
 							//store the Error/alarm SOURCE in the global variable. If an event is raised we need to retrive the stored value to find the source.
 							_currentEASourceFlag = locEASourceFlag;
@@ -150,30 +148,31 @@ namespace AtCor{
 						}
 
 						_tonometerSimulationFile->GetNextValues(&cuffPulseData);
-						//CrxLogger::Instance->Write(" _tonometerSimulationFile->GetNextValues = " );
-						if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
-						{
-							//value is in miliseconds. The device returns it as seconds hece divide by thousand.
-							tempPWVDataVar.countdownTimer = (short)locCountdownTimer/1000;
-						}
-						else
-						{
-							tempPWVDataVar.countdownTimer = 0;
-						}
+
+						SetCountDownTimer(currentCuffState, locCountdownTimer, %tempPWVDataVar);
+						//if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
+						//{
+						//	//value is in miliseconds. The device returns it as seconds hece divide by thousand.
+						//	tempPWVDataVar.countdownTimer = (short)locCountdownTimer/1000;
+						//}
+						//else
+						//{
+						//	tempPWVDataVar.countdownTimer = 0;
+						//}
 
 						//added by TS Stub
 						if (cuffInUse)
 						{
 							//decrement the cuff timer as long as it's used
 							locCountdownTimer -= DalConstants::DataSamplingInterval;
-							//CrxLogger::Instance->Write(" locCountdownTimer = " + locCountdownTimer);
-							//CrxLogger::Instance->Write(" DalConstants::DataSamplingInterval = " + DalConstants::DataSamplingInterval);
+							//CrxLogger::Instance->Write(" locCountdownTimer = " + locCountdownTimer, ErrorSeverity::Debug);
+							//CrxLogger::Instance->Write(" DalConstants::DataSamplingInterval = " + DalConstants::DataSamplingInterval, ErrorSeverity::Debug);
 						}
 
 						tempPWVDataVar.cuffPressure = (short)cuffAbsolutePressure;
 						//tempPWVDataVar.tonometerData = (short)tonoData;
 						tempPWVDataVar.cuffPulseData = (short)cuffPulseData;
-						////CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer );
+						////CrxLogger::Instance->Write(" Tono : " + tonoData + "cuffPulse: " + cuffPulseData + " cuffAbsolutePressure: " + cuffAbsolutePressure + " tempPWVDataVar.countdownTimer : " + tempPWVDataVar.countdownTimer , ErrorSeverity::Debug);
 						
 						//write data to buffer
 						dataBufferObj->WriteDataToBuffer(tempPWVDataVar);
@@ -185,12 +184,12 @@ namespace AtCor{
 				}
 				catch(ScorException^ scorExObj)
 				{
-					CrxLogger::Instance->Write("Deepak>>> Raising event for ScorException: " + scorExObj->ErrorMessageKey );
+					CrxLogger::Instance->Write("Deepak>>> Raising event for ScorException: " + scorExObj->ErrorMessageKey , ErrorSeverity::Debug);
 					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, scorExObj);
 				}
 				catch(Exception^ excepObj)
 				{
-					CrxLogger::Instance->Write("Deepak>>> Raising event for exception: " + excepObj->Data );
+					CrxLogger::Instance->Write("Deepak>>> Raising event for exception: " + excepObj->Data , ErrorSeverity::Debug);
 					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, gcnew ScorException(excepObj));
 				}
 			}

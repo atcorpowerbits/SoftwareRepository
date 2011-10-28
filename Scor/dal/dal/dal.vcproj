@@ -254,6 +254,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalEm4HostToNibpCommand.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalEM4NibpToHostPacket.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalEventContainer.cpp"
 				>
 			</File>
@@ -262,11 +270,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalNibpBackgroundCommand.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalNibpCommandInterface.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\DalNibpDeviceHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalNibpForegroundCommand.cpp"
 				>
 			</File>
 			<File
@@ -299,6 +315,14 @@
 			</File>
 			<File
 				RelativePath=".\DalSimulationHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalSpecificBackgroundCommands.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalSpecificForegroundCommands.cpp"
 				>
 			</File>
 			<File
@@ -400,6 +424,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalEm4HostToNibpCommand.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalEm4NibpToHostPacket.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DalEventContainer.h"
 				>
 			</File>
@@ -408,11 +440,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalNibpBackgroundCommand.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DalNibpCommandInterface.h"
 				>
 			</File>
 			<File
 				RelativePath=".\DalNibpDeviceHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalNibpForegroundCommand.h"
 				>
 			</File>
 			<File
@@ -445,6 +485,14 @@
 			</File>
 			<File
 				RelativePath=".\DalSimulationHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalSpecificBackgroundCommands.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalSpecificForegroundCommands.h"
 				>
 			</File>
 			<File

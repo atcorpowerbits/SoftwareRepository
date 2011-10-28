@@ -28,7 +28,7 @@ DalPwvDeviceHandler::DalPwvDeviceHandler()
 
 bool DalPwvDeviceHandler::StartCapture(int captureTime, int samplingRate)
 {
-	//CrxLogger::Instance->Write("Deepak>>> DalPwvDeviceHandler::StartCapture Called");
+	CrxLogger::Instance->Write("Deepak>>> DalPwvDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
 
 	//create a buffer of the required size
 	try

@@ -34,7 +34,9 @@ namespace AtCor.Scor.Gui.Presentation
         public const char Separator = ',';
         public const string SourceData = "SQLCLIENT";
         public const string DefaultAtcorImage = "AtcorLogo";
-        public const string DefaultReportTitle = "AtCor Medical [THE PRODUCT] (R)";               
+        public const string DefaultReportTitle = "AtCor Medical [THE PRODUCT] (R)";
+        public const string WaitButtonDelay = "Gui.WaitButtonDelay";
+        public const string AutoPwaProgressBarDelay = "Gui.AutoPWAProgressbarDelay";
 
         // values used for disabling close button of form
         public const int WsMinimizebox = 0x20000;
@@ -130,6 +132,7 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string PatientBPValue = "PatientBPValue";
         public static readonly string PatientHeightTitle = "PatientHeightTitle";
         public static readonly string PatientHeightValue = "PatientHeightValue";
+        public static readonly string PatientHeightInternalValue = "PatientHeightInternalValue";
         public static readonly string PatientOperatiorTitle = "PatientOperatiorTitle";
         public static readonly string PatientOperatiorValue = "PatientOperatiorValue";
         public static readonly string PatientNotesTitle = "PatientNotesTitle";
@@ -151,10 +154,11 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string HeartRateTitle = "HeartRateTitle";
         public static readonly string BpChartTitle = "BpChartTitle";
         public static readonly string BPChartValidation = "BPChartValidation";
-        public static readonly string BpChartTextValue = "BpChartTextValue";
-        
+        public static readonly string BpChartTextValue = "BpChartTextValue";        
 
         // PWA Clinical 
+        public static readonly string GroupNameTitle            = "GroupNameTitle";
+        public static readonly string GroupNameValue            = "GroupNameValue";
         public static readonly string DatabaseVersionTitle      = "DatabaseVersionTitle";
         public static readonly string DatabaseVersionValue      = "DatabaseVersionValue";
         public static readonly string WaveformPlotTitle         = "WaveformPlotTitle";
@@ -210,6 +214,66 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string MPSystoleDiastoleValue = "MPSystoleDiastoleValue";
         public static readonly string AorticAugmentationAP_PPTitle = "AorticAugmentationAP_PPTitle";
         public static readonly string AorticAugmentationAP_PPValue = "AorticAugmentationAP_PPValue";
+        public static readonly string NoteTitle = "NoteTitle";
+        public static readonly string NoteValue = "NoteValue";
+
+        // PWA Patient Report
+        public static readonly string LblHeight = "lblHeight";
+        public static readonly string TxtHeightValue = "txtHeightValue";
+        public static readonly string LblDob = "lblDob";
+        public static readonly string TxtDobValue = "txtDobValue";
+        public static readonly string LblDateofmeasurement = "lblDateofmeasurement";
+        public static readonly string TxtDateofmeasurement = "txtDateofmeasurement";
+
+        public static readonly string TxtPwaPatientRptHeader = "txtPwaPatientRptHeader";
+        public static readonly string TxtPage = "txtPage";
+        public static readonly string SystolicBpValue = "SystolicBpValue";
+        public static readonly string DiastolicBpValue = "DiastolicBpValue";
+        public static readonly string TxtPwaPatientRptFooter = "txtPwaPatientRptFooter";
+        public static readonly string PwaText1 = "PwaText1";
+        public static readonly string PwaText2 = "PwaText2";
+        public static readonly string PwaText3 = "PwaText3";
+        public static readonly string PwaText4 = "PwaText4";
+        public static readonly string PwaText5 = "PwaText5";
+        public static readonly string PwaText6 = "PwaText6";
+        public static readonly string PwaText7 = "PwaText7";
+        public static readonly string PwaText8 = "PwaText8";
+        public static readonly string PwaText9 = "PwaText9";
+        public static readonly string PwaText10 = "PwaText10";
+        public static readonly string PwaText11 = "PwaText11";
+        public static readonly string PwaText12 = "PwaText12";
+        public static readonly string PwaText13 = "PwaText13";
+        public static readonly string PwaText14 = "PwaText14";
+        public static readonly string PwaText15 = "PwaText15";
+        public static readonly string PwaText16 = "PwaText16";
+        public static readonly string PwaText17 = "PwaText17";
+        public static readonly string PwaText18 = "PwaText18";
+        public static readonly string PwaText19 = "PwaText19";
+        public static readonly string PwaText20 = "PwaText20";
+        public static readonly string PwaText21 = "PwaText21";
+        public static readonly string PwaText22 = "PwaText22";
+        public static readonly string PwaText23 = "PwaText23";
+        public static readonly string PwaText24 = "PwaText24";
+        public static readonly string PwaText25 = "PwaText25";
+        public static readonly string PwaText26 = "PwaText26";
+        public static readonly string PwaText27 = "PwaText27";
+        public static readonly string PwaText28 = "PwaText28";
+        public static readonly string PwaText29 = "PwaText29";
+        public static readonly string PwaText30 = "PwaText30";
+        public static readonly string PwaText31 = "PwaText31";
+        public static readonly string PwaText32 = "PwaText32";
+        public static readonly string PwaText33 = "PwaText33";
+        public static readonly string PwaText34 = "PwaText34";
+        public static readonly string PwaText35 = "PwaText35";
+        public static readonly string PwaText36 = "PwaText36";
+        public static readonly string PwaText37 = "PwaText37";
+        public static readonly string PwaText38 = "PwaText38";
+        public static readonly string PwaText39 = "PwaText39";
+        public static readonly string PwaText40 = "PwaText40";
+        public static readonly string PwaText41 = "PwaText41";
+        public static readonly string PwaText42 = "PwaText42";
+        public static readonly string PwaText43 = "PwaText43";
+        public static readonly string PwaText44 = "PwaText44";
 
         public static string DateWithComma = string.Empty;
         public static string PwaIdWithComma = string.Empty;
@@ -243,7 +307,8 @@ namespace AtCor.Scor.Gui.Presentation
             DbDefaultFileName,
             DbVersionNumber,
             QualityIndicatorImage,
-            QualityCrossImage
+            QualityCrossImage,
+            HumanImage
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using gui;
-
-namespace AtCor.Scor.Gui.Presentation
+﻿namespace AtCor.Scor.Gui.Presentation
 {
     partial class PWAPrintReport
     {
@@ -30,9 +28,10 @@ namespace AtCor.Scor.Gui.Presentation
         /// </summary>
         private void InitializeComponent()
         {
+            this.crysRptVwrPwaPrintReport = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.CrystalPwaEvalution1 = new gui.CrystalPwaEvalution();
             this.CrystalPwaClinical1 = new gui.CrystalPwaClinical();
-            this.crysRptVwrPwaPrintReport = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
+            this.CrystalPwaPatientReport1 = new gui.CrystalPwaPatientReport();
             this.SuspendLayout();
             // 
             // crysRptVwrPwaPrintReport
@@ -44,7 +43,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.crysRptVwrPwaPrintReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crysRptVwrPwaPrintReport.Location = new System.Drawing.Point(0, 0);
             this.crysRptVwrPwaPrintReport.Name = "crysRptVwrPwaPrintReport";
-            this.crysRptVwrPwaPrintReport.ReportSource = this.CrystalPwaEvalution1;
+            this.crysRptVwrPwaPrintReport.ReportSource = this.CrystalPwaPatientReport1;
             this.crysRptVwrPwaPrintReport.Size = new System.Drawing.Size(862, 490);
             this.crysRptVwrPwaPrintReport.TabIndex = 0;
             // 
@@ -63,8 +62,10 @@ namespace AtCor.Scor.Gui.Presentation
 
         #endregion
 
-        private gui.CrystalPwaClinical CrystalPwaClinical1;
-        private CrystalPwaEvalution CrystalPwaEvalution1;
         private CrystalDecisions.Windows.Forms.CrystalReportViewer crysRptVwrPwaPrintReport;
+        private gui.CrystalPwaClinical CrystalPwaClinical1;
+        private gui.CrystalPwaEvalution CrystalPwaEvalution1;
+        private gui.CrystalPwaPatientReport CrystalPwaPatientReport1;
+        
     }
 }

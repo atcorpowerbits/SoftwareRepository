@@ -46,10 +46,14 @@ namespace AtCor.Scor.Gui.Presentation
 
         public static event EventHandler OnReportMenuItemClick;
 
+        public static event EventHandler OnPwaReportMenuItemClick;
+
         // below events will be invoked if user wants to save changes before exiting application from Setup & report screen
         public static event EventHandler OnExitSaveSetupChanges;
 
         public static event EventHandler OnExitSaveReportChanges;
+
+        public static event EventHandler OnExitSavePwaReportChanges;
 
         public static event EventHandler OnCaptureScreenTabClick;
 
@@ -121,7 +125,11 @@ namespace AtCor.Scor.Gui.Presentation
                 // Get configuration settings.
                 crxMgrObject.GetGeneralUserSettings();
                 crxMgrObject.GetPwvUserSettings();
+                
+                GuiCommon.StartupScreen = crxMgrObject.GeneralSettings.StartupScreen;
+                    
                 bizObj = BizInfo.Instance();
+
                 GUIExceptionHandler.RegisterUnHandledExceptionHandler();
                 if (Screen.PrimaryScreen.WorkingArea.Width < 1024 && Screen.PrimaryScreen.WorkingArea.Height < 768)
                 {
@@ -160,6 +168,7 @@ namespace AtCor.Scor.Gui.Presentation
                  
                 // Begin: AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,30 jun 2011
                 OnInitializationProcess.Invoke(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgValidatingSystemKey));
+                
                 if (!BizInfo.Instance().ValidateLicenseKey())
                 {
                     GuiCommon.SystemKeyWindowValue = GuiCommon.SystemKeyWindowValues.ADD;
@@ -212,7 +221,9 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // DB connection string, save in class variable
                     serverNameString = GuiCommon.ServerNameString();
+                    
                     InitializeComponent();
+
                     GuiCommon.SetFontForControls(this);
 
                     // Set the text for  Capture Tab form controls
@@ -226,6 +237,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // Begin: AtCor-Drop2-Sprint2, TM, SWREQ2003, 06-July-2011                
                     InitializeSetupScreen();
+
                     radpgTabCollection.SelectedPage = GuiCommon.TabFocused = guiradgrpbxPwvDistanceMethod;       
                     PopulateCurrentModeDropDown();
                     ValidateStartUpMode();
@@ -386,13 +398,23 @@ namespace AtCor.Scor.Gui.Presentation
                     }
                     else if (GuiCommon.TabFocused == radtabReport)
                     {
-                        OnExitSaveReportChanges.Invoke(this, new EventArgs());
+                        if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
+                        {
+                            OnExitSavePwaReportChanges.Invoke(this, new EventArgs());
+                        }
+                        else
+                        {
+                            // OnExitSaveReportChanges.Invoke(this, new EventArgs());                        
+                            ((Report)GuiCommon.ReportChildForm).SaveChangesOnEdit(this, new EventArgs());
+                        }
                     }
 
                     saveChanges = GuiCommon.ExitApp;
                     break;
                 case DialogResult.No:
                     saveChanges = 0;
+                    break;
+                case DialogResult.Cancel:
                     break;
                 default:
                     saveChanges = 1;
@@ -622,7 +644,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             CrxStructGeneralSetting crxGen = new CrxStructGeneralSetting();
 
-            GuiCommon.QuickStartChildForm = new QuickStart(this)
+            GuiCommon.QuickStartChildForm = new cPwaQuickStart(this)
                                                             {
                                                                 TopLevel = false,
                                                                 Dock = DockStyle.Fill,
@@ -918,7 +940,13 @@ namespace AtCor.Scor.Gui.Presentation
                 // read the coms port and simulation type.
                 if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabCapture), StringComparison.CurrentCultureIgnoreCase))
                 {
-                    NavigateToCapture();
+                    if (GuiCommon.StartupScreen.ToUpper().Equals(CrxStructCommonResourceMsg.QuickStart) && GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
+                    {
+                        ((cPwaQuickStart)GuiCommon.QuickStartChildForm).StartCapture();
+                    }
+                    else
+                    {
+                        NavigateToCapture();
 
                         GuiCommon.TabFocused = radtabCapture;
                         GuiCommon.IsFormChanged = false;
@@ -926,7 +954,8 @@ namespace AtCor.Scor.Gui.Presentation
                         // User is navigating away from the Report screen.
                         GuiCommon.IsOnReportForm = false;
                         GuiCommon.IsOnSetupScreen = false;
-                        GuiCommon.CheckIfMandatoryFieldIsEmpty();                    
+                        GuiCommon.CheckIfMandatoryFieldIsEmpty();
+                    }
                 }
                 else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport), StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -946,6 +975,18 @@ namespace AtCor.Scor.Gui.Presentation
                     // User is navigating away from the Report screen.
                     GuiCommon.IsOnReportForm = false;
                     GuiCommon.IsFormChanged = false;
+                }
+                else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabQuickStart), StringComparison.CurrentCultureIgnoreCase))
+                {
+                    GuiCommon.IsOnReportForm = false;
+                    radtabResult.Enabled = false;
+                    ((cPwaQuickStart)GuiCommon.QuickStartChildForm).guiradbtnQuickStartGetBp.Visible = true;
+                    guicmbxCurrentMode.Enabled = true; 
+                }
+                else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabResult), StringComparison.CurrentCultureIgnoreCase))
+                {
+                    radtabResult.Enabled = false;
+                    GuiCommon.ScorControllerObject.LoadTemporaryReport();
                 }
             }
             catch (Exception ex)
@@ -1327,7 +1368,14 @@ namespace AtCor.Scor.Gui.Presentation
             }
             else if (GuiCommon.TabFocused == radtabReport)
             {
-                OnReportMenuItemClick.Invoke(sender, e);
+                if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
+                {
+                    OnPwaReportMenuItemClick.Invoke(sender, e);
+                }
+                else
+                {
+                    OnReportMenuItemClick.Invoke(sender, e);
+                }
             }
         }
 
@@ -1465,7 +1513,7 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void CheckMachineNameOnStartUp()
         {
-            if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.StartupScreen))
+            if (string.IsNullOrEmpty(GuiCommon.StartupScreen))
             {
                 ExitApplication();
             }
@@ -1580,7 +1628,7 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                if ((!crxMgrObject.GeneralSettings.StartupMode.Equals(string.Empty)) && crxMgrObject.GeneralSettings.StartupMode.Equals(CrxStructCommonResourceMsg.Pwv) && BizInfo.Instance().OptionPWV && (!crxMgrObject.GeneralSettings.StartupScreen.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart))))
+                if ((!crxMgrObject.GeneralSettings.StartupMode.Equals(string.Empty)) && crxMgrObject.GeneralSettings.StartupMode.Equals(CrxStructCommonResourceMsg.Pwv) && BizInfo.Instance().OptionPWV && (!GuiCommon.StartupScreen.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart))))
                 {
                    ValidatePWVMode();
                    return;
@@ -1599,7 +1647,7 @@ namespace AtCor.Scor.Gui.Presentation
                     CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ModeMismatchMsg));   
 
                     // Log the System key, startup mode, startup screen into the log file.
-                    CrxLogger.Instance.Write(String.Format("SystemKey: {0},StartupMode: {1}, StartUp Screen: {2}", crxMgrObject.GeneralSettings.Key, crxMgrObject.GeneralSettings.StartupMode, crxMgrObject.GeneralSettings.StartupScreen));   
+                    CrxLogger.Instance.Write(String.Format("SystemKey: {0},StartupMode: {1}, StartUp Screen: {2}", crxMgrObject.GeneralSettings.Key, crxMgrObject.GeneralSettings.StartupMode, GuiCommon.StartupScreen));   
 
                     // What should happen to the application after showing the pop up box.
                     BizSession.Instance().OnExit();
@@ -1659,7 +1707,8 @@ namespace AtCor.Scor.Gui.Presentation
 
                 crxMgrObject.GetGeneralDefaultSettings(crxGen);
 
-                if (string.IsNullOrEmpty(crxGen.StartupScreen))
+                // if (string.IsNullOrEmpty(crxGen.StartupScreen))
+                if (string.IsNullOrEmpty(GuiCommon.StartupScreen))
                 {
                     ExitApplication();
                 }
@@ -1675,6 +1724,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 //// initalize setup screen
                 // InitializeSetupScreen();
+
                 // initialize temporary report screen at the time of application launch for quick start mode
                 InitializeTestResultScreen();
 
@@ -1708,7 +1758,8 @@ namespace AtCor.Scor.Gui.Presentation
 
                 crxMgrObject.GetGeneralDefaultSettings(crxGen);
 
-                if (string.IsNullOrEmpty(crxGen.StartupScreen))
+                // if (string.IsNullOrEmpty(crxGen.StartupScreen))
+               if (string.IsNullOrEmpty(GuiCommon.StartupScreen))          
                 {
                     ExitApplication();
                 }
@@ -1762,7 +1813,8 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.SetupChildForm.Controls["guipnlMeasurementDetails"].BringToFront(); 
             GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Visible = false;
             GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].SendToBack();
-            OnModeChangeEvent.Invoke(this, new EventArgs());
+
+            ((Setup)GuiCommon.SetupChildForm).ModeChangeEventHandler(this, new EventArgs());
 
             radtabQuickStart.Item.Visibility = ElementVisibility.Hidden;
             radtabCapture.Item.Visibility = ElementVisibility.Visible;
@@ -1797,15 +1849,20 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.SetupChildForm.Controls["guipnlMeasurementDetails"].SendToBack(); 
             GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Visible = true;
             GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].BringToFront();
-            OnModeChangeEvent.Invoke(this, new EventArgs());
+
+            ((Setup)GuiCommon.SetupChildForm).ModeChangeEventHandler(this, new EventArgs());
+
             radtabCapture.Enabled = false;
-            if (crxMgrObject.GeneralSettings.StartupScreen.ToUpper() == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart).ToUpper())
+
+            // if (crxMgrObject.GeneralSettings.StartupScreen.ToUpper() == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart).ToUpper())
+            if (GuiCommon.StartupScreen.ToUpper() == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart).ToUpper())
             {
-                GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnGetBp"].Text = "Start";
-                GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnGetBp"].Enabled = true;
+                GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnQuickStartGetBp"].Text = "Start";
+                GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnQuickStartGetBp"].Enabled = true;
                 GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Text = "Cancel";
                 GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Visible = false;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnDisplayReport"].Visible = true;
+                
+                // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnDisplayReport"].Visible = true;
                 GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipicboxPWAGetBp"].Visible = false;
 
                 // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipnlPWABPOtherDevice"].Controls["pictureBox1"].Visible = false;
@@ -1822,8 +1879,8 @@ namespace AtCor.Scor.Gui.Presentation
 
                // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAPP"].Location = new Point(4, 325);
                // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAPPDisplay"].Location = new Point(76, 325);
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMP"].Visible = false;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMPDisplay"].Visible = false;
+               // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMP"].Visible = false;
+               // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMPDisplay"].Visible = false;
                 radtabQuickStart.Item.Visibility = ElementVisibility.Visible;
                 radtabCapture.Item.Visibility = ElementVisibility.Visible;
                 radtabResult.Item.Visibility = ElementVisibility.Visible;
@@ -1835,7 +1892,7 @@ namespace AtCor.Scor.Gui.Presentation
                 radpgTabCollection.Pages.ChangeIndex(radtabResult, 2);
                 radpgTabCollection.Pages.ChangeIndex(guiradgrpbxPwvDistanceMethod, 3);
                 radpgTabCollection.Pages.ChangeIndex(radtabReport, 4);
-                guiradgrpbxPwvDistanceMethod.Text = "Patient";
+                guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabPatient);
 
                 radpgTabCollection.SelectedPage = radtabQuickStart;
                 GuiCommon.TabFocused = radtabQuickStart;
@@ -1873,6 +1930,11 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void guicmbxCurrentMode_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
+           if (GuiCommon.StartupScreen.ToUpper().Equals(CrxStructCommonResourceMsg.QuickStart))  
+           {
+               ((cPwaQuickStart) GuiCommon.QuickStartChildForm).DisableTimersAndEnableTabs();   
+           }
+
            SetStrategy(guicmbxCurrentMode.Text);   
         }
 
@@ -1950,7 +2012,7 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.GeneralSettingsStruct.StartupScreen = CrxConfigManager.Instance.GeneralSettings.StartupScreen;
             GuiCommon.GeneralSettingsStruct.EnvironmentSettings = CrxCommon.ApplicationEnvironment;
             CrxConfigManager.Instance.SetGeneralUserSettings(GuiCommon.GeneralSettingsStruct);                        
-        }
+        }       
 
         /**  End   : AtCor-Drop2-Sprint2, TM, UserStory2,4 july 2011
          */

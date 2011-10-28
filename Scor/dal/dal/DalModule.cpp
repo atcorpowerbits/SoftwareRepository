@@ -78,7 +78,7 @@ namespace AtCor{
 			//			//set the com port as simulation in Config file
 			//			configMgr->GeneralSettings->CommsPort = comPortInConfig;
 			//			configMgr->SetGeneralUserSettings(configMgr->GeneralSettings);
-			//			//CrxLogger::Instance->Write(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalMsgDefaultModeSelectedSim));
+			//			//CrxLogger::Instance->Write(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalMsgDefaultModeSelectedSim), ErrorSeverity::Debug);
 			//		}
 
 			//		SetDeviceStrategy(comPortInConfig); 
@@ -95,10 +95,10 @@ namespace AtCor{
 			//	return true;
 			//}
 
-			bool DalModule::SetDeviceStrategy(String ^commPort)
+			/*bool DalModule::SetDeviceStrategy(String ^commPort)
 					{
 				return DalActiveDevice::Instance->SetDeviceStrategy(commPort);
-					}
+			}*/
 	                
 			bool DalModule::SetDeviceStrategy(String ^commPort,DalStreamingMode streamingMode)
 			{
@@ -176,6 +176,7 @@ namespace AtCor{
 
 			bool DalModule::StopMeasurement()
 			{
+				
 				//if (_currentDevice)
 				//{
 				//	//call the active device method
@@ -396,7 +397,7 @@ namespace AtCor{
 			//{
 			//	//sender; //Dummy statement to get rid of C4100 warning
 
-			//	////CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting );
+			//	////CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting , ErrorSeverity::Debug);
 			//	SetDeviceStrategy(args->commsPortSetting);
 
 			//}
@@ -423,7 +424,7 @@ namespace AtCor{
 			//		{
 			//			continue;
 			//		}
-			//		////CrxLogger::Instance->Write("Ports Listed: " + portName);
+			//		////CrxLogger::Instance->Write("Ports Listed: " + portName, ErrorSeverity::Debug);
 			//		if (DalDeviceHandler::Instance->CheckIfDeviceIsConnected(portName)) 
 			//		{
 
@@ -561,12 +562,15 @@ namespace AtCor{
 			}
 
 
-			//TS Stub
-			// Equivalent to SET_INITIAL_INFLATE & <O> <K>
-			bool DalModule::SetBPInitialInflate(unsigned short initialPressure)
-			{
-				return true;
-			}
+			////TS Stub
+			//// Equivalent to SET_INITIAL_INFLATE & <O> <K>
+			//bool DalModule::SetBPInitialInflate(unsigned short initialPressure)
+			//{
+			//	initialPressure;
+
+			//	return DalActiveDevice::CurrentDevice
+			//	return true;
+			//}
 
 			//TS Stub
 			// Start NIBP using initial inflate pressure

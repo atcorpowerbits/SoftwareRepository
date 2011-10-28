@@ -619,7 +619,76 @@ private:	static String^ comPortName  = "Simulation";
 				DalPwvSimulationHandler_Accessor^  target = (gcnew DalPwvSimulationHandler_Accessor()); 
 				Assert::IsNotNull(target);
 			}
-	};
+			/// <summary>
+			///A test for StartBP
+			///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void StartBPTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			DalNIBPMode nibpMode = DalNIBPMode(); // TODO: Initialize to an appropriate value
+			bool expected = false; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->StartBP(nibpMode);
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for StartBP
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void StartBPTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			DalNIBPMode nibpMode = DalNIBPMode(); // TODO: Initialize to an appropriate value
+			unsigned short initialPressure = 0; // TODO: Initialize to an appropriate value
+			bool expected = false; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->StartBP(nibpMode, initialPressure);
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for FinishBP
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void FinishBPTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			bool expected = false; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->FinishBP();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+internal: DalSimulationHandler_Accessor^  CreateDalSimulationHandler_Accessor()
+		  {
+			  // TODO: Instantiate an appropriate concrete class.
+			  DalSimulationHandler_Accessor^  target = nullptr;
+			  return target;
+		  }
+		  /// <summary>
+		  ///A test for AbortBP
+		  ///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void AbortBPTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			bool expected = false; // TODO: Initialize to an appropriate value
+			bool actual;
+			actual = target->AbortBP();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+};
 }
 namespace TestDal {
     

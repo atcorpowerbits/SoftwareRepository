@@ -128,7 +128,9 @@ namespace AtCor.Scor.Gui.Presentation
                 switch (crEx.ErrorType)
                 {
                     case ErrorSeverity.Exception:
-                        RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                        RadMessageBox.Show(eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+
+                        // RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
                         break;
                     case ErrorSeverity.Warning:
@@ -148,8 +150,6 @@ namespace AtCor.Scor.Gui.Presentation
                         GuiCommon.DefaultWindowForm.radlblMessage.Text = eMsg;
 
                        // GuiCommon.DefaultWindowForm.guipictureboxError.Image = new Bitmap(Path.GetFullPath(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.InfoImage.ToString()]));
-                        GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = true;
-                        GuiCommon.DefaultWindowForm.guialertmsgTimer.Tick += guialertmsgTimer_Tick;
                         break;
                     default:
                         break;
@@ -260,7 +260,6 @@ namespace AtCor.Scor.Gui.Presentation
 
         public static void DisableTimerAndClearMessageFromStatusBar()
         {
-            GuiCommon.DefaultWindowForm.guialertmsgTimer.Enabled = false;
             GuiCommon.DefaultWindowForm.guipictureboxError.Image = null;
             GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
         }

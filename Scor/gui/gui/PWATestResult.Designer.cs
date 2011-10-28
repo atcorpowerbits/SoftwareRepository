@@ -29,32 +29,6 @@ namespace AtCor.Scor.Gui.Presentation
         private void InitializeComponent()
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(50, 0);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(60, 35);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(70, 75);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(80, 105);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(90, 118);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(96, 121);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint7 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(100, 130);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint8 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(107, 152);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint9 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(108, 156);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint10 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(110, 158);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint11 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(112, 156);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint12 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(112, 152);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint13 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(115, 140);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint14 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(118, 131);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint15 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(120, 130);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint16 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(130, 126);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint17 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(135, 120);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint18 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(140, 104);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint19 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(150, 73);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint20 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(160, 50);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint21 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(165, 40);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint22 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(170, 32);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint23 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(180, 21);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint24 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(190, 13);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint25 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(200, 9);
             this.guipnlPatientDetails = new System.Windows.Forms.Panel();
             this.guiradlblPWADPDisplay = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblTestSPDisplay = new Telerik.WinControls.UI.RadLabel();
@@ -142,9 +116,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWADPDisplay.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradlblPWADPDisplay.Size = new System.Drawing.Size(32, 23);
             this.guiradlblPWADPDisplay.TabIndex = 130;
-            this.guiradlblPWADPDisplay.Text = "100";
             ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWADPDisplay.GetChildAt(0))).BorderVisible = true;
-            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWADPDisplay.GetChildAt(0))).Text = "100";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPWADPDisplay.GetChildAt(0))).Text = "";
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblPWADPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
@@ -166,9 +139,8 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblTestSPDisplay.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradlblTestSPDisplay.Size = new System.Drawing.Size(32, 23);
             this.guiradlblTestSPDisplay.TabIndex = 129;
-            this.guiradlblTestSPDisplay.Text = "120";
             ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblTestSPDisplay.GetChildAt(0))).BorderVisible = true;
-            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblTestSPDisplay.GetChildAt(0))).Text = "120";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblTestSPDisplay.GetChildAt(0))).Text = "";
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblTestSPDisplay.GetChildAt(0).GetChildAt(1))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentContent;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblTestSPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradlblTestSPDisplay.GetChildAt(0).GetChildAt(1))).ForeColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(177)))), ((int)(((byte)(204)))));
@@ -253,37 +225,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guichartPWAReport.ChartAreas.Add(chartArea1);
             this.guichartPWAReport.Location = new System.Drawing.Point(180, 46);
             this.guichartPWAReport.Name = "guichartPWAReport";
-            series1.BorderWidth = 2;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.MediumBlue;
-            series1.Name = "Series2";
-            series1.Points.Add(dataPoint1);
-            series1.Points.Add(dataPoint2);
-            series1.Points.Add(dataPoint3);
-            series1.Points.Add(dataPoint4);
-            series1.Points.Add(dataPoint5);
-            series1.Points.Add(dataPoint6);
-            series1.Points.Add(dataPoint7);
-            series1.Points.Add(dataPoint8);
-            series1.Points.Add(dataPoint9);
-            series1.Points.Add(dataPoint10);
-            series1.Points.Add(dataPoint11);
-            series1.Points.Add(dataPoint12);
-            series1.Points.Add(dataPoint13);
-            series1.Points.Add(dataPoint14);
-            series1.Points.Add(dataPoint15);
-            series1.Points.Add(dataPoint16);
-            series1.Points.Add(dataPoint17);
-            series1.Points.Add(dataPoint18);
-            series1.Points.Add(dataPoint19);
-            series1.Points.Add(dataPoint20);
-            series1.Points.Add(dataPoint21);
-            series1.Points.Add(dataPoint22);
-            series1.Points.Add(dataPoint23);
-            series1.Points.Add(dataPoint24);
-            series1.Points.Add(dataPoint25);
-            this.guichartPWAReport.Series.Add(series1);
             this.guichartPWAReport.Size = new System.Drawing.Size(421, 453);
             this.guichartPWAReport.TabIndex = 136;
             this.guichartPWAReport.Text = "105";
@@ -316,9 +257,8 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.guiradlblQualityControlValue.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblQualityControlValue.Size = new System.Drawing.Size(36, 21);
+            this.guiradlblQualityControlValue.Size = new System.Drawing.Size(51, 24);
             this.guiradlblQualityControlValue.TabIndex = 4;
-            this.guiradlblQualityControlValue.Text = "100";
             this.guiradlblQualityControlValue.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guiradlblPWASP
@@ -429,9 +369,8 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.guiradlblHRValueText.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblHRValueText.Size = new System.Drawing.Size(37, 23);
+            this.guiradlblHRValueText.Size = new System.Drawing.Size(51, 24);
             this.guiradlblHRValueText.TabIndex = 133;
-            this.guiradlblHRValueText.Text = "75";
             this.guiradlblHRValueText.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guioradlblAvgCentralAortlcPulse
@@ -462,9 +401,8 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.guiradlblDPValueText.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblDPValueText.Size = new System.Drawing.Size(37, 23);
+            this.guiradlblDPValueText.Size = new System.Drawing.Size(51, 24);
             this.guiradlblDPValueText.TabIndex = 134;
-            this.guiradlblDPValueText.Text = "82";
             this.guiradlblDPValueText.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guipnlPWAReport
@@ -506,9 +444,8 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.guiradlblTestResultMapDisplay.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblTestResultMapDisplay.Size = new System.Drawing.Size(37, 23);
+            this.guiradlblTestResultMapDisplay.Size = new System.Drawing.Size(51, 24);
             this.guiradlblTestResultMapDisplay.TabIndex = 168;
-            this.guiradlblTestResultMapDisplay.Text = "80";
             this.guiradlblTestResultMapDisplay.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guiradlblTestResultMap
@@ -540,9 +477,8 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.guiradlblAIxValueText.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblAIxValueText.Size = new System.Drawing.Size(37, 23);
+            this.guiradlblAIxValueText.Size = new System.Drawing.Size(51, 24);
             this.guiradlblAIxValueText.TabIndex = 166;
-            this.guiradlblAIxValueText.Text = "-4";
             this.guiradlblAIxValueText.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guiradlblAPValueText
@@ -558,9 +494,8 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.guiradlblAPValueText.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblAPValueText.Size = new System.Drawing.Size(37, 23);
+            this.guiradlblAPValueText.Size = new System.Drawing.Size(51, 24);
             this.guiradlblAPValueText.TabIndex = 165;
-            this.guiradlblAPValueText.Text = "4";
             this.guiradlblAPValueText.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guiradlblSPValueText
@@ -576,9 +511,8 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.guiradlblSPValueText.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblSPValueText.Size = new System.Drawing.Size(37, 23);
+            this.guiradlblSPValueText.Size = new System.Drawing.Size(51, 24);
             this.guiradlblSPValueText.TabIndex = 159;
-            this.guiradlblSPValueText.Text = "105";
             this.guiradlblSPValueText.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guiradlblPPValueText
@@ -594,9 +528,8 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.guiradlblPPValueText.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblPPValueText.Size = new System.Drawing.Size(37, 23);
+            this.guiradlblPPValueText.Size = new System.Drawing.Size(51, 24);
             this.guiradlblPPValueText.TabIndex = 158;
-            this.guiradlblPPValueText.Text = "23";
             this.guiradlblPPValueText.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guiradbtnCancel

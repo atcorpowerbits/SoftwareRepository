@@ -16,6 +16,8 @@
 #include "IDalNibpHandler.h"
 #include "DalCommandInterface.h"
 #include "DalEM4Command.h"
+#include "DalDataBuffer.h"
+#include "DalSpecificForegroundCommands.h"
 
 
 namespace AtCor{ 
@@ -25,6 +27,7 @@ namespace AtCor{
 			private ref class DalNibpDeviceHandler: public IDalNibpHandler
 			{
 				private:
+					DalDataBuffer^ dataBufferObj; 
 					static DalNibpDeviceHandler^ _instance = gcnew DalNibpDeviceHandler();
 
 					DalCommandInterface^ _commandInterface;
@@ -32,10 +35,22 @@ namespace AtCor{
 					bool ConnectToNibpModule();
 					
 					DalReturnValue SendNibpConnectCommand();
+					DalReturnValue SendNibpDisconnectCommand();
+					DalReturnValue SendNibpConnectDisconnectCommand(bool connect);
 					void SetCommandInterface(DalCommandInterface^); 
 					DalNibpDeviceHandler(); //Constructor
+					bool GetCuffPressure(unsigned int& cuffPressure);
 
+					bool StartBpProcess(DalNIBPMode nibpMode, unsigned short initialPressure, bool initialInflate);
 							
+					bool CheckIfCuffHasDeflated();
+					bool CreateDataBuffer();
+
+					Thread^ cuffPressurePlottingThread;
+					void CuffPressurePlottingThreadMethod();
+					//bool plotCuffPressurePoints;
+
+					DalNibpStartBpCommand^ GetNewStartBpCommandObject(DalNIBPMode nibpMode);
 
 				public:
 					
@@ -57,6 +72,9 @@ namespace AtCor{
 					virtual bool FinishBP();
 
 					virtual bool AbortBP();
+					void StopCuffPressurePlotting();
+
+					bool GetBpDataAndRaiseEvent();
 			};
 
 

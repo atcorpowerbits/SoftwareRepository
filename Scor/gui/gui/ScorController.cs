@@ -14,6 +14,9 @@
  * 
  */
 using AtCor.Scor.BusinessLogic;
+using AtCor.Scor.CrossCutting;
+using System.Windows.Forms;
+using System;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -25,81 +28,213 @@ namespace AtCor.Scor.Gui.Presentation
     public class ScorController
     {
         private IScorStrategy scorStrategy;
-       
+        Form frmObject = new Form();
+
         // public string mode = string.Empty;
         public void SetScorStrategy(IScorStrategy newStrategy)
         {
-            scorStrategy = newStrategy;            
+            try
+            {
+                scorStrategy = newStrategy;
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, new ScorException(ex));
+            }
         }
 
         public void DispatchCaptureData()
         {
-            scorStrategy.DispatchCaptureData();              
+            try
+            {
+                scorStrategy.DispatchCaptureData();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }
 
         public void LoadReport()
         {
-            scorStrategy.LoadReport();              
+            try
+            {
+                scorStrategy.LoadReport();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }
 
         public void FillSession()
         {
-            scorStrategy.FillSession();  
+            try
+            {
+                scorStrategy.FillSession();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }     
 
         public void SetHeightWeightUnits()
         {
-            scorStrategy.SetHeightWeightUnits();
+            try
+            {
+                scorStrategy.SetHeightWeightUnits();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }
 
         public void SetDistanceMethodAndUnits()
         {
-            scorStrategy.SetDistanceMethodAndUnits();
+            try
+            {
+                scorStrategy.SetDistanceMethodAndUnits();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }
 
         public void SetBloodPressure()
         {
-            scorStrategy.SetBloodPressure();
+            try
+            {
+                scorStrategy.SetBloodPressure();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }
 
         public void ActionPerformedAfterClickingCancel()
         {
-            scorStrategy.ActionPerformedAfterClickingCancel(); 
+            try
+            {
+                scorStrategy.ActionPerformedAfterClickingCancel();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }
 
         public bool StartCapture()
         {
-           return scorStrategy.StartCapture();  
+            try
+            {
+                return scorStrategy.StartCapture();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                return false;
+            }
         }
 
         public bool StopCapture()
         {
-           return scorStrategy.StopCapture(); 
+            try
+            {
+                return scorStrategy.StopCapture();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                return false;
+            }
         }
 
         public void CalculateReportAfterSuccessfulCapture()
         {
-            scorStrategy.CalculateReportAfterSuccessfulCapture();  
+            try
+            {
+                scorStrategy.CalculateReportAfterSuccessfulCapture();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }
 
         public void SaveCaptureData()
         {
-            scorStrategy.SaveCapturedData();
+            try
+            {
+                scorStrategy.SaveCapturedData();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }
 
         public void InitialiseCaptureScreen()
         {
-            scorStrategy.InitialiseCaptureScreen(); 
+            try
+            {
+                scorStrategy.InitialiseCaptureScreen();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }
 
         public void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e)
         {
-            scorStrategy.HandleKeyDownEventOnCaptureScreen(e);
+            try
+            {
+                scorStrategy.HandleKeyDownEventOnCaptureScreen(e);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
         }
 
         public void CreateTextFileForFailedCapture()
         {
-            scorStrategy.CreateTextFileForFailedCapture(); 
+            try
+            {
+                scorStrategy.CreateTextFileForFailedCapture();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
+        }
+
+        public void LoadTemporaryReport()
+        {
+            try
+            {
+                scorStrategy.LoadTemporaryReport();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+            }
+        }
+
+        public void EnableDisableCaptureButton()
+        {
+            try
+            {
+                scorStrategy.EnableDisableCaptureButton(); 
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, frmObject);
+            }
         }
     }
 }
