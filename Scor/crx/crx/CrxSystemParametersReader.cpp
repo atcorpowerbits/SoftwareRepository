@@ -2,8 +2,10 @@
 #include "CrxSystemParametersReader.h"
 #include "CrxConfiguration.h"
 #include "CrxMessaging.h"
+#include "CrxLogger.h"
 
 using namespace AtCor::Scor::CrossCutting::Messaging;
+using namespace AtCor::Scor::CrossCutting::Logging;
 
 namespace AtCor { 
 	namespace Scor { 
@@ -66,6 +68,14 @@ int CrxSytemParameters::GetIntegerTagValue(System::String ^tagName)
 String^ CrxSytemParameters::GetNestedTagValue(System::String ^nestedTags)
 {
 	array<String^>^ tagNameArray ;
+	CrxLogger^ objLog				= nullptr;	// Object used to access logger class
+	CrxMessagingManager^ objMsg		= nullptr;  // Object used to access messaging class
+
+	//Create logger object
+	objLog = CrxLogger::Instance;
+
+	//Create messaging object
+	objMsg = CrxMessagingManager::Instance;
 
 	try
 	{
@@ -87,6 +97,9 @@ String^ CrxSytemParameters::GetNestedTagValue(System::String ^nestedTags)
 	}
 	catch(Exception^ )
 	{
+		String^ errorMessage = String::Empty;
+		errorMessage = String::Format(objMsg->GetMessage(CrxStructCommonResourceMsg::CrxErrXmlTagIncorrectText),nestedTags);
+		objLog->Write(errorMessage,ErrorSeverity::Information);
 		//The tagname may not be in the correct format or it may not be present in the XML file
 		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrXmlTagIncorrectErrCd, CrxStructCommonResourceMsg::CrxErrXmlTagIncorrect, ErrorSeverity::Exception );
 	}

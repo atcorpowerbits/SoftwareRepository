@@ -81,40 +81,52 @@ namespace AtCor{
 				//No need to check if tonometer is connected
 				//The result will not be correct from EM4
 								
+				
+				
+				//Deepak: 12/Nov-2011 corrected the code for PWVSW-546
+				//and spun it off into another function
+
 				//Set Idle mode
-				bool boolReturnValue;
-				//Alok 
+				//bool boolReturnValue;
+				////Alok 
+				////
+				////boolReturnValue = SetIdleMode();
 				//
-				//boolReturnValue = SetIdleMode();
+				//int countRetry;
+				//int count = 0;
+				//int sleepTime = 0;
+				//
+				//sleepTime = Convert::ToInt32(CrxSytemParameters::Instance->GetStringTagValue("IdleModeSleepTime"));
+				//countRetry = (15000/sleepTime) + 1;
 				
-				int countRetry;
-				int count = 0;
-				int sleepTime = 0;
+				//Object^ obj;
+				//do
+				//{
+				//	ScorException^ check = gcnew ScorException (1001, CrxStructCommonResourceMsg::Dal_DeviceIdling_Message, ErrorSeverity::Information);	
+				//	CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
 				
-				sleepTime = Convert::ToInt32(CrxSytemParameters::Instance->GetStringTagValue("IdleModeSleepTime"));
-				countRetry = (15000/sleepTime) + 1;
+				//	boolReturnValue = SetIdleMode();
+				//	if(!boolReturnValue)
+				//	{
+				//		count++;
+				//		Threading::Thread::Sleep(sleepTime); //Wait for 3 sec to re-check the idle mode
+				//	}
+				//}
+				//while(!boolReturnValue || count > countRetry);
+				////Alok
 
-				Object^ obj;
-				do
-				{
-					//ToDo: //Send message to GUI ("Please wait...Device is in Idle Mode")	
-					ScorException^ check = gcnew ScorException (1001, CrxStructCommonResourceMsg::Dal_DeviceIdling_Message, ErrorSeverity::Information);	
-					CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+				//if (false == boolReturnValue )
+				//{
+				//	ScorException^ check = gcnew ScorException (1002, CrxStructCommonResourceMsg::Dal_DeviceNotReady_Message, ErrorSeverity::Information);	
+				//	CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+				//	return false;
+				//}
 
-					boolReturnValue = SetIdleMode();
-					if(!boolReturnValue)
+				if(! SetIdleModeProcess())
 					{
-						count++;
-						Threading::Thread::Sleep(sleepTime); //Wait for 3 sec to re-check the idle mode
-					}
-				}
-				while(!boolReturnValue || count > countRetry);
-				//Alok
+					//Failed to set IDLE mode within 15 sec.
 
-				if (false == boolReturnValue )
-				{
-					ScorException^ check = gcnew ScorException (1002, CrxStructCommonResourceMsg::Dal_DeviceNotReady_Message, ErrorSeverity::Information);	
-					CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+					//capture cannot continue if IDLE mode was not set
 					return false;
 				}
 
@@ -159,11 +171,13 @@ namespace AtCor{
 				}
 
 				//send command to stop capture
-				DalEM4Command ^ startCaptureCommand = gcnew DalEM4Command(Em4CommandCodes::StopDataCapture , nullptr);
+				DalEM4Command ^ stopCaptureCommand = gcnew DalEM4Command(Em4CommandCodes::StopDataCapture , nullptr);
 				DalReturnValue returnValue = DalReturnValue::Failure;
-				startCaptureCommand->expectedResponseLength = Em4ResponseRequiredLength::StopDataCapture; 
+				stopCaptureCommand->expectedResponseLength = Em4ResponseRequiredLength::StopDataCapture; 
+				//stopCaptureCommand->timeoutPeriod = 1000; //TODO: setting a high timeout to allow the Stop capture command sufficient time
+				////It needs extra time because there are many streaming packets in the queue befor it 
 
-				returnValue = _commandInterface->SendCommandAndGetResponse(startCaptureCommand); //renamed oringinal method
+				returnValue = _commandInterface->SendCommandAndGetResponse(stopCaptureCommand); //renamed oringinal method
 
 				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture returnValue" + returnValue.ToString(), ErrorSeverity::Debug);
 
@@ -424,7 +438,17 @@ namespace AtCor{
 
 			bool DalDeviceHandler::SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard)
 			{
-				//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure called with pressure:" + newPressure, ErrorSeverity::Debug);
+				CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure called with pressure:" + newPressure.ToString() + " Binary: " +  newPressure.ToString("X2") + " as a signed int: " + ((signed int)newPressure).ToString(), ErrorSeverity::Debug);
+				
+				//Deepak: This code is temporary until the cuff pressure negative problem is solved.
+				//TODO: remove after solution 
+				if (0 > ((signed int)newPressure))
+				{
+					CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure called with negative pressure value: Binary: " +  newPressure.ToString("X2") + " as a signed int: " + ((signed int)newPressure).ToString() + " . ignoring it an d taking pressure  = 0", ErrorSeverity::Debug);
+					
+					newPressure = 0;
+				
+				}
 				unsigned short pressureToSet = (unsigned short)newPressure;
 
 				unsigned char pressureMSB, pressureLSB, commandByte;
@@ -452,6 +476,13 @@ namespace AtCor{
 
 					DalEM4Command ^setPressureCommand = gcnew DalEM4Command(commandByte,pressureBytes);
 					setPressureCommand->expectedResponseLength = Em4ResponseRequiredLength::SetPressure;
+
+					//Deepak: TODO: note it. experimenting with a higher timeout 
+					//This command is sent when streaming is in progress so it 
+					//needs some more time to process
+					setPressureCommand->timeoutPeriod = 100; 
+
+
 
 					if (_commandInterface->SendCommandAndGetResponse(setPressureCommand) ==DalReturnValue::Success) //renamed oringinal method
 					{
@@ -562,6 +593,13 @@ namespace AtCor{
 
 			bool DalDeviceHandler::SetIdleMode()
 			{
+
+				////Deepak: 12/Nov/2011
+				////TODO: for testing only!!!!!!!!!!!!!!!!!
+				//return false;
+				////REVERT UPPER LINE WHEN DONE
+
+
 				try
 				{
 					//bool returnValue;
@@ -648,10 +686,947 @@ namespace AtCor{
 					// rethrow the exception
 					throw;
 				}
-
-				
+	
 			}
 
+			
+						
+			DalReturnValue DalDeviceHandler::DalEm4Communication(unsigned char cmdCode, array<unsigned char> ^%data, unsigned int em4ResponseReqLen)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				serialCommand = gcnew DalEM4Command(cmdCode, data);
+				serialCommand->expectedResponseLength = em4ResponseReqLen;
+				
+				returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); ////renamed oringinal method
+				
+				data = serialCommand->em4ResponseData;
+
+				return returnedValue;
+			}
+
+			//Set ConfigurationAndUsages Methods
+			//----------------------------------
+			String^ DalDeviceHandler::SerialNumberMpb()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SerialNumberMpb};
+				String^ moduleSerialNumber = String::Empty;
+				
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::SerialNumberMpb);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					moduleSerialNumber = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				return moduleSerialNumber;
+			}			
+			String^ DalDeviceHandler::ProcessorFirmwareVersionMpb()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::ProcessorFirmwareVersionMpb};
+				String^ processorFirmwareVersionMpb = String::Empty;
+
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::ProcessorFirmwareVersionMpb);
+								
+				if (returnedValue == DalReturnValue::Success)
+				{
+					processorFirmwareVersionMpb = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				return processorFirmwareVersionMpb;
+			}
+
+			String^ DalDeviceHandler::PldSafetyFirmwareVersionMpb()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::PldSafetyFirmwareVersionMpb};
+				String^ pldSafetyFirmwareVersionMpb = String::Empty;
+
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::PldSafetyFirmwareVersionMpb);
+								
+				if (returnedValue == DalReturnValue::Success)
+				{
+					pldSafetyFirmwareVersionMpb = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				return pldSafetyFirmwareVersionMpb;
+			}
+
+			String^ DalDeviceHandler::SerialNumberSuntechPcb()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SerialNumberSuntechPcb};
+				String^ serialNumberSuntechPcb = String::Empty;
+
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::SerialNumberSuntechPcb);
+				
+				if (returnedValue == DalReturnValue::Success)
+				{
+					serialNumberSuntechPcb = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				return serialNumberSuntechPcb;
+			}
+
+			String^ DalDeviceHandler::BPFirmwareVersionSuntech()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::BPFirmwareVersionSuntech};
+				String^ bpFirmwareVersionSuntech = String::Empty;
+				
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::BPFirmwareVersionSuntech);
+				
+				if (returnedValue == DalReturnValue::Success)
+				{
+					bpFirmwareVersionSuntech = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				return bpFirmwareVersionSuntech;
+			}
+
+			String^ DalDeviceHandler::SafetyFirmwareVersionSuntech()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SafetyFirmwareVersionSuntech};
+				String^ safetyFirmwareVersionSuntech = String::Empty;
+
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::SafetyFirmwareVersionSuntech);
+				
+				if (returnedValue == DalReturnValue::Success)
+				{
+					safetyFirmwareVersionSuntech = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				return safetyFirmwareVersionSuntech;
+			}
+
+			String^ DalDeviceHandler::SerialNumberEm4()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SerialNumberEm4};
+				String^ moduleSerialNumber;
+
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::SerialNumberEm4);
+								
+				if (returnedValue == DalReturnValue::Success)
+				{
+					moduleSerialNumber = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				return moduleSerialNumber;
+			}
+		
+			unsigned short DalDeviceHandler::HWConfigurationMpb()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::HWConfigurationMpb};
+
+				unsigned short hwConfigurationMpb = 0;
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::HWConfigurationMpb);
+				
+				if (returnedValue == DalReturnValue::Success)
+				{
+					hwConfigurationMpb = (unsigned short) serialCommand->em4ResponseData[0]; 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			
+				return hwConfigurationMpb;
+			}
+
+			unsigned short DalDeviceHandler::SystemConfigurationId()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SystemConfigurationId};
+
+				unsigned short SystemConfigurationId = 0;
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::SystemConfigurationId);
+				
+				if (returnedValue == DalReturnValue::Success)
+				{
+					SystemConfigurationId = (unsigned short) serialCommand->em4ResponseData[0]; 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			
+				return SystemConfigurationId;
+			}
+
+			unsigned int DalDeviceHandler::NumberofPWVmeasurements()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::NumberofPWVmeasurements};
+
+				unsigned int numberofPWVmeasurements = 0;
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::NumberofPWVmeasurements);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					numberofPWVmeasurements = DalBinaryConversions::TranslateThreeBytes(serialCommand->em4ResponseData, 0); 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			
+				return numberofPWVmeasurements;
+			}
+
+			unsigned int DalDeviceHandler::NumberofPWAtonometermeasurements()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::NumberofPWAtonometermeasurements};
+
+				unsigned int numberofPWAtonomeasurements = 0;
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::NumberofPWAtonometermeasurements);
+				
+				if (returnedValue == DalReturnValue::Success)
+				{
+					numberofPWAtonomeasurements = DalBinaryConversions::TranslateThreeBytes(serialCommand->em4ResponseData, 0); 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				
+				return numberofPWAtonomeasurements;
+			}
+			unsigned int DalDeviceHandler::NumberofPWAcuffmeasurements()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::NumberofPWAcuffmeasurements};
+
+				unsigned int pwaCuffMeasurementsCounter = 0;
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::NumberofPWAcuffmeasurements);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					pwaCuffMeasurementsCounter = DalBinaryConversions::TranslateThreeBytes(serialCommand->em4ResponseData, 0); 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				
+				return pwaCuffMeasurementsCounter;
+			}
+
+			unsigned int DalDeviceHandler::NumberOfNibpMeasurements()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::NumberOfNibpMeasurements};
+				unsigned int numberOfNibpMeasurements = 0;
+				
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::NumberOfNibpMeasurements);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					numberOfNibpMeasurements = DalBinaryConversions::TranslateThreeBytes(dataCode, 0); 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				
+				return numberOfNibpMeasurements;
+			}
+
+			DateTime DalDeviceHandler::CalibrationDateMpb()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::CalibrationDateMpb};
+				DateTime dtCalibrationDateMpb ;
+				
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::CalibrationDateMpb);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					dtCalibrationDateMpb = DalBinaryConversions::ConvertArrayIntoDate(dataCode); 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				
+				return dtCalibrationDateMpb;
+			}
+			DateTime DalDeviceHandler::CalibrationDateSuntech()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::CalibrationDateSuntech};
+				DateTime dtCalibrationDateSuntech ;
+				
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::CalibrationDateSuntech);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					dtCalibrationDateSuntech = DalBinaryConversions::ConvertArrayIntoDate(dataCode); 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				
+				return dtCalibrationDateSuntech;
+			}			
+
+			DateTime DalDeviceHandler::TestDate()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::TestDate};
+				DateTime dtTestDate ;
+				
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::TestDate);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					dtTestDate = DalBinaryConversions::ConvertArrayIntoDate(dataCode); 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				
+				return dtTestDate;
+			}
+
+			DateTime DalDeviceHandler::SystemConfigurationChangeDate()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SystemConfigurationChangeDate};
+				DateTime dtSystemConfigurationChangeDate ;
+				
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::SystemConfigurationChangeDate);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					dtSystemConfigurationChangeDate = DalBinaryConversions::ConvertArrayIntoDate(dataCode); 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+				
+				return dtSystemConfigurationChangeDate;
+			}
+
+			unsigned short DalDeviceHandler::NotchFilterEnable()
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::NotchFilterEnable};
+
+				unsigned short NotchFilterEnable = 0;
+
+				serialCommand = gcnew DalEM4Command(Em4CommandCodes::GetConfigInfo, dataCode);
+				serialCommand->expectedResponseLength = Em4ResponseRequiredLength::NotchFilterEnable;
+				
+				returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); ////renamed oringinal method
+				
+				if (returnedValue == DalReturnValue::Success)
+				{
+					NotchFilterEnable = (unsigned short) serialCommand->em4ResponseData[0]; 
+					delete serialCommand;
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			
+				return NotchFilterEnable;
+			}
+
+			
+			//Set ConfigurationAndUsages Methods
+			//----------------------------------
+			void DalDeviceHandler::SerialNumberMpb(String^ data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = DalBinaryConversions::ConvertStringToBytes(data);
+				
+				if(byteData->Length == Em4ConfigurationFieldLength::SerialNumberMpb)
+				{
+					//Convert string into bytes
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::SerialNumberMpb+1) {Em4CommandCodes::SerialNumberMpb};
+					byteData->CopyTo(dataCode,1);
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+				}
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::ProcessorFirmwareVersionMpb(String^ data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				if(data->Length == Em4ConfigurationFieldLength::ProcessorFirmwareVersionMpb)
+				{
+					//Convert string into bytes
+					array<unsigned char>^ byteData = DalBinaryConversions::ConvertStringToBytes(data);
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::ProcessorFirmwareVersionMpb+1) {Em4CommandCodes::ProcessorFirmwareVersionMpb};
+					
+					byteData->CopyTo(dataCode,1);
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+				}
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::PldSafetyFirmwareVersionMpb(String^ data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				if(data->Length == Em4ConfigurationFieldLength::PldSafetyFirmwareVersionMpb)
+				{
+					array<unsigned char>^ byteData = DalBinaryConversions::ConvertStringToBytes(data);
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::PldSafetyFirmwareVersionMpb+1) {Em4CommandCodes::PldSafetyFirmwareVersionMpb};
+					
+					byteData->CopyTo(dataCode,1);
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+				}
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::SerialNumberSuntechPcb(String^ data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				if(data->Length == Em4ConfigurationFieldLength::SerialNumberSuntechPcb)
+				{
+					array<unsigned char>^ byteData = DalBinaryConversions::ConvertStringToBytes(data);
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::SerialNumberSuntechPcb+1) {Em4CommandCodes::SerialNumberSuntechPcb};
+					
+					byteData->CopyTo(dataCode,1);
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+				}
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::BPFirmwareVersionSuntech(String^ data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				if(data->Length == Em4ConfigurationFieldLength::BPFirmwareVersionSuntech)
+				{
+					array<unsigned char>^ byteData = DalBinaryConversions::ConvertStringToBytes(data);
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::BPFirmwareVersionSuntech+1) {Em4CommandCodes::BPFirmwareVersionSuntech};
+					
+					byteData->CopyTo(dataCode,1);
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+				}
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::SafetyFirmwareVersionSuntech(String^ data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				if(data->Length == Em4ConfigurationFieldLength::SafetyFirmwareVersionSuntech)
+				{
+					array<unsigned char>^ byteData = DalBinaryConversions::ConvertStringToBytes(data);
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::SafetyFirmwareVersionSuntech+1) {Em4CommandCodes::SafetyFirmwareVersionSuntech};
+					
+					byteData->CopyTo(dataCode,1);
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+				}
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::SerialNumberEm4(String^ data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				if(data->Length == Em4ConfigurationFieldLength::SerialNumberEm4)
+				{
+					array<unsigned char>^ byteData = DalBinaryConversions::ConvertStringToBytes(data);
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::SerialNumberEm4+1) {Em4CommandCodes::SerialNumberEm4};
+					
+					byteData->CopyTo(dataCode,1);
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+				}
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+			
+			void DalDeviceHandler::HWConfigurationMpb(unsigned short data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::HWConfigurationMpb);
+				byteData[0] = (unsigned char)(data & 0x00FF);
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::HWConfigurationMpb+1) {Em4CommandCodes::HWConfigurationMpb};
+				
+				byteData->CopyTo(dataCode,1);
+				returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::SystemConfigurationId(unsigned short data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::SystemConfigurationId);
+				byteData[0] = (unsigned char)(data & 0x00FF);
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::SystemConfigurationId+1) {Em4CommandCodes::SystemConfigurationId};
+				
+				byteData->CopyTo(dataCode,1);
+				returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::NumberofPWVmeasurements(unsigned int data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::NumberofPWVmeasurements);
+				byteData = DalBinaryConversions::ConvertThreeBytesIntoArray(data);
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::NumberofPWVmeasurements+1) {Em4CommandCodes::NumberofPWVmeasurements};
+				
+				byteData->CopyTo(dataCode,1);
+				returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::NumberofPWAtonometermeasurements(unsigned int data)	
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::NumberofPWAtonometermeasurements);
+			
+				byteData = DalBinaryConversions::ConvertThreeBytesIntoArray(data);
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::NumberofPWAtonometermeasurements+1) {Em4CommandCodes::NumberofPWAtonometermeasurements};
+				byteData->CopyTo(dataCode,1);
+
+				returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::NumberofPWAcuffmeasurements(unsigned int data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::NumberofPWAcuffmeasurements);
+				
+				byteData = DalBinaryConversions::ConvertThreeBytesIntoArray(data);
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::NumberofPWAcuffmeasurements+1) {Em4CommandCodes::NumberofPWAcuffmeasurements};
+				byteData->CopyTo(dataCode,1);
+
+				returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+
+			void DalDeviceHandler::NumberOfNibpMeasurements(unsigned int data)
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::NumberOfNibpMeasurements);
+				
+				byteData = DalBinaryConversions::ConvertThreeBytesIntoArray(data);
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::NumberOfNibpMeasurements+1) {Em4CommandCodes::NumberOfNibpMeasurements};
+				byteData->CopyTo(dataCode,1);
+
+				returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+			void DalDeviceHandler::CalibrationDateMpb(DateTime data)	
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::CalibrationDateMpb);
+				
+				////need to check the data
+				byteData[5] = (unsigned char)((unsigned int)data.Minute & 0x00FF);
+				byteData[4] = (unsigned char)((unsigned int)data.Hour & 0x00FF);
+				byteData[3] = (unsigned char)((unsigned int)data.Day & 0x00FF);
+				byteData[2] = (unsigned char)((unsigned int)data.Month & 0x00FF);
+				byteData[0] = (unsigned char)((unsigned int)data.Year & 0x00FF);
+				byteData[1] = ((unsigned char)(((unsigned int)data.Year & 0xFF00) >> 8));
+				
+				byteData = DalBinaryConversions::ConvertDateIntoArray(data);
+
+				if ( byteData[0] != 0x0000  || byteData[1] != 0x0000)
+				{
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::CalibrationDateMpb+1) {Em4CommandCodes::CalibrationDateMpb};
+					byteData->CopyTo(dataCode,1);
+
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+					if (returnedValue == DalReturnValue::Success)
+					{
+						delete serialCommand;	
+					}
+					else
+					{
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					}
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+			void DalDeviceHandler::CalibrationDateSuntech(DateTime data)	
+			{ 
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::CalibrationDateSuntech);
+				
+				////need to check the data
+				byteData[5] = (unsigned char)((unsigned int)data.Minute & 0x00FF);
+				byteData[4] = (unsigned char)((unsigned int)data.Hour & 0x00FF);
+				byteData[3] = (unsigned char)((unsigned int)data.Day & 0x00FF);
+				byteData[2] = (unsigned char)((unsigned int)data.Month & 0x00FF);
+				byteData[0] = (unsigned char)((unsigned int)data.Year & 0x00FF);
+				byteData[1] = ((unsigned char)(((unsigned int)data.Year & 0xFF00) >> 8));
+				
+				byteData = DalBinaryConversions::ConvertDateIntoArray(data);
+
+				if ( byteData[0] != 0x0000  || byteData[1] != 0x0000)
+				{
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::CalibrationDateSuntech+1) {Em4CommandCodes::CalibrationDateSuntech};
+					byteData->CopyTo(dataCode,1);
+
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+					if (returnedValue == DalReturnValue::Success)
+					{
+						delete serialCommand;	
+					}
+					else
+					{
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					}
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+			void DalDeviceHandler::TestDate(DateTime data)	
+			{
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::TestDate);
+				
+				////need to check the data
+				byteData[5] = (unsigned char)((unsigned int)data.Minute & 0x00FF);
+				byteData[4] = (unsigned char)((unsigned int)data.Hour & 0x00FF);
+				byteData[3] = (unsigned char)((unsigned int)data.Day & 0x00FF);
+				byteData[2] = (unsigned char)((unsigned int)data.Month & 0x00FF);
+				byteData[0] = (unsigned char)((unsigned int)data.Year & 0x00FF);
+				byteData[1] = ((unsigned char)(((unsigned int)data.Year & 0xFF00) >> 8));
+				
+				byteData = DalBinaryConversions::ConvertDateIntoArray(data);
+
+				if ( byteData[0] != 0x0000  || byteData[1] != 0x0000)
+				{
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::TestDate+1) {Em4CommandCodes::TestDate};
+					byteData->CopyTo(dataCode,1);
+
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+					if (returnedValue == DalReturnValue::Success)
+					{
+						delete serialCommand;	
+					}
+					else
+					{
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					}
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+			void DalDeviceHandler::SystemConfigurationChangeDate(DateTime data)	
+			{ 
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::SystemConfigurationChangeDate);
+				
+				////need to check the data
+				byteData[5] = (unsigned char)((unsigned int)data.Minute & 0x00FF);
+				byteData[4] = (unsigned char)((unsigned int)data.Hour & 0x00FF);
+				byteData[3] = (unsigned char)((unsigned int)data.Day & 0x00FF);
+				byteData[2] = (unsigned char)((unsigned int)data.Month & 0x00FF);
+				byteData[0] = (unsigned char)((unsigned int)data.Year & 0x00FF);
+				byteData[1] = ((unsigned char)(((unsigned int)data.Year & 0xFF00) >> 8));
+				
+				byteData = DalBinaryConversions::ConvertDateIntoArray(data);
+
+				if ( byteData[0] != 0x0000  || byteData[1] != 0x0000)
+				{
+					array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::SystemConfigurationChangeDate+1) {Em4CommandCodes::SystemConfigurationChangeDate};
+					byteData->CopyTo(dataCode,1);
+
+					returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+					if (returnedValue == DalReturnValue::Success)
+					{
+						delete serialCommand;	
+					}
+					else
+					{
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					}
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			}
+			
+			void DalDeviceHandler::NotchFilterEnable(unsigned short data) 
+			{ 
+				DalReturnValue returnedValue =  DalReturnValue::Failure ;
+				DalEM4Command^ serialCommand = nullptr;
+
+				array<unsigned char>^ byteData = gcnew array<unsigned char> (Em4ConfigurationFieldLength::NotchFilterEnable);
+				
+				byteData[0] = (unsigned char)(data & 0x00FF);
+				array<unsigned char>^ dataCode = gcnew array<unsigned char> (Em4ConfigurationFieldLength::NotchFilterEnable+1) {Em4CommandCodes::NotchFilterEnable};
+				byteData->CopyTo(dataCode,1);
+				returnedValue = DalEm4Communication(Em4CommandCodes::SetConfigInfo, dataCode, Em4ResponseRequiredLength::ZeroDataResponsePacket);
+
+				if (returnedValue == DalReturnValue::Success)
+				{
+					delete serialCommand;	
+				}
+				else
+				{
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+				}
+			};
+
+
+			bool DalDeviceHandler::SetIdleModeProcess()
+			{
+				//Set Idle mode
+				bool boolReturnValue;
+
+				//boolReturnValue = SetIdleMode();
+				int countRetry;
+				int count = 0;
+				int sleepTime = 3000;
+
+				sleepTime = Convert::ToInt32(CrxSytemParameters::Instance->GetStringTagValue("IdleModeSleepTime"));
+				countRetry = (15000/sleepTime) + 1;
+				Object^ obj;
+				do
+				{
+					
+					ScorException^ check = gcnew ScorException (1001, CrxStructCommonResourceMsg::Dal_DeviceIdling_Message, ErrorSeverity::Information);	
+					CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+
+					boolReturnValue = SetIdleMode();
+					if(!boolReturnValue)
+					{
+						count++;
+						Threading::Thread::Sleep(sleepTime); //Wait for 3 sec to re-check the idle mode
+					}
+				}
+				while((!boolReturnValue) && (count < countRetry));
+
+				if (false == boolReturnValue )
+				{
+					ScorException^ scorExObj = gcnew ScorException (1002, CrxStructCommonResourceMsg::Dal_DeviceNotReady_Message, ErrorSeverity::Information);	
+					//CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+					//throw scorExObj;
+					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException , scorExObj);
+
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+
+
+
+			
 		}// end namespaces
 	}
 }

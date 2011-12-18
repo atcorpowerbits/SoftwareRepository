@@ -84,7 +84,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		//Begin: AtCor-Drop2-Sprint3
 		//static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'BLOODPRESSUREENTRYOPTIONS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION' , 'PWA' ,'GUIDANCEBARS','AUTOCAPTURE','MINPULSEHEIGHT','MAXPULSEHEIGHTVARIATION','MAXDIASTOLICVARIATION','AUGMENTATIONINDEX','AUGMENTATIONINDEXATHR75','BLINDSTUDY','CAPTUREINPUT','DEFAULTREPORTSCREEN', 'BP', 'DEVICE' ,'NUMBEROFASSESSMENTS', 'AUTOPWA', 'SPTHRESHOLD', 'PPTHRESHOLD', 'BLOODPRESSURE','SIMULATIONTYPE','KEY' ,'AUTOPWASP','AUTOPWAPP','AUTOPWADP','AUTOPWASPTHRESHOLD','AUTOPWAPPTHRESHOLD','AUTOPWADPTHRESHOLD'";
 		//static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION' , 'PWA' ,'GUIDANCEBARS','AUTOCAPTURE','MINPULSEHEIGHT','MAXPULSEHEIGHTVARIATION','MAXDIASTOLICVARIATION','AUGMENTATIONINDEX','AUGMENTATIONINDEXATHR75','BLINDSTUDY','CAPTUREINPUT','DEFAULTREPORTSCREEN', 'BP', 'DEVICE' ,'NUMBEROFASSESSMENTS', 'AUTOPWA', 'SPTHRESHOLD', 'PPTHRESHOLD', 'BLOODPRESSURE','SIMULATIONTYPE','KEY' ,'AUTOPWASP','AUTOPWAPP','AUTOPWADP','AUTOPWASPTHRESHOLD','AUTOPWAPPTHRESHOLD','AUTOPWADPTHRESHOLD'";
-		static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION' , 'PWA' ,'GUIDANCEBARS','AUTOCAPTURE','MINPULSEHEIGHT','MAXPULSEHEIGHTVARIATION','MAXDIASTOLICVARIATION','AUGMENTATIONINDEX','AUGMENTATIONINDEXATHR75','BLINDSTUDY','CAPTUREINPUT','DEFAULTREPORTSCREEN', 'BP', 'DEVICE' ,'NUMBEROFASSESSMENTS', 'AUTOPWA', 'SPTHRESHOLD', 'PPTHRESHOLD','SIMULATIONTYPE','KEY' ,'AUTOPWASP','AUTOPWAPP','AUTOPWADP','AUTOPWASPTHRESHOLD','AUTOPWAPPTHRESHOLD','AUTOPWADPTHRESHOLD'";
+		static String^ ConfigXmlElementsList = "'CONFIGURATION', 'SYSTEMSETTING', 'GENERAL', 'USER', 'PATIENTPRIVACY', 'HEIGHTANDWEIGHTUNITS', 'COMMSPORT', 'REPORTTITLE', 'REPORTLOGOPATH', 'DEFAULT', 'PWV', 'PWVDISTANCEMETHOD', 'FEMORALTOCUFF', 'PWVDISTANCEUNITS', 'CAPTURETIME', 'EUROPEANGENERALPOPULATION', 'SIMULATIONTYPE', 'SERVERNAME', 'SOURCEDATA', 'CULTUREINFO', 'MACHINENAME', 'STARTUPMODE', 'STARTUPSCREEN', 'PRINTERNAME' , 'DEFAULTREPORT' , 'HEALTHYPOPULATION' , 'PWA' ,'GUIDANCEBARS','AUTOCAPTURE','MINPULSEHEIGHT','MAXPULSEHEIGHTVARIATION','MAXDIASTOLICVARIATION','AUGMENTATIONINDEX','AUGMENTATIONINDEXATHR75','BLINDSTUDY','CAPTUREINPUT','DEFAULTREPORTSCREEN', 'BP', 'DEVICE' ,'NUMBEROFASSESSMENTS', 'AUTOPWA', 'SPTHRESHOLD', 'PPTHRESHOLD','SIMULATIONTYPE','KEY' ,'AUTOPWASP','AUTOPWAPP','AUTOPWADP','AUTOPWASPTHRESHOLD','AUTOPWAPPTHRESHOLD','AUTOPWADPTHRESHOLD','AUTOINFLATE'";
 		//End: AtCor-Drop2-Sprint3
 		//End   : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
 		
@@ -92,8 +92,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		static String^ CheckYesNoValue = "'NO', 'YES'";
 		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
 		//static String^ StartUpScreenValue = "'SETUP'";
-		static String^ StartUpScreenValue = "'SETUP','QUICK START'";
+		//static String^ StartUpScreenValue = "'SETUP','QUICK START'";
 		//End   : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+		static String^ StartUpScreenValue = "'STANDARD','QUICK START'";
 		static String^ StartUpModeValue = "'PWV','PWA'";
 
 		static String^ UpperYES = "YES";
@@ -147,6 +148,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		static String^ AugmentationIndexAtHR75  = "AUGMENTATIONINDEXATHR75";
 		static String^ CaptureInput  = "CAPTUREINPUT";
 		//End  : AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
+		static String^ AutoInflate = "AUTOINFLATE";
 
 		//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2006, 6-Jun-2011
 		static String^ Device = "DEVICE" ;
@@ -419,6 +421,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 		String^ DefaultReport;	/**< Shows the default report string selected*/
 		bool AutoCapture;		/**< true: if Auto Capture is selected, false: if not selcted */
 		bool GuidanceBars;		/**< true: if Guidance bar is selected, false: if not selcted */
+		bool AutoInflate;		/**< true: if Auto Inflate is selected, false: if not selcted */
 
 		
 		/**
@@ -437,6 +440,7 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			DefaultReport		= nullptr;
 			AutoCapture			= true;
 			GuidanceBars		= true;
+			AutoInflate			= true;
 		}
 	};
 
@@ -765,6 +769,8 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void GetPwvAutoCapture(String^ SubSection, String^ ReaderValue);
 			//Get Guidance Bar value from config file
 			void GetPwvGuidanceBars(String^ SubSection, String^ ReaderValue);
+			//Get Auto Inflate value from config file
+			void GetPwvAutoInflate(String^ SubSection, String^ ReaderValue);
 	
 		
 			//-------------------Set PWV Setting User Values-------------------
@@ -788,6 +794,9 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace Configurat
 			void SetPwvAutoCapture(CrxStructPwvSetting^ ps, XmlNode^ node);
 			//Set Guidance Bar value in config file
 			void SetPwvGuidanceBars(CrxStructPwvSetting^ ps, XmlNode^ node);
+			//Set Auto Inflate value in config file
+			void SetPwvAutoInflate(CrxStructPwvSetting^ ps, XmlNode^ node);
+
 
 			//Begin: AtCor-Drop2-Sprint1, TM, SWREQ2009, 13-Jun-2011
 			//-------------------Get PWA Setting Values-------------------

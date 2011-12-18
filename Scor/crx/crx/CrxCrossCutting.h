@@ -41,6 +41,24 @@ namespace AtCor
 		namespace CrossCutting
 		{
 			/**
+			* @enum Number
+			* @brief	Contains the type of Numeric Numbers
+			*/
+			public enum class Number
+			{
+				Zero = 0,
+				One,
+				Two,
+				Three,
+				Four,
+				Five,
+				Six,
+				Seven,
+				Eight,
+				Nine
+			};
+
+			/**
 			* @class CrxCommon
 			* @brief Common class for CrxCommon namespace.
 			*/

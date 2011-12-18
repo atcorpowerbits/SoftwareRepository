@@ -19,6 +19,11 @@ DalReturnValue DalNibpBackgroundCommand::ListenForEM4Response()
 	bool threadHasBeenTerminated = false;
 	DalReturnValue customReturnValue = DalReturnValue::Failure;
 	//Start the thread that will process the events to arrive
+	if (nullptr != responseListenerThread)
+	{
+		//CrxLogger::Instance->Write("DalNibpBackgroundCommand::ListenForEM4Response deleting old responseListenerThread", ErrorSeverity::Debug);
+		delete responseListenerThread;
+	}
 	responseListenerThread = gcnew Thread(gcnew ParameterizedThreadStart(this, &DalNibpBackgroundCommand::ResponseListenerThreadMethod));
 
 	
@@ -115,6 +120,7 @@ bool DalNibpBackgroundCommand::ActOnPacket(array <unsigned char> ^ nibpToHostRes
 		
 		//take some action
 
+
 		//then signal the waiting thread that it has something for it
 		this->responseListenerThread->Interrupt();
 
@@ -130,7 +136,7 @@ void DalNibpBackgroundCommand::ResponseListenerThreadMethod(System::Object ^)
 	{
 		//TODO: see if this timout should be infinite
 		//sleep until timeout expires or the thread is woken up
-		Thread::Sleep(Timeout::Infinite); 
+		Thread::Sleep(this->responseWaitingTimeMax); 
 
 		//Thread::Sleep(this->responseWaitingTimeMax);
 	}

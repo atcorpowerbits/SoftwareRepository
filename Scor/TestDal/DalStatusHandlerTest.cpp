@@ -4,6 +4,7 @@
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
 using namespace AtCor::Scor::CrossCutting;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace System::IO;
 namespace TestDal {
     using namespace System;
@@ -73,6 +74,15 @@ namespace TestDal {
 				 eventRaised = true;
 				alarmStatusFlag =  args->ErrorAlarmStatus;
 				alarmSourceName =  args->AlarmSourceName; 
+				int a1 = args->ScorExceptionObject->ErrorCode ;
+				args->ScorExceptionObject->ErrorMessageKey;
+				args->ScorExceptionObject->ErrorType;
+
+				if (-1 == args->ScorExceptionObject->ErrorCode)
+				{
+					args->ScorExceptionObject->ExceptionObject;
+				}
+
 			 }
 
 			static void MyCuffStatusEventTester(Object ^sender, DalCuffStatusEventArgs ^ args)
@@ -104,10 +114,11 @@ namespace TestDal {
 			//}
 			//
 			//Use TestInitialize to run code before running each test
-			//public: [TestInitialize]
-			//System::Void MyTestInitialize()
-			//{
-			//}
+			public: [TestInitialize]
+			System::Void MyTestInitialize()
+			{
+				SetPath();
+			}
 			//
 			//Use TestCleanup to run code after each test has run
 			//public: [TestCleanup]
@@ -1123,6 +1134,54 @@ public: [TestMethod]
 			}
 
 			Assert::IsFalse(excepRaised);
+		}
+		/// <summary>
+		///A test for RaiseEventForException
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void RaiseEventForExceptionTest()
+		{
+			//initialize a handler for the event that will be raised
+			DalEventContainer::Instance->OnDalModuleErrorAlarmEvent += gcnew DalModuleErrorAlarmEventHandler(&TestDal::DalStatusHandlerTest::MyAlarmEventRaisedTester);
+
+			// reset the bit to zero. Event SHOULD NOT be raised.
+			eventRaised = false; //reset the flag
+		
+				
+			DalErrorAlarmStatusFlag alarmType = DalErrorAlarmStatusFlag::ThreadException ;
+			ScorException^  excptionObject = gcnew ScorException(CrxStructCommonResourceMsg::DalErrUnknownBitFlagErrCd,CrxStructCommonResourceMsg::DalErrUnknownBitFlag,ErrorSeverity::Warning); 
+			DalStatusHandler_Accessor::RaiseEventForException(alarmType, excptionObject);
+		}
+
+		/// <summary>
+		///A test for RaiseEventForException
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void RaiseEventForException_NativeException_Test()
+		{
+			//initialize a handler for the event that will be raised
+			DalEventContainer::Instance->OnDalModuleErrorAlarmEvent += gcnew DalModuleErrorAlarmEventHandler(&TestDal::DalStatusHandlerTest::MyAlarmEventRaisedTester);
+
+			// reset the bit to zero. Event SHOULD NOT be raised.
+			eventRaised = false; //reset the flag
+		
+				
+			DalErrorAlarmStatusFlag alarmType = DalErrorAlarmStatusFlag::ThreadException ;
+			//recreate a native exception
+			try
+			{
+				int dummyInt = Int32::Parse("Dummy");
+			}
+			catch(Exception ^ excepObj)
+			{
+				ScorException^  excptionObject = gcnew ScorException(excepObj); 
+				DalStatusHandler_Accessor::RaiseEventForException(alarmType, excptionObject);
+			}
+		
+			
+			
 		}
 };
 }

@@ -12,12 +12,13 @@ namespace AtCor.Scor.Gui.Presentation
 {
     public class GuiFieldValidation
     {
-        readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-
-        List<RadLabel> mandatoryLabels = new List<RadLabel>();
        public List<RadTextBox> mandatoryTextboxes = new List<RadTextBox>();
 
-        bool isFieldEmpty = false;
+       readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+
+       List<RadLabel> mandatoryLabels = new List<RadLabel>();
+
+       bool isFieldEmpty = false;
 
         /** This method sets metric units & height & weight units for Biz data validations after reading from configuration file
         * at the launch of application and when any changes are made from settings window 
@@ -149,38 +150,9 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        /** This method checks the field values within range from Biz logic 
-        * and shows error message if it doesn't fall within the range
-        * */
-        private void GetIntegerValidationErrorMsg(int fieldValue, RadTextBox radtxtCtrl)
-        {
-            isFieldEmpty = false;
-
-            // read limits
-            int min = UInt16.MinValue;
-            int max = UInt16.MaxValue;
-
-            // check if value is within min & max limits
-            if (fieldValue > max || fieldValue < min)
-            {
-                // field validation error
-                isFieldEmpty = true;
-                GuiCommon.IsValueOutsideIntegerLimits = true;
-                string field = GetLabelText(radtxtCtrl.Tag.ToString());
-
-               // radtxtCtrl.Text = string.Empty;
-                string err = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiLimitsFormat), field, min, string.Empty, max, string.Empty);
-                RadMessageBox.Show(err, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-            }
-            else
-            {
-                GuiCommon.IsValueOutsideIntegerLimits = false;
-            }
-        }
-
         /** This method takes parameter as textbox. It checks whether the value in textbox is within the limits and range defined for that textbox
-       * If not within valid range, it will show error message
-       * */
+      * If not within valid range, it will show error message
+      * */
         public void CheckIntegerFieldLimitsRemoveInvalidValue(RadTextBox radtxtCtrl)
         {
             try
@@ -201,39 +173,10 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        /** This method checks the field values within range from Biz logic 
-        * and shows error message if it doesn't fall within the range
-        * */
-        private void GetIntegerValidationErrorMsgRemoveInvalidValue(int fieldValue, RadTextBox radtxtCtrl)
-        {
-            isFieldEmpty = false;
-
-            // read limits
-            int min = UInt16.MinValue;
-            int max = UInt16.MaxValue;
-
-            // check if value is within min & max limits
-            if (fieldValue > max || fieldValue < min)
-            {
-                // field validation error
-                isFieldEmpty = true;
-                GuiCommon.IsValueOutsideIntegerLimits = true;
-                string field = GetLabelText(radtxtCtrl.Tag.ToString());
-
-                radtxtCtrl.Text = string.Empty;
-                string err = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiLimitsFormat), field, min, string.Empty, max, string.Empty);
-                RadMessageBox.Show(err, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-            }
-            else
-            {
-                GuiCommon.IsValueOutsideIntegerLimits = false;
-            }
-        }
-
         /** This method checks if mandatory fields are entered and accordingly displays missing field error message
          * */
         public bool CheckMandatoryFields()
-        {   
+        {
             string errMsg = string.Empty;
             GuiCommon.IsMandatoryFieldEmpty = false;
             int countFields = 0;
@@ -280,7 +223,86 @@ namespace AtCor.Scor.Gui.Presentation
             }
 
             return isFieldEmpty;
-        }       
+        }
+
+        /** This method fetched label text to display for error messages for missing fields & validation
+       */
+        public string GetLabelText(string txtTag)
+        {
+            string tag = txtTag;
+
+            // fetch label whose tag matches txtTag
+            RadLabel radLbl = (from RadLabel lbl in mandatoryLabels
+                               where lbl.Tag.ToString() == txtTag
+                               select lbl).FirstOrDefault();
+
+            // if radLbl is not null use the label text to show error message
+            if (radLbl != null)
+            {
+                // replace the "*:" & ":" in label text abd break the loop
+                tag = radLbl.Text.Replace(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayAsteriskColon), string.Empty).Replace(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon), string.Empty);
+            }
+
+            return tag;
+        }
+
+        /** This method checks the field values within range from Biz logic 
+        * and shows error message if it doesn't fall within the range
+        * */
+        private void GetIntegerValidationErrorMsg(int fieldValue, RadTextBox radtxtCtrl)
+        {
+            isFieldEmpty = false;
+
+            // read limits
+            int min = UInt16.MinValue;
+            int max = UInt16.MaxValue;
+
+            // check if value is within min & max limits
+            if (fieldValue > max || fieldValue < min)
+            {
+                // field validation error
+                isFieldEmpty = true;
+                GuiCommon.IsValueOutsideIntegerLimits = true;
+                string field = GetLabelText(radtxtCtrl.Tag.ToString());
+
+               // radtxtCtrl.Text = string.Empty;
+                string err = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiLimitsFormat), field, min, string.Empty, max, string.Empty);
+                RadMessageBox.Show(err, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+            }
+            else
+            {
+                GuiCommon.IsValueOutsideIntegerLimits = false;
+            }
+        }
+       
+        /** This method checks the field values within range from Biz logic 
+        * and shows error message if it doesn't fall within the range
+        * */
+        private void GetIntegerValidationErrorMsgRemoveInvalidValue(int fieldValue, RadTextBox radtxtCtrl)
+        {
+            isFieldEmpty = false;
+
+            // read limits
+            int min = UInt16.MinValue;
+            int max = UInt16.MaxValue;
+
+            // check if value is within min & max limits
+            if (fieldValue > max || fieldValue < min)
+            {
+                // field validation error
+                isFieldEmpty = true;
+                GuiCommon.IsValueOutsideIntegerLimits = true;
+                string field = GetLabelText(radtxtCtrl.Tag.ToString());
+
+                radtxtCtrl.Text = string.Empty;
+                string err = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiLimitsFormat), field, min, string.Empty, max, string.Empty);
+                RadMessageBox.Show(err, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+            }
+            else
+            {
+                GuiCommon.IsValueOutsideIntegerLimits = false;
+            }
+        }          
 
         /** This method checks if the control is label or textbox and accordingly sets it mandatory
       */
@@ -345,27 +367,6 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GuiCommon.IsValueOutsideLimits = false;
             }
-        }
-
-        /** This method fetched label text to display for error messages for missing fields & validation
-        */
-        public string GetLabelText(string txtTag)
-        {
-            string tag = txtTag;
-
-            // fetch label whose tag matches txtTag
-            RadLabel radLbl = (from RadLabel lbl in mandatoryLabels
-                          where lbl.Tag.ToString() == txtTag
-                          select lbl).FirstOrDefault();
-
-            // if radLbl is not null use the label text to show error message
-            if (radLbl != null)
-            {
-                // replace the "*:" & ":" in label text abd break the loop
-                tag = radLbl.Text.Replace(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayAsteriskColon), string.Empty).Replace(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon), string.Empty);
-            }
-          
-            return tag;
-        }
+        }       
     }
 }

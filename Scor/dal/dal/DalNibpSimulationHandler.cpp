@@ -13,6 +13,7 @@
 #include "DalNibpSimulationHandler.h"
 #include "DalDataBuffer.h"
 #include "DalCommon.h"
+#include "DalNibpStatusHandler.h"
 
 using namespace System::ComponentModel;
 using namespace AtCor::Scor::CrossCutting;
@@ -40,12 +41,20 @@ namespace AtCor{
 				dataBufferObj = DalDataBuffer::Instance;
 
 				//create array
-				dataBufferObj->CreateBuffer(3, 3);
+				dataBufferObj->CreateBuffer(5, 4);
+				//dataBufferObj->CreateBuffer(3, 3);
 				DalPwvDataStruct tempbuff;
 
-				for( unsigned short i=1; i<=16; i++)
+				for( unsigned short i=1; i<=15; i++)
 				{
-					tempbuff.cuffPressure = i*10;
+					tempbuff.cuffPressure = i*20;
+					dataBufferObj->WriteDataToBuffer(tempbuff);
+				}
+				//Threading::Thread::Sleep(2000);
+
+				for( unsigned short i=15; i>1; i--)
+				{
+					tempbuff.cuffPressure = i*20;
 					dataBufferObj->WriteDataToBuffer(tempbuff);
 				}
 
@@ -105,6 +114,8 @@ namespace AtCor{
 			void DalNibpSimulationHandler::OnTimerDalNIBPDataEvent(Object^ sender, ElapsedEventArgs^ args)
 			{
 				unsigned short dalError4NIBP;
+				String^ errorMessage = String::Empty ;
+				NibpMeasurementStatus  resultStatus;
 
 				args;
 				_nibpTimer->Enabled = false;
@@ -113,7 +124,9 @@ namespace AtCor{
 				   This is just an example.
 				   All SunTech NIBP specific error codes must be translated to DAL NIBP error enum that are visible to BLL.
 				*/
-				if (_nibpErrorCode == 0 && _nibpStatus == 1)
+				resultStatus = DalNibpStatusHandler::ValidateBpData(_nibpErrorCode, _nibpStatus, errorMessage);
+				
+				if (resultStatus  == NibpMeasurementStatus::Successful)
 				{
 					// No error. New NIBP data is ready.
 					dalError4NIBP = 0;
@@ -123,12 +136,22 @@ namespace AtCor{
 					// Donot use NIBP data for other errors
 					dalError4NIBP = 12345;
 				}
-				DalEventContainer::Instance->OnDalNIBPDataEvent(sender, 
+								
+				DalEventContainer::Instance->OnDalNIBPDataEvent(sender,
+																gcnew DalNIBPDataEventArgs(dalError4NIBP, 
+																						   _nibpSP, 
+																						   _nibpDP, 
+																						   _nibpMP, 
+																						   _nibpHR,
+																						   resultStatus,
+																						   errorMessage));
+				/*DalEventContainer::Instance->OnDalNIBPDataEvent(sender, 
 																gcnew DalNIBPDataEventArgs(dalError4NIBP, 
 																						   _nibpSP, 
 																						   _nibpDP, 
 																						   _nibpMP, 
 																						   _nibpHR));
+			*/
 			}
 
 

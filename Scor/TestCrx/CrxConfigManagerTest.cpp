@@ -392,6 +392,7 @@ namespace TestCrx {
 				ps->NormalRange = true;
 				ps->AutoCapture = true;
 				ps->GuidanceBars = true;
+				ps->AutoInflate = true;
 			
 				target->SetPwvUserSettings(ps);
 
@@ -406,6 +407,7 @@ namespace TestCrx {
 				Assert::AreEqual(true, target->_instance->PwvSettings->NormalRange);
 				Assert::AreEqual(true, target->_instance->PwvSettings->AutoCapture);
 				Assert::AreEqual(true, target->_instance->PwvSettings->GuidanceBars);
+				Assert::AreEqual(true, target->_instance->PwvSettings->AutoInflate);
 
 				ps->PWVDistanceMethod = 1;
 				ps->FemoralToCuff = "300";
@@ -417,6 +419,7 @@ namespace TestCrx {
 				ps->NormalRange = false;
 				ps->AutoCapture = false;
 				ps->GuidanceBars = false;
+				ps->AutoInflate = false;
 			
 				target->SetPwvUserSettings(ps);
 
@@ -430,6 +433,7 @@ namespace TestCrx {
 				Assert::AreEqual(false, target->_instance->PwvSettings->NormalRange);
 				Assert::AreEqual(false, target->_instance->PwvSettings->AutoCapture);
 				Assert::AreEqual(false, target->_instance->PwvSettings->GuidanceBars);
+				Assert::AreEqual(false, target->_instance->PwvSettings->AutoInflate);
 				
 				ps->CaptureTime = 20;
 
@@ -449,6 +453,7 @@ namespace TestCrx {
 				ps->NormalRange = true;
 				ps->AutoCapture = true;
 				ps->GuidanceBars = true;
+				ps->AutoInflate = true;
 
 				target->SetPwvUserSettings(ps);
 			}
@@ -602,7 +607,7 @@ namespace TestCrx {
 				gs->CultureInfo = CultureInfo;
 				gs->MachineName = MachineName;
 				gs->StartupMode = "PWV";
-				gs->StartupScreen = "Setup";
+				gs->StartupScreen = "STANDARD";
 				gs->PrinterName = printerName;
 				gs->Key = "12345";
 				/*gs->Id = "123";
@@ -625,7 +630,7 @@ namespace TestCrx {
 				//Assert::AreEqual("fr-FR", target->_instance->GeneralSettings->CultureInfo);				
 				
 				Assert::AreEqual("PWV", target->_instance->GeneralSettings->StartupMode);
-				Assert::AreEqual("Setup", target->_instance->GeneralSettings->StartupScreen);
+				Assert::AreEqual("STANDARD", target->_instance->GeneralSettings->StartupScreen);
 				/*Assert::AreEqual("123", target->_instance->GeneralSettings->Id);
 				Assert::AreEqual("12345", target->_instance->GeneralSettings->Sn);
 				Assert::AreEqual("12", target->_instance->GeneralSettings->Verify);
@@ -687,7 +692,7 @@ namespace TestCrx {
 				gs->CultureInfo = CultureInfo;
 				gs->MachineName = MachineName;
 				gs->StartupMode = "PWV";
-				gs->StartupScreen = "Setup";
+				gs->StartupScreen = "STANDARD";
 				gs->PrinterName = printerName;
 				gs->Key = SystemKey;
 
@@ -844,8 +849,8 @@ namespace TestCrx {
 				String^  SubSection = System::String::Empty; 
 				String^  ReaderValue = System::String::Empty; 
 			
-				target->GetStartupScreen("USER","Setup");
-				Assert::AreEqual("Setup", target->_instance->GeneralSettings->StartupScreen);
+				target->GetStartupScreen("USER","STANDARD");
+				Assert::AreEqual("STANDARD", target->_instance->GeneralSettings->StartupScreen);
 			}
 
 	public: [TestMethod]
@@ -856,8 +861,8 @@ namespace TestCrx {
 				String^  SubSection = System::String::Empty; 
 				String^  ReaderValue = System::String::Empty; 
 			
-				target->GetStartupScreen("DEFAULT", "Setup");
-				Assert::AreEqual("Setup", target->_gSetInternal->StartupScreen);
+				target->GetStartupScreen("DEFAULT", "STANDARD");
+				Assert::AreEqual("STANDARD", target->_gSetInternal->StartupScreen);
 
 			}
 	public: [TestMethod]
@@ -890,7 +895,7 @@ namespace TestCrx {
 			
 				try
 				{	
-					target->GetStartupScreen("USER2","Setup");
+					target->GetStartupScreen("USER2","STANDARD");
 				}
 				catch(Exception^)
 				{
@@ -1453,6 +1458,7 @@ public: [TestMethod]
 				Assert::AreEqual("Simulation", objPwvSettings->SimulationType);
 				Assert::AreEqual(true, objPwvSettings->AutoCapture);
 				Assert::AreEqual(true, objPwvSettings->GuidanceBars);
+				Assert::AreEqual(true, objPwvSettings->AutoInflate);
 			}
 			/// <summary>
 			///A test for GetPatientPrivacy
@@ -1653,7 +1659,7 @@ public: [TestMethod]
 				Assert::AreEqual(false, objGenSettings->PatientPrivacy);
 				Assert::IsNull(objGenSettings->MachineName);
 				Assert::AreEqual("PWV", objGenSettings->StartupMode);
-				Assert::AreEqual("Setup", objGenSettings->StartupScreen);
+				Assert::AreEqual("STANDARD", objGenSettings->StartupScreen);
 				Assert::IsNull(objGenSettings->CommsPort);
 				Assert::IsNull(objGenSettings->ReportTitle);
 				Assert::IsNull(objGenSettings->ReportLogoPath);
@@ -3987,6 +3993,67 @@ public: [TestMethod]
 				Assert::IsTrue(true,"If error occur then test pass");
 			}
 			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+//		/// <summary>
+//		///A test for SetPwvAutoInflate
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"crx.dll")]
+//		void SetPwvAutoInflateTest()
+//		{
+//			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+//			CrxStructPwvSetting^  ps = nullptr; // TODO: Initialize to an appropriate value
+//			XmlNode^  node = nullptr; // TODO: Initialize to an appropriate value
+//			target->SetPwvAutoInflate(ps, node);
+//			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+//		}
+		/// <summary>
+		///A test for GetPwvAutoInflate
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwvAutoInflateTest()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			SubSection = L"USER";
+			ReaderValue = L"Yes";
+			target->GetPwvAutoInflate(SubSection, ReaderValue);
+			Assert::AreEqual(true, target->_instance->PwvSettings->AutoInflate);
+		}
+public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwvAutoInflateTest1()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			SubSection = L"DEFAULT";
+			ReaderValue = L"No";
+			
+			target->GetPwvAutoInflate(SubSection, ReaderValue);
+			Assert::AreEqual(false, target->_pSetInternal->AutoInflate);
+			//Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		public: [TestMethod]
+		[DeploymentItem(L"crx.dll")]
+		void GetPwvAutoInflateTest2()
+		{
+			CrxConfigManager_Accessor^  target = (gcnew CrxConfigManager_Accessor()); // TODO: Initialize to an appropriate value
+			String^  SubSection = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  ReaderValue = System::String::Empty; // TODO: Initialize to an appropriate value
+			SubSection = L"USER";
+			ReaderValue = L"XX-XX";
+			try
+			{
+				target->GetPwvAutoInflate(SubSection, ReaderValue);
+				Assert::Fail("If error does not occur then test fail");
+			}
+			catch(Exception^)
+			{
+				Assert::IsTrue(true,"If error occur then test pass");
+			}			
 		}
 };
 }

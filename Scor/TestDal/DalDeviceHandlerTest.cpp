@@ -55,7 +55,7 @@ namespace TestDal {
 				}
 			}
 
-		private:	static String^ comPortName  = "COM3";
+		private:	static String^ comPortName  = "COM4";
 	public: static DalDeviceHandler_Accessor^ deviceHandlerTestObj = DalDeviceHandler_Accessor::Instance;
 
 #pragma region Additional test attributes
@@ -85,6 +85,7 @@ namespace TestDal {
 			{
 				_currDir = Directory::GetCurrentDirectory(); 
 				SetPath();
+				DalActivePort_Accessor::Instance->SetActivePort(comPortName);
 				//_objConfig = CrxConfigManager::Instance;
 			}
 			
@@ -627,6 +628,820 @@ public: [TestMethod]
 //			Assert::AreEqual(expected, actual);
 //			Assert::Inconclusive(L"Verify the correctness of this test method.");
 //		}
+		/// <summary>
+		///A test for TestDate
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void TestDateTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			DateTime data = DateTime(); // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = target->TestDate();
+				
+				target->TestDate(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for TestDate
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void TestDateTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			DateTime expected = DateTime(); // TODO: Initialize to an appropriate value
+			DateTime actual;
+			
+			try
+			{
+				actual = target->TestDate();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCRX:TestDate: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for SystemConfigurationId
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SystemConfigurationIdTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned short data = 0; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = 1;
+				target->SystemConfigurationId(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for SystemConfigurationId
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SystemConfigurationIdTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned short expected = 0; // TODO: Initialize to an appropriate value
+			unsigned short actual;
+			
+			try
+			{
+				actual = target->SystemConfigurationId();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCRX:SystemConfigurationId: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for SystemConfigurationChangeDate
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SystemConfigurationChangeDateTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			DateTime expected = DateTime(); // TODO: Initialize to an appropriate value
+			DateTime actual;
+			
+			try
+			{
+				actual = target->SystemConfigurationChangeDate();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCRX:SystemConfigurationChangeDate: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for SystemConfigurationChangeDate
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SystemConfigurationChangeDateTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			DateTime data = DateTime(); // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = target->SystemConfigurationChangeDate();
+				
+				target->SystemConfigurationChangeDate(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for SerialNumberSuntechPcb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberSuntechPcbTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			
+			try
+			{
+				actual = target->SerialNumberSuntechPcb();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: SerialNumberSuntechPcbTest: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for SerialNumberSuntechPcb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberSuntechPcbTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = "0000000000000002";
+				target->SerialNumberSuntechPcb(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for SerialNumberMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberMpbTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual = System::String::Empty;;
+			
+			//DalActivePort_Accessor::Instance->SetActivePort(comPortName);
+
+			try
+			{
+				actual = target->SerialNumberMpb();
+				Assert::IsNotNull(actual);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+			
+		}
+		/// <summary>
+		///A test for SerialNumberMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberMpbTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual = System::String::Empty;
+
+			//DalActivePort_Accessor::Instance->SetActivePort(comPortName);
+
+			try
+			{
+				data = "00000000000000000002";
+				target->SerialNumberMpb(data);
+				
+				//actual = target->SerialNumberMpb();
+				//Assert::AreEqual(actual,data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+			
+		}
+		/// <summary>
+		///A test for SerialNumberEm4
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberEm4Test1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			
+			try
+			{
+				actual = target->SerialNumberEm4();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: SerialNumberEm4: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+				CrxLogger::Instance->Write("TestCrx: SerialNumberEm4: Fail" ,ErrorSeverity::Debug);
+			}
+		}
+		/// <summary>
+		///A test for SerialNumberEm4
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberEm4Test()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = "001234567890";
+				target->SerialNumberEm4(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for SafetyFirmwareVersionSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SafetyFirmwareVersionSuntechTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			
+			try
+			{
+				actual = target->SafetyFirmwareVersionSuntech();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: SafetyFirmwareVersionSuntech: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+				CrxLogger::Instance->Write("TestCrx: SafetyFirmwareVersionSuntech: Fail" ,ErrorSeverity::Debug);
+			}
+		}
+		/// <summary>
+		///A test for SafetyFirmwareVersionSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SafetyFirmwareVersionSuntechTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = "1234567";
+				target->SafetyFirmwareVersionSuntech(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for ProcessorFirmwareVersionMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void ProcessorFirmwareVersionMpbTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			
+			
+			//DalActivePort_Accessor::Instance->SetActivePort(comPortName);
+
+			try
+			{
+				data = "000E";
+				target->ProcessorFirmwareVersionMpb(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for ProcessorFirmwareVersionMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void ProcessorFirmwareVersionMpbTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual = System::String::Empty; 
+
+			//DalActivePort_Accessor::Instance->SetActivePort(comPortName);
+
+			try
+			{
+				actual = target->ProcessorFirmwareVersionMpb();
+				Assert::IsNotNull(actual);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+			
+		}
+		/// <summary>
+		///A test for PldSafetyFirmwareVersionMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void PldSafetyFirmwareVersionMpbTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = "10Az";
+				target->PldSafetyFirmwareVersionMpb(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for PldSafetyFirmwareVersionMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void PldSafetyFirmwareVersionMpbTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			
+			try
+			{
+				actual = target->PldSafetyFirmwareVersionMpb();
+				Assert::IsNotNull(actual);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for NumberofPWVmeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWVmeasurementsTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned int expected = 0; // TODO: Initialize to an appropriate value
+			unsigned int actual;
+			
+			try
+			{
+				actual = target->NumberofPWVmeasurements();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: NumberofPWVmeasurements: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for NumberofPWVmeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWVmeasurementsTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned int data = 0; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = 0;
+				target->NumberofPWVmeasurements(data);
+				
+				if(data == target->NumberofPWVmeasurements())
+				{
+					Assert::IsNotNull(data);
+				}
+				else
+				{
+					Assert::Fail();
+				}
+
+				data = 1;
+				target->NumberofPWVmeasurements(data);
+				
+				if(data == target->NumberofPWVmeasurements())
+				{
+					Assert::IsNotNull(data);
+				}
+				else
+				{
+					Assert::Fail();
+				}
+				
+				data = 0;
+				target->NumberofPWVmeasurements(data);
+				
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for NumberofPWAtonometermeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWAtonometermeasurementsTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned int data = 0; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = 21;
+				target->NumberofPWAtonometermeasurements(data);
+				
+				if(data == target->NumberofPWAtonometermeasurements())
+				{
+					Assert::IsNotNull(data);
+				}
+				else
+				{
+					Assert::Fail();
+				}
+				
+				data = 0;
+				target->NumberofPWAtonometermeasurements(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for NumberofPWAtonometermeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWAtonometermeasurementsTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned int expected = 0; // TODO: Initialize to an appropriate value
+			unsigned int actual;
+			
+			try
+			{
+				actual = target->NumberofPWAtonometermeasurements();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: NumberofPWAtonometermeasurements: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for NumberofPWAcuffmeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWAcuffmeasurementsTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned int data = 0; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = 21;
+				target->NumberofPWAcuffmeasurements(data);
+
+				if(data == target->NumberofPWAcuffmeasurements())
+				{
+					Assert::IsNotNull(data);
+				}
+				else
+				{
+					Assert::Fail();
+				}
+				
+				data = 0;
+				target->NumberofPWAcuffmeasurements(data);
+
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for NumberofPWAcuffmeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWAcuffmeasurementsTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned int expected = 0; // TODO: Initialize to an appropriate value
+			unsigned int actual;
+			
+			try
+			{
+				actual = target->NumberofPWAcuffmeasurements();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: NumberofPWAcuffmeasurements: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for NumberOfNibpMeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberOfNibpMeasurementsTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned int expected = 0; // TODO: Initialize to an appropriate value
+			unsigned int actual;
+			
+			try
+			{
+				actual = target->NumberOfNibpMeasurements();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: NumberOfNibpMeasurements: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for NumberOfNibpMeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberOfNibpMeasurementsTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned int data = 0; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = 21;
+				target->NumberOfNibpMeasurements(data);
+				if(data == target->NumberOfNibpMeasurements())
+				{
+					Assert::IsNotNull(data);
+				}
+				else
+				{
+					Assert::Fail();
+				}
+				
+				data = 0;
+				target->NumberOfNibpMeasurements(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for HWConfigurationMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void HWConfigurationMpbTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned short data = 0; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = 01;
+				target->HWConfigurationMpb(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for HWConfigurationMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void HWConfigurationMpbTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned short expected = 0; // TODO: Initialize to an appropriate value
+			unsigned short actual;
+			
+			try
+			{
+				actual = target->HWConfigurationMpb();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: HWConfigurationMpb: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for DalEm4Communication
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void DalEm4CommunicationTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			unsigned char inCommandCode = 0; // TODO: Initialize to an appropriate value
+			cli::array< unsigned char >^  data = nullptr; // TODO: Initialize to an appropriate value
+			cli::array< unsigned char >^  dataExpected = nullptr; // TODO: Initialize to an appropriate value
+			unsigned int inEm4ResponseReqLen = 0; // TODO: Initialize to an appropriate value
+			DalReturnValue expected = DalReturnValue(); // TODO: Initialize to an appropriate value
+			DalReturnValue actual;
+			actual = target->DalEm4Communication(inCommandCode, data, inEm4ResponseReqLen);
+			Assert::AreEqual(dataExpected, data);
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for CalibrationDateSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void CalibrationDateSuntechTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			DateTime expected = DateTime(); // TODO: Initialize to an appropriate value
+			DateTime actual;
+			
+			try
+			{
+				actual = target->CalibrationDateSuntech();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: CalibrationDateSuntech: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for CalibrationDateSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void CalibrationDateSuntechTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			DateTime data = DateTime(); // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = target->CalibrationDateSuntech();
+				
+				target->CalibrationDateSuntech(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for CalibrationDateMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void CalibrationDateMpbTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			DateTime data = DateTime(); // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = target->TestDate();
+				
+				target->CalibrationDateMpb(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for CalibrationDateMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void CalibrationDateMpbTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			DateTime expected = DateTime(); // TODO: Initialize to an appropriate value
+			DateTime actual;
+			
+			try
+			{
+				actual = target->CalibrationDateMpb();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: CalibrationDateMpb: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for BPFirmwareVersionSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void BPFirmwareVersionSuntechTest1()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			
+			try
+			{
+				actual = target->BPFirmwareVersionSuntech();
+				Assert::IsNotNull(actual);
+				CrxLogger::Instance->Write("TestCrx: BPFirmwareVersionSuntech: " + actual,ErrorSeverity::Debug);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+		}
+		/// <summary>
+		///A test for BPFirmwareVersionSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void BPFirmwareVersionSuntechTest()
+		{
+			DalDeviceHandler_Accessor^  target = (gcnew DalDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			
+			try
+			{
+				data = "0683412";
+				target->BPFirmwareVersionSuntech(data);
+			}
+			catch(Exception^)
+			{
+				Assert::Fail();
+			}
+			
+		}
 };
 }
 namespace TestDal {

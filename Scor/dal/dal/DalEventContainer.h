@@ -19,6 +19,8 @@ using namespace System;
 using namespace msclr;
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Logging;
+using namespace System::ComponentModel;
+
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -220,7 +222,6 @@ namespace AtCor{
 				*/
 				public delegate void DalUnusedStatusFlagChangedEventHandler(Object^ sender, DalUnusedStatusFlagEventArgs ^args);
 
-				//TS STUB
 				/**
 				* @class DalNIBPDataEventArgs
 				* @brief Class to contain arguments for OnDalNIBPDataEvent.
@@ -236,6 +237,8 @@ namespace AtCor{
 						property unsigned short nibpDP;
 						property unsigned short nibpMP;
 						property unsigned short nibpHR;
+						property NibpMeasurementStatus measurementStatus;
+						property String^ ErrorMessage;
 						
 						/**
 						* Constructor for the class.
@@ -251,6 +254,26 @@ namespace AtCor{
 											 unsigned short dp,
 											 unsigned short mp, 
 											 unsigned short hr);
+
+						/**
+						* Constructor for the class.
+						*
+						* @param[in] error  NIBP Error code
+						* @param[in] sp     NIBP Systolic value in mmHg
+						* @param[in] dp     NIBP Systolic value in mmHg
+						* @param[in] mp     NIBP Mean arterial pressure value in mmHg
+						* @param[in] hr     NIBP Heart rate in beats per min
+						* @param[in] resultStatus     An enum indicating wheter this result data should be displayed or not
+						* @param[in] errorMessage     Optional detailed rror message 
+						*/
+						DalNIBPDataEventArgs(unsigned short error,
+											 unsigned short sp,
+											 unsigned short dp,
+											 unsigned short mp, 
+											 unsigned short hr,
+											 NibpMeasurementStatus resultStatus,
+											 String^ errorMessage
+											 );
 				};
 
  				/**
@@ -259,18 +282,32 @@ namespace AtCor{
 				public delegate void DalNIBPDataEventHandler(Object^ sender, DalNIBPDataEventArgs ^args);
 
 
-				public ref class NibPacketArrivedEventArgs: public EventArgs
+				/**
+				* @class NibPacketArrivedEventArgs
+				* @brief Class to contain arguments for OnNibPPacketArrivedEvent.
+				* @warning This event is internal to DAL . Do not register to this event
+				*/
+				//public ref class NibPacketArrivedEventArgs: public EventArgs
+				public ref class NibPacketArrivedEventArgs: public HandledEventArgs
 				{
 					internal :
-						array<unsigned char>^ nibpPacket;
+						array<unsigned char>^ nibpPacket; /**<The nibpResponse packet */
 
 					public:
+						/**
+						* Constructor for the event
+						* @param[in] packet	The nibp response
+						*/
 						NibPacketArrivedEventArgs(array<unsigned char>^ packet)
 						{
 							nibpPacket = packet;
 						}
 				};
 
+				/**
+				* Internal event handler that signals that an NIBP packet has arrived.
+				* @warning This event is internal to DAL . Do not register to this event
+				*/
 				public delegate void NibPPacketArrivedEventHandler(Object^ sender, NibPacketArrivedEventArgs ^ args); 
 
 
@@ -301,7 +338,7 @@ namespace AtCor{
 						//TS STUB
 						DalNIBPDataEventHandler^ _dalNIBPDataEventHandler; // NIBP data event handler
 						
-						NibPPacketArrivedEventHandler ^ _nibpDataArrivedHandler; //used internally
+						NibPPacketArrivedEventHandler ^ _nibpPacketArrivedHandler; //used internally
 						
 					public:
 						/**
@@ -461,7 +498,7 @@ namespace AtCor{
 								if(_DalCuffStatusEventHandler)
 								{
 									//Moved log comment to the top and uncommented it as per TS stub
-									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() , ErrorSeverity::Debug);
+									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("DAL:Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() , ErrorSeverity::Debug);
 									_DalCuffStatusEventHandler->Invoke(sender, args);
 								}
 							}
@@ -530,7 +567,7 @@ namespace AtCor{
 								if(_dalModuleErrorAlarmEventHandler)
 								{
 									_dalModuleErrorAlarmEventHandler->Invoke(sender, args);
-									CrxLogger::Instance->Write("Deepak>>>> Error Alarm event raised in DAL: "+ args->ErrorAlarmStatus.ToString() + " : " + args->AlarmSourceName  , ErrorSeverity::Debug);
+									CrxLogger::Instance->Write("DAL:Deepak>>>> Error Alarm event raised in DAL: " + args->ScorExceptionObject->StackTrace + " -- " + args->ErrorAlarmStatus.ToString() + " : " + args->AlarmSourceName  , ErrorSeverity::Debug);
 								}
 							
 							}
@@ -714,6 +751,7 @@ namespace AtCor{
 
 					/**
 					* Internal NIBP Packet event
+					* @warning This event is internal to DAL . Do not register to this event
 					*/
 					event NibPPacketArrivedEventHandler^ OnDalNibpPacketEvent
 					{
@@ -728,7 +766,7 @@ namespace AtCor{
 							
 							lock lockEvents(this);
 							//add the specified handler as listener.
-							_nibpDataArrivedHandler += handler;
+							_nibpPacketArrivedHandler += handler;
 							//CrxLogger::Instance->Write("Deepak>> OnDalNibpPacketEvent> Listerner Added", ErrorSeverity::Debug);
 						}
 						
@@ -743,7 +781,7 @@ namespace AtCor{
 						{
 							lock lockEvents(this);
 							//Remove the specified handler from the list of listeners
-							_nibpDataArrivedHandler -= handler;
+							_nibpPacketArrivedHandler -= handler;
 							//CrxLogger::Instance->Write("Deepak>> OnDalNibpPacketEvent> Listerner Removed", ErrorSeverity::Debug);
 						}
 
@@ -764,10 +802,10 @@ namespace AtCor{
 							}
 
 							//Raise the event.
-							if(_nibpDataArrivedHandler)
+							if(_nibpPacketArrivedHandler)
 							{
-								CrxLogger::Instance->Write("Deepak>> OnDalNibpPacketEvent> Raising event args" + DalBinaryConversions::ConvertBytesToString(args->nibpPacket), ErrorSeverity::Debug);
-								_nibpDataArrivedHandler->Invoke(sender, args);
+								CrxLogger::Instance->Write("Deepak>> OnDalNibpPacketEvent> Raising event args: " + DalBinaryConversions::ConvertBytesToString(args->nibpPacket), ErrorSeverity::Debug);
+								_nibpPacketArrivedHandler->Invoke(sender, args);
 							}
 						}
 					}

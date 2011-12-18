@@ -7,10 +7,11 @@
  
      Description  :     This class file is used to implement the methodsfor PWV class.
 */
-
+using System;
 using AtCor.Scor.BusinessLogic;
 using AtCor.Scor.DataAccess;
 using AtCor.Scor.CrossCutting.Configuration;
+
 /**
  * @namespace AtCor.Scor.Gui.Presentation
  * @brief This namespace implements Presentation related classes.
@@ -94,7 +95,15 @@ namespace AtCor.Scor.Gui.Presentation
 
         public void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e)
         {
-            ((Capture)GuiCommon.CaptureChildForm).HandleKeyDownEventForPwvMode(e);   
+            try
+            {
+                // GuiCommon.CaptureChildForm.HandleKeyDownEventForPwvMode(e);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         public void CreateTextFileForFailedCapture()
@@ -109,6 +118,21 @@ namespace AtCor.Scor.Gui.Presentation
         public void EnableDisableCaptureButton()
         {
             ((Capture)GuiCommon.CaptureChildForm).RefreshOkButtonForPwvMode(); 
+        }
+        
+        public void EnableRepeatAndCaptureTab(bool value)
+        {
+            ((Report)GuiCommon.ReportChildForm).EnableRepeatAndCaptureTab(value); 
+        }
+        
+        public void SaveChangesOnMenuFocus()
+        {
+            ((Report)GuiCommon.ReportChildForm).SaveChangesOnMenuFocus();
+        }
+
+        public void SaveReportChangesOnEdit()
+        {
+            ((Report)GuiCommon.ReportChildForm).SaveChangesOnEdit();
         }
     }
 }

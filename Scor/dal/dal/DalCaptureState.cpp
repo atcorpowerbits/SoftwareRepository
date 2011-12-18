@@ -24,9 +24,25 @@ namespace AtCor{
 	bool DalCaptureState::InitiateDataCaptureMode()
 	{
 
-		//CrxLogger::Instance->Write("DalCaptureState::InitiateDataCaptureMode returns false", ErrorSeverity::Debug);
-		return false;
-		//default
+		////CrxLogger::Instance->Write("DalCaptureState::InitiateDataCaptureMode returns false", ErrorSeverity::Debug);
+		//return false;
+		////default
+
+
+		bool returnValue;
+
+		returnValue = DalCommandInterface::Instance->InitiateDataCaptureModeInternal();
+
+		if (true == returnValue )
+		{
+			//change to the waiting state
+			DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateWaiting::Instance);
+		}
+		//if false then dont change state
+
+		CrxLogger::Instance->Write("DalCaptureState::InitiateDataCaptureMode  called in default state. returns: "+ returnValue.ToString(), ErrorSeverity::Debug);
+		
+		return returnValue;
 	}
 
 	bool DalCaptureState::StopDataCaptureMode()

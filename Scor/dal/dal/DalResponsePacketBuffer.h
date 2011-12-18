@@ -28,7 +28,10 @@ namespace AtCor{
 				private:
 
 					array<unsigned char>^ waitingResponse; //a pointer to the currently stored response packet
-					static Mutex^ _mutex = gcnew Mutex(); //mutex to sychronize acces to the waitingResponse.
+					
+					//Removing mutex becuase it clashes with the [Synchronization] attribute of DalStagingQueue class
+					//TODO: recheck effects of this
+					//static Mutex^ _mutex = gcnew Mutex(); //mutex to sychronize acces to the waitingResponse.
 
 					DalResponsePacketBuffer(); //Constructor
 					~DalResponsePacketBuffer(); //Destructor

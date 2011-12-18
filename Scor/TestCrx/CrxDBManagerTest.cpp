@@ -3692,6 +3692,116 @@ public: [TestMethod]
 			//Assert::AreEqual(expected, actual);
 			//Assert::Inconclusive(L"Verify the correctness of this test method.");
 		}
+		/// <summary>
+		///A test for CommonStringArrToFloatArr
+		///</summary>
+public: [TestMethod]
+		void CommonStringArrToFloatArrTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			cli::array< String^  >^  sortArr = gcnew array<String^> (2); // TODO: Initialize to an appropriate value
+			cli::array< float >^  expected = gcnew array<float> (2); // TODO: Initialize to an appropriate value
+			cli::array< float >^  actual = gcnew array<float> (2);
+			sortArr[0] = "1.1";
+			sortArr[1] = "2.2";
+			expected[0] = 1.1f;
+			expected[1] = 2.2f;
+			actual = target->CommonStringArrToFloatArr(sortArr);
+			Assert::AreEqual(expected[0], actual[0]);
+			Assert::AreNotEqual(expected[0], actual[1]);
+			/*Assert::Inconclusive(L"Verify the correctness of this test method.");*/
+		}
+		/// <summary>
+		///A test for CommonIntArrToStringArr
+		///</summary>
+public: [TestMethod]
+		void CommonIntArrToStringArrTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			cli::array< int >^  sortArr = gcnew array<int> (2); // TODO: Initialize to an appropriate value
+			cli::array< String^  >^  expected = gcnew array<String^> (2); // TODO: Initialize to an appropriate value
+			cli::array< String^  >^  actual = gcnew array<String^> (2);
+			sortArr[0] = 2;
+			sortArr[1] = 3;
+			expected[0] = "2";
+			expected[1] = "3";
+			actual = target->CommonIntArrToStringArr(sortArr);
+			Assert::AreEqual(expected[0], actual[0]);
+			Assert::AreNotEqual(expected[0], actual[1]);
+			/*Assert::Inconclusive(L"Verify the correctness of this test method.");*/
+		}
+		/// <summary>
+		///A test for CommonFloatArrToStringArr
+		///</summary>
+public: [TestMethod]
+		void CommonFloatArrToStringArrTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			cli::array< float >^  sortArr = gcnew array<float> (2); // TODO: Initialize to an appropriate value
+			cli::array< String^  >^  expected = gcnew array<String^> (2); // TODO: Initialize to an appropriate value
+			cli::array< String^  >^  actual = gcnew array<String^> (2);
+			sortArr[0] = 2.2f;
+			sortArr[1] = 3.3f;
+			expected[0] = "2.2";
+			expected[1] = "3.3";
+			actual = target->CommonFloatArrToStringArr(sortArr);
+			Assert::AreEqual(expected[0], actual[0]);
+			Assert::AreNotEqual(expected[0], actual[1]);
+		}
+		/// <summary>
+		///A test for CommonStringArrToDoubleArr
+		///</summary>
+public: [TestMethod]
+		void CommonStringArrToDoubleArrTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			cli::array< String^  >^  sortArr = gcnew array<String^> (2); // TODO: Initialize to an appropriate value
+			cli::array< double >^  expected = gcnew array<double> (2); // TODO: Initialize to an appropriate value
+			cli::array< double >^  actual = gcnew array<double> (2);
+			sortArr[0] = "1.1";
+			sortArr[1] = "2.2";
+			expected[0] = 1.1;
+			expected[1] = 2.2;
+			actual = target->CommonStringArrToDoubleArr(sortArr);
+			Assert::AreEqual(expected[0], actual[0]);
+			Assert::AreNotEqual(expected[0], actual[1]);
+		}
+		/// <summary>
+		///A test for CommonDoubleArrToStringArr
+		///</summary>
+public: [TestMethod]
+		void CommonDoubleArrToStringArrTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			cli::array< double >^  sortArr = gcnew array<double> (2); // TODO: Initialize to an appropriate value
+			cli::array< String^  >^  expected = gcnew array<String^> (2); // TODO: Initialize to an appropriate value
+			cli::array< String^  >^  actual =  gcnew array<String^> (2);
+			sortArr[0] = 2.3;
+			sortArr[1] = 4.2;
+			expected[0] = "2.3";
+			expected[1] = "4.2";
+			actual = target->CommonDoubleArrToStringArr(sortArr);
+			Assert::AreEqual(expected[0], actual[0]);
+			Assert::AreNotEqual(expected[0], actual[1]);
+		}
+		/// <summary>
+		///A test for CommonStringArrToIntArr
+		///</summary>
+public: [TestMethod]
+		void CommonStringArrToIntArrTest()
+		{
+			CrxDBManager_Accessor^  target = (gcnew CrxDBManager_Accessor()); // TODO: Initialize to an appropriate value
+			cli::array< String^  >^  sortArr = gcnew array<String^> (2); // TODO: Initialize to an appropriate value
+			cli::array< int >^  expected = gcnew array<int> (2); // TODO: Initialize to an appropriate value
+			cli::array< int >^  actual = gcnew array<int> (2);
+			sortArr[0] = "2";
+			sortArr[1] = "4";
+			expected[0] = 2;
+			expected[1] = 4;
+			actual = target->CommonStringArrToIntArr(sortArr);
+			Assert::AreEqual(expected[0], actual[0]);
+			Assert::AreNotEqual(expected[0], actual[1]);
+		}
 };
 }
 namespace TestCrx {

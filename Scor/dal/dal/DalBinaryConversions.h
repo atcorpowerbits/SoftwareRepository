@@ -48,8 +48,22 @@ namespace AtCor{
 				*/
 				static unsigned short TranslateTwoBytes( array <unsigned char>^ sourceArray, int startPostion);
 				
+				/**
+				* Converts the specifed byte array into a signed short integer by taking the 1st byte as LSB@n
+				* @param[in]	sourceArray	The byte array from which the integer is to be extracted
+				* @param[in]	startPostion	Start index for the bytes
+				* @return	A signed short integer containing the translated bytes
+				*/
 				static signed short TranslateTwoBytesLsbFirst( array <unsigned char>^ sourceArray, int startPostion);
 	
+				/**
+				* Converts the specifed byte array into an unsigned integer @n
+				* Converts two bytes to an unsigned short integer
+				* @param[in]	sourceArray	The byte array from which the integer is to be extracted
+				* @param[in]	startPostion	Start index for the bytes
+				* @return	An  unsigned short integer containing the translated bytes
+				*/
+				static unsigned int TranslateThreeBytes( array <unsigned char>^ sourceArray, int startPostion);
 
 				/**
 				* Converts the specifed byte array into an unsigned long integer
@@ -60,17 +74,73 @@ namespace AtCor{
 				*/
 				static unsigned long TranslateFourBytes( array <unsigned char>^ sourceArray, int startPostion);
 
+				/**
+				* Converts the parameter to a DalAlarmSource alarm type
+				* @param	alarmType	The soource enum type
+				* @return	The corresponding  DalAlarmSource alarm type
+				*/
 				static DalAlarmSource ConvertAlarmType(DalAlarmFlagBitPosition alarmType);
+
+				/**
+				* Converts the parameter to a DalAlarmSource alarm type
+				* @param	alarmType	The soource enum type
+				* @return	The corresponding  DalAlarmSource alarm type
+				*/
 				static DalAlarmSource ConvertAlarmType(DalAlarmSupplyRailFlag alarmType);
 
+				/**
+				* Converts the parameter to a DalAlarmSource alarm type
+				* @param	alarmType	The soource enum type
+				* @return	The corresponding  DalAlarmSource alarm type
+				*/
 				static DalAlarmSource ConvertAlarmType(DalErrorAlarmStatusFlag alarmType);
 
+				/**
+				* Converts the parameter to a DalAlarmSource alarm type
+				* @param	alarmName	The soource enum type
+				* @return	The corresponding  DalAlarmSource alarm type
+				*/
 				static DalAlarmSource ConvertAlarmType(String^ alarmName);
 
+				/**
+				* Generates a Modulo256 checksum for NIBP packet
+				* @param[in]	sourceArray	The array on which the checksum is to be generated
+				* @param[in]	length The lenght of the array for which calculation should be done
+				* @return	The hexadecimal value of the checksum
+				*/
 				static unsigned char GenerateModulo256Checksum(array<unsigned char>^ sourceArray, unsigned int length);
+
+				/**
+					* Converts the input string into bytes array.
+					* @param	inputArray	The input string
+					* @return	A byte array representation of the string
+				*/
+				static array<unsigned char>^ ConvertStringToBytes(String^ strData);
+				
+				/**
+					* Converts the input bytes into bytes array.
+					* @param	input data	The input unsigned int
+					* @return	A byte array representation of the int
+				*/
+				static array<unsigned char>^ ConvertThreeBytesIntoArray( unsigned int data);
+				
+				/**
+					* Converts the input date into bytes array.
+					* @param	input data	The input dateTime
+					* @return	A byte array representation of the DateTime
+				*/
+				static array<unsigned char>^ ConvertDateIntoArray(DateTime data);
+				
+				/**
+					* Converts the input bytes array into DateTime .
+					* @param	input data	The input ByteArray
+					* @return	A DateTime representation of the byte array
+				*/
+				static DateTime ConvertArrayIntoDate(array<unsigned char>^ data);
 
 			};
 
+			
 			
 		} //End Namespace DataAccess
 	}

@@ -48,20 +48,6 @@ namespace AtCor{
 				DalModule^ operator= ( DalModule);
 
 				DalStreamingMode _currentStreamingMode;
-				//DalMeasurementMode^ _currentMeasurementMode;
-
-				//TS STUB
-				//static DalSimulationFile^ _nibpSimulationFile; //pointer to NIBP simulation file
-				//static Timers::Timer ^_nibpTimer = nullptr;  //Timer to fire simulated NIBP data event
-				//static bool _nibpConnected = false;
-				//static unsigned short _nibpStatus;
-				//static unsigned short _nibpErrorCode;
-				//static unsigned short _nibpSP;
-				//static unsigned short _nibpDP;
-				//static unsigned short _nibpMP;
-				//static unsigned short _nibpHR;
-
-				//bool SetBPInitialInflate(unsigned short initialPressure); //TS Stub
 
 			internal:	
 				//static IDalHandler^ _currentDevice;  //A pointer to the current device
@@ -108,10 +94,9 @@ namespace AtCor{
 				*
 				* @return	A boolean value specifying the success/failure of the operation.
 				*/
-				//static bool SetDeviceStrategy();
 				bool SetDeviceStrategy();
 
-				///**
+				///*
 				//* Obtains the current com port settig from Configuration and sets the current strategy.
 				//* @param[in] commPort The Comm port setting.
 				//*
@@ -205,18 +190,6 @@ namespace AtCor{
 				*/
 				String^ GetSavedFilePath();
 
-				//moved to DalActiveDevice class. Since it is called internally by
-				//FindModule(). we dont need to expose it.
-				///*
-				//* Searches all available ports  for the EM4 module
-				//* @param[out]	foundPortName	The name of the port on which the EM4 device was located
-				//* @param[in]	excludePort	The port to be excluded from the search if it has already been searched.
-				//*							@n It can be null
-				//* @return	 @c true if the operation was successful
-				//*/
-				//bool SearchAllPortsforDevice(String ^%foundPortName, String ^excludePort);
-
-
 				/**
 				* Checks if the device is connected on the same port as mentioned in Config
 				* @return	@c true if the device is connected on the same port
@@ -254,16 +227,37 @@ namespace AtCor{
 				*/
 				void SetStreamingMode(DalStreamingMode newMode);
 
-				// TS stub
-				//bool IsCuffDeflated(); 
+				
+				bool IsCuffDeflated(); 
 				
 				// TS stub
 				void SetDeviceNull();
 
-				//TS STUB
+				/**
+				* Starts a BP measurement process with the specified initial pressure.
+				* @param[in]	nibpMode	The age group for which measurement is to be taken as an enum
+				* @param[in]	initialPressure	The inital pressure to set for this capture instance
+				* @return	A boolean value indicating the success or failure of this process
+				*/
 				bool StartBP(DalNIBPMode nibpMode, unsigned short initialPressure);
+
+				/**
+				* Starts a BP measurement process.
+				* @param[in]	nibpMode	The age group for which measurement is to be taken as an enum
+				* @return	A boolean value indicating the success or failure of this process
+				*/
 				bool StartBP(DalNIBPMode nibpMode);
+
+				/**
+				* Stops a BP measurement and disconnects the NIBP module
+				* @return	A boolean value indicating the success or failure of this process
+				*/
 				bool FinishBP();
+
+				/**
+				* Aborts an ongoing BP measurement.
+				* @return	A boolean value indicating the success or failure of this process
+				*/
 				bool AbortBP();
 			};
 		}

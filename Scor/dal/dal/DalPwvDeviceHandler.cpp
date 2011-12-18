@@ -28,7 +28,7 @@ DalPwvDeviceHandler::DalPwvDeviceHandler()
 
 bool DalPwvDeviceHandler::StartCapture(int captureTime, int samplingRate)
 {
-	CrxLogger::Instance->Write("Deepak>>> DalPwvDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
+	CrxLogger::Instance->Write("DAL:Deepak>>> DalPwvDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
 
 	//create a buffer of the required size
 	try
@@ -52,37 +52,47 @@ bool DalPwvDeviceHandler::StartCapture(int captureTime, int samplingRate)
 	//No need to check if tonometer is connected
 	//The result will not be correct from EM4
 					
-	//Set Idle mode
-	bool boolReturnValue;
+	//Deepak: 12/Nov-2011 corrected the code for PWVSW-546
+				//and spun it off into another function
+	////Set Idle mode
+	//bool boolReturnValue;
 
-	//boolReturnValue = SetIdleMode();
-	int countRetry;
-	int count = 0;
-	int sleepTime = 3000;
+	////boolReturnValue = SetIdleMode();
+	//int countRetry;
+	//int count = 0;
+	//int sleepTime = 3000;
 
-	sleepTime = Convert::ToInt32(CrxSytemParameters::Instance->GetStringTagValue("IdleModeSleepTime"));
-	countRetry = (15000/sleepTime) + 1;
-	Object^ obj;
-	do
+	//sleepTime = Convert::ToInt32(CrxSytemParameters::Instance->GetStringTagValue("IdleModeSleepTime"));
+	//countRetry = (15000/sleepTime) + 1;
+	//Object^ obj;
+	//do
+	//{
+	//	
+	//	ScorException^ check = gcnew ScorException (1001, CrxStructCommonResourceMsg::Dal_DeviceIdling_Message, ErrorSeverity::Information);	
+	//	CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+
+	//	boolReturnValue = SetIdleMode();
+	//	if(!boolReturnValue)
+	//	{
+	//		count++;
+	//		Threading::Thread::Sleep(sleepTime); //Wait for 3 sec to re-check the idle mode
+	//	}
+	//}
+	//while((!boolReturnValue) && (count < countRetry));
+
+	//if (false == boolReturnValue )
+	//{
+	//	ScorException^ check = gcnew ScorException (1002, CrxStructCommonResourceMsg::Dal_DeviceNotReady_Message, ErrorSeverity::Information);	
+	//	CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+
+	//	return false;
+	//}
+
+	if(! SetIdleModeProcess())
 	{
-		
-		ScorException^ check = gcnew ScorException (1001, CrxStructCommonResourceMsg::Dal_DeviceIdling_Message, ErrorSeverity::Information);	
-		CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+		//Failed to set IDLE mode within 15 sec.
 
-		boolReturnValue = SetIdleMode();
-		if(!boolReturnValue)
-		{
-			count++;
-			Threading::Thread::Sleep(sleepTime); //Wait for 3 sec to re-check the idle mode
-		}
-	}
-	while(!boolReturnValue || count > countRetry);
-
-	if (false == boolReturnValue )
-	{
-		ScorException^ check = gcnew ScorException (1002, CrxStructCommonResourceMsg::Dal_DeviceNotReady_Message, ErrorSeverity::Information);	
-		CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
-
+		//capture cannot continue if IDLE mode was not set
 		return false;
 	}
 
@@ -95,6 +105,9 @@ bool DalPwvDeviceHandler::StartCapture(int captureTime, int samplingRate)
 
 	returnValue = _commandInterface->SendCommandAndGetResponse(startCaptureCommand); //renamed oringinal method
 	
+	CrxLogger::Instance->Write("DAL:Deepak>>> DalPwvDeviceHandler::StartCapture command sent and returned: " + returnValue.ToString(), ErrorSeverity::Debug);
+
+	
 	//if acknowledged start the handler to listen to the data received.
 	if (DalReturnValue::Success == returnValue )
 	{
@@ -104,7 +117,11 @@ bool DalPwvDeviceHandler::StartCapture(int captureTime, int samplingRate)
 		//start the handler for data capture here
 		try
 		{
-			return _commandInterface->InitiateDataCaptureMode();
+			bool returnValue;
+			returnValue =  _commandInterface->InitiateDataCaptureMode();
+			CrxLogger::Instance->Write("DAL:Deepak>>> DalPwvDeviceHandler::StartCapture InitiateDataCaptureMode() returned: " + returnValue.ToString(), ErrorSeverity::Debug);
+
+			return returnValue;
 		}
 		catch(ScorException^)
 		{

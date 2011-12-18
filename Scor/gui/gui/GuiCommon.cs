@@ -85,6 +85,11 @@ namespace AtCor.Scor.Gui.Presentation
        public static CrxStructGeneralSetting GeneralSettingsStruct = new CrxStructGeneralSetting();
        public static bool AgeValidation = false;
        public static SelectedChart SelChart = SelectedChart.sp;
+       public static bool IsOnResultForm = false;
+       public static bool IsReportGenerated = false;
+       public static bool IsOnPwaReportForm = false;
+       public static bool FromQuickStart = false;
+       public static bool FromPwaReport = false;
        #endregion
 
        #region Main / Parent window Handle
@@ -93,8 +98,7 @@ namespace AtCor.Scor.Gui.Presentation
 
        public delegate void SetCaptureTabVisibility(bool value);
 
-       public static event SetCaptureTabVisibility OnCaptureClosing;
-
+      // public static event SetCaptureTabVisibility OnCaptureClosing;
        public static event EventHandler OnEnterButtonClick;
 
        #region Global Varialbles
@@ -105,10 +109,7 @@ namespace AtCor.Scor.Gui.Presentation
        {
            ADD = 0,
            Update = 1
-       }
-
-       // Child Form Handles
-       public static RadForm QuickStartChildForm;
+       }      
 
        public enum SelectedChart
        {
@@ -131,14 +132,22 @@ namespace AtCor.Scor.Gui.Presentation
        #endregion
 
        #region Child Form Handles
-       public static RadForm ReportChildForm;
-       public static RadForm CaptureChildForm;
-       public static RadForm SetupChildForm;
-       public static RadForm FrmRptBlnk;
-       public static RadForm PWAReportChildForm;
-       public static RadForm PWATestResultChildForm;
 
-       public static event EventHandler OnBizErrorEventInvocation;       
+       // public static RadForm ReportChildForm;
+       // public static RadForm CaptureChildForm;
+       // public static RadForm SetupChildForm;
+       // public static RadForm FrmRptBlnk;
+       // public static RadForm PWAReportChildForm;
+       // public static RadForm PWATestResultChildForm;
+       public static Report ReportChildForm;
+       public static Capture CaptureChildForm;
+       public static Setup SetupChildForm;
+       public static Report FrmRptBlnk;
+       public static PWAReport PWAReportChildForm;
+       public static PWATestResult PWATestResultChildForm;
+       public static cPwaQuickStart QuickStartChildForm;
+
+       // public static event EventHandler OnBizErrorEventInvocation;       
        #endregion  
         
         #region PWV settings private variables        
@@ -160,6 +169,8 @@ namespace AtCor.Scor.Gui.Presentation
        */ 
        public static void Instance_OnBizErrorEvent(object sender, BizErrorEventArgs e)
        {
+           CrxLogger.Instance.Write(e.data);   
+
            // We have to check on which form the user is,when the alarm event is raised.
            // As of now the event can be raised when the user is either on the Capture screen , About box 
            // or the user has clicked on the Find module option under the System menu.
@@ -168,12 +179,13 @@ namespace AtCor.Scor.Gui.Presentation
                if (!IsBizErrorEventRaised)
                {
                    IsBizErrorEventRaised = true;
+                   GuiCommon.ScorControllerObject.StopCapture();
 
                    // Take action if capture screen is loaded and alarm flag is raised.
                    // in this case we need to stop the capture on the capture screen.
                    MessageToBeDisplayed = e.data;
                    object dummySender = new object();
-
+                   
                    ScorControllerObject.ActionPerformedAfterClickingCancel();                   
                }
                else
@@ -220,8 +232,16 @@ namespace AtCor.Scor.Gui.Presentation
        /** This method is called on the form closing of the capture screen,to impose wait interval.
         */
        public static void InvokeCaptureClosing(bool value)
-       {
-           OnCaptureClosing.Invoke(value);
+       {           
+           // From Setup
+           CaptureToSetup = !value;
+           DefaultWindowForm.radtabCapture.Enabled = value;
+           SetupChildForm.Controls["guipnlMeasurementDetails"].Controls["guiradbtnCapture"].Enabled = value;
+           
+           // For Corresponding Report forms 
+           ScorControllerObject.EnableRepeatAndCaptureTab(value);
+           
+           // OnCaptureClosing.Invoke(value);
        }
 
         /** This method retrieves database servername
@@ -269,6 +289,14 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     textBox.TextBoxElement.Border.Shape = shape;
                     textBox.TextBoxElement.Fill.Shape = shape;
+                }
+
+                RadButton button = control as RadButton;
+                if (button != null)
+                {
+                    shape.Radius = 2;
+                    button.ButtonElement.Shape = shape;
+                    button.ButtonElement.BorderElement.Shape = shape;
                 }
 
                 RadDropDownList dropDownlist = control as RadDropDownList;
@@ -624,6 +652,8 @@ namespace AtCor.Scor.Gui.Presentation
         public static bool RptGeneralPopulation { get; set; }
 
         public static bool RptHealthyPopulation { get; set; }
+
+        public static string RptPatientHeightInternalValue { get; set; }
     }
 
     /**
@@ -831,5 +861,16 @@ namespace AtCor.Scor.Gui.Presentation
     public static class PWAPatientReportData
     {
         public static string RptPatientAssessment { get; set; }
+    }
+
+    /**
+   * @class PWAAnalysisReportData
+   * @brief This class is used to define properties which will be used for generating PWA Clinical/Evaluation report
+     * The property values will be set in report screen once the user clicks print "PWA Analysis report" and these values
+     * will be passed to Crystal report for printing PWA Patient Report
+   */
+    public static class PWAAnalysisReportData
+    {
+        public static string RptPatientAssessmentValue { get; set; }
     }
 }

@@ -2985,6 +2985,17 @@ array<String^>^ CrxDBManager::CommonFloatArrToStringArr(cli::array<float,1> ^sor
     return bpSort;
 }
 
+array<String^>^ CrxDBManager::CommonDoubleArrToStringArr(cli::array<double,1> ^sortArr)
+{
+	array<String^>^ bpSort = gcnew array<String^>(sortArr->Length);
+
+    for (int i = 0; i < sortArr->Length; i++)
+    {
+		bpSort[i] = Convert::ToString(sortArr[i]);
+    }
+
+    return bpSort;
+}
 
 array<int>^ CrxDBManager::CommonStringArrToIntArr(cli::array<System::String ^,1> ^sortArr)
 {
@@ -3016,7 +3027,7 @@ array<double>^ CrxDBManager::CommonStringArrToDoubleArr(cli::array<System::Strin
 
     for (int i = 0; i < sortArr->Length; i++)
     {
-		bpSort[i] = Convert::ToSingle(sortArr[i]);
+		bpSort[i] = Convert::ToDouble(sortArr[i]);
     }
 
     return bpSort; 

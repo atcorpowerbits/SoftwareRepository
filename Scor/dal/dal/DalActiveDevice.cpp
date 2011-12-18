@@ -475,7 +475,7 @@ namespace AtCor{
 			{
 				//sender; //Dummy statement to get rid of C4100 warning
 
-				CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting, ErrorSeverity::Debug);
+				CrxLogger::Instance->Write("DAL:DAl received Comms port change event: " + args->commsPortSetting, ErrorSeverity::Debug);
 				//SetDeviceStrategy(args->commsPortSetting);
 				SetDeviceStrategy(args->commsPortSetting, DalModule::Instance->StreamingMode);
 

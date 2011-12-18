@@ -218,6 +218,10 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string NoteValue = "NoteValue";
 
         // PWA Patient Report
+        public static readonly string LblFirstName = "lblFirstName";
+        public static readonly string TxtFirstNameValue = "txtFirstNameValue";
+        public static readonly string LblLastName = "lblLastName";
+        public static readonly string TxtLastNameValue = "txtLastNameValue";
         public static readonly string LblHeight = "lblHeight";
         public static readonly string TxtHeightValue = "txtHeightValue";
         public static readonly string LblDob = "lblDob";
@@ -274,6 +278,7 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string PwaText42 = "PwaText42";
         public static readonly string PwaText43 = "PwaText43";
         public static readonly string PwaText44 = "PwaText44";
+        public static readonly string Dot       = "Dot";
 
         public static string DateWithComma = string.Empty;
         public static string PwaIdWithComma = string.Empty;

@@ -49,6 +49,11 @@
             <BooleanProperty Name="Enabled">False</BooleanProperty>
           </RuleSettings>
         </Rule>
+        <Rule Name="StatementMustNotUseUnnecessaryParenthesis">
+          <RuleSettings>
+            <BooleanProperty Name="Enabled">False</BooleanProperty>
+          </RuleSettings>
+        </Rule>
       </Rules>
       <AnalyzerSettings />
     </Analyzer>
@@ -314,11 +319,17 @@
             <BooleanProperty Name="Enabled">False</BooleanProperty>
           </RuleSettings>
         </Rule>
+        <Rule Name="ElementMustBeginWithUpperCaseLetter">
+          <RuleSettings>
+            <BooleanProperty Name="Enabled">False</BooleanProperty>
+          </RuleSettings>
+        </Rule>
       </Rules>
       <AnalyzerSettings>
         <CollectionProperty Name="Hungarian">
           <Value>ap</Value>
           <Value>bp</Value>
+          <Value>c</Value>
           <Value>cr</Value>
           <Value>db</Value>
           <Value>df</Value>
@@ -327,6 +338,7 @@
           <Value>dt</Value>
           <Value>dv</Value>
           <Value>e</Value>
+          <Value>hr</Value>
           <Value>i</Value>
           <Value>mp</Value>
           <Value>o</Value>

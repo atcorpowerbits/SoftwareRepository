@@ -1,5 +1,7 @@
 ﻿
 #include "StdAfx.h"
+
+
 using namespace System::Timers;
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
@@ -685,6 +687,482 @@ public: [TestMethod]
 			bool expected = false; // TODO: Initialize to an appropriate value
 			bool actual;
 			actual = target->AbortBP();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for TestDate
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void TestDateTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			DateTime expected = DateTime(); // TODO: Initialize to an appropriate value
+			DateTime actual;
+			actual = target->TestDate();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for TestDate
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void TestDateTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			DateTime data = DateTime(); // TODO: Initialize to an appropriate value
+			target->TestDate(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for SystemConfigurationId
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SystemConfigurationIdTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned short expected = 0; // TODO: Initialize to an appropriate value
+			unsigned short actual;
+			actual = target->SystemConfigurationId();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for SystemConfigurationId
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SystemConfigurationIdTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned short data = 0; // TODO: Initialize to an appropriate value
+			target->SystemConfigurationId(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for SystemConfigurationChangeDate
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SystemConfigurationChangeDateTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			DateTime expected = DateTime(); // TODO: Initialize to an appropriate value
+			DateTime actual;
+			actual = target->SystemConfigurationChangeDate();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for SystemConfigurationChangeDate
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SystemConfigurationChangeDateTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			DateTime data = DateTime(); // TODO: Initialize to an appropriate value
+			target->SystemConfigurationChangeDate(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for SerialNumberSuntechPcb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberSuntechPcbTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			actual = target->SerialNumberSuntechPcb();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for SerialNumberSuntechPcb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberSuntechPcbTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			target->SerialNumberSuntechPcb(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for SerialNumberMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberMpbTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			target->SerialNumberMpb(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for SerialNumberMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberMpbTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			actual = target->SerialNumberMpb();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for SerialNumberEm4
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberEm4Test1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			target->SerialNumberEm4(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for SerialNumberEm4
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SerialNumberEm4Test()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			actual = target->SerialNumberEm4();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for SafetyFirmwareVersionSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SafetyFirmwareVersionSuntechTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			actual = target->SafetyFirmwareVersionSuntech();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for SafetyFirmwareVersionSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void SafetyFirmwareVersionSuntechTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			target->SafetyFirmwareVersionSuntech(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for ProcessorFirmwareVersionMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void ProcessorFirmwareVersionMpbTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			target->ProcessorFirmwareVersionMpb(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for ProcessorFirmwareVersionMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void ProcessorFirmwareVersionMpbTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			actual = target->ProcessorFirmwareVersionMpb();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for PldSafetyFirmwareVersionMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void PldSafetyFirmwareVersionMpbTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			actual = target->PldSafetyFirmwareVersionMpb();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for PldSafetyFirmwareVersionMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void PldSafetyFirmwareVersionMpbTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			target->PldSafetyFirmwareVersionMpb(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for NumberofPWVmeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWVmeasurementsTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned int expected = 0; // TODO: Initialize to an appropriate value
+			unsigned int actual;
+			actual = target->NumberofPWVmeasurements();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for NumberofPWVmeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWVmeasurementsTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned int data = 0; // TODO: Initialize to an appropriate value
+			target->NumberofPWVmeasurements(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for NumberofPWAtonometermeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWAtonometermeasurementsTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned int expected = 0; // TODO: Initialize to an appropriate value
+			unsigned int actual;
+			actual = target->NumberofPWAtonometermeasurements();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for NumberofPWAtonometermeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWAtonometermeasurementsTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned int data = 0; // TODO: Initialize to an appropriate value
+			target->NumberofPWAtonometermeasurements(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for NumberofPWAcuffmeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWAcuffmeasurementsTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned int expected = 0; // TODO: Initialize to an appropriate value
+			unsigned int actual;
+			actual = target->NumberofPWAcuffmeasurements();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for NumberofPWAcuffmeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberofPWAcuffmeasurementsTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned int data = 0; // TODO: Initialize to an appropriate value
+			target->NumberofPWAcuffmeasurements(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for NumberOfNibpMeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberOfNibpMeasurementsTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned int data = 0; // TODO: Initialize to an appropriate value
+			target->NumberOfNibpMeasurements(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for NumberOfNibpMeasurements
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void NumberOfNibpMeasurementsTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned int expected = 0; // TODO: Initialize to an appropriate value
+			unsigned int actual;
+			actual = target->NumberOfNibpMeasurements();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for HWConfigurationMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void HWConfigurationMpbTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned short data = 0; // TODO: Initialize to an appropriate value
+			target->HWConfigurationMpb(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for HWConfigurationMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void HWConfigurationMpbTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			unsigned short expected = 0; // TODO: Initialize to an appropriate value
+			unsigned short actual;
+			actual = target->HWConfigurationMpb();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for CalibrationDateSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void CalibrationDateSuntechTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			DateTime data = DateTime(); // TODO: Initialize to an appropriate value
+			target->CalibrationDateSuntech(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for CalibrationDateSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void CalibrationDateSuntechTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			DateTime expected = DateTime(); // TODO: Initialize to an appropriate value
+			DateTime actual;
+			actual = target->CalibrationDateSuntech();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for CalibrationDateMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void CalibrationDateMpbTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			DateTime expected = DateTime(); // TODO: Initialize to an appropriate value
+			DateTime actual;
+			actual = target->CalibrationDateMpb();
+			Assert::AreEqual(expected, actual);
+			Assert::Inconclusive(L"Verify the correctness of this test method.");
+		}
+		/// <summary>
+		///A test for CalibrationDateMpb
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void CalibrationDateMpbTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			DateTime data = DateTime(); // TODO: Initialize to an appropriate value
+			target->CalibrationDateMpb(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for BPFirmwareVersionSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void BPFirmwareVersionSuntechTest1()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  data = System::String::Empty; // TODO: Initialize to an appropriate value
+			target->BPFirmwareVersionSuntech(data);
+			Assert::Inconclusive(L"A method that does not return a value cannot be verified.");
+		}
+		/// <summary>
+		///A test for BPFirmwareVersionSuntech
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void BPFirmwareVersionSuntechTest()
+		{
+			PrivateObject^  param0 = nullptr; // TODO: Initialize to an appropriate value
+			DalSimulationHandler_Accessor^  target = (gcnew DalSimulationHandler_Accessor(param0)); // TODO: Initialize to an appropriate value
+			String^  expected = System::String::Empty; // TODO: Initialize to an appropriate value
+			String^  actual;
+			actual = target->BPFirmwareVersionSuntech();
 			Assert::AreEqual(expected, actual);
 			Assert::Inconclusive(L"Verify the correctness of this test method.");
 		}

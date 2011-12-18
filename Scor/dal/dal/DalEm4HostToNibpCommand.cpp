@@ -34,6 +34,9 @@ DalEM4HostToNibpCommand::DalEM4HostToNibpCommand()
 
 DalEM4HostToNibpCommand::~DalEM4HostToNibpCommand()
 {
+	CrxLogger::Instance->Write("DalEM4HostToNibpCommand::~DalEM4HostToNibpCommand called for object" + this->GetType(), ErrorSeverity::Debug);
+	responseListenerThread->Abort();
+	delete responseListenerThread;
 }
 
 DalReturnValue DalEM4HostToNibpCommand::SendCommandAndGetResponse()
@@ -51,6 +54,7 @@ DalReturnValue DalEM4HostToNibpCommand::SendCommandAndGetResponse()
 		return DalReturnValue::Failure;
 	}
 
+	//CrxLogger::Instance->Write("DalEM4HostToNibpCommand::SendCommandAndGetResponse calling ListenForEM4Response()" , ErrorSeverity::Debug );
 	//successfull now launch listener for the response
 	dalRetValue = ListenForEM4Response();
 
@@ -65,11 +69,25 @@ DalReturnValue DalEM4HostToNibpCommand::SendCommandAndGetResponse()
 
 void DalEM4HostToNibpCommand::PacketArrivedProcessingMethod(Object^ , NibPacketArrivedEventArgs^ args)
 {
+	if (args->Handled)
+	{
+		//This response has been handled by some other object so ignore it.
+		return;
+	}
+
 	//first get the nibpPacket
 	array <unsigned char> ^ nibpToHostResponse  = args->nibpPacket;
 	
+	bool retValue;
+	
 	//then interpret it 
-	ActOnPacket(nibpToHostResponse);
+	retValue = ActOnPacket(nibpToHostResponse);
+	
+	if (retValue)
+	{
+		//if packet has been acted on then we should set this to true so that it is not handled again
+		args->Handled = true;
+	}
 
 }
 
@@ -77,25 +95,7 @@ bool DalEM4HostToNibpCommand::ActOnPacket(array <unsigned char> ^)
 {
 
 	//Unnecessary. Child classes will take appropriate action	
-	////check the length of the packet
-	//if (4 == nibpToHostResponse[1]) 
-	//{
-	//	//this is a foreground packet response
-	//	if (DalNibpCommandType::ForeGroundCommand  == this->commandType  )
-	//	{
-	//		//take some action
-	//	}
-	//}
-	//else
-	//{
-
-	//	//background packet response
-	//	if (DalNibpCommandType::BackgroundCommand == this->commandType  )
-	//	{
-	//		//take some action
-	//	}
 	
-	//}
 
 	return false; //default
 }
@@ -110,15 +110,6 @@ void DalEM4HostToNibpCommand::ResponseListenerThreadMethod(Object ^)
 
 DalReturnValue DalEM4HostToNibpCommand::ListenForEM4Response()
 {
-	//Start the thread that will process the events to arrive
-	/*responseListenerThread = gcnew Thread(ParameterizedThreadStart(this, ResponseListenerThreadMethod));
-
-		listenerThread = gcnew Thread(gcnew ParameterizedThreadStart(this, &DalCommandInterface::ResponseListenerThreadMethod));
-*/
-
-
-	//register the event handler to listen for async data arrived events
-	//DalEventContainer::Instance->OnDalNibpPacketEvent += gcnew NibPPacketArrivedEventHandler(this, &DalEM4HostToNibpCommand::PacketArrivedProcessingMethod);
 
 	return DalReturnValue::Failure;
 }

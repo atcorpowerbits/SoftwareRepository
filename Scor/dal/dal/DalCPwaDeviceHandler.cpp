@@ -18,7 +18,8 @@ DalCPwaDeviceHandler::DalCPwaDeviceHandler()
 {
 	//set the command interface object
 	_commandInterface = gcnew DalCPwaCommandInterface();
-	_nibpHandler = DalNibpDeviceHandler::Instance;
+//	_nibpHandler = DalNibpDeviceHandler::Instance;
+	_nibpHandler = gcnew DalNibpDeviceHandler();
 }
 
 bool DalCPwaDeviceHandler::StartCapture(int captureTime, int samplingRate)
@@ -49,7 +50,9 @@ bool DalCPwaDeviceHandler::StartCapture(int captureTime, int samplingRate)
 					
 	//Set Idle mode
 	bool boolReturnValue;
-	boolReturnValue = SetIdleMode();
+	//boolReturnValue = SetIdleMode();
+	boolReturnValue = SetIdleModeProcess(); //Replace direct call with function which will send the command in a loop with timeout
+
 	if (false == boolReturnValue )
 	{
 		return false;
@@ -100,7 +103,6 @@ bool DalCPwaDeviceHandler::StartBP(DalNIBPMode nibpMode, unsigned short initialP
 
 bool DalCPwaDeviceHandler::StartBP(DalNIBPMode nibpMode) 
 {
-
 	return _nibpHandler->StartBP(nibpMode);
 }
 
@@ -111,6 +113,5 @@ bool DalCPwaDeviceHandler::FinishBP()
 
 bool DalCPwaDeviceHandler::AbortBP()
 {
-
 	return _nibpHandler->AbortBP();
 }

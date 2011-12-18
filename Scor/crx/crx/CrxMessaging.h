@@ -48,6 +48,7 @@ namespace AtCor {
 				static  String^ const  Alarmsourceunknown						=	"AlarmSourceUnknown";
 				static  String^ const  Alarmstatus								=	"AlarmStatus";
 				static  String^ const  AnalysisXaxisTitle						=	"ANALYSIS_XAXIS_TITLE";
+				static  String^ const  AppMode									=	"APP_MODE";
 				static  String^ const  AppMsg									=	"APP_MSG";
 				static  String^ const  AppName									=	"APP_NAME";
 				static  String^ const  AppVersion								=	"APP_VERSION";
@@ -56,6 +57,7 @@ namespace AtCor {
 				static  String^ const  BackupFail								=	"BACKUP_FAIL";
 				static  String^ const  BackupProgress							=	"BACKUP_PROGRESS";
 				static  String^ const  BackupTitle								=	"BACKUP_TITLE";
+				static  String^ const  BirthDateCannotBeFutureDate				=	"BIRTH_DATE_CANNOT_BE_FUTURE_DATE";
 				static  String^ const  BllCuffDeflating							=	"BLL_CUFF_DEFLATING";
 				static  String^ const  BllStartCaptureFailed					=	"BLL_START_CAPTURE_FAILED";
 				static  String^ const  BllStopCaptureFailed						=	"BLL_STOP_CAPTURE_FAILED";
@@ -104,6 +106,7 @@ namespace AtCor {
 				static  String^ const  CaptureDeviceErrMsg						=	"CAPTURE_DEVICE_ERR_MSG";
 				static  String^ const  CaptureFailed							=	"CAPTURE_FAILED";
 				static  String^ const  CaptureFailedToStop						=	"CAPTURE_FAILED_TO_STOP";
+				static  String^ const  CaptureReportGenMsgForQuickStart			=	"CAPTURE_REPORT_GEN_MSG_FOR_QUICKSTART";
 				static  String^ const  CaptureTickMsg							=	"CAPTURE_TICK_MSG";
 				static  String^ const  CaptureTimeOutOfRange					=	"CAPTURE_TIME_OUT_OF_RANGE";
 				static  String^ const  CaptureTimeToInflation					=	"CAPTURE_TIME_TO_INFLATION";
@@ -174,6 +177,8 @@ namespace AtCor {
 				static  String^ const  CrxErrXmlTagIncorrect					=	"CRX_ERR_XML_TAG_INCORRECT";
 				static  const   int	   CrxErrXmlTagIncorrectErrCd				=	301;
 
+				static  String^ const  CrxErrXmlTagIncorrectText				=	"CRX_ERR_XML_TAG_INCORRECT_TEXT";
+
 				static  String^ const  CrxLogFileHeaderLine						=	"CRX_LOG_FILE_HEADER_LINE";
 				static  const   int	   CrxLogFileHeaderLineErrCd				=	300;
 				
@@ -194,6 +199,7 @@ namespace AtCor {
 
 				static  String^ const  CuffPulseAppendFailed					=	"CUFF_PULSE_APPEND_FAILED";
 				static  String^ const  CuffReinflating							=	"CUFF_REINFLATING";
+				static  String^ const  CuffReinflationFailed					=	"CUFF_REINFLATION_FAILED";
 				static  String^ const  CuffStateInvalid							=	"CUFF_STATE_INVALID";
 				static  String^ const  Cuffleak									=	"CuffLeak";
 
@@ -212,6 +218,18 @@ namespace AtCor {
 
 				static  String^ const  DalErrInvalidPortClose					=	"DAL_ERR_INVALID_PORT_CLOSE";
 				static	const   int	   DalErrInvalidPortCloseErrCd				=	1027;
+
+				static  String^ const  DalErrNibpPacketD						=	"DAL_ERR_NIBP_PACKET_D";
+				static	const   int	   DalErrNibpPacketDErrCd					=	1030;
+
+				static  String^ const  DalErrNibpPacketE						=	"DAL_ERR_NIBP_PACKET_E";
+				static	const   int	   DalErrNibpPacketEErrCd					=	1031;
+
+				static  String^ const  DalErrNibpPacketN						=	"DAL_ERR_NIBP_PACKET_N";
+				static	const   int	   DalErrNibpPacketNErrCd					=	1032;
+
+				static  String^ const  DalErrNibpPacketT						=	"DAL_ERR_NIBP_PACKET_T";
+				static	const   int	   DalErrNibpPacketTErrCd					=	1033;
 
 				static  String^ const  DalErrPortOpenFailed						=	"DAL_ERR_PORT_OPEN_FAILED";
 				static	const   int	   DalErrPortOpenFailedErrCd				=	1026;
@@ -290,7 +308,10 @@ namespace AtCor {
 				static  const   int	   DalErrUnknownBitFlagErrCd				=	1007;
 
 				static  String^ const  DalErrorNullParam						=	"DAL_ERROR_NULL_PARAM";
-				static  const   int    DalErrorNullParamErrCd                   =     1028;
+				static  const   int    DalErrorNullParamErrCd                   =   1028;
+
+				static  String^ const  DalMsgBpError88							=	"DAL_MSG_BP_ERROR_88";
+				static  String^ const  DalMsgBpErrorOther						=	"DAL_MSG_BP_ERROR_OTHER";
 
 				static  String^ const  DalMsgDefaultModeSelectedSim				=	"DAL_MSG_DEFAULT_MODE_SELECTED_SIM";
 				static  String^ const  DalMsgIllegalPacketRcvd					=	"DAL_MSG_ILLEGAL_PACKET_RCVD";
@@ -365,6 +386,7 @@ namespace AtCor {
 				static  String^ const  GrpClinicalReport						=	"GRP_CLINICAL_REPORT";
 				static  String^ const  GrpCommsPort								=	"GRP_COMMS_PORT";
 				static  String^ const  GrpCuffLocation							=	"GRP_CUFF_LOCATION";
+				static  String^ const  GrpDefaultPrintedReport					=	"GRP_DEFAULT_PRINTED_REPORT";
 				static  String^ const  GrpGuidanceBars                          =   "GRP_GUIDANCE_BAR";
 				static  String^ const  GrpHeightWeightUnits						=	"GRP_HEIGHT_WEIGHT_UNITS";
 				static  String^ const  GrpIfDp									=	"GRP_IF_DP";
@@ -475,6 +497,8 @@ namespace AtCor {
 				static  String^ const  GuiPleaseEnterFormat					=	"GUI_PLEASE_ENTER_FORMAT";
 				static  String^ const  GuiPrintPwaClinicalTitle				=	"GUI_PRINT_PWA_CLINICAL_TITLE";
 				static  String^ const  GuiPrintPwaEvaluationTitle			=	"GUI_PRINT_PWA_EVALUATION_TITLE";
+				static  String^ const  GuiPrintPwaQuickStartTitle			=	"GUI_PRINT_PWA_QUICK_START_TITLE";
+				static  String^ const  GuiPrintPwaTrendAnalysisTitle		=	"GUI_PRINT_PWA_TREND_ANALYSIS_TITLE";
 				static  String^ const  GuiPrintPwvAnalysisBpChartValue		=	"GUI_PRINT_PWV_ANALYSIS_BPCHART_VALUE";
 				static  String^ const  GuiPrintPwvAnalysisLegendTitle		=	"GUI_PRINT_PWV_ANALYSIS_LEGEND_TITLE";
 				static  String^ const  GuiPrintPwvAnalysisTitle				=	"GUI_PRINT_PWV_ANALYSIS_TITLE";
@@ -493,6 +517,8 @@ namespace AtCor {
 				static  String^ const  GuiReportRedArea						=	"GUI_REPORT_RED_AREA";
 				static  String^ const  GuiReportTypical						=	"GUI_REPORT_TYPICAL";
 				static  String^ const  GuiRestoreMenu						=	"GUI_RESTORE_MENU";
+				static  String^ const  GuiResultCalFailMsg					=	"GUI_RESULT_CAL_FAIL_MSG";
+				static  String^ const  GuiResultDataLossMsg					=   "GUI_RESULT_DATA_LOSS_MSG";
 				static  String^ const  GuiRptRefRangeDesc					=	"GUI_RPT_REF_RANGE_DESC";
 				static  String^ const  GuiScreenResolutionMsg				=	"GUI_SCREEN_RESOLUTION_MSG";
 				static  String^ const  GuiSearchElectronicMod				=	"GUI_SEARCH_ELECTRONIC_MOD";
@@ -543,9 +569,11 @@ namespace AtCor {
 				static  String^ const  LblCentralAorticClinicalParameters	=	"LBL_CENTRAL_AORTIC_CLINICAL_PARAMETERS";
 				static  String^ const  LblCentralDp							=	"LBL_CENTRAL_DP";
 				static  String^ const  LblCpwa								=	"LBL_CPWA";
+				static  String^ const  LblDisplay							=	"LBL_DISPLAY";
 				static  String^ const  LblDob								=	"LBL_DOB";
 				static  String^ const  LblDp								=	"LBL_DP";
 				static  String^ const  LblDpStar							=	"LBL_DP*";
+				static  String^ const  LblFemoralToCuff						=	"LBL_FEMORAL_TO_CUFF";
 				static  String^ const  LblFemoralcuff						=	"LBL_FEMORALCUFF";
 				static  String^ const  LblFirstName							=	"LBL_FIRST_NAME";
 				static  String^ const  LblGender							=	"LBL_GENDER";
@@ -704,6 +732,7 @@ namespace AtCor {
 				static  String^ const  PrtPwvTextRptHeader					=	"PRT_PWV_TEXT_RPT_HEADER";
 				static  String^ const  PrtPwvTextScor						=	"PRT_PWV_TEXT_SCOR";
 				static  String^ const  Pwa									=	"PWA";
+				static  String^ const  PwaAnalysisReport					=	"PWA ANALYSIS REPORT";
 				static  String^ const  PwaClinicalReport					=	"PWA CLINICAL REPORT";
 				static  String^ const  PwaEvaluationReport					=	"PWA EVALUATION REPORT";
 				static  String^ const  PwaPatientReport						=	"PWA PATIENT REPORT";
@@ -778,6 +807,7 @@ namespace AtCor {
 				static  String^ const  PwvUnit								=	"PWV_UNIT";
 				static  String^ const  PwvValidDeltasNotEnough				=	"PWV_VALID_DELTAS_NOT_ENOUGH";
 				static  String^ const  QuickStart							=	"QUICK START";
+				static  String^ const  QuickStartWarning					=	"QUICKSTART_WARNING";
 				static  String^ const  Rad10Sec								=	"RAD_10_SEC";
 				static  String^ const  Rad20Sec								=	"RAD_20_SEC";
 				static  String^ const  Rad5Sec								=	"RAD_5_SEC";
@@ -837,8 +867,11 @@ namespace AtCor {
 				static  String^ const  RptPatientDataTitle					=	"RPT_PATIENTDATA_TITLE";
 				static  String^ const  RptPhysicianTitle					=	"RPT_PHYSICIAN_TITLE";
 				static  String^ const  RptPwaAboveAverageText				= 	"RPT_PWA_ABOVE_AVERAGE_TEXT";
+				static  String^ const  RptPwaAixChartText					= 	"RPT_PWA_AIX_CHART_TEXT";
+				static  String^ const  RptPwaApChartText					= 	"RPT_PWA_AP_CHART_TEXT";
 				static  String^ const  RptPwaAverageText					= 	"RPT_PWA_AVERAGE_TEXT";
 				static  String^ const  RptPwaBelowAverageText				= 	"RPT_PWA_BELOW_AVERAGE_TEXT";
+				static  String^ const  RptPwaDot							= 	"RPT_PWA_DOT";
 				static  String^ const  RptPwaExcellentText					= 	"RPT_PWA_EXCELLENT_TEXT";
 				static  String^ const  RptPwaGoodText						= 	"RPT_PWA_GOOD_TEXT";
 				static  String^ const  RptPwaHighNormalText					= 	"RPT_PWA_HIGH_NORMAL_TEXT";
@@ -846,7 +879,11 @@ namespace AtCor {
 				static  String^ const  RptPwaModerateHypertensionText		= 	"RPT_PWA_MODERATE_HYPERTENSION_TEXT";
 				static  String^ const  RptPwaNormalText						= 	"RPT_PWA_NORMAL_TEXT";
 				static  String^ const  RptPwaPoorText						=	"RPT_PWA_POOR_TEXT";
+				static  String^ const  RptPwaPpChartText					=	"RPT_PWA_PP_CHART_TEXT";
+				static  String^ const  RptPwaReferenceNorange				=	"RPT_PWA_REFERENCE_NORANGE";
+				static  String^ const  RptPwaReferenceRange					=	"RPT_PWA_REFERENCE_RANGE";
 				static  String^ const  RptPwaSevereText						= 	"RPT_PWA_SEVERE_TEXT";
+				static  String^ const  RptPwaSpChartText					= 	"RPT_PWA_SP_CHART_TEXT";
 				static  String^ const  RptPwaTxtPatientRptFooter			=	"RPT_PWA_TXT_PATIENT_RPT_FOOTER";
 				static  String^ const  RptPwaTxt1							=	"RPT_PWATEXT1";
 				static  String^ const  RptPwaTxt2							=	"RPT_PWATEXT2";
@@ -947,6 +984,7 @@ namespace AtCor {
 				static  String^ const  SqlServerConnected					=	"SQL_SERVER_CONNECTED";
 				static  String^ const  SqlServerFailed						=	"SQL_SERVER_FAILED";
 				static  String^ const  SqlServerUnableToConnect				=	"SQL_SERVER_UNABLE_TO_CONNECT";
+				static  String^ const  Standard								=	"STANDARD";
 				static  String^ const  Startstr								=	"STARTSTR";
 				static  String^ const  SubtractingMethod					=	"SUBTRACTING_METHOD";
 				static  String^ const  SysDefaultLowcase					=	"SYS_DEFAULT_LOWCASE";

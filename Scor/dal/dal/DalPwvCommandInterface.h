@@ -16,6 +16,10 @@ namespace AtCor{
 	namespace Scor { 
 		namespace DataAccess{
 
+			/**
+			* @class DalPwvCommandInterface
+			* @brief	This class controls the device interface for PWV mode
+			*/
 			private ref class DalPwvCommandInterface: public DalCommandInterface
 			{
 				private:
@@ -24,9 +28,11 @@ namespace AtCor{
 					static int _cuffPressureDataIndex = 4;
 					static int _countdownTimerDataIndex = 6; 
 				internal:
+					/**
+					* Constructor for this class
+					*/
 					DalPwvCommandInterface();
 				public:
-					//virtual bool InitiateDataCaptureModeInternal() override; this method does not need an override
 
 					/**
 					* Processes a single packet from the streamign packet buffer.

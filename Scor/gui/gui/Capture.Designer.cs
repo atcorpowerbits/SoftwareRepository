@@ -108,7 +108,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.chartTonometer1.Size = new System.Drawing.Size(70, 17);
             this.chartTonometer1.TabIndex = 14;
             this.chartTonometer1.Text = "Carotid Tonometer";
-            this.chartTonometer1.Visible = false;            
+            this.chartTonometer1.Visible = false;
             // 
             // guiradlblCarotidTonometer
             // 
@@ -226,6 +226,7 @@ namespace AtCor.Scor.Gui.Presentation
             // radbtnCross
             // 
             this.radbtnCross.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.radbtnCross.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.radbtnCross.Font = new System.Drawing.Font("Arial", 11.25F);
             this.radbtnCross.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.radbtnCross.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -458,7 +459,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guichartFemoralCuff.Size = new System.Drawing.Size(935, 186);
             this.guichartFemoralCuff.TabIndex = 17;
             this.guichartFemoralCuff.Text = "chart1";
-            this.guichartFemoralCuff.Visible = false;            
+            this.guichartFemoralCuff.Visible = false;
             // 
             // guiradlblTonometerThresholdPart2
             // 
@@ -537,13 +538,15 @@ namespace AtCor.Scor.Gui.Presentation
             this.chartTonometer.Size = new System.Drawing.Size(935, 297);
             this.chartTonometer.TabIndex = 27;
             this.chartTonometer.Text = "chart1";
-            this.chartTonometer.Visible = false;            
+            this.chartTonometer.Visible = false;
             // 
             // Capture
             // 
+            this.AcceptButton = this.radbtnTick;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.CancelButton = this.radbtnCross;
             this.ClientSize = new System.Drawing.Size(992, 599);
             this.Controls.Add(this.guiradlblFemoralThresholdPart1);
             this.Controls.Add(this.guiradlblTonometerThresholdPart1);
@@ -559,7 +562,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.Controls.Add(this.guiradlblCarotidTonometer);
             this.Font = new System.Drawing.Font("Arial", 9.75F);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(49)))), ((int)(((byte)(145)))));
-            this.KeyPreview = true;
             this.Name = "Capture";
             // 
             // 
@@ -606,7 +608,6 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadLabel guiradlblFemoralCuff;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private Telerik.WinControls.UI.RadButton radbtnTick;
-        private System.Windows.Forms.Timer tmrPwvCaptureMode;
         private Telerik.WinControls.UI.RadProgressBar radProgressBarQualityIndicator;
         private Telerik.WinControls.RootRadElement object_8169e6cd_0c80_4af9_b762_ae4d5fb606ac;
         private Telerik.WinControls.UI.RadProgressBar radProgressBarFemoralIndicator;
@@ -619,10 +620,11 @@ namespace AtCor.Scor.Gui.Presentation
         public Telerik.WinControls.UI.RadButton radbtnCross;
         private Telerik.WinControls.UI.RadLabel guiradlblFemoralThresholdPart2;
         private Telerik.WinControls.UI.RadLabel guiradlblTonometerThresholdPart2;
-        private System.Windows.Forms.Timer tmrPwaCaptureMode;
         private Telerik.WinControls.UI.RadProgressBar guiradprgbarTimeToInflatioDeflation;
         private Telerik.WinControls.UI.RadLabel radlblTimeStatus;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartTonometer;
+        public System.Windows.Forms.Timer tmrPwvCaptureMode;
+        public System.Windows.Forms.Timer tmrPwaCaptureMode;
     }
 }
 

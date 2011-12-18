@@ -32,9 +32,12 @@ namespace AtCor{
 			
 			static SerialPort ^_serialPort;
 
-			static bool serialDataWasRecieved; //flag to check wether data was recieved since the last chek.
+			//FxCop
+			//static bool serialDataWasRecieved; //flag to check wether data was recieved since the last chek.
 
-			Timers::Timer^ timeoutCheckTimer;
+			//Removing from this class. We need to have as few timer events 
+			//the checking has been moved to dalStreamingpacketQueue
+			//Timers::Timer^ timeoutCheckTimer;
 
 
 		public:
@@ -139,25 +142,28 @@ namespace AtCor{
 			*/
 			void ReadDataFromPort();
 
-			/**
-			* Timer Event handler whcih checks if th data is avaialabe in the serial port or not.
-			* If there is no data avialable in the specified number of consecutive checks, it raises 
-			* an alarm and stops checking.
-			*
-			* @param[in]	sender	The object which raised this event
-			* @param[in]	args	The arguements for the event.
-			*/
-			void CheckStreamingTimeout(Object^ sender, ElapsedEventArgs^ args);
+			//moved to another class. Reducing timer events
+			///*
+			//* Timer Event handler whcih checks if th data is avaialabe in the serial port or not.
+			//* If there is no data avialable in the specified number of consecutive checks, it raises 
+			//* an alarm and stops checking.
+			//*
+			//* @param[in]	sender	The object which raised this event
+			//* @param[in]	args	The arguements for the event.
+			//*/
+			//void CheckStreamingTimeout(Object^ sender, ElapsedEventArgs^ args);
 
-			/**
-			* Starts the streaming timout check.
-			*/
-			void StartStreamingTimeoutChecker();
+			//moved to another class. Reducing timer events
+			///*
+			//* Starts the streaming timout check.
+			//*/
+			//void StartStreamingTimeoutChecker();
 
-			/**
-			* Stops the streaming timout check.
-			*/
-			void StopStreamingTimeoutChecker();
+			//moved to another class. Reducing timer events
+			///*
+			//* Stops the streaming timout check.
+			//*/
+			//void StopStreamingTimeoutChecker();
 
 	};
 

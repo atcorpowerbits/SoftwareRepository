@@ -21,6 +21,7 @@ using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.Messaging;
 using CrystalDecisions.Shared;
 using AtCor.Scor.BusinessLogic;
+using System.Configuration;
 
 /**
  * @namespace AtCor.Scor.Gui.Presentation
@@ -33,6 +34,9 @@ namespace AtCor.Scor.Gui.Presentation
     {
         private readonly PWAClinicalPreview objPWAClinicalPreview;
         private readonly PWAPatientPreview objPWAPatientPreview;
+        private readonly PWAAnalysisPreview objPWAAnalysisPreview;
+        private readonly PWATestResult objPWATestResultPreview;
+        readonly BizPatient patientObj = BizPatient.Instance();
 
         // Commeting default constructor
         // public PWAPrintReport()
@@ -56,6 +60,22 @@ namespace AtCor.Scor.Gui.Presentation
             objPWAPatientPreview = obj;
         }
 
+        /**Parameterized Constructor, used to initialize the report object     
+        */
+        public PWAPrintReport(PWAAnalysisPreview obj)
+        {
+            InitializeComponent();
+            objPWAAnalysisPreview = obj;
+        }
+
+        /**Parameterized Constructor, used to initialize the report object     
+        */
+        public PWAPrintReport(PWATestResult obj)
+        {
+            InitializeComponent();
+            objPWATestResultPreview = obj;
+        }
+
         /** This method to load the PWA Print Crystal Report 
        * */
         private void PWAPrintReport_Load(object sender, EventArgs e)
@@ -66,6 +86,7 @@ namespace AtCor.Scor.Gui.Presentation
                 configMgr.GetGeneralUserSettings();
                 string tempPrinter = configMgr.GeneralSettings.PrinterName;
                 CrxMessagingManager objMsg = CrxMessagingManager.Instance;
+                string tempStr = string.Empty;
 
                 if (PWACommonReportData.RptPrintType.Equals(CrxStructCommonResourceMsg.PwaClinicalReport))
                 {
@@ -182,20 +203,32 @@ namespace AtCor.Scor.Gui.Presentation
                     Image imgSpSlider;
                     Image imgDpSlider;
                     Image imgHrSlider;
+                    Image imgSpChart;
+                    Image imgPpChart;
+                    Image imgApChart;
+                    Image imgAixChart;
 
-                    GetPwaPatientImages(out imgLogo, out imgHumanLogo, out imgSpSlider, out imgDpSlider, out imgHrSlider);
+                    GetPwaPatientImages(out imgLogo, out imgHumanLogo, out imgSpSlider, out imgDpSlider, out imgHrSlider, out imgSpChart, out imgApChart, out imgPpChart, out imgAixChart);
 
                     byte[] imgByteLogo = ImageToByteArray(imgLogo);
                     byte[] imgByteHumanLogo = ImageToByteArray(imgHumanLogo);
                     byte[] imgByteSpSlider = ImageToByteArray(imgSpSlider);
                     byte[] imgByteDpSlider = ImageToByteArray(imgDpSlider);
                     byte[] imgByteHrSlider = ImageToByteArray(imgHrSlider);
+                    byte[] imgByteSpChart = ImageToByteArray(imgSpChart);
+                    byte[] imgBytePpChart = ImageToByteArray(imgPpChart);
+                    byte[] imgByteApChart = ImageToByteArray(imgApChart);
+                    byte[] imgByteAixChart = ImageToByteArray(imgAixChart);
                
                     dr[0] = imgByteLogo;
                     dr[1] = imgByteHumanLogo;
                     dr[2] = imgByteSpSlider;
                     dr[3] = imgByteDpSlider;
                     dr[4] = imgByteHrSlider;
+                    dr[5] = imgByteSpChart;
+                    dr[6] = imgByteApChart;
+                    dr[7] = imgBytePpChart;
+                    dr[8] = imgByteAixChart;
 
                     dtPwaPatient.Rows.Add(dr);
 
@@ -211,8 +244,13 @@ namespace AtCor.Scor.Gui.Presentation
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.ProductName, objMsg.GetMessage(CrxStructCommonResourceMsg.PrtPwvTextScor));
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.ReportDescription, objMsg.GetMessage(CrxStructCommonResourceMsg.PrtPwaTextRptDesc));
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.LblPatientDetails, objMsg.GetMessage(CrxStructCommonResourceMsg.PrtPwvTextPatientDetails));
-                    CrystalPwaPatientReport1.SetParameterValue(GuiConstants.LblName, objMsg.GetMessage(CrxStructCommonResourceMsg.PrtPwvTextNameLbl));
-                    CrystalPwaPatientReport1.SetParameterValue(GuiConstants.TxtNameValue, PWACommonReportData.RptPatientNameValue);
+                    CrystalPwaPatientReport1.SetParameterValue(GuiConstants.LblFirstName, objMsg.GetMessage(CrxStructCommonResourceMsg.LblFirstName));
+                    CrystalPwaPatientReport1.SetParameterValue(GuiConstants.TxtFirstNameValue, string.IsNullOrEmpty(patientObj.firstName) ? string.Empty : patientObj.firstName);
+                    tempStr = string.Empty;
+                    tempStr = objMsg.GetMessage(CrxStructCommonResourceMsg.LblLastName);
+                    tempStr = tempStr.Replace(objMsg.GetMessage(CrxStructCommonResourceMsg.GuiDisplayAsteriskColon), objMsg.GetMessage(CrxStructCommonResourceMsg.GuiDisplayColon));
+                    CrystalPwaPatientReport1.SetParameterValue(GuiConstants.LblLastName, tempStr);
+                    CrystalPwaPatientReport1.SetParameterValue(GuiConstants.TxtLastNameValue, string.IsNullOrEmpty(patientObj.lastName) ? string.Empty : patientObj.lastName);
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.LblPatientId, PWACommonReportData.RptPatientId);
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.TxtPatientId, PWACommonReportData.RptPatientIdValue);
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.LblAge, PWACommonReportData.RptPatientAge);
@@ -240,7 +278,7 @@ namespace AtCor.Scor.Gui.Presentation
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.PwaText8, objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaTxt8));
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.PwaText9, objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaTxt9));
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.PwaText10, objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaTxt10));
-                    string tempStr = string.Empty;
+                    tempStr = string.Empty;
                     tempStr = string.Format("{0}{1}", GuiCommon.bizPwaobject.bloodPressure.SP.Reading.ToString() + objMsg.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash), GuiCommon.bizPwaobject.bloodPressure.DP.Reading.ToString());
                     string pwaTempStr = GetPatientReportBpText();
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.PwaText11, string.Format(objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaTxt11), tempStr, pwaTempStr));
@@ -286,7 +324,19 @@ namespace AtCor.Scor.Gui.Presentation
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.PwaText41, objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaTxt41));
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.PwaText42, string.Format(objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaTxt42), PWAClinicalReportData.RptHRAroticValue));
                     CrystalPwaPatientReport1.SetParameterValue(GuiConstants.PwaText43, objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaTxt43));
-                    CrystalPwaPatientReport1.SetParameterValue(GuiConstants.PwaText44, string.Format(objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaTxt44), Math.Round(GuiCommon.bizPwaobject.ReferenceAge).ToString()));
+
+                    tempStr = string.Empty;
+                    if (GuiCommon.bizPwaobject.ReferenceAge == GuiConstants.DefaultValue)
+                    {
+                        tempStr = objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaReferenceNorange);
+                    }
+                    else
+                    {
+                        tempStr = string.Format(objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaReferenceRange), Math.Round(GuiCommon.bizPwaobject.ReferenceAge).ToString());
+                    }
+
+                    CrystalPwaPatientReport1.SetParameterValue(GuiConstants.PwaText44, string.Format(objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaTxt44), tempStr));
+                    CrystalPwaPatientReport1.SetParameterValue(GuiConstants.Dot, objMsg.GetMessage(CrxStructCommonResourceMsg.RptPwaDot));
                     crysRptVwrPwaPrintReport.ReportSource = CrystalPwaClinical1;
                     crysRptVwrPwaPrintReport.Refresh();
                     crysRptVwrPwaPrintReport.Hide();
@@ -296,6 +346,134 @@ namespace AtCor.Scor.Gui.Presentation
 
                     CrystalPwaPatientReport1.PrintOptions.PaperSize = PaperSize.PaperA4;
                     CrystalPwaPatientReport1.PrintToPrinter(1, false, 0, 0);
+                }
+                else if (PWACommonReportData.RptPrintType.Equals(CrxStructCommonResourceMsg.PwaAnalysisReport))
+                {                   
+                    DsPwaPrintReport dsPwaAnalysis = new DsPwaPrintReport();
+                    DsPwaPrintReport.ClinicalAnalysisTableDataTable dtPwaAnalysis = new DsPwaPrintReport.ClinicalAnalysisTableDataTable();
+
+                    DataRow dr = dtPwaAnalysis.NewRow();
+                    Image imgLogo;
+                    Image imgSpChart;
+                    Image imgPpChart;
+                    Image imgApChart;
+                    Image imgDpMapChart;
+                    Image imgHrChart;
+                    Image imgAixChart;
+
+                    GetPwaAnalysisImages(out imgLogo, out imgSpChart, out imgPpChart, out imgApChart, out imgDpMapChart, out imgHrChart, out imgAixChart);
+
+                    byte[] imgByteLogo = ImageToByteArray(imgLogo);
+                    byte[] imgByteSpChart = ImageToByteArray(imgSpChart);
+                    byte[] imgBytePpChart = ImageToByteArray(imgPpChart);
+                    byte[] imgByteApChart = ImageToByteArray(imgApChart);
+                    byte[] imgByteDpMapChart = ImageToByteArray(imgDpMapChart);
+                    byte[] imgByteHrChart = ImageToByteArray(imgHrChart);
+                    byte[] imgByteAixChart = ImageToByteArray(imgAixChart);
+
+                    dr[0] = imgByteLogo;
+                    dr[1] = imgByteSpChart;
+                    dr[2] = imgBytePpChart;
+                    dr[3] = imgByteDpMapChart;
+                    dr[4] = imgByteHrChart;
+                    dr[5] = imgByteApChart;
+                    dr[6] = imgByteAixChart;
+
+                    dtPwaAnalysis.Rows.Add(dr);
+
+                    dsPwaAnalysis.Tables.Clear();
+                    dsPwaAnalysis.Tables.Add(dtPwaAnalysis);
+
+                    dsPwaAnalysis.AcceptChanges();
+
+                    CrystalPwaTrendAnalysis1.SetDataSource(dsPwaAnalysis);
+
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.ReportHeader, PWACommonReportData.RptHeader);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.ReportTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.GuiPrintPwaTrendAnalysisTitle));
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientData, PWACommonReportData.RptPatientDataHeader);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.StudyData, PWACommonReportData.RptStudyDataHeader);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientNameTitle, PWACommonReportData.RptPatientName);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientNameValue, PWACommonReportData.RptPatientNameValue);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientIdTitle, PWACommonReportData.RptPatientId);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientIdValue, PWACommonReportData.RptPatientIdValue);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientDobTitle, PWACommonReportData.RptPatientDob);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientDobValue, PWACommonReportData.RptPatientDobValue);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientAgeTitle, PWACommonReportData.RptPatientAgeGender);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientAgeValue, PWACommonReportData.RptPatientAgeGenderValue);
+
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientBPTitle, PWACommonReportData.RptPatientBP);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientBPValue, PWACommonReportData.RptPatientBPValue);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientHeightTitle, PWACommonReportData.RptPatientHeight);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientHeightValue, PWACommonReportData.RptPatientHeightValue);
+
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.GroupNameTitle, PWACommonReportData.RptGroupNameTitle);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.GroupNameValue, PWACommonReportData.RptGroupNameValue);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientAssessmentTitle, PWACommonReportData.RptPatientAssessment);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PatientAssessmentValue, PWAAnalysisReportData.RptPatientAssessmentValue);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.PhysicianTitle, PWACommonReportData.RptPhysicianTitle);
+                    CrystalPwaTrendAnalysis1.SetParameterValue(GuiConstants.SignatureTitle, PWACommonReportData.RptSignatureTitle);
+
+                    crysRptVwrPwaPrintReport.ReportSource = CrystalPwaTrendAnalysis1;
+                    crysRptVwrPwaPrintReport.Refresh();
+                    crysRptVwrPwaPrintReport.Hide();
+                    CrystalPwaTrendAnalysis1.PrintOptions.PrinterName = tempPrinter;
+                    CrystalPwaTrendAnalysis1.PrintOptions.PaperOrientation = GuiCommon.IsLandScape == false ? PaperOrientation.Portrait : PaperOrientation.Landscape;
+
+                    CrystalPwaTrendAnalysis1.PrintOptions.PaperSize = PaperSize.PaperA4;
+                    CrystalPwaTrendAnalysis1.PrintToPrinter(1, false, 0, 0);
+                }
+                else if (PWACommonReportData.RptPrintType.Equals(CrxStructCommonResourceMsg.QuickStart))
+                {
+                    DsPwaPrintReport dsPwaQuickStart = new DsPwaPrintReport();
+                    DsPwaPrintReport.QuickStartTableDataTable dtPwaQuickStart = new DsPwaPrintReport.QuickStartTableDataTable();
+
+                    DataRow dr = dtPwaQuickStart.NewRow();
+                    Image imgLogo;
+                    Image imgPanel;
+
+                    GetPwaQuickStartImages(out imgLogo, out imgPanel);
+
+                    byte[] imgByteLogo = ImageToByteArray(imgLogo);
+                    byte[] imgBytePanel = ImageToByteArray(imgPanel);
+
+                    dr[0] = imgByteLogo;
+                    dr[1] = imgBytePanel;
+
+                    dtPwaQuickStart.Rows.Add(dr);
+
+                    dsPwaQuickStart.Tables.Clear();
+                    dsPwaQuickStart.Tables.Add(dtPwaQuickStart);
+
+                    dsPwaQuickStart.AcceptChanges();
+
+                    CrystalPwaQuickStart1.SetDataSource(dsPwaQuickStart);
+
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.ReportHeader, PWACommonReportData.RptHeader);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.ReportTitle, objMsg.GetMessage(CrxStructCommonResourceMsg.GuiPrintPwaQuickStartTitle));
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.PatientData, PWACommonReportData.RptPatientDataHeader);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.StudyData, PWACommonReportData.RptStudyDataHeader);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.PatientNameTitle, PWACommonReportData.RptPatientName);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.PatientIdTitle, PWACommonReportData.RptPatientId);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.PatientDobTitle, PWACommonReportData.RptPatientDob);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.PatientAgeTitle, PWACommonReportData.RptPatientAgeGender);
+
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.PatientBPTitle, PWACommonReportData.RptPatientBP);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.PatientHeightTitle, PWACommonReportData.RptPatientHeight);
+
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.GroupNameTitle, PWACommonReportData.RptGroupNameTitle);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.PhysicianTitle, PWACommonReportData.RptPhysicianTitle);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.SignatureTitle, PWACommonReportData.RptSignatureTitle);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.PatientBPTitle, PWACommonReportData.RptPatientBP);
+                    CrystalPwaQuickStart1.SetParameterValue(GuiConstants.PatientBPValue, string.Format("{0} {1}", GuiCommon.quickStartCrxPwaData.SP.ToString() + objMsg.GetMessage(CrxStructCommonResourceMsg.GuiDisplaySlash) + GuiCommon.quickStartCrxPwaData.DP.ToString(), objMsg.GetMessage(CrxStructCommonResourceMsg.UnitsPressureMmhg)));
+                    
+                    crysRptVwrPwaPrintReport.ReportSource = CrystalPwaQuickStart1;
+                    crysRptVwrPwaPrintReport.Refresh();
+                    crysRptVwrPwaPrintReport.Hide();
+                    CrystalPwaQuickStart1.PrintOptions.PrinterName = tempPrinter;
+                    CrystalPwaQuickStart1.PrintOptions.PaperOrientation = GuiCommon.IsLandScape == false ? PaperOrientation.Portrait : PaperOrientation.Landscape;
+
+                    CrystalPwaQuickStart1.PrintOptions.PaperSize = PaperSize.PaperA4;
+                    CrystalPwaQuickStart1.PrintToPrinter(1, false, 0, 0);
                 }
                 else
                 {
@@ -413,12 +591,12 @@ namespace AtCor.Scor.Gui.Presentation
             objPWAClinicalPreview.guiPicBoxReportLogo.DrawToBitmap(imgPWActrl, rect);
             imgLogo = imgPWActrl;
 
-            width = objPWAClinicalPreview.pnlCentralClinicalParameters.Width;
-            height = objPWAClinicalPreview.pnlCentralClinicalParameters.Height;
+            width = objPWAClinicalPreview.guipnlSliderControls.Width;
+            height = objPWAClinicalPreview.guipnlSliderControls.Height;
             p = new Point(0, 0);
-            rect = new Rectangle(p, objPWAClinicalPreview.pnlCentralClinicalParameters.Size);
+            rect = new Rectangle(p, objPWAClinicalPreview.guipnlSliderControls.Size);
             imgPWActrl = new Bitmap(width, height);
-            objPWAClinicalPreview.pnlCentralClinicalParameters.DrawToBitmap(imgPWActrl, rect);
+            objPWAClinicalPreview.guipnlSliderControls.DrawToBitmap(imgPWActrl, rect);
             imgClincalParam = imgPWActrl;
 
             width = objPWAClinicalPreview.pnlCentralClinicalWaveform.Width;
@@ -448,7 +626,7 @@ namespace AtCor.Scor.Gui.Presentation
 
         /** This method to get the images from the Patient intermediate form to draw it on the print report  
         * */
-        private void GetPwaPatientImages(out Image imgLogo, out Image imgHumanLogo, out Image imgSpSlider, out Image imgDpSlider, out Image imgHrSlider)
+        private void GetPwaPatientImages(out Image imgLogo, out Image imgHumanLogo, out Image imgSpSlider, out Image imgDpSlider, out Image imgHrSlider, out Image imgSpChart, out Image imgApChart, out Image imgPpChart, out Image imgAixChart)
         {
             int width = objPWAPatientPreview.guiPicBoxReportLogo.Width;
             int height = objPWAPatientPreview.guiPicBoxReportLogo.Height;
@@ -489,11 +667,125 @@ namespace AtCor.Scor.Gui.Presentation
             imgPWActrl = new Bitmap(width, height);
             objPWAPatientPreview.pnlHrSlider.DrawToBitmap(imgPWActrl, rect);
             imgHrSlider = imgPWActrl;
+
+            width = objPWAPatientPreview.guichartSp.Width;
+            height = objPWAPatientPreview.guichartSp.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWAPatientPreview.guichartSp.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWAPatientPreview.guichartSp.DrawToBitmap(imgPWActrl, rect);
+            imgSpChart = imgPWActrl;
+
+            width = objPWAPatientPreview.guichartAp.Width;
+            height = objPWAPatientPreview.guichartAp.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWAPatientPreview.guichartAp.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWAPatientPreview.guichartAp.DrawToBitmap(imgPWActrl, rect);
+            imgApChart = imgPWActrl;
+
+            width = objPWAPatientPreview.guichartPp.Width;
+            height = objPWAPatientPreview.guichartPp.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWAPatientPreview.guichartPp.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWAPatientPreview.guichartPp.DrawToBitmap(imgPWActrl, rect);
+            imgPpChart = imgPWActrl;
+
+            width = objPWAPatientPreview.guichartAix.Width;
+            height = objPWAPatientPreview.guichartAix.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWAPatientPreview.guichartAix.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWAPatientPreview.guichartAix.DrawToBitmap(imgPWActrl, rect);
+            imgAixChart = imgPWActrl;
+        }
+
+        /** This method to get the images from the Analysis intermediate form to draw it on the print report  
+       * */
+        private void GetPwaAnalysisImages(out Image imgLogo, out Image imgSpChart, out Image imgPpChart, out Image imgApChart, out Image imgDpMapChart, out Image imgHrChart, out Image imgAixChart)
+        {
+            int width = objPWAAnalysisPreview.guiPicBoxReportLogo.Width;
+            int height = objPWAAnalysisPreview.guiPicBoxReportLogo.Height;
+            Point p = new Point(0, 0);
+            Rectangle rect = new Rectangle(p, objPWAAnalysisPreview.guiPicBoxReportLogo.Size);
+            Bitmap imgPWActrl = new Bitmap(width, height);
+            objPWAAnalysisPreview.guiPicBoxReportLogo.DrawToBitmap(imgPWActrl, rect);
+            imgLogo = imgPWActrl;
+
+            width = objPWAAnalysisPreview.guiradAnalysisChartSP.Width;
+            height = objPWAAnalysisPreview.guiradAnalysisChartSP.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWAAnalysisPreview.guiradAnalysisChartSP.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWAAnalysisPreview.guiradAnalysisChartSP.DrawToBitmap(imgPWActrl, rect);
+            imgSpChart = imgPWActrl;
+
+            width = objPWAAnalysisPreview.guiradAnalysisChartPP.Width;
+            height = objPWAAnalysisPreview.guiradAnalysisChartPP.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWAAnalysisPreview.guiradAnalysisChartPP.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWAAnalysisPreview.guiradAnalysisChartPP.DrawToBitmap(imgPWActrl, rect);
+            imgPpChart = imgPWActrl;
+
+            width = objPWAAnalysisPreview.guiradAnalysisChartAP.Width;
+            height = objPWAAnalysisPreview.guiradAnalysisChartAP.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWAAnalysisPreview.guiradAnalysisChartAP.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWAAnalysisPreview.guiradAnalysisChartAP.DrawToBitmap(imgPWActrl, rect);
+            imgApChart = imgPWActrl;
+
+            width = objPWAAnalysisPreview.pnlDpMapChart.Width;
+            height = objPWAAnalysisPreview.pnlDpMapChart.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWAAnalysisPreview.pnlDpMapChart.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWAAnalysisPreview.pnlDpMapChart.DrawToBitmap(imgPWActrl, rect);
+            imgDpMapChart = imgPWActrl;
+
+            width = objPWAAnalysisPreview.guiradAnalysisChartHR.Width;
+            height = objPWAAnalysisPreview.guiradAnalysisChartHR.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWAAnalysisPreview.guiradAnalysisChartHR.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWAAnalysisPreview.guiradAnalysisChartHR.DrawToBitmap(imgPWActrl, rect);
+            imgHrChart = imgPWActrl;
+
+            width = objPWAAnalysisPreview.guiradAnalysisChartAix75.Width;
+            height = objPWAAnalysisPreview.guiradAnalysisChartAix75.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWAAnalysisPreview.guiradAnalysisChartAix75.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWAAnalysisPreview.guiradAnalysisChartAix75.DrawToBitmap(imgPWActrl, rect);
+            imgAixChart = imgPWActrl;
+        }
+
+        /** This method to get the images from the Analysis intermediate form to draw it on the print report  
+        * */
+        private void GetPwaQuickStartImages(out Image imgLogo, out Image imgPanel)
+        {
+            int width = objPWATestResultPreview.guipnlPWAReport.Width;
+            int height = objPWATestResultPreview.guipnlPWAReport.Height;
+            Point p = new Point(0, 0);
+            Rectangle rect = new Rectangle(p, objPWATestResultPreview.guipnlPWAReport.Size);
+            Bitmap imgPWActrl = new Bitmap(width, height);
+            objPWATestResultPreview.guipnlPWAReport.DrawToBitmap(imgPWActrl, rect);
+            imgPanel = imgPWActrl;
+
+            width = objPWATestResultPreview.guiPicBoxReportLogo.Width;
+            height = objPWATestResultPreview.guiPicBoxReportLogo.Height;
+            p = new Point(0, 0);
+            rect = new Rectangle(p, objPWATestResultPreview.guiPicBoxReportLogo.Size);
+            imgPWActrl = new Bitmap(width, height);
+            objPWATestResultPreview.guiPicBoxReportLogo.DrawToBitmap(imgPWActrl, rect);
+            imgLogo = imgPWActrl;
         }
 
         /** This method converts image object to byte array
         */
-        public byte[] ImageToByteArray(Image imageIn)
+        private byte[] ImageToByteArray(Image imageIn)
         {
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);

@@ -39,34 +39,50 @@ namespace AtCor{
 					~DalEM4HostToNibpCommand();
 
 					/**
-					*	Asynchronous listener that waits for a response to arrive in the response buffer
-					*	Times out if no data is recieved within the expected time as specifed in the repsonsePacket
+					* Processes an incomming NIBP packet when the event is raised.
 					*
-					*	@param[in,out]	responsePacket	The EM4 command-repsonse object in which the response is copied 
+					* @param[in]  source	The object that raised this event
+					* @param[in]	args	The event arguments
 					*/
 					void PacketArrivedProcessingMethod(Object^ source, NibPacketArrivedEventArgs^ args);
 					
 					/**
 					* Obtains the response from the port for the command sent by SendCommand
-					* @param[in,out] serialCommand	A DalEM4Command object which has been initialized  with a valid command.
-					*								This method  will write the EM4 response to the same structure.
 					* @return The status of the operation: succeded/ failed/ timout/ nack
-					* @warning Do not use for data capture.
 					*/
 					virtual DalReturnValue ListenForEM4Response();
 
+					/**
+					* Stops all threads and event handlers
+					* @return	The status of the operation.
+					*/
 					virtual bool StopListeningForEM4response();
 
 				
 				internal:
+					/**
+					* Dependency injection method
+					* @param[in]	newInterface	The DalNibpCommandInterface to link to.
+					*/
 					void SetCommandInterface(DalNibpCommandInterface^ newInterface);
 
-					//DalEM4HostToNibpCommand(DalNibpCommandType type, array<unsigned char> ^ nibpPacket, unsigned int responseWaitTime);
-
+					/**
+					* Sends a command and waits for a response from NIBP module
+					* return	The status of the operation.
+					*/
 					DalReturnValue SendCommandAndGetResponse();
 
+					/**
+					* Processes an EM4 response
+					* @param[in]	nibpToHostResponse	The nibp Packet to process
+					* @return	The status of the operation.
+					*/
 					virtual bool ActOnPacket(array <unsigned char> ^ nibpToHostResponse);
 
+					/**
+					* Thread method that waits for Em4 response
+					* @param[in]	responsePacket	The object for this event
+					*/
 					virtual void ResponseListenerThreadMethod(Object^ responsePacket);
 				
 

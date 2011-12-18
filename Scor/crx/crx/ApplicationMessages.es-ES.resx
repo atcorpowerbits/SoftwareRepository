@@ -121,13 +121,15 @@
     <value>Francés - Estado activo.</value>
   </data>
   <data name="AGE_NOT_SAFE" xml:space="preserve">
-    <value>Measurement is not safe and not validated. User is not allowed to proceed with the capture.</value>
+    <value>Warning: This feature is not safe or validated for this age group.</value>
+    <comment>Measurement is not safe and not validated. User is not allowed to proceed with the capture.</comment>
   </data>
   <data name="AGE_WARNING_CUFF_FITTING" xml:space="preserve">
     <value>Please ensure that the cuff size fits the patient and that the measurement is not currently validated for non-adult patients. Do you want to proceed?</value>
   </data>
   <data name="AGE_WARNING_NO_CLINICAL_DATA" xml:space="preserve">
-    <value>Please note that no clinical data to support and that the measurement is not currently validated for non-adult patients. Do you want to proceed?</value>
+    <value>Warning: This feature is not validated for this age group. Please seek appropriate advice before continuing. Do you wish to continue?</value>
+    <comment>Please note that no clinical data to support and that the measurement is not currently validated for non-adult patients. Do you want to proceed?</comment>
   </data>
   <data name="AlarmSourceUnknown" xml:space="preserve">
     <value>El origen de la alarma es desconocido o no manipulado.</value>
@@ -206,10 +208,12 @@
     <value>Captura</value>
   </data>
   <data name="BTN_CHANGE" xml:space="preserve">
-    <value>Cambiar</value>
+    <value>Browse</value>
+    <comment>Cambiar</comment>
   </data>
   <data name="BTN_DEFAULTS" xml:space="preserve">
-    <value>Valores predeterminados</value>
+    <value>Default</value>
+    <comment>Valores predeterminados</comment>
   </data>
   <data name="BTN_DELETE" xml:space="preserve">
     <value>Borrar</value>
@@ -705,7 +709,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Tiempo de captura</value>
   </data>
   <data name="GRP_CLINICAL_REPORT" xml:space="preserve">
-    <value>Clinical Report</value>
+    <value>Aix Report</value>
+    <comment>Clinical Report</comment>
   </data>
   <data name="GRP_COMMS_PORT" xml:space="preserve">
     <value>Puerto de comunicación</value>
@@ -718,7 +723,7 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Guidance Bars</value>
   </data>
   <data name="GRP_HEIGHT_WEIGHT_UNITS" xml:space="preserve">
-    <value>Height Units</value>
+    <value>Height Unit</value>
     <comment>Unidades de altura y peso</comment>
   </data>
   <data name="GRP_IF_PP" xml:space="preserve">
@@ -746,7 +751,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Método de distancia de PWV</value>
   </data>
   <data name="GRP_PWV_DISTANCE_UNITS" xml:space="preserve">
-    <value>Unidades de distancia de PWV</value>
+    <value>PWV Distance Unit</value>
+    <comment>Unidades de distancia de PWV</comment>
   </data>
   <data name="QUICK START" xml:space="preserve">
     <value>Quick Start</value>
@@ -761,7 +767,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Pantalla de configuración</value>
   </data>
   <data name="GRP_SIMULATION_FILES" xml:space="preserve">
-    <value>Tipos de simulación</value>
+    <value>Simulation Data</value>
+    <comment>Tipos de simulación</comment>
   </data>
   <data name="GRP_SPHYCOMOR" xml:space="preserve">
     <value>Sphygmocor</value>
@@ -770,7 +777,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Startup Mode</value>
   </data>
   <data name="GRP_STARTUP_SCREEN" xml:space="preserve">
-    <value>Startup Screen</value>
+    <value>PWA Workflow</value>
+    <comment>Startup Screen</comment>
   </data>
   <data name="GRP_TONOMETER" xml:space="preserve">
     <value>Tonometer</value>
@@ -1039,7 +1047,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Restaurar</value>
   </data>
   <data name="GUI_SCREEN_RESOLUTION_MSG" xml:space="preserve">
-    <value>Screen resolution is too low. Application may not display properly. Best viewed in 1024 by 768 pixels.</value>
+    <value>Screen resolution is too low. Application cannot be launched in lower resolution . Best viewed in 1024 by 768 pixels.</value>
+    <comment>Screen resolution is too low. Application may not display properly. Best viewed in 1024 by 768 pixels.</comment>
   </data>
   <data name="GUI_SEARCH_ELECTRONIC_MOD" xml:space="preserve">
     <value>Buscando módulo electrónico...</value>
@@ -1048,7 +1057,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Seleccione un archivo de simulación.</value>
   </data>
   <data name="GUI_SELECT_SQL_INSTANCE" xml:space="preserve">
-    <value>seleccione otro servidor de la lista de abajo.</value>
+    <value>select another server from the list below.</value>
+    <comment>seleccione otro servidor de la lista de abajo.</comment>
   </data>
   <data name="GUI_SERVICE_MANUAL_MENU" xml:space="preserve">
     <value>Manual de servicio</value>
@@ -1326,7 +1336,7 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>SP*:</value>
   </data>
   <data name="LBL_TIMESTATUS" xml:space="preserve">
-    <value>Time to Deflation  {0}{1}{2} seconds</value>
+    <value>Time to Deflation{0}{1}{2} seconds</value>
     <comment>Tiempo para desinflado</comment>
   </data>
   <data name="LBL_TONOMETER" xml:space="preserve">
@@ -1388,7 +1398,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>mm</value>
   </data>
   <data name="MODE" xml:space="preserve">
-    <value>modo</value>
+    <value>Modo</value>
+    <comment>modo</comment>
   </data>
   <data name="MODULE_CAPABILITY" xml:space="preserve">
     <value>Capacidad del módulo</value>
@@ -2295,10 +2306,10 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Incorrect range to determine gain and offset for pulse. SP = {0}, DP = {1}</value>
   </data>
   <data name="GUI_PRINT_PWA_CLINICAL_TITLE" xml:space="preserve">
-    <value>Pulse Wave Analysis Clinical report</value>
+    <value>Pulse Wave Analysis Clinical Report</value>
   </data>
   <data name="GUI_PRINT_PWA_EVALUATION_TITLE" xml:space="preserve">
-    <value>Pulse Wave Analysis Evaluation report</value>
+    <value>Pulse Wave Analysis Evaluation Report</value>
   </data>
   <data name="RPT_BRACHIAL_BP" xml:space="preserve">
     <value>Brachial BP:</value>
@@ -2436,7 +2447,8 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Capture cannot continue</value>
   </data>
   <data name="GUI_NIBP_ASSESSMENT_PROGRESS_MSG" xml:space="preserve">
-    <value>Assessment {0} in Progress</value>
+    <value>Assessment {0} in progress</value>
+    <comment>Assessment {0} in Progress</comment>
   </data>
   <data name="GUI_NIBP_CUFF_PRESSURE" xml:space="preserve">
     <value>Cuff Pressure {0} mmHg</value>
@@ -2536,28 +2548,28 @@ If your measurement is above the top red line, your central Systolic Blood press
     <value>{0} High Normal</value>
   </data>
   <data name="RPT_PWATEXT16" xml:space="preserve">
-    <value>•	Stopping smoking</value>
+    <value>Stopping smoking</value>
   </data>
   <data name="RPT_PWATEXT17" xml:space="preserve">
-    <value>•	Increasing cardiovascular exercise such as walking or swimming</value>
+    <value>Increasing cardiovascular exercise such as walking or swimming</value>
   </data>
   <data name="RPT_PWATEXT18" xml:space="preserve">
-    <value>•	Improving your diet by cutting down on fat and salt</value>
+    <value>Improving your diet by cutting down on fat and salt</value>
   </data>
   <data name="RPT_PWATEXT19" xml:space="preserve">
-    <value>•	Taking anti-hypertensive medication</value>
+    <value>Taking anti-hypertensive medication</value>
   </data>
   <data name="RPT_PWATEXT20" xml:space="preserve">
-    <value>•	Reducing your weight if you are overweight</value>
+    <value>Reducing your weight if you are overweight</value>
   </data>
   <data name="RPT_PWATEXT21" xml:space="preserve">
-    <value>•	Increasing your fruit, vegetable and whole grain intake</value>
+    <value>Increasing your fruit, vegetable and whole grain intake</value>
   </data>
   <data name="RPT_PWATEXT22" xml:space="preserve">
-    <value>•	Reducing stress</value>
+    <value>Reducing stress</value>
   </data>
   <data name="RPT_PWATEXT23" xml:space="preserve">
-    <value>•	Reducing excessive alcohol consumption</value>
+    <value>Reducing excessive alcohol consumption</value>
   </data>
   <data name="RPT_PWATEXT24" xml:space="preserve">
     <value>Central Pulse Pressure (Aortic PP).</value>
@@ -2579,28 +2591,28 @@ If your measurement is between the green line and the top red line, then your ce
 If your measurement is above the top red line, or above 50mmHG, your central Pulse pressure is high compared to others your age.  Talk to your doctor about things you can do to reduce your central Pulse pressure, such as:</value>
   </data>
   <data name="RPT_PWATEXT27" xml:space="preserve">
-    <value>•	Stopping smoking</value>
+    <value>Stopping smoking</value>
   </data>
   <data name="RPT_PWATEXT28" xml:space="preserve">
-    <value>•	Increasing cardiovascular exercise such as walking or swimming</value>
+    <value>Increasing cardiovascular exercise such as walking or swimming</value>
   </data>
   <data name="RPT_PWATEXT29" xml:space="preserve">
-    <value>•	Reducing your weight if you are overweight</value>
+    <value>Reducing your weight if you are overweight</value>
   </data>
   <data name="RPT_PWATEXT30" xml:space="preserve">
-    <value>•	Increasing your fruit, vegetable and whole grain intake</value>
+    <value>Increasing your fruit, vegetable and whole grain intake</value>
   </data>
   <data name="RPT_PWATEXT31" xml:space="preserve">
-    <value>•	Improving your diet by cutting down on fat and salt</value>
+    <value>Improving your diet by cutting down on fat and salt</value>
   </data>
   <data name="RPT_PWATEXT32" xml:space="preserve">
-    <value>•	Taking anti-hypertensive medication</value>
+    <value>Taking anti-hypertensive medication</value>
   </data>
   <data name="RPT_PWATEXT33" xml:space="preserve">
-    <value>•	Reducing stress</value>
+    <value>Reducing stress</value>
   </data>
   <data name="RPT_PWATEXT34" xml:space="preserve">
-    <value>•	Reducing excessive alcohol consumption</value>
+    <value>Reducing excessive alcohol consumption</value>
   </data>
   <data name="RPT_PWATEXT35" xml:space="preserve">
     <value>Central Augmented Pressure (Aortic AP).</value>
@@ -2656,7 +2668,7 @@ Your Heart rate is measured in Beats per minute and will vary throughout the day
   <data name="RPT_PWATEXT44" xml:space="preserve">
     <value>Your SphygmoCor Reference age measures the stiffness of your arteries and compares them with other people your age. 
 
-Your SphygmoCor reference age is &gt;{0}.
+{0}
 
 If this age is less than your actual age: Congratulations you have young arteries.
 If this age is the same as your actual age: Your arterial stiffness is normal for your age.
@@ -2700,5 +2712,89 @@ If this age is greater than your actual age: Your arteries are stiffer than is n
   </data>
   <data name="RPT_DATE_AND_MEASUREMENT" xml:space="preserve">
     <value>Date of measurement:</value>
+  </data>
+  <data name="LBL_DISPLAY" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="LBL_FEMORAL_TO_CUFF" xml:space="preserve">
+    <value>Femoral To Cuff distance value cannot be empty,default value should be 200</value>
+  </data>
+  <data name="RPT_PWA_REFERENCE_NORANGE" xml:space="preserve">
+    <value>Your SphygmoCor reference age is  not calculated.</value>
+  </data>
+  <data name="RPT_PWA_REFERENCE_RANGE" xml:space="preserve">
+    <value>Your SphygmoCor reference age is &gt; {0}.</value>
+  </data>
+  <data name="GUI_PRINT_PWA_TREND_ANALYSIS_TITLE" xml:space="preserve">
+    <value>Pulse Wave Analysis Patient Trend Analysis</value>
+  </data>
+  <data name="PWA ANALYSIS REPORT" xml:space="preserve">
+    <value>PWA Analysis Report</value>
+  </data>
+  <data name="APP_MODE" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="GRP_DEFAULT_PRINTED_REPORT" xml:space="preserve">
+    <value>Default Printed Report</value>
+  </data>
+  <data name="QUICKSTART_WARNING" xml:space="preserve">
+    <value>Warning: This device is not validated for children under 18 years old</value>
+  </data>
+  <data name="STANDARD" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="BIRTH_DATE_CANNOT_BE_FUTURE_DATE" xml:space="preserve">
+    <value>Patient birth date can not be future date.</value>
+  </data>
+  <data name="GUI_RESULT_CAL_FAIL_MSG" xml:space="preserve">
+    <value>Result generation failed.</value>
+  </data>
+  <data name="GUI_RESULT_DATA_LOSS_MSG" xml:space="preserve">
+    <value>You will lose all the data.Do you want to continue?</value>
+  </data>
+  <data name="DAL_MSG_BP_ERROR_88" xml:space="preserve">
+    <value>Brachial calibration error: {0}. Please turn EM4 off/on before starting a new measurement. Please refer to user manual for further corrective actions if necessary.</value>
+  </data>
+  <data name="DAL_MSG_BP_ERROR_OTHER" xml:space="preserve">
+    <value>Brachial calibration error: {0}. Please refer to user manual for further corrective actions if necessary.</value>
+  </data>
+  <data name="DAL_ERR_NIBP_PACKET_D" xml:space="preserve">
+    <value>NIBP module recieved a '121' command with unrecognizable data.</value>
+  </data>
+  <data name="DAL_ERR_NIBP_PACKET_E" xml:space="preserve">
+    <value>NIBP module indicated that it recieved a valid command but it may be malformed.</value>
+  </data>
+  <data name="DAL_ERR_NIBP_PACKET_N" xml:space="preserve">
+    <value>NIBP module recieved an unidentified command.</value>
+  </data>
+  <data name="DAL_ERR_NIBP_PACKET_T" xml:space="preserve">
+    <value>A Timeout occured while the BP module was recieving a command</value>
+  </data>
+  <data name="CAPTURE_REPORT_GEN_MSG_FOR_QUICKSTART" xml:space="preserve">
+    <value>Do you want to generate SphygmoCor Result?</value>
+  </data>
+  <data name="RPT_PWA_AIX_CHART_TEXT" xml:space="preserve">
+    <value>Central Augmentation index (Aix)</value>
+  </data>
+  <data name="RPT_PWA_AP_CHART_TEXT" xml:space="preserve">
+    <value>Central Augmented Pressure (AP)</value>
+  </data>
+  <data name="RPT_PWA_PP_CHART_TEXT" xml:space="preserve">
+    <value>Central Pulse Pressure (PP)</value>
+  </data>
+  <data name="RPT_PWA_SP_CHART_TEXT" xml:space="preserve">
+    <value>Central Systolic Pressure (SP)</value>
+  </data>
+  <data name="RPT_PWA_DOT" xml:space="preserve">
+    <value>•</value>
+  </data>
+  <data name="GUI_PRINT_PWA_QUICK_START_TITLE" xml:space="preserve">
+    <value>Quick-Start Pulse Wave Analysis Report</value>
+  </data>
+  <data name="CUFF_REINFLATION_FAILED" xml:space="preserve">
+    <value>Cuff failed to reinflate.</value>
+  </data>
+  <data name="CRX_ERR_XML_TAG_INCORRECT_TEXT" xml:space="preserve">
+    <value>The xml tag "{0}" is incorrect or not present in the ScorSystemParameters.xml file</value>
   </data>
 </root>

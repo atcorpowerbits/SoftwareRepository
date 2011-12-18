@@ -123,14 +123,327 @@ namespace AtCor{
 					//TS Stub
 					bool IsCuffDeflated();
 
+					/**
+					* Closes any open files or other resources.
+					*/
 					void CloseFiles(); 
 
-					//TS STUB
+					/**
+					* Starts a BP measurement process with the specified initial pressure.
+					* @param[in]	nibpMode	The age group for which measurement is to be taken as an enum
+					* @param[in]	initialPressure	The inital pressure to set for this capture instance
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					bool StartBP(DalNIBPMode nibpMode, unsigned short initialPressure);
+
+					/**
+					* Starts a BP measurement process.
+					* @param[in]	nibpMode	The age group for which measurement is to be taken as an enum
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					bool StartBP(DalNIBPMode nibpMode);
+
+					/**
+					* Stops a BP measurement and disconnects the NIBP module
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					bool FinishBP();
+
+					/**
+					* Aborts an ongoing BP measurement.
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					bool AbortBP();
 
+
+					
+					/**
+					* Gets the Serial Number main processor board PCB
+					*
+					* @return The result of the operation
+					*/
+					 String^ SerialNumberMpb();
+					
+					/**
+					* Gets the Processor firmware Version main processor board
+					*
+					* @return The result of the operation
+					*/
+					 String^ ProcessorFirmwareVersionMpb();
+
+					/**
+					* Gets the PLD Safety firmware Version main processor board
+					*
+					* @return The result of the operation
+					*/
+					 String^ PldSafetyFirmwareVersionMpb();
+
+					/**
+					* Gets the Serial number Suntech PCB
+					*
+					* @return The result of the operation
+					*/
+					 String^ SerialNumberSuntechPcb();
+
+					/**
+					* Gets the BP firmware version Suntech
+					*
+					* @return The result of the operation
+					*/
+					 String^ BPFirmwareVersionSuntech();
+
+					/**
+					* Gets the Safety firmware Version Suntech
+					*
+					* @return The result of the operation
+					*/
+					 String^ SafetyFirmwareVersionSuntech();
+
+					/**
+					* Gets the Serial number EM4
+					*
+					* @return The result of the operation
+					*/
+					 String^ SerialNumberEm4();
+	
+					/**
+					* Gets the HW Configuration main processor board
+					*
+					* @return The result of the operation
+					*/
+					 unsigned short HWConfigurationMpb();
+
+					/**
+					* Gets the System configuration ID
+					*
+					* @return The result of the operation
+					*/
+					 unsigned short SystemConfigurationId();
+					
+					/**
+					* Gets the Number of PWV measurements
+					*
+					* @return The result of the operation
+					*/
+					 unsigned int NumberofPWVmeasurements();
+
+					/**
+					* Gets the Number of PWA tonometer measurements
+					*
+					* @return The result of the operation
+					*/
+					 unsigned int NumberofPWAtonometermeasurements();
+					/**
+					* Gets the Number of PWA cuff measurements
+					*
+					* @return The result of the operation
+					*/
+					 unsigned int NumberofPWAcuffmeasurements();
+
+					/**
+					* Gets the Number of NIBP measurements
+					*
+					* @return The result of the operation
+					*/
+					 unsigned int NumberOfNibpMeasurements();
+					
+					/**
+					* Gets the calibration date main processor board
+					*
+					* @return The result of the operation
+					*/
+					 DateTime CalibrationDateMpb();
+
+					/**
+					* Gets the calibration date Suntech
+					*
+					* @return The result of the operation
+					*/
+					 DateTime CalibrationDateSuntech();
+
+					/**
+					* Gets the test date
+					*
+					* @return The result of the operation
+					*/
+					 DateTime TestDate();
+
+					/**
+					* Gets the System configuration Change Date
+					*
+					* @return The result of the operation
+					*/
+					 DateTime SystemConfigurationChangeDate();
+
+					/**
+					* Gets the Notch Filter Enable
+					*
+					* @return The result of the operation
+					*/
+					unsigned short NotchFilterEnable();
+					
+					////DalConfigurationAndUsages Methods : Set
+					/**
+					* Sets the Serial Number main processor board PCB.
+					*
+					* @param[in]	data	Serial Number main processor board PCB to set
+					*
+					* @return	void
+					*/
+					void SerialNumberMpb(String^ data);
+					
+					/**
+					* Sets the Processor firmware Version main processor board
+					*
+					* @param[in]	data	Processor firmware Version main processor board to set
+					*
+					* @return	void
+					*/
+					void ProcessorFirmwareVersionMpb(String^ data);
+					
+					/**
+					* Sets the PLD Safety firmware Version main processor board.
+					*
+					* @param[in]	data	PLDSafetyfirmwareVersionmainprocessorboard to set
+					*
+					* @return	void
+					*/
+					void PldSafetyFirmwareVersionMpb(String^ data);
+					
+					/**
+					* Sets the Serial number Suntech PCB.
+					*
+					* @param[in]	data	SerialNumberSuntechPcb to set
+					*
+					* @return	void
+					*/
+					void SerialNumberSuntechPcb(String^ data);
+					
+					/**
+					* Sets the BP firmware version Suntech.
+					*
+					* @param[in]	data	BPfirmwareVersionSuntech to set
+					*
+					* @return	void
+					*/
+					void BPFirmwareVersionSuntech(String^ data);
+					
+					/**
+					* Sets the Safety firmware Version Suntech.
+					*
+					* @param[in]	data	SafetyFirmwareVersionSuntech to set
+					*
+					* @return	void
+					*/
+					void SafetyFirmwareVersionSuntech(String^ data);
+					
+					/**
+					* Sets the Serial number EM4.
+					*
+					* @param[in]	data	SerialNumberEm4 to set
+					*
+					* @return	void
+					*/
+					void SerialNumberEm4(String^ data);
+					
+					/**
+					* Sets the HW Configuration main processor board.
+					*
+					* @param[in]	data	HWConfigurationMpb to set
+					*
+					* @return	void
+					*/
+					void HWConfigurationMpb(unsigned short data);
+					
+					/**
+					* Sets the System configuration ID.
+					*
+					* @param[in]	data	SystemConfigurationId to set
+					*
+					* @return	void
+					*/
+					void SystemConfigurationId(unsigned short data);
+
+					/**
+					* Sets the Number of PWV measurements.
+					*
+					* @param[in]	data	NumberofPWVmeasurements to set
+					*
+					* @return	void
+					*/
+					void NumberofPWVmeasurements(unsigned int data);
+					
+					/**
+					* Sets the Number of PWA tonometer measurements.
+					*
+					* @param[in]	data	NumberofPWAtonometermeasurements to set
+					*
+					* @return	void
+					*/
+					void NumberofPWAtonometermeasurements(unsigned int data);
+					
+					/**
+					* Sets the Number of PWA cuff measurements.
+					*
+					* @param[in]	data	NumberofPWAcuffmeasurements to set
+					*
+					* @return	void
+					*/
+					void NumberofPWAcuffmeasurements(unsigned int data);
+					
+					/**
+					* Sets the Number of NIBP measurements.
+					*
+					* @param[in]	data	NumberOfNibpMeasurements to set
+					*
+					* @return	void
+					*/
+					void NumberOfNibpMeasurements(unsigned int data);
+
+					/**
+					* Sets the calibration date main processor board.
+					*
+					* @param[in]	data	CalibrationDateMpb
+					*
+					* @return	void
+					*/
+					void CalibrationDateMpb(DateTime data);
+					
+					/**
+					* Sets the calibration date Suntech.
+					*
+					* @param[in]	data	CalibrationDateSuntech to set
+					*
+					* @return	void
+					*/
+					void CalibrationDateSuntech(DateTime data);
+					
+					/**
+					* Sets the test date.
+					*
+					* @param[in]	data	test date to set
+					*
+					* @return	void
+					*/
+					void TestDate(DateTime data);
+					
+					/**
+					* Sets the System configuration Change Date.
+					*
+					* @param[in]	data	SystemConfigurationChangeDate to set
+					*
+					* @return	void
+					*/
+					void SystemConfigurationChangeDate(DateTime data);
+
+					/**
+					* Sets the Notch Filter Enable.
+					*
+					* @param[in]	data	NotchFilterEnable to set
+					*
+					* @return	void
+					*/
+					void NotchFilterEnable(unsigned short data);
 			};
 
 		}

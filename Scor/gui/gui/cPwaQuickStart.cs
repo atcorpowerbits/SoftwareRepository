@@ -28,9 +28,9 @@ namespace AtCor.Scor.Gui.Presentation
         private int waitTimer = 0;
         private GuiCommon.BpButtonMode buttonMode = GuiCommon.BpButtonMode.start;
         private DefaultWindow objDefaultWindow;
+        private int maxCuffPressure = 300;
 
-        private static event EventHandler StartButtonClick;
-
+        // private static event EventHandler StartButtonClick;
         private ArrayList nibpSp = new ArrayList();
         private ArrayList nibpDp = new ArrayList();
         private ArrayList nibpMp = new ArrayList();
@@ -45,44 +45,162 @@ namespace AtCor.Scor.Gui.Presentation
             // set the default window
             objDefaultWindow = defWindow;
 
-           // DefaultWindow.OnModeChangeDisableTimer += new EventHandler(ResetTimers);
-            StartButtonClick += guiradbtnQuickStartGetBp_Click;                          
+           // DefaultWindow.OnModeChangeDisableTimer += new EventHandler(ResetTimers);            
+            // StartButtonClick += guiradbtnQuickStartGetBp_Click;
             InitializeComponent();
-        }               
+        }
+
+        /**This method is used to Start the capture.
+         */
+        public void StartCapture()
+        {
+            GuiCommon.bizNibpObject.FinishBP();
+            //Deepak: 8-Nov-2011 :disabling this as per Victor's suggestion
+            //This is a temporary workaround bcuase GetConfigInfo return NACKeven 
+            //after NIBP_DISCONNECT is sent
+           // if (DalModule.Instance.CheckIfDeviceIsConnected())
+            CrxLogger.Instance.Write("GUI: cPwaQuickstart::StartCapture(). Not checking for device connection to pevent any problems associated with NIBP_DISCONNECT");
+            if (true)
+            {
+                FillSessionWithMeasurementValues();
+
+                // if (true)
+                if (GuiCommon.bizPwaobject.Validate())
+                {
+                    // go to capture screen once electonic module is found & data is valid                   
+                    GuiCommon.CaptureChildForm = new Capture(objDefaultWindow)
+                    {
+                        TopLevel = false,
+                        Dock = DockStyle.Fill,
+                        FormBorderStyle = FormBorderStyle.None
+                    };
+
+                    // adds capture form under parent window control
+                    var page = objDefaultWindow.radtabCapture;
+                    GuiCommon.CaptureChildForm.Parent = page;
+                    page.Controls.Clear();
+
+                    page.Controls.Add(GuiCommon.CaptureChildForm);
+                    GuiCommon.CaptureChildForm.Show();
+                    ResetMeasurementFields();
+                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabCapture;
+
+                    guiradbtnQuickStartGetBp.Enabled = true;
+                    objDefaultWindow.guicmbxCurrentMode.Enabled = false;
+                    objDefaultWindow.radtabCapture.Enabled = true;
+                    objDefaultWindow.radtabReport.Enabled = false;
+                    guiradbtnAutoPWACancel.Visible = false;
+                }
+                else
+                {
+                    if (GuiCommon.CaptureTabClick)
+                    {
+                        // whenever exception is thrown while validating measurement details,
+                        // navigate the user back to Setup screen.                            
+                        objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabQuickStart;
+                    }
+
+                    RadMessageBox.Show(this, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.ErrorValidating), CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                    guiradbtnAutoPWACancel.Visible = false;
+                    objDefaultWindow.guicmbxCurrentMode.Enabled = true;
+                    objDefaultWindow.radtabCapture.Enabled = false;
+                }
+            }
+            else
+            {
+                // device not connected show error message
+                RadMessageBox.Show(this, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.CaptureDeviceErrMsg), CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                if (GuiCommon.CaptureTabClick)
+                {
+                    // AtCor-Drop2-Sprint1
+                    /* if ((GuiCommon.Mode == GuiCommon.Modes.cPWA) && (GuiCommon.Workflow == GuiCommon.Workflows.Quick))
+                      {
+                         objdefaultwindow.radpgtabcollection.selectedpage = objdefaultwindow.radtabquickstart;
+                         objdefaultwindow.radtabquickstart.enabled = true;
+                         objdefaultwindow.radtabresult.enabled = true;
+                      }
+                      else
+                      { */
+                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                    objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+
+                    // }
+                }
+
+                guiradbtnAutoPWACancel.Visible = false;
+                objDefaultWindow.guicmbxCurrentMode.Enabled = true;
+                objDefaultWindow.radtabCapture.Enabled = false;
+            }
+        }
+
+        /**This method is used to disable the timers on the quickstart screen and enable the tabs on the default window.
+         */
+        public void DisableTimersAndResetTabs()
+        {
+            tmrGetCuffPressure.Enabled = tmrQsAutoPwa.Enabled = tmrWaitDuringAssessment.Enabled = false;
+
+            if (GuiCommon.IsOnPwaReportForm)
+            {
+                objDefaultWindow.radtabReport.Enabled = true;
+            }
+            else
+            {
+                objDefaultWindow.radtabQuickStart.Enabled = true;
+                objDefaultWindow.radtabCapture.Enabled = false;
+                objDefaultWindow.radtabResult.Enabled = false;
+                objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+
+                objDefaultWindow.radtabReport.Enabled = false;
+            }
+        }
 
         /**This event is fired when the form is loaded,it is used to set the test of the controls. 
          */ 
         private void cPwaQuickStart_Load(object sender, EventArgs e)
-        {
+        {             
             tmrGetCuffPressure.Interval = DalModule.Instance.NibpCuffDataInterval;
             waitButtonDelay = CrxSytemParameters.Instance.GetIntegerTagValue("Gui.WaitButtonDelay");
             autoProgressbarDelay = CrxSytemParameters.Instance.GetIntegerTagValue("Gui.AutoPWAProgressbarDelay");
             SetTextForGuiControls();
             guiradprgBarCuffPressure.Minimum = 0;
-            guiradprgBarCuffPressure.Maximum = 160;
+            guiradprgBarCuffPressure.Maximum = maxCuffPressure;
             guiradprgBarCuffPressure.Value1 = 0;
             objDefaultWindow.radlblMessage.Text = string.Empty;
              
             DisableTabs();
+            EnableDisablePatientTab(true);
 
             // This code is written so that below event is subscribed only for QuickStart mode and not for Setup
             if (GuiCommon.StartupScreen.ToUpper() == CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.QuickStart).ToUpper())
             {
                 BizEventContainer.Instance.OnBizNIBPDataEvent += new BizNIBPDataEventHandler(Instance_OnBizNIBPDataEvent);
             }
+
+            GuiCommon.FromQuickStart = true;
+            
+            objDefaultWindow.guiradmnuDatabase.Enabled = false;
+            objDefaultWindow.radtabReport.Enabled = false;
+            objDefaultWindow.guicmbxCurrentMode.Enabled = true;  
         }
 
         /**This method is used to set the test on the controls.
          */ 
         private void SetTextForGuiControls()
         {
-            guiradprgbarAutoPwa.Text = string.Format(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg), autoProgressbarDelay);
+            // guiradprgbarAutoPwa.Text = string.Format(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg), autoProgressbarDelay);
+            guiradlblPwaSp.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LabelSp);
+            guiradlblPwaPp.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblPP) + ":";
+            guiradlblPwaDp.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LabelDp);
+            guiradlblPwaMap.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblReportPwaBrachialMp);
+            guiradbtnQuickStartGetBp.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.BtnStart);
+            guiradbtnAutoPWACancel.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.BtnCapture);
+            guiradlblQuickStartWarning.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.QuickStartWarning);
         }
-
-        /**This event is fired when the user clicks on the GetBp button.This button is used to start, stop and repeat the nibp simulation.
-         */
-        private void guiradbtnQuickStartGetBp_Click(object sender, EventArgs e)
+        
+        private void QuickStartGetBP()
         {
+            GuiCommon.IsReportGenerated = false;
+
             try
             {
                 if ((buttonMode == GuiCommon.BpButtonMode.start) || (buttonMode == GuiCommon.BpButtonMode.repeat) || (buttonMode == GuiCommon.BpButtonMode.stopWait))
@@ -104,11 +222,13 @@ namespace AtCor.Scor.Gui.Presentation
                     if (GuiCommon.bizNibpObject.StartAdultBP())
                     {
                         guiradprgBarCuffPressure.Visible = true;
+                        EnableDisablePatientTab(false);
                         tmrGetCuffPressure.Start();
                     }
                 }
                 else if (buttonMode == GuiCommon.BpButtonMode.stopInProgress || buttonMode == GuiCommon.BpButtonMode.stopInWaitProgress)
                 {
+                    EnableDisablePatientTab(true);
                     waitTimer = 0;
                     tmrWaitDuringAssessment.Stop();
                     tmrWaitDuringAssessment.Enabled = false;
@@ -116,7 +236,11 @@ namespace AtCor.Scor.Gui.Presentation
                     tmrQsAutoPwa.Stop();
                     objDefaultWindow.guicmbxCurrentMode.Enabled = true;                    
                     objDefaultWindow.guiradmnuScor.Enabled = true;
-                    GuiCommon.bizNibpObject.AbortBP();   
+                    GuiCommon.bizNibpObject.AbortBP();
+
+                    // Reset Progressbar values
+                    guiradprgBarCuffPressure.Value1 = 0;
+                   
                     if (counter > 0)
                     {
                         SetAvgBpMeasurementData(); 
@@ -135,10 +259,24 @@ namespace AtCor.Scor.Gui.Presentation
             catch (Exception ex)
             {
                 GUIExceptionHandler.HandleException(ex, this);
-                DisableTimersAndEnableTabs();
+                DisableTimersAndResetTabs();
                 objDefaultWindow.guiradmnuScor.Enabled = true;
                 objDefaultWindow.guicmbxCurrentMode.Enabled = true;  
             } 
+        }
+
+        /**This event is fired when the user clicks on the GetBp button.This button is used to start, stop and repeat the nibp simulation.
+         */
+        private void guiradbtnQuickStartGetBp_Click(object sender, EventArgs e)
+        {
+//Deepak: this is temporary. TODO
+            if (!DalModule.Instance.CheckIfDeviceIsConnected() && (buttonMode == GuiCommon.BpButtonMode.start))
+            {
+                RadMessageBox.Show(this, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.CaptureDeviceErrMsg), CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                return;
+            }
+
+            QuickStartGetBP();
         }
 
         /**This event is fired from the BLL,it is used tofetch the values for SP,DP,PP and MAP
@@ -147,6 +285,16 @@ namespace AtCor.Scor.Gui.Presentation
         {
             if (e.nibpSuccess)
             {
+                if (guiradbtnQuickStartGetBp.InvokeRequired)
+                {
+                    guiradbtnQuickStartGetBp.Invoke(new MethodInvoker(delegate
+                    {
+                        tmrGetCuffPressure.Stop();
+                        guiradprgBarCuffPressure.Value1 = 0;
+                        guiradprgBarCuffPressure.Visible = false;
+                    }));
+                }
+
                 // These values are printed in the log to verify if the average for each assessment is calculated properly.
                 CrxLogger.Instance.Write("On Quickstart Value for SP:" + GuiCommon.bizNibpObject.newSP);
                 CrxLogger.Instance.Write("On Quickstart  Value for DP:" + GuiCommon.bizNibpObject.newDP);
@@ -198,7 +346,8 @@ namespace AtCor.Scor.Gui.Presentation
                                 guiradbtnAutoPWACancel.Visible = true;
                                 if (CrxConfigManager.Instance.BpSettings.AutoPWASP || CrxConfigManager.Instance.BpSettings.AutoPWAPP || CrxConfigManager.Instance.BpSettings.AutoPWADP)
                                 {
-                                    guiradprgbarAutoPwa.Visible = true;
+                                    // guiradprgbarAutoPwa.Visible = true;
+                                    guiradprgbarAutoPwa.Visible = false;
                                     guiradbtnQuickStartGetBp.Enabled = false;
 
                                     // Start progress bar for auto capture
@@ -270,15 +419,10 @@ namespace AtCor.Scor.Gui.Presentation
                 cuffPressureValue = nibpStruct.cuffPressure;
                 objDefaultWindow.radlblMessage.Text = string.Format(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiNibpAssessmentProgressMsg), (counter + 1));
                 guiradprgBarCuffPressure.Value1 = cuffPressureValue;
-                guiradprgBarCuffPressure.Text = string.Format(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiNibpCuffPressure), cuffPressureValue);
 
-                // }
-                if (guiradprgBarCuffPressure.Value1.Equals(160))
-                {
-                    tmrGetCuffPressure.Stop();
-                    guiradprgBarCuffPressure.Value1 = 0;
-                    guiradprgBarCuffPressure.Visible = false;
-                }
+                // guiradprgBarCuffPressure.Text = string.Format(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiNibpCuffPressure), cuffPressureValue);
+
+                // }               
             }
             catch (Exception ex)
             {
@@ -328,7 +472,7 @@ namespace AtCor.Scor.Gui.Presentation
                 sum = sum + i;
             }
 
-            average = (sum / list.Count);            
+            average = sum / list.Count;            
             labelName.Text = Math.Round(average).ToString();
         }
 
@@ -348,7 +492,10 @@ namespace AtCor.Scor.Gui.Presentation
                     tmrWaitDuringAssessment.Stop();
                     waitTimer = 0;
                     objDefaultWindow.radlblMessage.Text = string.Empty;
-                    Invoke(new EventHandler(guiradbtnQuickStartGetBp_Click));
+                    
+                    // Invoke(new EventHandler(guiradbtnQuickStartGetBp_Click));                    
+                    QuickStartGetBP();
+
                     guiradbtnQuickStartGetBp.Visible = true;
                 }
                 else
@@ -372,6 +519,8 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 if (guiradprgbarAutoPwa.Value1 >= autoProgressbarDelay)
                 {
+                    objDefaultWindow.radlblMessage.Text = string.Empty;
+
                     // Stop Progress bar if the value exceeds cPWA Delay
                     tmrQsAutoPwa.Enabled = false;
 
@@ -405,9 +554,10 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     // Increment progress bar after every second
                     tmrGetCuffPressure.Stop();
-                    guiradprgbarAutoPwa.Value1 = guiradprgbarAutoPwa.Value1 + 1;
+                    
                     int displayValue = guiradprgbarAutoPwa.Maximum - guiradprgbarAutoPwa.Value1;
-                    guiradprgbarAutoPwa.Text = string.Format(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg), displayValue.ToString());
+                    guiradprgbarAutoPwa.Value1 = guiradprgbarAutoPwa.Value1 + 1;                  
+                    objDefaultWindow.radlblMessage.Text = string.Format(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg), displayValue.ToString());                   
                 }
             }
             catch (Exception ex)
@@ -418,86 +568,8 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        /**This method is used to Start the capture.
-         */ 
-        public void StartCapture()
-        {
-            GuiCommon.bizNibpObject.FinishBP();   
-            if (DalModule.Instance.CheckIfDeviceIsConnected())
-            {
-               FillSessionWithMeasurementValues();
-
-               // if (true)
-               if (GuiCommon.bizPwaobject.Validate())                
-                {
-                    // go to capture screen once electonic module is found & data is valid                   
-                    GuiCommon.CaptureChildForm = new Capture(objDefaultWindow)
-                    {
-                        TopLevel = false,
-                        Dock = DockStyle.Fill,
-                        FormBorderStyle = FormBorderStyle.None
-                    };
-
-                    // adds capture form under parent window control
-                    var page = objDefaultWindow.radtabCapture;
-                    GuiCommon.CaptureChildForm.Parent = page;
-                    page.Controls.Clear();
-
-                    page.Controls.Add(GuiCommon.CaptureChildForm);
-                    GuiCommon.CaptureChildForm.Show();
-                    ResetMeasurementFields();
-                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabCapture;
-
-                    guiradbtnQuickStartGetBp.Enabled = true;
-                    objDefaultWindow.guicmbxCurrentMode.Enabled = false;
-                    objDefaultWindow.radtabCapture.Enabled = true;
-                    objDefaultWindow.radtabReport.Enabled = false;
-                    guiradbtnAutoPWACancel.Visible = false;
-                }
-                else
-                {
-                    if (GuiCommon.CaptureTabClick)
-                    {
-                        // whenever exception is thrown while validating measurement details,
-                        // navigate the user back to Setup screen.                            
-                        objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabQuickStart;
-                    }
-                    
-                    RadMessageBox.Show(this, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.ErrorValidating), CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                    guiradbtnAutoPWACancel.Visible = false;
-                    objDefaultWindow.guicmbxCurrentMode.Enabled = true;
-                    objDefaultWindow.radtabCapture.Enabled = false;
-                }
-            }
-            else
-            {
-                // device not connected show error message
-                RadMessageBox.Show(this, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.CaptureDeviceErrMsg), CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                if (GuiCommon.CaptureTabClick)
-                {
-                    // AtCor-Drop2-Sprint1
-                    /* if ((GuiCommon.Mode == GuiCommon.Modes.cPWA) && (GuiCommon.Workflow == GuiCommon.Workflows.Quick))
-                      {
-                         objdefaultwindow.radpgtabcollection.selectedpage = objdefaultwindow.radtabquickstart;
-                         objdefaultwindow.radtabquickstart.enabled = true;
-                         objdefaultwindow.radtabresult.enabled = true;
-                      }
-                      else
-                      { */
-                    objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
-                    objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
-
-                    // }
-                }
-                
-                guiradbtnAutoPWACancel.Visible = false;
-                objDefaultWindow.guicmbxCurrentMode.Enabled = true;
-                objDefaultWindow.radtabCapture.Enabled = false; 
-            }
-        }
-
         /**This methods is used to fill the Biz PWA object with Bp measurement.
-         */ 
+       */
         private void FillSessionWithMeasurementValues()
         {
             try
@@ -511,7 +583,7 @@ namespace AtCor.Scor.Gui.Presentation
                 GuiCommon.bizPwaobject.systemId = GuiConstants.DefaultValue;
                 GuiCommon.bizPwaobject.sampleRate = GuiConstants.DefaultValue;
                 GuiCommon.bizPwaobject.patientNumber = GuiConstants.DefaultValue;
-                GuiCommon.bizPwaobject.sampleRate = 256;  
+                GuiCommon.bizPwaobject.sampleRate = 256;
             }
             catch (Exception ex)
             {
@@ -520,7 +592,7 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**This method is used to reset the Bp meausrement labels on the form.
-         */ 
+         */
         private void ResetMeasurementFields()
         {
             guiradlblPwaSpValue.Text = string.Empty;
@@ -530,11 +602,13 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**This event is fired when the user clicks on the Cancel/Capture button.
-         */ 
+         */
         private void guiradbtnAutoPWACancel_Click(object sender, EventArgs e)
         {
             if (guiradbtnAutoPWACancel.Text == CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.BtnCancel))
             {
+                EnableDisablePatientTab(true);
+
                 // Hide Progress Bar
                 guiradprgbarAutoPwa.Visible = false;
                 guiradbtnQuickStartGetBp.Enabled = true;
@@ -546,8 +620,9 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradprgbarAutoPwa.Maximum = autoProgressbarDelay;
                 guiradprgbarAutoPwa.Value1 = 0;
                 objDefaultWindow.radtabCapture.Enabled = true;
+                objDefaultWindow.radlblMessage.Text = string.Empty;
 
-                guiradprgbarAutoPwa.Text = string.Format(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg), Convert.ToString(autoProgressbarDelay));
+                // guiradprgbarAutoPwa.Text = string.Format(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblPwaSetupProgressBarStartMsg), Convert.ToString(autoProgressbarDelay));
                 guiradbtnAutoPWACancel.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.BtnCapture);
 
                 tmrQsAutoPwa.Stop();
@@ -555,7 +630,7 @@ namespace AtCor.Scor.Gui.Presentation
                 if (guiradbtnQuickStartGetBp.Text == CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.BtnRepeat) && (!tmrQsAutoPwa.Enabled))
                 {
                     objDefaultWindow.guiradmnuScor.Enabled = true;
-                    objDefaultWindow.guicmbxCurrentMode.Enabled = true;  
+                    objDefaultWindow.guicmbxCurrentMode.Enabled = true;
                 }
             }
             else
@@ -563,10 +638,10 @@ namespace AtCor.Scor.Gui.Presentation
                 try
                 {
                     // Enable capture tab.
-                    objDefaultWindow.radtabCapture.Enabled = true;
+                    // objDefaultWindow.radtabCapture.Enabled = true;
 
                     // Coding for PWA mode.
-                    CrxPwaCaptureInput pwaCaptureInput = new CrxPwaCaptureInput();             
+                    CrxPwaCaptureInput pwaCaptureInput = new CrxPwaCaptureInput();
                     bool value = GuiCommon.bizPwaobject.GetCurrentCaptureInput(ref pwaCaptureInput);
                     if (!Convert.ToInt32(pwaCaptureInput).Equals(CrxConfigManager.Instance.PwaSettings.CaptureInput))
                     {
@@ -586,40 +661,46 @@ namespace AtCor.Scor.Gui.Presentation
                     // In case of any exception being raised in the StartCaptureProcess(sender, e);
                     GuiCommon.CaptureTabClick = true;
                     GUIExceptionHandler.HandleException(ex, this);
-                }  
+                }
             }
         }
 
         /**This method is used to disable the tabs on the default window.
-         */ 
+         */
         private void DisableTabs()
         {
             // Disable Capture,Result, Patient and Report tab.
             objDefaultWindow.radtabCapture.Enabled = false;
             objDefaultWindow.radtabReport.Enabled = false;
             objDefaultWindow.radtabResult.Enabled = false;
-            objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = false;  
+            objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = false;
         }
 
         /**This event is fired when the form is closed. 
-         */ 
+         */
         private void cPwaQuickStart_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (GuiCommon.StartupScreen.ToUpper().Equals(CrxStructCommonResourceMsg.QuickStart))
             {
-                DisableTimersAndEnableTabs();
+                DisableTimersAndResetTabs();
             }
         }
 
-        /**This method is used to disable the timers on the quickstart screen and enable the tabs on the default window.
-         */ 
-        public void DisableTimersAndEnableTabs()
+        /**This method is used to enable /disable the patient tab when the nibp measurement is in progress.
+        */
+        private void EnableDisablePatientTab(bool value)
         {
-            tmrGetCuffPressure.Enabled = tmrQsAutoPwa.Enabled = tmrWaitDuringAssessment.Enabled = false;
-            objDefaultWindow.radtabCapture.Enabled = true;
-            objDefaultWindow.radtabReport.Enabled = true;
-            objDefaultWindow.radtabResult.Enabled = true;
-            objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
-        }
+            if ((GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa) && objDefaultWindow.guiradgrpbxPwvDistanceMethod.Text.Equals(CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.TabPatient))))
+            {
+                if (value)
+                {
+                    objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = value;
+                }
+                else
+                {
+                    objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = value;
+                }
+            }
+        }       
     }
 }

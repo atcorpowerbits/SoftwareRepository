@@ -24,17 +24,21 @@ using AtCor.Scor.CrossCutting.Configuration;
 using System.Configuration;
 using System.Windows.Forms.DataVisualization.Charting;
 using AtCor.Scor.CrossCutting.DatabaseManager;
+using AtCor.Scor.CrossCutting;
+using Telerik.WinControls;
+using Telerik.WinControls.UI;
 
 namespace AtCor.Scor.Gui.Presentation
 {
     public partial class PWAClinicalPreview : Form
     {
         readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+        readonly CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
         BizPWA obj;
         float[] pRawSignals;
         short[] pRawSignalsOnset;
         Series singlePRawSignalPulse;
-        decimal AverageAorticXAxisInterval = Math.Round((decimal)(1000.0 / 256.0));
+        decimal averageAorticXAxisInterval = Math.Round((decimal)(1000.0 / 256.0));
 
         // Series typicalSeries;
         // Series actualSeries;
@@ -77,24 +81,34 @@ namespace AtCor.Scor.Gui.Presentation
         private void PopulateCentralClinicalParameters()
         {
             guiradlblSphygmocorReferenceAge.Text = PWACommonReportData.RptReferenceAgeValue;
-        
+
+            if (GuiCommon.bizPwaobject.ReferenceAge == GuiConstants.DefaultValue)
+            {
+                guiradlblSphygmocorReferenceAge.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblSphygmoCorReferenceAgeNotCalculated);
+            }
+
             short high = 0;
             short low = 0;
 
             // If Augumentation Index is checked in PWA Settings tab 
-            if (CrxConfigManager.Instance.PwaSettings.AugmentationIndex)
+            if (crxMgrObject.PwaSettings.AugmentationIndex)
             {
                 // crxPwaData.C_Agph = 9999;
                 if (GuiCommon.crxPwaData.C_Agph != GuiConstants.DefaultValue)
                 {
-                    if (GuiCommon.bizPwaobject.GetAixRange(GuiCommon.crxPwaData.C_Agph, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                    if (GuiCommon.bizPwaobject.GetAixRange(PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
                     {
-                        ShowAixTracker(100, -15, GuiCommon.crxPwaData.C_Agph, low, high, true);
+                        double[] temp = setSliderMinMaxForXAxis(new double[] { GuiCommon.crxPwaData.C_Agph, low, high }, guiradlblAixMaxRangeText, guiradlblAixMinRangeText);
+                        ShowAixTracker(((float)temp[0]), ((float)temp[1]), GuiCommon.crxPwaData.C_Agph, low, high, true);
+                    }
+                    else
+                    {
+                        ShowAixTracker(0, 0, 0, 0, 0, false);
                     }
                 }
                 else
                 {
-                    ShowAixTracker(100, -15, 0, 0, 0, false);
+                    ShowAixTracker(0, 0, 0, 0, 0, false);
                 }
             }
             else
@@ -102,41 +116,56 @@ namespace AtCor.Scor.Gui.Presentation
                 // GuiCommon.bizPwaobject.AGPH_HR75 = 9999;
                 if (GuiCommon.bizPwaobject.AGPH_HR75 != GuiConstants.DefaultValue)
                 {
-                    if (GuiCommon.bizPwaobject.GetAixhr75Range(GuiCommon.bizPwaobject.AGPH_HR75, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                    if (GuiCommon.bizPwaobject.GetAixhr75Range(PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
                     {
-                        ShowAixTracker(100, -15, GuiCommon.bizPwaobject.AGPH_HR75, low, high, true);
+                        double[] temp = setSliderMinMaxForXAxis(new double[] { GuiCommon.bizPwaobject.AGPH_HR75, low, high }, guiradlblAixMaxRangeText, guiradlblAixMinRangeText);
+                        ShowAixTracker(((float)temp[0]), ((float)temp[1]), GuiCommon.bizPwaobject.AGPH_HR75, low, high, true);
+                    }
+                    else
+                    {
+                        ShowAixTracker(0, 0, 0, 0, 0, false);
                     }
                 }
                 else
                 {
-                    ShowAixTracker(100, -15, 0, 0, 0, false);
+                    ShowAixTracker(0, 0, 0, 0, 0, false);
                 }
             }
 
             // crxPwaData.C_Sp = 9999;
             if (GuiCommon.crxPwaData.C_Sp != GuiConstants.DefaultValue)
             {
-                if (GuiCommon.bizPwaobject.GetSPRange(GuiCommon.crxPwaData.C_Sp, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                if (GuiCommon.bizPwaobject.GetSPRange(PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
                 {
-                    ShowSpTracker(150, 50, GuiCommon.crxPwaData.C_Sp, low, high, true);
+                    double[] temp = setSliderMinMaxForXAxis(new double[] { GuiCommon.crxPwaData.C_Sp, low, high }, guiradlblSpMaxRangeText, guiradlblSpMinRangeText);
+                    ShowSpTracker(((float)temp[0]), ((float)temp[1]), GuiCommon.crxPwaData.C_Sp, low, high, true);
+                }
+                else
+                {
+                    ShowSpTracker(0, 0, 0, 0, 0, false);
                 }
             }
             else
             {
-                ShowSpTracker(150, 50, 0, 0, 0, false);
+                ShowSpTracker(0, 0, 0, 0, 0, false);
             }
 
             // crxPwaData.C_Ap = 9999;
             if (GuiCommon.crxPwaData.C_Ap != GuiConstants.DefaultValue)
             {
-                if (GuiCommon.bizPwaobject.GetAPRange(GuiCommon.crxPwaData.C_Ap, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                if (GuiCommon.bizPwaobject.GetAPRange(PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
                 {
-                    ShowApTracker(50, -10, GuiCommon.crxPwaData.C_Ap, low, high, true);
+                    double[] temp = setSliderMinMaxForXAxis(new double[] { GuiCommon.crxPwaData.C_Ap, low, high }, guiradlblApMaxRangeText, guiradlblApMinRangeText);
+                    ShowApTracker(((float)temp[0]), ((float)temp[1]), GuiCommon.crxPwaData.C_Ap, low, high, true);
+                }
+                else
+                {
+                    ShowApTracker(0, 0, 0, 0, 0, false);
                 }
             }
             else
             {
-                ShowApTracker(50, -10, 0, 0, 0, false);
+                ShowApTracker(0, 0, 0, 0, 0, false);
             }
 
             float centralPp;
@@ -145,15 +174,22 @@ namespace AtCor.Scor.Gui.Presentation
             // centralPp = 9999;
             if (centralPp != GuiConstants.DefaultValue)
             {
-                if (GuiCommon.bizPwaobject.GetPPRange(centralPp, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                if (GuiCommon.bizPwaobject.GetPPRange(PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
                 {
-                    ShowPpTracker(50, 0, centralPp, low, high, true);
+                    double[] temp = setSliderMinMaxForXAxis(new double[] { centralPp, low, high }, guiradlblPpMaxRangeText, guiradlblPpMinRangeText);
+                    ShowPpTracker(((float)temp[0]), ((float)temp[1]), centralPp, low, high, true);
+                }
+                else
+                {
+                    ShowPpTracker(50, 0, 0, 0, 0, false);
                 }
             }
             else
             {
                 ShowPpTracker(50, 0, 0, 0, 0, false);
             }
+
+            // guipnlPWAReport.Refresh();
         }
 
         /** This method to Show SP Slider
@@ -167,14 +203,18 @@ namespace AtCor.Scor.Gui.Presentation
             guilblSPGoodMinText.Visible = visible;
             guilblSPGoodMaxText.Visible = visible;
             guilblSPGoodMax.Visible = visible;
+            guiradlblSpMaxRange.Visible = visible;
+            guiradlblSpMinRange.Visible = visible;
+            guiradlblSpMaxRangeText.Visible = visible;
+            guiradlblSpMinRangeText.Visible = visible;
+            guiradlblSpNotCalc.Visible = !visible;
 
-            // guiradlblSpNotCalc.Visible = !visible;
             if (visible)
             {
-                guilblSPValue.Left = guilblSPSlider.Left + ((int)(spValue - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
-                guilblSPGoodMin.Left = guilblSPSlider.Left + ((int)(spGoodRangeMin - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
+                guilblSPValue.Left = guilblSPSlider.Left + ((int)(Math.Round(spValue) - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue))) - (guilblSPValue.Width / 2);
+                guilblSPGoodMin.Left = guilblSPSlider.Left + ((int)(spGoodRangeMin - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue))) - (guilblSPGoodMin.Width / 2);
                 guilblSPGoodMinText.Left = guilblSPGoodMin.Left - (guilblSPGoodMinText.Width / 3);
-                guilblSPGoodMax.Left = guilblSPSlider.Left + ((int)(spGoodRangeMax - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
+                guilblSPGoodMax.Left = guilblSPSlider.Left + ((int)(spGoodRangeMax - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue))) - (guilblSPGoodMax.Width / 2);
 
                 guilblSPValueText.Left = guilblSPValue.Left - (guilblSPValueText.Width / 3) + 2;
                 guilblSPGoodMaxText.Left = guilblSPGoodMax.Left - (guilblSPGoodMaxText.Width / 3);
@@ -183,7 +223,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblSPGoodMaxText.Text = spGoodRangeMax.ToString();
                 guilblSPGoodMinText.Text = spGoodRangeMin.ToString();
 
-                if ((spValue < spGoodRangeMin) || (spValue > spGoodRangeMax))
+                if ((Math.Round(spValue) < spGoodRangeMin) || (Math.Round(spValue) > spGoodRangeMax))
                 {
                     guilblSPValue.BackColor = Color.Red;
                 }
@@ -207,14 +247,18 @@ namespace AtCor.Scor.Gui.Presentation
             guilblPPGoodMinText.Visible = visible;
             guilblPPGoodMaxText.Visible = visible;
             guilblPPGoodMax.Visible = visible;
+            guiradlblPpMaxRange.Visible = visible;
+            guiradlblPpMinRange.Visible = visible;
+            guiradlblPpMinRangeText.Visible = visible;
+            guiradlblPpMaxRangeText.Visible = visible;
+            guiradlblPpNotCalc.Visible = !visible;
 
-            // guiradlblPpNotCalc.Visible = !visible;
             if (visible)
             {
-                guilblPPValue.Left = guilblPPSlider.Left + ((int)(ppValue - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
+                guilblPPValue.Left = guilblPPSlider.Left + ((int)(Math.Round(ppValue) - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue))) - (guilblPPValue.Width / 2);
 
-                guilblPPGoodMin.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMin - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
-                guilblPPGoodMax.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMax - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
+                guilblPPGoodMin.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMin - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue))) - (guilblPPGoodMin.Width / 2);
+                guilblPPGoodMax.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMax - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue))) - (guilblPPGoodMax.Width / 2);
 
                 guilblPPValueText.Left = guilblPPValue.Left - (guilblPPValueText.Width / 3) + 3;
                 guilblPPGoodMaxText.Left = guilblPPGoodMax.Left - (guilblPPGoodMaxText.Width / 3);
@@ -224,7 +268,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblPPGoodMaxText.Text = ppGoodRangeMax.ToString();
                 guilblPPGoodMinText.Text = ppGoodRangeMin.ToString();
 
-                if ((ppValue < ppGoodRangeMin) || (ppValue > ppGoodRangeMax))
+                if ((Math.Round(ppValue) < ppGoodRangeMin) || (Math.Round(ppValue) > ppGoodRangeMax))
                 {
                     guilblPPValue.BackColor = Color.Red;
                 }
@@ -240,7 +284,7 @@ namespace AtCor.Scor.Gui.Presentation
         /** This method to Show Aix Slider
         * */
         private void ShowAixTracker(float maxValue, float minValue, float value, float goodRangeMin, float goodRangeMax, bool visible)
-        {         
+        {
             // Hide/Show Aix Slider Labels
             guilblAIxValueText.Visible = visible;
             guilblAIxValue.Visible = visible;
@@ -248,14 +292,18 @@ namespace AtCor.Scor.Gui.Presentation
             guilblAIxGoodMinText.Visible = visible;
             guilblAIxGoodMaxText.Visible = visible;
             guilblAIxGoodMax.Visible = visible;
+            guiradlblAixMaxRange.Visible = visible;
+            guiradlblAixMinRange.Visible = visible;
+            guiradlblAixMinRangeText.Visible = visible;
+            guiradlblAixMaxRangeText.Visible = visible;
+            guiradlblAixNotCalc.Visible = !visible;
 
-            // guiradlblAixNotCalc.Visible = !visible;
             if (visible)
             {
-                guilblAIxValue.Left = guilblAIxSlider.Left + (int)((value - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
+                guilblAIxValue.Left = guilblAIxSlider.Left + (int)((Math.Round(value) - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue))) - (guilblAIxValue.Width / 2);
+                guilblAIxGoodMin.Left = guilblAIxSlider.Left + (int)((goodRangeMin - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue))) - (guilblAIxGoodMin.Width / 2);
 
-                guilblAIxGoodMin.Left = guilblAIxSlider.Left + (int)((goodRangeMin - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
-                guilblAIxGoodMax.Left = guilblAIxSlider.Left + (int)((goodRangeMax - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
+                guilblAIxGoodMax.Left = guilblAIxSlider.Left + (int)((goodRangeMax - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue))) - (guilblAIxGoodMax.Width / 2);
 
                 guilblAIxValueText.Left = guilblAIxValue.Left - (guilblAIxValueText.Width / 3) + 4;
                 guilblAIxGoodMaxText.Left = guilblAIxGoodMax.Left - (guilblAIxGoodMaxText.Width / 3);
@@ -265,7 +313,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblAIxGoodMaxText.Text = goodRangeMax.ToString();
                 guilblAIxGoodMinText.Text = goodRangeMin.ToString();
 
-                if ((value < goodRangeMin) || (value > goodRangeMax))
+                if ((Math.Round(value) < goodRangeMin) || (Math.Round(value) > goodRangeMax))
                 {
                     guilblAIxValue.BackColor = Color.Red;
                 }
@@ -273,7 +321,7 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     guilblAIxValue.BackColor = Color.LimeGreen;
                 }
-            }
+            }           
 
             // AIx Tracker: End
         }
@@ -289,16 +337,19 @@ namespace AtCor.Scor.Gui.Presentation
             guilblAPGoodMinText.Visible = visible;
             guilblAPGoodMaxText.Visible = visible;
             guilblAPGoodMax.Visible = visible;
-
-            // guiradlblApNotCalc.Visible = !visible;
+            guiradlblApMaxRange.Visible = visible;
+            guiradlblApMinRange.Visible = visible;
+            guiradlblApMaxRangeText.Visible = visible;
+            guiradlblApMinRangeText.Visible = visible;
+            guiradlblApNotCalc.Visible = !visible;
             if (visible)
             {
-                guilblAPValue.Left = guilblAPSlider.Left + ((int)(apValue - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
+                guilblAPValue.Left = (guilblAPSlider.Left + ((int)(Math.Round(apValue) - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)))) - (guilblAPValue.Width / 2);
+                guilblAPGoodMin.Left = (guilblAPSlider.Left + ((int)(apGoodRangeMin - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)))) - (guilblAPGoodMin.Width / 2);
 
-                guilblAPGoodMin.Left = guilblAPSlider.Left + ((int)(apGoodRangeMin - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
-                guilblAPGoodMax.Left = guilblAPSlider.Left + ((int)(apGoodRangeMax - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
+                guilblAPGoodMax.Left = guilblAPSlider.Left + ((int)(apGoodRangeMax - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue))) - (guilblAIxGoodMax.Width / 2);
 
-                guilblAPValueText.Left = guilblAPValue.Left - (guilblAPValueText.Width / 3) + 5;
+                guilblAPValueText.Left = guilblAPValue.Left - (guilblAPValueText.Width / 3) + 2;
                 guilblAPGoodMaxText.Left = guilblAPGoodMax.Left - (guilblAPGoodMaxText.Width / 3);
                 guilblAPGoodMinText.Left = guilblAPGoodMin.Left - (guilblAPGoodMinText.Width / 3);
 
@@ -306,7 +357,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblAPGoodMaxText.Text = apGoodRangeMax.ToString();
                 guilblAPGoodMinText.Text = apGoodRangeMin.ToString();
 
-                if ((apValue < apGoodRangeMin) || (apValue > apGoodRangeMax))
+                if ((Math.Round(apValue) < apGoodRangeMin) || (Math.Round(apValue) > apGoodRangeMax))
                 {
                     guilblAPValue.BackColor = Color.Red;
                 }
@@ -325,21 +376,57 @@ namespace AtCor.Scor.Gui.Presentation
         {
             // set y axis (normal range values from Bizsession object in float)
             float[] avgAorticPulse = GuiCommon.crxPwaData.C_AV_PULSE;
-            float[] avgTypicalAorticPulse = GuiCommon.crxPwaData.C_Typical;
-            guichartPWAReport.Series.Clear();
+            float[] avgTypicalAorticPulse = GuiCommon.crxPwaData.C_Typical;           
 
             // initialize series,chartype,add points to series and finally add series to chart.            
             // set display properties for Avg Aortic Pulse graph
-            Series avgAorticPulseActualSeries = new Series
-            {
-                ChartType = SeriesChartType.Spline,
-                Color = Color.MediumBlue,
-                BorderWidth = 2,
-                Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportActual),
-            };
+            // Series avgAorticPulseActualSeries = new Series
+            // {
+            //    ChartType = SeriesChartType.Spline,
+            //    Color = Color.MediumBlue,
+            //    BorderWidth = 2,
+            //    Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportActual),
+            // };
 
-            avgAorticPulseActualSeries.Points.Clear();
+            // avgAorticPulseActualSeries.Points.Clear();
 
+            // for (int i = 0; i < avgAorticPulse.Length; i++)
+            // {
+            //    if (avgAorticPulse[i] == 0)
+            //    {
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        avgAorticPulseActualSeries.Points.AddXY(averageAorticXAxisInterval * i, avgAorticPulse[i]);
+            //    }
+            // }
+
+            // set properties for series 2 for plotting ideal graph
+            // Series avgAorticPulseIdealSeries = new Series
+            // {
+            //    ChartType = SeriesChartType.Spline,
+            //    Color = Color.DimGray,
+            //    BorderWidth = 2,
+            //    Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportTypical),
+            // };
+          
+            // avgAorticPulseIdealSeries.Points.Clear();
+
+            // Plot actual waveform.
+            // for (int i = 0; i < avgTypicalAorticPulse.Length; i++)
+            // {
+            //    if (avgTypicalAorticPulse[i] == 0)
+            //    {
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        avgAorticPulseIdealSeries.Points.AddXY(averageAorticXAxisInterval * i, avgTypicalAorticPulse[i]);
+            //    }
+            // }           
+            // guichartPWAReport.Series.Add(avgAorticPulseActualSeries);
+            // guichartPWAReport.Series.Add(avgAorticPulseIdealSeries);   
             for (int i = 0; i < avgAorticPulse.Length; i++)
             {
                 if (avgAorticPulse[i] == 0)
@@ -348,22 +435,12 @@ namespace AtCor.Scor.Gui.Presentation
                 }
                 else
                 {
-                    avgAorticPulseActualSeries.Points.AddXY(AverageAorticXAxisInterval * i, avgAorticPulse[i]);
+                    guichartPWAReport.Series[0].Points.AddXY(averageAorticXAxisInterval * i, avgAorticPulse[i]);
                 }
             }
 
-            // set properties for series 2 for plotting ideal graph
-            Series avgAorticPulseIdealSeries = new Series
-            {
-                ChartType = SeriesChartType.Spline,
-                Color = Color.DimGray,
-                BorderWidth = 2,
-                Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportTypical),
-            };
-          
-            avgAorticPulseIdealSeries.Points.Clear();
+            guichartPWAReport.Series[1].Points.Clear();
 
-            // Plot actual waveform.
             for (int i = 0; i < avgTypicalAorticPulse.Length; i++)
             {
                 if (avgTypicalAorticPulse[i] == 0)
@@ -372,12 +449,35 @@ namespace AtCor.Scor.Gui.Presentation
                 }
                 else
                 {
-                    avgAorticPulseIdealSeries.Points.AddXY(AverageAorticXAxisInterval * i, avgTypicalAorticPulse[i]);
+                    guichartPWAReport.Series[1].Points.AddXY(averageAorticXAxisInterval * i, avgTypicalAorticPulse[i]);
                 }
             }
-           
-            guichartPWAReport.Series.Add(avgAorticPulseActualSeries);
-            guichartPWAReport.Series.Add(avgAorticPulseIdealSeries);    
+
+            //// Setting minimum and maximum of Y-axis for Chart
+
+            float[] tempFloatArray = new float[avgAorticPulse.Length + avgTypicalAorticPulse.Length];
+
+            Array.Copy(avgAorticPulse, tempFloatArray, avgAorticPulse.Length);
+            Array.Copy(avgTypicalAorticPulse, 0, tempFloatArray, avgAorticPulse.Length, avgTypicalAorticPulse.Length);
+            Array.Sort(tempFloatArray);
+            for (int i = 0; i < tempFloatArray.Length; i++)
+            {
+                if (tempFloatArray[i] == 0)
+                {
+                }
+                else
+                {
+                    double value = Math.Round(tempFloatArray[i] * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+                    value = ((int)Math.Round(value / 10)) * 10;
+                    guichartPWAReport.ChartAreas[0].AxisY.Minimum = value - 10;
+                    break;
+                }
+            }
+
+            double valueMax = Math.Round((tempFloatArray[tempFloatArray.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+            valueMax = ((int)Math.Round(valueMax / 10)) * 10;
+            guichartPWAReport.ChartAreas[0].AxisY.Maximum = valueMax + 10;
+            guichartPWAReport.Invalidate();
         }
 
         /** This method sets text for labels from resource file
@@ -400,20 +500,36 @@ namespace AtCor.Scor.Gui.Presentation
             short[] cRawSignalsOnset = ResetSizeofArray(GuiCommon.crxPwaData.C_ONSETS);
             pRawSignals = ResetNonZeroSizeofArray(GuiCommon.crxPwaCuffData.P_RAW_SIGNALS);
             pRawSignalsOnset = ResetSizeofArray(GuiCommon.crxPwaCuffData.P_ONSETS);
-
+  
             PWACommonReportData.RptNumberOfWaveformsValue = (pRawSignalsOnset.Length - 1).ToString();
             
             SetRawChartProperty(cRawSignals, pRawSignals);
 
             PlotcRawSignals(cRawSignals, cRawSignalsOnset);
 
-            PlotpRawSignals(cRawSignals, cRawSignalsOnset);    
+            PlotpRawSignals(pRawSignals, pRawSignalsOnset);    
         }
 
         /** This method to set the Raw chart properties
        * */
-        private void SetRawChartProperty(float[] cRawSignals, float[] pRawSignals)
+        private void SetRawChartProperty(float[] cInputRawSignals, float[] pInputRawSignals)
         {
+            float[] sortedpRawSignals = new float[pInputRawSignals.Length];
+            for (int i = 0; i < pInputRawSignals.Length; i++)
+            {
+                sortedpRawSignals[i] = pInputRawSignals[i];
+            }
+
+            Array.Sort(sortedpRawSignals);
+
+            float[] sortedcRawSignals = new float[cInputRawSignals.Length];
+            for (int i = 0; i < cInputRawSignals.Length; i++)
+            {
+                sortedcRawSignals[i] = cInputRawSignals[i];
+            }
+
+            Array.Sort(sortedcRawSignals);          
+
             guichrtPrawSignals.ChartAreas.Clear();
             guichrtPrawSignals.ChartAreas.Add(new ChartArea("area"));
             guichrtPrawSignals.ChartAreas["area"].AxisY.Enabled = AxisEnabled.False;
@@ -427,21 +543,21 @@ namespace AtCor.Scor.Gui.Presentation
             guichrtCrawSignals.ChartAreas["area"].AxisX.MajorGrid.Enabled = false;
 
             // set y axis
-            guichrtPrawSignals.ChartAreas["area"].AxisY.Minimum = 500 * GuiConstants.ChartAreaMinimumY;
-            guichrtPrawSignals.ChartAreas["area"].AxisY.Maximum = 500 * GuiConstants.ChartAreaMaximumY;
+            guichrtPrawSignals.ChartAreas["area"].AxisY.Minimum = sortedpRawSignals[0];
+            guichrtPrawSignals.ChartAreas["area"].AxisY.Maximum = sortedpRawSignals[sortedpRawSignals.Length - 1];
             guichrtPrawSignals.ChartAreas["area"].AxisY.Interval = 1;
 
-            guichrtCrawSignals.ChartAreas["area"].AxisY.Minimum = 500 * GuiConstants.ChartAreaMinimumY;
-            guichrtCrawSignals.ChartAreas["area"].AxisY.Maximum = 500 * GuiConstants.ChartAreaMaximumY;
+            guichrtCrawSignals.ChartAreas["area"].AxisY.Minimum = sortedcRawSignals[0];
+            guichrtCrawSignals.ChartAreas["area"].AxisY.Maximum = sortedcRawSignals[sortedcRawSignals.Length - 1];
             guichrtCrawSignals.ChartAreas["area"].AxisY.Interval = 1;
 
             // set x axis
             guichrtPrawSignals.ChartAreas["area"].AxisX.Minimum = 0;
-            guichrtPrawSignals.ChartAreas["area"].AxisX.Maximum = pRawSignals.Length; // 608;
+            guichrtPrawSignals.ChartAreas["area"].AxisX.Maximum = pInputRawSignals.Length; // 608;
             guichrtPrawSignals.ChartAreas["area"].AxisX.Interval = 1;
 
             guichrtCrawSignals.ChartAreas["area"].AxisX.Minimum = 0;
-            guichrtCrawSignals.ChartAreas["area"].AxisX.Maximum = cRawSignals.Length;
+            guichrtCrawSignals.ChartAreas["area"].AxisX.Maximum = cInputRawSignals.Length;
             guichrtCrawSignals.ChartAreas["area"].AxisX.Interval = 1;
 
             // initialize series,chartype,add points to series and finally add series to chart.
@@ -480,27 +596,15 @@ namespace AtCor.Scor.Gui.Presentation
             cRawSignalsSeriesOne.Points.Clear();
             cRawSignalsSeriesTwo.Points.Clear();
 
-            guichrtCrawSignals.ChartAreas["area"].AxisY.Maximum = 500 * GuiConstants.ChartAreaMaximumY;
-
             for (int i = 0; i < cRawSignals.Length; i++)
             {
-                if (cRawSignals[i] > guichrtCrawSignals.ChartAreas[0].AxisY.Maximum)
-                {
-                    guichrtCrawSignals.ChartAreas["area"].AxisY.Maximum = cRawSignals[i] * GuiConstants.ChartAreaMaximumY;
-                }
-
-                if (cRawSignals[i] < guichrtCrawSignals.ChartAreas[0].AxisY.Minimum)
-                {
-                    guichrtCrawSignals.ChartAreas["area"].AxisY.Minimum = cRawSignals[i] * GuiConstants.ChartAreaMinimumY;
-                }
-
                 cRawSignalsSeries.Points.AddXY(i, cRawSignals[i]);
                 cRawSignalsTable[i] = cRawSignals[i];
             }
            
             for (int j = 0; j < cRawSignalsOnset.Length; j++)
             {
-                int valueToPLot = int.Parse(Math.Round(double.Parse(cRawSignalsOnset[j].ToString()), MidpointRounding.ToEven).ToString());
+                int valueToPLot = int.Parse(Math.Round(double.Parse(cRawSignalsOnset[j].ToString(), CrxCommon.nCI), MidpointRounding.ToEven).ToString());
                 int valueToPLot1 = Math.Abs(valueToPLot);
 
                 if (valueToPLot < 0)
@@ -551,27 +655,15 @@ namespace AtCor.Scor.Gui.Presentation
             pRawSignalsSeriesOne.Points.Clear();
             pRawSignalsSeriesTwo.Points.Clear();
 
-            guichrtPrawSignals.ChartAreas["area"].AxisY.Minimum = 500 * GuiConstants.ChartAreaMinimumY;
-
             for (int i = 0; i < pRawSignals.Length; i++)
             {
-                if (pRawSignals[i] > guichrtPrawSignals.ChartAreas[0].AxisY.Maximum)
-                {
-                    guichrtPrawSignals.ChartAreas["area"].AxisY.Maximum = pRawSignals[i] * GuiConstants.ChartAreaMaximumY;
-                }
-
-                if (pRawSignals[i] < guichrtPrawSignals.ChartAreas[0].AxisY.Minimum)
-                {
-                    guichrtPrawSignals.ChartAreas["area"].AxisY.Minimum = pRawSignals[i] * GuiConstants.ChartAreaMinimumY;
-                }
-
                 pRawSignalsSeries.Points.AddXY(i, pRawSignals[i]);
                 pRawSignalsTable[i] = pRawSignals[i];
             }
 
             for (int j = 0; j < pRawSignalsOnset.Length; j++)
             {
-                int valueToPLot = int.Parse(Math.Round(double.Parse(pRawSignalsOnset[j].ToString()), MidpointRounding.ToEven).ToString());
+                int valueToPLot = int.Parse(Math.Round(double.Parse(pRawSignalsOnset[j].ToString(), CrxCommon.nCI), MidpointRounding.ToEven).ToString());
                 int valueToPLot1 = Math.Abs(valueToPLot);
 
                 if (valueToPLot < 0)
@@ -642,6 +734,28 @@ namespace AtCor.Scor.Gui.Presentation
       * */
         private void PlotSinglePRawSignalPulse()
         {
+            float[] sortedpRawSignals = new float[pRawSignals.Length];
+            for (int i = 0; i < pRawSignals.Length; i++)
+            {
+                sortedpRawSignals[i] = pRawSignals[i];
+            }
+
+            Array.Sort(sortedpRawSignals);
+
+            chartSinglePRawSignal.ChartAreas.Clear();
+            chartSinglePRawSignal.ChartAreas.Add(new ChartArea("area"));
+            chartSinglePRawSignal.ChartAreas["area"].AxisY.Enabled = AxisEnabled.False;
+            chartSinglePRawSignal.ChartAreas["area"].AxisX.Enabled = AxisEnabled.False;
+            chartSinglePRawSignal.ChartAreas["area"].AxisX.MajorGrid.Enabled = false;
+
+            // set y axis
+            chartSinglePRawSignal.ChartAreas["area"].AxisY.Minimum = sortedpRawSignals[0];
+            chartSinglePRawSignal.ChartAreas["area"].AxisY.Maximum = sortedpRawSignals[sortedpRawSignals.Length - 1];
+            chartSinglePRawSignal.ChartAreas["area"].AxisY.Interval = 1;
+        
+            // initialize series,chartype,add points to series and finally add series to chart.
+            chartSinglePRawSignal.Series.Clear();
+
             int fixIndexForSinglePulse = pRawSignalsOnset[0];
             for (int i = 0; i < pRawSignalsOnset.Length - 1; i++)
             {
@@ -651,8 +765,6 @@ namespace AtCor.Scor.Gui.Presentation
                     Color = Color.Black,
                     XValueType = ChartValueType.Auto,
                     YValuesPerPoint = 1,
-
-                    // ChartArea = "area"
                 };
 
                 singlePRawSignalPulse.Points.Clear();
@@ -662,14 +774,44 @@ namespace AtCor.Scor.Gui.Presentation
                 int endIndexForSinglePulse = pRawSignalsOnset[i + 1];
                 for (int k = 0, j = startIndexForSinglePulse; j < endIndexForSinglePulse; j++, k++)
                 {
-                    // singlePRawSignalPulse.Points.AddXY(fixIndexForSinglePulse+k, pRawSignals[j]);
-                    singlePRawSignalPulse.Points.AddXY(k, pRawSignals[j]);
+                     singlePRawSignalPulse.Points.AddXY(fixIndexForSinglePulse + k, pRawSignals[j]);
                 }
 
                 chartSinglePRawSignal.Series.Add(singlePRawSignalPulse);
             }
 
             chartSinglePRawSignal.Invalidate();          
-        }      
+        }
+
+        /** This method is used to set the maximum and minimum value for X Axis on Slider
+       * */
+        private double[] setSliderMinMaxForXAxis(double[] data, RadLabel labelMax, RadLabel labelMin)
+        {
+            double max = 0.0;
+            double min = 0.0;
+            Array.Sort(data);
+            double value = Math.Round(data[0] * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+
+            value = ((int)Math.Round(value / 10)) * 10;
+
+            if ((value == 0) || (value < 0 && value > data[0]))
+            {
+                value = Math.Round(data[0]);
+            }
+
+            min = value - 5;
+
+            labelMin.Text = min.ToString();
+
+            value = Math.Round((data[data.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+
+            value = ((int)Math.Round(value / 10)) * 10;
+
+            max = value + 5;
+
+            labelMax.Text = max.ToString();
+
+            return new double[] { max, min };
+        }
     }
 }

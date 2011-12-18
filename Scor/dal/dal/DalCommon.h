@@ -218,7 +218,8 @@ namespace AtCor{
 									Success,
 									Timeout,
 									NoAck,
-									Ack
+									Ack,
+									Busy
 								};
 
 								/**
@@ -249,6 +250,16 @@ namespace AtCor{
 								{
 									unsigned char ucStatusBytes[4];
 									unsigned long ulStatusFlag;
+								};
+
+								/**
+								* @union ThreeBytesUnsignedLong
+								* @brief Three byte union to translate EM4 error alarm source flag into a long integer
+								*/
+								private union ThreeBytesUnsignedInt
+								{
+									unsigned char ucStatusBytes[3];
+									unsigned int uiStatusFlag;
 								};
 
 								/**
@@ -373,6 +384,25 @@ namespace AtCor{
 										static const unsigned char SetIdleMode = 0x1A;
 										static const unsigned char GetConfigInfoDataPwaCuffMeasurementsCounter = 0x0B;
 										static const unsigned char NibpConnectDisconnect = 0x05;
+										static const unsigned char SetConfigInfo = 0x0C;
+										static const unsigned char SerialNumberMpb = 0x00;
+										static const unsigned char ProcessorFirmwareVersionMpb = 0x01;
+										static const unsigned char PldSafetyFirmwareVersionMpb = 0x02;
+										static const unsigned char HWConfigurationMpb = 0x03;
+										static const unsigned char SerialNumberSuntechPcb = 0x04;
+										static const unsigned char BPFirmwareVersionSuntech = 0x05;
+										static const unsigned char SafetyFirmwareVersionSuntech = 0x06;
+										static const unsigned char SystemConfigurationId = 0x07;
+										static const unsigned char SerialNumberEm4 = 0x08;
+										static const unsigned char NumberofPWVmeasurements = 0x09;
+										static const unsigned char NumberofPWAtonometermeasurements = 0x0A;
+										static const unsigned char NumberofPWAcuffmeasurements = 0x0B;
+										static const unsigned char NumberOfNibpMeasurements = 0x0C;
+										static const unsigned char CalibrationDateMpb = 0x0D;
+										static const unsigned char CalibrationDateSuntech = 0x0E;
+										static const unsigned char TestDate = 0x0F;
+										static const unsigned char SystemConfigurationChangeDate = 0x10;
+										static const unsigned char NotchFilterEnable = 0x11;
 								};
 
 								/**
@@ -389,9 +419,52 @@ namespace AtCor{
 										static const int GetAlarmStatus = 9;
 										static const int GetConfigInfoDataPwaCuffMeasurementsCounter = 3;
 										static const int ZeroDataResponsePacket = 5;
-
+										static const int SerialNumberMpb = 25;
+										static const int ProcessorFirmwareVersionMpb = 9;
+										static const int PldSafetyFirmwareVersionMpb = 9;
+										static const int HWConfigurationMpb = 6;
+										static const int SerialNumberSuntechPcb = 21;
+										static const int BPFirmwareVersionSuntech = 12;
+										static const int SafetyFirmwareVersionSuntech = 12;
+										static const int SystemConfigurationId = 6;
+										static const int SerialNumberEm4 = 17;
+										static const int NumberofPWVmeasurements = 8;
+										static const int NumberofPWAtonometermeasurements = 8;
+										static const int NumberofPWAcuffmeasurements = 8;
+										static const int NumberOfNibpMeasurements = 8;
+										static const int CalibrationDateMpb = 11;
+										static const int CalibrationDateSuntech = 11;
+										static const int TestDate = 11;
+										static const int SystemConfigurationChangeDate = 11;
+										static const int NotchFilterEnable = 6;
 								};
 
+								/**
+								* @class Em4ConfigurationFieldLength
+								* @brief Contains the length of the each EM4 code
+								*/
+								private class Em4ConfigurationFieldLength
+								{
+									public:
+										static const int SerialNumberMpb = 20;
+										static const int ProcessorFirmwareVersionMpb = 4;
+										static const int PldSafetyFirmwareVersionMpb = 4;
+										static const int HWConfigurationMpb = 1;
+										static const int SerialNumberSuntechPcb = 16;
+										static const int BPFirmwareVersionSuntech = 7;
+										static const int SafetyFirmwareVersionSuntech = 7;
+										static const int SystemConfigurationId = 1;
+										static const int SerialNumberEm4 = 12;
+										static const int NumberofPWVmeasurements = 3;
+										static const int NumberofPWAtonometermeasurements = 3;
+										static const int NumberofPWAcuffmeasurements = 3;
+										static const int NumberOfNibpMeasurements = 3;
+										static const int CalibrationDateMpb = 6;
+										static const int CalibrationDateSuntech = 6;
+										static const int TestDate = 6;
+										static const int SystemConfigurationChangeDate = 6;
+										static const int NotchFilterEnable = 1;
+								};
 
 								/**
 								* @enum	DalUnusedStatusFlagBit
@@ -403,7 +476,7 @@ namespace AtCor{
 									UnusedBitReservedLSB7 = 0x0080,
 									UnusedBitReservedLSB6 = 0x0040,
 									UnusedBitReservedLSB4 = 0x0010,
-									UnusedBitReservedLSB3 = 0x0008
+									UnusedBitReservedLSB3 = 0x0008 //TODO: This may be incorrect. Recheck
 								};
 
 								/**
@@ -503,7 +576,8 @@ namespace AtCor{
 									StreamingDataPacket,	 /**< A streaming packet type*/
 									AckedResponsePakcet,	 /**< Acked response t a particular command*/
 									NackedResponsePacket,	 /**< Nacked response*/
-									NibpPacket		/**<Packet from Nibp module to host*/
+									NibpPacket,		/**<Packet from Nibp module to host*/
+									NibpProcessAbortedPacket /**<Em4 signal stating that Nibp module has been timedout*/
 								};
 
 								public enum class DalAlarmSource
@@ -564,7 +638,6 @@ namespace AtCor{
 
 								};
 
-								//TS STUB
 								/* @enum	DalFindModuleResult
 								* @brief	An enum defining the return values for FindModule function.
 								*/
@@ -575,40 +648,80 @@ namespace AtCor{
 									Neonate = 2 /**< Neonate mode blood pressure measurement. */
 								};
 
+								/* @enum	DalNibpCommandType
+								* @brief	The type of NIBP command
+								*/
 								public enum class DalNibpCommandType
 								{
-									ForeGroundCommand,
-									BackgroundCommand
+									ForeGroundCommand, /**<foreground command (o & K) reponses  */
+									BackgroundCommand /**< Background type. (recieves specific data */
 								};
 
+								/**
+								* @enum	DalNibpForegroundCommandState
+								* @brief	The tate of the command object w.r.t. the response recieved
+								*/
 								public enum class DalNibpForegroundCommandState
 								{
-									NotSent,
-									WaitingForO,
-									RecievedO,
-									RecievedK,
-									RecievedA,
-									Busy
+									NotSent, /**<  Object has been created but not sent */
+									WaitingForO, /**< Command has been sent but no response so far */
+									RecievedO, /**< O packet recieved  */
+									RecievedK, /**< K packet recieved */
+									RecievedA, /**< A packet recieved */
+									Busy /**<  Busy packet recieved*/
 
 								};
 
+								/**
+								* @enum	DalNibpBackGroundCommandState
+								* @brief	The state of the command object w.r.t. the response recieved
+								*/
 								public enum class DalNibpBackGroundCommandState
 								{
-									NotSent,
-									WaitingForResponse,
-									ResponseRecieved
+									NotSent, /**<  */
+									WaitingForResponse, /**<  */
+									ResponseRecieved /**<  */
 								};
 
+								/**
+								* @struct DalNibpData
+								* @brief Structure to store NIBP Data
+								*/
 								public ref struct DalNibpData
 								{
 									internal:
-										unsigned int Sss;
-										unsigned int Ddd;
+										unsigned int Sss; /**< Systolic value */
+										unsigned int Ddd; /**< Diastolic value */
 										//unsigned char Btc; //unused for now
-										unsigned char Bps;
-										unsigned int Rate;
-										unsigned int Map;
-										unsigned char Ec;
+										unsigned char Bps; /**< status of this BP measurement */
+										unsigned int Rate; /**< Heart rate in Bpm */
+										unsigned int Map; /**< Mean Arterial Pressure */
+										unsigned char Ec; /**< Error Code */
+								};
+
+
+								private ref class DalNibpEnvironmentVariables
+								{
+									private:
+										DalNibpEnvironmentVariables()
+										{
+											//FxCop
+										}
+
+									internal:
+										static bool bpMeasurementInProgress; 
+										//TODO: see if we can shift all such variables accessed accross classes into a common class?
+			
+								};
+								
+								/**
+								* @enum	NibpMeasurementStatus
+								* @brief	The result of the NIBP measurement session.
+								*/
+								public enum class NibpMeasurementStatus
+								{
+									Successful, /**< The measurement was successful and the data can be used.*/
+									Unsuccessful /**< Measurement was unsuccesfully terminated. Do not use the data. Check the error message.*/
 								};
 
 

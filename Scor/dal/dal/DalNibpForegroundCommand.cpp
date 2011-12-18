@@ -14,6 +14,7 @@
 
 using namespace AtCor::Scor::DataAccess;
 using namespace System::Diagnostics;
+using namespace AtCor::Scor::CrossCutting::Messaging;
 
 DalNibpForegroundCommand::DalNibpForegroundCommand():DalEM4HostToNibpCommand()
 {
@@ -50,19 +51,57 @@ bool DalNibpForegroundCommand::ActOnPacket(array <unsigned char> ^ nibpToHostRes
 		} 
 		else if (0x41 == nibpToHostResponse[2])
 		{
-			//Abort recieved
+			//A (Abort) recieved
 			this->currentForegroundState = DalNibpForegroundCommandState::RecievedA;
 		}
 		else if (0x42 == nibpToHostResponse[2])
 		{
-			//Abort recieved
+			//B (Busy) recieved
 			this->currentForegroundState = DalNibpForegroundCommandState::Busy;
 		}
+		else if (0x45 == nibpToHostResponse[2])
+		{
+			//E (Error) packet recieved
+			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNibpPacketEErrCd, CrxStructCommonResourceMsg::DalErrNibpPacketE, ErrorSeverity::Exception );
+			/*
+				Message: "DAL_ERR_NIBP_PACKET_E" :NIBP module indicated that it recieved a valid command but 
+						it may be malformed.*/
+
+		}
+		else if (0x4E == nibpToHostResponse[2])
+		{
+			//N (No such command)
+			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNibpPacketNErrCd,CrxStructCommonResourceMsg::DalErrNibpPacketN, ErrorSeverity::Exception );
+			/*
+				Message:"DAL_ERR_NIBP_PACKET_N": NIBP module recieved an unidentified command.*/
+
+		}
+		else if (0x44 == nibpToHostResponse[2])
+		{
+			//D (No such  121 (0x79) command)
+			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNibpPacketDErrCd, CrxStructCommonResourceMsg::DalErrNibpPacketD, ErrorSeverity::Exception );
+			/*
+				Message: NIBP module recieved a '121' command with unrecognizable data.*/
+
+		}
+		else if (0x54 == nibpToHostResponse[2])
+		{
+			//T (Timeout)
+			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrNibpPacketTErrCd, CrxStructCommonResourceMsg::DalErrNibpPacketT, ErrorSeverity::Exception );
+			/*
+				Message:  "DAL_ERR_NIBP_PACKET_T" A Timeout occured while the BP module was recieving a command.
+			*/
+
+		}
+		//any more to add
+
 		
-		//TODO: any more to add
+
 
 		//then signal the waiting thread that it has something for it
 		this->responseListenerThread->Interrupt();
+
+		return true; //return true so that the calling event handler knows that this event has been consumed
 
 	}
 	//else simply ignore it it is of no use to us.
@@ -78,6 +117,11 @@ DalReturnValue DalNibpForegroundCommand ::ListenForEM4Response()
 	Stopwatch ^ responseTimeChecker = gcnew Stopwatch();
 	responseTimeChecker->Start();
 
+	if (responseListenerThread)
+	{
+		//CrxLogger::Instance->Write("DalNibpForegroundCommand ::ListenForEM4Response deleting old thread before creating new one", ErrorSeverity::Debug);
+		delete responseListenerThread;
+	}
 	//Start the thread that will process the events to arrive
 	responseListenerThread = gcnew Thread(gcnew ParameterizedThreadStart(this, &DalNibpForegroundCommand::ResponseListenerThreadMethod));
 	
@@ -109,13 +153,10 @@ DalReturnValue DalNibpForegroundCommand ::ListenForEM4Response()
 		//some commands will need to wait for both O & K before this thread returns
 		//others will need to wait for only O to return and then launch a sepearate thread for K packet
 		//Let the child class take action as appropriate
-		ProcessNibpResponse();
-		//check the state 
+		DalReturnValue  returnValue;
+		 returnValue = ProcessNibpResponse();
 
-		//deregister this thread
-		//StopListeningForEM4response();
-
-		return DalReturnValue::Success;
+		 return  returnValue;
 
 	}
 
@@ -126,6 +167,7 @@ DalReturnValue DalNibpForegroundCommand ::ListenForEM4Response()
 bool DalNibpForegroundCommand::StopListeningForEM4response()
 {
 	CrxLogger::Instance->Write("DalNibpForegroundCommand::StopListeningForEM4response", ErrorSeverity::Debug);
+	responseListenerThread->Abort();
 	delete responseListenerThread;
 
 	DalEventContainer::Instance->OnDalNibpPacketEvent -= gcnew NibPPacketArrivedEventHandler(this, &DalNibpForegroundCommand::PacketArrivedProcessingMethod);
@@ -140,7 +182,8 @@ void DalNibpForegroundCommand::ResponseListenerThreadMethod(System::Object ^)
 	{
 		//TODO: see if this timout should be infinite
 		//sleep until timeout expires or the thread is woken up
-		Thread::Sleep(Timeout::Infinite); 
+		//Thread::Sleep(Timeout::Infinite); 
+		Thread::Sleep(this->responseWaitingTimeMax ); 
 	}
 	catch(ThreadInterruptedException^ threadInterruptEx)
 	{
@@ -152,9 +195,18 @@ void DalNibpForegroundCommand::ResponseListenerThreadMethod(System::Object ^)
 	}
 }
 
-bool DalNibpForegroundCommand::ProcessNibpResponse()
+DalReturnValue  DalNibpForegroundCommand::ProcessNibpResponse()
 {
 	//let child objects decide what they want to do with the result
 	//we dont want to do anythin here
-	return false;
+	//return false;
+
+	return DalReturnValue::Failure;
+}
+
+
+DalNibpForegroundCommand::~DalNibpForegroundCommand()
+{
+	CrxLogger::Instance->Write("DalNibpForegroundCommand::~DalNibpForegroundCommand called for object" + this->GetType(), ErrorSeverity::Debug);
+	
 }

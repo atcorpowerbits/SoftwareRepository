@@ -18,6 +18,9 @@ using Telerik.WinControls;
 using System.Configuration;
 using System.IO;
 using System.Drawing;
+using AtCor.Scor.BusinessLogic;
+using System.Diagnostics;
+using System.Threading;
 
 namespace AtCor.Scor.Gui.Presentation
 {
@@ -37,11 +40,15 @@ namespace AtCor.Scor.Gui.Presentation
         private static readonly CrxMessagingManager OMsgMgr = CrxMessagingManager.Instance;
         private static readonly CrxLogger OLogObject = CrxLogger.Instance;
         private static StringBuilder eMesg = new StringBuilder();
+        private static bool isScorSystemParameterCorrupted = false;
 
         public static void ShowStatusMessage(object sender, CrxShowStatusEventArgs args)
         {
-            Form obj = new Form();
-            HandleException(args.ObjScorException, obj);
+            if (!isScorSystemParameterCorrupted)
+            {
+                Telerik.WinControls.UI.RadForm obj = new Telerik.WinControls.UI.RadForm();
+                HandleException(args.ObjScorException, obj);
+            }          
         }  
 
         public static void RegisterUnHandledExceptionHandler()
@@ -50,20 +57,49 @@ namespace AtCor.Scor.Gui.Presentation
             currentDomain.UnhandledException += currentDomain_UnhandledException; 
         }
 
+        /** This event gets called when alert message timer on default window ticks         
+      * */
+        public static void guialertmsgTimer_Tick(object sender, EventArgs e)
+        {
+            DisableTimerAndClearMessageFromStatusBar();
+        }
+
+        public static void DisableTimerAndClearMessageFromStatusBar()
+        {
+            GuiCommon.DefaultWindowForm.guipictureboxError.Image = null;
+            GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
+        }
+
         /** This method handles all types of exception & throws appropriate messages
          * */
         public static void HandleException(Exception ex, object currentWindow)
         {
             System.Diagnostics.Debug.Write("Error Message:" + ex.Message);
-            System.Diagnostics.Debug.Write("Stack Trace:" + ex.StackTrace);   
-            if (ex.GetType() == typeof(ScorException))
+            System.Diagnostics.Debug.Write("Stack Trace:" + ex.StackTrace); 
+            Type typeOfObject = currentWindow.GetType();
+            if (!(currentWindow.GetType() == typeof(Telerik.WinControls.UI.RadForm)))
             {
-                HandleScorException((ScorException)ex, currentWindow);
+                Telerik.WinControls.UI.RadForm obj = new Telerik.WinControls.UI.RadForm();
+                if (ex.GetType() == typeof(ScorException))
+                {
+                    HandleScorException((ScorException)ex, obj);
+                }
+                else
+                {
+                    HandleGeneralException(ex, obj);
+                }
             }
             else
             {
-                HandleGeneralException(ex, currentWindow);
-            }
+                if (ex.GetType() == typeof(ScorException))
+                {
+                    HandleScorException((ScorException)ex, currentWindow);
+                }
+                else
+                {
+                    HandleGeneralException(ex, currentWindow);
+                }
+            }           
         }
 
         static void currentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -91,6 +127,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // crx unhandled exception
                 RadMessageBox.Show((IWin32Window)currentWindow, crEx.ExceptionObject.Message, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                // RadMessageBox.Show(crEx.ExceptionObject.Message, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
 
                 // log exception message alongwith stack trace and error source
                 OLogObject.Write(crEx.ExceptionObject.Message + Environment.NewLine + crEx.ExceptionObject.Source + Environment.NewLine + crEx.ExceptionObject.StackTrace);
@@ -108,6 +145,8 @@ namespace AtCor.Scor.Gui.Presentation
                 eMsg = GetErrorString(crEx.ErrorStringArr);
 
                 RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                // RadMessageBox.Show(eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+
                 OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
             }
             else
@@ -128,13 +167,35 @@ namespace AtCor.Scor.Gui.Presentation
                 switch (crEx.ErrorType)
                 {
                     case ErrorSeverity.Exception:
-                        RadMessageBox.Show(eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
 
-                        // RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                        if (crEx.ErrorCode == CrxStructCommonResourceMsg.CrxErrXmlTagIncorrectErrCd)
+                        {
+                            isScorSystemParameterCorrupted = true;
+                            if (GuiCommon.CaptureFormLoaded)
+                            {
+                                GuiCommon.CaptureChildForm.tmrPwvCaptureMode.Enabled = false; 
+                                GuiCommon.CaptureChildForm.tmrPwaCaptureMode.Enabled = false;                                     
+                            }
+                        }
+
+                        // RadMessageBox.Show(eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                       
+                        RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
+
+                        if (isScorSystemParameterCorrupted)
+                        {
+                            CrxLogger.Instance.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.Exitstr));
+                            BizSession.Instance().OnExit();
+                            Process.GetCurrentProcess().Kill();
+                        }
+
                         break;
                     case ErrorSeverity.Warning:
+                        
                         RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+                        // RadMessageBox.Show(eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
 
                         // GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
@@ -246,22 +307,10 @@ namespace AtCor.Scor.Gui.Presentation
         {
             // handle general GUI exception
             RadMessageBox.Show((IWin32Window)currentWindow, ex.Message, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+            // RadMessageBox.Show(ex.Message, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
 
             // log exception message alongwith stack trace
             OLogObject.Write(ex.Message + Environment.NewLine + ex.Source + Environment.NewLine + ex.StackTrace);        
-        } // End HandleGeneralException
-
-        /** This event gets called when alert message timer on default window ticks         
-         * */
-        public static void guialertmsgTimer_Tick(object sender, EventArgs e)
-        {
-            DisableTimerAndClearMessageFromStatusBar();
-        }
-
-        public static void DisableTimerAndClearMessageFromStatusBar()
-        {
-            GuiCommon.DefaultWindowForm.guipictureboxError.Image = null;
-            GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
-        }
+        } // End HandleGeneralException     
     }
 }

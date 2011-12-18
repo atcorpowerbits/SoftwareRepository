@@ -28,13 +28,24 @@ using namespace AtCor::Scor::DataAccess;
 DalNibpDeviceHandler::DalNibpDeviceHandler()
 {
 	SetCommandInterface(gcnew DalNibpCommandInterface());
+	if (CrxSytemParameters::Instance->GetStringTagValue("NibpDal.CuffPressureMeasurementThreadEnable") == "Y")
+	{
 	cuffPressurePlottingThread = gcnew Thread(gcnew ThreadStart(this, &DalNibpDeviceHandler::CuffPressurePlottingThreadMethod ));
+	}
+	signalNibpAbortCaller = gcnew SignalNibpAbortedAsyncCaller(this, &DalNibpDeviceHandler::SignalNibpAborted);
+
+	nibpModuleConnected = false; //set to false so that we know for sure that the session has not started
+
+	_instance = this;
 }
 
-bool DalNibpDeviceHandler::StartBpProcess(DalNIBPMode nibpMode, unsigned short initialPressure, bool initialInfalte)
+bool DalNibpDeviceHandler::StartBpProcess(DalNIBPMode nibpMode, unsigned short initialPressure, bool initialInflate)
 {
 
 	bool boolRetValue;
+
+	if (!nibpModuleConnected) 
+	{
 	//First connect to NibpModule
 	boolRetValue = ConnectToNibpModule();
 
@@ -43,38 +54,39 @@ bool DalNibpDeviceHandler::StartBpProcess(DalNIBPMode nibpMode, unsigned short i
 		return false;
 	}
 
-	CreateDataBuffer();//create an array to transfer the data
-	//plotCuffPressurePoints = true; //tell the cuff thread that you want it to put data into the buffer
-	cuffPressurePlottingThread->Start(); 
+		nibpModuleConnected = true; //set to tru so that for subsequent assesments we dont do it all over again
 
-	
-	//TODO: Testing with a 5 second delay before send ing the Set pressure command
-	//Noticed that it works only in Debug mode
-	//Thread::Sleep(500);
-
-	if (initialInfalte)
+	if (initialInflate)
 	{
+		int waitTime = CrxSytemParameters::Instance->GetIntegerTagValue("NibpDal.Timeouts.DalNibpIntialInflateCommandWaitTime");
 		
 		//since this has an initial pressure we must first set the initial value
-		DalNibpIntialInflateCommand^ initialInflateCommand = gcnew DalNibpIntialInflateCommand(initialPressure, 50);
+		DalNibpIntialInflateCommand^ initialInflateCommand = gcnew DalNibpIntialInflateCommand(initialPressure, waitTime);
 		boolRetValue = initialInflateCommand->SetInitialInflate();
 	}
 	if (!boolRetValue)
 	{
 		return false;
 	}
+	}
+
+	//First check if the pressure is within an acceptible limit
+	if (!IsCuffDeflated())
+	{
+		return false; 
+	}
 
 	int numberOfTries = 0;
 
 	do
 	{
-		Thread::Sleep(7000); //sleep for 7 seconds before trying becuase the NIBP module needs time to get ready
+		//Thread::Sleep(7000); //sleep for 7 seconds before trying becuase the NIBP module needs time to get ready
 
 		//Dont create the object of a particular type
 		//call the method which will return the specifc type
 		//DalNibpStartBpCommand^ startBpCommand = gcnew DalNibpStartBpCommand(200000);
 
-		DalNibpStartBpCommand^ startBpCommand = GetNewStartBpCommandObject(nibpMode);
+		startBpCommand = GetNewStartBpCommandObject(nibpMode);
 
 
 	//Send the start BP command
@@ -85,13 +97,39 @@ bool DalNibpDeviceHandler::StartBpProcess(DalNIBPMode nibpMode, unsigned short i
 	}
 	while((numberOfTries <=2) && (!boolRetValue));
 
+	//for testing and developemnt only
+	////use without retries
+	//startBpCommand = GetNewStartBpCommandObject(nibpMode);
+	////Send the start BP command
+	//boolRetValue = startBpCommand->SendStartBpCommand();
+
 	if (!boolRetValue)
 	{
+		
+		//delete the startBpCommand Object
+		delete startBpCommand;
+
 		return false;
 	}
 	
-	//if resposne was successful start the thread to put cuff pressure in Data buffer
-	//TODO: start the process
+	//if response was successful start the thread to put cuff pressure in Data buffer
+	CreateDataBuffer();//create an array to transfer the data
+	
+	try
+	{
+		if (CrxSytemParameters::Instance->GetStringTagValue("NibpDal.CuffPressureMeasurementThreadEnable") == "Y")
+		{
+			cuffPressurePlottingThread->Start();   //Start the cuff pressure plooting
+		}
+	}
+	catch(ThreadStateException^ exObj)
+	{
+		//Suppress this exception
+		delete exObj;
+	}
+
+	//set the marker that says that a measurement is in progress
+	DalNibpEnvironmentVariables::bpMeasurementInProgress = true;
 
 
 
@@ -132,15 +170,19 @@ bool DalNibpDeviceHandler::StartBP(DalNIBPMode nibpMode)
 
 bool DalNibpDeviceHandler::FinishBP()
 {
-	//TODO: start the thread that will measure the pressure before sending the 
-
+	//CrxLogger::Instance->Write("DalNibpDeviceHandler::FinishBP started" , ErrorSeverity::Debug);
 	//Send the AbortBP command
 
 	bool boolRetValue;
 
-	boolRetValue =  CheckIfCuffHasDeflated();
+	//Wait untill the cuff has deflated below the acceptable level.
+	boolRetValue =  IsCuffDeflated();
+
 	if (boolRetValue)
 	{
+		//Stop the cuff pressure measurement thread
+		StopCuffPressurePlotting();
+
 		//call disconnect
 		SendNibpDisconnectCommand();
 	}
@@ -158,8 +200,21 @@ bool DalNibpDeviceHandler::AbortBP()
 {
 	bool boolRetValue;
 
-	DalNibpAbortBpCommand ^ abortBpCommand = gcnew DalNibpAbortBpCommand(200);
+	int waitTime = CrxSytemParameters::Instance->GetIntegerTagValue("NibpDal.Timeouts.DalNibpAbortBpCommandWaitTime");
+	DalNibpAbortBpCommand ^ abortBpCommand = gcnew DalNibpAbortBpCommand(waitTime);
 	boolRetValue =abortBpCommand->AbortBp();
+
+	if (!boolRetValue)
+	{
+		CrxLogger::Instance->Write("DalNibpDeviceHandler::AbortBP Abort command Failed" , ErrorSeverity::Debug);
+		return false;
+	}
+	//else
+
+	boolRetValue = FinishBP();
+
+	CrxLogger::Instance->Write("DalNibpDeviceHandler::AbortBP returning " + boolRetValue , ErrorSeverity::Debug);
+
 
 	return boolRetValue;
 }
@@ -180,7 +235,8 @@ bool DalNibpDeviceHandler::ConnectToNibpModule()
 	{
 		if (0 != tryNumber)
 		{
-			Thread::Sleep(1000); //this is user decided //TODO
+			//Thread::Sleep(1000); //this is user decided 
+			Thread::Sleep(CrxSytemParameters::Instance->GetIntegerTagValue("NibpDal.Timeouts.SendNibpConnectCommand.BusyWaitPeriod")); //this is user decided 
 		}
 
 		returnValue = SendNibpConnectCommand(); //send the command
@@ -244,7 +300,7 @@ DalReturnValue DalNibpDeviceHandler::SendNibpConnectDisconnectCommand(bool conne
 		//if (nibpConnectCommand->em4ResponseAckNackByte == ((unsigned char)Em4CommandCodes::NibpConnectDisconnect & (unsigned char)DalAckNackByteMask::AckNackStatusBitMask))
 		if ((unsigned char) DalAckNackByteMask::AckNackStatusBitMask == (nibpConnectCommand->em4ResponseAckNackByte & (unsigned char)DalAckNackByteMask::AckNackStatusBitMask))
 		{
-						CrxLogger::Instance->Write("DalNibpDeviceHandler::SendNibpConnectDisconnectCommand returing Ack", ErrorSeverity::Debug);
+						//CrxLogger::Instance->Write("DalNibpDeviceHandler::SendNibpConnectDisconnectCommand returing Ack", ErrorSeverity::Debug);
 
 			//specifically return ack instead of Success so we can use it in a look
 			return DalReturnValue::Ack;
@@ -252,7 +308,7 @@ DalReturnValue DalNibpDeviceHandler::SendNibpConnectDisconnectCommand(bool conne
 		}
 		else
 		{
-			CrxLogger::Instance->Write("DalNibpDeviceHandler::SendNibpConnectDisconnectCommand returing Ack", ErrorSeverity::Debug);
+			CrxLogger::Instance->Write("DalNibpDeviceHandler::SendNibpConnectDisconnectCommand returing Nack", ErrorSeverity::Debug);
 
 			return DalReturnValue::NoAck;
 		}
@@ -298,37 +354,38 @@ bool DalNibpDeviceHandler::GetCuffPressure(unsigned int& cuffPressure)
 
 }
 
-bool DalNibpDeviceHandler::CheckIfCuffHasDeflated()
-{
-
-	bool retValue;
-	unsigned int cuffPressureValue;
-
-	try{
-
-
-		do
-		{
-			cuffPressureValue = 0 ;//clear it
-			retValue = GetCuffPressure(cuffPressureValue);
-			//Get the cuff pressure. There is no need to stop it.
-			Thread::Sleep(200); //5 times per sec
-		}
-		while(cuffPressureValue > 15 && retValue);//once it is 14 we will stop
-
-		if (!retValue)
-		{
-			return false;
-		}
-	}
-	catch(ThreadInterruptedException^ threadEx)
-	{
-		delete threadEx;
-
-	}
-
-	return true;
-}
+//Deepak: no need to check using a sepearate thread. Use the existing cuff pressure measurement thread
+//bool DalNibpDeviceHandler::CheckIfCuffHasDeflated()
+//{
+//
+//	bool retValue;
+//	unsigned int cuffPressureValue;
+//
+//	try{
+//
+//
+//		do
+//		{
+//			cuffPressureValue = 0 ;//clear it
+//			retValue = GetCuffPressure(cuffPressureValue);
+//			//Get the cuff pressure. There is no need to stop it.
+//			Thread::Sleep(200); //5 times per sec
+//		}
+//		while(cuffPressureValue > 15 && retValue);//once it is 14 we will stop
+//
+//		if (!retValue)
+//		{
+//			return false;
+//		}
+//	}
+//	catch(ThreadInterruptedException^ threadEx)
+//	{
+//		delete threadEx;
+//
+//	}
+//
+//	return true;
+//}
 
 bool  DalNibpDeviceHandler::CreateDataBuffer()
 {
@@ -360,7 +417,8 @@ void DalNibpDeviceHandler::CuffPressurePlottingThreadMethod()
 				pwvDataObject.cuffPressure = (unsigned short)cuffPressureValue;
 				dataBufferObj->WriteDataToBuffer(pwvDataObject);
 			}
-			Thread::Sleep(200); //5 times per sec
+//			Thread::Sleep(200); //5 times per sec
+			Thread::Sleep(CrxSytemParameters::Instance->GetIntegerTagValue("NibpDal.Timeouts.GetCuffPressureCommandRetryInterval")); //5 times per sec
 		}
 		while(continueMeasurement);
 	}
@@ -377,7 +435,10 @@ void DalNibpDeviceHandler::CuffPressurePlottingThreadMethod()
 
 void DalNibpDeviceHandler::StopCuffPressurePlotting()
 {
+	if (CrxSytemParameters::Instance->GetStringTagValue("NibpDal.CuffPressureMeasurementThreadEnable") == "Y")
+	{
 	this->cuffPressurePlottingThread->Abort();
+	}
 }
 
 
@@ -388,6 +449,8 @@ bool DalNibpDeviceHandler::GetBpDataAndRaiseEvent()
 	getBpDataCommandObject->GetBpDataAndRaiseEvent();
 
 
+	//Delete the original StartBPData command 
+	delete startBpCommand;
 
 	return true;
 }
@@ -397,7 +460,7 @@ DalNibpStartBpCommand^ DalNibpDeviceHandler::GetNewStartBpCommandObject(DalNIBPM
 	if (DalNIBPMode::Adult == nibpMode)
 	{
 
-		return gcnew DalNibpStartBpCommand(140);
+		return gcnew DalNibpStartBpCommand();
 	}
 	else if (DalNIBPMode::Neonate == nibpMode)
 	{
@@ -414,5 +477,50 @@ DalNibpStartBpCommand^ DalNibpDeviceHandler::GetNewStartBpCommandObject(DalNIBPM
 
 
 	
+}
+
+void DalNibpDeviceHandler::SignalNibpAborted()
+{
+	//This method is called when an EM4 Abort signal is recieved.
+	//We should check if there is a K response thread waiting for StartBP and
+
+	if (startBpCommand)
+	{
+
+	startBpCommand->kPacketListenerThread->Abort();
+
+	bool returnValue;
+
+	//Now send a disconnect command
+	returnValue = FinishBP();
+	}
+	else
+	{
+		return ;
+	}
+
+
+}
+
+bool DalNibpDeviceHandler::IsCuffDeflated()
+{
+	try{
+		while(CurrentCuffPressure > 15 )//once it is 14 we will stop
+	{
+			
+			//Get the cuff pressure. There is no need to stop it.
+			//Thread::Sleep(200); //5 times per sec
+			Thread::Sleep(CrxSytemParameters::Instance->GetIntegerTagValue("NibpDal.Timeouts.GetCuffPressureCommandRetryInterval")); //5 times per sec
+
+		}
+
+	}
+	catch(ThreadInterruptedException^ threadEx)
+	{
+		delete threadEx;
+
+	}
+
+	return true;
 }
 

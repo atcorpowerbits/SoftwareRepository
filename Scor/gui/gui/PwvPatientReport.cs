@@ -169,6 +169,7 @@ namespace AtCor.Scor.Gui.Presentation
                 CryPwvPatientReport1.SetParameterValue(GuiConstants.AgeUpperLimit, BizConstants.MAXIMUM_REFERENCE_RANGE_AGE);
                 CryPwvPatientReport1.SetParameterValue(GuiConstants.AgeLowerLimit, BizConstants.MINIMUM_REFERENCE_RANGE_AGE);
                 CryPwvPatientReport1.SetParameterValue(GuiConstants.PWVPatientHeight, PWVPatientReportData.RptPatientHeight);
+                CryPwvPatientReport1.SetParameterValue(GuiConstants.PatientHeightInternalValue, PWVPatientReportData.RptPatientHeightInternalValue);
                 CryPwvPatientReport1.SetParameterValue(GuiConstants.HealthyPopulation, PWVPatientReportData.RptHealthyPopulation);
                 CryPwvPatientReport1.SetParameterValue(GuiConstants.GeneralPopulation, PWVPatientReportData.RptGeneralPopulation);
 

@@ -212,6 +212,12 @@ namespace AtCor{
 					static void ProcessUnusedBit( unsigned long & oldFlag , const unsigned long  & newFlag, DalUnusedStatusFlagBit unusedFlagType);
 
 
+					/**
+					* Throws an DalOnModuleErrorAlarmEvent in lieu of the speicifed exception object
+					* @param[in]	alarmType	The type of alarm
+					* @param[in]	excptionObject	The exception object that contains the error information.
+					*
+					*/
 					static void RaiseEventForException(DalErrorAlarmStatusFlag alarmType, ScorException^ excptionObject);
 
 

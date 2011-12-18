@@ -228,6 +228,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalConfigurationAndUsagesTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalConstantsTest.cpp"
 				>
 			</File>

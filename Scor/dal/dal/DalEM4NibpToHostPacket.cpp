@@ -16,6 +16,7 @@
 
 using namespace System;
 using namespace AtCor::Scor::CrossCutting;
+using namespace AtCor::Scor::CrossCutting::Logging;
 using namespace AtCor::Scor::DataAccess;
 
 DalEM4NibpToHostPacket::DalEM4NibpToHostPacket():EM4DataCapturePacket(0)
@@ -24,12 +25,15 @@ DalEM4NibpToHostPacket::DalEM4NibpToHostPacket():EM4DataCapturePacket(0)
 
 	//Call EM4DataCapturePacket constuctor with dataSize = 0
 	//This way we can control the size of the response packet which will be variable for DalEM4NibpToHostPacket
+	SetStatusHandler(gcnew DalNibpStatusHandler());
 }
 
 DalEM4NibpToHostPacket::DalEM4NibpToHostPacket(array<unsigned char> ^byteArray):EM4DataCapturePacket(0)
 {
 	//Call EM4DataCapturePacket constuctor with dataSize = 0
 	//This way we can control the size of the response packet which will be variable for DalEM4NibpToHostPacket
+
+	SetStatusHandler(gcnew DalNibpStatusHandler());
 
 	//copy the response from the parameter
 	em4Response = byteArray;
@@ -58,13 +62,12 @@ DalReturnValue DalEM4NibpToHostPacket::ValidatePacket()
 	{
 		return DalReturnValue::Failure ;
 	}
-	//TODO: check if the nibp bytes are correct before any more processing
 
 	//assign the status flag to a variable
 	statusBytes = (unsigned long) em4StatusFlag ;
 	
 	//no need to return value based on the status flag. ACK/NACK is enough 
-	DalStatusHandler::ProcessStatusFlag(statusBytes);
+	_statusHandler->ProcessStatusFlag(statusBytes);
 
 
 	//Not sure if sequence number will be valid here TODO: Please check
@@ -108,6 +111,19 @@ bool DalEM4NibpToHostPacket::ValidateResponseCRC()
 		 return true;
 	 }
 }
+
+void DalEM4NibpToHostPacket::SetStatusHandler(DalNibpStatusHandler ^ newStatusHandler)
+{
+	this->_statusHandler = newStatusHandler;
+}
+
+DalEM4NibpToHostPacket::~DalEM4NibpToHostPacket()
+{
+	CrxLogger::Instance->Write("DalEM4NibpToHostPacket::~DalEM4NibpToHostPacket called for object:" + this->GetType());
+	
+	//TODO
+}
+
 
 
 

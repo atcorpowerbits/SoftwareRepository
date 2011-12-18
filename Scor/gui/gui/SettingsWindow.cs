@@ -60,7 +60,6 @@ namespace AtCor.Scor.Gui.Presentation
         CrxStructPwvSetting pwvSettingsStruct;
         CrxStructBpSetting bpSettingsStruct;
         CrxStructPwaSetting pwaSettingsStruct;
-        BizInfo bizObj;
 
         // Flag set when default button is clicked.
         bool defaultBtnClicked = false;
@@ -85,6 +84,8 @@ namespace AtCor.Scor.Gui.Presentation
         private event DisplaySettingsDelegate OnDisplayUserSettings;
 
         private event DisplaySettingsDelegate OnDefaultGeneralSettings;
+
+        private bool prevPrivacySetting = false;
         #endregion
 
         // Constructor of the form,initializes all the controls and the structure for General as well as PWV settings.       
@@ -112,7 +113,6 @@ namespace AtCor.Scor.Gui.Presentation
             bpSettingsStruct = new CrxStructBpSetting();
             pwaSettingsStruct = new CrxStructPwaSetting();
 
-            bizObj = BizInfo.Instance();
             guiFieldValidation = new GuiFieldValidation(guipnlBPAutoPWARangeDetails);
 
             // To prevent docking of the tabstrip.
@@ -171,9 +171,10 @@ namespace AtCor.Scor.Gui.Presentation
             radbtnDefaults.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnDefaults);
 
             // AtCor-Drop2-Sprint1
+            radgrpbxStartupScreen.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpStartupScreen);
             radgrpbxSetupScreen.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpSetupScreen);
             radradiobtnQuickStart.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart);
-            radradiobtnSetup.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SetupScreen);
+            radradiobtnSetup.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Standard);
             radgrpbxstartupMode.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpStartupMode);
             radradiobtnPWVMode.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Pwv);
             radradiobtnPWAMode.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Pwa);
@@ -215,6 +216,7 @@ namespace AtCor.Scor.Gui.Presentation
             radradiobtnTonometer.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpTonometer);
             guiradgrpbxPWASimulationFiles.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpSimulationFiles);
             radchkGuidanceBars.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpGuidanceBars);
+            radgrpbxDefaultPwaReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpDefaultPrintedReport);
         }
 
         /**This method sets the test for the labels ,buttons ,group boxes and so on, for the PWV settings on the GUI.
@@ -240,7 +242,7 @@ namespace AtCor.Scor.Gui.Presentation
             rad5Seconds.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad5Sec);
             rad10Seconds.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad10Sec);
             rad20Seconds.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Rad20Sec);
-            guiradgrpDefaultReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiGrpDefaultReport);
+            radgrpbxDefaultReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpDefaultPrintedReport);
 
             // AtCor-Drop2-Sprint1
             radgrpbxCaptureGuidePWA.Text = Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GrpCaptureGuide);
@@ -308,25 +310,25 @@ namespace AtCor.Scor.Gui.Presentation
                 readUserSettings.Start();
 
                 // If both cPWA and tPWA modes are not available from key then disable PWA tab on Settings screen
-                if ((!bizObj.OptionCPWA) && (!bizObj.OptionTPWA))
+                if ((! BizInfo.Instance().OptionCPWA) && (! BizInfo.Instance().OptionTPWA))
                 {
                     docWndPWASettings.Hide();
                     docWndBPSettings.Hide();
                 }
 
-                if (!bizObj.OptionPWV)
+                if (! BizInfo.Instance().OptionPWV)
                 {
                     docWndPWVSettings.Hide();
                 }
 
                 // If PWV mode is available from system key
-                // if (bizObj.OptionPWV)
+                // if ( BizInfo.Instance().OptionPWV)
                 // {
                 //    radgrpbxBloodPressures.Visible = true;
                 // }
 
                 // If either CPWA or TPWA modes are available from system key
-                if (bizObj.OptionCPWA || bizObj.OptionTPWA)
+                if (BizInfo.Instance().OptionCPWA || BizInfo.Instance().OptionTPWA)
                 {
                     radgrpbxAutoPWA.Visible = true;
                     radgrpbxNumberOfAssessments.Visible = true;
@@ -346,7 +348,8 @@ namespace AtCor.Scor.Gui.Presentation
                 // Below line of code will,always set the focus on General Settings tab,everytime Settings window is loaded. 
                 docWndGeneralSettings.Select();
                 Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSettingsMenu);
-                GuiCommon.CheckPatientPrivacy = false;
+                GuiCommon.CheckPatientPrivacy = false;                
+                prevPrivacySetting = false;
             }
             catch (Exception ex)
             {
@@ -368,6 +371,8 @@ namespace AtCor.Scor.Gui.Presentation
                 if (genStructObj != null)
                 {
                     radchkbxPatientPrivacy.Checked = genStructObj.PatientPrivacy;
+
+                    prevPrivacySetting = genStructObj.PatientPrivacy;
 
                     // This method is used to set the height weight units value to the corresponding GUI control.      
                     SetHeightWeightUnits(genStructObj.HeightandWeightUnit);
@@ -398,7 +403,7 @@ namespace AtCor.Scor.Gui.Presentation
                 }
 
                 // Set PWV tab fields
-                if (pwvStructObj != null && bizObj.OptionPWV)
+                if (pwvStructObj != null && BizInfo.Instance().OptionPWV)
                 {
                     // radchkFemoralToCuff.Checked = pwvStructObj.FemoralToCuff;
                     if (pwvStructObj.FemoralToCuff == null || pwvStructObj.FemoralToCuff.Equals(string.Empty))
@@ -412,6 +417,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                     radchkReferenceRange.Checked = pwvStructObj.ReferenceRange;
                     radchkNormalRange.Checked = pwvStructObj.NormalRange;
+                    radchkAutoInflate.Checked = pwvStructObj.AutoInflate;   
                     radchkPwvAutoCapture.Checked = pwvStructObj.AutoCapture;
                     radchkPwvGuidanceBar.Checked = pwvStructObj.GuidanceBars;
 
@@ -432,7 +438,7 @@ namespace AtCor.Scor.Gui.Presentation
                 }
 
                 // Set BP tab fields
-                if (bpStructObj != null && (bizObj.OptionCPWA || bizObj.OptionTPWA))
+                if (bpStructObj != null && (BizInfo.Instance().OptionCPWA || BizInfo.Instance().OptionTPWA))
                 {
                     // This method is used to set the No of assessments value to the corresponding GUI control.    
                     SetBpNoOfAssessments(bpStructObj.NumberofAssessments);
@@ -454,7 +460,7 @@ namespace AtCor.Scor.Gui.Presentation
                 }
 
                 // Set PWA tab fields
-                if (pwaStructObj != null && (bizObj.OptionCPWA || bizObj.OptionTPWA))
+                if (pwaStructObj != null && (BizInfo.Instance().OptionCPWA || BizInfo.Instance().OptionTPWA))
                 {
                     // This method is used to set the Capture time to the corresponding GUI control in PWA tab.
                     SetCaptureTimePwa(pwaStructObj.CaptureTime);
@@ -822,7 +828,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void SetStartupScreen(string value)
         {
             // If mode is PWA and Research environment is disabled.
-            if ((bizObj.OptionCPWA || bizObj.OptionTPWA) && (!bizObj.OptionResearch) && (obj.GeneralSettings.StartupMode == CrxStructCommonResourceMsg.Pwa))
+            if ((BizInfo.Instance().OptionCPWA || BizInfo.Instance().OptionTPWA) && (!BizInfo.Instance().OptionResearch) && (obj.GeneralSettings.StartupMode == CrxStructCommonResourceMsg.Pwa))
             {
                 radradiobtnQuickStart.Enabled = true;
 
@@ -847,7 +853,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void SetStartupMode(string value)
         {
             // If both cPWA and tPWA modes from key are not available
-            if ((!bizObj.OptionCPWA) && (!bizObj.OptionTPWA))
+            if ((! BizInfo.Instance().OptionCPWA) && (! BizInfo.Instance().OptionTPWA))
             {
                 radgrpbxstartupMode.Visible = false;
                 radradiobtnPWAMode.Enabled = false;
@@ -859,7 +865,7 @@ namespace AtCor.Scor.Gui.Presentation
                 radgrpbxStartupScreen.Size = new Size(228, 92);
                 radgrpbxStartupScreen.Location = new Point(15, 262);
             }
-            else if (!bizObj.OptionPWV)
+            else if (! BizInfo.Instance().OptionPWV)
             {
                 radgrpbxstartupMode.Visible = false;
                 radradiobtnPWVMode.Enabled = false;
@@ -1432,7 +1438,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
 
             // Begin: AtCor-Drop2-Sprint2, TM, SWREQ2004, 29-Jun-2011
-            gnrlSettingsStruct.StartupScreen = CrxStructCommonResourceMsg.Setup;
+            gnrlSettingsStruct.StartupScreen = CrxStructCommonResourceMsg.Standard;
             if (radradiobtnQuickStart.ToggleState == Telerik.WinControls.Enumerations.ToggleState.On)
             {
                 gnrlSettingsStruct.StartupScreen = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart);
@@ -1454,7 +1460,7 @@ namespace AtCor.Scor.Gui.Presentation
         private void ReadPwvSettingsFromGui()
         {
             if (radtxtFemoralToCuff.Text.Trim().Equals(string.Empty))
-            {                
+            {
                 // DialogResult ds = RadMessageBox.Show(this, "Femoral To Cuff distance value cannot be empty,default value should be 200", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.OK, RadMessageIcon.Info);
                 // radtxtFemoralToCuff.Text = defaultValue.ToString();
                 pwvSettingsStruct.FemoralToCuff = string.Empty;
@@ -1487,6 +1493,12 @@ namespace AtCor.Scor.Gui.Presentation
             if (radchkPwvAutoCapture.Checked)
             {
                 pwvSettingsStruct.AutoCapture = true;
+            }
+
+            pwvSettingsStruct.AutoInflate = false;
+            if (radchkAutoInflate.Checked) 
+            {
+                pwvSettingsStruct.AutoInflate = true; 
             }
 
             pwvSettingsStruct.PWVDistanceMethod = 0;
@@ -1643,13 +1655,22 @@ namespace AtCor.Scor.Gui.Presentation
                 // Reading General Settings values from GUI into the General settings structure.
                 ReadGeneralSettingsFromGui();
 
-                if (bizObj.OptionPWV)
+                if (GuiCommon.CheckPatientPrivacy && (gnrlSettingsStruct.PatientPrivacy != prevPrivacySetting))
+                {
+                    GuiCommon.CheckPatientPrivacy = true;
+                }
+                else
+                {
+                    GuiCommon.CheckPatientPrivacy = false;
+                }
+
+                if (BizInfo.Instance().OptionPWV)
                 {
                     // Reading PWV settings values from GUI into the PWV settings structure.
                     ReadPwvSettingsFromGui();
                 }
 
-                if (bizObj.OptionCPWA || bizObj.OptionTPWA)
+                if (BizInfo.Instance().OptionCPWA || BizInfo.Instance().OptionTPWA)
                 {
                     if (ValidateThreshold(validateFlag))
                     {
@@ -1767,7 +1788,7 @@ namespace AtCor.Scor.Gui.Presentation
                 obj = CrxConfigManager.Instance;
                 obj.SetGeneralUserSettings(gnrlSettingsStruct);
                 GuiCommon.GeneralSettingsStruct = gnrlSettingsStruct;
-                if (bizObj.OptionPWV)
+                if (BizInfo.Instance().OptionPWV)
                 {
                     obj.SetPwvUserSettings(pwvSettingsStruct);
                 }
@@ -1959,19 +1980,19 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void EnableDisableCaptureInput()
         {
-            if (bizObj.OptionCPWA)
+            if (BizInfo.Instance().OptionCPWA)
             {
                 radradiobtnPressureCuff.Enabled = true;
                 radradiobtnTonometer.Enabled = false;
             }
 
-            if (bizObj.OptionTPWA)
+            if (BizInfo.Instance().OptionTPWA)
             {
                 radradiobtnTonometer.Enabled = true;
                 radradiobtnPressureCuff.Enabled = false;
             }
 
-            if (bizObj.OptionCPWA && bizObj.OptionTPWA)
+            if (BizInfo.Instance().OptionCPWA && BizInfo.Instance().OptionTPWA)
             {
                 radradiobtnTonometer.Enabled = radradiobtnPressureCuff.Enabled = true;
             }
@@ -2037,27 +2058,24 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void radtxtFemoralToCuff_Leave(object sender, EventArgs e)
         {
-            string femoralToCuffValue=radtxtFemoralToCuff.Text;
+            string femoralToCuffValue = radtxtFemoralToCuff.Text;
             
-            // radtxtFemoralToCuff.Text=femoralToCuffValue;           
-
+            // radtxtFemoralToCuff.Text=femoralToCuffValue;         
             GuiFieldValidation objValidation = new GuiFieldValidation(guipnlFemoralToCuffDistance);
             objValidation.CheckFieldLimits(radtxtFemoralToCuff);
 
-            //if (GuiCommon.IsValueOutsideLimits)
-            //{
+            // if (GuiCommon.IsValueOutsideLimits)
+            // {
             //    radtxtFemoralToCuff.Text = defaultValue.ToString();
             //    return;
-            //}
+            // }
 
-            //if (radtxtFemoralToCuff.Text.Trim().Equals(string.Empty))
-            //{
+            // if (radtxtFemoralToCuff.Text.Trim().Equals(string.Empty))
+            // {
             //    DialogResult ds = RadMessageBox.Show(this, "Femoral To Cuff distance value cannot be empty,default value should be 200", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Information), MessageBoxButtons.OK, RadMessageIcon.Info);
             //    radtxtFemoralToCuff.Text = defaultValue.ToString();
             //    return;
-            //}
-
-            
+            // }            
         }
 
         // This event is fired on Toogle change of PWV Mode

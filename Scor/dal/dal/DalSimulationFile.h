@@ -79,7 +79,7 @@ namespace AtCor{
 									*
 									* @return the status of the operation: true if successful
 									*/
-									bool GetNextValues(unsigned long *value1);
+									bool GetNextValues(unsigned short *value1);
 									
 									/**
 									* Reads a line from the simlation file and returns two integer values.
@@ -88,22 +88,35 @@ namespace AtCor{
 									*
 									* @return the status of the operation: true if successful
 									*/
-									bool GetNextValues(unsigned long *value1, unsigned long *value2);
+									bool GetNextValues(unsigned short *value1, unsigned short *value2);
 																		
 									/**
 									* Reads a line from the simlation file and returns four values.
 									* @param[out] value1 Unsigned integer value from the first column in the file.
-									* @param[out] value2 Unsigned integer value from the second column in the file.
-									* @param[out] value3 Unsigned long value from the third column in the file.
-									* @param[out] value4 Unsigned long value from the third column in the file.
+									* @param[out] value2 Unsigned short value from the second column in the file.
+									* @param[out] value3 Unsigned short value from the third column in the file.
+									* @param[out] value4 Unsigned short value from the fourth column in the file.
 									*
 									* @return the status of the operation: true if successful
 									*
 									* @see GetNextValues(signed int *value1, signed int *value2);
 									*/									
-									bool GetNextValues(unsigned long  *value1, unsigned long *value2, unsigned long *value3, unsigned long *value4 );
+									bool GetNextValues(unsigned long  *value1, unsigned short *value2, unsigned short *value3, unsigned short *value4 );
 									
-									//TS Stub
+									/**
+									* Reads a line from the simlation file and returns four values.
+									* @param[out] value1 Unsigned integer value from the first column in the file.
+									* @param[out] value2 Unsigned integer value from the second column in the file.
+									* @param[out] value3 Unsigned long value from the third column in the file.
+									* @param[out] value4 Unsigned long value from the fourth column in the file.
+									* @param[out] value5 Unsigned long value from the fifth column in the file.
+									* @param[out] value6 Unsigned long value from the sixth column in the file.
+									* @param[out] value7 Unsigned long value from the seventh column in the file.
+									*
+									* @return the status of the operation: true if successful
+									*
+									* @see GetNextValues(signed int *value1, signed int *value2);
+									*/
 									bool GetNextValues(unsigned short  *value1, unsigned short *value2, unsigned short *value3, unsigned short *value4, unsigned short *value5, unsigned short *value6, unsigned short *value7 );
 
 									/**

@@ -331,11 +331,13 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 guilblBPmsg.Text = string.Empty;
                 PWVReportData.RptPatientHeightInternalValue = PWVReportData.RptPatientHeightValue;
+                PWVPatientReportData.RptPatientHeightInternalValue = PWVPatientReportData.RptPatientHeight;
             }
             else
             {
                 guilblBPmsg.Text = PWVReportData.RptBpLabelsText;
                 PWVReportData.RptPatientHeightInternalValue = string.Empty;
+                PWVPatientReportData.RptPatientHeightInternalValue = string.Empty;
             }            
         }
     }

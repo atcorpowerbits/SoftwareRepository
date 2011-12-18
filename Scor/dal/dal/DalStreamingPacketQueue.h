@@ -36,7 +36,11 @@ namespace AtCor{
 					static DalStreamingPacketQueue^ _instance = gcnew DalStreamingPacketQueue(); //internal instance variable
  
 					Queue<array<unsigned char>^> ^streamingPacketQueue; //A queue of pointers that point to the streaming packets
-					static Mutex^ _mutex = gcnew Mutex(); //mutex for access synchronization
+					
+						
+					//Removing mutex becuase it clashes with the [Synchronization] attribute of DalStagingQueue class
+					//TODO: recheck effects of this
+					//static Mutex^ _mutex = gcnew Mutex(); //mutex for access synchronization
 
 
 				public:
@@ -46,6 +50,10 @@ namespace AtCor{
 					*/
 					static property DalStreamingPacketQueue^ Instance
 					{
+						/**
+						* Returns a pointer the current instance.
+						* @return Pointer to the singleton instance.
+						*/
 						DalStreamingPacketQueue^ get();
 					};
 

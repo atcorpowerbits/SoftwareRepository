@@ -150,14 +150,19 @@ namespace AtCor.Scor.Gui.Presentation
             isStdDeviationValid = trendData.IsStdDevValidArrStr.Split(GuiConstants.Separator);
 
             string[] heartPwvSort = trendData.HeartRateArrStr.Split(GuiConstants.Separator);
-            Array.Sort(heartPwvSort);
+            /// Array.Sort(heartPwvSort);
+
+            int[] heartPwvSortCalc = dbMagr.CommonStringArrToIntArr(heartPwvSort);
+            Array.Sort(heartPwvSortCalc);
 
             // plot heart rate series
             if (heartRate.Length <= 0)
             {
                 return;
             }
-                
+
+            heartPwvSort = dbMagr.CommonIntArrToStringArr(heartPwvSortCalc);
+
             // assign latest record valus to bottom labels
             // guiradlblReportHeartRateValue.Text = heartRate[heartRate.Length - 1].ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.HeartrateUnit);
             double value = Math.Round(double.Parse(heartPwvSort[0]) * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
@@ -166,7 +171,7 @@ namespace AtCor.Scor.Gui.Presentation
             guiradchartHeartRate.ChartAreas[0].AxisY.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.HeartrateLblAnalysis);
             guiradchartHeartRate.ChartAreas[0].AxisY.TitleFont = new Font(GuiConstants.FontName, guiradchartHeartRate.ChartAreas[0].AxisY.TitleFont.Size, FontStyle.Bold);
 
-            value = Math.Round(double.Parse(heartPwvSort[heartPwvSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+            value = Math.Round(heartPwvSortCalc[heartPwvSortCalc.Length - 1] * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
             guiradchartHeartRate.ChartAreas[0].AxisY.Maximum = value;
             guiradchartHeartRate.ChartAreas[0].AxisY.IntervalOffset = 0;
             guiradchartHeartRate.ChartAreas[0].AxisY.Interval = 5;
@@ -195,14 +200,23 @@ namespace AtCor.Scor.Gui.Presentation
             string[] heartPwvSort = trendData.PulseWaveVelocityArrStr.Split(GuiConstants.Separator);
 
             // sort array to get minimum & maximum value to set y axis range
-            Array.Sort(heartPwvSort);
+            // Array.Sort(heartPwvSort);
+            float[] heartPwvSortCalc = dbMagr.CommonStringArrToFloatArr(heartPwvSort);
+            Array.Sort(heartPwvSortCalc);
+
             string[] stdDeviationSort = trendData.StandardDeviationArrStr.Split(GuiConstants.Separator);
-            Array.Sort(stdDeviationSort);
+            /// Array.Sort(stdDeviationSort);
+
+            float[] stdDeviationSortCalc = dbMagr.CommonStringArrToFloatArr(stdDeviationSort);
+            Array.Sort(stdDeviationSortCalc);
 
             if (pWv.Length <= 0)
             {
                 return;
             }
+
+            heartPwvSort = dbMagr.CommonFloatArrToStringArr(heartPwvSortCalc);
+            stdDeviationSort = dbMagr.CommonFloatArrToStringArr(stdDeviationSortCalc);
 
             // set max value as largest pwv + largest std deviation
             // set min value as lowest pwv + largest std deviation
@@ -411,18 +425,18 @@ namespace AtCor.Scor.Gui.Presentation
                 string[] dpSort = trendData.DpValidArrStr.Split(GuiConstants.Separator);
                 string[] mpSort = trendData.MpValidArrStr.Split(GuiConstants.Separator);
 
-                int[] spSortArr = CommonStringArrToIntArr(spSort);
-                int[] dpSortArr = CommonStringArrToIntArr(dpSort);
-                int[] mpSortArr = CommonStringArrToIntArr(mpSort);
+                int[] spSortArr = dbMagr.CommonStringArrToIntArr(spSort);
+                int[] dpSortArr = dbMagr.CommonStringArrToIntArr(dpSort);
+                int[] mpSortArr = dbMagr.CommonStringArrToIntArr(mpSort);
 
                 // sort array to get minimum & maximum value to set y axis range
                 Array.Sort(spSortArr);
                 Array.Sort(dpSortArr);
                 Array.Sort(mpSortArr);
 
-                spSort = CommonIntArrToStringArr(spSortArr);
-                dpSort = CommonIntArrToStringArr(dpSortArr);
-                mpSort = CommonIntArrToStringArr(mpSortArr);
+                spSort = dbMagr.CommonIntArrToStringArr(spSortArr);
+                dpSort = dbMagr.CommonIntArrToStringArr(dpSortArr);
+                mpSort = dbMagr.CommonIntArrToStringArr(mpSortArr);
 
                 // Check the combination of the Blood pressure options.
                 if (sp.Length > 0 && dp.Length > 0 && mp.Length > 0)
@@ -449,18 +463,18 @@ namespace AtCor.Scor.Gui.Presentation
                     dpSort = SettingAxisValuesForChart(dpSort);
                     mpSort = SettingAxisValuesForChart(mpSort);
 
-                    spSortArr = CommonStringArrToIntArr(spSort);
-                    dpSortArr = CommonStringArrToIntArr(dpSort);
-                    mpSortArr = CommonStringArrToIntArr(mpSort);
+                    spSortArr = dbMagr.CommonStringArrToIntArr(spSort);
+                    dpSortArr = dbMagr.CommonStringArrToIntArr(dpSort);
+                    mpSortArr = dbMagr.CommonStringArrToIntArr(mpSort);
 
                     // sort array to get minimum & maximum value to set y axis range
                     Array.Sort(spSortArr);
                     Array.Sort(dpSortArr);
                     Array.Sort(mpSortArr);
 
-                    spSort = CommonIntArrToStringArr(spSortArr);
-                    dpSort = CommonIntArrToStringArr(dpSortArr);
-                    mpSort = CommonIntArrToStringArr(mpSortArr);
+                    spSort = dbMagr.CommonIntArrToStringArr(spSortArr);
+                    dpSort = dbMagr.CommonIntArrToStringArr(dpSortArr);
+                    mpSort = dbMagr.CommonIntArrToStringArr(mpSortArr);
 
                     spValue = Math.Round(double.Parse(spSort[spSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
                     dpValue = Math.Round(double.Parse(dpSort[dpSort.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
@@ -714,31 +728,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GUIExceptionHandler.HandleException(ex, this);
             }
-        }
-
-        private int[] CommonStringArrToIntArr(string[] sortArr)
-        {
-            int[] bpSort = new int[sortArr.Length];
-
-            for (int i = 0; i < sortArr.Length; i++)
-            {
-                bpSort[i] = Convert.ToInt32(sortArr[i]);
-            }
-
-            return bpSort; 
-        }
-
-        private string[] CommonIntArrToStringArr(int[] sortArr)
-        {
-            string[] bpSort = new string[sortArr.Length];
-
-            for (int i = 0; i < sortArr.Length; i++)
-            {
-                bpSort[i] = Convert.ToString(sortArr[i]);
-            }
-
-            return bpSort;
-        }
+        }     
 
         private double CompareLowerBP(double spValue, double dpValue, double mpValue)
         {

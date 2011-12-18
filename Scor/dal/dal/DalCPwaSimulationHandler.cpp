@@ -93,10 +93,10 @@ namespace AtCor{
 				DalPwvDataStruct tempPWVDataVar;
 			
 				//variables to hold the tonometer and cuff pulse readings
-				static unsigned long tonoData, cuffPulseData;
-				static unsigned long cuffAbsolutePressure;
+				static unsigned short tonoData, cuffPulseData;
+				static unsigned short cuffAbsolutePressure;
 				static unsigned long locCountdownTimer = 0;
-				static unsigned long statusBytes, locEASourceFlag;
+				static unsigned short statusBytes, locEASourceFlag;
 				static bool currentCuffStateIsInflated = false;
 				
 				//Pick the number of reads from DalConstants
@@ -109,7 +109,8 @@ namespace AtCor{
 						//CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString(), ErrorSeverity::Debug);
 						ResetAllStaticMembers();
 
-						tonoData = cuffPulseData = cuffAbsolutePressure = locCountdownTimer = statusBytes =  0;
+						tonoData = cuffPulseData = cuffAbsolutePressure = statusBytes =  0;
+						locCountdownTimer = 0;
 						currentCuffStateIsInflated = firstReadAfterCaptureStarted = false;
 						//CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IInd = " + firstReadAfterCaptureStarted.ToString(), ErrorSeverity::Debug);
 					}
@@ -132,7 +133,7 @@ namespace AtCor{
 							_currentEASourceFlag = locEASourceFlag;
 
 							//Added by TS Stub
-							if (DalCuffStateFlags::CUFF_STATE_DEFLATED == (DalCuffStateFlags)(statusBytes & 0x7))
+							if (DalCuffStatusBitMask::CUFF_DEFLATED_STATUS_BITS == (DalCuffStatusBitMask)(statusBytes & 0x0700))
 							{
 								// Finished cuff until another inflation
 								cuffInUse = false;
@@ -184,12 +185,12 @@ namespace AtCor{
 				}
 				catch(ScorException^ scorExObj)
 				{
-					CrxLogger::Instance->Write("Deepak>>> Raising event for ScorException: " + scorExObj->ErrorMessageKey , ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL:Deepak>>> Raising event for ScorException: " + scorExObj->ErrorMessageKey + scorExObj->StackTrace, ErrorSeverity::Debug);
 					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, scorExObj);
 				}
 				catch(Exception^ excepObj)
 				{
-					CrxLogger::Instance->Write("Deepak>>> Raising event for exception: " + excepObj->Data , ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL:Deepak>>> Raising event for exception: " + excepObj->Data + excepObj->StackTrace, ErrorSeverity::Debug);
 					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, gcnew ScorException(excepObj));
 				}
 			}

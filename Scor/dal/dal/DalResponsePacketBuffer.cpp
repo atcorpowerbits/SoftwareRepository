@@ -24,8 +24,8 @@ DalResponsePacketBuffer::DalResponsePacketBuffer()
 DalResponsePacketBuffer::~DalResponsePacketBuffer()
 {
 	this->Clear();
-	_mutex->ReleaseMutex();
-	delete this->_mutex;
+//	_mutex->ReleaseMutex();
+//	delete this->_mutex;
 }
 
 DalResponsePacketBuffer::DalResponsePacketBuffer(DalResponsePacketBuffer^)
@@ -51,7 +51,7 @@ array<unsigned char> ^ DalResponsePacketBuffer::Dequeue()
 	//CrxLogger::Instance->Write("Deepak>>> DalResponsePacketBuffer::Dequeue Start ", ErrorSeverity::Debug);
 	
 	array< unsigned char>^ returnValue; 
-	_mutex->WaitOne();
+//	_mutex->WaitOne();
 	//Set the current response
 	returnValue =  this->waitingResponse;
 	if(nullptr!= returnValue)
@@ -69,7 +69,7 @@ array<unsigned char> ^ DalResponsePacketBuffer::Dequeue()
 	//Do not delete the array
 	waitingResponse = nullptr;
 
-	_mutex->ReleaseMutex();
+//	_mutex->ReleaseMutex();
 
 	//now return
 	return returnValue;
@@ -77,7 +77,10 @@ array<unsigned char> ^ DalResponsePacketBuffer::Dequeue()
 
 void DalResponsePacketBuffer::Enqueue(array<unsigned char> ^packet)
 {
-	_mutex->WaitOne();
+	try
+	{
+
+//	_mutex->WaitOne();
 
 	//TODO : This code is for printing the response only //please delete after testing
 	if (waitingResponse)
@@ -90,20 +93,25 @@ void DalResponsePacketBuffer::Enqueue(array<unsigned char> ^packet)
 	//now write the new response packet
 	waitingResponse = packet;
 	
-	_mutex->ReleaseMutex();
+//		_mutex->ReleaseMutex();
 
 	//signal the lstener that the data is available
 	DalCommandInterface::Instance->SignalResponsePacketAvailable();
+	}
+	catch(Exception^ )
+	{
+		throw;
+	}
 }
 
 void DalResponsePacketBuffer::Clear()
 {
-	_mutex->WaitOne();
+//	_mutex->WaitOne();
 
 	delete waitingResponse;
 	waitingResponse = nullptr;
 
-	_mutex->ReleaseMutex();
+//	_mutex->ReleaseMutex();
 }
 
 

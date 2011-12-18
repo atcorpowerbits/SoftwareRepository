@@ -135,25 +135,27 @@ namespace TestDal {
 				actual = (target = unnamed);
 				Assert::AreEqual(expected, actual);
 			}
-			/// <summary>
-			///A test for LookForResponseToCommand
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void LookForResponseToCommandTest()
-			{
-				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
-				unsigned char commandCodeToLocate = 0x0B; //any value will do for testing 
-				unsigned char expectedResponseLengthToLocate = 0x05; //any value will do for testing 
-				unsigned char expectedSequenceNumberToLocate = 0x0A; //any value will do for testing 
-				
-				target->LookForResponseToCommand(commandCodeToLocate, expectedResponseLengthToLocate);
 
-				Assert::IsTrue(target->checkForCommand);
-				Assert::AreEqual(commandCodeToLocate, target->commandCodeToLocate);
-				Assert::AreEqual(expectedResponseLengthToLocate, target->expectedResponseLengthToLocate);
-				//Assert::AreEqual(expectedSequenceNumberToLocate, target->expectedSequenceNumberToLocate);
-			}
+			//removed from code
+	//		/// <summary>
+	//		///A test for LookForResponseToCommand
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+	//		void LookForResponseToCommandTest()
+	//		{
+	//			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+	//			unsigned char commandCodeToLocate = 0x0B; //any value will do for testing 
+	//			unsigned char expectedResponseLengthToLocate = 0x05; //any value will do for testing 
+	//			unsigned char expectedSequenceNumberToLocate = 0x0A; //any value will do for testing 
+	//			
+	//			//target->LookForResponseToCommand(commandCodeToLocate, expectedResponseLengthToLocate);
+
+	//			Assert::IsTrue(target->checkForCommand);
+	//			Assert::AreEqual(commandCodeToLocate, target->commandCodeToLocate);
+	//			Assert::AreEqual(expectedResponseLengthToLocate, target->expectedResponseLengthToLocate);
+	//			//Assert::AreEqual(expectedSequenceNumberToLocate, target->expectedSequenceNumberToLocate);
+	//		}
 			/// <summary>
 			///A test for ExtractStreamingDataPacket
 			///</summary>
@@ -197,10 +199,10 @@ namespace TestDal {
 
 				//set the "lookout command"
 				//sequence number doesnt matter ut length does since the expected response is a nack
-				target->LookForResponseToCommand(0x0B, 0x11); 
+				//target->LookForResponseToCommand(0x0B, 0x11); 
 				
 				//First verify that the Lookout flag has been turned off
-				Assert::IsTrue(target->checkForCommand);
+				//Assert::IsTrue(target->checkForCommand);
 
 
 				//TEST
@@ -214,7 +216,7 @@ namespace TestDal {
 				}
 
 				//now verify that the Lookout flag has been turned off
-				Assert::IsFalse(target->checkForCommand);
+				//Assert::IsFalse(target->checkForCommand);
 		
 			}
 			/// <summary>
@@ -231,7 +233,7 @@ namespace TestDal {
 				//First push the response onto the array
 				target->EnqueueArray(expected);
 				//set the "lookout command"
-				target->LookForResponseToCommand(0x0B, 0x11); //sequence number and length dont matter since the expected response is a nack
+//				target->LookForResponseToCommand(0x0B, 0x11); //sequence number and length dont matter since the expected response is a nack
 				actual = target->ExtractNackedResponsePacket();
 				//Assert::AreEqual(expected, actual);
 
@@ -242,7 +244,7 @@ namespace TestDal {
 				}
 
 				//now verify that the Lookout flag has been turned off
-				Assert::IsFalse(target->checkForCommand);
+				//Assert::IsFalse(target->checkForCommand);
 		
 			}
 			//Already covered in Destructor test
@@ -299,8 +301,8 @@ namespace TestDal {
 				unsigned char commandCodeByte = 0x8B; // acked GetConfig response
 				
 				//set the values which will tell that the command response is expected.
-				target->checkForCommand = true;
-				target->commandCodeToLocate = 0x0B; //code to look for
+				//target->checkForCommand = true;
+				//target->commandCodeToLocate = 0x0B; //code to look for
 
 				DalPacketType_Accessor^  expected = DalPacketType_Accessor::AckedResponsePakcet; //shold be an acked response packet 
 				DalPacketType_Accessor^  actual;
@@ -322,8 +324,8 @@ namespace TestDal {
 				unsigned char commandCodeByte = 0x93; // Valid NIBP response header
 				
 				//set the values which will tell that the command response is expected.
-				target->checkForCommand = true;
-				target->commandCodeToLocate = 0x00; //Can be anything. We are not looking for a particular command respinse
+				//target->checkForCommand = true;
+				//target->commandCodeToLocate = 0x00; //Can be anything. We are not looking for a particular command respinse
 
 				DalPacketType_Accessor^  expected = DalPacketType_Accessor::NibpPacket ; //shold be an NIBP response packet 
 				DalPacketType_Accessor^  actual;
@@ -343,8 +345,8 @@ namespace TestDal {
 				unsigned char commandCodeByte = 0x0B; // NACKED GetConfig response
 				
 				//set the values which will tell that the command response is expected.
-				target->checkForCommand = true;
-				target->commandCodeToLocate = 0x0B; //code to look for
+				//target->checkForCommand = true;
+				//target->commandCodeToLocate = 0x0B; //code to look for
 
 				DalPacketType_Accessor^  expected = DalPacketType_Accessor::NackedResponsePacket ; //shold be an acked response packet 
 				DalPacketType_Accessor^  actual;
@@ -365,7 +367,7 @@ namespace TestDal {
 				unsigned char commandCodeByte = 0x8B; // acked GetConfig response
 				
 				//We are NOT looking for a response.
-				target->checkForCommand = false; 
+				//target->checkForCommand = false; 
 	
 				DalPacketType_Accessor^  expected = DalPacketType_Accessor::Unknown; //should mark that the packet type is unknown
 				DalPacketType_Accessor^  actual;
@@ -386,7 +388,7 @@ namespace TestDal {
 				unsigned char commandCodeByte = 0x0B; // acked GetConfig response
 				
 				//We are NOT looking for a response.
-				target->checkForCommand = false; 
+				//target->checkForCommand = false; 
 	
 				DalPacketType_Accessor^  expected = DalPacketType_Accessor::Unknown; //should mark that the packet type is unknown
 				DalPacketType_Accessor^  actual;
@@ -528,7 +530,7 @@ namespace TestDal {
 				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
 				delete target;
 				Assert::IsNull(target->stagingQueue);
-				Assert::IsNull( target->stagingMutex);
+				//Assert::IsNull( target->stagingMutex);
 			}
 			/// <summary>
 			///A test for DalStagingQueue Constructor
@@ -539,7 +541,7 @@ namespace TestDal {
 			{
 				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor());
 				Assert::IsNotNull(target->stagingQueue);
-				Assert::IsNotNull(target->stagingMutex);
+				//Assert::IsNotNull(target->stagingMutex);
 			}
 			/// <summary>
 			///A test for ProcessSinglePacket

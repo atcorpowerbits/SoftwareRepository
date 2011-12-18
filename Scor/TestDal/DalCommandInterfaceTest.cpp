@@ -333,7 +333,7 @@ namespace TestDal {
 				DalActivePort_Accessor::Instance->SetActivePort("COM10");
 
 				//Mock the response keep the response ready in the staging area
-				DalStagingQueue_Accessor::Instance->LookForResponseToCommand(0x0B, 17);
+				//DalStagingQueue_Accessor::Instance->LookForResponseToCommand(0x0B, 17);
 				DalStagingQueue_Accessor::Instance->EnqueueArray(gcnew array<unsigned char> {0x8B, 0x11, 0x00, 0x00, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x00, 0x20, 0x00, 0x30});
 				DalStagingQueue_Accessor::Instance->SignalDataAvailable();
 
@@ -515,7 +515,7 @@ namespace TestDal {
 				DalActivePort_Accessor::Instance->SetActivePort("COM10");
 
 				//Mock the response keep the response ready in the staging area
-				DalStagingQueue_Accessor::Instance->LookForResponseToCommand(0x0B, 17);
+				//DalStagingQueue_Accessor::Instance->LookForResponseToCommand(0x0B, 17);
 				DalStagingQueue_Accessor::Instance->EnqueueArray(gcnew array<unsigned char> {0x8B, 0x11, 0x00, 0x00, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x00, 0x20, 0x00, 0x30});
 				DalStagingQueue_Accessor::Instance->SignalDataAvailable();
 
@@ -569,7 +569,7 @@ namespace TestDal {
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {0x08};
 
 				//DalStagingQueue_Accessor::Instance->dataProcessingThread->Start();
-				DalStagingQueue_Accessor::Instance->LookForResponseToCommand(0x0B, 17);
+				//DalStagingQueue_Accessor::Instance->LookForResponseToCommand(0x0B, 17);
 				DalStagingQueue_Accessor::Instance->EnqueueArray(gcnew array<unsigned char> {0x8B, 0x11, 0x00, 0x00, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x00, 0x20, 0x00, 0x30});
 				DalStagingQueue_Accessor::Instance->SignalDataAvailable();
 

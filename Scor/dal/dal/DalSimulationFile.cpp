@@ -100,7 +100,7 @@ using namespace System::Text;
 		reader->Close();
 	}
 
-	bool DalSimulationFile::GetNextValues(unsigned long *value1)
+	bool DalSimulationFile::GetNextValues(unsigned short *value1)
 	{
 		String ^singleLine; //temporary variable to store string
 		try
@@ -123,7 +123,7 @@ using namespace System::Text;
 		
 		//return values to calling function
 		//CrxLogger::Instance->Write(singleLine, ErrorSeverity::Debug);
-		*value1 = (short)Single::Parse(singleLine);
+		*value1 = UInt16::Parse(singleLine);
 		//successful
 		return true;
 		}
@@ -146,30 +146,37 @@ using namespace System::Text;
         return sb->ToString();
     }
 
-	bool DalSimulationFile::GetNextValues(unsigned long *value1, unsigned long *value2)
+	bool DalSimulationFile::GetNextValues(unsigned short *value1, unsigned short *value2)
 	{
 		try
 		{
-		String ^singleLine; //temporary variable to store string
-		array<String^> ^DataStrings; //string array to store the returned numbers
+			String ^singleLine; //temporary variable to store string
+			array<String^> ^DataStrings; //string array to store the returned numbers
 
-		if (reader == nullptr)
-		{
-			 //Simulation file has not been opened before attempting to read
-			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
-		}
-		
-		//Check if we have reached end of file and reset pointer to the start.
-		if ( reader->EndOfStream)
-		{
-			reader->BaseStream->Seek(0, SeekOrigin::Begin);
-		}
-		singleLine = reader->ReadLine();
-		DataStrings = singleLine->Split('\t', 2); //Parse only first two numbers
-		
-		//return values to calling function
-		*value1 = (short)Single::Parse(DataStrings[0]);
-		*value2 = (short)Single::Parse(DataStrings[1]);
+			try
+			{
+				if (reader == nullptr)
+				{
+					 //Simulation file has not been opened before attempting to read
+					throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
+				}
+				
+				//Check if we have reached end of file and reset pointer to the start.
+				if ( reader->EndOfStream)
+				{
+					reader->BaseStream->Seek(0, SeekOrigin::Begin);
+				}
+				singleLine = reader->ReadLine();
+				DataStrings = singleLine->Split('\t', 2); //Parse only first two numbers
+				
+				//return values to calling function
+				*value1 = UInt16::Parse(DataStrings[0]);
+				*value2 = UInt16::Parse(DataStrings[1]);
+			}
+			catch(Exception^ exObj)
+			{
+				delete exObj;//
+			}
 		//successful
 		return true;
 	}
@@ -180,7 +187,7 @@ using namespace System::Text;
 	}
 
 
-	bool DalSimulationFile::GetNextValues(unsigned long *value1, unsigned long *value2, unsigned long *value3, unsigned long *value4) 
+	bool DalSimulationFile::GetNextValues(unsigned long *value1, unsigned short *value2, unsigned short *value3, unsigned short *value4) 
 	{
 		try
 		{
@@ -206,10 +213,10 @@ using namespace System::Text;
 		DataStrings = singleLine->Split(DalFormatterStrings::tabSeparator, 4); //four substrings
 
 		//parse individual values 
-		*value1 = (short)Single::Parse(DataStrings[0]);
-		*value2 = (short)Single::Parse(DataStrings[1]);
-		*value3 = Int32::Parse(DataStrings[2], System::Globalization::NumberStyles::AllowHexSpecifier);
-		*value4 = Int32::Parse(DataStrings[3], System::Globalization::NumberStyles::AllowHexSpecifier);
+		*value1 = UInt32::Parse(DataStrings[0]);
+		*value2 = UInt16::Parse(DataStrings[1]);
+		*value3 = Int16::Parse(DataStrings[2], System::Globalization::NumberStyles::AllowHexSpecifier);
+		*value4 = Int16::Parse(DataStrings[3], System::Globalization::NumberStyles::AllowHexSpecifier);
 				
 		return true;
 	}
@@ -312,3 +319,7 @@ using namespace System::Text;
 	}
 	}
 
+	String^ SerialNumberMpb()
+	{
+		return "SerialNumberMpb";
+	}

@@ -112,24 +112,23 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                // create bizinfo instance to get about box information
-                BizInfo bizInformation = BizInfo.Instance();
                
                 // \u00AE displays registered symbol
                 // \u00A9 displays copyright symbol
-                guiradlblCompanyName.Text = bizInformation.GetCompanyName().Replace("(R)", "\u00AE"); 
-                guiradlblCopyrightNotice.Text = bizInformation.GetCopyright().Replace("(c)", "\u00A9");
-                guiradlblVersion.Text = string.Format("{0}{1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashLblVersionTxt), Assembly.GetExecutingAssembly().GetName().Version.ToString());    // bizInformation.GetVersion();
+                guiradlblCompanyName.Text = BizInfo.Instance().GetCompanyName().Replace("(R)", "\u00AE"); 
+                guiradlblCopyrightNotice.Text = BizInfo.Instance().GetCopyright().Replace("(c)", "\u00A9");
+                guiradlblVersion.Text = string.Format("{0}{1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashLblVersionTxt), Assembly.GetExecutingAssembly().GetName().Version.ToString());    // BizInfo.Instance().GetVersion();
                 guiradlblInstalledID.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutInstallId);
-                guiradlblPWV.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutNoMeasuremtPwv), bizInformation.GetModuleNumberMeasurementsPWV());
-                guiradlblPWA.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtPwa), bizInformation.GetModuleNumberMeasurementsPWA());
-                guiradlblBP.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtBp), bizInformation.GetModuleNumberMeasurementsNIBP());
-                guiradlblSecurityMode.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutSecMode), bizInformation.GetSecurityMode());
+                guiradlblPWV.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutNoMeasuremtPwv),  BizInfo.Instance().GetModuleNumberMeasurementsPWV());
+                guiradlblPWA.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtPwa),  BizInfo.Instance().GetModuleNumberMeasurementsPWA());
+                guiradlblBP.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtBp),  BizInfo.Instance().GetModuleNumberMeasurementsNIBP());
+                guiradlblSecurityMode.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutSecMode),  BizInfo.Instance().GetSecurityMode());
 
-                // bizInformation.GetModuleSN());
-                guiradlblmoduleInfo.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutModuleTxt), bizInformation.GetModuleType(), bizInformation.GetModuleVersion(), bizInformation.GetSystemID()); 
+                // BizInfo.Instance().GetModuleSN());
+                guiradlblmoduleInfo.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutModuleTxt),  BizInfo.Instance().GetModuleType(),  BizInfo.Instance().GetModuleVersion(),  BizInfo.Instance().GetSystemID()); 
                 guiradlblKeyFeatures.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblKey) + ": " + SetKeyFeatures();
-                guiradlblLastCalibrationDate.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutCalibDate), bizInformation.GetModuleCalibrationDate());
-                CrxLogger.Instance.Write("Module Information : (bizInformation.GetModuleType()) :" + bizInformation.GetModuleType() + "bizInformation.GetModuleVersion(): " + bizInformation.GetModuleVersion() + "bizInformation.GetModuleSN() : " + bizInformation.GetModuleSN() + "bizInformation.GetSystemID(): " + bizInformation.GetSystemID());
+                guiradlblLastCalibrationDate.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutCalibDate),  BizInfo.Instance().GetModuleCalibrationDate());
+                CrxLogger.Instance.Write("Module Information : ( BizInfo.Instance().GetModuleType()) :" + BizInfo.Instance().GetModuleType() + " BizInfo.Instance().GetModuleVersion(): " + BizInfo.Instance().GetModuleVersion() + " BizInfo.Instance().GetModuleSN() : " + BizInfo.Instance().GetModuleSN() + " BizInfo.Instance().GetSystemID(): " + BizInfo.Instance().GetSystemID());
                 if (string.IsNullOrEmpty(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.CeMarkImage.ToString()]))
                 {
                     guiradlblCeMark.BackColor = Color.FromArgb(191, 219, 255);

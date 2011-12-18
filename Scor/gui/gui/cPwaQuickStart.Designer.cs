@@ -29,11 +29,18 @@ namespace AtCor.Scor.Gui.Presentation
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.guipnlPWAMeasurementDetails = new System.Windows.Forms.Panel();
+            this.guiradlblQuickStartWarning = new Telerik.WinControls.UI.RadLabel();
+            this.guiradprgBarCuffPressure = new Telerik.WinControls.UI.RadProgressBar();
+            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.guiradbtnAutoPWACancel = new Telerik.WinControls.UI.RadButton();
             this.guiradbtnQuickStartGetBp = new Telerik.WinControls.UI.RadButton();
             this.guiradprgbarAutoPwa = new Telerik.WinControls.UI.RadProgressBar();
-            this.guiradprgBarCuffPressure = new Telerik.WinControls.UI.RadProgressBar();
             this.guiradlblPwaDpValue = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblPwaDp = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblPwaMapValue = new Telerik.WinControls.UI.RadLabel();
@@ -47,10 +54,15 @@ namespace AtCor.Scor.Gui.Presentation
             this.tmrWaitDuringAssessment = new System.Windows.Forms.Timer(this.components);
             this.tmrQsAutoPwa = new System.Windows.Forms.Timer(this.components);
             this.guipnlPWAMeasurementDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblQuickStartWarning)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradprgBarCuffPressure)).BeginInit();
+            this.guiradprgBarCuffPressure.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnAutoPWACancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnQuickStartGetBp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradprgbarAutoPwa)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradprgBarCuffPressure)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblPwaDpValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblPwaDp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblPwaMapValue)).BeginInit();
@@ -65,10 +77,11 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // guipnlPWAMeasurementDetails
             // 
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblQuickStartWarning);
+            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradprgBarCuffPressure);
             this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradbtnAutoPWACancel);
             this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradbtnQuickStartGetBp);
             this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradprgbarAutoPwa);
-            this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradprgBarCuffPressure);
             this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPwaDpValue);
             this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPwaDp);
             this.guipnlPWAMeasurementDetails.Controls.Add(this.guiradlblPwaMapValue);
@@ -82,6 +95,123 @@ namespace AtCor.Scor.Gui.Presentation
             this.guipnlPWAMeasurementDetails.Name = "guipnlPWAMeasurementDetails";
             this.guipnlPWAMeasurementDetails.Size = new System.Drawing.Size(618, 574);
             this.guipnlPWAMeasurementDetails.TabIndex = 0;
+            // 
+            // guiradlblQuickStartWarning
+            // 
+            this.guiradlblQuickStartWarning.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblQuickStartWarning.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblQuickStartWarning.Location = new System.Drawing.Point(129, 481);
+            this.guiradlblQuickStartWarning.Name = "guiradlblQuickStartWarning";
+            // 
+            // 
+            // 
+            this.guiradlblQuickStartWarning.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblQuickStartWarning.Size = new System.Drawing.Size(476, 21);
+            this.guiradlblQuickStartWarning.TabIndex = 187;
+            this.guiradlblQuickStartWarning.Text = " Warning: This device is not validated for children under 18 years old";
+            this.guiradlblQuickStartWarning.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // guiradprgBarCuffPressure
+            // 
+            this.guiradprgBarCuffPressure.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guiradprgBarCuffPressure.Controls.Add(this.chart3);
+            this.guiradprgBarCuffPressure.Controls.Add(this.chart2);
+            this.guiradprgBarCuffPressure.Controls.Add(this.chart1);
+            this.guiradprgBarCuffPressure.Dash = false;
+            this.guiradprgBarCuffPressure.Font = new System.Drawing.Font("Arial", 11.25F);
+            this.guiradprgBarCuffPressure.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradprgBarCuffPressure.Location = new System.Drawing.Point(594, 168);
+            this.guiradprgBarCuffPressure.Name = "guiradprgBarCuffPressure";
+            this.guiradprgBarCuffPressure.ProgressOrientation = Telerik.WinControls.ProgressOrientation.Bottom;
+            // 
+            // 
+            // 
+            this.guiradprgBarCuffPressure.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
+            this.guiradprgBarCuffPressure.Size = new System.Drawing.Size(20, 237);
+            this.guiradprgBarCuffPressure.SweepAngle = 90;
+            this.guiradprgBarCuffPressure.TabIndex = 186;
+            this.guiradprgBarCuffPressure.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.guiradprgBarCuffPressure.Visible = false;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).Orientation = Telerik.WinControls.ProgressOrientation.Bottom;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).ShowProgressIndicator = false;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).SweepAngle = 90;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).Dash = false;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).Value1 = 0;
+            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).Text = "";
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.SystemColors.ControlLightLight;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.SystemColors.ControlLightLight;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.SystemColors.ControlLightLight;
+            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.SystemColors.ControlLightLight;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(139)))), ((int)(((byte)(232)))));
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(139)))), ((int)(((byte)(232)))));
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).GradientAngle = 0F;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).GradientPercentage = 0.5F;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).GradientPercentage2 = 0.5F;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.SystemColors.ControlDark;
+            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).LeftColor = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).TopColor = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).RightColor = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).BottomColor = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).ForeColor2 = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).ForeColor3 = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).ForeColor4 = System.Drawing.SystemColors.ControlLight;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).ForeColor = System.Drawing.SystemColors.ControlDark;
+            // 
+            // chart3
+            // 
+            this.chart3.BackColor = System.Drawing.Color.Black;
+            chartArea1.BackColor = System.Drawing.Color.Black;
+            chartArea1.InnerPlotPosition.Auto = false;
+            chartArea1.InnerPlotPosition.Height = 100F;
+            chartArea1.InnerPlotPosition.Width = 100F;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.chart3.ChartAreas.Add(chartArea1);
+            this.chart3.Location = new System.Drawing.Point(-953, 0);
+            this.chart3.Name = "chart3";
+            this.chart3.Size = new System.Drawing.Size(935, 186);
+            this.chart3.TabIndex = 17;
+            this.chart3.Text = "chart1";
+            // 
+            // chart2
+            // 
+            this.chart2.BackColor = System.Drawing.Color.Black;
+            chartArea2.BackColor = System.Drawing.Color.Black;
+            chartArea2.InnerPlotPosition.Auto = false;
+            chartArea2.InnerPlotPosition.Height = 100F;
+            chartArea2.InnerPlotPosition.Width = 100F;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 100F;
+            this.chart2.ChartAreas.Add(chartArea2);
+            this.chart2.Location = new System.Drawing.Point(-953, 8);
+            this.chart2.Name = "chart2";
+            this.chart2.Size = new System.Drawing.Size(935, 186);
+            this.chart2.TabIndex = 17;
+            this.chart2.Text = "chart1";
+            // 
+            // chart1
+            // 
+            this.chart1.BackColor = System.Drawing.Color.Black;
+            chartArea3.BackColor = System.Drawing.Color.Black;
+            chartArea3.InnerPlotPosition.Auto = false;
+            chartArea3.InnerPlotPosition.Height = 100F;
+            chartArea3.InnerPlotPosition.Width = 100F;
+            chartArea3.Name = "ChartArea1";
+            chartArea3.Position.Auto = false;
+            chartArea3.Position.Height = 100F;
+            chartArea3.Position.Width = 100F;
+            this.chart1.ChartAreas.Add(chartArea3);
+            this.chart1.Location = new System.Drawing.Point(-953, 0);
+            this.chart1.Name = "chart1";
+            this.chart1.Size = new System.Drawing.Size(935, 186);
+            this.chart1.TabIndex = 17;
+            this.chart1.Text = "chart1";
             // 
             // guiradbtnAutoPWACancel
             // 
@@ -170,51 +300,6 @@ namespace AtCor.Scor.Gui.Presentation
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgbarAutoPwa.GetChildAt(0).GetChildAt(3))).ForeColor3 = System.Drawing.SystemColors.ControlLight;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgbarAutoPwa.GetChildAt(0).GetChildAt(3))).ForeColor4 = System.Drawing.SystemColors.ControlLight;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgbarAutoPwa.GetChildAt(0).GetChildAt(3))).ForeColor = System.Drawing.SystemColors.ControlDark;
-            // 
-            // guiradprgBarCuffPressure
-            // 
-            this.guiradprgBarCuffPressure.Dash = false;
-            this.guiradprgBarCuffPressure.Font = new System.Drawing.Font("Arial", 10F);
-            this.guiradprgBarCuffPressure.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradprgBarCuffPressure.Location = new System.Drawing.Point(215, 425);
-            this.guiradprgBarCuffPressure.Name = "guiradprgBarCuffPressure";
-            // 
-            // 
-            // 
-            this.guiradprgBarCuffPressure.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradprgBarCuffPressure.Size = new System.Drawing.Size(251, 22);
-            this.guiradprgBarCuffPressure.TabIndex = 59;
-            this.guiradprgBarCuffPressure.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.guiradprgBarCuffPressure.Visible = false;
-            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).ShowProgressIndicator = false;
-            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).Dash = false;
-            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).Value1 = 0;
-            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).SeparatorColor1 = System.Drawing.SystemColors.ControlLightLight;
-            ((Telerik.WinControls.UI.RadProgressBarElement)(this.guiradprgBarCuffPressure.GetChildAt(0))).Text = "";
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.SystemColors.ControlLightLight;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).NumberOfColors = 2;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).GradientPercentage = 0.1F;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).GradientPercentage2 = 0.1F;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.SystemColors.ControlLightLight;
-            ((Telerik.WinControls.Primitives.FillPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(0))).Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(139)))), ((int)(((byte)(232)))));
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).BackColor3 = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(139)))), ((int)(((byte)(232)))));
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).BackColor4 = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).GradientStyle = Telerik.WinControls.GradientStyles.Linear;
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).GradientPercentage = 0.5F;
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).GradientPercentage2 = 0.5F;
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).ForeColor = System.Drawing.SystemColors.ControlDark;
-            ((Telerik.WinControls.Primitives.ProgressBarPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(1))).BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).LeftColor = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).TopColor = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).RightColor = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).BottomColor = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).ForeColor2 = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).ForeColor3 = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).ForeColor4 = System.Drawing.SystemColors.ControlLight;
-            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradprgBarCuffPressure.GetChildAt(0).GetChildAt(3))).ForeColor = System.Drawing.SystemColors.ControlDark;
             // 
             // guiradlblPwaDpValue
             // 
@@ -413,10 +498,16 @@ namespace AtCor.Scor.Gui.Presentation
             this.Load += new System.EventHandler(this.cPwaQuickStart_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.cPwaQuickStart_FormClosing);
             this.guipnlPWAMeasurementDetails.ResumeLayout(false);
+            this.guipnlPWAMeasurementDetails.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblQuickStartWarning)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradprgBarCuffPressure)).EndInit();
+            this.guiradprgBarCuffPressure.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnAutoPWACancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradbtnQuickStartGetBp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradprgbarAutoPwa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guiradprgBarCuffPressure)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblPwaDpValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblPwaDp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblPwaMapValue)).EndInit();
@@ -443,13 +534,17 @@ namespace AtCor.Scor.Gui.Presentation
         private Telerik.WinControls.UI.RadLabel guiradlblPwaPp;
         private Telerik.WinControls.UI.RadLabel guiradlblPwaSpValue;
         private Telerik.WinControls.UI.RadLabel guiradlblPwaSp;
-        private Telerik.WinControls.UI.RadProgressBar guiradprgBarCuffPressure;
         private Telerik.WinControls.UI.RadProgressBar guiradprgbarAutoPwa;
-        private Telerik.WinControls.UI.RadButton guiradbtnAutoPWACancel;
         private System.Windows.Forms.Timer tmrGetCuffPressure;
         private System.Windows.Forms.Timer tmrWaitDuringAssessment;
         private System.Windows.Forms.Timer tmrQsAutoPwa;
         public Telerik.WinControls.UI.RadButton guiradbtnQuickStartGetBp;
+        private Telerik.WinControls.UI.RadProgressBar guiradprgBarCuffPressure;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private Telerik.WinControls.UI.RadLabel guiradlblQuickStartWarning;
+        public Telerik.WinControls.UI.RadButton guiradbtnAutoPWACancel;
     }
 }
 

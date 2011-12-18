@@ -53,6 +53,10 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="dal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Debug\dal.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -120,6 +124,12 @@
     </Compile>
     <Compile Include="Capture.Designer.cs">
       <DependentUpon>Capture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CrystalPwaQuickStart.cs">
+      <DependentUpon>CrystalPwaQuickStart.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="cPwaQuickStart.cs">
       <SubType>Form</SubType>
@@ -295,6 +305,12 @@
     <Compile Include="PWAPrintReport.Designer.cs">
       <DependentUpon>PWAPrintReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="PWAAnalysisPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PWAAnalysisPreview.Designer.cs">
+      <DependentUpon>PWAAnalysisPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="PWAReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -313,12 +329,6 @@
     </Compile>
     <Compile Include="PwvPatientReport.Designer.cs">
       <DependentUpon>PwvPatientReport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="QuickStart.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="QuickStart.Designer.cs">
-      <DependentUpon>QuickStart.cs</DependentUpon>
     </Compile>
     <Compile Include="RadAboutBox.cs">
       <SubType>Form</SubType>
@@ -472,6 +482,10 @@
     <EmbeddedResource Include="BPAssessments.resx">
       <DependentUpon>BPAssessments.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CrystalPwaQuickStart.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalPwaQuickStart.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="cPwaQuickStart.resx">
       <DependentUpon>cPwaQuickStart.cs</DependentUpon>
     </EmbeddedResource>
@@ -500,15 +514,15 @@
     <EmbeddedResource Include="PWAPrintReport.resx">
       <DependentUpon>PWAPrintReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PWAAnalysisPreview.resx">
+      <DependentUpon>PWAAnalysisPreview.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PWAReport.resx">
       <DependentUpon>PWAReport.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PWATestResult.resx">
       <DependentUpon>PWATestResult.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QuickStart.resx">
-      <DependentUpon>QuickStart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SystemKey.resx">
       <DependentUpon>SystemKey.cs</DependentUpon>
@@ -523,10 +537,6 @@
     <ProjectReference Include="..\..\crx\crx\crx.vcproj">
       <Project>{24748540-BFD1-4293-99F5-D556338366C4}</Project>
       <Name>crx</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\dal\dal\dal.vcproj">
-      <Project>{E274BA19-F920-40C0-8747-214688D2ABB3}</Project>
-      <Name>dal</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

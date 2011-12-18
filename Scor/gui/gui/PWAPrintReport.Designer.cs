@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             this.crysRptVwrPwaPrintReport = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
+            this.CrystalPwaTrendAnalysis1 = new gui.CrystalPwaTrendAnalysis();
+            this.CrystalPwaPatientReport1 = new gui.CrystalPwaPatientReport();
             this.CrystalPwaEvalution1 = new gui.CrystalPwaEvalution();
             this.CrystalPwaClinical1 = new gui.CrystalPwaClinical();
-            this.CrystalPwaPatientReport1 = new gui.CrystalPwaPatientReport();
+            this.CrystalPwaQuickStart1 = new gui.CrystalPwaQuickStart();
             this.SuspendLayout();
             // 
             // crysRptVwrPwaPrintReport
@@ -43,7 +45,7 @@
             this.crysRptVwrPwaPrintReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crysRptVwrPwaPrintReport.Location = new System.Drawing.Point(0, 0);
             this.crysRptVwrPwaPrintReport.Name = "crysRptVwrPwaPrintReport";
-            this.crysRptVwrPwaPrintReport.ReportSource = this.CrystalPwaPatientReport1;
+            this.crysRptVwrPwaPrintReport.ReportSource = this.CrystalPwaQuickStart1;
             this.crysRptVwrPwaPrintReport.Size = new System.Drawing.Size(862, 490);
             this.crysRptVwrPwaPrintReport.TabIndex = 0;
             // 
@@ -66,6 +68,8 @@
         private gui.CrystalPwaClinical CrystalPwaClinical1;
         private gui.CrystalPwaEvalution CrystalPwaEvalution1;
         private gui.CrystalPwaPatientReport CrystalPwaPatientReport1;
+        private gui.CrystalPwaTrendAnalysis CrystalPwaTrendAnalysis1;
+        private gui.CrystalPwaQuickStart CrystalPwaQuickStart1;
         
     }
 }

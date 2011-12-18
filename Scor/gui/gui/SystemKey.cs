@@ -91,7 +91,7 @@ namespace AtCor.Scor.Gui.Presentation
                     }
                 }
                 else
-                {
+                {                   
                     GuiCommon.IsValidatedLicenseKey = false;
                     guiradlblErrormsg.Visible = true;
                 }

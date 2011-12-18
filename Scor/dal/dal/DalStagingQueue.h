@@ -18,6 +18,7 @@ using namespace System; //general
 using namespace System::Collections::Generic; //For Queue<T>
 using namespace System::Threading; //For mutex
 using namespace System::Runtime::InteropServices; 
+using namespace System::Runtime::Remoting::Contexts;
 
 
 
@@ -25,6 +26,7 @@ namespace AtCor{
 	namespace Scor { 
 		namespace DataAccess{
 
+			[Synchronization]
 			private ref class DalStagingQueue
 			{
 
@@ -33,13 +35,13 @@ namespace AtCor{
 				//Queue<unsigned char>^ stagingQueue;
 				List<unsigned char>^ stagingQueue;
 				
-				static Mutex ^stagingMutex = gcnew Mutex; 
+				//static Mutex ^stagingMutex = gcnew Mutex; 
 
 				//int stagingQueueLength; //To set the length of the queue
-				 unsigned char commandCodeToLocate;
-				unsigned char expectedResponseLengthToLocate; 
+				 //unsigned char commandCodeToLocate;
+				//unsigned char expectedResponseLengthToLocate; 
 				//unsigned char expectedSequenceNumberToLocate; //TODO: may be needed later
-				static bool checkForCommand;//default false
+				//static bool checkForCommand;//default false
 				unsigned int _nackPacketStandardLength; //Excluding CRC
 				unsigned int  _streamingPacketSize; 
 
@@ -48,9 +50,6 @@ namespace AtCor{
 				bool _captureMode; //a flag to know wheter we are in capture mode or command-response mode
 
 				Thread^ dataProcessingThread; //thread to process the data in the queue
-
-				// Create the delegate for NIBP calls
-				//static ProcessNibpToHostPacketAsyncCaller^ caller = gcnew ProcessNibpToHostPacketAsyncCaller(this, DalNibpCommandInterface::ProcessNibpToHostPacketAsyncCaller);
 
 
 
@@ -76,7 +75,7 @@ namespace AtCor{
 				* @return	An Acked packet from the head of the array
 				*
 				* @warning First determine the packet type using DeterminePacketType. If the type and code are 
-				*			not corret then the funtion will throw an error.
+				*			not correct then the function will throw an error.
 				*/
 				array <unsigned char>^ ExtractAckedResponsePakcet();
 
@@ -86,7 +85,7 @@ namespace AtCor{
 				* @return	An Acked packet from the head of the array
 				*
 				* @warning First determine the packet type using DeterminePacketType. If the type and code are 
-				*			not corret then the funtion will throw an error.
+				*			not correct then the function will throw an error.
 				*/
 				array <unsigned char>^ ExtractNackedResponsePacket();
 				
@@ -98,9 +97,18 @@ namespace AtCor{
 				* @return	An Acked packet from the head of the array
 				*
 				* @warning First determine the packet type using DeterminePacketType. If the type and code are 
-				*			not corret then the funtion will throw an error.
+				*			not correct then the function will throw an error.
 				*/
 				array <unsigned char>^ ExtractNibpPacket();
+				
+				/**
+				* Dequeues an  NIBP response packet from the head of the list. 
+				* This function assumes that the code in the first byte is an NIBp command 
+				* and the next byte represents the length of the Nibp Packet.
+				*
+				* @return	An Acked packet from the head of the array
+				*/
+				array <unsigned char>^ ExtractNibpAbortPacket();
 				
 				/**
 				* Loops through all the bytes in the queue and classifies each accordign to the type
@@ -136,6 +144,9 @@ namespace AtCor{
 				 //Locates the next streaming packet and returns its index.
 				int GetIndexOfNextStreamingPacketHead();
 
+				//Extracts a packet based on the pre-determined packet type
+				array<unsigned char>^ ExtractPacketByType(DalPacketType packetType);
+
 				
 				
 				
@@ -164,19 +175,18 @@ namespace AtCor{
 				*/
 				void EnqueueArray(array <unsigned char>^ sourceArray);
 
-				/**
-				* Tells the processing thread that it should watch out for a response to an EM4 command
-				* whihc has the specified code, length and sequence mumber
-				*
-				* @param[in]	commandCodeToLocate	The command code of the sent command.	
-				* @param[in]	expectedResponseLengthToLocate	The expected length of the acked response.	
-				* @param[in]	expectedSequenceNumberToLocate	The sequence number that should be echoed.	
-				*/
-				void LookForResponseToCommand( 
-												unsigned char commandCodeToLocate,
-												unsigned char expectedResponseLengthToLocate //should be same as Em4ResponseRequiredLength enum
+				///**
+				//* Tells the processing thread that it should watch out for a response to an EM4 command
+				//* whihc has the specified code, length and sequence mumber
+				//*
+				//* @param[in]	commandCodeToLocate	The command code of the sent command.	
+				//* @param[in]	expectedResponseLengthToLocate	The expected length of the acked response.	
+				//*/
+				//void LookForResponseToCommand( 
+				//								unsigned char commandCodeToLocate,
+				//								unsigned char expectedResponseLengthToLocate //should be same as Em4ResponseRequiredLength enum
 
-												);
+				//								);
 
 				/**
 				* Tells the processign thread to not expect the command -response that was last notified by LookForResponseToCommand

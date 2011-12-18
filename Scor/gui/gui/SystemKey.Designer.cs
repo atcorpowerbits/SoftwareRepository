@@ -130,6 +130,7 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradtxtKeyPart5
             // 
             this.guiradtxtKeyPart5.BackColor = System.Drawing.Color.Transparent;
+            this.guiradtxtKeyPart5.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.guiradtxtKeyPart5.Font = new System.Drawing.Font("Arial", 11.25F);
             this.guiradtxtKeyPart5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradtxtKeyPart5.Location = new System.Drawing.Point(357, 39);
@@ -216,6 +217,7 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradtxtKeyPart4
             // 
             this.guiradtxtKeyPart4.BackColor = System.Drawing.Color.Transparent;
+            this.guiradtxtKeyPart4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.guiradtxtKeyPart4.Font = new System.Drawing.Font("Arial", 11.25F);
             this.guiradtxtKeyPart4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradtxtKeyPart4.Location = new System.Drawing.Point(279, 39);
@@ -233,6 +235,7 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradtxtKeyPart3
             // 
             this.guiradtxtKeyPart3.BackColor = System.Drawing.Color.Transparent;
+            this.guiradtxtKeyPart3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.guiradtxtKeyPart3.Font = new System.Drawing.Font("Arial", 11.25F);
             this.guiradtxtKeyPart3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradtxtKeyPart3.Location = new System.Drawing.Point(201, 39);
@@ -250,6 +253,7 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradtxtKeyPart2
             // 
             this.guiradtxtKeyPart2.BackColor = System.Drawing.Color.Transparent;
+            this.guiradtxtKeyPart2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.guiradtxtKeyPart2.Font = new System.Drawing.Font("Arial", 11.25F);
             this.guiradtxtKeyPart2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradtxtKeyPart2.Location = new System.Drawing.Point(122, 39);
@@ -267,6 +271,7 @@ namespace AtCor.Scor.Gui.Presentation
             // guiradtxtKeyPart1
             // 
             this.guiradtxtKeyPart1.BackColor = System.Drawing.Color.Transparent;
+            this.guiradtxtKeyPart1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.guiradtxtKeyPart1.Font = new System.Drawing.Font("Arial", 11.25F);
             this.guiradtxtKeyPart1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradtxtKeyPart1.Location = new System.Drawing.Point(44, 39);

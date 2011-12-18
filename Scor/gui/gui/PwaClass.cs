@@ -59,16 +59,12 @@ namespace AtCor.Scor.Gui.Presentation
         public abstract void LoadTemporaryReport();
 
         public abstract void EnableDisableCaptureButton();
+        
+        public abstract void EnableRepeatAndCaptureTab(bool value);
+        
+        public abstract void SaveChangesOnMenuFocus();
 
-        // void AppendCaptureData();        
-        // void CalculateReport();
-        // void CalculateAge();
-        // void Populate(crxPwv);
-        // bool Validate();
-        // void RecalculatePWVReport(crxPwv);
-        // void GetBpRefRange();
-        // bool Initialise();
-        // void ValidateAgeLimit();
+        public abstract void SaveReportChangesOnEdit();
     }
 
     public class CuffPwa : PwaClass 
@@ -102,77 +98,199 @@ namespace AtCor.Scor.Gui.Presentation
 
         public override void FillSession()
         {
-            ((Setup)GuiCommon.SetupChildForm).FillPwaDetailsSession();
+            try
+            {
+                (GuiCommon.SetupChildForm).FillPwaDetailsSession();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
       
         public override void SetHeightWeightUnits()
         {
-            ((Setup)GuiCommon.SetupChildForm).SetPwaHeightWeightUnits();
+            try
+            {
+                (GuiCommon.SetupChildForm).SetPwaHeightWeightUnits();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override void SetDistanceMethodAndUnits()
-        {            
+        {
+            // Do nothing in PWA mode. This method needs implementation in PWV mode only
         }
 
         public override void SetBloodPressure()
-        {           
+        {
+            // Do nothing in PWA mode. This method needs implementation in PWV mode only
         }
 
         public override bool StartCapture()
         {
-           return GuiCommon.bizPwaobject.StartCapture();
+            try
+            {
+                return GuiCommon.bizPwaobject.StartCapture();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override bool StopCapture()
         {
-           return GuiCommon.bizPwaobject.StopCapture(); 
+            try
+            {
+                return GuiCommon.bizPwaobject.StopCapture();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override void ActionPerformedAfterClickingCancel()
         {
-            ((Capture)GuiCommon.CaptureChildForm).ActionPerformedAfterClickingCancelForPwaMode();    
+            try
+            {
+                (GuiCommon.CaptureChildForm).ActionPerformedAfterClickingCancelForPwaMode();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override void CalculateReportAfterSuccessfulCapture()
         {
-            if (GuiCommon.StartupScreen.ToUpper().Equals(CrxStructCommonResourceMsg.QuickStart))
+            try
             {
-                ((Capture)GuiCommon.CaptureChildForm).TickButtonActionForcPwaQuickStart();
+                if (GuiCommon.StartupScreen.ToUpper().Equals(CrxStructCommonResourceMsg.QuickStart))
+                {
+                    (GuiCommon.CaptureChildForm).TickButtonActionForcPwaQuickStart();
+                }
+                else
+                {
+                    (GuiCommon.CaptureChildForm).TickButtonActionForPwaMode();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ((Capture)GuiCommon.CaptureChildForm).TickButtonActionForPwaMode();
+                throw ex;
             }
         }
 
         public override void SaveCapturedData()
         {
-            GuiCommon.bizPwaobject.SaveCaptureData();  
+            try
+            {
+                GuiCommon.bizPwaobject.SaveCaptureData();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override void InitialiseCaptureScreen()
         {
-            ((Capture)GuiCommon.CaptureChildForm).InitialSettingsForPwaModeCapture();   
+            try
+            {
+              (GuiCommon.CaptureChildForm).InitialSettingsForPwaModeCapture();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e)
         {
-            ((Capture)GuiCommon.CaptureChildForm).HandleKeyDownEventForPwaMode(e);    
+            try
+            {
+               // (GuiCommon.CaptureChildForm).HandleKeyDownEventForPwaMode(e);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override void CreateTextFileForFailedCapture()
         {
-            ((Capture)GuiCommon.CaptureChildForm).CreateTextFileOnReportFailedForPwaMode();
+            try
+            {
+                (GuiCommon.CaptureChildForm).CreateTextFileOnReportFailedForPwaMode();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override void LoadTemporaryReport()
         {
-            ((PWATestResult)GuiCommon.PWATestResultChildForm).LoadTemporaryReport(); 
+            try
+            {
+                (GuiCommon.PWATestResultChildForm).LoadTemporaryReport();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override void EnableDisableCaptureButton()
         {
-            ((Capture)GuiCommon.CaptureChildForm).RefreshOkButtonForPwaMode(); 
+            try
+            {
+                (GuiCommon.CaptureChildForm).RefreshOkButtonForPwaMode();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        public override void EnableRepeatAndCaptureTab(bool value)
+        {
+            try
+            {
+                (GuiCommon.PWAReportChildForm).EnableRepeatAndCaptureTab(value);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        public override void SaveChangesOnMenuFocus()
+        {
+            try
+            {
+                (GuiCommon.PWAReportChildForm).SaveChangesOnMenuFocus();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public override void SaveReportChangesOnEdit()
+        {
+            try
+            {
+                (GuiCommon.PWAReportChildForm).SaveChangesOnEdit();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -68,7 +68,10 @@ namespace AtCor{
 
 					Thread^ listenerThread;
 
+					void StreamingTimeoutChecker(bool dataAvailable);
 
+					static unsigned int bufferEmptyCounter;
+					static unsigned int isAlarmRaised = false;
 					
 				internal:
 					Timers::Timer^ streamingPacketProcessingTimer; //Timer to start the method that will process x packets in each tick
@@ -208,30 +211,6 @@ namespace AtCor{
 							return DalCommandInterface::_instance;
 						};
 					};
-
-					//moved to DalActivePort
-					/**
-					* Public exposed member that is called via the state machine.
-					* Internally calls CheckIfTimeoutHasOccurredInternal in the correct state.
-					*
-					* @param[in]	sender	The object that raised this event.
-					* @param[out]	args	The timer event arguments.
-					*
-					*/
-					//static void CheckIfTimeoutHasOccurred(Object^ sender, ElapsedEventArgs^ args);
-
-					//moved to DalActivePort
-					/**
-					* Event handler to check if data buffer is empty.
-					* Increments a counter if the buffer is empty and resets it to zero
-					* if it is not . If the counter reaches @ref DalConstants::MaxStreamingTimeoutOccurrences 
-					* then it raises an OnDalModuleErrorAlarmEvent
-					*
-					* @param[in]	sender	The object that raised this event.
-					* @param[out]	args	The timer event arguments.
-					*
-					*/
-					//static void CheckIfTimeoutHasOccurredInternal(Object^ sender, ElapsedEventArgs^ args);
 
 					/**
 					* Processes a single packet from the streamign packet buffer.

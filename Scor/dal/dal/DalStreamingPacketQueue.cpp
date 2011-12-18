@@ -28,8 +28,8 @@ DalStreamingPacketQueue::~DalStreamingPacketQueue()
 	this->streamingPacketQueue = nullptr;
 
 	//release the mutex in case it is held
-	_mutex->ReleaseMutex();
-	delete this->_mutex;
+//_mutex->ReleaseMutex();
+	//delete this->_mutex;
 }
 
 DalStreamingPacketQueue::DalStreamingPacketQueue(DalStreamingPacketQueue^)
@@ -51,7 +51,7 @@ array<unsigned char>^ DalStreamingPacketQueue::Dequeue()
 {
 	array<unsigned char>^ returnValue;
 	
-	_mutex->WaitOne();
+//_mutex->WaitOne();
 	
 	if (this->streamingPacketQueue->Count != 0)
 	{
@@ -65,39 +65,39 @@ array<unsigned char>^ DalStreamingPacketQueue::Dequeue()
 		////CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count + " UNDERFLOW" , ErrorSeverity::Debug);
 	}
 	
-	_mutex->ReleaseMutex();
+//_mutex->ReleaseMutex();
 
 	return returnValue;
 }
 
 void DalStreamingPacketQueue::Enqueue(array<unsigned char> ^packet)
 {
-	_mutex->WaitOne();
+//	_mutex->WaitOne();
 
 	this->streamingPacketQueue->Enqueue(packet);
 	////CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Enqueue Total : "+ this->streamingPacketQueue->Count + " Added new packet: " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(packet) , ErrorSeverity::Debug);
 	//CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Enqueue Total : "+ this->streamingPacketQueue->Count , ErrorSeverity::Debug);
 	
 	
-	_mutex->ReleaseMutex();
+//	_mutex->ReleaseMutex();
 }
 
 void DalStreamingPacketQueue::Clear()
 {
-	_mutex->WaitOne();
+//_mutex->WaitOne();
 
 	this->streamingPacketQueue->Clear();
 	
-	_mutex->ReleaseMutex();
+//_mutex->ReleaseMutex();
 
 }
 
 int DalStreamingPacketQueue::Count()
 {
-	_mutex->WaitOne();
+//_mutex->WaitOne();
 
 	int count =  this->streamingPacketQueue->Count;
 
-	_mutex->ReleaseMutex();
+//_mutex->ReleaseMutex();
 	return count;
 }

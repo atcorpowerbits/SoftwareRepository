@@ -83,6 +83,7 @@
             this.guiradmenuahomepage = new Telerik.WinControls.UI.RadMenuItem();
             this.guiradmnuitemAbout = new Telerik.WinControls.UI.RadMenuItem();
             this.guipnlBackgrndPanel = new System.Windows.Forms.Panel();
+            this.guiradlblApplicationMode = new Telerik.WinControls.UI.RadLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.guicmbxCurrentMode = new Telerik.WinControls.UI.RadDropDownList();
@@ -110,6 +111,7 @@
             this.radPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradmnuScor)).BeginInit();
             this.guipnlBackgrndPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblApplicationMode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guicmbxCurrentMode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radpgTabCollection)).BeginInit();
             this.radpgTabCollection.SuspendLayout();
@@ -169,7 +171,7 @@
             this.guiradgridReportAssessment.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.guiradgridReportAssessment.Location = new System.Drawing.Point(1, 479);
             // 
-            // 
+            // guiradgridReportAssessment
             // 
             this.guiradgridReportAssessment.MasterTemplate.AllowAddNewRow = false;
             this.guiradgridReportAssessment.MasterTemplate.AllowCellContextMenu = false;
@@ -256,13 +258,13 @@
             this.guiradlblEnvironment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
             this.guiradlblEnvironment.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblEnvironment.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblEnvironment.Location = new System.Drawing.Point(837, 60);
+            this.guiradlblEnvironment.Location = new System.Drawing.Point(837, 67);
             this.guiradlblEnvironment.Name = "guiradlblEnvironment";
             // 
             // 
             // 
             this.guiradlblEnvironment.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblEnvironment.Size = new System.Drawing.Size(180, 33);
+            this.guiradlblEnvironment.Size = new System.Drawing.Size(180, 25);
             this.guiradlblEnvironment.TabIndex = 19;
             this.guiradlblEnvironment.Text = "SphygmoCor Clinical";
             this.guiradlblEnvironment.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
@@ -641,6 +643,7 @@
             // guipnlBackgrndPanel
             // 
             this.guipnlBackgrndPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guipnlBackgrndPanel.Controls.Add(this.guiradlblApplicationMode);
             this.guipnlBackgrndPanel.Controls.Add(this.label3);
             this.guipnlBackgrndPanel.Controls.Add(this.label2);
             this.guipnlBackgrndPanel.Controls.Add(this.guicmbxCurrentMode);
@@ -649,6 +652,23 @@
             this.guipnlBackgrndPanel.Name = "guipnlBackgrndPanel";
             this.guipnlBackgrndPanel.Size = new System.Drawing.Size(1052, 784);
             this.guipnlBackgrndPanel.TabIndex = 19;
+            // 
+            // guiradlblApplicationMode
+            // 
+            this.guiradlblApplicationMode.AutoSize = false;
+            this.guiradlblApplicationMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(150)))), ((int)(((byte)(186)))));
+            this.guiradlblApplicationMode.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblApplicationMode.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblApplicationMode.Location = new System.Drawing.Point(11, 66);
+            this.guiradlblApplicationMode.Name = "guiradlblApplicationMode";
+            // 
+            // 
+            // 
+            this.guiradlblApplicationMode.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guiradlblApplicationMode.Size = new System.Drawing.Size(55, 28);
+            this.guiradlblApplicationMode.TabIndex = 27;
+            this.guiradlblApplicationMode.Text = "Mode";
+            this.guiradlblApplicationMode.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -671,16 +691,18 @@
             this.guicmbxCurrentMode.DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
             this.guicmbxCurrentMode.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guicmbxCurrentMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guicmbxCurrentMode.Location = new System.Drawing.Point(12, 69);
+            this.guicmbxCurrentMode.Location = new System.Drawing.Point(71, 68);
             this.guicmbxCurrentMode.Name = "guicmbxCurrentMode";
             // 
             // 
             // 
             this.guicmbxCurrentMode.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guicmbxCurrentMode.Size = new System.Drawing.Size(147, 23);
+            this.guicmbxCurrentMode.Size = new System.Drawing.Size(80, 23);
             this.guicmbxCurrentMode.TabIndex = 23;
+            this.guicmbxCurrentMode.Text = "PWA";
             this.guicmbxCurrentMode.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.guicmbxCurrentMode_SelectedIndexChanged);
             ((Telerik.WinControls.UI.RadDropDownListElement)(this.guicmbxCurrentMode.GetChildAt(0))).DropDownStyle = Telerik.WinControls.RadDropDownStyle.DropDownList;
+            ((Telerik.WinControls.UI.RadTextBoxElement)(this.guicmbxCurrentMode.GetChildAt(0).GetChildAt(0).GetChildAt(0))).Text = "PWA";
             ((Telerik.WinControls.UI.RadTextBoxElement)(this.guicmbxCurrentMode.GetChildAt(0).GetChildAt(0).GetChildAt(0))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guicmbxCurrentMode.GetChildAt(0).GetChildAt(0).GetChildAt(0).GetChildAt(2))).BackColor = System.Drawing.Color.Transparent;
             // 
@@ -815,6 +837,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.guiradmnuScor)).EndInit();
             this.guipnlBackgrndPanel.ResumeLayout(false);
             this.guipnlBackgrndPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guiradlblApplicationMode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.guicmbxCurrentMode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radpgTabCollection)).EndInit();
             this.radpgTabCollection.ResumeLayout(false);
@@ -873,6 +896,7 @@
         public Telerik.WinControls.UI.RadMenuItem guiradmnuSystem;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        public Telerik.WinControls.UI.RadMenuItem guiradmenuBackup;        
+        public Telerik.WinControls.UI.RadMenuItem guiradmenuBackup;
+        private Telerik.WinControls.UI.RadLabel guiradlblApplicationMode;        
     }
 }

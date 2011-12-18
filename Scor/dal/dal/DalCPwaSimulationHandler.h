@@ -30,24 +30,16 @@ namespace AtCor{
 			* @class DalCPwaSimulationHandler 
 			* @brief Class to operate in simulation mode. Holds references to simulation file handles. 
 			*/
-			//Inherit from IDalHandler
 			private ref class DalCPwaSimulationHandler : public DalSimulationHandler
 			{
 				private:
-					//static bool firstReadAfterCaptureStarted = false;
-
 					static DalDataBuffer^ dataBufferObj; //to hold pointer to object
 					static DalDataBuffer^ nibpBufferObj; //to hold pointer to object
 
 					//Making these two variables static. They need to be accessed from static member functions.
 					static DalSimulationFile^ _tonometerSimulationFile; //Pointer to first simulation file
 					static DalSimulationFile^ _cuffTimerSimulationFile; //pointer to second simulation file (for other cuff related measurements)
-					//Timers::Timer ^captureTimer;  //Timer to fire simulated data events
 					
-					//Added by TS Stub
-					//static bool cuffInUse = false; // to indicate cuff is inflating, inflated, or deflating
-		
-					//
 					static void OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args); //read multiple events in each interval
 					static void ReadMultipleEventsInLoop(Object^ sender);
 					
@@ -125,9 +117,31 @@ namespace AtCor{
 					*/
 					virtual void CloseFiles() override;
 
+					/**
+					* Starts a BP measurement process with the specified initial pressure.
+					* @param[in]	nibpMode	The age group for which measurement is to be taken as an enum
+					* @param[in]	initialPressure	The inital pressure to set for this capture instance
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					virtual bool StartBP(DalNIBPMode nibpMode, unsigned short initialPressure) override;
+					
+					/**
+					* Starts a BP measurement process.
+					* @param[in]	nibpMode	The age group for which measurement is to be taken as an enum
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					virtual bool StartBP(DalNIBPMode nibpMode) override;
+					
+					/**
+					* Stops a BP measurement and disconnects the NIBP module
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					virtual bool FinishBP() override;
+
+					/**
+					* Aborts an ongoing BP measurement.
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					virtual bool AbortBP() override;
 			};
 		}

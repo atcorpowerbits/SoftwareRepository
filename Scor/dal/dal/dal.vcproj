@@ -222,6 +222,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalConfigurationAndUsages.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DalCPwaCommandInterface.cpp"
 				>
 			</File>
@@ -287,6 +291,10 @@
 			</File>
 			<File
 				RelativePath=".\DalNibpSimulationHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DalNibpStatusHandler.cpp"
 				>
 			</File>
 			<File
@@ -392,6 +400,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DalConfigurationAndUsages.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DalCPwaCommandInterface.h"
 				>
 			</File>
@@ -457,6 +469,10 @@
 			</File>
 			<File
 				RelativePath=".\DalNibpSimulationHandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DalNibpStatusHandler.h"
 				>
 			</File>
 			<File

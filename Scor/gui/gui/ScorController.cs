@@ -39,7 +39,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, new ScorException(ex));
+                throw ex;
             }
         }
 
@@ -51,7 +51,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -63,7 +63,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -75,7 +75,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }     
 
@@ -87,7 +87,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -99,7 +99,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -111,7 +111,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -123,7 +123,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -135,8 +135,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
-                return false;
+                throw ex;                
             }
         }
 
@@ -148,8 +147,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
-                return false;
+                throw ex; 
             }
         }
 
@@ -161,7 +159,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex; 
             }
         }
 
@@ -173,7 +171,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -185,7 +183,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -197,7 +195,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -209,7 +207,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -221,7 +219,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject); //VA: was a bug using this);
+                throw ex;
             }
         }
 
@@ -233,8 +231,23 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, frmObject);
+                throw ex;
             }
+        }
+        
+        public void EnableRepeatAndCaptureTab(bool value)
+        {
+            scorStrategy.EnableRepeatAndCaptureTab(value);
+        }
+        
+        public void SaveChangesOnMenuFocus()
+        {
+            scorStrategy.SaveChangesOnMenuFocus();
+        }
+
+        public void SaveReportChangesOnEdit()
+        {
+            scorStrategy.SaveReportChangesOnEdit();
         }
     }
 }

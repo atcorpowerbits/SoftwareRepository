@@ -26,7 +26,9 @@ namespace AtCor.Scor.Gui.Presentation
         const int LblVerticalAngle = -90; // angle of labels to display vertically on analysis screen when more records are are selected
         const int LblHorizontalAngle = 0; // angle of labels to display horizontally on analysis screen when few records are are selected
         const string CulturalNeutralDateFormat = "yyyy-MM-dd HH:mm:ss"; // this is a cultural neutral format used for fetching data for different regional settings from back end
-        decimal AverageAorticXAxisInterval = Math.Round((decimal)(1000.0 / 256.0));
+        const int MaxNumberOfPointsForChart = 30; // This is used to set maximum number of points which can be displayed at any given time for PWV ananlysis chart.
+        decimal averageAorticXAxisInterval = Math.Round((decimal)(1000.0 / 256.0));
+        string dfBPVlaue = GuiConstants.SdefaultValue.ToString();
 
         // Events              
         // Using the same event as that of PWV for showing values on the Setup screen for PWA mode.   
@@ -37,7 +39,7 @@ namespace AtCor.Scor.Gui.Presentation
         CrxConfigManager crxMgrObject;
         CrxDBManager dbMagr;
         private bool isValueChanged = false;
-        private bool IsHeightOutsideIntegerLimits = false;
+        private bool isHeightOutsideIntegerLimits = false;
 
         CrxStructPWAMeasurementData crxPwaData = new CrxStructPWAMeasurementData();
         CrxStructCuffPWAMeasurementData crxPwaCuffData = new CrxStructCuffPWAMeasurementData();
@@ -51,10 +53,10 @@ namespace AtCor.Scor.Gui.Presentation
         string lastAssessmentDate = string.Empty;
         string pwaIdToCompare = string.Empty; // used to compare Pwa id when 30 sec wait interval is imposed to enable / disable repeat button based on last record selected
         string lastAssessmentPwaId = string.Empty;
-        private DefaultWindow objDefaultWindow;
+        private DefaultWindow objDefaultWindow;     
         
         string[] date; // date array to be used on analysis screen
-        bool isFromLoad = false; // This variable is used for crx initialization for selected record only to avoid calling initialization for each record in grid
+        bool isFromLoad = false; // This variable is used to denote wether call to method PopulateBizFromCrx is made on load of report or when assesment is selected
         string[] apRate; // Ap rate array to be used on analysis screen
         string[] hrRate; // Hr rate array to be used on analysis screen
         string[] spRate; // Sp rate array to be used on analysis screen
@@ -95,16 +97,16 @@ namespace AtCor.Scor.Gui.Presentation
                 // initialize servername string
                 serverNameString = GuiCommon.ServerNameString();
 
-                // obj = (BizPWA)BizSession.Instance().measurement;
+                // obj = (BizPWA)BizSession.Instance().measurement;                
                 // subscribe report tab click event
-                DefaultWindow.OnExitSavePwaReportChanges += guiradbtnreportsave_Click;
-                DefaultWindow.OnPWAReportTabClick += PWAReport_Load;
-
-                DefaultWindow.OnPwaReportMenuItemClick += SaveChangesOnMenuFocus;             
-                Presentation.Capture.OnPWAReportTabClick += PWAReport_Load;
+                // DefaultWindow.OnExitSavePwaReportChanges += guiradbtnreportsave_Click;                
+                // DefaultWindow.OnReportTabClick += PWAReport_Load;                
+                // DefaultWindow.OnPwaReportMenuItemClick += SaveChangesOnMenuFocus;                
+                // Presentation.Capture.OnPWAReportTabClick += PWAReport_Load;                
+                // GuiCommon.OnCaptureClosing += EnableRepeatAndCaptureTab;
                 guiradtxtReportHeightInches.KeyPress += GuiCommon.CheckForNumericValues;
                 guiradtxtReportHeight.KeyPress += GuiCommon.CheckForNumericValues;
-                GuiCommon.OnCaptureClosing += EnableRepeatAndCaptureTab;
+                
                 objValidation = new GuiFieldValidation(guipnlReportPatientMeasurementDetails);
             }
             catch (Exception ex)
@@ -122,7 +124,8 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 GuiCommon.CaptureToSetup = !value;
 
-                objDefaultWindow.radtabCapture.Enabled = false;
+                // Disble the capture tab if the quickstart mode is on.
+                objDefaultWindow.radtabCapture.Enabled = false; 
                 guiradbtnRepeat.Enabled = value;
 
                 if (value)
@@ -138,6 +141,9 @@ namespace AtCor.Scor.Gui.Presentation
 
         public void LoadPWAReport()
         {
+            objDefaultWindow.radtabResult.Enabled = false; 
+            GuiCommon.IsOnPwaReportForm = true;
+            GuiCommon.FromPwaReport = true;
             bobj = GuiConstants.SystemId;
             GuiCommon.CaptureToSetup = false;
             GuiCommon.SystemIdentifier = bobj;
@@ -179,7 +185,118 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 guiradlblInconclusiveMessage.Text = string.Format("{0} {1}", CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiInConclusivePwaReportInitialMesg), GuiCommon.InConclusiveMessageForPwaCapture);
             }
+
+            DisableRepeatButtonForQuickStartMode();
         }
+
+        /** This event fires when user tries to navigate to top menu tabs on report screen
+         * It prompts user to save changes if user is in edit mode and accordingly navigates to top menu
+         */
+
+        // private void SaveChangesOnMenuFocus(object sender, EventArgs e)
+        public void SaveChangesOnMenuFocus()
+        {
+            // GuiCommon.IsMenuItemShown = true;
+            if (!guiradbtnreportedit.Visible)
+            {
+                if (isValueChanged)
+                {
+                    DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgSaveChange), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNoCancel, RadMessageIcon.Question);
+
+                    // Keeping Yes and No separate for future use.                     
+                    switch (ds)
+                    {
+                        case DialogResult.Yes:
+                            // save changes before navigating to report screen
+                            Invoke(new EventHandler(guiradbtnreportsave_Click));
+
+                            break;
+                        case DialogResult.No:
+                            // navigate to menu item without saving changes
+                            SetPWADsiplayMode();
+                            isValueChanged = false;
+                            GuiCommon.IsMenuItemShown = true;
+                            break;
+                        default:
+                            // stay on report screen
+                            GuiCommon.IsMenuItemShown = false;
+                            break;
+                    }
+                }
+            }
+        }
+
+        public void SaveChangesOnEdit()
+        {
+            try
+            {
+                objDefaultWindow.radlblMessage.Text = string.Empty;
+                objDefaultWindow.guiradmnuDatabase.Enabled = true;
+
+                // check db connection
+                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
+                {
+                    // save PWA details in database and session object
+
+                    /* InitializeCrx(crxPwaData,crxPwaCuffData) returns integer
+                     * 0 => update measurement data
+                     * 1 => validation failed
+                     * 2 => report calculation failed
+                     */
+                    switch (InitializeCrx(crxPwaData, crxPwaCuffData))
+                    {
+                        case (int)InitializeCrxValue.UpdateData:
+
+                            // update measurement data
+                            // save data                            
+                            SaveMeasurementData(crxPwaData, crxPwaCuffData);
+                            CheckLastAssessmentSelected(pwaIdToCompare);
+                            guiradgridReportAssessment.Enabled = true;
+                            GuiCommon.IsMenuItemShown = true;
+                            isValueChanged = false;
+                            GuiCommon.IsFormChanged = false;
+                            break;
+                        case (int)InitializeCrxValue.ValidationFailed:
+                            if (!isHeightOutsideIntegerLimits)
+                            {
+                                RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ErrorValidating), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                            }
+
+                            PopulateBizFromCrx(pwaIdToCompare);
+                            GuiCommon.IsMenuItemShown = false;
+                            isValueChanged = true;
+                            GuiCommon.IsFormChanged = true;
+                            break;
+
+                        case (int)InitializeCrxValue.ReportCalculationFailed:
+
+                            // report calculation failed
+                            RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportCalculateError), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                            GuiCommon.IsMenuItemShown = false;
+                            isValueChanged = false;
+                            GuiCommon.IsFormChanged = false;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    DialogResult result = RadMessageBox.Show(this, GuiCommon.ConnectionErrorString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
+                    if (result == DialogResult.Retry)
+                    {
+                        Invoke(new EventHandler(guiradbtnreportsave_Click));
+                    }
+                }
+
+                GuiCommon.ExitApp = GuiCommon.IsMenuItemShown ? 0 : 1;
+                CheckForSimualtionMode();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }        
 
         /** This method sets tag property of textbox and labels for validating measurement details on report screen.
           * It helps in identifying labels & textbox which are mandatory and marked for validation by business logic
@@ -316,10 +433,13 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     DataSet ds = dbMagr.GetCuffPWAMeasurementDetails(int.Parse(patientObj.patientNumber.ToString()), GuiCommon.GroupId, bobj);
                     isFromLoad = false;
+                    objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                    objDefaultWindow.guicmbxCurrentMode.Enabled = true;
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         lastAssessmentPwaId = pwaIdToCompare = ds.Tables[0].Rows[0]["PWA_Id"].ToString();
                         pwaIdWithComma = ds.Tables[0].Rows[0]["PWA_Id"].ToString() + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma);
+                       
                         guiradgridReportAssessment.DataSource = ds.Tables[0];
                         guiradbtnreportedit.Enabled = true;
 
@@ -393,9 +513,9 @@ namespace AtCor.Scor.Gui.Presentation
                // crxPwaData.C_Agph = 9999;
                 if (crxPwaData.C_Agph != GuiConstants.DefaultValue)
                 {
-                    if (GuiCommon.bizPwaobject.GetAixRange(crxPwaData.C_Agph, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                    if (GuiCommon.bizPwaobject.GetAixRange(PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
                     {
-                        double[] temp = setSliderMinMaxForXAxis(new double[] {crxPwaData.C_Agph, low, high});
+                        double[] temp = setSliderMinMaxForXAxis(new double[] { crxPwaData.C_Agph, low, high }, guiradlblAixMaxRangeText, guiradlblAixMinRangeText);
                         ShowAixTracker(((float)temp[0]), ((float)temp[1]), crxPwaData.C_Agph, low, high, true);
                     }
                     else
@@ -413,9 +533,9 @@ namespace AtCor.Scor.Gui.Presentation
                // GuiCommon.bizPwaobject.AGPH_HR75 = 9999;
                 if (GuiCommon.bizPwaobject.AGPH_HR75 != GuiConstants.DefaultValue)
                 {
-                    if (GuiCommon.bizPwaobject.GetAixhr75Range(GuiCommon.bizPwaobject.AGPH_HR75, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                    if (GuiCommon.bizPwaobject.GetAixhr75Range(PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
                     {
-                        double[] temp = setSliderMinMaxForXAxis(new double[] { GuiCommon.bizPwaobject.AGPH_HR75, low, high });
+                        double[] temp = setSliderMinMaxForXAxis(new double[] { GuiCommon.bizPwaobject.AGPH_HR75, low, high }, guiradlblAixMaxRangeText, guiradlblAixMinRangeText);
                         ShowAixTracker(((float)temp[0]), ((float)temp[1]), GuiCommon.bizPwaobject.AGPH_HR75, low, high, true);
                     }
                     else
@@ -432,9 +552,9 @@ namespace AtCor.Scor.Gui.Presentation
            // crxPwaData.C_Sp = 9999;
             if (crxPwaData.C_Sp != GuiConstants.DefaultValue)
             {
-                if (GuiCommon.bizPwaobject.GetSPRange(crxPwaData.C_Sp, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                if (GuiCommon.bizPwaobject.GetSPRange(PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
                 {
-                    double[] temp = setSliderMinMaxForXAxis(new double[] { crxPwaData.C_Sp, low, high });
+                    double[] temp = setSliderMinMaxForXAxis(new double[] { crxPwaData.C_Sp, low, high }, guiradlblSpMaxRangeText, guiradlblSpMinRangeText);
                     ShowSpTracker(((float)temp[0]), ((float)temp[1]), crxPwaData.C_Sp, low, high, true);
                 }
                 else
@@ -450,16 +570,15 @@ namespace AtCor.Scor.Gui.Presentation
             // crxPwaData.C_Ap = 9999;
             if (crxPwaData.C_Ap != GuiConstants.DefaultValue)
             {
-                if (GuiCommon.bizPwaobject.GetAPRange(crxPwaData.C_Ap, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                if (GuiCommon.bizPwaobject.GetAPRange(PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
                 {
-                    double[] temp = setSliderMinMaxForXAxis(new double[] { crxPwaData.C_Ap, low, high });
-                    ShowApTracker(((float)temp[0]), ((float)temp[1]), crxPwaData.C_Ap, low, high, true);
+                   double[] temp = setSliderMinMaxForXAxis(new double[] { crxPwaData.C_Ap, low, high }, guiradlblApMaxRangeText, guiradlblApMinRangeText);
+                   ShowApTracker(((float)temp[0]), ((float)temp[1]), crxPwaData.C_Ap, low, high, true);
                 }
                 else
                 {
                     ShowApTracker(0, 0, 0, 0, 0, false);
                 }
-
             }
             else
             {
@@ -472,9 +591,9 @@ namespace AtCor.Scor.Gui.Presentation
             // centralPp = 9999;
             if (centralPp != GuiConstants.DefaultValue)
             {
-                if (GuiCommon.bizPwaobject.GetPPRange(centralPp, PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
+                if (GuiCommon.bizPwaobject.GetPPRange(PWA_MEASURE_TYPE.PWA_RADIAL, ref high, ref low))
                 {
-                    double[] temp = setSliderMinMaxForXAxis(new double[] { centralPp, low, high });
+                    double[] temp = setSliderMinMaxForXAxis(new double[] { centralPp, low, high }, guiradlblPpMaxRangeText, guiradlblPpMinRangeText);
                     ShowPpTracker(((float)temp[0]), ((float)temp[1]), centralPp, low, high, true);
                 }
                 else
@@ -522,6 +641,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             if (!string.IsNullOrEmpty(GuiCommon.InConclusiveMessageForPwaCapture))
             {
+                CrxLogger.Instance.Write("Message in GUI: " + GuiCommon.InConclusiveMessageForPwaCapture);
                 guiradlblInconclusiveMessage.Text = string.Format("{0} {1}", CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiInConclusivePwaReportInitialMesg), GuiCommon.InConclusiveMessageForPwaCapture);
             }
             else
@@ -569,7 +689,8 @@ namespace AtCor.Scor.Gui.Presentation
             guiradtxtReportHeight.Text = guiradlblReportHeightDisplay.Text;
             guiradtxtReportHeightInches.Text = guiradlblReportHeightInches.Text;
            
-            guiradtxtMedicationNotesValue.Text = guiradlblReportNotesDisplay.Text;
+           // guiradtxtMedicationNotesValue.Text = guiradlblReportNotesDisplay.Text;
+            guiradtxtMedicationNotesValue.Text = crxPwaData.Notes;
         }
 
         /**This method initializes Crx structure to update changes
@@ -683,20 +804,20 @@ namespace AtCor.Scor.Gui.Presentation
                         if (!Convert.ToInt32(pwaCaptureInput).Equals(crxPwaData.CaptureInput))
                         {
                             GuiCommon.bizPwaobject.Initialise(crxPwaData.CaptureInput.Equals(Convert.ToInt32(CrxPwaCaptureInput.Tonometer)) ? CrxPwaCaptureInput.Tonometer : CrxPwaCaptureInput.Cuff);
-                        }
+                        }                     
 
+                        GuiCommon.bizPwaobject.Populate(crxPwaData, crxPwaCuffData);
                         if (!string.IsNullOrEmpty(GuiCommon.bizPwaobject.GetInconclusiveNoteMsgKey()))
                         {
                             GuiCommon.InConclusiveMessageForPwaCapture = string.Empty;
-                            GuiCommon.InConclusiveMessageForPwaCapture = CrxMessagingManager.Instance.GetMessage(GuiCommon.bizPwaobject.GetInconclusiveNoteMsgKey());                           
+                            GuiCommon.InConclusiveMessageForPwaCapture = CrxMessagingManager.Instance.GetMessage(GuiCommon.bizPwaobject.GetInconclusiveNoteMsgKey());
+                            CrxLogger.Instance.Write("Message from BLL: " + GuiCommon.InConclusiveMessageForPwaCapture);
                         }
                         else
                         {
-                            GuiCommon.InConclusiveMessageForPwaCapture = string.Empty; 
+                            GuiCommon.InConclusiveMessageForPwaCapture = string.Empty;
                         }
 
-                        GuiCommon.bizPwaobject.Populate(crxPwaData, crxPwaCuffData);
-                       
                         GuiCommon.bizPwaobject.Validate();
                     
                         GuiCommon.crxPwaData = crxPwaData;
@@ -734,6 +855,8 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblReportPatientName.Text = string.IsNullOrEmpty(patientObj.firstName) ? patientObj.lastName : patientObj.firstName + "  " + patientObj.lastName;
                 guilblReportPatientIdValue.Text = patientObj.patientId;
                 guilblReportDobValue.Text = patientObj.dateOfBirth.ToShortDateString();
+
+                // guilblReportDobValue.Text = patientObj.dateOfBirth.ToString();
                 guilblReportAgeValue.Text = GuiCommon.bizPwaobject.patientAge.ToString();
                 guilblReportGenderValue.Text = patientObj.gender.Equals(CrxStructCommonResourceMsg.MaleTxt) ? oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MaleTxt) : oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FemaleTxt); 
                 ReportPWADisplayMode(true);
@@ -786,7 +909,7 @@ namespace AtCor.Scor.Gui.Presentation
             guiradbtnreportsave.Visible = false;
             objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
 
-            if (GuiCommon.StartupScreen != oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart))
+           // if (GuiCommon.StartupScreen != oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart))
             {
                 GuiCommon.bizPwaobject.CalculateAge();
             }
@@ -805,10 +928,11 @@ namespace AtCor.Scor.Gui.Presentation
             // set height details
             guiradtxtReportHeight.Text = guiradlblReportHeightDisplay.Text;
             guiradtxtReportHeightInches.Text = guiradlblReportHeightInches.Text;
+            guiradtxtMedicationNotesValue.Text = GuiCommon.bizPwaobject.notes;
 
             // guiradtxtReportOperator.Text = guiradlblReportOperatordisplay.Text;
-            guiradtxtMedicationNotesValue.Text = guiradlblReportNotesDisplay.Text;
-
+            // guiradtxtMedicationNotesValue.Text = guiradlblReportNotesDisplay.Text;
+           // guiradlblReportNotesDisplay.Text = crxPwaData.Notes;
             guiradbtnreportcancel.Visible = true;
             guiradbtnreportedit.Visible = false;
             guiradbtnreportsave.Visible = true;
@@ -816,7 +940,8 @@ namespace AtCor.Scor.Gui.Presentation
             // in edit mode disable repeat & capture buttons
             guiradbtnRepeat.Enabled = false;
             objDefaultWindow.radtabCapture.Enabled = false;
-
+            objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = false;
+            objDefaultWindow.guicmbxCurrentMode.Enabled = false;
             GuiCommon.IsFormChanged = true;
         }
 
@@ -956,6 +1081,8 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.IsFormChanged = false;
             objDefaultWindow.radlblMessage.Text = string.Empty;
             objDefaultWindow.guiradmnuDatabase.Enabled = true;
+            objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
+            objDefaultWindow.guicmbxCurrentMode.Enabled = true;
 
             // cancels editing PWA details
             ReportPWADisplayMode(true);
@@ -987,6 +1114,7 @@ namespace AtCor.Scor.Gui.Presentation
                 setValue = lastAssessmentPwaId.Equals(pwaId) && guiradbtnreportedit.Visible && objDefaultWindow.radtabReport.Text != oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabAnalysis) && guiradgridReportAssessment.Rows.Count > 0;
             }
 
+           // objDefaultWindow.radtabCapture.Enabled = setValue;
             guiradbtnRepeat.Enabled = setValue;
         }
 
@@ -1084,6 +1212,8 @@ namespace AtCor.Scor.Gui.Presentation
                 }
             }
 
+            GuiConstants.DateWithComma = string.Empty;
+            GuiConstants.DateWithComma = dateWithComma;
             GuiConstants.PwaIdWithComma = pwaIdWithComma;
             numeberOfRecordsSelected = recordsToDelete = recordSelected;
             CheckForSimualtionMode();
@@ -1100,13 +1230,10 @@ namespace AtCor.Scor.Gui.Presentation
         * */
         private void DisplayReportForSelectedAssesment(string pwaid)
         {
-            // if (!GuiCommon.SetupToReport)
-            {
-                InitializeCrxOnLoad(pwaid);
-                FillPWAMeasurementDetailsReport();
-                PlotAvgAorticPulseChart();
-                DisplayClinicalParameterSliders();
-            }
+            InitializeCrxOnLoad(pwaid);
+            FillPWAMeasurementDetailsReport();
+            PlotAvgAorticPulseChart();
+            DisplayClinicalParameterSliders();        
         }
 
         private void DisplayReportOnSelection(int recordSelected, string pwaid, string dateTime)
@@ -1143,6 +1270,8 @@ namespace AtCor.Scor.Gui.Presentation
             }
             else if (recordSelected > 1)
             {
+                EnableDisableReportPrintButton(false);
+
                 guipnlPWAReportAnalysis.Visible = true;
                 guipnlPWAReport.Visible = false;
                 guiradbtnRepeat.Enabled = false;
@@ -1176,9 +1305,20 @@ namespace AtCor.Scor.Gui.Presentation
                 }
 
                 guiradLargeChart.ChartAreas[0].Position = new ElementPosition(3, 3, 94, 94);
-                guiradLargeChart.ChartAreas[0].AxisX.Maximum = date.Length;
+
+                if (date.Length < MaxNumberOfPointsForChart)
+                {
+                    guiradLargeChart.ChartAreas[0].AxisX.Maximum = date.Length;
+                }
+                else
+                {
+                    guiradLargeChart.ChartAreas[0].AxisX.Maximum = MaxNumberOfPointsForChart;
+                }
+
                 objDefaultWindow.radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabAnalysis);
-                BindCustomLabelForTrendCharts(date.Length);
+
+                // CalculateLabelIntervalX();
+                BindCustomLabelForTrendCharts(apRate.Length);
             }
             else if (recordSelected == 0)
             {
@@ -1216,6 +1356,40 @@ namespace AtCor.Scor.Gui.Presentation
                     dateSelected = dateSelected.Remove(dateSelected.Length - 1);
                 }
 
+                string[] dateClac = dateSelected.Split(GuiConstants.Separator);
+
+                string calcPwaIdWithComma = string.Empty;
+                string calcDateWithComma = string.Empty;
+
+                if (dateClac.Length > MaxNumberOfPointsForChart)
+                {
+                    string[] tempPwaId = GuiConstants.PwaIdWithComma.Split(GuiConstants.Separator);
+
+                    string[] calcDate = new string[MaxNumberOfPointsForChart];
+                    string[] calcPwaId = new string[MaxNumberOfPointsForChart];
+                    date = new string[MaxNumberOfPointsForChart];
+
+                    int clcStrt = dateClac.Length - MaxNumberOfPointsForChart;
+                    for (int i = clcStrt, j = 0; i < dateClac.Length; i++, j++)
+                    {
+                        calcDate[j] = dateClac[i];
+                        date[j] = dateClac[i];
+                        calcPwaId[j] = tempPwaId[i];
+                        string tempIdWithComma = string.Empty;
+                        tempIdWithComma = tempPwaId[i].ToString();
+                        calcPwaIdWithComma = calcPwaIdWithComma + tempIdWithComma + GuiConstants.Separator;
+                        string tempDateWithComma = string.Empty;
+                        tempDateWithComma = dateClac[i].ToString();
+                        calcDateWithComma = calcDateWithComma + tempDateWithComma + GuiConstants.Separator;
+                    }
+                }
+                else
+                {
+                    calcPwaIdWithComma = GuiConstants.PwaIdWithComma;
+                    calcDateWithComma = dateSelected;
+                    date = dateSelected.Split(GuiConstants.Separator);
+                }
+
                 date = dateSelected.Split(GuiConstants.Separator);
 
                 // check for connection
@@ -1224,7 +1398,7 @@ namespace AtCor.Scor.Gui.Presentation
                     CrxStructPWATrendData trendData = new CrxStructPWATrendData();
 
                     // fetch records for selected assessments
-                    dbMagr.GetPWATrendData(pwaIdWithComma, trendData);
+                    dbMagr.GetPWATrendData(calcPwaIdWithComma, trendData);
 
                     if (!string.IsNullOrEmpty(trendData.ApValidArrStr) && !string.IsNullOrEmpty(trendData.HrValidArrStr) && !string.IsNullOrEmpty(trendData.SpValidArrStr) && !string.IsNullOrEmpty(trendData.DpValidArrStr) && !string.IsNullOrEmpty(trendData.MpValidArrStr))
                     {
@@ -1233,7 +1407,7 @@ namespace AtCor.Scor.Gui.Presentation
                         PlotSpTrendData(trendData);
                         PlotDpMpTrendData(trendData);
                         PlotPpTrendData(trendData);
-                        PlotAixTrendData(pwaIdWithComma);
+                        PlotAixTrendData(calcPwaIdWithComma);
                         guiradLargeChart.GetToolTipText += Chart_GetToolTipText;
                     }
                 }
@@ -1403,7 +1577,7 @@ namespace AtCor.Scor.Gui.Presentation
             guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.LineColor = selectedChart.ChartAreas[0].AxisX.MajorGrid.LineColor;
             guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.LineDashStyle = selectedChart.ChartAreas[0].AxisX.MajorGrid.LineDashStyle;
             guiradLargeChart.ChartAreas[0].AxisX.MajorGrid.LineWidth = selectedChart.ChartAreas[0].AxisX.MajorGrid.LineWidth;
-            guiradLargeChart.ChartAreas[0].AxisX.MajorTickMark.Enabled = false;
+            guiradLargeChart.ChartAreas[0].AxisX.MajorTickMark.Enabled = true;
 
             guiradLargeChart.ChartAreas[0].AxisX.MinorGrid.Enabled = selectedChart.ChartAreas[0].AxisX.MinorGrid.Enabled;
             guiradLargeChart.ChartAreas[0].AxisX.MinorGrid.LineColor = selectedChart.ChartAreas[0].AxisX.MinorGrid.LineColor;
@@ -1475,7 +1649,10 @@ namespace AtCor.Scor.Gui.Presentation
        * */
         private void ClearData()
         {
-            guichartPWAReport.Series.Clear();
+            // guichartPWAReport.Series.Clear();
+            guichartPWAReport.Series[0].Points.Clear();
+            guichartPWAReport.Series[1].Points.Clear();
+
             GuiCommon.bizPwaobject.AGPH_HR75 = GuiConstants.DefaultValue;
             crxPwaData.C_Agph = GuiConstants.DefaultValue;
             crxPwaData.C_Sp = GuiConstants.DefaultValue;
@@ -1519,19 +1696,8 @@ namespace AtCor.Scor.Gui.Presentation
             // set y axis (normal range values from Bizsession object in float)
             float[] avgAorticPulse = crxPwaData.C_AV_PULSE;
             float[] avgTypicalAorticPulse = crxPwaData.C_Typical;
-            guichartPWAReport.Series.Clear();
 
-            // initialize series,chartype,add points to series and finally add series to chart.            
-            // set display properties for Avg Aortic Pulse graph
-            Series avgAorticPulseActualSeries = new Series
-            {
-                ChartType = SeriesChartType.Spline,
-                Color = Color.MediumBlue,
-                BorderWidth = 2,
-                Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportActual),
-            };
-
-            avgAorticPulseActualSeries.Points.Clear();
+            guichartPWAReport.Series[0].Points.Clear();
 
             for (int i = 0; i < avgAorticPulse.Length; i++)
             {
@@ -1541,22 +1707,12 @@ namespace AtCor.Scor.Gui.Presentation
                 }
                 else
                 {
-                    avgAorticPulseActualSeries.Points.AddXY(AverageAorticXAxisInterval * i, avgAorticPulse[i]);
+                    guichartPWAReport.Series[0].Points.AddXY(averageAorticXAxisInterval * i, avgAorticPulse[i]);
                 }
             }
 
-            guichartPWAReport.Series.Add(avgAorticPulseActualSeries);
+            guichartPWAReport.Series[1].Points.Clear();
 
-            // set properties for series 2 for plotting ideal graph
-            Series avgAorticPulseIdealSeries = new Series
-            {
-                ChartType = SeriesChartType.Spline,
-                Color = Color.DimGray,
-                BorderWidth = 2,
-                Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportTypical),
-            };
-
-            avgAorticPulseIdealSeries.Points.Clear();
             for (int i = 0; i < avgTypicalAorticPulse.Length; i++)
             {
                 if (avgTypicalAorticPulse[i] == 0)
@@ -1565,11 +1721,34 @@ namespace AtCor.Scor.Gui.Presentation
                 }
                 else
                 {
-                    avgAorticPulseIdealSeries.Points.AddXY(AverageAorticXAxisInterval * i, avgTypicalAorticPulse[i]);
+                    guichartPWAReport.Series[1].Points.AddXY(averageAorticXAxisInterval * i, avgTypicalAorticPulse[i]);
                 }
             }
-            
-            guichartPWAReport.Series.Add(avgAorticPulseIdealSeries);            
+
+            //// Setting minimum and maximum of Y-axis for Chart
+
+            float[] tempFloatArray = new float[avgAorticPulse.Length + avgTypicalAorticPulse.Length];
+
+            Array.Copy(avgAorticPulse, tempFloatArray, avgAorticPulse.Length);
+            Array.Copy(avgTypicalAorticPulse, 0, tempFloatArray, avgAorticPulse.Length, avgTypicalAorticPulse.Length);
+            Array.Sort(tempFloatArray);
+            for (int i = 0; i < tempFloatArray.Length; i++)
+            {
+                if (tempFloatArray[i] == 0)
+                {
+                }
+                else
+                {
+                    double value = Math.Round(tempFloatArray[i] * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+                    value = ((int)Math.Round(value / 10)) * 10;
+                    guichartPWAReport.ChartAreas[0].AxisY.Minimum = value - 10;
+                    break;
+                }
+            }
+
+            double valueMax = Math.Round((tempFloatArray[tempFloatArray.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+            valueMax = ((int)Math.Round(valueMax / 10)) * 10;
+            guichartPWAReport.ChartAreas[0].AxisY.Maximum = valueMax + 10;
             guichartPWAReport.Invalidate();
         }        
 
@@ -1577,7 +1756,6 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void ShowAixTracker(float maxValue, float minValue, float value, float goodRangeMin, float goodRangeMax, bool visible)
         {
-
             // Hide/Show Aix Slider Labels
             guilblAIxValueText.Visible = visible;
             guilblAIxValue.Visible = visible;
@@ -1585,14 +1763,18 @@ namespace AtCor.Scor.Gui.Presentation
             guilblAIxGoodMinText.Visible = visible;
             guilblAIxGoodMaxText.Visible = visible;
             guilblAIxGoodMax.Visible = visible;
+            guiradlblAixMaxRange.Visible = visible;
+            guiradlblAixMinRange.Visible = visible;
+            guiradlblAixMinRangeText.Visible = visible;
+            guiradlblAixMaxRangeText.Visible = visible;
             guiradlblAixNotCalc.Visible = !visible;
 
             if (visible)
-            {
-                guilblAIxValue.Left = guilblAIxSlider.Left + (int)((value - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
+            {                    
+                guilblAIxValue.Left = guilblAIxSlider.Left + (int)((Math.Round(value) - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue))) - (guilblAIxValue.Width / 2);
+                guilblAIxGoodMin.Left = guilblAIxSlider.Left + (int)((goodRangeMin - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue))) - (guilblAIxGoodMin.Width / 2);
 
-                guilblAIxGoodMin.Left = guilblAIxSlider.Left + (int)((goodRangeMin - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
-                guilblAIxGoodMax.Left = guilblAIxSlider.Left + (int)((goodRangeMax - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue)));
+                guilblAIxGoodMax.Left = guilblAIxSlider.Left + (int)((goodRangeMax - minValue) * (guilblAIxSlider.Width / (int)(maxValue - minValue))) - (guilblAIxGoodMax.Width / 2);
 
                 guilblAIxValueText.Left = guilblAIxValue.Left - (guilblAIxValueText.Width / 3) + 4;
                 guilblAIxGoodMaxText.Left = guilblAIxGoodMax.Left - (guilblAIxGoodMaxText.Width / 3);
@@ -1602,7 +1784,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblAIxGoodMaxText.Text = goodRangeMax.ToString();
                 guilblAIxGoodMinText.Text = goodRangeMin.ToString();
 
-                if ((value < goodRangeMin) || (value > goodRangeMax))
+                if ((Math.Round(value) < goodRangeMin) || (Math.Round(value) > goodRangeMax))
                 {
                     guilblAIxValue.BackColor = Color.Red;
                 }
@@ -1619,7 +1801,6 @@ namespace AtCor.Scor.Gui.Presentation
         */
         private void ShowSpTracker(float spMaxValue, float spMinValue, float spValue, float spGoodRangeMin, float spGoodRangeMax, bool visible)
         {
-
             // Hide/Show Sp Slider Labels
             guilblSPValueText.Visible = visible;
             guilblSPValue.Visible = visible;
@@ -1627,14 +1808,18 @@ namespace AtCor.Scor.Gui.Presentation
             guilblSPGoodMinText.Visible = visible;
             guilblSPGoodMaxText.Visible = visible;
             guilblSPGoodMax.Visible = visible;
+            guiradlblSpMaxRange.Visible = visible;
+            guiradlblSpMinRange.Visible = visible;
+            guiradlblSpMaxRangeText.Visible = visible;
+            guiradlblSpMinRangeText.Visible = visible;
             guiradlblSpNotCalc.Visible = !visible;
 
             if (visible) 
             {             
-                guilblSPValue.Left = guilblSPSlider.Left + ((int)(spValue - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
-                guilblSPGoodMin.Left = guilblSPSlider.Left + ((int)(spGoodRangeMin - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
+                guilblSPValue.Left = guilblSPSlider.Left + ((int)(Math.Round(spValue) - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue))) - (guilblSPValue.Width / 2);
+                guilblSPGoodMin.Left = guilblSPSlider.Left + ((int)(spGoodRangeMin - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue))) - (guilblSPGoodMin.Width / 2);
                 guilblSPGoodMinText.Left = guilblSPGoodMin.Left - (guilblSPGoodMinText.Width / 3);
-                guilblSPGoodMax.Left = guilblSPSlider.Left + ((int)(spGoodRangeMax - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue)));
+                guilblSPGoodMax.Left = guilblSPSlider.Left + ((int)(spGoodRangeMax - spMinValue) * (guilblSPSlider.Width / (int)(spMaxValue - spMinValue))) - (guilblSPGoodMax.Width / 2);
 
                 guilblSPValueText.Left = guilblSPValue.Left - (guilblSPValueText.Width / 3) + 2;
                 guilblSPGoodMaxText.Left = guilblSPGoodMax.Left - (guilblSPGoodMaxText.Width / 3);
@@ -1643,7 +1828,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblSPGoodMaxText.Text = spGoodRangeMax.ToString();
                 guilblSPGoodMinText.Text = spGoodRangeMin.ToString();
 
-                if ((spValue < spGoodRangeMin) || (spValue > spGoodRangeMax))
+                if ((Math.Round(spValue) < spGoodRangeMin) || (Math.Round(spValue) > spGoodRangeMax))
                 {
                     guilblSPValue.BackColor = Color.Red;
                 }
@@ -1667,14 +1852,18 @@ namespace AtCor.Scor.Gui.Presentation
             guilblPPGoodMinText.Visible = visible;
             guilblPPGoodMaxText.Visible = visible;
             guilblPPGoodMax.Visible = visible;
+            guiradlblPpMaxRange.Visible = visible;
+            guiradlblPpMinRange.Visible = visible;
+            guiradlblPpMinRangeText.Visible = visible;
+            guiradlblPpMaxRangeText.Visible = visible;
             guiradlblPpNotCalc.Visible = !visible;
 
             if (visible)
             {
-                guilblPPValue.Left = guilblPPSlider.Left + ((int)(ppValue - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
+                guilblPPValue.Left = guilblPPSlider.Left + ((int)(Math.Round(ppValue) - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue))) - (guilblPPValue.Width / 2);
 
-                guilblPPGoodMin.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMin - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
-                guilblPPGoodMax.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMax - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue)));
+                guilblPPGoodMin.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMin - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue))) - (guilblPPGoodMin.Width / 2);
+                guilblPPGoodMax.Left = guilblPPSlider.Left + ((int)(ppGoodRangeMax - ppMinValue) * (guilblPPSlider.Width / (int)(ppMaxValue - ppMinValue))) - (guilblPPGoodMax.Width / 2);
 
                 guilblPPValueText.Left = guilblPPValue.Left - (guilblPPValueText.Width / 3) + 3;
                 guilblPPGoodMaxText.Left = guilblPPGoodMax.Left - (guilblPPGoodMaxText.Width / 3);
@@ -1684,7 +1873,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblPPGoodMaxText.Text = ppGoodRangeMax.ToString();
                 guilblPPGoodMinText.Text = ppGoodRangeMin.ToString();
 
-                if ((ppValue < ppGoodRangeMin) || (ppValue > ppGoodRangeMax))
+                if ((Math.Round(ppValue) < ppGoodRangeMin) || (Math.Round(ppValue) > ppGoodRangeMax))
                 {
                     guilblPPValue.BackColor = Color.Red;
                 }
@@ -1708,16 +1897,20 @@ namespace AtCor.Scor.Gui.Presentation
             guilblAPGoodMinText.Visible = visible;
             guilblAPGoodMaxText.Visible = visible;
             guilblAPGoodMax.Visible = visible;
+            guiradlblApMaxRange.Visible = visible;
+            guiradlblApMinRange.Visible = visible;
+            guiradlblApMaxRangeText.Visible = visible;
+            guiradlblApMinRangeText.Visible = visible;
             guiradlblApNotCalc.Visible = !visible;
 
             if (visible) 
             {
-                guilblAPValue.Left = guilblAPSlider.Left + ((int)(apValue - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
+                guilblAPValue.Left = (guilblAPSlider.Left + ((int)(Math.Round(apValue) - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)))) - (guilblAPValue.Width / 2);
+                guilblAPGoodMin.Left = (guilblAPSlider.Left + ((int)(apGoodRangeMin - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)))) - (guilblAPGoodMin.Width / 2);
 
-                guilblAPGoodMin.Left = guilblAPSlider.Left + ((int)(apGoodRangeMin - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
-                guilblAPGoodMax.Left = guilblAPSlider.Left + ((int)(apGoodRangeMax - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue)));
+                guilblAPGoodMax.Left = guilblAPSlider.Left + ((int)(apGoodRangeMax - apMinValue) * (guilblAPSlider.Width / (int)(apMaxValue - apMinValue))) - (guilblAIxGoodMax.Width / 2);
 
-                guilblAPValueText.Left = guilblAPValue.Left - (guilblAPValueText.Width / 3) + 5;
+                guilblAPValueText.Left = guilblAPValue.Left - (guilblAPValueText.Width / 3) + 2;
                 guilblAPGoodMaxText.Left = guilblAPGoodMax.Left - (guilblAPGoodMaxText.Width / 3);
                 guilblAPGoodMinText.Left = guilblAPGoodMin.Left - (guilblAPGoodMinText.Width / 3);
 
@@ -1725,7 +1918,7 @@ namespace AtCor.Scor.Gui.Presentation
                 guilblAPGoodMaxText.Text = apGoodRangeMax.ToString();
                 guilblAPGoodMinText.Text = apGoodRangeMin.ToString();
 
-                if ((apValue < apGoodRangeMin) || (apValue > apGoodRangeMax))
+                if ((Math.Round(apValue) < apGoodRangeMin) || (Math.Round(apValue) > apGoodRangeMax))
                 {
                     guilblAPValue.BackColor = Color.Red;
                 }
@@ -1862,32 +2055,58 @@ namespace AtCor.Scor.Gui.Presentation
 
         /** This method is used to set the maximum and minimum value for X Axis on Slider
         * */
-        private double[] setSliderMinMaxForXAxis(double[] data)
+        private double[] setSliderMinMaxForXAxis(double[] data, RadLabel labelMax, RadLabel labelMin)
         {
             double max = 0.0;
             double min = 0.0;
             Array.Sort(data);
             double value = Math.Round(data[0] * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+            
             value = ((int)Math.Round(value / 10)) * 10;
-            min = value - 10;
+
+            if ((value == 0) || (value < 0 && value > data[0])) 
+            {
+                value = Math.Round(data[0]);
+            }
+            
+            min = value - 5;
+            
+            labelMin.Text = min.ToString();
+            
             value = Math.Round((data[data.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+            
             value = ((int)Math.Round(value / 10)) * 10;
-            max = value + 10;
-            return new double[] {max, min};
+            
+            max = value + 5;
+            
+            labelMax.Text = max.ToString();
+            
+            return new double[] { max, min };
         }
 
         /** This method is used to set the maximum and minimum value for Y- Axis
          * */
-        private void setChartMinMaxForYAxis(Chart chartObject, double[] data) 
+        private void setChartMinMaxForYAxis(Chart chartObject, double[] data, out double minValue) 
         {
-            Array.Sort(data);
-            double value = Math.Round(data[0] * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
-            value = ((int)Math.Round(value / 10)) * 10;
-            chartObject.ChartAreas[0].AxisY.Minimum = value - 10;
-            value = Math.Round((data[data.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
-            value = ((int)Math.Round(value / 10)) * 10;
-            chartObject.ChartAreas[0].AxisY.Maximum = value + 10;
-            chartObject.ChartAreas[0].AxisY.Interval = 10;
+            double[] tempData = RemoveDefaultValuesFromArrList(data);
+            Array.Sort(tempData);
+            if (tempData.Length > 0)
+            {
+                double value = Math.Round(tempData[0] * GuiConstants.ChartAreaMinimumY, MidpointRounding.ToEven);
+                value = ((int)Math.Round(value / 10)) * 10;
+                chartObject.ChartAreas[0].AxisY.Minimum = value - 10;
+                minValue = value - 10;
+                value = Math.Round((tempData[tempData.Length - 1]) * GuiConstants.ChartAreaMaximumY, MidpointRounding.ToEven);
+                value = ((int)Math.Round(value / 10)) * 10;
+                chartObject.ChartAreas[0].AxisY.Maximum = value + 10;
+                chartObject.ChartAreas[0].AxisY.Interval = 10;
+            }
+            else
+            {
+                minValue = 0;
+                chartObject.ChartAreas[0].AxisY.Minimum = 0;
+                chartObject.ChartAreas[0].AxisY.Maximum = 10;
+            }
         }
 
         /** This method plots Aix trend graph
@@ -1895,22 +2114,40 @@ namespace AtCor.Scor.Gui.Presentation
         private void PlotAixTrendData(string pwaIdWithComma)
         {
             double[] aixDataArr = prepareAix75Data(pwaIdWithComma);
+            string[] aixArr = CrxDBManager.Instance.CommonDoubleArrToStringArr(aixDataArr);
 
             guiradAnalysisChartAix75.Series[0].Points.Clear();
             guiradAnalysisChartAix75.Series[1].Points.Clear();
+            double minValue = 0;
 
-             setChartMinMaxForYAxis(guiradAnalysisChartAix75, aixDataArr);
+            setChartMinMaxForYAxis(guiradAnalysisChartAix75, aixDataArr, out minValue);
 
             // plot Aix rate series
-            if (aixDataArr.Length > 0)
+            if (aixArr.Length > 0)
             {
                 for (int series = 0; series < aixDataArr.Length; series++)
                 {
-                    guiradAnalysisChartAix75.Series[0].Points.AddXY(series, aixDataArr[series]);
-                    guiradAnalysisChartAix75.Series[1].Points.AddXY(series, aixDataArr[series]);
+                    // check if value is 9999
+                    if (!aixArr[series].Equals(dfBPVlaue))
+                    {
+                        guiradAnalysisChartAix75.Series[0].Points.AddXY(series, double.Parse(aixArr[series], CrxCommon.nCI));
+                        guiradAnalysisChartAix75.Series[1].Points.AddXY(series, double.Parse(aixArr[series], CrxCommon.nCI));
+                    }
+                    else
+                    {
+                        minValue = minValue - 10;
+                        guiradAnalysisChartAix75.Series[1].Points.AddXY(series, minValue);
+                    }
                 }
 
-                guiradAnalysisChartAix75.ChartAreas[0].AxisX.Maximum = aixDataArr.Length;
+                if (aixDataArr.Length <= MaxNumberOfPointsForChart)
+                {
+                    guiradAnalysisChartAix75.ChartAreas[0].AxisX.Maximum = aixDataArr.Length;
+                }
+                else
+                {
+                    guiradAnalysisChartAix75.ChartAreas[0].AxisX.Maximum = MaxNumberOfPointsForChart;
+                }
             }
         }
 
@@ -1923,18 +2160,35 @@ namespace AtCor.Scor.Gui.Presentation
 
             apRate = trendData.ApValidArrStr.Split(GuiConstants.Separator);
             double[] tempDouble = CrxDBManager.Instance.CommonStringArrToDoubleArr(trendData.ApValidArrStr.Split(GuiConstants.Separator));
-            setChartMinMaxForYAxis(guiradAnalysisChartAP, tempDouble);
+            double minValue = 0;
+            setChartMinMaxForYAxis(guiradAnalysisChartAP, tempDouble, out minValue);
 
             // plot heart rate series
             if (apRate.Length > 0)
             {
                 for (int series = 0; series < apRate.Length; series++)
                 {
-                    guiradAnalysisChartAP.Series[0].Points.AddXY(series, double.Parse(apRate[series], CrxCommon.nCI));
-                    guiradAnalysisChartAP.Series[1].Points.AddXY(series, double.Parse(apRate[series], CrxCommon.nCI));
+                    // check if value is 9999
+                    if (!apRate[series].Equals(dfBPVlaue))
+                    {
+                        guiradAnalysisChartAP.Series[0].Points.AddXY(series, double.Parse(apRate[series], CrxCommon.nCI));
+                        guiradAnalysisChartAP.Series[1].Points.AddXY(series, double.Parse(apRate[series], CrxCommon.nCI));
+                    }
+                    else
+                    {
+                        minValue = minValue - 10;
+                        guiradAnalysisChartAP.Series[1].Points.AddXY(series, minValue);
+                    }
                 }
 
-                guiradAnalysisChartAP.ChartAreas[0].AxisX.Maximum = apRate.Length;
+                if (apRate.Length <= MaxNumberOfPointsForChart)
+                {
+                    guiradAnalysisChartAP.ChartAreas[0].AxisX.Maximum = apRate.Length;
+                }
+                else
+                {
+                    guiradAnalysisChartAP.ChartAreas[0].AxisX.Maximum = MaxNumberOfPointsForChart;
+                }
             }
         }
 
@@ -1947,18 +2201,38 @@ namespace AtCor.Scor.Gui.Presentation
             guiradAnalysisChartHR.Series[0].Points.Clear();
             guiradAnalysisChartHR.Series[1].Points.Clear();
             double[] tempDouble = CrxDBManager.Instance.CommonStringArrToDoubleArr(trendData.HrValidArrStr.Split(GuiConstants.Separator));
-            setChartMinMaxForYAxis(guiradAnalysisChartHR, tempDouble);
+
+            double minValue;
+            setChartMinMaxForYAxis(guiradAnalysisChartHR, tempDouble, out minValue);
 
             // plot heart rate series
             if (hrRate.Length > 0)
             {
                 for (int series = 0; series < hrRate.Length; series++)
                 {
-                    guiradAnalysisChartHR.Series[0].Points.AddXY(series, double.Parse(hrRate[series], CrxCommon.nCI));
-                    guiradAnalysisChartHR.Series[1].Points.AddXY(series, double.Parse(hrRate[series], CrxCommon.nCI));
+                    /// guiradAnalysisChartHR.Series[0].Points.AddXY(series, double.Parse(hrRate[series], CrxCommon.nCI));
+                    /// guiradAnalysisChartHR.Series[1].Points.AddXY(series, double.Parse(hrRate[series], CrxCommon.nCI));
+
+                    // check if value is 9999
+                    if (!hrRate[series].Equals(GuiConstants.SdefaultValue.ToString()))
+                    {
+                        guiradAnalysisChartHR.Series[0].Points.AddXY(series, double.Parse(hrRate[series], CrxCommon.nCI));
+                        guiradAnalysisChartHR.Series[1].Points.AddXY(series, double.Parse(hrRate[series], CrxCommon.nCI));
+                    }
+                    else
+                    {
+                        guiradAnalysisChartHR.Series[1].Points.AddXY(series, minValue);
+                    }
                 }
 
-                guiradAnalysisChartHR.ChartAreas[0].AxisX.Maximum = hrRate.Length;
+                if (hrRate.Length <= MaxNumberOfPointsForChart)
+                {
+                    guiradAnalysisChartHR.ChartAreas[0].AxisX.Maximum = hrRate.Length;
+                }
+                else
+                {
+                    guiradAnalysisChartHR.ChartAreas[0].AxisX.Maximum = MaxNumberOfPointsForChart;
+                }
             }
         }
 
@@ -1979,18 +2253,35 @@ namespace AtCor.Scor.Gui.Presentation
             }
 
             double[] tempDouble = CrxDBManager.Instance.CommonStringArrToDoubleArr(ppRate);
-            setChartMinMaxForYAxis(guiradAnalysisChartPP, tempDouble);
+
+            double minValue;
+            setChartMinMaxForYAxis(guiradAnalysisChartPP, tempDouble, out minValue );
 
             // plot Pp rate series
             if (ppRate.Length > 0)
             {
                 for (int series = 0; series < ppRate.Length; series++)
                 {
-                    guiradAnalysisChartPP.Series[0].Points.AddXY(series, double.Parse(ppRate[series], CrxCommon.nCI));
-                    guiradAnalysisChartPP.Series[1].Points.AddXY(series, double.Parse(ppRate[series], CrxCommon.nCI));
+                    // check if value is 9999
+                    if (!ppRate[series].Equals(GuiConstants.SdefaultValue.ToString()))
+                    {
+                        guiradAnalysisChartPP.Series[0].Points.AddXY(series, double.Parse(ppRate[series], CrxCommon.nCI));
+                        guiradAnalysisChartPP.Series[1].Points.AddXY(series, double.Parse(ppRate[series], CrxCommon.nCI));
+                    }
+                    else
+                    {
+                        guiradAnalysisChartPP.Series[1].Points.AddXY(series, minValue);
+                    }
                 }
 
-                guiradAnalysisChartPP.ChartAreas[0].AxisX.Maximum = ppRate.Length;
+                if (ppRate.Length <= MaxNumberOfPointsForChart)
+                {
+                    guiradAnalysisChartPP.ChartAreas[0].AxisX.Maximum = ppRate.Length;
+                }
+                else
+                {
+                    guiradAnalysisChartPP.ChartAreas[0].AxisX.Maximum = MaxNumberOfPointsForChart;
+                }
             }
         }
 
@@ -2003,16 +2294,33 @@ namespace AtCor.Scor.Gui.Presentation
 
             spRate = trendData.SpValidArrStr.Split(GuiConstants.Separator);
             double[] tempDouble = CrxDBManager.Instance.CommonStringArrToDoubleArr(trendData.SpValidArrStr.Split(GuiConstants.Separator));
-            setChartMinMaxForYAxis(guiradAnalysisChartSP, tempDouble);
+
+            double minValue;
+            setChartMinMaxForYAxis(guiradAnalysisChartSP, tempDouble, out minValue);
             if (spRate.Length > 0)
             {
                 for (int series = 0; series < spRate.Length; series++)
                 {
-                    guiradAnalysisChartSP.Series[0].Points.AddXY(series, double.Parse(spRate[series], CrxCommon.nCI));
-                    guiradAnalysisChartSP.Series[1].Points.AddXY(series, double.Parse(spRate[series], CrxCommon.nCI));
+                    // check if value is 9999
+                    if (!spRate[series].Equals(GuiConstants.SdefaultValue.ToString()))
+                    {
+                        guiradAnalysisChartSP.Series[0].Points.AddXY(series, double.Parse(spRate[series], CrxCommon.nCI));
+                        guiradAnalysisChartSP.Series[1].Points.AddXY(series, double.Parse(spRate[series], CrxCommon.nCI));
+                    }
+                    else
+                    {
+                        guiradAnalysisChartSP.Series[1].Points.AddXY(series, minValue);
+                    }
                 }
 
-                guiradAnalysisChartSP.ChartAreas[0].AxisX.Maximum = spRate.Length;
+                if (spRate.Length <= MaxNumberOfPointsForChart)
+                {
+                    guiradAnalysisChartSP.ChartAreas[0].AxisX.Maximum = spRate.Length;
+                }
+                else
+                {
+                    guiradAnalysisChartSP.ChartAreas[0].AxisX.Maximum = MaxNumberOfPointsForChart;
+                }
             }
         }
 
@@ -2030,20 +2338,45 @@ namespace AtCor.Scor.Gui.Presentation
 
             double[] tempDouble = CrxDBManager.Instance.CommonStringArrToDoubleArr((trendData.DpValidArrStr + GuiConstants.Separator 
                 + trendData.MpValidArrStr).Split(GuiConstants.Separator));
-            setChartMinMaxForYAxis(guiradAnalysisChartDPMP, tempDouble);
+
+            double minValue;
+            setChartMinMaxForYAxis(guiradAnalysisChartDPMP, tempDouble, out minValue);
 
             // plot Dp & Mp series
             if (dpRate.Length > 0 && mpRate.Length > 0)
             {
                 for (int series = 0; series < mpRate.Length && series < dpRate.Length; series++)
                 {
-                    guiradAnalysisChartDPMP.Series[0].Points.AddXY(series, double.Parse(dpRate[series], CrxCommon.nCI));
-                    guiradAnalysisChartDPMP.Series[1].Points.AddXY(series, double.Parse(dpRate[series], CrxCommon.nCI));
-                    guiradAnalysisChartDPMP.Series[2].Points.AddXY(series, double.Parse(mpRate[series], CrxCommon.nCI));
-                    guiradAnalysisChartDPMP.Series[3].Points.AddXY(series, double.Parse(mpRate[series], CrxCommon.nCI));
+                    // check if value is 9999
+                    if (!dpRate[series].Equals(GuiConstants.SdefaultValue.ToString()))
+                    {
+                        guiradAnalysisChartDPMP.Series[0].Points.AddXY(series, double.Parse(dpRate[series], CrxCommon.nCI));
+                        guiradAnalysisChartDPMP.Series[1].Points.AddXY(series, double.Parse(dpRate[series], CrxCommon.nCI));
+                    }
+                    else
+                    {
+                        guiradAnalysisChartDPMP.Series[1].Points.AddXY(series, minValue);
+                    }
+
+                    if (!mpRate[series].Equals(GuiConstants.SdefaultValue.ToString()))
+                    {
+                        guiradAnalysisChartDPMP.Series[2].Points.AddXY(series, double.Parse(mpRate[series], CrxCommon.nCI));
+                        guiradAnalysisChartDPMP.Series[3].Points.AddXY(series, double.Parse(mpRate[series], CrxCommon.nCI));
+                    }
+                    else
+                    {
+                        guiradAnalysisChartDPMP.Series[3].Points.AddXY(series, minValue);
+                    }
                 }
 
-                guiradAnalysisChartDPMP.ChartAreas[0].AxisX.Maximum = mpRate.Length;
+                if (dpRate.Length <= MaxNumberOfPointsForChart)
+                {
+                    guiradAnalysisChartDPMP.ChartAreas[0].AxisX.Maximum = dpRate.Length;
+                }
+                else
+                {
+                    guiradAnalysisChartDPMP.ChartAreas[0].AxisX.Maximum = MaxNumberOfPointsForChart;
+                }
             }
         }
 
@@ -2082,7 +2415,7 @@ namespace AtCor.Scor.Gui.Presentation
             else
             {
                 GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres = string.IsNullOrEmpty(guiradtxtReportHeight.Text.Trim()) ? GuiConstants.DefaultValue : ushort.Parse(guiradtxtReportHeight.Text.Trim());
-                IsHeightOutsideIntegerLimits = false;
+                isHeightOutsideIntegerLimits = false;
             }
         }
 
@@ -2113,7 +2446,7 @@ namespace AtCor.Scor.Gui.Presentation
             if (heightValue > short.MaxValue || heightValue < 0)
             {
                 string field = objValidation.GetLabelText(guiradtxtReportHeight.Tag.ToString());
-                IsHeightOutsideIntegerLimits = true;
+                isHeightOutsideIntegerLimits = true;
                 string err = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiLimitsFormat), field, 0, string.Empty, short.MaxValue, string.Empty);
                 RadMessageBox.Show(err, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
                 guiradtxtReportHeight.Focus();
@@ -2121,7 +2454,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             else
             {
-                IsHeightOutsideIntegerLimits = false;
+                isHeightOutsideIntegerLimits = false;
             }
         }
 
@@ -2135,13 +2468,13 @@ namespace AtCor.Scor.Gui.Presentation
             CalculateHeightAndWeightToValidateSession();
             GuiCommon.bizPwaobject.notes = guiradtxtMedicationNotesValue.Text.Trim();
 
-            if (!IsHeightOutsideIntegerLimits)
+            if (!isHeightOutsideIntegerLimits)
             {
                 bool isValidate = GuiCommon.bizPwaobject.Validate();
                 if (isValidate)
                 {
                     GetValidationForHeight(int.Parse(GuiCommon.bizPwaobject.heightAndWeight.heightInCentimetres.ToString()));
-                    return !IsHeightOutsideIntegerLimits;
+                    return !isHeightOutsideIntegerLimits;
                 }
                 else
                 {
@@ -2234,69 +2567,8 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void guiradbtnreportsave_Click(object sender, EventArgs e)
         {
-            try
-            {                
-                objDefaultWindow.radlblMessage.Text = string.Empty;
-                objDefaultWindow.guiradmnuDatabase.Enabled = true;
-                GuiCommon.IsMenuItemShown = true; 
-
-                // check db connection
-                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
-                {
-                    // save PWA details in database and session object
-
-                    /* InitializeCrx(crxPwaData,crxPwaCuffData) returns integer
-                     * 0 => update measurement data
-                     * 1 => validation failed
-                     * 2 => report calculation failed
-                     */
-                    switch (InitializeCrx(crxPwaData, crxPwaCuffData))
-                    {
-                        case (int)InitializeCrxValue.UpdateData:
-
-                            // update measurement data
-                            // save data                            
-                            SaveMeasurementData(crxPwaData, crxPwaCuffData);
-                            CheckLastAssessmentSelected(pwaIdToCompare);
-                            guiradgridReportAssessment.Enabled = true;
-                            break;
-                        case (int)InitializeCrxValue.ValidationFailed:
-                            if (!IsHeightOutsideIntegerLimits)
-                            {                     
-                              RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ErrorValidating), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                            }
-
-                            PopulateBizFromCrx(pwaIdToCompare);
-                            break;
-
-                        case (int)InitializeCrxValue.ReportCalculationFailed:
-
-                            // report calculation failed
-                            RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ReportCalculateError), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    isValueChanged = false;
-                    GuiCommon.IsFormChanged = false;
-                }
-                else
-                {
-                    DialogResult result = RadMessageBox.Show(this, GuiCommon.ConnectionErrorString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
-                    if (result == DialogResult.Retry)
-                    {
-                        Invoke(new EventHandler(guiradbtnreportsave_Click));
-                    }
-                } 
-
-                    CheckForSimualtionMode();   
-            }
-            catch (Exception ex)
-            {
-                GUIExceptionHandler.HandleException(ex, this);
-            }
-        }
+            SaveChangesOnEdit();
+        }      
 
         /** This event gets fired when focus is moved from height in inches text box.
        * It checks if the value entered in textbox is within valid range and shows error accordingly
@@ -2354,7 +2626,7 @@ namespace AtCor.Scor.Gui.Presentation
             PWACommonReportData.RptPatientAssessment = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptDateAndTime);
 
             // GuiCommon.PwvCurrentStudyDatetime;
-            PWACommonReportData.RptPatientAssessmentValue = string.Format("{0:g}.", Convert.ToDateTime(GuiCommon.PwaCurrentStudyDatetime)); 
+            PWACommonReportData.RptPatientAssessmentValue = string.Format("{0:g}", Convert.ToDateTime(GuiCommon.PwaCurrentStudyDatetime)); 
 
             PWACommonReportData.RptPatientBP = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptBrachialBp);
 
@@ -2517,41 +2789,7 @@ namespace AtCor.Scor.Gui.Presentation
             FillStructForPWAPatientReport();
             PWAPatientPreview rpPreview = new PWAPatientPreview();
             rpPreview.Show();
-        }
-
-        /** This event fires when user tries to navigate to top menu tabs on report screen
-         * It prompts user to save changes if user is in edit mode and accordingly navigates to top menu
-         */
-        private void SaveChangesOnMenuFocus(object sender, EventArgs e)
-        {
-            GuiCommon.IsMenuItemShown = true;
-            if (!guiradbtnreportedit.Visible)
-            {
-                if (isValueChanged)
-                {
-                    DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgSaveChange), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNoCancel, RadMessageIcon.Question);
-
-                    // Keeping Yes and No separate for future use.                     
-                    switch (ds)
-                    {
-                        case DialogResult.Yes:
-                            // save changes before navigating to report screen
-                            Invoke(new EventHandler(guiradbtnreportsave_Click));
-                        
-                            break;
-                        case DialogResult.No:
-                            // navigate to menu item without saving changes
-                            SetPWADsiplayMode();
-                            isValueChanged = false;
-                            break;
-                        default:
-                            // stay on report screen
-                            GuiCommon.IsMenuItemShown = false;
-                            break;
-                    }
-                }
-            }
-        }
+        }        
 
         /** This method "RptPwaFillBrachialValue" will return string for filling Brachial values
         * This values will be used in Crystal Reports.
@@ -2603,19 +2841,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 PWAClinicalReportData.RptPPAroticValue = Math.Round(crxPwaData.C_Sp - crxPwaData.C_Dp).ToString();
             }
-        }
-
-        private void DisplayInconclusiveMessage(object sender, EventArgs e)
-        {
-            if (GuiCommon.IsOnSetupScreen)
-            {
-                objDefaultWindow.radlblMessage.Text = string.Empty;
-            }
-            else
-            {
-                objDefaultWindow.radlblMessage.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiSimulationModeMessage);
-            }
-        }
+        }        
 
         /** This method "SetPatientHeightValue" will return string for filling Height Weight values
       * This values will be used in Crystal Reports.
@@ -2643,7 +2869,7 @@ namespace AtCor.Scor.Gui.Presentation
             ControlPaint.DrawBorder(e.Graphics, this.guipnlAverageAorticChart.DisplayRectangle, System.Drawing.Color.WhiteSmoke, ButtonBorderStyle.Solid); 
         }
 
-        /** This method is used to bind custom labels for X-Axis for both Heart rate & Pwv Velocity trend chart
+        /** This method is used to bind custom labels for X-Axis for Analysis trend charts
         * */
         private void BindCustomLabelForTrendCharts(int seriesLength)
         {
@@ -2652,35 +2878,43 @@ namespace AtCor.Scor.Gui.Presentation
             guiradLargeChart.ChartAreas[0].AxisX.CustomLabels.Clear();
             guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Angle = LblHorizontalAngle;
             guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = labelFontMax;
-            for (int hrseries1 = 0; hrseries1 < seriesLength; hrseries1++)
-            {
-                // if (hrseries1 > (5 * labelInterval))
-                if (hrseries1 == 1)
-                {
-                    guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMax.ToString()].ToString()) - 2);
-                }
-                else if (hrseries1 == 2)
-                {
-                    guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMin.ToString()].ToString()) + 1);
-                }
-                else if (hrseries1 >= 3)
-                {
-                    guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMin.ToString()].ToString()) + 1);
-                    guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Angle = LblVerticalAngle;
-                }
 
-                if (seriesLength > 20)
+                for (int hrseries1 = 0; hrseries1 < seriesLength; hrseries1++)
                 {
-                    if (hrseries1 % 2 == 0)
+                    // if (hrseries1 > (5 * labelInterval))
+                    if (hrseries1 == 1)
+                    {
+                        guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMax.ToString()].ToString()) - 2);
+                    }
+                    else if (hrseries1 == 2)
+                    {
+                        guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMin.ToString()].ToString()) + 1);
+                    }
+                    else if (hrseries1 >= 3)
+                    {
+                        guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Font = new Font(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontName.ToString()].ToString(), float.Parse(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AnalysisFontMin.ToString()].ToString()) + 1);
+                        guiradLargeChart.ChartAreas[0].AxisX.LabelStyle.Angle = LblVerticalAngle;
+                    }
+
+                    if (seriesLength > 09 && seriesLength <= 19)
+                    {
+                        if (hrseries1 % 2 == 0)
+                        {
+                            guiradLargeChart.ChartAreas[0].AxisX.CustomLabels.Add(hrseries1 - 1, hrseries1 + 1, string.Format("{0:g}", Convert.ToDateTime(date[hrseries1].ToString())));
+                        }
+                    }
+                    else if (seriesLength > 19)
+                    {
+                        if (hrseries1 % 3 == 0)
+                        {
+                            guiradLargeChart.ChartAreas[0].AxisX.CustomLabels.Add(hrseries1 - 1, hrseries1 + 1, string.Format("{0:g}", Convert.ToDateTime(date[hrseries1].ToString())));
+                        }
+                    }
+                    else
                     {
                         guiradLargeChart.ChartAreas[0].AxisX.CustomLabels.Add(hrseries1 - 1, hrseries1 + 1, string.Format("{0:g}", Convert.ToDateTime(date[hrseries1].ToString())));
                     }
                 }
-                else
-                {
-                    guiradLargeChart.ChartAreas[0].AxisX.CustomLabels.Add(hrseries1 - 1, hrseries1 + 1, string.Format("{0:g}", Convert.ToDateTime(date[hrseries1].ToString())));
-                }
-            }
         }
 
         private CrxStructPWAMeasurementData getCrxPWAData(DataSet dsPWA, CrxStructPWAMeasurementData crxPwaData1)
@@ -2920,8 +3154,8 @@ namespace AtCor.Scor.Gui.Presentation
 
                 aixBizPWA.Populate(crxPwaDataAix, crxPwaCuffDataAix);
                 aixBizPWA.Validate();
-                aixData[counter] = Math.Round(aixBizPWA.AGPH_HR75, 2);
-                CrxLogger.Instance.Write("Aix75 Data :" + Math.Round(aixBizPWA.AGPH_HR75, 2));
+                aixData[counter] = Math.Round(aixBizPWA.AGPH_HR75);
+                CrxLogger.Instance.Write("Aix75 Data :" + Math.Round(aixBizPWA.AGPH_HR75));
             }
 
             return aixData;
@@ -2975,5 +3209,73 @@ namespace AtCor.Scor.Gui.Presentation
                 GUIExceptionHandler.HandleException(ex, this);
             }
         }
+
+        /** This event customizes label display on PWA trend Large chart
+        * */
+        private void guiradLargeChart_Customize(object sender, EventArgs e)
+        {
+            try
+            {
+                const int SeriesPoints = 3;
+                if (apRate != null)
+                {
+                    if (apRate.Length > SeriesPoints)
+                    {
+                        foreach (CustomLabel cl in guiradLargeChart.ChartAreas[0].AxisX.CustomLabels)
+                        {
+                            cl.Text = DateTime.Parse(cl.Text).ToShortDateString() + Environment.NewLine + DateTime.Parse(cl.Text).ToShortTimeString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        private void guiradbtnAnalysisPrint_Click(object sender, EventArgs e)
+        {
+            PWACommonReportData.RptPrintType = CrxStructCommonResourceMsg.PwaAnalysisReport;
+            FillStructForPWACommonReport();
+            PWAAnalysisPreview rpPreview = new PWAAnalysisPreview();
+            rpPreview.Show();
+        }
+
+        private void DisableRepeatButtonForQuickStartMode()
+        {
+            if (GuiCommon.StartupScreen.ToUpper().Equals(CrxStructCommonResourceMsg.QuickStart) && GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
+            {
+                guiradbtnRepeat.Visible = false;
+            }
+            else
+            {
+                guiradbtnRepeat.Visible = true;
+            }
+        }
+
+        /** This method to remove default values "9999" from the array
+        * */
+        private double[] RemoveDefaultValuesFromArrList(double[] arr)
+        {           
+            ArrayList a = new ArrayList();
+           
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (!arr[i].Equals(GuiConstants.DefaultValue))
+                {
+                    a.Add(arr[i]);
+                }                
+            }
+
+            double[] tempArr = new double[a.Count];
+
+            for (int j = 0; j < a.Count; j++)
+            {
+                tempArr[j] = Convert.ToDouble(a.ToArray().GetValue(j));
+            }
+
+            return tempArr;
+        }        
     }
 }

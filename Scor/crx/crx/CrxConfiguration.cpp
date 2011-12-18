@@ -82,6 +82,7 @@ void CrxConfigManager::GetPwvDefaultSettings(CrxStructPwvSetting^ objPwvSettings
 	objPwvSettings->DefaultReport		= _pSetInternal->DefaultReport;
 	objPwvSettings->AutoCapture			= _pSetInternal->AutoCapture;
 	objPwvSettings->GuidanceBars		= _pSetInternal->GuidanceBars;
+	objPwvSettings->AutoInflate			= _pSetInternal->AutoInflate;
 }
 
 //To get PWV User Settings from the file
@@ -517,6 +518,12 @@ void CrxConfigManager::SetPwvSettingsNode(CrxStructPwvSetting^ ps, XmlNode^ node
 	if (SubSectionNodeName == CrxConfigXmlTag::GuidanceBars)
 	{	
 		CrxConfigManager::SetPwvGuidanceBars(ps, node);		
+	}
+	//Calls function if node is Auto Inflate 
+	else
+	if (SubSectionNodeName == CrxConfigXmlTag::AutoInflate)
+	{	
+		CrxConfigManager::SetPwvAutoInflate(ps, node);		
 	}
 	else
 	{
@@ -966,6 +973,11 @@ void CrxConfigManager::GetPwvSettingsNode(String^ SubSection, String^ SubSection
 	else if(SubSectionNode == CrxConfigXmlTag::GuidanceBars)
 	{
 		CrxConfigManager::GetPwvGuidanceBars(SubSection,ReaderValue);
+	}
+	//Calls function if node element is Auto Inflate 
+	else if(SubSectionNode == CrxConfigXmlTag::AutoInflate)
+	{	
+		CrxConfigManager::GetPwvAutoInflate(SubSection,ReaderValue);		
 	}
 	else
 	{
@@ -1687,6 +1699,32 @@ void CrxConfigManager::GetPwvAutoCapture(String^ SubSection, String^ ReaderValue
 	else
 	{
 		_instance->_pwvSettings->AutoCapture = AutoCapture;
+	}
+}
+void CrxConfigManager::GetPwvAutoInflate(String^ SubSection, String^ ReaderValue)
+{
+	//Get the Auto Inflate Details
+	//Temporary variables
+	bool AutoInflate = false;
+	String^ tempValue  = nullptr;
+	String^ chkVal = nullptr;
+
+	tempValue  = ReaderValue->ToUpper();
+	chkVal = CrxConfigXmlTag::CheckYesNoValue;
+
+	if(chkVal->Contains(CrxConfigXmlTag::TagSeparator + tempValue + CrxConfigXmlTag::TagSeparator) == false)
+	{
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCorruptErrCd, CrxStructCommonResourceMsg::CrxErrFileCorrupt, ErrorSeverity::Exception);//corrupt file//corrupt file
+	}
+	AutoInflate = (tempValue == CrxConfigXmlTag::UpperYES);
+
+	if(SubSection == CrxConfigXmlTag::Default)
+	{
+		_pSetInternal->AutoInflate = AutoInflate;
+	}
+	else
+	{
+		_instance->_pwvSettings->AutoInflate = AutoInflate;
 	}
 }
 void CrxConfigManager::GetPwvGuidanceBars(String^ SubSection, String^ ReaderValue)
@@ -2538,7 +2576,6 @@ void CrxConfigManager::SetPwvAutoCapture(CrxStructPwvSetting^ ps, XmlNode^ node)
 	{
 		node->InnerText = CrxConfigXmlTag::LowerYes;
 	}
-
 }
 void CrxConfigManager::SetPwvGuidanceBars(CrxStructPwvSetting^ ps, XmlNode^ node)
 {
@@ -2548,6 +2585,18 @@ void CrxConfigManager::SetPwvGuidanceBars(CrxStructPwvSetting^ ps, XmlNode^ node
 	}
 	else
 		if(ps->GuidanceBars == true)
+	{
+		node->InnerText = CrxConfigXmlTag::LowerYes;
+	}
+}
+void CrxConfigManager::SetPwvAutoInflate(CrxStructPwvSetting^ ps, XmlNode^ node)
+{
+	if(ps->AutoInflate == false)
+	{
+		node->InnerText = CrxConfigXmlTag::LowerNo;								
+	}
+	else
+		if(ps->AutoInflate == true)
 	{
 		node->InnerText = CrxConfigXmlTag::LowerYes;
 	}

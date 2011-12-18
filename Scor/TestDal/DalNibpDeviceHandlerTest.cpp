@@ -510,20 +510,21 @@ public: [TestMethod]
 			Assert::AreEqual(expected, actual);
 			Assert::Inconclusive(L"Verify the correctness of this test method.");
 		}
-		/// <summary>
-		///A test for CheckIfCuffHasDeflated
-		///</summary>
-public: [TestMethod]
-		[DeploymentItem(L"dal.dll")]
-		void CheckIfCuffHasDeflatedTest()
-		{
-			DalNibpDeviceHandler_Accessor^  target = (gcnew DalNibpDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
-			bool expected = false; // TODO: Initialize to an appropriate value
-			bool actual;
-			actual = target->CheckIfCuffHasDeflated();
-			Assert::AreEqual(expected, actual);
-			Assert::Inconclusive(L"Verify the correctness of this test method.");
-		}
+		//removed
+//		/// <summary>
+//		///A test for CheckIfCuffHasDeflated
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"dal.dll")]
+//		void CheckIfCuffHasDeflatedTest()
+//		{
+//			DalNibpDeviceHandler_Accessor^  target = (gcnew DalNibpDeviceHandler_Accessor()); // TODO: Initialize to an appropriate value
+//			bool expected = false; // TODO: Initialize to an appropriate value
+//			bool actual;
+//			actual = target->CheckIfCuffHasDeflated();
+//			Assert::AreEqual(expected, actual);
+//			Assert::Inconclusive(L"Verify the correctness of this test method.");
+//		}
 		/// <summary>
 		///A test for AbortBP
 		///</summary>

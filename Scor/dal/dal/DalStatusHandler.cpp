@@ -153,7 +153,7 @@ namespace AtCor{
 						
 				if (newAlarmStatusFlag != _currentAlarmStatusFlag  )
 				{
-					CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>Flags have changed _currentAlarmStatusFlag:" + _currentAlarmStatusFlag.ToString("X4") + " newAlarmStatusFlag:"+newAlarmStatusFlag.ToString("X4") , ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL:CheckAlarmStatusFlagChanged>>>Flags have changed _currentAlarmStatusFlag:" + _currentAlarmStatusFlag.ToString("X4") + " newAlarmStatusFlag:"+newAlarmStatusFlag.ToString("X4") , ErrorSeverity::Debug);
 				
 					////CrxLogger::Instance->Write("CheckAlarmStatusFlagChanged>>>Flags have changed", ErrorSeverity::Debug);
 					
@@ -500,7 +500,7 @@ namespace AtCor{
 
 					 //raise an event only after getting the source of the error
 					 DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, gcnew DalModuleErrorAlarmEventArgs(TranslateAlarmStatusBits(_newAlarmStatusBytes), alarmSource, DalBinaryConversions::ConvertAlarmType(alarmSource)));
-					 CrxLogger::Instance->Write("ProcessAlarmStatusFlag>>>OnDalModuleErrorAlarmEvent event raised _newAlarmStatusBytes:" + _newAlarmStatusBytes, ErrorSeverity::Debug);
+					 CrxLogger::Instance->Write("DAL:ProcessAlarmStatusFlag>>>OnDalModuleErrorAlarmEvent event raised _newAlarmStatusBytes:" + _newAlarmStatusBytes, ErrorSeverity::Debug);
 
 					 }
 				 }
@@ -510,7 +510,7 @@ namespace AtCor{
 			{
 				if (_newStopButtonStatusBytes)
 				{
-					CrxLogger::Instance->Write("DalStatusHandler::ProcessStopButtonBitMask >>> Raising OnDalModuleErrorAlarmEvent with StopButtonPressed", ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL:DalStatusHandler::ProcessStopButtonBitMask >>> Raising OnDalModuleErrorAlarmEvent with StopButtonPressed", ErrorSeverity::Debug);
 
 					//Just raise the event . let the handler decidethe current mode and decide what actions need to be taken.
 					
@@ -526,7 +526,7 @@ namespace AtCor{
 			{
 				if (_newPowerUpStatusBytes)
 				{
-					CrxLogger::Instance->Write("DalStatusHandler::ProcessPowerUpBitMask >>> Raising OnDalModuleErrorAlarmEvent with PowerUpEvent", ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL:DalStatusHandler::ProcessPowerUpBitMask >>> Raising OnDalModuleErrorAlarmEvent with PowerUpEvent", ErrorSeverity::Debug);
 
 
 					//Just raise the event. 

@@ -1480,6 +1480,13 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		array<String^>^ CommonFloatArrToStringArr(array<float>^ sortArr);
 
 		/**
+		* To convert Double array to String array
+		* @return String array data
+		* @param[in] sortArr Double array to be converted to string array
+		*/
+		array<String^>^ CommonDoubleArrToStringArr(array<double>^ sortArr);
+
+		/**
 		* To convert String array to Integer array
 		* @return Integer array data
 		* @param[in] sortArr string array to be converted to Integer array

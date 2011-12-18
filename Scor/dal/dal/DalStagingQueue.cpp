@@ -16,7 +16,7 @@
 #include "DalActivePort.h"
 #include "DalBinaryConversions.h"
 #include "DalStatusHandler.h"
-//#include "DalNibpCommandInterface.h"
+#include "DalNibpDeviceHandler.h"
 #include "DalEventContainer.h"
 
 using namespace AtCor::Scor::DataAccess;
@@ -58,18 +58,39 @@ DalPacketType DalStagingQueue::DeterminePacketType(unsigned char commandCodeByte
 		//0x93 is specifically NIBP recieved
 		return DalPacketType::NibpPacket;
 	}
+	else if  (0xA1 == commandCodeByte)
+	{
+		return DalPacketType::NibpProcessAbortedPacket;
+
+	}
 	else
 	{
-		//check if a command is being looked for
-		if (true == checkForCommand)
-		{
-			//YES: validate for command ACK or NACK
 
-			//First check if the command byte is the same
-			if (commandCodeToLocate == ( commandCodeByte & (unsigned char)DalAckNackByteMask::CommandCodeBitsMask  ))
-			{
-				//the command byte is validated againt the desired command
-				//now find the type is ACK or NACK
+		//Rewriting this so that it is not dependent on LookFOrResponsetoCommand
+		////check if a command is being looked for
+		//if (true == checkForCommand)
+		//{
+		//	//YES: validate for command ACK or NACK
+
+		//	//First check if the command byte is the same
+		//	if (commandCodeToLocate == ( commandCodeByte & (unsigned char)DalAckNackByteMask::CommandCodeBitsMask  ))
+		//	{
+		//		//the command byte is validated againt the desired command
+		//		//now find the type is ACK or NACK
+
+		//		if ( (unsigned char) DalAckNackByteMask::AckNackStatusBitMask == ( commandCodeByte & (unsigned char) DalAckNackByteMask::AckNackStatusBitMask)) 
+		//		{
+		//			return DalPacketType::AckedResponsePakcet;
+		//		}
+		//		else
+		//		{
+		//			return DalPacketType::NackedResponsePacket;
+		//		}
+		//	}
+		//}
+
+
+		//Deepak: Determine type solely based on the charachter. Do not loo at what the uper layers are asking
 
 				if ( (unsigned char) DalAckNackByteMask::AckNackStatusBitMask == ( commandCodeByte & (unsigned char) DalAckNackByteMask::AckNackStatusBitMask)) 
 				{
@@ -80,28 +101,45 @@ DalPacketType DalStagingQueue::DeterminePacketType(unsigned char commandCodeByte
 					return DalPacketType::NackedResponsePacket;
 				}
 			}
-		}
-	}
 
-	return DalPacketType::Unknown;
+	//return DalPacketType::Unknown;
 }
 
 array <unsigned char>^  DalStagingQueue::ExtractAckedResponsePakcet()
 {
+	//Changing the method to reduce dependency on othe rlayers
+	//It does not need to know the length but can find out on its own. -Deepak
+
 	//this is dependant on the checkFlag 
 	//Assuming that this method will only be called after the flag is set
 	//////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ExtractAckedResponsePakcet Start", ErrorSeverity::Debug);
 
+		//First get the length of the packet
+	unsigned int lengthOfThisPacket;
+
+	if ( stagingQueue->Count >=2)
+	{
+		//This conditional check is necessary so that we do not cause an array fault
+		lengthOfThisPacket = this->stagingQueue[1]; //get the length which is stored in the second byte of the packet,
+	}
+	else
+	{
+		//CrxLogger::Instance->Write("DalStagingQueue::ExtractNibpPacket stagingQueue count is less than expected Value: " + stagingQueue->Count, ErrorSeverity::Exception );  
+		return  nullptr;
+
+	}
+
 	array<unsigned char>^ tempArray = nullptr;
 
-	tempArray = DequeueArray(expectedResponseLengthToLocate + 1) ; //1 for CRC
+	//tempArray = DequeueArray(expectedResponseLengthToLocate + 1) ; //1 for CRC
+	tempArray = DequeueArray(lengthOfThisPacket + 1) ; //1 for CRC
 
 	
 	if (nullptr!= tempArray)
 	{
-//		//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ExtractAckedResponsePakcet AckedResponsePacket:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(tempArray), ErrorSeverity::Debug);
+		//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ExtractAckedResponsePakcet AckedResponsePacket:  " +  DalBinaryConversions::ConvertBytesToString(tempArray), ErrorSeverity::Debug);
 	
-		this->checkForCommand = false; //make a note that the command has been sent to the handler
+		//this->checkForCommand = false; //make a note that the command has been sent to the handler
 
 		//call the method which will upload it to the required array
 		DalResponsePacketBuffer::Instance->Enqueue(tempArray);
@@ -109,6 +147,7 @@ array <unsigned char>^  DalStagingQueue::ExtractAckedResponsePakcet()
 	return tempArray;
 }
 
+//TODO: we may not need this if the new loginc works-Deepak
 array <unsigned char>^ DalStagingQueue::ExtractNackedResponsePacket()
 {
 	//////CrxLogger::Instance->Write("Deepak>>>  DalStagingQueue::ExtractNackedResponsePacket Start", ErrorSeverity::Debug);
@@ -119,10 +158,10 @@ array <unsigned char>^ DalStagingQueue::ExtractNackedResponsePacket()
 	
 	if (nullptr!= tempArray)
 	{
-//		//CrxLogger::Instance->Write("Deepak>>>  DalStagingQueue::ExtractNackedResponsePacket Nacked Response Packet:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(tempArray), ErrorSeverity::Debug);
+		//CrxLogger::Instance->Write("Deepak>>>  DalStagingQueue::ExtractNackedResponsePacket Nacked Response Packet:  " +  DalBinaryConversions::ConvertBytesToString(tempArray), ErrorSeverity::Debug);
 	
 
-		this->checkForCommand = false; //make a note that the command has been sent to the handler
+		//this->checkForCommand = false; //make a note that the command has been sent to the handler
 
 		//call the method which will upload it to the required array
 		DalResponsePacketBuffer::Instance->Enqueue(tempArray);
@@ -140,7 +179,7 @@ array <unsigned char>^ DalStagingQueue::ExtractStreamingDataPacket()
 	if (nullptr!= tempArray)
 	{
 
-//		//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ExtractStreamingDataPacket StreamingPacket:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(tempArray), ErrorSeverity::Debug);
+		//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ExtractStreamingDataPacket StreamingPacket:  " +  DalBinaryConversions::ConvertBytesToString(tempArray), ErrorSeverity::Debug);
 
 		DalStreamingPacketQueue::Instance->Enqueue(tempArray);
 	}
@@ -153,10 +192,24 @@ array <unsigned char>^ DalStagingQueue::ExtractNibpPacket()
 {
 	//////CrxLogger::Instance->Write("Deepak>>>  DalStagingQueue::ExtractNibpPacket Start", ErrorSeverity::Debug);
 	array<unsigned char>^ tempArray;
+	unsigned int nibpPacketLength;
 
 	//firs determine the length of the NIBP packet
 
-	unsigned int nibpPacketLength  = (unsigned int)stagingQueue[1] ; //the packet's length byte is in 1th position
+
+	if ( stagingQueue->Count >=2)
+	{
+		//This conditional check is necessary so that we do not cause an array fault
+
+		nibpPacketLength  = (unsigned int)stagingQueue[1] ; //the packet's length byte is in 1th position
+	}
+	else
+	{
+		CrxLogger::Instance->Write("DalStagingQueue::ExtractNibpPacket stagingQueue count is less than expected Value: " + stagingQueue->Count, ErrorSeverity::Exception );  
+		return  nullptr;
+
+	}
+
 
 	tempArray = DequeueArray(nibpPacketLength + 1) ; //+1 for CRC
 	
@@ -183,28 +236,59 @@ array <unsigned char>^ DalStagingQueue::ExtractNibpPacket()
 	return tempArray;
 }
 
-void DalStagingQueue::LookForResponseToCommand(
-												unsigned char commandCodeToLocate, 
-												unsigned char expectedResponseLengthToLocate 
-										
-												)
+array <unsigned char>^ DalStagingQueue::ExtractNibpAbortPacket()
 {
-	//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::LookForResponseToCommand:  " + commandCodeToLocate.ToString(DalFormatterStrings::PrintByte) + "Sequence No: " + expectedSequenceNumberToLocate.ToString(DalFormatterStrings::PrintByte) , ErrorSeverity::Debug);
-	
-	//set the flag to true
-	this->checkForCommand = true;
+	//////CrxLogger::Instance->Write("Deepak>>>  DalStagingQueue::ExtractNibpAbortPacket Start", ErrorSeverity::Debug);
+	array<unsigned char>^ tempArray;
 
-	//store the vvalues which we want to look for
-	this->commandCodeToLocate = commandCodeToLocate;
-	this->expectedResponseLengthToLocate  = expectedResponseLengthToLocate;
-	//this->expectedSequenceNumberToLocate = expectedSequenceNumberToLocate;
+	//determine the length of the NIBP packet
+	unsigned int nibpPacketLength;
+
+	if ( stagingQueue->Count >=2)
+	{
+
+		nibpPacketLength  = (unsigned int)stagingQueue[1] ; //the packet's length byte is in 1th position
+	}
+	else
+	{
+		//CrxLogger::Instance->Write("DalStagingQueue::ExtractNibpPacket stagingQueue count is less than expected Value: " + stagingQueue->Count, ErrorSeverity::Exception );  
+		return  nullptr;
+
+	}
+
+	tempArray = DequeueArray(nibpPacketLength + 1) ; //+1 for CRC
+	
+	//raise the necessary signal. Passing the data is irrelvant.
+	//TODO
+
+	DalNibpDeviceHandler::Instance->signalNibpAbortCaller->Invoke(); 
+	
+	
+	return tempArray;
 }
+
+//void DalStagingQueue::LookForResponseToCommand(
+//												unsigned char commandCodeToLocate, 
+//												unsigned char expectedResponseLengthToLocate 
+//										
+//												)
+//{
+//	//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::LookForResponseToCommand:  " + commandCodeToLocate.ToString(DalFormatterStrings::PrintByte) + "Sequence No: " + expectedSequenceNumberToLocate.ToString(DalFormatterStrings::PrintByte) , ErrorSeverity::Debug);
+//	
+//	//set the flag to true
+//	//this->checkForCommand = true;
+//
+//	//store the vvalues which we want to look for
+//	this->commandCodeToLocate = commandCodeToLocate;
+//	this->expectedResponseLengthToLocate  = expectedResponseLengthToLocate;
+//	//this->expectedSequenceNumberToLocate = expectedSequenceNumberToLocate;
+//}
 
 void DalStagingQueue::StopLookingForResponse()
 {
 	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::StopLookingForResponse: ", ErrorSeverity::Debug);
 
-	this->checkForCommand = false;
+	//this->checkForCommand = false;
 
 }
 
@@ -220,6 +304,7 @@ void  DalStagingQueue::ProcessQueue()
 		////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessQueue Calling ProcessSinglePacket", ErrorSeverity::Debug);
 				
 		returnValue = ProcessSinglePacket();
+		Thread::Sleep(0); //zero sleep to let other processes run
 	}
 	while(returnValue);
 
@@ -238,8 +323,9 @@ void DalStagingQueue::EnqueueArray(array<unsigned char,1> ^sourceArray)
 
 	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::EnqueueArray stagingMutex LOCK", ErrorSeverity::Debug);
 	//lock the resource
-	stagingMutex->WaitOne();
+	//stagingMutex->WaitOne();
 
+	Monitor::Enter(this->stagingQueue);
 	try
 	{
 	//add the array at the end of the staging queue
@@ -247,13 +333,14 @@ void DalStagingQueue::EnqueueArray(array<unsigned char,1> ^sourceArray)
 	}
 	finally
 	{
+		Monitor::Exit(this->stagingQueue);
 		//rlease the mutex
-		stagingMutex->ReleaseMutex();
+		//stagingMutex->ReleaseMutex();
 		////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::EnqueueArray stagingMutex RELEASE", ErrorSeverity::Debug);
 	}
 
 	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::EnqueueArray Added:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(sourceArray), ErrorSeverity::Debug);
-	//////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::EnqueueArray stagingQueue:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(this->stagingQueue->ToArray()), ErrorSeverity::Debug);
+	//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::EnqueueArray after adding: " + DalBinaryConversions::ConvertBytesToString(sourceArray)+ ", stagingQueue:  " +  DalBinaryConversions::ConvertBytesToString(this->stagingQueue->ToArray()), ErrorSeverity::Debug);
 
 	//Now that the data has been added, call the processing method asynchronously
 	//We do not have any mehtod to call back so both parameters are null
@@ -274,25 +361,31 @@ array<unsigned char>^ DalStagingQueue::DequeueArray(int numberOfBytes)
 	
 	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::DequeueArray stagingMutex LOCK", ErrorSeverity::Debug);
 	//take a lock AT THE VERY BEGINING DONT WANT COUNT TO CHANGE DURING EXECUTION
-	stagingMutex->WaitOne();
+	//stagingMutex->WaitOne();
 		////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::DequeueArray stagingMutex LOCK TAKEN", ErrorSeverity::Debug);
 
+	Monitor::Enter(this->stagingQueue);
 	if (numberOfBytes > (this->stagingQueue->Count))
 	{
 		////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::DequeueArray : UNDERFLOW" + "Number of Bytes Requested " + numberOfBytes + " Available" +  (this->stagingQueue->Count), ErrorSeverity::Debug);
 		//instead of throwing an exception we should return false to let the processing start gain
 		
 		//release the lock
-		stagingMutex->ReleaseMutex();
+		//stagingMutex->ReleaseMutex();
+
+		Monitor::Exit(this->stagingQueue);
 
 		return nullptr;
 	}
 
+	
 	try
 	{
 		//First return the required contents
 		returnValueArray = this->stagingQueue->GetRange(0, numberOfBytes)->ToArray();
-		////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::DequeueArray returnValueArray = " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(returnValueArray), ErrorSeverity::Debug);
+		//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::DequeueArray returnValueArray = " + DalBinaryConversions::ConvertBytesToString(returnValueArray), ErrorSeverity::Debug);
+		
+		
 		
 		//remove the content from the array
 		this->stagingQueue->RemoveRange(0, numberOfBytes);
@@ -304,30 +397,33 @@ array<unsigned char>^ DalStagingQueue::DequeueArray(int numberOfBytes)
 		
 		//deleting exception and returning a nullptr
 		delete excepObj;
-		return nullptr;
+		returnValueArray =  nullptr;
 	}
 	finally
 	{
 		////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::DequeueArray Inside finally block.", ErrorSeverity::Debug);
 
 		//release the lock
-		stagingMutex->ReleaseMutex();
+		//stagingMutex->ReleaseMutex();
 		////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::DequeueArray stagingMutex RELEASE", ErrorSeverity::Debug);
+		Monitor::Exit(this->stagingQueue);
+
 	}
 	return returnValueArray;
 }
 
 bool DalStagingQueue::ProcessSinglePacket()
 {
-	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket Start with queue:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(this->stagingQueue->ToArray()), ErrorSeverity::Debug);
-	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket Start with queue length :  " +  this->stagingQueue->Count , ErrorSeverity::Debug);
+	try
+	{
+		//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket Start with queue length :  " +  this->stagingQueue->Count + " Queue: " + DalBinaryConversions::ConvertBytesToString(this->stagingQueue->ToArray())   , ErrorSeverity::Debug);
 
  
-	stagingMutex->WaitOne();
+		//stagingMutex->WaitOne();
 	if (0 == this->stagingQueue->Count )
 	{
 		//////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket ZERO Data", ErrorSeverity::Debug);
-		stagingMutex->ReleaseMutex();
+			//stagingMutex->ReleaseMutex();
 		return false;
 	}
 	//else
@@ -335,7 +431,7 @@ bool DalStagingQueue::ProcessSinglePacket()
 	//get the first element from the queue and find it's type
 	unsigned char firstByteinQueue = this->stagingQueue[0];
 	DalPacketType packetType =  DeterminePacketType(firstByteinQueue);
-	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket Type determined = " + packetType.ToString(DalFormatterStrings::PrintEnumName)+ " firstByteinQueue " +firstByteinQueue.ToString(DalFormatterStrings::PrintByte), ErrorSeverity::Debug);
+		//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket Type determined = " + packetType.ToString(DalFormatterStrings::PrintEnumName)+ " firstByteinQueue " +firstByteinQueue.ToString(DalFormatterStrings::PrintByte), ErrorSeverity::Debug);
 
 	//TEst Code only: TODO
 	if (DalPacketType::Unknown == packetType)
@@ -343,11 +439,40 @@ bool DalStagingQueue::ProcessSinglePacket()
 		CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket Buffer Unknown type: " + DalBinaryConversions::ConvertBytesToString(this->stagingQueue->ToArray()), ErrorSeverity::Debug);
 	}
 	
-	stagingMutex->ReleaseMutex();
+		//stagingMutex->ReleaseMutex();
 
 	array<unsigned char>^ extractedPacket; 
 	
 	
+	extractedPacket = ExtractPacketByType(packetType);
+
+		//stagingMutex->ReleaseMutex();
+		//Thread::Sleep(0);
+
+		//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket ENDING queue:  " +  DalBinaryConversions::ConvertBytesToString(this->stagingQueue->ToArray()), ErrorSeverity::Debug);
+	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket ENDING " , ErrorSeverity::Debug);
+		
+
+
+	if (nullptr == extractedPacket)
+	{
+		//if we havent extracted any data return false to signify that there is nothing left to process
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+	}
+	catch(Exception^ excepObj)
+	{
+		throw gcnew ScorException(excepObj);
+	}
+}
+
+array<unsigned char>^ DalStagingQueue::ExtractPacketByType(DalPacketType packetType)
+{
+	array<unsigned char>^ extractedPacket; 
 
 	//take action based on type
 	if (DalPacketType::StreamingDataPacket  == packetType)
@@ -367,30 +492,23 @@ bool DalStagingQueue::ProcessSinglePacket()
 		extractedPacket = ExtractNibpPacket();
 
 	}
+	else if (DalPacketType::NibpProcessAbortedPacket == packetType)
+	{
+		extractedPacket = ExtractNibpAbortPacket();
+	}
 	else
 	{
 		//Cannot determine type of packet in queue
 		
-		////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket ERROR condition: firstByteinQueue "  + firstByteinQueue.ToString(DalFormatterStrings::PrintByte), ErrorSeverity::Debug);
+		//CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket ERROR condition: firstByteinQueue "  + firstByteinQueue.ToString(DalFormatterStrings::PrintByte), ErrorSeverity::Debug);
 		
 		//clear the buffer as required
 		PartiallyClearBuffer();
+		extractedPacket =  nullptr;
 	}
 
-	//////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket ENDING queue:  " +  AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(this->stagingQueue->ToArray()), ErrorSeverity::Debug);
-	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::ProcessSinglePacket ENDING " , ErrorSeverity::Debug);
-	Thread::Sleep(0);
+	return extractedPacket;
 
-
-	if (nullptr == extractedPacket)
-	{
-		//if we havent extracted any data return false to signify that there is nothing left to process
-		return false;
-	}
-	else
-	{
-		return true;
-	}
 }
 
 DalStagingQueue::~DalStagingQueue()
@@ -399,10 +517,10 @@ DalStagingQueue::~DalStagingQueue()
 
 
 	delete this->stagingQueue;
-	delete this->stagingMutex;
+	//delete this->stagingMutex;
 
 	this->stagingQueue = nullptr;
-	this->stagingMutex =  nullptr;
+	//this->stagingMutex =  nullptr;
 
 }
 
@@ -416,8 +534,6 @@ void DalStagingQueue::PartiallyClearBuffer()
 	if (_captureMode)
 	{
 		//We are in capture mode . need to only clear till the next straming packet in the array
-		//TODO: code this
-		////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::PartiallyClearBuffer Noty implemented for streaming:  " , ErrorSeverity::Debug);
 
 		int nextStreamingPacketIndex = GetIndexOfNextStreamingPacketHead();
 		
@@ -430,7 +546,7 @@ void DalStagingQueue::PartiallyClearBuffer()
 		}
 		else
 		{
-			stagingMutex->WaitOne();
+			//stagingMutex->WaitOne();
 
 			//TODO: this line is for debugging only. Delete when not required
 			//array<unsigned char> ^ returnValueArray = this->stagingQueue->GetRange(0, nextStreamingPacketIndex)->ToArray();
@@ -440,7 +556,7 @@ void DalStagingQueue::PartiallyClearBuffer()
 			//clear from 0 to (nextStreamingPacketIndex-1)
 			this->stagingQueue->RemoveRange(0, nextStreamingPacketIndex);
 
-			stagingMutex->ReleaseMutex();
+			//stagingMutex->ReleaseMutex();
 
 		}
 	}
@@ -566,11 +682,11 @@ int DalStagingQueue::GetIndexOfNextStreamingPacketHead()
 void DalStagingQueue::EmptyBuffer()
 {
 	////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::PartiallyClearBuffer stagingMutex LOCK", ErrorSeverity::Debug);
-		stagingMutex->WaitOne();
+		//stagingMutex->WaitOne();
 	
 		//clear the entire buffer.
 		stagingQueue->Clear();
 
-		stagingMutex->ReleaseMutex();
+		//stagingMutex->ReleaseMutex();
 		////CrxLogger::Instance->Write("Deepak>>> DalStagingQueue::PartiallyClearBuffer stagingMutex RELEASE", ErrorSeverity::Debug);
 }

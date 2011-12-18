@@ -40,14 +40,8 @@ namespace AtCor{
 					//Making these two variables static. They need to be accessed from static member functions.
 					static DalSimulationFile^ _tonometerSimulationFile; //Pointer to first simulation file
 					static DalSimulationFile^ _cuffTimerSimulationFile; //pointer to second simulation file (for other cuff related measurements)
-					//Timers::Timer ^captureTimer;  //Timer to fire simulated data events
 					
-					//Added by TS Stub
-					//static bool cuffInUse = false; // to indicate cuff is inflating, inflated, or deflating
-		
-					//
 					static void OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args); //read multiple events in each interval
-					//static void ReadMultipleEventsInLoop(Object^ sender) override;
 					
 					static DalPwvSimulationHandler^ _instance = gcnew DalPwvSimulationHandler();
 

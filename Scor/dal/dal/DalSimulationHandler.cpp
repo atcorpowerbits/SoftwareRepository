@@ -176,10 +176,10 @@ namespace AtCor{
 				DalPwvDataStruct tempPWVDataVar;
 			
 				//variables to hold the tonometer and cuff pulse readings
-				static unsigned long tonoData, cuffPulseData;
-				static unsigned long cuffAbsolutePressure;
+				static unsigned short tonoData, cuffPulseData;
+				static unsigned short cuffAbsolutePressure;
 				static unsigned long locCountdownTimer = 0;
-				static unsigned long statusBytes, locEASourceFlag;
+				static unsigned short statusBytes, locEASourceFlag;
 				static bool currentCuffStateIsInflated = false;
 				
 				//Pick the number of reads from DalConstants
@@ -192,7 +192,8 @@ namespace AtCor{
 						////CrxLogger::Instance->Write(" ReadMultipleEventsInLoop inside IF firstReadAfterCaptureStarted = " + firstReadAfterCaptureStarted.ToString(), ErrorSeverity::Debug);
 						ResetAllStaticMembers();
 
-						tonoData = cuffPulseData = cuffAbsolutePressure = locCountdownTimer = statusBytes =  0;
+						tonoData = cuffPulseData = cuffAbsolutePressure = statusBytes =  0;
+						locCountdownTimer = 0;
 						currentCuffStateIsInflated = firstReadAfterCaptureStarted = false;
 					}
 				
@@ -210,7 +211,7 @@ namespace AtCor{
 							_currentEASourceFlag = locEASourceFlag;
 
 							//Added by TS Stub
-							if (DalCuffStateFlags::CUFF_STATE_DEFLATED == (DalCuffStateFlags)(statusBytes & 0x7))
+							if (DalCuffStatusBitMask::CUFF_DEFLATED_STATUS_BITS == (DalCuffStatusBitMask)(statusBytes & 0x0700))
 							{
 								// Finished cuff until another inflation
 								cuffInUse = false;
@@ -263,7 +264,7 @@ namespace AtCor{
 				}
 				catch(ScorException^ scorExObj)
 				{
-					CrxLogger::Instance->Write(" Simulation ScorException raised:" + scorExObj->ErrorMessageKey , ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL: Simulation ScorException raised:" + scorExObj->ErrorMessageKey , ErrorSeverity::Debug);
 						
 					//throw; //dont throw an excpetion from a thread . convert it to an event
 
@@ -276,7 +277,7 @@ namespace AtCor{
 				}
 				catch(Exception^ excepObj)
 				{
-					CrxLogger::Instance->Write(" Simulation Exception raised:" + excepObj->Message, ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL: Simulation Exception raised:" + excepObj->Message + excepObj->StackTrace, ErrorSeverity::Debug);
 					//throw gcnew ScorException(excepObj);
 					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, gcnew ScorException(excepObj));
 				}
@@ -486,7 +487,7 @@ namespace AtCor{
 			bool DalSimulationHandler::IsCuffDeflated()
 			{
 				return (DalCuffStateFlags::CUFF_STATE_DEFLATED == currentCuffState);
-				//return true; //TODO: recheck with TS if they want this to always return true.
+				
 			}
 
 			bool DalSimulationHandler::StartBP(DalNIBPMode nibpMode, unsigned short initialPressure)
@@ -515,13 +516,126 @@ namespace AtCor{
 				if (DalCuffStateFlags::CUFF_STATE_INFLATED == currentCuffState)
 				{
 					//value is in miliseconds. The device returns it as seconds hece divide by thousand.
-					dataVar->countdownTimer = (short)locCountdownTimer/1000;
+					dataVar->countdownTimer = locCountdownTimer/1000;
 				}
 				else
 				{
 					dataVar->countdownTimer = 0;
 				}
 			}
+
+
+			//DalConfigurationAndUsages Methods
+			String^ DalSimulationHandler::SerialNumberMpb()
+			{
+				return "00000000000000000001";
+			}
+
+			String^ DalSimulationHandler::ProcessorFirmwareVersionMpb()
+			{
+				return "0001";
+			}
+
+			String^ DalSimulationHandler::PldSafetyFirmwareVersionMpb()
+			{
+				return "0001";
+			}
+
+			String^ DalSimulationHandler::SerialNumberSuntechPcb()
+			{
+				return "0000000000000001";
+			}
+
+			String^ DalSimulationHandler::BPFirmwareVersionSuntech()
+			{
+				return "0000001";
+			}
+
+			String^ DalSimulationHandler::SafetyFirmwareVersionSuntech()
+			{
+				return "0000001";
+			}
+
+			String^ DalSimulationHandler::SerialNumberEm4()
+			{
+				return "000000000001";
+			}
+
+
+			unsigned short DalSimulationHandler::HWConfigurationMpb()
+			{
+				return 1;
+			}
+
+			unsigned short DalSimulationHandler::SystemConfigurationId()
+			{
+				return 1;
+			}
+
+			unsigned int DalSimulationHandler::NumberofPWVmeasurements()
+			{
+				return 0;
+			}
+			unsigned int DalSimulationHandler::NumberofPWAtonometermeasurements()
+			{
+				return 0;
+			}
+			unsigned int DalSimulationHandler::NumberofPWAcuffmeasurements()
+			{
+				return 0;
+			}
+			unsigned int DalSimulationHandler::NumberOfNibpMeasurements()
+			{
+				return 0;
+			}
+
+			DateTime DalSimulationHandler::CalibrationDateMpb()
+			{
+				return System::DateTime::Now;
+			}
+			
+			DateTime DalSimulationHandler::CalibrationDateSuntech()
+			{
+				return System::DateTime::Now;
+			}
+			
+			DateTime DalSimulationHandler::TestDate()
+			{
+				return System::DateTime::Now;
+			}
+
+			DateTime DalSimulationHandler::SystemConfigurationChangeDate()
+			{
+				return System::DateTime::Now;
+			}
+
+			unsigned short DalSimulationHandler::NotchFilterEnable()
+			{
+				return 1;
+			}
+
+			void DalSimulationHandler::SerialNumberMpb(String^ data)						{ data;	}
+			void DalSimulationHandler::ProcessorFirmwareVersionMpb(String^ data)			{ data; }
+			void DalSimulationHandler::PldSafetyFirmwareVersionMpb(String^ data)			{ data; }
+			void DalSimulationHandler::SerialNumberSuntechPcb(String^ data)					{ data; }
+			void DalSimulationHandler::BPFirmwareVersionSuntech(String^ data)				{ data; }
+			void DalSimulationHandler::SafetyFirmwareVersionSuntech(String^ data)			{ data; }
+			void DalSimulationHandler::SerialNumberEm4(String^ data)						{ data; }
+			
+			void DalSimulationHandler::HWConfigurationMpb(unsigned short data)				{ data; }
+			void DalSimulationHandler::SystemConfigurationId(unsigned short data)			{ data; }
+
+			void DalSimulationHandler::NumberofPWVmeasurements(unsigned int data)			{ data; }
+			void DalSimulationHandler::NumberofPWAtonometermeasurements(unsigned int data)	{ data; }
+			void DalSimulationHandler::NumberofPWAcuffmeasurements(unsigned int data)		{ data; }
+			void DalSimulationHandler::NumberOfNibpMeasurements(unsigned int data)			{ data; }
+
+			void DalSimulationHandler::CalibrationDateMpb(DateTime data)					{ data; }
+			void DalSimulationHandler::CalibrationDateSuntech(DateTime data)				{ data; }
+			void DalSimulationHandler::TestDate(DateTime data)								{ data; }
+			void DalSimulationHandler::SystemConfigurationChangeDate(DateTime data)			{ data; }
+			void DalSimulationHandler::NotchFilterEnable(unsigned short data)				{ data; };
+
 
 		}//END DataAccess namespace
 	}

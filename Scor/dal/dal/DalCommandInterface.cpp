@@ -98,7 +98,7 @@ namespace AtCor{
 						DalResponsePacketBuffer::Instance->Clear();
 
 						//inform the StaqignQueManager that it should look for a response to this command
-						DalStagingQueue::Instance->LookForResponseToCommand(serialCommand->commandCode, (unsigned char)(serialCommand->expectedResponseLength));
+						//DalStagingQueue::Instance->LookForResponseToCommand(serialCommand->commandCode, (unsigned char)(serialCommand->expectedResponseLength));
 						
 						//Instead of directly sending command we will call the dallActive port function
 						DalActivePort::Instance->SendPacket(serialCommand->em4Command);
@@ -186,7 +186,7 @@ namespace AtCor{
 					return DalReturnValue::Timeout;
 				}
 
-				//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ListenForEM4Response() : recievedData:" + DalBinaryConversions::ConvertBytesToString(serialCommand->em4Response), ErrorSeverity::Debug);
+				//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ListenForEM4Response() : recievedData:" + DalBinaryConversions::ConvertBytesToString(serialCommand->em4Response)+ "  Time taken in ms: " + milisecondsExpired, ErrorSeverity::Debug);
 
 				//we have recieved data so signify that we have recieved it
 				//DalCommandInterface::Instance->ChangeCommandState(DalCommandStateResponseReceived::Instance);
@@ -363,6 +363,10 @@ namespace AtCor{
 				{
 					ResetAllStaticMembers();
 
+					
+					bufferEmptyCounter = 0;
+					isAlarmRaised = false;
+
 					//Reset the streaming seqence number validation
 					DalSequenceNumberManager::ResetStreamingSequenceNumber();
 				
@@ -379,11 +383,12 @@ namespace AtCor{
 					streamingPacketProcessingTimer->Enabled = true;
 
 					//Initialize the timeout checker.
-					DalActivePort::Instance->StartStreamingTimeoutChecker();
+					//DalActivePort::Instance->StartStreamingTimeoutChecker(); //changed logic
 					
 				}
 				catch(Exception^ excepObj)
 				{
+					CrxLogger::Instance->Write("DAL: DalCommandInterface::InitiateDataCaptureModeInternal" + excepObj->Message + excepObj->StackTrace,ErrorSeverity::Debug);
 					throw gcnew ScorException(excepObj);
 				}
 				return true;
@@ -397,8 +402,8 @@ namespace AtCor{
 					//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::StopDataCaptureModeInternal called", ErrorSeverity::Debug);
 
 					//Stop the timeout checker.
-					DalActivePort::Instance->StopStreamingTimeoutChecker();
-
+					//DalActivePort::Instance->StopStreamingTimeoutChecker(); //logic has been changed
+					bufferEmptyCounter = 0;
 					streamingPacketProcessingTimer->Enabled = false; //stop the timer
 
 					//Inform the Staging que of the mode
@@ -436,23 +441,23 @@ namespace AtCor{
 			//	sender; //Dummy statement to get rid of C4100 warning
 			//	args; //Dummy statement to get rid of C4100 warning
 
-			//	static unsigned int BufferEmptyCounter = 0;
+			//	static unsigned int bufferEmptyCounter = 0;
 
 			//	if (DalDataBuffer::Instance->IsBufferEmpty())
 			//	{
-			//		BufferEmptyCounter++;
+			//		bufferEmptyCounter++;
 			//	}
 			//	else
 			//	{
 			//		//reset the pointer
-			//		BufferEmptyCounter = 0;
+			//		bufferEmptyCounter = 0;
 
 			//		//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateWaiting::Instance);
 			//		ChangeCaptureState(DalCaptureStateWaiting::Instance); //call directly so that it is applicable for its children too
 			//		
 			//	}
 
-			//	if (BufferEmptyCounter >=  DalConstants::MaxStreamingTimeoutOccurrences)
+			//	if (bufferEmptyCounter >=  DalConstants::MaxStreamingTimeoutOccurrences)
 			//	{
 			//		//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
 			//		ChangeCaptureState(DalCaptureStateTimeout::Instance); //call directly so that it is applicable for its children too
@@ -462,7 +467,7 @@ namespace AtCor{
 			//		DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureErrorInvalidPacket, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::DataCaptureTimeout));
 			//		DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 
-			//		//////CrxLogger::Instance->Write("Timeout Event raised :" + BufferEmptyCounter, ErrorSeverity::Debug);
+			//		//////CrxLogger::Instance->Write("Timeout Event raised :" + bufferEmptyCounter, ErrorSeverity::Debug);
 
 			//		//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
 			//		ChangeCaptureState(DalCaptureStateNotListening::Instance); //call directly so that it is applicable for its children too
@@ -518,7 +523,6 @@ namespace AtCor{
 
 			bool DalCommandInterface::StopDataCaptureMode()
 			{
-
 				return _currentCaptureState->StopDataCaptureMode();
 			}
 
@@ -614,6 +618,7 @@ namespace AtCor{
 					DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
 				}
 
+			
 				return false;
 			}
 
@@ -654,11 +659,13 @@ namespace AtCor{
 			{
 				if (0 == DalStreamingPacketQueue::Instance->Count())
 				{
+					StreamingTimeoutChecker(false);
 					//no data avaliable
 					ChangeCaptureState(DalCaptureStateWaiting::Instance);
 				}
 				else
 				{
+					StreamingTimeoutChecker(true);
 					ChangeCaptureState(DalCaptureStateDataReceived::Instance);
 				}
 				
@@ -735,9 +742,59 @@ namespace AtCor{
 
 			}
 
+			void DalCommandInterface::StreamingTimeoutChecker(bool dataAvailable)
+			{
+				//static unsigned int bufferEmptyCounter;
+				//static unsigned int isAlarmRaised = false;
+				String^ StreamingTimeoutFlag;
+				StreamingTimeoutFlag = CrxSytemParameters::Instance->GetStringTagValue("StreamingTimeoutFlag");
+				
+				if (StreamingTimeoutFlag == "Y")
+				{
+					if (true ==  dataAvailable)
+					{
+						//CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::StreamingTimeoutChecker Data available ", ErrorSeverity::Debug  );
+						bufferEmptyCounter = 0;
+					}
+					else
+					{
+						bufferEmptyCounter++;
+						CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::StreamingTimeoutChecker not avalibale:  bufferEmptyCounter:" + bufferEmptyCounter, ErrorSeverity::Debug  );
 
+						if (bufferEmptyCounter <  DalConstants::MaxStreamingTimeoutOccurrences)
+						{
+							//if the treshold for number of empty tries is not reached , return
+							return;
+						}
+						else
+						{
+							if(isAlarmRaised == false)	//to prevent multiple alarm raise
+							{
+								//if false for multiple occurences, it means that there was no data between last check and this one
+								//raise an alarm
+							
+								//change the state
+								//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
+								ChangeCaptureState(DalCaptureStateTimeout::Instance); //call directly so that it is applicable for its children too
+													
+								CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::StreamingTimeoutChecker Timeout occured Raising event." , ErrorSeverity::Debug );
 
+								//bufferEmptyCounter = 0; //Do not reset counter. This will prevent it from raising the error reapeatedly
+								
+								//raise event 
+								String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, DalErrorAlarmStatusFlag::DataCaptureTimeout, DalFormatterStrings::PrintEnumName);
+								DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(DalErrorAlarmStatusFlag::DataCaptureTimeout, sourceName, DalBinaryConversions::ConvertAlarmType(DalErrorAlarmStatusFlag::DataCaptureTimeout));
+								DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+								isAlarmRaised = true;
+								
+								//DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateNotListening::Instance);
+								ChangeCaptureState(DalCaptureStateNotListening::Instance); //call directly so that it is applicable for its children too
+							}
+						}
+					}
+				}
+			}
 
-		}//End Data Access
+		}	//End Data Access
 	}
 }

@@ -32,7 +32,6 @@ namespace AtCor{
 			private ref class DalNibpSimulationHandler : public IDalNibpHandler
 			{
 				private:
-					//TS STUB
 					static DalSimulationFile^ _nibpSimulationFile; //pointer to NIBP simulation file
 					static Timers::Timer ^_nibpTimer = nullptr;  //Timer to fire simulated NIBP data event
 					static bool _nibpConnected ;
@@ -43,8 +42,10 @@ namespace AtCor{
 					static unsigned short _nibpMP;
 					static unsigned short _nibpHR;
 
+					//Sets the Initial Inflate value
 					bool SetBPInitialInflate(unsigned short initialPressure); //TS Stub
 					
+					//Singleton instance
 					static DalNibpSimulationHandler^ _instance = gcnew DalNibpSimulationHandler();
 
 					static DalDataBuffer ^dataBufferObj; //to hold pointer to object
@@ -61,14 +62,38 @@ namespace AtCor{
 						};
 					};
 
+					/**
+					* Starts a BP measurement process with the specified initial pressure.
+					* @param[in]	nibpMode	The age group for which measurement is to be taken as an enum
+					* @param[in]	initialPressure	The inital pressure to set for this capture instance
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					virtual bool StartBP(DalNIBPMode nibpMode, unsigned short initialPressure);
 
+					/**
+					* Starts a BP measurement process.
+					* @param[in]	nibpMode	The age group for which measurement is to be taken as an enum
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					virtual bool StartBP(DalNIBPMode nibpMode);
 
+					/**
+					* Stops a BP measurement and disconnects the NIBP module
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					virtual bool FinishBP();
 
+					/**
+					* Aborts an ongoing BP measurement.
+					* @return	A boolean value indicating the success or failure of this process
+					*/
 					virtual bool AbortBP();
 
+					/**
+					* Handler for the internal timer. Reads an NIBP event data from the file and raises an event.
+					* @param[in]	sender	The raiser of this event
+					* @param[in]	args	Arguments for this event
+					*/
 					static void OnTimerDalNIBPDataEvent(Object^ sender, ElapsedEventArgs^ args);
 			};
 		}

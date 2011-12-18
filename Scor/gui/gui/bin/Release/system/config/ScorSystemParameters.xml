@@ -12,17 +12,18 @@
 		<StreamingPackets>N</StreamingPackets>
    </ProcessSequenceNumber>
    <IdleModeSleepTime>3000</IdleModeSleepTime>
+   <StreamingTimeoutFlag>Y</StreamingTimeoutFlag>
    <ProcessStatusFlagParts>
-		<StopButton>N</StopButton>
-		<PowerUpBit>N</PowerUpBit>
-		<AlarmFlag>N</AlarmFlag>
+		<StopButton>Y</StopButton>
+		<PowerUpBit>Y</PowerUpBit>
+		<AlarmFlag>Y</AlarmFlag>
 		<CuffStatusFlags>Y</CuffStatusFlags>
 		<TonometerFlags>N</TonometerFlags>
-		<UnusedBits>N</UnusedBits>
+		<UnusedBits>Y</UnusedBits>
    </ProcessStatusFlagParts>
   <Gui>
     <WaitButtonDelay>5</WaitButtonDelay>
-    <AutoPWAProgressbarDelay>15</AutoPWAProgressbarDelay>
+    <AutoPWAProgressbarDelay>5</AutoPWAProgressbarDelay>
   </Gui>
 	<Crx>
 		<Logging>
@@ -36,10 +37,11 @@
       </Inflation>
       <Deflation>
         <Timeout>10</Timeout>
+        <Rest>5</Rest>
       </Deflation>
       <Reinflation>
-        <Rest>0</Rest>
-      </Reinflation>
+        <Rest>5</Rest>
+      </Reinflation>     
     </Cuff>
   </PWV>
   <PWA>
@@ -49,30 +51,38 @@
       </Inflation>
 	   <Deflation>
         <Timeout>10</Timeout>
+       <Rest>5</Rest>
       </Deflation>
       <Reinflation>
-        <Rest>0</Rest>
+        <Rest>5</Rest>
       </Reinflation>
+      <PatientReport>
+        <RangeArraySize>
+          <SP>5</SP>
+          <DP>5</DP>
+          <HR>5</HR>
+        </RangeArraySize>
+      </PatientReport>
     </Cuff>
   </PWA>
   <RTOF>
  		<PWVTonometer>
 			<MinNumberOfPulsesForAutoCapture>10</MinNumberOfPulsesForAutoCapture>
-			<VariationUpperFeedbackLimePoint>70</VariationUpperFeedbackLimePoint>
-			<VariationUpperFeedbackYellowPoint>85</VariationUpperFeedbackYellowPoint>
-			<VariationLowerFeedbackLimePoint>150</VariationLowerFeedbackLimePoint>
-			<VariationLowerFeedbackYellowPoint>160</VariationLowerFeedbackYellowPoint>
-			<PHFeedbackLimePoint>190</PHFeedbackLimePoint>
-			<PHFeedbackYellowPoint>220</PHFeedbackYellowPoint>
+      <VariationUpperFeedbackLimePoint>70</VariationUpperFeedbackLimePoint>
+      <VariationUpperFeedbackYellowPoint>85</VariationUpperFeedbackYellowPoint>
+      <VariationLowerFeedbackLimePoint>150</VariationLowerFeedbackLimePoint>
+      <VariationLowerFeedbackYellowPoint>160</VariationLowerFeedbackYellowPoint>
+      <PHFeedbackLimePoint>190</PHFeedbackLimePoint>
+      <PHFeedbackYellowPoint>220</PHFeedbackYellowPoint>
  		</PWVTonometer>
  		<PWVCuff>
 			<MinNumberOfPulsesForAutoCapture>10</MinNumberOfPulsesForAutoCapture>
-			<VariationUpperFeedbackLimePoint>68</VariationUpperFeedbackLimePoint>
-			<VariationUpperFeedbackYellowPoint>75</VariationUpperFeedbackYellowPoint>
-			<VariationLowerFeedbackLimePoint>8</VariationLowerFeedbackLimePoint>
-			<VariationLowerFeedbackYellowPoint>12</VariationLowerFeedbackYellowPoint>
-			<PHFeedbackLimePoint>55</PHFeedbackLimePoint>
-			<PHFeedbackYellowPoint>60</PHFeedbackYellowPoint>
+      <VariationUpperFeedbackLimePoint>68</VariationUpperFeedbackLimePoint>
+      <VariationUpperFeedbackYellowPoint>75</VariationUpperFeedbackYellowPoint>
+      <VariationLowerFeedbackLimePoint>8</VariationLowerFeedbackLimePoint>
+      <VariationLowerFeedbackYellowPoint>12</VariationLowerFeedbackYellowPoint>
+      <PHFeedbackLimePoint>55</PHFeedbackLimePoint>
+      <PHFeedbackYellowPoint>60</PHFeedbackYellowPoint>
  		</PWVCuff>
  		<PWATonometer>
  			<VariationFeedbackLimePoint>5</VariationFeedbackLimePoint>
@@ -80,15 +90,40 @@
  		</PWATonometer>
  		<PWACuff>		
 			<MinNumberOfPulsesForAutoCapture>10</MinNumberOfPulsesForAutoCapture>
-			<VariationUpperFeedbackLimePoint>65</VariationUpperFeedbackLimePoint>
-			<VariationUpperFeedbackYellowPoint>80</VariationUpperFeedbackYellowPoint>
-			<VariationLowerFeedbackLimePoint>12</VariationLowerFeedbackLimePoint>
-			<VariationLowerFeedbackYellowPoint>17</VariationLowerFeedbackYellowPoint>
-			<PHFeedbackLimePoint>190</PHFeedbackLimePoint>
-			<PHFeedbackYellowPoint>200</PHFeedbackYellowPoint>
+      <VariationUpperFeedbackLimePoint>65</VariationUpperFeedbackLimePoint>
+      <VariationUpperFeedbackYellowPoint>80</VariationUpperFeedbackYellowPoint>
+      <VariationLowerFeedbackLimePoint>12</VariationLowerFeedbackLimePoint>
+      <VariationLowerFeedbackYellowPoint>17</VariationLowerFeedbackYellowPoint>
+      <PHFeedbackLimePoint>190</PHFeedbackLimePoint>
+      <PHFeedbackYellowPoint>200</PHFeedbackYellowPoint>
  		</PWACuff>
  	</RTOF>
   <NibpCuffDataInterval>200</NibpCuffDataInterval>
+  <NibpDal>
+	<Timeouts>
+		<!-- All timeout values are in miliseconds --> 
+		<DefaultOWaitTime>100</DefaultOWaitTime>
+		<StartBP>
+			<WatitForO>1000</WatitForO>
+			<WatitForK>140000</WatitForK>
+		</StartBP>
+		<StartPediatricBpWaitForK>100000</StartPediatricBpWaitForK>
+		<StartNeonateBpWaitForK>85000</StartNeonateBpWaitForK>
+		<DalCuffPressureCommandWaitTime>100</DalCuffPressureCommandWaitTime>
+		<DalNibpGetBpDataCommandWaitTime>100</DalNibpGetBpDataCommandWaitTime>
+		<DalNibpIntialInflateCommandWaitTime>50</DalNibpIntialInflateCommandWaitTime>
+		<DalNibpAbortBpCommandWaitTime>200</DalNibpAbortBpCommandWaitTime>
+		<SendNibpConnectCommand>
+			<BusyWaitPeriod>1000</BusyWaitPeriod>
+		</SendNibpConnectCommand>
+		<GetCuffPressureCommandRetryInterval>200</GetCuffPressureCommandRetryInterval>
+	</Timeouts>
+	<!--Disable the cuffpressure measurement thread for NIBP. For debugging only-->
+	<CuffPressureMeasurementThreadEnable>Y</CuffPressureMeasurementThreadEnable>
+	<!-- Ignores an NIBP GetBP Data response with EC =-1 for testing purpose and converts it to 0 so that the data is displayed.
+		Does not ignore other errors. For development only-->
+	<IngnoreEC1ForTesting>N</IngnoreEC1ForTesting>
+  </NibpDal>
    <MyTestValues>
 		<Value1>1</Value1>
 		<Value2>2</Value2>

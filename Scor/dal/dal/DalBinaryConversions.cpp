@@ -18,6 +18,7 @@ using namespace AtCor::Scor::DataAccess;
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace System::Text;
+using namespace System;
 //using namespace System::Globalization;
 
 DalBinaryConversions::DalBinaryConversions()
@@ -57,6 +58,17 @@ String^ DalBinaryConversions::ConvertBytesToString(array<unsigned char>^ inputAr
 	return packetData->ToString();
 }
 
+array<unsigned char>^ DalBinaryConversions::ConvertStringToBytes(String^ chars)
+{
+    ASCIIEncoding^ ascii = gcnew ASCIIEncoding();
+    
+    int byteCount = ascii->GetByteCount(chars->ToCharArray());
+	array<unsigned char>^ bytes = gcnew array<unsigned char> (byteCount) {0};
+	
+	 ascii->GetBytes(chars, 0, byteCount, bytes, 0);
+	return bytes;
+}
+
 unsigned short DalBinaryConversions::TranslateTwoBytes( array <unsigned char>^ sourceArray, int startPostion)
 {
 	//get the status flag
@@ -68,6 +80,17 @@ unsigned short DalBinaryConversions::TranslateTwoBytes( array <unsigned char>^ s
 	return flagUn.ulStatusFlag ;
 }
 
+unsigned int DalBinaryConversions::TranslateThreeBytes( array <unsigned char>^ sourceArray, int startPostion)
+{
+	//get the status flag
+	ThreeBytesUnsignedInt flagUn;
+
+	flagUn.ucStatusBytes[2] = sourceArray[startPostion];
+	flagUn.ucStatusBytes[1] = sourceArray[startPostion + 1];
+	flagUn.ucStatusBytes[0] = sourceArray[startPostion + 2];
+
+	return flagUn.uiStatusFlag;
+}
 signed short DalBinaryConversions::TranslateTwoBytesLsbFirst( array <unsigned char>^ sourceArray, int startPostion)
 {
 	//similar to TranslateTwoBytes() but the LSB is the first byte instead of second
@@ -92,6 +115,46 @@ unsigned long DalBinaryConversions::TranslateFourBytes( array <unsigned char>^ s
 	flagUn.ucStatusBytes[0] = sourceArray[startPostion + 3];
 
 	return flagUn.ulStatusFlag ;
+}
+
+array<unsigned char>^ DalBinaryConversions::ConvertThreeBytesIntoArray( unsigned int data)
+{
+	array<unsigned char>^ byteData = gcnew array<unsigned char> (3);
+
+	//need to check the data
+	byteData[2] = (unsigned char)(data & 0x00FF);
+	byteData[1] = ((unsigned char)((data & 0xFF00) >> 8));
+	byteData[0] = ((unsigned char)((data & 0xFF00) >> 16));
+
+	return byteData;
+
+}
+
+array<unsigned char>^ DalBinaryConversions::ConvertDateIntoArray(DateTime data)
+{
+		array<unsigned char>^ byteData = gcnew array<unsigned char> (6);
+
+		byteData[5] = (unsigned char)((unsigned int)data.Minute & 0x00FF);
+		byteData[4] = (unsigned char)((unsigned int)data.Hour & 0x00FF);
+		byteData[3] = (unsigned char)((unsigned int)data.Day & 0x00FF);
+		byteData[2] = (unsigned char)((unsigned int)data.Month & 0x00FF);
+		byteData[0] = (unsigned char)((unsigned int)data.Year & 0x00FF);
+		byteData[1] = ((unsigned char)(((unsigned int)data.Year & 0xFF00) >> 8));
+
+		return byteData;
+}
+
+DateTime DalBinaryConversions::ConvertArrayIntoDate(array<unsigned char>^ data)
+{
+		DateTime dt ;//= gcnew DateTime;
+
+		dt.AddMinutes( (double) ((unsigned int)data[5]));
+		dt.AddHours((double) ((unsigned int)data[4]));
+		dt.AddDays((double) ((unsigned int)data[3]));
+		dt.AddMonths((int) ((unsigned int)data[2]));
+		dt.AddYears((int) ((unsigned int)data[0] & ((unsigned int)data[1] << 8)));
+		
+		return dt;
 }
 
 DalAlarmSource DalBinaryConversions::ConvertAlarmType(DalAlarmFlagBitPosition alarmType)

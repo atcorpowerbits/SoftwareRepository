@@ -28,7 +28,7 @@ namespace AtCor{
 					tonometerData = (unsigned short)-1;
 					cuffPulseData = (unsigned short)-1;
 					cuffPressure = (unsigned short)-1;
-					countdownTimer = (unsigned short)-1;
+					countdownTimer = (unsigned long)-1;
 				}
 
 				//Copy constructor to work around the reference copy function
@@ -435,7 +435,7 @@ namespace AtCor{
 				}
 				catch(Exception^ excepObj)
 				{
-					CrxLogger::Instance->Write("DalDataBuffer::GetValueAt Exception thrown readStartIndex: " + readStartIndex + " offsetFromReadStartIndex: " + offsetFromReadStartIndex+ " message: " +excepObj->Message + " " + excepObj->StackTrace , ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL:DalDataBuffer::GetValueAt Exception thrown readStartIndex: " + readStartIndex + " offsetFromReadStartIndex: " + offsetFromReadStartIndex+ " message: " +excepObj->Message + " " + excepObj->StackTrace , ErrorSeverity::Debug);
 				
 					throw gcnew ScorException(excepObj);
 				}

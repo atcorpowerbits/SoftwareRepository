@@ -17,9 +17,17 @@ namespace AtCor{
 	namespace Scor { 
 		namespace DataAccess{
 
+			/**
+			* @class DalPwvDeviceHandler
+			* @brief	The class that handles the EM4 device for PwvMode
+			*/
 			private ref class DalPwvDeviceHandler: public DalDeviceHandler
 			{
 				internal:
+					
+					/**
+					* Constructor for this class.
+					*/
 					DalPwvDeviceHandler();
 
 				public:

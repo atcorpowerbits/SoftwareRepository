@@ -66,7 +66,7 @@ DalPwvCommandInterface::DalPwvCommandInterface()
 
 bool DalPwvCommandInterface::ProcessSingleStreamingPacket(array<unsigned char> ^streamingPacket)
 {
-	CrxLogger::Instance->Write("Deepak>>> DalPwvCommandInterface::ProcessSingleStreamingPacket called with parameter: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " End", ErrorSeverity::Debug);
+	CrxLogger::Instance->Write("DAL:Deepak>>> DalPwvCommandInterface::ProcessSingleStreamingPacket called with parameter: " + DalBinaryConversions::ConvertBytesToString(streamingPacket)+ " End", ErrorSeverity::Debug);
 
 	if (nullptr == streamingPacket)
 	{

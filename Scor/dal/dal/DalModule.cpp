@@ -58,88 +58,13 @@ namespace AtCor{
 				return DalActiveDevice::Instance->SetDeviceStrategy();
 			}
 
-			//bool DalModule::SetDeviceStrategy()
-			//{
-			//	try
-			//	{
-			//		String ^ comPortInConfig; 
-			//		//obtain the setting from config manager.
-			//		CrxConfigManager ^configMgr = CrxConfigManager::Instance;
-			//		configMgr->GetGeneralUserSettings();
-			//		configMgr->GetPwvUserSettings();
-			//		//Get the simulation type as set in configuration.
-			//		comPortInConfig = configMgr->GeneralSettings->CommsPort;
 
-			//		if (String::IsNullOrEmpty(comPortInConfig))
-			//		{
-			//			//make it simualtion by default Dont throw exception
-			//			comPortInConfig = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation);
-
-			//			//set the com port as simulation in Config file
-			//			configMgr->GeneralSettings->CommsPort = comPortInConfig;
-			//			configMgr->SetGeneralUserSettings(configMgr->GeneralSettings);
-			//			//CrxLogger::Instance->Write(CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalMsgDefaultModeSelectedSim), ErrorSeverity::Debug);
-			//		}
-
-			//		SetDeviceStrategy(comPortInConfig); 
-			//	}
-			//	catch(ScorException ^)
-			//	{
-			//		throw;
-			//	}
-			//	catch(Exception ^ excepObj)
-			//	{
-			//		throw gcnew ScorException(excepObj);
-			//	}
-
-			//	return true;
-			//}
-
-			/*bool DalModule::SetDeviceStrategy(String ^commPort)
-					{
-				return DalActiveDevice::Instance->SetDeviceStrategy(commPort);
-			}*/
 	                
 			bool DalModule::SetDeviceStrategy(String ^commPort,DalStreamingMode streamingMode)
 			{
 				return DalActiveDevice::Instance->SetDeviceStrategy(commPort, streamingMode);
 			}
-			//bool DalModule::SetDeviceStrategy(String ^commPort)
-			//{
-			//	try
-			//	{
-			//		CrxMessagingManager ^oMsg = CrxMessagingManager::Instance;
 
-			//		if (commPort == nullptr)
-			//		{
-			//			//A null string was passed when a comm port was expected.
-			//			throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrComportNotSetErrCd, CrxStructCommonResourceMsg::DalErrComportNotSet, ErrorSeverity::Exception);
-			//		}
-	  //              
-			//		//Compare with the "simulation" string CrxMessaging
-   //           		if (String::Compare(commPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), oMsg->GetMessage(CrxStructCommonResourceMsg::ComportSimulation), true) == 0)
-			//		{
-			//			//if config manager returns "simulation" initialize the DalSimulationHander
-			//			//create a new simulation handler
-			//			_currentDevice = DalSimulationHandler::Instance;
-			//		}
-			//		else
-			//		{
-			//			//since DAlDeviceHandler is implemented as a singleton we cannot use gcnew
-			//			_currentDevice = DalDeviceHandler::Instance;
-			//		}
-			//	}
-			//	catch(ScorException ^)
-			//	{
-			//		throw;
-			//	}
-			//	catch(Exception ^ excepObj)
-			//	{
-			//		throw gcnew ScorException(excepObj);
-			//	}
-
-			//	return true;
-			//}
 
 			DalModule^ DalModule::operator =(DalModule)
 			{
@@ -148,15 +73,6 @@ namespace AtCor{
 				return this;
 			}
 
-			//older method. was retained for compatilbilty, removed now
-			//void DalModule::StartCapture()
-			//{
-			//	if (_currentDevice)
-			//	{
-			//		//call the active device method
-			//		_currentDevice->StartCapture();
-			//	}
-			//}
 
 			bool DalModule::StartMeasurement(int captureTime, int samplingRate)
 			{
@@ -218,90 +134,7 @@ namespace AtCor{
 				
 			}
 				
-			//DalFindModuleResult DalModule::FindModule(String ^%deviceFoundPort)
-			//{
-			//	//find module should search all ports regardless of whether 
-			//	//it is in Simulation mode or Device mode
-					
-			//	String ^ configPort; //to store the COM port setting received from CONFIG
-			//	String ^ commsPortInConfig; //This will store config comPort name only if it is a non-simulation
-			//	
-			//	
-			//	//get the current com port setting from the Config file
-			//	CrxConfigManager ^configMgr = CrxConfigManager::Instance;
-   //             configMgr->GetGeneralUserSettings();
-   //             configMgr->GetPwvUserSettings();
-   //             configPort = configMgr->GeneralSettings->CommsPort;
 
-			//	//first check if the current device is simulation
-			//	//save it to a flag 
-			//	//if find module fails to locate a real device we will need to go back to simulation.
-			//	//use true to ignore the case
-			//	if (0 == String::Compare(configPort->Replace(DalFormatterStrings::SingleSpaceString,String::Empty), CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation), true) )
-			//	{
-			//		//there was no real comms port in COnfig file
-			//		commsPortInConfig = nullptr;
-			//		
-			//	}
-			//	else
-			//	{
-			//		//it means that FindModule was called when a com port was selected 
-			//		//save this comport present in config so that we dont end up searching it twice
-			//		commsPortInConfig = configPort;
-			//	}
-
-			//	//if a valid COMMPort is specified in config first  check if the device is present there
-			//	if (nullptr != commsPortInConfig)
-			//	{
-			//		if ((DalDeviceHandler::Instance->CheckIfDeviceIsConnected(commsPortInConfig))  )
-			//		{
-			//			//this is the correct port
-			//			deviceFoundPort = commsPortInConfig;
-
-			//			//This port is already set in config
-			//			//so no need to update in config
-
-			//			//set the current device to this port
-			//			SetDeviceStrategy(deviceFoundPort);
-
-			//			return DalFindModuleResult::ModuleFoundOnConfigPort; 
-			//			//TO specify that the device was found on the 
-			//			//same port as mentioned in COnfig file
-			//		}
-			//	}
-
-			//	//if theConfig CommPort is simulation,
-			//	//or if the port specified in config does not have the device check all other ports
-			
-			//	String^ foundPortName = nullptr; //String to recieve the found serial port name
-			//	bool searchPortValue ; 
-			//	searchPortValue = SearchAllPortsforDevice(foundPortName,commsPortInConfig);
-			//	if (true == searchPortValue)
-			//	{
-			//		//return the found port name into the out parameter;
-			//		deviceFoundPort = foundPortName;
-
-			//		//set the current device to this instance
-			//		SetDeviceStrategy(deviceFoundPort);
-
-			//		//update the config setting
-			//		configMgr->GeneralSettings->CommsPort = foundPortName;
-			//		configMgr->SetGeneralUserSettings(configMgr->GeneralSettings);
-			//		//return 2; 
-			//		//this means that the device was found on a different port as specifed in config
-			//		return DalFindModuleResult::ModuleFoundOnDifferentPort;
-			//	}
-			//	else
-			//	{
-			//		//device was not found
-			//		//if device was simulation let it be 
-			//		//if device was com port  let it be at the same port
-			//		SetDeviceStrategy();
-			//		//return 0;
-			//		return DalFindModuleResult::ModuleNotFound;
-			//	}
-			//
-			//}
 
 			String^ DalModule::GetErrorAlarmSource()
 			{
@@ -507,32 +340,13 @@ namespace AtCor{
 				SetDeviceStrategy();
 			}
 
-			//TS Stub
-			//bool DalModule::IsCuffDeflated()
-			//{
-			//	//if (_currentDevice)
-			//	//{
-			//	//	//call the active device method
-			//	//	return _currentDevice->IsCuffDeflated();
-			//	//}
-			//	//else
-			//	//{
-			//	//	return true;
-			//	//}
-			//	//if (0 == String::Compare(
-			//	//	"Simulation",
-			//	//	CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::ComportSimulation),
-			//	//	false))
-			//	//{
-			//	//	return true;
-			//	//}
-			//	//else
-			//	//{
-			//	//	return false;
-			//	//}
 
-			//	return DalActiveDevice::CurrentDevice->IsCuffDeflated();
-			//}
+			bool DalModule::IsCuffDeflated()
+			{
+				return DalActiveDevice::CurrentDevice->IsCuffDeflated();
+			}
+
+
 
 			//TS Stub
 			// Unit testing purpose only to force StartCapture to fail when 

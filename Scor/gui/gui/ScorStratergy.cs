@@ -61,15 +61,11 @@ namespace AtCor.Scor.Gui.Presentation
         void LoadTemporaryReport();
 
         void EnableDisableCaptureButton();
+        
+        void EnableRepeatAndCaptureTab(bool value);
+        
+        void SaveChangesOnMenuFocus();
 
-        // void AppendCaptureData();       
-        // void CalculateReport();
-        // void CalculateAge();
-        // void Populate(crxPwv);
-        // bool Validate();
-        // void RecalculatePWVReport(crxPwv);
-        // void GetBpRefRange();
-        // bool Initialise();
-        // void ValidateAgeLimit();
+        void SaveReportChangesOnEdit();
     }
 }
