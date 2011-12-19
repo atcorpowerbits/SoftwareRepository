@@ -44,7 +44,11 @@ namespace AtCor{
 					
 					//static void OnTimerReadMultipleEvents(Object^ sender, ElapsedEventArgs^ args); //read multiple events in each interval
 					static void ReadMultipleEventsInLoop(Object^ sender);
-					
+
+					void DeflateCuff();
+					static void OnTimerDelayDeflateEvent(Object^ sender, ElapsedEventArgs^ args);
+					static Timers::Timer^ _timerDelay;
+
 					//static DalSimulationHandler^ _instance = gcnew DalSimulationHandler();
 
 					/**

@@ -63,6 +63,7 @@ namespace AtCor.Scor.Gui.Presentation
         // Color pulseHeightColorForTonometer;   
         
         public delegate void AccessGuiControls();
+        private delegate void TestUpdateCuffState(object sender, BizCuffStateEventArgs args);
 
         Series newSeries;
         Series femoralCuffSeries;
@@ -829,67 +830,74 @@ namespace AtCor.Scor.Gui.Presentation
         *The corresponding exception will also be logged in the log file.
         */
         private void UpdateCuffState(object sender, BizCuffStateEventArgs e)
-        {            
-            try
+        {
+            if (this.InvokeRequired)
             {
-                // value "inflated" is coming from biz e.data which determines whether cuff state is inflated or not
-                // used for internal purpose
-                if (e.data.ToLower().Equals("inflated"))
-                {                    
-                    objDefaultWindow.radlblMessage.Text = string.Empty;
-                    radlblTimeStatus.Visible = true;
-
-                    objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiCaptureCuffInflated);
-                    cuffstatechangeFlag = true;
-                    femoralPlotSwitch = true;
-                    objDefaultWindow.radlblCaptureTime.Visible = true;
-                }
-                else
-                {                    
-                    objDefaultWindow.radlblMessage.Text = string.Empty;
-                    femoralPlotSwitch = false;
-                    cuffstatechangeFlag = false;
-                    guiradprgbarTimeToInflatioDeflation.Value1 = 0;
-                    guiradprgbarTimeToInflatioDeflation.Update();
-
-                    // make progress bar, time to deflation invisible & show cross
-                    radlblTimeStatus.Visible = false;
-                    objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiCaptureDeflatedMsg);
-
-                    // make progress bar invisible & show cross image
-                    guiradprgbarTimeToInflatioDeflation.Visible = false;
-
-                    prim2.BackColor = Color.FromArgb(248, 237, 234);
-                    prim2.BackColor2 = Color.FromArgb(210, 67, 39);
-                    prim2.BackColor3 = Color.FromArgb(210, 67, 39);
-                    prim2.BackColor4 = Color.FromArgb(248, 237, 234);                                      
-                }
-
-                if (e.data.ToLower().Equals("inflating"))
-                {                    
-                    objDefaultWindow.radlblMessage.Text = string.Empty;
-
-                    femoralPlotSwitch = false;
-                    cuffstatechangeFlag = false;
-                    guiradprgbarTimeToInflatioDeflation.Value1 = 0;
-                    guiradprgbarTimeToInflatioDeflation.Update();
-
-                    // make progress bar, time to deflation invisible & show cross
-                    radlblTimeStatus.Visible = false;
-                    objDefaultWindow.radlblMessage.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiCaptureCuffInflatingMsg);
-
-                    // make progress bar invisible & show cross image
-                    guiradprgbarTimeToInflatioDeflation.Visible = false;
-
-                    prim2.BackColor = Color.FromArgb(248, 237, 234);
-                    prim2.BackColor2 = Color.FromArgb(210, 67, 39);
-                    prim2.BackColor3 = Color.FromArgb(210, 67, 39);
-                    prim2.BackColor4 = Color.FromArgb(248, 237, 234);                    
-                }
+                this.Invoke(new TestUpdateCuffState(this.UpdateCuffState), sender, e);
             }
-            catch (Exception ex)
+            else
             {
-                GUIExceptionHandler.HandleException(ex, this);
+                try
+                {
+                    // value "inflated" is coming from biz e.data which determines whether cuff state is inflated or not
+                    // used for internal purpose
+                    if (e.data.ToLower().Equals("inflated"))
+                    {
+                        objDefaultWindow.radlblMessage.Text = string.Empty;
+                        radlblTimeStatus.Visible = true;
+
+                        objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiCaptureCuffInflated);
+                        cuffstatechangeFlag = true;
+                        femoralPlotSwitch = true;
+                        objDefaultWindow.radlblCaptureTime.Visible = true;
+                    }
+                    else
+                    {
+                        objDefaultWindow.radlblMessage.Text = string.Empty;
+                        femoralPlotSwitch = false;
+                        cuffstatechangeFlag = false;
+                        guiradprgbarTimeToInflatioDeflation.Value1 = 0;
+                        guiradprgbarTimeToInflatioDeflation.Update();
+
+                        // make progress bar, time to deflation invisible & show cross
+                        radlblTimeStatus.Visible = false;
+                        objDefaultWindow.radlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiCaptureDeflatedMsg);
+
+                        // make progress bar invisible & show cross image
+                        guiradprgbarTimeToInflatioDeflation.Visible = false;
+
+                        prim2.BackColor = Color.FromArgb(248, 237, 234);
+                        prim2.BackColor2 = Color.FromArgb(210, 67, 39);
+                        prim2.BackColor3 = Color.FromArgb(210, 67, 39);
+                        prim2.BackColor4 = Color.FromArgb(248, 237, 234);
+                    }
+
+                    if (e.data.ToLower().Equals("inflating"))
+                    {
+                        objDefaultWindow.radlblMessage.Text = string.Empty;
+
+                        femoralPlotSwitch = false;
+                        cuffstatechangeFlag = false;
+                        guiradprgbarTimeToInflatioDeflation.Value1 = 0;
+                        guiradprgbarTimeToInflatioDeflation.Update();
+
+                        // make progress bar, time to deflation invisible & show cross
+                        radlblTimeStatus.Visible = false;
+                        objDefaultWindow.radlblMessage.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiCaptureCuffInflatingMsg);
+
+                        // make progress bar invisible & show cross image
+                        guiradprgbarTimeToInflatioDeflation.Visible = false;
+
+                        prim2.BackColor = Color.FromArgb(248, 237, 234);
+                        prim2.BackColor2 = Color.FromArgb(210, 67, 39);
+                        prim2.BackColor3 = Color.FromArgb(210, 67, 39);
+                        prim2.BackColor4 = Color.FromArgb(248, 237, 234);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    GUIExceptionHandler.HandleException(ex, this);
+                }
             }
         }
 

@@ -466,8 +466,10 @@ namespace AtCor{
 				}
 				else
 				{
-					// simulate cuff is deflated
-					ProcessStatusFlag(0);
+					// simulate cuff deflated event independently
+					DeflateCuff();
+//					ProcessStatusFlag(0);
+//va:test					return false;
 				}
 
 				//This should always return true 
@@ -476,6 +478,22 @@ namespace AtCor{
 				return true; 
 			}
 
+			void DalSimulationHandler::DeflateCuff()
+			{
+				_timerDelay = gcnew Timers::Timer(1000); // give time b4 start deflating
+				_timerDelay->Elapsed += gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerDelayDeflateEvent); 
+				_timerDelay->Enabled = true;
+			}
+
+			void DalSimulationHandler::OnTimerDelayDeflateEvent(Object^ sender, ElapsedEventArgs^ args)
+			{
+				// disable the timer
+				_timerDelay->Enabled = false;
+				_timerDelay->Elapsed -= gcnew ElapsedEventHandler(&DalSimulationHandler::OnTimerDelayDeflateEvent);
+				ProcessStatusFlag((unsigned long)DalCuffStatusBitMask::CUFF_DEFLATING_STATUS_BITS); // simulate cuff is deflating
+				Thread::Sleep(5000); // duration of deflating
+				ProcessStatusFlag((unsigned long)DalCuffStatusBitMask::CUFF_DEFLATED_STATUS_BITS); // simulate cuff is deflated
+			}
 
 			bool DalSimulationHandler::SetIdleMode()
 			{

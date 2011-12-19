@@ -576,6 +576,7 @@ namespace AtCor {
 				static  String^ const  InconclusiveNoteT1_RATIO				=	"INCONCLUSIVE_NOTE_T1_RATIO";
 				static  String^ const  InconclusiveNoteOPERATOR_INDEX		=	"INCONCLUSIVE_NOTE_OPERATOR_INDEX";
 				static  String^ const  InconclusiveNoteMAXDPDT				=	"INCONCLUSIVE_NOTE_MAXDPDT";
+				static  String^ const  InconclusiveNoteLOW_QC				=	"INCONCLUSIVE_NOTE_LOW_QC";
 				static  String^ const  Inflatedovertime						=	"InflatedOverTime";
 				static  String^ const  Information							=	"INFORMATION";
 				static  String^ const  InsertMode							=	"INSERT_MODE";
@@ -793,6 +794,7 @@ namespace AtCor {
 				static  String^ const  PWA_ERROR_WRONG_PULSE				=	"PWA_ERROR_WRONG_PULSE";
 				static  String^ const  PWA_ERROR_WRONG_PULSE_SAMPLERATE		=	"PWA_ERROR_WRONG_PULSE_SAMPLERATE";
 				static  String^ const  PWA_ERROR_TIME_OUT_OF_RANGE			=	"PWA_ERROR_TIME_OUT_OF_RANGE";
+				static  String^ const  PWA_ERROR_CAPTURE_SIGNAL_TOO_LOW		=	"PWA_ERROR_CAPTURE_SIGNAL_TOO_LOW";
 				static  String^ const  PWA_MSG_SIGNAL_TOO_SHORT				=	"PWA_MSG_SIGNAL_TOO_SHORT";
 				static  String^ const  PWA_MSG_TRIGGER_TOO_SHORT			=	"PWA_MSG_TRIGGER_TOO_SHORT";
 				static  String^ const  PWA_MSG_SP_OUT						=	"PWA_MSG_SP_OUT";
@@ -818,6 +820,7 @@ namespace AtCor {
 				static  String^ const  Pwv									=	"PWV";
 				static  String^ const  PwvPatientReport						=	"PWV PATIENT REPORT";
 				static  String^ const  PwvSummaryReport						=	"PWV SUMMARY REPORT";
+				static	String^ const  MSG_WRONG_SERIAL_NUMBER				=	"MSG_WRONG_SERIAL_NUMBER";
 
 
 				static  String^ const  PwvBlText							=	"PWV_BL_TEXT";
@@ -841,7 +844,7 @@ namespace AtCor {
 				static  String^ const  PwvSimulationFileNotFound			=	"PWV_SIMULATION_FILE_NOT_FOUND";
 				//static  String^ const  PwvStartCaptureFailed				=	"PWV_START_CAPTURE_FAILED";
 				static  String^ const  PwvStartCaptureFailed				=	"BLL_START_CAPTURE_FAILED";
-				static  String^ const  PwvStdDevToLarge						=	"PWV_STD_DEV_TO_LARGE";
+				static  String^ const  PwvStdDevTooLarge					=	"PWV_STD_DEV_TOO_LARGE";
 				static  String^ const  PwvTooSmallForAdult					=	"PWV_TOO_SMALL_FOR_ADULT";
 				static  String^ const  PwvUnit								=	"PWV_UNIT";
 				static  String^ const  PwvValidDeltasNotEnough				=	"PWV_VALID_DELTAS_NOT_ENOUGH";

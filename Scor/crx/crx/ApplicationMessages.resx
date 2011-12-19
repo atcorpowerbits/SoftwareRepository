@@ -1092,19 +1092,22 @@
     <value>PWV counter failed</value>
   </data>
   <data name="PWV_DELTAS_NOT_ENOUGH" xml:space="preserve">
-    <value>Enough time differences ({0}) were not found</value>
+    <value>Insufficient number of pulses.
+PWV not calculated.</value>
   </data>
   <data name="PWV_SET_DEFAULTS_FAILED" xml:space="preserve">
     <value>PWV failed to set defaults</value>
   </data>
-  <data name="PWV_STD_DEV_TO_LARGE" xml:space="preserve">
-    <value>PWV standard deviation {0} is too large</value>
+  <data name="PWV_STD_DEV_TOO_LARGE" xml:space="preserve">
+    <value>Unacceptable high PWV variation.
+PWV not calculated.</value>
   </data>
   <data name="PWV_TOO_SMALL_FOR_ADULT" xml:space="preserve">
     <value>PWV {0} is too small for an adult</value>
   </data>
   <data name="PWV_VALID_DELTAS_NOT_ENOUGH" xml:space="preserve">
-    <value>Enough pulse wave velocities ({0}) were not found</value>
+    <value>Insufficient number of valid pulses.
+PWV not calculated.</value>
   </data>
   <data name="TONOMETER_DATA_APPEND_FAILED" xml:space="preserve">
     <value>Failed to append tonometer data</value>
@@ -2881,5 +2884,20 @@ If this age is greater than your actual age: Your arteries are stiffer than is n
   </data>
   <data name="CHART_CENTRAL_SP" xml:space="preserve">
     <value>Central SP</value>
+  </data>
+  <data name="PWA_ERROR_CAPTURE_SIGNAL_TOO_LOW" xml:space="preserve">
+    <value>Cannot Proceed. Captured Signal Threshold was too Low.</value>
+  </data>
+  <data name="INCONCLUSIVE_NOTE_LOW_QC" xml:space="preserve">
+    <value>Low Quality Control.</value>
+  </data>
+  <data name="CUFF_RESTING" xml:space="preserve">
+    <value>Cuff is resting</value>
+  </data>
+  <data name="CUFF_CYCLE_LIMITED" xml:space="preserve">
+    <value>Capture cycle limit reached.</value>
+  </data>
+  <data name="MSG_WRONG_SERIAL_NUMBER" xml:space="preserve">
+    <value>Serial number is wrong.</value>
   </data>
 </root>
