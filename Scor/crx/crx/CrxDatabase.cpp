@@ -1547,8 +1547,13 @@ int CrxDBManager::MigrationInternal(OleDbDataReader ^rdr, CrxLogger^ objLog, int
 	
 	DateTime strDOB;							// stores the date of birth of patient
 
+	CrxMessagingManager^ objMsg		= nullptr;  // Object used to access messaging class
+
 	try
 	{
+		//Create messaging object
+		objMsg = CrxMessagingManager::Instance;
+
 		//Create dbConnection
 		dbconnection = _objDB->CreateConnection();
 
@@ -1644,7 +1649,8 @@ int CrxDBManager::MigrationInternal(OleDbDataReader ^rdr, CrxLogger^ objLog, int
 		catch(Exception^)
 		{
 			// throw customised exception
-			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrMigrationReferManualErrCd, CrxStructCommonResourceMsg::CrxErrMigrationReferManual, ErrorSeverity::Exception);
+			//throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrMigrationReferManualErrCd, CrxStructCommonResourceMsg::CrxErrMigrationReferManual, ErrorSeverity::Exception);
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrMigrationReferManualErrCd, CrxStructCommonResourceMsg::CrxErrMigrationReferManual, ErrorSeverity::Exception, nullptr, objMsg->GetMessage(CrxStructCommonResourceMsg::ContactAtcorSupportCommon));
 		}
 
 		return result = 1;	
@@ -2963,79 +2969,120 @@ void CrxDBManager::GetPWATrendData(System::String ^pwaIdArrStr, CrxStructPWATren
 
 array<String^>^ CrxDBManager::CommonIntArrToStringArr(cli::array<int,1> ^sortArr)
 {
-	array<String^>^ bpSort = gcnew array<String^>(sortArr->Length);
+	try
+	{
+		array<String^>^ bpSort = gcnew array<String^>(sortArr->Length);
 
-    for (int i = 0; i < sortArr->Length; i++)
-    {
-		bpSort[i] = Convert::ToString(sortArr[i]);
-    }
+		for (int i = 0; i < sortArr->Length; i++)
+		{
+			bpSort[i] = Convert::ToString(sortArr[i]);
+		}
 
-    return bpSort;
+		return bpSort;
+	}
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrDbMgrConversionErrCd, CrxStructCommonResourceMsg::CrxErrDbMgrConversion, ErrorSeverity::Exception);
+	} 
 }
 
 array<String^>^ CrxDBManager::CommonFloatArrToStringArr(cli::array<float,1> ^sortArr)
 {
-	array<String^>^ bpSort = gcnew array<String^>(sortArr->Length);
+	try
+	{
+		array<String^>^ bpSort = gcnew array<String^>(sortArr->Length);
 
-    for (int i = 0; i < sortArr->Length; i++)
-    {
-		bpSort[i] = Convert::ToString(sortArr[i]);
-    }
+		for (int i = 0; i < sortArr->Length; i++)
+		{
+			bpSort[i] = Convert::ToString(sortArr[i]);
+		}
 
-    return bpSort;
+		return bpSort;
+	}
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrDbMgrConversionErrCd, CrxStructCommonResourceMsg::CrxErrDbMgrConversion, ErrorSeverity::Exception);
+	} 
 }
 
 array<String^>^ CrxDBManager::CommonDoubleArrToStringArr(cli::array<double,1> ^sortArr)
 {
-	array<String^>^ bpSort = gcnew array<String^>(sortArr->Length);
+	try
+	{
+		array<String^>^ bpSort = gcnew array<String^>(sortArr->Length);
 
-    for (int i = 0; i < sortArr->Length; i++)
-    {
-		bpSort[i] = Convert::ToString(sortArr[i]);
-    }
+		for (int i = 0; i < sortArr->Length; i++)
+		{
+			bpSort[i] = Convert::ToString(sortArr[i]);
+		}
 
-    return bpSort;
+		return bpSort;
+	}
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrDbMgrConversionErrCd, CrxStructCommonResourceMsg::CrxErrDbMgrConversion, ErrorSeverity::Exception);
+	} 
 }
 
 array<int>^ CrxDBManager::CommonStringArrToIntArr(cli::array<System::String ^,1> ^sortArr)
 {
-	array<int>^ bpSort = gcnew array<int>(sortArr->Length);
+	try
+	{
+		array<int>^ bpSort = gcnew array<int>(sortArr->Length);
 
-    for (int i = 0; i < sortArr->Length; i++)
-    {
-		bpSort[i] = Convert::ToInt32(sortArr[i]);
-    }
+		for (int i = 0; i < sortArr->Length; i++)
+		{
+			bpSort[i] = Convert::ToInt32(sortArr[i]);
+		}
 
-    return bpSort; 
+		return bpSort; 
+	}
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrDbMgrConversionErrCd, CrxStructCommonResourceMsg::CrxErrDbMgrConversion, ErrorSeverity::Exception);
+	} 
 }
 
 array<float>^ CrxDBManager::CommonStringArrToFloatArr(cli::array<System::String ^,1> ^sortArr)
 {
-	array<float>^ bpSort = gcnew array<float>(sortArr->Length);
+	try
+	{
+		array<float>^ bpSort = gcnew array<float>(sortArr->Length);
 
-    for (int i = 0; i < sortArr->Length; i++)
-    {
-		bpSort[i] = Convert::ToSingle(sortArr[i]);
-    }
+		for (int i = 0; i < sortArr->Length; i++)
+		{
+			bpSort[i] = Convert::ToSingle(sortArr[i]);
+		}
 
-    return bpSort; 
+		return bpSort; 
+	}
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrDbMgrConversionErrCd, CrxStructCommonResourceMsg::CrxErrDbMgrConversion, ErrorSeverity::Exception);
+	} 
 }
 
 array<double>^ CrxDBManager::CommonStringArrToDoubleArr(cli::array<System::String ^,1> ^sortArr)
 {
-	array<double>^ bpSort = gcnew array<double>(sortArr->Length);
+	try
+	{
+		array<double>^ bpSort = gcnew array<double>(sortArr->Length);
 
-    for (int i = 0; i < sortArr->Length; i++)
-    {
-		bpSort[i] = Convert::ToDouble(sortArr[i]);
-    }
+		for (int i = 0; i < sortArr->Length; i++)
+		{
+			bpSort[i] = Convert::ToDouble(sortArr[i]);
+		}
 
-    return bpSort; 
-}
-
-array<Byte>^ CrxDBManager::CommonImageToByteArr(System::Drawing::Image ^imageIn)
-{
-	MemoryStream^ ms = gcnew MemoryStream();
-	imageIn->Save(ms, System::Drawing::Imaging::ImageFormat::Bmp);
-    return ms->ToArray();
+		return bpSort; 
+	}
+	catch(Exception^)
+	{
+		// throw the exception
+		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrDbMgrConversionErrCd, CrxStructCommonResourceMsg::CrxErrDbMgrConversion, ErrorSeverity::Exception);
+	} 
 }

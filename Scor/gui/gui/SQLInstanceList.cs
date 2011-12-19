@@ -8,6 +8,7 @@
      Description  :     Functionality implemented for showing available Servers on LAN.
 */
 
+using AtCor.Scor.CrossCutting;
 using AtCor.Scor.CrossCutting.Configuration;
 using AtCor.Scor.CrossCutting.DatabaseManager;
 using AtCor.Scor.CrossCutting.Logging;
@@ -39,6 +40,7 @@ namespace AtCor.Scor.Gui.Presentation
         readonly CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
         readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         readonly CrxLogger oLogObject = CrxLogger.Instance;
+        readonly CrxSytemParameters crxSystemParameter = CrxSytemParameters.Instance;
         
         CrxDBManager dbMagr;
         string serverNameString = string.Empty;
@@ -88,7 +90,13 @@ namespace AtCor.Scor.Gui.Presentation
                 SqlDataSourceEnumerator getCurInst = SqlDataSourceEnumerator.Instance;
                 DataTable dt = getCurInst.GetDataSources();
 
-                guicmbxSqlServerList.DataSource = dt;
+                // Display the contents of the table.
+                DataTable dataTable = new DataTable();
+                dataTable = dt.Clone();
+
+                dataTable = DisplayData(dt);
+
+                guicmbxSqlServerList.DataSource = dataTable;//dt;
                 guicmbxSqlServerList.DisplayMember = "ServerName";
                 OnInitializationProcess.Invoke(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnExit));
                 SetTextForControls();
@@ -101,81 +109,172 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void SetShape(params Control[] labelControl)
         {
-            RoundRectShape shape = new RoundRectShape
-                                       {
-                                           BottomLeftRounded = true,
-                                           BottomRightRounded = true,
-                                           TopLeftRounded = true,
-                                           TopRightRounded = true,
-                                           Radius = 5
-                                       };
-
-            foreach (Control control in labelControl)
+            try
             {
-                RadDropDownList dropDownlist = control as RadDropDownList;
-                if (dropDownlist != null)
-                {
-                    dropDownlist.DropDownListElement.Shape = shape;
-                    dropDownlist.DropDownListElement.EditableElement.Shape = shape;
+                RoundRectShape shape = new RoundRectShape
+                                           {
+                                               BottomLeftRounded = true,
+                                               BottomRightRounded = true,
+                                               TopLeftRounded = true,
+                                               TopRightRounded = true,
+                                               Radius = 5
+                                           };
 
-                    dropDownlist.DropDownListElement.ArrowButton.Shape = shape;
-                    dropDownlist.DropDownListElement.ArrowButton.Fill.NumberOfColors = 1;
-                    dropDownlist.DropDownListElement.ArrowButton.Fill.BackColor = Color.FromArgb(142, 150, 186);
-                    ((FillPrimitive)dropDownlist.DropDownListElement.Children[3]).BackColor = Color.FromArgb(142, 150, 186);
+                foreach (Control control in labelControl)
+                {
+                    RadDropDownList dropDownlist = control as RadDropDownList;
+                    if (dropDownlist != null)
+                    {
+                        dropDownlist.DropDownListElement.Shape = shape;
+                        dropDownlist.DropDownListElement.EditableElement.Shape = shape;
+
+                        dropDownlist.DropDownListElement.ArrowButton.Shape = shape;
+                        dropDownlist.DropDownListElement.ArrowButton.Fill.NumberOfColors = 1;
+                        dropDownlist.DropDownListElement.ArrowButton.Fill.BackColor = Color.FromArgb(142, 150, 186);
+                        ((FillPrimitive)dropDownlist.DropDownListElement.Children[3]).BackColor = Color.FromArgb(142, 150, 186);
+                    }
                 }
-            }        
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
 
         /**This event is fired when the cancel button is clicked.It will close the application.
         */
         private void guiradbtnCancel_Click(object sender, EventArgs e)
         {
-            IsCancel = 1;
-            Close();            
-        }
-
-        /**This event is fired when the user clicks on connect after selecting a server 
-         * from the drop down list.
-        */
-        private void guiradbtnConnect_Click(object sender, EventArgs e)
-        {
-            crxMgrObject.GeneralSettings.MachineName = guicmbxSqlServerList.Text;
-
-            serverNameString = GuiCommon.ServerNameString(); 
- 
-            // set the source data settings to SQL as we are listing only SQL servers on the network
-            crxMgrObject.GeneralSettings.SourceData = GuiConstants.SourceData;
-
-            dbMagr = CrxDBManager.Instance;
-            int result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData);
-
-            // Connection failed
-            if (result.Equals(1)) 
+            try
             {
-                DisplayAndLogMessage();
-            }            
-            else 
-            {
-                oLogObject.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerConnected) + serverNameString);                
-                crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);  
+                IsCancel = 1;
                 Close();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
-        /**This method is called to display the message on the connection status.
+        /** This event is fired when the user clicks on connect after selecting a server 
+         *  from the drop down list.
+        */
+        private void guiradbtnConnect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                crxMgrObject.GeneralSettings.MachineName = guicmbxSqlServerList.Text;
+
+                serverNameString = GuiCommon.ServerNameString();
+
+                // set the source data settings to SQL as we are listing only SQL servers on the network
+                crxMgrObject.GeneralSettings.SourceData = GuiConstants.SourceData;
+
+                dbMagr = CrxDBManager.Instance;
+                int result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData);
+
+                // Connection failed
+                if (result.Equals(1))
+                {
+                    DisplayAndLogMessage();
+                }
+                else
+                {
+                    oLogObject.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerConnected) + serverNameString);
+                    crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);
+                    Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
+        }
+
+        /** This method is called to display the message on the connection status.
         */
         private void DisplayAndLogMessage()
         {
-            guiradlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerUnableToConnect) + serverNameString + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSelectSqlInstance);
-            oLogObject.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerFailed) + serverNameString); 
+            try
+            {
+                guiradlblMessage.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerUnableToConnect) + serverNameString + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDisplayComma) + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSelectSqlInstance);
+                oLogObject.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerFailed) + serverNameString);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
 
-        /**This method is used to set the text for the controls on the form.
-        */
+        /** This method is used to set the text for the controls on the form.  */
         private void SetTextForControls()
         {
-            guiradbtnConnect.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSqlInstanceConnect);
+            guiradbtnConnect.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnOkTxt);
             guiradbtnCancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCancel);
+        }
+
+        /** This method is used to get the list of server list on basis of the SQL version number from the ScorSystemPArameters.xml file.  */
+        private DataTable DisplayData(System.Data.DataTable table)
+        {
+            //Create a temporary DataTable
+            DataTable copyDatabaseList = new DataTable();
+
+            //Create a structure of the table same as of the input table
+            copyDatabaseList = table.Clone();
+
+            string systemInstanceName = string.Empty;
+            string systemVersionName = string.Empty;
+
+            try
+            {
+                //Get the Server Instance name from the xml file
+                systemInstanceName = crxMgrObject.GeneralSettings.ServerName.ToUpper();
+
+                //Get the server Version number from the xml file
+                systemVersionName = crxSystemParameter.GetStringTagValue("Gui.SQLServerVersionNumber");
+
+                foreach (System.Data.DataRow row in table.Rows)
+                {
+                    string instanceNm = string.Empty;
+                    string version = string.Empty;
+                    string serverNm = string.Empty;
+
+                    foreach (System.Data.DataColumn col in table.Columns)
+                    {
+                        if (col.ColumnName.Equals("ServerName"))
+                        {
+                            serverNm = row[col].ToString();
+                            serverNm = serverNm.ToUpper();
+                        }
+                        if (col.ColumnName.Equals("InstanceName"))
+                        {
+                            instanceNm = row[col].ToString();
+                            instanceNm = instanceNm.ToUpper();
+                        }
+                        if (col.ColumnName.Equals("Version"))
+                        {
+                            version = row[col].ToString();
+                        }
+                    }
+
+                    char dot = Convert.ToChar(".");
+                    string[] splitSystemVersionName = systemVersionName.Split(dot);
+
+                    string[] splitVersion = version.Split(dot);
+
+                    if (instanceNm.Equals(systemInstanceName) && (Convert.ToInt32(splitVersion[0]) >= Convert.ToInt32(splitSystemVersionName[0])))
+                    {
+                        copyDatabaseList.ImportRow(row);
+                    }
+                }
+            }
+            catch (Exception eObj)
+            {
+                //TODO: Add proper exception handling and error mechanism
+                MessageBox.Show(eObj.Message, "Scor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return copyDatabaseList;
+
         }
     }
 }

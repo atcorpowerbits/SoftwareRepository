@@ -43,9 +43,9 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="biz, Version=0.9.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
+    <Reference Include="biz, Version=0.1.5.1, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Debug\biz.dll</HintPath>
+      <HintPath>..\..\Release\biz.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -53,10 +53,6 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="dal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3abc55289af2db05, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Debug\dal.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -398,9 +394,12 @@
     <None Include="DsPwaPrintReport.xss">
       <DependentUpon>DsPwaPrintReport.xsd</DependentUpon>
     </None>
-    <None Include="Resources\SetupScreenDirect_Small.jpg" />
-    <None Include="Resources\PWA_diagram.jpg" />
-    <None Include="Resources\atcor_logo.JPG" />
+    <None Include="bin\Resources\SetupScreenDirect_Small.jpg" />
+    <None Include="bin\Resources\PWA_diagram.jpg" />
+    <None Include="bin\Resources\atcor_logo.JPG" />
+    <None Include="Resources\PWA_diagram_new.jpg" />
+    <None Include="Resources\PWA_diagram_new1.jpg" />
+    <None Include="Resources\atcor_logo1.JPG" />
     <Content Include="Theme\Atcor_DockSplitContainer.xml" />
     <Content Include="Theme\Atcor_RadCheckmark.xml" />
     <Content Include="Theme\Atcor_RadPageView_Telerik_WinControls_RootRadElement.xml" />
@@ -460,14 +459,14 @@
     <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadTreeView.xml" />
     <Content Include="Theme\Atcor_Telerik_WinControls_UI_RadWaitingBar.xml" />
     <Content Include="Theme\Atcor_Telerik_WinControls_UI_SplitPanel.xml" />
-    <None Include="Resources\cap_arrow5.JPG" />
-    <None Include="Resources\cap_arrow6.JPG" />
+    <None Include="bin\Resources\cap_arrow5.JPG" />
+    <None Include="bin\Resources\cap_arrow6.JPG" />
     <None Include="SetupScreenDirect_Small.jpg" />
     <None Include="SetupScreenSubtracting_small.jpg" />
-    <None Include="Resources\SetupScreenSubtracting.jpg" />
-    <None Include="Resources\SetupScreenDirect.jpg" />
-    <None Include="Resources\newarrowpart211.jpg" />
-    <None Include="Resources\newarrowpart111.jpg" />
+    <None Include="bin\Resources\SetupScreenSubtracting.jpg" />
+    <None Include="bin\Resources\SetupScreenDirect.jpg" />
+    <None Include="bin\Resources\newarrowpart211.jpg" />
+    <None Include="bin\Resources\newarrowpart111.jpg" />
     <None Include="DsPwvPatientReport.xsc">
       <DependentUpon>DsPwvPatientReport.xsd</DependentUpon>
     </None>
@@ -537,6 +536,10 @@
     <ProjectReference Include="..\..\crx\crx\crx.vcproj">
       <Project>{24748540-BFD1-4293-99F5-D556338366C4}</Project>
       <Name>crx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dal\dal\dal.vcproj">
+      <Project>{E274BA19-F920-40C0-8747-214688D2ABB3}</Project>
+      <Name>dal</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

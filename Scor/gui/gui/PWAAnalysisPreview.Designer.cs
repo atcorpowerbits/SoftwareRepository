@@ -147,7 +147,7 @@
             title1.Position.Width = 88F;
             title1.Position.X = 12F;
             title1.Position.Y = 10F;
-            title1.Text = "Central SP";
+            title1.Text = "Central SYS";
             this.guiradAnalysisChartSP.Titles.Add(title1);
             // 
             // guiradAnalysisChartPP
@@ -396,7 +396,7 @@
             series11.BorderWidth = 2;
             series11.ChartArea = "ChartArea1";
             series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series11.Color = System.Drawing.Color.DarkBlue;
+            series11.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             series11.Name = "Series3";
             series12.BorderWidth = 2;
             series12.ChartArea = "ChartArea1";
@@ -420,7 +420,7 @@
             title5.Position.Width = 88F;
             title5.Position.X = 9F;
             title5.Position.Y = 12F;
-            title5.Text = "Central DP       MAP";
+            title5.Text = "Central DIA       MAP";
             this.guiradAnalysisChartDPMP.Titles.Add(title5);
             // 
             // guiradAnalysisChartHR

@@ -127,7 +127,6 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // crx unhandled exception
                 RadMessageBox.Show((IWin32Window)currentWindow, crEx.ExceptionObject.Message, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                // RadMessageBox.Show(crEx.ExceptionObject.Message, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
 
                 // log exception message alongwith stack trace and error source
                 OLogObject.Write(crEx.ExceptionObject.Message + Environment.NewLine + crEx.ExceptionObject.Source + Environment.NewLine + crEx.ExceptionObject.StackTrace);
@@ -145,8 +144,6 @@ namespace AtCor.Scor.Gui.Presentation
                 eMsg = GetErrorString(crEx.ErrorStringArr);
 
                 RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                // RadMessageBox.Show(eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-
                 OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
             }
             else
@@ -179,10 +176,10 @@ namespace AtCor.Scor.Gui.Presentation
                         }
 
                         // RadMessageBox.Show(eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
-                       
+                        
                         RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
-
+                        
                         if (isScorSystemParameterCorrupted)
                         {
                             CrxLogger.Instance.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.Exitstr));
@@ -194,8 +191,7 @@ namespace AtCor.Scor.Gui.Presentation
                     case ErrorSeverity.Warning:
                         
                         RadMessageBox.Show((IWin32Window)currentWindow, eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
-                        // RadMessageBox.Show(eMsg, OMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
-
+                     
                         OLogObject.Write(OMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiErrorTxt) + eMsg);
 
                         // GuiCommon.DefaultWindowForm.radlblMessage.Text = string.Empty;
@@ -311,6 +307,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             // log exception message alongwith stack trace
             OLogObject.Write(ex.Message + Environment.NewLine + ex.Source + Environment.NewLine + ex.StackTrace);        
-        } // End HandleGeneralException     
+        } 
+        // End HandleGeneralException     
     }
 }

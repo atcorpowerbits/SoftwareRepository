@@ -19,7 +19,7 @@ using namespace System::ComponentModel;
 using namespace AtCor::Scor::CrossCutting;
 using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace AtCor::Scor::CrossCutting::Configuration;
-
+using namespace System::IO;
 
 namespace AtCor{ 
 	namespace Scor { 
@@ -62,9 +62,59 @@ namespace AtCor{
 				{
 					_nibpConnected = true;
 					//pick the NIBP sim file from another directory
-					_nibpSimulationFile = gcnew DalSimulationFile(".\\simulation\\nibp\\nibp.dat");
+					//_nibpSimulationFile = gcnew DalSimulationFile(".\\simulation\\nibp\\nibp.dat");
 				}
+				
+				CrxConfigManager ^configMgr = CrxConfigManager::Instance;
+				configMgr->GetGeneralUserSettings();
+				configMgr->GetPwaUserSettings();
+				String ^ pwaFile = configMgr->PwaSettings->SimulationType;
+			
+				String^ tempFilePath = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPathNibp); //TODO: put this somewhere too
+				String^ tempFileExt  = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstDatFileExtn);
+				String^ tempFilePathPwa = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPathPwa); 
+				
+				String^ nibpFilePath ; 
+				String^ filePathPwa ; 
 
+				filePathPwa = String::Concat(tempFilePathPwa, pwaFile, tempFileExt); 
+
+				if(!File::Exists(filePathPwa))
+				{
+					Object^ obj;
+					ScorException^ check = gcnew ScorException (1050, CrxStructCommonResourceMsg::PwaNoFileNotFound, ErrorSeverity::Warning,nullptr, pwaFile);	
+					CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+					return false;
+				}
+				/*if (String::Compare(pwaFile,"demo",true) == 0)
+				{
+					nibpFilePath = String::Concat(tempFilePath, "nibp", tempFileExt); 
+					if (_nibpSimulationFile != nullptr)
+					{
+						delete _nibpSimulationFile;
+					}
+					_nibpSimulationFile = gcnew DalSimulationFile(nibpFilePath);
+				}*/
+				//else
+				//{
+					nibpFilePath = String::Concat(tempFilePath, pwaFile, tempFileExt); 
+					bool flag = File::Exists(nibpFilePath);
+					if(flag == true)
+					{
+						if (_nibpSimulationFile != nullptr)
+						{
+							delete _nibpSimulationFile;
+						}
+						_nibpSimulationFile = gcnew DalSimulationFile(nibpFilePath);
+					}
+					else
+					{
+						Object^ obj;
+						ScorException^ check = gcnew ScorException (1002, CrxStructCommonResourceMsg::DalNibpNotFound, ErrorSeverity::Warning,nullptr,pwaFile);	
+						CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+						return false;
+					}
+				//}
 				// Read one NIBP record to simulate; local variables (non-static) are needed to pass ref to GetNextValues
 				_nibpSimulationFile->GetNextValues(&locDuration, &locStatus, &locErrorCode, &locSP, &locDP, &locMP, &locHR);
 				_nibpStatus = locStatus;
@@ -83,6 +133,7 @@ namespace AtCor{
 				//Start the timer.
 				_nibpTimer->Interval = locDuration;
 				_nibpTimer->Enabled = true;
+				
 				return true;
 			}
 
@@ -103,9 +154,11 @@ namespace AtCor{
 			// Equivalent to NIBP Abort_BP & <A>
 			bool DalNibpSimulationHandler::AbortBP()
 			{
+				_nibpConnected = false;
 				if (_nibpTimer)
 				{
 					_nibpTimer->Enabled = false;
+					delete _nibpSimulationFile;
 				}
 				return true;
 			}
@@ -167,13 +220,14 @@ namespace AtCor{
 			bool DalNibpSimulationHandler::StartBP(DalNIBPMode nibpMode, unsigned short initialPressure)
 			{
 				bool startOK = false;
-
+				
 				// Set initial inflate pressure first before starting NIBP
 				startOK = SetBPInitialInflate(initialPressure);
 				if (startOK)
 				{
 					startOK = StartBP(nibpMode);
 				}
+				
 				return startOK;
 			}
 		}

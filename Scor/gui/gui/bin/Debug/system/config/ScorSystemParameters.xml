@@ -24,16 +24,17 @@
   <Gui>
     <WaitButtonDelay>5</WaitButtonDelay>
     <AutoPWAProgressbarDelay>5</AutoPWAProgressbarDelay>
+	<SQLServerVersionNumber>10.50.1600.1</SQLServerVersionNumber>
   </Gui>
 	<Crx>
 		<Logging>
-			<Enable>N</Enable>
+			<Enable>Y</Enable>
 	   </Logging>
 	</Crx>
   <PWV>
     <Cuff>
       <Inflation>
-        <Timeout>15</Timeout>
+        <Timeout>180</Timeout>
       </Inflation>
       <Deflation>
         <Timeout>10</Timeout>
@@ -47,7 +48,7 @@
   <PWA>
     <Cuff>
       <Inflation>
-        <Timeout>10</Timeout>
+        <Timeout>180</Timeout>
       </Inflation>
 	   <Deflation>
         <Timeout>10</Timeout>
@@ -64,40 +65,7 @@
         </RangeArraySize>
       </PatientReport>
     </Cuff>
-  </PWA>
-  <RTOF>
- 		<PWVTonometer>
-			<MinNumberOfPulsesForAutoCapture>10</MinNumberOfPulsesForAutoCapture>
-      <VariationUpperFeedbackLimePoint>70</VariationUpperFeedbackLimePoint>
-      <VariationUpperFeedbackYellowPoint>85</VariationUpperFeedbackYellowPoint>
-      <VariationLowerFeedbackLimePoint>150</VariationLowerFeedbackLimePoint>
-      <VariationLowerFeedbackYellowPoint>160</VariationLowerFeedbackYellowPoint>
-      <PHFeedbackLimePoint>190</PHFeedbackLimePoint>
-      <PHFeedbackYellowPoint>220</PHFeedbackYellowPoint>
- 		</PWVTonometer>
- 		<PWVCuff>
-			<MinNumberOfPulsesForAutoCapture>10</MinNumberOfPulsesForAutoCapture>
-      <VariationUpperFeedbackLimePoint>68</VariationUpperFeedbackLimePoint>
-      <VariationUpperFeedbackYellowPoint>75</VariationUpperFeedbackYellowPoint>
-      <VariationLowerFeedbackLimePoint>8</VariationLowerFeedbackLimePoint>
-      <VariationLowerFeedbackYellowPoint>12</VariationLowerFeedbackYellowPoint>
-      <PHFeedbackLimePoint>55</PHFeedbackLimePoint>
-      <PHFeedbackYellowPoint>60</PHFeedbackYellowPoint>
- 		</PWVCuff>
- 		<PWATonometer>
- 			<VariationFeedbackLimePoint>5</VariationFeedbackLimePoint>
- 			<PHFeedbackYellowPoint>75</PHFeedbackYellowPoint>
- 		</PWATonometer>
- 		<PWACuff>		
-			<MinNumberOfPulsesForAutoCapture>10</MinNumberOfPulsesForAutoCapture>
-      <VariationUpperFeedbackLimePoint>65</VariationUpperFeedbackLimePoint>
-      <VariationUpperFeedbackYellowPoint>80</VariationUpperFeedbackYellowPoint>
-      <VariationLowerFeedbackLimePoint>12</VariationLowerFeedbackLimePoint>
-      <VariationLowerFeedbackYellowPoint>17</VariationLowerFeedbackYellowPoint>
-      <PHFeedbackLimePoint>190</PHFeedbackLimePoint>
-      <PHFeedbackYellowPoint>200</PHFeedbackYellowPoint>
- 		</PWACuff>
- 	</RTOF>
+  </PWA>  
   <NibpCuffDataInterval>200</NibpCuffDataInterval>
   <NibpDal>
 	<Timeouts>
@@ -110,10 +78,13 @@
 		<StartPediatricBpWaitForK>100000</StartPediatricBpWaitForK>
 		<StartNeonateBpWaitForK>85000</StartNeonateBpWaitForK>
 		<DalCuffPressureCommandWaitTime>100</DalCuffPressureCommandWaitTime>
-		<DalNibpGetBpDataCommandWaitTime>100</DalNibpGetBpDataCommandWaitTime>
+		<DalNibpGetBpDataCommandWaitTime>200</DalNibpGetBpDataCommandWaitTime>
 		<DalNibpIntialInflateCommandWaitTime>50</DalNibpIntialInflateCommandWaitTime>
 		<DalNibpAbortBpCommandWaitTime>200</DalNibpAbortBpCommandWaitTime>
 		<SendNibpConnectCommand>
+			<!--WaitTimeBetweenConnectAndStartBP: The time to wait(in milliseconds) after NIBP_CONNECT command has been sent and the Start_BP
+					command will be sent. Can be zero but usuall results in the command being NACKED. Default value 1000 ms-->
+			<WaitTimeBetweenConnectAndStartBP>1000</WaitTimeBetweenConnectAndStartBP>
 			<BusyWaitPeriod>1000</BusyWaitPeriod>
 		</SendNibpConnectCommand>
 		<GetCuffPressureCommandRetryInterval>200</GetCuffPressureCommandRetryInterval>
@@ -124,6 +95,14 @@
 		Does not ignore other errors. For development only-->
 	<IngnoreEC1ForTesting>N</IngnoreEC1ForTesting>
   </NibpDal>
+  <NIBP>
+	<Repeat>
+		<Rest>5</Rest>
+	</Repeat>
+	<AutoPWA>
+		<Rest>5</Rest>
+	</AutoPWA>
+  </NIBP>
    <MyTestValues>
 		<Value1>1</Value1>
 		<Value2>2</Value2>
@@ -134,7 +113,7 @@
 			<param name="AppendToFile" value="true" />
 			<rollingStyle value="Composite" />
 			<maxSizeRollBackups value="-1" />
-			<maximumFileSize value="10000MB" />
+			<maximumFileSize value="70KB" />
 			<staticLogFileName value="true" />
 			<layout type="log4net.Layout.PatternLayout">			
         <param name="ConversionPattern" value="%d{MM/dd/yyyy} ~ %d{HH:mm:ss.fff} ~ [%c] - %m%n%n" />

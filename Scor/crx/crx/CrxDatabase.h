@@ -1508,12 +1508,6 @@ namespace AtCor { namespace Scor { namespace CrossCutting { namespace DatabaseMa
 		*/
 		array<double>^ CommonStringArrToDoubleArr(array<String^>^ sortArr);
 
-		/**
-		* To convert Image to Byte array
-		* @return Byte array data
-		* @param[in] imageIn Image to be converted to Byte array
-		*/
-		array<Byte>^ CommonImageToByteArr(Image^ imageIn);
 	};
 }
 }

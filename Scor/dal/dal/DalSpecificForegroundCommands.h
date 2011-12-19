@@ -68,6 +68,8 @@ namespace AtCor{
 					
 					unsigned int kPacketWaitTime;// the wait time between the O & K packets
 
+					~DalNibpStartBpCommand();
+
 				internal:
 					DalNibpStartBpCommand(); //Constructor for the  
 					//FxCop
@@ -86,7 +88,7 @@ namespace AtCor{
 					*/
 					bool SendStartBpCommand();
 
-					Thread^ kPacketListenerThread; //A thread to wait for the k packet 
+					//Thread^ kPacketListenerThread; //unused
 				public:
 
 					/**

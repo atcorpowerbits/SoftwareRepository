@@ -302,6 +302,27 @@ using namespace System::Text;
 		}
 	}
 
+	bool DalSimulationFile::SaveCurrentValues(unsigned short time, unsigned short status, unsigned short errorCode, unsigned short sp, unsigned short dp, unsigned short map, unsigned short hr)
+	{
+		String ^singleLine = String::Concat(time.ToString(), DalFormatterStrings::tabSeparatorString, 
+											status.ToString(), DalFormatterStrings::tabSeparatorString, 
+										    errorCode.ToString(), DalFormatterStrings::tabSeparatorString, 
+										    sp.ToString(), DalFormatterStrings::tabSeparatorString,
+										    dp.ToString(), DalFormatterStrings::tabSeparatorString, 
+										    map.ToString(), DalFormatterStrings::tabSeparatorString, 
+										    hr.ToString(), DalFormatterStrings::tabSeparatorString);
+
+		try
+		{
+			writer->WriteLine(singleLine);
+			return true;
+		}
+		catch(System::Exception^)
+		{
+			throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrFileCannotAccessErrCd, CrxStructCommonResourceMsg::CrxErrFileCannotAccess, ErrorSeverity::Exception);
+		}
+	}
+
 	bool DalSimulationFile::CreateFile(String^ outputFilePath)
 	{
 	filePath = outputFilePath;

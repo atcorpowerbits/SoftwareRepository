@@ -269,6 +269,12 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // guichartSuperImposedWaveform
             // 
+            chartArea1.AxisY.IsStartedFromZero = false;
+            chartArea1.AxisY.MajorGrid.Enabled = false;
+            chartArea1.AxisY.MajorTickMark.Enabled = false;
+            chartArea1.AxisY2.IsStartedFromZero = false;
+            chartArea1.AxisY2.MajorGrid.Enabled = false;
+            chartArea1.AxisY2.MajorTickMark.Enabled = false;
             chartArea1.BackColor = System.Drawing.Color.White;
             chartArea1.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
             chartArea1.BackSecondaryColor = System.Drawing.Color.White;
@@ -276,7 +282,7 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea1.InnerPlotPosition.Auto = false;
             chartArea1.InnerPlotPosition.Height = 100F;
             chartArea1.InnerPlotPosition.Width = 100F;
-            chartArea1.Name = "ChartArea1";
+            chartArea1.Name = "area";
             chartArea1.Position.Auto = false;
             chartArea1.Position.Height = 100F;
             chartArea1.Position.Width = 100F;
@@ -299,19 +305,18 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // guiradlblReportBpRange
             // 
-            this.guiradlblReportBpRange.AutoSize = false;
-            this.guiradlblReportBpRange.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guiradlblReportBpRange.Font = new System.Drawing.Font("Arial", 7.25F);
             this.guiradlblReportBpRange.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblReportBpRange.Location = new System.Drawing.Point(889, 214);
+            this.guiradlblReportBpRange.Location = new System.Drawing.Point(884, 214);
             this.guiradlblReportBpRange.Name = "guiradlblReportBpRange";
             // 
             // 
             // 
             this.guiradlblReportBpRange.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblReportBpRange.Size = new System.Drawing.Size(110, 20);
+            this.guiradlblReportBpRange.Size = new System.Drawing.Size(100, 14);
             this.guiradlblReportBpRange.TabIndex = 79;
-            this.guiradlblReportBpRange.Text = "(Normal BP)";
-            this.guiradlblReportBpRange.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.guiradlblReportBpRange.Text = "SYS 129-139  mmHg";
+            this.guiradlblReportBpRange.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // guiradlblReportReferenceRange
             // 
@@ -697,6 +702,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // guiradpnlAnalysis
             // 
+            this.guiradpnlAnalysis.BackColor = System.Drawing.Color.Transparent;
             this.guiradpnlAnalysis.Controls.Add(this.guiradchartPulseWaveVelocity);
             this.guiradpnlAnalysis.Controls.Add(this.guiradchartHeartRate);
             this.guiradpnlAnalysis.Location = new System.Drawing.Point(334, 10);
@@ -704,6 +710,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradpnlAnalysis.Size = new System.Drawing.Size(658, 425);
             this.guiradpnlAnalysis.SmallImageList = this.guiimagelistTickCross;
             this.guiradpnlAnalysis.TabIndex = 102;
+            ((Telerik.WinControls.Primitives.BorderPrimitive)(this.guiradpnlAnalysis.GetChildAt(0).GetChildAt(1))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             // 
             // guiradchartPulseWaveVelocity
             // 
@@ -1307,7 +1314,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblSeperator.AutoSize = false;
             this.guiradlblSeperator.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblSeperator.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblSeperator.Location = new System.Drawing.Point(132, 6);
+            this.guiradlblSeperator.Location = new System.Drawing.Point(126, 6);
             this.guiradlblSeperator.Name = "guiradlblSeperator";
             // 
             // 
@@ -1571,18 +1578,17 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // guiradlblBloodPressure2
             // 
-            this.guiradlblBloodPressure2.AutoSize = false;
             this.guiradlblBloodPressure2.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblBloodPressure2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblBloodPressure2.Location = new System.Drawing.Point(141, 6);
+            this.guiradlblBloodPressure2.Location = new System.Drawing.Point(138, 5);
             this.guiradlblBloodPressure2.Name = "guiradlblBloodPressure2";
             // 
             // 
             // 
             this.guiradlblBloodPressure2.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblBloodPressure2.Size = new System.Drawing.Size(35, 19);
+            this.guiradlblBloodPressure2.Size = new System.Drawing.Size(38, 21);
             this.guiradlblBloodPressure2.TabIndex = 1;
-            this.guiradlblBloodPressure2.Text = "DP:";
+            this.guiradlblBloodPressure2.Text = "DIA:";
             this.guiradlblBloodPressure2.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // guiradtxtReportBloodPressure2
@@ -1606,7 +1612,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportBloodPressure1.AutoSize = false;
             this.guiradlblReportBloodPressure1.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblReportBloodPressure1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblReportBloodPressure1.Location = new System.Drawing.Point(85, 6);
+            this.guiradlblReportBloodPressure1.Location = new System.Drawing.Point(76, 6);
             this.guiradlblReportBloodPressure1.Name = "guiradlblReportBloodPressure1";
             // 
             // 
@@ -1614,7 +1620,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblReportBloodPressure1.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guiradlblReportBloodPressure1.Size = new System.Drawing.Size(50, 19);
             this.guiradlblReportBloodPressure1.TabIndex = 1;
-            this.guiradlblReportBloodPressure1.Text = "SP";
+            this.guiradlblReportBloodPressure1.Text = "SYS";
             this.guiradlblReportBloodPressure1.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // guiradlblReportOperator

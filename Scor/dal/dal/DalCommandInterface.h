@@ -72,6 +72,10 @@ namespace AtCor{
 
 					static unsigned int bufferEmptyCounter;
 					static unsigned int isAlarmRaised = false;
+
+					static bool sysParamProcessSequenceNumberStreamingPackets;
+
+					bool sysParamStreamingTimeoutFlag;
 					
 				internal:
 					Timers::Timer^ streamingPacketProcessingTimer; //Timer to start the method that will process x packets in each tick

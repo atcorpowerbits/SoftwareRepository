@@ -49,10 +49,6 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.SetFontForControls(this);
             serverNameString = GuiCommon.ServerNameString(); 
 
-            // Disable the close button of the window.
-            // FormElement.TitleBar.CloseButton.Enabled = false;
-
-            // GuiCommon.SetFontForControls(this);
             GuiCommon.SetShape(guicmbGroupNameList);           
         }
 
@@ -60,49 +56,68 @@ namespace AtCor.Scor.Gui.Presentation
        */
         private void Migrate_Load(object sender, EventArgs e)
         {
-            SetText();
-            LoadGroupNames();
-
-            // GuiCommon.SetFontForControls(this);
+            try
+            {
+                SetText();
+                LoadGroupNames();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);  
+            }
         }
 
-        void SetText()
+        private  void SetText()
         {
-            guiradlblHeader.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrateHeaderTxt);
-            Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrateTitleTxt);
-            radbtnCancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCancel);
-            radbtnMigrate.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnMigrate);
+            try
+            {
+                guiradlblHeader.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrateHeaderTxt);
+                Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrateTitleTxt);
+                radbtnCancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCancel);
+                radbtnMigrate.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnMigrate);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
 
         /** This event fires when migrate button is clicked. It migrates existing records from the mdb file
          * */
         private void radbtnMigrate_Click(object sender, EventArgs e)
         {
-            // check if group name is entered and call method to migrate record
-            if (guicmbGroupNameList.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps), StringComparison.CurrentCultureIgnoreCase) || string.IsNullOrEmpty(guicmbGroupNameList.Text.Trim()))
+            try
             {
-                // show error
-                RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrateValidationMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                // check if group name is entered and call method to migrate record
+                if (guicmbGroupNameList.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps), StringComparison.CurrentCultureIgnoreCase) || string.IsNullOrEmpty(guicmbGroupNameList.Text.Trim()))
+                {
+                    // show error
+                    RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrateValidationMsg), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Error);
+                }
+                else
+                {
+                    // call migrate method in a separate thread
+                    IsMigrate = Convert.ToInt32(GuiCommon.NumericValue.One);
+
+                    OnMigrationStart.Invoke(guicmbGroupNameList.Text.Trim());
+                    Close();
+                }
             }
-            else
-            { 
-                // call migrate method in a separate thread
-                IsMigrate = 1;
-              
-                OnMigrationStart.Invoke(guicmbGroupNameList.Text.Trim());
-                Close();                
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);  
             }
         }
         
         /**This method is used to populate the group names into the combo box from the database using database manager class. 
      */
-        void LoadGroupNames()
+        private void LoadGroupNames()
         {
             // fetches group name and binds it
             try
             {
                 dbMagr = CrxDBManager.Instance;
-                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
+                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == Convert.ToInt32(GuiCommon.NumericValue.Zero))
                 {
                    GuiCommon.BindGroupNames(guicmbGroupNameList, dbMagr);
                 }
@@ -129,7 +144,14 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void radbtnCancel_Click(object sender, EventArgs e)
         {
-            Close();
+            try
+            {
+                Close();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }        
     }
 }

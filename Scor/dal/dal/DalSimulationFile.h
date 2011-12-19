@@ -145,21 +145,35 @@ namespace AtCor{
 									*/
 									bool SaveCurrentValues(unsigned short tonometerData, unsigned short cuffPulse); 
 									
-					/**
-					* Writes the values passed to the dump file
-					*
-					* @param[in] cuffPulse	Cuff Pulse value
-					* @return  @c true if the operation was successful.
-					*/
-					bool DalSimulationFile::SaveCurrentValues(unsigned short cuffPulse);								
-					
-					/**
-					* Removes special characters from the string
-					*
-					* @param[in] str	String value
-					* @return  @c modified string  if the operation was successful.
-					*/
-					String^ RemoveSpecialCharacters(String^ str);
+									/**
+									* Writes the values passed to the dump file
+									*
+									* @param[in] cuffPulse	Cuff Pulse value
+									* @return  @c true if the operation was successful.
+									*/
+									bool DalSimulationFile::SaveCurrentValues(unsigned short cuffPulse);								
+									
+									/**
+									* Writes the values passed to the dump file
+									*
+									* @param[in] time	time value
+									* @param[in] status	status value
+									* @param[in] errorCode	errorcode value
+									* @param[in] sp	sp value
+									* @param[in] dp dp value
+									* @param[in] map map value
+									* @param[in] hr hr value
+									* @return  @c true if the operation was successful.
+									*/
+									bool DalSimulationFile::SaveCurrentValues(unsigned short time, unsigned short status, unsigned short errorCode, unsigned short sp, unsigned short dp, unsigned short map, unsigned short hr);
+	
+									/**
+									* Removes special characters from the string
+									*
+									* @param[in] str	String value
+									* @return  @c modified string  if the operation was successful.
+									*/
+									String^ RemoveSpecialCharacters(String^ str);
 			};
 		}
 	}

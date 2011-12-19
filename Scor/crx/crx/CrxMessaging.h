@@ -80,6 +80,14 @@ namespace AtCor {
 				static  String^ const  BpSettingsSpThresholdValidation			=	"BP_SETTINGS_SP_THRESHOLD_VALIDATION";
 				static  String^ const  BpSettingsSpValidation					=	"BP_SETTINGS_SP_VALIDATION";
 				
+				static  String^ const  BrachialBPUndefined					=	"BRACHIAL_BP_UNDEFINED";
+				static  String^ const  BrachialBPVeryLow					=	"BRACHIAL_BP_VERY_LOW";
+				static  String^ const  BrachialBPLow						=	"BRACHIAL_BP_LOW";
+				static  String^ const  BrachialBPNormalLow					=	"BRACHIAL_BP_NORMAL_LOW";
+				static  String^ const  BrachialBPNormalHigh					=	"BRACHIAL_BP_NORMAL_HIGH";
+				static  String^ const  BrachialBPHigh						=	"BRACHIAL_BP_HIGH";
+				static  String^ const  BrachialBPVeryHigh					=	"BRACHIAL_BP_VERY_HIGH";
+
 				static  String^ const  BtnCancel								=	"BTN_CANCEL";
 				static  String^ const  BtnCapture								=	"BTN_CAPTURE";
 				static  String^ const  BtnChange								=	"BTN_CHANGE";
@@ -126,7 +134,8 @@ namespace AtCor {
 				static  String^ const  ConfigNamePwv							=	"CONFIG_NAME_PWV";
 				static  String^ const  ConfigurationId							=	"CONFIGURATION_ID";
 				static  String^ const  ContactAtcorSupport						=	"CONTACT_ATCOR_SUPPORT";
-				static  String^ const  ContactAtcorSupport1						=	"CONTACT_ATCOR_SUPPORT1";
+				static  String^ const  ContactAtcorSupportCommon				=	"CONTACT_ATCOR_SUPPORT_COMMON";
+				//static  String^ const  ContactAtcorSupport1						=	"CONTACT_ATCOR_SUPPORT1";
 				static  String^ const  ContactAtcorSupport2						=	"CONTACT_ATCOR_SUPPORT2";
 				static  const   int    CrxErrRestoreReferManualErrCd			=	612;
 
@@ -145,8 +154,8 @@ namespace AtCor {
 				static  String^ const  CrxErrDbMgrTransFailed					=	"CRX_ERR_DBMGR_TRANS_FAILED";
 				static	const   int	   CrxErrDbMgrTransFailedErrCd				=	604;
 
-				static  String^ const  CrxErrDbPermissionReferManual			=	"CRX_ERR_DBPERMISSION_REFER_MANUAL";
-				static  const   int    CrxErrDbPermissionReferManualErrCd		=	610;
+				//static  String^ const  CrxErrDbPermissionReferManual			=	"CRX_ERR_DBPERMISSION_REFER_MANUAL";
+				//static  const   int    CrxErrDbPermissionReferManualErrCd		=	610;
 
 				static  String^ const  CrxErrFileAlreadyExist					=	"CRX_ERR_FILE_ALREADY_EXIST";
 				static  const int      CrxErrFileAlreadyExistErrCd				=	102;
@@ -203,15 +212,22 @@ namespace AtCor {
 				static  String^ const  CuffStateInvalid							=	"CUFF_STATE_INVALID";
 				static  String^ const  Cuffleak									=	"CuffLeak";
 
+				static  String^ const  ChartCentralDpMp							=	"CHART_CENTRAL_DP_MP";
+				static  String^ const  ChartCentralSp							=	"CHART_CENTRAL_SP";
+				static  String^ const  ChartAix75								=	"CHART_AIX75";
+
 				static  String^ const  DalConstCaptureFilePrefix				=	"DAL_CONST_CAPTURE_FILE_PREFIX";
 				static  String^ const  DalConstCufftimerFilePath				=	"DAL_CONST_CUFFTIMER_FILE_PATH";
 				static  String^ const  DalConstDatFileExtn						=	"DAL_CONST_DAT_FILE_EXTN";
 				static  String^ const  DalConstGciFirmwareVersion				=	"DAL_CONST_GCI_FIRMWARE_VERSION";
 				static  String^ const  DalConstGciSerialNumber					=	"DAL_CONST_GCI_SERIAL_NUMBER";
 				static  String^ const  DalConstGciType							=	"DAL_CONST_GCI_TYPE";
+				static  String^ const  DalConstSimFolderPathNibp				=	"DAL_CONST_SIM_FILE_PATH_NIBP";
 				static  String^ const  DalConstSimFolderPath					=	"DAL_CONST_SIM_FOLDER_PATH";
 				static  String^ const  DalConstSimFolderPathPwa					=	"DAL_CONST_SIM_FOLDER_PATH_PWA";
 				static  String^ const  Dal_DeviceIdling_Message		            =   "DAL_DEVICE_IDLING_MESSAGE";
+				static  const   int    Dal_DeviceIdling_MessageErrCd            =   1037;
+
 				static  String^ const  Dal_DeviceNotReady_Message				=   "DAL_DEVICE_NOT_READY_MESSAGE";      
 				static  String^ const  DalErrActivePortCloseFailed				=	"DAL_ERR_ACTIVE_PORT_CLOSE_FAILED";
 				static	const   int	   DalErrActivePortCloseFailedErrCd			=	1025;
@@ -310,8 +326,20 @@ namespace AtCor {
 				static  String^ const  DalErrorNullParam						=	"DAL_ERROR_NULL_PARAM";
 				static  const   int    DalErrorNullParamErrCd                   =   1028;
 
+				static  String^ const  DalFailedGetSetConfigPara				=	"DAL_FAILED_GET_SET_CONFIG_PARAMETER";
+				static  const   int    DalFailedGetSetConfigParaErrCd           =   1034;
+				
+				static  String^ const  DalInvallidDateTime						=	"DAL_INVALID_DATE_TIME";
+				static  const   int    DalInvallidDateTimeErrCd					=   1035;
+
 				static  String^ const  DalMsgBpError88							=	"DAL_MSG_BP_ERROR_88";
 				static  String^ const  DalMsgBpErrorOther						=	"DAL_MSG_BP_ERROR_OTHER";
+
+				static  String^ const  DalMsgCheckDevicePort                    =   "DAL_MSG_CHK_DVC_PORT";
+                static  const   int    DalMsgCheckDevicePortErrCd               =   1036;
+
+				static  String^ const  DalNibpNotFound				            =   "DAL_NIBP_FILE_NOT_FOUND";
+				static  const   int    DalNibpNotFoundErrCd						=   1038;
 
 				static  String^ const  DalMsgDefaultModeSelectedSim				=	"DAL_MSG_DEFAULT_MODE_SELECTED_SIM";
 				static  String^ const  DalMsgIllegalPacketRcvd					=	"DAL_MSG_ILLEGAL_PACKET_RCVD";
@@ -648,6 +676,7 @@ namespace AtCor {
 				static  String^ const  Lbs									=	"LBS";
 				static  String^ const  MaleTxt								=	"MALE";
 				static  String^ const  MathError							=	"MATH_ERROR";
+				static  String^ const  MaximumPointsMessage					=	"MAXIMUM_POINTS_MESSAGE";
 				static  String^ const  MeasureInvalidCaptureTime			=	"MEASURE_INVALID_CAPTURE_TIME";
 				static  String^ const  MeasureInvalidSampleRate				=	"MEASURE_INVALID_SAMPLE_RATE";
 				static  String^ const  MenuDatabase							=	"MENU_DATABASE";
@@ -674,6 +703,9 @@ namespace AtCor {
 				static  String^ const  MpDpTooClose							=	"MP_DP_TOO_CLOSE";
 				static  String^ const  MpOutOfRange							=	"MP_OUT_OF_RANGE";
 				static  String^ const  MsgDesert							=	"MSG_DESERT";
+				static  String^ const  MsgCentralDp							=	"MSG_CENTRAL_DP";
+				static  String^ const  MsgCentralMp							=	"MSG_CENTRAL_MP";
+				static  String^ const  MsgCentralSp							=	"MSG_CENTRAL_SP";
 				static  String^ const  MsgInProgress						=	"MSG_IN_PROGRESS";
 				static  String^ const  MsgPleaseRelaunch					=	"MSG_PLEASE_RELAUNCH";
 				static  String^ const  MsgSaveChange						=	"MSG_SAVE_CHANGE";
@@ -683,6 +715,7 @@ namespace AtCor {
 				static  String^ const  MsgThresholdBlankValue  			    =   "MSG_THRESHOLDBLANKVALUE";
 				static  String^ const  MsgThresholdNumericValue  			=   "MSG_THRESHOLDNUMERICVALUE";
 				static  String^ const  MsgValidatingSystemKey				=	"MSG_VALIDATING_SYSTEM_KEY";
+				static  String^ const  NIBPValidationFailed					=	"NIBP_VALIDATION_FAILED";
 				static  String^ const  NoRecordsToDelete					=	"NO_RECORDS_TO_DELETE";
 				static  String^ const  NoRecordsToEdit						=	"NO_RECORDS_TO_EDIT";
 				static  String^ const  Noerroralarm							=	"NoErrorAlarm";
@@ -736,6 +769,7 @@ namespace AtCor {
 				static  String^ const  PwaClinicalReport					=	"PWA CLINICAL REPORT";
 				static  String^ const  PwaEvaluationReport					=	"PWA EVALUATION REPORT";
 				static  String^ const  PwaPatientReport						=	"PWA PATIENT REPORT";
+				static  String^ const  PwaDefaultFileNotFound				=	"PWA_DEFAULT_FILE_NOT_FOUND";
 				static  String^ const  PWA_ERROR_LoadBizExt					=	"PWA_ERROR_LOAD_BIZEXT";
 				static  String^ const  PWA_ERROR_UnloadBizExt				=	"PWA_ERROR_UNLOAD_BIZEXT";
 				static  String^ const  PWA_ERROR_NotLoadedBizExt			=	"PWA_ERROR_NOTLOADED_BIZEXT";
@@ -770,6 +804,8 @@ namespace AtCor {
 				static  String^ const  PWA_MSG_TRIGGER_ERR					=	"PWA_MSG_TRIGGER_ERR";
 				static  String^ const  PWA_MSG_TOO_BAD_SIGNAL				=	"PWA_MSG_TOO_BAD_SIGNAL";
 				static  String^ const  PWA_MSG_WRONG_RANGE					=	"PWA_MSG_WRONG_RANGE";
+				static  String^ const  PwaNoFileNotFound					=	"PWA_NO_FILE_NOT_FOUND";
+				static  String^ const  PwaSimulationFileNotFound			=	"PWA_SIMULATION_FILE_NOT_FOUND";
 				static  String^ const  PWA_MSG_POINT_OUT_OF_PULSE			=	"PWA_MSG_POINT_OUT_OF_PULSE";
 				static  String^ const  PWA_MSG_PERIPH_CENTRAL_LENGTH		=	"PWA_MSG_PERIPH_CENTRAL_LENGTH";
 				static  String^ const  PWA_MSG_PERIPH_CENTRAL_ED			=	"PWA_MSG_PERIPH_CENTRAL_ED";
@@ -787,6 +823,7 @@ namespace AtCor {
 				static  String^ const  PwvBlText							=	"PWV_BL_TEXT";
 				static  String^ const  PwvCalcDistOutOfRange				=	"PWV_CALC_DIST_OUT_OF_RANGE";
 				static  String^ const  PwvCounterFailed						=	"PWV_COUNTER_FAILED";
+				static  String^ const  PwvDefaultFileNotFound				=	"PWV_DEFAULT_FILE_NOT_FOUND";
 				static  String^ const  PwvDeltasNotEnough					=	"PWV_DELTAS_NOT_ENOUGH";
 				static  String^ const  PwvDeviationHigh						=	"PWV_DEVIATION_HIGH";
 				static  String^ const  PwvDeviationTooBig					=	"PWV_DEVIATION_TOO_BIG";
@@ -796,10 +833,12 @@ namespace AtCor {
 				static  String^ const  PwvInvalidDistance					=	"PWV_INVALID_DISTANCE";
 				static  String^ const  PwvInvalidHeartRate					=	"PWV_INVALID_HEART_RATE";
 				static  String^ const  PwvLblAnalysis						=	"PWV_LBL_ANALYSIS";
+				static  String^ const  PwvNoFileNotFound					=	"PWV_NO_FILE_NOT_FOUND";
 				static  String^ const  PwvNotEnoughDeltas					=	"PWV_NOT_ENOUGH_DELTAS";
 				static  String^ const  PwvSetDefaultsFailed					=	"PWV_SET_DEFAULTS_FAILED";
 				static  String^ const  PwvSettings							=	"PWV_SETTINGS";
 				static  String^ const  PwvSignalTooBad						=	"PWV_SIGNAL_TOO_BAD";
+				static  String^ const  PwvSimulationFileNotFound			=	"PWV_SIMULATION_FILE_NOT_FOUND";
 				//static  String^ const  PwvStartCaptureFailed				=	"PWV_START_CAPTURE_FAILED";
 				static  String^ const  PwvStartCaptureFailed				=	"BLL_START_CAPTURE_FAILED";
 				static  String^ const  PwvStdDevToLarge						=	"PWV_STD_DEV_TO_LARGE";
@@ -875,6 +914,7 @@ namespace AtCor {
 				static  String^ const  RptPwaExcellentText					= 	"RPT_PWA_EXCELLENT_TEXT";
 				static  String^ const  RptPwaGoodText						= 	"RPT_PWA_GOOD_TEXT";
 				static  String^ const  RptPwaHighNormalText					= 	"RPT_PWA_HIGH_NORMAL_TEXT";
+				static  String^ const  RptPwaLowHypertensionText			= 	"RPT_PWA_LOW_HYPERTENSION_TEXT";
 				static  String^ const  RptPwaMildHypertensionText			= 	"RPT_PWA_MILD_HYPERTENSION_TEXT";
 				static  String^ const  RptPwaModerateHypertensionText		= 	"RPT_PWA_MODERATE_HYPERTENSION_TEXT";
 				static  String^ const  RptPwaNormalText						= 	"RPT_PWA_NORMAL_TEXT";
@@ -1018,7 +1058,7 @@ namespace AtCor {
 				static  String^ const  ValidationError						=	"VALIDATION_ERROR";
 				static  String^ const  WeightOutOfRange						=	"WEIGHT_OUT_OF_RANGE";
 				static  String^ const  Year									=	"YEAR";
-				static  String^ const  ZeroAge								=	"ZERO_AGE";			
+				static  String^ const  ZeroAge								=	"ZERO_AGE";						
 			}; // End CrxStructCommonResourceMsg
 
 

@@ -94,6 +94,23 @@ namespace AtCor{
 					bool SaveCaptureData(array< unsigned short >^ cuffPulse, unsigned short bufferSize);
 
 					/**
+					* Returns the name and filepath of the dump file saved by @c SaveNibpData
+					* @param[in]	time		Array with time data values
+					* @param[in]	status		Array with stats data values
+					* @param[in]	errorCode	Array with errorCode values
+					* @param[in]	sp			Array with sp data values
+					* @param[in]	dp			Array with dp data values
+					* @param[in]	map			Array with map data values
+					* @param[in]	hr			Array with hr data values
+					* @param[in]	bufferSize	The size of the buffer to be dumped
+					*
+					* @return	The filepath of the saved file
+					*/
+
+					bool SaveNibpData(array< unsigned short >^ time, array< unsigned short >^ status, array< unsigned short >^ errorCode, array< unsigned short >^ sp, array< unsigned short >^ dp, array< unsigned short >^ map, array< unsigned short >^ hr, unsigned short bufferSize);
+					bool SaveNibpData(unsigned short time, unsigned short status, unsigned short errorCode, unsigned short sp, unsigned short dp, short map, unsigned short hr);
+
+					/**
 					* Returns the name and filepath of the dump file saved by @c SaveCaptureData
 					* @return	The filepath of the saved file
 					* @see	SaveCaptureData
@@ -101,6 +118,15 @@ namespace AtCor{
 					*			Calling it a second time results in a blank string being returned.
 					*/
 					String^ GetSavedFileName();
+
+					/**
+					* Returns the name and filepath of the dump file saved by @c SaveNibpData
+					* @return	The filepath of the saved file
+					* @see	SaveCaptureData
+					* @warning	This method can only be called once after SaveNibpData() is called.
+					*			Calling it a second time results in a blank string being returned.
+					*/
+					String^ GetSavedFileNameNibp();
 
 					/**
 					* Sets the pressure value of the EM4 cuff.

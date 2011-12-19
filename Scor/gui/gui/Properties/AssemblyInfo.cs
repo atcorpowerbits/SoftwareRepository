@@ -9,7 +9,7 @@ using System.Resources;
 [assembly: AssemblyTitle("AtCor exe")]
 [assembly: AssemblyDescription("AtCor exe")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AtCor Medical")]
+[assembly: AssemblyCompany("AtCor Medical Pty Ltd")]
 [assembly: AssemblyProduct("SphygmoCor")]
 [assembly: AssemblyCopyright("Copyright 2011-2012 AtCor Medical Pty. Ltd.")]
 [assembly: AssemblyTrademark("")]
@@ -33,7 +33,7 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.6.4")]
-[assembly: AssemblyFileVersion("0.1.6.4")]
-[assembly : AssemblyInformationalVersion ("1.0")]
+[assembly: AssemblyVersion("0.1.8.4")]
+[assembly: AssemblyFileVersion("0.1.8.4")]
+[assembly: AssemblyInformationalVersion("1.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-AU")]

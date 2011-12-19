@@ -7,11 +7,11 @@
  
      Description  :     This class file is used to implement the methodsfor PWV class.
 */
-using System;
+
 using AtCor.Scor.BusinessLogic;
 using AtCor.Scor.DataAccess;
 using AtCor.Scor.CrossCutting.Configuration;
-
+using System;
 /**
  * @namespace AtCor.Scor.Gui.Presentation
  * @brief This namespace implements Presentation related classes.
@@ -34,105 +34,230 @@ namespace AtCor.Scor.Gui.Presentation
 
         public void DispatchCaptureData()
         {
-            BizSession.Instance().DispatchCaptureData();
+            try
+            {
+                BizSession.Instance().DispatchCaptureData();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void LoadReport()
         {
-            ((Report)GuiCommon.ReportChildForm).LoadPWVReport();
-            ((Report)GuiCommon.ReportChildForm).BringToFront();
+            try
+            {
+                GuiCommon.ReportChildForm.LoadPWVReport();
+                GuiCommon.ReportChildForm.BringToFront();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }       
 
         public void FillSession()
         {
-            ((Setup)GuiCommon.SetupChildForm).FillPwvDetailsSession();   
+            try
+            {
+                GuiCommon.SetupChildForm.FillPwvDetailsSession();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         
         public void SetHeightWeightUnits()
         {
-            ((Setup)GuiCommon.SetupChildForm).SetPwvHeightWeightUnits();
+            try
+            {
+                GuiCommon.SetupChildForm.SetPwvHeightWeightUnits();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void SetDistanceMethodAndUnits()
         {
-            ((Setup)GuiCommon.SetupChildForm).SetPwvDistanceMethodAndUnits();
+            try
+            {
+                GuiCommon.SetupChildForm.SetPwvDistanceMethodAndUnits();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void SetBloodPressure()
         {
-            ((Setup)GuiCommon.SetupChildForm).SetPwvBloodPressure();                
+            try
+            {
+                GuiCommon.SetupChildForm.SetPwvBloodPressure();                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool StartCapture()
         {
-           return GuiCommon.bizObject.StartCapture(); 
+            try
+            {
+                return GuiCommon.bizObject.StartCapture();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool StopCapture()
         {
-            return GuiCommon.bizObject.StopCapture();
+            try
+            {
+                return GuiCommon.bizObject.StopCapture();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void ActionPerformedAfterClickingCancel()
         {
-            ((Capture)GuiCommon.CaptureChildForm).ActionPerformedAfterClickingCancelForPwvMode();   
+            try
+            {
+                if (GuiCommon.CaptureChildForm != null)
+                {
+                    GuiCommon.CaptureChildForm.ActionPerformedAfterClickingCancelForPwvMode();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void CalculateReportAfterSuccessfulCapture()
         {
-            ((Capture)GuiCommon.CaptureChildForm).TickButtonAction();  
+            try
+            {
+                GuiCommon.CaptureChildForm.TickButtonAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void SaveCapturedData()
         {
-            GuiCommon.bizObject.SaveCaptureData();  
+            try
+            {
+                GuiCommon.bizObject.SaveCaptureData();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void InitialiseCaptureScreen()
         {
-            ((Capture)GuiCommon.CaptureChildForm).InitialSettingsForPwvModeCapture();  
+            try
+            {
+                GuiCommon.CaptureChildForm.InitialSettingsForPwvModeCapture();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void HandleKeyDownEventOnCaptureScreen(System.Windows.Forms.KeyEventArgs e)
         {
             try
             {
-                // GuiCommon.CaptureChildForm.HandleKeyDownEventForPwvMode(e);
+                if (GuiCommon.CaptureChildForm != null)
+                {
+                    GuiCommon.CaptureChildForm.HandleKeyDownEventForPwvMode(e);
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
 
         public void CreateTextFileForFailedCapture()
         {
-            ((Capture)GuiCommon.CaptureChildForm).CreateTextFileOnReportFailed();
+            try
+            {
+                GuiCommon.CaptureChildForm.CreateTextFileOnReportFailed();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void LoadTemporaryReport()
         {
+            // Do nothing in PWV mode. This method needs implementation in PWA mode only
         }
 
         public void EnableDisableCaptureButton()
         {
-            ((Capture)GuiCommon.CaptureChildForm).RefreshOkButtonForPwvMode(); 
+            try
+            {
+                GuiCommon.CaptureChildForm.RefreshOkButtonForPwvMode(); 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         
         public void EnableRepeatAndCaptureTab(bool value)
         {
-            ((Report)GuiCommon.ReportChildForm).EnableRepeatAndCaptureTab(value); 
+            try
+            {
+                GuiCommon.ReportChildForm.EnableRepeatAndCaptureTab(value);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         
         public void SaveChangesOnMenuFocus()
         {
-            ((Report)GuiCommon.ReportChildForm).SaveChangesOnMenuFocus();
+            try
+            {
+                GuiCommon.ReportChildForm.SaveChangesOnMenuFocus();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void SaveReportChangesOnEdit()
         {
-            ((Report)GuiCommon.ReportChildForm).SaveChangesOnEdit();
+            try
+            {
+                GuiCommon.ReportChildForm.SaveChangesOnEdit();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

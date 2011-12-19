@@ -58,6 +58,30 @@ String^ DalBinaryConversions::ConvertBytesToString(array<unsigned char>^ inputAr
 	return packetData->ToString();
 }
 
+String^ DalBinaryConversions::ConvertArrayToString(array<unsigned char>^ inputArray)
+{
+	if (nullptr == inputArray)
+	{
+		return String::Empty;
+	}
+
+	StringBuilder ^ packetData = gcnew StringBuilder((inputArray->Length))  ;
+	//Each byte is printed as two characters + 1 whitespace
+
+	//UnicodeEncoding^ unicode = gcnew UnicodeEncoding(); //unused
+
+	//String^ myInput = Convert::ToString(Convert::ToChar(710)); unused
+
+	for each (unsigned char singleByte in inputArray)
+	{
+		/*packetData = packetData->Append(singleByte.ToString(DalFormatterStrings::PrintByte));
+		packetData = packetData->Append(DalFormatterStrings::SingleSpaceString );*/
+
+		packetData->Append( Convert::ToString(Convert::ToChar(singleByte))) ;
+	}
+	return packetData->ToString();
+}
+
 array<unsigned char>^ DalBinaryConversions::ConvertStringToBytes(String^ chars)
 {
     ASCIIEncoding^ ascii = gcnew ASCIIEncoding();
@@ -85,6 +109,7 @@ unsigned int DalBinaryConversions::TranslateThreeBytes( array <unsigned char>^ s
 	//get the status flag
 	ThreeBytesUnsignedInt flagUn;
 
+	flagUn.ucStatusBytes[3] = 0;
 	flagUn.ucStatusBytes[2] = sourceArray[startPostion];
 	flagUn.ucStatusBytes[1] = sourceArray[startPostion + 1];
 	flagUn.ucStatusBytes[0] = sourceArray[startPostion + 2];

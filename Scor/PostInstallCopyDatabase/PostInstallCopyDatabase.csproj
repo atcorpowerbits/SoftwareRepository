@@ -60,11 +60,11 @@
     <Reference Include="TelerikCommon, Version=2010.2.10.914, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Installer1.cs">
+    <Compile Include="CustomInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Installer1.Designer.cs">
-      <DependentUpon>Installer1.cs</DependentUpon>
+    <Compile Include="CustomInstaller.Designer.cs">
+      <DependentUpon>CustomInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="PathForm.cs">
       <SubType>Form</SubType>

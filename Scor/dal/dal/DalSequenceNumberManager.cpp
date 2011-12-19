@@ -61,7 +61,7 @@ namespace AtCor{
 				}
 				else
 				{
-					//CrxLogger::Instance->Write("Deepak>>> ValidateStreamingSequenceNumber Failed at : " + streamingPacketSequenceNumber.ToString(DalFormatterStrings::PrintByte ), ErrorSeverity::Debug);
+					//CrxLogger::Instance->Write("DAL>>> ValidateStreamingSequenceNumber Failed at : " + streamingPacketSequenceNumber.ToString(DalFormatterStrings::PrintByte ), ErrorSeverity::Debug);
 					//return false in case of no mathc
 					return false;
 				}
@@ -132,7 +132,7 @@ namespace AtCor{
 
 			bool DalSequenceNumberManager::ValidateStreamingSequenceNumber(const unsigned char streamingPacketSequenceNumber)
 			{
-				//CrxLogger::Instance->Write("Deepak>>> ValidateStreamingSequenceNumber : " + streamingPacketSequenceNumber.ToString(DalFormatterStrings::PrintByte), ErrorSeverity::Debug);
+				//CrxLogger::Instance->Write("DAL>>> ValidateStreamingSequenceNumber : " + streamingPacketSequenceNumber.ToString(DalFormatterStrings::PrintByte), ErrorSeverity::Debug);
 				//first extract the number
 				unsigned char shiftedNumber = ExtractStreamingSequenceNumber(streamingPacketSequenceNumber);
 

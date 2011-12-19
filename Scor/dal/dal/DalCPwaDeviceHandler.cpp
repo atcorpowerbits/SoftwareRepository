@@ -24,7 +24,7 @@ DalCPwaDeviceHandler::DalCPwaDeviceHandler()
 
 bool DalCPwaDeviceHandler::StartCapture(int captureTime, int samplingRate)
 {
-	//CrxLogger::Instance->Write("Deepak>>> DalCPwaDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
+	//CrxLogger::Instance->Write("DAL>>> DalCPwaDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
 
 	//create a buffer of the required size
 	try

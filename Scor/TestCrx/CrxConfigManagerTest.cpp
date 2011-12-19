@@ -607,7 +607,7 @@ namespace TestCrx {
 				gs->CultureInfo = CultureInfo;
 				gs->MachineName = MachineName;
 				gs->StartupMode = "PWV";
-				gs->StartupScreen = "STANDARD";
+				gs->StartupScreen = "Setup";
 				gs->PrinterName = printerName;
 				gs->Key = "12345";
 				/*gs->Id = "123";
@@ -630,7 +630,7 @@ namespace TestCrx {
 				//Assert::AreEqual("fr-FR", target->_instance->GeneralSettings->CultureInfo);				
 				
 				Assert::AreEqual("PWV", target->_instance->GeneralSettings->StartupMode);
-				Assert::AreEqual("STANDARD", target->_instance->GeneralSettings->StartupScreen);
+				Assert::AreEqual("Setup", target->_instance->GeneralSettings->StartupScreen);
 				/*Assert::AreEqual("123", target->_instance->GeneralSettings->Id);
 				Assert::AreEqual("12345", target->_instance->GeneralSettings->Sn);
 				Assert::AreEqual("12", target->_instance->GeneralSettings->Verify);
@@ -692,7 +692,7 @@ namespace TestCrx {
 				gs->CultureInfo = CultureInfo;
 				gs->MachineName = MachineName;
 				gs->StartupMode = "PWV";
-				gs->StartupScreen = "STANDARD";
+				gs->StartupScreen = "Setup";
 				gs->PrinterName = printerName;
 				gs->Key = SystemKey;
 
@@ -849,8 +849,8 @@ namespace TestCrx {
 				String^  SubSection = System::String::Empty; 
 				String^  ReaderValue = System::String::Empty; 
 			
-				target->GetStartupScreen("USER","STANDARD");
-				Assert::AreEqual("STANDARD", target->_instance->GeneralSettings->StartupScreen);
+				target->GetStartupScreen("USER","Setup");
+				Assert::AreEqual("Setup", target->_instance->GeneralSettings->StartupScreen);
 			}
 
 	public: [TestMethod]
@@ -861,8 +861,8 @@ namespace TestCrx {
 				String^  SubSection = System::String::Empty; 
 				String^  ReaderValue = System::String::Empty; 
 			
-				target->GetStartupScreen("DEFAULT", "STANDARD");
-				Assert::AreEqual("STANDARD", target->_gSetInternal->StartupScreen);
+				target->GetStartupScreen("DEFAULT", "Setup");
+				Assert::AreEqual("Setup", target->_gSetInternal->StartupScreen);
 
 			}
 	public: [TestMethod]
@@ -895,7 +895,7 @@ namespace TestCrx {
 			
 				try
 				{	
-					target->GetStartupScreen("USER2","STANDARD");
+					target->GetStartupScreen("USER2","Setup");
 				}
 				catch(Exception^)
 				{
@@ -1659,7 +1659,7 @@ public: [TestMethod]
 				Assert::AreEqual(false, objGenSettings->PatientPrivacy);
 				Assert::IsNull(objGenSettings->MachineName);
 				Assert::AreEqual("PWV", objGenSettings->StartupMode);
-				Assert::AreEqual("STANDARD", objGenSettings->StartupScreen);
+				Assert::AreEqual("Setup", objGenSettings->StartupScreen);
 				Assert::IsNull(objGenSettings->CommsPort);
 				Assert::IsNull(objGenSettings->ReportTitle);
 				Assert::IsNull(objGenSettings->ReportLogoPath);

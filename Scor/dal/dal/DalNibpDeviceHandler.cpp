@@ -28,13 +28,15 @@ using namespace AtCor::Scor::DataAccess;
 DalNibpDeviceHandler::DalNibpDeviceHandler()
 {
 	SetCommandInterface(gcnew DalNibpCommandInterface());
-	if (CrxSytemParameters::Instance->GetStringTagValue("NibpDal.CuffPressureMeasurementThreadEnable") == "Y")
+	/*if (CrxSytemParameters::Instance->GetStringTagValue("NibpDal.CuffPressureMeasurementThreadEnable") == "Y")
 	{
 	cuffPressurePlottingThread = gcnew Thread(gcnew ThreadStart(this, &DalNibpDeviceHandler::CuffPressurePlottingThreadMethod ));
-	}
+	}*/
 	signalNibpAbortCaller = gcnew SignalNibpAbortedAsyncCaller(this, &DalNibpDeviceHandler::SignalNibpAborted);
 
-	nibpModuleConnected = false; //set to false so that we know for sure that the session has not started
+	obtainBpMeasurementAsynCaller =  gcnew ObtainBpMeasurementAsyncCaller(this, &DalNibpDeviceHandler::GetBpDataAndRaiseEvent);
+
+	//nibpModuleConnected = false; //set to false so that we know for sure that the session has not started
 
 	_instance = this;
 }
@@ -80,11 +82,25 @@ bool DalNibpDeviceHandler::StartBpProcess(DalNIBPMode nibpMode, unsigned short i
 
 	do
 	{
-		//Thread::Sleep(7000); //sleep for 7 seconds before trying becuase the NIBP module needs time to get ready
 
+		int sleepTimeBeforeStartBp = CrxSytemParameters::Instance->GetIntegerTagValue("NibpDal.Timeouts.SendNibpConnectCommand.WaitTimeBetweenConnectAndStartBP");
+		CrxLogger::Instance->Write("DalNibpDeviceHandler::StartBpProcess  Sleeping for " + sleepTimeBeforeStartBp + " ms before sending StartBP command " ,ErrorSeverity::Debug);
+
+		//sleep for 7 seconds before trying becuase the NIBP module needs time to get ready
+
+		//WaitTimeBetweenConnectAndStartBP: The time to wait after NIBP_CONNECT command has been sent and the Start_BP
+		// command will be sent. Can be zero but usuall results in the command being NACKED
+		Thread::Sleep(sleepTimeBeforeStartBp);
+
+		//Thread::Sleep(7000); 
 		//Dont create the object of a particular type
 		//call the method which will return the specifc type
 		//DalNibpStartBpCommand^ startBpCommand = gcnew DalNibpStartBpCommand(200000);
+
+		if (startBpCommand)
+		{
+			delete startBpCommand;
+		}
 
 		startBpCommand = GetNewStartBpCommandObject(nibpMode);
 
@@ -105,6 +121,7 @@ bool DalNibpDeviceHandler::StartBpProcess(DalNIBPMode nibpMode, unsigned short i
 
 	if (!boolRetValue)
 	{
+		CrxLogger::Instance->Write("DalNibpDeviceHandler::StartBpProcess Failed to send the StartBp command. Deleting object", ErrorSeverity::Debug);
 		
 		//delete the startBpCommand Object
 		delete startBpCommand;
@@ -119,13 +136,23 @@ bool DalNibpDeviceHandler::StartBpProcess(DalNIBPMode nibpMode, unsigned short i
 	{
 		if (CrxSytemParameters::Instance->GetStringTagValue("NibpDal.CuffPressureMeasurementThreadEnable") == "Y")
 		{
+			
+			if (!cuffPressurePlottingThread)
+			{
+				CrxLogger::Instance->Write("DalNibpDeviceHandler::StartBpProcess Starting cuff meaurement thread", ErrorSeverity::Debug);
+	
+				cuffPressurePlottingThread = gcnew Thread(gcnew ThreadStart(this, &DalNibpDeviceHandler::CuffPressurePlottingThreadMethod ));
+		
 			cuffPressurePlottingThread->Start();   //Start the cuff pressure plooting
 		}
 	}
+	}
 	catch(ThreadStateException^ exObj)
 	{
-		//Suppress this exception
-		delete exObj;
+		CrxLogger::Instance->Write("DalNibpDeviceHandler::StartBpProcess  cuff meaurement thread exception", ErrorSeverity::Debug);
+		
+		//Do not Suppress this exception
+		throw exObj;
 	}
 
 	//set the marker that says that a measurement is in progress
@@ -170,7 +197,7 @@ bool DalNibpDeviceHandler::StartBP(DalNIBPMode nibpMode)
 
 bool DalNibpDeviceHandler::FinishBP()
 {
-	//CrxLogger::Instance->Write("DalNibpDeviceHandler::FinishBP started" , ErrorSeverity::Debug);
+	CrxLogger::Instance->Write("DalNibpDeviceHandler::FinishBP started" , ErrorSeverity::Debug);
 	//Send the AbortBP command
 
 	bool boolRetValue;
@@ -191,13 +218,14 @@ bool DalNibpDeviceHandler::FinishBP()
 		return false;
 	}
 
-
+	CrxLogger::Instance->Write("DalNibpDeviceHandler::FinishBP returning " + boolRetValue , ErrorSeverity::Debug);
 
 	return boolRetValue;
 }
 
 bool DalNibpDeviceHandler::AbortBP()
 {
+	CrxLogger::Instance->Write("DalNibpDeviceHandler::AbortBP started" , ErrorSeverity::Debug);
 	bool boolRetValue;
 
 	int waitTime = CrxSytemParameters::Instance->GetIntegerTagValue("NibpDal.Timeouts.DalNibpAbortBpCommandWaitTime");
@@ -207,7 +235,7 @@ bool DalNibpDeviceHandler::AbortBP()
 	if (!boolRetValue)
 	{
 		CrxLogger::Instance->Write("DalNibpDeviceHandler::AbortBP Abort command Failed" , ErrorSeverity::Debug);
-		return false;
+		//return false; Even if the command fails we still need to continue on and close the remaining processes
 	}
 	//else
 
@@ -254,6 +282,8 @@ bool DalNibpDeviceHandler::ConnectToNibpModule()
 	{
 		CrxLogger::Instance->Write("DalNibpDeviceHandler::ConnectToNibpModule returing True", ErrorSeverity::Debug);
 
+		nibpModuleConnected = true; //set the flag to true
+
 		return true;
 	}
 	
@@ -270,7 +300,16 @@ DalReturnValue DalNibpDeviceHandler::SendNibpConnectCommand()
 
 DalReturnValue DalNibpDeviceHandler::SendNibpDisconnectCommand()
 {
-		return SendNibpConnectDisconnectCommand(false);
+	DalReturnValue returnValue ;
+		returnValue =  SendNibpConnectDisconnectCommand(false);
+
+	if (DalReturnValue::Ack == returnValue )
+	{
+		//set the flag to false so that the next time we start with NIBP cycle we send connect command again.
+		nibpModuleConnected = false; 
+	}
+
+	return returnValue;
 }
 
 DalReturnValue DalNibpDeviceHandler::SendNibpConnectDisconnectCommand(bool connect)
@@ -348,6 +387,7 @@ bool DalNibpDeviceHandler::GetCuffPressure(unsigned int& cuffPressure)
 	DalCuffPressureCommand^ cuffPressCommand = gcnew  DalCuffPressureCommand();
 
 	boolReturnValue = cuffPressCommand->GetCuffPressure(cuffPressure);
+	CrxLogger::Instance->Write("DalNibpDeviceHandler::GetCuffPressure boolReturnValue: " + boolReturnValue.ToString() + " cuffPressure: " + cuffPressure, ErrorSeverity::Debug);
 
 	return boolReturnValue;
 
@@ -438,21 +478,27 @@ void DalNibpDeviceHandler::StopCuffPressurePlotting()
 	if (CrxSytemParameters::Instance->GetStringTagValue("NibpDal.CuffPressureMeasurementThreadEnable") == "Y")
 	{
 	this->cuffPressurePlottingThread->Abort();
+
+		delete cuffPressurePlottingThread;
+		cuffPressurePlottingThread = nullptr;
 	}
 }
 
 
 bool DalNibpDeviceHandler::GetBpDataAndRaiseEvent()
 {
+	bool retValue;
+
+	CrxLogger::Instance->Write("DalNibpDeviceHandler::GetBpDataAndRaiseEvent started",  ErrorSeverity::Debug);
 	DalNibpGetBpDataCommand ^ getBpDataCommandObject = gcnew DalNibpGetBpDataCommand();
 
-	getBpDataCommandObject->GetBpDataAndRaiseEvent();
+	retValue = getBpDataCommandObject->GetBpDataAndRaiseEvent();
 
 
 	//Delete the original StartBPData command 
-	delete startBpCommand;
-
-	return true;
+	//delete startBpCommand;
+	CrxLogger::Instance->Write("DalNibpDeviceHandler::GetBpDataAndRaiseEvent returning" + retValue,  ErrorSeverity::Debug);
+	return retValue;
 }
 
 DalNibpStartBpCommand^ DalNibpDeviceHandler::GetNewStartBpCommandObject(DalNIBPMode nibpMode)
@@ -481,26 +527,37 @@ DalNibpStartBpCommand^ DalNibpDeviceHandler::GetNewStartBpCommandObject(DalNIBPM
 
 void DalNibpDeviceHandler::SignalNibpAborted()
 {
+	try
+	{
 	//This method is called when an EM4 Abort signal is recieved.
 	//We should check if there is a K response thread waiting for StartBP and
 
-	if (startBpCommand)
-	{
+		//if (startBpCommand)
+		//{
 
-	startBpCommand->kPacketListenerThread->Abort();
+		//	//startBpCommand->kPacketListenerThread->Abort(); //object reference not found error
 
-	bool returnValue;
+		//	//delete startBpCommand; //TODO: see if this works
 
-	//Now send a disconnect command
-	returnValue = FinishBP();
+		//	bool returnValue;
+
+		//	//Now send a disconnect command
+		//	returnValue = FinishBP();
+		//}
+		//else
+		//{
+		//	return ;
+		//}
+
+		AbortBP();
 	}
-	else
+	catch( Exception ^ excepObj)
 	{
-		return ;
+		throw gcnew ScorException(excepObj);
 	}
-
-
 }
+
+
 
 bool DalNibpDeviceHandler::IsCuffDeflated()
 {
@@ -524,3 +581,13 @@ bool DalNibpDeviceHandler::IsCuffDeflated()
 	return true;
 }
 
+
+void DalNibpDeviceHandler::AbortBpOnStopButtonPress()
+{
+	//DalNibpDeviceHandler::Instance->signalNibpAbortCaller->Invoke(); 
+		//raise the necessary signal. Passing the data is irrelvant.
+		DalNibpDeviceHandler::Instance->signalNibpAbortCaller->BeginInvoke(nullptr, nullptr); 
+
+	//SignalNibpAborted();
+	//AbortBP(); //TODO: 
+}

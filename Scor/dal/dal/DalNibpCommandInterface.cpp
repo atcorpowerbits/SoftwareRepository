@@ -55,6 +55,7 @@ bool DalNibpCommandInterface::SendCommandToNibpModule(array<unsigned char>^ nibp
 
 void DalNibpCommandInterface::ProcessNibpToHostPacket(array<unsigned char> ^ nibpToHostPacket)
 {
+	//CrxLogger::Instance->Write("DalNibpCommandInterface::ProcessNibpToHostPacket starts with " + DalBinaryConversions::ConvertBytesToString(nibpToHostPacket), ErrorSeverity::Debug);
 	
 	//first get the binary array 
 	//array<unsigned char>^ rawEm4Packet = args->nibpPacket;

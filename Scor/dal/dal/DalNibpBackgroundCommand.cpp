@@ -152,7 +152,7 @@ void DalNibpBackgroundCommand::ResponseListenerThreadMethod(System::Object ^)
 		//We need to  process it or take some action
 
 		delete threadInterruptEx;
-		////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod ThreadInterruptedException raised", ErrorSeverity::Debug);
+		////CrxLogger::Instance->Write("DAL>>> DalCommandInterface::ResponseListenerThreadMethod ThreadInterruptedException raised", ErrorSeverity::Debug);
 	}
 
 

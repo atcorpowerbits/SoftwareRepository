@@ -172,19 +172,22 @@
     <value>Grado II e III HT</value>
   </data>
   <data name="BP_GRADE_II_AND_III_HT_RANGE" xml:space="preserve">
-    <value>PS &gt; 160</value>
+    <value>(SYS: 160 mmHg or above)</value>
+    <comment>PS &gt; 160</comment>
   </data>
   <data name="BP_GRADE_I_HT" xml:space="preserve">
     <value>Grado I HT</value>
   </data>
   <data name="BP_GRADE_I_HT_RANGE" xml:space="preserve">
-    <value>140 &lt;PS &lt;159</value>
+    <value>(SYS: 140-159 mmHg)</value>
+    <comment>140 &lt;PS &lt;159</comment>
   </data>
   <data name="BP_HIGH_NORMAL" xml:space="preserve">
     <value>Normal alta</value>
   </data>
   <data name="BP_HIGH_NORMAL_RANGE" xml:space="preserve">
-    <value>130 &lt;PS &lt;139</value>
+    <value>(SYS: 130-139 mmHg)</value>
+    <comment>130 &lt;PS &lt;139</comment>
   </data>
   <data name="BP_LBL_ANALYSIS" xml:space="preserve">
     <value>BP (mmHg)</value>
@@ -193,13 +196,15 @@
     <value>Normal</value>
   </data>
   <data name="BP_NORMAL_RANGE" xml:space="preserve">
-    <value>120 &lt;PS &lt;129</value>
+    <value>(SYS: 120-129 mmHg)</value>
+    <comment>120 &lt;PS &lt;129</comment>
   </data>
   <data name="BP_OPTIMAL" xml:space="preserve">
     <value>Óptima</value>
   </data>
   <data name="BP_OPTIMAL_RANGE" xml:space="preserve">
-    <value>PS &lt;119</value>
+    <value>(SYS: 119 mmHg or below)</value>
+    <comment>PS &lt;119</comment>
   </data>
   <data name="BTN_CANCEL" xml:space="preserve">
     <value>Cancelar</value>
@@ -302,7 +307,7 @@
     <value>cm</value>
   </data>
   <data name="COMPANY_COPYRIGHT" xml:space="preserve">
-    <value>Copyright (c) 2011 AtCor Medical Pty Ltd. Todos los derechos reservados.</value>
+    <value>Copyright (c) 2012 AtCor Medical Pty Ltd. Todos los derechos reservados.</value>
     <comment>About box info</comment>
   </data>
   <data name="COMPANY_NAME" xml:space="preserve">
@@ -323,10 +328,8 @@
     <value>PWV</value>
   </data>
   <data name="CONTACT_ATCOR_SUPPORT" xml:space="preserve">
-    <value>Si el problema continúa, consulte la sección de solución de problemas en el manual del usuario o póngase en contacto con el servicio de asistencia técnica de AtCor en http://atcormedical.com/request_support.html</value>
-  </data>
-  <data name="CONTACT_ATCOR_SUPPORT1" xml:space="preserve">
-    <value>O bien póngase en contacto con el servicio de asistencia técnica de AtCor Medical en http://atcormedical.com/request_support.html</value>
+    <value>If the problem persists, check troubleshooting section in user manual or {0}</value>
+    <comment>Si el problema continúa, consulte la sección de solución de problemas en el manual del usuario o póngase en contacto con el servicio de asistencia técnica de AtCor en http://atcormedical.com/request_support.html</comment>
   </data>
   <data name="CONTACT_ATCOR_SUPPORT2" xml:space="preserve">
     <value>Póngase en contacto con el servicio de asistencia técnica de AtCor Medical en http://atcormedical.com/request_support.html</value>
@@ -345,10 +348,6 @@
   </data>
   <data name="CRX_ERR_DBMGR_TRANS_FAILED" xml:space="preserve">
     <value>Fallo en la transacción</value>
-  </data>
-  <data name="CRX_ERR_DBPERMISSION_REFER_MANUAL" xml:space="preserve">
-    <value>Fallo al restaurar la base de datos. 
-Si el problema continúa, consulte la sección de solución de problemas en el manual del usuario o póngase en contacto con el servicio de asistencia técnica de AtCor en http://atcormedical.com/request_support.html ¿Desea volver a intentarlo?</value>
   </data>
   <data name="CRX_ERR_FILE_ALREADY_EXIST" xml:space="preserve">
     <value>Se ha intentado crear un archivo existente.</value>
@@ -369,9 +368,12 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Se ha producido una excepción en el componente de Mensajería.</value>
   </data>
   <data name="CRX_ERR_MIGRATION_REFER_MANUAL" xml:space="preserve">
-    <value>El servidor de la base de datos no responde. 
+    <value>Database Server is not responding.
+Data migration has failed.
+If the problem persists check troubleshooting section in user manual or {0}</value>
+    <comment>El servidor de la base de datos no responde. 
 Error en la migración de los datos. 
-Si el problema continúa, consulte la sección de solución de problemas en el manual del usuario o póngase en contacto con el servicio de asistencia técnica de AtCor en http://atcormedical.com/request_support.html</value>
+Si el problema continúa, consulte la sección de solución de problemas en el manual del usuario o póngase en contacto con el servicio de asistencia técnica de AtCor en http://atcormedical.com/request_support.html</comment>
   </data>
   <data name="CRX_ERR_MSACCESS_FILE_NOT_EXIST" xml:space="preserve">
     <value>El archivo de migración no existe.</value>
@@ -380,7 +382,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Existe un archivo de migración ANTIGUO.</value>
   </data>
   <data name="CRX_ERR_XML_TAG_INCORRECT" xml:space="preserve">
-    <value>The specified XML tag was not found or may be in incorrect format.</value>
+    <value>System parameter is missing or incorrect. Check the scor.log and {0}</value>
+    <comment>The specified XML tag was not found or may be in incorrect format.</comment>
   </data>
   <data name="CRX_LOG_FILE_HEADER_LINE" xml:space="preserve">
     <value>Línea del archivo de registro de Line SphygmoCor</value>
@@ -423,7 +426,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Sim - 0.1</value>
   </data>
   <data name="DAL_CONST_GCI_SERIAL_NUMBER" xml:space="preserve">
-    <value>Sim - 1234567890</value>
+    <value>000000000001</value>
+    <comment>Sim - 1234567890</comment>
   </data>
   <data name="DAL_CONST_GCI_TYPE" xml:space="preserve">
     <value>Dispositivo EM4 (stub)</value>
@@ -566,7 +570,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <comment>Configuración de PWV</comment>
   </data>
   <data name="DP" xml:space="preserve">
-    <value>PD</value>
+    <value>DIA</value>
+    <comment>PD</comment>
   </data>
   <data name="DP_OUT_OF_RANGE" xml:space="preserve">
     <value>La presión diastólica no se encuentra en el intervalo válido, entre {0} y {1}</value>
@@ -709,7 +714,7 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Tiempo de captura</value>
   </data>
   <data name="GRP_CLINICAL_REPORT" xml:space="preserve">
-    <value>Aix Report</value>
+    <value>AIx Report</value>
     <comment>Clinical Report</comment>
   </data>
   <data name="GRP_COMMS_PORT" xml:space="preserve">
@@ -730,7 +735,7 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>If PP &gt;=</value>
   </data>
   <data name="GRP_IF_SP" xml:space="preserve">
-    <value>If SP &gt;=</value>
+    <value>If SYS &gt;=</value>
   </data>
   <data name="GRP_NO_OF_ASSESSMENTS" xml:space="preserve">
     <value>Number of Assessments</value>
@@ -777,7 +782,7 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Startup Mode</value>
   </data>
   <data name="GRP_STARTUP_SCREEN" xml:space="preserve">
-    <value>PWA Workflow</value>
+    <value>Workflow</value>
     <comment>Startup Screen</comment>
   </data>
   <data name="GRP_TONOMETER" xml:space="preserve">
@@ -796,7 +801,7 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>AtCor Medical SphygmoCor</value>
   </data>
   <data name="GUI_ABOUT_COPYRIGHT" xml:space="preserve">
-    <value>CopyRight [c] 2011 AtCor Medical Pty Ltd. Todos los derechos reservados.</value>
+    <value>CopyRight [c] 2012 AtCor Medical Pty Ltd. Todos los derechos reservados.</value>
   </data>
   <data name="GUI_ABOUT_FIRM_VERSION" xml:space="preserve">
     <value>Versión del firmware</value>
@@ -833,7 +838,9 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Versión: 10.0.2.0 (clínico)</value>
   </data>
   <data name="GUI_ANNUAL_CALLIBRATION_MESSAGE" xml:space="preserve">
-    <value>La calibración anual ha vencido, la última calibración se realizó el {0}. Pulse Aceptar para que se le recuerden más tarde o Cancelar para ignorar.</value>
+    <value>Annual callibration is due, last annual callibration was done on {0}. 
+Please refer to user manual or AtCor website for calibration procedure.</value>
+    <comment>La calibración anual ha vencido, la última calibración se realizó el {0}. Pulse Aceptar para que se le recuerden más tarde o Cancelar para ignorar.</comment>
   </data>
   <data name="GUI_ATCOR_HOMEPAGE_MENU" xml:space="preserve">
     <value>Página inicial de Atcor</value>
@@ -848,7 +855,10 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Espere, el manguito se volverá a inflar en breve.</value>
   </data>
   <data name="GUI_CAPTURE_ERROR" xml:space="preserve">
-    <value>"Se ha producido un error durante el proceso de captura.\r\nHaga clic en Sí para generar el informe.\r\nHaga clic en No para anular la generación del informe y volver a la pantalla Configuración.\r\nHaga clic en Cancelar para reiniciar el proceso de captura".</value>
+    <value>Se ha producido un error durante el proceso de captura.
+Haga clic en Sí para generar el informe.
+Haga clic en No para anular la generación del informe y volver a la pantalla Configuración.
+Haga clic en Cancelar para reiniciar el proceso de captura.</value>
   </data>
   <data name="GUI_CAPTURE_GENERATING_REPORT" xml:space="preserve">
     <value>Generando informe.</value>
@@ -1022,7 +1032,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>PS:</value>
   </data>
   <data name="GUI_REPORT_GENERAL_POP_DESCRIPTION" xml:space="preserve">
-    <value>Normalizada para la medición de la distancia</value>
+    <value>Normalised for direct measurement</value>
+    <comment>Normalizada para la medición de la distancia(NOT USED)</comment>
   </data>
   <data name="GUI_REPORT_GENERAL_POP_TEXT" xml:space="preserve">
     <value>Normalizada a la distancia arterial directa</value>
@@ -1083,7 +1094,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>¿Desea salir del modo de búsqueda?</value>
   </data>
   <data name="GUI_START_CAPTURE_FAILED" xml:space="preserve">
-    <value>Capture cannot be started. If the problem persists, check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html </value>
+    <value>Capture cannot be started. If the problem persists, check troubleshooting section in user manual or {0}</value>
+    <comment>Capture cannot be started. If the problem persists, check troubleshooting section in user manual or contact AtCor support http://atcormedical.com/request_support.html</comment>
   </data>
   <data name="GUI_WARNING_TXT" xml:space="preserve">
     <value>Advertencia: </value>
@@ -1158,7 +1170,7 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Average Central Aortic Waveform</value>
   </data>
   <data name="LBL_BRACHIAL_SP_DP_MP" xml:space="preserve">
-    <value>Brachial SP/DP:</value>
+    <value>Brachial SYS/DIA:</value>
   </data>
   <data name="LBL_CPWA" xml:space="preserve">
     <value>cPWA</value>
@@ -1167,10 +1179,10 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Fecha de nacimiento*:</value>
   </data>
   <data name="LBL_DP" xml:space="preserve">
-    <value>DP</value>
+    <value>DIA</value>
   </data>
   <data name="LBL_DP*" xml:space="preserve">
-    <value>DP*:</value>
+    <value>DIA*:</value>
   </data>
   <data name="LBL_FEMORALCUFF" xml:space="preserve">
     <value>Manguito femoral</value>
@@ -1203,7 +1215,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Apellido*:</value>
   </data>
   <data name="LBL_NOTES" xml:space="preserve">
-    <value>Medicaciones/Notas:</value>
+    <value>Notas:</value>
+    <comment>Medicaciones/Notas:</comment>
   </data>
   <data name="LBL_OPERATOR" xml:space="preserve">
     <value>Operador:</value>
@@ -1333,7 +1346,7 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Título del informe</value>
   </data>
   <data name="LBL_SP*" xml:space="preserve">
-    <value>SP*:</value>
+    <value>SYS*:</value>
   </data>
   <data name="LBL_TIMESTATUS" xml:space="preserve">
     <value>Time to Deflation{0}{1}{2} seconds</value>
@@ -1420,7 +1433,8 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Mes</value>
   </data>
   <data name="MP" xml:space="preserve">
-    <value>PM</value>
+    <value>MAP</value>
+    <comment>PM</comment>
   </data>
   <data name="MP_DP_TOO_CLOSE" xml:space="preserve">
     <value>La PM debe ser superior a la PD en {0} mmHg</value>
@@ -1487,7 +1501,7 @@ Si el problema continúa, consulte la sección de solución de problemas en el m
     <value>Power Up Status</value>
   </data>
   <data name="PRT_PWV_BOX_TEXT_1" xml:space="preserve">
-    <value>Se han corregido los resultados para su presión sanguínea. Su presión sanguínea es _______. </value>
+    <value>Se han corregido los resultados para su presión sanguínea. Su presión sanguínea es ______________.</value>
   </data>
   <data name="PRT_PWV_BOX_TEXT_2" xml:space="preserve">
     <value>En función de su edad ______, y en comparación con los intervalos de presión sanguínea, su límite de PWV para el riesgo cardiovascular es:</value>
@@ -1841,10 +1855,11 @@ Se han comparado sus mediciones con estos resultados.</value>
     <value>#104 La amplitud de la señal es demasiado pequeña.\n\nAltura de la señal = {0} y el mínimo = {1}</value>
   </data>
   <data name="SP" xml:space="preserve">
-    <value>PS</value>
+    <value>SYS</value>
+    <comment>PS</comment>
   </data>
   <data name="SPALSH_COPYRT_TXT" xml:space="preserve">
-    <value>Copyright AtCor Medical Pty. Ltd.1999-2011</value>
+    <value>Copyright AtCor Medical Pty. Ltd.1999-2012</value>
   </data>
   <data name="SPLASH_INI_MSG" xml:space="preserve">
     <value>Cargando... </value>
@@ -2004,7 +2019,8 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Investigación</value>
   </data>
   <data name="GUI_RPT_REF_RANGE_DESC" xml:space="preserve">
-    <value>Normalised for distance measurement</value>
+    <value>Normalised for direct measurement</value>
+    <comment>Normalised for distance measurement</comment>
   </data>
   <data name="GUI_SQL_INSTANCE_CONNECT" xml:space="preserve">
     <value>Connect</value>
@@ -2054,7 +2070,7 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Simulación</value>
   </data>
   <data name="GUI_PRINT_PWV_ANALYSIS_BPCHART_VALUE" xml:space="preserve">
-    <value>No SP or DP values exist for the selected assessments</value>
+    <value>No SYS or DIA values exist for the selected assessments</value>
   </data>
   <data name="BTN_START" xml:space="preserve">
     <value>Start</value>
@@ -2078,7 +2094,7 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Configuración de PWV</value>
   </data>
   <data name="GRP_IF_DP" xml:space="preserve">
-    <value>If DP &gt;=</value>
+    <value>If DIA &gt;=</value>
   </data>
   <data name="LBL_SETUP_BRACHIALBP" xml:space="preserve">
     <value>Brachial Calibration</value>
@@ -2093,10 +2109,10 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>.\\simulation\PWA</value>
   </data>
   <data name="BP_SETTINGS_DP_THRESHOLD_VALIDATION" xml:space="preserve">
-    <value>Threshold value for DP should not be blank.</value>
+    <value>Threshold value for DIA should not be blank.</value>
   </data>
   <data name="BP_SETTINGS_DP_VALIDATION" xml:space="preserve">
-    <value>Value entered for DP is too large.</value>
+    <value>Value entered for DIA is too large.</value>
   </data>
   <data name="BP_SETTINGS_PP_THRESHOLD_VALIDATION" xml:space="preserve">
     <value>Threshold value for PP should not be blank.</value>
@@ -2105,10 +2121,10 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Value entered for PP is too large.</value>
   </data>
   <data name="BP_SETTINGS_SP_THRESHOLD_VALIDATION" xml:space="preserve">
-    <value>Threshold value for SP should not be blank.</value>
+    <value>Threshold value for SYS should not be blank.</value>
   </data>
   <data name="BP_SETTINGS_SP_VALIDATION" xml:space="preserve">
-    <value>Value entered for SP is too large.</value>
+    <value>Value entered for SYS is too large.</value>
   </data>
   <data name="DAL_CONST_SIM_FOLDER_PATH_PWA" xml:space="preserve">
     <value>.\\simulation\\cPWA\\</value>
@@ -2240,7 +2256,7 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>The Maximum rate of change of pressure (Max dp/dt) is out of the bounds of the recommended range</value>
   </data>
   <data name="PWA_MSG_DP_OUT" xml:space="preserve">
-    <value>The value for Diastolic Pressure is out of range. DP = {0}</value>
+    <value>The value for Diastolic Pressure is out of range. DIA = {0}</value>
   </data>
   <data name="PWA_MSG_ESP_OUT" xml:space="preserve">
     <value>The value for End Systolic Pressure is out of range. ESP = {0}</value>
@@ -2288,7 +2304,7 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>The Signal length is too short to proceed with the calculation</value>
   </data>
   <data name="PWA_MSG_SP_OUT" xml:space="preserve">
-    <value>The value for Systolic Pressure is out of range. SP = {0}</value>
+    <value>The value for Systolic Pressure is out of range. SYS = {0}</value>
   </data>
   <data name="PWA_MSG_TOO_BAD_SIGNAL" xml:space="preserve">
     <value>Signal quality is too poor to calculate parameters</value>
@@ -2303,7 +2319,7 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Invalid Ejection Duration (less than pulse peak time) for Peripheral Average Pulse</value>
   </data>
   <data name="PWA_MSG_WRONG_RANGE" xml:space="preserve">
-    <value>Incorrect range to determine gain and offset for pulse. SP = {0}, DP = {1}</value>
+    <value>Incorrect range to determine gain and offset for pulse. SYS = {0}, DIA = {1}</value>
   </data>
   <data name="GUI_PRINT_PWA_CLINICAL_TITLE" xml:space="preserve">
     <value>Pulse Wave Analysis Clinical Report</value>
@@ -2387,13 +2403,14 @@ Please contact AtCor support  http://atcormedical.com/request_support.html</valu
     <value>Heart Rate, Period:</value>
   </data>
   <data name="RPT_MP_SYSTOLE_DIASTOLE_TITLE" xml:space="preserve">
-    <value>MP (Systole, Diastole):</value>
+    <value>MAP (Systole, Diastole):</value>
   </data>
   <data name="RPT_P1HEIGHT_TITLE" xml:space="preserve">
     <value>P1 Height:</value>
   </data>
   <data name="GUI_INCONCLUSIVE_PWA_REPORT_INITIAL_MESSAGE" xml:space="preserve">
-    <value>Note-</value>
+    <value>Note:</value>
+    <comment>Note-</comment>
   </data>
   <data name="GUI_CAPTURE_CUFF_INFLATING_MSG" xml:space="preserve">
     <value>Cuff Inflating.</value>
@@ -2504,13 +2521,13 @@ b) Arterial stiffness – this is a measure of the elasticity of your arteries. 
 However, as we get older, and our arteries get stiffer, the pressure reflected back to the heart becomes greater. Over time, this increased pressure creates more work for the heart as it must pump the blood against this “back pressure” caused by the stiffness of the arterial system. This is why it is important to measure the pressure at your heart as well as at your arm, and your arterial stiffness.</value>
   </data>
   <data name="RPT_DIASTOLIC_BP_VALUE" xml:space="preserve">
-    <value>{0} Normal.</value>
+    <value>{0}</value>
   </data>
   <data name="RPT_PWATEXT10" xml:space="preserve">
     <value>Diastolic:</value>
   </data>
   <data name="RPT_PWATEXT11" xml:space="preserve">
-    <value>Your current cuff Blood pressure is {0}, {1}.</value>
+    <value>Your current cuff Blood pressure is {0}, which is considered a {1}.</value>
   </data>
   <data name="RPT_PWATEXT12" xml:space="preserve">
     <value>Central Systolic Blood pressure.</value>
@@ -2545,7 +2562,7 @@ If your measurement is above the top red line, your central Systolic Blood press
     <value>These results are for information only as an aid to understanding and do not imply or diagnose a medical condition</value>
   </data>
   <data name="RPT_SYSTOLIC_BP_VALUE" xml:space="preserve">
-    <value>{0} High Normal</value>
+    <value>{0}</value>
   </data>
   <data name="RPT_PWATEXT16" xml:space="preserve">
     <value>Stopping smoking</value>
@@ -2735,7 +2752,8 @@ If this age is greater than your actual age: Your arteries are stiffer than is n
     <value>Mode</value>
   </data>
   <data name="GRP_DEFAULT_PRINTED_REPORT" xml:space="preserve">
-    <value>Default Printed Report</value>
+    <value>Default Print Report</value>
+    <comment>Default Printed Report</comment>
   </data>
   <data name="QUICKSTART_WARNING" xml:space="preserve">
     <value>Warning: This device is not validated for children under 18 years old</value>
@@ -2750,7 +2768,8 @@ If this age is greater than your actual age: Your arteries are stiffer than is n
     <value>Result generation failed.</value>
   </data>
   <data name="GUI_RESULT_DATA_LOSS_MSG" xml:space="preserve">
-    <value>You will lose all the data.Do you want to continue?</value>
+    <value>You will lose current measurement result data. Do you want to continue?</value>
+    <comment>You will lose all the data.Do you want to continue?</comment>
   </data>
   <data name="DAL_MSG_BP_ERROR_88" xml:space="preserve">
     <value>Brachial calibration error: {0}. Please turn EM4 off/on before starting a new measurement. Please refer to user manual for further corrective actions if necessary.</value>
@@ -2774,7 +2793,7 @@ If this age is greater than your actual age: Your arteries are stiffer than is n
     <value>Do you want to generate SphygmoCor Result?</value>
   </data>
   <data name="RPT_PWA_AIX_CHART_TEXT" xml:space="preserve">
-    <value>Central Augmentation index (Aix)</value>
+    <value>Central Augmentation Index (AIx)</value>
   </data>
   <data name="RPT_PWA_AP_CHART_TEXT" xml:space="preserve">
     <value>Central Augmented Pressure (AP)</value>
@@ -2795,6 +2814,91 @@ If this age is greater than your actual age: Your arteries are stiffer than is n
     <value>Cuff failed to reinflate.</value>
   </data>
   <data name="CRX_ERR_XML_TAG_INCORRECT_TEXT" xml:space="preserve">
-    <value>The xml tag "{0}" is incorrect or not present in the ScorSystemParameters.xml file</value>
+    <value>The system parameter "{0}" is missing or incorrect.</value>
+  </data>
+  <data name="CONTACT_ATCOR_SUPPORT_COMMON" xml:space="preserve">
+    <value>contact AtCor support http://atcormedical.com/request_support.html</value>
+  </data>
+  <data name="DAL_FAILED_GET_SET_CONFIG_PARAMETER" xml:space="preserve">
+    <value>Failed to Get or Set requested configuration parameter.</value>
+  </data>
+  <data name="DAL_INVALID_DATE_TIME" xml:space="preserve">
+    <value>Invalid Date time for requested configuration parameter.</value>
+  </data>
+  <data name="DAL_MSG_CHK_DVC_PORT" xml:space="preserve">
+    <value>DAL: DalDeviceHandler::CheckIfDeviceIsConnected checking connection on port: {0}.</value>
+  </data>
+  <data name="PWA_DEFAULT_FILE_NOT_FOUND" xml:space="preserve">
+    <value>Cannot locate PWA Simulation Type "{0}". Default Simulation File is also missing. Please select PWA Simulation Type before saving the Settings.</value>
+  </data>
+  <data name="PWA_NO_FILE_NOT_FOUND" xml:space="preserve">
+    <value>Cannot locate PWA Simulation Type. Default Simulation File is also missing. Make sure that the PWA Simulation folder is not empty.</value>
+    <comment>Cannot locate PWA Simulation Type "{0}". Default Simulation File is also missing. Make sure that the PWA Simulation folder is not empty.</comment>
+  </data>
+  <data name="PWA_SIMULATION_FILE_NOT_FOUND" xml:space="preserve">
+    <value>Cannot locate PWA Simulation Type "{0}". Default Simulation Type has been restored.</value>
+  </data>
+  <data name="PWV_DEFAULT_FILE_NOT_FOUND" xml:space="preserve">
+    <value>Cannot locate PWV Simulation Type "{0}". Default Simulation File is also missing. Please select PWV Simulation Type before saving the Settings.</value>
+  </data>
+  <data name="PWV_NO_FILE_NOT_FOUND" xml:space="preserve">
+    <value> Cannot locate PWV Simulation Type "{0}". Default Simulation File is also missing. Make sure that the PWV Simulation folder is not empty.</value>
+  </data>
+  <data name="PWV_SIMULATION_FILE_NOT_FOUND" xml:space="preserve">
+    <value>Cannot locate PWV Simulation Type "{0}". Default Simulation Type has been restored.</value>
+  </data>
+  <data name="DAL_CONST_SIM_FILE_PATH_NIBP" xml:space="preserve">
+    <value>.\\simulation\\nibp\\</value>
+  </data>
+  <data name="DAL_NIBP_FILE_NOT_FOUND" xml:space="preserve">
+    <value>Corresponding BP data is not available. PWA simulation {0} cannot continue.</value>
+  </data>
+  <data name="BRACHIAL_BP_HIGH" xml:space="preserve">
+    <value>high</value>
+  </data>
+  <data name="BRACHIAL_BP_LOW" xml:space="preserve">
+    <value>low</value>
+  </data>
+  <data name="BRACHIAL_BP_NORMAL_HIGH" xml:space="preserve">
+    <value>normal high</value>
+  </data>
+  <data name="BRACHIAL_BP_NORMAL_LOW" xml:space="preserve">
+    <value>normal low</value>
+  </data>
+  <data name="BRACHIAL_BP_UNDEFINED" xml:space="preserve">
+    <value>range is not calculated</value>
+  </data>
+  <data name="BRACHIAL_BP_VERY_HIGH" xml:space="preserve">
+    <value>very high</value>
+  </data>
+  <data name="BRACHIAL_BP_VERY_LOW" xml:space="preserve">
+    <value>very low</value>
+  </data>
+  <data name="NIBP_VALIDATION_FAILED" xml:space="preserve">
+    <value>Brachial Calibration failed.</value>
+  </data>
+  <data name="MSG_CENTRAL_DP" xml:space="preserve">
+    <value>DP</value>
+  </data>
+  <data name="MSG_CENTRAL_MP" xml:space="preserve">
+    <value>MP</value>
+  </data>
+  <data name="MSG_CENTRAL_SP" xml:space="preserve">
+    <value>SP</value>
+  </data>
+  <data name="MAXIMUM_POINTS_MESSAGE" xml:space="preserve">
+    <value>Showing last {0} selected assessments.</value>
+  </data>
+  <data name="RPT_PWA_LOW_HYPERTENSION_TEXT" xml:space="preserve">
+    <value>Low hypertension</value>
+  </data>
+  <data name="CHART_AIX75" xml:space="preserve">
+    <value>AIx@75</value>
+  </data>
+  <data name="CHART_CENTRAL_DP_MP" xml:space="preserve">
+    <value>Central DP       MAP</value>
+  </data>
+  <data name="CHART_CENTRAL_SP" xml:space="preserve">
+    <value>Central SP</value>
   </data>
 </root>

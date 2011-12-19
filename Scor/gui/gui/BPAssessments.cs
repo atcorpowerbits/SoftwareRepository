@@ -53,7 +53,7 @@ namespace AtCor.Scor.Gui.Presentation
             guiradgrdAssessmentsDetails.Columns[0].Width = 130;
             guiradgrdAssessmentsDetails.Columns[0].IsVisible = true;
 
-            guiradgrdAssessmentsDetails.Columns.Add("SP", "SP", "SP");
+            guiradgrdAssessmentsDetails.Columns.Add("SYS", "SYS", "SYS");
             guiradgrdAssessmentsDetails.Columns[1].Width = 40;
             guiradgrdAssessmentsDetails.Columns[1].IsVisible = true;
 
@@ -61,11 +61,11 @@ namespace AtCor.Scor.Gui.Presentation
             guiradgrdAssessmentsDetails.Columns[2].Width = 40;
             guiradgrdAssessmentsDetails.Columns[2].IsVisible = true;
 
-            guiradgrdAssessmentsDetails.Columns.Add("MP", "MP", "MP");
+            guiradgrdAssessmentsDetails.Columns.Add("MAP", "MAP", "MAP");
             guiradgrdAssessmentsDetails.Columns[3].Width = 40;
             guiradgrdAssessmentsDetails.Columns[3].IsVisible = true;
 
-            guiradgrdAssessmentsDetails.Columns.Add("DP", "DP", "DP");
+            guiradgrdAssessmentsDetails.Columns.Add("DIA", "DIA", "DIA");
             guiradgrdAssessmentsDetails.Columns[4].Width = 40;
             guiradgrdAssessmentsDetails.Columns[4].IsVisible = true;
 
@@ -78,7 +78,7 @@ namespace AtCor.Scor.Gui.Presentation
             bpDataOne.DataType = Type.GetType("System.String");
             dummyTable.Columns.Add(bpDataOne);
 
-            DataColumn bpDataTwo = new DataColumn("SP");
+            DataColumn bpDataTwo = new DataColumn("SYS");
             bpDataTwo.DataType = Type.GetType("System.String");
             dummyTable.Columns.Add(bpDataTwo);
 
@@ -86,11 +86,11 @@ namespace AtCor.Scor.Gui.Presentation
             bpDataThree.DataType = Type.GetType("System.String");
             dummyTable.Columns.Add(bpDataThree);
 
-            DataColumn bpDataFour = new DataColumn("MP");
+            DataColumn bpDataFour = new DataColumn("MAP");
             bpDataFour.DataType = Type.GetType("System.String");
             dummyTable.Columns.Add(bpDataFour);
 
-            DataColumn bpDataFive = new DataColumn("DP");
+            DataColumn bpDataFive = new DataColumn("DIA");
             bpDataFive.DataType = Type.GetType("System.String");
             dummyTable.Columns.Add(bpDataFive);
 
@@ -102,42 +102,42 @@ namespace AtCor.Scor.Gui.Presentation
 
             cellone = dummyTable.NewRow();
             cellone["BP Data"] = "Assessment 1";
-            cellone["SP"] = "140";
+            cellone["SYS"] = "140";
             cellone["PP"] = "60";
-            cellone["MP"] = "110";
-            cellone["DP"] = "80";
+            cellone["MAP"] = "110";
+            cellone["DIA"] = "80";
             dummyTable.Rows.Add(cellone);
 
             celltwo = dummyTable.NewRow();
             celltwo["BP Data"] = "Assessment 2";
-            celltwo["SP"] = "155";
+            celltwo["SYS"] = "155";
             celltwo["PP"] = "50";
-            celltwo["MP"] = "150";
-            celltwo["DP"] = "90";
+            celltwo["MAP"] = "150";
+            celltwo["DIA"] = "90";
             dummyTable.Rows.Add(celltwo);
 
             cellthree = dummyTable.NewRow();
             cellthree["BP Data"] = "Assessment 3";
-            cellthree["SP"] = "140";
+            cellthree["SYS"] = "140";
             cellthree["PP"] = "70";
-            cellthree["MP"] = "140";
-            cellthree["DP"] = "70";
+            cellthree["MAP"] = "140";
+            cellthree["DIA"] = "70";
             dummyTable.Rows.Add(cellthree);
 
             cellfour = dummyTable.NewRow();
             cellfour["BP Data"] = "Assessment 4";
-            cellfour["SP"] = "155";
+            cellfour["SYS"] = "155";
             cellfour["PP"] = "70";
-            cellfour["MP"] = "120";
-            cellfour["DP"] = "90";
+            cellfour["MAP"] = "120";
+            cellfour["DIA"] = "90";
             dummyTable.Rows.Add(cellfour);
 
             cellfive = dummyTable.NewRow();
             cellfive["BP Data"] = "Assessment 5";
-            cellfive["SP"] = "160";
+            cellfive["SYS"] = "160";
             cellfive["PP"] = "70";
-            cellfive["MP"] = "130";
-            cellfive["DP"] = "85";
+            cellfive["MAP"] = "130";
+            cellfive["DIA"] = "85";
             dummyTable.Rows.Add(cellfive);
             guiradgrdAssessmentsDetails.DataSource = dummyTable;
 

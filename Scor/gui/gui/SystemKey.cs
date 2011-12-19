@@ -19,9 +19,9 @@ namespace AtCor.Scor.Gui.Presentation
 {
     public partial class SystemKey : Telerik.WinControls.UI.RadForm
     {
-        public string LicenseKey;
-        readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;        
-
+        public string LicenseKey;        
+        readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+        
         public SystemKey()
         {
             Size = new Size(465, 182);
@@ -30,10 +30,7 @@ namespace AtCor.Scor.Gui.Presentation
             MinimumSize = Size;
             InitializeComponent();
 
-            // this.FormElement.TitleBar.CloseButton.Visibility = ElementVisibility.Collapsed;
-
-            /** Suscribe to Validating event of the textbox
-             */
+            /** Suscribe to Validating event of the textbox */
             guiradtxtKeyPart1.Validating += GuiCommon.ValidatingNumericCharValues;
             guiradtxtKeyPart2.Validating += GuiCommon.ValidatingNumericCharValues; 
             guiradtxtKeyPart3.Validating += GuiCommon.ValidatingNumericCharValues; 
@@ -46,22 +43,28 @@ namespace AtCor.Scor.Gui.Presentation
             GuiCommon.SetShape(guiradtxtKeyPart1, guiradtxtKeyPart2, guiradtxtKeyPart3, guiradtxtKeyPart4, guiradtxtKeyPart5);
         }
 
-        /** This method sets text for form title.
-         */
+        /** This method\ sets text for form title. */
         private void SetTextForGeneralSettingsTab()
         {
-            guiradbtnCancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCancel);
-            guiradbtnOk.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnOkTxt);
-            guiradlblErrormsg.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblInvalidKey);
-            guiradlblSystemKey.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPleaseEnterKey);
+            try
+            {
+                guiradbtnCancel.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnCancel);
+                guiradbtnOk.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnOkTxt);
+                guiradlblErrormsg.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblInvalidKey);
+                guiradlblSystemKey.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPleaseEnterKey);
 
-            if (GuiCommon.SystemKeyWindowValue == GuiCommon.SystemKeyWindowValues.Update)
-            {
-                Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FrmNewSystemKey);
+                if (GuiCommon.SystemKeyWindowValue == GuiCommon.SystemKeyWindowValues.Update)
+                {
+                    Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FrmNewSystemKey);
+                }
+                else
+                {
+                    Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FrmSystemKey);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FrmSystemKey);
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -114,15 +117,22 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void guiradbtnCancel_Click(object sender, EventArgs e)
         {
-            if (GuiCommon.SystemKeyWindowValue == GuiCommon.SystemKeyWindowValues.Update)
+            try
             {
-                // If form in opened from system key menu then clicking cancel button will just close system key form and user can proceed with application.
-                Close();
+                if (GuiCommon.SystemKeyWindowValue == GuiCommon.SystemKeyWindowValues.Update)
+                {
+                    // If form in opened from system key menu then clicking cancel button will just close system key form and user can proceed with application.
+                    Close();
+                }
+                else
+                {
+                    // If form is called on launch of application then clicking cancel will close application.
+                    Process.GetCurrentProcess().Kill();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // If form is called on launch of application then clicking cancel will close application.
-                Process.GetCurrentProcess().Kill();
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -130,49 +140,91 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void guiradtxtKeyPart1_TextChanged(object sender, EventArgs e)
         {
-            guiradtxtKeyPart1.Text = guiradtxtKeyPart1.Text.Replace(" ", string.Empty);
-            if (guiradtxtKeyPart1.Text.Length == 5)
+            try
             {
-                guiradtxtKeyPart2.Focus();                
+                guiradtxtKeyPart1.Text = guiradtxtKeyPart1.Text.Replace(" ", string.Empty);
+                if (guiradtxtKeyPart1.Text.Length == 5)
+                {
+                    guiradtxtKeyPart2.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
         private void guiradtxtKeyPart2_TextChanged(object sender, EventArgs e)
         {
-            guiradtxtKeyPart2.Text = guiradtxtKeyPart2.Text.Replace(" ", string.Empty);     
-            if (guiradtxtKeyPart2.Text.Length == 5)
+            try
             {
-                guiradtxtKeyPart3.Focus();
+                guiradtxtKeyPart2.Text = guiradtxtKeyPart2.Text.Replace(" ", string.Empty);
+                if (guiradtxtKeyPart2.Text.Length == 5)
+                {
+                    guiradtxtKeyPart3.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
         private void guiradtxtKeyPart3_TextChanged(object sender, EventArgs e)
         {
-            guiradtxtKeyPart3.Text = guiradtxtKeyPart3.Text.Replace(" ", string.Empty);
-            if (guiradtxtKeyPart3.Text.Length == 5)
+            try
             {
-                guiradtxtKeyPart4.Focus();
+                guiradtxtKeyPart3.Text = guiradtxtKeyPart3.Text.Replace(" ", string.Empty);
+                if (guiradtxtKeyPart3.Text.Length == 5)
+                {
+                    guiradtxtKeyPart4.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
         private void guiradtxtKeyPart4_TextChanged(object sender, EventArgs e)
         {
-            guiradtxtKeyPart4.Text = guiradtxtKeyPart4.Text.Replace(" ", string.Empty);
-            if (guiradtxtKeyPart4.Text.Length == 5)
+            try
             {
-                guiradtxtKeyPart5.Focus();
+                guiradtxtKeyPart4.Text = guiradtxtKeyPart4.Text.Replace(" ", string.Empty);
+                if (guiradtxtKeyPart4.Text.Length == 5)
+                {
+                    guiradtxtKeyPart5.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
         
         private void SystemKey_Load(object sender, EventArgs e)
         {
-            AcceptButton = guiradbtnOk;
-            CancelButton = guiradbtnCancel;
+            try
+            {
+                AcceptButton = guiradbtnOk;
+                CancelButton = guiradbtnCancel;
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
 
         private void guiradtxtKeyPart5_TextChanged(object sender, EventArgs e)
         {
-            guiradtxtKeyPart5.Text = guiradtxtKeyPart5.Text.Replace(" ", string.Empty);
+            try
+            {
+                guiradtxtKeyPart5.Text = guiradtxtKeyPart5.Text.Replace(" ", string.Empty);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }          
     }
 }

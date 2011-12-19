@@ -185,12 +185,12 @@ namespace AtCor{
 				}
 				catch(ScorException^ scorExObj)
 				{
-					CrxLogger::Instance->Write("DAL:Deepak>>> Raising event for ScorException: " + scorExObj->ErrorMessageKey + scorExObj->StackTrace, ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL>>> Raising event for ScorException: " + scorExObj->ErrorMessageKey + scorExObj->StackTrace, ErrorSeverity::Debug);
 					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, scorExObj);
 				}
 				catch(Exception^ excepObj)
 				{
-					CrxLogger::Instance->Write("DAL:Deepak>>> Raising event for exception: " + excepObj->Data + excepObj->StackTrace, ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL>>> Raising event for exception: " + excepObj->Message  + excepObj->StackTrace, ErrorSeverity::Debug);
 					DalStatusHandler::RaiseEventForException(DalErrorAlarmStatusFlag::ThreadException, gcnew ScorException(excepObj));
 				}
 			}

@@ -25,22 +25,10 @@ namespace AtCor{
 
 			DalModule::DalModule()
 			{
-				//DalModule::_currentStreamingMode = DalStreamingMode::None;
-
-				//Set the current capture data type to cuff pulse and tonometer by default.
-				//DalModule::_currentDevice = nullptr;
-				
-				//Call method to set the current device
-				//SetDeviceStrategy();
 				
 				// For testing only
 				measurementCounterTest = true; //TODO:STUB
 				
-				//register the event handler that will run when the config setting's comm port is changed.
-				//CrxEventContainer::Instance->OnCommsPortEvent += gcnew CommsPortEventHandler(&DalModule::ConfigCommsPortSettingChangeHandler);
-
-				//SetStreamingMode(DalStreamingMode::None);
-
 				//Deliberately call the DalActiveDevice Instance to force the constructor call
 				//this will ensure that the CommsPort event handler is registered
 				DalActiveDevice::Instance;
@@ -220,20 +208,23 @@ namespace AtCor{
 				return DalActiveDevice::CurrentDevice->SaveCaptureData(cuffPulse, bufferSize);
 			}
 
+			bool DalModule::SaveNibpData(array< unsigned short >^ time, array< unsigned short >^ status, array< unsigned short >^ errorCode, array< unsigned short >^ sp, array< unsigned short >^ dp, array< unsigned short >^ map, array< unsigned short >^ hr, unsigned short bufferSize)
+			{
+				return DalActiveDevice::CurrentDevice->SaveNibpData(time, status, errorCode, sp, dp, map, hr, bufferSize);
+			}
+
+			bool DalModule::SaveNibpData(unsigned short time, unsigned short status, unsigned short errorCode, unsigned short sp, unsigned short dp, short map, unsigned short hr)
+			{
+				return DalActiveDevice::CurrentDevice->SaveNibpData(time, status, errorCode, sp, dp, map, hr);
+			}
+
 			String^ DalModule::GetSavedFilePath()
 			{
 				//return _currentDevice->GetSavedFileName();
 				return DalActiveDevice::CurrentDevice->GetSavedFileName();
 			}
 
-			//void DalModule::ConfigCommsPortSettingChangeHandler(Object^ , CommsPortEventArgs^ args)
-			//{
-			//	//sender; //Dummy statement to get rid of C4100 warning
 
-			//	////CrxLogger::Instance->Write("DAl received Comms port change event: " + args->commsPortSetting , ErrorSeverity::Debug);
-			//	SetDeviceStrategy(args->commsPortSetting);
-
-			//}
 
 			//bool DalModule::SearchAllPortsforDevice(String ^%foundPortName, String ^excludePort )
 			//{

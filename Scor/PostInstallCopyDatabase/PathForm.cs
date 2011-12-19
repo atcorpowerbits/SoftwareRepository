@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+     Copyright (C) ATCOR MEDICAL PTY LTD, 2010
+ 
+	 Filename     :      PathForm.cs
+        
+     Author       :		 Smarajit Mishra
+ 
+     Description  :      Customize Pathform to do the after install process
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

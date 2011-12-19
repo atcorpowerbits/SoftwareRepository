@@ -72,6 +72,14 @@ namespace AtCor{
 					* @return The status of the operation
 					*/
 					bool GetBpDataAndRaiseEvent();
+
+					/**
+					* Processes an EM4 response
+					* @param[in]	nibpToHostResponse	The nibp Packet to process
+					* @return	The status of the operation.
+					*/
+					virtual bool ActOnPacket(array <unsigned char> ^ nibpToHostResponse) override;
+
 				private:
 					DalNibpData^  _nibpDataObject; //Pointer to the recieved NIBP data
 					bool CheckRecievedData(); //Validates the recieved NIBP response

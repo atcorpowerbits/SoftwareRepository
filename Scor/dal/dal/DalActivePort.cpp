@@ -29,6 +29,8 @@ namespace AtCor{
 
 			DalActivePort::DalActivePort()
 			{
+				 _lockObject = gcnew Object(); 
+				
 				try
 				{
 					_serialPort = gcnew SerialPort();
@@ -45,6 +47,10 @@ namespace AtCor{
 					/*timeoutCheckTimer= gcnew Timers::Timer(DalConstants::StreamingTimeoutCheckerInterval);
 					timeoutCheckTimer->Elapsed += gcnew ElapsedEventHandler(this, &DalActivePort::CheckStreamingTimeout); */
 				}
+				catch(ScorException^)
+				{
+					throw;
+				}
 				catch(Exception^ excepObj)
 				{
 					throw gcnew ScorException(excepObj);
@@ -60,40 +66,51 @@ namespace AtCor{
 
 			bool DalActivePort::SetActivePort(System::String ^serialPortName)
 			{
+				CrxLogger::Instance->Write("DalActivePort::SetActivePort called with port: " + serialPortName, ErrorSeverity::Debug);
+				bool returnValue;
 				//if ((String::Empty == serialPortName) ||(nullptr == serialPortName)) //removed by FxCop
 				if (String::IsNullOrEmpty(serialPortName))
 				{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrInvalidArgsErrCd, CrxStructCommonResourceMsg::DalErrInvalidArgs,ErrorSeverity::Exception);
 				}
+
+				Monitor::Enter(_lockObject);
+				try
+				{
+
 				//if there is a serial port then set the portname to this 
 				if (_serialPort)
 				{
-					try
-					{
 						//call the method to set the port name for the current serial port object.
-						SetActivePortInstance(serialPortName);
-					}
-					catch(ScorException ^)
-					{
-						throw;
-					}
+						returnValue = SetActivePortInstance(serialPortName);
+						if (!returnValue)
+						{
+							return false;
+						}
 				}
 				else
 				{
-					try
-					{
 						if(false == CreateAndOpenNewSerialPort(serialPortName))
 						{
 							return false;
 						}
-						//SetSerialPortProperties(); //not needed as it is set internally in CreateAndOpenNewSerialPort
-					}
-					catch(ScorException ^ )
-					{
-						throw;
+
 					}
 				}
+				catch(ScorException^)
+				{
+					throw;
+					}
+				catch(Exception^ excepObj)
+				{
+					throw gcnew ScorException(excepObj);
+				}
+				finally
+				{
+					Monitor::Exit(_lockObject);
+				}
 
+				CrxLogger::Instance->Write("DalActivePort::SetActivePort returning true." , ErrorSeverity::Debug);
 				return true;
 			}
 
@@ -101,6 +118,7 @@ namespace AtCor{
 
 			bool DalActivePort::SetActivePortInstance(String^ serialPortName)
 			{
+				Monitor::Enter(_lockObject);	
 				try
 					{
 						//close the serial port if already open
@@ -118,25 +136,39 @@ namespace AtCor{
 							_serialPort->Open();
 						}
 
-						//readerThread->Start();//start the thread and let it wait.
 
-						return true;
+					}
+					catch(IOException ^)
+					{
+						return false;
 					}
 					catch(Exception^  excepObj)
 					{
 						throw gcnew ScorException(excepObj);
 					}
+					finally
+					{
+						Monitor::Exit(_lockObject);
+					}
+
+				return true;
 			}
 
 
 			bool DalActivePort::CreateAndOpenNewSerialPort(String^ newPortName)
 			{
+				
 				//do not accept null or empty string
 				if(String::IsNullOrEmpty(newPortName))
 				{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrInvalidArgsErrCd, CrxStructCommonResourceMsg::DalErrInvalidArgs,ErrorSeverity::Exception);
 				}
 				
+
+				Monitor::Enter(_lockObject);
+				try
+				{
+
 				//check if the active port is set 
 				//close it and delete it
 				if (_serialPort)
@@ -150,15 +182,12 @@ namespace AtCor{
 
 				//cannopt allow default port creation
 
-				try
-				{
+					/*try
+					{*/
 					_serialPort = gcnew SerialPort(newPortName);
 					SetSerialPortProperties();
-				}
-				catch(Exception^ excepObj)
-				{
-					throw gcnew ScorException(excepObj);
-				}
+					/*}*/
+					
 
 				//open it and see if it is avaliable
 				//ISOpen will return false even if the port is opened by us 
@@ -178,6 +207,19 @@ namespace AtCor{
 						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrPortOpenFailedErrCd, CrxStructCommonResourceMsg::DalErrPortOpenFailed, ErrorSeverity::Exception );
 					}
 				}
+				}
+				catch(ScorException^)
+				{
+					throw;
+				}
+				catch(Exception^ excepObj)
+				{
+					throw gcnew ScorException(excepObj);
+				}
+				finally
+				{
+					Monitor::Exit(_lockObject);
+				}
 			
 				return true;
 			}
@@ -193,6 +235,7 @@ namespace AtCor{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrInvalidPortCloseErrCd, CrxStructCommonResourceMsg::DalErrInvalidPortClose, ErrorSeverity::Exception);
 				}
 
+				Monitor::Enter(_lockObject);
 				//if yes then close the existing
 				//and set to the parameter
 				try
@@ -206,6 +249,14 @@ namespace AtCor{
 				{
 					return false;
 				}
+				catch(Exception^  exObj)
+				{
+					throw gcnew  ScorException(exObj);
+				}
+				finally
+				{
+					Monitor::Exit(_lockObject);
+				}
 				
 				return true;
 			}
@@ -218,6 +269,9 @@ namespace AtCor{
 				{
 					return false;
 				}
+
+				Monitor::Enter(_lockObject);
+
 				try
 				{
 					//set the serial port properties to match the EM4 device
@@ -242,43 +296,52 @@ namespace AtCor{
 				{
 					throw gcnew ScorException(excepObj);
 				}
+				finally
+				{
+					Monitor::Exit(_lockObject);
+				}
 
 				return true;
 			}
 
 			void DalActivePort::SendPacket(array<unsigned char>^dataToSend)
 			{
+				Monitor::Enter(_lockObject);
 				try
 				{
 					this->_serialPort->Write(dataToSend, 0, dataToSend->Length);
 					Thread::Sleep(0); //give the system some time to send the packet 
 
-					CrxLogger::Instance->Write("DAL:Deepak>>> DalActivePort::SendPacket Command sent on port:  " +  DalBinaryConversions::ConvertBytesToString(dataToSend), ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL>>> DalActivePort::SendPacket Command sent on port:  " +  DalBinaryConversions::ConvertBytesToString(dataToSend), ErrorSeverity::Debug);
 				}
 				catch(Exception^ excepObj)
 				{
-					CrxLogger::Instance->Write("DAL:Deepak>>> DalActivePort::SendPacket Failed to send:  " +  DalBinaryConversions::ConvertBytesToString(dataToSend) + excepObj->StackTrace, ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL>>> DalActivePort::SendPacket Failed to send:  " +  DalBinaryConversions::ConvertBytesToString(dataToSend) + excepObj->StackTrace, ErrorSeverity::Debug);
 					throw gcnew ScorException(excepObj);
+				}
+				finally
+				{
+					Monitor::Exit(_lockObject);
 				}
 			}
 
 
 
 
-			//althernate method. instead of reading and enquing directly
+			//alternate method. instead of reading and enquing directly
 			//we will simply interupt a sleeping thread.
 			void DalActivePort::DataReceviedHandler(Object ^, SerialDataReceivedEventArgs ^)
 			{
 				try
 				{
-					//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Event raised Avaliable "+ _serialPort->BytesToRead, ErrorSeverity::Debug);
+					//CrxLogger::Instance->Write("DAL>>> DalActivePort::DataReceviedHandler Event raised Avaliable "+ _serialPort->BytesToRead, ErrorSeverity::Debug);
 				
 					Thread::Sleep(0);
 
 					//Call directly instead of from a thread. that wy, the event is not raised repeatedly
 					ReadDataFromPort();
 
-					//CrxLogger::Instance->Write("Deepak>>> DalActivePort::DataReceviedHandler Signalling DalStagingQueue", ErrorSeverity::Debug);
+					//CrxLogger::Instance->Write("DAL>>> DalActivePort::DataReceviedHandler Signalling DalStagingQueue", ErrorSeverity::Debug);
 					
 					//Inform the DalStagingQueue that data is available
 					DalStagingQueue::Instance->SignalDataAvailable();
@@ -300,48 +363,72 @@ namespace AtCor{
 
 			void DalActivePort::ReadDataFromPort()
 			{
-				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort START " , ErrorSeverity::Debug);
+				
+				try
+				{
+					Monitor::Enter(_lockObject);
+
+					//CrxLogger::Instance->Write("DAL>>> DalActivePort::ReadDataFromPort START " , ErrorSeverity::Debug);
 				int bytesAvaliable; //variable to find how many bytes of data is avaiable
 				array<unsigned char>^ serialData; //to recieve the data
 			
 				//Find out how many bytes are available
 				bytesAvaliable = _serialPort->BytesToRead;
-				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort Avaliable data: " +  bytesAvaliable , ErrorSeverity::Debug);
+				////CrxLogger::Instance->Write("DAL>>> DalActivePort::ReadDataFromPort Avaliable data: " +  bytesAvaliable , ErrorSeverity::Debug);
 
 				//if no bytes are available then return back
 				if (0 == bytesAvaliable)
 				{
-					////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort Zero data return back", ErrorSeverity::Debug);
-					return; //end this process
+						//Dont exit monitor here and return as it will try to exit again in finally block
+						//change statemen to if else and do not return here 
+						
+						//CrxLogger::Instance->Write("DAL>>> DalActivePort::ReadDataFromPort Zero data return back and release monitor", ErrorSeverity::Debug);
+						//return; //end this process //do not return here
+						;
 				}
+					else
+					{
 
 				//create an array of the required size
 				serialData = gcnew array<unsigned char> (bytesAvaliable);
 
 				//read whatever is available
 				_serialPort->Read(serialData, 0, bytesAvaliable);
-				CrxLogger::Instance->Write("DAL:Deepak>>> DalActivePort::ReadDataFromPort Recieved:  " +  DalBinaryConversions::ConvertBytesToString(serialData), ErrorSeverity::Debug);
+				CrxLogger::Instance->Write("DAL>>> DalActivePort::ReadDataFromPort Recieved:  " +  DalBinaryConversions::ConvertBytesToString(serialData), ErrorSeverity::Debug);
 
 
 				//copy it to the staging area
 				DalStagingQueue::Instance->EnqueueArray(serialData);
-				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ReadDataFromPort EXITING " , ErrorSeverity::Debug);
+				////CrxLogger::Instance->Write("DAL>>> DalActivePort::ReadDataFromPort EXITING " , ErrorSeverity::Debug);
+					}
+				}
+				catch(ScorException^)
+				{
+					throw;
+
+				}
+				finally
+				{
+					//CrxLogger::Instance->Write("DAL>>> DalActivePort::ReadDataFromPort Finally block release monitor", ErrorSeverity::Debug);
+						
+					Monitor::Exit(_lockObject);
+				}
 
 			}
 
 			//void DalActivePort::ThreadMethod()
 			//{
-			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Enter", ErrorSeverity::Debug);
+			//	////CrxLogger::Instance->Write("DAL>>> DalActivePort::ThreadMethod Enter", ErrorSeverity::Debug);
 			//	
 			//	do 
 			//	{
-			//		//////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Inside DO_BLOCK", ErrorSeverity::Debug);
+			//		//////CrxLogger::Instance->Write("DAL>>> DalActivePort::ThreadMethod Inside DO_BLOCK", ErrorSeverity::Debug);
 			//		try
 			//		{
 			//			if( _serialPort->BytesToRead)
 			//			{
 			//			
-			//				////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Call ReadDataFromPort", ErrorSeverity::Debug);
+			//				////CrxLogger::Instance->Write("DAL>>> DalActivePort::ThreadMethod Call ReadDataFromPort", ErrorSeverity::Debug);
 			//				ReadDataFromPort();
 			//				//dataAvaliable = false;
 
@@ -349,23 +436,23 @@ namespace AtCor{
 			//				DalStagingQueue::Instance->SignalDataAvailable();
 			//			}
 			//		
-			//			////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Sleep for infinite time", ErrorSeverity::Debug);
+			//			////CrxLogger::Instance->Write("DAL>>> DalActivePort::ThreadMethod Sleep for infinite time", ErrorSeverity::Debug);
 			//			Thread::Sleep(Timeout::Infinite ); 	//sleep until woken again
 			//		}
 			//		catch(ThreadInterruptedException^ ex)
 			//		{
 			//			delete ex;
-			//			////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod ThreadInterruptedException raised", ErrorSeverity::Debug);
+			//			////CrxLogger::Instance->Write("DAL>>> DalActivePort::ThreadMethod ThreadInterruptedException raised", ErrorSeverity::Debug);
 			//			continue;
 			//		}
 			//		catch(ScorException ^ scorEx)
 			//		{
-			//			////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod ScorException deleted" + scorEx->ErrorMessageKey, ErrorSeverity::Debug);
+			//			////CrxLogger::Instance->Write("DAL>>> DalActivePort::ThreadMethod ScorException deleted" + scorEx->ErrorMessageKey, ErrorSeverity::Debug);
 			//			delete scorEx;
 			//		}
 			//	}
 			//	while(true); //will throw a warning. leave it as it is
-			//	////CrxLogger::Instance->Write("Deepak>>> DalActivePort::ThreadMethod Exit", ErrorSeverity::Debug);
+			//	////CrxLogger::Instance->Write("DAL>>> DalActivePort::ThreadMethod Exit", ErrorSeverity::Debug);
 			//}
 
 			//void DalActivePort::CheckStreamingTimeout(Object^, ElapsedEventArgs^ )
@@ -381,7 +468,7 @@ namespace AtCor{
 			//	//check if the flag is false
 			//	if (serialDataWasRecieved)
 			//	{
-			//		//CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout true" , ErrorSeverity::Debug);
+			//		//CrxLogger::Instance->Write("DAL>>> DalActivePort::CheckStreamingTimeout true" , ErrorSeverity::Debug);
 
 			//		//if true, it means that data was recieved and timeout has not occured
 			//		//set the flag to false and give the reader a chance to set it to true again
@@ -393,7 +480,7 @@ namespace AtCor{
 			//	{
 			//		//increment the counter
 			//		BufferEmptyCounter++;
-			//		//CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout false BufferEmptyCounter = " + BufferEmptyCounter, ErrorSeverity::Debug);
+			//		//CrxLogger::Instance->Write("DAL>>> DalActivePort::CheckStreamingTimeout false BufferEmptyCounter = " + BufferEmptyCounter, ErrorSeverity::Debug);
 
 
 			//		
@@ -410,7 +497,7 @@ namespace AtCor{
 			//		DalCommandInterface::Instance->ChangeCaptureState(DalCaptureStateTimeout::Instance);
 			//		//ChangeCaptureState(DalCaptureStateTimeout::Instance); //call directly so that it is applicable for its children too
 			//							
-			//		//CrxLogger::Instance->Write("Deepak>>> DalActivePort::CheckStreamingTimeout Timeout occured Raising event." );
+			//		//CrxLogger::Instance->Write("DAL>>> DalActivePort::CheckStreamingTimeout Timeout occured Raising event." );
 
 			//		
 			//		//raise event 

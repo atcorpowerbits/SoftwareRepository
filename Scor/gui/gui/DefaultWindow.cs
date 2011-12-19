@@ -38,8 +38,7 @@ namespace AtCor.Scor.Gui.Presentation
     * @brief This class will handle displaying of the default window controls.It will also check for multiple instances of the application,exception handling and logging of events.
     */
     public partial class DefaultWindow : RadForm, IMessageFilter
-    {
-        // Code to minimize running application from taskbar
+    {       
         public const string BackupFileExt = ".bak";  
 
         public static event InitializationMessage OnInitializationProcess;
@@ -47,7 +46,8 @@ namespace AtCor.Scor.Gui.Presentation
         public delegate void InitializationMessage(string message);
 
         public static event EventHandler OnRestoreCompleteSuccess;
-    
+
+        // Code to minimize running application from taskbar
         protected override CreateParams CreateParams
         {
             get
@@ -58,28 +58,23 @@ namespace AtCor.Scor.Gui.Presentation
                 return cp;
             }
         }
-
-        // Code Ended        
+         
         readonly string serverNameString = string.Empty;
         readonly CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
-
         readonly CrxDBManager dbMagr;
-        readonly string currentpath = string.Empty; 
-        string dbOperation = string.Empty;
-        
-        // Event to indicate completion of database backup process
-        private event EventHandler OnDbBackupAndRestoreCompleteEvent;  
-
-        private delegate void DisplayStatusMessageDelegate(string message);
-        
-        #region Global declarations
-                     
-        bool isDirectClose; // Flag set to check if there are multiple instances of the application.       
+        readonly string currentpath = string.Empty;
 
         // object of Config Manager         
         readonly CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
         readonly SplashScreen splsh = new SplashScreen();
-        #endregion
+
+        string dbOperation = string.Empty;
+        bool isDirectClose; // Flag set to check if there are multiple instances of the application.   
+    
+        // Event to indicate completion of database backup process
+        private event EventHandler OnDbBackupAndRestoreCompleteEvent;  
+
+        private delegate void DisplayStatusMessageDelegate(string message);  
         
         /**Constructor of the form,initializes all the controls.
         *It will call IsProcessOpen method which will check if there is any other instance is running.
@@ -118,6 +113,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 // launches splash screen                
                 splsh.Show();
+                splsh.TopMost = false;
                 splsh.Update(); 
                 
                 // get current application directory
@@ -135,9 +131,10 @@ namespace AtCor.Scor.Gui.Presentation
                 
                 if (!BizInfo.Instance().ValidateLicenseKey())
                 {
-                    GuiCommon.SystemKeyWindowValue = GuiCommon.SystemKeyWindowValues.ADD;
+                    GuiCommon.SystemKeyWindowValue = GuiCommon.SystemKeyWindowValues.ADD;                                        
+                    OnInitializationProcess.Invoke(string.Empty);
                     var systemKey = new SystemKey { ShowInTaskbar = false };
-                    systemKey.ShowDialog();
+                    systemKey.ShowDialog();                    
                 }
                 else
                 {
@@ -145,22 +142,20 @@ namespace AtCor.Scor.Gui.Presentation
                 }
 
                 if (GuiCommon.IsValidatedLicenseKey)
-                {
-                    // End   : AtCor-<Drop2>-<Sprint2>, TM, <UserStory1>,30 jun 2011
+                {                    
                     dbMagr = CrxDBManager.Instance;
                     int result = dbMagr.SetConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData.Trim());
 
                     // log message on connection status.
-                    if (result.Equals(0))
+                    if (result.Equals(Convert.ToInt32(GuiCommon.NumericValue.Zero)))
                     {
                         // successfully connected
                         CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerConnected) + serverNameString);
                         crxMgrObject.SetGeneralUserSettings(crxMgrObject.GeneralSettings);
-
                         OnInitializationProcess.Invoke(string.Format("{0} {1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashSqlConn), serverNameString));
                     }
 
-                    if (result.Equals(1))
+                    if (result.Equals(Convert.ToInt32(GuiCommon.NumericValue.One)))
                     {
                         // not able to connect, show popuo message for selecting machine.
                         OnInitializationProcess.Invoke(string.Format("{0} {1}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerConnFailed), serverNameString));
@@ -173,10 +168,10 @@ namespace AtCor.Scor.Gui.Presentation
                     }
 
                     // user have clicked on cancel
-                    if (SQLInstanceList.IsCancel == 1)
+                    if (SQLInstanceList.IsCancel == Convert.ToInt32(GuiCommon.NumericValue.One))
                     {
                         OnInitializationProcess.Invoke(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BtnExit));
-                        SQLInstanceList.IsCancel = 0;
+                        SQLInstanceList.IsCancel = Convert.ToInt32(GuiCommon.NumericValue.Zero);
                         Close();
                         BizSession.Instance().OnExit();
                         Process.GetCurrentProcess().Kill();
@@ -195,26 +190,16 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // Set the metric & height weight unit for Biz validations
                     GuiFieldValidation.SetMeasForBizValidation();
-
-                   // radpgTabCollection.SelectedPage = GuiCommon.TabFocused = guiradgrpbxPwvDistanceMethod;       
-                    // SetStartUpModeEnvironmentScreen();
-
-                    // Begin: AtCor-Drop2-Sprint2, TM, SWREQ2003, 06-July-2011                
-                    InitializeSetupScreen();
-
-                    // radpgTabCollection.SelectedPage = GuiCommon.TabFocused = guiradgrpbxPwvDistanceMethod;       
-                    PopulateCurrentModeDropDown();
-
-                    // ValidateStartUpMode();
+                                
+                    InitializeSetupScreen();                      
+                    PopulateCurrentModeDropDown();                   
                     SetStrategy(crxMgrObject.GeneralSettings.StartupMode);                 
                 }
                 else
                 {
                     BizSession.Instance().OnExit();
                     Process.GetCurrentProcess().Kill();
-                }
-
-                // End: AtCor-Drop2-Sprint2, TM, SWREQ2003, 06-July-2011
+                }              
 
                 // hide splash screen after initialization process
                 splsh.Hide();
@@ -332,7 +317,8 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);
+               // GUIExceptionHandler.HandleException(ex, this);
+                throw (ex);
             }
         }
 
@@ -341,7 +327,7 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void DefaultWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            int logExit = 0;
+            int logExit = Convert.ToInt32(GuiCommon.NumericValue.Zero);
             try
             {
                 // On form closing a confirmation is asked to the user to Save the unsaved data.                                       
@@ -359,10 +345,9 @@ namespace AtCor.Scor.Gui.Presentation
             }
             finally
             {
-                // log the message when application closes
-                // this will be logged even if there is an exception
+                // log the message when application closes,this will be logged even if there is an exception
                 // logExit will be 1 if user chooses not to exit
-                if (logExit == 0)
+                if (logExit == Convert.ToInt32(GuiCommon.NumericValue.Zero))
                 {
                     CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Exitstr));
                     BizSession.Instance().OnExit();
@@ -375,49 +360,46 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private int SaveChanges()
         {
-            int saveChanges = 0; 
-            RadMessageBox.SetThemeName(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgDesert));
-            DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgSaveChange), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNoCancel, RadMessageIcon.Question);
-
-            // Keeping Yes and No separate for future use.                     
-            switch (ds)
+            try
             {
-                case DialogResult.Yes:
-                    // save changes before exiting application
-                    if (GuiCommon.TabFocused == guiradgrpbxPwvDistanceMethod)
-                    {
-                        // save changes on setup screen and exit
-                        // OnExitSaveSetupChanges.Invoke(this, new EventArgs());
-                        ((Setup)GuiCommon.SetupChildForm).SaveSetupData();
-                    }
-                    else if (GuiCommon.TabFocused == radtabReport)
-                    {                        
-                        GuiCommon.ScorControllerObject.SaveReportChangesOnEdit();
-                        
-                        // if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
-                        // {
-                        //    OnExitSavePwaReportChanges.Invoke(this, new EventArgs());
-                        // }
-                        // else
-                        // {
-                        //    // OnExitSaveReportChanges.Invoke(this, new EventArgs());                        
-                        //    ((Report)GuiCommon.ReportChildForm).SaveChangesOnEdit();
-                        // }
-                    }
+                int saveChanges = Convert.ToInt32(GuiCommon.NumericValue.Zero);
+                RadMessageBox.SetThemeName(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgDesert));
+                DialogResult ds = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgSaveChange), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNoCancel, RadMessageIcon.Question);
 
-                    saveChanges = GuiCommon.ExitApp;
-                    break;
-                case DialogResult.No:
-                    saveChanges = 0;
-                    break;
-                case DialogResult.Cancel:
-                    break;
-                default:
-                    saveChanges = 1;
-                    break;
+                // Keeping Yes and No separate for future use.                     
+                switch (ds)
+                {
+                    case DialogResult.Yes:
+
+                        // save changes before exiting application
+                        if (GuiCommon.TabFocused == guiradgrpbxPwvDistanceMethod)
+                        {
+                            // save changes on setup screen and exit                      
+                            ((Setup)GuiCommon.SetupChildForm).SaveSetupData();
+                        }
+                        else if (GuiCommon.TabFocused == radtabReport)
+                        {
+                            GuiCommon.ScorControllerObject.SaveReportChangesOnEdit();
+                        }
+
+                        saveChanges = GuiCommon.ExitApp;
+                        break;
+                    case DialogResult.No:
+                        saveChanges = Convert.ToInt32(GuiCommon.NumericValue.Zero);
+                        break;
+                    case DialogResult.Cancel:
+                        break;
+                    default:
+                        saveChanges = Convert.ToInt32(GuiCommon.NumericValue.One);
+                        break;
+                }
+
+                return saveChanges;
             }
-
-            return saveChanges;
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
         
         /**This is invoked on the load of the window.
@@ -454,16 +436,15 @@ namespace AtCor.Scor.Gui.Presentation
                 saveFileDialog.RestoreDirectory = openFileDialog.RestoreDirectory = true;
 
                 // set waiting bar
-                guiWaitingStatusBar.WaitingStep = 10;
+                guiWaitingStatusBar.WaitingStep = Convert.ToInt32(GuiCommon.NumericValue.Ten);
                 guiWaitingStatusBar.WaitingSpeed = 50;
                 guiWaitingStatusBar.Visible = false;                
 
                 OnDbBackupAndRestoreCompleteEvent += DisplayStatusComplete;
                 Migrate.OnMigrationStart += DoMigration;
                 
-                // call method to check for mdb file to migrate data
-                // this should only be checked when the user is in PWA/PWV standard mode.
-                // it shouldn't be checked in Quickstart mode.
+                // call method to check for mdb file to migrate data, this should only be checked when the user 
+                // is in PWA/PWV standard mode.it shouldn't be checked in Quickstart mode.
                 if (!(GuiCommon.StartupScreen.ToUpper().Equals(CrxStructCommonResourceMsg.QuickStart)))
                 {
                     CheckForDataMigration();
@@ -477,32 +458,23 @@ namespace AtCor.Scor.Gui.Presentation
 
         /** This method checks for mdb file & migrates data
          * */
-        void CheckForDataMigration()
+        private void CheckForDataMigration()
         {
-            // check if migration file exist & then show popup
-            if (dbMagr.MigrationFileExist())
+            try
             {
-                DialogResult dsResult = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrateFileMsg1) + Environment.NewLine + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrateFileMsg2), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNo, RadMessageIcon.Info);
-
-                if (dsResult == DialogResult.Yes)
+                // check if migration file exist & then show popup
+                if (dbMagr.MigrationFileExist())
                 {
-                    #region Commenting this peice of code as it we are not showing group names during migration
-                    /*
-                    // redirect to migrate screen to select group
-                    Migrate migrt = new Migrate { ShowInTaskbar = false };
-                    migrt.ShowDialog();
+                    DialogResult dsResult = RadMessageBox.Show(this, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrateFileMsg1) + Environment.NewLine + oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrateFileMsg2), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNo, RadMessageIcon.Info);
 
-                    * Migrate.IsMigrate =1> indicates user responded "yes" to data migration                     
-                    if (Migrate.IsMigrate == 1)
-                    {*/
-                    #endregion
+                    if (dsResult == DialogResult.Yes)
+                    {
+                        // This is hardcoded as it needs to be saved into the config file in English.
+                        // Localising  this string will result into error on the capture screen.
+                        const string groupName = "Clinical";
+                        DoMigration(groupName);
 
-                    // This is hardcoded as it needs to be saved into the config file in English.
-                    // Localising  this string will result into error on the capture screen.
-                    const string groupName = "Clinical";
-                    DoMigration(groupName);
-
-                    // start waiting progress bar on main thread
+                        // start waiting progress bar on main thread
                         guiWaitingStatusBar.Visible = true;
                         guiWaitingStatusBar.StartWaiting();
 
@@ -512,25 +484,35 @@ namespace AtCor.Scor.Gui.Presentation
 
                         // added for regression defect
                         guicmbxCurrentMode.Enabled = false;
-
-                   // }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
             }
         }
 
         /** This method migrates records
          * */
-        void DoMigration(string groupname)
-        { 
-            // call method to migrate records 
-            Thread migThread = new Thread(StartMigration);
-            radlblMessage.Text = string.Empty; 
-            migThread.Start(groupname);
+        private void DoMigration(string groupname)
+        {
+            try
+            {
+                // call method to migrate records 
+                Thread migThread = new Thread(StartMigration);
+                radlblMessage.Text = string.Empty;
+                migThread.Start(groupname);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
 
         /** This method starts data migration
          * */
-        void StartMigration(object groupname)
+        private void StartMigration(object groupname)
         {
            // code to migrate data
             try
@@ -541,14 +523,12 @@ namespace AtCor.Scor.Gui.Presentation
                  */
                 int result = dbMagr.MigrateAtCorData(GuiCommon.SystemIdentifier, groupname.ToString());
 
-                if (0 == result)
+                if (Convert.ToInt32(GuiCommon.NumericValue.Zero) == result)
                 {
                     dbOperation = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MigrationSuccessMessage);
                     
                     // Invoke methods to stop progressbasr & reload setup screen
                     OnRestoreCompleteSuccess.Invoke(this, new EventArgs());                    
-
-                    // GuiCommon.SetupChildForm.LoadSetup();
                     OnDbBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
                 }
                 else
@@ -579,7 +559,7 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {
                 int count = Process.GetProcesses().Count(clsProcess => clsProcess.ProcessName.Equals(name));
-                return count > 1;
+                return count > Convert.ToInt32(GuiCommon.NumericValue.One);
             }
             catch (Exception ex)
             {
@@ -591,104 +571,110 @@ namespace AtCor.Scor.Gui.Presentation
 
         /** This method loads setup form
          * */
-        void InitializeSetupScreen()
+        private void InitializeSetupScreen()
         {
-            if (!guiradgrpbxPwvDistanceMethod.Enabled)
+            try
             {
-                return;
+                if (!guiradgrpbxPwvDistanceMethod.Enabled)
+                {
+                    return;
+                }
+
+                if (GuiCommon.SetupChildForm != null)
+                {
+                    GuiCommon.SetupChildForm.Close();
+                    GuiCommon.SetupChildForm = null;
+                }
+
+                GuiCommon.SetupChildForm = new Setup(this)
+                                                        {
+                                                            TopLevel = false,
+                                                            Dock = DockStyle.Fill,
+                                                            FormBorderStyle = FormBorderStyle.None
+                                                        };
+
+                // adds setup form under parent window control
+                var page = guiradgrpbxPwvDistanceMethod;
+
+                GuiCommon.SetupChildForm.Parent = page;
+
+                page.Controls.Add(GuiCommon.SetupChildForm);
+
+                GuiCommon.SetupChildForm.Show();
             }
-          
-            // open setup form under setup tab
-            if (GuiCommon.SetupChildForm != null)
+            catch (Exception ex)
             {
-                GuiCommon.SetupChildForm.Close();
-                GuiCommon.SetupChildForm = null;
+                throw (ex);
             }
-            
-            GuiCommon.SetupChildForm = new Setup(this)
-                                                    {
-                                                        TopLevel = false,
-                                                        Dock = DockStyle.Fill,
-                                                        FormBorderStyle = FormBorderStyle.None
-                                                    };
-
-            // adds report form under parent window control
-            var page = guiradgrpbxPwvDistanceMethod;
-
-            GuiCommon.SetupChildForm.Parent = page;
-
-            page.Controls.Add(GuiCommon.SetupChildForm);
-            
-            // GuiCommon.SetupChildForm.LoadSetup();
-            GuiCommon.SetupChildForm.Show();
-
-            // initialize report screen at the time of application launch
-            // InitializeReportScreen();
-
-            // initialize temporary report screen at the time of application launch for quick start mode
-            // InitializeTestResultScreen();
-
-            // initialize Quick Start screen at the time of application launch for quick start mode
-            // InitializeQuickStartScreen();
-
-            // initialize PWA Report Screen at the time of application launch
-           // InitializePWAReportScreen();
         }
        
         /** This method loads QuickStart Form
          * */
-
-        void InitializeQuickStartScreen()
+        private void InitializeQuickStartScreen()
         {
-            if (GuiCommon.QuickStartChildForm != null)
+            try
             {
-                GuiCommon.QuickStartChildForm.Close();
-                GuiCommon.QuickStartChildForm = null;
+                if (GuiCommon.QuickStartChildForm != null)
+                {
+                    GuiCommon.QuickStartChildForm.Close();
+                    GuiCommon.QuickStartChildForm = null;
+                }
+
+                CrxStructGeneralSetting crxGen = new CrxStructGeneralSetting();
+
+                GuiCommon.QuickStartChildForm = new cPwaQuickStart(this)
+                                                                {
+                                                                    TopLevel = false,
+                                                                    Dock = DockStyle.Fill,
+                                                                    FormBorderStyle = FormBorderStyle.None
+                                                                };
+
+                var page = radtabQuickStart;
+                GuiCommon.QuickStartChildForm.Parent = page;
+                page.Controls.Add(GuiCommon.QuickStartChildForm);
+                GuiCommon.QuickStartChildForm.Show();
             }
-
-            CrxStructGeneralSetting crxGen = new CrxStructGeneralSetting();
-
-            GuiCommon.QuickStartChildForm = new cPwaQuickStart(this)
-                                                            {
-                                                                TopLevel = false,
-                                                                Dock = DockStyle.Fill,
-                                                                FormBorderStyle = FormBorderStyle.None
-                                                            };
-
-            var page = radtabQuickStart;
-            GuiCommon.QuickStartChildForm.Parent = page;
-            page.Controls.Add(GuiCommon.QuickStartChildForm);
-            GuiCommon.QuickStartChildForm.Show();
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
 
         /** This method loads TestResult Form
         * */
-        void InitializeTestResultScreen()
+        private void InitializeTestResultScreen()
         {
-            GuiCommon.SetupToTestResult = true;
-
-            // open Temp Report form under Test Results tab
-            if (GuiCommon.PWATestResultChildForm != null)
+            try
             {
-                GuiCommon.PWATestResultChildForm.Close();
-                GuiCommon.PWATestResultChildForm.Dispose();
+                // Commenting the below line as part of code review comment.
+                // GuiCommon.SetupToTestResult = true;
+
+                // open Temp Report form under Test Results tab
+                if (GuiCommon.PWATestResultChildForm != null)
+                {
+                    GuiCommon.PWATestResultChildForm.Close();
+                    GuiCommon.PWATestResultChildForm.Dispose();
+                }
+
+                GuiCommon.PWATestResultChildForm = new PWATestResult(this)
+                {
+                    TopLevel = false,
+                    Dock = DockStyle.Fill,
+                    FormBorderStyle = FormBorderStyle.None
+                };
+
+                // adds result form under parent window control
+                var page = radtabResult;
+
+                GuiCommon.PWATestResultChildForm.Parent = page;
+                page.Controls.Add(GuiCommon.PWATestResultChildForm);
+
+                GuiCommon.PWATestResultChildForm.Show();
             }
-
-            GuiCommon.PWATestResultChildForm = new PWATestResult(this)
+            catch (Exception ex)
             {
-                TopLevel = false,
-                Dock = DockStyle.Fill,
-                FormBorderStyle = FormBorderStyle.None
-            };
-
-            // adds report form under parent window control
-            // var page = radpgTabCollection.Pages[3];
-            var page = radtabResult;
-
-            GuiCommon.PWATestResultChildForm.Parent = page;
-            page.Controls.Add(GuiCommon.PWATestResultChildForm);
-
-            GuiCommon.PWATestResultChildForm.Show();
+                throw (ex);
+            }
         }
 
         /** This event is fired when the user clicks tried to click on the OperatorGuide option on the menu bar.
@@ -737,7 +723,14 @@ namespace AtCor.Scor.Gui.Presentation
        */
         private void guiradmnuitemWebsite_Click(object sender, EventArgs e)
         {
-            Process.Start(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.SupportUrl.ToString()]);
+            try
+            {
+                Process.Start(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.SupportUrl.ToString()]);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
 
         /** This method is called to Enable the menu controls.
@@ -753,8 +746,15 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            // close the application
-            Close();
+            try
+            {
+                // close the application
+                Close();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
 
         /** This event is fired when the user clicks on the minimze button on the title bar.
@@ -867,33 +867,40 @@ namespace AtCor.Scor.Gui.Presentation
 
         /** This method saves database backup at selected location
          * */
-        void DoBackup(string path)
+        private void DoBackup(string path)
         {
-            if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
+            try
             {
-                // save backup at selected location in shared folder
-                int success = !Path.GetExtension(path).Equals(BackupFileExt, StringComparison.CurrentCultureIgnoreCase) ? dbMagr.DatabaseBackup(path + BackupFileExt) : dbMagr.DatabaseBackup(path);
-
-                // on backup success invoke event to display status message
-                if (success == 0)
+                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == Convert.ToInt32(GuiCommon.NumericValue.Zero))
                 {
-                    dbOperation = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BackupDone);
+                    // save backup at selected location in shared folder
+                    int success = !Path.GetExtension(path).Equals(BackupFileExt, StringComparison.CurrentCultureIgnoreCase) ? dbMagr.DatabaseBackup(path + BackupFileExt) : dbMagr.DatabaseBackup(path);
+
+                    // on backup success invoke event to display status message
+                    if (success == Convert.ToInt32(GuiCommon.NumericValue.Zero))
+                    {
+                        dbOperation = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BackupDone);
+                        OnDbBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+                    }
+                }
+                else
+                {
+                    dbOperation = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BackupFail);
                     OnDbBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
+
+                    DisplayStatusMessageDelegate messageBox = ShowConnectionError;
+                    Invoke(messageBox, dbOperation);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                dbOperation = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.BackupFail);
-                OnDbBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
-
-                DisplayStatusMessageDelegate messageBox = ShowConnectionError;
-                Invoke(messageBox, dbOperation); 
+                throw (ex);
             }
         }
            
         /** This method shows network connection failure message for restore & backup operations
          * */
-        void ShowConnectionError(string message)
+        private void ShowConnectionError(string message)
         {
             // show error message db connection failed
             DialogResult result = RadMessageBox.Show(this, GuiCommon.ConnectionErrorString(), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.RetryCancel, RadMessageIcon.Error);
@@ -909,38 +916,41 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void DisplayStatusComplete(object sender, EventArgs e)
         {
-            // if invoked from other thread call the appropriate method
-            if (InvokeRequired)
+            try
             {
-                Invoke(new EventHandler(DisplayStatusComplete));
-                return;
+                // if invoked from other thread call the appropriate method
+                if (InvokeRequired)
+                {
+                    Invoke(new EventHandler(DisplayStatusComplete));
+                    return;
+                }
+
+                // end waiting status bar
+                guiWaitingStatusBar.EndWaiting();
+                guiWaitingStatusBar.Visible = false;
+
+                // enable menu & tab page controls
+                guiradmnuScor.Enabled = true;
+                radpgTabCollection.Enabled = true;
+
+                // disable mode dropdown on Patient Tab Defect 14
+                if (radpgTabCollection.SelectedPage.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabPatient))
+                {
+                    guicmbxCurrentMode.Enabled = false;
+                }
+                else
+                {
+                    guicmbxCurrentMode.Enabled = true;
+                }
+
+                // show status message for restore & backup & migration.... dbOperation will contain respective messages
+                radlblMessage.Text = dbOperation;
+                GuiCommon.SetupChildForm.CheckIfInInsertMode();
             }
-
-            // end waiting status bar
-            guiWaitingStatusBar.EndWaiting();
-            guiWaitingStatusBar.Visible = false;
-
-            // enable menu & tab page controls
-            guiradmnuScor.Enabled = true;
-            radpgTabCollection.Enabled = true;
-
-            // disable mode dropdown on Patient Tab Defect 14
-            if (radpgTabCollection.SelectedPage.Text == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabPatient))
+            catch (Exception ex)
             {
-                guicmbxCurrentMode.Enabled = false;
+                GUIExceptionHandler.HandleException(ex, this);
             }
-
-            // added for regression defect
-            else
-            {
-                guicmbxCurrentMode.Enabled = true;
-            }
-
-            // show status message for restore & backup & migration.... dbOperation will contain respective messages
-            radlblMessage.Text = dbOperation;
-            
-            // OnRestoreOptionClick.Invoke(this, new EventArgs());                 
-            GuiCommon.SetupChildForm.CheckIfInInsertMode();
         }
 
         /**This method is called when the Setup, Capture or Report tab is selected.
@@ -958,44 +968,50 @@ namespace AtCor.Scor.Gui.Presentation
                     GuiCommon.FromQuickStart = false;
                     GuiCommon.FromPwaReport = false;  
                     GuiCommon.TabFocused = radtabCapture;
+
                     if (GuiCommon.StartupScreen.ToUpper().Equals(CrxStructCommonResourceMsg.QuickStart) && GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
                     {                        
                         ((cPwaQuickStart)GuiCommon.QuickStartChildForm).StartCapture();
                     }
                     else
                     {
-                        NavigateToCapture();
-
-                        GuiCommon.IsFormChanged = false;
+                        NavigateToCapture();                     
 
                         // User is navigating away from the Report screen.
                         GuiCommon.IsOnReportForm = false;
                         GuiCommon.IsOnPwaReportForm = false;
-
+                        GuiCommon.IsFormChanged = false;
                         GuiCommon.IsOnSetupScreen = false;
+
                         GuiCommon.CheckIfMandatoryFieldIsEmpty();
                     }
                 }
                 else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport), StringComparison.CurrentCultureIgnoreCase))
                 {
-                    NavigateToReport();
-                   
-                    GuiCommon.TabFocused = radtabReport;
-                    GuiCommon.IsFormChanged = false;
+                    if (GuiCommon.ValidatePatientAgeForReport())
+                    {
+                        NavigateToReport();
 
-                   // GuiCommon.IsOnSetupScreen = false;
+                        GuiCommon.TabFocused = radtabReport;
+                        GuiCommon.IsFormChanged = false;
+
+                        GuiCommon.IsOnPwaReportForm = true;
+                        // GuiCommon.IsOnSetupScreen = false;
+                    }
+                    else
+                    {
+                        GuiCommon.ReportLoadCount++;
+                    }
                 }
                 else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Setup), StringComparison.CurrentCultureIgnoreCase))
                 {
                     radlblMessage.Text = string.Empty;
-                    NavigateToSetup();
-                   
+                    NavigateToSetup();                   
                     GuiCommon.TabFocused = guiradgrpbxPwvDistanceMethod;
 
                     // User is navigating away from the Report screen.
                     GuiCommon.IsOnPwaReportForm = false; 
                     GuiCommon.IsOnReportForm = false;
-
                     GuiCommon.IsOnResultForm = false;
                     GuiCommon.IsFormChanged = false;
                     GuiCommon.FromQuickStart = false;
@@ -1007,31 +1023,26 @@ namespace AtCor.Scor.Gui.Presentation
                     {
                         radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
                     }
+
                     radtabResult.Enabled = false;
                     radtabReport.Enabled = false;
                     radtabCapture.Enabled = false;
                     guiradgrpbxPwvDistanceMethod.Enabled = true;
-
                     GuiCommon.FromQuickStart = true;
-
                     guiradmnuitemSettings.Enabled = true;
                     guiradmnuDatabase.Enabled = false;
                     guicmbxCurrentMode.Enabled = true;
+
                     NavigateToQuickStart();
 
-                    // GuiCommon.IsOnReportForm = false;
                     GuiCommon.IsOnPwaReportForm = false;
                     GuiCommon.IsOnReportForm = false; 
                     GuiCommon.IsFormChanged = false;
                     GuiCommon.TabFocused = radtabQuickStart;
                     GuiCommon.QuickStartChildForm.guiradbtnQuickStartGetBp.Visible = true;
                     GuiCommon.QuickStartChildForm.guiradbtnAutoPWACancel.Visible = false; 
-
                     radlblMessage.Text = string.Empty;
-                    GuiCommon.FromPwaReport = false;
-
-                    // guiradmnuitemSettings.Enabled = true;
-                    // guiradmnuDatabase.Enabled = false;
+                    GuiCommon.FromPwaReport = false;                  
                 }
                 else if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabResult), StringComparison.CurrentCultureIgnoreCase))
                 {                    
@@ -1042,6 +1053,7 @@ namespace AtCor.Scor.Gui.Presentation
                     GuiCommon.IsOnReportForm = false;
                     GuiCommon.TabFocused = radtabResult;
                     radtabCapture.Enabled = false;
+                    
                     GuiCommon.ScorControllerObject.LoadTemporaryReport();
 
                     guiradmnuSystemKey.Enabled = false;
@@ -1066,12 +1078,11 @@ namespace AtCor.Scor.Gui.Presentation
                     
                     guiradmnuitemSettings.Enabled = false;
                     guiradmnuSystemKey.Enabled = false;
-                    guiradmnuDatabase.Enabled = true;
-                    
+                    guiradmnuDatabase.Enabled = true;                    
                     guicmbxCurrentMode.Enabled = false;
 
                     // This condition is applied to check if there are no patients in the grid,insert mode message should be displayed.
-                    if (((Setup)GuiCommon.SetupChildForm).guiradgrdPatientList.Rows.Count > 0)
+                    if (((Setup)GuiCommon.SetupChildForm).guiradgrdPatientList.Rows.Count > Convert.ToInt32(GuiCommon.NumericValue.Zero))
                     {
                         radlblMessage.Text = string.Empty;
                     }
@@ -1095,8 +1106,7 @@ namespace AtCor.Scor.Gui.Presentation
                 }
 
                 if (GuiCommon.CaptureTabClick)
-                {                    
-                    // OnCaptureTabClick.Invoke(this, new EventArgs());                                
+                {                              
                     GuiCommon.SetupChildForm.StartCaptureProcess();
                 }
 
@@ -1115,45 +1125,55 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void NavigateToSetup()
         {
-            if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
+            try
             {
-                radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+                if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwv))
+                {
+                    radtabCapture.Enabled = !GuiCommon.IsWaitIntervalImposed;
+                }
+
+                radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
+                radlblCaptureTime.Text = string.Empty;
+                radtabReport.Enabled = GuiCommon.HasMeasurementDetails;
+
+                GuiCommon.CaptureToReport = false;
+                GuiCommon.SetupChildForm.SetFocusOnPatientList();
             }
-
-            // InitializeSetupScreen(); 
-            radtabReport.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabReport);
-            radlblCaptureTime.Text = string.Empty;
-            radtabReport.Enabled = GuiCommon.HasMeasurementDetails;
-
-            GuiCommon.CaptureToReport = false;
-            
-            // OnSetupScreenTabClick.Invoke(this, new EventArgs());            
-            GuiCommon.SetupChildForm.SetFocusOnPatientList();
+            catch (Exception ex)
+            {
+               throw (ex);
+            }
         }
 
         /**This method will navigate the user to the Report screen.
          */ 
         private void NavigateToReport()
         {
-            if (!radtabReport.Enabled)
+            try
             {
-                return;
+                if (!radtabReport.Enabled)
+                {
+                    return;
+                }
+
+                GuiCommon.SetupToReport = GuiCommon.CaptureToReport ? false : true;
+
+                // disable setting tab on menu bar
+                guiradmnuitemSettings.Enabled = false;
+                guiradmnuSystemKey.Enabled = false;
+                if (GuiCommon.ReportLoadCount == Convert.ToInt32(GuiCommon.NumericValue.One))
+                {
+                    GuiCommon.ReportLoadCount++;
+                }
+                else
+                {
+                    LoadReportScreen();
+                }
             }
-
-            GuiCommon.SetupToReport = GuiCommon.CaptureToReport ? false : true;
-
-            if (GuiCommon.ReportLoadCount == 1)
+            catch (Exception ex)
             {
-                GuiCommon.ReportLoadCount++;                
+                throw (ex);
             }
-            else
-            {
-                LoadReportScreen();
-            }
-
-            // disable setting tab on menu bar
-            guiradmnuitemSettings.Enabled = false;
-            guiradmnuSystemKey.Enabled = false;
         }
 
         /** This method invokes load event of report screen
@@ -1169,80 +1189,53 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);
+               // GUIExceptionHandler.HandleException(ex, this);
+                throw (ex);
             }
         }              
 
         /** This method initialises report screen 
          * */
-        void InitializeReportScreen()
+        private void InitializeReportScreen()
         {
-            GuiCommon.SetupToReport = true;
-
-            // open report form under report tab
-            if (GuiCommon.ReportChildForm != null)
+            try
             {
-                GuiCommon.ReportChildForm.Close();
-                GuiCommon.ReportChildForm.Dispose();
+                GuiCommon.SetupToReport = true;
+
+                // open report form under report tab
+                if (GuiCommon.ReportChildForm != null)
+                {
+                    GuiCommon.ReportChildForm.Close();
+                    GuiCommon.ReportChildForm.Dispose();
+                }
+
+                if (GuiCommon.PWAReportChildForm != null)
+                {
+                    GuiCommon.PWAReportChildForm.Close();
+                    GuiCommon.PWAReportChildForm.Dispose();
+                }
+
+                GuiCommon.ReportChildForm = new Report(this)
+                                                         {
+                                                             TopLevel = false,
+                                                             Dock = DockStyle.Fill,
+                                                             FormBorderStyle = FormBorderStyle.None
+                                                         };
+
+                // adds report form under parent window control
+                var page = radtabReport;
+
+                page.Controls.Clear();
+
+                GuiCommon.ReportChildForm.Parent = page;
+                page.Controls.Add(GuiCommon.ReportChildForm);
+                GuiCommon.ReportChildForm.Show();
+                page.Controls[GuiCommon.ReportChildForm.Name].BringToFront();
             }
-
-            //// uncomment me 
-            if (GuiCommon.PWAReportChildForm != null)
+            catch (Exception ex)
             {
-                GuiCommon.PWAReportChildForm.Close();
-                GuiCommon.PWAReportChildForm.Dispose();
-            } 
-
-            GuiCommon.ReportChildForm = new Report(this)
-                                                     {
-                                                         TopLevel = false,
-                                                         Dock = DockStyle.Fill,
-                                                         FormBorderStyle = FormBorderStyle.None
-                                                     };           
-            
-            // adds report form under parent window control
-            // var page = radpgTabCollection.Pages[2];
-
-            // GuiCommon.ReportChildForm.Parent = page;
-            // page.Controls.Add(GuiCommon.ReportChildForm);
-
-            // GuiCommon.ReportChildForm.Show();            
-            // page.Controls[GuiCommon.ReportChildForm.Name].BringToFront();  
-            var page = radtabReport;
-            
-            page.Controls.Clear();
-
-            GuiCommon.ReportChildForm.Parent = page;
-            page.Controls.Add(GuiCommon.ReportChildForm);
-            GuiCommon.ReportChildForm.Show();
-            page.Controls[GuiCommon.ReportChildForm.Name].BringToFront(); 
-            
-            // adds PWA Report form under parent window control
-            // GuiCommon.PWAReportChildForm.Parent = page;
-            // page.Controls.Add(GuiCommon.PWAReportChildForm);
-            
-            // if ( BizInfo.Instance().OptionCPWA)
-            // {
-            //    if (crxMgrObject.GeneralSettings.StartupScreen.ToUpper() == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart).ToUpper())
-            //    {
-            //        GuiCommon.ReportChildForm.Hide();
-            //        GuiCommon.PWAReportChildForm.Show();
-            //        //GuiCommon.PWATestResultChildForm.Show();
-            //    }
-            //    else
-            //    {
-            //        GuiCommon.ReportChildForm.Hide();
-            //        GuiCommon.PWAReportChildForm.Show();
-            //        //GuiCommon.PWATestResultChildForm.Hide();
-            //    }
-
-            // }
-            // else
-            // {
-            //    GuiCommon.ReportChildForm.Show();
-            //    GuiCommon.PWAReportChildForm.Hide();
-            //    //GuiCommon.PWATestResultChildForm.Hide();
-            // }
+                throw (ex);
+            }
         }
 
         /**This method is used to initialise the Report screen in PWA mode.
@@ -1287,7 +1280,8 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);
+               // GUIExceptionHandler.HandleException(ex, this);
+                throw (ex);
             }
         }
 
@@ -1304,7 +1298,7 @@ namespace AtCor.Scor.Gui.Presentation
                 if (GuiCommon.IsMenuItemShown)
                 {
                     bool isRecordAvailable;
-                    isRecordAvailable = ((Setup)GuiCommon.SetupChildForm).guiradgrdPatientList.Rows.Count > 0 ? true : false;
+                    isRecordAvailable = ((Setup)GuiCommon.SetupChildForm).guiradgrdPatientList.Rows.Count > Convert.ToInt32(GuiCommon.NumericValue.Zero) ? true : false;
 
                     if (isRecordAvailable)
                     {
@@ -1328,11 +1322,12 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
+        /** This method starts restoring databse backup
+         * */
         private void StartRestoreProcess()
         {
             try
-            {
-                // continue with restore backup
+            {                
                 // sets title for dialog box
                 openFileDialog.Title = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RestoreTitle);
                 DialogResult result = openFileDialog.ShowDialog();
@@ -1355,8 +1350,6 @@ namespace AtCor.Scor.Gui.Presentation
                         // disable menu & tab page while restore is on
                         guiradmnuScor.Enabled = false;
                         radpgTabCollection.Enabled = false;
-
-                        // added for regression defect
                         guicmbxCurrentMode.Enabled = false;
                     }
                     else
@@ -1367,7 +1360,8 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);
+               // GUIExceptionHandler.HandleException(ex, this);
+                throw (ex);
             } 
         }
 
@@ -1385,20 +1379,18 @@ namespace AtCor.Scor.Gui.Presentation
                 // log message for restore started
                 CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RestoreProgress));
 
-                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == 0)
+                if (dbMagr.CheckConnection(serverNameString, crxMgrObject.GeneralSettings.SourceData) == Convert.ToInt32(GuiCommon.NumericValue.Zero))
                 {
                     // restore database
                     int success = dbMagr.DatabaseRestore(path);
 
                     // on success of restore invoke event to show message
-                    if (success == 0)
+                    if (success == Convert.ToInt32(GuiCommon.NumericValue.Zero))
                     {
                         dbOperation = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RestoreDone);
                        
                        // Invoke methods to stop progressbasr & reload setup screen
                        OnRestoreCompleteSuccess.Invoke(this, new EventArgs());                       
-
-                       // GuiCommon.SetupChildForm.LoadSetup();
                        OnDbBackupAndRestoreCompleteEvent.Invoke(this, new EventArgs());
                     }
                 }
@@ -1428,20 +1420,34 @@ namespace AtCor.Scor.Gui.Presentation
       */
         private void guiradmenuahomepage_Click(object sender, EventArgs e)
         {
-            Process.Start(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AtcorHomepage.ToString()]);
+            try
+            {
+                Process.Start(ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AtcorHomepage.ToString()]);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
 
         /**This method will display the error message using the message box.
        */
         private void DisplayErrorMessage(string errorMessage)
         {
-            if (InvokeRequired)
+            try
             {
-                Invoke(new DisplayStatusMessageDelegate(DisplayErrorMessage));
-                return;
-            }
+                if (InvokeRequired)
+                {
+                    Invoke(new DisplayStatusMessageDelegate(DisplayErrorMessage));
+                    return;
+                }
 
-            radlblMessage.Text = errorMessage;
+                radlblMessage.Text = errorMessage;
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
 
         /** This event fire on selecting About item in top menu bar 
@@ -1458,7 +1464,14 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void guiradmnuFindPrinter_Click(object sender, EventArgs e)
         {
-            GuiCommon.ViewPrintDialogToSetPrinter(guiFindPrinterDialog);            
+            try
+            {
+                GuiCommon.ViewPrintDialogToSetPrinter(guiFindPrinterDialog);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
 
         /** This event fires when Find module option is click from top Systems menu
@@ -1488,22 +1501,20 @@ namespace AtCor.Scor.Gui.Presentation
          */
         private void SaveChangeOnNavigatingMenu(object sender, EventArgs e)
         {
-            if (GuiCommon.TabFocused == guiradgrpbxPwvDistanceMethod)
-            {                
-                // OnSetupMenuItemClick.Invoke(sender, e);                
-                GuiCommon.SetupChildForm.SaveChangesForModes();
+            try
+            {
+                if (GuiCommon.TabFocused == guiradgrpbxPwvDistanceMethod)
+                {
+                    GuiCommon.SetupChildForm.SaveChangesForModes();
+                }
+                else if (GuiCommon.TabFocused == radtabReport)
+                {
+                    GuiCommon.ScorControllerObject.SaveChangesOnMenuFocus();
+                }
             }
-            else if (GuiCommon.TabFocused == radtabReport)
-            {                
-                // if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
-                // {
-                //    OnPwaReportMenuItemClick.Invoke(sender, e);
-                // }
-                // else
-                // {
-                //    OnReportMenuItemClick.Invoke(sender, e);
-                // }                
-                GuiCommon.ScorControllerObject.SaveChangesOnMenuFocus();                
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1515,14 +1526,9 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 DisplayStatusMessageDelegate messageBox = DisplayErrorMessage;
                 Invoke(messageBox, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiSearchElectronicMod));
-
-                // with out following wait, earlier message is not displayed.
-                // Thread.Sleep(2000);
-
+               
                 // search module
-                string portName = string.Empty;
-                
-                // int retValue = DalModule.Instance.FindModule(ref portName);
+                string portName = string.Empty;   
 
                 /**  FindModule call returns integer
                  *  0 => module not found
@@ -1558,22 +1564,28 @@ namespace AtCor.Scor.Gui.Presentation
                     Invoke(excep, ex, this);
                 }
             }
-        } // End FindElectronicModule
+        } 
 
         /** This method is called when module is not found.
          * It displays error message asking user to continue with search for module
          * */
-        void ShowFindModuleError(string message)
+        private void ShowFindModuleError(string message)
         {
-            radlblMessage.Text = string.Empty;
-
-            // ask user if another search is required                        
-            DialogResult ds = RadMessageBox.Show(this, message, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNo, RadMessageIcon.Info);
-            if (ds == DialogResult.Yes)
+            try
             {
-                // find module again
-                FindElectronicModule();
-            }           
+                radlblMessage.Text = string.Empty;
+
+                // ask user if another search is required                        
+                DialogResult ds = RadMessageBox.Show(this, message, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.YesNo, RadMessageIcon.Info);
+                if (ds == DialogResult.Yes)
+                {
+                    FindElectronicModule();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
 
         /** This event fires when interval imposed by EM4 device (currently configured in app.config) lapses
@@ -1584,9 +1596,6 @@ namespace AtCor.Scor.Gui.Presentation
             try
             {                
                 tmrImposeWaitTime.Enabled = false;
-
-                // GuiCommon.IsWaitIntervalImposed = false;
-                // GuiCommon.InvokeCaptureClosing(true);
             }
             catch (Exception ex)
             {
@@ -1615,48 +1624,35 @@ namespace AtCor.Scor.Gui.Presentation
                 GUIExceptionHandler.HandleException(ex, this);
                 Close();
             }
-        }
-
-        /**This event is fired when the user clicks on one of the tabs.
-         * When the user clicks on the Capture tab we invoke the load of the capture form.
-         */ 
-        private void radpgTabCollection_Click(object sender, EventArgs e)
-        {
-            // if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabCapture), StringComparison.CurrentCultureIgnoreCase))
-            // {
-            //    // When the capture form has loaded ,this event is invoked.
-            //    if (GuiCommon.CaptureFormLoaded)
-            //    {
-            //        OnCaptureScreenTabClick.Invoke(this, new EventArgs());
-            //    }
-            //    else
-            //    {
-            //        radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
-            //        guiradgrpbxPwvDistanceMethod.Enabled = true;
-            //    }
-            // } 
-        }                     
+        }                 
 
         /** This method is called to check the start up screen,machine name and the soruce data of the application,
          * from the configuration file.
          */ 
         private void CheckMachineNameOnStartUp()
         {
-            if (string.IsNullOrEmpty(GuiCommon.StartupScreen))
+            try
             {
-                ExitApplication();
+                if (string.IsNullOrEmpty(GuiCommon.StartupScreen))
+                {
+                    ExitApplication();
+                }
+
+                if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.MachineName))
+                {
+                    crxMgrObject.GeneralSettings.MachineName = SystemInformation.ComputerName;
+                    CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerChangedToLocal));
+                }
+
+                if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.SourceData))
+                {
+                    crxMgrObject.GeneralSettings.SourceData = GuiConstants.SourceData;
+                    CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerChangedToDefault));
+                }
             }
-                          
-            if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.MachineName))
+            catch (Exception ex)
             {
-                crxMgrObject.GeneralSettings.MachineName = SystemInformation.ComputerName;
-                CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerChangedToLocal));
-            }
-           
-            if (string.IsNullOrEmpty(crxMgrObject.GeneralSettings.SourceData))
-            {
-                crxMgrObject.GeneralSettings.SourceData = GuiConstants.SourceData;
-                CrxLogger.Instance.Write(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlServerChangedToDefault));
+                throw (ex);
             }
         }
 
@@ -1664,18 +1660,19 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void CheckAnnualCalibration()
         {
+            int numberOfDaysInAYear = 365;
             try
             {
-                DateTime calibrationDate = DalModule.Instance.GetLastCalibrationDate();
-                if (calibrationDate < DateTime.Now)
+                if ((DateTime.Now.Subtract(DateTime.Parse(BizInfo.Instance().GetModuleCalibrationDate()))).Days > numberOfDaysInAYear)                         
                 {
-                    RadMessageBox.Show(this, string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAnnualCallibrationMesg), calibrationDate), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OKCancel, RadMessageIcon.Info);
+                    RadMessageBox.Show(this, string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAnnualCallibrationMesg), DateTime.Parse(BizInfo.Instance().GetModuleCalibrationDate())), oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Info);
                 }
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);
-                Close();
+               // GUIExceptionHandler.HandleException(ex, this);
+               // Close();
+                throw (ex);
             }
         }
 
@@ -1686,8 +1683,8 @@ namespace AtCor.Scor.Gui.Presentation
             Left = Screen.PrimaryScreen.WorkingArea.Left;
             Top = Screen.PrimaryScreen.WorkingArea.Top;
 
-            guiradpnlDefaultWin.Top = (Screen.PrimaryScreen.WorkingArea.Height / 2) - (guiradpnlDefaultWin.Height / 2);
-            guiradpnlDefaultWin.Left = (Screen.PrimaryScreen.WorkingArea.Width / 2) - (guiradpnlDefaultWin.Width / 2);
+            guiradpnlDefaultWin.Top = (Screen.PrimaryScreen.WorkingArea.Height / Convert.ToInt32(GuiCommon.NumericValue.Two)) - (guiradpnlDefaultWin.Height / Convert.ToInt32(GuiCommon.NumericValue.Two));
+            guiradpnlDefaultWin.Left = (Screen.PrimaryScreen.WorkingArea.Width / Convert.ToInt32(GuiCommon.NumericValue.Two)) - (guiradpnlDefaultWin.Width / Convert.ToInt32(GuiCommon.NumericValue.Two));
         }
 
         /**This method is used to check if the patient list on the setup screen is empty or not.
@@ -1706,7 +1703,6 @@ namespace AtCor.Scor.Gui.Presentation
             }
         }
 
-        // Begin: AtCor-Drop2-Sprint2, TM, SWREQ2003, 06-July-2011
         /**Populating drop down for Current mode from BizInfo class.
          */ 
         private void PopulateCurrentModeDropDown()
@@ -1717,14 +1713,12 @@ namespace AtCor.Scor.Gui.Presentation
                 List<string> modeList = new List<string>();
                 guicmbxCurrentMode.Items.Clear();   
                 if (BizInfo.Instance().OptionPWV)
-                {
-                    // guicmbxCurrentMode.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Pwv));                                       
+                {                  
                     modeList.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Pwv));
                 }
 
                 if (BizInfo.Instance().OptionCPWA || BizInfo.Instance().OptionTPWA)
                 {
-                    // guicmbxCurrentMode.Items.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Pwa));
                     modeList.Add(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Pwa));
                 }
              
@@ -1732,22 +1726,14 @@ namespace AtCor.Scor.Gui.Presentation
                 {
                     mode = new RadListDataItem { Text = t, Value = t };
                     guicmbxCurrentMode.Items.Add(mode);
-                }
-                  
-                if (guicmbxCurrentMode.Items.Count > 0)
-                {
-                    // guicmbxCurrentMode.SelectedIndex = 0;
-                    ValidateStartUpMode();
-                }
-
-                // if (BizInfo.Instance().OptionTPWA)
-                // {
-                //    guicmbxCurrentMode.Items.Add("TPWA");
-                // }
+                }                  
+                
+                ValidateStartUpMode();   
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);                
+               // GUIExceptionHandler.HandleException(ex, this);                
+                throw (ex);
             }
         }
 
@@ -1786,7 +1772,8 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);
+               // GUIExceptionHandler.HandleException(ex, this);
+                throw (ex);
             }
         }
 
@@ -1803,8 +1790,6 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // Do GUI changes accordingly.
                     SetPWVMode();
-
-                   // SaveModeInConfigFile();
                 }
 
                 if (sMode == CrxStructCommonResourceMsg.Pwa)
@@ -1814,14 +1799,11 @@ namespace AtCor.Scor.Gui.Presentation
 
                     // Do GUI changes accordingly.
                     SetPWAMode();
-
-                   // SaveModeInConfigFile();
                 }
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);
-                Close();
+               GUIExceptionHandler.HandleException(ex, this);
             }
         }
 
@@ -1831,20 +1813,14 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                // string startUpScreen = crxMgrObject.GeneralSettings.StartupScreen;
-                // string environment = BizInfo.Instance().OptionResearch == true ? "Research" : "Clinical";
                 CrxStructGeneralSetting crxGen = new CrxStructGeneralSetting();
 
                 crxMgrObject.GetGeneralDefaultSettings(crxGen);
-
-                // if (string.IsNullOrEmpty(crxGen.StartupScreen))
+               
                 if (string.IsNullOrEmpty(GuiCommon.StartupScreen))
                 {
                     ExitApplication();
                 }
-
-                // set up mode texts on startup screen.
-                // guicmbxCurrentMode.Text = crxGen.StartupMode;
 
                 // setup environment label on startup screen.
                 SetEnvironment();
@@ -1852,8 +1828,6 @@ namespace AtCor.Scor.Gui.Presentation
                 // display message on the splash screen
                 OnInitializationProcess.Invoke(string.Format("{0} {1} {2}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashIniMsg), crxMgrObject.GeneralSettings.StartupMode, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mode)));
 
-                //// initalize setup screen
-                // InitializeSetupScreen();
                 if ((GuiCommon.CurrentMode == CrxStructCommonResourceMsg.Pwa) && (GuiCommon.StartupScreen.ToUpper() == CrxStructCommonResourceMsg.QuickStart.ToUpper()))
                 {
                     // initialize temporary report screen at the time of application launch for quick start mode
@@ -1871,12 +1845,9 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);
-                Close();
+               GUIExceptionHandler.HandleException(ex, this);               
             }
         }
-
-        // End: AtCor-Drop2-Sprint2, TM, SWREQ2003, 06-July-2011
 
         /** This method sets Startup mode, startup screen & environment variables & initializes setup screen
          * */
@@ -1884,28 +1855,20 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                // string startUpScreen = crxMgrObject.GeneralSettings.StartupScreen;
-                // string environment = BizInfo.Instance().OptionResearch == true ? "Research" : "Clinical";
                 CrxStructGeneralSetting crxGen = new CrxStructGeneralSetting();
 
                 crxMgrObject.GetGeneralDefaultSettings(crxGen);
 
-                // if (string.IsNullOrEmpty(crxGen.StartupScreen))
-               if (string.IsNullOrEmpty(GuiCommon.StartupScreen))          
+                if (string.IsNullOrEmpty(GuiCommon.StartupScreen))          
                 {
                     ExitApplication();
                 }
 
-                // set up mode texts on startup screen.
-                // guicmbxCurrentMode.Text = crxGen.StartupMode;
                 SetEnvironment();
 
                 // display message on the splash screen
                 OnInitializationProcess.Invoke(string.Format("{0} {1} {2}", oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SplashIniMsg), crxMgrObject.GeneralSettings.StartupMode, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Mode)));
-
-                // Initalize setup screen
-                // InitializeSetupScreen();
-
+                               
                 // initialize report screen at the time of application launch
                 InitializeReportScreen();
 
@@ -1914,8 +1877,7 @@ namespace AtCor.Scor.Gui.Presentation
             }
             catch (Exception ex)
             {
-                GUIExceptionHandler.HandleException(ex, this);
-                Close();
+                GUIExceptionHandler.HandleException(ex, this);                
             }
         }
 
@@ -1940,132 +1902,16 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void DisplayPWVMode()
         {
-            // here we have hardcoded the names of the controls as they are going to be used internally.
-            GuiCommon.SetupChildForm.Controls["guipnlMeasurementDetails"].Visible = true;
-            GuiCommon.SetupChildForm.Controls["guipnlMeasurementDetails"].BringToFront(); 
-
-            GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Visible = false;
-            GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].SendToBack();
-            
-            // ((Setup)GuiCommon.SetupChildForm).ModeChangeEventHandler(this, new EventArgs());
-            GuiCommon.SetupChildForm.ChangeMode();
-
-            radtabQuickStart.Item.Visibility = ElementVisibility.Hidden;
-            radtabCapture.Item.Visibility = ElementVisibility.Visible;
-            radtabResult.Item.Visibility = ElementVisibility.Hidden;
-            guiradgrpbxPwvDistanceMethod.Item.Visibility = ElementVisibility.Visible;
-            radtabReport.Item.Visibility = ElementVisibility.Visible;
-
-            radpgTabCollection.Pages.ChangeIndex(radtabQuickStart, 0);
-            radpgTabCollection.Pages.ChangeIndex(guiradgrpbxPwvDistanceMethod, 1);
-            radpgTabCollection.Pages.ChangeIndex(radtabCapture, 2);
-            radpgTabCollection.Pages.ChangeIndex(radtabReport, 3);
-            radpgTabCollection.Pages.ChangeIndex(radtabResult, 4);
-            guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Setup);
-
-            // radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
-            // GuiCommon.TabFocused = guiradgrpbxPwvDistanceMethod;
-
-            // Check if the user is on the Report screen, if yes then do not navigate it to the Setup screen.
-            if (!GuiCommon.IsOnReportForm)
+            try
             {
-                radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
-                GuiCommon.TabFocused = guiradgrpbxPwvDistanceMethod;
+                // here we have hardcoded the names of the controls as they are going to be used internally.
+                GuiCommon.SetupChildForm.Controls["guipnlMeasurementDetails"].Visible = true;
+                GuiCommon.SetupChildForm.Controls["guipnlMeasurementDetails"].BringToFront();
 
-                guiradgrpbxPwvDistanceMethod.Enabled = true;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Visible = false;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].SendToBack();
 
-                // Enable-Disable Tab
-                if (((Setup)GuiCommon.SetupChildForm).guiradgrdPatientList.Rows.Count == 0)
-                {
-                    radtabCapture.Enabled = false;
-                }
-                else
-                {
-                    radtabCapture.Enabled = true;
-                }
-            }
-        }
-
-        /**This method is used to display the application in PWA mode.
-         */ 
-        private void DisplayPWAMode()
-        {
-            // here we have hardcoded the names of the controls as they are going to be used internally.
-            GuiCommon.SetupChildForm.Controls["guipnlMeasurementDetails"].Visible = false;
-            GuiCommon.SetupChildForm.Controls["guipnlMeasurementDetails"].SendToBack(); 
-
-            GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Visible = true;
-            GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].BringToFront();
-            
-            // ((Setup)GuiCommon.SetupChildForm).ModeChangeEventHandler(this, new EventArgs());            
-            GuiCommon.SetupChildForm.ChangeMode();
-
-            radtabCapture.Enabled = false;
-
-            // if (crxMgrObject.GeneralSettings.StartupScreen.ToUpper() == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart).ToUpper())
-            if (GuiCommon.StartupScreen.ToUpper() == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart).ToUpper())
-            {
-                GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnQuickStartGetBp"].Text = "Start";
-                GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnQuickStartGetBp"].Enabled = true;
-                GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Text = "Cancel";
-                GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Visible = false;
-                
-                // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnDisplayReport"].Visible = true;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipicboxPWAGetBp"].Visible = false;
-
-                // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipnlPWABPOtherDevice"].Controls["pictureBox1"].Visible = false;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guichartPWAReport"].Visible = true;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnGetBp"].Visible = false;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAssessmentsDetails"].Visible = false;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnSaveToPatient"].Visible = true;
-
-                // GuiCommon.QuickStartChildForm.Controls["Quickstarttimer"].Enabled = false;
-                // GuiCommon.QuickStartChildForm.Controls["QSEnableRepeatBttnTimer"].Enabled = false;
-                // GuiCommon.QuickStartChildForm.Controls["QSProgressBarTimeStatusTimer"].Enabled = false;               
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblAvgCentralAorticPulse"].Visible = true;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblBrachialBPMeasurement"].Visible = false;
-
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblQuickMap"].Visible  = true;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblQuickMapDisplay"].Visible = true;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblQuickMapUnit"].Visible = true;
-               
-               // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMP"].Visible = false;
-               // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMPDisplay"].Visible = false;
-                radtabQuickStart.Item.Visibility = ElementVisibility.Visible;
-                radtabCapture.Item.Visibility = ElementVisibility.Visible;
-                radtabResult.Item.Visibility = ElementVisibility.Visible;
-                guiradgrpbxPwvDistanceMethod.Item.Visibility = ElementVisibility.Visible;
-                radtabReport.Item.Visibility = ElementVisibility.Visible;
-
-                radpgTabCollection.Pages.ChangeIndex(radtabQuickStart, 0);
-                radpgTabCollection.Pages.ChangeIndex(radtabCapture, 1);
-                radpgTabCollection.Pages.ChangeIndex(radtabResult, 2);
-                radpgTabCollection.Pages.ChangeIndex(guiradgrpbxPwvDistanceMethod, 3);
-                radpgTabCollection.Pages.ChangeIndex(radtabReport, 4);
-                guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabPatient);
-
-                if (!GuiCommon.IsOnPwaReportForm)
-                {
-                    radpgTabCollection.SelectedPage = radtabQuickStart;
-                    GuiCommon.TabFocused = radtabQuickStart;
-                }
-                
-                GuiCommon.QuickStartChildForm.DisableTimersAndResetTabs();
-                GuiCommon.FromQuickStart = true;
-            }
-            else
-            {
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnGetBp"].Text = "Start";
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Text = "Cancel";
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Visible = false;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnDisplayReport"].Visible = false;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guichartPWAReport"].Visible = false;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipicboxPWAGetBp"].Visible = true;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblAvgCentralAorticPulse"].Visible = false;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblBrachialBPMeasurement"].Visible = true;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMP"].Visible = true;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMPDisplay"].Visible = true;
-                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblStdMapUnit"].Visible = true;
+                GuiCommon.SetupChildForm.ChangeMode();
 
                 radtabQuickStart.Item.Visibility = ElementVisibility.Hidden;
                 radtabCapture.Item.Visibility = ElementVisibility.Visible;
@@ -2080,14 +1926,124 @@ namespace AtCor.Scor.Gui.Presentation
                 radpgTabCollection.Pages.ChangeIndex(radtabResult, 4);
                 guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Setup);
 
-                if (!GuiCommon.IsOnPwaReportForm)
+                // Check if the user is on the Report screen, if yes then do not navigate it to the Setup screen.
+                if (!GuiCommon.IsOnReportForm)
                 {
-                    guiradgrpbxPwvDistanceMethod.Enabled = true; 
- 
-                   // radtabCapture.Enabled = true;
                     radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
                     GuiCommon.TabFocused = guiradgrpbxPwvDistanceMethod;
+
+                    guiradgrpbxPwvDistanceMethod.Enabled = true;
+
+                    // Enable-Disable Capture Tab
+                    if (((Setup)GuiCommon.SetupChildForm).guiradgrdPatientList.Rows.Count == Convert.ToInt32(GuiCommon.NumericValue.Zero))
+                    {
+                        radtabCapture.Enabled = false;
+                    }
+                    else
+                    {
+                        radtabCapture.Enabled = true;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        /**This method is used to display the application in PWA mode.
+         */ 
+        private void DisplayPWAMode()
+        {
+            try
+            {
+                // here we have hardcoded the names of the controls as they are going to be used internally.
+                GuiCommon.SetupChildForm.Controls["guipnlMeasurementDetails"].Visible = false;
+                GuiCommon.SetupChildForm.Controls["guipnlMeasurementDetails"].SendToBack();
+
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Visible = true;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].BringToFront();
+
+                GuiCommon.SetupChildForm.ChangeMode();
+
+                radtabCapture.Enabled = false;
+
+                if (GuiCommon.StartupScreen.ToUpper() == oMsgMgr.GetMessage(CrxStructCommonResourceMsg.QuickStart).ToUpper())
+                {
+                    GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnQuickStartGetBp"].Text = "Start";
+                    GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnQuickStartGetBp"].Enabled = true;
+                    GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Text = "Cancel";
+                    GuiCommon.QuickStartChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Visible = false;
+                    GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipicboxPWAGetBp"].Visible = false;
+                    GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guichartPWAReport"].Visible = true;
+                    GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnGetBp"].Visible = false;
+                    GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAssessmentsDetails"].Visible = false;
+                    GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnSaveToPatient"].Visible = true;
+                    GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblAvgCentralAorticPulse"].Visible = true;
+                    GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblBrachialBPMeasurement"].Visible = false;
+                    GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblQuickMap"].Visible = true;
+                    GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblQuickMapDisplay"].Visible = true;
+                    GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblQuickMapUnit"].Visible = true;
+                    radtabQuickStart.Item.Visibility = ElementVisibility.Visible;
+                    radtabCapture.Item.Visibility = ElementVisibility.Visible;
+                    radtabResult.Item.Visibility = ElementVisibility.Visible;
+                    guiradgrpbxPwvDistanceMethod.Item.Visibility = ElementVisibility.Visible;
+                    radtabReport.Item.Visibility = ElementVisibility.Visible;
+
+                    radpgTabCollection.Pages.ChangeIndex(radtabQuickStart, 0);
+                    radpgTabCollection.Pages.ChangeIndex(radtabCapture, 1);
+                    radpgTabCollection.Pages.ChangeIndex(radtabResult, 2);
+                    radpgTabCollection.Pages.ChangeIndex(guiradgrpbxPwvDistanceMethod, 3);
+                    radpgTabCollection.Pages.ChangeIndex(radtabReport, 4);
+                    guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabPatient);
+
+                    if (!GuiCommon.IsOnPwaReportForm)
+                    {
+                        radpgTabCollection.SelectedPage = radtabQuickStart;
+                        GuiCommon.TabFocused = radtabQuickStart;
+                    }
+
+                    GuiCommon.QuickStartChildForm.DisableTimersAndResetTabs();
+                    GuiCommon.FromQuickStart = true;
+            }
+            else
+            {
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnGetBp"].Text = "Start";
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Text = "Cancel";
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Visible = false;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnDisplayReport"].Visible = false;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guichartPWAReport"].Visible = false;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipicboxPWAGetBp"].Visible = true;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblAvgCentralAorticPulse"].Visible = false;
+                GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblBrachialBPMeasurement"].Visible = true;
+                // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMP"].Visible = true;
+                // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblPWAMPDisplay"].Visible = true;
+                // GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblStdMapUnit"].Visible = true;
+
+                    radtabQuickStart.Item.Visibility = ElementVisibility.Hidden;
+                    radtabCapture.Item.Visibility = ElementVisibility.Visible;
+                    radtabResult.Item.Visibility = ElementVisibility.Hidden;
+                    guiradgrpbxPwvDistanceMethod.Item.Visibility = ElementVisibility.Visible;
+                    radtabReport.Item.Visibility = ElementVisibility.Visible;
+
+                    radpgTabCollection.Pages.ChangeIndex(radtabQuickStart, 0);
+                    radpgTabCollection.Pages.ChangeIndex(guiradgrpbxPwvDistanceMethod, 1);
+                    radpgTabCollection.Pages.ChangeIndex(radtabCapture, 2);
+                    radpgTabCollection.Pages.ChangeIndex(radtabReport, 3);
+                    radpgTabCollection.Pages.ChangeIndex(radtabResult, 4);
+                    guiradgrpbxPwvDistanceMethod.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Setup);
+
+                    if (!GuiCommon.IsOnPwaReportForm)
+                    {
+                        guiradgrpbxPwvDistanceMethod.Enabled = true;
+                        radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
+                        GuiCommon.TabFocused = guiradgrpbxPwvDistanceMethod;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
             }
         }
 
@@ -2095,13 +2051,14 @@ namespace AtCor.Scor.Gui.Presentation
          */ 
         private void guicmbxCurrentMode_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
-          // GuiCommon.ReportLoadCount = 0;
-           SetStrategy(guicmbxCurrentMode.Text);
-
-           // if ((GuiCommon.CurrentMode == CrxStructCommonResourceMsg.Pwa) && (GuiCommon.StartupScreen.ToUpper().Equals(CrxStructCommonResourceMsg.QuickStart)))
-           // {
-           //    ((cPwaQuickStart)GuiCommon.QuickStartChildForm).DisableTimersAndEnableTabs();   
-           // }          
+            try
+            {
+                SetStrategy(guicmbxCurrentMode.Text);
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
 
         /** Begin: AtCor-Drop2-Sprint2, TM, UserStory2,4 july 2011
@@ -2117,7 +2074,7 @@ namespace AtCor.Scor.Gui.Presentation
 
                 if (GuiCommon.IsMenuItemShown)
                 {
-                    GuiCommon.SystemKeyWindowValue = GuiCommon.SystemKeyWindowValues.Update;
+                    GuiCommon.SystemKeyWindowValue = GuiCommon.SystemKeyWindowValues.Update;                    
                     var systemKey = new SystemKey { ShowInTaskbar = false };
                     systemKey.ShowDialog();
                 }
@@ -2158,19 +2115,25 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void radpgTabCollection_MouseDown(object sender, MouseEventArgs e)
         {
-            if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabCapture), StringComparison.CurrentCultureIgnoreCase))
+            try
             {
-                // When the capture form has loaded ,this event is invoked.
-                if (GuiCommon.CaptureFormLoaded)
+                if (radpgTabCollection.SelectedPage.Text.Equals(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabCapture), StringComparison.CurrentCultureIgnoreCase))
                 {
-                    // OnCaptureScreenTabClick.Invoke(this, new EventArgs());                    
-                    GuiCommon.CaptureChildForm.radbtnCross.Focus();
+                    // When the capture form has loaded ,this event is invoked.
+                    if (GuiCommon.CaptureFormLoaded)
+                    {
+                        // GuiCommon.CaptureChildForm.radbtnCross.Focus();
+                    }
+                    else
+                    {
+                        radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
+                        guiradgrpbxPwvDistanceMethod.Enabled = true;
+                    }
                 }
-                else
-                {
-                    radpgTabCollection.SelectedPage = guiradgrpbxPwvDistanceMethod;
-                    guiradgrpbxPwvDistanceMethod.Enabled = true;
-                }
+            }
+            catch (Exception ex)
+            {
+               GUIExceptionHandler.HandleException(ex, this);
             } 
         }
 
@@ -2197,13 +2160,20 @@ namespace AtCor.Scor.Gui.Presentation
 
         private void NavigateToQuickStart()
         {
-            if (GuiCommon.IsOnResultForm)
+            try
             {
-                GuiCommon.PWATestResultChildForm.NavigateUserToQuickStartScreen();
+                if (GuiCommon.IsOnResultForm)
+                {
+                    GuiCommon.PWATestResultChildForm.NavigateUserToQuickStartScreen();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
             }
         }
       
         /**  End   : AtCor-Drop2-Sprint2, TM, UserStory2,4 july 2011
          */
-   } // End class
-} // End namespace
+   }
+}

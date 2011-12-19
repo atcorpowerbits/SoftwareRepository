@@ -158,7 +158,10 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-                (GuiCommon.CaptureChildForm).ActionPerformedAfterClickingCancelForPwaMode();
+                if (GuiCommon.CaptureChildForm != null)
+                {
+                    GuiCommon.CaptureChildForm.ActionPerformedAfterClickingCancelForPwaMode();
+                }
             }
             catch (Exception ex)
             {
@@ -213,7 +216,10 @@ namespace AtCor.Scor.Gui.Presentation
         {
             try
             {
-               // (GuiCommon.CaptureChildForm).HandleKeyDownEventForPwaMode(e);
+                if (GuiCommon.CaptureChildForm != null)
+                {
+                   GuiCommon.CaptureChildForm.HandleKeyDownEventForPwaMode(e);
+                }
             }
             catch (Exception ex)
             {

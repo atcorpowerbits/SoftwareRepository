@@ -280,6 +280,7 @@ namespace TestDal {
 
 			}
 			
+			//removed
 //			/// Positive Test case
 //			///A test for CheckStreamingTimeout
 //			///</summary>
@@ -303,6 +304,7 @@ namespace TestDal {
 //			Assert::IsFalse(eventRaised);
 //		}
 
+			//removed
 //		/// Positive Test case: event should be raise and the flag shoudl be reset
 //		///A test for CheckStreamingTimeout
 //		///</summary>
@@ -331,6 +333,8 @@ namespace TestDal {
 //
 //			Assert::AreEqual( DalErrorAlarmStatusFlag::DataCaptureTimeout, alarmStatusFlag);
 //		}
+
+//removed
 //		/// <summary>
 //		///A test for StopStreamingTimeoutChecker
 //		///</summary>
@@ -347,6 +351,8 @@ namespace TestDal {
 //			Assert::IsFalse(target->timeoutCheckTimer->Enabled); //timer should be disabled
 //			
 //		}
+
+//removed
 //		/// <summary>
 //		///A test for StartStreamingTimeoutChecker
 //		///</summary>
@@ -360,6 +366,8 @@ namespace TestDal {
 //			Assert::IsTrue(target->timeoutCheckTimer->Enabled ); //method should start the timer
 //		}
 
+
+			//removed
 		//	/// Positive Test case: event should be raise and the flag should be reset
 		//	//Also checks that the timer has been turned off after a timout occured.
 		//	///A test for CheckStreamingTimeout

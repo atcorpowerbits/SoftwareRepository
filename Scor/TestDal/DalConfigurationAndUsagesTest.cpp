@@ -132,9 +132,9 @@ namespace TestDal {
 				{
 					actual = target->SerialNumberMpb;
 				}
-				catch(Exception^ ex)
+				catch(Exception^ )
 				{
-					Assert::Fail;;
+					Assert::Fail();
 				}
 				Assert::IsNotNull(actual);
 				//Assert::AreEqual(expected, actual);

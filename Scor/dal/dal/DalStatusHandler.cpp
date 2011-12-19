@@ -237,7 +237,7 @@ namespace AtCor{
 						break; 
 				}
 
-				////CrxLogger::Instance->Write("Deepak>>> TranslateAlarmStatusBits>>> statusFlags" + statusFlags.ToString("X4") + " data:" + data.ToString() + " retAlarmValue:" + retAlarmValue.ToString(), ErrorSeverity::Debug);
+				////CrxLogger::Instance->Write("DAL>>> TranslateAlarmStatusBits>>> statusFlags" + statusFlags.ToString("X4") + " data:" + data.ToString() + " retAlarmValue:" + retAlarmValue.ToString(), ErrorSeverity::Debug);
 				
 				return retAlarmValue;
 			}
@@ -256,6 +256,7 @@ namespace AtCor{
 
 				DateTime currentDateTime;
 				currentDateTime = System::DateTime::Now;
+				
 
 				try
 				{
@@ -307,7 +308,7 @@ namespace AtCor{
 
 				DateTime currentDateTime = System::DateTime::Now;;
 				//currentDateTime = System::DateTime::Now;
-
+				DalStatusHandler::cPwaFileDateTime = currentDateTime;
 				try
 				{
 
@@ -350,6 +351,111 @@ namespace AtCor{
 				}
 			}
 
+			bool DalStatusHandler::SaveNibpData(array< unsigned short >^ time, array< unsigned short >^ status, array< unsigned short >^ errorCode, array< unsigned short >^ sp, array< unsigned short >^ dp, array< unsigned short >^ map, array< unsigned short >^ hr, unsigned short bufferSize)
+			{
+				unsigned short index = 0;
+				
+				String^ tempFilePath = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPathNibp); //TODO: put this somewhere too
+				String^ tempCapture	 = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstCaptureFilePrefix); //TODO
+				String^ tempFileExt  = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstDatFileExtn);
+				
+				//To Do: time should be the pwa file time
+				DateTime currentDateTime = DalStatusHandler::cPwaFileDateTime;
+				//DateTime currentDateTime = System::DateTime::Now;
+
+				try
+				{
+					//create the file name using current date time
+					String^ currentDateTimeStr = currentDateTime.ToString(DalFormatterStrings::FullDateTimeFormat);
+	
+					//currentDateTimeStr = tempFilePath + tempCapture + currentDateTimeStr+ tempFileExt; 
+					currentDateTimeStr = String::Concat(tempFilePath, tempCapture, currentDateTimeStr, tempFileExt); 
+					
+					DalSimulationFile^ simulationOutputFile = gcnew DalSimulationFile();; //Pointer to first simulation file
+					//simulationOutputFile = gcnew DalSimulationFile();
+
+					if(simulationOutputFile->CreateFile(currentDateTimeStr))
+					{
+						//Remove the duplicate backslashes from the string 
+						String^ str = simulationOutputFile->filePath->Replace(DalFormatterStrings::FourSlashes, DalFormatterStrings::TwoSlashes );  
+													
+						//save the filepath to a variable. This variable will be called by another funciton to get the value
+						//remove the dot at the begining
+						_savedDataFilePathNibp = String::Concat(Directory::GetCurrentDirectory(), str->Substring(1));  
+
+						while (index < bufferSize)
+						{
+							simulationOutputFile->SaveCurrentValues(time[index],
+																	status[index], 
+																	errorCode[index], 
+																	sp[index], 
+																	dp[index], 
+																	map[index], 
+																	hr[index]);
+							index++;
+						}
+					}
+					simulationOutputFile->CloseFile();
+					return true;
+				}
+				catch(ScorException ^)
+				{
+					return false;
+				}
+				catch(Exception ^)
+				{
+					return false;
+				}
+			}
+
+			bool DalStatusHandler::SaveNibpData(unsigned short time, unsigned short status, unsigned short errorCode, unsigned short sp, unsigned short dp, short map, unsigned short hr)
+			{
+				//unsigned short index = 0; unused parameter
+				
+				String^ tempFilePath = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstSimFolderPathNibp); //TODO: put this somewhere too
+				String^ tempCapture	 = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstCaptureFilePrefix); //TODO
+				String^ tempFileExt  = CrxMessagingManager::Instance->GetMessage(CrxStructCommonResourceMsg::DalConstDatFileExtn);
+				
+				//To Do: time should be the pwa file time
+				DateTime currentDateTime = DalStatusHandler::cPwaFileDateTime;
+				//DateTime currentDateTime = System::DateTime::Now;
+
+				try
+				{
+					//create the file name using current date time
+					String^ currentDateTimeStr = currentDateTime.ToString(DalFormatterStrings::FullDateTimeFormat);
+	
+					//currentDateTimeStr = tempFilePath + tempCapture + currentDateTimeStr+ tempFileExt; 
+					currentDateTimeStr = String::Concat(tempFilePath, tempCapture, currentDateTimeStr, tempFileExt); 
+					
+					DalSimulationFile^ simulationOutputFile = gcnew DalSimulationFile();; //Pointer to first simulation file
+					//simulationOutputFile = gcnew DalSimulationFile();
+
+					if(simulationOutputFile->CreateFile(currentDateTimeStr))
+					{
+						//Remove the duplicate backslashes from the string 
+						String^ str = simulationOutputFile->filePath->Replace(DalFormatterStrings::FourSlashes, DalFormatterStrings::TwoSlashes );  
+													
+						//save the filepath to a variable. This variable will be called by another funciton to get the value
+						//remove the dot at the begining
+						_savedDataFilePathNibp = String::Concat(Directory::GetCurrentDirectory(), str->Substring(1));  
+
+						simulationOutputFile->SaveCurrentValues(time, status, errorCode, sp, dp, map, hr);
+						
+					}
+					simulationOutputFile->CloseFile();
+					return true;
+				}
+				catch(ScorException ^)
+				{
+					return false;
+				}
+				catch(Exception ^)
+				{
+					return false;
+				}
+			}
+
 			String^ DalStatusHandler::GetSavedFileName()
 			{
 				String^ returnValue = _savedDataFilePath;
@@ -357,6 +463,12 @@ namespace AtCor{
 				return returnValue;
 			}
 
+			String^ DalStatusHandler::GetSavedFileNameNibp()
+			{
+				String^ returnValue = _savedDataFilePathNibp;
+				_savedDataFilePath  = String::Empty;
+				return returnValue;
+			}
 
 			bool DalStatusHandler::ProcessStatusFlag(unsigned long statusBytes)
 			{
@@ -377,33 +489,39 @@ namespace AtCor{
 				{
 					//process the various parts in order of importance
 
-					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.StopButton") == "Y")
+					//if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.StopButton") == "Y")
+					if(sysparamProcessStatusFlagPartsStopButton)
 					{
 						ProcessStopButtonBitMask();
 					}
 					
-					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.PowerUpBit") == "Y")
+					//if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.PowerUpBit") == "Y")
+					if(sysparamProcessStatusFlagPartsPowerUpBit)
 					{
 						ProcessPowerUpBitMask();
 					}
 
-					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.AlarmFlag") == "Y")
+					//if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.AlarmFlag") == "Y")
+					if(sysparamProcessStatusFlagPartsAlarmFlag)
 					{
 						//check alarms bfore anything else
 						ProcessAlarmStatusFlag();
 					}
 
-					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.CuffStatusFlags") == "Y")
+					//if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.CuffStatusFlags") == "Y")
+					if(sysparamProcessStatusFlagPartsCuffStatusFlags)
 					{
 						ProcessCuffStatusFlag();
 					}
 
-					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.TonometerFlags") == "Y")
+					//if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.TonometerFlags") == "Y")
+					if(sysparamProcessStatusFlagPartsTonometerFlags)
 					{
 						ProcessTonoStatusFlag();
 					}
 
-					if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.UnusedBits") == "Y")
+					//if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.UnusedBits") == "Y")
+					if(sysparamProcessStatusFlagPartsUnusedBits)
 					{
 						//least important
 						ProcessUnusedBitsStatusFlag(statusBytes);
@@ -643,6 +761,48 @@ namespace AtCor{
 				String^ sourceName = Enum::Format(DalErrorAlarmStatusFlag::typeid, alarmType, DalFormatterStrings::PrintEnumName);
 				DalModuleErrorAlarmEventArgs^ eventArgs = gcnew DalModuleErrorAlarmEventArgs(alarmType, sourceName, DalBinaryConversions::ConvertAlarmType(alarmType), excptionObject);
 				DalEventContainer::Instance->OnDalModuleErrorAlarmEvent(nullptr, eventArgs);
+			}
+
+
+			DalStatusHandler::DalStatusHandler()
+			{
+				//clear all variables before accesing their values from file
+				sysparamProcessStatusFlagPartsStopButton = false;
+				sysparamProcessStatusFlagPartsPowerUpBit = false;
+				sysparamProcessStatusFlagPartsAlarmFlag = false;
+				sysparamProcessStatusFlagPartsCuffStatusFlags = false;
+				sysparamProcessStatusFlagPartsTonometerFlags = false;
+				sysparamProcessStatusFlagPartsUnusedBits = false;
+			
+				if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.StopButton") == "Y")
+				{
+					sysparamProcessStatusFlagPartsStopButton = true;
+				}
+				
+				if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.PowerUpBit") == "Y")
+				{
+					sysparamProcessStatusFlagPartsPowerUpBit = true;
+				}
+
+				if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.AlarmFlag") == "Y")
+				{
+					sysparamProcessStatusFlagPartsAlarmFlag = true;
+				}
+
+				if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.CuffStatusFlags") == "Y")
+				{
+					sysparamProcessStatusFlagPartsCuffStatusFlags = true;
+				}
+
+				if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.TonometerFlags") == "Y")
+				{
+					sysparamProcessStatusFlagPartsTonometerFlags = true;
+				}
+
+				if (CrxSytemParameters::Instance->GetStringTagValue("ProcessStatusFlagParts.UnusedBits") == "Y")
+				{
+					sysparamProcessStatusFlagPartsUnusedBits = true;
+				}
 			}
 
 

@@ -56,13 +56,13 @@ array<unsigned char>^ DalStreamingPacketQueue::Dequeue()
 	if (this->streamingPacketQueue->Count != 0)
 	{
 		returnValue=  this->streamingPacketQueue->Dequeue();
-		////CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count + " Dequeued " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(returnValue) , ErrorSeverity::Debug);
-		//CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count , ErrorSeverity::Debug);
+		////CrxLogger::Instance->Write("DAL>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count + " Dequeued " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(returnValue) , ErrorSeverity::Debug);
+		//CrxLogger::Instance->Write("DAL>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count , ErrorSeverity::Debug);
 	}
 	else
 	{
 		returnValue = nullptr; 
-		////CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count + " UNDERFLOW" , ErrorSeverity::Debug);
+		////CrxLogger::Instance->Write("DAL>>> DalStreamingPacketQueue::Dequeue Total : "+ this->streamingPacketQueue->Count + " UNDERFLOW" , ErrorSeverity::Debug);
 	}
 	
 //_mutex->ReleaseMutex();
@@ -72,14 +72,21 @@ array<unsigned char>^ DalStreamingPacketQueue::Dequeue()
 
 void DalStreamingPacketQueue::Enqueue(array<unsigned char> ^packet)
 {
+	try
+	{
 //	_mutex->WaitOne();
 
 	this->streamingPacketQueue->Enqueue(packet);
-	////CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Enqueue Total : "+ this->streamingPacketQueue->Count + " Added new packet: " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(packet) , ErrorSeverity::Debug);
-	//CrxLogger::Instance->Write("Deepak>>> DalStreamingPacketQueue::Enqueue Total : "+ this->streamingPacketQueue->Count , ErrorSeverity::Debug);
+		////CrxLogger::Instance->Write("DAL>>> DalStreamingPacketQueue::Enqueue Total : "+ this->streamingPacketQueue->Count + " Added new packet: " + AtCor::Scor::DataAccess::DalStatusHandler::ConvertBytesToString(packet) , ErrorSeverity::Debug);
+		//CrxLogger::Instance->Write("DAL>>> DalStreamingPacketQueue::Enqueue Total : "+ this->streamingPacketQueue->Count , ErrorSeverity::Debug);
 	
 	
 //	_mutex->ReleaseMutex();
+	}
+	catch(Exception ^ )
+	{
+		throw ;
+	}
 }
 
 void DalStreamingPacketQueue::Clear()

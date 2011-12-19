@@ -215,8 +215,7 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke;
             chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
             chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisX.Maximum = 200;
-            chartArea1.AxisX.Minimum = 25;
+            chartArea1.AxisX.Minimum = 0;
             chartArea1.AxisX.Title = "ms";
             chartArea1.AxisX.TitleForeColor = System.Drawing.Color.WhiteSmoke;
             chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
@@ -226,8 +225,6 @@ namespace AtCor.Scor.Gui.Presentation
             chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke;
             chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
             chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisY.Maximum = 170;
-            chartArea1.AxisY.Minimum = 0;
             chartArea1.AxisY.Title = "mmHg";
             chartArea1.AxisY.TitleForeColor = System.Drawing.Color.WhiteSmoke;
             chartArea1.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
@@ -242,6 +239,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guichartPWAReport.Size = new System.Drawing.Size(421, 453);
             this.guichartPWAReport.TabIndex = 136;
             this.guichartPWAReport.Text = "105";
+            this.guichartPWAReport.Click += new System.EventHandler(this.guichartPWAReport_Click);
             // 
             // guiradlblQualityControl
             // 

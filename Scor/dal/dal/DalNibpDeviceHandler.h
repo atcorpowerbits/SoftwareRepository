@@ -131,6 +131,16 @@ namespace AtCor{
 					static property unsigned int  CurrentCuffPressure;
 
 					bool IsCuffDeflated(); 
+
+					
+
+					delegate bool ObtainBpMeasurementAsyncCaller();
+
+					ObtainBpMeasurementAsyncCaller^ obtainBpMeasurementAsynCaller;
+
+					void AbortBpOnStopButtonPress();
+
+
 					
 			};
 

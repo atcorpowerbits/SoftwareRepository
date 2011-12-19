@@ -26,6 +26,7 @@ bool DalCuffPressureCommand::GetCuffPressure(unsigned int & cuffPressure)
 {
 	DalReturnValue returnValue; 
 	returnValue = this->SendCommandAndGetResponse();
+	//CrxLogger::Instance->Write("DalCuffPressureCommand::GetCuffPressure command sent and returned " +returnValue.ToString(), ErrorSeverity::Debug);
 
 	if ( DalReturnValue::Success  == returnValue)
 	{
@@ -66,7 +67,7 @@ bool DalNibpGetBpDataCommand::GetBpDataAndRaiseEvent()
 	DalReturnValue returnValue; 
 	bool methodReturnValue;
 	returnValue = this->SendCommandAndGetResponse();
-	//CrxLogger::Instance->Write("DalNibpGetBpDataCommand::GetBpDataAndRaiseEvent Sent command and response recieved: " + returnValue.ToString(), ErrorSeverity::Debug );
+	CrxLogger::Instance->Write("DalNibpGetBpDataCommand::GetBpDataAndRaiseEvent Sent command and response recieved: " + returnValue.ToString(), ErrorSeverity::Debug );
 
 	NibpMeasurementStatus  resultStatus = NibpMeasurementStatus::Unsuccessful; //Default value
 	String ^ errorMessage = String::Empty ; //default
@@ -79,7 +80,7 @@ bool DalNibpGetBpDataCommand::GetBpDataAndRaiseEvent()
 		ExtractDataParts();
 
 		bool dataCorrect = CheckRecievedData();
-		CrxLogger::Instance->Write("DalNibpGetBpDataCommand::GetBpDataAndRaiseEvent CheckRecievedData returned: " + dataCorrect + ". EC andBP ignored. Raising event!." , ErrorSeverity::Debug );
+		CrxLogger::Instance->Write("DalNibpGetBpDataCommand::GetBpDataAndRaiseEvent CheckRecievedData returned: " + dataCorrect , ErrorSeverity::Debug );
 				
 		//if(true) //revert this should be for testing only
 		if (dataCorrect)
@@ -92,7 +93,7 @@ bool DalNibpGetBpDataCommand::GetBpDataAndRaiseEvent()
 		else
 		{
 			resultStatus = NibpMeasurementStatus::Unsuccessful;
-			errorMessage = "BP data was extracted but is invalid.";  
+			errorMessage = "BP data was extracted but is invalid.";   //TODO: resource file
 
 			if (88 == _nibpDataObject->Ec)
 			{
@@ -112,7 +113,7 @@ bool DalNibpGetBpDataCommand::GetBpDataAndRaiseEvent()
 	else
 	{
 		resultStatus = NibpMeasurementStatus::Unsuccessful;
-		errorMessage = "Attempted to get BP Data but Failed.";  
+		errorMessage = "Attempted to get BP Data but Failed.";   //TODO: resource file
 		//This will tell the upper layers that the measurement simply failed and there is no technicall issue
 
 
@@ -155,15 +156,21 @@ bool DalNibpGetBpDataCommand::CheckRecievedData()
 
 		
 	}
-
-	if (CrxSytemParameters::Instance->GetStringTagValue("NibpDal.IngnoreEC1ForTesting") == "Y")
+	else
+	//if (CrxSytemParameters::Instance->GetStringTagValue("NibpDal.IngnoreEC1ForTesting") == "Y")
 	{
 		if ( this->_nibpDataObject->Ec == 1)
 		{
-			CrxLogger::Instance->Write("DalNibpGetBpDataCommand::CheckRecievedData replcing EC = 1 with EC = 0. This is only for development and you should not see this message in real time.",  ErrorSeverity::Warning);
+			CrxLogger::Instance->Write("DalNibpGetBpDataCommand::CheckRecievedData replacing EC = 1 with EC = 0 and dummy BP values. This is only for development and you should not see this message in real time.",  ErrorSeverity::Warning);
 			//Replace -1 with zero to allow for dummy "successful" measurement
 			//we will not ignore other valid error codes
 			this->_nibpDataObject->Ec = 0; 
+			this->_nibpDataObject->Bps = 0x01 ; //make Bps = 01 so that it looks like new data
+			this->_nibpDataObject->Sss =  120;
+			this->_nibpDataObject->Ddd = 80;
+			this->_nibpDataObject->Map  = 90;
+			this->_nibpDataObject->Rate = 77;
+
 		}
 
 	}
@@ -190,4 +197,32 @@ void DalNibpGetBpDataCommand::ExtractDataParts()
 	CrxLogger::Instance->Write("DalNibpGetBpDataCommand::ExtractDataParts Bps:" + _nibpDataObject->Bps + " Ec: " +  _nibpDataObject->Ec + " SP: " + _nibpDataObject->Sss + " DP: " + _nibpDataObject->Ddd + " MP: " + _nibpDataObject->Map + " HR: " + _nibpDataObject->Rate , ErrorSeverity::Debug );
 
 
+}
+
+bool DalNibpGetBpDataCommand::ActOnPacket(array <unsigned char> ^ nibpToHostResponse)
+{
+	//check the length of the packet. 
+	//for a getBP data packet it should be 24(0x18)
+	if (0x18 == nibpToHostResponse[1]) 
+	{
+		//this is a background packet response
+		
+		//attach it to the current object
+		this->nibpResponsePacket = nibpToHostResponse;
+		//change the state
+		this->currentBackGroundState = DalNibpBackGroundCommandState::ResponseRecieved;
+
+
+		
+		//take some action
+
+		//CrxLogger::Instance->Write("DalNibpBackgroundCommand::ActOnPacket >> responseListenerThread state: "+ this->responseListenerThread->ThreadState.ToString() + " Object type:"+ this->GetType() , ErrorSeverity::Debug );
+
+		//then signal the waiting thread that it has something for it
+		this->responseListenerThread->Interrupt();
+
+		return true;
+	}
+
+	return false;
 }

@@ -185,15 +185,26 @@
             this.guilblDPSevereValue = new System.Windows.Forms.Label();
             this.lblDpValue = new System.Windows.Forms.Label();
             this.pnlSpSlider = new System.Windows.Forms.Panel();
+            this.guilblSpEndPoint = new System.Windows.Forms.Label();
+            this.guilblSpStartPoint = new System.Windows.Forms.Label();
+            this.guilblSPlowhypertension = new System.Windows.Forms.Label();
+            this.guilblSPLowValue = new System.Windows.Forms.Label();
+            this.lblSpLowHypertension = new System.Windows.Forms.Label();
             this.pnlDpSlider = new System.Windows.Forms.Panel();
+            this.guilblDpEndPoint = new System.Windows.Forms.Label();
+            this.guilblDpStartPoint = new System.Windows.Forms.Label();
+            this.guilblDPLowhypertension = new System.Windows.Forms.Label();
+            this.lblDpLowHypertension = new System.Windows.Forms.Label();
+            this.guilblDPLowhypertensionValue = new System.Windows.Forms.Label();
             this.pnlHrSlider = new System.Windows.Forms.Panel();
             this.guilblHrSlider = new Telerik.WinControls.UI.RadLabel();
-            this.lblHrPoor = new System.Windows.Forms.Label();
             this.guilblHrAboveAverage = new System.Windows.Forms.Label();
             this.guilblHrBelowAverage = new System.Windows.Forms.Label();
             this.guilblHrAverage = new System.Windows.Forms.Label();
             this.guilblHrGood = new System.Windows.Forms.Label();
             this.guilblHrExcellent = new System.Windows.Forms.Label();
+            this.lblHrValue = new System.Windows.Forms.Label();
+            this.lblHrPoor = new System.Windows.Forms.Label();
             this.lblHrExcellent = new System.Windows.Forms.Label();
             this.lblHrGood = new System.Windows.Forms.Label();
             this.lblHrBelowAverage = new System.Windows.Forms.Label();
@@ -262,7 +273,7 @@
             // guilblSPModeratehypertension
             // 
             this.guilblSPModeratehypertension.BackColor = System.Drawing.Color.Black;
-            this.guilblSPModeratehypertension.Location = new System.Drawing.Point(430, 24);
+            this.guilblSPModeratehypertension.Location = new System.Drawing.Point(430, 26);
             this.guilblSPModeratehypertension.Name = "guilblSPModeratehypertension";
             this.guilblSPModeratehypertension.Size = new System.Drawing.Size(7, 38);
             this.guilblSPModeratehypertension.TabIndex = 166;
@@ -302,7 +313,7 @@
             // guilblDPModeratehypertension
             // 
             this.guilblDPModeratehypertension.BackColor = System.Drawing.Color.Black;
-            this.guilblDPModeratehypertension.Location = new System.Drawing.Point(430, 29);
+            this.guilblDPModeratehypertension.Location = new System.Drawing.Point(430, 31);
             this.guilblDPModeratehypertension.Name = "guilblDPModeratehypertension";
             this.guilblDPModeratehypertension.Size = new System.Drawing.Size(7, 38);
             this.guilblDPModeratehypertension.TabIndex = 171;
@@ -344,7 +355,7 @@
             // lblSpHighNormal
             // 
             this.lblSpHighNormal.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSpHighNormal.Location = new System.Drawing.Point(182, 69);
+            this.lblSpHighNormal.Location = new System.Drawing.Point(136, 69);
             this.lblSpHighNormal.Name = "lblSpHighNormal";
             this.lblSpHighNormal.Size = new System.Drawing.Size(70, 23);
             this.lblSpHighNormal.TabIndex = 175;
@@ -354,7 +365,7 @@
             // lblSpMildHypertension
             // 
             this.lblSpMildHypertension.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSpMildHypertension.Location = new System.Drawing.Point(310, 69);
+            this.lblSpMildHypertension.Location = new System.Drawing.Point(234, 69);
             this.lblSpMildHypertension.Name = "lblSpMildHypertension";
             this.lblSpMildHypertension.Size = new System.Drawing.Size(112, 23);
             this.lblSpMildHypertension.TabIndex = 176;
@@ -364,7 +375,7 @@
             // lblSpModerateHypertension
             // 
             this.lblSpModerateHypertension.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSpModerateHypertension.Location = new System.Drawing.Point(440, 69);
+            this.lblSpModerateHypertension.Location = new System.Drawing.Point(360, 69);
             this.lblSpModerateHypertension.Name = "lblSpModerateHypertension";
             this.lblSpModerateHypertension.Size = new System.Drawing.Size(130, 23);
             this.lblSpModerateHypertension.TabIndex = 177;
@@ -374,7 +385,7 @@
             // lblSpSevere
             // 
             this.lblSpSevere.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSpSevere.Location = new System.Drawing.Point(616, 69);
+            this.lblSpSevere.Location = new System.Drawing.Point(502, 69);
             this.lblSpSevere.Name = "lblSpSevere";
             this.lblSpSevere.Size = new System.Drawing.Size(70, 23);
             this.lblSpSevere.TabIndex = 178;
@@ -383,7 +394,7 @@
             // 
             // lblDpNormal
             // 
-            this.lblDpNormal.Location = new System.Drawing.Point(47, 71);
+            this.lblDpNormal.Location = new System.Drawing.Point(24, 71);
             this.lblDpNormal.Name = "lblDpNormal";
             this.lblDpNormal.Size = new System.Drawing.Size(60, 20);
             this.lblDpNormal.TabIndex = 179;
@@ -392,7 +403,7 @@
             // 
             // lblDpHighNormal
             // 
-            this.lblDpHighNormal.Location = new System.Drawing.Point(182, 71);
+            this.lblDpHighNormal.Location = new System.Drawing.Point(105, 71);
             this.lblDpHighNormal.Name = "lblDpHighNormal";
             this.lblDpHighNormal.Size = new System.Drawing.Size(65, 20);
             this.lblDpHighNormal.TabIndex = 180;
@@ -401,7 +412,7 @@
             // 
             // lblDpMildHypertension
             // 
-            this.lblDpMildHypertension.Location = new System.Drawing.Point(310, 71);
+            this.lblDpMildHypertension.Location = new System.Drawing.Point(180, 71);
             this.lblDpMildHypertension.Name = "lblDpMildHypertension";
             this.lblDpMildHypertension.Size = new System.Drawing.Size(112, 20);
             this.lblDpMildHypertension.TabIndex = 181;
@@ -410,7 +421,7 @@
             // 
             // lblDpModerateHypertension
             // 
-            this.lblDpModerateHypertension.Location = new System.Drawing.Point(445, 71);
+            this.lblDpModerateHypertension.Location = new System.Drawing.Point(316, 71);
             this.lblDpModerateHypertension.Name = "lblDpModerateHypertension";
             this.lblDpModerateHypertension.Size = new System.Drawing.Size(120, 20);
             this.lblDpModerateHypertension.TabIndex = 182;
@@ -419,7 +430,7 @@
             // 
             // lblDpSevere
             // 
-            this.lblDpSevere.Location = new System.Drawing.Point(616, 71);
+            this.lblDpSevere.Location = new System.Drawing.Point(640, 71);
             this.lblDpSevere.Name = "lblDpSevere";
             this.lblDpSevere.Size = new System.Drawing.Size(70, 20);
             this.lblDpSevere.TabIndex = 183;
@@ -469,7 +480,7 @@
             this.guilblSPSevereValue.Name = "guilblSPSevereValue";
             this.guilblSPSevereValue.Size = new System.Drawing.Size(25, 13);
             this.guilblSPSevereValue.TabIndex = 188;
-            this.guilblSPSevereValue.Text = "180";
+            this.guilblSPSevereValue.Text = "200";
             // 
             // guilblDPNormalValue
             // 
@@ -505,7 +516,7 @@
             this.guilblDPSevereValue.Name = "guilblDPSevereValue";
             this.guilblDPSevereValue.Size = new System.Drawing.Size(25, 13);
             this.guilblDPSevereValue.TabIndex = 192;
-            this.guilblDPSevereValue.Text = "110";
+            this.guilblDPSevereValue.Text = "120";
             // 
             // lblDpValue
             // 
@@ -519,11 +530,16 @@
             // pnlSpSlider
             // 
             this.pnlSpSlider.Controls.Add(this.guilblSPSlider);
+            this.pnlSpSlider.Controls.Add(this.guilblSpEndPoint);
+            this.pnlSpSlider.Controls.Add(this.guilblSpStartPoint);
+            this.pnlSpSlider.Controls.Add(this.guilblSPlowhypertension);
             this.pnlSpSlider.Controls.Add(this.guilblSPSevere);
             this.pnlSpSlider.Controls.Add(this.guilblSPModeratehypertension);
             this.pnlSpSlider.Controls.Add(this.guilblSPMildHypertension);
             this.pnlSpSlider.Controls.Add(this.guilblSPNormal);
             this.pnlSpSlider.Controls.Add(this.lblSpValue);
+            this.pnlSpSlider.Controls.Add(this.guilblSPLowValue);
+            this.pnlSpSlider.Controls.Add(this.lblSpLowHypertension);
             this.pnlSpSlider.Controls.Add(this.lblSpNormal);
             this.pnlSpSlider.Controls.Add(this.guilblSPSevereValue);
             this.pnlSpSlider.Controls.Add(this.lblSpHighNormal);
@@ -538,14 +554,62 @@
             this.pnlSpSlider.Size = new System.Drawing.Size(717, 98);
             this.pnlSpSlider.TabIndex = 194;
             // 
+            // guilblSpEndPoint
+            // 
+            this.guilblSpEndPoint.BackColor = System.Drawing.Color.Black;
+            this.guilblSpEndPoint.Location = new System.Drawing.Point(708, 26);
+            this.guilblSpEndPoint.Name = "guilblSpEndPoint";
+            this.guilblSpEndPoint.Size = new System.Drawing.Size(7, 38);
+            this.guilblSpEndPoint.TabIndex = 193;
+            // 
+            // guilblSpStartPoint
+            // 
+            this.guilblSpStartPoint.BackColor = System.Drawing.Color.Black;
+            this.guilblSpStartPoint.Location = new System.Drawing.Point(5, 26);
+            this.guilblSpStartPoint.Name = "guilblSpStartPoint";
+            this.guilblSpStartPoint.Size = new System.Drawing.Size(7, 38);
+            this.guilblSpStartPoint.TabIndex = 192;
+            // 
+            // guilblSPlowhypertension
+            // 
+            this.guilblSPlowhypertension.BackColor = System.Drawing.Color.Black;
+            this.guilblSPlowhypertension.Location = new System.Drawing.Point(669, 26);
+            this.guilblSPlowhypertension.Name = "guilblSPlowhypertension";
+            this.guilblSPlowhypertension.Size = new System.Drawing.Size(7, 38);
+            this.guilblSPlowhypertension.TabIndex = 189;
+            // 
+            // guilblSPLowValue
+            // 
+            this.guilblSPLowValue.AutoSize = true;
+            this.guilblSPLowValue.Location = new System.Drawing.Point(660, 8);
+            this.guilblSPLowValue.Name = "guilblSPLowValue";
+            this.guilblSPLowValue.Size = new System.Drawing.Size(25, 13);
+            this.guilblSPLowValue.TabIndex = 191;
+            this.guilblSPLowValue.Text = "180";
+            // 
+            // lblSpLowHypertension
+            // 
+            this.lblSpLowHypertension.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSpLowHypertension.Location = new System.Drawing.Point(579, 68);
+            this.lblSpLowHypertension.Name = "lblSpLowHypertension";
+            this.lblSpLowHypertension.Size = new System.Drawing.Size(130, 23);
+            this.lblSpLowHypertension.TabIndex = 190;
+            this.lblSpLowHypertension.Text = "Lowhypertension";
+            this.lblSpLowHypertension.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // pnlDpSlider
             // 
             this.pnlDpSlider.Controls.Add(this.guilblDPSlider);
+            this.pnlDpSlider.Controls.Add(this.guilblDpEndPoint);
+            this.pnlDpSlider.Controls.Add(this.guilblDpStartPoint);
+            this.pnlDpSlider.Controls.Add(this.guilblDPLowhypertension);
             this.pnlDpSlider.Controls.Add(this.guilblDPSevere);
             this.pnlDpSlider.Controls.Add(this.guilblDPModeratehypertension);
             this.pnlDpSlider.Controls.Add(this.guilblDPMildHypertension);
             this.pnlDpSlider.Controls.Add(this.guilblDPNormal);
             this.pnlDpSlider.Controls.Add(this.lblDpValue);
+            this.pnlDpSlider.Controls.Add(this.lblDpLowHypertension);
+            this.pnlDpSlider.Controls.Add(this.guilblDPLowhypertensionValue);
             this.pnlDpSlider.Controls.Add(this.guilblDPSevereValue);
             this.pnlDpSlider.Controls.Add(this.guilblDPModeratehypertensionValue);
             this.pnlDpSlider.Controls.Add(this.guilblDPMildHypertensionValue);
@@ -560,15 +624,58 @@
             this.pnlDpSlider.Size = new System.Drawing.Size(717, 98);
             this.pnlDpSlider.TabIndex = 195;
             // 
+            // guilblDpEndPoint
+            // 
+            this.guilblDpEndPoint.BackColor = System.Drawing.Color.Black;
+            this.guilblDpEndPoint.Location = new System.Drawing.Point(708, 30);
+            this.guilblDpEndPoint.Name = "guilblDpEndPoint";
+            this.guilblDpEndPoint.Size = new System.Drawing.Size(7, 38);
+            this.guilblDpEndPoint.TabIndex = 198;
+            // 
+            // guilblDpStartPoint
+            // 
+            this.guilblDpStartPoint.BackColor = System.Drawing.Color.Black;
+            this.guilblDpStartPoint.Location = new System.Drawing.Point(5, 30);
+            this.guilblDpStartPoint.Name = "guilblDpStartPoint";
+            this.guilblDpStartPoint.Size = new System.Drawing.Size(7, 38);
+            this.guilblDpStartPoint.TabIndex = 197;
+            // 
+            // guilblDPLowhypertension
+            // 
+            this.guilblDPLowhypertension.BackColor = System.Drawing.Color.Black;
+            this.guilblDPLowhypertension.Location = new System.Drawing.Point(530, 31);
+            this.guilblDPLowhypertension.Name = "guilblDPLowhypertension";
+            this.guilblDPLowhypertension.Size = new System.Drawing.Size(7, 38);
+            this.guilblDPLowhypertension.TabIndex = 194;
+            // 
+            // lblDpLowHypertension
+            // 
+            this.lblDpLowHypertension.Location = new System.Drawing.Point(502, 71);
+            this.lblDpLowHypertension.Name = "lblDpLowHypertension";
+            this.lblDpLowHypertension.Size = new System.Drawing.Size(120, 20);
+            this.lblDpLowHypertension.TabIndex = 196;
+            this.lblDpLowHypertension.Text = "Lowhypertension";
+            this.lblDpLowHypertension.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // guilblDPLowhypertensionValue
+            // 
+            this.guilblDPLowhypertensionValue.AutoSize = true;
+            this.guilblDPLowhypertensionValue.Location = new System.Drawing.Point(517, 9);
+            this.guilblDPLowhypertensionValue.Name = "guilblDPLowhypertensionValue";
+            this.guilblDPLowhypertensionValue.Size = new System.Drawing.Size(25, 13);
+            this.guilblDPLowhypertensionValue.TabIndex = 195;
+            this.guilblDPLowhypertensionValue.Text = "110";
+            // 
             // pnlHrSlider
             // 
             this.pnlHrSlider.Controls.Add(this.guilblHrSlider);
-            this.pnlHrSlider.Controls.Add(this.lblHrPoor);
             this.pnlHrSlider.Controls.Add(this.guilblHrAboveAverage);
             this.pnlHrSlider.Controls.Add(this.guilblHrBelowAverage);
             this.pnlHrSlider.Controls.Add(this.guilblHrAverage);
             this.pnlHrSlider.Controls.Add(this.guilblHrGood);
             this.pnlHrSlider.Controls.Add(this.guilblHrExcellent);
+            this.pnlHrSlider.Controls.Add(this.lblHrValue);
+            this.pnlHrSlider.Controls.Add(this.lblHrPoor);
             this.pnlHrSlider.Controls.Add(this.lblHrExcellent);
             this.pnlHrSlider.Controls.Add(this.lblHrGood);
             this.pnlHrSlider.Controls.Add(this.lblHrBelowAverage);
@@ -594,15 +701,6 @@
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.guilblHrSlider.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.guilblHrSlider.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.guilblHrSlider.GetChildAt(0).GetChildAt(0))).BackColor = System.Drawing.Color.Transparent;
-            // 
-            // lblHrPoor
-            // 
-            this.lblHrPoor.Location = new System.Drawing.Point(632, 77);
-            this.lblHrPoor.Name = "lblHrPoor";
-            this.lblHrPoor.Size = new System.Drawing.Size(81, 23);
-            this.lblHrPoor.TabIndex = 195;
-            this.lblHrPoor.Text = "Poor";
-            this.lblHrPoor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // guilblHrAboveAverage
             // 
@@ -643,6 +741,24 @@
             this.guilblHrExcellent.Name = "guilblHrExcellent";
             this.guilblHrExcellent.Size = new System.Drawing.Size(7, 38);
             this.guilblHrExcellent.TabIndex = 173;
+            // 
+            // lblHrValue
+            // 
+            this.lblHrValue.BackColor = System.Drawing.Color.LightGreen;
+            this.lblHrValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHrValue.Location = new System.Drawing.Point(352, 25);
+            this.lblHrValue.Name = "lblHrValue";
+            this.lblHrValue.Size = new System.Drawing.Size(10, 45);
+            this.lblHrValue.TabIndex = 196;
+            // 
+            // lblHrPoor
+            // 
+            this.lblHrPoor.Location = new System.Drawing.Point(632, 77);
+            this.lblHrPoor.Name = "lblHrPoor";
+            this.lblHrPoor.Size = new System.Drawing.Size(81, 23);
+            this.lblHrPoor.TabIndex = 195;
+            this.lblHrPoor.Text = "Poor";
+            this.lblHrPoor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblHrExcellent
             // 
@@ -722,10 +838,9 @@
             this.guichartSp.ChartAreas.Add(chartArea1);
             this.guichartSp.Location = new System.Drawing.Point(12, 443);
             this.guichartSp.Name = "guichartSp";
-            series1.BorderWidth = 2;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = System.Drawing.Color.Gold;
+            series1.Color = System.Drawing.Color.Red;
             series1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series1.LabelForeColor = System.Drawing.Color.Gold;
             series1.Name = "Series1";
@@ -762,10 +877,9 @@
             series2.Points.Add(dataPoint24);
             series2.Points.Add(dataPoint25);
             series2.ShadowColor = System.Drawing.Color.Transparent;
-            series3.BorderWidth = 2;
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Color = System.Drawing.Color.Gold;
+            series3.Color = System.Drawing.Color.Red;
             series3.LabelForeColor = System.Drawing.Color.Brown;
             series3.Name = "Series3";
             series3.ShadowColor = System.Drawing.Color.Transparent;
@@ -821,10 +935,9 @@
             this.guichartAp.ChartAreas.Add(chartArea2);
             this.guichartAp.Location = new System.Drawing.Point(645, 454);
             this.guichartAp.Name = "guichartAp";
-            series5.BorderWidth = 2;
             series5.ChartArea = "ChartArea1";
             series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Color = System.Drawing.Color.Gold;
+            series5.Color = System.Drawing.Color.Red;
             series5.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series5.LabelForeColor = System.Drawing.Color.Gold;
             series5.Name = "Series1";
@@ -861,10 +974,9 @@
             series6.Points.Add(dataPoint49);
             series6.Points.Add(dataPoint50);
             series6.ShadowColor = System.Drawing.Color.DimGray;
-            series7.BorderWidth = 2;
             series7.ChartArea = "ChartArea1";
             series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Color = System.Drawing.Color.Gold;
+            series7.Color = System.Drawing.Color.Red;
             series7.LabelForeColor = System.Drawing.Color.Brown;
             series7.Name = "Series3";
             series7.ShadowColor = System.Drawing.Color.DimGray;
@@ -909,7 +1021,7 @@
             chartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
             chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.DarkGray;
             chartArea3.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea3.AxisY.Title = "mmHg";
+            chartArea3.AxisY.Title = "%";
             chartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
             chartArea3.AxisY2.IsReversed = true;
             chartArea3.BackColor = System.Drawing.Color.Transparent;
@@ -920,10 +1032,9 @@
             this.guichartAix.ChartAreas.Add(chartArea3);
             this.guichartAix.Location = new System.Drawing.Point(173, 440);
             this.guichartAix.Name = "guichartAix";
-            series9.BorderWidth = 2;
             series9.ChartArea = "ChartArea1";
             series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series9.Color = System.Drawing.Color.Gold;
+            series9.Color = System.Drawing.Color.Red;
             series9.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series9.LabelForeColor = System.Drawing.Color.Gold;
             series9.Name = "Series1";
@@ -960,10 +1071,9 @@
             series10.Points.Add(dataPoint74);
             series10.Points.Add(dataPoint75);
             series10.ShadowColor = System.Drawing.Color.Transparent;
-            series11.BorderWidth = 2;
             series11.ChartArea = "ChartArea1";
             series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series11.Color = System.Drawing.Color.Gold;
+            series11.Color = System.Drawing.Color.Red;
             series11.LabelForeColor = System.Drawing.Color.Brown;
             series11.Name = "Series3";
             series11.ShadowColor = System.Drawing.Color.Transparent;
@@ -1019,10 +1129,9 @@
             this.guichartPp.ChartAreas.Add(chartArea4);
             this.guichartPp.Location = new System.Drawing.Point(325, 454);
             this.guichartPp.Name = "guichartPp";
-            series13.BorderWidth = 2;
             series13.ChartArea = "ChartArea1";
             series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series13.Color = System.Drawing.Color.Gold;
+            series13.Color = System.Drawing.Color.Red;
             series13.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series13.LabelForeColor = System.Drawing.Color.Gold;
             series13.Name = "Series1";
@@ -1059,10 +1168,9 @@
             series14.Points.Add(dataPoint99);
             series14.Points.Add(dataPoint100);
             series14.ShadowColor = System.Drawing.Color.Transparent;
-            series15.BorderWidth = 2;
             series15.ChartArea = "ChartArea1";
             series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series15.Color = System.Drawing.Color.Gold;
+            series15.Color = System.Drawing.Color.Red;
             series15.LabelForeColor = System.Drawing.Color.Brown;
             series15.Name = "Series3";
             series15.ShadowColor = System.Drawing.Color.Transparent;
@@ -1175,5 +1283,16 @@
         public System.Windows.Forms.DataVisualization.Charting.Chart guichartAp;
         public System.Windows.Forms.DataVisualization.Charting.Chart guichartAix;
         public System.Windows.Forms.DataVisualization.Charting.Chart guichartPp;
+        private System.Windows.Forms.Label lblHrValue;
+        private System.Windows.Forms.Label guilblSPlowhypertension;
+        private System.Windows.Forms.Label lblSpLowHypertension;
+        private System.Windows.Forms.Label guilblSPLowValue;
+        private System.Windows.Forms.Label guilblSpEndPoint;
+        private System.Windows.Forms.Label guilblSpStartPoint;
+        private System.Windows.Forms.Label guilblDPLowhypertension;
+        private System.Windows.Forms.Label guilblDPLowhypertensionValue;
+        private System.Windows.Forms.Label lblDpLowHypertension;
+        private System.Windows.Forms.Label guilblDpStartPoint;
+        private System.Windows.Forms.Label guilblDpEndPoint;
     }
 }

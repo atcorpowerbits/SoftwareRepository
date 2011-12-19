@@ -57,7 +57,7 @@ namespace AtCor{
 
 			bool DalDeviceHandler::StartCapture(int captureTime, int samplingRate)
 			{
-				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
+				//CrxLogger::Instance->Write("DAL>>> DalDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
 
 				//create a buffer of the required size
 				try
@@ -88,7 +88,6 @@ namespace AtCor{
 
 				//Set Idle mode
 				//bool boolReturnValue;
-				////Alok 
 				////
 				////boolReturnValue = SetIdleMode();
 				//
@@ -161,8 +160,8 @@ namespace AtCor{
 
 			bool DalDeviceHandler::StopCapture()
 			{
-				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture Called", ErrorSeverity::Debug);
-				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture START", ErrorSeverity::Debug);
+				//CrxLogger::Instance->Write("DAL>>> DalDeviceHandler::StopCapture Called", ErrorSeverity::Debug);
+				//CrxLogger::Instance->Write("DAL>>> DalDeviceHandler::StopCapture START", ErrorSeverity::Debug);
 					
 				//check if  the comand interface isnt already created
 				if (nullptr == _commandInterface)
@@ -179,12 +178,12 @@ namespace AtCor{
 
 				returnValue = _commandInterface->SendCommandAndGetResponse(stopCaptureCommand); //renamed oringinal method
 
-				//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopCapture returnValue" + returnValue.ToString(), ErrorSeverity::Debug);
+				CrxLogger::Instance->Write("DAL>>> DalDeviceHandler::StopCapture returnValue" + returnValue.ToString(), ErrorSeverity::Debug);
 
 				
 				if(!(_commandInterface->StopDataCaptureMode()))
 				{
-					//CrxLogger::Instance->Write("Deepak>>> DalDeviceHandler::StopDataCaptureMode returned false", ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL>>> DalDeviceHandler::StopDataCaptureMode returned false", ErrorSeverity::Debug);
 				}
 
 				//Free up the reserved sequence number so that it can be reused
@@ -193,10 +192,14 @@ namespace AtCor{
 
 				if (returnValue == DalReturnValue::Success)
 				{
+					CrxLogger::Instance->Write("DAL>>> DalDeviceHandler::StopCapture() returning true", ErrorSeverity::Debug);
+
 					return true;
 				}
 				else
 				{
+					CrxLogger::Instance->Write("DAL>>> DalDeviceHandler::StopCapture() returning false", ErrorSeverity::Debug);
+
 					return false;
 				}
 			}
@@ -372,58 +375,107 @@ namespace AtCor{
 			
 			bool DalDeviceHandler::CheckIfDeviceIsConnected(String^ comPort)
 			{
+
+				bool returnValue;
+				
+				  
+				//String^ searchingPortMessage = "DAL: DalDeviceHandler::CheckIfDeviceIsConnected checking connection on port: " + comPort;
+				
+				ScorException^ check = gcnew ScorException (CrxStructCommonResourceMsg::DalMsgCheckDevicePortErrCd , CrxStructCommonResourceMsg::DalMsgCheckDevicePort, ErrorSeverity::Information, nullptr, comPort );	
+				CrxEventContainer::Instance->OnShowStatusEvent(nullptr, gcnew CrxShowStatusEventArgs(check));
+				
+			
 				if (nullptr == comPort )
 				{
 					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrInvalidArgsErrCd, CrxStructCommonResourceMsg::DalErrInvalidArgs, ErrorSeverity::Warning );
 				}
 				
+				
 				try
 				{
-					bool returnValue = false;
 					DalDeviceConfigUsageStruct^ configStruct = gcnew DalDeviceConfigUsageStruct();
 				
 					//first check if this is the port already set in commandInterface
 					//if yes then we SHOULD NOT open it again
 					
-					//if ( (comPort == _commandInterface->ActiveSerialPortName) && (nullptr != _commandInterface))
-					if ( (comPort == DalActivePort::Instance->ActiveSerialPortName) && (nullptr != _commandInterface))
-					{
-						//this com port has already been set 
-						//we just need to verify if the device is present there
+					////if ( (comPort == _commandInterface->ActiveSerialPortName) && (nullptr != _commandInterface))
+					//if ( (comPort == DalActivePort::Instance->ActiveSerialPortName) && (nullptr != _commandInterface))
+					//{
+					//	{
+					//		//Deepak 22nd Nov 2011: Sometimes it tries on COM1 which is set as the default port name
+					//		//but it may not necessarily be open. So try setting it again
 
-						try
-						{
-							return GetConfigurationInfo(DalDeviceConfigUsageEnum::ModuleSerialNumber, configStruct);
-						}
-						catch(ScorException ^)
-						{
-							//this port didnt work
-							//dont throw the exception so that we can try with another port
-							return false;
-						}
-					}
-					else
-					{
+					//		returnValue = DalActivePort::Instance->SetActivePort(comPort);
+
+					//		if (!returnValue)
+					//		{
+					//			//could not set the port.
+					//			//the portname may be illegal or some other problem
+					//			return false;
+					//		}
+					//	}
+
+					//	//this com port has already been set 
+					//	//we just need to verify if the device is present there
+
+					//	try
+					//	{
+					//		return GetConfigurationInfo(DalDeviceConfigUsageEnum::ModuleSerialNumber, configStruct);
+					//	}
+					//	catch(ScorException ^ excepObj)
+					//	{
+					//		//Deepak 22 Nov 2011
+					//		//returning false is not the besrt thing to do here
+					//		//Code has been rearranged to suppress exceptions at their source
+					//		//instead of being cascaded and supprassed later
+					//		//so now we will rethrow the exception
+					//		throw;
+
+					//		//Deepak: commented out
+					//		////this port didnt work
+					//		////dont throw the exception so that we can try with another port
+					//		//return false;
+					//	}
+					//}
+					//else
+					//{
 						//this comPort is not set in command interface. 
 						//We need to first open the port and then check if it is valid
 						//then check if the device is present
 						
-						try
-						{
+					/*try
+					{*/
 							//_commandInterface->SetActivePort(comPort);
-							DalActivePort::Instance->SetActivePort(comPort);
+					returnValue = DalActivePort::Instance->SetActivePort(comPort);
 						
-							returnValue = GetConfigurationInfo(DalDeviceConfigUsageEnum::ModuleSerialNumber, configStruct);
-							return returnValue;
-						}
-						catch(ScorException ^)
+					if (!returnValue)
 						{
-							//this port didnt work
-							//dont throw the exception so that we can try with another port
-							return false;
+						//could not set the port.
+						//the portname may be illegal or some other problem
+						returnValue =  false;
 						}
+					else
+					{
+				
+					returnValue = GetConfigurationInfo(DalDeviceConfigUsageEnum::ModuleSerialNumber, configStruct);
 					}
-					return false; 
+					//}
+					//catch(ScorException ^ )
+					//{
+					//	//Deepak 22 Nov 2011
+					//	//returning false is not the besrt thing to do here
+					//	//Code has been rearranged to suppress exceptions at their source
+					//	//instead of being cascaded and supprassed later
+					//	//so now we will rethrow the exception
+					//	throw;
+
+					//	//Deepak: commented out
+					//	////this port didnt work
+					//	////dont throw the exception so that we can try with another port
+					//	//return false;
+					//}
+					///*}*/
+					//return false; 
 				}
 				catch(ScorException^ )
 				{
@@ -433,18 +485,20 @@ namespace AtCor{
 				{
 					throw gcnew ScorException(excepObj);
 				}
+					
+				return returnValue;
 			}
 
 
 			bool DalDeviceHandler::SetPressure(unsigned int newPressure, EM4CuffBoard cuffBoard)
 			{
-				CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure called with pressure:" + newPressure.ToString() + " Binary: " +  newPressure.ToString("X2") + " as a signed int: " + ((signed int)newPressure).ToString(), ErrorSeverity::Debug);
+				CrxLogger::Instance->Write("DAL >>> DalDeviceHandler::SetPressure called with pressure:" + newPressure.ToString() + " Binary: " +  newPressure.ToString("X2") + " as a signed int: " + ((signed int)newPressure).ToString(), ErrorSeverity::Debug);
 				
 				//Deepak: This code is temporary until the cuff pressure negative problem is solved.
 				//TODO: remove after solution 
 				if (0 > ((signed int)newPressure))
 				{
-					CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure called with negative pressure value: Binary: " +  newPressure.ToString("X2") + " as a signed int: " + ((signed int)newPressure).ToString() + " . ignoring it an d taking pressure  = 0", ErrorSeverity::Debug);
+					CrxLogger::Instance->Write("DAL >>> DalDeviceHandler::SetPressure called with negative pressure value: Binary: " +  newPressure.ToString("X2") + " as a signed int: " + ((signed int)newPressure).ToString() + " . ignoring it an d taking pressure  = 0", ErrorSeverity::Debug);
 					
 					newPressure = 0;
 				
@@ -486,13 +540,13 @@ namespace AtCor{
 
 					if (_commandInterface->SendCommandAndGetResponse(setPressureCommand) ==DalReturnValue::Success) //renamed oringinal method
 					{
-						//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Successful" , ErrorSeverity::Debug);
+						//CrxLogger::Instance->Write("DAL >>> DalDeviceHandler::SetPressure call Successful" , ErrorSeverity::Debug);
 				
 						return true; 
 					}
 					else
 					{
-						//CrxLogger::Instance->Write("Deepak >>> DalDeviceHandler::SetPressure call Failed" , ErrorSeverity::Debug);
+						//CrxLogger::Instance->Write("DAL >>> DalDeviceHandler::SetPressure call Failed" , ErrorSeverity::Debug);
 						return false;
 					}
 				}
@@ -635,7 +689,6 @@ namespace AtCor{
 
 					if (DalReturnValue::Success == commandReturnValue)
 					//---if (DalReturnValue::Ack == commandReturnValue)
-					//Alok
 					{
 						return true;
 					}
@@ -711,7 +764,6 @@ namespace AtCor{
 			String^ DalDeviceHandler::SerialNumberMpb()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SerialNumberMpb};
 				String^ moduleSerialNumber = String::Empty;
 				
@@ -719,8 +771,7 @@ namespace AtCor{
 
 				if (returnedValue == DalReturnValue::Success)
 				{
-					moduleSerialNumber = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
-					delete serialCommand;	
+					moduleSerialNumber = DalBinaryConversions::ConvertArrayToString(dataCode); 
 				}
 				else
 				{
@@ -731,7 +782,6 @@ namespace AtCor{
 			String^ DalDeviceHandler::ProcessorFirmwareVersionMpb()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::ProcessorFirmwareVersionMpb};
 				String^ processorFirmwareVersionMpb = String::Empty;
 
@@ -739,8 +789,7 @@ namespace AtCor{
 								
 				if (returnedValue == DalReturnValue::Success)
 				{
-					processorFirmwareVersionMpb = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
-					delete serialCommand;	
+					processorFirmwareVersionMpb = DalBinaryConversions::ConvertArrayToString(dataCode); 
 				}
 				else
 				{
@@ -752,7 +801,6 @@ namespace AtCor{
 			String^ DalDeviceHandler::PldSafetyFirmwareVersionMpb()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::PldSafetyFirmwareVersionMpb};
 				String^ pldSafetyFirmwareVersionMpb = String::Empty;
 
@@ -760,8 +808,7 @@ namespace AtCor{
 								
 				if (returnedValue == DalReturnValue::Success)
 				{
-					pldSafetyFirmwareVersionMpb = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
-					delete serialCommand;	
+					pldSafetyFirmwareVersionMpb = DalBinaryConversions::ConvertArrayToString(dataCode); 
 				}
 				else
 				{
@@ -773,7 +820,6 @@ namespace AtCor{
 			String^ DalDeviceHandler::SerialNumberSuntechPcb()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SerialNumberSuntechPcb};
 				String^ serialNumberSuntechPcb = String::Empty;
 
@@ -781,8 +827,7 @@ namespace AtCor{
 				
 				if (returnedValue == DalReturnValue::Success)
 				{
-					serialNumberSuntechPcb = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
-					delete serialCommand;	
+					serialNumberSuntechPcb = DalBinaryConversions::ConvertArrayToString(dataCode); 
 				}
 				else
 				{
@@ -794,7 +839,6 @@ namespace AtCor{
 			String^ DalDeviceHandler::BPFirmwareVersionSuntech()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::BPFirmwareVersionSuntech};
 				String^ bpFirmwareVersionSuntech = String::Empty;
 				
@@ -802,8 +846,7 @@ namespace AtCor{
 				
 				if (returnedValue == DalReturnValue::Success)
 				{
-					bpFirmwareVersionSuntech = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
-					delete serialCommand;	
+					bpFirmwareVersionSuntech = DalBinaryConversions::ConvertArrayToString(dataCode); 
 				}
 				else
 				{
@@ -815,7 +858,6 @@ namespace AtCor{
 			String^ DalDeviceHandler::SafetyFirmwareVersionSuntech()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SafetyFirmwareVersionSuntech};
 				String^ safetyFirmwareVersionSuntech = String::Empty;
 
@@ -823,8 +865,7 @@ namespace AtCor{
 				
 				if (returnedValue == DalReturnValue::Success)
 				{
-					safetyFirmwareVersionSuntech = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
-					delete serialCommand;	
+					safetyFirmwareVersionSuntech = DalBinaryConversions::ConvertArrayToString(dataCode); 
 				}
 				else
 				{
@@ -836,7 +877,6 @@ namespace AtCor{
 			String^ DalDeviceHandler::SerialNumberEm4()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SerialNumberEm4};
 				String^ moduleSerialNumber;
 
@@ -844,12 +884,11 @@ namespace AtCor{
 								
 				if (returnedValue == DalReturnValue::Success)
 				{
-					moduleSerialNumber = DalBinaryConversions::ConvertBytesToString(serialCommand->em4ResponseData); 
-					delete serialCommand;
+					moduleSerialNumber = DalBinaryConversions::ConvertArrayToString(dataCode); 
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);
 				}
 				return moduleSerialNumber;
 			}
@@ -857,7 +896,6 @@ namespace AtCor{
 			unsigned short DalDeviceHandler::HWConfigurationMpb()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::HWConfigurationMpb};
 
 				unsigned short hwConfigurationMpb = 0;
@@ -865,12 +903,11 @@ namespace AtCor{
 				
 				if (returnedValue == DalReturnValue::Success)
 				{
-					hwConfigurationMpb = (unsigned short) serialCommand->em4ResponseData[0]; 
-					delete serialCommand;
+					hwConfigurationMpb = (unsigned short) dataCode[0]; 
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);
 				}
 			
 				return hwConfigurationMpb;
@@ -879,7 +916,6 @@ namespace AtCor{
 			unsigned short DalDeviceHandler::SystemConfigurationId()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SystemConfigurationId};
 
 				unsigned short SystemConfigurationId = 0;
@@ -887,13 +923,11 @@ namespace AtCor{
 				
 				if (returnedValue == DalReturnValue::Success)
 				{
-					SystemConfigurationId = (unsigned short) serialCommand->em4ResponseData[0]; 
-					delete serialCommand;
+					SystemConfigurationId = (unsigned short) dataCode[0]; 
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
-				}
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				}
 			
 				return SystemConfigurationId;
 			}
@@ -901,20 +935,18 @@ namespace AtCor{
 			unsigned int DalDeviceHandler::NumberofPWVmeasurements()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
-				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::NumberofPWVmeasurements};
+				array <unsigned char>^ dataCode = gcnew array <unsigned char> (1) {Em4CommandCodes::NumberofPWVmeasurements};
 
 				unsigned int numberofPWVmeasurements = 0;
 				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::NumberofPWVmeasurements);
 
 				if (returnedValue == DalReturnValue::Success)
 				{
-					numberofPWVmeasurements = DalBinaryConversions::TranslateThreeBytes(serialCommand->em4ResponseData, 0); 
-					delete serialCommand;
+					numberofPWVmeasurements = DalBinaryConversions::TranslateThreeBytes(dataCode, 0); 
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			
 				return numberofPWVmeasurements;
@@ -923,7 +955,6 @@ namespace AtCor{
 			unsigned int DalDeviceHandler::NumberofPWAtonometermeasurements()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::NumberofPWAtonometermeasurements};
 
 				unsigned int numberofPWAtonomeasurements = 0;
@@ -931,12 +962,11 @@ namespace AtCor{
 				
 				if (returnedValue == DalReturnValue::Success)
 				{
-					numberofPWAtonomeasurements = DalBinaryConversions::TranslateThreeBytes(serialCommand->em4ResponseData, 0); 
-					delete serialCommand;
+					numberofPWAtonomeasurements = DalBinaryConversions::TranslateThreeBytes(dataCode, 0); 
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 				
 				return numberofPWAtonomeasurements;
@@ -944,7 +974,6 @@ namespace AtCor{
 			unsigned int DalDeviceHandler::NumberofPWAcuffmeasurements()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::NumberofPWAcuffmeasurements};
 
 				unsigned int pwaCuffMeasurementsCounter = 0;
@@ -952,12 +981,11 @@ namespace AtCor{
 
 				if (returnedValue == DalReturnValue::Success)
 				{
-					pwaCuffMeasurementsCounter = DalBinaryConversions::TranslateThreeBytes(serialCommand->em4ResponseData, 0); 
-					delete serialCommand;
+					pwaCuffMeasurementsCounter = DalBinaryConversions::TranslateThreeBytes(dataCode, 0); 
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 				
 				return pwaCuffMeasurementsCounter;
@@ -966,7 +994,6 @@ namespace AtCor{
 			unsigned int DalDeviceHandler::NumberOfNibpMeasurements()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::NumberOfNibpMeasurements};
 				unsigned int numberOfNibpMeasurements = 0;
 				
@@ -975,11 +1002,10 @@ namespace AtCor{
 				if (returnedValue == DalReturnValue::Success)
 				{
 					numberOfNibpMeasurements = DalBinaryConversions::TranslateThreeBytes(dataCode, 0); 
-					delete serialCommand;
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 				
 				return numberOfNibpMeasurements;
@@ -988,7 +1014,6 @@ namespace AtCor{
 			DateTime DalDeviceHandler::CalibrationDateMpb()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::CalibrationDateMpb};
 				DateTime dtCalibrationDateMpb ;
 				
@@ -997,11 +1022,10 @@ namespace AtCor{
 				if (returnedValue == DalReturnValue::Success)
 				{
 					dtCalibrationDateMpb = DalBinaryConversions::ConvertArrayIntoDate(dataCode); 
-					delete serialCommand;
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 				
 				return dtCalibrationDateMpb;
@@ -1009,7 +1033,6 @@ namespace AtCor{
 			DateTime DalDeviceHandler::CalibrationDateSuntech()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::CalibrationDateSuntech};
 				DateTime dtCalibrationDateSuntech ;
 				
@@ -1018,11 +1041,10 @@ namespace AtCor{
 				if (returnedValue == DalReturnValue::Success)
 				{
 					dtCalibrationDateSuntech = DalBinaryConversions::ConvertArrayIntoDate(dataCode); 
-					delete serialCommand;
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 				
 				return dtCalibrationDateSuntech;
@@ -1031,7 +1053,6 @@ namespace AtCor{
 			DateTime DalDeviceHandler::TestDate()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::TestDate};
 				DateTime dtTestDate ;
 				
@@ -1040,11 +1061,10 @@ namespace AtCor{
 				if (returnedValue == DalReturnValue::Success)
 				{
 					dtTestDate = DalBinaryConversions::ConvertArrayIntoDate(dataCode); 
-					delete serialCommand;
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 				
 				return dtTestDate;
@@ -1053,7 +1073,6 @@ namespace AtCor{
 			DateTime DalDeviceHandler::SystemConfigurationChangeDate()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::SystemConfigurationChangeDate};
 				DateTime dtSystemConfigurationChangeDate ;
 				
@@ -1062,11 +1081,10 @@ namespace AtCor{
 				if (returnedValue == DalReturnValue::Success)
 				{
 					dtSystemConfigurationChangeDate = DalBinaryConversions::ConvertArrayIntoDate(dataCode); 
-					delete serialCommand;
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 				
 				return dtSystemConfigurationChangeDate;
@@ -1075,26 +1093,20 @@ namespace AtCor{
 			unsigned short DalDeviceHandler::NotchFilterEnable()
 			{
 				DalReturnValue returnedValue =  DalReturnValue::Failure ;
-				DalEM4Command^ serialCommand = nullptr;
 				array<unsigned char>^ dataCode = gcnew array<unsigned char> (1) {Em4CommandCodes::NotchFilterEnable};
 
 				unsigned short NotchFilterEnable = 0;
 
-				serialCommand = gcnew DalEM4Command(Em4CommandCodes::GetConfigInfo, dataCode);
-				serialCommand->expectedResponseLength = Em4ResponseRequiredLength::NotchFilterEnable;
-				
-				returnedValue = _commandInterface->SendCommandAndGetResponse(serialCommand); ////renamed oringinal method
+				returnedValue = DalEm4Communication(Em4CommandCodes::GetConfigInfo, dataCode, Em4ResponseRequiredLength::SystemConfigurationId);
 				
 				if (returnedValue == DalReturnValue::Success)
 				{
-					NotchFilterEnable = (unsigned short) serialCommand->em4ResponseData[0]; 
-					delete serialCommand;
+					NotchFilterEnable = (unsigned short) dataCode[0]; 
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
-			
 				return NotchFilterEnable;
 			}
 
@@ -1122,7 +1134,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1147,7 +1159,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1171,7 +1183,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1195,7 +1207,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1219,7 +1231,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1243,7 +1255,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1267,7 +1279,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 			
@@ -1289,7 +1301,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1311,7 +1323,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1333,7 +1345,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1356,7 +1368,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1379,7 +1391,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 
@@ -1402,7 +1414,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			}
 			void DalDeviceHandler::CalibrationDateMpb(DateTime data)	
@@ -1435,12 +1447,12 @@ namespace AtCor{
 					}
 					else
 					{
-						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 					}
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalInvallidDateTimeErrCd, CrxStructCommonResourceMsg::DalInvallidDateTime, ErrorSeverity::Exception);				
 				}
 			}
 			void DalDeviceHandler::CalibrationDateSuntech(DateTime data)	
@@ -1473,12 +1485,12 @@ namespace AtCor{
 					}
 					else
 					{
-						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 					}
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalInvallidDateTimeErrCd, CrxStructCommonResourceMsg::DalInvallidDateTime, ErrorSeverity::Exception);				
 				}
 			}
 			void DalDeviceHandler::TestDate(DateTime data)	
@@ -1511,12 +1523,12 @@ namespace AtCor{
 					}
 					else
 					{
-						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 					}
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalInvallidDateTimeErrCd, CrxStructCommonResourceMsg::DalInvallidDateTime, ErrorSeverity::Exception);				
 				}
 			}
 			void DalDeviceHandler::SystemConfigurationChangeDate(DateTime data)	
@@ -1549,12 +1561,12 @@ namespace AtCor{
 					}
 					else
 					{
-						throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+						throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 					}
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalInvallidDateTimeErrCd, CrxStructCommonResourceMsg::DalInvallidDateTime, ErrorSeverity::Exception);				
 				}
 			}
 			
@@ -1576,7 +1588,7 @@ namespace AtCor{
 				}
 				else
 				{
-					throw gcnew ScorException(CrxStructCommonResourceMsg::DalErrCommdPacketCreateFailErrCd, CrxStructCommonResourceMsg::DalErrCommdPacketCreateFail, ErrorSeverity::Exception);
+					throw gcnew ScorException(CrxStructCommonResourceMsg::DalFailedGetSetConfigParaErrCd, CrxStructCommonResourceMsg::DalFailedGetSetConfigPara, ErrorSeverity::Exception);				
 				}
 			};
 
@@ -1596,8 +1608,8 @@ namespace AtCor{
 				Object^ obj;
 				do
 				{
-					
-					ScorException^ check = gcnew ScorException (1001, CrxStructCommonResourceMsg::Dal_DeviceIdling_Message, ErrorSeverity::Information);	
+						
+					ScorException^ check = gcnew ScorException (CrxStructCommonResourceMsg::Dal_DeviceIdling_MessageErrCd, CrxStructCommonResourceMsg::Dal_DeviceIdling_Message, ErrorSeverity::Information);	
 					CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
 
 					boolReturnValue = SetIdleMode();

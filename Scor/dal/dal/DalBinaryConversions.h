@@ -33,9 +33,9 @@ namespace AtCor{
 				public:
 
 				/**
-					* Converts the input array into a hexadecimal string representation.
-					* @param	inputArray	The input array
-					* @return	A string representation of the input array
+				* Converts the input array into a hexadecimal string representation.
+				* @param[in]	inputArray	The input array
+				* @return	A string representation of the input array
 				*/
 				static String^ ConvertBytesToString(array<unsigned char>^ inputArray);
 
@@ -112,31 +112,38 @@ namespace AtCor{
 
 				/**
 					* Converts the input string into bytes array.
-					* @param	inputArray	The input string
+					* @param[in]	strData	The input string
 					* @return	A byte array representation of the string
 				*/
 				static array<unsigned char>^ ConvertStringToBytes(String^ strData);
 				
 				/**
 					* Converts the input bytes into bytes array.
-					* @param	input data	The input unsigned int
+					* @param[in]	data	The input unsigned int
 					* @return	A byte array representation of the int
 				*/
 				static array<unsigned char>^ ConvertThreeBytesIntoArray( unsigned int data);
 				
 				/**
 					* Converts the input date into bytes array.
-					* @param	input data	The input dateTime
+					* @param[in] data	The input dateTime
 					* @return	A byte array representation of the DateTime
 				*/
 				static array<unsigned char>^ ConvertDateIntoArray(DateTime data);
 				
 				/**
 					* Converts the input bytes array into DateTime .
-					* @param	input data	The input ByteArray
+					* @param[in] data	The input ByteArray
 					* @return	A DateTime representation of the byte array
 				*/
 				static DateTime ConvertArrayIntoDate(array<unsigned char>^ data);
+
+				/**
+				* Converts the input bytes array.
+				* @param[in] inputArray	The input ByteArray
+				* @return	A String representation of the byte array
+				*/
+				static String^ ConvertArrayToString(array<unsigned char>^ inputArray);
 
 			};
 

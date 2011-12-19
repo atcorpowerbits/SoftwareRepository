@@ -31,7 +31,11 @@ namespace AtCor{
 					//bool responseRecievedFlag;
 					unsigned int responseWaitingTimeMax;
 					DalNibpCommandInterface^ _commandInterface;
+					
+					//Do not make this thread static. it will cause problems 
+					//with different objects inheriting from this class
 					Thread^ responseListenerThread;
+					
 					array<unsigned char> ^ nibpResponsePacket;
 
 

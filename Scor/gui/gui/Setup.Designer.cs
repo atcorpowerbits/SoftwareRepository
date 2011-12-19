@@ -909,7 +909,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guicmbxGender.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
             this.guicmbxGender.Size = new System.Drawing.Size(177, 25);
             this.guicmbxGender.TabIndex = 6;
-            this.guicmbxGender.Text = "Gender Drop down";
             this.guicmbxGender.EnabledChanged += new System.EventHandler(this.guicmbxGender_EnabledChanged);
             this.guicmbxGender.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.guicmbxGender_SelectedIndexChanged);
             // 
@@ -1145,10 +1144,9 @@ namespace AtCor.Scor.Gui.Presentation
             this.guilblGender.Size = new System.Drawing.Size(177, 22);
             this.guilblGender.TabIndex = 122;
             this.guilblGender.Tag = "";
-            this.guilblGender.Text = "Gender label";
             this.guilblGender.TextWrap = false;
             ((Telerik.WinControls.UI.RadLabelElement)(this.guilblGender.GetChildAt(0))).BorderVisible = true;
-            ((Telerik.WinControls.UI.RadLabelElement)(this.guilblGender.GetChildAt(0))).Text = "Gender label";
+            ((Telerik.WinControls.UI.RadLabelElement)(this.guilblGender.GetChildAt(0))).Text = "";
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.guilblGender.GetChildAt(0).GetChildAt(0))).BackColor2 = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.guilblGender.GetChildAt(0).GetChildAt(0))).BackColor3 = System.Drawing.Color.Transparent;
             ((Telerik.WinControls.Primitives.FillPrimitive)(this.guilblGender.GetChildAt(0).GetChildAt(0))).BackColor4 = System.Drawing.Color.Transparent;
@@ -1795,7 +1793,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPpUnit.AutoSize = false;
             this.guiradlblPpUnit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblPpUnit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblPpUnit.Location = new System.Drawing.Point(51, 303);
+            this.guiradlblPpUnit.Location = new System.Drawing.Point(51, 314);
             this.guiradlblPpUnit.Name = "guiradlblPpUnit";
             // 
             // 
@@ -1826,7 +1824,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblSpUnit.AutoSize = false;
             this.guiradlblSpUnit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblSpUnit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblSpUnit.Location = new System.Drawing.Point(51, 217);
+            this.guiradlblSpUnit.Location = new System.Drawing.Point(51, 245);
             this.guiradlblSpUnit.Name = "guiradlblSpUnit";
             // 
             // 
@@ -1959,7 +1957,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblQuickMap.AutoSize = false;
             this.guiradlblQuickMap.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblQuickMap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblQuickMap.Location = new System.Drawing.Point(7, 351);
+            this.guiradlblQuickMap.Location = new System.Drawing.Point(4, 351);
             this.guiradlblQuickMap.Name = "guiradlblQuickMap";
             // 
             // 
@@ -2004,13 +2002,13 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guiradbtnSaveToPatient.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradbtnSaveToPatient.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradbtnSaveToPatient.Location = new System.Drawing.Point(376, 558);
+            this.guiradbtnSaveToPatient.Location = new System.Drawing.Point(340, 558);
             this.guiradbtnSaveToPatient.Name = "guiradbtnSaveToPatient";
             // 
             // 
             // 
             this.guiradbtnSaveToPatient.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradbtnSaveToPatient.Size = new System.Drawing.Size(77, 25);
+            this.guiradbtnSaveToPatient.Size = new System.Drawing.Size(112, 25);
             this.guiradbtnSaveToPatient.TabIndex = 182;
             this.guiradbtnSaveToPatient.Text = "Save to Patient";
             this.guiradbtnSaveToPatient.Visible = false;
@@ -2030,7 +2028,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guichartPWAReport.BorderSkin.BorderColor = System.Drawing.Color.WhiteSmoke;
             chartArea4.AlignmentStyle = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentStyles.PlotPosition;
             chartArea4.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea4.AxisX.Interval = 50;
             chartArea4.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
             chartArea4.AxisX.IsLabelAutoFit = false;
             chartArea4.AxisX.LabelStyle.Font = new System.Drawing.Font("Arial", 8.25F);
@@ -2123,15 +2120,15 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWADP.AutoSize = false;
             this.guiradlblPWADP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblPWADP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblPWADP.Location = new System.Drawing.Point(4, 432);
+            this.guiradlblPWADP.Location = new System.Drawing.Point(4, 435);
             this.guiradlblPWADP.Name = "guiradlblPWADP";
             // 
             // 
             // 
             this.guiradlblPWADP.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblPWADP.Size = new System.Drawing.Size(32, 25);
+            this.guiradlblPWADP.Size = new System.Drawing.Size(38, 21);
             this.guiradlblPWADP.TabIndex = 146;
-            this.guiradlblPWADP.Text = "DP:";
+            this.guiradlblPWADP.Text = "DIA:";
             this.guiradlblPWADP.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // guiradbtnAutoPWACancel
@@ -2201,7 +2198,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblBrachialBPMeasurement.AutoSize = false;
             this.guiradlblBrachialBPMeasurement.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Bold);
             this.guiradlblBrachialBPMeasurement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            this.guiradlblBrachialBPMeasurement.Location = new System.Drawing.Point(107, 122);
+            this.guiradlblBrachialBPMeasurement.Location = new System.Drawing.Point(142, 122);
             this.guiradlblBrachialBPMeasurement.Name = "guiradlblBrachialBPMeasurement";
             // 
             // 
@@ -2216,7 +2213,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWASPDisplay.AutoSize = false;
             this.guiradlblPWASPDisplay.BorderVisible = true;
             this.guiradlblPWASPDisplay.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblPWASPDisplay.Location = new System.Drawing.Point(53, 193);
+            this.guiradlblPWASPDisplay.Location = new System.Drawing.Point(53, 221);
             this.guiradlblPWASPDisplay.Name = "guiradlblPWASPDisplay";
             // 
             // 
@@ -2327,7 +2324,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWAPP.AutoSize = false;
             this.guiradlblPWAPP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblPWAPP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblPWAPP.Location = new System.Drawing.Point(4, 278);
+            this.guiradlblPWAPP.Location = new System.Drawing.Point(4, 289);
             this.guiradlblPWAPP.Name = "guiradlblPWAPP";
             // 
             // 
@@ -2343,15 +2340,15 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWASP.AutoSize = false;
             this.guiradlblPWASP.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblPWASP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblPWASP.Location = new System.Drawing.Point(4, 193);
+            this.guiradlblPWASP.Location = new System.Drawing.Point(4, 222);
             this.guiradlblPWASP.Name = "guiradlblPWASP";
             // 
             // 
             // 
             this.guiradlblPWASP.RootElement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(29)))), ((int)(((byte)(55)))));
-            this.guiradlblPWASP.Size = new System.Drawing.Size(30, 25);
+            this.guiradlblPWASP.Size = new System.Drawing.Size(43, 21);
             this.guiradlblPWASP.TabIndex = 41;
-            this.guiradlblPWASP.Text = "SP:";
+            this.guiradlblPWASP.Text = "SYS:";
             this.guiradlblPWASP.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // guiradlblImperialHeightUnit
@@ -2405,10 +2402,10 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.guipicboxPWAGetBp.BackColor = System.Drawing.Color.White;
             this.guipicboxPWAGetBp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.guipicboxPWAGetBp.Image = global::gui.Properties.Resources.PWA_diagram;
+            this.guipicboxPWAGetBp.Image = global::gui.Properties.Resources.PWA_diagram_new;
             this.guipicboxPWAGetBp.Location = new System.Drawing.Point(92, 176);
             this.guipicboxPWAGetBp.Name = "guipicboxPWAGetBp";
-            this.guipicboxPWAGetBp.Size = new System.Drawing.Size(250, 295);
+            this.guipicboxPWAGetBp.Size = new System.Drawing.Size(320, 295);
             this.guipicboxPWAGetBp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.guipicboxPWAGetBp.TabIndex = 9;
             this.guipicboxPWAGetBp.TabStop = false;
@@ -2418,7 +2415,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWADPDisplay.AutoSize = false;
             this.guiradlblPWADPDisplay.BorderVisible = true;
             this.guiradlblPWADPDisplay.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblPWADPDisplay.Location = new System.Drawing.Point(53, 433);
+            this.guiradlblPWADPDisplay.Location = new System.Drawing.Point(53, 434);
             this.guiradlblPWADPDisplay.Name = "guiradlblPWADPDisplay";
             // 
             // 
@@ -2475,7 +2472,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPWAPPDisplay.AutoSize = false;
             this.guiradlblPWAPPDisplay.BorderVisible = true;
             this.guiradlblPWAPPDisplay.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblPWAPPDisplay.Location = new System.Drawing.Point(53, 278);
+            this.guiradlblPWAPPDisplay.Location = new System.Drawing.Point(53, 289);
             this.guiradlblPWAPPDisplay.Name = "guiradlblPWAPPDisplay";
             // 
             // 

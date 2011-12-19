@@ -30,7 +30,6 @@ namespace AtCor.Scor.Gui.Presentation
         private IScorStrategy scorStrategy;
         Form frmObject = new Form();
 
-        // public string mode = string.Empty;
         public void SetScorStrategy(IScorStrategy newStrategy)
         {
             try
@@ -237,17 +236,38 @@ namespace AtCor.Scor.Gui.Presentation
         
         public void EnableRepeatAndCaptureTab(bool value)
         {
-            scorStrategy.EnableRepeatAndCaptureTab(value);
+            try
+            {
+                scorStrategy.EnableRepeatAndCaptureTab(value);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         
         public void SaveChangesOnMenuFocus()
         {
-            scorStrategy.SaveChangesOnMenuFocus();
+            try
+            {
+                scorStrategy.SaveChangesOnMenuFocus();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void SaveReportChangesOnEdit()
         {
-            scorStrategy.SaveReportChangesOnEdit();
+            try
+            {
+                scorStrategy.SaveReportChangesOnEdit();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

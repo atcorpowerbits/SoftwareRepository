@@ -91,7 +91,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             // 
             this.radBottomLabel.RootElement.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.radBottomLabel.Size = new System.Drawing.Size(560, 28);
+            this.radBottomLabel.Size = new System.Drawing.Size(560, 27);
             this.radBottomLabel.TabIndex = 6;
             // 
             // radLabelCopyRight
@@ -107,7 +107,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.radLabelScorName.BackColor = System.Drawing.Color.Navy;
             this.radLabelScorName.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
-            this.radLabelScorName.Location = new System.Drawing.Point(120, 5);
+            this.radLabelScorName.Location = new System.Drawing.Point(120, 4);
             this.radLabelScorName.Name = "radLabelScorName";
             this.radLabelScorName.Size = new System.Drawing.Size(2, 2);
             this.radLabelScorName.TabIndex = 0;
@@ -116,7 +116,7 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.radVersionNo.BackColor = System.Drawing.Color.Navy;
             this.radVersionNo.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
-            this.radVersionNo.Location = new System.Drawing.Point(3, 5);
+            this.radVersionNo.Location = new System.Drawing.Point(3, 4);
             this.radVersionNo.Name = "radVersionNo";
             this.radVersionNo.Size = new System.Drawing.Size(2, 2);
             this.radVersionNo.TabIndex = 7;
@@ -127,7 +127,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(606, 554);
+            this.ClientSize = new System.Drawing.Size(622, 550);
             this.Controls.Add(this.radBottomLabel);
             this.Controls.Add(this.lblCopyright);
             this.Controls.Add(this.lblInitialMsg);
@@ -159,12 +159,12 @@ namespace AtCor.Scor.Gui.Presentation
         #endregion
 
         private System.Windows.Forms.Label lblimage;
-        private System.Windows.Forms.Label lblInitialMsg;
         private System.Windows.Forms.Label lblCopyright;
         private Telerik.WinControls.UI.RadLabel radBottomLabel;
         private Telerik.WinControls.UI.RadLabel radVersionNo;
         private Telerik.WinControls.UI.RadLabel radLabelScorName;
         private Telerik.WinControls.UI.RadLabel radLabelCopyRight;
+        public System.Windows.Forms.Label lblInitialMsg;
         
 
     }

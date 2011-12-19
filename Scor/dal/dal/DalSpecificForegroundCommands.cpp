@@ -124,8 +124,8 @@ bool DalNibpStartBpCommand::SendStartBpCommand()
 
 	do
 	{
-	retValue = this->SendCommandAndGetResponse();
-	CrxLogger::Instance->Write("DalNibpStartBpCommand::SendStartBpCommand SendCommand returned " + retValue.ToString(), ErrorSeverity::Debug);
+		retValue = this->SendCommandAndGetResponse();
+		CrxLogger::Instance->Write("DalNibpStartBpCommand::SendStartBpCommand SendCommand returned " + retValue.ToString(), ErrorSeverity::Debug);
 
 		numberOfRetries++;
 
@@ -149,7 +149,7 @@ bool DalNibpStartBpCommand::SendStartBpCommand()
 
 DalReturnValue DalNibpStartBpCommand::ProcessNibpResponse()
 {
-	CrxLogger::Instance->Write("DalNibpStartBpCommand::ProcessNibpResponse called. State= " + this->currentForegroundState.ToString(), ErrorSeverity::Debug);
+	CrxLogger::Instance->Write("DalNibpStartBpCommand::ProcessNibpResponse called. State= " + this->currentForegroundState.ToString() + " Hash Code: " + this->GetHashCode() , ErrorSeverity::Debug);
 	//if this is O packet then return true 
 	//before that launch a seperate thread that will wait for the K packet
 	if(DalNibpForegroundCommandState::RecievedO == this->currentForegroundState )
@@ -166,7 +166,9 @@ DalReturnValue DalNibpStartBpCommand::ProcessNibpResponse()
 
 		////start the thread. We wont join it anywhere. 
 		////If the K packet doesnt arrive we will let it wither
-			this->responseListenerThread ->Start();
+		CrxLogger::Instance->Write("DalNibpStartBpCommand::ProcessNibpResponse  Before starting K packet listener: Object iD"+ (this->responseListenerThread)->GetHashCode(), ErrorSeverity::Debug);
+			
+		this->responseListenerThread->Start();
 
 		//return true;
 		return DalReturnValue::Success;
@@ -174,6 +176,7 @@ DalReturnValue DalNibpStartBpCommand::ProcessNibpResponse()
 	}
 	else if (DalNibpForegroundCommandState::RecievedK == this->currentForegroundState )
 	{
+		CrxLogger::Instance->Write("DalNibpStartBpCommand::ProcessNibpResponse  K Packet recieved and interrupting thread: Object iD" +(this->responseListenerThread)->GetHashCode(), ErrorSeverity::Debug);
 
 		//signal the thread that is waiting for a K packet arrival.
 		this->responseListenerThread ->Interrupt();
@@ -209,7 +212,7 @@ void DalNibpStartBpCommand::ListenerForKPacketThreadMethod(System::Object ^)
 {
 	try
 	{
-		//CrxLogger::Instance->Write("DalNibpStartBpCommand::ListenerForKPacketThreadMethod sleeping for signal with wait time: "+ this->kPacketWaitTime , ErrorSeverity::Debug);
+		CrxLogger::Instance->Write("DalNibpStartBpCommand::ListenerForKPacketThreadMethod sleeping for signal with wait time: "+ this->kPacketWaitTime + " thread Object iD" + (Thread::CurrentThread)->GetHashCode() , ErrorSeverity::Debug);
 		
 		//sleep for a longer period of timeuntil timeout expires or the thread is woken up
 		Thread::Sleep(this->kPacketWaitTime ); 
@@ -224,7 +227,7 @@ void DalNibpStartBpCommand::ListenerForKPacketThreadMethod(System::Object ^)
 	}
 	catch(ThreadInterruptedException^ threadInterruptEx)
 	{
-		CrxLogger::Instance->Write("DalNibpStartBpCommand::ListenerForKPacketThreadMethod Interrupted" + threadInterruptEx->StackTrace, ErrorSeverity::Debug);
+		CrxLogger::Instance->Write("DalNibpStartBpCommand::ListenerForKPacketThreadMethod Interrupted for object: " + this->GetType() + " threadState: " + this->responseListenerThread->ThreadState.ToString() + " thread Object iD" + (Thread::CurrentThread)->GetHashCode() , ErrorSeverity::Debug);
 		
 		//this will signify that the K packet  has arrived.
 
@@ -239,10 +242,10 @@ void DalNibpStartBpCommand::ListenerForKPacketThreadMethod(System::Object ^)
 
 		
 	}
-	catch(ThreadAbortException ^ abortEx)
+	catch(ThreadAbortException ^ )
 	{
-		abortEx;
-		CrxLogger::Instance->Write("DalNibpStartBpCommand::ListenerForKPacketThreadMethod Aborted!", ErrorSeverity::Debug);
+	
+		CrxLogger::Instance->Write("DalNibpStartBpCommand::ListenerForKPacketThreadMethod Aborted! for object" + this->GetType() + " threadState: " + this->responseListenerThread->ThreadState.ToString() + " thread Object iD" + (Thread::CurrentThread)->GetHashCode() , ErrorSeverity::Debug);
 	}
 	finally
 	{
@@ -250,14 +253,30 @@ void DalNibpStartBpCommand::ListenerForKPacketThreadMethod(System::Object ^)
 		//We must try to get the BP data (as per Case 5)
 		//So we will do it in finally block.
 
-		//call the method that will get the BP data
-		DalNibpDeviceHandler::Instance->GetBpDataAndRaiseEvent();
-	
-	}
-	delete kPacketListenerThread;
-	CrxLogger::Instance->Write("DalNibpStartBpCommand::ListenerForKPacketThreadMethod exiting", ErrorSeverity::Debug);
-	delete this; //Deepak: attempting to delete the object. Lets see if this works
+		////call the method that will get the BP data
+		//DalNibpDeviceHandler::Instance->GetBpDataAndRaiseEvent(); 
 		
+		//send it through an async caller instead
+		CrxLogger::Instance->Write("DalNibpStartBpCommand::ListenerForKPacketThreadMethod calling obtainBpMeasurementAsynCaller asynchronously", ErrorSeverity::Debug);
+	
+		DalNibpDeviceHandler::Instance->obtainBpMeasurementAsynCaller->BeginInvoke(nullptr, nullptr);
+	}
+
+	CrxLogger::Instance->Write("DalNibpStartBpCommand::ListenerForKPacketThreadMethod exiting: " + this->GetType() + " threadState: " + this->responseListenerThread->ThreadState.ToString() + " thread Object iD" + (Thread::CurrentThread)->GetHashCode() , ErrorSeverity::Debug);
+
+		
+}
+
+
+DalNibpStartBpCommand::~DalNibpStartBpCommand()
+{
+	CrxLogger::Instance->Write("DalNibpStartBpCommand::~DalNibpStartBpCommand called" + " Hash Code: " + this->GetHashCode(), ErrorSeverity::Debug);
+	StopListeningForEM4response();
+	/*responseListenerThread->Abort();
+
+	delete responseListenerThread;
+	responseListenerThread = nullptr;*/
+
 }
 
 DalNibpAbortBpCommand::DalNibpAbortBpCommand()

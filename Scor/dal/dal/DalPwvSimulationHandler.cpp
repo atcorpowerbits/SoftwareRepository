@@ -293,9 +293,9 @@ namespace AtCor{
 
 					return true;
 				}
-				catch(ScorException^)
+				catch(ScorException^ )
 				{
-					throw;
+					throw ;
 				}
                 catch(Exception^ sysExObj)
                 {

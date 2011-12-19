@@ -1,5 +1,6 @@
 ﻿
 #include "StdAfx.h"
+#include "StdAfx.h"
 
 using namespace Microsoft::VisualStudio::TestTools::UnitTesting;
 using namespace AtCor::Scor::DataAccess;
@@ -135,8 +136,8 @@ namespace TestDal {
 				actual = (target = unnamed);
 				Assert::AreEqual(expected, actual);
 			}
-
-			//removed from code
+	
+	//removed
 	//		/// <summary>
 	//		///A test for LookForResponseToCommand
 	//		///</summary>
@@ -149,104 +150,113 @@ namespace TestDal {
 	//			unsigned char expectedResponseLengthToLocate = 0x05; //any value will do for testing 
 	//			unsigned char expectedSequenceNumberToLocate = 0x0A; //any value will do for testing 
 	//			
-	//			//target->LookForResponseToCommand(commandCodeToLocate, expectedResponseLengthToLocate);
+	//			target->LookForResponseToCommand(commandCodeToLocate, expectedResponseLengthToLocate);
 
 	//			Assert::IsTrue(target->checkForCommand);
 	//			Assert::AreEqual(commandCodeToLocate, target->commandCodeToLocate);
 	//			Assert::AreEqual(expectedResponseLengthToLocate, target->expectedResponseLengthToLocate);
 	//			//Assert::AreEqual(expectedSequenceNumberToLocate, target->expectedSequenceNumberToLocate);
 	//		}
-			/// <summary>
-			///A test for ExtractStreamingDataPacket
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void ExtractStreamingDataPacketTest()
-			{
-				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
-				cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x87, 0x0D, 0x06, 0x00, 0x00, 0x8B, 0x57, 0x0F, 0x82, 0x00, 0xB4, 0x60, 0x00, 0x7E }; // enqueue a streaming packet
-				cli::array< unsigned char >^  actual;
-
-				//PRECONDIIONS
-				//First push the streaming packet onto the array
-				target->EnqueueArray(expected);
-
-				actual = target->ExtractStreamingDataPacket();
-
-				//POST
-				//check the entire array
-				for (int i = 0; i < expected->Length; i++)
-				{
-					Assert::AreEqual(expected[i], actual[i]);
-				}
-			
-			}
-			/// <summary>
-			///A test for ExtractNackedResponsePacket
-			/////ACKed response will vary so the data picked by this method should be dependandt on the lenght pro
-			//provided by the LookFor... method
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void ExtractAckedResponsePacketTest()
-			{
-				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
-				cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x8B, 0x11, 0x01, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xB0, 0xB1, 0xB2, 0x60, 0x01, 0x1D }; // TODO: Initialize to an appropriate value
-				cli::array< unsigned char >^  actual;
-
-				//PRECONDIIONS
-				//First push the response onto the array
-				target->EnqueueArray(expected);
-
-				//set the "lookout command"
-				//sequence number doesnt matter ut length does since the expected response is a nack
-				//target->LookForResponseToCommand(0x0B, 0x11); 
-				
-				//First verify that the Lookout flag has been turned off
-				//Assert::IsTrue(target->checkForCommand);
 
 
-				//TEST
-				actual = target->ExtractAckedResponsePakcet();
+			//Deleted
+	//		/// <summary>
+	//		///A test for ExtractStreamingDataPacket
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+	//		void ExtractStreamingDataPacketTest()
+	//		{
+	//			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+	//			cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x87, 0x0D, 0x06, 0x00, 0x00, 0x8B, 0x57, 0x0F, 0x82, 0x00, 0xB4, 0x60, 0x00, 0x7E }; // enqueue a streaming packet
+	//			cli::array< unsigned char >^  actual;
 
-				//POST
-				//check the entire array
-				for (int i = 0; i < expected->Length; i++)
-				{
-					Assert::AreEqual(expected[i], actual[i]);
-				}
+	//			//PRECONDIIONS
+	//			//First push the streaming packet onto the array
+	//			target->EnqueueArray(expected);
 
-				//now verify that the Lookout flag has been turned off
-				//Assert::IsFalse(target->checkForCommand);
-		
-			}
-			/// <summary>
-			///A test for ExtractAckedResponsePakcet
-			///</summary>
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void ExtractNackedResponsePakcetTest()
-			{
-				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+	//			actual = target->ExtractStreamingDataPacket();
 
-				cli::array< unsigned char >^  expected = gcnew array<unsigned char> {0x0B, 0x01,0x06, 0x01, 0x02, 0x03, 0xFF}; // seetig to nack of GetConfig. All values excep CC are incorrect
-				cli::array< unsigned char >^  actual;
-				//First push the response onto the array
-				target->EnqueueArray(expected);
-				//set the "lookout command"
-//				target->LookForResponseToCommand(0x0B, 0x11); //sequence number and length dont matter since the expected response is a nack
-				actual = target->ExtractNackedResponsePacket();
-				//Assert::AreEqual(expected, actual);
+	//			//POST
+	//			//check the entire array
+	//			for (int i = 0; i < expected->Length; i++)
+	//			{
+	//				Assert::AreEqual(expected[i], actual[i]);
+	//			}
+	//		
+	//		}
 
-				//check the entire array
-				for (int i = 0; i < expected->Length; i++)
-				{
-					Assert::AreEqual(expected[i], actual[i]);
-				}
+			//Deleted
+	//		/// <summary>
+	//		///A test for ExtractNackedResponsePacket
+	//		/////ACKed response will vary so the data picked by this method should be dependandt on the lenght pro
+	//		//provided by the LookFor... method
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+	//		void ExtractAckedResponsePacketTest()
+	//		{
+	//			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+	//			cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x8B, 0x11, 0x01, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xB0, 0xB1, 0xB2, 0x60, 0x01, 0x1D }; // TODO: Initialize to an appropriate value
+	//			cli::array< unsigned char >^  actual;
 
-				//now verify that the Lookout flag has been turned off
-				//Assert::IsFalse(target->checkForCommand);
-		
-			}
+	//			//PRECONDIIONS
+	//			//First push the response onto the array
+	//			target->EnqueueArray(expected);
+
+	//			//set the "lookout command"
+	//			//sequence number doesnt matter ut length does since the expected response is a nack
+	//			//target->LookForResponseToCommand(0x0B, 0x11); 
+	//			
+	//			//First verify that the Lookout flag has been turned off
+	//			//Assert::IsTrue(target->checkForCommand);
+
+
+	//			//TEST
+	//			actual = target->ExtractAckedResponsePakcet();
+
+	//			//POST
+	//			//check the entire array
+	//			for (int i = 0; i < expected->Length; i++)
+	//			{
+	//				Assert::AreEqual(expected[i], actual[i]);
+	//			}
+
+	//			//now verify that the Lookout flag has been turned off
+	//			//Assert::IsFalse(target->checkForCommand);
+	//	
+	//		}
+	
+			//Deleted
+	//		/// <summary>
+	//		///A test for ExtractAckedResponsePakcet
+	//		///</summary>
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+	//		void ExtractNackedResponsePakcetTest()
+	//		{
+	//			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+
+	//			cli::array< unsigned char >^  expected = gcnew array<unsigned char> {0x0B, 0x01,0x06, 0x01, 0x02, 0x03, 0xFF}; // seetig to nack of GetConfig. All values excep CC are incorrect
+	//			cli::array< unsigned char >^  actual;
+	//			//First push the response onto the array
+	//			target->EnqueueArray(expected);
+	//			//set the "lookout command"
+	//			//target->LookForResponseToCommand(0x0B, 0x11); //sequence number and length dont matter since the expected response is a nack
+	//			actual = target->ExtractNackedResponsePacket();
+	//			//Assert::AreEqual(expected, actual);
+
+	//			//check the entire array
+	//			for (int i = 0; i < expected->Length; i++)
+	//			{
+	//				Assert::AreEqual(expected[i], actual[i]);
+	//			}
+
+	//			//now verify that the Lookout flag has been turned off
+	//			//Assert::IsFalse(target->checkForCommand);
+	//	
+	//		}
+
+
 			//Already covered in Destructor test
 	//		/// <summary>
 	//		///A test for Dispose
@@ -355,64 +365,65 @@ namespace TestDal {
 				//Assert::Inconclusive(L"Test passes without code being written");
 			}
 
-			/// <summary>
-			///A test for DeterminePacketType
-			///Should return a value based on the commandCodeByte provided
-			//Case 4 is for a valid Command ACK which is NOT expected
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void DeterminePacketTypeTestAckedCommandNotExpected()
-			{
-				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
-				unsigned char commandCodeByte = 0x8B; // acked GetConfig response
-				
-				//We are NOT looking for a response.
-				//target->checkForCommand = false; 
-	
-				DalPacketType_Accessor^  expected = DalPacketType_Accessor::Unknown; //should mark that the packet type is unknown
-				DalPacketType_Accessor^  actual;
-				actual = target->DeterminePacketType(commandCodeByte);
-				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Test passes without code being written");
-			}
+			//we no longer need to know what packet we are looking for
+	//		/// <summary>
+	//		///A test for DeterminePacketType
+	//		///Should return a value based on the commandCodeByte provided
+	//		//Case 4 is for a valid Command ACK which is NOT expected
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+	//		void DeterminePacketTypeTestAckedCommandNotExpected()
+	//		{
+	//			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+	//			unsigned char commandCodeByte = 0x8B; // acked GetConfig response
+	//			
+	//			//We are NOT looking for a response.
+	//			//target->checkForCommand = false; 
+	//
+	//			DalPacketType_Accessor^  expected = DalPacketType_Accessor::Unknown; //should mark that the packet type is unknown
+	//			DalPacketType_Accessor^  actual;
+	//			actual = target->DeterminePacketType(commandCodeByte);
+	//			Assert::AreEqual(expected, actual);
+	//			//Assert::Inconclusive(L"Test passes without code being written");
+	//		}
 
-			/// <summary>
-			///A test for DeterminePacketType
-			///Should return a value based on the commandCodeByte provided
-			//Case 5 is for a valid Command NACK which is NOT expected
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void DeterminePacketTypeTestNackCommandNotExpected()
-			{
-				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
-				unsigned char commandCodeByte = 0x0B; // acked GetConfig response
-				
-				//We are NOT looking for a response.
-				//target->checkForCommand = false; 
-	
-				DalPacketType_Accessor^  expected = DalPacketType_Accessor::Unknown; //should mark that the packet type is unknown
-				DalPacketType_Accessor^  actual;
-				actual = target->DeterminePacketType(commandCodeByte);
-				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Test passes without code being written");
-			}
+	//		/// <summary>
+	//		///A test for DeterminePacketType
+	//		///Should return a value based on the commandCodeByte provided
+	//		//Case 5 is for a valid Command NACK which is NOT expected
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+	//		void DeterminePacketTypeTestNackCommandNotExpected()
+	//		{
+	//			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+	//			unsigned char commandCodeByte = 0x0B; // acked GetConfig response
+	//			
+	//			//We are NOT looking for a response.
+	//			//target->checkForCommand = false; 
+	//
+	//			DalPacketType_Accessor^  expected = DalPacketType_Accessor::Unknown; //should mark that the packet type is unknown
+	//			DalPacketType_Accessor^  actual;
+	//			actual = target->DeterminePacketType(commandCodeByte);
+	//			Assert::AreEqual(expected, actual);
+	//			//Assert::Inconclusive(L"Test passes without code being written");
+	//		}
 
-			/// <summary>
-			///A test for DeterminePacketType
-			///Should return a value based on the commandCodeByte provided
-			//Case 6 is for a pakcet command byte which is not recognized
-	public: [TestMethod]
-			[DeploymentItem(L"dal.dll")]
-			void DeterminePacketTypeInvalidCommandTest()
-			{
-				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
-				unsigned char commandCodeByte = 0x85; // Command 05 does not exist
-				DalPacketType_Accessor^  expected = DalPacketType_Accessor::Unknown ;  //should be of this type
-				DalPacketType_Accessor^  actual;
-				actual = target->DeterminePacketType(commandCodeByte);
-				Assert::AreEqual(expected, actual);
-				//Assert::Inconclusive(L"Test passes without code being written");
-			}
+	//		/// <summary>
+	//		///A test for DeterminePacketType
+	//		///Should return a value based on the commandCodeByte provided
+	//		//Case 6 is for a pakcet command byte which is not recognized
+	//public: [TestMethod]
+	//		[DeploymentItem(L"dal.dll")]
+	//		void DeterminePacketTypeInvalidCommandTest()
+	//		{
+	//			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+	//			unsigned char commandCodeByte = 0x01; // Command 05 does not exist
+	//			DalPacketType_Accessor^  expected = DalPacketType_Accessor::Unknown ;  //should be of this type
+	//			DalPacketType_Accessor^  actual;
+	//			actual = target->DeterminePacketType(commandCodeByte);
+	//			Assert::AreEqual(expected, actual);
+	//			//Assert::Inconclusive(L"Test passes without code being written");
+	//		}
 
 
 			/// <summary>
@@ -555,121 +566,337 @@ public: [TestMethod]
 			bool actual;
 			actual = target->ProcessSinglePacket();
 			Assert::AreEqual(expected, actual);
-			Assert::Inconclusive(L"Verify the correctness of this test method.");
+
 		}
-		/// <summary>
-		///A test for ExtractNibpPacket
+		//Deleted
+//		/// <summary>
+//		///A test for ExtractNibpPacket
+//		///</summary>
+//public: [TestMethod]
+//		[DeploymentItem(L"dal.dll")]
+//		void ExtractNibpPacketTest()
+//		{
+//				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+//				//Assuming a valid NIBP packet
+//				cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x93, 0x09, 0x00, 0x3E, 0x04, 0x4F, 0x6F, 0x00, 0x01, 0xEE  }; 
+//				cli::array< unsigned char >^  actual;
+//
+//				//PRECONDIIONS
+//				//First push the response onto the array
+//				target->EnqueueArray(expected);
+//
+//				//TEST
+//				actual = target->ExtractNibpPacket();
+//
+//				//POST
+//				//check the entire array
+//				for (int i = 0; i < expected->Length; i++)
+//				{
+//					Assert::AreEqual(expected[i], actual[i]);
+//				}
+//
+//				//check that nothing is left in the buffer
+//				Assert::AreEqual(0, target->stagingQueue->Count);
+//
+//		}
+
+		//deleted
+//		/// <summary>
+//		///A test for ExtractNibpPacket
+//		///In this case the NIBP packet will be followed by another valid NIBP pakcet
+//		//but with a different sequence number(to differentiate the packets.
+//		//The method should only pull out the first packet
+//public: [TestMethod]
+//		[DeploymentItem(L"dal.dll")]
+//		void ExtractNibpPacket_FromLargerDataStreamTest()
+//		{
+//				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+//				//put two NIBP packets. The method shoudl only extract the first
+//				cli::array< unsigned char >^  testarray =gcnew array<unsigned char> {0x93, 0x09, 0x00, 0x3E, 0x04, 0x4F, 0x6F, 0x00, 0x01, 0xEE , 0x93, 0x09, 0x01, 0x3E, 0x04, 0x4F, 0x6F, 0x00, 0x01, 0x05 }; 
+//				
+//				//Assuming a valid NIBP packet
+//				cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x93, 0x09, 0x00, 0x3E, 0x04, 0x4F, 0x6F, 0x00, 0x01, 0xEE  }; 
+//				cli::array< unsigned char >^  actual;
+//
+//				//PRECONDIIONS
+//				//First push the response onto the array
+//				target->EnqueueArray(testarray); //test array should be put in
+//
+//				//TEST
+//				actual = target->ExtractNibpPacket();
+//
+//				//POST
+//				//check the entire array
+//				for (int i = 0; i < expected->Length; i++)
+//				{
+//					Assert::AreEqual(expected[i], actual[i]);
+//				}
+//
+//				//verify that the second command packet is not extracted from the queue
+//				Assert::AreNotEqual(0, target->stagingQueue->Count);
+//
+//		}
+
+
+		//deleted
+//		/// <summary>
+//		///A test for ExtractNibpPacket
+//		///Tests whether the event was raised or not
+//public: [TestMethod]
+//		[DeploymentItem(L"dal.dll")]
+//		void ExtractNibpPacket_EventRaisedCheck_Test()
+//		{
+//				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+//				//Assuming a valid NIBP packet
+//				cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x3E, 0x04, 0x4F, 0x6F}; 
+//				cli::array< unsigned char >^  actual;
+//				cli::array< unsigned char >^  em4NibpToHostPacket =gcnew array<unsigned char> {0x93, 0x09, 0x00, 0x3E, 0x04, 0x4F, 0x6F, 0x00, 0x01, 0xEE  }; 
+//				
+//
+//				//PRECONDIIONS
+//				//First push the response onto the array
+//				target->EnqueueArray(em4NibpToHostPacket);
+//				
+//				//ensure that the flag variable is false
+//				eventRaised = false;
+//
+//				//register the test handler for the expected event
+//				//DalEventContainer::Instance->OnDalNibpPacketEvent +=  gcnew NibPPacketArrivedEvent_Accessor(&MyNibpPacketEventRaisedTester );
+//				//doesnt work anyway
+//
+//				//TEST
+//				actual = target->ExtractNibpPacket();
+//
+//				//POST
+//
+//				//check that the event was raised
+//				Assert::IsTrue(eventRaised);
+//
+//				//then check if the args were copied
+//				Assert::IsNotNull(recievedArray );
+//
+//				//check the entire array
+//				for (int i = 0; i < expected->Length; i++)
+//				{
+//					Assert::AreEqual(expected[i], recievedArray[i]);
+//				}
+//
+//				//check that nothing is left in the buffer
+//				Assert::AreEqual(0, target->stagingQueue->Count);
+//
+//		}
+
+		/// Positive test for Streaming packet
+		///A test for GetNextPacket
 		///</summary>
 public: [TestMethod]
 		[DeploymentItem(L"dal.dll")]
-		void ExtractNibpPacketTest()
+		void GetNextPacketTest_1_FullPacket()
 		{
-				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
-				//Assuming a valid NIBP packet
-				cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x93, 0x09, 0x00, 0x3E, 0x04, 0x4F, 0x6F, 0x00, 0x01, 0xEE  }; 
-				cli::array< unsigned char >^  actual;
+			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+			cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x87, 0x0D, 0x06, 0x00, 0x00, 0x8B, 0x57, 0x0F, 0x82, 0x00, 0xB4, 0x60, 0x00, 0x7E }; // enqueue a streaming packet
+			cli::array< unsigned char >^  actual;
 
-				//PRECONDIIONS
-				//First push the response onto the array
-				target->EnqueueArray(expected);
+			//PRECONDIIONS
+			//First push the streaming packet onto the array
+			target->EnqueueArray(expected);
 
-				//TEST
-				actual = target->ExtractNibpPacket();
+			//TEST
+			actual = target->GetNextPacket();
 
-				//POST
-				//check the entire array
-				for (int i = 0; i < expected->Length; i++)
-				{
-					Assert::AreEqual(expected[i], actual[i]);
-				}
+			//POST
+			//check the entire array
+			for (int i = 0; i < expected->Length; i++)
+			{
+				Assert::AreEqual(expected[i], actual[i]);
+			}
+		}
 
-				//check that nothing is left in the buffer
-				Assert::AreEqual(0, target->stagingQueue->Count);
+		/// Staging queue should be empty and result should be empty
+		///A test for GetNextPacket
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void GetNextPacketTest_2_EmptyStaqingQueue()
+		{
+			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+			cli::array< unsigned char >^  expected = nullptr; //empty buffer
+			cli::array< unsigned char >^  actual;
+
+			//PRECONDIIONS
+			//First Ensure that the staging queue is null
+			
+			//TEST
+			actual = target->GetNextPacket();
+
+			//POST
+			Assert::IsNull(actual);
 
 		}
 
-		/// <summary>
-		///A test for ExtractNibpPacket
-		///In this case the NIBP packet will be followed by another valid NIBP pakcet
-		//but with a different sequence number(to differentiate the packets.
-		//The method should only pull out the first packet
+		/// Negative test: there is only one byte so we cannot get length of packet
+		///A test for GetNextPacket
+		///</summary>
 public: [TestMethod]
 		[DeploymentItem(L"dal.dll")]
-		void ExtractNibpPacket_FromLargerDataStreamTest()
+		void GetNextPacketTest_3_OnlyOneByteAvailable()
 		{
-				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
-				//put two NIBP packets. The method shoudl only extract the first
-				cli::array< unsigned char >^  testarray =gcnew array<unsigned char> {0x93, 0x09, 0x00, 0x3E, 0x04, 0x4F, 0x6F, 0x00, 0x01, 0xEE , 0x93, 0x09, 0x01, 0x3E, 0x04, 0x4F, 0x6F, 0x00, 0x01, 0x05 }; 
-				
-				//Assuming a valid NIBP packet
-				cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x93, 0x09, 0x00, 0x3E, 0x04, 0x4F, 0x6F, 0x00, 0x01, 0xEE  }; 
-				cli::array< unsigned char >^  actual;
+			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+			cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x87}; // single byte only
+			cli::array< unsigned char >^  actual;
 
-				//PRECONDIIONS
-				//First push the response onto the array
-				target->EnqueueArray(testarray); //test array should be put in
+			//PRECONDIIONS
+			//First push the streaming packet onto the array
+			target->EnqueueArray(expected);
 
-				//TEST
-				actual = target->ExtractNibpPacket();
+			//TEST
+			actual = target->GetNextPacket();
 
-				//POST
-				//check the entire array
-				for (int i = 0; i < expected->Length; i++)
-				{
-					Assert::AreEqual(expected[i], actual[i]);
-				}
+			//POST
+			Assert::IsNull(actual);
 
-				//verify that the second command packet is not extracted from the queue
-				Assert::AreNotEqual(0, target->stagingQueue->Count);
-
+			//confirm that the staging queue still has the bytes
+			for (int i = 0; i < expected->Length; i++)
+			{
+				Assert::AreEqual(expected[i], target->stagingQueue[i]);
+			}
 		}
 
 
-		/// <summary>
-		///A test for ExtractNibpPacket
-		///Tests whether the event was raised or not
+		/// Negative test: there are two bytes .
+		///We can get the length of the packet but not the entire packet
+		///A test for GetNextPacket
+		///</summary>
 public: [TestMethod]
 		[DeploymentItem(L"dal.dll")]
-		void ExtractNibpPacket_EventRaisedCheck_Test()
+		void GetNextPacketTest_4_OnlyTwoAvailable()
 		{
-				DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
-				//Assuming a valid NIBP packet
-				cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x3E, 0x04, 0x4F, 0x6F}; 
-				cli::array< unsigned char >^  actual;
-				cli::array< unsigned char >^  em4NibpToHostPacket =gcnew array<unsigned char> {0x93, 0x09, 0x00, 0x3E, 0x04, 0x4F, 0x6F, 0x00, 0x01, 0xEE  }; 
-				
+			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+			cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x87 , 0x0D}; // single byte only
+			cli::array< unsigned char >^  actual;
 
-				//PRECONDIIONS
-				//First push the response onto the array
-				target->EnqueueArray(em4NibpToHostPacket);
-				
-				//ensure that the flag variable is false
-				eventRaised = false;
+			//PRECONDIIONS
+			//First push the streaming packet onto the array
+			target->EnqueueArray(expected);
 
-				//register the test handler for the expected event
-				//DalEventContainer::Instance->OnDalNibpPacketEvent +=  gcnew NibPPacketArrivedEvent_Accessor(&MyNibpPacketEventRaisedTester );
-				//doesnt work anyway
+			//TEST
+			actual = target->GetNextPacket();
 
-				//TEST
-				actual = target->ExtractNibpPacket();
+			//POST
+			Assert::IsNull(actual);
 
-				//POST
+			//confirm that the staging queue still has the bytes
+			for (int i = 0; i < expected->Length; i++)
+			{
+				Assert::AreEqual(expected[i], target->stagingQueue[i]);
+			}
+		}
 
-				//check that the event was raised
-				Assert::IsTrue(eventRaised);
 
-				//then check if the args were copied
-				Assert::IsNotNull(recievedArray );
+		/// Negative test: more than two bytes but incomplete packet.
+		///We can get the length of the packet but not the entire packet
+		///A test for GetNextPacket
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void GetNextPacketTest_4_IncompletePacketAvailable()
+		{
+			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+			cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x87, 0x0D, 0x06, 0x00, 0x00, 0x8B, 0x57, 0x0F, 0x82, 0x00, 0xB4, 0x60, 0x00}; // one byte (CRC) has not arrived
+			cli::array< unsigned char >^  actual;
 
-				//check the entire array
-				for (int i = 0; i < expected->Length; i++)
-				{
-					Assert::AreEqual(expected[i], recievedArray[i]);
-				}
+			//PRECONDIIONS
+			//First push the streaming packet onto the array
+			target->EnqueueArray(expected);
 
-				//check that nothing is left in the buffer
-				Assert::AreEqual(0, target->stagingQueue->Count);
+			//TEST
+			actual = target->GetNextPacket();
 
+			//POST
+			Assert::IsNull(actual);
+
+			//confirm that the staging queue still has the bytes
+			for (int i = 0; i < expected->Length; i++)
+			{
+				Assert::AreEqual(expected[i], target->stagingQueue[i]);
+			}
+		}
+
+
+		/// Positive test for ACK packet
+		//just done as a surety check.
+		//method does not depend on type of packetr
+		///A test for GetNextPacket
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void GetNextPacketTest_5_AckPacket()
+		{
+			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+			cli::array< unsigned char >^  expected =gcnew array<unsigned char> {0x8B, 0x11, 0x01, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xB0, 0xB1, 0xB2, 0x60, 0x01, 0x1D }; // Acked packet
+			cli::array< unsigned char >^  actual;
+
+			//PRECONDIIONS
+			//First push the streaming packet onto the array
+			target->EnqueueArray(expected);
+
+			//TEST
+			actual = target->GetNextPacket();
+
+			//POST
+			//check the entire array
+			for (int i = 0; i < expected->Length; i++)
+			{
+				Assert::AreEqual(expected[i], actual[i]);
+			}
+		}
+
+
+		/// One streaming packet followed by an Ack packet
+		//just done as a surety check.
+		//method does not depend on type of packetr
+		///A test for GetNextPacket
+		///</summary>
+public: [TestMethod]
+		[DeploymentItem(L"dal.dll")]
+		void GetNextPacketTest_6_TwoPackets()
+		{
+			DalStagingQueue_Accessor^  target = (gcnew DalStagingQueue_Accessor()); 
+			cli::array< unsigned char >^  source =gcnew array<unsigned char> {0x87, 0x0D, 0x06, 0x00, 0x00, 0x8B, 0x57, 0x0F, 0x82, 0x00, 0xB4, 0x60, 0x00, 0x7E , 0x8B, 0x11, 0x01, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xB0, 0xB1, 0xB2, 0x60, 0x01, 0x1D }; // Acked packet
+			array< unsigned char >^  expectedAckPacket= gcnew array<unsigned char> {0x8B, 0x11, 0x01, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xB0, 0xB1, 0xB2, 0x60, 0x01, 0x1D }; 
+			array< unsigned char >^  expectedStreamingPakcet = gcnew array<unsigned char> {0x87, 0x0D, 0x06, 0x00, 0x00, 0x8B, 0x57, 0x0F, 0x82, 0x00, 0xB4, 0x60, 0x00, 0x7E };
+			cli::array< unsigned char >^  actualAckPacket ;
+			cli::array< unsigned char >^  actualStreamingPacket;
+			cli::array< unsigned char >^  actual;
+
+			//PRECONDIIONS
+			//First push the streaming packet onto the array
+			target->EnqueueArray(source);
+
+			//TEST: first packet should be a streaming pakcet
+			actualStreamingPacket = target->GetNextPacket();
+
+			//POST
+			//check the entire array
+			for (int i = 0; i < expectedStreamingPakcet->Length; i++)
+			{
+				Assert::AreEqual(expectedStreamingPakcet[i], actualStreamingPacket[i]);
+			}
+
+			//test again
+			//TEST: first packet should be a ACK pakcet
+			actualAckPacket = target->GetNextPacket();
+
+			//POST
+			//check the entire array
+			for (int i = 0; i < expectedAckPacket->Length; i++)
+			{
+				Assert::AreEqual(expectedAckPacket[i], actualAckPacket[i]);
+			}
+
+			//this time we should get null
+			actual = target->GetNextPacket();
+			Assert::IsNull(actual);
 		}
 };
 }

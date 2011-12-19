@@ -40,6 +40,7 @@ namespace AtCor{
 					//static String^ dalErrorAlarmSourceName; //To store the source name
 			
 					static String^ _savedDataFilePath; /**< the path and filename where the waveform dump has been placed*/
+					static String^ _savedDataFilePathNibp; /**< the path and filename where the waveform dump has been placed*/
 
 					static unsigned long _newAlarmStatusBytes;  
 					static unsigned long  _newTonoStatusBytes = 0xFFFF;  
@@ -69,6 +70,18 @@ namespace AtCor{
 					* Returns a string with he name of the supply rails alarm which triggered the AS flag 
 					*/
 					String^ GetNameofRaisedAlarmFlag(DalAlarmSource% translatedAlarmSource);
+				
+					static DateTime cPwaFileDateTime;	//cPwa data File DateTime which will be used while saving NIBP data file
+					
+					static bool  sysparamProcessStatusFlagPartsStopButton;
+					static bool sysparamProcessStatusFlagPartsPowerUpBit;
+					static bool sysparamProcessStatusFlagPartsAlarmFlag;
+					static bool sysparamProcessStatusFlagPartsCuffStatusFlags;
+					static bool sysparamProcessStatusFlagPartsTonometerFlags;
+					static bool sysparamProcessStatusFlagPartsUnusedBits;
+
+
+					DalStatusHandler();//constructor
 
 				
 				public:
@@ -136,13 +149,42 @@ namespace AtCor{
 					virtual bool SaveCaptureData(array< unsigned short >^ cuffPulse, unsigned short bufferSize);
 
 					/**
+					* Dumps the tonometer and cuff data to a backup file @n
+					* Obtain the name using @c GetSavedFileName
+					* @param[in]	time		Array with time data values
+					* @param[in]	status		Array with stats data values
+					* @param[in]	errorCode	Array with errorCode values
+					* @param[in]	sp			Array with sp data values
+					* @param[in]	dp			Array with dp data values
+					* @param[in]	map			Array with map data values
+					* @param[in]	hr			Array with hr data values
+					* @param[in]	bufferSize	The size of the buffer to be dumped
+
+					* @return	 @c true if the operation was successful
+					*/
+					virtual bool SaveNibpData(array< unsigned short >^ time, array< unsigned short >^ status, array< unsigned short >^ errorCode, array< unsigned short >^ sp, array< unsigned short >^ dp, array< unsigned short >^ map, array< unsigned short >^ hr, unsigned short bufferSize);
+
+					virtual bool SaveNibpData(unsigned short time, unsigned short status, unsigned short errorCode, unsigned short sp, unsigned short dp, short map, unsigned short hr);
+
+			
+					/**
 					* Returns the name and filepath of the dump file saved by @c SaveCaptureData
 					* @return	The filepath of the saved file
 					* @see	SaveCaptureData
 					* @warning	This method can only be called once after SaveCaptureData() is called.
 					*			Calling it a second time results in a blank string being returned.
 					*/
+					
 					virtual String^ GetSavedFileName();
+
+					/**
+					* Returns the name and filepath of the dump file saved by @c SaveNibpData
+					* @return	The filepath of the saved file
+					* @see	SaveCaptureData
+					* @warning	This method can only be called once after SaveNibpData() is called.
+					*			Calling it a second time results in a blank string being returned.
+					*/
+					virtual String^ GetSavedFileNameNibp();
 
 					/**
 					* Breaks up the Status flag into its constituent parts and validates them. @n

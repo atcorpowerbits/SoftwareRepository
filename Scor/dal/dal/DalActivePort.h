@@ -32,6 +32,8 @@ namespace AtCor{
 			
 			static SerialPort ^_serialPort;
 
+			static Object^ _lockObject ;
+
 			//FxCop
 			//static bool serialDataWasRecieved; //flag to check wether data was recieved since the last chek.
 

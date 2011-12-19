@@ -258,7 +258,7 @@ namespace AtCor{
 								*/
 								private union ThreeBytesUnsignedInt
 								{
-									unsigned char ucStatusBytes[3];
+									unsigned char ucStatusBytes[4];
 									unsigned int uiStatusFlag;
 								};
 

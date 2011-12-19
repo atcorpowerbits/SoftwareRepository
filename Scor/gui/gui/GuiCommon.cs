@@ -42,13 +42,13 @@ namespace AtCor.Scor.Gui.Presentation
        public static CrxStructCuffPWAMeasurementData quickStartCrxPwaCuffData;
        public static bool IsValidatedLicenseKey = false; // This flag is used to check whether LicenseKey is valdiated or not.
        public static SystemKeyWindowValues SystemKeyWindowValue = SystemKeyWindowValues.ADD; // values :0.Add 1.Update     Checking whether system key form is called for updating or adding system key.
-       public static string CurrentMode = string.Empty;
-       public static string CurrentScreen = CrxStructCommonResourceMsg.SetupScreen;
+       public static string CurrentMode = string.Empty;       
        public static string InConclusiveMessageForPwaCapture = string.Empty;
        public static bool SetupToReport = false;
        public static bool CaptureToReport = false;
-       public static bool CaptureToSetup = false;
-       public static bool SetupToTestResult = false;
+      // public static bool CaptureToSetup = false;
+      // public static bool SetupToTestResult = false;
+        // THis flag is used to check whether a selected patient has previous assesments or not.
        public static bool HasMeasurementDetails = false;
        public static bool IsPatientListEmpty = false; // this flag is used to check if the patient list on the setup screen is empty or not. 
        public static bool CaptureTabClick = true;
@@ -71,19 +71,19 @@ namespace AtCor.Scor.Gui.Presentation
        public static string MessageToBeDisplayed = string.Empty;       
        public static ScorController ScorControllerObject = new ScorController();
 
-       public static bool AutoPWA = true;
-       public static int AutoPWADelay = 15;
-       public static int RepeatDelay = 5;
+       // public static bool AutoPWA = true;
+       // public static int AutoPWADelay = 15;
+       // public static int RepeatDelay = 5;
        public static bool RepeatButtonClickedStartNibpOnSetup = false;
        public static bool ErrorInCaptureProcess = false;
        public static bool IsBizErrorEventRaised = false;
        public static bool CheckPatientPrivacy = false;
-       public static bool IsSetUpFormDirty = false;
+       // public static bool IsSetUpFormDirty = false;
        public static BizPWV bizObject;
        public static BizPWA bizPwaobject;
        public static BizNIBP bizNibpObject = new BizNIBP();
        public static CrxStructGeneralSetting GeneralSettingsStruct = new CrxStructGeneralSetting();
-       public static bool AgeValidation = false;
+      // public static bool AgeValidation = false;
        public static SelectedChart SelChart = SelectedChart.sp;
        public static bool IsOnResultForm = false;
        public static bool IsReportGenerated = false;
@@ -98,6 +98,8 @@ namespace AtCor.Scor.Gui.Presentation
 
        public delegate void SetCaptureTabVisibility(bool value);
 
+       public delegate void AccessGuiControls(string message);
+
       // public static event SetCaptureTabVisibility OnCaptureClosing;
        public static event EventHandler OnEnterButtonClick;
 
@@ -109,8 +111,38 @@ namespace AtCor.Scor.Gui.Presentation
        {
            ADD = 0,
            Update = 1
-       }      
+       }
 
+       public enum BPRange
+       {
+           BpOptimalRange = 119,
+           BpNormalMinRange = 120,
+           BpNormalMaxRange = 129,
+           BpHighNormalMinRange = 130,
+           BpHighNormalMaxRange = 139,
+           BpGradeIhtMinRange = 140,
+           BpGradeIhtMaxRange = 159,
+           BpGradeIiAndIiiHtRange = 160
+       }
+       public enum NumericValue
+       {
+           MinusOne = -1,
+           Zero = 0,
+           One = 1,
+           Two = 2,
+           Three = 3,
+           Four = 4,
+           Five = 5,
+           Six = 6,
+           Seven = 7,
+           Eight = 8,
+           Nine = 9,
+           Ten = 10,
+           Twelve = 12,   
+           Fifteen = 15,               
+           TwentyFive = 25, 
+           Hundred = 100,
+       }
        public enum SelectedChart
        {
            sp,
@@ -133,12 +165,6 @@ namespace AtCor.Scor.Gui.Presentation
 
        #region Child Form Handles
 
-       // public static RadForm ReportChildForm;
-       // public static RadForm CaptureChildForm;
-       // public static RadForm SetupChildForm;
-       // public static RadForm FrmRptBlnk;
-       // public static RadForm PWAReportChildForm;
-       // public static RadForm PWATestResultChildForm;
        public static Report ReportChildForm;
        public static Capture CaptureChildForm;
        public static Setup SetupChildForm;
@@ -146,11 +172,12 @@ namespace AtCor.Scor.Gui.Presentation
        public static PWAReport PWAReportChildForm;
        public static PWATestResult PWATestResultChildForm;
        public static cPwaQuickStart QuickStartChildForm;
+       public static SystemKey SystemKey;
 
-       // public static event EventHandler OnBizErrorEventInvocation;       
+
        #endregion  
         
-        #region PWV settings private variables        
+       #region PWV settings private variables        
 
        static GuiCommon()
        {
@@ -190,17 +217,30 @@ namespace AtCor.Scor.Gui.Presentation
                }
                else
                {
-                   RadMessageBox.Show(e.data, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
-                   CrxLogger.Instance.Write(e.data);
+                   DisplayErrorMessage(e.data);
                }
             }
            else
-           {
-               // In any other case show a dialog box with the message from the biz.dll to the user.Also log the mesaage in the log file.               
-               RadMessageBox.Show(e.data, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
-               CrxLogger.Instance.Write(e.data);
+           {              
+               DisplayErrorMessage(e.data);
            }
-       }   
+       }
+
+       public static void DisplayErrorMessage(string message)
+       {
+           if (DefaultWindowForm.InvokeRequired)
+           {
+               AccessGuiControls d = new AccessGuiControls(DisplayErrorMessage);
+
+               // this.Invoke(d);
+               DefaultWindowForm.Invoke(d,message);
+           }
+           else
+           {
+               RadMessageBox.Show(message, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+               CrxLogger.Instance.Write(message);
+           }
+       }
 
        #endregion
 
@@ -234,14 +274,14 @@ namespace AtCor.Scor.Gui.Presentation
        public static void InvokeCaptureClosing(bool value)
        {           
            // From Setup
-           CaptureToSetup = !value;
+           // commenting the below as part of review comment.
+           // CaptureToSetup = !value;
+
            DefaultWindowForm.radtabCapture.Enabled = value;
            SetupChildForm.Controls["guipnlMeasurementDetails"].Controls["guiradbtnCapture"].Enabled = value;
            
            // For Corresponding Report forms 
            ScorControllerObject.EnableRepeatAndCaptureTab(value);
-           
-           // OnCaptureClosing.Invoke(value);
        }
 
         /** This method retrieves database servername
@@ -279,7 +319,6 @@ namespace AtCor.Scor.Gui.Presentation
                 RadLabel label = control as RadLabel;
                 if (label != null)
                 {
-                    // label.RootElement.BackColor = Color.Transparent;
                     ((FillPrimitive)label.LabelElement.Children[0]).NumberOfColors = 1;
                     label.LabelElement.Shape = shape;
                 }
@@ -334,13 +373,51 @@ namespace AtCor.Scor.Gui.Presentation
                 errorMsg += oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SqlLocalErrorStrg) + Environment.NewLine;
             }
 
-            errorMsg += oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ContactAtcorSupport); 
+            errorMsg += string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ContactAtcorSupport),oMsgMgr.GetMessage(CrxStructCommonResourceMsg.ContactAtcorSupportCommon)); 
 
             // log the error
             CrxLogger.Instance.Write(errorMsg);
 
             return errorMsg;
-        }             
+        }
+
+        /** This method is used to Validate age of the patient before validating measurement details.
+       */
+        public static bool ValidatePatientAgeForReport()
+        {
+
+            try
+            {    // fetches group name and binds it
+                CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
+                string message = string.Empty;
+                BizCaptureGate captureEnum;
+                if (GuiCommon.CurrentMode.Equals(CrxStructCommonResourceMsg.Pwa))
+                {
+                    captureEnum = GuiCommon.bizPwaobject.ValidateAgeLimit(ref message);
+                }
+                else
+                {
+                    captureEnum = GuiCommon.bizObject.ValidateAgeLimit(ref message);
+                }
+                if (captureEnum.Equals(BizCaptureGate.CAPTURE_CANCEL))
+                {
+                    RadMessageBox.Show(message, oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SystemError), MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+                    DefaultWindowForm.radpgTabCollection.SelectedPage = DefaultWindowForm.guiradgrpbxPwvDistanceMethod;
+                    DefaultWindowForm.guiradgrpbxPwvDistanceMethod.Enabled = true;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw ex;               
+            }
+        }
 
         /** This method opens print dialog for printer settings
          * It will set the aplication default printer to the one mentioned in scor.config file
@@ -385,45 +462,59 @@ namespace AtCor.Scor.Gui.Presentation
         * */
         public static void BindGroupNames(ComboBox cmbxGroup, CrxDBManager dbMagr)
         {
-            // fetches group name and binds it
-            CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-
-            DataSet ds = dbMagr.GetGroupLists();
-
-            if (ds != null)
+            try
             {
-                DataRow dr = ds.Tables[0].NewRow();
-                dr[(int)CrxDBGroupList.GroupName] = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps);
-                dr[(int)CrxDBGroupList.GroupIdentifier] = 0;
+                // fetches group name and binds it
+                CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
 
-                ds.Tables[0].Rows.InsertAt(dr, 0);
+                DataSet ds = dbMagr.GetGroupLists();
 
-                cmbxGroup.DataSource = ds.Tables[0];
-                cmbxGroup.DisplayMember = CrxDBGroupList.GroupName.ToString();
+                if (ds != null)
+                {
+                    DataRow dr = ds.Tables[0].NewRow();
+                    dr[(int)CrxDBGroupList.GroupName] = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps);
+                    dr[(int)CrxDBGroupList.GroupIdentifier] = 0;
 
-                cmbxGroup.SelectedIndex = 0;
-            }            
+                    ds.Tables[0].Rows.InsertAt(dr, 0);
+
+                    cmbxGroup.DataSource = ds.Tables[0];
+                    cmbxGroup.DisplayMember = CrxDBGroupList.GroupName.ToString();
+
+                    cmbxGroup.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static void BindGroupNames(RadDropDownList cmbxGroup, CrxDBManager dbMagr)
         {
-            // fetches group name and binds it
-            CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-
-            DataSet ds = dbMagr.GetGroupLists();
-
-            if (ds != null)
+            try
             {
-                DataRow dr = ds.Tables[0].NewRow();
-                dr[(int)CrxDBGroupList.GroupName] = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps);
-                dr[(int)CrxDBGroupList.GroupIdentifier] = 0;
+                // fetches group name and binds it
+                CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
 
-                ds.Tables[0].Rows.InsertAt(dr, 0);
+                DataSet ds = dbMagr.GetGroupLists();
 
-                cmbxGroup.DataSource = ds.Tables[0];
-                cmbxGroup.DisplayMember = CrxDBGroupList.GroupName.ToString();
+                if (ds != null)
+                {
+                    DataRow dr = ds.Tables[0].NewRow();
+                    dr[(int)CrxDBGroupList.GroupName] = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.SelectCaps);
+                    dr[(int)CrxDBGroupList.GroupIdentifier] = 0;
 
-                cmbxGroup.SelectedIndex = 0;
+                    ds.Tables[0].Rows.InsertAt(dr, 0);
+
+                    cmbxGroup.DataSource = ds.Tables[0];
+                    cmbxGroup.DisplayMember = CrxDBGroupList.GroupName.ToString();
+
+                    cmbxGroup.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -445,7 +536,7 @@ namespace AtCor.Scor.Gui.Presentation
         /** Begin: AtCor-Drop2-Sprint2, TM, UserStory1,04 July 2011
         /* This method restricts input values to integers and characters only.
          * This method is called on keypress event of the textbox.
-               * */
+        * */
         public static void CheckForNumeric_CharValues(object sender, KeyPressEventArgs e)
         {
             if (!char.IsLetterOrDigit(e.KeyChar))
@@ -528,8 +619,8 @@ namespace AtCor.Scor.Gui.Presentation
    }
 
     /**
- * @class PWVReportData
- * @brief This class is used to define properties which will be used for generating PWV report
+     * @class PWVReportData
+     * @brief This class is used to define properties which will be used for generating PWV report
      * The property values will be set in report screen once the user clicks print "PWV report" and these values
      * will be passed to Crystal report for printing PWV Report*/
     public static class PWVReportData
@@ -616,11 +707,11 @@ namespace AtCor.Scor.Gui.Presentation
     }
 
     /**
-* @class PWVPatientReportData
-* @brief This class is used to define properties which will be used for generating PWV Patient report
-   * The property values will be set in report screen once the user clicks print "PWV Patient report" and these values
-   * will be passed to Crystal report for printing PWV Patient Report
-*/
+    * @class PWVPatientReportData
+    * @brief This class is used to define properties which will be used for generating PWV Patient report
+       * The property values will be set in report screen once the user clicks print "PWV Patient report" and these values
+       * will be passed to Crystal report for printing PWV Patient Report
+    */
     public static class PWVPatientReportData
     {
         public static string RptPatientBP { get; set; }
@@ -657,11 +748,11 @@ namespace AtCor.Scor.Gui.Presentation
     }
 
     /**
-* @class PWVAnalysisData
-* @brief This class is used to define properties which will be used for generating PWV Analysis report
-    * The property values will be set in report screen once the user clicks print "PWV Analysis report" and these values
-    * will be passed to Crystal report for printing PWV Analysis Report
-*/
+    * @class PWVAnalysisData
+    * @brief This class is used to define properties which will be used for generating PWV Analysis report
+        * The property values will be set in report screen once the user clicks print "PWV Analysis report" and these values
+        * will be passed to Crystal report for printing PWV Analysis Report
+    */
     public static class PWVAnalysisData
     {
         public static bool BPChartValidation { get; set; }
@@ -670,11 +761,11 @@ namespace AtCor.Scor.Gui.Presentation
     }
 
     /**
-* @class PWACommonReportData
-* @brief This class is used to define properties which will be used for generating PWA Clinical/Evaluation report
-  * The property values will be set in report screen once the user clicks print "PWA Clinical/Evaluation report" and these values
-  * will be passed to Crystal report for printing PWA Patient Report
-*/
+    * @class PWACommonReportData
+    * @brief This class is used to define properties which will be used for generating PWA Clinical/Evaluation report
+      * The property values will be set in report screen once the user clicks print "PWA Clinical/Evaluation report" and these values
+      * will be passed to Crystal report for printing PWA Patient Report
+    */
     public static class PWACommonReportData
     {
         public static string RptPrintType { get; set; }
@@ -754,14 +845,16 @@ namespace AtCor.Scor.Gui.Presentation
         public static string RptNoteTitle { get; set; }
 
         public static string RptNoteValue { get; set; }
+
+        public static string RptDateAndTimeOfAssessment { get; set; }
     }
 
     /**
-* @class PWAClinicalReportData
-* @brief This class is used to define properties which will be used for generating PWA Clinical report
-  * The property values will be set in report screen once the user clicks print "PWA Clinical report" and these values
-  * will be passed to Crystal report for printing PWV Clinical Report
-*/
+    * @class PWAClinicalReportData
+    * @brief This class is used to define properties which will be used for generating PWA Clinical report
+      * The property values will be set in report screen once the user clicks print "PWA Clinical report" and these values
+      * will be passed to Crystal report for printing PWV Clinical Report
+    */
     public static class PWAClinicalReportData
     {
         public static string RptClinicalParametersTitle { get; set; }
@@ -804,15 +897,17 @@ namespace AtCor.Scor.Gui.Presentation
 
         public static string RptInterpretationTitle { get; set; }
 
-        public static string RptInterpretationValue { get; set; }      
+        public static string RptInterpretationValue { get; set; }
+
+        public static bool RptSliderPanel { get; set; }
     }
 
     /**
-* @class PWAEvaluationReportData
-* @brief This class is used to define properties which will be used for generating PWA Evaluation report
-   * The property values will be set in report screen once the user clicks print "PWA Evaluation report" and these values
-   * will be passed to Crystal report for printing PWA Evaluation Report
-*/
+    * @class PWAEvaluationReportData
+    * @brief This class is used to define properties which will be used for generating PWA Evaluation report
+       * The property values will be set in report screen once the user clicks print "PWA Evaluation report" and these values
+       * will be passed to Crystal report for printing PWA Evaluation Report
+    */
     public static class PWAEvaluationReportData
     {
         public static string RptCentralPressureWaveformTitle { get; set; }

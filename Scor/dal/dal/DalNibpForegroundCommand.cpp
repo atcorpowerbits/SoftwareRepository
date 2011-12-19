@@ -119,7 +119,7 @@ DalReturnValue DalNibpForegroundCommand ::ListenForEM4Response()
 
 	if (responseListenerThread)
 	{
-		//CrxLogger::Instance->Write("DalNibpForegroundCommand ::ListenForEM4Response deleting old thread before creating new one", ErrorSeverity::Debug);
+		//CrxLogger::Instance->Write("DalNibpForegroundCommand ::ListenForEM4Response deleting old thread before creating new one:" +  (this->responseListenerThread)->GetHashCode() , ErrorSeverity::Debug);
 		delete responseListenerThread;
 	}
 	//Start the thread that will process the events to arrive
@@ -131,9 +131,21 @@ DalReturnValue DalNibpForegroundCommand ::ListenForEM4Response()
 	responseListenerThread->Start();
 	//wait for the time specified. 
 	//if it does not return in the specied time go back
+	//CrxLogger::Instance->Write("DalNibpForegroundCommand::ListenForEM4Response >> After Start(): responseListenerThread state: "+ this->responseListenerThread->ThreadState.ToString() + " Object type:"+ this->GetType() +  " thread Object iD" + (this->responseListenerThread)->GetHashCode() , ErrorSeverity::Debug );
+	
+	try
+	{
 	threadHasBeenTerminated = responseListenerThread->Join(this->responseWaitingTimeMax);
+	}
+	catch( ThreadInterruptedException ^ threadInterruptEx)
+	{
+		delete threadInterruptEx;
+
+	}
+
+	//CrxLogger::Instance->Write("DalNibpForegroundCommand::ListenForEM4Response >> After Join: responseListenerThread state: "+ this->responseListenerThread->ThreadState.ToString() + " Object type:"+ this->GetType() +  " thread Object iD" + (this->responseListenerThread)->GetHashCode()  , ErrorSeverity::Debug );
 	responseTimeChecker->Stop(); 
-	CrxLogger::Instance->Write("DalNibpForegroundCommand ::ListenForEM4Response waited for "+responseTimeChecker->ElapsedMilliseconds+" ms and returned " +  threadHasBeenTerminated.ToString(), ErrorSeverity::Debug);
+	CrxLogger::Instance->Write("DalNibpForegroundCommand ::ListenForEM4Response waited for "+responseTimeChecker->ElapsedMilliseconds+" ms and threadHasBeenTerminated: " +  threadHasBeenTerminated.ToString(), ErrorSeverity::Debug);
 
 	if (false == threadHasBeenTerminated)
 	{
@@ -166,7 +178,7 @@ DalReturnValue DalNibpForegroundCommand ::ListenForEM4Response()
 
 bool DalNibpForegroundCommand::StopListeningForEM4response()
 {
-	CrxLogger::Instance->Write("DalNibpForegroundCommand::StopListeningForEM4response", ErrorSeverity::Debug);
+	CrxLogger::Instance->Write("DalNibpForegroundCommand::StopListeningForEM4response responseListenerThread state: "+ responseListenerThread->ThreadState.ToString()+ " Aborting and deleting thread " + " thread Object iD" + (Thread::CurrentThread)->GetHashCode() , ErrorSeverity::Debug);
 	responseListenerThread->Abort();
 	delete responseListenerThread;
 
@@ -180,19 +192,26 @@ void DalNibpForegroundCommand::ResponseListenerThreadMethod(System::Object ^)
 {
 	try
 	{
-		//TODO: see if this timout should be infinite
 		//sleep until timeout expires or the thread is woken up
-		//Thread::Sleep(Timeout::Infinite); 
 		Thread::Sleep(this->responseWaitingTimeMax ); 
+		CrxLogger::Instance->Write("DalNibpForegroundCommand::ResponseListenerThreadMethod woke up from sleep " + " thread Object iD" + (Thread::CurrentThread)->GetHashCode() , ErrorSeverity::Debug); 
 	}
 	catch(ThreadInterruptedException^ threadInterruptEx)
 	{
+		CrxLogger::Instance->Write("DalNibpForegroundCommand::ResponseListenerThreadMethod Interruped for " + this->GetType() + " threadState: " + this->responseListenerThread->ThreadState.ToString() + " thread Object iD" + (Thread::CurrentThread)->GetHashCode(), ErrorSeverity::Debug); 
+	
 		//this means that the data has arrived. 
 		//We need to  process it or take some action
 
 		delete threadInterruptEx;
-		////CrxLogger::Instance->Write("Deepak>>> DalCommandInterface::ResponseListenerThreadMethod ThreadInterruptedException raised", ErrorSeverity::Debug);
 	}
+	catch(ThreadAbortException ^ )
+	{
+		CrxLogger::Instance->Write("DalNibpForegroundCommand::ResponseListenerThreadMethod Aborted!!!!! for " + this->GetType() + " threadState: " + this->responseListenerThread->ThreadState.ToString() + " thread Object iD" + (Thread::CurrentThread)->GetHashCode() , ErrorSeverity::Debug); 
+
+	}
+	//CrxLogger::Instance->Write("DalNibpForegroundCommand::ResponseListenerThreadMethod exiting for " + this->GetType() + " threadState: " + this->responseListenerThread->ThreadState.ToString() + " thread Object iD" + (Thread::CurrentThread)->GetHashCode(), ErrorSeverity::Debug); 
+	
 }
 
 DalReturnValue  DalNibpForegroundCommand::ProcessNibpResponse()
@@ -201,12 +220,13 @@ DalReturnValue  DalNibpForegroundCommand::ProcessNibpResponse()
 	//we dont want to do anythin here
 	//return false;
 
+	CrxLogger::Instance->Write("DalNibpForegroundCommand::ProcessNibpResponse returning DalReturnValue::Failure! This method should not be called. Child method should be called instead.", ErrorSeverity::Debug);
 	return DalReturnValue::Failure;
 }
 
 
 DalNibpForegroundCommand::~DalNibpForegroundCommand()
 {
-	CrxLogger::Instance->Write("DalNibpForegroundCommand::~DalNibpForegroundCommand called for object" + this->GetType(), ErrorSeverity::Debug);
+	//CrxLogger::Instance->Write("DalNibpForegroundCommand::~DalNibpForegroundCommand called for object" + this->GetType() + " Hash Code: " + this->GetHashCode(), ErrorSeverity::Debug);
 	
 }

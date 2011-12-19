@@ -42,8 +42,8 @@ namespace AtCor{
 				//unsigned char expectedResponseLengthToLocate; 
 				//unsigned char expectedSequenceNumberToLocate; //TODO: may be needed later
 				//static bool checkForCommand;//default false
-				unsigned int _nackPacketStandardLength; //Excluding CRC
-				unsigned int  _streamingPacketSize; 
+				//unsigned int _nackPacketStandardLength; //Excluding CRC //unused
+				//unsigned int  _streamingPacketSize;  //unused
 
 				static DalStagingQueue^ _instance = gcnew DalStagingQueue();
 
@@ -62,53 +62,53 @@ namespace AtCor{
 				*/
 				DalPacketType DeterminePacketType(unsigned char commandCodeByte);
 
-				/**
-				* Dequeues a complete streaming packet from the head of the list.
-				*
-				* @return	A Streaming packet from the head of the array
-				*/
-				array <unsigned char>^ ExtractStreamingDataPacket();
+				///**
+				//* Dequeues a complete streaming packet from the head of the list.
+				//*
+				//* @return	A Streaming packet from the head of the array
+				//*/
+				//array <unsigned char>^ ExtractStreamingDataPacket();
 
-				/**
-				* Dequeues a complete Acked response packet from the head of the list.
-				*
-				* @return	An Acked packet from the head of the array
-				*
-				* @warning First determine the packet type using DeterminePacketType. If the type and code are 
-				*			not correct then the function will throw an error.
-				*/
-				array <unsigned char>^ ExtractAckedResponsePakcet();
+				///**
+				//* Dequeues a complete Acked response packet from the head of the list.
+				//*
+				//* @return	An Acked packet from the head of the array
+				//*
+				//* @warning First determine the packet type using DeterminePacketType. If the type and code are 
+				//*			not correct then the function will throw an error.
+				//*/
+				//array <unsigned char>^ ExtractAckedResponsePakcet();
 
-				/**
-				* Dequeues a complete Acked response packet from the head of the list.
-				*
-				* @return	An Acked packet from the head of the array
-				*
-				* @warning First determine the packet type using DeterminePacketType. If the type and code are 
-				*			not correct then the function will throw an error.
-				*/
-				array <unsigned char>^ ExtractNackedResponsePacket();
-				
-				/**
-				* Dequeues a complete NIBP response packet from the head of the list. 
-				* This function assumes that the code in the first byte is an NIBp command 
-				* and the next byte represents the length of the Nibp Packet.
-				*
-				* @return	An Acked packet from the head of the array
-				*
-				* @warning First determine the packet type using DeterminePacketType. If the type and code are 
-				*			not correct then the function will throw an error.
-				*/
-				array <unsigned char>^ ExtractNibpPacket();
-				
-				/**
-				* Dequeues an  NIBP response packet from the head of the list. 
-				* This function assumes that the code in the first byte is an NIBp command 
-				* and the next byte represents the length of the Nibp Packet.
-				*
-				* @return	An Acked packet from the head of the array
-				*/
-				array <unsigned char>^ ExtractNibpAbortPacket();
+				///**
+				//* Dequeues a complete Acked response packet from the head of the list.
+				//*
+				//* @return	An Acked packet from the head of the array
+				//*
+				//* @warning First determine the packet type using DeterminePacketType. If the type and code are 
+				//*			not correct then the function will throw an error.
+				//*/
+				//array <unsigned char>^ ExtractNackedResponsePacket();
+
+				///**
+				//* Dequeues a complete NIBP response packet from the head of the list. 
+				//* This function assumes that the code in the first byte is an NIBp command 
+				//* and the next byte represents the length of the Nibp Packet.
+				//*
+				//* @return	An Acked packet from the head of the array
+				//*
+				//* @warning First determine the packet type using DeterminePacketType. If the type and code are 
+				//*			not correct then the function will throw an error.
+				//*/
+				//array <unsigned char>^ ExtractNibpPacket();
+
+				///**
+				//* Dequeues an  NIBP response packet from the head of the list. 
+				//* This function assumes that the code in the first byte is an NIBp command 
+				//* and the next byte represents the length of the Nibp Packet.
+				//*
+				//* @return	An Acked packet from the head of the array
+				//*/
+				//array <unsigned char>^ ExtractNibpAbortPacket();
 				
 				/**
 				* Loops through all the bytes in the queue and classifies each accordign to the type
@@ -144,8 +144,13 @@ namespace AtCor{
 				 //Locates the next streaming packet and returns its index.
 				int GetIndexOfNextStreamingPacketHead();
 
-				//Extracts a packet based on the pre-determined packet type
-				array<unsigned char>^ ExtractPacketByType(DalPacketType packetType);
+				////Extracts a packet based on the pre-determined packet type
+				//array<unsigned char>^ ExtractPacketByType(DalPacketType packetType);
+
+				//Checks if there is a complete packet and extracts it from the staging queue
+				array<unsigned char>^ GetNextPacket();
+
+				void ProcessPacketByType(array <unsigned char>^ packet);
 
 				
 				
@@ -175,7 +180,7 @@ namespace AtCor{
 				*/
 				void EnqueueArray(array <unsigned char>^ sourceArray);
 
-				///**
+				///*
 				//* Tells the processing thread that it should watch out for a response to an EM4 command
 				//* whihc has the specified code, length and sequence mumber
 				//*
@@ -188,12 +193,13 @@ namespace AtCor{
 
 				//								);
 
-				/**
-				* Tells the processign thread to not expect the command -response that was last notified by LookForResponseToCommand
-				*
-				* @see LookForResponseToCommand
-				*/
-				void StopLookingForResponse();
+				//Not needed any more
+				///*
+				//* Tells the processign thread to not expect the command -response that was last notified by LookForResponseToCommand
+				//*
+				//* @see LookForResponseToCommand
+				//*/
+				//void StopLookingForResponse();
 
 
 				/**

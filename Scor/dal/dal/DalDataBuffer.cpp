@@ -260,7 +260,7 @@ namespace AtCor{
 			//			}
 			//		}
 			//	}
-			//	//ToDo:Remove this comment: CrxLogger::Instance->Write("Alok: returnedvalues: " + returnedvalues + " requestedValues: " + requestedValues + " readStartIndex: " + readStartIndex, ErrorSeverity::Debug);			
+			//	//ToDo:Remove this comment: CrxLogger::Instance->Write("returnedvalues: " + returnedvalues + " requestedValues: " + requestedValues + " readStartIndex: " + readStartIndex, ErrorSeverity::Debug);			
 			//	//finally return the actual count
 			//	return returnedvalues; 
 			//}
@@ -470,6 +470,9 @@ namespace AtCor{
 						//check if BI is at the last element and ensure that the rollover of SI is done
 						startIndex= (startIndex+1)%_arraySize;
 					}
+
+					//Deepak: removing this line because it slows down the process on some systems
+					//CrxLogger::Instance->Write("DalDataBuffer::WriteDataToBuffer writing at bufferIndex: "+ bufferIndex + " cuffPressure:" + dataToWrite.cuffPressure + " countdownTimer:" + dataToWrite.countdownTimer , ErrorSeverity::Debug);
 
 					//set the value at the position
 					bufferPointer->SetValue(%dataToWrite, bufferIndex);

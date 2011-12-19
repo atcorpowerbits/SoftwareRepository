@@ -3,9 +3,11 @@
 #include "CrxConfiguration.h"
 #include "CrxMessaging.h"
 #include "CrxLogger.h"
+#include "CrxEventContainer.h"
 
 using namespace AtCor::Scor::CrossCutting::Messaging;
 using namespace AtCor::Scor::CrossCutting::Logging;
+using namespace AtCor::Scor::CrossCutting;
 
 namespace AtCor { 
 	namespace Scor { 
@@ -97,11 +99,20 @@ String^ CrxSytemParameters::GetNestedTagValue(System::String ^nestedTags)
 	}
 	catch(Exception^ )
 	{
-		String^ errorMessage = String::Empty;
-		errorMessage = String::Format(objMsg->GetMessage(CrxStructCommonResourceMsg::CrxErrXmlTagIncorrectText),nestedTags);
-		objLog->Write(errorMessage,ErrorSeverity::Information);
+		StringBuilder^ errorMessage = gcnew StringBuilder(String::Empty);
+		errorMessage = errorMessage->AppendFormat("{0} {1} ",Convert::ToString(CrxStructCommonResourceMsg::CrxErrXmlTagIncorrectErrCd),objMsg->GetMessage(CrxStructCommonResourceMsg::GuiDisplayColon));
+		errorMessage = errorMessage->AppendFormat(objMsg->GetMessage(CrxStructCommonResourceMsg::CrxErrXmlTagIncorrectText),nestedTags);
+		
+		objLog->Write(errorMessage->ToString(),ErrorSeverity::Information);
+		
 		//The tagname may not be in the correct format or it may not be present in the XML file
-		throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrXmlTagIncorrectErrCd, CrxStructCommonResourceMsg::CrxErrXmlTagIncorrect, ErrorSeverity::Exception );
+		Object^ obj;
+		ScorException^ check = gcnew ScorException (CrxStructCommonResourceMsg::CrxErrXmlTagIncorrectErrCd, CrxStructCommonResourceMsg::CrxErrXmlTagIncorrect, ErrorSeverity::Exception,nullptr,objMsg->GetMessage(CrxStructCommonResourceMsg::ContactAtcorSupportCommon));      
+		CrxEventContainer::Instance->OnShowStatusEvent(obj, gcnew CrxShowStatusEventArgs(check));
+
+		return String::Empty;
+		//The tagname may not be in the correct format or it may not be present in the XML file
+		//throw gcnew ScorException(CrxStructCommonResourceMsg::CrxErrXmlTagIncorrectErrCd, CrxStructCommonResourceMsg::CrxErrXmlTagIncorrect, ErrorSeverity::Exception );
 	}
 
 }

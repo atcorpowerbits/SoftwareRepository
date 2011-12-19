@@ -23,7 +23,7 @@ namespace AtCor.Scor.Gui.Presentation
         private DefaultWindow objDefaultWindow;
         Series avgAorticPulseActualSeries;
         CrxMessagingManager oMsgMgr = CrxMessagingManager.Instance;
-        decimal averageAorticXAxisInterval = Math.Round((decimal)(1000.0 / 256.0));
+        float averageAorticXAxisInterval = (float)(1000.0 / 128.0);
         CrxConfigManager crxMgrObject = CrxConfigManager.Instance;
        
         public PWATestResult(DefaultWindow defWindow)
@@ -31,21 +31,11 @@ namespace AtCor.Scor.Gui.Presentation
             InitializeComponent();
 
             // set the default window
-            objDefaultWindow = defWindow;
-
-            // initialize servername string
-            // serverNameString = GuiCommon.ServerNameString();
-            // obj = (BizPWV)BizSession.Instance().measurement;
-
-            // subscribe report tab click event
-            
-            // DefaultWindow.OnPWATestResultTabClick += PWATestResult_Load;
-            
-            // Presentation.Capture.OnPWATestResultTabClick += PWATestResult_Load;
+            objDefaultWindow = defWindow;           
         }
 
         /**This method is used to Navigate the user to the quickstart screen.
-       */
+        */
         public void NavigateUserToQuickStartScreen()
         {
             if (!GuiCommon.IsReportGenerated)
@@ -54,54 +44,33 @@ namespace AtCor.Scor.Gui.Presentation
                 switch (ds)
                 {
                     case DialogResult.Yes:
-                        GuiCommon.IsOnResultForm = false;
-                        objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabQuickStart;
-                        break;
+                         GuiCommon.IsOnResultForm = false;
+                         objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabQuickStart;
+                         break;
                     case DialogResult.No:
 
-                        GuiCommon.FromQuickStart = false;
+                         GuiCommon.FromQuickStart = false;
 
-                        if (!GuiCommon.IsOnSetupScreen)
-                        {
-                            objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabResult;
-                            objDefaultWindow.radtabResult.Enabled = true;
-                        }
-                        else if (GuiCommon.IsOnPwaReportForm)
-                        {
-                            objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabReport;
-                            objDefaultWindow.radtabReport.Enabled = true;  
-                        }
-                        else
-                        {
-                            objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
-                        }
+                         if (!GuiCommon.IsOnSetupScreen)
+                         {
+                             objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabResult;
+                             objDefaultWindow.radtabResult.Enabled = true;
+                         }
+                         else if (GuiCommon.IsOnPwaReportForm)
+                         {
+                             objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.radtabReport;
+                             objDefaultWindow.radtabReport.Enabled = true;  
+                         }
+                         else
+                         {
+                             objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
+                         }
 
-                        break;
+                         break;
                     default:
-                        break;
+                         break;
                 }
             }
-        }
-
-        public void LoadPWATestResult()
-        {
-            // Set Shapes of Labels 
-            SetShape(guiradlblSPValueText, guiradlblPPValueText, guiradlblAPValueText, guiradlblAIxValueText, guiradlblHRValueText, guiradlblDPValueText, guiradlblTestSPDisplay, guiradlblPWADPDisplay, guiradlblTestResultMapDisplay, guiradlblQualityControlValue);
-
-            // Display Calculated data on screen
-            LoadTemporaryReport();
-            SetTextForPwaTestResult();
-
-            // objDefaultWindow.guicmbxCurrentMode.Enabled = false;  
-        }
-
-        /** This method sets text for labels from resource file
-        * */
-        private void SetTextForLabels()
-        {
-            CrxConfigManager crxConfig = CrxConfigManager.Instance;
-            string defaultImgPath = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AtcorImageIcon.ToString()];
-            guiPicBoxReportLogo.Image = string.IsNullOrEmpty(crxConfig.GeneralSettings.ReportLogoPath) ? Image.FromFile(defaultImgPath) : Image.FromFile(crxConfig.GeneralSettings.ReportLogoPath);
         }
 
         public void LoadTemporaryReport()
@@ -125,8 +94,27 @@ namespace AtCor.Scor.Gui.Presentation
             objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
         }
 
+        public void LoadPWATestResult()
+        {
+            // Set Shapes of Labels 
+            SetShape(guiradlblSPValueText, guiradlblPPValueText, guiradlblAPValueText, guiradlblAIxValueText, guiradlblHRValueText, guiradlblDPValueText, guiradlblTestSPDisplay, guiradlblPWADPDisplay, guiradlblTestResultMapDisplay, guiradlblQualityControlValue);
+
+            // Display Calculated data on screen
+            LoadTemporaryReport();
+            SetTextForPwaTestResult();           
+        }
+
+        /** This method sets text for labels from resource file
+        * */
+        private void SetTextForLabels()
+        {
+            CrxConfigManager crxConfig = CrxConfigManager.Instance;
+            string defaultImgPath = ConfigurationManager.AppSettings[GuiConstants.AppConfigParams.AtcorImageIcon.ToString()];
+            guiPicBoxReportLogo.Image = string.IsNullOrEmpty(crxConfig.GeneralSettings.ReportLogoPath) ? Image.FromFile(defaultImgPath) : Image.FromFile(crxConfig.GeneralSettings.ReportLogoPath);
+        }     
+
         /**This method is used to round the text boxes and the label controls on the Report screen.
-         */
+        */
         private void SetShape(params Control[] labelControl)
         {
             RoundRectShape shape = new RoundRectShape();
@@ -162,58 +150,34 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**This event is fired when the form is loaded.
-         */ 
+        */ 
         private void PWATestResult_Load(object sender, EventArgs e)
         {            
             LoadPWATestResult();
-        }       
-        
-        /**It is used to display the bp meausrement data,to set the text of the controls.Plot the aortic waveform.
-         */ 
+        } 
       
         /**This event is fired when the user clicks on Patient button.
-         */
+        */
         private void radbtnUpdate_Click(object sender, EventArgs e)
         {            
             objDefaultWindow.radpgTabCollection.SelectedPage = objDefaultWindow.guiradgrpbxPwvDistanceMethod;
             objDefaultWindow.guiradgrpbxPwvDistanceMethod.Enabled = true;
             objDefaultWindow.guiradmnuitemSettings.Enabled = false;
             objDefaultWindow.guiradmnuSystemKey.Enabled = false;
-            objDefaultWindow.guicmbxCurrentMode.Enabled = false;  
-            /*
-            GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Visible = true;
-            GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guipnlPWABPOtherDevice"].Visible = false;
-            
-            GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnGetBp"].Visible = false;
-            GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnAutoPWACancel"].Visible = false;
-            GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradlblBPProgressBar"].Visible = false;
-            GuiCommon.SetupChildForm.Controls["guipnlPWAMeasurementDetails"].Controls["guiradbtnDisplayReport"].Visible = true;            
-             */ 
+            objDefaultWindow.guicmbxCurrentMode.Enabled = false;             
         }
 
         /**This method is used to plot the central average aortic pulse waveform.
-         */ 
+        */ 
         private void PlotAvgAorticPulseChart()
         {
             // set y axis (normal range values from Bizsession object in float)
             float[] avgAorticPulse = GuiCommon.quickStartCrxPwaData.C_AV_PULSE;
-
-            // float[] avgTypicalAorticPulse = GuiCommon.quickStartCrxPwaData.C_Typical;
             guichartPWAReport.Series.Clear();
 
             // initialize series,chartype,add points to series and finally add series to chart.            
             // set display properties for Avg Aortic Pulse graph
-            string name1 = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportActual).ToString();
-            Series newSeries = new Series
-                {
-                    ChartType = SeriesChartType.Spline,
-                    Color = Color.MediumBlue,
-                    BorderWidth = 2,
-
-                   // Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportActual),
-                };
-
-             avgAorticPulseActualSeries = new Series
+            avgAorticPulseActualSeries = new Series
             {
                 ChartType = SeriesChartType.Spline,
                 Color = Color.MediumBlue,
@@ -227,6 +191,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 if (avgAorticPulse[i] == 0)
                 {
+                    // Do Nothing
                 }
                 else
                 {
@@ -236,31 +201,7 @@ namespace AtCor.Scor.Gui.Presentation
 
             guichartPWAReport.Series.Add(avgAorticPulseActualSeries);
 
-            // set properties for series 2 for plotting ideal graph
-            Series avgAorticPulseIdealSeries = new Series
-            {
-                ChartType = SeriesChartType.Spline,
-                Color = Color.DimGray,
-                BorderWidth = 2,
-
-               // Name = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiReportTypical),
-            };
-            avgAorticPulseIdealSeries.Points.Clear();
-           /* for (int i = 0; i < avgTypicalAorticPulse.Length; i++)
-            {
-                if (avgTypicalAorticPulse[i] == 0)
-                {
-                    break;
-                }
-                else
-                {
-                    avgAorticPulseIdealSeries.Points.AddXY(averageAorticXAxisInterval * i, avgTypicalAorticPulse[i]);
-                }
-            }
-
-            guichartPWAReport.Series.Add(avgAorticPulseIdealSeries);
-            */
-
+          
             // Setting minimum and maximum of Y-axis for Chart
             avgAorticPulse = ResetNonZeroSizeofArray(avgAorticPulse);
             Array.Sort(avgAorticPulse);
@@ -268,6 +209,7 @@ namespace AtCor.Scor.Gui.Presentation
             {
                 if (avgAorticPulse[i] == 0)
                 {
+                    // Do Nothing
                 }
                 else
                 {
@@ -285,17 +227,17 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**This method is used to set the text of the gui controls.
-         */ 
+        */ 
         private void SetTextForPwaTestResult()
         {
             guiradlblReportBrachailSpDp.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblBrachialSpDpMp);
-            guiradlblPWASP.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.Sp) + ":";
+            guiradlblPWASP.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgCentralSp) + ":";
             guiradlblPWAPP.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPP) + ":";
             guiradlblPWAAP.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblAp) + ":";
             guiradlblPWAAIx.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblAix) + ":";
             guiradlblTestResultMap.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptMapTitle) + ":";
             guiradlblPWAHR.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.FieldPatientHr) + ":";
-            guiradlblPWADP.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblDp) + ":";
+            guiradlblPWADP.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.MsgCentralDp) + ":";
             guioradlblAvgCentralAortlcPulse.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblAvgCentralAorticPulse);
             guiradlblQualityControl.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblPwaQualityControl);
             radbtnPatient.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.TabPatient);
@@ -304,14 +246,14 @@ namespace AtCor.Scor.Gui.Presentation
         }
 
         /**This event is fired when the user clicks on the Quickstart button.
-         */ 
+        */ 
         private void guiradbtnCancel_Click(object sender, EventArgs e)
         {
             NavigateUserToQuickStartScreen();
         }      
 
         /**This method is used to remove all the zero values from a given array.
-         */ 
+        */ 
         private float[] ResetNonZeroSizeofArray(float[] rawSignalArr)
         {
             int arrLen = 0;
@@ -379,6 +321,13 @@ namespace AtCor.Scor.Gui.Presentation
             PWACommonReportData.RptSignatureTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptSignatureTitle);
 
             PWACommonReportData.RptPhysicianTitle = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.RptPhysicianTitle);
+
+            PWACommonReportData.RptDateAndTimeOfAssessment = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiDatetimeTxt);
+        }
+
+        private void guichartPWAReport_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

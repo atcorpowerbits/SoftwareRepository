@@ -498,7 +498,7 @@ namespace AtCor{
 								if(_DalCuffStatusEventHandler)
 								{
 									//Moved log comment to the top and uncommented it as per TS stub
-									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("DAL:Deepak>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() , ErrorSeverity::Debug);
+									AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("DAL>>>> CuffStatus event raised in DAL: "+ args->CuffStateFlag.ToString() , ErrorSeverity::Debug);
 									_DalCuffStatusEventHandler->Invoke(sender, args);
 								}
 							}
@@ -510,6 +510,7 @@ namespace AtCor{
 						*/
 						event DalModuleErrorAlarmEventHandler^ OnDalModuleErrorAlarmEvent
 						{
+							
 							/**
 							* Registers specifed handler method as a listener to this event.
 							*
@@ -522,7 +523,7 @@ namespace AtCor{
 								{
 									return;
 								}
-								//CrxLogger::Instance->Write("Deepak>>>> DalModuleErrorAlarmEventHandler Handler Added: " + handler->ToString(), ErrorSeverity::Debug);
+								//CrxLogger::Instance->Write("DAL>>>> DalModuleErrorAlarmEventHandler Handler Added: " + handler->ToString(), ErrorSeverity::Debug);
 								lock lockEvents(this);
 								//add the specified handler as listener.
 								_dalModuleErrorAlarmEventHandler += handler;
@@ -542,7 +543,7 @@ namespace AtCor{
 									return;
 								}
 
-								//CrxLogger::Instance->Write("Deepak>>>> DalModuleErrorAlarmEventHandler Handler removed: " + handler->ToString(), ErrorSeverity::Debug);
+								//CrxLogger::Instance->Write("DAL>>>> DalModuleErrorAlarmEventHandler Handler removed: " + handler->ToString(), ErrorSeverity::Debug);
 								lock lockEvents(this);
 								//Remove the specified handler from the list of listeners
 								_dalModuleErrorAlarmEventHandler -= handler;
@@ -567,7 +568,12 @@ namespace AtCor{
 								if(_dalModuleErrorAlarmEventHandler)
 								{
 									_dalModuleErrorAlarmEventHandler->Invoke(sender, args);
-									CrxLogger::Instance->Write("DAL:Deepak>>>> Error Alarm event raised in DAL: " + args->ScorExceptionObject->StackTrace + " -- " + args->ErrorAlarmStatus.ToString() + " : " + args->AlarmSourceName  , ErrorSeverity::Debug);
+									CrxLogger::Instance->Write("DAL>>>> Error Alarm event raised in DAL: "+ args->ErrorAlarmStatus.ToString() + " : " + args->AlarmSourceName  , ErrorSeverity::Debug);
+									
+									//Deepak" this line is incorrect and it raises an excpetion
+									//TODO: remove this line
+									//CrxLogger::Instance->Write("DAL>>>> Error Alarm event raised in DAL: " + args->ScorExceptionObject->StackTrace + " -- " + args->ErrorAlarmStatus.ToString() + " : " + args->AlarmSourceName  , ErrorSeverity::Debug);
+									
 								}
 							
 							}
@@ -626,7 +632,7 @@ namespace AtCor{
 								if(_dalTonometerStatusEventHandler)
 								{
 									_dalTonometerStatusEventHandler->Invoke(sender, args);
-									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> Tonometer event raised in DAL: "+ args->TonometerStateFlag.ToString() , ErrorSeverity::Debug);
+									//AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("DAL>>>> Tonometer event raised in DAL: "+ args->TonometerStateFlag.ToString() , ErrorSeverity::Debug);
 								}
 							}
 						}
@@ -686,7 +692,7 @@ namespace AtCor{
 								if(_dalUnusedStatusFlagChangedEventHandler)
 								{
 									_dalUnusedStatusFlagChangedEventHandler->Invoke(sender, args);
-									////AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("Deepak>>>> UnusedStatusFlagChangedEvent raised in DAL: "+ args->UnusedStatusFlagChanged.ToString() + " : " + args->ValueSetReset.ToString()  , ErrorSeverity::Debug);
+									////AtCor::Scor::CrossCutting::Logging::CrxLogger::Instance->Write("DAL>>>> UnusedStatusFlagChangedEvent raised in DAL: "+ args->UnusedStatusFlagChanged.ToString() + " : " + args->ValueSetReset.ToString()  , ErrorSeverity::Debug);
 								}
 							}
 						}
@@ -767,7 +773,7 @@ namespace AtCor{
 							lock lockEvents(this);
 							//add the specified handler as listener.
 							_nibpPacketArrivedHandler += handler;
-							//CrxLogger::Instance->Write("Deepak>> OnDalNibpPacketEvent> Listerner Added", ErrorSeverity::Debug);
+							//CrxLogger::Instance->Write("DAL>> OnDalNibpPacketEvent> Listerner Added", ErrorSeverity::Debug);
 						}
 						
 						/**
@@ -782,7 +788,7 @@ namespace AtCor{
 							lock lockEvents(this);
 							//Remove the specified handler from the list of listeners
 							_nibpPacketArrivedHandler -= handler;
-							//CrxLogger::Instance->Write("Deepak>> OnDalNibpPacketEvent> Listerner Removed", ErrorSeverity::Debug);
+							//CrxLogger::Instance->Write("DAL>> OnDalNibpPacketEvent> Listerner Removed", ErrorSeverity::Debug);
 						}
 
 						/**
@@ -804,7 +810,7 @@ namespace AtCor{
 							//Raise the event.
 							if(_nibpPacketArrivedHandler)
 							{
-								CrxLogger::Instance->Write("Deepak>> OnDalNibpPacketEvent> Raising event args: " + DalBinaryConversions::ConvertBytesToString(args->nibpPacket), ErrorSeverity::Debug);
+								CrxLogger::Instance->Write("DAL>> OnDalNibpPacketEvent> Raising event args: " + DalBinaryConversions::ConvertBytesToString(args->nibpPacket), ErrorSeverity::Debug);
 								_nibpPacketArrivedHandler->Invoke(sender, args);
 							}
 						}

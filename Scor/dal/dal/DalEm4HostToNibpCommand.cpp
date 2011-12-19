@@ -34,7 +34,7 @@ DalEM4HostToNibpCommand::DalEM4HostToNibpCommand()
 
 DalEM4HostToNibpCommand::~DalEM4HostToNibpCommand()
 {
-	CrxLogger::Instance->Write("DalEM4HostToNibpCommand::~DalEM4HostToNibpCommand called for object" + this->GetType(), ErrorSeverity::Debug);
+	CrxLogger::Instance->Write("DalEM4HostToNibpCommand::~DalEM4HostToNibpCommand called for object" + this->GetType() + " Hash Code: " + this->GetHashCode(), ErrorSeverity::Debug);
 	responseListenerThread->Abort();
 	delete responseListenerThread;
 }
@@ -69,6 +69,9 @@ DalReturnValue DalEM4HostToNibpCommand::SendCommandAndGetResponse()
 
 void DalEM4HostToNibpCommand::PacketArrivedProcessingMethod(Object^ , NibPacketArrivedEventArgs^ args)
 {
+
+	try
+	{
 	if (args->Handled)
 	{
 		//This response has been handled by some other object so ignore it.
@@ -87,6 +90,12 @@ void DalEM4HostToNibpCommand::PacketArrivedProcessingMethod(Object^ , NibPacketA
 	{
 		//if packet has been acted on then we should set this to true so that it is not handled again
 		args->Handled = true;
+	}
+	}
+	catch( ThreadInterruptedException ^ threadInterruptEx)
+	{
+		delete threadInterruptEx;
+
 	}
 
 }

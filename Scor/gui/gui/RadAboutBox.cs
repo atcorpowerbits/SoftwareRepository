@@ -37,10 +37,7 @@ namespace AtCor.Scor.Gui.Presentation
             InitializeComponent();
             Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.GuiAboutMenu);
 
-            // guiradbtnOk.Text =CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.
             guiradbtnPrint.Text = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.BtnPrint);
-
-            // GuiCommon.SetFontForControls(this);
 
             // fix the size & location of about box panel
             Size = new Size(525, 370);
@@ -60,46 +57,51 @@ namespace AtCor.Scor.Gui.Presentation
         public string SetKeyFeatures()
         {
             string strFeatures = string.Empty;
-
-            if (BizInfo.Instance().OptionResearch)
+            try
             {
-                strFeatures = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionResearch);
-            }
-            else
-            {
-                strFeatures = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionClinical);
-            }
+                if (BizInfo.Instance().OptionResearch)
+                {
+                    strFeatures = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionResearch);
+                }
+                else
+                {
+                    strFeatures = CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionClinical);
+                }
 
-            if (BizInfo.Instance().OptionPWV)
-            {
-                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionPwv));
-            }
+                if (BizInfo.Instance().OptionPWV)
+                {
+                    strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionPwv));
+                }
 
-            if (BizInfo.Instance().OptionCPWA)
-            {
-                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptioncPwa));
-            }
+                if (BizInfo.Instance().OptionCPWA)
+                {
+                    strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptioncPwa));
+                }
 
-            if (BizInfo.Instance().OptionTPWA)
-            {
-                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptiontPwa));
-            }
+                if (BizInfo.Instance().OptionTPWA)
+                {
+                    strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptiontPwa));
+                }
 
-            if (BizInfo.Instance().OptionNIBP)
-            {
-                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionNibp));
-            }
+                if (BizInfo.Instance().OptionNIBP)
+                {
+                    strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionNibp));
+                }
 
-            if (BizInfo.Instance().OptionCaptureGuide)
-            {
-                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionCaptureGuide));
-            }
+                if (BizInfo.Instance().OptionCaptureGuide)
+                {
+                    strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionCaptureGuide));
+                }
 
-            if (BizInfo.Instance().OptionAuditTrail)
-            {
-                strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionAuditTrial));
+                if (BizInfo.Instance().OptionAuditTrail)
+                {
+                    strFeatures = string.Concat(strFeatures, CrxMessagingManager.Instance.GetMessage(CrxStructCommonResourceMsg.LblOptionAuditTrial));
+                }
             }
-
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
             return strFeatures;
         }
 
@@ -124,7 +126,6 @@ namespace AtCor.Scor.Gui.Presentation
                 guiradlblBP.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutMeasuremtBp),  BizInfo.Instance().GetModuleNumberMeasurementsNIBP());
                 guiradlblSecurityMode.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutSecMode),  BizInfo.Instance().GetSecurityMode());
 
-                // BizInfo.Instance().GetModuleSN());
                 guiradlblmoduleInfo.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutModuleTxt),  BizInfo.Instance().GetModuleType(),  BizInfo.Instance().GetModuleVersion(),  BizInfo.Instance().GetSystemID()); 
                 guiradlblKeyFeatures.Text = oMsgMgr.GetMessage(CrxStructCommonResourceMsg.LblKey) + ": " + SetKeyFeatures();
                 guiradlblLastCalibrationDate.Text = string.Format(oMsgMgr.GetMessage(CrxStructCommonResourceMsg.GuiAboutCalibDate),  BizInfo.Instance().GetModuleCalibrationDate());
@@ -149,7 +150,14 @@ namespace AtCor.Scor.Gui.Presentation
          * */
         private void guiradbtnOk_Click(object sender, EventArgs e)
         {
-            Close();
+            try
+            {
+                Close();
+            }
+            catch (Exception ex)
+            {
+                GUIExceptionHandler.HandleException(ex, this);
+            }
         }
 
         /** This method appends string to stringbuilder for printing about box content

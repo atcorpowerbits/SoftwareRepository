@@ -3,6 +3,7 @@
 
 using namespace System;
 using namespace System::Xml::Linq;
+using namespace System::Text;
 using namespace AtCor::Scor::CrossCutting;
 
 namespace AtCor { 

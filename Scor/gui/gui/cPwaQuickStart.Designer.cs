@@ -49,10 +49,10 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPwaPp = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblPwaSpValue = new Telerik.WinControls.UI.RadLabel();
             this.guiradlblPwaSp = new Telerik.WinControls.UI.RadLabel();
-            this.guipicboxPWAGetBp = new System.Windows.Forms.PictureBox();
             this.tmrGetCuffPressure = new System.Windows.Forms.Timer(this.components);
             this.tmrWaitDuringAssessment = new System.Windows.Forms.Timer(this.components);
             this.tmrQsAutoPwa = new System.Windows.Forms.Timer(this.components);
+            this.guipicboxPWAGetBp = new System.Windows.Forms.PictureBox();
             this.guipnlPWAMeasurementDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guiradlblQuickStartWarning)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guiradprgBarCuffPressure)).BeginInit();
@@ -307,7 +307,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPwaDpValue.BorderVisible = true;
             this.guiradlblPwaDpValue.Font = new System.Drawing.Font("Arial", 11F);
             this.guiradlblPwaDpValue.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblPwaDpValue.Location = new System.Drawing.Point(145, 373);
+            this.guiradlblPwaDpValue.Location = new System.Drawing.Point(145, 356);
             this.guiradlblPwaDpValue.Name = "guiradlblPwaDpValue";
             // 
             // 
@@ -329,7 +329,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPwaDp.AutoSize = false;
             this.guiradlblPwaDp.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblPwaDp.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblPwaDp.Location = new System.Drawing.Point(73, 371);
+            this.guiradlblPwaDp.Location = new System.Drawing.Point(73, 354);
             this.guiradlblPwaDp.Name = "guiradlblPwaDp";
             // 
             // 
@@ -355,6 +355,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPwaMapValue.Size = new System.Drawing.Size(36, 23);
             this.guiradlblPwaMapValue.TabIndex = 55;
             this.guiradlblPwaMapValue.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.guiradlblPwaMapValue.Visible = false;
             ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPwaMapValue.GetChildAt(0))).BorderVisible = true;
             ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPwaMapValue.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             ((Telerik.WinControls.UI.RadLabelElement)(this.guiradlblPwaMapValue.GetChildAt(0))).Text = "";
@@ -378,6 +379,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPwaMap.TabIndex = 54;
             this.guiradlblPwaMap.Text = "MAP:";
             this.guiradlblPwaMap.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.guiradlblPwaMap.Visible = false;
             // 
             // guiradlblPwaPpValue
             // 
@@ -385,7 +387,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPwaPpValue.BorderVisible = true;
             this.guiradlblPwaPpValue.Font = new System.Drawing.Font("Arial", 11F);
             this.guiradlblPwaPpValue.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblPwaPpValue.Location = new System.Drawing.Point(145, 251);
+            this.guiradlblPwaPpValue.Location = new System.Drawing.Point(145, 239);
             this.guiradlblPwaPpValue.Name = "guiradlblPwaPpValue";
             // 
             // 
@@ -407,7 +409,7 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPwaPp.AutoSize = false;
             this.guiradlblPwaPp.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiradlblPwaPp.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guiradlblPwaPp.Location = new System.Drawing.Point(73, 249);
+            this.guiradlblPwaPp.Location = new System.Drawing.Point(73, 237);
             this.guiradlblPwaPp.Name = "guiradlblPwaPp";
             // 
             // 
@@ -457,15 +459,6 @@ namespace AtCor.Scor.Gui.Presentation
             this.guiradlblPwaSp.Text = "SP:";
             this.guiradlblPwaSp.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // guipicboxPWAGetBp
-            // 
-            this.guipicboxPWAGetBp.Image = global::gui.Properties.Resources.PWA_diagram;
-            this.guipicboxPWAGetBp.Location = new System.Drawing.Point(183, 168);
-            this.guipicboxPWAGetBp.Name = "guipicboxPWAGetBp";
-            this.guipicboxPWAGetBp.Size = new System.Drawing.Size(318, 237);
-            this.guipicboxPWAGetBp.TabIndex = 0;
-            this.guipicboxPWAGetBp.TabStop = false;
-            // 
             // tmrGetCuffPressure
             // 
             this.tmrGetCuffPressure.Interval = 500;
@@ -480,6 +473,15 @@ namespace AtCor.Scor.Gui.Presentation
             // 
             this.tmrQsAutoPwa.Interval = 1000;
             this.tmrQsAutoPwa.Tick += new System.EventHandler(this.tmrQsAutoPwa_Tick);
+            // 
+            // guipicboxPWAGetBp
+            // 
+            this.guipicboxPWAGetBp.Image = global::gui.Properties.Resources.PWA_diagram_new1;
+            this.guipicboxPWAGetBp.Location = new System.Drawing.Point(183, 148);
+            this.guipicboxPWAGetBp.Name = "guipicboxPWAGetBp";
+            this.guipicboxPWAGetBp.Size = new System.Drawing.Size(318, 257);
+            this.guipicboxPWAGetBp.TabIndex = 0;
+            this.guipicboxPWAGetBp.TabStop = false;
             // 
             // cPwaQuickStart
             // 

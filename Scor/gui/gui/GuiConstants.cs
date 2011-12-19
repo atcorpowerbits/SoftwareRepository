@@ -46,6 +46,8 @@ namespace AtCor.Scor.Gui.Presentation
         // value for conversion from mm to cm.
         public const int DivisionFactor = 10;
 
+        public const int MedicationNotesMaxLength = 44;
+
         // readonly values for setting chart max & min height to adjust series plotting away from edges of the chart
         public static readonly double ChartAreaMinimumY = 0.96;  
         public static readonly double ChartAreaMaximumY = 1.04;
@@ -148,6 +150,8 @@ namespace AtCor.Scor.Gui.Presentation
         public static readonly string PatientGeneralPopulation = "PatientGeneralPopulation";
         public static readonly string PatientCarotid = "PatientCarotid";
         public static readonly string PatientFemoral = "PatientFemoral";
+        public static readonly string PatientMesurementDateTitle = "MesurementDateTitle";
+        public static readonly string PatientMesurementDateValue = "MesurementDate";
 
         // PWV Analysis
         public static readonly string PWVTitle = "PWVTitle";

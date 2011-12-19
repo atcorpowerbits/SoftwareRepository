@@ -321,6 +321,22 @@ namespace AtCor{
 						DalActiveDevice::CurrentDevice->SystemConfigurationChangeDate(data);
 					}
 				};
+
+				/**
+				* Returns the System configuration Change Date.
+				*/
+				property unsigned short NotchFilterEnable
+				{
+					unsigned short get()
+					{
+						return DalActiveDevice::CurrentDevice->NotchFilterEnable();	//Dummy
+					};
+
+					void set(unsigned short data)
+					{
+						DalActiveDevice::CurrentDevice->NotchFilterEnable(data);
+					}
+				};
 			};
 		}
 	}

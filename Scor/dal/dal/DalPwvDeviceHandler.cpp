@@ -28,7 +28,7 @@ DalPwvDeviceHandler::DalPwvDeviceHandler()
 
 bool DalPwvDeviceHandler::StartCapture(int captureTime, int samplingRate)
 {
-	CrxLogger::Instance->Write("DAL:Deepak>>> DalPwvDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
+	CrxLogger::Instance->Write("DAL>>> DalPwvDeviceHandler::StartCapture Called", ErrorSeverity::Debug);
 
 	//create a buffer of the required size
 	try
@@ -105,7 +105,7 @@ bool DalPwvDeviceHandler::StartCapture(int captureTime, int samplingRate)
 
 	returnValue = _commandInterface->SendCommandAndGetResponse(startCaptureCommand); //renamed oringinal method
 	
-	CrxLogger::Instance->Write("DAL:Deepak>>> DalPwvDeviceHandler::StartCapture command sent and returned: " + returnValue.ToString(), ErrorSeverity::Debug);
+	CrxLogger::Instance->Write("DAL>>> DalPwvDeviceHandler::StartCapture command sent and returned: " + returnValue.ToString(), ErrorSeverity::Debug);
 
 	
 	//if acknowledged start the handler to listen to the data received.
@@ -119,7 +119,7 @@ bool DalPwvDeviceHandler::StartCapture(int captureTime, int samplingRate)
 		{
 			bool returnValue;
 			returnValue =  _commandInterface->InitiateDataCaptureMode();
-			CrxLogger::Instance->Write("DAL:Deepak>>> DalPwvDeviceHandler::StartCapture InitiateDataCaptureMode() returned: " + returnValue.ToString(), ErrorSeverity::Debug);
+			CrxLogger::Instance->Write("DAL>>> DalPwvDeviceHandler::StartCapture InitiateDataCaptureMode() returned: " + returnValue.ToString(), ErrorSeverity::Debug);
 
 			return returnValue;
 		}
