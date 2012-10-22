@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ABPM", "ABPM.cproj", "{9D1A9267-4911-47BC-AC3B-8651CDABD374}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D1A9267-4911-47BC-AC3B-8651CDABD374}.Debug|AVR.ActiveCfg = Debug|AVR
+		{9D1A9267-4911-47BC-AC3B-8651CDABD374}.Debug|AVR.Build.0 = Debug|AVR
+		{9D1A9267-4911-47BC-AC3B-8651CDABD374}.Release|AVR.ActiveCfg = Release|AVR
+		{9D1A9267-4911-47BC-AC3B-8651CDABD374}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
