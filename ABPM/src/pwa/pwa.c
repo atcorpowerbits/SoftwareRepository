@@ -12,14 +12,45 @@
 #include "pwa_signal.h"
 #include "pressure.h"
 #include "pulse.h"
+#include "buffer.h"
 
-#include "math_pwa.h"
-
-#define PWA_ED_TOP_PERCENT					(float)0.75  // ED cannot be more then 65% of Length
+#define PWA_ED_TOP_PERCENT					(float)0.75
 #define PWA_EFFECTIVE_PULSE_LENGTH_PERCENT	(float)0.75 // percent to calculate min value for calibration
 #define PWA_NOF_DELAY_SAMPLES				(int8_t)8
 #define PWA_CUFF_INFLATE_PRESSURE_SUBTRACT	(int8_t)10
 
+/* ###########################################################################
+ ** RawSignal_init()
+ **
+ ** DESCRIPTION
+ **  Allocate memory, initailise rawSignal properties
+ */
+bool RawSignal_init(uint16_t pSize)
+{
+	rawSignal = malloc(sizeof(uint16_t)*pSize);
+	if (rawSignal == NULL)
+	{
+		return false;
+	}
+	
+	memset(rawSignal, 0, sizeof(uint16_t)*pSize);
+	return true;
+}
+
+/* ###########################################################################
+ ** RawSignal_final()
+ **
+ ** DESCRIPTION
+ **  Free rawSignal properties
+*/
+void RawSignal_final(void)
+{
+	if (rawSignal != NULL)
+	{
+		free(rawSignal);
+		rawSignal = NULL;
+	}
+}
 
 /* ###########################################################################
  ** FloatSignal_init()
@@ -38,6 +69,17 @@ bool FloatSignal_init(void)
 	memset(floatSignal, 0, sizeof(float)*PRESSURE_MAX_PPOINTS);
 	return true;
 }
+bool Central_FloatSignal_init(void)
+{
+	Central_floatSignal = malloc(sizeof(float)*PRESSURE_MAX_PPOINTS);
+	if (Central_floatSignal == NULL)
+	{
+		return false;
+	}
+	
+	memset(Central_floatSignal, 0, sizeof(float)*PRESSURE_MAX_PPOINTS);
+	return true;
+}
 
 /* ###########################################################################
  ** FloatSignal_final()
@@ -51,6 +93,14 @@ void FloatSignal_final(void)
 	{
 		free(floatSignal);
 		floatSignal = NULL;
+	}
+}
+void Central_FloatSignal_final(void)
+{
+	if (Central_floatSignal != NULL)
+	{
+		free(Central_floatSignal);
+		Central_floatSignal = NULL;
 	}
 }
 
@@ -71,6 +121,17 @@ bool IntegerOnsets_init(void)
 	memset(integerOnsets, -1, sizeof(int16_t)*PRESSURE_MAX_TPOINTS);
 	return true;
 }
+bool Central_IntegerOnsets_init(void)
+{
+	Central_integerOnsets = malloc(sizeof(int16_t)*PRESSURE_MAX_TPOINTS);
+	if (Central_integerOnsets == NULL)
+	{
+		return false;
+	}
+	
+	memset(Central_integerOnsets, -1, sizeof(int16_t)*PRESSURE_MAX_TPOINTS);
+	return true;
+}
 
 /* ###########################################################################
  ** IntegerOnsets_final()
@@ -86,6 +147,114 @@ void IntegerOnsets_final(void)
 		integerOnsets = NULL;
 	}
 }
+void Central_IntegerOnsets_final(void)
+{
+	if (Central_integerOnsets != NULL)
+	{
+		free(Central_integerOnsets);
+		Central_integerOnsets = NULL;
+	}
+}
+
+/* ###########################################################################
+ ** PeriphParams_init()
+ **
+ ** DESCRIPTION
+ **  Allocate memory, initailise PeriphParams properties
+ */
+bool PeriphParams_init(void)
+{
+	PeriphParams = (Peripheral_Parameters *)malloc(sizeof(Peripheral_Parameters));
+	if (PeriphParams == NULL)
+	{
+		return false;
+	}
+	
+	PeriphParams->Gain = 0;
+	PeriphParams->Offset = 0;
+	PeriphParams->IntegralAver = 0;
+	PeriphParams->PeriphMainPeak = 0;
+	PeriphParams->ExpPulse_T1 = DEFAULT_VALUE;
+	PeriphParams->ExpPulse_T2 = DEFAULT_VALUE;
+	PeriphParams->ExpPulse_T2m = -1;
+	PeriphParams->ExpPulse_ShoulderAfterPeak = -1;
+	PeriphParams->ExpPulse_ED = DEFAULT_VALUE;
+	
+	return true;
+}
+
+/* ###########################################################################
+ ** PeriphParams_final()
+ **
+ ** DESCRIPTION
+ **  Free PeriphParams properties
+*/
+void PeriphParams_final(void)
+{
+	if (PeriphParams != NULL)
+	{
+		free(PeriphParams);
+		PeriphParams = NULL;
+	}
+}
+
+/* ###########################################################################
+ ** CentralParams_init()
+ **
+ ** DESCRIPTION
+ **  Allocate memory, initailise CentralParams properties
+ */
+bool CentralParams_init(void)
+{
+	CentralParams = (Central_Parameters *)malloc(sizeof(Central_Parameters));
+	if (CentralParams == NULL)
+	{
+		return false;
+	}
+	
+	CentralParams->ExpPulse_T1 = DEFAULT_VALUE;
+	CentralParams->ExpPulse_T2 = DEFAULT_VALUE;
+	CentralParams->SP = DEFAULT_VALUE;
+	CentralParams->DP = DEFAULT_VALUE;
+	CentralParams->MeanP = DEFAULT_VALUE;
+	CentralParams->AGPH = DEFAULT_VALUE;
+	CentralParams->AP = DEFAULT_VALUE;
+	CentralParams->HR = DEFAULT_VALUE;
+	CentralParams->SEVR = DEFAULT_VALUE;
+	
+	return true;
+}
+
+/* ###########################################################################
+ ** CentralParams_final()
+ **
+ ** DESCRIPTION
+ **  Free CentralParams properties
+*/
+void CentralParams_final(void)
+{
+	if (CentralParams != NULL)
+	{
+		free(CentralParams);
+		CentralParams = NULL;
+	}
+}
+
+/* ###########################################################################
+ ** Initialise()
+ **
+ ** DESCRIPTION
+ **  Initialise all parameters
+*/
+void Initialise(void)
+{
+	signalLength = 0;
+	onsetsLength = 0;
+	Central_onsetsLength = 0;
+	Brachial_SP = 120;
+	Brachial_DP = 80;
+	Brachial_MeanP = 0;
+}
 
 /* ###########################################################################
  ** Finalise()
@@ -95,11 +264,20 @@ void IntegerOnsets_final(void)
 */
 void Finalise(void)
 {
-	FloatSignal_final();
 	IntegerOnsets_final();
+	Central_IntegerOnsets_final();
 	Pulses_final();
+	FloatSignal_final();
+	Central_FloatSignal_final();
 	Derivatives_final();
 	AvPulse_final();
+	ADCBuffer_final();
+	ExpPulses_final();
+	Periph_CalAvPulse_final();
+	Central_CalAvPulse_final();
+	PeriphParams_final();
+	CentralParams_final();
+	RawSignal_final();
 }
 
 /* ###########################################################################
@@ -107,34 +285,34 @@ void Finalise(void)
  **
  ** DESCRIPTION
  **  Down sample from DEFAULT_SAMPLE_RATE to MEAS_DEFAULT_SAMPLE_RATE
- **  Only Tonometer signal is required to check the minimum acceptable digital unit threshold.
  ** INPUT
  **  pDownSampleRate: DEFAULT_SAMPLE_RATE/MEAS_DEFAULT_SAMPLE_RATE
  **  rawSignalLength: total points of raw signal
  ** OUTPUT
- **  BizPWASignal::floatSignal
+ **  rawSignal - Original signals as integer value
+ **  floatSignal - will be changed for convolution and calculation
 */
 bool InitialDownSample(const uint8_t pDownSampleRate, const uint16_t rawSignalLength)
 {
-	if (pDownSampleRate <= 0 || rawSignalLength <= 0)
+	if (pDownSampleRate <= 0 || rawSignalLength <= 0 || floatSignal == NULL)
 	{
 		return false;
 	}
 
 	uint16_t lSize = (rawSignalLength - 1)/pDownSampleRate + 1;
-	rawSignals = (uint16_t*)malloc(sizeof(uint16_t)*lSize);
-	if (rawSignals == NULL)
+	
+	RawSignal_final();
+	if (!RawSignal_init(lSize))
 	{
-		print_debug("Error: failed to allocate memory rawSignals.\r\n");
+		print_debug("Error: failed to allocate memory for rawSignal.\r\n");
 		return false;
 	}
-	memset(rawSignals, 0, sizeof(uint16_t)*lSize);
 	
-	for (int i=0; i < lSize; i++)
+	for (uint16_t i=0; i < lSize; i++)
 	{
-		rawSignals[i] = adc_buffer[i*pDownSampleRate];
+		rawSignal[i] = adc_buffer[i*pDownSampleRate];
 		floatSignal[i] = (float)adc_buffer[i*pDownSampleRate];
-		if (floatSignal[i] < PWA_ACCEPTABLE_DATA_THRESHOLD_TONOMETER)
+		if (floatSignal[i] < PWA_ACCEPTABLE_DATA_THRESHOLD)
 		{
 			print_debug("Error: capture signal is too low.\r\n");
 			return false;
@@ -142,7 +320,8 @@ bool InitialDownSample(const uint8_t pDownSampleRate, const uint16_t rawSignalLe
 	}
 	signalLength = lSize;
 	
-	// Once we get down samples, we don't need circular adc_buffer.
+	// Once we get down samples rawSignal(uint16_t, 128samples, 5seconds), we don't need adc_buffer.
+	// We will save this rawSignal to Flash disk if all calculations are successful, and floatSignal will be used for convolution and calculation.
 	ADCBuffer_final();
 	
 	return true;
@@ -176,31 +355,25 @@ bool ValidateBeforeCalculate(void)
 }
 
 /* ###########################################################################
- ** CalculateBrachial
+ ** CalculateBrachial()
  **
  ** DESCRIPTION
- **  Do all mathematics for Cuff measurement
+ **  Do all mathematics for Brachial Cuff measurement
  ** INPUT
- **  PWA class (source)
+ **  PWA properties
  ** OUTPUT
  **  boolean success or not
 */
 bool CalculateBrachial(void)
 {
-	signalLength = 0;
-	onsetsLength = 0;
+	Initialise();
 	if (!FloatSignal_init())
 	{
 		print_debug("Error: failed to allocate memory for floatSignal.\r\n");
 		return false;
 	}
-	if (!IntegerOnsets_init())
-	{
-		print_debug("Error: failed to allocate memory for integerOnsets.\r\n");
-		return false;
-	}
 	
-	if (!InitialDownSample(DEFAULT_SAMPLE_RATE/MEAS_DEFAULT_SAMPLE_RATE, PRESSURE_MAX_PPOINTS))
+	if (!InitialDownSample(DEFAULT_SAMPLE_RATE/MEAS_DEFAULT_SAMPLE_RATE, ADC_BUF_SIZE))
 	{
 		print_debug("Error: failed InitialDownSample().\r\n");
 		return false;
@@ -211,11 +384,17 @@ bool CalculateBrachial(void)
 		return false;
 	}
 	
+	if (!IntegerOnsets_init())
+	{
+		print_debug("Error: failed to allocate memory for integerOnsets.\r\n");
+		return false;
+	}
 	if (!Derivatives_init())
 	{
 		print_debug("Error: failed to allocate memory for Derivatives.\r\n");
 		return false;
-	}	
+	}
+	// Trigger Points and Pulses
 	if (!FindOnsets(PWA_DER2_ALGORITHM, PWA_NOF_DELAY_SAMPLES + 2, floatSignal, signalLength, &onsetsLength, integerOnsets, Derivatives1, Derivatives2))
 	{
 		print_debug("Error: failed FindOnsets().\r\n");
@@ -227,8 +406,8 @@ bool CalculateBrachial(void)
 	{
 		print_debug("Error: failed to allocate memory for Pulses.\r\n");
 		return false;
-	}	
-	if (!CalcPulses(true, PWA_NOF_DELAY_SAMPLES, onsetsLength, floatSignal, integerOnsets))
+	}
+	if (!CalcPulses(PWA_NOF_DELAY_SAMPLES, onsetsLength, floatSignal, integerOnsets))
 	{
 		print_debug("Error: failed CalcPulses().\r\n");
 		return false;
@@ -246,19 +425,20 @@ bool CalculateBrachial(void)
 		return false;
 	}
 	Pulses_final();
+	FloatSignal_final();
 	
+	if (!Validate(AvPulse))
+	{
+		print_debug("Error: failed Validate AvPulse.\r\n");
+		return false;
+	}
 	if (!Smooth(AvPulse->Profile, AvPulse->FSize))
 	{
 		print_debug("Error: failed Brachial AvPulse Smooth().\r\n");
 		return false;
 	}
 	
-	if (!Validate(AvPulse))
-	{
-		print_debug("Error: failed Validate AvPulse after Smooth.\r\n");
-		return false;
-	}
-	
+	// Fill AvPulse into tmpSignal fully for convolution.
 	float *tmpSignal = malloc(sizeof(float)*PRESSURE_MAX_PPOINTS);
 	if (tmpSignal == NULL)
 	{
@@ -282,14 +462,22 @@ bool CalculateBrachial(void)
 	
 	Finalise();
 	
-	// Prepare floatSignal for Radial calculation before Brachial convolution.
+	// Convolution_Brachial will change Periph floatSignal, let's prepare floatSignal for Radial calculation before Brachial convolution.
+	// floatSignal would be Periph raw signal after Convolution.
 	if (!FloatSignal_init())
 	{
+		free(tmpSignal);
+		tmpSignal = NULL;
 		print_debug("Error: failed to allocate memory for floatSignal.\r\n");
 		return false;
 	}
-	
-	Convolution_Brachial(tmpSignal);
+	if (!Convolution_Brachial(tmpSignal))
+	{
+		free(tmpSignal);
+		tmpSignal = NULL;
+		print_debug("Error: failed Convolution_Brachial().\r\n");
+		return false;
+	}
 	
 	free(tmpSignal);
 	tmpSignal = NULL;
@@ -300,20 +488,284 @@ bool CalculateBrachial(void)
 }
 
 /* ###########################################################################
+ ** CalculateRadial()
+ **
+ ** DESCRIPTION
+ **  Do all mathematics for this measurement
+ ** INPUT
+ **  PWA properties
+ ** OUTPUT
+ **  boolean success or not
+*/
+bool CalculateRadial(void)
+{
+	if (!ValidateBeforeCalculate())
+	{
+		return false;
+	}
+	
+	onsetsLength = 0;
+	if (!IntegerOnsets_init())
+	{
+		print_debug("Error: failed to allocate memory for integerOnsets.\r\n");
+		return false;
+	}
+	if (!Derivatives_init())
+	{
+		print_debug("Error: failed to allocate memory for Derivatives.\r\n");
+		return false;
+	}
+	// Trigger Points and Pulses
+	if (!FindOnsets(PWA_DER2_ALGORITHM, PWA_NOF_DELAY_SAMPLES + 2, floatSignal, signalLength, &onsetsLength, integerOnsets, Derivatives1, Derivatives2))
+	{
+		print_debug("Error: failed FindOnsets().\r\n");
+		return false;
+	}
+	Derivatives_final();
+	
+	if (!Central_FloatSignal_init())
+	{
+		print_debug("Error: failed to allocate memory for Central_floatSignal.\r\n");
+		return false;
+	}
+	if (!Convolution_Radial(floatSignal))
+	{
+		print_debug("Error: failed Convolution_Radial().\r\n");
+		return false;
+	}
+	
+	Central_onsetsLength = 0;
+	if (!Central_IntegerOnsets_init())
+	{
+		print_debug("Error: failed to allocate memory for Central integerOnsets.\r\n");
+		return false;
+	}
+	if (!Derivatives_init())
+	{
+		print_debug("Error: failed to allocate memory for Derivatives.\r\n");
+		return false;
+	}
+	// Trigger Points and Pulses
+	if (!FindOnsets(PWA_DER2_ALGORITHM, PWA_NOF_DELAY_SAMPLES + 2, Central_floatSignal, signalLength, &Central_onsetsLength, Central_integerOnsets, Derivatives1, Derivatives2))
+	{
+		print_debug("Error: failed FindOnsets().\r\n");
+		return false;
+	}
+	Derivatives_final();
+	
+	
+	if (!RejectIrregularTrigPts())
+	{
+		print_debug("Error: failed RejectIrregularTrigPts().\r\n");
+		return false;
+	}
+	
+	
+	/* #### begin Periph_CalAvPulse calculation #### */
+	if (!Pulses_init())
+	{
+		print_debug("Error: failed to allocate memory for Pulses.\r\n");
+		return false;
+	}
+	if (!CalcPulses(PWA_NOF_DELAY_SAMPLES, onsetsLength, floatSignal, integerOnsets))
+	{
+		print_debug("Error: failed CalcPulses().\r\n");
+		return false;
+	}
+	IntegerOnsets_final();
+	
+	if (!AvPulse_init())
+	{
+		print_debug("Error: failed to allocate memory for AvPulse.\r\n");
+		return false;
+	}
+	if (!AveragePulse(0, PWA_NOF_DELAY_SAMPLES, MEAS_DEFAULT_SAMPLE_RATE))
+	{
+		print_debug("Error: failed AveragePulse().\r\n");
+		return false;
+	}
+	Pulses_final();
+	FloatSignal_final();
+	
+	if (!Validate(AvPulse))
+	{
+		print_debug("Error: failed Validate AvPulse.\r\n");
+		return false;
+	}
+	if (!Smooth(AvPulse->Profile, AvPulse->FSize))
+	{
+		print_debug("Error: failed Brachial AvPulse Smooth().\r\n");
+		return false;
+	}
+	
+	if (!ExpPulses_init())
+	{
+		print_debug("Error: failed to allocate memory for ExpPulses.\r\n");
+		return false;
+	}
+	if (!ExpandPulse(AvPulse, EXPPULSE_MAX_EXPAND_FACTOR))
+	{
+		print_debug("Error: failed ExpandPulse().\r\n");
+		return false;
+	}
+
+	// After expand AvPulse, find systolic onset of AvPulse and cut pulse tale.
+	if (!SystolicOnset(PWA_TANGENT_DER2_ALGORITHM, 0, MEAS_DEFAULT_SAMPLE_RATE*EXPPULSE_MAX_EXPAND_FACTOR, ExpPulse, Der1ExpPulse, Der2ExpPulse, Der3ExpPulse))
+	{
+		print_debug("Error: failed SystolicOnset().\r\n");
+		return false;
+	}
+	
+	if (!DownSample(ExpPulse, EXPPULSE_MAX_EXPAND_FACTOR, AvPulse))
+	{
+		print_debug("Error: failed DownSample().\r\n");
+		return false;
+	}
+	// After DownSample(), ExpPulses are not required anymore. We got the final AvPulse here.
+	ExpPulses_final();
+	
+	if (!PeriphParams_init())
+	{
+		print_debug("Error: failed to allocate memory for PeriphParams.\r\n");
+		return false;
+	}
+	if (!Periph_CalAvPulse_init())
+	{
+		print_debug("Error: failed to allocate memory for Periph_CalAvPulse.\r\n");
+		return false;
+	}
+	if (!CalibrateAvPulse_Periph())
+	{
+		print_debug("Error: failed CalibrateAvPulse_Periph().\r\n");
+		return false;
+	}
+	// We don't need AvPulse once we got Periph_CalAvPulse.
+	AvPulse_final();
+	/* #### end Periph_CalAvPulse calculation #### */
+	
+	
+	/* #### begin Central_CalAvPulse calculation #### */
+	if (!Pulses_init())
+	{
+		print_debug("Error: failed to allocate memory for Pulses.\r\n");
+		return false;
+	}
+	if (!CalcPulses(PWA_NOF_DELAY_SAMPLES, Central_onsetsLength, Central_floatSignal, Central_integerOnsets))
+	{
+		print_debug("Error: failed CalcPulses().\r\n");
+		return false;
+	}
+	Central_IntegerOnsets_final();
+	
+	if (!AvPulse_init())
+	{
+		print_debug("Error: failed to allocate memory for AvPulse.\r\n");
+		return false;
+	}
+	if (!AveragePulse(0, PWA_NOF_DELAY_SAMPLES, MEAS_DEFAULT_SAMPLE_RATE))
+	{
+		print_debug("Error: failed AveragePulse().\r\n");
+		return false;
+	}
+	Pulses_final();
+	Central_FloatSignal_final();
+	
+	if (!Validate(AvPulse))
+	{
+		print_debug("Error: failed Validate AvPulse.\r\n");
+		return false;
+	}
+	if (!Smooth(AvPulse->Profile, AvPulse->FSize))
+	{
+		print_debug("Error: failed Brachial AvPulse Smooth().\r\n");
+		return false;
+	}
+	
+	if (!ExpPulses_init())
+	{
+		print_debug("Error: failed to allocate memory for ExpPulses.\r\n");
+		return false;
+	}
+	if (!ExpandPulse(AvPulse, EXPPULSE_MAX_EXPAND_FACTOR))
+	{
+		print_debug("Error: failed ExpandPulse().\r\n");
+		return false;
+	}
+
+	// After expand AvPulse, find systolic onset of AvPulse and cut pulse tale.
+	if (!SystolicOnset(PWA_TANGENT_DER2_ALGORITHM, 0, MEAS_DEFAULT_SAMPLE_RATE*EXPPULSE_MAX_EXPAND_FACTOR, ExpPulse, Der1ExpPulse, Der2ExpPulse, Der3ExpPulse))
+	{
+		print_debug("Error: failed SystolicOnset().\r\n");
+		return false;
+	}
+	
+	if (!DownSample(ExpPulse, EXPPULSE_MAX_EXPAND_FACTOR, AvPulse))
+	{
+		print_debug("Error: failed DownSample().\r\n");
+		return false;
+	}
+	// After DownSample(), ExpPulses are not required anymore. We got the final AvPulse here.
+	ExpPulses_final();
+	
+	if (!CentralParams_init())
+	{
+		print_debug("Error: failed to allocate memory for CentralParams.\r\n");
+		return false;
+	}
+	if (!Central_CalAvPulse_init())
+	{
+		print_debug("Error: failed to allocate memory for Central_CalAvPulse.\r\n");
+		return false;
+	}
+	if (!CalibrateAvPulse_Central())
+	{
+		print_debug("Error: failed CalibrateAvPulse_Central().\r\n");
+		return false;
+	}
+	// We don't need AvPulse once we got Central_CalAvPulse.
+	AvPulse_final();
+	/* #### end Central_CalAvPulse calculation #### */
+	
+	
+	// Set the length of calibrated average pulse
+	if (Central_CalAvPulse->FSize - Central_CalAvPulse->Start < Periph_CalAvPulse->FLength)
+	{
+		print_debug("Error: Central_CalAvPulse size is wrong.\r\n");
+		return false;
+	}
+	Central_CalAvPulse->End = Central_CalAvPulse->Start + Periph_CalAvPulse->FLength - 1;
+	Central_CalAvPulse->FLength = Periph_CalAvPulse->FLength;
+	if (Central_CalAvPulse->FLength > Central_CalAvPulse->FSize)
+	{
+		Central_CalAvPulse->FSize = Central_CalAvPulse->FLength;
+	}
+	
+	// Extract features here ...
+	
+	print_debug("Done CalculateRadial().\r\n");
+	
+	return true;
+}
+
+/* ###########################################################################
  ** Convolution_Radial()
  **
  ** DESCRIPTION
  **  Convert Peripheral Signal To Central using convolution
  ** INPUT
- **  none.
+ **  pPulses
  ** OUTPUT
- **  Central[0 : signalLength-NofTFC] - shifted central pressure signal
- **  Central[signalLength-NofTFC : signalLength] = 0 - tail of central pressure signal
+ **  Central_floatSignal[0 : signalLength-NofTFC] - shifted central pressure signal
+ **  Central_floatSignal[signalLength-NofTFC : signalLength] = 0 - tail of central pressure signal
  ** RETURN
  **  boolean success or not
 */
-void Convolution_Radial(const float *pPulses)
+bool Convolution_Radial(const float *pPulses)
 {
+	if (pPulses == NULL || Central_floatSignal == NULL)
+	{
+		return false;
+	}
 	// Transformation coefficients for Radial type of measurement
 	static const double coeff_radial[NOF_TF_COEFF] =
 	{
@@ -330,22 +782,24 @@ void Convolution_Radial(const float *pPulses)
 	
 	double ld = 0.0;
 	// calculate central (aortic) data
-	for(int i = 0; i < signalLength; i++)
+	for(uint16_t i = 0; i < signalLength; i++)
 	{
 		// Do not calculate Central for tail of a signal
 		if (i > signalLength - NOF_TF_COEFF)
 		{
-			floatSignal[i] = 0.;
+			Central_floatSignal[i] = 0.;
 			continue;
 		}
 		// Calculate Central for actual signal
 		ld = 0.0;
-		for(int j = 0; j < NOF_TF_COEFF; j++ )
+		for(uint16_t j = 0; j < NOF_TF_COEFF; j++ )
 		{
 			ld += coeff_radial[j] * pPulses[i+j];
 		}
-		floatSignal[i] = (float)ld;
+		Central_floatSignal[i] = (float)ld;
 	}
+	
+	return true;
 }
 
 /* ###########################################################################
@@ -356,12 +810,16 @@ void Convolution_Radial(const float *pPulses)
  ** INPUT
  **  averagePulses - PeriphBrachial's AvPulses
  ** OUTPUT
- **  Periph->floatSignal
+ **  floatSignal
  ** RETURN
  **  boolean success or not
 */
-void Convolution_Brachial(const float *averagePulses)
+bool Convolution_Brachial(const float *averagePulses)
 {
+	if (averagePulses == NULL || floatSignal == NULL)
+	{
+		return false;
+	}
 	// Transformation coefficients for Brachial type of measurement
 	static const double coeff_brachial[NOF_TF_COEFF] =
 	{
@@ -377,56 +835,243 @@ void Convolution_Brachial(const float *averagePulses)
 	};
 	
 	double ld = 0.0;
-	for (int16_t i = 0; i < signalLength; i++)
+	for (uint16_t i = 0; i < signalLength; i++)
 	{
 		ld = 0.0;
-		for (int16_t j = 0; j < NOF_TF_COEFF; j++)
+		for (uint16_t j = 0; j < NOF_TF_COEFF; j++)
 		{
 			ld += coeff_brachial[j] * averagePulses[i+j];
 		}
 		floatSignal[i] = (float)ld;
 	}
-}
-
-/* ###########################################################################
- ** Calculate ()
- **
- ** DESCRIPTION
- **  Do all mathematics for this measurement
- ** INPUT
- **  PWA class (source)
- ** OUTPUT
- **  boolean success or not
-*/
-bool CalculateRadial(float pCalibrationFactor)
-{
-	onsetsLength = 0;
-	if (!IntegerOnsets_init())
-	{
-		print_debug("Error: failed to allocate memory for integerOnsets.\r\n");
-		return false;
-	}
-	
-	if (!ValidateBeforeCalculate())
-	{
-		return false;
-	}
-	
-	// Convolution_Radial will change floatSignal, let's use tmpSignal to store floatSignal.
-	float *tmpSignalBrachialAverage = malloc(sizeof(float)*PRESSURE_MAX_PPOINTS);
-	if (tmpSignalBrachialAverage == NULL)
-	{
-		print_debug("Error: failed to allocate memory for tmpSignalBrachialAverage.\r\n");
-		return false;
-	}
-	memset(tmpSignalBrachialAverage, 0, sizeof(float)*PRESSURE_MAX_PPOINTS);
-	memcpy(tmpSignalBrachialAverage, floatSignal, sizeof(float)*PRESSURE_MAX_PPOINTS);
-	memset(floatSignal, 0, sizeof(float)*PRESSURE_MAX_PPOINTS);
-	Convolution_Radial(tmpSignalBrachialAverage);
-	free(tmpSignalBrachialAverage);
-	tmpSignalBrachialAverage = NULL;
-	
-	print_debug("Done CalculateRadial().\r\n");
 	
 	return true;
 }
+
+/* ###########################################################################
+ ** CalibrateAvPulse_Periph()
+ **
+ ** DESCRIPTION
+ **  Calibrate AvPulse for Peripheral pressures
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  boolean success or not
+*/
+bool CalibrateAvPulse_Periph(void)
+{
+	// Find Min, Max, Gain and Offset for different type of measurement
+	// using Sp, Dp, MeanP entered by operator
+	float lMin=0, lMax=0, lAver=0;
+	lMax = Math_Max(0, AvPulse->End, AvPulse);
+	lMin = Math_Min(0, (int16_t)(AvPulse->End * PWA_EFFECTIVE_PULSE_LENGTH_PERCENT), AvPulse);
+	lAver = Integral(0, AvPulse->End, AvPulse) / (AvPulse->FLength - 1);
+
+	if (lAver <= lMin || lMin >= lMax)
+	{
+		return false;
+	}
+
+	// Find Gain and Offset
+	if (Brachial_SP > Brachial_DP)
+	{
+		PeriphParams->Gain = (Brachial_SP - Brachial_DP) / (lMax - lMin);
+		PeriphParams->Offset = Brachial_SP - PeriphParams->Gain*lMax;
+	}
+	else if (Brachial_MeanP > Brachial_DP)
+	{
+		PeriphParams->Gain = (Brachial_MeanP - Brachial_DP) / (lAver - lMin);
+		PeriphParams->Offset = Brachial_MeanP - PeriphParams->Gain*lAver;
+	}
+
+	// Transform using the Gain and Offset for Periph AvPulses
+	float pressureMin=0, pressureMax=0, integralAver=0;
+	CalibratePulse(PeriphParams->Gain, PeriphParams->Offset, AvPulse, &pressureMin, &pressureMax, Periph_CalAvPulse);
+	integralAver = Integral(0, Periph_CalAvPulse->End, Periph_CalAvPulse) / (Periph_CalAvPulse->FLength - 1);
+	pressureMax = Math_Max(0, Periph_CalAvPulse->End, Periph_CalAvPulse);
+	PeriphParams->IntegralAver = integralAver;
+	
+	return true;
+}
+
+/* ###########################################################################
+ ** CalibrateAvPulse_Central()
+ **
+ ** DESCRIPTION
+ **  Calibrate AvPulse for Central pressures and calculate Central SP/DP
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  boolean success or not
+*/
+bool CalibrateAvPulse_Central(void)
+{
+	// Transform using the same Periph Gain and Offset for Central AvPulses
+	float pressureMin=0, pressureMax=0, integralAver=0;
+	CalibratePulse(PeriphParams->Gain, PeriphParams->Offset, AvPulse, &pressureMin, &pressureMax, Central_CalAvPulse);
+	integralAver = Integral(0, Central_CalAvPulse->End, Central_CalAvPulse) / (Central_CalAvPulse->FLength - 1);
+	
+	if (PeriphParams->IntegralAver != -DEFAULT_VALUE && PeriphParams->IntegralAver != integralAver)
+	{
+		for (int16_t i = 0; i < Central_CalAvPulse->FSize; i++)
+		{
+			Central_CalAvPulse->Profile[i] += PeriphParams->IntegralAver - integralAver;
+		}
+	}
+	
+	pressureMax = Math_Max(0, Central_CalAvPulse->End, Central_CalAvPulse);
+	pressureMin = Math_Min(0, (int16_t)(Central_CalAvPulse->End * PWA_EFFECTIVE_PULSE_LENGTH_PERCENT), Central_CalAvPulse);
+	CentralParams->SP = pressureMax;
+	CentralParams->DP = pressureMin;
+	
+	return true;
+}
+
+/* ###########################################################################
+ ** ExtractFeatures()
+ **
+ ** DESCRIPTION
+ **  Find T1, T2, ED for Periph and Central, Set Central->ED = Periph->ED
+ **  and Extract features
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  none.
+*/
+void ExtractFeatures(void)
+{
+	
+}
+
+/* ###########################################################################
+ ** RejectIrregularTrigPts()
+ **
+ ** DESCRIPTION
+ **  Compare Periph and Central trigger points and Reject irregulars
+ ** INPUT
+ **  Periph/Central onsets
+ ** OUTPUT
+ ** RETURN
+ **  boolean success or not
+*/
+bool RejectIrregularTrigPts(void)
+{
+	// Check Trigger points correspondence
+	// Initialisation
+	int16_t NofValidTrigs = 0;    // Actual number of valid trigger points
+	int16_t PeriphIndex = 0, CentralIndex = 0;
+	// Allocate memory for valid Trigger points
+	int16_t lMaxNofTr = max(onsetsLength, Central_onsetsLength);
+	int16_t *lNewPeriphTrigs = malloc(lMaxNofTr * sizeof(int16_t));
+	if (lNewPeriphTrigs == NULL)
+	{
+		return false;
+	}
+	int16_t *lNewCentralTrigs = malloc(lMaxNofTr * sizeof(int16_t));
+	if (lNewCentralTrigs == NULL)
+	{
+		free(lNewPeriphTrigs);
+		lNewPeriphTrigs = NULL;
+		return false;
+	}
+
+	for (int16_t ltr = 0; ltr < lMaxNofTr; ltr++)
+	{
+		// Get current onsets
+		int16_t PeriphOnset = integerOnsets[PeriphIndex];
+		int16_t CentralOnset = Central_integerOnsets[CentralIndex];
+		// Check last trigger point
+		if (PeriphIndex >= onsetsLength || CentralIndex >= Central_onsetsLength)
+		{
+			break;
+		}			
+		// Comparison
+		if (PeriphOnset > CentralOnset)
+		{
+			// Check additional Central before PeriphOnset
+			if (CentralIndex == Central_onsetsLength - 1 || PeriphOnset < Central_integerOnsets[CentralIndex+1])
+			{
+				lNewPeriphTrigs[NofValidTrigs] = PeriphOnset;
+				lNewCentralTrigs[NofValidTrigs] = CentralOnset;
+				NofValidTrigs++;
+				CentralIndex++;
+				PeriphIndex++;
+			}
+			else
+			{
+				CentralIndex++;
+				continue;
+			}
+		}
+		else // PeriphOnset < CentralOnset
+		{
+			PeriphIndex++;
+			continue;
+		}
+	}
+	// Validation
+	if (NofValidTrigs <= 1)
+	{
+		free(lNewPeriphTrigs);
+		lNewPeriphTrigs = NULL;
+		free(lNewCentralTrigs);
+		lNewCentralTrigs = NULL;
+		return false;
+	}
+	// Copy new trigger points to the places for old
+	for (int16_t i=0; i < lMaxNofTr; i++)
+	{
+		integerOnsets[i] = (i < NofValidTrigs ? lNewPeriphTrigs[i] : (int16_t)-1);
+		Central_integerOnsets[i] = (i < NofValidTrigs ? lNewCentralTrigs[i] : (int16_t)-1);
+	}
+	onsetsLength = NofValidTrigs;
+	Central_onsetsLength = NofValidTrigs;
+	// Free memory
+	free(lNewPeriphTrigs);
+	lNewPeriphTrigs = NULL;
+	free(lNewCentralTrigs);
+	lNewCentralTrigs = NULL;
+	// Success
+	return true;
+}
+
+
+//----------------------------------------------------------------------
+// For porting to C only, will be removed after done porting to C.
+void TestCallPWA(void)
+{
+	if (!CalculateBrachial())
+	{
+		Finalise();
+		print_debug("Error: failed CalculateBrachial().\r\n");
+		return;
+	}
+	
+	if (!CalculateRadial())
+	{
+		Finalise();
+		print_debug("Error: failed CalculateRadial().\r\n");
+		return;
+	}
+	
+	// Save all required parameters to disk here.
+	
+	Finalise();
+	
+	print_debug("Done TestCallPWA().\r\n");
+}
+
+// For porting to C only, will be removed after done porting to C.
+// +512 is for simulating/validating with xcel, xcel cut off the first 2 seconds.
+void TestSetRawSignal(void)
+{
+#ifdef _DEBUG
+	for (uint16_t i=0; i<ADC_BUF_SIZE+512; i++)
+	{
+		AddSignal(wave_table[i]);
+	}
+	TestCallPWA();
+#endif
+}
+
+//----------------------------------------------------------------------------

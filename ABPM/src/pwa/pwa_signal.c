@@ -56,8 +56,9 @@ void Derivatives_final(void)
  ** DESCRIPTION
  **  Find trigger points (onsets) for a signal
  ** INPUT
- **  Class properties(source)
+ **  All parameters
  ** OUTPUT
+ ** RETURN
  **  boolean success or not
 */
 bool FindOnsets(const uint8_t pAlgorithm, const uint8_t pMinTrigPt, const float *floatSignal, const uint16_t signalLength,

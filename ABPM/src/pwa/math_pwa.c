@@ -35,7 +35,7 @@ bool Math_SmoothArray(float *pArray, const uint16_t pSize)
 	}
 
 	// Allocate memory for new array and copy old into
-	float *lSt = (float*)malloc(sizeof(float)*pSize);//new float[pSize];
+	float *lSt = (float*)malloc(sizeof(float)*pSize);
 	for (uint16_t i=0; i<pSize; i++)
 		lSt[i] = pArray[i];
 
@@ -189,7 +189,6 @@ int16_t Math_Round_Return(float input)
  **  step - step of abscissa
  **  smoothOrder = SmoothOrder - Smoothing order
  ** OUTPUT
- **  NofDer1Points = NofPoints - 1 - number of Derivative points
  **  firstDerivative[NofDer1Points] - first derivative
  **  maximum - maximum value of a derivative
  ** RETURN
@@ -270,11 +269,11 @@ bool Math_SmoothFirstDerivative(const float* input, const uint16_t size, const i
  ** INPUT
  **  abscissa - abscissa of a point on a Pulse
  **  SplineIndex - old SplineIndex
- **  SplineOrder - order of spline, DEFAULT_SPLINE_ORDER
  **  size - length of a pulse
  ** OUTPUT
+ **  newSplineIndex - new spline index
  ** RETURN
- **  NewSplineIndex - new spline index
+ **  bool success or not
 */
 bool Math_GetSplineIndex(const float abscissa, const uint16_t splineIndex, const uint16_t size, uint16_t *newSplineIndex)
 {
@@ -323,10 +322,8 @@ bool Math_GetSplineIndex(const float abscissa, const uint16_t splineIndex, const
  **  abscissa - abscissa of a point on a Pulse
  **  Profile[SplineOrder + 1] - Pulse section
  **  SplineOrder - order of spline
- **  // Dx - sample rate
  ** OUTPUT
  **  derivatives[numOfDerivatives] - derivatives
- **  Value - pulse value
  ** RETURN
  **  bool success or not
 */
@@ -421,7 +418,7 @@ bool Math_Spline(const float abscissa, const float* profile, const int8_t spline
 	*/
 	// Calculate value and derivatives
 	double dValue = 0.;  double dDer1  = 0.;  double dDer2  = 0.;  double dDer3  = 0.;
-	for (int i = 0; i <= splineOrder; i++)
+	for (int16_t i = 0; i <= splineOrder; i++)
 	{
 		dValue += N[i]*profile[i];
 		if (lNofDer >= 1) dDer1  += N1[i]*profile[i];
@@ -444,10 +441,13 @@ bool Math_Spline(const float abscissa, const float* profile, const int8_t spline
  **  Find index of Extremal Maximal (or Minimal) value for pulse
  **  between indexes index1, index2
  ** INPUT
- **   index1, index2 - indexes
- **  Pulse class
+ **  input - derivatives profile
+ **  minOrMax, onlyFirst, lessOrMore, lessOrMoreThan
+ **  index1, index2 - indexes
  ** OUTPUT
  **  Index or -1 if wrong pulse
+ ** RETURN
+ **  boolean success or not
 */
 bool Math_IndexOfExtremum(const float *input, const bool minOrMax, const bool onlyFirst, const int16_t index1, const int16_t index2,
 	const bool lessOrMore, const float lessOrMoreThan, int16_t* index)
@@ -522,7 +522,10 @@ bool Math_IndexOfExtremum(const float *input, const bool minOrMax, const bool on
  ** DESCRIPTION
  **  Find onsets using maxDer2 algorithm
  ** INPUT
- ** OUTPUT
+ **  derivatives1, derivatives2, floatSignal
+ **  signalLength, maximumOnsetsLength
+ **  pAvMaxDer1, pMinTrigPt, pMinPulseLength
+  ** OUTPUT
  **  integerOnsets - integer array of Onsets
  **  onsetsLength - size of Onsets
  ** RETURN
