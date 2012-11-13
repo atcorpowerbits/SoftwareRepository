@@ -49,4 +49,6 @@ bool RejectIrregularTrigPts(void);
 void TestCallPWA(void); // For porting to C only, will be removed after done porting to C.
 void TestSetRawSignal(void); // For porting to C only, will be removed after done porting to C.
 
+void DisplayMemoryUsage(char *msg);
+
 #endif /* PWA_H_ */

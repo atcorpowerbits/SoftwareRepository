@@ -11,10 +11,10 @@
 
 #define DEFAULT_VALUE			(uint16_t)9999
 #define DEFAULT_FLOAT_VALUE		(float)-1
-#define PWA_MAX_CAPTURE_TIME	(uint8_t)5
+//#define PWA_MAX_CAPTURE_TIME	(uint8_t)5
 #define PRESSURE_PULSE_MAXLENGTH (uint16_t)260
 #define MEAS_DEFAULT_SAMPLE_RATE (uint8_t)128
-#define DEFAULT_SAMPLE_RATE		(uint16_t)256
+//#define DEFAULT_SAMPLE_RATE		(uint16_t)256
 #define PWA_ACCEPTABLE_DATA_THRESHOLD	(uint8_t)120
 #define DEFAULT_SMOOTH_ORDER	(uint8_t)2
 #define DEFAULT_SPLINE_ORDER	(uint8_t)3

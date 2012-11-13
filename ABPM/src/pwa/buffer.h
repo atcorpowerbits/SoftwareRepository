@@ -9,6 +9,7 @@
 #ifndef BUFFER_H_
 #define BUFFER_H_
 
+#include "conf_abpm.h"
 #include "dsp.h"
 
 #ifdef _DEBUG
@@ -2077,8 +2078,6 @@ static const uint16_t wave_table[2060] =
 	1358,
 };
 #endif
-
-#define ADC_BUF_SIZE	(uint16_t)1280 //DEFAULT_SAMPLE_RATE*PWA_MAX_CAPTURE_TIME
 
 uint16_t *adc_buffer; // Circular buffer
 

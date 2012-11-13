@@ -6,6 +6,8 @@
  */ 
 
 #include "usart_rxtx.h"
+#include "sysclk.h"
+#include "cycle_counter.h"
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -29,7 +31,15 @@ void print_debug(char *msg, ...)
 #ifdef _DEBUG
 	va_list args;
 	char szBuf[1024] = {0};
-
+	unsigned long current_cycle_count = Get_system_register(AVR32_COUNT);
+	uint32_t elapsed = cpu_cy_2_ms(current_cycle_count, sysclk_get_cpu_hz()); // in msec
+	uint16_t elapsed_min = elapsed / (1000*60);
+	float elapsed_sec = (float)(elapsed - (elapsed_min * 60 * 1000)) / 1000;
+	
+	// Print elapsed time in mm:ss.sss
+	sprintf(szBuf, "%02u:%02.3f ", elapsed_min, elapsed_sec);
+    usart_write_line(PBA_USART, szBuf);
+	
     va_start(args, msg);
 	vsprintf(szBuf, msg, args);
     va_end(args);

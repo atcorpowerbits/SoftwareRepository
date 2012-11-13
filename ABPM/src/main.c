@@ -19,13 +19,14 @@ int main (void)
 	board_init();
 	usart_rs232_mode_init();
 	
+	print_debug("Start main().\r\n");
 	Finalise();
 	if (!ADCBuffer_init())
 	{
 		print_debug("Error: failed to allocate memory adc_buffer.\r\n");
 		return false;
 	}
-	
+	DisplayMemoryUsage("after ADCBuffer");
 	TestSetRawSignal();
 	
 	while (1)

@@ -5,6 +5,7 @@
  *  Author: yoonl
  */ 
 
+#include <malloc.h>
 #include "pwa.h"
 #include "buffer.h"
 #include "usart/usart_rxtx.h"
@@ -256,6 +257,29 @@ void Initialise(void)
 	Brachial_MeanP = 0;
 }
 
+void DisplayMemoryUsage(char *msg)
+{
+#ifdef _DEBUG
+    struct mallinfo mi;
+
+    mi = mallinfo();
+
+    print_debug("  Heap usage %s\t(peak/in-use/freed) bytes: %d\t%d\t%d\n", 
+        msg, mi.arena, mi.uordblks, mi.fordblks);
+    //print_debug("Total non-mmapped bytes (arena):       %d\n", mi.arena);
+    //print_debug("# of free chunks (ordblks):            %d\n", mi.ordblks);
+    //print_debug("# of free fastbin blocks (smblks):     %d\n", mi.smblks);
+    //print_debug("# of mapped regions (hblks):           %d\n", mi.hblks);
+    //print_debug("Bytes in mapped regions (hblkhd):      %d\n", mi.hblkhd);
+    //print_debug("Max. total allocated space (usmblks):  %d\n", mi.usmblks);
+    //print_debug("Free bytes held in fastbins (fsmblks): %d\n", mi.fsmblks);
+    //print_debug("Total allocated space (uordblks):      %d\n", mi.uordblks);
+    //print_debug("Total free space (fordblks):           %d\n", mi.fordblks);
+    //print_debug("Topmost releasable block (keepcost):   %d\n", mi.keepcost);
+#endif
+}
+
+
 /* ###########################################################################
  ** Finalise()
  **
@@ -264,6 +288,7 @@ void Initialise(void)
 */
 void Finalise(void)
 {
+	DisplayMemoryUsage("before finalise");
 	IntegerOnsets_final();
 	Central_IntegerOnsets_final();
 	Pulses_final();
@@ -278,6 +303,7 @@ void Finalise(void)
 	PeriphParams_final();
 	CentralParams_final();
 	RawSignal_final();
+	DisplayMemoryUsage("after finalise ");
 }
 
 /* ###########################################################################
@@ -366,6 +392,7 @@ bool ValidateBeforeCalculate(void)
 */
 bool CalculateBrachial(void)
 {
+	print_debug("Start CalculateBrachial().\r\n");
 	Initialise();
 	if (!FloatSignal_init())
 	{
@@ -499,6 +526,8 @@ bool CalculateBrachial(void)
 */
 bool CalculateRadial(void)
 {
+	print_debug("Start CalculateRadial().\r\n");
+	
 	if (!ValidateBeforeCalculate())
 	{
 		return false;
