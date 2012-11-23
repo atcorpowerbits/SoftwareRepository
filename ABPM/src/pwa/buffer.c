@@ -9,7 +9,7 @@
 #include "usart/usart_rxtx.h"
 
 
-uint16_t buf_index; // Circular buffer index
+uint16_t buf_index; // adc_buffer buffer index
 
 /* ###########################################################################
  ** ADCBuffer_init()
@@ -51,13 +51,7 @@ void AddSignal(uint16_t signal)
 		signal = 0;
 	}
 
-	if (buf_index > ADC_BUF_SIZE-1) // buffer is full
-	{
-		// shift to left and put a new signal into the last array element to make circular adc_buffer.
-		memmove(&adc_buffer[0], &adc_buffer[1], (sizeof(adc_buffer[0])*ADC_BUF_SIZE) - sizeof(adc_buffer[0]));
-		adc_buffer[ADC_BUF_SIZE-1] = signal;
-	}
-	else
+	if (buf_index < ADC_BUF_SIZE)
 	{
 		adc_buffer[buf_index] = signal;
 		++buf_index;

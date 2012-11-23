@@ -10,11 +10,8 @@
 #define PWA_DATA_H_
 
 #define DEFAULT_VALUE			(uint16_t)9999
-#define DEFAULT_FLOAT_VALUE		(float)-1
-//#define PWA_MAX_CAPTURE_TIME	(uint8_t)5
 #define PRESSURE_PULSE_MAXLENGTH (uint16_t)260
 #define MEAS_DEFAULT_SAMPLE_RATE (uint8_t)128
-//#define DEFAULT_SAMPLE_RATE		(uint16_t)256
 #define PWA_ACCEPTABLE_DATA_THRESHOLD	(uint8_t)120
 #define DEFAULT_SMOOTH_ORDER	(uint8_t)2
 #define DEFAULT_SPLINE_ORDER	(uint8_t)3
@@ -24,6 +21,12 @@
 #define LESS					(bool)false
 #define FIRST					(bool)true
 #define GLOBAL					(bool)false
+#define VERYSTRONG				(int8_t)0
+#define STRONG					(int8_t)1
+#define WEAK					(int8_t)2
+#define VERYWEAK				(int8_t)3
+#define PWA_MIN_T1				(float)80.0
+#define PWA_MAX_T1				(float)150.0
 #define PWA_DER1_THRESHOLD1		(float)0.60
 #define PWA_DER1_THRESHOLD2		(float)0.55
 #define PWA_DER1_THRESHOLD3		(float)0.40 // To find Average Peak of derivatives1
@@ -41,7 +44,7 @@
 #define EXPPULSE_MAX_EXPAND_FACTOR	(uint8_t)2
 #define PRESSURE_EXPPULSE_MAXLENGTH	(uint16_t)520 //PRESSURE_PULSE_MAXLENGTH * EXPPULSE_MAX_EXPAND_FACTOR
 
-uint16_t *rawSignal; // Original waveform digital unit, 128 sample rate, but may not need if the board sample rate is 128.
+uint16_t *rawSignal; // Original waveform digital unit, 128 sample rate, 5 seconds.
 float *floatSignal; // For Brachial and Peripheral signals calculation.
 float *Central_floatSignal;
 int16_t *integerOnsets; // For Brachial and Peripheral signals calculation.
@@ -67,6 +70,7 @@ typedef struct
 	int16_t ExpPulse_T2m;
 	int16_t ExpPulse_ShoulderAfterPeak;
 	int16_t ExpPulse_ED;
+	int16_t PP; // Brachial_SP - Brachial_DP
 }Peripheral_Parameters;
 
 // Central output parameters for report.
@@ -76,11 +80,12 @@ typedef struct
 	int16_t ExpPulse_T2;
 	float SP;
 	float DP;
+	float PP; // SP - DP
 	float MeanP;
-	float AGPH;
-	float AP;
+	float AGPH; // Augmentation Index
+	float AGPH_HR75; // Augmentation Index normalised for HR 75
+	float AP; // Augmented Pressure
 	float HR;
-	float SEVR;
 }Central_Parameters;
 
 #endif /* PWA_DATA_H_ */

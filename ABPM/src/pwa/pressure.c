@@ -782,34 +782,98 @@ bool SystolicOnset(const int8_t pAlgorithm, const int16_t pLengthOfRadial, const
  ** DESCRIPTION
  **  Extract specific feature parameters for Periph Pressure
  ** INPUT
- **  pEDIndex, pExpPulse
  ** OUTPUT
  **  Specific feature parameters for Periph Pressure
  ** RETURN
- **  boolean success or not
 */
-bool PeriphExtractFeatures(const int16_t pEDIndex, const Pulse *pExpPulse)
+void PeriphExtractFeatures(void)
 {
-	// Extract Periph parameters here ...
-	
-	return true;
+	if (Brachial_SP > Brachial_DP)
+	{
+		PeriphParams->PP = Brachial_SP - Brachial_DP;
+	}
 }
 
 /* ###########################################################################
  ** CentralExtractFeatures()
  **
  ** DESCRIPTION
- **  Extract specific feature parameters (ED, HR, ...) for Cenral Pressure
+ **  Extract specific feature parameters (HR, AGPH, ...) for Cenral Pressure
  ** INPUT
  **  pEDIndex, pExpPulse
  ** OUTPUT
- **  Specific feature parameters (ED, HR, ...) for Cenral Pressure
+ **  Specific feature parameters (HR, AGPH, ...) for Cenral Pressure
  ** RETURN
  **  boolean success or not
 */
 bool CentralExtractFeatures(const int16_t pEDIndex, const Pulse *pExpPulse)
 {
-	// Extract Central parameters here ...
+	float P1 = DEFAULT_VALUE, P2 = DEFAULT_VALUE;
+			
+	if (Validate(pExpPulse) == false)
+	{
+		return false;
+	}
+	
+	// Heart rate (bpm) = 60000./Period
+	CentralParams->HR = ((float)60 * (MEAS_DEFAULT_SAMPLE_RATE*EXPPULSE_MAX_EXPAND_FACTOR)) / pExpPulse->End;
+	
+	// Validate whether expanded pulse is shifted properly to systolic onset
+	if (pExpPulse->FLength != pExpPulse->FSize || pExpPulse->Start != 0)
+	{
+		return false;
+	}
+	// Mean Pressure  mmHg
+	if (pExpPulse->FLength > 1)
+	{
+		CentralParams->MeanP = Integral(pExpPulse->Start, pExpPulse->End, pExpPulse) / (pExpPulse->FLength - 1);
+	}
+	
+	if (pEDIndex == DEFAULT_VALUE || pEDIndex < 0)
+	{
+		return false;
+	}
+	if (CentralParams->ExpPulse_T1 != DEFAULT_VALUE)
+	{
+		P1 = PressureValue((float)CentralParams->ExpPulse_T1, pExpPulse);
+	}
+	if (CentralParams->ExpPulse_T2 != DEFAULT_VALUE)
+	{
+		P2 = PressureValue((float)CentralParams->ExpPulse_T2, pExpPulse);
+	}
+	if ((P1 != DEFAULT_VALUE) && (P2 != DEFAULT_VALUE))
+	{
+		CentralParams->AP  = P2 - P1;
+	}
+	
+	if (CentralParams->SP != DEFAULT_VALUE && CentralParams->DP != DEFAULT_VALUE)
+	{
+		if (CentralParams->SP > CentralParams->DP)
+		{
+			CentralParams->PP  = CentralParams->SP - CentralParams->DP;
+		}
+	}
+	
+	// AG/PH in %
+	if ((CentralParams->PP != DEFAULT_VALUE) && (CentralParams->AP != DEFAULT_VALUE))
+	{
+		CentralParams->AGPH = CentralParams->AP/CentralParams->PP * 100;
+	}
+	if (CentralParams->AGPH != DEFAULT_VALUE && CentralParams->HR != DEFAULT_VALUE)
+	{
+		if (CentralParams->HR < 40 || CentralParams->HR > 110)
+		{
+			CentralParams->AGPH_HR75 = DEFAULT_VALUE;
+		}
+		else
+		{
+			CentralParams->AGPH_HR75 = (float)(-0.48 * (75 - CentralParams->HR)) + CentralParams->AGPH;
+		}
+	}
+	else
+	{
+		CentralParams->AGPH_HR75 = DEFAULT_VALUE;
+	}
 	
 	return true;
 }

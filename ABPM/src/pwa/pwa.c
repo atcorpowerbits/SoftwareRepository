@@ -180,6 +180,7 @@ bool PeriphParams_init(void)
 	PeriphParams->ExpPulse_T2m = -1;
 	PeriphParams->ExpPulse_ShoulderAfterPeak = -1;
 	PeriphParams->ExpPulse_ED = DEFAULT_VALUE;
+	PeriphParams->PP = DEFAULT_VALUE;
 	
 	return true;
 }
@@ -217,11 +218,12 @@ bool CentralParams_init(void)
 	CentralParams->ExpPulse_T2 = DEFAULT_VALUE;
 	CentralParams->SP = DEFAULT_VALUE;
 	CentralParams->DP = DEFAULT_VALUE;
+	CentralParams->PP = DEFAULT_VALUE;
 	CentralParams->MeanP = DEFAULT_VALUE;
 	CentralParams->AGPH = DEFAULT_VALUE;
+	CentralParams->AGPH_HR75 = DEFAULT_VALUE;
 	CentralParams->AP = DEFAULT_VALUE;
 	CentralParams->HR = DEFAULT_VALUE;
-	CentralParams->SEVR = DEFAULT_VALUE;
 	
 	return true;
 }
@@ -487,9 +489,10 @@ bool CalculateBrachial(void)
 		}
 	} while (x <= PRESSURE_MAX_PPOINTS-1);
 	
-	Finalise();
+	// Here, tmpSignal has repeated AvPulse and ready for Convolution. So, we don't need AvPulse in Brachial.
+	AvPulse_final();
 	
-	// Convolution_Brachial will change Periph floatSignal, let's prepare floatSignal for Radial calculation before Brachial convolution.
+	// Convolution_Brachial() will change Periph floatSignal, let's prepare floatSignal for Radial calculation before Brachial convolution.
 	// floatSignal would be Periph raw signal after Convolution.
 	if (!FloatSignal_init())
 	{
@@ -583,6 +586,7 @@ bool CalculateRadial(void)
 	Derivatives_final();
 	
 	
+	// Compare Periph and Central trigger points used by Periph/Central onsets and Reject irregulars
 	if (!RejectIrregularTrigPts())
 	{
 		print_debug("Error: failed RejectIrregularTrigPts().\r\n");
@@ -769,7 +773,8 @@ bool CalculateRadial(void)
 		Central_CalAvPulse->FSize = Central_CalAvPulse->FLength;
 	}
 	
-	// Extract features here ...
+	//Find T1,T2,ED and extract other features
+	ExtractFeatures();
 	
 	print_debug("Done CalculateRadial().\r\n");
 	
@@ -969,7 +974,177 @@ bool CalibrateAvPulse_Central(void)
 */
 void ExtractFeatures(void)
 {
+	int16_t lCentralMainPeak = 0, lPeriphMainPeak = 0;
+	Pulse *Periph_ExpPulse = NULL, *Central_ExpPulse = NULL;
+	float *tmpCentralDer1ExpPulseProfile = NULL;
 	
+	Periph_ExpPulse = (Pulse *)malloc(sizeof(Pulse));
+	if (Periph_ExpPulse == NULL)
+	{
+		print_debug("Error: failed to allocate memory for Periph_ExpPulse.\r\n");
+		return;
+	}
+	Periph_ExpPulse->Profile = malloc(sizeof(float)*PRESSURE_EXPPULSE_MAXLENGTH);
+	if (Periph_ExpPulse->Profile == NULL)
+	{
+		print_debug("Error: failed to allocate memory for Periph_ExpPulse->Profile.\r\n");
+		goto FreeLocalArrays;
+	}
+	Periph_ExpPulse->Index = -1;
+	Periph_ExpPulse->Start = 0;
+	Periph_ExpPulse->End = 0;
+	Periph_ExpPulse->FLength = 0;
+	Periph_ExpPulse->FSize = 0;
+	memset(Periph_ExpPulse->Profile, 0, sizeof(float)*PRESSURE_EXPPULSE_MAXLENGTH);
+	
+	Central_ExpPulse = (Pulse *)malloc(sizeof(Pulse));
+	if (Central_ExpPulse == NULL)
+	{
+		print_debug("Error: failed to allocate memory for Central_ExpPulse.\r\n");
+		goto FreeLocalArrays;
+	}
+	Central_ExpPulse->Profile = malloc(sizeof(float)*PRESSURE_EXPPULSE_MAXLENGTH);
+	if (Central_ExpPulse->Profile == NULL)
+	{
+		print_debug("Error: failed to allocate memory for Central_ExpPulse->Profile.\r\n");
+		goto FreeLocalArrays;
+	}
+	Central_ExpPulse->Index = -1;
+	Central_ExpPulse->Start = 0;
+	Central_ExpPulse->End = 0;
+	Central_ExpPulse->FLength = 0;
+	Central_ExpPulse->FSize = 0;
+	memset(Central_ExpPulse->Profile, 0, sizeof(float)*PRESSURE_EXPPULSE_MAXLENGTH);
+	
+	
+	// Find  T1, T2, ED for Periph
+	if (!ExpPulses_init())
+	{
+		print_debug("Error: failed to allocate memory for ExpPulses.\r\n");
+		goto FreeLocalArrays;
+	}
+	// For Periph FindT1T2ED() requires Central Der1ExpPulse Profile and lCentralMainPeak.
+	// Let's expand Central_CalAvPulse here to get whatever we need for Periph calculation.
+	if (!ExpandPulse(Central_CalAvPulse, EXPPULSE_MAX_EXPAND_FACTOR))
+	{
+		print_debug("Error: failed ExpandPulse() with Central_CalAvPulse.\r\n");
+		goto FreeLocalArrays;
+	}
+	lCentralMainPeak = IndexOfExtremum(ExpPulse, MAX, GLOBAL, 1, ExpPulse->FLength/2, 0, LESS, DEFAULT_VALUE, NULL,
+		NULL, LESS, DEFAULT_VALUE, 0, NULL, LESS, DEFAULT_VALUE, 0, NULL, LESS, DEFAULT_VALUE, 0, NULL, LESS, DEFAULT_VALUE, 0);
+	if (lCentralMainPeak < 0)
+	{
+		print_debug("Info: lCentralMainPeak for ExpPulse not found.\r\n");
+	}
+	
+	tmpCentralDer1ExpPulseProfile = malloc(sizeof(float)*PRESSURE_EXPPULSE_MAXLENGTH);
+	if (tmpCentralDer1ExpPulseProfile == NULL)
+	{
+		print_debug("Error: failed to allocate memory for tmpCentralDer1ExpPulseProfile.\r\n");
+		goto FreeLocalArrays;
+	}
+	memset(tmpCentralDer1ExpPulseProfile, 0, sizeof(float)*PRESSURE_EXPPULSE_MAXLENGTH);
+	memcpy(tmpCentralDer1ExpPulseProfile, Der1ExpPulse->Profile, sizeof(float)*PRESSURE_EXPPULSE_MAXLENGTH);
+	Central_ExpPulse->Index = ExpPulse->Index;
+	Central_ExpPulse->Start = ExpPulse->Start;
+	Central_ExpPulse->End = ExpPulse->End;
+	Central_ExpPulse->FLength = ExpPulse->FLength;
+	Central_ExpPulse->FSize = ExpPulse->FSize;
+	memcpy(Central_ExpPulse->Profile, ExpPulse->Profile, sizeof(float)*PRESSURE_EXPPULSE_MAXLENGTH);
+	ExpPulses_final();
+	
+	// We need to calculate Periph FindT1T2ED() first, because Central FindT1T2ED() requires PeriphParams->ExpPulse_ED and lPeriphMainPeak.
+	if (!ExpPulses_init())
+	{
+		print_debug("Error: failed to allocate memory for ExpPulses.\r\n");
+		goto FreeLocalArrays;
+	}
+	if (!ExpandPulse(Periph_CalAvPulse, EXPPULSE_MAX_EXPAND_FACTOR))
+	{
+		print_debug("Error: failed ExpandPulse() with Periph_CalAvPulse.\r\n");
+		goto FreeLocalArrays;
+	}
+	lPeriphMainPeak = IndexOfExtremum(ExpPulse, MAX, GLOBAL, 1, ExpPulse->FLength/2, 0, LESS, DEFAULT_VALUE, NULL,
+		NULL, LESS, DEFAULT_VALUE, 0, NULL, LESS, DEFAULT_VALUE, 0, NULL, LESS, DEFAULT_VALUE, 0, NULL, LESS, DEFAULT_VALUE, 0);
+	if (lPeriphMainPeak < 0)
+	{
+		print_debug("Info: lPeriphMainPeak for ExpPulse not found.\r\n");
+	}
+	Periph_ExpPulse->Index = ExpPulse->Index;
+	Periph_ExpPulse->Start = ExpPulse->Start;
+	Periph_ExpPulse->End = ExpPulse->End;
+	Periph_ExpPulse->FLength = ExpPulse->FLength;
+	Periph_ExpPulse->FSize = ExpPulse->FSize;
+	memcpy(Periph_ExpPulse->Profile, ExpPulse->Profile, sizeof(float)*PRESSURE_EXPPULSE_MAXLENGTH);
+	
+	// We are finding Periph T1,T2,ED here, pCentralParams should be NULL.
+	FindT1T2ED(ExpPulse, Der1ExpPulse, Der2ExpPulse, Der3ExpPulse,
+		EXPPULSE_MAX_EXPAND_FACTOR, MEAS_DEFAULT_SAMPLE_RATE, -1, lCentralMainPeak, -1, -1, tmpCentralDer1ExpPulseProfile, PeriphParams, NULL);
+	ExpPulses_final();
+	
+	
+	// Find  T1, T2, ED for Central
+	// Set the limitation for Central->ExpPulse_T2 on the base of Periph->ExpPulse_T2
+	int16_t lLimitT1T2 = (PeriphParams->ExpPulse_T2 != DEFAULT_VALUE ? PeriphParams->ExpPulse_T2 : -1);
+	if (lLimitT1T2 > 0 && PeriphParams->ExpPulse_T2m > 0 && PeriphParams->ExpPulse_ShoulderAfterPeak > PeriphParams->ExpPulse_T2m)
+	{
+		lLimitT1T2 = PeriphParams->ExpPulse_ShoulderAfterPeak;
+	}
+	if (!ExpPulses_init())
+	{
+		print_debug("Error: failed to allocate memory for ExpPulses.\r\n");
+		goto FreeLocalArrays;
+	}
+	if (!ExpandPulse(Central_CalAvPulse, EXPPULSE_MAX_EXPAND_FACTOR))
+	{
+		print_debug("Error: failed ExpandPulse() with Central_CalAvPulse.\r\n");
+		goto FreeLocalArrays;
+	}
+	
+	// We are finding Central T1,T2,ED here, pPeriphParams should be NULL.
+	FindT1T2ED(ExpPulse, Der1ExpPulse, Der2ExpPulse, Der3ExpPulse,
+		EXPPULSE_MAX_EXPAND_FACTOR, MEAS_DEFAULT_SAMPLE_RATE, PeriphParams->ExpPulse_ED, -1, lPeriphMainPeak, lLimitT1T2, NULL, NULL, CentralParams);
+	ExpPulses_final();
+	Periph_CalAvPulse_final();
+	Central_CalAvPulse_final();
+	
+	
+	// Extract other features dependant on T1, T2, ED
+	PeriphExtractFeatures(); // Periph parameters are not used for Report, but used for Central Extract Features calculation.
+	CentralExtractFeatures(PeriphParams->ExpPulse_ED, Central_ExpPulse);
+	
+	// Some Central parameters need to validate with XCEL here ...
+	
+	// Calculate ReferenceAge, AmplificationRatio(needs PeriphParams->PP), InconclusiveNote here ...
+	
+	
+FreeLocalArrays:
+	if (tmpCentralDer1ExpPulseProfile != NULL)
+	{
+		free(tmpCentralDer1ExpPulseProfile);
+		tmpCentralDer1ExpPulseProfile = NULL;
+	}
+	if (Periph_ExpPulse != NULL)
+	{
+		if (Periph_ExpPulse->Profile != NULL)
+		{
+			free(Periph_ExpPulse->Profile);
+			Periph_ExpPulse->Profile = NULL;
+		}
+		free(Periph_ExpPulse);
+		Periph_ExpPulse = NULL;
+	}
+	if (Central_ExpPulse != NULL)
+	{
+		if (Central_ExpPulse->Profile != NULL)
+		{
+			free(Central_ExpPulse->Profile);
+			Central_ExpPulse->Profile = NULL;
+		}
+		free(Central_ExpPulse);
+		Central_ExpPulse = NULL;
+	}
+	ExpPulses_final();
 }
 
 /* ###########################################################################
@@ -1083,7 +1258,9 @@ void TestCallPWA(void)
 		return;
 	}
 	
-	// Save all required parameters to disk here.
+	// ValidateBeforeStore() goes here ...
+	
+	// Save all required parameters to disk here ...
 	
 	Finalise();
 	
@@ -1091,11 +1268,10 @@ void TestCallPWA(void)
 }
 
 // For porting to C only, will be removed after done porting to C.
-// +512 is for simulating/validating with xcel, xcel cut off the first 2 seconds.
 void TestSetRawSignal(void)
 {
 #ifdef _DEBUG
-	for (uint16_t i=0; i<ADC_BUF_SIZE+512; i++)
+	for (uint16_t i=0; i<ADC_BUF_SIZE; i++)
 	{
 		AddSignal(wave_table[i]);
 	}

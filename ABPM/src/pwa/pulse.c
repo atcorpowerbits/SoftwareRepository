@@ -8,6 +8,15 @@
 #include "pulse.h"
 #include "math_pwa.h"
 #include "usart/usart_rxtx.h"
+#include <math.h>
+
+#define BEGIN_PERCENT	(float)0.03 // Calculate T1,T2,ED from this percent of length
+#define NORMAL_ED_MAX	(int16_t)420
+#define SLOW_HR_ED_MAX	(int16_t)450
+#define ED_MIN_PERCENT	(float)0.20
+#define ED_MAX_PERCENT	(float)0.65 // ED cannot be more then 65% of Length
+#define ESP_MAX_PERCENT	(float)0.75 // ESP cannot be more then 75% of PulseHeight
+#define LIMIT_T1T2_FACTOR	(float)1.2 // Central T2 cannot be more then 1.2* Periph T2
 
 /* ###########################################################################
  ** Smooth()
@@ -578,17 +587,814 @@ bool DownSample(const Pulse *pExpPulse, const const int8_t pDownSampleRate, Puls
  **  pLimitT1T2 - Limit time for T2 (Central)
  **  pCentralDer1_Profile - Der1 for Central pulse
  ** OUTPUT
- **  pPeriphParams, pCentralParams
+ **  pPeriphParams or pCentralParams
  ** RETURN
- **  boolean success or not
 */
-bool FindT1T2ED(const Pulse *pExpPulse, Pulse *Der1, Pulse *Der2, Pulse *Der3, const int8_t pExpandFactor, const int16_t pSampleRate,
+void FindT1T2ED(const Pulse *pExpPulse, Pulse *Der1, Pulse *Der2, Pulse *Der3, const int8_t pExpandFactor, const int16_t pSampleRate,
 	const int16_t pED, const int16_t pCentralMainPeak, const int16_t pPeriphMainPeak, const int16_t pLimitT1T2, float *pCentralDer1_Profile,
 	Peripheral_Parameters *pPeriphParams, Central_Parameters *pCentralParams)
 {
-	// Long codes here ...
+	// Initialisation
+	float *CD1P = pCentralDer1_Profile, *CD2P = NULL;
 	
-	return true;
+	int16_t T1 = DEFAULT_VALUE; // Index of the 1st peak
+	int16_t T2 = DEFAULT_VALUE; // Index of the 2nd peak
+	int16_t ED = (pED > 0 && pED != DEFAULT_VALUE ? pED : DEFAULT_VALUE); // Index of ejection duration
+
+	int16_t QualityT1 = DEFAULT_VALUE;
+	int16_t QualityT2 = DEFAULT_VALUE;
+	int16_t QualityED = DEFAULT_VALUE;
+	int16_t OurCase = -1; // Distinquish cases
+
+	int16_t PeakBeforeMain = -1; // Peak before main
+	int16_t PeakAfterMain = -1;  // Peak after main
+
+	int16_t ShoulderBeforePeak = -1; // Shoulder before main peak
+	int16_t ShoulderAfterPeak = -1;  // Shoulder after main peak
+	int16_t T2m = -1; // Min der3 for T2
+	int16_t EndT2 = -1; // End of effective length of pulse after cut tail
+	int16_t Tr = -1; // Time of reflected wave (Max Der2)
+	
+	int8_t LocalZoneNofPoints = 4; // NofPoints in local zone
+	int8_t StabilityZoneNofPoints = 2; // NofPoints in stability zone for extremums
+	int8_t OtherStabilityZoneNofPoints = 1; // NofPoints in stability zone for central wave
+	
+	// Local Zone - shift to prevent finding neighbourhood points
+	int16_t LocalZone = LocalZoneNofPoints * pExpandFactor;
+	// Zone of stability to find stable extremums
+	int16_t StabilityZone = min(StabilityZoneNofPoints * pExpandFactor, LocalZone);
+	// Zone of stability to find stable extremums with analysis stability of another function as well
+	int16_t OtherStabilityZone = min(OtherStabilityZoneNofPoints * pExpandFactor, StabilityZone);
+
+	// Define Effective length of Pulse - the value for which T2 cannot be more
+	float lHR = ((float)60 * pSampleRate * pExpandFactor) / (pExpPulse->FLength - 1); // Heart rate
+	// Calculate TopED - line ED(HR) from table for adult normals ED
+	float lTopEDAtHRLow = 350; float lTopEDAtHRHigh = 220;
+	float lHRLow = 50; float lHRHigh = 120;
+	float la = (lTopEDAtHRLow - lTopEDAtHRHigh)/(lHRLow - lHRHigh);
+	float lb = lTopEDAtHRLow - la*lHRLow;
+	int16_t lTopED = (int16_t)(la*lHR + lb);
+	int16_t lNormalED = lTopED - 32;
+	
+	int16_t lLength = pExpPulse->FLength;
+	int16_t L = (int16_t)(lLength/pExpandFactor > 100 ?	lLength * 0.5 : lLength * 0.55);
+	if (lLength/pExpandFactor < 85)
+	{
+		L = (int16_t)(lLength * 0.60);
+	}
+	if (lLength/pExpandFactor < 70)
+	{
+		L = (int16_t)(lLength * 0.70);
+	}
+	// ED cannot be more than ED_MAX msec
+	int16_t lEdMax = (lHR < 60 ? SLOW_HR_ED_MAX : NORMAL_ED_MAX);
+	int16_t index = 0;
+	Math_TimeToIndex((float)lEdMax, pExpandFactor, pSampleRate, &index);
+	L = min(L, index);
+
+	int16_t lDefaultED = 0;
+	Math_TimeToIndex((float)lNormalED, pExpandFactor, pSampleRate, &lDefaultED);
+
+	// Index of 60 msec
+	float t60msec = (float)TimeToIndex((float)60, pExpPulse);
+	
+	// For fast HR decrease stability zones
+	if (lHR > 90)
+	{
+		LocalZone = (int16_t)(LocalZone/1.5);
+		StabilityZone = (int16_t)(StabilityZone/1.5);
+		OtherStabilityZone = (int16_t)(OtherStabilityZone/1.5);
+		t60msec /= 1.5;
+	}
+	else if (lHR < 55)
+	{
+		LocalZone = (int16_t)(LocalZone*1.5);
+		StabilityZone = (int16_t)(StabilityZone*1.5);
+		OtherStabilityZone = (int16_t)(OtherStabilityZone*1.5);
+		t60msec *= 1.5;
+	}
+	
+	int16_t lLowED = (int16_t)(ED_MIN_PERCENT*lLength); // ED Cannot be less 17% of Length
+	// Begin point of signal beginning after avoiding a few points
+	int16_t rounded = 0;
+	Math_Round(BEGIN_PERCENT*L, &rounded);
+	int16_t Begin = max(rounded, LocalZone); // 3% of Length
+	
+	// MainPeak - Absolute maximum of a signal, main (highest) peak
+	int16_t MainPeak = IndexOfExtremum(pExpPulse, MAX, GLOBAL, Begin, L,
+									0, LESS, DEFAULT_VALUE, NULL,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0);
+	if (MainPeak < 0)
+	{
+		print_debug("Info: Main peak for pulse not found.\r\n");
+		return;
+	}
+	// Reject if wrong
+	if (pED > 0 && pED != DEFAULT_VALUE && MainPeak >= pED)
+	{
+		print_debug("Info: Invalid Ejection Duration (less than pulse peak time) for Average Pulse.\r\n");
+		return;
+	}
+	
+	// Manage case where Periph ED not found
+	if (pED == DEFAULT_VALUE)
+	{
+		T1 = MainPeak;
+		T2 = DEFAULT_VALUE;
+		QualityT1 = STRONG;
+		QualityT2 = VERYWEAK;
+		OurCase = 9;
+		goto UpdateParameters;
+	}
+	
+	// Find PeakOfDer1
+	int16_t lPeakBeforeMain = IndexOfExtremum(pExpPulse, MAX, GLOBAL, StabilityZone, MainPeak - StabilityZone,
+											0, LESS, DEFAULT_VALUE, NULL,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0);
+	int16_t lLimitOfPeakOfDer1 = (lPeakBeforeMain > 0 ? lPeakBeforeMain - StabilityZone	: MainPeak - StabilityZone);
+	int16_t PeakOfDer1 = IndexOfExtremum(Der1, MAX, GLOBAL, StabilityZone, lLimitOfPeakOfDer1,
+										StabilityZone, MORE, 0., NULL,
+										NULL, LESS, DEFAULT_VALUE, 0,
+										NULL, LESS, DEFAULT_VALUE, 0,
+										NULL, LESS, DEFAULT_VALUE, 0,
+										NULL, LESS, DEFAULT_VALUE, 0);
+	if (PeakOfDer1 < 0)
+	{
+		PeakOfDer1 = IndexOfExtremum(Der1, MAX, GLOBAL, StabilityZone, lLimitOfPeakOfDer1,
+									OtherStabilityZone, MORE, 0., NULL,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0);
+	}
+	if (PeakOfDer1 < 0)
+	{
+		PeakOfDer1 = IndexOfExtremum(Der1, MAX, GLOBAL, StabilityZone, lLimitOfPeakOfDer1 + StabilityZone/2,
+									OtherStabilityZone, MORE, 0., NULL,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0);
+	}
+	if (PeakOfDer1 < 0)
+	{
+		// Check Begin point
+		if (Begin >= MainPeak - LocalZone)
+		{
+			Begin = MainPeak - LocalZone -1;
+		}
+		if (Begin <= pExpPulse->Start)
+		{
+			Begin = pExpPulse->Start + 1;
+		}
+	}
+	else
+	{
+		Begin = PeakOfDer1;
+	}
+	
+	// Largest peak index for periph and central
+	int16_t lCentralLatestPeak = (pCentralMainPeak > 0 ? pCentralMainPeak : -1);
+	int16_t lLatestPeak = (lCentralLatestPeak > 0 ? max(lCentralLatestPeak, MainPeak) : MainPeak);
+	// lEDBegin - left window where ED can be located
+	int16_t lEDBegin = max(lLatestPeak + LocalZone, lLowED);
+	
+	// Find EndT2 - limit distance between peak and ED. In most cases it is almost ED
+	float lTreas = 0;
+	int16_t EDMin = -1;
+	int16_t PeakOfDer2 = -1; // Peak of Der2 for Periph signal
+	
+	// For Central case EndT2 = ED
+	if (ED != DEFAULT_VALUE)
+	{
+		// End of Window for Central T1, T2 should be less 110% of T2 for periph
+		EndT2 = (pLimitT1T2 > 0 ? (int16_t)(pLimitT1T2 * LIMIT_T1T2_FACTOR) : ED - StabilityZone);
+	}
+	else // For Periph case we need estimate End
+	{
+		// Periph Pressure[ED] should be less than 75% of PulseHeight
+		float PHProc = (float)1. - ESP_MAX_PERCENT;
+		float fP0 = pExpPulse->Profile[MainPeak];
+		float PHt = fP0 - pExpPulse->Profile[pExpPulse->Start];
+		lTreas = fP0 - PHProc*PHt;
+
+		// Try to find sharp minimum as ED and PeakOfDer2 nearby
+		int16_t lLimitPeakOfDer2 = L;
+		EDMin = IndexOfExtremum(pExpPulse, MIN, GLOBAL, lEDBegin, L, StabilityZone,
+								LESS, lTreas, Der2->Profile,
+								CD1P, LESS, 0., StabilityZone,
+								CD2P, MORE, 0., StabilityZone,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+		if (EDMin < 0)
+		{
+			EDMin = IndexOfExtremum(pExpPulse, MIN, FIRST, lEDBegin, L, OtherStabilityZone,
+									LESS, lTreas, Der2->Profile,
+									CD1P, LESS, 0., OtherStabilityZone,
+									CD2P, MORE, 0., OtherStabilityZone,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0);
+		}
+		if (EDMin < 0)
+		{
+			EDMin = IndexOfExtremum(pExpPulse, MIN, FIRST, lEDBegin, L, OtherStabilityZone,
+									LESS, lTreas, Der2->Profile,
+									CD1P, LESS, 0., 0,
+									CD2P, MORE, 0., 0,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0);
+		}
+		if (EDMin > 0)
+		{
+			PeakOfDer2 = IndexOfExtremum(Der2, MAX, GLOBAL, EDMin - 2*LocalZone, EDMin/* + 2*LocalZone*/,
+										StabilityZone, MORE, 0., NULL,
+										pExpPulse->Profile, LESS, lTreas, 0,
+										Der1->Profile, LESS, 0., 0,
+										CD1P, LESS, 0., 0,
+										CD2P, MORE, 0., OtherStabilityZone);
+			lLimitPeakOfDer2 = EDMin /* + 2*LocalZone*/;
+		}
+
+		// If sharp minimum not found, extract ED from Der2 where Central.Der2 is stably positive in OtherStabilityZone
+		if (PeakOfDer2 < 0)
+		{
+			PeakOfDer2 = IndexOfExtremum(Der2, MAX, GLOBAL, lEDBegin, lLimitPeakOfDer2,
+										StabilityZone, MORE, 0., NULL,
+										pExpPulse->Profile, LESS, lTreas, 0,
+										Der1->Profile, LESS, 0., 0,
+										CD1P, LESS, 0., 0,
+										CD2P, MORE, 0., OtherStabilityZone);
+			// Check if there another good peak after
+			if (PeakOfDer2 > 0)
+			{
+				int16_t lPeakOfDer2 = IndexOfExtremum(Der2, MAX, GLOBAL, PeakOfDer2, lLimitPeakOfDer2,
+													StabilityZone, MORE, (float)(Der2->Profile[PeakOfDer2]*0.5), NULL,
+													pExpPulse->Profile, LESS, lTreas, 0,
+													Der1->Profile, LESS, 0., 0,
+													CD1P, LESS, 0., 0,
+													CD2P, MORE, 0., OtherStabilityZone);
+				if (lPeakOfDer2 > PeakOfDer2)
+				{
+					PeakOfDer2 = lPeakOfDer2;
+				}
+			}
+		}
+		// If not found, extract ED from Der2 where Central.Der2 is positive without accounting stability
+		if (PeakOfDer2 < 0)
+		{
+			PeakOfDer2 = IndexOfExtremum(Der2, MAX, GLOBAL, lEDBegin, lLimitPeakOfDer2,
+										StabilityZone, MORE, 0., NULL,
+										pExpPulse->Profile, LESS, lTreas, 0,
+										Der1->Profile, LESS, 0., 0,
+										CD1P, LESS, 0., 0,
+										CD2P, MORE, 0., 0);
+		}
+		// If not found, extract ED from Der2 without accounting Central.Der
+		if (EDMin < 0 && PeakOfDer2 < 0)
+		{
+			PeakOfDer2 = IndexOfExtremum(Der2, MAX, GLOBAL, lEDBegin, lLimitPeakOfDer2,
+										StabilityZone, MORE, 0., NULL,
+										pExpPulse->Profile, LESS, lTreas, 0,
+										Der1->Profile, LESS, 0., 0,
+										CD1P, LESS, 0., 0,
+										NULL, LESS, DEFAULT_VALUE, 0);
+		}
+		// If not found, extract ED from Der2 decreasing Stability Zone
+		if (EDMin < 0 && PeakOfDer2 < 0)
+		{
+			PeakOfDer2 = IndexOfExtremum(Der2, MAX, FIRST, lEDBegin, lLimitPeakOfDer2,
+										OtherStabilityZone, MORE, 0., NULL,
+										pExpPulse->Profile, LESS, lTreas, 0,
+										Der1->Profile, LESS, 0., 0,
+										CD1P, LESS, 0., 0,
+										NULL, LESS, DEFAULT_VALUE, 0);
+		}
+		// If not found, extract ED from Der2 decreasing Stability Zone one more
+		if (EDMin < 0 && PeakOfDer2 < 0)
+		{
+			PeakOfDer2 = IndexOfExtremum(Der2, MAX, FIRST, lEDBegin, lLimitPeakOfDer2,
+										OtherStabilityZone/2, MORE, 0., NULL,
+										pExpPulse->Profile, LESS, lTreas, 0,
+										Der1->Profile, LESS, 0., 0,
+										CD1P, LESS, 0., 0,
+										NULL, LESS, DEFAULT_VALUE, 0);
+		}
+
+		// Work out EndT2 - limit zone for T2
+		EndT2 = max(EDMin, PeakOfDer2);
+
+		// If EndT2 (ED Candidate) not found, set it as DefaultED
+		// If ED found, Decrease EndT2 to prevent finding T2 very close to ED
+		if (EndT2 > 0)
+		{
+			EndT2 -= StabilityZone;
+		}
+		else
+		{
+			EndT2 = (lDefaultED > lEDBegin ? lDefaultED : L);
+		}
+	}
+	
+	// Now try to find T1, T2 in window [Begin, EndT2]
+
+	// Distinquish between different types of pulses
+	OurCase = 0;
+	while (true)
+	{
+		PeakBeforeMain = IndexOfExtremum(pExpPulse, MAX, FIRST, Begin, MainPeak - LocalZone,
+										OtherStabilityZone, MORE, 0., Der2->Profile,
+										NULL, LESS, DEFAULT_VALUE, 0,
+										NULL, LESS, DEFAULT_VALUE, 0,
+										NULL, LESS, DEFAULT_VALUE, 0,
+										NULL, LESS, DEFAULT_VALUE, 0);
+		if (PeakBeforeMain > 0) // If found
+		{
+			T1 = PeakBeforeMain;
+			T2 = MainPeak;
+			OurCase = 1;
+			QualityT1 = VERYSTRONG;
+			QualityT2 = VERYSTRONG;
+			break;
+		}
+		
+		// Find first peak between main peak and EndT2
+		PeakAfterMain = IndexOfExtremum(pExpPulse, MAX, FIRST, (int16_t)(MainPeak + t60msec), EndT2,
+										OtherStabilityZone, MORE, 0., Der2->Profile,
+										NULL, LESS, DEFAULT_VALUE, 0,
+										NULL, LESS, DEFAULT_VALUE, 0,
+										NULL, LESS, DEFAULT_VALUE, 0,
+										NULL, LESS, DEFAULT_VALUE, 0);
+		if (PeakAfterMain > 0) // If found
+		{
+			T1 = MainPeak;
+			T2 = PeakAfterMain;
+			QualityT1 = VERYSTRONG;
+			QualityT2 = VERYSTRONG;
+			OurCase = 2;
+			break;
+		}
+		
+		ShoulderBeforePeak = IndexOfExtremum(Der3, MAX, GLOBAL, Begin, MainPeak - LocalZone,
+											OtherStabilityZone, MORE, 0., NULL,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0);
+		ShoulderAfterPeak  = IndexOfExtremum(Der2, MIN, GLOBAL, MainPeak + LocalZone, EndT2,
+											StabilityZone, LESS, DEFAULT_VALUE, NULL,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0);
+		// Shoulder before peak found
+		if ((ShoulderAfterPeak < 0) && (ShoulderBeforePeak > 0))
+		{
+			T1 = ShoulderBeforePeak;
+			T2 = MainPeak;
+			QualityT1 = STRONG;
+			QualityT2 = STRONG;
+			OurCase = 33;
+			break;
+		}
+		// Check ShoulderAfterPeak found
+		if ((ShoulderAfterPeak > 0) && (ShoulderBeforePeak < 0))
+		{
+			T1 = MainPeak;
+			QualityT1 = STRONG;
+			T2m = IndexOfExtremum(Der3, MIN, GLOBAL, MainPeak + LocalZone, ShoulderAfterPeak,
+								StabilityZone, LESS, DEFAULT_VALUE, NULL,
+								Der1->Profile, LESS, 0, StabilityZone,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (T2m > 0)
+			{
+				T2 = T2m;
+				QualityT2 = STRONG;
+				OurCase = 34;
+			}
+			else
+			{
+				T2 = ShoulderAfterPeak;
+				QualityT2 = WEAK;
+				OurCase = 24;
+			}
+			break;
+		}
+		
+		// Both shoulders found
+		if ((ShoulderBeforePeak > 0) && (ShoulderAfterPeak > 0))
+		{
+			// Both shoulders exist. Seems flat area here
+			T2m = IndexOfExtremum(Der3, MIN, GLOBAL, MainPeak + OtherStabilityZone, ShoulderAfterPeak,
+								OtherStabilityZone, LESS, DEFAULT_VALUE, NULL,
+								Der1->Profile, LESS, 0, OtherStabilityZone,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (T2m < 0)
+			{
+				T1 = ShoulderBeforePeak;
+				T2 = MainPeak;
+				QualityT1 = STRONG;
+				QualityT2 = WEAK;
+				OurCase = 35;
+				break;
+			}
+			
+			// Shoulders as Der3 before and after peak exist
+			// try to find shoulder length
+			float P0 = fabs(pExpPulse->Profile[pExpPulse->Start]);
+			float P1 = fabs(PressureValue((float)ShoulderBeforePeak, pExpPulse)) - P0;
+			float P2 = fabs(PressureValue((float)T2m, pExpPulse)) - P0;
+			float Pt = fabs(PressureValue((float)MainPeak, pExpPulse)) - P0;
+			float L1 = sqrt(pow(P1-Pt,2) + pow((float)(ShoulderBeforePeak-MainPeak),2));
+			float L2 = sqrt(pow(P2-Pt,2) + pow((float)(T2m - MainPeak),2));
+			if (P1 >= Pt || P2 >= Pt || L1 <= 0 || L2 <= 0)
+			{
+				T1 = ShoulderBeforePeak;
+				T2 = MainPeak;
+				QualityT1 = VERYWEAK;
+				QualityT2 = WEAK;
+				OurCase = 35;
+				break;
+			}
+			
+			// Check T1 limits
+			float BeforePeakTime = IndexToTime(ShoulderBeforePeak, pExpPulse);
+			float PeakTime = IndexToTime(MainPeak, pExpPulse);
+			if ((PeakTime > PWA_MAX_T1) && (BeforePeakTime >= PWA_MIN_T1))
+			{
+				T1 = ShoulderBeforePeak;
+				T2 = MainPeak;
+				QualityT1 = STRONG;
+				QualityT2 = WEAK;
+				OurCase = 35;
+				break;
+			}
+
+			if ((BeforePeakTime < PWA_MIN_T1) && (PeakTime <= PWA_MAX_T1))
+			{
+				T1 = MainPeak;
+				T2 = T2m;
+				QualityT1 = WEAK;
+				QualityT2 = STRONG;
+				OurCase = 36;
+				break;
+			}
+			
+			// Compare shoulders
+			if (L1 >= L2)
+			{
+				T1 = ShoulderBeforePeak;
+				T2 = MainPeak;
+				QualityT1 = STRONG;
+				QualityT2 = WEAK;
+				OurCase = 35;
+				break;
+			}
+			else
+			{
+				T1 = MainPeak;
+				T2 = T2m;
+				QualityT1 = WEAK;
+				QualityT2 = STRONG;
+				OurCase = 36;
+				break;
+			}
+		}			
+		
+		// No shoulders found.
+		// Last chance to get very weak T1 as a negative max of der3
+		// Usually for very slow HR
+		ShoulderBeforePeak = IndexOfExtremum(Der3, MAX, GLOBAL, Begin, MainPeak - LocalZone,
+											OtherStabilityZone, LESS, DEFAULT_VALUE, NULL,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0,
+											NULL, LESS, DEFAULT_VALUE, 0);
+		if (ShoulderBeforePeak > 0)
+		{
+			T1 = ShoulderBeforePeak;
+			T2 = MainPeak;
+			QualityT1 = VERYWEAK;
+			QualityT2 = STRONG;
+			OurCase = 39;
+			break;
+		}
+		
+		// The last break.
+		T1 = MainPeak;
+		T2 = DEFAULT_VALUE;
+		QualityT1 = STRONG;
+		QualityT2 = WEAK;
+		OurCase = 50;
+		break;
+	}
+	
+	
+	// Now T1, T2 found (if T2 exist)
+
+	// Calculate ED for Peripheral
+	if (pED < 0 || pED == DEFAULT_VALUE)
+	{
+		// lBegin - left ED window after T2
+		int16_t lBegin = (T2 > 0 && T2 != DEFAULT_VALUE ? max(T2 + StabilityZone, lEDBegin) : max(T1 + LocalZone, lEDBegin));
+		// Increase EndT2 to catch sharp min
+		if (EndT2 > 0)
+		{
+			EndT2 += 2*StabilityZone; // Shift right EndT2 to catch srtong EndT2
+		}
+		int16_t lEndOfDer2 = (EDMin > 0 ? EDMin : EndT2);
+		// Trying to find ED
+		while (true)
+		{
+			// Find ED as a feature of Der2 with accounting Central.Der2 > 0 in OtherStabilityZone
+			ED = IndexOfExtremum(Der2, MAX, GLOBAL, lBegin, lEndOfDer2,
+								StabilityZone, MORE, 0., NULL,
+								Der1->Profile, LESS, 0., 0,
+								CD1P, LESS, 0., 0,
+								CD2P, MORE, 0., OtherStabilityZone,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = VERYSTRONG;
+				break;
+			}
+			
+			ED = IndexOfExtremum(Der2, MAX, GLOBAL, lBegin, lEndOfDer2,
+								StabilityZone, MORE, 0., NULL,
+								Der1->Profile, LESS, 0., 0,
+								CD1P, LESS, 0., 0,
+								CD2P, MORE, 0., 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = STRONG;
+				break;
+			}
+			// If not found, do not account Central Der2
+			if (EDMin < 0 && T2 != DEFAULT_VALUE)
+			{
+				ED = IndexOfExtremum(Der2, MAX, GLOBAL, lBegin, lEndOfDer2,
+									StabilityZone, MORE, 0., NULL,
+									Der1->Profile, LESS, 0., 0,
+									CD1P, LESS, 0., 0,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0);
+			}
+			if (ED > 0)
+			{
+				QualityED = STRONG;
+				break;
+			}
+
+			// If not found, decrease stability zone
+			if (EDMin < 0 && T2 != DEFAULT_VALUE)
+			{
+				ED = IndexOfExtremum(Der2, MAX, FIRST, lBegin, lEndOfDer2,
+									OtherStabilityZone, MORE, 0., NULL,
+									Der1->Profile, LESS, 0., 0,
+									CD1P, LESS, 0., 0,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0);
+			}
+			if (ED > 0)
+			{
+				QualityED = STRONG;
+				break;
+			}
+			if (EDMin > 0 && T2 != DEFAULT_VALUE)
+			{
+				ED = IndexOfExtremum(Der2, MAX, FIRST, lBegin, lEndOfDer2,
+									OtherStabilityZone, MORE, 0., NULL,
+									Der1->Profile, LESS, 0., 0,
+									CD1P, LESS, 0., 0,
+									NULL, LESS, DEFAULT_VALUE, 0,
+									NULL, LESS, DEFAULT_VALUE, 0);
+			}
+			if (ED > 0)
+			{
+				QualityED = WEAK;
+				break;
+			}
+			// If not found, but sharp min exist, take it as ED
+			if (EDMin > 0 && (float)EDMin/lLength > 0.20 && (float)EDMin/lLength < 0.50)
+			{
+				ED = EDMin;
+				QualityED = WEAK;
+				break;
+			}
+			// If not found, avoid stability zone
+			ED = IndexOfExtremum(Der2, MAX, FIRST, lBegin, lEndOfDer2,
+								0, MORE, 0., NULL,
+								Der1->Profile, LESS, 0., 0,
+								CD1P, LESS, 0., 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = WEAK;
+				break;
+			}
+
+			// Increase window where ED can be up to L
+
+			// Try to find Weak ED after increasing EndT2
+			ED = IndexOfExtremum(Der2, MAX, GLOBAL, lBegin, L,
+								StabilityZone, MORE, 0., NULL,
+								Der1->Profile, LESS, 0., 0,
+								CD1P, LESS, 0., 0,
+								CD2P, MORE, 0., OtherStabilityZone,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = WEAK;
+				break;
+			}
+			// If not found, do not account Central Der2
+			ED = IndexOfExtremum(Der2, MAX, GLOBAL, lBegin, L,
+								StabilityZone, MORE, 0., NULL,
+								Der1->Profile, LESS, 0., 0,
+								CD1P, LESS, 0., 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = WEAK;
+				break;
+			}
+			// If not found, try to find sharp minimum with accounting Central Der2
+			ED = IndexOfExtremum(pExpPulse, MIN, GLOBAL, lBegin, L,
+								StabilityZone, LESS, lTreas, Der2->Profile,
+								Der1->Profile, LESS, 0., 0,
+								CD1P, LESS, 0., 0,
+								CD2P, MORE, 0., 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = WEAK;
+				break;
+			}
+
+			// If not found, try to find sharp minimum without accounting Central Der
+			ED = IndexOfExtremum(pExpPulse, MIN, FIRST, lBegin, L,
+								StabilityZone, LESS, DEFAULT_VALUE, NULL,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = VERYWEAK;
+				break;
+			}
+			// If not found, avoid stability zone
+			ED = IndexOfExtremum(Der2, MAX, FIRST, lBegin, L,
+								0, MORE, 0., NULL,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = VERYWEAK;
+				break;
+			}
+
+			// If still not found, try to find Weak ED after increasing window up to 65% of pulse length
+			int16_t index = 0;
+			Math_TimeToIndex((float)lEdMax, pExpandFactor, pSampleRate, &index);
+			int16_t lEnd = min((int16_t)(lLength*ED_MAX_PERCENT), index);
+			ED = IndexOfExtremum(Der2, MAX, GLOBAL, lBegin, lEnd,
+								StabilityZone, MORE, 0., NULL,
+								Der1->Profile, LESS, 0., 0,
+								CD1P, LESS, 0., 0,
+								CD2P, MORE, 0., OtherStabilityZone,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = WEAK;
+				break;
+			}
+			ED = IndexOfExtremum(Der2, MAX, GLOBAL, lBegin, lEnd,
+								StabilityZone, MORE, 0., NULL,
+								Der1->Profile, LESS, 0., 0,
+								CD1P, LESS, 0., 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = WEAK;
+				break;
+			}
+			ED = IndexOfExtremum(pExpPulse, MIN, GLOBAL, lBegin, lEnd,
+								StabilityZone, LESS, lTreas, Der2->Profile,
+								CD1P, LESS, 0., 0,
+								CD2P, MORE, 0., 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = WEAK;
+				break;
+			}
+			ED = IndexOfExtremum(pExpPulse, MIN, FIRST, lBegin, lEnd,
+								StabilityZone, MORE, 0., NULL,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = VERYWEAK;
+				break;
+			}
+			ED = IndexOfExtremum(Der2, MAX, FIRST, lBegin, lEnd,
+								0, MORE, 0., NULL,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (ED > 0)
+			{
+				QualityED = VERYWEAK;
+				break;
+			}
+			
+			break;
+		}
+	}
+	// Calculate Time of reflected wave Tr between T1 and ED
+	// (only for Central wave)
+	else
+	{
+		if (ED > 0 && ED != DEFAULT_VALUE && T1 > 0)
+		{
+			Tr = IndexOfExtremum(Der2, MAX, GLOBAL, T1, ED - StabilityZone,
+								StabilityZone, LESS, DEFAULT_VALUE, NULL,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0,
+								NULL, LESS, DEFAULT_VALUE, 0);
+			if (Tr >= T2)
+			{
+				Tr = DEFAULT_VALUE;
+			}
+		}
+	}
+	
+	
+	// Now T1, T2, ED should be found
+	// Extra validation
+	if (ED < 0)
+	{
+		ED = DEFAULT_VALUE;
+		QualityED = DEFAULT_VALUE;
+	}
+	// T1, T2
+	if (T1 < 0)
+	{
+		T1 = MainPeak;
+		T2 = DEFAULT_VALUE;
+		QualityT1 = WEAK;
+		QualityT2 = DEFAULT_VALUE;
+		OurCase = -1;
+	}
+	else if (T2 < T1)
+	{
+		T2 = DEFAULT_VALUE;
+		QualityT2 = DEFAULT_VALUE;
+		OurCase = -1;
+	}
+	else if (ED > 0 && (T2 > 0 && T2 != DEFAULT_VALUE) && ED < T2)
+	{
+		ED = DEFAULT_VALUE;
+		QualityED = DEFAULT_VALUE;
+		OurCase = -1;
+	}
+	
+	
+UpdateParameters:
+	if (pPeriphParams != NULL)
+	{
+		pPeriphParams->ExpPulse_T1 = T1;
+		pPeriphParams->ExpPulse_T2 = T2;
+		pPeriphParams->ExpPulse_ED = ED;
+		pPeriphParams->ExpPulse_T2m = T2m;
+		pPeriphParams->ExpPulse_ShoulderAfterPeak = ShoulderAfterPeak;
+	}
+	else if (pCentralParams != NULL)
+	{
+		pCentralParams->ExpPulse_T1 = T1;
+		pCentralParams->ExpPulse_T2 = T2;
+	}
 }
 
 /* ###########################################################################
@@ -608,6 +1414,33 @@ float IndexToTime(const int16_t pIndex, const Pulse *pExpPulse)
 	float lTime = 0;
 	lTime = (pIndex - pExpPulse->Start) * ((float)1000/(MEAS_DEFAULT_SAMPLE_RATE*EXPPULSE_MAX_EXPAND_FACTOR));
 	return lTime;
+}
+
+/* ###########################################################################
+ ** TimeToIndex()
+ **
+ ** DESCRIPTION
+ **  Convert Time into index assuming 0 correspond to start point
+ ** INPUT
+ **  float pTime, pExpPulse
+ ** OUTPUT
+ ** RETURN
+ **  ind - Index
+*/
+int16_t TimeToIndex(const float pTime, const Pulse *pExpPulse)
+{
+	int16_t ind = 0;
+	
+	if (Math_Round(pTime * ((MEAS_DEFAULT_SAMPLE_RATE*EXPPULSE_MAX_EXPAND_FACTOR)/(float)1000), &ind))
+	{
+		ind += pExpPulse->Start;
+	}
+	if (ind > pExpPulse->End || ind < pExpPulse->Start)
+	{
+		print_debug("Warning: Time value is out of Pulse range.\r\n");
+	}
+	
+	return ind;
 }
 
 /* ###########################################################################

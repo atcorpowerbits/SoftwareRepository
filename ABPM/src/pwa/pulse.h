@@ -49,11 +49,12 @@ int16_t IndexOfExtremum(const Pulse *pPulse, const bool pMinOrMax, const bool pO
 	
 bool DownSample(const Pulse *pExpPulse, const const int8_t pDownSampleRate, Pulse *pAvPulse);
 
-bool FindT1T2ED(const Pulse *pExpPulse, Pulse *Der1, Pulse *Der2, Pulse *Der3, const int8_t pExpandFactor, const int16_t pSampleRate,
+void FindT1T2ED(const Pulse *pExpPulse, Pulse *Der1, Pulse *Der2, Pulse *Der3, const int8_t pExpandFactor, const int16_t pSampleRate,
 	const int16_t pED, const int16_t pCentralMainPeak, const int16_t pPeriphMainPeak, const int16_t pLimitT1T2, float *pCentralDer1_Profile,
 	Peripheral_Parameters *pPeriphParams, Central_Parameters *pCentralParams);
 	
 float IndexToTime(const int16_t pIndex, const Pulse *pExpPulse);
+int16_t TimeToIndex(const float pTime, const Pulse *pExpPulse);
 float MaxDerivative1(const int16_t i1, const int16_t i2, const int16_t pSmoothOrder, const Pulse *pExpPulse);
 float PressureValue(const float pPoint, const Pulse *pPulse);
 

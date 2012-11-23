@@ -40,7 +40,7 @@ bool AveragePulse(const int16_t pLength, const int8_t pTail, const int16_t pSign
 void CalibratePulse(const float pGain, const float pOffset, const Pulse *pAvPulse, float *pMin, float *pMax, Pulse *pCalAvPulse);
 bool ExpandPulse(Pulse *pPulse, const int8_t pExpandFactor);
 bool SystolicOnset(const int8_t pAlgorithm, const int16_t pLengthOfRadial, const int16_t pExpPulseSampleRate, Pulse *pExpPulse, Pulse *pDer1ExpPulse, Pulse *pDer2ExpPulse, Pulse *pDer3ExpPulse);
-bool PeriphExtractFeatures(const int16_t pEDIndex, const Pulse *pExpPulse);
+void PeriphExtractFeatures(void);
 bool CentralExtractFeatures(const int16_t pEDIndex, const Pulse *pExpPulse);
 
 #endif /* PRESSURE_H_ */
