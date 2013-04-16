@@ -23,6 +23,7 @@ void usart_rs232_mode_init(void)
 
 	// Initialize USART in RS232 mode.
 	usart_init_rs232(PBA_USART, &USART_OPTIONS, PBA_TARGET_PBACLK_FREQ_HZ);
+	usart_init_rs232(CMD_USART, &CMD_USART_OPTIONS, CMD_USART_PBx_FREQ_HZ); // for BP-CBP command/response serial comms
 }
 
 void print_debug(char *msg, ...)
