@@ -23,8 +23,10 @@
 #ifndef CONF_ABPM_H_
 #define CONF_ABPM_H_
 
+#include "asf.h"
+
 #define PWA_MAX_CAPTURE_TIME	(uint8_t)5								// in seconds
-#define DEFAULT_SAMPLE_RATE		(uint16_t)256							// samples per sec
+#define DEFAULT_SAMPLE_RATE		(uint8_t)128							// samples per sec
 
 #define ADC_BUF_SIZE			(uint16_t)DEFAULT_SAMPLE_RATE*PWA_MAX_CAPTURE_TIME
 
@@ -51,5 +53,16 @@
 #define ADC_EXT_INPUT_FUNCTION	AVR32_ADCIN2_FUNCTION					// Input function for external analog signal
 // PDCA Channel for ADC SEQ0
 #define ADC_PDCA_CHANNEL_SEQ0	0
+
+// Abort flag to stop calculation.
+static volatile bool flag_abort = false;
+
+// Common error codes for 1 byte max.
+static volatile uint8_t Common_Error_Code = 0;
+typedef enum
+{
+	PWA_CALCULATION_FAILED = 1,
+	COMMON_ERROR_CODE_END = 255 // Make sure common error code less than 255.
+}common_error_code_t;
 
 #endif /* CONF_ABPM_H_ */

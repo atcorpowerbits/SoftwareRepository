@@ -1,8 +1,12 @@
 /**
- * \file
+ * main.c
  *
- * \brief Empty user application template
+ * main method
  *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2013
+ *
+ * Created: 10/10/2012 11:29:02 AM
+ *  Author: yoonl
  */
 
 /*
@@ -23,10 +27,10 @@ int main (void)
 	Finalise();
 	if (!ADCBuffer_init())
 	{
-		print_debug("Error: failed to allocate memory adc_buffer.\r\n");
+		PWA_Error_Code = PWA_MSG_OUT_OF_MEMORY;
+		print_debug("Error(%d): failed to allocate memory adc_buffer.\r\n", PWA_Error_Code);
 		return false;
 	}
-	DisplayMemoryUsage("after ADCBuffer");
 	TestSetRawSignal();
 	
 	while (1)

@@ -1,6 +1,10 @@
 /*
  * math_pwa.c
  *
+ * Math library.
+ *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2013
+ *
  * Created: 11/10/2012 9:54:03 AM
  *  Author: yoonl
  */ 
@@ -15,12 +19,11 @@
  ** DESCRIPTION
  **  Smooth array using Running average algorithm
  ** INPUT
- **  pArray[pSize] - float array
- **  pNofFilterPoints - Number of Filter points (usually 5, must be odd)
+ **  pArray - float array
+ **  pSize - size of pArray
  ** OUTPUT
- **  pArray rewritten
  ** RETURN
- **  true if success, false otherwise
+ **  boolean - return false if validation of input parameters are failed or out of memory.
 */
 bool Math_SmoothArray(float *pArray, const uint16_t pSize)
 {
@@ -36,8 +39,14 @@ bool Math_SmoothArray(float *pArray, const uint16_t pSize)
 
 	// Allocate memory for new array and copy old into
 	float *lSt = (float*)malloc(sizeof(float)*pSize);
+	if (lSt == NULL)
+	{
+		return false;
+	}
 	for (uint16_t i=0; i<pSize; i++)
+	{
 		lSt[i] = pArray[i];
+	}
 
 	// Perform running average
 	double lSum;
@@ -48,7 +57,9 @@ bool Math_SmoothArray(float *pArray, const uint16_t pSize)
 		lSum = 0;
 		int16_t lim = i*2 + 1;
 		for(int16_t j = 0; j < lim; j++)
+		{
 			lSum += lSt[j];
+		}
 		pArray[i] = (float)(lSum / lim);
 	}
 	// Smooth middle of a signal
@@ -57,7 +68,9 @@ bool Math_SmoothArray(float *pArray, const uint16_t pSize)
 	{
 		lSum = 0.;
 		for (int16_t j = -DEFAULT_SMOOTH_ORDER; j <= DEFAULT_SMOOTH_ORDER; j++)
+		{
 			lSum += lSt[i+j];
+		}
 		pArray[i] = (float)(lSum / lNofFilterPoints);
 	}
 	// smooth tail
@@ -67,7 +80,9 @@ bool Math_SmoothArray(float *pArray, const uint16_t pSize)
 		lSum = 0;
 		uint16_t lim = (pSize - 1 - i)*2 + 1;
 		for(uint16_t j = 0; j < lim; j++)
+		{
 			lSum += lSt[pSize - 1 - j];
+		}
 		pArray[i] = (float)(lSum / lim);
 	}
 
@@ -85,13 +100,13 @@ bool Math_SmoothArray(float *pArray, const uint16_t pSize)
  ** DESCRIPTION
  **  Convert time in msec into index
  ** INPUT
- **  time
- **  expandRate - rate of upsampling
+ **  time - millisecond
+ **  expandRate - rate of up sampling
  **  sampleRate (usually 128) - rate of signal sampling
- ** OUTPUT (RETURN)
- **  none
- ** RETURN
+ ** OUTPUT
  **  index
+ ** RETURN
+ **  boolean - return false if validation of input parameters are failed.
 */
 bool Math_TimeToIndex(const float time, const uint8_t expandRate, const uint8_t sampleRate, int16_t *index)
 {
@@ -115,7 +130,7 @@ bool Math_TimeToIndex(const float time, const uint8_t expandRate, const uint8_t 
 }
 
 /* ###########################################################################
- ** Math_Round (double fvalue)
+ ** Math_Round
  **
  ** DESCRIPTION
  **  Round real numbers to nearest integer
@@ -124,10 +139,10 @@ bool Math_TimeToIndex(const float time, const uint8_t expandRate, const uint8_t 
  **		3.27 -> 3, -3.27 -> -3
  ** INPUT
  **  input - float value to round
- ** OUTPUT (RETURN)
+ ** OUTPUT
  **  output
  ** RETURN
- **  boolean success or not
+ **  boolean return false if validation of input parameter is failed.
 */
 bool Math_Round(float input, int16_t *output)
 {
@@ -169,14 +184,6 @@ bool Math_Round(float input, int16_t *output)
 	return true;
 }
 
-// Round real numbers to nearest integer, but return short for convinent way
-int16_t Math_Round_Return(float input)
-{
-	int16_t ret = 0;
-	Math_Round(input, &ret);
-	return ret;
-}
-
 /* ###########################################################################
  ** Math_SmoothFirstDerivative(...)
  **
@@ -185,14 +192,15 @@ int16_t Math_Round_Return(float input)
  **  using formula after smoothing
  **  f[k]' = 3/[n*(n+1)*(2n+1)] * Sum (j*f[k+j]) , j = -n...n
  ** INPUT
- **  input[size] - function values
+ **  input - float array
+ **  size - size of input
+ **  smoothOrder - Smoothing order
  **  step - step of abscissa
- **  smoothOrder = SmoothOrder - Smoothing order
  ** OUTPUT
- **  firstDerivative[NofDer1Points] - first derivative
+ **  firstDerivative - first derivative
  **  maximum - maximum value of a derivative
  ** RETURN
- **  none
+ **  boolean - return false if validation of input parameters is failed.
 */
 bool Math_SmoothFirstDerivative(const float* input, const uint16_t size, const int8_t smoothOrder,
 	const float step, float* firstDerivative, float* maximum)
@@ -222,10 +230,14 @@ bool Math_SmoothFirstDerivative(const float* input, const uint16_t size, const i
 			*maximum = firstDerivative[1];
 		}
 		else
+		{
 			firstDerivative[i] = (-2*input[i-2] - input[i-1] + input[i+1] + 2*input[i+2]) /(float)10. /step;
+		}
 		// firstDerivative[i] = (-3*input[i] +4*input[i+1] - input[i+2]) /dt2;
 		if (firstDerivative[i] > *maximum)
+		{
 			*maximum = firstDerivative[i];
+		}
 	}
 
 	// Middle points
@@ -239,7 +251,9 @@ bool Math_SmoothFirstDerivative(const float* input, const uint16_t size, const i
 		}
 		firstDerivative[i] = (float)(sum * c);
 		if (firstDerivative[i] > *maximum)
+		{
 			*maximum = firstDerivative[i];
+		}
 	}
 
 	// End points (BackStep formula)
@@ -247,11 +261,17 @@ bool Math_SmoothFirstDerivative(const float* input, const uint16_t size, const i
 	{
 		// firstDerivative[i] = (3*input[i+1] + 10*input[i] - 18*input[i-1] + 6*input[i-2] - input[i-3]) /12. /step;
 		if (i==size - 2)
+		{
 			firstDerivative[i] = (input[i+1] - input[i-1]) /dt2;
+		}
 		else
+		{
 			firstDerivative[i] = (-2*input[i-2] - input[i-1] + input[i+1] + 2*input[i+2]) /(float)10. /step;
+		}
 		if (firstDerivative[i] > *maximum)
+		{
 			*maximum = firstDerivative[i];
+		}
 	}
 	// firstDerivative[size - 1] = (input[size - 3] - 4*input[size - 2] + 3*input[size - 1]) /dt2;
 	firstDerivative[size - 1] = (input[size - 1] - input[size - 2]) /step;
@@ -262,18 +282,18 @@ bool Math_SmoothFirstDerivative(const float* input, const uint16_t size, const i
 }
 
 /* ###########################################################################
- ** Math_GetSplineIndex(x, SplineIndex, SplineOrder, pPulse.Length);
+ ** Math_GetSplineIndex
  **
  ** DESCRIPTION
  **  Find SplineIndex (beginning of a spline) for pulse
  ** INPUT
  **  abscissa - abscissa of a point on a Pulse
- **  SplineIndex - old SplineIndex
+ **  splineIndex - old SplineIndex
  **  size - length of a pulse
  ** OUTPUT
  **  newSplineIndex - new spline index
  ** RETURN
- **  bool success or not
+ **  boolean - return false if validation of input parameters is failed.
 */
 bool Math_GetSplineIndex(const float abscissa, const uint16_t splineIndex, const uint16_t size, uint16_t *newSplineIndex)
 {
@@ -316,18 +336,20 @@ bool Math_GetSplineIndex(const float abscissa, const uint16_t splineIndex, const
  ** Math_Spline(...)
  **
  ** DESCRIPTION
- **  Find a value of polinomial spline approximation of order SplineOrder in point x of
+ **  Find a value of polynomial spline approximation of order SplineOrder in point x of
  **  Pulse profile together with derivatives, if their initial values != C999
  ** INPUT
  **  abscissa - abscissa of a point on a Pulse
- **  Profile[SplineOrder + 1] - Pulse section
- **  SplineOrder - order of spline
+ **  Profile - Pulse section
+ **  splineOrder - order of spline
+ **  numOfDerivatives - number of derivatives
  ** OUTPUT
- **  derivatives[numOfDerivatives] - derivatives
+ **  pulseValue - pulse value
+ **  derivatives - derivatives
  ** RETURN
- **  bool success or not
+ **  boolean - return false if splineOrder is greater than 3.
 */
-bool Math_Spline(const float abscissa, const float* profile, const int8_t splineOrder, float* value, float *derivatives, const int8_t numOfDerivatives)
+bool Math_Spline(const float abscissa, const float* profile, const int8_t splineOrder, float* pulseValue, float *derivatives, const int8_t numOfDerivatives)
 {
 	// Spline length
 	double l = splineOrder; // * Dx;
@@ -426,7 +448,7 @@ bool Math_Spline(const float abscissa, const float* profile, const int8_t spline
 		if (lNofDer >= 3) dDer3  += N3[i]*profile[i];
 	}
 	// Return
-	*value = (float)dValue;
+	*pulseValue = (float)dValue;
 	if (lNofDer >= 1) derivatives[0] = (float)dDer1;
 	if (lNofDer >= 2) derivatives[1] = (float)dDer2;
 	if (lNofDer >= 3) derivatives[2] = (float)dDer3;
@@ -445,9 +467,9 @@ bool Math_Spline(const float abscissa, const float* profile, const int8_t spline
  **  minOrMax, onlyFirst, lessOrMore, lessOrMoreThan
  **  index1, index2 - indexes
  ** OUTPUT
- **  Index or -1 if wrong pulse
+ **  index or -1 if wrong pulse
  ** RETURN
- **  boolean success or not
+ **  boolean - return false if validation of index interval is failed.
 */
 bool Math_IndexOfExtremum(const float *input, const bool minOrMax, const bool onlyFirst, const int16_t index1, const int16_t index2,
 	const bool lessOrMore, const float lessOrMoreThan, int16_t* index)
@@ -455,7 +477,9 @@ bool Math_IndexOfExtremum(const float *input, const bool minOrMax, const bool on
 	*index = -1;
 	// Validate interval
 	if (index1 >= index2 - 2)
+	{
 		return false;
+	}
 	// Find Extremum for Pulse.
 	// For maximum extremum is where Current > Last, Current >= Next
 	// For minimum extremum is where Current < Last, Current <= Next
@@ -469,12 +493,16 @@ bool Math_IndexOfExtremum(const float *input, const bool minOrMax, const bool on
 			if (lessOrMore == LESS)
 			{
 				if (lCurrent >= lessOrMoreThan)
+				{
 					continue;
+				}
 			}
 			else // if (lessOrMore == MORE)
 			{
 				if (lCurrent <= lessOrMoreThan)
+				{
 					continue;
+				}
 			}
 		}
 		lLast = input[i-1];
@@ -483,12 +511,16 @@ bool Math_IndexOfExtremum(const float *input, const bool minOrMax, const bool on
 		if (minOrMax == MAX)
 		{
 			if (lCurrent <= lLast || lCurrent < lNext)
+			{
 				continue;
+			}
 		}
 		else // if (minOrMax == MINIMUM)
 		{
 			if (lCurrent >= lLast || lCurrent > lNext)
+			{
 				continue;
+			}
 		}
 		// Now lCurrent is extremum.
 		// Analise first extremum or not, if necessary
@@ -496,19 +528,25 @@ bool Math_IndexOfExtremum(const float *input, const bool minOrMax, const bool on
 		{
 			*index = i;
 			if (onlyFirst == FIRST)
+			{
 				break;
+			}
 		}
 		else
 		{
 			if (minOrMax == MAX)
 			{
 				if (lCurrent > input[*index])
+				{
 					*index = i;
+				}
 			}
 			else // if (minOrMax == MINIMUM)
 			{
 				if (lCurrent < input[*index])
+				{
 					*index = i;
+				}
 			}
 		}
 	}
@@ -517,7 +555,7 @@ bool Math_IndexOfExtremum(const float *input, const bool minOrMax, const bool on
 }
 
 /* ###########################################################################
- ** AlgorithmDer2()
+ ** Math_AlgorithmDer2()
  **
  ** DESCRIPTION
  **  Find onsets using maxDer2 algorithm
@@ -525,11 +563,11 @@ bool Math_IndexOfExtremum(const float *input, const bool minOrMax, const bool on
  **  derivatives1, derivatives2, floatSignal
  **  signalLength, maximumOnsetsLength
  **  pAvMaxDer1, pMinTrigPt, pMinPulseLength
-  ** OUTPUT
+ ** OUTPUT
  **  integerOnsets - integer array of Onsets
  **  onsetsLength - size of Onsets
  ** RETURN
- **  boolean success or not
+ **  boolean - return true if onsetsLength is greater than 2.
 */
 bool Math_AlgorithmDer2(float* derivatives1, float* derivatives2, const float* floatSignal,
 	uint16_t signalLength, uint16_t maximumOnsetsLength,
@@ -552,20 +590,28 @@ bool Math_AlgorithmDer2(float* derivatives1, float* derivatives2, const float* f
 		if (Beginning == true)
 		{
 			if (derivatives1[i] >= lThresHold1)
+			{
 				continue;
+			}
 			Beginning = false;
 		}
 		// Avoid MinPulseLength zone after last onset being found
 		if (*onsetsLength > 0 && (i - integerOnsets[*onsetsLength - 1] < pMinPulseLength))
+		{
 			continue;
+		}
 		// Find Peak
 		// avoid beginning of a wave
 		if ((WeAreInPeak == false) && (derivatives1[i] < lThresHold1))
+		{
 			continue;
+		}
 
 		// Begin of peak
 		if (WeAreInPeak==false)
+		{
 			WeAreInPeak = true;
+		}
 
 		if (derivatives1[i] > lThresHold2)
 		{
@@ -585,7 +631,9 @@ bool Math_AlgorithmDer2(float* derivatives1, float* derivatives2, const float* f
 		{
 			WeAreInPeak = false;
 			if (lPeakIndex < 0)
+			{
 				continue;
+			}
 			// End of Peak. Go back to find point where Signal has minimum;
 			int16_t lInitPeakIndex = ((*onsetsLength > 0) ? integerOnsets[*onsetsLength-1] : pMinTrigPt);
 			lFootIndex = -1;
@@ -636,4 +684,47 @@ bool Math_AlgorithmDer2(float* derivatives1, float* derivatives2, const float* f
 
 	// return
 	return (*onsetsLength > PWA_MIN_NOF_ONSETS);
+}
+
+/* ###########################################################################
+ ** Math_AP_Adjust()
+ **
+ ** DESCRIPTION
+ **  Calculate AP by adjusted algorithm.
+ ** INPUT
+ **  pressure1: P1, pressure2: P2
+ ** OUTPUT
+ ** RETURN
+ **  AP
+*/
+float Math_AP_Adjust(const float pressure1, const float pressure2)
+{
+	float AP_COEFFICIENT1 = 2.5377;
+	float AP_COEFFICIENT2 = 5.549;
+	float AP_COEFFICIENT3 = 1.4623;
+	
+	if (pressure1 != DEFAULT_VALUE && pressure2 != DEFAULT_VALUE)
+	{
+		return ((((pressure2 - pressure1) * AP_COEFFICIENT1) - AP_COEFFICIENT2) / AP_COEFFICIENT3);
+	}
+	else
+	{
+		return (float)DEFAULT_VALUE;
+	}
+}
+
+/* ###########################################################################
+ ** Math_AGPH_HR75()
+ **
+ ** DESCRIPTION
+ **  Calculate AGPH_HR75 - Augmentation Index normalised for HR 75
+ ** INPUT
+ **  heartRate: HR, pAGPH: AGPH
+ ** OUTPUT
+ ** RETURN
+ **  AGPH_HR75
+*/
+float Math_AGPH_HR75(const float heartRate, const float pAGPH)
+{
+	return ((float)(-0.48 * (75 - heartRate)) + pAGPH);
 }

@@ -1,6 +1,10 @@
 /*
  * pressure.c
  *
+ * Calculations about Pulses, average pulse, calibration, quality control(QC).
+ *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2013
+ *
  * Created: 12/10/2012 1:45:07 PM
  *  Author: yoonl
  */ 
@@ -11,6 +15,7 @@
 #include "pwa_signal.h"
 #include "pwa_data.h"
 #include "pwa.h"
+#include <math.h>
 
 #define PWA_MIN_VALID_PULSELENGTH_PERCENT	(float)0.60
 #define PWA_MAX_VALID_PULSELENGTH_PERCENT	(float)1.50
@@ -23,11 +28,15 @@
  **
  ** DESCRIPTION
  **  Allocate memory, initailise Pulses properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  boolean - return false if out of memory.
  */
 bool Pulses_init(void)
 {
 	NofPulses = 0;
-	
+
 	Pulses = (Pulse *)malloc(sizeof(Pulse)*PRESSURE_MAX_PULSES);
 	if (Pulses == NULL)
 	{
@@ -52,6 +61,9 @@ bool Pulses_init(void)
  **
  ** DESCRIPTION
  **  Free Pulses properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
 */
 void Pulses_final(void)
 {
@@ -67,6 +79,10 @@ void Pulses_final(void)
  **
  ** DESCRIPTION
  **  Initailise AvPulse properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  boolean - return false if out of memory.
  */
 bool AvPulse_init(void)
 {
@@ -97,6 +113,9 @@ bool AvPulse_init(void)
  **
  ** DESCRIPTION
  **  Finalise AvPulse properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
 */
 void AvPulse_final(void)
 {
@@ -117,6 +136,10 @@ void AvPulse_final(void)
  **
  ** DESCRIPTION
  **  Initailise Periph_CalAvPulse properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  boolean - return false if out of memory.
  */
 bool Periph_CalAvPulse_init(void)
 {
@@ -147,6 +170,9 @@ bool Periph_CalAvPulse_init(void)
  **
  ** DESCRIPTION
  **  Finalise Periph_CalAvPulse properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
 */
 void Periph_CalAvPulse_final(void)
 {
@@ -167,6 +193,10 @@ void Periph_CalAvPulse_final(void)
  **
  ** DESCRIPTION
  **  Initailise Central_CalAvPulse properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  boolean - return false if out of memory.
  */
 bool Central_CalAvPulse_init(void)
 {
@@ -197,6 +227,9 @@ bool Central_CalAvPulse_init(void)
  **
  ** DESCRIPTION
  **  Finalise Central_CalAvPulse properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
 */
 void Central_CalAvPulse_final(void)
 {
@@ -217,6 +250,10 @@ void Central_CalAvPulse_final(void)
  **
  ** DESCRIPTION
  **  Initailise ExpPulse,Der1ExpPulse,Der2ExpPulse,Der3ExpPulse properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  boolean - return false if out of memory.
  */
 bool ExpPulses_init(void)
 {
@@ -296,6 +333,9 @@ bool ExpPulses_init(void)
  **
  ** DESCRIPTION
  **  Finalise ExpPulse,Der1ExpPulse,Der2ExpPulse,Der3ExpPulse properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
 */
 void ExpPulses_final(void)
 {
@@ -354,7 +394,7 @@ void ExpPulses_final(void)
  ** OUTPUT
  **  TrigPts - integerOnsets
  ** RETURN
- **  boolean success or not
+ **  boolean - return true if found 2 pulses at least.
 */
 bool CalcPulses(const int8_t pTail, const uint16_t pOnsetsLength, const float *pFloatSignal, const int16_t *TrigPts)
 {
@@ -421,7 +461,7 @@ bool CalcPulses(const int8_t pTail, const uint16_t pOnsetsLength, const float *p
  ** OUTPUT
  **  AvPulse - average pulse structure
  ** RETURN
- **  boolean success or not
+ **  boolean - return false if validation of pulse is failed.
 */
 bool AveragePulse(const int16_t pLength, const int8_t pTail, const int16_t pSignalSampleRate)
 {
@@ -544,16 +584,16 @@ void CalibratePulse(const float pGain, const float pOffset, const Pulse *pAvPuls
  ** ExpandPulse ()
  **
  ** DESCRIPTION
- **  Expand pPulse from pPulse->Length to ExpPulse->Length points, 1024 sample rate,
- **  with analitical calculation of expanded profile and its derivatives
- **  using polinomial spline interpolation
+ **  Expand pPulse from pPulse->Length to ExpPulse->Length points, 256 sample rate,
+ **  with analytical calculation of expanded profile and its derivatives
+ **  using polynomial spline interpolation
  ** INPUT
  **  pPulse - pulse (for example, Calibrated Average pulse)
  **  pExpandFactor
  ** OUTPUT
  **  ExpPulse, Der1ExpPulse, Der2ExpPulse, Der3ExpPulse- expanded pulse and its derivatives
  ** RETURN
- **  boolean success or not
+ **  boolean - return false if validation of pulse is failed or out of memory.
 */
 bool ExpandPulse(Pulse *pPulse, const int8_t pExpandFactor)
 {
@@ -610,7 +650,8 @@ bool ExpandPulse(Pulse *pPulse, const int8_t pExpandFactor)
 	float *tmpDerivatives1 = malloc(sizeof(float)*PRESSURE_MAX_PPOINTS);
 	if (tmpDerivatives1 == NULL)
 	{
-		print_debug("Error: failed to allocate memory for tmpDerivatives1.\r\n");
+		PWA_Error_Code = PWA_MSG_OUT_OF_MEMORY;
+		print_debug("Error(%d): failed to allocate memory for tmpDerivatives1.\r\n", PWA_Error_Code);
 		return false;
 	}
 	memset(tmpDerivatives1, 0, sizeof(float)*PRESSURE_MAX_PPOINTS);
@@ -653,9 +694,9 @@ bool ExpandPulse(Pulse *pPulse, const int8_t pExpandFactor)
  **  pAlgorithm (PWA_TANGENT_DER2_ALGORITHM) - algorithm type to calculate onset
  **  pLengthOfRadial, pExpPulseSampleRate
  ** OUTPUT
- **  Exapanded pulses
+ **  pExpPulse, pDer1ExpPulse, pDer2ExpPulse, pDer3ExpPulse - Exapanded pulses
  ** RETURN
- **  boolean success or not
+ **  boolean - return false if not found peak or calculation of tangent is failed.
 */
 bool SystolicOnset(const int8_t pAlgorithm, const int16_t pLengthOfRadial, const int16_t pExpPulseSampleRate, Pulse *pExpPulse, Pulse *pDer1ExpPulse, Pulse *pDer2ExpPulse, Pulse *pDer3ExpPulse)
 {
@@ -777,34 +818,16 @@ bool SystolicOnset(const int8_t pAlgorithm, const int16_t pLengthOfRadial, const
 }
 
 /* ###########################################################################
- ** PeriphExtractFeatures()
- **
- ** DESCRIPTION
- **  Extract specific feature parameters for Periph Pressure
- ** INPUT
- ** OUTPUT
- **  Specific feature parameters for Periph Pressure
- ** RETURN
-*/
-void PeriphExtractFeatures(void)
-{
-	if (Brachial_SP > Brachial_DP)
-	{
-		PeriphParams->PP = Brachial_SP - Brachial_DP;
-	}
-}
-
-/* ###########################################################################
  ** CentralExtractFeatures()
  **
  ** DESCRIPTION
- **  Extract specific feature parameters (HR, AGPH, ...) for Cenral Pressure
+ **  Extract specific feature parameters (HR, AGPH, ...) for Central Pressure
  ** INPUT
  **  pEDIndex, pExpPulse
  ** OUTPUT
- **  Specific feature parameters (HR, AGPH, ...) for Cenral Pressure
+ **  Specific feature parameters (HR, AGPH, ...) for Central Pressure
  ** RETURN
- **  boolean success or not
+ **  boolean - return false if validation of input parameters is failed.
 */
 bool CentralExtractFeatures(const int16_t pEDIndex, const Pulse *pExpPulse)
 {
@@ -843,7 +866,7 @@ bool CentralExtractFeatures(const int16_t pEDIndex, const Pulse *pExpPulse)
 	}
 	if ((P1 != DEFAULT_VALUE) && (P2 != DEFAULT_VALUE))
 	{
-		CentralParams->AP  = P2 - P1;
+		CentralParams->AP  = Math_AP_Adjust(P1, P2);
 	}
 	
 	if (CentralParams->SP != DEFAULT_VALUE && CentralParams->DP != DEFAULT_VALUE)
@@ -861,13 +884,13 @@ bool CentralExtractFeatures(const int16_t pEDIndex, const Pulse *pExpPulse)
 	}
 	if (CentralParams->AGPH != DEFAULT_VALUE && CentralParams->HR != DEFAULT_VALUE)
 	{
-		if (CentralParams->HR < 40 || CentralParams->HR > 110)
+		if (CentralParams->HR < HR_MIN_THRESHOLD || CentralParams->HR > HR_MAX_THRESHOLD)
 		{
 			CentralParams->AGPH_HR75 = DEFAULT_VALUE;
 		}
 		else
 		{
-			CentralParams->AGPH_HR75 = (float)(-0.48 * (75 - CentralParams->HR)) + CentralParams->AGPH;
+			CentralParams->AGPH_HR75 = Math_AGPH_HR75(CentralParams->HR, CentralParams->AGPH);
 		}
 	}
 	else
@@ -876,4 +899,205 @@ bool CentralExtractFeatures(const int16_t pEDIndex, const Pulse *pExpPulse)
 	}
 	
 	return true;
+}
+
+/* ###########################################################################
+ ** QualityControl()
+ **
+ ** DESCRIPTION
+ **  Calculate Quality Control parameters for Operator Index
+ ** INPUT
+ ** OUTPUT
+ **  Quality Control(QCParams) properties
+ ** RETURN
+ **  boolean - return false if validation of QCParams is failed.
+*/
+bool QualityControl(void)
+{
+	if (NofPulses <= 0)
+	{
+		return false;
+	}
+	
+	// Average of all pulse Height
+	float lSumPH = 0;
+	for (int16_t np = 0; np < NofPulses; np++)
+	{
+		lSumPH += Height(&Pulses[np]);
+	}
+	lSumPH /= NofPulses;
+	QCParams->QC_PulseHeight = (lSumPH >= 0 ? lSumPH : DEFAULT_VALUE);
+	if (QCParams->QC_PulseHeight == DEFAULT_VALUE)
+	{
+		return false;
+	}
+	
+	// PulseHeightVariation
+	float lQC_SumPH = 0;
+	for (int16_t np = 0; np < NofPulses; np++)
+	{
+		lQC_SumPH += QC_Height(&Pulses[np]);
+	}
+	lQC_SumPH /= NofPulses;
+
+	float lPHV = 0;
+	for (int16_t np = 0; np < NofPulses; np++)
+	{
+		lPHV += fabs(QC_Height(&Pulses[np]) - lQC_SumPH);
+	}
+	lPHV /= NofPulses;
+	QCParams->QC_PulseHeightVariation = (lPHV >= 0 ? lPHV/lQC_SumPH * 100 : DEFAULT_VALUE);
+
+	// PulseLengthVariation
+	float lPLV = 0;
+	for (int16_t np = 0; np < NofPulses; np++)
+	{
+		lPLV += fabs((float)(Pulses[np].FLength - AvPulse->FLength));
+	}
+	lPLV /= NofPulses;
+	QCParams->QC_PulseLengthVariation = (lPLV >= 0 ? lPLV/AvPulse->FLength * 100 : DEFAULT_VALUE);
+	
+	// Diastolic Variation. Diast pressure is min at the end of pulse (25% tail)
+	float lDV = 0;
+	float lAvDiast = Math_Min((int16_t)(AvPulse->FSize * 0.75), AvPulse->FSize, AvPulse);
+	for (int np = 0; np < NofPulses; np++)
+	{
+		// Shift from the level of first pulse
+		int16_t lUpStep = (int16_t)(Pulses[np].Profile[Pulses[np].Start] - Pulses[0].Profile[Pulses[0].Start]);
+		float lDiast = Math_Min((int16_t)(Pulses[np].FSize * 0.75), Pulses[np].FSize, &Pulses[np]);
+		lDV += fabs(lDiast - lUpStep - lAvDiast);
+	}
+	lDV /= NofPulses;
+	QCParams->QC_DiastolicVariation = (lDV >= 0 ? lDV/lSumPH * 100 : DEFAULT_VALUE);
+	
+	// Slope Variation. RMS error for the first 40% of the pulses
+	float lSV = 0;
+	int16_t lFinish = 0;
+	float lSum = 0;
+	float lError = 0;
+	float lMean = 0;
+	float Pulse_rise = 0;
+	float scaling_factor = 0;
+	Math_Round((float)(AvPulse->FSize * 0.4), &lFinish);
+	int16_t lStart = AvPulse->Start;
+	int16_t lLength = lFinish - lStart;
+	float AvPulse_rise = Math_Max(lStart, lFinish, AvPulse) - AvPulse->Profile[lStart];
+	for (int16_t np = 0; np < NofPulses; np++)
+	{
+		// Shift from the level of first pulse
+		lSum = 0;
+		lError = 0;
+		lMean = 0;
+		Pulse_rise = Math_Max(lStart, lFinish, &Pulses[np]) - Pulses[np].Profile[Pulses[np].Start];
+		scaling_factor = AvPulse_rise / Pulse_rise;
+		for (int16_t lIndex = lStart; lIndex < lFinish; lIndex++)
+		{
+			// Sum the square error for each point in the target range
+			// The pulses are scaled to the average pulse height
+			lError = (((Pulses[np].Profile[lIndex] - Pulses[np].Profile[Pulses[np].Start]) * scaling_factor)+AvPulse->Profile[lStart]) - AvPulse->Profile[lIndex];
+			lSum += lError * lError;
+		}
+		// Calculate the root mean
+		lMean = lSum / lLength;
+		lSV += sqrt(lMean);
+	}
+	lSV /= NofPulses;
+	QCParams->QC_ShapeDeviation = (lSV >= 0 ? lSV/lSumPH * 100 : DEFAULT_VALUE);
+
+	// PM CR
+	// Shape Variation only equals '0' when the value has not been calculated
+	// Check if it's less than 1 because it's a float
+	if (QCParams->QC_ShapeDeviation < 1)
+	{
+		QCParams->QC_ShapeDeviation = 1;
+	}
+	
+	// Validate QC parameters
+	if (QCParams->QC_PulseHeightVariation > 15 && QCParams->QC_DiastolicVariation > 15 && QCParams->QC_ShapeDeviation > 15)
+	{
+		return false;
+	}
+	
+	return true;
+}
+
+/* ###########################################################################
+ ** CalculateOperatorIndex()
+ **
+ ** DESCRIPTION
+ **  Calculate OperatorIndex used by Quality Control parameters.
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  OperatorIndex
+*/
+int16_t CalculateOperatorIndex(void)
+{
+	float qc_weight_ph = 0;
+	float qc_weight_dv = 0;
+	float qc_weight_phv = 0;
+	float qc_weight_sd = 0;
+	float qc_index = 0;
+	
+	qc_weight_ph = 35 - (95 - QCParams->QC_PulseHeight);
+	if (qc_weight_ph < -10)
+	{
+		qc_weight_ph = -10;
+	}
+	if (qc_weight_ph > 35)
+	{
+		qc_weight_ph = 35;
+	}
+
+	qc_weight_dv = 20 - ((QCParams->QC_DiastolicVariation - 3) * 3);
+	if (qc_weight_dv < -10)
+	{
+		qc_weight_dv = -10;
+	}
+	if (qc_weight_dv > 20)
+	{
+		qc_weight_dv = 20;
+	}
+
+	qc_weight_phv = 20 - ((QCParams->QC_PulseHeightVariation - 4) * 4);
+	if (qc_weight_phv < -10)
+	{
+		qc_weight_phv = -10;
+	}
+	if (qc_weight_phv > 20)
+	{
+		qc_weight_phv = 20;
+	}
+
+	qc_weight_sd = 25 - ((QCParams->QC_ShapeDeviation - 3) * 6);
+	if (qc_weight_sd < -10)
+	{
+		qc_weight_sd = -10;
+	}
+	if (qc_weight_sd > 25)
+	{
+		qc_weight_sd = 25;
+	}
+	qc_index = qc_weight_ph + qc_weight_dv + qc_weight_phv + qc_weight_sd;
+
+	if (PeriphParams->QualityT1 == WEAK)
+	{
+		qc_index = qc_index - 10;
+	}
+
+	if (PeriphParams->QualityT1 == VERYWEAK)
+	{
+		qc_index = qc_index - 20;
+	}
+
+	if (qc_index < 0.)
+	{
+		qc_index = 0.;
+	}
+	if (qc_index > 100.)
+	{
+		qc_index = 100.;
+	}
+	
+	return (int16_t)qc_index;
 }

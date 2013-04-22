@@ -1,6 +1,10 @@
 /*
  * pwa_data.h
  *
+ * Global parameters to be used in PWA calculations and PWA error codes.
+ *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2013
+ *
  * Created: 9/10/2012 11:16:00 AM
  *  Author: yoonl
  */ 
@@ -43,20 +47,19 @@
 #define NOF_TF_COEFF			(uint8_t)33
 #define EXPPULSE_MAX_EXPAND_FACTOR	(uint8_t)2
 #define PRESSURE_EXPPULSE_MAXLENGTH	(uint16_t)520 //PRESSURE_PULSE_MAXLENGTH * EXPPULSE_MAX_EXPAND_FACTOR
+#define HR_MIN_THRESHOLD		(uint8_t)40
+#define HR_MAX_THRESHOLD		(uint8_t)110
+#define QUALITY_THRESHOLD		(uint8_t)40 // If Operator Index is greater/equal than this value, it means tick, otherwise cross in the report.
+#define NIBP_ADULT_MIN_SP		(uint8_t)50
+#define NIBP_ADULT_MAX_SP		(uint16_t)260
+#define NIBP_ADULT_MIN_DP		(uint8_t)40
+#define NIBP_ADULT_MAX_DP		(uint8_t)200
+#define MEA_SP2DP_DIFF_MIN		(uint8_t)10
 
-uint16_t *rawSignal; // Original waveform digital unit, 128 sample rate, 5 seconds.
-float *floatSignal; // For Brachial and Peripheral signals calculation.
-float *Central_floatSignal;
-int16_t *integerOnsets; // For Brachial and Peripheral signals calculation.
-uint16_t onsetsLength; // For Brachial and Peripheral signals calculation.
-int16_t *Central_integerOnsets;
-uint16_t Central_onsetsLength;
 
-uint16_t signalLength; // For Brachial, Peripheral, Central signals calculation.
-
-int16_t Brachial_SP;
-int16_t Brachial_DP;
-int16_t Brachial_MeanP;
+// Major input parameters for PWA calculation given by SunTech.
+static volatile int16_t Brachial_SP = 0;
+static volatile int16_t Brachial_DP = 0;
 
 // Peripheral output parameters to be used for Periph/Central calculation.
 typedef struct
@@ -70,7 +73,8 @@ typedef struct
 	int16_t ExpPulse_T2m;
 	int16_t ExpPulse_ShoulderAfterPeak;
 	int16_t ExpPulse_ED;
-	int16_t PP; // Brachial_SP - Brachial_DP
+	int16_t QualityT1;
+	int16_t OperatorIndex;
 }Peripheral_Parameters;
 
 // Central output parameters for report.
@@ -87,5 +91,40 @@ typedef struct
 	float AP; // Augmented Pressure
 	float HR;
 }Central_Parameters;
+
+// Quality Control parameters
+typedef struct 
+{
+	float QC_PulseHeightVariation;
+	float QC_PulseLengthVariation;
+	float QC_PulseHeight;
+	float QC_DiastolicVariation;
+	float QC_ShapeDeviation;
+}QC_Parameters;
+
+// PWA Error Codes, low level error code regarding for processing PWA algorithm, 8 bytes max.
+extern uint16_t PWA_Error_Code;
+typedef enum
+{
+	PWA_MSG_OUT_OF_MEMORY = 2000,
+	PWA_MSG_CAPTURE_SIGNAL_TOO_LOW,
+	PWA_MSG_SIGNAL_TOO_SHORT,
+	PWA_MSG_TRIGGER_ERR,
+	PWA_MSG_CALCPULSES_ERR,
+	PWA_MSG_TOO_BAD_SIGNAL,
+	PWA_MSG_WRONG_PULSE,
+	PWA_MSG_SMOOTH_ERR,
+	PWA_MSG_IRREGULAR_TRIGPTS,
+	PWA_MSG_EXPANDPULSE_ERR,
+	PWA_MSG_CALCSYSTONSET_ERR,
+	PWA_MSG_DOWNSAMPLE_ERR,
+	PWA_MSG_CALIBRATE_AVPULSE_PERIPH_ERR,
+	PWA_MSG_CALIBRATE_AVPULSE_CENTRAL_ERR,
+	PWA_MSG_HR_OUT,
+	PWA_MSG_POINT_OUT_OF_PULSE,
+	PWA_SP_OUT_OF_RANGE,
+	PWA_DP_OUT_OF_RANGE,
+	PWA_SP_DP_TOO_CLOSE,
+}pwa_error_code_t;
 
 #endif /* PWA_DATA_H_ */

@@ -1,6 +1,10 @@
 /*
  * pulse.c
  *
+ * Calculations about T1,T2,ED of expand pulse, finding min/max, index of pulse.
+ *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2013
+ *
  * Created: 17/10/2012 2:03:33 PM
  *  Author: yoonl
  */ 
@@ -44,6 +48,7 @@ bool Smooth(float *pProfile, const int16_t pSize)
  ** INPUT
  **  i1,i2,pPulse
  ** OUTPUT
+ ** RETURN
  **  pMax values for pulse
  */
 float Math_Max(const int16_t i1, const int16_t i2, const Pulse *pPulse)
@@ -53,12 +58,12 @@ float Math_Max(const int16_t i1, const int16_t i2, const Pulse *pPulse)
 	if (Validate(pPulse)==false)
 	{
 		return pMax;
-	}		
+	}
 	// Validate interval
 	if (i1 >= i2)
 	{
 		return pMax;
-	}		
+	}
 
 	// Find max for Pulse
 	pMax = pPulse->Profile[i1];
@@ -67,7 +72,7 @@ float Math_Max(const int16_t i1, const int16_t i2, const Pulse *pPulse)
 		if (pPulse->Profile[i] > pMax)
 		{
 			pMax = pPulse->Profile[i];
-		}			
+		}
 	}
 	return pMax;
 }
@@ -80,6 +85,7 @@ float Math_Max(const int16_t i1, const int16_t i2, const Pulse *pPulse)
  ** INPUT
  **  i1,i2,pPulse
  ** OUTPUT
+ ** RETURN
  **  pMin values for pulse
  */
 float Math_Min(const int16_t i1, const int16_t i2, const Pulse *pPulse)
@@ -89,12 +95,12 @@ float Math_Min(const int16_t i1, const int16_t i2, const Pulse *pPulse)
 	if (Validate(pPulse)==false)
 	{
 		return pMin;
-	}		
+	}
 	// Validate interval
 	if (i1 >= i2)
 	{
 		return pMin;
-	}		
+	}
 
 	// Find min for Pulse
 	pMin = pPulse->Profile[i1];
@@ -103,9 +109,46 @@ float Math_Min(const int16_t i1, const int16_t i2, const Pulse *pPulse)
 		if (pPulse->Profile[i] < pMin)
 		{
 			pMin = pPulse->Profile[i];
-		}			
+		}
 	}
 	return pMin;
+}
+
+/* ###########################################################################
+ ** MinMax ()
+ **
+ ** DESCRIPTION
+ **  Find Min, Max for pulse
+ ** INPUT
+ **  pPulse
+ ** OUTPUT
+ **  pMin, pMax values for pulse
+ ** RETURN
+ **  boolean - return false if validation of pPulse is failed.
+*/
+bool MinMax(float *pMin, float *pMax, const Pulse *pPulse)
+{
+	// Pulse Validation
+	if (!Validate(pPulse))
+	{
+		return false;
+	}
+
+	// Find max, min for Pulse
+	*pMin = pPulse->Profile[pPulse->Start];
+	*pMax = pPulse->Profile[pPulse->Start];
+	for (int16_t i = pPulse->Start; i <= pPulse->End; i++)
+	{
+		if (pPulse->Profile[i] > *pMax)
+		{
+			*pMax = pPulse->Profile[i];
+		}
+		if (pPulse->Profile[i] < *pMin)
+		{
+			*pMin = pPulse->Profile[i];
+		}
+	}
+	return (*pMax > *pMin);
 }
 
 /* ###########################################################################
@@ -115,8 +158,10 @@ float Math_Min(const int16_t i1, const int16_t i2, const Pulse *pPulse)
  **  Find index of Maximal (or Minimal) value for pulse
  **  between indexes i1, i2
  ** INPUT
- **   i1, i2 - indexes, pPulse
+ **  i1, i2 - indexes
+ **  pPulse
  ** OUTPUT
+ ** RETURN
  **  Index or -1 if wrong pulse
 */
 int16_t IndexOfMax(const int16_t i1, const int16_t i2, const Pulse *pPulse)
@@ -126,12 +171,12 @@ int16_t IndexOfMax(const int16_t i1, const int16_t i2, const Pulse *pPulse)
 	if (Validate(pPulse)==false)
 	{
 		return ind;
-	}		
+	}
 	// Validate interval
 	if (i1 >= i2)
 	{
 		return ind;
-	}		
+	}
 
 	// Find max for Pulse
 	float pMax = pPulse->Profile[i1];
@@ -153,12 +198,12 @@ int16_t IndexOfMin(const int16_t i1, const int16_t i2, const Pulse *pPulse)
 	if (Validate(pPulse)==false)
 	{
 		return ind;
-	}		
+	}
 	// Validate interval
 	if (i1 >= i2)
 	{
 		return ind;
-	}		
+	}
 
 	// Find max for Pulse
 	float pMin = pPulse->Profile[i1];
@@ -178,7 +223,7 @@ int16_t IndexOfMin(const int16_t i1, const int16_t i2, const Pulse *pPulse)
  ** Integral()
  **
  ** DESCRIPTION
- **  Use trapesoid formula to integrate pulse profile on interval [pBegin, pEnd]:
+ **  Use trapezoid formula to integrate pulse profile on interval [pBegin, pEnd]:
  **  End point pEnd included in formula. Abscissa step = 1.
  **  Int = (f[pBegin] + 2*f[pBegin+1] + 2*f[pBegin+2]... + 2*f[pEnd - 1] + f[pEnd])/2
  ** INPUT
@@ -196,12 +241,12 @@ float Integral(int16_t pBegin, int16_t pEnd, const Pulse *pPulse)
 	if (Validate(pPulse)==false)
 	{
 		return lAv;
-	}		
+	}
 	// Validate interval
 	if (pBegin >= pEnd)
 	{
 		return lAv;
-	}		
+	}
 
 	// Integrating
 	double d = pPulse->Profile[pBegin]/2;
@@ -232,7 +277,8 @@ bool Validate(const Pulse *pPulse)
 	if ((!pPulse) || (pPulse->FLength < 1) || (pPulse->Start < 0) || (pPulse->Start > pPulse->End) ||
 		(pPulse->FSize < pPulse->FLength) || (pPulse->FSize > PRESSURE_EXPPULSE_MAXLENGTH) || (pPulse->End - pPulse->Start + 1 != pPulse->FLength))
 	{
-		print_debug("Error: wrong pulse.\r\n");
+		PWA_Error_Code = PWA_MSG_WRONG_PULSE;
+		print_debug("Error(%d): Invalid or unrecognizable pulse detected.\r\n", PWA_Error_Code);
 		return false;
 	}
 	return true;
@@ -257,28 +303,28 @@ bool IsExtremumStable(const int16_t ExtPoint, const int16_t pBegin, const int16_
 		if (i == ExtPoint)
 		{
 			continue;
-		}			
+		}
 		if (pMaxOrMin == MAX) // max
 		{
 			if (pPulse->Profile[i] > pPulse->Profile[ExtPoint]) // found point > max
 			{
 				return false;
-			}				
+			}
 			if (Der2 && Der2[i] >= 0.) // for stable max Der2 always < 0
 			{
 				return false;
-			}				
+			}
 		}
 		else
 		{
 			if (pPulse->Profile[i] < pPulse->Profile[ExtPoint]) // found point < min
 			{
 				return false;
-			}				
+			}
 			if (Der2 && Der2[i] <= 0.) // for stable min Der2 always > 0
 			{
 				return false;
-			}				
+			}
 		}
 	}
 	// Stable extremum
@@ -295,7 +341,7 @@ bool IsExtremumStable(const int16_t ExtPoint, const int16_t pBegin, const int16_
  **  pOtherLessOrMoreThan, pOtherStabilityZone, pPulseEnd
  ** OUTPUT
  ** RETURN
- **  boolean change the sign
+ **  boolean - return false if change the sign.
 */
 bool CheckCondition(const int16_t i, const int16_t i1, const int16_t i2,
 	float* pOtherFunction, const bool pOtherLessOrMore,
@@ -376,12 +422,12 @@ int16_t IndexOfExtremum(const Pulse *pPulse, const bool pMinOrMax, const bool pO
 	if (Validate(pPulse)==false)
 	{
 		return ind;
-	}		
+	}
 	// Validate interval
 	if (i1 >= i2)
 	{
 		return ind;
-	}		
+	}
 	// Find Extremum for Pulse.
 	// For maximum extremum is where Current > Last, Current >= Next
 	// For minimum extremum is where Current < Last, Current <= Next
@@ -397,14 +443,14 @@ int16_t IndexOfExtremum(const Pulse *pPulse, const bool pMinOrMax, const bool pO
 				if (lCurrent >= pLessOrMoreThan)
 				{
 					continue;
-				}					
+				}
 			}
 			else // if (pLessOrMore == MORE)
 			{
 				if (lCurrent <= pLessOrMoreThan)
 				{
 					continue;
-				}					
+				}
 			}
 		}
 		lLast = pPulse->Profile[i-1];
@@ -415,14 +461,14 @@ int16_t IndexOfExtremum(const Pulse *pPulse, const bool pMinOrMax, const bool pO
 			if (lCurrent <= lLast || lCurrent < lNext)
 			{
 				continue;
-			}				
+			}
 		}
 		else // if (pMinOrMax == MINIMUM)
 		{
 			if (lCurrent >= lLast || lCurrent > lNext)
 			{
 				continue;
-			}				
+			}
 		}
 		// Now lCurrent is extremum. Check stability of an extremum
 		if (pStabilityZone > 0)
@@ -455,13 +501,13 @@ int16_t IndexOfExtremum(const Pulse *pPulse, const bool pMinOrMax, const bool pO
 				if (lReject == true)
 				{
 					continue;
-				}					
+				}
 			}
 			// Reject unstable extremum
 			if (IsExtremumStable(i, lBegin, lEnd, pMinOrMax, Der2, pPulse)==false)
 			{
 				continue;
-			}				
+			}
 		}
 		// .................................................................
 		// Now lCurrent is extremum. Check stability of OtherFunctions
@@ -505,7 +551,7 @@ int16_t IndexOfExtremum(const Pulse *pPulse, const bool pMinOrMax, const bool pO
 			if (pOnlyFirst == FIRST)
 			{
 				break;
-			}				
+			}
 		}
 		else
 		{
@@ -514,14 +560,14 @@ int16_t IndexOfExtremum(const Pulse *pPulse, const bool pMinOrMax, const bool pO
 				if (lCurrent > pPulse->Profile[ind])
 				{
 					ind = i;
-				}					
+				}
 			}
 			else // if (pMinOrMax == MINIMUM)
 			{
 				if (lCurrent < pPulse->Profile[ind])
 				{
 					ind = i;
-				}					
+				}
 			}
 		}
 	}
@@ -541,7 +587,7 @@ int16_t IndexOfExtremum(const Pulse *pPulse, const bool pMinOrMax, const bool pO
  ** OUTPUT
  **  pAvPulse
  ** RETURN
- **  boolean success or not
+ **  boolean - validation of pExpPulse,pAvPulse.
 */
 bool DownSample(const Pulse *pExpPulse, const const int8_t pDownSampleRate, Pulse *pAvPulse)
 {
@@ -549,7 +595,7 @@ bool DownSample(const Pulse *pExpPulse, const const int8_t pDownSampleRate, Puls
 	if (Validate(pExpPulse)==false)
 	{
 		return false;
-	}		
+	}
 
 	// Initialise AvPulse
 	pAvPulse->Index = -1;
@@ -1389,6 +1435,7 @@ UpdateParameters:
 		pPeriphParams->ExpPulse_ED = ED;
 		pPeriphParams->ExpPulse_T2m = T2m;
 		pPeriphParams->ExpPulse_ShoulderAfterPeak = ShoulderAfterPeak;
+		pPeriphParams->QualityT1 = QualityT1;
 	}
 	else if (pCentralParams != NULL)
 	{
@@ -1523,7 +1570,8 @@ float PressureValue(const float pPoint, const Pulse *pPulse)
 	// Validate pPoint
 	if (pPoint < pPulse->Start || pPoint > pPulse->End)
 	{
-		print_debug("Error: The point %f is out of pulse.\r\n", pPoint);
+		PWA_Error_Code = PWA_MSG_POINT_OUT_OF_PULSE;
+		print_debug("Error(%d): Point is out of Pulse range. Point, Pulse Begin = %d, End = %d.\r\n", PWA_Error_Code, pPulse->Start, pPulse->End);
 		return lValue;
 	}
 	// Catch start point
@@ -1547,4 +1595,58 @@ float PressureValue(const float pPoint, const Pulse *pPulse)
 	}
 
 	return lValue;
+}
+
+/* ###########################################################################
+ ** Height()
+ **
+ ** DESCRIPTION
+ **  Find pulse height (Max - Min)
+ ** INPUT
+ **  pPulse 
+ ** OUTPUT
+ ** RETURN
+ **  Height of pulse
+*/
+float Height(const Pulse *pPulse)
+{
+	float lHeight = 0;
+
+	// MinMax
+	float lMin=0, lMax=0;
+	if (!MinMax(&lMin, &lMax, pPulse))
+	{
+		return lHeight;
+	}
+	
+	// Height
+	lHeight = lMax - lMin;
+	return lHeight;
+}
+
+/* ###########################################################################
+ ** QC_Height()
+ **
+ ** DESCRIPTION
+ **  Find pulse height (Max - Profile[Start])
+ ** INPUT
+ **  pPulse
+ ** OUTPUT
+ ** RETURN
+ **  Height of Max - Profile[Start]
+*/
+float QC_Height(const Pulse *pPulse)
+{
+	float lHeight = 0;
+
+	// MinMax
+	float lMin=0, lMax=0;
+	if (!MinMax(&lMin, &lMax, pPulse))
+	{
+		return lHeight;
+	}
+	
+	// Height
+	lHeight = lMax - pPulse->Profile[pPulse->Start];
+	return lHeight;
 }

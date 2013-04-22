@@ -1,6 +1,10 @@
 /*
  * pwa_signal.c
  *
+ * Finding onsets algorithm.
+ *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2013
+ *
  * Created: 11/10/2012 9:45:46 AM
  *  Author: yoonl
  */ 
@@ -10,56 +14,16 @@
 #include "pwa_data.h"
 
 /* ###########################################################################
- ** Derivatives_init()
- **
- ** DESCRIPTION
- **  Allocate memory, initailise Derivatives properties
- */
-bool Derivatives_init(void)
-{
-	Derivatives1 = malloc(sizeof(float)*PRESSURE_MAX_PPOINTS);
-	Derivatives2 = malloc(sizeof(float)*PRESSURE_MAX_PPOINTS);
-	
-	if (Derivatives1 == NULL || Derivatives2 == NULL)
-	{
-		return false;
-	}
-	
-	memset(Derivatives1, 0, sizeof(float)*PRESSURE_MAX_PPOINTS);
-	memset(Derivatives2, 0, sizeof(float)*PRESSURE_MAX_PPOINTS);
-	return true;
-}
-
-/* ###########################################################################
- ** Derivatives_final()
- **
- ** DESCRIPTION
- **  Free Derivatives properties
-*/
-void Derivatives_final(void)
-{
-	if (Derivatives1 != NULL)
-	{
-		free(Derivatives1);
-		Derivatives1 = NULL;
-	}
-	if (Derivatives2 != NULL)
-	{
-		free(Derivatives2);
-		Derivatives2 = NULL;
-	}
-}
-
-/* ###########################################################################
  ** FindOnsets()
  **
  ** DESCRIPTION
  **  Find trigger points (onsets) for a signal
+ **  Pulse count = Onset count - 1.
  ** INPUT
  **  All parameters
  ** OUTPUT
  ** RETURN
- **  boolean success or not
+ **  boolean - return true if found 3 onsets at least.
 */
 bool FindOnsets(const uint8_t pAlgorithm, const uint8_t pMinTrigPt, const float *floatSignal, const uint16_t signalLength,
 	uint16_t *onsetsLength, int16_t *integerOnsets, float *derivatives1, float *derivatives2)
@@ -75,7 +39,9 @@ bool FindOnsets(const uint8_t pAlgorithm, const uint8_t pMinTrigPt, const float 
 	float lAbsMaxDer1, lMaxDer2, lAvMaxDer1;
 	Math_SmoothFirstDerivative(floatSignal, signalLength, 2, 1., derivatives1, &lAbsMaxDer1);
 	if (lAbsMaxDer1 <= 0)
+	{
 		return false;
+	}		
 	// Try to find Average of the peaks of derivatives1 which is higher
 	// then 55% of absolute max of derivatives1
 	lAvMaxDer1 = 0;

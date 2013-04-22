@@ -1,6 +1,10 @@
 /*
  * math_pwa.h
  *
+ * Math library.
+ *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2013
+ *
  * Created: 11/10/2012 9:53:51 AM
  *  Author: yoonl
  */ 
@@ -10,7 +14,6 @@
 #define MATH_PWA_H_
 
 #include "asf.h"
-#include <stdio.h>
 
 // Smooth array using Running average algorithm
 bool Math_SmoothArray(float *pArray, const uint16_t pSize);
@@ -20,8 +23,6 @@ bool Math_TimeToIndex(const float time, const uint8_t expandRate, const uint8_t 
 
 // Round real numbers to nearest integer
 bool Math_Round(float input, int16_t *output);
-// Round real numbers to nearest integer, but return short for convinent way
-int16_t Math_Round_Return(float input);
 
 // Calculate smooth first derivative of a function and find max
 bool Math_SmoothFirstDerivative(const float* input, const uint16_t size, const int8_t smoothOrder,
@@ -32,7 +33,7 @@ bool Math_GetSplineIndex(const float abscissa, const uint16_t splineIndex, const
 
 // Find a value of spline approximation of order SplineOrder in point abscissa of
 // pulse profile together with different number of derivatives
-bool Math_Spline(const float abscissa, const float* profile, const int8_t splineOrder, float* value, float *derivatives, const int8_t numOfDerivatives);
+bool Math_Spline(const float abscissa, const float* profile, const int8_t splineOrder, float* pulseValue, float *derivatives, const int8_t numOfDerivatives);
 
 // Find index of the first Extremal Maximum value for pulse between indexes start and end, greater than the threshold
 bool Math_IndexOfExtremum(const float *input, const bool minOrMax, const bool onlyFirst, const int16_t index1, const int16_t index2,
@@ -43,5 +44,11 @@ bool Math_AlgorithmDer2(float* derivatives1, float* derivatives2, const float* f
 	uint16_t signalLength, uint16_t maximumOnsetsLength,
 	const float pAvMaxDer1, const int16_t pMinTrigPt, const int16_t pMinPulseLength,
 	int16_t* integerOnsets, uint8_t* onsetsLength);
+	
+// Calculate AP Adjust
+float Math_AP_Adjust(const float pressure1, const float pressure2);
+
+// Calculate AGPH_HR75
+float Math_AGPH_HR75(const float heartRate, const float pAGPH);
 
 #endif /* MATH_PWA_H_ */

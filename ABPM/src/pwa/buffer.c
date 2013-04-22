@@ -1,21 +1,29 @@
 /*
  * buffer.c
  *
+ * Add sample to adc_buffer
+ *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2013
+ *
  * Created: 9/10/2012 2:27:16 PM
  *  Author: yoonl
  */ 
 
 #include "buffer.h"
 #include "usart/usart_rxtx.h"
+#include "pwa_data.h"
 
-
-uint16_t buf_index; // adc_buffer buffer index
+static uint16_t buf_index = 0; // adc_buffer buffer index
 
 /* ###########################################################################
  ** ADCBuffer_init()
  **
  ** DESCRIPTION
  **  Allocate memory, initailise adc_buffer properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  boolean - return false if out of memory.
 */
 bool ADCBuffer_init(void)
 {
@@ -28,7 +36,7 @@ bool ADCBuffer_init(void)
 			return false;
 		}
 	}		
-	memset(adc_buffer, 0, sizeof(adc_buffer[0])*ADC_BUF_SIZE);
+	memset((void*)adc_buffer, 0, sizeof(adc_buffer[0])*ADC_BUF_SIZE);
 	return true;
 }
 
@@ -37,20 +45,20 @@ bool ADCBuffer_init(void)
  **
  ** DESCRIPTION
  **  Add each digital unit into adc_buffer
+ ** INPUT
+ **  signal - each sample
+ ** OUTPUT
+ ** RETURN
 */
 void AddSignal(uint16_t signal)
 {
 	if (adc_buffer == NULL)
 	{
-		print_debug("Info: AddSignal() - adc_buffer is NULL.\r\n");
+		PWA_Error_Code = PWA_MSG_OUT_OF_MEMORY;
+		print_debug("Error(%d): AddSignal() - adc_buffer is null.\r\n", PWA_Error_Code);
 		return;
 	}
 	
-	if (signal < 0)
-	{
-		signal = 0;
-	}
-
 	if (buf_index < ADC_BUF_SIZE)
 	{
 		adc_buffer[buf_index] = signal;
@@ -63,6 +71,10 @@ void AddSignal(uint16_t signal)
  **
  ** DESCRIPTION
  **  Check adc_buffer is full or not
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
+ **  boolean - return true if adc_buffer is full.
 */
 bool IsADCBufferFull(void)
 {
@@ -74,12 +86,15 @@ bool IsADCBufferFull(void)
  **
  ** DESCRIPTION
  **  Free adc_buffer properties
+ ** INPUT
+ ** OUTPUT
+ ** RETURN
 */
 void ADCBuffer_final(void)
 {
 	if (adc_buffer != NULL)
 	{
-		free(adc_buffer);
+		free((void*)adc_buffer);
 		adc_buffer = NULL;
 	}
 }
