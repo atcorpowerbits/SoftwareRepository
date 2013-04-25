@@ -1,16 +1,12 @@
-/*
- * adc_task.c
- *
- * Created: 12/11/2012 3:23:27 PM
- *  Author: victora
- */ 
 /**
  * \file
  *
  * \brief ADC Task
  *
- * Copyright (c) 2012 Atcor Medical. All rights reserved.
+ * Copyright (c) Atcor Medical Pty. Ltd., 2012
  *
+ * \date Created: 12/11/2012 3:23:27 PM
+ * \author victora
  */
 
 #include "board.h"

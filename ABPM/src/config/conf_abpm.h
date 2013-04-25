@@ -1,23 +1,12 @@
-/*
- * conf_abpm.h
- *
- * Created: 12/11/2012 2:16:12 PM
- *  Author: victora
- */ 
-/*****************************************************************************
- *
+/**
  * \file
  *
  * \brief Configuration for Central BP
  *
- * This file defines the configurable parameters.
+ * Copyright (c) Atcor Medical Pty. Ltd., 2012
  *
- ******************************************************************************/
-
-/**
- *
- * Copyright (c) 2012 Atcor Medical. All rights reserved.
- *
+ * \date Created: 12/11/2012 2:16:12 PM
+ * \author victora
  */
 
 #ifndef CONF_ABPM_H_

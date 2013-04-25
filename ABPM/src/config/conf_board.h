@@ -3,6 +3,10 @@
  *
  * \brief UC3C-EK board configuration template
  *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2012
+ *
+ * \date Created: 12/11/2012 2:16:12 PM
+ * \author victora
  */
 
 #ifndef CONF_BOARD_H

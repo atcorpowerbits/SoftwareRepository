@@ -17,11 +17,13 @@
 #include "pwa/buffer.h"
 #include "pwa/pwa.h"
 #include "usart/usart_rxtx.h"
+#include "command-response/listener.h"
 
 int main (void)
 {
 	board_init();
 	usart_rs232_mode_init();
+	listener_init();
 	
 	print_debug("Start main().\r\n");
 	Finalise();
@@ -35,6 +37,7 @@ int main (void)
 	
 	while (1)
 	{
-		// Intentionally left empty.
+		// Listen to any command for CBP
+		listener_task();
 	};
 }
