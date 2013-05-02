@@ -45,7 +45,9 @@
 #include <setjmp.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <string.h>
 #include "suite.h"
+#include "../usart/usart_rxtx.h"
 
 /**
  * \weakgroup test_suite_group
@@ -87,7 +89,7 @@ struct test_case *test_case_ptr = NULL;
 static void test_report_failure(const struct test_case *test, const char *stage,
 		int result)
 {
-	dbg_error("Test '%s' failed during '%s': %d\r\n", test->name, stage,
+	print_debug("Test '%s' failed during '%s': %d\r\n", test->name, stage,
 			result);
 }
 
@@ -156,10 +158,10 @@ static int test_case_run(const struct test_case *test)
 	test_set_case(test);
 #endif
 
-	dbg_info("Running test: %s\r\n", test->name);
+	print_debug("Running test: %s\r\n", test->name);
 	if (test->setup) {
 		int ret;
-		dbg("Setting up fixture\r\n");
+		print_debug("Setting up fixture\r\n");
 		ret = test_call(test->setup, test);
 		if (ret) {
 			test_report_failure(test, "setup", ret);
@@ -174,7 +176,7 @@ static int test_case_run(const struct test_case *test)
 
 	if (test->cleanup) {
 		int ret;
-		dbg("Cleaning up fixture\r\n");
+		print_debug("Cleaning up fixture\r\n");
 		ret = test_call(test->cleanup, test);
 		if (ret && !result) {
 			test_report_failure(test, "cleanup", ret);
@@ -205,15 +207,18 @@ void test_case_fail(const struct test_case *test, int result,
 		const char *file, unsigned int line,
 		const char *fmt, ...)
 {
-	va_list ap;
-
-	dbg_error("Test '%s' failed at %s:%u:\r\n\t", test->name, file, line);
-
-	va_start(ap, fmt);
-	dbg_vprintf_pgm(fmt, ap);
-	va_end(ap);
-	dbg_putchar('\r');
-	dbg_putchar('\n');
+	print_debug("Test '%s' failed at %s:%u:\r\n\t", test->name, file, line);
+	
+	if (strlen(fmt) > 0)
+	{
+		va_list ap;
+		char szBuf[1024] = {0};
+	
+		va_start(ap, fmt);
+		vsprintf(szBuf, fmt, ap);
+		va_end(ap);
+		print_debug(szBuf);
+	}
 
 	/*
 	 * This will cause the setjmp() call in test_call() to return
@@ -237,7 +242,7 @@ int test_suite_run(const struct test_suite *suite)
 	unsigned int i;
 	int          ret;
 
-	dbg_info("Running test suite '%s'...\r\n", suite->name);
+	print_debug("Running test suite '%s'...\r\n", suite->name);
 
 	for (i = 0; i < suite->nr_tests; i++) {
 		const struct test_case *test;
@@ -251,7 +256,7 @@ int test_suite_run(const struct test_suite *suite)
 		}
 	}
 
-	dbg_info("Test suite '%s' complete: %u tests, %u failures, %u errors\r\n\r\n",
+	print_debug("Test suite '%s' complete: %u tests, %u failures, %u errors\r\n\r\n",
 			suite->name, suite->nr_tests, nr_failures, nr_errors);
 
 	return nr_errors + nr_failures;
