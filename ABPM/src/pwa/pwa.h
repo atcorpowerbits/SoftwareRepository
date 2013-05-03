@@ -15,6 +15,7 @@
 
 #include <asf.h>
 #include "pwa_data.h"
+#include "config/conf_abpm.h"
 
 Peripheral_Parameters *PeriphParams; // Peripheral output parameters to be used for Periph/Central calculation.
 Central_Parameters *CentralParams; // Central output parameters for report.
@@ -73,5 +74,10 @@ void TestCallPWA(void); // For porting to C only, will be removed after done por
 void TestSetRawSignal(void); // For porting to C only, will be removed after done porting to C.
 
 void DisplayMemoryUsage(char *msg);
+
+void pwa_calculation_task (void);
+
+extern bool flag_start_pwa;
+extern bool flag_finished_pwa;
 
 #endif /* PWA_H_ */

@@ -15,5 +15,7 @@
 #include "cmd_state.h"
 
 void transition_to_instant_response (command_state_ptr state, int cmd);
+void send_status (void);
+void send_config (void);
 
 #endif /* CMD_INSTANT_STATE_H_ */

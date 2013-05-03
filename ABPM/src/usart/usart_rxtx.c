@@ -10,6 +10,7 @@
 #include "cycle_counter.h"
 #include <stdio.h>
 #include <stdarg.h>
+#include <string.h>
 
 void usart_rs232_mode_init(void)
 {
@@ -47,4 +48,31 @@ void print_debug(char *msg, ...)
 
     usart_write_line(PBA_USART, szBuf);
 #endif
+}
+
+/**
+ * \brief Transmit the response packet to BP
+ * \param[in] response Response packet to be transmitted
+ * \param[in] len Length of the response packet
+ */
+void transmit_response (uint8_t* response, int len)
+{
+#ifdef _DEBUG
+	char debug_buffer[1024] = {0};
+	char hex_byte[5] = {0};
+		
+	// Dump the packet to be transmitted for debugging
+	for (int i = 0; i < len; i++)
+	{
+		sprintf(hex_byte, " %02X", response[i]);
+		strcat(debug_buffer, hex_byte);
+	}
+	print_debug("Transmitting:%s\n", debug_buffer);
+#endif
+	// Transmit the packet to BP out of the designated port
+	// <TBD> Trying to send directly via USART driver; could be better via PDCA (DMA)
+	while (len--)
+	{
+		usart_putchar(CMD_USART, *response++);
+	}
 }

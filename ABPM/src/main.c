@@ -14,30 +14,29 @@
  * Atmel Software Framework (ASF).
  */
 #include <asf.h>
-#include "pwa/buffer.h"
-#include "pwa/pwa.h"
 #include "usart/usart_rxtx.h"
 #include "command-response/listener.h"
+#include "command-response/sender.h"
+#include "pwa/pwa.h"
 
 int main (void)
 {
 	board_init();
 	usart_rs232_mode_init();
 	listener_init();
+	sender_init();
 	
 	print_debug("Start main().\r\n");
-	Finalise();
-	if (!ADCBuffer_init())
-	{
-		PWA_Error_Code = PWA_MSG_OUT_OF_MEMORY;
-		print_debug("Error(%d): failed to allocate memory adc_buffer.\r\n", PWA_Error_Code);
-		return false;
-	}
-	TestSetRawSignal();
-	
+
 	while (1)
 	{
 		// Listen to any command for CBP
 		listener_task();
+
+		// Send any CBP response to BP
+		sender_task();
+		
+		// Do PWA calculation when requested
+		pwa_calculation_task();	
 	};
 }

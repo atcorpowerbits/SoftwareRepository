@@ -18,7 +18,8 @@
 #include "pressure.h"
 #include "pulse.h"
 #include "buffer.h"
-#include "conf_abpm.h"
+#include "command-response/sender.h"
+#include "command-response/cmd_state.h"
 
 #define PWA_ED_TOP_PERCENT					(float)0.75
 #define PWA_EFFECTIVE_PULSE_LENGTH_PERCENT	(float)0.75 // percent to calculate min value for calibration
@@ -1764,4 +1765,29 @@ void TestSetRawSignal(void)
 	TestCallPWA();
 #endif
 }
+
+void pwa_calculation_task (void)
+{
+	if (flag_start_pwa)
+	{
+		// Don't let another pwa to be started
+		flag_start_pwa = false;
+		update_cbp_system_status(CBP_SYSTEM_STATUS_CALCULATING);
+		
+		Finalise();
+		if (!ADCBuffer_init())
+		{
+			PWA_Error_Code = PWA_MSG_OUT_OF_MEMORY;
+			print_debug("Error(%d): failed to allocate memory adc_buffer.\r\n", PWA_Error_Code);
+		}
+		else
+		{
+			TestSetRawSignal();
+		}
+
+		// Flag when pwa calculation is finished regardless of the result, even if the calculation was aborted.
+		flag_finished_pwa = true;
+	}
+}
+
 //----------------------------------------------------------------------------

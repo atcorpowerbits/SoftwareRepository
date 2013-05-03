@@ -12,7 +12,16 @@
 #ifndef LISTENER_H_
 #define LISTENER_H_
 
-#define MAX_PACKET_SIZE 11
+#define MAX_CMD_PACKET_SIZE 11
+
+#include "cmd_state.h"
+
+/**
+ * \brief Current command state of the command state machine
+ */
+typedef struct {
+	command_state_t current_state;
+} cbp_command_t, *cbp_command_ptr;
 
 void listener_task (void);
 void listener_init (void);

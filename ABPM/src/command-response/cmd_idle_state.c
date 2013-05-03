@@ -14,6 +14,7 @@
 #include "cmd_idle_state.h"
 #include "cmd_busy_state.h"
 #include "cmd_instant_state.h"
+#include "usart/usart_rxtx.h"
 
 //_____ M A C R O S ________________________________________________________
 
@@ -37,8 +38,10 @@ static void abort_cbp (command_state_ptr state, int cmd)
  */
 void transition_to_idle (command_state_ptr state)
 {
+	print_debug("Transition: %s ===> IDLE\n", state->name);
 	default_command_init(state);
 	state->name = "IDLE";
+	update_cbp_system_status(CBP_SYSTEM_STATUS_IDLE);
 
 	// prepare to handle foreground CBP commands
 	state->start_cbp = transition_to_busy;

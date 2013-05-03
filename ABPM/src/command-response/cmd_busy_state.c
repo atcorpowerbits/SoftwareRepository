@@ -14,6 +14,11 @@
 #include "cmd_idle_state.h"
 #include "cmd_busy_state.h"
 #include "cmd_instant_state.h"
+#include "sender.h"
+#include "usart/usart_rxtx.h"
+#include "pwa/buffer.h"
+#include "pwa/pwa.h"
+#include "config/conf_abpm.h"
 
 //_____ M A C R O S ________________________________________________________
 
@@ -22,19 +27,48 @@
 //_____ D E C L A R A T I O N S ____________________________________________
 static int current_foreground_cmd;
 
+// A flag to start pwa calculation
+bool flag_start_pwa = false;
+
 /**
- * \brief Transition from this busy state to idle state when cbp is aborted
+ * \brief Start PWA calculation
+ */
+static void start_cbp (void)
+{
+	// Send <O> packet when calculation is started
+	send_o_ok(CMD_START_CBP);
+
+	// Flag to start pwa calculation
+	flag_start_pwa = true;
+}
+
+/**
+ * \brief Finish PWA calculation
+ * \param[in] state Current command state
+ * \param[in] cmd Command received
+ */
+static void finish_cbp (command_state_ptr state, int cmd)
+{
+	// Send <K> packet when calculation is finished
+	send_k_ok(CMD_START_CBP);
+
+	// Time to idle after pwa calculation is done
+	transition_to_idle(state);
+}
+
+/**
+ * \brief Abort the current foreground command
  * \param[in] state Current command state
  * \param[in] cmd Command received
  */
 static void abort_cbp (command_state_ptr state, int cmd)
 {
-	// do any clean up <TBD>
 	switch (current_foreground_cmd)
 	{
 		case CMD_START_CBP:
 		{
-			print_debug("Under construction: aborting foreground command %02X\n", current_foreground_cmd);
+			// Raise the flag to abort CBP
+			flag_abort = true;
 			break;
 		}
 		case CMD_SET_CBP_CONFIG:
@@ -54,12 +88,11 @@ static void abort_cbp (command_state_ptr state, int cmd)
 		}
 		default:
 		{
-			cmd_error = 3002; //<Tidy up error numbers TBD>
-			print_debug("Error(%d): Unable to abort unsupported foreground command %02X\n", cmd_error, current_foreground_cmd);
+			cmd_resp_error_code = CMD_ABORT_UNKNOWN_FOREGROUND;
+			print_debug("Error(%d): Unable to abort unsupported foreground command %02X\n", cmd_resp_error_code, current_foreground_cmd);
 			break;
 		}
 	}
-	transition_to_idle(state);
 }
 
 /**
@@ -76,7 +109,7 @@ static void get_cbp_status (command_state_ptr state, int cmd)
  * \brief Execute the foreground command
  * \param[in] cmd Foreground command to execute now
  */
-static void execute_foreground_command (int cmd)
+static void execute_foreground_command (command_state_ptr state, int cmd)
 {
 	current_foreground_cmd = cmd;
 	
@@ -84,17 +117,19 @@ static void execute_foreground_command (int cmd)
 	{
 		case CMD_START_CBP:
 		{
-			print_debug("Under construction: foreground command %02X\n", cmd);
+			start_cbp();
 			break;
 		}
 		case CMD_SET_CBP_CONFIG:
 		{
 			print_debug("Under construction: foreground command %02X\n", cmd);
+			transition_to_idle(state);
 			break;
 		}
 		case CMD_WRITE_DATA_FLASH:
 		{
 			print_debug("Under construction: foreground command %02X\n", cmd);
+			transition_to_idle(state);
 			break;
 		}
 		case CMD_SET_SLEEP_MODE:
@@ -104,11 +139,22 @@ static void execute_foreground_command (int cmd)
 		}
 		default:
 		{
-			cmd_error = 3002; //<TBD>
-			print_debug("Error(%d): Unable to execute unsupported foreground command %02X\n", cmd_error, cmd);
+			cmd_resp_error_code = CMD_EXE_UNKNOWN_FOREGROUND;
+			print_debug("Error(%d): Unable to execute unsupported foreground command %02X\n", cmd_resp_error_code, cmd);
+
+			// Time to idle after a unknown foreground command is dropped
+			transition_to_idle(state);
 			break;
 		}
 	}	
+	// Clear the abort flag if the foreground command was aborted
+	if (flag_abort)
+	{
+		flag_abort = false;
+		
+		// Time to idle after a foreground command is aborted
+		transition_to_idle(state);
+	}
 }
 
 /**
@@ -118,6 +164,7 @@ static void execute_foreground_command (int cmd)
  */
 void transition_to_busy (command_state_ptr state, int cmd)
 {
+	print_debug("Transition: %s ===> BUSY\n", state->name);
 	current_foreground_cmd = 0;
 	default_command_init(state);
 	state->name = "BUSY";
@@ -137,5 +184,8 @@ void transition_to_busy (command_state_ptr state, int cmd)
 	state->get_cbp_adc_data = respond_error;
 	state->get_cbp_pressure = respond_error;
 	
-	execute_foreground_command(cmd);
+	// prepare to handle internal CBP event
+	state->finish_cbp = finish_cbp;
+
+	execute_foreground_command(state, cmd);
 }

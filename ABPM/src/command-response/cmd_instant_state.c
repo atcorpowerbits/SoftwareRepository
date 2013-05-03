@@ -14,6 +14,8 @@
 #include "cmd_idle_state.h"
 #include "cmd_busy_state.h"
 #include "cmd_instant_state.h"
+#include "usart/usart_rxtx.h"
+#include "sender.h"
 
 //_____ M A C R O S ________________________________________________________
 
@@ -24,7 +26,6 @@
 /**
  * \brief Respond with instant data
  * \param[in] cmd Background command to be responded instantly
- * \param[in] cmd Command received
  */
 static void respond_intant_data (int cmd)
 {
@@ -32,7 +33,7 @@ static void respond_intant_data (int cmd)
 	{
 		case CMD_GET_CBP_STATUS:
 		{
-			print_debug("Under construction: background command %02X\n", cmd);
+			send_status();
 			break;
 		}
 		case CMD_GET_CBP_RESULTS:
@@ -47,7 +48,7 @@ static void respond_intant_data (int cmd)
 		}
 		case CMD_GET_CBP_CONFIG:
 		{
-			print_debug("Under construction: background command %02X\n", cmd);
+			send_config();
 			break;
 		}
 		case CMD_GET_CBP_ADC_DATA:
@@ -75,6 +76,8 @@ static void respond_intant_data (int cmd)
  */
 void transition_to_instant_response (command_state_ptr state, int cmd)
 {
+	print_debug("Transition: %s ===> INSTANT_RESPONSE\n", state->name);
+
 	// Keep the caller state to return to
 	push_command_state(state);
 	
@@ -85,4 +88,7 @@ void transition_to_instant_response (command_state_ptr state, int cmd)
 	
 	// Return to caller state
 	pop_command_state(state);
+
+	// Gone back to previous state 
+	print_debug("Transition: INSTANT_RESPONSE ===> %s\n", state->name);
 }

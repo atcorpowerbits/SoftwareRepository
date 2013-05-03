@@ -113,5 +113,6 @@ static const usart_options_t CMD_USART_OPTIONS =
 
 void usart_rs232_mode_init(void);
 void print_debug(char *msg, ...);
+void transmit_response (uint8_t * response, int len);
 
 #endif /* USART_RXTX_H_ */
