@@ -56,6 +56,8 @@
 # include "sam3x/sysclk.h"
 #elif SAM4S
 # include "sam4s/sysclk.h"
+#elif SAM4E
+# include "sam4e/sysclk.h"
 #elif SAM4L
 # include "sam4l/sysclk.h"
 #elif (UC3A0 || UC3A1)
@@ -72,6 +74,8 @@
 # include "uc3l/sysclk.h"
 #elif XMEGA
 # include "xmega/sysclk.h"
+#elif MEGA
+# include "mega/sysclk.h"
 #else
 # error Unsupported chip type
 #endif
