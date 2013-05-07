@@ -62,9 +62,6 @@
 #include <compiler.h>
 #include <status_codes.h>
 
-// From module: DSP - Digital signal processing library
-#include <dsp.h>
-
 // From module: FLASHC - Flash Controller
 #include <flashc.h>
 
@@ -98,5 +95,8 @@
 
 // From module: USART - Universal Synchronous/Asynchronous Receiver/Transmitter
 #include <usart.h>
+
+// Definitions for memory and string functions.
+#include <string.h>
 
 #endif // ASF_H

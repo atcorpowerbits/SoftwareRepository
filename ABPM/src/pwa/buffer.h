@@ -14,7 +14,6 @@
 #define BUFFER_H_
 
 #include "conf_abpm.h"
-#include "dsp.h"
 
 #ifdef _DEBUG
 // The wave_table(128 sample rate, 12bits, 5seconds) is for testing purpose only to check converted to C methods, will be removed after done porting to C.
