@@ -71,7 +71,7 @@ int main(void)
 
 	while (true) {
 		gpio_tgl_gpio_pin(AVR32_PIN_PA02);
-		delay_s(1);
+		delay_ms(50);
 	}
 }
 

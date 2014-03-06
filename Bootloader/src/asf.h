@@ -93,4 +93,7 @@
 // From module: USART Debug strings
 #include <print_funcs.h>
 
+// From module: WDT Watchdog Timer - UC3 C/L implementation
+#include <wdt.h>
+
 #endif // ASF_H

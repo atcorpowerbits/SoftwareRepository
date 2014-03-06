@@ -18,9 +18,8 @@
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
-    <OverrideVtorValue>
-    </OverrideVtorValue>
-    <eraseonlaunchrule>0</eraseonlaunchrule>
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
+    <eraseonlaunchrule>1</eraseonlaunchrule>
     <ProgFlashFromRam>true</ProgFlashFromRam>
     <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <CacheFlash>true</CacheFlash>
@@ -29,12 +28,13 @@
     <AsfFrameworkConfig>
       <framework-data>
   <options>
+    <option id="avr32.drivers.cpu.cycle_counter" value="Add" config="" content-id="Atmel.ASF" />
     <option id="avr32.drivers.pm" value="Add" config="" content-id="Atmel.ASF" />
     <option id="avr32.drivers.scif" value="Add" config="" content-id="Atmel.ASF" />
     <option id="avr32.utils.print_funcs" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.services.delay" value="Add" config="" content-id="Atmel.ASF" />
-    <option id="avr32.drivers.cpu.cycle_counter" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="avr32.drivers.wdt" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.services.usb.class.dfu_atmel.device.bootloader.avr32" value="Add" config="" content-id="Atmel.ASF" />
   </options>
   <configurations>
@@ -106,6 +106,8 @@
     <file path="src/ASF/common/services/clock/pll.h" framework="" version="3.8.1" source="common\services\clock\pll.h" changed="False" content-id="Atmel.ASF" />
     <file path="src/Config/conf_clock.h" framework="" version="3.8.1" source="common\services\clock\uc3c\module_config\conf_clock.h" changed="False" content-id="Atmel.ASF" />
     <file path="src/ASF/common/services/delay/delay.h" framework="" version="3.8.1" source="common\services\delay\delay.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/avr32/drivers/wdt/wdt4.c" framework="" version="3.8.1" source="avr32\drivers\wdt\wdt4.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/avr32/drivers/wdt/wdt.h" framework="" version="3.8.1" source="avr32\drivers\wdt\wdt.h" changed="False" content-id="Atmel.ASF" />
   </files>
   <documentation help="http://asf.atmel.com/docs/3.8.1/common.services.usb.class.dfu_atmel.device.bootloader.avr32.uc3c/html/index.html" />
   <offline-documentation help="" />
@@ -126,18 +128,18 @@
       </StimuliFile>
       <Channel>
         <host>127.0.0.1</host>
-        <port>62568</port>
+        <port>52499</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
         <InterfaceName>aWire</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>32000</JtagDbgClock>
+          <JtagDbgClock>7500000</JtagDbgClock>
           <SwdClock>249000</SwdClock>
           <JtagProgClock>7500000</JtagProgClock>
           <IspClock>125000</IspClock>
           <JtagInChain>false</JtagInChain>
-          <JtagEnableExtResetOnStartSession>true</JtagEnableExtResetOnStartSession>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
           <JtagDevicesBefore>0</JtagDevicesBefore>
           <JtagDevicesAfter>0</JtagDevicesAfter>
           <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
@@ -185,6 +187,7 @@
       <Value>../src/ASF/avr32/drivers/cpu/cycle_counter</Value>
       <Value>../src/ASF/common/services/clock</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/wdt</Value>
     </ListValues>
   </avr32gcc.compiler.directories.IncludePaths>
   <avr32gcc.compiler.optimization.level>Optimize for size (-Os)</avr32gcc.compiler.optimization.level>
@@ -225,6 +228,7 @@
       <Value>../src/ASF/avr32/drivers/cpu/cycle_counter</Value>
       <Value>../src/ASF/common/services/clock</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/wdt</Value>
     </ListValues>
   </avr32gcc.assembler.general.IncludePaths>
   <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=DUMMY_BOARD</avr32gcc.preprocessingassembler.general.AssemblerFlags>
@@ -249,6 +253,7 @@
       <Value>../src/ASF/avr32/drivers/cpu/cycle_counter</Value>
       <Value>../src/ASF/common/services/clock</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/wdt</Value>
     </ListValues>
   </avr32gcc.preprocessingassembler.general.IncludePaths>
 </Avr32Gcc>
@@ -290,6 +295,8 @@
       <Value>../src/ASF/common/services/clock</Value>
       <Value>../src/ASF/common/services/delay</Value>
       <Value>../src/ASF/avr32/drivers/cpu/cycle_counter</Value>
+      <Value>../src/interfaces</Value>
+      <Value>../src/ASF/avr32/drivers/wdt</Value>
     </ListValues>
   </avr32gcc.compiler.directories.IncludePaths>
   <avr32gcc.compiler.optimization.level>Optimize for size (-Os)</avr32gcc.compiler.optimization.level>
@@ -331,6 +338,7 @@
       <Value>../src/ASF/avr32/drivers/cpu/cycle_counter</Value>
       <Value>../src/ASF/common/services/clock</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/wdt</Value>
     </ListValues>
   </avr32gcc.assembler.general.IncludePaths>
   <avr32gcc.assembler.debugging.DebugLevel>Default (-g)</avr32gcc.assembler.debugging.DebugLevel>
@@ -356,6 +364,7 @@
       <Value>../src/ASF/avr32/drivers/cpu/cycle_counter</Value>
       <Value>../src/ASF/common/services/clock</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/wdt</Value>
     </ListValues>
   </avr32gcc.preprocessingassembler.general.IncludePaths>
   <avr32gcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</avr32gcc.preprocessingassembler.debugging.DebugLevel>
@@ -377,6 +386,7 @@
     <Folder Include="src\ASF\avr32\drivers\pm\" />
     <Folder Include="src\ASF\avr32\drivers\scif\" />
     <Folder Include="src\ASF\avr32\drivers\usart\" />
+    <Folder Include="src\ASF\avr32\drivers\wdt\" />
     <Folder Include="src\ASF\avr32\utils\" />
     <Folder Include="src\ASF\avr32\utils\debug\" />
     <Folder Include="src\ASF\avr32\utils\header_files\" />
@@ -405,6 +415,7 @@
     <Folder Include="src\isp" />
     <Folder Include="src\isp\flip" />
     <Folder Include="src\isp\flip\uc3" />
+    <Folder Include="src\interfaces" />
     <Folder Include="src\statemc" />
   </ItemGroup>
   <ItemGroup>
@@ -426,6 +437,12 @@
     <None Include="src\ASF\avr32\drivers\usart\usart.h">
       <SubType>compile</SubType>
     </None>
+    <None Include="src\ASF\avr32\drivers\wdt\wdt.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\avr32\drivers\wdt\wdt4.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\ASF\avr32\utils\debug\print_funcs.c">
       <SubType>compile</SubType>
     </Compile>
@@ -472,6 +489,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\conf\conf_isp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\interfaces\debug.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\interfaces\debug.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\isp\flip\flip_protocol.h">
