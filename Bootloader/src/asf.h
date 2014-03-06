@@ -52,12 +52,21 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
+// From module: CPU Cycle Counter
+#include <cycle_counter.h>
+
 // From module: Compiler abstraction layer and code utilities
 #include <compiler.h>
 #include <status_codes.h>
 
+// From module: Delay routines
+#include <delay.h>
+
 // From module: FLASHC - Flash Controller
 #include <flashc.h>
+
+// From module: GPIO - General-Purpose Input/Output
+#include <gpio.h>
 
 // From module: Generic board support
 #include <board.h>
@@ -74,5 +83,14 @@
 
 // From module: SCIF System Control Interface - UC3C implementation
 #include <scif_uc3c.h>
+
+// From module: System Clock Control - UC3 C implementation
+#include <sysclk.h>
+
+// From module: USART - Universal Synchronous/Asynchronous Receiver/Transmitter
+#include <usart.h>
+
+// From module: USART Debug strings
+#include <print_funcs.h>
 
 #endif // ASF_H

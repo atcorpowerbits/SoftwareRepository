@@ -42,39 +42,21 @@
  */
 
 #include <asf.h>
+#include "print_funcs.h"
 #include "states.h"
 
 /*! \brief Main function. Execution starts here.
  */
 int main(void)
 {
-#if UC3D
-	static const gpio_map_t USB_GPIO_MAP =
-	{
-		{AVR32_USBC_DP_0_PIN, AVR32_USBC_DP_0_FUNCTION},
-		{AVR32_USBC_DM_0_PIN, AVR32_USBC_DM_0_FUNCTION},
-		{AVR32_USBC_VBUS_0_PIN, AVR32_USBC_VBUS_0_FUNCTION}
-	};
-
-	// Assign GPIO pins to USB.
-	gpio_enable_module(USB_GPIO_MAP,
-			sizeof(USB_GPIO_MAP) / sizeof(USB_GPIO_MAP[0]));
-#elif UC3L3_L4
-	static const gpio_map_t USB_GPIO_MAP = {
-		{AVR32_USBC_DP_0_PIN, AVR32_USBC_DP_0_FUNCTION},
-		{AVR32_USBC_DM_0_PIN, AVR32_USBC_DM_0_FUNCTION}
-	};
-
-	// Assign GPIO pins to USB.
-	gpio_enable_module(USB_GPIO_MAP,
-			sizeof(USB_GPIO_MAP) / sizeof(USB_GPIO_MAP[0]));
-#endif
-
 	cpu_irq_enable();
 
 	// Switch main clock to external oscillator 0 (crystal).
 	pcl_switch_to_osc(PCL_OSC0, FOSC0, OSC0_STARTUP);
 	
+	// Initialize the debug USART module.
+	init_dbg_rs232(FOSC0);
+
 	// Check the new downloaded CBP Image in DataFlash
 	CheckDownloadedImage();
 
@@ -88,6 +70,8 @@ int main(void)
 	RebootNow();
 
 	while (true) {
+		gpio_tgl_gpio_pin(AVR32_PIN_PA02);
+		delay_s(1);
 	}
 }
 

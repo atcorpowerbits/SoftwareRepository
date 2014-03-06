@@ -10,6 +10,7 @@
  */ 
 
 #include <compiler.h>
+#include "print_funcs.h"
 
 // Check the new downloaded CBP Image in DataFlash
 int8_t CheckDownloadedImage (void)
@@ -45,7 +46,7 @@ void PrepareNormalReboot (void)
 // Reboot now
 void RebootNow (void)
 {
-	// TBD
+	print_dbg("Reboot now...\r\n");
 }
 
 // Bootloading error

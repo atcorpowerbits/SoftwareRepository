@@ -271,6 +271,8 @@ extern "C" {
 #  include "user_board.h"
 #elif BOARD == DUMMY_BOARD
 #  include "dummy/dummy_board.h"
+#elif BOARD == NUTMEG_BOARD // use the same UC3C_EK header for now
+#  include "uc3c_ek/uc3c_ek.h"
 #else
 #  error No known Atmel board defined
 #endif
