@@ -35,6 +35,7 @@
     <option id="avr32.utils.print_funcs" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.services.delay" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="avr32.drivers.spi" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.services.usb.class.dfu.device.atmel" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.services.usb.class.dfu_atmel.device.bootloader.avr32" value="Add" config="" content-id="Atmel.ASF" />
   </options>
@@ -129,6 +130,8 @@
     <file path="src/ASF/avr32/drivers/wdt/wdt4.c" framework="" version="3.6.0" source="avr32\drivers\wdt\wdt4.c" changed="False" content-id="Atmel.ASF" />
     <file path="src/ASF/avr32/drivers/wdt/wdt.h" framework="" version="3.6.0" source="avr32\drivers\wdt\wdt.h" changed="False" content-id="Atmel.ASF" />
     <file path="src/ASF/common/services/delay/delay.h" framework="" version="3.6.0" source="common\services\delay\delay.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/avr32/drivers/spi/spi.c" framework="" version="3.6.0" source="avr32\drivers\spi\spi.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/avr32/drivers/spi/spi.h" framework="" version="3.6.0" source="avr32\drivers\spi\spi.h" changed="False" content-id="Atmel.ASF" />
   </files>
   <documentation help="" />
   <offline-documentation help="" />
@@ -232,6 +235,7 @@
       <Value>../src/ASF/avr32/utils/debug</Value>
       <Value>../src/ASF/avr32/drivers/wdt</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/spi</Value>
     </ListValues>
   </avr32gcc.compiler.directories.IncludePaths>
   <avr32gcc.compiler.optimization.level>Optimize for size (-Os)</avr32gcc.compiler.optimization.level>
@@ -284,6 +288,7 @@
       <Value>../src/ASF/avr32/utils/debug</Value>
       <Value>../src/ASF/avr32/drivers/wdt</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/spi</Value>
     </ListValues>
   </avr32gcc.assembler.general.IncludePaths>
   <avr32gcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=DUMMY_BOARD -DUDD_ENABLE -mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
@@ -320,6 +325,7 @@
       <Value>../src/ASF/avr32/utils/debug</Value>
       <Value>../src/ASF/avr32/drivers/wdt</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/spi</Value>
     </ListValues>
   </avr32gcc.preprocessingassembler.general.IncludePaths>
 </Avr32Gcc>
@@ -371,6 +377,8 @@
       <Value>../src/ASF/avr32/utils/debug</Value>
       <Value>../src/ASF/avr32/drivers/wdt</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/spi</Value>
+      <Value>../src/interfaces</Value>
     </ListValues>
   </avr32gcc.compiler.directories.IncludePaths>
   <avr32gcc.compiler.optimization.level>Optimize for size (-Os)</avr32gcc.compiler.optimization.level>
@@ -425,6 +433,7 @@
       <Value>../src/ASF/avr32/utils/debug</Value>
       <Value>../src/ASF/avr32/drivers/wdt</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/spi</Value>
     </ListValues>
   </avr32gcc.assembler.general.IncludePaths>
   <avr32gcc.assembler.debugging.DebugLevel>Default (-g)</avr32gcc.assembler.debugging.DebugLevel>
@@ -462,6 +471,7 @@
       <Value>../src/ASF/avr32/utils/debug</Value>
       <Value>../src/ASF/avr32/drivers/wdt</Value>
       <Value>../src/ASF/common/services/delay</Value>
+      <Value>../src/ASF/avr32/drivers/spi</Value>
     </ListValues>
   </avr32gcc.preprocessingassembler.general.IncludePaths>
   <avr32gcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</avr32gcc.preprocessingassembler.debugging.DebugLevel>
@@ -483,6 +493,7 @@
     <Folder Include="src\asf\avr32\drivers\gpio\" />
     <Folder Include="src\asf\avr32\drivers\pm\" />
     <Folder Include="src\asf\avr32\drivers\scif\" />
+    <Folder Include="src\asf\avr32\drivers\spi\" />
     <Folder Include="src\asf\avr32\drivers\usart\" />
     <Folder Include="src\asf\avr32\drivers\usbc\" />
     <Folder Include="src\asf\avr32\drivers\wdt\" />
@@ -515,6 +526,7 @@
     <Folder Include="src\asf\common\utils\" />
     <Folder Include="src\asf\common\utils\interrupt\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\interfaces" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\asf\common\services\usb\class\dfu_flip\device\bootloader\avr32\at32uc3c\gcc\link_at32uc3c-isp.lds">
@@ -822,6 +834,12 @@
     <Compile Include="src\asf\avr32\drivers\scif\scif_uc3c.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\asf\avr32\drivers\spi\spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\asf\avr32\drivers\spi\spi.h">
+      <SubType>compile</SubType>
+    </None>
     <Compile Include="src\asf\avr32\drivers\usart\usart.c">
       <SubType>compile</SubType>
     </Compile>
@@ -898,6 +916,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\intc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\interfaces\dataflash_if.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\interfaces\dataflash_if.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\main.c">

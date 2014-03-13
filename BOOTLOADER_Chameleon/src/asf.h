@@ -90,6 +90,9 @@
 // From module: SCIF System Control Interface - UC3C implementation
 #include <scif_uc3c.h>
 
+// From module: SPI - Serial Peripheral Interface
+#include <spi.h>
+
 // From module: Sleep manager - UC3 implementation
 //#include <sleepmgr.h>
 //#include <uc3/sleepmgr.h>
