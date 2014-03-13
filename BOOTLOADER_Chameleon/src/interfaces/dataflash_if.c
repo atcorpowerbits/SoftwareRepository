@@ -13,27 +13,24 @@
 #include <board.h>
 #include <spi.h>
 #include <sysclk.h>
-#include <stdio.h> // for vsnprintf
 #include <string.h> // for memcpy
-#include <stdarg.h>
 #include <usart.h>
+#include "print_funcs.h"
 #include "conf_at45dbx.h"
 #include "dataflash_if.h"
-#include "print_funcs.h"
+#include "usart_if.h"
 
-#define MAX_BUFFER_SIZE		(uint16_t)(1024)
-
-#if BOARD == OSCAR_ALPHA
-  // Oscar board SPI0 GPIO pins which are not compatible with NUTMEG board
-  static const gpio_map_t AT45DBX_SPI_GPIO_MAP =
-  {
-	{AVR32_SPI0_SCK_PIN,          AVR32_SPI0_SCK_FUNCTION         },  // SPI Clock.
-	{AVR32_SPI0_MISO_PIN,         AVR32_SPI0_MISO_FUNCTION        },  // MISO.
-	{AVR32_SPI0_MOSI_PIN,         AVR32_SPI0_MOSI_FUNCTION        },  // MOSI.
-	{AVR32_SPI0_NPCS_1_4_PIN,     AVR32_SPI0_NPCS_1_4_FUNCTION    },  // SPI0 Chip Select NPCS[1]
-  };
-#elif BOARD == NUTMEG_BOARD
-  // Nutmeg board SPI1 GPIO pins which are not compatible with UC3C_EK
+//#if BOARD == OSCAR_ALPHA
+  //// Oscar board SPI0 GPIO pins which are not compatible with NUTMEG board
+  //static const gpio_map_t AT45DBX_SPI_GPIO_MAP =
+  //{
+	//{AVR32_SPI0_SCK_PIN,          AVR32_SPI0_SCK_FUNCTION         },  // SPI Clock.
+	//{AVR32_SPI0_MISO_PIN,         AVR32_SPI0_MISO_FUNCTION        },  // MISO.
+	//{AVR32_SPI0_MOSI_PIN,         AVR32_SPI0_MOSI_FUNCTION        },  // MOSI.
+	//{AVR32_SPI0_NPCS_1_4_PIN,     AVR32_SPI0_NPCS_1_4_FUNCTION    },  // SPI0 Chip Select NPCS[1]
+  //};
+//#elif BOARD == NUTMEG_BOARD
+  //// Nutmeg board SPI1 GPIO pins which are not compatible with UC3C_EK
   static const gpio_map_t AT45DBX_SPI_GPIO_MAP =
   {
 	{AVR32_SPI1_SCK_PIN,          AVR32_SPI1_SCK_FUNCTION         },  // SPI Clock.
@@ -41,16 +38,16 @@
 	{AVR32_SPI1_MOSI_PIN,         AVR32_SPI1_MOSI_FUNCTION        },  // MOSI.
 	{AVR32_SPI1_NPCS_1_PIN,       AVR32_SPI1_NPCS_1_FUNCTION      },  // SPI1 Chip Select NPCS[1]
   };
-#else
-  // Original SPI1 GPIO pins for UC3C_EK
-  static const gpio_map_t AT45DBX_SPI_GPIO_MAP =
-  {
-    {AT45DBX_SPI_SCK_PIN,          AT45DBX_SPI_SCK_FUNCTION         },  // SPI Clock.
-    {AT45DBX_SPI_MISO_PIN,         AT45DBX_SPI_MISO_FUNCTION        },  // MISO.
-    {AT45DBX_SPI_MOSI_PIN,         AT45DBX_SPI_MOSI_FUNCTION        },  // MOSI.
-    {AT45DBX_SPI_NPCS0_PIN,        AT45DBX_SPI_NPCS0_FUNCTION       },  // SPI1 Chip Select NPCS[1]
-  };
-#endif
+//#else
+  //// Original SPI1 GPIO pins for UC3C_EK
+  //static const gpio_map_t AT45DBX_SPI_GPIO_MAP =
+  //{
+    //{AT45DBX_SPI_SCK_PIN,          AT45DBX_SPI_SCK_FUNCTION         },  // SPI Clock.
+    //{AT45DBX_SPI_MISO_PIN,         AT45DBX_SPI_MISO_FUNCTION        },  // MISO.
+    //{AT45DBX_SPI_MOSI_PIN,         AT45DBX_SPI_MOSI_FUNCTION        },  // MOSI.
+    //{AT45DBX_SPI_NPCS0_PIN,        AT45DBX_SPI_NPCS0_FUNCTION       },  // SPI1 Chip Select NPCS[1]
+  //};
+//#endif
 
 // SPI options.
 spi_options_t spiOptions =
@@ -70,24 +67,6 @@ static bool df_is_opened = false;
 
 // CBP DF write page queue (FIFO) to avoid race condition
 static df_write_page_node *df_write_page_head = NULL;
-
-/**
- * \brief Print to debug terminal with the time stamp.
- */
-void print_debug_append (char *msg, ...)
-{
-	va_list args;
-	char szBuf[MAX_BUFFER_SIZE] = {0};
-
-	va_start(args, msg);
-	// vsnprintf() will not write more than MAX_BUFFER_SIZE including the trailing '\0', it will truncate it automatically if overflow.
-	vsnprintf(szBuf, MAX_BUFFER_SIZE, msg, args);
-	va_end(args);
-
-	// usart_interface_send_msg_cpy(DEBUG_TERM_PORT, (uint8_t *)szBuf, strlen(szBuf));
-	// avoid using usart_interface_send_msg_cpy to transmit via PDCA, until it is made compatible with AST
-	usart_write_line(DBG_USART, szBuf);
-}
 
 /**
  * \brief Add a DF page to DF write page queue (FIFO)

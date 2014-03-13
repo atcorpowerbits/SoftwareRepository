@@ -242,7 +242,6 @@ int main(void)
 	board_init();
 
 	// Switch main clock to external oscillator 0 (crystal).
-//va:POC	sysclk_init();
 	pcl_switch_to_osc(PCL_OSC0, FOSC0, OSC0_STARTUP);
 	
 	// Initialize the debug USART module.

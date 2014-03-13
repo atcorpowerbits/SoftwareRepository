@@ -52,24 +52,9 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
-// From module: AST - Asynchronous Timer
-#include <ast.h>
-
-// From module: CPU Cycle Counter
-#include <cycle_counter.h>
-
 // From module: Compiler abstraction layer and code utilities
 #include <compiler.h>
 #include <status_codes.h>
-
-// From module: Delay routines
-#include <delay.h>
-
-// From module: External oscillator frequency detection
-#include <freq_detect.h>
-
-// From module: FLASHC - Flash Controller
-#include <flashc.h>
 
 // From module: GPIO - General-Purpose Input/Output
 #include <gpio.h>
@@ -80,40 +65,10 @@
 // From module: Interrupt management - UC3 implementation
 #include <interrupt.h>
 
-// From module: PM Power Manager - UC3 C0/C1/C2 implementation
-#include <power_clocks_lib.h>
-#include <sleep.h>
-
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: SCIF System Control Interface - UC3C implementation
-#include <scif_uc3c.h>
-
-// From module: SPI - Serial Peripheral Interface
-#include <spi.h>
-
-// From module: Sleep manager - UC3 implementation
-//#include <sleepmgr.h>
-//#include <uc3/sleepmgr.h>
-
-// From module: System Clock Control - UC3 C implementation
-#include <sysclk.h>
-
-// From module: USART - Universal Synchronous/Asynchronous Receiver/Transmitter
-#include <usart.h>
-
-// From module: USART Debug strings
-#include <print_funcs.h>
-
-// From module: USB - Universial Serial Bus driver (with sleep manager)
-//#include <usbc_device.h>
-
-// From module: USB Device Stack Core (Common API)
-//#include <udc.h>
-//#include <udd.h>
-
-// From module: WDT Watchdog Timer - UC3 C/L implementation
-#include <wdt.h>
+// From module: UC3C-EK
+#include <led.h>
 
 #endif // ASF_H
