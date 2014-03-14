@@ -342,6 +342,7 @@
     <ListValues>
       <Value>UDD_ENABLE</Value>
       <Value>BOARD=NUTMEG_BOARD</Value>
+      <Value>_NEW_DATAFLASH</Value>
     </ListValues>
   </avr32gcc.compiler.symbols.DefSymbols>
   <avr32gcc.compiler.directories.IncludePaths>
@@ -527,6 +528,7 @@
     <Folder Include="src\asf\common\utils\interrupt\" />
     <Folder Include="src\config\" />
     <Folder Include="src\interfaces" />
+    <Folder Include="src\utils" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\asf\common\services\usb\class\dfu_flip\device\bootloader\avr32\at32uc3c\gcc\link_at32uc3c-isp.lds">
@@ -801,6 +803,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\utils\crc32.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\utils\crc32.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\utils\crc8.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\utils\crc8.h">
+      <SubType>compile</SubType>
+    </Compile>
     <None Include="src\asf.h">
       <SubType>compile</SubType>
     </None>
