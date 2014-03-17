@@ -19,18 +19,19 @@
 #include "conf_at45dbx.h"
 #include "dataflash_if.h"
 #include "usart_if.h"
+#include <scif_uc3c.h> // for scif_osc32_opt_t
 
-//#if BOARD == OSCAR_ALPHA
-  //// Oscar board SPI0 GPIO pins which are not compatible with NUTMEG board
-  //static const gpio_map_t AT45DBX_SPI_GPIO_MAP =
-  //{
-	//{AVR32_SPI0_SCK_PIN,          AVR32_SPI0_SCK_FUNCTION         },  // SPI Clock.
-	//{AVR32_SPI0_MISO_PIN,         AVR32_SPI0_MISO_FUNCTION        },  // MISO.
-	//{AVR32_SPI0_MOSI_PIN,         AVR32_SPI0_MOSI_FUNCTION        },  // MOSI.
-	//{AVR32_SPI0_NPCS_1_4_PIN,     AVR32_SPI0_NPCS_1_4_FUNCTION    },  // SPI0 Chip Select NPCS[1]
-  //};
-//#elif BOARD == NUTMEG_BOARD
-  //// Nutmeg board SPI1 GPIO pins which are not compatible with UC3C_EK
+#if (BOARD==OSCAR_ALPHA)
+  // Oscar board SPI0 GPIO pins which are not compatible with NUTMEG board
+  static const gpio_map_t AT45DBX_SPI_GPIO_MAP =
+  {
+	{AVR32_SPI0_SCK_PIN,          AVR32_SPI0_SCK_FUNCTION         },  // SPI Clock.
+	{AVR32_SPI0_MISO_PIN,         AVR32_SPI0_MISO_FUNCTION        },  // MISO.
+	{AVR32_SPI0_MOSI_PIN,         AVR32_SPI0_MOSI_FUNCTION        },  // MOSI.
+	{AVR32_SPI0_NPCS_1_4_PIN,     AVR32_SPI0_NPCS_1_4_FUNCTION    },  // SPI0 Chip Select NPCS[1]
+  };
+#elif (BOARD==NUTMEG_BOARD)
+  // Nutmeg board SPI1 GPIO pins which are not compatible with UC3C_EK
   static const gpio_map_t AT45DBX_SPI_GPIO_MAP =
   {
 	{AVR32_SPI1_SCK_PIN,          AVR32_SPI1_SCK_FUNCTION         },  // SPI Clock.
@@ -38,16 +39,16 @@
 	{AVR32_SPI1_MOSI_PIN,         AVR32_SPI1_MOSI_FUNCTION        },  // MOSI.
 	{AVR32_SPI1_NPCS_1_PIN,       AVR32_SPI1_NPCS_1_FUNCTION      },  // SPI1 Chip Select NPCS[1]
   };
-//#else
-  //// Original SPI1 GPIO pins for UC3C_EK
-  //static const gpio_map_t AT45DBX_SPI_GPIO_MAP =
-  //{
-    //{AT45DBX_SPI_SCK_PIN,          AT45DBX_SPI_SCK_FUNCTION         },  // SPI Clock.
-    //{AT45DBX_SPI_MISO_PIN,         AT45DBX_SPI_MISO_FUNCTION        },  // MISO.
-    //{AT45DBX_SPI_MOSI_PIN,         AT45DBX_SPI_MOSI_FUNCTION        },  // MOSI.
-    //{AT45DBX_SPI_NPCS0_PIN,        AT45DBX_SPI_NPCS0_FUNCTION       },  // SPI1 Chip Select NPCS[1]
-  //};
-//#endif
+#else
+  // Original SPI1 GPIO pins for UC3C_EK
+  static const gpio_map_t AT45DBX_SPI_GPIO_MAP =
+  {
+    {AT45DBX_SPI_SCK_PIN,          AT45DBX_SPI_SCK_FUNCTION         },  // SPI Clock.
+    {AT45DBX_SPI_MISO_PIN,         AT45DBX_SPI_MISO_FUNCTION        },  // MISO.
+    {AT45DBX_SPI_MOSI_PIN,         AT45DBX_SPI_MOSI_FUNCTION        },  // MOSI.
+    {AT45DBX_SPI_NPCS0_PIN,        AT45DBX_SPI_NPCS0_FUNCTION       },  // SPI1 Chip Select NPCS[1]
+  };
+#endif
 
 // SPI options.
 spi_options_t spiOptions =
@@ -60,6 +61,20 @@ spi_options_t spiOptions =
 	.stay_act     = 1,
 	.spi_mode     = 0,
 	.modfdis      = 1
+};
+
+static const scif_osc32_opt_t osc32_opt = {
+	//! The input frequency from the external 32KHz crystal oscillator clock at 32768Hz.
+	BOARD_OSC32_HZ, //unsigned long   freq_hz;
+#if BOARD == UC3C_EK
+	//! For evaluation board, set the external 2 pins(XIN32 and XOUT32) 32KHz crystal oscillator mode.
+	SCIF_OSC_MODE_2PIN_CRYSTAL_HICUR, //scif_osc_mode_t mode;
+#else
+	//! Set the external 1 pin(XIN32 only) 32KHz crystal oscillator mode.
+	SCIF_OSC_MODE_EXT_CLK, //scif_osc_mode_t mode;
+#endif
+	//! Specify the oscillator startup time.
+	AVR32_SCIF_OSCCTRL32_STARTUP_0_RCOSC //unsigned char   startup;
 };
 
 // Remember when Data Flash is opened to avoid opening it again
@@ -354,6 +369,9 @@ static bool df_read_id (df_id_t *id)
  */
 void df_interface_init(void)
 {
+  // start 32kHz OSC before enabling any generic clk
+  scif_start_osc32(&osc32_opt, true);
+
   // Assign I/Os to SPI.
   gpio_enable_module(AT45DBX_SPI_GPIO_MAP,
                      sizeof(AT45DBX_SPI_GPIO_MAP) / sizeof(AT45DBX_SPI_GPIO_MAP[0]));

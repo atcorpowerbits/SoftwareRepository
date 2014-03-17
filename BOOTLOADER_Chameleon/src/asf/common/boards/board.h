@@ -98,6 +98,8 @@ extern "C" {
 #define SAM3N_EK              35  //!< SAM3N-EK board.
 #define SAM3S_EK2             36  //!< SAM3S-EK2 board.
 #define SAM4S_EK              37  //!< SAM4S-EK board.
+#define NUTMEG_BOARD          90  //!< ABPM Nutmeg board
+#define OSCAR_ALPHA           91  //!< ABPM Oscar Alpha board
 #define SIMULATOR_XMEGA_A1    97  //!< Simulator for XMEGA A1 devices
 #define AVR_SIMULATOR_UC3     98  //!< AVR SIMULATOR for AVR UC3 device family.
 #define USER_BOARD            99  //!< User-reserved board (if any).
@@ -205,7 +207,7 @@ extern "C" {
   #include "user_board.h"
 #elif BOARD == DUMMY_BOARD
   #include "dummy/dummy_board.h"
-#elif (BOARD == NUTMEG_BOARD)
+#elif (BOARD == NUTMEG_BOARD) || (BOARD == OSCAR_ALPHA)
   #include "uc3c_ek/uc3c_ek.h"
 #else
   #error No known AVR board defined

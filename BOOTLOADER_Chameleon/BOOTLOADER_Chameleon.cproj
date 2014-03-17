@@ -18,8 +18,7 @@
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
-    <OverrideVtorValue>
-    </OverrideVtorValue>
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfVersion>3.0.1</AsfVersion>
     <AsfFrameworkConfig>
@@ -140,29 +139,34 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
-    <avrtoolinterface>JTAG</avrtoolinterface>
+    <avrtoolinterface>aWire</avrtoolinterface>
     <avrtool>com.atmel.avrdbg.tool.jtagicemk3</avrtool>
     <com_atmel_avrdbg_tool_jtagicemk3>
       <ToolType>com.atmel.avrdbg.tool.jtagicemk3</ToolType>
       <ToolName>JTAGICE3</ToolName>
-      <ToolNumber>J30200001650</ToolNumber>
+      <ToolNumber>J30200013816</ToolNumber>
+      <StimuliFile>
+      </StimuliFile>
       <Channel>
         <host>127.0.0.1</host>
-        <port>58037</port>
+        <port>50849</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
-        <InterfaceName>JTAG</InterfaceName>
+        <InterfaceName>aWire</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>7500000</JtagDbgClock>
-          <JtagProgClock>1000000</JtagProgClock>
-          <IspClock>150000</IspClock>
+          <JtagDbgClock>32000</JtagDbgClock>
+          <SwdClock>249000</SwdClock>
+          <JtagProgClock>7500000</JtagProgClock>
+          <IspClock>125000</IspClock>
           <JtagInChain>false</JtagInChain>
           <JtagEnableExtResetOnStartSession>true</JtagEnableExtResetOnStartSession>
           <JtagDevicesBefore>0</JtagDevicesBefore>
           <JtagDevicesAfter>0</JtagDevicesAfter>
           <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
           <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+          <PdiClock>4000000</PdiClock>
+          <AWireMaxBaud>7500000</AWireMaxBaud>
         </InterfaceProperties>
       </ToolOptions>
     </com_atmel_avrdbg_tool_jtagicemk3>
@@ -340,9 +344,8 @@
   <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
   <avr32gcc.compiler.symbols.DefSymbols>
     <ListValues>
-      <Value>UDD_ENABLE</Value>
-      <Value>BOARD=NUTMEG_BOARD</Value>
       <Value>_NEW_DATAFLASH</Value>
+      <Value>BOARD=NUTMEG_BOARD</Value>
     </ListValues>
   </avr32gcc.compiler.symbols.DefSymbols>
   <avr32gcc.compiler.directories.IncludePaths>
@@ -389,6 +392,7 @@
   <avr32gcc.compiler.optimization.DebugLevel>Maximum (-g3)</avr32gcc.compiler.optimization.DebugLevel>
   <avr32gcc.compiler.warnings.AllWarnings>True</avr32gcc.compiler.warnings.AllWarnings>
   <avr32gcc.compiler.warnings.ExtraWarnings>True</avr32gcc.compiler.warnings.ExtraWarnings>
+  <avr32gcc.compiler.warnings.Undefined>True</avr32gcc.compiler.warnings.Undefined>
   <avr32gcc.compiler.miscellaneous.OtherFlags>-Werror-implicit-function-declaration -Wmissing-prototypes -Wpointer-arith -Wstrict-prototypes -mno-cond-exec-before-reload -mrelax -std=gnu99</avr32gcc.compiler.miscellaneous.OtherFlags>
   <avr32gcc.linker.general.DoNotUseStandardStartFiles>True</avr32gcc.linker.general.DoNotUseStandardStartFiles>
   <avr32gcc.linker.libraries.Libraries>
@@ -803,6 +807,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\config\conf_at45dbx.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\utils\crc32.c">
       <SubType>compile</SubType>
     </Compile>

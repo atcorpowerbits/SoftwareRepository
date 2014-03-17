@@ -84,6 +84,8 @@ void board_init(void)
 	gpio_enable_module(SD_MMC_SPI_GPIO_MAP,
 			sizeof(SD_MMC_SPI_GPIO_MAP) / sizeof(SD_MMC_SPI_GPIO_MAP[0]));
 #endif
+
+#if BOARD == UC3C_EK
 	// Configure the pins connected to LEDs as output and set their default
 	// initial state to high (LEDs off).
 	gpio_configure_pin(LED0_GPIO,GPIO_DIR_OUTPUT | GPIO_INIT_HIGH);
@@ -94,6 +96,7 @@ void board_init(void)
 	// Configure the pin connected to the button 0 and 1 button as input.
 	gpio_configure_pin(GPIO_PUSH_BUTTON_0,GPIO_DIR_INPUT);
 	gpio_configure_pin(GPIO_PUSH_BUTTON_1,GPIO_DIR_INPUT);
+#endif
 
 #if defined (CONF_BOARD_COM_PORT)
 	// USART GPIO pin configuration.
