@@ -127,16 +127,16 @@ df_write_page_node * deque_df_write_page (void)
 /*! \brief Initializes the data flash controller and the SPI channel by which
  *         the DF is controlled.
  *
- * \param spiOptions  Initialization options of the DF SPI channel.
+ * \param spiOptions  Pointer to options of the DF SPI channel to be initialised.
  * \param pba_hz      SPI module input clock frequency (PBA clock, Hz).
  *
  * \retval true Success.
  * \retval false Failure.
  */
-bool df_init (spi_options_t spiOptions, unsigned int pba_hz)
+bool df_init (spi_options_t * spiOptions, unsigned int pba_hz)
 {
 	// Setup SPI registers according to spiOptions.
-	if (spi_setupChipReg(AT45DBX_SPI, &spiOptions, pba_hz) != SPI_OK) 
+	if (spi_setupChipReg(AT45DBX_SPI, spiOptions, pba_hz) != SPI_OK) 
 	{
 		return false;
 	}
@@ -179,7 +179,7 @@ bool df_spi_master (void)
 		print_dbg("???DataFlash SPI master failed to select mode\n");
 		return false;
 	}
-	df_status = df_init(spiOptions, sysclk_get_pba_hz());
+	df_status = df_init(&spiOptions, sysclk_get_pba_hz());
 	if (!df_status)
 	{
 		// Log the error details and return failure

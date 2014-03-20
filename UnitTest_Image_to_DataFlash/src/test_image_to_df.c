@@ -10605,16 +10605,18 @@ void run_write_image_to_df (const struct test_case *test)
 
 	// Populate the header and correct any endianess
 	memcpy(&theHeader, cbxContents, sizeof(theHeader));
-	temp32 = theHeader.eSize;
-	theHeader.eSize.u8[0] = temp32.u8[3];
-	theHeader.eSize.u8[1] = temp32.u8[2];
-	theHeader.eSize.u8[2] = temp32.u8[1];
-	theHeader.eSize.u8[3] = temp32.u8[0];
-	temp32 = theHeader.eCRC32;
-	theHeader.eCRC32.u8[0] = temp32.u8[3];
-	theHeader.eCRC32.u8[1] = temp32.u8[2];
-	theHeader.eCRC32.u8[2] = temp32.u8[1];
-	theHeader.eCRC32.u8[3] = temp32.u8[0];
+	//temp32 = theHeader.eSize;
+	//theHeader.eSize.u8[0] = temp32.u8[3];
+	//theHeader.eSize.u8[1] = temp32.u8[2];
+	//theHeader.eSize.u8[2] = temp32.u8[1];
+	//theHeader.eSize.u8[3] = temp32.u8[0];
+	//temp32 = theHeader.eCRC32;
+	//theHeader.eCRC32.u8[0] = temp32.u8[3];
+	//theHeader.eCRC32.u8[1] = temp32.u8[2];
+	//theHeader.eCRC32.u8[2] = temp32.u8[1];
+	//theHeader.eCRC32.u8[3] = temp32.u8[0];
+	theHeader.eSize.u32 = swap32(theHeader.eSize.u32);
+	theHeader.eCRC32.u32 = swap32(theHeader.eCRC32.u32);
 
 	// Check the Header_2 checksum
 	recalculatedChecksum = calculate_crc(&theHeader, sizeof(theHeader) - 1);

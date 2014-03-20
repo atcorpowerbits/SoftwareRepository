@@ -56,8 +56,8 @@
 #include "power_clocks_lib.h"
 #include "flashc.h"
 #include "print_funcs.h"
-//va:DF #include "conf_at45dbx.h"
-//va:DF #include "at45dbx.h"
+//Port:DF #include "conf_at45dbx.h"
+//Port:DF #include "at45dbx.h"
 #include "boot.h"
 #include "string.h"
 #include "wdt.h"
@@ -69,6 +69,8 @@
 #include "gpio.h"
 #include "sysclk.h"
 //#include "flashexample.h"
+#include "states.h"
+#include "dataflash_if.h"
 
 static bool is_on_LED0 = false;
 
@@ -248,18 +250,22 @@ int main(void)
 	init_dbg_rs232(FOSC0);
 
 	// Initialize AT45DBX resources: GPIO, SPI and AT45DBX.
-//va:DF	at45dbx_resources_init();
+//Port:DF	at45dbx_resources_init();
+	df_interface_init();
 	  	
-	// IMPORTANT!!!: note that AVR32_FLASHC_PAGE_SIZE happens to be the same as AT45DBX_SECTOR_SIZE. It may not be true with Adesto chip, need to check.
+	// IMPORTANT!!!: note that AVR32_FLASHC_PAGE_SIZE is not the same as DF_PAGE_SIZE.
 	// *** copy image from data Flash to MCU Flash.
 
 	print_dbg("---------- Chameleon bootloader started ------------------\r\n");
 	
+	// We are here because ISP was in force
+	DoISP(TRANSITION_ISP_FORCED);
+	
 	register int i, j;
-#if 0 //va: Not ported yet
+#if 0 //Port: Not ported yet
 	// ** read a page from data Flash into memory.
 	U32 position = 1;
-	unsigned char rdata[AT45DBX_SECTOR_SIZE];		// data read from external data Flash
+	unsigned char rdata[DF_PAGE_SIZE];		// data read from external data Flash
 	//unsigned char *c = rdata;
 	register int nRead = BIN_DATA_SIZE;				// actual size of binary image to be read
 	volatile U64 *flash_ptr;
@@ -300,7 +306,7 @@ int main(void)
 	
 	position = PROGRAM_START_OFFSET; // 0x2000, 0x4000?
 	aSector = position / AT45DBX_SECTOR_SIZE;
-//va:DF	at45dbx_read_open(aSector+1);
+//Port:DF	at45dbx_read_open(aSector+1);
 
 	print_dbg("\tprogram start offset 0x");
 	print_dbg_hex(position);
@@ -325,7 +331,7 @@ int main(void)
 	bool firstOp = true;
 	do
 	{
-//va:DF		at45dbx_read_sector_2_ram(rdata);
+//Port:DF		at45dbx_read_sector_2_ram(rdata);
 		//c = rdata + sectorOffset;			
 		copySize = ( i < AT45DBX_SECTOR_SIZE ) ? i : AT45DBX_SECTOR_SIZE;
 		copySize -= sectorOffset;
@@ -364,7 +370,7 @@ int main(void)
 		
 		print_dbg(".");
 	} while ( i > 0 );
-//va:DF	at45dbx_read_close();
+//Port:DF	at45dbx_read_close();
 
 	if ( i > 0 )
 	{	// !!! print debug info
@@ -395,7 +401,7 @@ int main(void)
 	print_dbg(" ");
 	print_dbg_hex(*(chkPtr+BIN_DATA_SIZE-1));
 	print_dbg("\r\n");
-#endif //va: Not ported yet	
+#endif //Port: Not ported yet	
 	
 	// ************ Program Configuration Word ********************	
 	// *** set Configuration Word 1.
