@@ -51,7 +51,7 @@
 #endif
 
 // SPI options.
-spi_options_t spiOptions =
+static spi_options_t spiOptions =
 {
 	.reg          = AT45DBX_SPI_FIRST_NPCS,   // Defined in conf_at45dbx.h.
 	.baudrate     = AT45DBX_SPI_MASTER_SPEED, // Defined in conf_at45dbx.h.

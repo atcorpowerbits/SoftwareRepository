@@ -17,16 +17,18 @@
  */
 void print_debug_append (char *msg, ...)
 {
+#if 0 //PORT: not viable as vsnprintf links to huge amount of codes; either remove the function or find alternative logic
 	va_list args;
 	char szBuf[MAX_BUFFER_SIZE] = {0};
 
 	va_start(args, msg);
-	// vsnprintf() will not write more than MAX_BUFFER_SIZE including the trailing '\0', it will truncate it automatically if overflow.
+	//// vsnprintf() will not write more than MAX_BUFFER_SIZE including the trailing '\0', it will truncate it automatically if overflow.
 	vsnprintf(szBuf, MAX_BUFFER_SIZE, msg, args);
 	va_end(args);
 
 	// usart_interface_send_msg_cpy(DEBUG_TERM_PORT, (uint8_t *)szBuf, strlen(szBuf));
 	// avoid using usart_interface_send_msg_cpy to transmit via PDCA, until it is made compatible with AST
 	usart_write_line(DBG_USART, szBuf);
+#endif
 }
 

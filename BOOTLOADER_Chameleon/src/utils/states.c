@@ -33,6 +33,15 @@ void DoISP (transition_t nextTransition)
 			case TRANSITION_ISP_FORCED:
 				nextTransition = CheckDownloadedImage();
 				break;
+			case TRANSITION_VALID_IMAGE:
+				//nextTransition = DecryptAndProgramImage();
+			    break;
+			case TRANSITION_PROGRAMMING_PASSED:
+			    //nextTransition = PrepareNormalReboot();
+				break;
+			case TRANSITION_REBOOT:
+			    //nextTransition = RebootNow();
+				break;
 			case TRANSITION_INVALID_IMAGE:
 			case TRANSITION_PROGRAMMING_FAILED:
 				BootloadingError();
@@ -83,10 +92,17 @@ transition_t CheckDownloadedImage (void)
 	memset(signature, 0, sizeof(signature));
 	print_dbg("Copy signature\r\n");
 	memcpy(signature, theHeader.eSignature, sizeof(theHeader.eSignature));
-	print_debug_append("Version %d.%d\r\n", theHeader.majorVer, theHeader.minorVer);
-	print_debug_append("Encrypted size %d\r\n", theHeader.eSize);
-	print_debug_append("CRC32 %#x\r\n", theHeader.eCRC32);
-	print_debug_append("App signature %s\r\n", signature);
+	print_dbg("Version=");
+	print_dbg_ulong(theHeader.majorVer);
+	print_dbg_char('.');
+	print_dbg_ulong(theHeader.minorVer);
+	print_dbg("; Encrypted size=");
+	print_dbg_ulong(theHeader.eSize.u32);
+	print_dbg("; CRC32=0x");
+	print_dbg_hex(theHeader.eCRC32.u32);
+	print_dbg("; App Signature=");
+	print_dbg(signature);
+	print_dbg("\r\n");
 	
 	return CheckEncyptedPayloadCRC();
 }
@@ -140,6 +156,7 @@ transition_t CheckEncyptedPayloadCRC (void)
 		contentIndex += sizeToRead;
 		pageNumber++;
 	}
+	print_dbg("\r\n");
 	if (recalculatedCRC32 == theHeader.eCRC32.u32)
 	{
 		print_dbg("Valid encrypted payload in DataFlash\r\n");
@@ -147,7 +164,11 @@ transition_t CheckEncyptedPayloadCRC (void)
 	}
 	else
 	{
-		print_dbg("Failed to verify CRC of encrypted payload in DataFlash\r\n");
+		print_dbg("Failed to verify CRC of encrypted payload in DataFlash. CBX content size=");
+		print_dbg_ulong(cbxContentSize);
+		print_dbg("; recalculatedCRC32=0x");
+		print_dbg_hex(recalculatedCRC32);
+		print_dbg("\r\n");
 		return TRANSITION_INVALID_IMAGE;
 	}
 }
@@ -158,9 +179,7 @@ void BootloadingError (void)
 	while (true) {
 		gpio_tgl_gpio_pin(AVR32_PIN_PA02);
 		cpu_delay_ms(20, sysclk_get_cpu_hz());
-		print_dbg("ON\r\n");
 		gpio_tgl_gpio_pin(AVR32_PIN_PA02);
 		cpu_delay_ms(980, sysclk_get_cpu_hz());
-		print_dbg("OFF\r\n");
 	}
 }

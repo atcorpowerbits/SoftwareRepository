@@ -51,6 +51,11 @@ MEMORY
   INTRAM (wxa!ri) : ORIGIN = 0x00000004, LENGTH = 0x0000FFFC
   USERPAGE : ORIGIN = 0x80800000, LENGTH = 0x00000200
 }
+/*
+  HRAM0 (wxa!ri) : ORIGIN = 0xA0000000, LENGTH = 0x00001000
+  USERPAGE_RESERVED (r) : ORIGIN = 0x80800000, LENGTH = 0x00000004
+  USERPAGE : ORIGIN = 0x80800004, LENGTH = 0x000001FC
+*/
 
 PHDRS
 {
@@ -64,6 +69,10 @@ PHDRS
 
 SECTIONS
 {
+  /* If this heap size is selected, all the INTRAM space from the end of the
+     data area to the beginning of the stack will be allocated for the heap. */
+  __max_heap_size__ = -1;
+
   /* Use a default heap size if heap size was not defined. */
   __heap_size__ = DEFINED(__heap_size__) ? __heap_size__ : 0;
 
@@ -160,7 +169,9 @@ SECTIONS
   .heap           :
   {
     *(.heap)
-    . = __heap_size__;
+   . = (__heap_size__ == __max_heap_size__) ?
+        ORIGIN(INTRAM) + LENGTH(INTRAM) - __stack_size__ - ABSOLUTE(.) :
+        __heap_size__;
   } >INTRAM AT>INTRAM :INTRAM
   __heap_end__ = .;
   .stack          :
