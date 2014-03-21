@@ -21,7 +21,12 @@
 #include "crc32.h"
 
 // Copy of CBX file header
-static cbxHeader_t theHeader;
+static cbxHeader_t cbxHeader;
+
+cbxHeader_t * GetCbxHeader (void) 
+{ 
+	return &cbxHeader; 
+}
 
 // Commence ISP
 void DoISP (transition_t nextTransition)
@@ -53,57 +58,68 @@ void DoISP (transition_t nextTransition)
 	}
 }
 
+// Read the CBX header
+bool ReadCbxHeader (void)
+{
+	uint8_t pageBuffer[DF_PAGE_SIZE];
+	uint8_t signature[CBX_ESIGNATURE_LEN + 1];
+	df_error_code_t df_status;
+
+	df_status = df_read_page(CBX_START_PAGE, pageBuffer, DF_PAGE_SIZE);
+	if (DF_RW_SUCCESS != df_status)
+	{
+		print_dbg("Failed to read CBX header from DataFlash page ");
+		print_dbg_ulong(CBX_START_PAGE);
+		print_dbg("\r\n");
+		return false;
+	}
+	memcpy(&cbxHeader, pageBuffer, sizeof(cbxHeader));
+
+	// Correct any endianess of the header fields
+	cbxHeader.eSize.u32 = swap32(cbxHeader.eSize.u32);
+	cbxHeader.eCRC32.u32 = swap32(cbxHeader.eCRC32.u32);
+
+	// Read and print the header
+	memset(signature, 0, sizeof(signature));
+	memcpy(signature, cbxHeader.eSignature, sizeof(cbxHeader.eSignature));
+	print_dbg("Version=");
+	print_dbg_ulong(cbxHeader.majorVer);
+	print_dbg_char('.');
+	print_dbg_ulong(cbxHeader.minorVer);
+	print_dbg("; Encrypted size=");
+	print_dbg_ulong(cbxHeader.eSize.u32);
+	print_dbg("; CRC32=0x");
+	print_dbg_hex(cbxHeader.eCRC32.u32);
+	print_dbg("; App Signature=");
+	print_dbg(signature);
+	print_dbg("\r\n");
+	
+	return true;
+}
+
 // Check the downloaded CBX contents in DataFlash
 transition_t CheckDownloadedImage (void)
 {
 	uint8_t recalculatedChecksum;
 	uint8_t pageBuffer[DF_PAGE_SIZE];
-	uint8_t signature[CBX_ESIGNATURE_LEN + 1];
 	df_error_code_t df_status;
 
 	print_dbg("Checking downloaded image in DataFlash\r\n");
 
-	// Get the CBX header
-	df_status = df_read_page(CBX_START_PAGE, pageBuffer, DF_PAGE_SIZE);
-	if (DF_RW_SUCCESS != df_status)
+	// Load the CBX header
+	if (!ReadCbxHeader())
 	{
-		print_debug_append("Failed to read CBX header from page %d in DataFlash\r\n", CBX_START_PAGE);
 		return TRANSITION_INVALID_IMAGE;
 	}
-	print_dbg("Copy the header\r\n");
-	memcpy(&theHeader, pageBuffer, sizeof(theHeader));
-
-	// Correct any endianess of the header fields
-	print_dbg("Endianess of header\r\n");
-	theHeader.eSize.u32 = swap32(theHeader.eSize.u32);
-	theHeader.eCRC32.u32 = swap32(theHeader.eCRC32.u32);
-
+	
 	// Check the Header_2 checksum
 	print_dbg("Recalc header checksum\r\n");
-	recalculatedChecksum = calculate_crc(&theHeader, sizeof(theHeader) - 1);
-	if (recalculatedChecksum != theHeader.crc8)
+	recalculatedChecksum = calculate_crc(&cbxHeader, sizeof(cbxHeader) - 1);
+	if (recalculatedChecksum != cbxHeader.crc8)
 	{
 		print_dbg("Failed to verify Header_2 checksum\r\n");
 		return TRANSITION_INVALID_IMAGE;
 	}
-	
-	// Read and print the header
-	print_dbg("Clear signature\r\n");
-	memset(signature, 0, sizeof(signature));
-	print_dbg("Copy signature\r\n");
-	memcpy(signature, theHeader.eSignature, sizeof(theHeader.eSignature));
-	print_dbg("Version=");
-	print_dbg_ulong(theHeader.majorVer);
-	print_dbg_char('.');
-	print_dbg_ulong(theHeader.minorVer);
-	print_dbg("; Encrypted size=");
-	print_dbg_ulong(theHeader.eSize.u32);
-	print_dbg("; CRC32=0x");
-	print_dbg_hex(theHeader.eCRC32.u32);
-	print_dbg("; App Signature=");
-	print_dbg(signature);
-	print_dbg("\r\n");
-	
 	return CheckEncyptedPayloadCRC();
 }
 
@@ -116,11 +132,11 @@ transition_t CheckEncyptedPayloadCRC (void)
 	uint8_t pageBuffer[DF_PAGE_SIZE];
 	uint16_t sizeToRead;
 	uint16_t sizeToRecalcCRC32;
-	uint32_t recalculatedCRC32;
+	uint32_t recalculatedCRC32 = 0;
 	df_error_code_t df_status;
 	uint32_t pageOffset;
 
-	cbxContentSize = theHeader.eSize.u32 + sizeof(cbxHeader_t);
+	cbxContentSize = cbxHeader.eSize.u32 + sizeof(cbxHeader_t);
 	contentIndex = 0;
 	pageNumber = CBX_START_PAGE;
 	while (contentIndex < cbxContentSize)
@@ -137,7 +153,9 @@ transition_t CheckEncyptedPayloadCRC (void)
 		df_status = df_read_page(pageNumber, pageBuffer, sizeToRead);
 		if (DF_RW_SUCCESS != df_status)
 		{
-			print_debug_append("Failed to read content page %d from DataFlash\r\n", pageNumber);
+			print_dbg("Failed to read contents from DataFlash page ");
+			print_dbg_ulong(pageNumber);
+			print_dbg("\r\n");
 			return TRANSITION_INVALID_IMAGE;
 		}
 
@@ -157,7 +175,7 @@ transition_t CheckEncyptedPayloadCRC (void)
 		pageNumber++;
 	}
 	print_dbg("\r\n");
-	if (recalculatedCRC32 == theHeader.eCRC32.u32)
+	if (recalculatedCRC32 == cbxHeader.eCRC32.u32)
 	{
 		print_dbg("Valid encrypted payload in DataFlash\r\n");
 		return TRANSITION_VALID_IMAGE;

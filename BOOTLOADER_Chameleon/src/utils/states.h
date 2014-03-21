@@ -50,6 +50,7 @@ void DoISP (transition_t nextTransition);
 // Check the new downloaded CBP Image in DataFlash
 transition_t CheckDownloadedImage (void);
 transition_t CheckEncyptedPayloadCRC (void);
+bool ReadCbxHeader (void);
 
 //// Decrypt and Program the new CBP Image in MCU
 //int8_t DecryptAndProgramImage (void);
@@ -62,5 +63,7 @@ transition_t CheckEncyptedPayloadCRC (void);
 
 // Bootloading error
 void BootloadingError (void);
+
+cbxHeader_t * GetCbxHeader (void);
 
 #endif /* STATES_H_ */

@@ -387,7 +387,15 @@ void df_display_id (void)
   // Show DataFlash hardware ID
   if (df_read_id(&dfID))
   {
-	print_debug_append("DF ID:%02X-%02X-%02X-%02X\r\n", dfID.manufacturer_id, dfID.device_id_1, dfID.device_id_2, dfID.ext_info_len);
+	print_dbg("DF ID:0x");
+	print_dbg_hex(dfID.manufacturer_id);
+	print_dbg("-0x");
+	print_dbg_hex(dfID.device_id_1);
+	print_dbg("-0x");
+	print_dbg_hex(dfID.device_id_2);
+	print_dbg("-0x");
+	print_dbg_hex(dfID.ext_info_len);
+	print_dbg("\r\n");
   }
   else
   {
@@ -770,7 +778,9 @@ df_error_code_t df_read_page (uint16_t df_page_num, uint8_t *data_dest, uint16_t
 		// Log the error details
 		//NOT PORTED YET print_debug(LOG_TYPE_CBP_ERROR, DF_READ_PAGE_FAILED);
 		//NOT PORTED YET print_debug(LOG_TYPE_32BIT_COMMON_DATA, (df_page_num << 16) | df_status);
-		print_debug_append("???r%d\n", df_page_num);
+		print_dbg("???r");
+		print_dbg_ulong(df_page_num);
+		print_dbg("\r\n");
 		
 		// Ignore the close status if there's already a failure
 		df_close();
@@ -813,7 +823,9 @@ df_error_code_t df_read_multiple_pages (uint16_t df_page_num, uint8_t *data_dest
 		// Log the error details
 		//NOT PORTED YET print_debug(LOG_TYPE_CBP_ERROR, DF_READ_MULTI_PAGE_FAILED);
 		//NOT PORTED YET print_debug(LOG_TYPE_32BIT_COMMON_DATA, df_status);
-		print_debug_append("???Reading multiple pages to DataFlash failed; error %d\n", df_status);
+		print_dbg("???Reading multiple pages to DataFlash failed; error ");
+		print_dbg_ulong(df_status);
+		print_dbg("\r\n");
 	}
 	return df_status;
 }
@@ -877,7 +889,7 @@ static df_error_code_t df_write_page_now (uint16_t df_page_num, uint8_t *data_so
 	// Release access to the DataFlash.
 	if (DF_RW_SUCCESS == df_status)
 	{
-		print_debug_append("w", df_page_num);
+		print_dbg_char('w');
 		df_status = df_close();
 	}
 	else
@@ -885,7 +897,9 @@ static df_error_code_t df_write_page_now (uint16_t df_page_num, uint8_t *data_so
 		// Log the error details
 		//NOT PORTED YET print_debug(LOG_TYPE_CBP_ERROR, DF_WRITE_PAGE_FAILED);
 		//NOT PORTED YET print_debug(LOG_TYPE_32BIT_COMMON_DATA, (df_page_num << 16) | df_status);
-		print_debug_append("???w%d\n", df_page_num);
+		print_dbg("???w");
+		print_dbg_ulong(df_page_num);
+		print_dbg("\r\n");
 		
 		// Ignore the close status if there's already a failure
 		df_close();
@@ -953,7 +967,11 @@ df_error_code_t df_write_page (uint16_t df_page_num, uint8_t *data_source, uint1
 			if (DF_RW_SUCCESS != df_status)
 			{
 				// Failed to write the DF page which was postponed
-				print_debug_append("Failed to write delayed DF page=%d size=%d\r\n", next_node->page_number, next_node->data_size);
+				print_dbg("Failed to write delayed DF page=");
+				print_dbg_ulong(next_node->page_number);
+				print_dbg(" size=");
+				print_dbg_ulong(next_node->data_size);
+				print_dbg("\r\n");
 			}
 			free(next_node->data_copy);
 			free(next_node);
@@ -1009,7 +1027,9 @@ df_error_code_t df_write_multiple_pages (uint16_t df_page_num, uint8_t *data_sou
 		// Log the error details
 		//NOT PORTED YET print_debug(LOG_TYPE_CBP_ERROR, DF_WRITE_MULTI_PAGE_FAILED);
 		//NOT PORTED YET print_debug(LOG_TYPE_32BIT_COMMON_DATA, df_status);
-		print_debug_append("???Writing multiple pages to DataFlash failed; error %d\n", df_status);
+		print_dbg("???Writing multiple pages to DataFlash failed; error ");
+		print_dbg_ulong(df_status);
+		print_dbg("\r\n");
 	}
 	return df_status;
 }
@@ -1026,7 +1046,7 @@ df_error_code_t df_erase_page (uint16_t page_num)
 	uint32_t addr = page_num * DF_PAGE_STEP;
 	
 	//print_debug_append("Erasing DF page %d\n", page_num);
-	print_dbg("x");
+	print_dbg_char('x');
 	
 	if (!df_spi_master())
 	{

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.1</ProjectVersion>
-    <ProjectGuid>{bf37f5ad-ed84-46ac-9562-9c0a483c5ea8}</ProjectGuid>
+    <ProjectGuid>{36bbf6aa-0622-4b72-a99b-c63fa3aab3ab}</ProjectGuid>
     <Name>$(MSBuildProjectName)</Name>
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
@@ -354,10 +354,10 @@
     <Compile Include="src\main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\test_image_to_df.c">
+    <Compile Include="src\test_CheckDownloadedImage.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\test_image_to_df.h">
+    <Compile Include="src\test_CheckDownloadedImage.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

@@ -235,14 +235,12 @@ spi_status_t spi_setupChipReg(volatile avr32_spi_t *spi,
 	if (options->spi_mode > 3 ||
 			options->stay_act > 1 ||
 			options->bits < 8 || options->bits > 16) {
-		print_debug_append("???spi_setupChipReg mode failed %d %d %d\n", options->spi_mode, options->stay_act, options->bits); //PORT:remove
 		return SPI_ERROR_ARGUMENT;
 	}
 
 	int baudDiv = getBaudDiv(options->baudrate, pb_hz);
 
 	if (baudDiv < 0) {
-		print_debug_append("???spi_setupChipReg Baud failed %d\n", baudDiv); //PORT:remove
 		return SPI_ERROR_ARGUMENT;
 	}
 
@@ -274,7 +272,6 @@ spi_status_t spi_setupChipReg(volatile avr32_spi_t *spi,
 		break;
 
 	default:
-		print_debug_append("???spi_setupChipReg arg failed %d\n", options->reg); //PORT:remove
 		return SPI_ERROR_ARGUMENT;
 	}
 

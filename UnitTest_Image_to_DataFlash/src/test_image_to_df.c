@@ -10,21 +10,10 @@
 #include "crc8.h"
 #include "crc32.h"
 #include "usart_if.h"
+#include "states.h" // for tansition_t
 
 #define LEN_ESIGNATURE 7
 #define DF_START_PAGE_CBX 20480 // skip the first 1MB in CBP DataFlash to avoid heavy use of the first 1MB in CBP DataFlash
-
-typedef struct 
-{
-	uint8_t spares2[2];
-	uint8_t majorVer;
-	uint8_t minorVer;
-	Union32 eSize;
-	Union32 eCRC32;
-	uint8_t eSignature[LEN_ESIGNATURE];
-	uint8_t crc8;
-} cbxHeader_t;
-
 
 const unsigned char cbxContents[] = {
 0x00, 0x00, 0x01, 0x02, 0xB0, 0x49, 0x01, 0x00,
@@ -10590,38 +10579,26 @@ void run_write_image_to_df (const struct test_case *test)
 {
 	cbxHeader_t theHeader;
 	uint8_t recalculatedChecksum;
-	uint32_t recalculatedCRC32;
 	uint8_t signature[LEN_ESIGNATURE + 1];
-	Union32 temp32;
 	uint32_t cbxContentSize; // including Header_2
 	uint32_t contentIndex;
-	uint32_t encyptedIndex;
 	uint8_t pageBuffer[DF_PAGE_SIZE];
 	uint16_t pageNumber;
-	uint16_t sizeToRead;
 	uint16_t sizeToWrite;
-	uint16_t sizeToRecalcCRC32;
 	df_error_code_t df_status;
+	bool expected;
+	transition_t expectedTransition;
 
-	// Populate the header and correct any endianess
+
+	// Populate the header from the hardcoded CBX contents and adjust any endianess
 	memcpy(&theHeader, cbxContents, sizeof(theHeader));
-	//temp32 = theHeader.eSize;
-	//theHeader.eSize.u8[0] = temp32.u8[3];
-	//theHeader.eSize.u8[1] = temp32.u8[2];
-	//theHeader.eSize.u8[2] = temp32.u8[1];
-	//theHeader.eSize.u8[3] = temp32.u8[0];
-	//temp32 = theHeader.eCRC32;
-	//theHeader.eCRC32.u8[0] = temp32.u8[3];
-	//theHeader.eCRC32.u8[1] = temp32.u8[2];
-	//theHeader.eCRC32.u8[2] = temp32.u8[1];
-	//theHeader.eCRC32.u8[3] = temp32.u8[0];
 	theHeader.eSize.u32 = swap32(theHeader.eSize.u32);
 	theHeader.eCRC32.u32 = swap32(theHeader.eCRC32.u32);
-
+	
 	// Check the Header_2 checksum
 	recalculatedChecksum = calculate_crc(&theHeader, sizeof(theHeader) - 1);
 	test_assert_true(test, recalculatedChecksum == theHeader.crc8, "Failed to verify Header_2 checksum\r\n");
-		
+
 	// Read and print the header
 	memset(signature, 0, sizeof(signature));
 	memcpy(signature, theHeader.eSignature, sizeof(theHeader.eSignature));
@@ -10648,33 +10625,7 @@ void run_write_image_to_df (const struct test_case *test)
 		pageNumber++;
 	}
 
-	// Verify the encrypted contents in DataFlash
-	contentIndex = 0;
-	pageNumber = DF_START_PAGE_CBX;
-	while (contentIndex < cbxContentSize)
-	{
-		// See one full page or less to read
-		sizeToRead = (contentIndex + DF_PAGE_SIZE) > cbxContentSize ? (cbxContentSize - contentIndex) : DF_PAGE_SIZE;
-		memset(pageBuffer, 0, DF_PAGE_SIZE);
-		
-		test_assert_true(test, pageNumber < DF_MAX_PAGES, "Page overflow detected during reading contents from DataFlash\r\n");
-		df_status = df_read_page(pageNumber, pageBuffer, sizeToRead);
-		test_assert_true(test, df_status == DF_RW_SUCCESS, "Failed to read content page %d from DataFlash\r\n", pageNumber);
-
-		// header_2 in the first page must be skipped before recalculating CRC32 of the encrypted contents
-		sizeToRecalcCRC32 = sizeToRead;
-		if (contentIndex == 0)
-		{
-			encyptedIndex = sizeof(cbxHeader_t);
-			sizeToRecalcCRC32 -= encyptedIndex;
-		}
-		else
-		{
-			encyptedIndex = 0;
-		}
-		recalculatedCRC32 = crc32(recalculatedCRC32, &pageBuffer[encyptedIndex], sizeToRecalcCRC32);
-		contentIndex += sizeToRead;
-		pageNumber++;
-	}
-	test_assert_true(test, recalculatedCRC32 == theHeader.eCRC32.u32, "Failed to verify encrypted contents written in DataFlash\r\n");
+	// Verify the CBX contents just written to DataFlash
+	expectedTransition = CheckDownloadedImage();
+	test_assert_true(test, expectedTransition == TRANSITION_VALID_IMAGE, "Failed to validate CBX image written to DataFlash\r\n");
 }
