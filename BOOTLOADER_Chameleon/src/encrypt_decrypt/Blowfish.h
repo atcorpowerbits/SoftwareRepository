@@ -1,17 +1,19 @@
-/*
- * Blowfish.h
+/**
+ * \file
  *
- * Created: 19/02/2014 4:44:18 PM
- *  Author: lawrencec
+ * \brief Encrypt/Decrypt CBP image.
+ *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2013
+ *
+ * \date Created: 21/03/2014 3:23:38 PM
+ * \author yoonl
  */ 
-
 
 #ifndef BLOWFISH_H_
 #define BLOWFISH_H_
 
 #define MAXKEYBYTES 56          /* 448 bits */
 #define little_endian 1              /* Eg: Intel */
-//#define big_endian 1            /* Eg: Motorola */
 
 short opensubkeyfile(void);
 unsigned long F(unsigned long x);
@@ -31,5 +33,8 @@ void blf_cbc_continue_enc(unsigned long *data);
 
 void blf_cbc_initial_dec(unsigned long *data, unsigned long *iv);
 void blf_cbc_continue_dec(unsigned long *data);
+
+void getl(unsigned char *v, unsigned long *lv);
+void getb(unsigned long *lv, unsigned char *v);
 
 #endif /* BLOWFISH_H_ */

@@ -1,46 +1,21 @@
-/*
- * Blowfish.c
+/**
+ * \file
  *
- * Created: 19/02/2014 4:42:40 PM
- *  Author: lawrencec
+ * \brief Encrypt/Decrypt CBP image.
+ *
+ * Copyright (c) Atcor Medical Pty. Ltd., 2013
+ *
+ * \date Created: 21/03/2014 3:24:53 PM
+ * \author yoonl
  */ 
 
-//#include "stdafx.h"
-
-//#ifdef little_endian   /* Eg: Intel */
-//#include <dos.h>
-//#include <graphics.h>
-//#include <io.h>
-//#endif
-//
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-//#ifdef little_endian   /* Eg: Intel */
-//#include <alloc.h>
-//#endif
-//
-#include <ctype.h>
-
-//#ifdef little_endian   /* Eg: Intel */
-//#include <dir.h>
-//#include <bios.h>
-//#endif
-//
-//#ifdef big_endian
-//#include <Types.h>
-//#endif
-//
-#include "BlowfishData.h"
 #include "Blowfish.h"
+#include "BlowfishData.h"
 
 #define N               16
 #define noErr            0
 #define DATAERROR         -1
 #define KEYBYTES         8
-//#define subkeyfilename   "Blowfish.dat"
 
 unsigned long P[N + 2];
 unsigned long S[4][256];
@@ -398,4 +373,27 @@ void blf_cbc_continue_dec(unsigned long *data)
 	prev_c1 = c1;
 }
 
+/* Blowfish: convert unsigned char [8] to unsigned long [2] */
+void getl(unsigned char *v, unsigned long *lv)
+{
+	register int i, j;
 
+	for (i=0, j=0; i < 2; ++i, j+=4)
+	{
+		lv[i] = v[j] << 24 | v[j+1] << 16 | v[j+2] << 8 | v[j+3];
+	}
+}
+
+/* Blowfish: convert unsigned long [2] to unsigned char [8] */
+void getb(unsigned long *lv, unsigned char *v)
+{
+	register int i, j;
+
+	for (i = 0, j = 0; i < 2; ++i, j += 4)
+	{
+		v[j] = lv[i] >> 24;
+		v[j + 1] = lv[i] >> 16;
+		v[j + 2] = lv[i] >> 8;
+		v[j + 3] = lv[i] & 0x000000ff;
+	}
+}

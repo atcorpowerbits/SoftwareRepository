@@ -62,8 +62,6 @@
 #include "string.h"
 #include "wdt.h"
 
-#include "HexFile.h"
-
 // !!! *******************************
 #include "cycle_counter.h"
 #include "gpio.h"
