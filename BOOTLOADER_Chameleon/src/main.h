@@ -42,7 +42,6 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-//Port:remove #define AT45DBX_SECTOR_SIZE 264
 #define DF_PAGE_SIZE 264
 
 /*! \brief Called when Vbus line state change

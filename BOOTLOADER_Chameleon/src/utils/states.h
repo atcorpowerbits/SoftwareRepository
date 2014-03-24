@@ -23,12 +23,14 @@
 // State tansition triggers
 typedef enum
 {
-	TRANSITION_ISP_FORCED = 0,
+	TRANSITION_UNKNOWN = 0,
+	TRANSITION_ISP_FORCED,
 	TRANSITION_VALID_IMAGE,
 	TRANSITION_INVALID_IMAGE,
 	TRANSITION_PROGRAMMING_PASSED,
 	TRANSITION_PROGRAMMING_FAILED,
 	TRANSITION_REBOOT,
+	TRANSITION_REBOOT_PREP_FAILED,
 	TRANSITION_EXIT,
 } transition_t;
 	
@@ -55,11 +57,6 @@ bool ReadCbxHeader (void);
 //// Decrypt and Program the new CBP Image in MCU
 //int8_t DecryptAndProgramImage (void);
 //
-//// Prepare for noraml reboot
-//void PrepareNormalReboot (void);
-//
-//// Reboot now
-//void RebootNow (void);
 
 // Bootloading error
 void BootloadingError (void);

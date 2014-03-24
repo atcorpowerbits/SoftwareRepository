@@ -847,6 +847,12 @@
     <Compile Include="src\utils\states.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\utils\state_reboot.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\utils\state_reboot.h">
+      <SubType>compile</SubType>
+    </Compile>
     <None Include="src\asf.h">
       <SubType>compile</SubType>
     </None>

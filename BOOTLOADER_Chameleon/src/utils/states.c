@@ -14,6 +14,7 @@
 #include <cycle_counter.h>
 #include <sysclk.h>
 #include "states.h"
+#include "state_reboot.h"
 #include "usart_if.h"
 #include "dataflash_if.h"
 #include "print_funcs.h"
@@ -40,19 +41,24 @@ void DoISP (transition_t nextTransition)
 				break;
 			case TRANSITION_VALID_IMAGE:
 				//nextTransition = DecryptAndProgramImage();
+				nextTransition = TRANSITION_PROGRAMMING_PASSED; //PORT: this stub must be removed when DecryptAndProgramImage is working
 			    break;
 			case TRANSITION_PROGRAMMING_PASSED:
-			    //nextTransition = PrepareNormalReboot();
+			    nextTransition = PrepareNormalReboot();
 				break;
 			case TRANSITION_REBOOT:
-			    //nextTransition = RebootNow();
+			    nextTransition = RebootNow();
 				break;
 			case TRANSITION_INVALID_IMAGE:
 			case TRANSITION_PROGRAMMING_FAILED:
+			case TRANSITION_REBOOT_PREP_FAILED:
 				BootloadingError();
-				// Not supposed to return from error state but fall through if it did
+				break;
 			default:
-				nextTransition = TRANSITION_EXIT;
+				print_dbg("???Unknown transition\r\n");
+				// Stop here with the LED on
+				gpio_set_gpio_pin(LED0_GPIO);
+				while (1) ;
 				break;
 		}
 	}
@@ -62,7 +68,6 @@ void DoISP (transition_t nextTransition)
 bool ReadCbxHeader (void)
 {
 	uint8_t pageBuffer[DF_PAGE_SIZE];
-	uint8_t signature[CBX_ESIGNATURE_LEN + 1];
 	df_error_code_t df_status;
 
 	df_status = df_read_page(CBX_START_PAGE, pageBuffer, DF_PAGE_SIZE);
@@ -79,7 +84,35 @@ bool ReadCbxHeader (void)
 	cbxHeader.eSize.u32 = swap32(cbxHeader.eSize.u32);
 	cbxHeader.eCRC32.u32 = swap32(cbxHeader.eCRC32.u32);
 
-	// Read and print the header
+	return true;
+}
+
+// Check the downloaded CBX contents in DataFlash
+transition_t CheckDownloadedImage (void)
+{
+	uint8_t recalculatedChecksum;
+	uint8_t pageBuffer[DF_PAGE_SIZE];
+	uint8_t signature[CBX_ESIGNATURE_LEN + 1];
+	df_error_code_t df_status;
+
+	print_dbg("Checking downloaded image in DataFlash\r\n");
+
+	// Load the CBX header
+	if (!ReadCbxHeader())
+	{
+		return TRANSITION_INVALID_IMAGE;
+	}
+	
+	// Check the Header_2 checksum
+	recalculatedChecksum = calculate_crc(&cbxHeader, sizeof(cbxHeader) - 1);
+	if (recalculatedChecksum != cbxHeader.crc8)
+	{
+		print_dbg("Failed to verify CBX header checksum. Download a valid CBX image in DataFlash >>>");
+		print_dbg("\r\n");
+		return TRANSITION_INVALID_IMAGE;
+	}
+
+	// Print only when image is valid
 	memset(signature, 0, sizeof(signature));
 	memcpy(signature, cbxHeader.eSignature, sizeof(cbxHeader.eSignature));
 	print_dbg("\r\n");
@@ -93,38 +126,8 @@ bool ReadCbxHeader (void)
 	print_dbg_hex(cbxHeader.eCRC32.u32);
 	print_dbg("; App Signature=");
 	print_dbg(signature);
-	print_dbg("; Checksum=0x");
-	print_dbg_hex(cbxHeader.crc8);
 	print_dbg("\r\n");
 	
-	return true;
-}
-
-// Check the downloaded CBX contents in DataFlash
-transition_t CheckDownloadedImage (void)
-{
-	uint8_t recalculatedChecksum;
-	uint8_t pageBuffer[DF_PAGE_SIZE];
-	df_error_code_t df_status;
-
-	print_dbg("Checking downloaded image in DataFlash\r\n");
-
-	// Load the CBX header
-	if (!ReadCbxHeader())
-	{
-		return TRANSITION_INVALID_IMAGE;
-	}
-	
-	// Check the Header_2 checksum
-	print_dbg("Recalc header checksum\r\n");
-	recalculatedChecksum = calculate_crc(&cbxHeader, sizeof(cbxHeader) - 1);
-	if (recalculatedChecksum != cbxHeader.crc8)
-	{
-		print_dbg("Failed to verify Header_2; recalc checksum=0x");
-		print_dbg_hex(recalculatedChecksum);
-		print_dbg("\r\n");
-		return TRANSITION_INVALID_IMAGE;
-	}
 	return CheckEncyptedPayloadCRC();
 }
 
@@ -182,7 +185,7 @@ transition_t CheckEncyptedPayloadCRC (void)
 	print_dbg("\r\n");
 	if (recalculatedCRC32 == cbxHeader.eCRC32.u32)
 	{
-		print_dbg("Valid encrypted payload in DataFlash\r\n");
+		print_dbg("Verified encrypted payload in DataFlash\r\n");
 		return TRANSITION_VALID_IMAGE;
 	}
 	else
@@ -199,10 +202,11 @@ transition_t CheckEncyptedPayloadCRC (void)
 // Bootloading error
 void BootloadingError (void)
 {
+	print_dbg("???Bootloader in error state");
 	while (true) {
 		gpio_tgl_gpio_pin(AVR32_PIN_PA02);
-		cpu_delay_ms(20, sysclk_get_cpu_hz());
+		cpu_delay_ms(25, sysclk_get_cpu_hz());
 		gpio_tgl_gpio_pin(AVR32_PIN_PA02);
-		cpu_delay_ms(980, sysclk_get_cpu_hz());
+		cpu_delay_ms(25, sysclk_get_cpu_hz());
 	}
 }
