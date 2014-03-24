@@ -50,6 +50,8 @@ int main (void)
 	DEFINE_TEST_ARRAY(check_image_tests) =
 	{
 		&check_valid_image,
+		&check_invalid_image_header,
+		&check_invalid_image_payload,
 	};
 
 	// Define the test suite.

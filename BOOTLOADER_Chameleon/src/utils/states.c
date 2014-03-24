@@ -82,7 +82,8 @@ bool ReadCbxHeader (void)
 	// Read and print the header
 	memset(signature, 0, sizeof(signature));
 	memcpy(signature, cbxHeader.eSignature, sizeof(cbxHeader.eSignature));
-	print_dbg("Version=");
+	print_dbg("\r\n");
+	print_dbg("CBX Version=");
 	print_dbg_ulong(cbxHeader.majorVer);
 	print_dbg_char('.');
 	print_dbg_ulong(cbxHeader.minorVer);
@@ -92,6 +93,8 @@ bool ReadCbxHeader (void)
 	print_dbg_hex(cbxHeader.eCRC32.u32);
 	print_dbg("; App Signature=");
 	print_dbg(signature);
+	print_dbg("; Checksum=0x");
+	print_dbg_hex(cbxHeader.crc8);
 	print_dbg("\r\n");
 	
 	return true;
@@ -117,7 +120,9 @@ transition_t CheckDownloadedImage (void)
 	recalculatedChecksum = calculate_crc(&cbxHeader, sizeof(cbxHeader) - 1);
 	if (recalculatedChecksum != cbxHeader.crc8)
 	{
-		print_dbg("Failed to verify Header_2 checksum\r\n");
+		print_dbg("Failed to verify Header_2; recalc checksum=0x");
+		print_dbg_hex(recalculatedChecksum);
+		print_dbg("\r\n");
 		return TRANSITION_INVALID_IMAGE;
 	}
 	return CheckEncyptedPayloadCRC();
