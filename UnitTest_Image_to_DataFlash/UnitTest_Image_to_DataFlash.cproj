@@ -128,7 +128,7 @@
         <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
         <avr32gcc.compiler.symbols.DefSymbols>
           <ListValues>
-            <Value>BOARD=UC3C_EK</Value>
+            <Value>BOARD=NUTMEG_BOARD</Value>
             <Value>TEST_SUITE_DEFINE_ASSERT_MACRO</Value>
             <Value>_ASSERT_ENABLE_</Value>
           </ListValues>
@@ -179,7 +179,7 @@
             <Value>../src/ASF/common/utils</Value>
           </ListValues>
         </avr32gcc.assembler.general.IncludePaths>
-        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=UC3C_EK -DTEST_SUITE_DEFINE_ASSERT_MACRO -D_ASSERT_ENABLE_</avr32gcc.preprocessingassembler.general.AssemblerFlags>
+        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=NUTMEG_BOARD -DTEST_SUITE_DEFINE_ASSERT_MACRO -D_ASSERT_ENABLE_</avr32gcc.preprocessingassembler.general.AssemblerFlags>
         <avr32gcc.preprocessingassembler.general.IncludePaths>
           <ListValues>
             <Value>../src</Value>
