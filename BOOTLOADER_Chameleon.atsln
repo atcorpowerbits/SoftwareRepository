@@ -23,11 +23,9 @@ Global
 		{BF37F5AD-ED84-46AC-9562-9C0A483C5EA8}.Debug|AVR.ActiveCfg = Debug|AVR
 		{BF37F5AD-ED84-46AC-9562-9C0A483C5EA8}.Debug|AVR.Build.0 = Debug|AVR
 		{BF37F5AD-ED84-46AC-9562-9C0A483C5EA8}.Release|AVR.ActiveCfg = Release|AVR
-		{BF37F5AD-ED84-46AC-9562-9C0A483C5EA8}.Release|AVR.Build.0 = Release|AVR
 		{36BBF6AA-0622-4B72-A99B-C63FA3AAB3AB}.Debug|AVR.ActiveCfg = Debug|AVR
 		{36BBF6AA-0622-4B72-A99B-C63FA3AAB3AB}.Debug|AVR.Build.0 = Debug|AVR
 		{36BBF6AA-0622-4B72-A99B-C63FA3AAB3AB}.Release|AVR.ActiveCfg = Release|AVR
-		{36BBF6AA-0622-4B72-A99B-C63FA3AAB3AB}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
