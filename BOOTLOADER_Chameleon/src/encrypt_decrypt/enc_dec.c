@@ -11,7 +11,6 @@
 
 #include <string.h>
 #include "enc_dec.h"
-#include "print_funcs.h"
 
 #define KEY_STRING		(char*)("This is a test key string")
 
@@ -36,13 +35,12 @@ void init_enc_dec_with_key(void)
  * \brief Decrypt encrypted data by ENC_DEC_BLOCK_SIZE.
  * \return boolean successful or not.
  */
-bool decrypt(const unsigned char *encrypted_data, unsigned char *decrypted_data)
+bool decrypt(unsigned char *encrypted_data, unsigned char *decrypted_data)
 {
 	unsigned long ldata[ENC_DEC_DATA_SIZE];
 	
 	if (!encrypted_data || !decrypted_data)
 	{
-		print_dbg("Error on decrypt(): Invalid parameters.\r\n");
 		return false;
 	}
 	

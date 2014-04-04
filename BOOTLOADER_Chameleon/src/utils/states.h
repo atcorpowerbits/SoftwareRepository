@@ -13,6 +13,7 @@
 #define STATES_H_
 
 #include <gpio.h>
+#include "encrypt_decrypt/enc_dec.h"
 
 #define CBX_ESIGNATURE_LEN	7
 #define CBX_START_PAGE		20480 // skip the first 1MB in CBP DataFlash to avoid heavy use of the first 1MB in CBP DataFlash
@@ -46,6 +47,16 @@ typedef struct
 	uint8_t crc8;
 } cbxHeader_t;
 
+// CBP Firmware (original) binary image header
+typedef struct
+{
+	Union32 Spare1;
+	Union32 Start_Offset;
+	Union32 bSize;
+	Union32 bCRC32;
+	uint8_t bSignature[SIGNATURE_LEN_CBP_IMAGE];
+}bin_image_header_t;
+
 // Commence ISP
 void DoISP (transition_t nextTransition);
 
@@ -54,13 +65,19 @@ transition_t CheckDownloadedImage (void);
 transition_t CheckEncyptedPayloadCRC (void);
 bool ReadCbxHeader (void);
 
-//// Decrypt and Program the new CBP Image in MCU
-//int8_t DecryptAndProgramImage (void);
-//
+// Decrypt and Program the new CBP Image in MCU
+transition_t DecryptAndProgramImage (void);
+
 
 // Bootloading error
 void BootloadingError (void);
 
 cbxHeader_t * GetCbxHeader (void);
+
+bool CheckCbpBinaryImage(void);
+bool ProgramAndVerifyMCU(void);
+bool EraseMcuFlash(void);
+void WriteToMcuFlash(const unsigned char *data, const uint32_t data_size, const uint32_t mcu_position);
+bool CheckMcuFlash(void);
 
 #endif /* STATES_H_ */
