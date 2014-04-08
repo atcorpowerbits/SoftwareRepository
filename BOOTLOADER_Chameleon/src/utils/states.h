@@ -73,6 +73,7 @@ transition_t DecryptAndProgramImage (void);
 void BootloadingError (void);
 
 cbxHeader_t * GetCbxHeader (void);
+bin_image_header_t *GetCbpBinHeader(void);
 
 bool CheckCbpBinaryImage(void);
 bool ProgramAndVerifyMCU(void);

@@ -44,6 +44,11 @@ cbxHeader_t * GetCbxHeader (void)
 	return &cbxHeader; 
 }
 
+bin_image_header_t *GetCbpBinHeader(void)
+{
+	return &bin_header;
+}
+
 // Commence ISP
 void DoISP (transition_t nextTransition)
 {
@@ -265,6 +270,7 @@ bool CheckCbpBinaryImage(void)
 	uint16_t sizeToRead;
 	df_error_code_t df_status;
 	uint32_t recalculatedCRC32 = 0;
+	volatile uint32_t paddingSize = 0;
 	
 	cbxContentSize = cbxHeader.eSize.u32 + sizeof(cbxHeader_t);
 	contentIndex = 0;
@@ -330,7 +336,8 @@ bool CheckCbpBinaryImage(void)
 			cbp_image_start_address = bin_header.Start_Offset.u32;
 			
 			mcu_max_rw_count = bin_header.bSize.u32 % MCU_READ_WRITE_SIZE;
-			if (mcu_max_rw_count > 0)
+			paddingSize = bin_header.bSize.u32 % ENC_DEC_BLOCK_SIZE;
+			if (mcu_max_rw_count > 0 || paddingSize > 0)
 			{
 				mcu_max_rw_count = (bin_header.bSize.u32 / MCU_READ_WRITE_SIZE) + 1;
 			}
@@ -390,7 +397,7 @@ bool CheckCbpBinaryImage(void)
 	
 	if (recalculatedCRC32 != bin_header.bCRC32.u32)
 	{
-		print_dbg("Failed to verify CBP binary image CRC.\r\n");
+		print_dbg("Failed to verify CBP binary image CRC from DataFlash.\r\n");
 		return false;
 	}
 	
@@ -495,7 +502,7 @@ bool ProgramAndVerifyMCU(void)
 	// Read written data from MCU flash and validate by recalculating crc32.
 	if (!CheckMcuFlash())
 	{
-		print_dbg("Failed to validate MCU application Flash.\r\n");
+		print_dbg("Failed to verify CBP binary image CRC from MCU Flash.\r\n");
 		return false;
 	}
 	
@@ -508,19 +515,6 @@ bool ProgramAndVerifyMCU(void)
  */
 bool EraseMcuFlash(void)
 {
-	// Unlock MCU application flash.
-	for (unsigned int i = flashc_get_page_region(PROGRAM_START_PAGE); i < AVR32_FLASHC_REGIONS; i++)
-	{
-		flashc_lock_region(i, false);
-		if (flashc_is_region_locked(i))
-		{
-			print_dbg("Unlock failed at i=0x");
-			print_dbg_hex(i);
-			print_dbg("\r\n");
-			return false;
-		}
-	}
-	
 	// Erase and verify MCU application flash.
 	for (unsigned int i = flashc_get_page_count() - 1; i >= PROGRAM_START_PAGE; i--)
 	{
