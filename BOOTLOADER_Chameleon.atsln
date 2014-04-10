@@ -10,6 +10,11 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UnitTest_Image_to_DataFlash
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UnitTest_CheckDownloadedImage", "UnitTest_CheckDownloadedImage\UnitTest_CheckDownloadedImage.cproj", "{36BBF6AA-0622-4B72-A99B-C63FA3AAB3AB}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UnitTest_DecryptProgram", "UnitTest_DecryptProgram\UnitTest_DecryptProgram.cproj", "{8936F4C6-F2E7-4B26-8BBA-10F74A3B2BC6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BF37F5AD-ED84-46AC-9562-9C0A483C5EA8} = {BF37F5AD-ED84-46AC-9562-9C0A483C5EA8}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -26,6 +31,10 @@ Global
 		{36BBF6AA-0622-4B72-A99B-C63FA3AAB3AB}.Debug|AVR.ActiveCfg = Debug|AVR
 		{36BBF6AA-0622-4B72-A99B-C63FA3AAB3AB}.Debug|AVR.Build.0 = Debug|AVR
 		{36BBF6AA-0622-4B72-A99B-C63FA3AAB3AB}.Release|AVR.ActiveCfg = Release|AVR
+		{8936F4C6-F2E7-4B26-8BBA-10F74A3B2BC6}.Debug|AVR.ActiveCfg = Debug|AVR
+		{8936F4C6-F2E7-4B26-8BBA-10F74A3B2BC6}.Debug|AVR.Build.0 = Debug|AVR
+		{8936F4C6-F2E7-4B26-8BBA-10F74A3B2BC6}.Release|AVR.ActiveCfg = Release|AVR
+		{8936F4C6-F2E7-4B26-8BBA-10F74A3B2BC6}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

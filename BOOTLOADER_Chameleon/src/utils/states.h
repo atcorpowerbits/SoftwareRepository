@@ -81,4 +81,6 @@ bool EraseMcuFlash(void);
 void WriteToMcuFlash(const unsigned char *data, const uint32_t data_size, const uint32_t mcu_position);
 bool CheckMcuFlash(void);
 
+void SetCbpStartAddress(const uint32_t address);
+
 #endif /* STATES_H_ */

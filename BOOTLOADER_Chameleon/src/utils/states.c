@@ -586,3 +586,12 @@ bool CheckMcuFlash(void)
 		return false;
 	}
 }
+
+/**
+ * \brief Set CBP image start address in MCU Flash.
+ * This method is for UnitTest_DecryptProgram.
+ */
+void SetCbpStartAddress(const uint32_t address)
+{
+	cbp_image_start_address = address;
+}
