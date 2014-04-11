@@ -440,6 +440,7 @@ bool ProgramAndVerifyMCU(void)
 	
 	// Clean up page buffer before start any writing to MCU.
 	flashc_clear_page_buffer();
+	cpu_delay_ms(5, sysclk_get_cpu_hz());
 	
 	print_dbg("Start writing to MCU application flash.\r\n");
 	while (contentIndex < cbxContentSize)
@@ -548,6 +549,7 @@ void WriteToMcuFlash(const unsigned char *data, const uint32_t data_size, const 
 		mcu_page_count++;
 		flashc_write_page(-1);
 		flashc_clear_page_buffer();
+		cpu_delay_ms(5, sysclk_get_cpu_hz());
 	}
 	// If the last page is partial and it meets the last page, it should write partial data of the last page.
 	else if ((mcu_last_page_partial_data_size > 0) && (mcu_page_count == mcu_last_page_for_cbp_image - 1) && (mcu_written_count >= mcu_last_page_partial_data_size))
