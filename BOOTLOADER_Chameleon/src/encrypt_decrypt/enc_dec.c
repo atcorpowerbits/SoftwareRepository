@@ -35,7 +35,7 @@ void init_enc_dec_with_key(void)
  * \brief Decrypt encrypted data by ENC_DEC_BLOCK_SIZE.
  * \return boolean successful or not.
  */
-bool decrypt(unsigned char *encrypted_data, unsigned char *decrypted_data)
+bool decrypt(unsigned char *encrypted_data, unsigned char *decrypted_data, const bool first_use_cbc)
 {
 	unsigned long ldata[ENC_DEC_DATA_SIZE];
 	
@@ -46,7 +46,14 @@ bool decrypt(unsigned char *encrypted_data, unsigned char *decrypted_data)
 	
 	memset(ldata, 0, ENC_DEC_DATA_SIZE);
 	getl(encrypted_data, ldata);
-	blf_dec(ldata, 1);
+	if (first_use_cbc)
+	{
+		blf_cbc_initial_dec(ldata, iv);
+	}
+	else
+	{
+		blf_cbc_continue_dec(ldata);
+	}
 	getb(ldata, decrypted_data);
 	
 	return true;

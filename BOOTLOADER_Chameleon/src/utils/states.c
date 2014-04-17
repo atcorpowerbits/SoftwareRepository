@@ -86,7 +86,7 @@ void DoISP (transition_t nextTransition)
 // Read the CBX header
 bool ReadCbxHeader (void)
 {
-	uint8_t pageBuffer[DF_PAGE_SIZE];
+	static uint8_t pageBuffer[DF_PAGE_SIZE];
 	df_error_code_t df_status;
 
 	df_status = df_read_page(CBX_START_PAGE, pageBuffer, DF_PAGE_SIZE);
@@ -113,12 +113,28 @@ transition_t CheckDownloadedImage (void)
 	uint8_t pageBuffer[DF_PAGE_SIZE];
 	uint8_t signature[CBX_ESIGNATURE_LEN + 1];
 	df_error_code_t df_status;
+	int32_t cbp_image_size = 0;
 
 	print_dbg("Checking downloaded image in DataFlash\r\n");
 
 	// Load the CBX header
 	if (!ReadCbxHeader())
 	{
+		return TRANSITION_INVALID_IMAGE;
+	}
+	
+	// Check CBP image size.
+	cbp_image_size = cbxHeader.eSize.u32 - sizeof(cbxHeader_t) - sizeof(bin_image_header_t);
+	if (cbp_image_size <= 0 || cbp_image_size > MAX_MCU_SIZE_FOR_CBP_IMAGE)
+	{
+		print_dbg("Failed to verify CBP image size to fit in MCU Flash.\r\n");
+		return TRANSITION_INVALID_IMAGE;
+	}
+	
+	// Check signature in CBX header.
+	if (memcmp(&cbxHeader.eSignature, SIGNATURE_CBX_IMAGE, CBX_ESIGNATURE_LEN) != 0)
+	{
+		print_dbg("Failed to verify the signature of CBX header.\r\n");
 		return TRANSITION_INVALID_IMAGE;
 	}
 	
@@ -264,7 +280,7 @@ bool CheckCbpBinaryImage(void)
 	uint8_t pageBuffer[DF_PAGE_SIZE];
 	uint32_t contentIndex;
 	uint32_t cbxContentSize; // including Header_2
-	uint16_t pageIndex;
+	volatile uint16_t pageIndex;
 	uint16_t blockIndex;
 	uint16_t pageNumber;
 	uint16_t sizeToRead;
@@ -310,7 +326,7 @@ bool CheckCbpBinaryImage(void)
 			
 			// Decrypt Spare1, Start_Offset in header.
 			memcpy(enc_buffer, &pageBuffer[pageIndex], ENC_DEC_BLOCK_SIZE);
-			if (!decrypt(enc_buffer, dec_buffer))
+			if (!decrypt(enc_buffer, dec_buffer, true))
 			{
 				print_dbg("Failed to decrypt CBP binary image header for Spare1, Start_Offset.\r\n");
 				return false;
@@ -321,7 +337,7 @@ bool CheckCbpBinaryImage(void)
 			// Decrypt bSize, bCRC32 in header.
 			pageIndex += ENC_DEC_BLOCK_SIZE;
 			memcpy(enc_buffer, &pageBuffer[pageIndex], ENC_DEC_BLOCK_SIZE);
-			if (!decrypt(enc_buffer, dec_buffer))
+			if (!decrypt(enc_buffer, dec_buffer, false))
 			{
 				print_dbg("Failed to decrypt CBP binary image header for bSize, bCRC32.\r\n");
 				return false;
@@ -359,7 +375,7 @@ bool CheckCbpBinaryImage(void)
 			// Decrypt bSignature in header.
 			pageIndex += ENC_DEC_BLOCK_SIZE;
 			memcpy(enc_buffer, &pageBuffer[pageIndex], ENC_DEC_BLOCK_SIZE);
-			if (!decrypt(enc_buffer, dec_buffer))
+			if (!decrypt(enc_buffer, dec_buffer, false))
 			{
 				print_dbg("Failed to decrypt CBP binary image header for bSignature.\r\n");
 				return false;
@@ -380,7 +396,7 @@ bool CheckCbpBinaryImage(void)
 			blockIndex++;
 			if (blockIndex == ENC_DEC_BLOCK_SIZE)
 			{
-				if (!decrypt(enc_buffer, dec_buffer))
+				if (!decrypt(enc_buffer, dec_buffer, false))
 				{
 					print_dbg("Failed to decrypt CBP binary image.\r\n");
 					return false;
@@ -421,14 +437,18 @@ bool ProgramAndVerifyMCU(void)
 	uint16_t sizeToRead;
 	df_error_code_t df_status;
 	uint32_t mcuPos = 0;
+	bool first_use_cbc = true;
+	uint16_t total_header_size = 0;
 	
+	print_dbg("\r\nStart erasing MCU application flash.\r\n");
 	if (!EraseMcuFlash())
 	{
 		print_dbg("Failed to erase MCU application flash.\r\n");
 		return false;
 	}
-	print_dbg("\r\nErased MCU application flash.\r\n");
+	print_dbg("Erased MCU application flash.\r\n");
 	
+	total_header_size = sizeof(cbxHeader_t) + sizeof(bin_image_header_t);
 	cbxContentSize = cbxHeader.eSize.u32 + sizeof(cbxHeader_t);
 	contentIndex = 0;
 	pageNumber = CBX_START_PAGE;
@@ -440,7 +460,6 @@ bool ProgramAndVerifyMCU(void)
 	
 	// Clean up page buffer before start any writing to MCU.
 	flashc_clear_page_buffer();
-	cpu_delay_ms(5, sysclk_get_cpu_hz());
 	
 	print_dbg("Start writing to MCU application flash.\r\n");
 	while (contentIndex < cbxContentSize)
@@ -467,8 +486,20 @@ bool ProgramAndVerifyMCU(void)
 		
 		if (pageNumber == CBX_START_PAGE)
 		{
-			// Skip CBX header and CBP image header.
-			pageIndex = sizeof(cbxHeader_t) + sizeof(bin_image_header_t);
+			// Skip CBX header.
+			pageIndex = sizeof(cbxHeader_t);
+			
+			for (uint16_t i = pageIndex; i < total_header_size; i += ENC_DEC_BLOCK_SIZE)
+			{
+				memcpy(enc_buffer, &pageBuffer[pageIndex], ENC_DEC_BLOCK_SIZE);
+				if (!decrypt(enc_buffer, dec_buffer, first_use_cbc))
+				{
+					print_dbg("Failed to decrypt CBP binary image header.\r\n");
+					return false;
+				}
+				pageIndex += ENC_DEC_BLOCK_SIZE;
+				first_use_cbc = false;
+			}
 		}
 		
 		for (uint16_t i = pageIndex; i < sizeToRead; i++)
@@ -478,7 +509,7 @@ bool ProgramAndVerifyMCU(void)
 			if (blockIndex == ENC_DEC_BLOCK_SIZE)
 			{
 				memset(dec_buffer, 0, ENC_DEC_BLOCK_SIZE);
-				if (!decrypt(enc_buffer, dec_buffer))
+				if (!decrypt(enc_buffer, dec_buffer, false))
 				{
 					print_dbg("Failed to decrypt CBP binary image.\r\n");
 					return false;
@@ -549,7 +580,6 @@ void WriteToMcuFlash(const unsigned char *data, const uint32_t data_size, const 
 		mcu_page_count++;
 		flashc_write_page(-1);
 		flashc_clear_page_buffer();
-		cpu_delay_ms(5, sysclk_get_cpu_hz());
 	}
 	// If the last page is partial and it meets the last page, it should write partial data of the last page.
 	else if ((mcu_last_page_partial_data_size > 0) && (mcu_page_count == mcu_last_page_for_cbp_image - 1) && (mcu_written_count >= mcu_last_page_partial_data_size))

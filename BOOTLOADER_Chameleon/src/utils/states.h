@@ -21,6 +21,9 @@
 // Use AWO as a heart beat
 #define CBP_AWO_PIN	AVR32_PIN_PA02
 
+// Max MCU size for CBP image
+#define MAX_MCU_SIZE_FOR_CBP_IMAGE		(0x00080000 - PROGRAM_START_OFFSET)
+
 // State tansition triggers
 typedef enum
 {

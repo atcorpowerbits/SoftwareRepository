@@ -42,13 +42,7 @@ void general_cleanup(const struct test_case *test)
  */
 void run_CheckCbpBinaryImage_test(const struct test_case *test)
 {
-	bin_image_header_t *bin_header;
 	bool actual = false;
-	uint32_t start_address = 0;
-	uint32_t expected_crc32 = 0x08fcea4d;
-	uint32_t expected_size = 0x00015304;
-	uint32_t expected_offset = PROGRAM_START_ADDRESS;
-	uint32_t expected_spare1 = 0x0;
 	
 	init_enc_dec_with_key();
 	actual = ReadCbxHeader();
@@ -56,14 +50,6 @@ void run_CheckCbpBinaryImage_test(const struct test_case *test)
 	
 	actual = CheckCbpBinaryImage();
 	test_assert_true(test, actual, "Failed to check CBP binary image from DataFlash.\r\n");
-	
-	bin_header = GetCbpBinHeader();
-	test_assert_true(test, (bin_header->bCRC32.u32 == expected_crc32), "Failed to validate bCRC32.\r\n");
-	test_assert_true(test, (bin_header->bSize.u32 == expected_size), "Failed to validate bSize.\r\n");
-	test_assert_true(test, (bin_header->Start_Offset.u32 == expected_offset), "Failed to validate Start_Offset.\r\n");
-	test_assert_true(test, (bin_header->Spare1.u32 == expected_spare1), "Failed to validate Spare1.\r\n");
-	actual = (memcmp(bin_header->bSignature, SIGNATURE_CBP_IMAGE, SIGNATURE_LEN_CBP_IMAGE) == 0);
-	test_assert_true(test, actual, "Failed to validate bSignature.\r\n");
 }
 
 /**

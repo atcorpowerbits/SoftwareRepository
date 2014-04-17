@@ -14,8 +14,11 @@
 
 #define MAXKEYBYTES 56          /* 448 bits */
 #define little_endian 1              /* Eg: Intel */
+#define INITIALIZATION_VECTOR_SIZE	2
 
-short opensubkeyfile(void);
+// The cipher-block chaining (CBC) mode requires typical random initialization vector (IV).
+extern unsigned long iv[INITIALIZATION_VECTOR_SIZE];
+
 unsigned long F(unsigned long x);
 void Blowfish_encipher(unsigned long *xl, unsigned long *xr);
 void Blowfish_decipher(unsigned long *xl, unsigned long *xr);

@@ -19,11 +19,12 @@
 #define ENC_DEC_DATA_SIZE		2
 #define SIGNATURE_LEN_CBP_IMAGE 8
 #define SIGNATURE_CBP_IMAGE		(char*)("Chamleon")
+#define SIGNATURE_CBX_IMAGE		(char*)("abpmCBP")
 
 extern unsigned char key[MAXKEYBYTES];
 extern unsigned int key_length;
 
 extern void init_enc_dec_with_key(void);
-extern bool decrypt(unsigned char *encrypted_data, unsigned char *decrypted_data);
+extern bool decrypt(unsigned char *encrypted_data, unsigned char *decrypted_data, const bool first_use_cbc);
 
 #endif /* ENC_DEC_H_ */
