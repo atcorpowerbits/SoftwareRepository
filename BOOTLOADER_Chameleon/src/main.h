@@ -42,6 +42,10 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
+// Define major and minor version numbers of the Bootloader
+#define BOOTLOADER_VER_MAJOR 0
+#define BOOTLOADER_VER_MINOR 1
+
 #define DF_PAGE_SIZE 264
 
 /*! \brief Called when Vbus line state change
