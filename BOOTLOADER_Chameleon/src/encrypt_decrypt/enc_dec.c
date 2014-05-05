@@ -24,6 +24,10 @@ void init_enc_dec_with_key(void)
 {
 	// Prepare key and length.
 	key_length = strlen(KEY_STRING);
+	if (key_length > MAXKEYBYTES)
+	{
+		key_length = MAXKEYBYTES;
+	}
 	memset(key, 0, MAXKEYBYTES);
 	memcpy(key, KEY_STRING, key_length);
 	

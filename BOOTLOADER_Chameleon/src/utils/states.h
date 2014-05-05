@@ -22,7 +22,10 @@
 #define CBP_AWO_PIN	AVR32_PIN_PA02
 
 // Max MCU size for CBP image
-#define MAX_MCU_SIZE_FOR_CBP_IMAGE		(0x00080000 - PROGRAM_START_OFFSET)
+#define MAX_MCU_SIZE_FOR_CBP_IMAGE		(AVR32_FLASHC_FLASH_SIZE - PROGRAM_START_OFFSET)
+
+// MCU read/write size
+#define MCU_READ_WRITE_SIZE	(uint32_t)(4)
 
 // State tansition triggers
 typedef enum
@@ -81,7 +84,7 @@ bin_image_header_t *GetCbpBinHeader(void);
 bool CheckCbpBinaryImage(void);
 bool ProgramAndVerifyMCU(void);
 bool EraseMcuFlash(void);
-void WriteToMcuFlash(const unsigned char *data, const uint32_t data_size, const uint32_t mcu_position);
+bool WriteToMcuFlash(const unsigned char *data, const uint32_t data_size, const uint32_t mcu_position);
 bool CheckMcuFlash(void);
 
 void SetCbpStartAddress(const uint32_t address);

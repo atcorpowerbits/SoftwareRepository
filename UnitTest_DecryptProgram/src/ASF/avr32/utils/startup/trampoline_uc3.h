@@ -47,6 +47,9 @@
 #define _TRAMPOLINE_UC3_H_
 
 #define PROGRAM_START_ADDRESS         (AVR32_FLASH_ADDRESS + PROGRAM_START_OFFSET)
+
+// The testing target bootloader starts from 0x00010000.
+// The below starting address of this unit test could have enough space(65280bytes) before reach bootloader starting address.
 #define PROGRAM_START_OFFSET          0x00000100
 
 #endif // _TRAMPOLINE_UC3_H_

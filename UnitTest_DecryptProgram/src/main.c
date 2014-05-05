@@ -46,15 +46,17 @@ int main (void)
 	df_interface_init();
 	
 	// WARNING: This Unit Test project requires the CBX image in DataFlash.
-	// Run UnitTest_Image_to_DataFlash first if there is no image in DataFlash.
+	// WriteToMcuFlash_PartialLastPage_test writes dummy CBX image to DataFlash, this test should be called in the beginning.
 	// Put test case addresses in an array.
 	DEFINE_TEST_ARRAY(DecryptProgram) =
 	{
+		&WriteToMcuFlash_PartialLastPage_test,
 		&CheckCbpBinaryImage_test,
 		&EraseMcuFlash_test,
 		&WriteToMcuFlash_test,
 		&ProgramAndVerifyMCU_test,
 		&CheckMcuFlash_test,
+		&Decrypt_test,
 	};
 
 	// Define the test suite.
