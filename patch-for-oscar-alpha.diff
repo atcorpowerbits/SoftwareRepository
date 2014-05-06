@@ -1,6 +1,6 @@
 Index: BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj
 ===================================================================
---- BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj	(revision 1275)
+--- BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj	(revision 1339)
 +++ BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj	(working copy)
 @@ -5,7 +5,7 @@
      <ProjectVersion>6.1</ProjectVersion>
@@ -11,7 +11,49 @@ Index: BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj
      <avrdeviceseries>uc3c</avrdeviceseries>
      <OutputType>Executable</OutputType>
      <Language>C</Language>
-@@ -204,7 +204,7 @@
+@@ -200,13 +200,13 @@
+         <avr32gcc.common.outputfiles.hex>True</avr32gcc.common.outputfiles.hex>
+         <avr32gcc.common.outputfiles.lss>True</avr32gcc.common.outputfiles.lss>
+         <avr32gcc.common.outputfiles.eep>True</avr32gcc.common.outputfiles.eep>
+-        <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
+-        <avr32gcc.compiler.symbols.DefSymbols>
+-          <ListValues>
+-            <Value>BOARD=NUTMEG_BOARD</Value>
+-            <Value>_NEW_DATAFLASH</Value>
+-          </ListValues>
+-        </avr32gcc.compiler.symbols.DefSymbols>
++  <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
++  <avr32gcc.compiler.symbols.DefSymbols>
++    <ListValues>
++      <Value>BOARD=OSCAR_ALPHA</Value>
++      <Value>_NEW_DATAFLASH</Value>
++    </ListValues>
++  </avr32gcc.compiler.symbols.DefSymbols>
+         <avr32gcc.compiler.directories.IncludePaths>
+           <ListValues>
+             <Value>../src/asf/common/services/usb/class/dfu_flip/device/bootloader/avr32/intc</Value>
+@@ -295,13 +295,13 @@
+             <Value>../src/ASF/avr32/utils/debug</Value>
+             <Value>../src/ASF/avr32/drivers/wdt</Value>
+             <Value>../src/ASF/common/services/delay</Value>
+-            <Value>../src/ASF/avr32/drivers/spi</Value>
+-          </ListValues>
+-        </avr32gcc.assembler.general.IncludePaths>
+-        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=NUTMEG_BOARD -mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
+-        <avr32gcc.preprocessingassembler.general.IncludePaths>
+-          <ListValues>
+-            <Value>../src/asf/common/services/usb/class/dfu_flip/device/bootloader/avr32/intc</Value>
++      <Value>../src/ASF/avr32/drivers/spi</Value>
++    </ListValues>
++  </avr32gcc.assembler.general.IncludePaths>
++  <avr32gcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=OSCAR_BOARD -mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
++  <avr32gcc.preprocessingassembler.general.IncludePaths>
++    <ListValues>
++      <Value>../src/asf/common/services/usb/class/dfu_flip/device/bootloader/avr32/intc</Value>
+             <Value>../src/asf/common/services/isp/flip/uc3</Value>
+             <Value>../src/asf/avr32/drivers/ast</Value>
+             <Value>../src/asf/common/services/usb/class/dfu_flip/device/bootloader/avr32</Value>
+@@ -347,7 +347,7 @@
    <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
    <avr32gcc.compiler.symbols.DefSymbols>
      <ListValues>
@@ -20,36 +62,30 @@ Index: BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj
        <Value>_NEW_DATAFLASH</Value>
      </ListValues>
    </avr32gcc.compiler.symbols.DefSymbols>
-@@ -299,7 +299,7 @@
+@@ -443,13 +443,13 @@
+       <Value>../src/ASF/avr32/drivers/wdt</Value>
+       <Value>../src/ASF/common/services/delay</Value>
        <Value>../src/ASF/avr32/drivers/spi</Value>
-     </ListValues>
-   </avr32gcc.assembler.general.IncludePaths>
--  <avr32gcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=NUTMEG_BOARD -mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
-+  <avr32gcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=OSCAR_BOARD -mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
-   <avr32gcc.preprocessingassembler.general.IncludePaths>
-     <ListValues>
-       <Value>../src/asf/common/services/usb/class/dfu_flip/device/bootloader/avr32/intc</Value>
-@@ -349,7 +349,7 @@
-         <avr32gcc.compiler.symbols.DefSymbols>
-           <ListValues>
-             <Value>_NEW_DATAFLASH</Value>
--            <Value>BOARD=NUTMEG_BOARD</Value>
-+            <Value>BOARD=OSCAR_ALPHA</Value>
-           </ListValues>
-         </avr32gcc.compiler.symbols.DefSymbols>
-         <avr32gcc.compiler.directories.IncludePaths>
-@@ -447,7 +447,7 @@
-           </ListValues>
-         </avr32gcc.assembler.general.IncludePaths>
-         <avr32gcc.assembler.debugging.DebugLevel>Default (-g)</avr32gcc.assembler.debugging.DebugLevel>
--        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=NUTMEG_BOARD -DUDD_ENABLE -mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
+-    </ListValues>
+-  </avr32gcc.assembler.general.IncludePaths>
+-  <avr32gcc.assembler.debugging.DebugLevel>Default (-g)</avr32gcc.assembler.debugging.DebugLevel>
+-  <avr32gcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=NUTMEG_BOARD -DUDD_ENABLE -mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
+-  <avr32gcc.preprocessingassembler.general.IncludePaths>
+-    <ListValues>
+-      <Value>../src/asf/common/services/usb/class/dfu_flip/device/bootloader/avr32/intc</Value>
++          </ListValues>
++        </avr32gcc.assembler.general.IncludePaths>
++        <avr32gcc.assembler.debugging.DebugLevel>Default (-g)</avr32gcc.assembler.debugging.DebugLevel>
 +        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-DBOARD=OSCAR_ALPHA -DUDD_ENABLE -mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
-         <avr32gcc.preprocessingassembler.general.IncludePaths>
-           <ListValues>
-             <Value>../src/asf/common/services/usb/class/dfu_flip/device/bootloader/avr32/intc</Value>
++        <avr32gcc.preprocessingassembler.general.IncludePaths>
++          <ListValues>
++            <Value>../src/asf/common/services/usb/class/dfu_flip/device/bootloader/avr32/intc</Value>
+       <Value>../src/asf/common/services/isp/flip/uc3</Value>
+       <Value>../src/asf/avr32/drivers/ast</Value>
+       <Value>../src/asf/common/services/usb/class/dfu_flip/device/bootloader/avr32</Value>
 Index: UnitTest_CheckDownloadedImage/UnitTest_CheckDownloadedImage.cproj
 ===================================================================
---- UnitTest_CheckDownloadedImage/UnitTest_CheckDownloadedImage.cproj	(revision 1275)
+--- UnitTest_CheckDownloadedImage/UnitTest_CheckDownloadedImage.cproj	(revision 1339)
 +++ UnitTest_CheckDownloadedImage/UnitTest_CheckDownloadedImage.cproj	(working copy)
 @@ -67,7 +67,7 @@
          <board id="board.uc3c_ek" value="Add" config="" content-id="Atmel.ASF" />
@@ -99,9 +135,52 @@ Index: UnitTest_CheckDownloadedImage/UnitTest_CheckDownloadedImage.cproj
    <avr32gcc.preprocessingassembler.general.IncludePaths>
      <ListValues>
        <Value>../src</Value>
+Index: UnitTest_DecryptProgram/UnitTest_DecryptProgram.cproj
+===================================================================
+--- UnitTest_DecryptProgram/UnitTest_DecryptProgram.cproj	(revision 1339)
++++ UnitTest_DecryptProgram/UnitTest_DecryptProgram.cproj	(working copy)
+@@ -128,9 +128,10 @@
+         <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
+         <avr32gcc.compiler.symbols.DefSymbols>
+           <ListValues>
+-            <Value>BOARD=NUTMEG_BOARD</Value>
++            <Value>BOARD=OSCAR_ALPHA</Value>
+             <Value>TEST_SUITE_DEFINE_ASSERT_MACRO</Value>
+             <Value>_ASSERT_ENABLE_</Value>
++            <Value>_NEW_DATAFLASH</Value>
+           </ListValues>
+         </avr32gcc.compiler.symbols.DefSymbols>
+         <avr32gcc.compiler.directories.IncludePaths>
+@@ -179,7 +180,7 @@
+             <Value>../src/ASF/common/utils</Value>
+           </ListValues>
+         </avr32gcc.assembler.general.IncludePaths>
+-        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=NUTMEG_BOARD -DTEST_SUITE_DEFINE_ASSERT_MACRO -D_ASSERT_ENABLE_</avr32gcc.preprocessingassembler.general.AssemblerFlags>
++        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=OSCAR_ALPHA -DTEST_SUITE_DEFINE_ASSERT_MACRO -D_ASSERT_ENABLE_</avr32gcc.preprocessingassembler.general.AssemblerFlags>
+         <avr32gcc.preprocessingassembler.general.IncludePaths>
+           <ListValues>
+             <Value>../src</Value>
+@@ -212,7 +213,7 @@
+   <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
+   <avr32gcc.compiler.symbols.DefSymbols>
+     <ListValues>
+-      <Value>BOARD=NUTMEG_BOARD</Value>
++      <Value>BOARD=OSCAR_ALPHA</Value>
+       <Value>TEST_SUITE_DEFINE_ASSERT_MACRO</Value>
+       <Value>_ASSERT_ENABLE_</Value>
+       <Value>_NEW_DATAFLASH</Value>
+@@ -301,7 +302,7 @@
+       <Value>../../BOOTLOADER_Chameleon/src/encrypt_decrypt</Value>
+     </ListValues>
+   </avr32gcc.assembler.general.IncludePaths>
+-  <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=NUTMEG_BOARD -DTEST_SUITE_DEFINE_ASSERT_MACRO -D_ASSERT_ENABLE_</avr32gcc.preprocessingassembler.general.AssemblerFlags>
++  <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=OSCAR_ALPHA -DTEST_SUITE_DEFINE_ASSERT_MACRO -D_ASSERT_ENABLE_</avr32gcc.preprocessingassembler.general.AssemblerFlags>
+   <avr32gcc.preprocessingassembler.general.IncludePaths>
+     <ListValues>
+       <Value>../src</Value>
 Index: UnitTest_Image_to_DataFlash/UnitTest_Image_to_DataFlash.cproj
 ===================================================================
---- UnitTest_Image_to_DataFlash/UnitTest_Image_to_DataFlash.cproj	(revision 1275)
+--- UnitTest_Image_to_DataFlash/UnitTest_Image_to_DataFlash.cproj	(revision 1339)
 +++ UnitTest_Image_to_DataFlash/UnitTest_Image_to_DataFlash.cproj	(working copy)
 @@ -67,7 +67,7 @@
          <board id="board.uc3c_ek" value="Add" config="" content-id="Atmel.ASF" />
