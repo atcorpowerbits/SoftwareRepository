@@ -27,7 +27,7 @@
 // MCU read/write size
 #define MCU_READ_WRITE_SIZE	(uint32_t)(4)
 
-// State tansition triggers
+// State transition events
 typedef enum
 {
 	TRANSITION_UNKNOWN = 0,

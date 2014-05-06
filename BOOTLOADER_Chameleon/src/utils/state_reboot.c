@@ -35,6 +35,9 @@ wdt_opt_t opt = {
 	.us_timeout_period = WDT_MIN_VALUE_US  // Timeout Value
 };
 
+/**
+ * \brief Setup Watchdog to reboot MCU eventually
+ */
 void SetupWDT(void)
 {
 	// If Reset Cause is due to a Watchdog reset.
@@ -78,7 +81,10 @@ void SetupWDT(void)
 	#endif // 0
 }
 
-// Check the downloaded CBX contents in DataFlash
+/**
+ * \brief Prepare non-IPS reboot by clearing ISP_FORCE bit in User Page configuration word.
+ * \return Transition event.
+ */
 transition_t PrepareNormalReboot (void)
 {
 	U32 cWord1 = CONFIG_WORD1_VAL_JUMPTO_OP_FW;
@@ -123,7 +129,10 @@ transition_t PrepareNormalReboot (void)
 	return TRANSITION_REBOOT;
 }
 
-// Go ahead to reboot now
+/**
+ * \brief Go ahead to reboot now
+ * \return Transition event.
+ */
 transition_t RebootNow (void)
 {
 	// *** set WDT to reset MCU.

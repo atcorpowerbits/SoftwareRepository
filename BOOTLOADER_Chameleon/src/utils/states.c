@@ -38,17 +38,28 @@ volatile uint32_t mcu_last_page_for_cbp_image = 0;
 volatile uint32_t mcu_last_page_partial_data_size = 0;
 volatile uint32_t mcu_max_rw_count = 0;
 
+/**
+ * \brief Get access to CBX header (Header-2)
+ * \return Pointer to the CBX header
+ */
 cbxHeader_t * GetCbxHeader (void) 
 { 
 	return &cbxHeader; 
 }
 
+/**
+ * \brief Get access to the original binary image header (Header-1)
+ * \return Pointer to the original binary image header
+ */
 bin_image_header_t *GetCbpBinHeader(void)
 {
 	return &bin_header;
 }
 
-// Commence ISP
+/**
+ * \brief State machine for ISP process.
+ * \param[in] nextTransition Transition event to trigger a state change.
+ */
 void DoISP (transition_t nextTransition)
 {
 	while (TRANSITION_EXIT != nextTransition)
@@ -62,7 +73,9 @@ void DoISP (transition_t nextTransition)
 				nextTransition = DecryptAndProgramImage();
 			    break;
 			case TRANSITION_PROGRAMMING_PASSED:
-				// Fall through to start the new CBP Operational firmware
+				// Fall through to start the new CBP Operational firmware after it's been programmed successfully
+			case TRANSITION_INVALID_IMAGE:
+				// Fall through to restart the existing CBP Operational firmware when there is no valid image to upgrade
 			case TRANSITION_ERASE_CONFIG_REC_FAILED:
 				// If it is here, a CBP Operational firmware is available in MCU Flash to be started normally, i.e. in non-IPS mode
 			    nextTransition = PrepareNormalReboot();
@@ -70,7 +83,6 @@ void DoISP (transition_t nextTransition)
 			case TRANSITION_REBOOT:
 			    nextTransition = RebootNow();
 				break;
-			case TRANSITION_INVALID_IMAGE:
 			case TRANSITION_PROGRAMMING_FAILED:
 			case TRANSITION_REBOOT_PREP_FAILED:
 				BootloadingError();
@@ -85,7 +97,10 @@ void DoISP (transition_t nextTransition)
 	}
 }
 
-// Read the CBX header
+/**
+ * \brief Read the CBX header of the downloaded image in the DataFlash.
+ * \return boolean Successfully read or not
+ */
 bool ReadCbxHeader (void)
 {
 	// The memcpy method is not friendly in bootloader and gives unexpected operation if the data type is different.
@@ -110,7 +125,10 @@ bool ReadCbxHeader (void)
 	return true;
 }
 
-// Check the downloaded CBX contents in DataFlash
+/**
+ * \brief Check the downloaded CBX contents in DataFlash.
+ * \return Transition event.
+ */
 transition_t CheckDownloadedImage (void)
 {
 	uint8_t recalculatedChecksum;
@@ -177,7 +195,10 @@ transition_t CheckDownloadedImage (void)
 	return CheckEncyptedPayloadCRC();
 }
 
-// Verify the encrypted CBX payload in DataFlash
+/**
+ * \brief Verify the encrypted CBX payload in DataFlash.
+ * \return Transition event.
+ */
 transition_t CheckEncyptedPayloadCRC (void)
 {
 	uint32_t contentIndex;
@@ -259,7 +280,7 @@ void BootloadingError (void)
 
 /**
  * \brief Decrypt and program image.
- * \return Transition state.
+ * \return Transition event.
  */
 transition_t DecryptAndProgramImage (void)
 {
