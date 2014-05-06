@@ -54,8 +54,6 @@ void SetupWDT(void)
 	else if (AVR32_PM.RCAUSE.ext)
 	{
 		print_dbg("\tExternal reset\r\n");
-		wdt_reenable();
-		cpu_delay_ms(300,FOSC0);
 	}
 	else if (AVR32_PM.RCAUSE.jtag)
 	print_dbg("\tJtag reset\r\n");
