@@ -377,6 +377,20 @@ void df_interface_init(void)
                      sizeof(AT45DBX_SPI_GPIO_MAP) / sizeof(AT45DBX_SPI_GPIO_MAP[0]));
 }
 
+/*! \brief Enable AT45DBX DataFlash interface for unit testing purpose
+ */
+void df_interface_enable(void)
+{
+	sysclk_enable_peripheral_clock(DF_SPI_ADDRESS);
+}
+
+/*! \brief Disable AT45DBX DataFlash interface for unit testing purpose
+ */
+void df_interface_disable(void)
+{
+	sysclk_disable_peripheral_clock(DF_SPI_ADDRESS);
+}
+
 /*! \brief Read and display AT45DBX DataFlash ID
  */
 void df_display_id (void)

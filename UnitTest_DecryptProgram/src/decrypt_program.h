@@ -24,6 +24,7 @@ void run_WriteToMcuFlash_test(const struct test_case *test);
 void run_WriteToMcuFlash_PartialLastPage_test(const struct test_case *test);
 void run_CheckMcuFlash_test(const struct test_case *test);
 void run_Decrypt_test(const struct test_case *test);
+void run_EraseCbpConfigRec_test(const struct test_case *test);
 
 DEFINE_TEST_CASE(CheckCbpBinaryImage_test, NULL, run_CheckCbpBinaryImage_test, general_cleanup, "Check CBP binary image test");
 DEFINE_TEST_CASE(ProgramAndVerifyMCU_test, NULL, run_ProgramAndVerifyMCU_test, general_cleanup, "Program and verify CBP binary image test");
@@ -32,6 +33,7 @@ DEFINE_TEST_CASE(WriteToMcuFlash_test, NULL, run_WriteToMcuFlash_test, NULL, "Wr
 DEFINE_TEST_CASE(WriteToMcuFlash_PartialLastPage_test, NULL, run_WriteToMcuFlash_PartialLastPage_test, NULL, "Write partial last page to MCU Flash test");
 DEFINE_TEST_CASE(CheckMcuFlash_test, NULL, run_CheckMcuFlash_test, general_cleanup, "Check MCU Flash test");
 DEFINE_TEST_CASE(Decrypt_test, NULL, run_Decrypt_test, general_cleanup, "Decrypt test");
+DEFINE_TEST_CASE(EraseCbpConfigRec_test, NULL, run_EraseCbpConfigRec_test, NULL, "Erase CBP Config Record test");
 
 
 #endif /* DECRYPT_PROGRAM_H_ */

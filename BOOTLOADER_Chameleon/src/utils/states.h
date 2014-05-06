@@ -36,6 +36,7 @@ typedef enum
 	TRANSITION_INVALID_IMAGE,
 	TRANSITION_PROGRAMMING_PASSED,
 	TRANSITION_PROGRAMMING_FAILED,
+	TRANSITION_ERASE_CONFIG_REC_FAILED,
 	TRANSITION_REBOOT,
 	TRANSITION_REBOOT_PREP_FAILED,
 	TRANSITION_EXIT,
@@ -86,6 +87,7 @@ bool ProgramAndVerifyMCU(void);
 bool EraseMcuFlash(void);
 bool WriteToMcuFlash(const unsigned char *data, const uint32_t data_size, const uint32_t mcu_position);
 bool CheckMcuFlash(void);
+bool EraseCbpConfigRec (void);
 
 void SetCbpStartAddress(const uint32_t address);
 

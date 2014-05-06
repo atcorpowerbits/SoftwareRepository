@@ -127,6 +127,13 @@
 #define CBP_CONFIG_PAGE        (DF_MAX_PAGES - 1) // CBP config bytes are saved in the last page
 #define DF_POST_PAGE_NUMBER    (DF_MAX_PAGES - 2) // One page just before config page for POST data flash test.
 
+// SPI peripheral bus connected to the DataFlash
+#if (BOARD==OSCAR_ALPHA)
+#define DF_SPI_ADDRESS AVR32_SPI0_ADDRESS
+#else
+#define DF_SPI_ADDRESS AVR32_SPI1_ADDRESS
+#endif
+
 // DataFlash related errors
 typedef enum
 {
@@ -196,6 +203,8 @@ extern df_write_page_node * deque_df_write_page (void);
 
 extern void rw_data_flash_task (void);
 extern void df_interface_init();
+extern void df_interface_enable(void);
+extern void df_interface_disable(void);
 
 extern df_error_code_t df_read_open (uint32_t df_page_addr);
 extern df_error_code_t df_write_open (uint32_t df_page_addr);
