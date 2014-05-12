@@ -43,7 +43,7 @@ void SetupWDT(void)
 	// If Reset Cause is due to a Watchdog reset.
 	if(AVR32_PM.RCAUSE.wdt)
 	{
-		print_dbg("\watchdog reset\r\n");
+		print_dbg("\twatchdog reset\r\n");
 		
 	} // If Reset Cause is due to a Power On reset, enable Watchdog with default value
 	else if (AVR32_PM.RCAUSE.por)
@@ -56,27 +56,35 @@ void SetupWDT(void)
 		print_dbg("\tExternal reset\r\n");
 	}
 	else if (AVR32_PM.RCAUSE.jtag)
-	print_dbg("\tJtag reset\r\n");
+	{
+		print_dbg("\tJtag reset\r\n");
+	}
 	else if (AVR32_PM.RCAUSE.awire)
-	print_dbg("\tawire reset\r\n");
+	{
+		print_dbg("\tawire reset\r\n");
+	}
 	else if (AVR32_PM.RCAUSE.jtaghard)
 	{
 		print_dbg("\tjtaghard reset\r\n");
 	}
 	else if (AVR32_PM.RCAUSE.awirehard)
-	print_dbg("\tawirehard reset\r\n");
+	{
+		print_dbg("\tawirehard reset\r\n");
+	}
 	else if (AVR32_PM.RCAUSE.ocdrst)
-	print_dbg("\tocd reset\r\n");
+	{
+		print_dbg("\tocd reset\r\n");
+	}
 	else
-	print_dbg("\tOther cause reset\r\n");
+	{
+		print_dbg("\tOther cause reset\r\n");
+	}
 
-	#if 1
 	current_wdt_value = WDT_MIN_VALUE_US ;//WDT_MIN_VALUE;
 	// Save current value in GPLP register
 	pcl_write_gplp(0,current_wdt_value);
 	opt.us_timeout_period = current_wdt_value;
 	wdt_enable(&opt);
-	#endif // 0
 }
 
 /**
@@ -108,22 +116,6 @@ transition_t PrepareNormalReboot (void)
 	{
 		print_dbg("\twrite Configuration Word passed\r\n");
 	}
-	
-	// *** write fuse bits
-	#define FGPFRLO_VALUE	0xf871ffff // for 64KB (bootloader) flash protection; was 0xf875ffff for 4KB 
-	for (j=0; j<7; j++)
-	flashc_write_gp_fuse_byte(j, FGPFRLO_VALUE >> (j<<3));
-	
-	U8 aFuseByte;
-	print_dbg("\tflashc_read_gp_fuse_byte 0x");
-	for (j=0; j<7; j++)
-	{
-		aFuseByte = flashc_read_gp_fuse_byte(j);
-		print_dbg_hex(aFuseByte);
-		print_dbg(" 0x");
-	}
-	print_dbg("\r\n");
-
 	return TRANSITION_REBOOT;
 }
 

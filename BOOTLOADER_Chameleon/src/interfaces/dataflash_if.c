@@ -402,13 +402,13 @@ void df_display_id (void)
   if (df_read_id(&dfID))
   {
 	print_dbg("DF ID:0x");
-	print_dbg_hex(dfID.manufacturer_id);
+	print_dbg_char_hex(dfID.manufacturer_id);
 	print_dbg("-0x");
-	print_dbg_hex(dfID.device_id_1);
+	print_dbg_char_hex(dfID.device_id_1);
 	print_dbg("-0x");
-	print_dbg_hex(dfID.device_id_2);
+	print_dbg_char_hex(dfID.device_id_2);
 	print_dbg("-0x");
-	print_dbg_hex(dfID.ext_info_len);
+	print_dbg_char_hex(dfID.ext_info_len);
 	print_dbg("\r\n");
   }
   else

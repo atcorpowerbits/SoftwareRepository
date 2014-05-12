@@ -626,7 +626,7 @@ bool EraseMcuFlash(void)
 		if (!flashc_erase_page(i, true))
 		{
 			print_dbg("Erase failed at i=0x");
-			print_dbg_hex(i);
+			print_dbg_short_hex(i);
 			print_dbg("\r\n");
 			return false;
 		}
