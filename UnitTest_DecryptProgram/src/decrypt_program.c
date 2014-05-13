@@ -304,34 +304,3 @@ void run_Decrypt_test(const struct test_case *test)
 	actual = (memcmp(dummy_dec_buffer, dummy_exp_dec_buffer, ENC_DEC_BLOCK_SIZE) == 0);
 	test_assert_true(test, actual, "Failed to validate decrypted data with expected data.\r\n");
 }
-
-/**
- * \brief Erase CBP Config Record test.
- * \param[in] test - structure test_case
- */
-void run_EraseCbpConfigRec_test (const struct test_case *test)
-{
-	bool actual = false;
-	df_error_code_t df_status;
-	uint8_t buffer[DF_PAGE_SIZE];
-	
-	actual = EraseCbpConfigRec();
-	test_assert_true(test, actual, "Failed to erase CBP Config Record.\r\n");
-	
-	// Check if Config Record is actually erased with 0xFF's
-	memset(buffer, 0, DF_PAGE_SIZE);
-	df_status = df_read_page(CBP_CONFIG_PAGE, buffer, DF_PAGE_SIZE);
-	test_assert_true(test, DF_RW_SUCCESS == df_status, "Failed to read CBP Config Record for unit test verification\r\n");
-	for (int i = 0; i < DF_PAGE_SIZE; i++)
-	{
-		test_assert_true(test, buffer[i] == 0xFF, "Failed to verify CBP Config Record is erased\r\n");
-	}
-	
-	// Temporarily stop SPI peripheral clock to disable DataFlash interface for negative unit test on the target function.
-	df_interface_disable();
-	actual = EraseCbpConfigRec();
-	test_assert_false(test, actual, "Unable to detect failure to erase CBP Config Record.\r\n");
-	
-	// Enable DataFlash interface again
-	df_interface_enable();
-}

@@ -76,7 +76,7 @@ void DoISP (transition_t nextTransition)
 				// Fall through to start the new CBP Operational firmware after it's been programmed successfully
 			case TRANSITION_INVALID_IMAGE:
 				// Fall through to restart the existing CBP Operational firmware when there is no valid image to upgrade
-			case TRANSITION_ERASE_CONFIG_REC_FAILED:
+			case TRANSITION_PREPARE_REBOOT:
 				// If it is here, a CBP Operational firmware is available in MCU Flash to be started normally, i.e. in non-IPS mode
 			    nextTransition = PrepareNormalReboot();
 				break;
@@ -292,16 +292,6 @@ transition_t DecryptAndProgramImage (void)
 		return TRANSITION_INVALID_IMAGE;
 	}
 	
-	// Erase the old Configuration record, i.e. the last page in DataFlash
-	// used by previous CBP Operational firmware, before the existing
-	// CBP Operational firmware is erased. In case it failed to erase the old Configuration record,
-	// current CBP Operational firmware is still there to be rebooted.
-	if (!EraseCbpConfigRec())
-	{
-		print_dbg("Error: Failed to erase CBP Configuration page in DataFlash.\r\n");
-		return TRANSITION_ERASE_CONFIG_REC_FAILED;
-	}
-
 	if (!ProgramAndVerifyMCU())
 	{
 		print_dbg("Error: Failed to program CBP binary image to MCU Flash.\r\n");
@@ -715,15 +705,4 @@ bool CheckMcuFlash(void)
 void SetCbpStartAddress(const uint32_t address)
 {
 	cbp_image_start_address = address;
-}
-
-/**
- * \brief Erase configuration record of the CBP Operational firmware.
- * \return boolean successful or not.
- */
-bool EraseCbpConfigRec (void)
-{
-	df_error_code_t df_status = df_erase_page(CBP_CONFIG_PAGE);
-	
-	return (DF_RW_SUCCESS == df_status);
 }

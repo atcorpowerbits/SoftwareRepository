@@ -57,7 +57,6 @@ int main (void)
 		&ProgramAndVerifyMCU_test,
 		&CheckMcuFlash_test,
 		&Decrypt_test,
-		&EraseCbpConfigRec_test,
 	};
 
 	// Define the test suite.
