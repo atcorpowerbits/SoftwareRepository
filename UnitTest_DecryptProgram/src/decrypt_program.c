@@ -17,7 +17,10 @@
 #include <string.h>
 #include "dataflash_if.h"
 
-const unsigned char cbxContents[] =
+// The demo cbp image size used in this unit test is slightly higher than AVR32_FLASHC_PAGE_SIZE(512bytes) to
+// make the last page is partial in MCU Flash block.
+// It is designed to work with a specific MCU Flash block size.
+const unsigned char cbxDemoContents[] =
 {
 	0x00, 0x00, 0x01, 0x00, 0x20, 0x02, 0x00, 0x00,
 	0x6C, 0xE6, 0xF8, 0x96, 0x61, 0x62, 0x70, 0x6D,
@@ -124,7 +127,6 @@ void run_CheckCbpBinaryImage_test(const struct test_case *test)
 	test_assert_true(test, actual, "Failed to read CBX header from DataFlash.\r\n");
 	
 	actual = CheckCbpBinaryImage();
-	cbxHeader = GetCbxHeader();
 	test_assert_true(test, actual, "Failed to check CBP binary image from DataFlash.\r\n");
 	
 	cbxHeader = GetCbxHeader();
@@ -144,16 +146,19 @@ void run_ProgramAndVerifyMCU_test(const struct test_case *test)
 	
 	init_enc_dec_with_key();
 	cbxHeader = GetCbxHeader();
-	memset(cbxHeader, 0, sizeof(cbxHeader_t));
-	
-	actual = ProgramAndVerifyMCU();
-	test_assert_false(test, actual, "Failed to validate negative test for programing CBP image.\r\n");
 	
 	actual = ReadCbxHeader();
 	test_assert_true(test, actual, "Failed to read CBX header from DataFlash.\r\n");
 	
+	actual = CheckCbpBinaryImage();
+	test_assert_true(test, actual, "Failed to check CBP binary image from DataFlash.\r\n");
+	
 	actual = ProgramAndVerifyMCU();
 	test_assert_true(test, actual, "Failed to program CBP image.\r\n");
+	
+	memset(cbxHeader, 0, sizeof(cbxHeader_t));
+	actual = ProgramAndVerifyMCU();
+	test_assert_false(test, actual, "Failed to validate negative test for programing CBP image.\r\n");
 }
 
 /**
@@ -166,6 +171,11 @@ void run_EraseMcuFlash_test(const struct test_case *test)
 	
 	actual = EraseMcuFlash();
 	test_assert_true(test, actual, "Failed to erase MCU Flash.\r\n");
+	
+	// Negative test for erasing MCU page.
+	SetMcuLastPage(flashc_get_page_count() + 1);
+	actual = EraseMcuFlash();
+	test_assert_false(test, actual, "Failed to validate negative test to erase MCU Flash.\r\n");
 }
 
 /**
@@ -211,7 +221,7 @@ void run_WriteToMcuFlash_PartialLastPage_test(const struct test_case *test)
 	bin_image_header_t *binHeader;
 	
 	// Write the entire CBX contents, including Header_2 to DataFlash
-	cbxContentSize = sizeof(cbxContents);
+	cbxContentSize = sizeof(cbxDemoContents);
 	contentIndex = 0;
 	pageNumber = CBX_START_PAGE;
 	while (contentIndex < cbxContentSize)
@@ -219,7 +229,7 @@ void run_WriteToMcuFlash_PartialLastPage_test(const struct test_case *test)
 		// See one full page or less to write
 		sizeToWrite = (contentIndex + DF_PAGE_SIZE) > cbxContentSize ? (cbxContentSize - contentIndex) : DF_PAGE_SIZE;
 		memset(pageBuffer, 0, DF_PAGE_SIZE);
-		memcpy(pageBuffer, &cbxContents[contentIndex], sizeToWrite);
+		memcpy(pageBuffer, &cbxDemoContents[contentIndex], sizeToWrite);
 		
 		test_assert_true(test, pageNumber < DF_MAX_PAGES, "Page overflow detected during writing contents to DataFlash\r\n");
 		df_status = df_write_page(pageNumber, pageBuffer, sizeToWrite);

@@ -610,19 +610,23 @@ bool ProgramAndVerifyMCU(void)
  */
 bool EraseMcuFlash(void)
 {
+	bool page_erased = true;
+	uint32_t last_page_count = PROGRAM_START_PAGE + mcu_last_page_for_cbp_image;
+	
 	// Erase and verify MCU application flash.
-	for (unsigned int i = flashc_get_page_count() - 1; i >= PROGRAM_START_PAGE; i--)
+	for (uint32_t i = PROGRAM_START_PAGE; i <= last_page_count; i++)
 	{
 		if (!flashc_erase_page(i, true))
 		{
+			page_erased = false;
 			print_dbg("Erase failed at i=0x");
-			print_dbg_short_hex(i);
+			print_dbg_hex(i);
 			print_dbg("\r\n");
-			return false;
+			break;
 		}
 	}
 	
-	return true;
+	return page_erased;
 }
 
 /**
@@ -705,4 +709,13 @@ bool CheckMcuFlash(void)
 void SetCbpStartAddress(const uint32_t address)
 {
 	cbp_image_start_address = address;
+}
+
+/**
+ * \brief Set mcu_last_page_for_cbp_image value.
+ * This method is for UnitTest_DecryptProgram.
+ */
+void SetMcuLastPage(const uint32_t page)
+{
+	mcu_last_page_for_cbp_image = page;
 }

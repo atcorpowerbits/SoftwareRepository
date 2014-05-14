@@ -648,6 +648,12 @@ bool flashc_quick_page_read(int page_number)
 bool flashc_erase_page(int page_number, bool check)
 {
 	bool page_erased = true;
+	
+	// The parsed page_number cannot be beyond the last page of MCU.
+	if (page_number >= flashc_get_page_count())
+	{
+		return false;
+	}
 
 	flashc_issue_command(AVR32_FLASHC_FCMD_CMD_EP, page_number);
 	if (check) {

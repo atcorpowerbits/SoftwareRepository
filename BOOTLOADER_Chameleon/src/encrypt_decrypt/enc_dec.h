@@ -15,6 +15,8 @@
 #include <asf.h>
 #include "Blowfish.h"
 
+// ENC_DEC_BLOCK_SIZE should not be less than MCU_READ_WRITE_SIZE.
+// According to Atmel, writing of 8-bit and 16-bit data to the page buffer of CBP MCU Flash is not allowed and may lead to unpredictable data corruption.
 #define ENC_DEC_BLOCK_SIZE		8
 #define ENC_DEC_DATA_SIZE		2
 #define SIGNATURE_LEN_CBP_IMAGE 8

@@ -25,6 +25,8 @@
 #define MAX_MCU_SIZE_FOR_CBP_IMAGE		(AVR32_FLASHC_FLASH_SIZE - PROGRAM_START_OFFSET)
 
 // MCU read/write size
+// This size should not be less than 4bytes.
+// According to Atmel, writing of 8-bit and 16-bit data to the page buffer of CBP MCU Flash is not allowed and may lead to unpredictable data corruption.
 #define MCU_READ_WRITE_SIZE	(uint32_t)(4)
 
 // State transition events
@@ -89,5 +91,6 @@ bool WriteToMcuFlash(const unsigned char *data, const uint32_t data_size, const 
 bool CheckMcuFlash(void);
 
 void SetCbpStartAddress(const uint32_t address);
+void SetMcuLastPage(const uint32_t page);
 
 #endif /* STATES_H_ */

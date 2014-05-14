@@ -81,8 +81,6 @@ void led0_flash_with_delay(void)
 int main(void)
 {
 	board_init();
-	
-	cpu_irq_enable();
 
 	// Switch main clock to external oscillator 0 (crystal).
 	pcl_switch_to_osc(PCL_OSC0, FOSC0, OSC0_STARTUP);
