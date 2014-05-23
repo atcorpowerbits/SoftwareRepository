@@ -111,7 +111,7 @@ bool ReadCbxHeader (void)
 	df_status = df_read_page(CBX_START_PAGE, pageBuffer, DF_PAGE_SIZE);
 	if (DF_RW_SUCCESS != df_status)
 	{
-		print_dbg("Failed to read CBX header from DataFlash page ");
+		print_dbg("Failed to read X #"); // Failed to read CBX header from DataFlash page
 		print_dbg_ulong(CBX_START_PAGE);
 		print_dbg("\r\n");
 		return false;
@@ -137,7 +137,7 @@ transition_t CheckDownloadedImage (void)
 	df_error_code_t df_status;
 	int32_t cbp_image_size = 0;
 
-	print_dbg("Checking downloaded image in DataFlash\r\n");
+	print_dbg("Check X\r\n"); // Checking downloaded image in DataFlash
 
 	// Load the CBX header
 	if (!ReadCbxHeader())
@@ -149,7 +149,7 @@ transition_t CheckDownloadedImage (void)
 	recalculatedChecksum = calculate_crc(&cbxHeader, sizeof(cbxHeader) - 1);
 	if (recalculatedChecksum != cbxHeader.crc8)
 	{
-		print_dbg("Failed to verify CBX header checksum. Download a valid CBX image in DataFlash >>>");
+		print_dbg("Invalid X"); // Failed to verify CBX header checksum. Download a valid CBX image in DataFlash
 		print_dbg("\r\n");
 		return TRANSITION_INVALID_IMAGE;
 	}
@@ -158,7 +158,7 @@ transition_t CheckDownloadedImage (void)
 	cbp_image_size = cbxHeader.eSize.u32 - sizeof(cbxHeader_t) - sizeof(bin_image_header_t);
 	if (cbp_image_size <= 0 || cbp_image_size > MAX_MCU_SIZE_FOR_CBP_IMAGE)
 	{
-		print_dbg("Failed to verify CBP image size to fit in MCU Flash. CBP image size = ");
+		print_dbg("Failed to fit B SZ="); // Failed to verify CBP image size to fit in MCU Flash with CBP image size
 		print_dbg_ulong(cbp_image_size);
 		print_dbg("\r\n");
 		return TRANSITION_INVALID_IMAGE;
@@ -167,7 +167,7 @@ transition_t CheckDownloadedImage (void)
 	// Check signature in CBX header.
 	if (memcmp(&cbxHeader.eSignature, SIGNATURE_CBX_IMAGE, CBX_ESIGNATURE_LEN) != 0)
 	{
-		print_dbg("Failed to verify the signature of CBX header. Signature = ");
+		print_dbg("Failed X SG="); // Failed to verify the signature of CBX header. Signature = 
 		for (int16_t i = 0; i < CBX_ESIGNATURE_LEN; i ++)
 		{
 			print_dbg_char(cbxHeader.eSignature[i]);
@@ -180,15 +180,15 @@ transition_t CheckDownloadedImage (void)
 	memset(signature, 0, sizeof(signature));
 	memcpy(signature, cbxHeader.eSignature, sizeof(cbxHeader.eSignature));
 	print_dbg("\r\n");
-	print_dbg("CBX Version=");
+	print_dbg("X ");
 	print_dbg_ulong(cbxHeader.majorVer);
 	print_dbg_char('.');
 	print_dbg_ulong(cbxHeader.minorVer);
-	print_dbg("; Encrypted size=");
+	print_dbg("; ");
 	print_dbg_ulong(cbxHeader.eSize.u32);
-	print_dbg("; CRC32=0x");
+	print_dbg("; ");
 	print_dbg_hex(cbxHeader.eCRC32.u32);
-	print_dbg("; App Signature=");
+	print_dbg("h; ");
 	print_dbg(signature);
 	print_dbg("\r\n");
 	
@@ -222,13 +222,13 @@ transition_t CheckEncyptedPayloadCRC (void)
 		
 		if (pageNumber >= DF_MAX_PAGES)
 		{
-			print_dbg("Page overflow detected during reading contents from DataFlash\r\n");
+			print_dbg("Overflowed P\r\n"); // Page overflow detected during reading contents from DataFlash
 			return TRANSITION_INVALID_IMAGE;
 		}
 		df_status = df_read_page(pageNumber, pageBuffer, sizeToRead);
 		if (DF_RW_SUCCESS != df_status)
 		{
-			print_dbg("Failed to read contents from DataFlash page ");
+			print_dbg("Failed to read P #"); // Failed to read contents from DataFlash page
 			print_dbg_ulong(pageNumber);
 			print_dbg("\r\n");
 			return TRANSITION_INVALID_IMAGE;
@@ -252,14 +252,13 @@ transition_t CheckEncyptedPayloadCRC (void)
 	print_dbg("\r\n");
 	if (recalculatedCRC32 == cbxHeader.eCRC32.u32)
 	{
-		print_dbg("Verified encrypted payload in DataFlash\r\n");
 		return TRANSITION_VALID_IMAGE;
 	}
 	else
 	{
-		print_dbg("Failed to verify CRC of encrypted payload in DataFlash. CBX content size=");
+		print_dbg("Failed to verify P SZ="); // Failed to verify CRC of encrypted payload in DataFlash. CBX content size=
 		print_dbg_ulong(cbxContentSize);
-		print_dbg("; recalculatedCRC32=0x");
+		print_dbg("; new CS=0x"); // recalculatedCRC32
 		print_dbg_hex(recalculatedCRC32);
 		print_dbg("\r\n");
 		return TRANSITION_INVALID_IMAGE;
@@ -288,13 +287,11 @@ transition_t DecryptAndProgramImage (void)
 	
 	if (!CheckCbpBinaryImage())
 	{
-		print_dbg("Error: CBP binary image is invalid.\r\n");
 		return TRANSITION_INVALID_IMAGE;
 	}
 	
 	if (!ProgramAndVerifyMCU())
 	{
-		print_dbg("Error: Failed to program CBP binary image to MCU Flash.\r\n");
 		return TRANSITION_PROGRAMMING_FAILED;
 	}
 	
@@ -328,6 +325,8 @@ bool CheckCbpBinaryImage(void)
 	memset(&bin_header, 0, sizeof(bin_image_header_t));
 	blockIndex = 0;
 	
+	print_dbg("Check B\r\n"); // Checking CBP binary image in DataFlash
+	
 	while (contentIndex < cbxContentSize)
 	{
 		pageIndex = 0;
@@ -338,13 +337,13 @@ bool CheckCbpBinaryImage(void)
 		
 		if (pageNumber >= DF_MAX_PAGES)
 		{
-			print_dbg("Page overflow detected during reading contents from DataFlash\r\n");
+			print_dbg("Overflowed B\r\n"); // Page overflow detected during reading contents from DataFlash
 			return false;
 		}
 		df_status = df_read_page(pageNumber, pageBuffer, sizeToRead);
 		if (DF_RW_SUCCESS != df_status)
 		{
-			print_dbg("Failed to read contents from DataFlash page ");
+			print_dbg("Failed to read B #"); // Failed to read contents from DataFlash page
 			print_dbg_ulong(pageNumber);
 			print_dbg("\r\n");
 			return false;
@@ -360,18 +359,18 @@ bool CheckCbpBinaryImage(void)
 			memcpy(enc_buffer, &pageBuffer[pageIndex], ENC_DEC_BLOCK_SIZE);
 			if (!decrypt(enc_buffer, dec_buffer, true))
 			{
-				print_dbg("Failed to decrypt CBP binary image header for Spare1, Start_Offset.\r\n");
+				print_dbg("Failed to ? Offset\r\n"); // Failed to decrypt CBP binary image header for Spare1, Start_Offset.
 				return false;
 			}
 			memcpy(&bin_header.Spare1.u32, &dec_buffer[0], sizeof(bin_header.Spare1.u32));
 			memcpy(&bin_header.Start_Offset.u32, &dec_buffer[sizeof(bin_header.Spare1.u32)], sizeof(bin_header.Start_Offset.u32));
-			
+
 			// Decrypt bSize, bCRC32 in header.
 			pageIndex += ENC_DEC_BLOCK_SIZE;
 			memcpy(enc_buffer, &pageBuffer[pageIndex], ENC_DEC_BLOCK_SIZE);
 			if (!decrypt(enc_buffer, dec_buffer, false))
 			{
-				print_dbg("Failed to decrypt CBP binary image header for bSize, bCRC32.\r\n");
+				print_dbg("Failed to ? B SZ, CS\r\n"); // Failed to decrypt CBP binary image header for bSize, bCRC32.
 				return false;
 			}
 			memcpy(&bin_header.bSize.u32, &dec_buffer[0], sizeof(bin_header.bSize.u32));
@@ -383,6 +382,13 @@ bool CheckCbpBinaryImage(void)
 			bin_header.bCRC32.u32 = swap32(bin_header.bCRC32.u32);
 			cbp_image_start_address = bin_header.Start_Offset.u32;
 			
+			print_dbg_hex(bin_header.Start_Offset.u32);
+			print_dbg("h; ");
+			print_dbg_ulong(bin_header.bSize.u32);
+			print_dbg("; ");
+			print_dbg_hex(bin_header.bCRC32.u32);
+			print_dbg("h\r\n");
+
 			mcu_max_rw_count = bin_header.bSize.u32 % MCU_READ_WRITE_SIZE;
 			paddingSize = bin_header.bSize.u32 % ENC_DEC_BLOCK_SIZE;
 			if (mcu_max_rw_count > 0 || paddingSize > 0)
@@ -409,13 +415,13 @@ bool CheckCbpBinaryImage(void)
 			memcpy(enc_buffer, &pageBuffer[pageIndex], ENC_DEC_BLOCK_SIZE);
 			if (!decrypt(enc_buffer, dec_buffer, false))
 			{
-				print_dbg("Failed to decrypt CBP binary image header for bSignature.\r\n");
+				print_dbg("Failed to ? B SG\r\n"); // Failed to decrypt CBP binary image header for bSignature.
 				return false;
 			}
 			memcpy(&bin_header.bSignature, dec_buffer, sizeof(bin_header.bSignature));
 			if (memcmp(&bin_header.bSignature, SIGNATURE_CBP_IMAGE, SIGNATURE_LEN_CBP_IMAGE) != 0)
 			{
-				print_dbg("Failed to verify the signature of CBP binary image.\r\n");
+				print_dbg("Failed to verify B SG\r\n"); // Failed to verify the signature of CBP binary image
 				return false;
 			}
 	
@@ -430,7 +436,7 @@ bool CheckCbpBinaryImage(void)
 			{
 				if (!decrypt(enc_buffer, dec_buffer, false))
 				{
-					print_dbg("Failed to decrypt CBP binary image.\r\n");
+					print_dbg("Failed to ? B\r\n"); // Failed to decrypt CBP binary image.
 					return false;
 				}
 				recalculatedCRC32 = crc32(recalculatedCRC32, dec_buffer, ENC_DEC_BLOCK_SIZE);
@@ -445,7 +451,7 @@ bool CheckCbpBinaryImage(void)
 	
 	if (recalculatedCRC32 != bin_header.bCRC32.u32)
 	{
-		print_dbg("Failed to verify CBP binary image CRC from DataFlash.\r\n");
+		print_dbg("Failed to verify B CS\r\n"); // Failed to verify CBP binary image CRC from DataFlash.
 		return false;
 	}
 	
@@ -474,14 +480,13 @@ bool ProgramAndVerifyMCU(void)
 	uint32_t mcu_rw_size_by_dec_block = 0;
 	uint32_t dec_buffer_index = 0;
 	
-	print_dbg("\r\nStart erasing MCU application flash.\r\n");
+	print_dbg("\r\nPrepare M\r\n"); // Start erasing MCU application flash.
 	if (!EraseMcuFlash())
 	{
-		print_dbg("Failed to erase MCU application flash.\r\n");
+		print_dbg("Failed to prepare M\r\n"); // Failed to erase MCU application flash.
 		return false;
 	}
 	// There's no CBP Operational firmware beyond this point to be rebooted until the new one is programmed
-	print_dbg("Erased MCU application flash.\r\n");
 	
 	total_header_size = sizeof(cbxHeader_t) + sizeof(bin_image_header_t);
 	cbxContentSize = cbxHeader.eSize.u32 + sizeof(cbxHeader_t);
@@ -496,7 +501,7 @@ bool ProgramAndVerifyMCU(void)
 	// Clean up page buffer before start any writing to MCU.
 	flashc_clear_page_buffer();
 	
-	print_dbg("Start writing to MCU application flash.\r\n");
+	print_dbg("\r\nFinalise M\r\n"); // Start writing to MCU application flash.
 	while (contentIndex < cbxContentSize)
 	{
 		pageIndex = 0;
@@ -507,13 +512,13 @@ bool ProgramAndVerifyMCU(void)
 		
 		if (pageNumber >= DF_MAX_PAGES)
 		{
-			print_dbg("Page overflow detected during reading contents from DataFlash\r\n");
+			print_dbg("Overflowed final B\r\n"); // Page overflow detected during reading contents from DataFlash
 			return false;
 		}
 		df_status = df_read_page(pageNumber, pageBuffer, sizeToRead);
 		if (DF_RW_SUCCESS != df_status)
 		{
-			print_dbg("Failed to read contents from DataFlash page ");
+			print_dbg("Failed to read final B #"); // Failed to read contents from DataFlash page 
 			print_dbg_ulong(pageNumber);
 			print_dbg("\r\n");
 			return false;
@@ -529,7 +534,7 @@ bool ProgramAndVerifyMCU(void)
 				memcpy(enc_buffer, &pageBuffer[pageIndex], sizeof(enc_buffer));
 				if (!decrypt(enc_buffer, dec_buffer, (i == sizeof(cbxHeader_t))))
 				{
-					print_dbg("Failed to decrypt CBP binary image header.\r\n");
+					print_dbg("Failed to ? BH\r\n"); // Failed to decrypt CBP binary image header.
 					return false;
 				}
 				pageIndex += sizeof(enc_buffer);
@@ -545,7 +550,7 @@ bool ProgramAndVerifyMCU(void)
 				memset(dec_buffer, 0, sizeof(dec_buffer));
 				if (!decrypt(enc_buffer, dec_buffer, false))
 				{
-					print_dbg("Failed to decrypt CBP binary image.\r\n");
+					print_dbg("Failed to ? B\r\n"); //Failed to decrypt CBP binary image.
 					return false;
 				}
 				blockIndex = 0;
@@ -555,7 +560,7 @@ bool ProgramAndVerifyMCU(void)
 				{
 					if (!WriteToMcuFlash(dec_buffer, sizeof(dec_buffer), mcuPos))
 					{
-						print_dbg("Failed to write CBP binary image to MCU Flash.\r\n");
+						print_dbg("Failed to finalise part M\r\n"); // Failed to write CBP binary image to MCU Flash.
 						return false;
 					}
 					mcuPos += sizeof(dec_buffer);
@@ -578,7 +583,7 @@ bool ProgramAndVerifyMCU(void)
 						
 						if (!WriteToMcuFlash(&dec_buffer[dec_buffer_index], mcu_rw_size, mcuPos))
 						{
-							print_dbg("Failed to write CBP binary image to MCU Flash.\r\n");
+							print_dbg("Failed to finalise M\r\n"); // Failed to write CBP binary image to MCU Flash.
 							return false;
 						}
 						mcuPos += mcu_rw_size;
@@ -597,7 +602,7 @@ bool ProgramAndVerifyMCU(void)
 	// Read written data from MCU flash and validate by recalculating crc32.
 	if (!CheckMcuFlash())
 	{
-		print_dbg("Failed to verify CBP binary image CRC from MCU Flash.\r\n");
+		print_dbg("Failed to verify M CS\r\n"); // Failed to verify CBP binary image CRC from MCU Flash.
 		return false;
 	}
 	
@@ -619,11 +624,12 @@ bool EraseMcuFlash(void)
 		if (!flashc_erase_page(i, true))
 		{
 			page_erased = false;
-			print_dbg("Erase failed at i=0x");
+			print_dbg("Failed at 0x"); // Erase failed
 			print_dbg_hex(i);
 			print_dbg("\r\n");
 			break;
 		}
+		print_dbg_char(',');
 	}
 	
 	return page_erased;

@@ -44,7 +44,7 @@
 
 // Define major and minor version numbers of the Bootloader
 #define BOOTLOADER_VER_MAJOR 0
-#define BOOTLOADER_VER_MINOR 1
+#define BOOTLOADER_VER_MINOR 2
 
 #define DF_PAGE_SIZE 264
 

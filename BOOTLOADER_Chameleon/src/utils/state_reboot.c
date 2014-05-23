@@ -24,7 +24,7 @@
 #define WDT_CTRL_STEP_US   1000000
 
 // To specify which current Watchdog value
-volatile U32 current_wdt_value = WDT_MIN_VALUE_US;
+volatile U32 current_wdt_value = 10000; // fine tuned to reset Watchdog under 1s
 //
 wdt_opt_t opt = {
 	.dar   = false,     // After a watchdog reset, the WDT will still be enabled.
@@ -43,44 +43,43 @@ void SetupWDT(void)
 	// If Reset Cause is due to a Watchdog reset.
 	if(AVR32_PM.RCAUSE.wdt)
 	{
-		print_dbg("\twatchdog reset\r\n");
+		print_dbg("watchdog reset\r\n");
 		
 	} // If Reset Cause is due to a Power On reset, enable Watchdog with default value
 	else if (AVR32_PM.RCAUSE.por)
 	{
-		print_dbg("\tPower On reset\r\n");
+		print_dbg("Power On reset\r\n");
 		
 	}
 	else if (AVR32_PM.RCAUSE.ext)
 	{
-		print_dbg("\tExternal reset\r\n");
+		print_dbg("External reset\r\n");
 	}
 	else if (AVR32_PM.RCAUSE.jtag)
 	{
-		print_dbg("\tJtag reset\r\n");
+		print_dbg("Jtag reset\r\n");
 	}
 	else if (AVR32_PM.RCAUSE.awire)
 	{
-		print_dbg("\tawire reset\r\n");
+		print_dbg("awire reset\r\n");
 	}
 	else if (AVR32_PM.RCAUSE.jtaghard)
 	{
-		print_dbg("\tjtaghard reset\r\n");
+		print_dbg("jtaghard reset\r\n");
 	}
 	else if (AVR32_PM.RCAUSE.awirehard)
 	{
-		print_dbg("\tawirehard reset\r\n");
+		print_dbg("awirehard reset\r\n");
 	}
 	else if (AVR32_PM.RCAUSE.ocdrst)
 	{
-		print_dbg("\tocd reset\r\n");
+		print_dbg("ocd reset\r\n");
 	}
 	else
 	{
-		print_dbg("\tOther cause reset\r\n");
+		print_dbg("other cause reset\r\n");
 	}
 
-	current_wdt_value = WDT_MIN_VALUE_US ;//WDT_MIN_VALUE;
 	// Save current value in GPLP register
 	pcl_write_gplp(0,current_wdt_value);
 	opt.us_timeout_period = current_wdt_value;
@@ -109,12 +108,12 @@ transition_t PrepareNormalReboot (void)
 	
 	if (r_cWord1 != cWord1)
 	{
-		print_dbg("\twrite Configuration Word failed\r\n");
+		print_dbg("Failed to finish\r\n"); // write Configuration Word failed
 		return TRANSITION_REBOOT_PREP_FAILED;
 	}
 	else
 	{
-		print_dbg("\twrite Configuration Word passed\r\n");
+		print_dbg("\r\nFinish "); // write Configuration Word passed
 	}
 	return TRANSITION_REBOOT;
 }
@@ -126,7 +125,6 @@ transition_t PrepareNormalReboot (void)
 transition_t RebootNow (void)
 {
 	// *** set WDT to reset MCU.
-	print_dbg("\tsetup WDT\r\n");
 	SetupWDT();
 	
 	print_dbg("Rebooting soon");

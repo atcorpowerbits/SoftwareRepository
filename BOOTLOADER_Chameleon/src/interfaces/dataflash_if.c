@@ -784,7 +784,7 @@ df_error_code_t df_read_page (uint16_t df_page_num, uint8_t *data_dest, uint16_t
 	// Release access to the DataFlash.
 	if (DF_RW_SUCCESS == df_status)
 	{
-		print_dbg("r");
+		print_dbg_char('.');
 		df_status = df_close();
 	}
 	else if (DF_READ_OPEN_FAILED != df_status)
@@ -903,7 +903,7 @@ static df_error_code_t df_write_page_now (uint16_t df_page_num, uint8_t *data_so
 	// Release access to the DataFlash.
 	if (DF_RW_SUCCESS == df_status)
 	{
-		print_dbg_char('w');
+		print_dbg_char(':');
 		df_status = df_close();
 	}
 	else

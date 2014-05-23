@@ -91,11 +91,11 @@ int main(void)
 	// Initialize AT45DBX resources: GPIO, SPI and AT45DBX.
 	df_interface_init();
 	  	
-	print_dbg("\r\n---------- Chameleon Bootloader ");
+	print_dbg("\r\n---------- Bootloader ");
 	print_dbg_ulong(BOOTLOADER_VER_MAJOR);
 	print_dbg_char('.');
 	print_dbg_ulong(BOOTLOADER_VER_MINOR);
-	print_dbg(" ------------------\r\n");
+	print_dbg(" ----------\r\n");
 	
 	// We are here because ISP was in force
 	DoISP(TRANSITION_ISP_FORCED);
