@@ -22,9 +22,11 @@
 #define WDT_MAX_VALUE_US   4000000
 // Step of 1s
 #define WDT_CTRL_STEP_US   1000000
+// Fine tuned WDT timeout within 1s for Chameleon
+#define WDT_TIMEOUT_VALUE  10000
 
-// To specify which current Watchdog value
-volatile U32 current_wdt_value = 10000; // fine tuned to reset Watchdog under 1s
+// To specify current Watchdog timeout
+volatile U32 current_wdt_value = WDT_TIMEOUT_VALUE;
 //
 wdt_opt_t opt = {
 	.dar   = false,     // After a watchdog reset, the WDT will still be enabled.
