@@ -16,10 +16,10 @@
 #define DF_START_PAGE_CBX 20480 // skip the first 1MB in CBP DataFlash to avoid heavy use of the first 1MB in CBP DataFlash
 
 #if BOARD == NUTMEG_BOARD
-const unsigned char cbxContents[] = {
+const unsigned char cbxDemoContents[] = {
 0x00, 0x00, 0x01, 0x00, 0x18, 0x42, 0x01, 0x00,
 0x0B, 0x5F, 0x3C, 0xF5, 0x61, 0x62, 0x70, 0x6D,
-0x43, 0x42, 0x50, 0x94, 0x31, 0x02, 0xF2, 0x96,
+0x43, 0x42, 0x78, 0x6C, 0x31, 0x02, 0xF2, 0x96,
 0x7E, 0x62, 0x76, 0xCE, 0x52, 0xA8, 0x08, 0x9E,
 0xFB, 0xC4, 0x0C, 0x59, 0x92, 0xBE, 0x02, 0x81,
 0xAA, 0x54, 0xA7, 0xAC, 0x56, 0xAC, 0x71, 0x1B,
@@ -10329,10 +10329,10 @@ const unsigned char cbxContents[] = {
 0x49, 0xBB, 0x5E, 0x9F,
 };
 #else
-const unsigned char cbxContents[] = {
+const unsigned char cbxDemoContents[] = {
 0x00, 0x00, 0x01, 0x00, 0xF0, 0x41, 0x01, 0x00,
 0xF9, 0x56, 0x22, 0xE1, 0x61, 0x62, 0x70, 0x6D,
-0x43, 0x42, 0x50, 0x06, 0x31, 0x02, 0xF2, 0x96,
+0x43, 0x42, 0x78, 0xDE, 0x31, 0x02, 0xF2, 0x96,
 0x7E, 0x62, 0x76, 0xCE, 0xAA, 0x68, 0xA0, 0xA8,
 0xDF, 0xB3, 0x7C, 0x7D, 0x8F, 0xF5, 0x41, 0x6C,
 0x56, 0x11, 0x4F, 0x11, 0xB8, 0xAE, 0xA7, 0x6F,
@@ -20644,46 +20644,23 @@ const unsigned char cbxContents[] = {
  */
 void run_write_image_to_df (const struct test_case *test)
 {
-	cbxHeader_t theHeader;
-	uint8_t recalculatedChecksum;
-	uint8_t signature[LEN_ESIGNATURE + 1];
 	uint32_t cbxContentSize; // including Header_2
 	uint32_t contentIndex;
 	uint8_t pageBuffer[DF_PAGE_SIZE];
 	uint16_t pageNumber;
 	uint16_t sizeToWrite;
 	df_error_code_t df_status;
-	bool expected;
-	transition_t expectedTransition;
 
-
-	// Populate the header from the hardcoded CBX contents and adjust any endianess
-	memcpy(&theHeader, cbxContents, sizeof(theHeader));
-	theHeader.eSize.u32 = swap32(theHeader.eSize.u32);
-	theHeader.eCRC32.u32 = swap32(theHeader.eCRC32.u32);
-	
-	// Check the Header_2 checksum
-	recalculatedChecksum = calculate_crc(&theHeader, sizeof(theHeader) - 1);
-	test_assert_true(test, recalculatedChecksum == theHeader.crc8, "Failed to verify Header_2 checksum\r\n");
-
-	// Read and print the header
-	memset(signature, 0, sizeof(signature));
-	memcpy(signature, theHeader.eSignature, sizeof(theHeader.eSignature));
-	print_debug_append("Version %d.%d\r\n", theHeader.majorVer, theHeader.minorVer);
-	print_debug_append("Encrypted size %d\r\n", theHeader.eSize);
-	print_debug_append("CRC32 %#x\r\n", theHeader.eCRC32);
-	print_debug_append("App signature %s\r\n", signature);
-	
 	// Write the entire CBX contents, including Header_2 to DataFlash
-	cbxContentSize = theHeader.eSize.u32 + sizeof(cbxHeader_t);
+	cbxContentSize = sizeof(cbxDemoContents);
 	contentIndex = 0;
-	pageNumber = DF_START_PAGE_CBX;
+	pageNumber = CBX_START_PAGE;
 	while (contentIndex < cbxContentSize)
 	{
 		// See one full page or less to write
 		sizeToWrite = (contentIndex + DF_PAGE_SIZE) > cbxContentSize ? (cbxContentSize - contentIndex) : DF_PAGE_SIZE;
 		memset(pageBuffer, 0, DF_PAGE_SIZE);
-		memcpy(pageBuffer, &cbxContents[contentIndex], sizeToWrite);
+		memcpy(pageBuffer, &cbxDemoContents[contentIndex], sizeToWrite);
 		
 		test_assert_true(test, pageNumber < DF_MAX_PAGES, "Page overflow detected during writing contents to DataFlash\r\n");
 		df_status = df_write_page(pageNumber, pageBuffer, sizeToWrite);
@@ -20691,8 +20668,4 @@ void run_write_image_to_df (const struct test_case *test)
 		contentIndex += sizeToWrite;
 		pageNumber++;
 	}
-
-	// Verify the CBX contents just written to DataFlash
-	expectedTransition = CheckDownloadedImage();
-	test_assert_true(test, expectedTransition == TRANSITION_VALID_IMAGE, "Failed to validate CBX image written to DataFlash\r\n");
 }
