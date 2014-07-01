@@ -33,7 +33,6 @@ void run_check_invalid_image_header (const struct test_case *test)
 	uint8_t pageBuffer[DF_PAGE_SIZE];
 	df_error_code_t df_status;
 	transition_t nextTransition;
-	bool expected;
 	cbxHeader_t * testHeader;
 
 	// Change the CBX header checksum for negative unit test
@@ -64,8 +63,6 @@ void run_check_invalid_image_header (const struct test_case *test)
  */
 void run_check_invalid_image_payload (const struct test_case *test)
 {
-	uint8_t pageBuffer[DF_PAGE_SIZE];
-	df_error_code_t df_status;
 	transition_t nextTransition;
 	bool expected;
 	cbxHeader_t * theHeader = GetCbxHeader();

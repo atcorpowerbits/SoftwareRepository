@@ -96,7 +96,6 @@ transition_t PrepareNormalReboot (void)
 {
 	U32 cWord1 = CONFIG_WORD1_VAL_JUMPTO_OP_FW;
 	U32 r_cWord1 = 0;
-	register int i, j;
 
 	/* read configuration Word1 to view the original value */
 	//flashc_memcpy(&r_cWord1, AVR32_FLASHC_USER_PAGE + 0x01fc, 4, false);
@@ -106,7 +105,7 @@ transition_t PrepareNormalReboot (void)
 
 	/* verify by reading configuration Word1 */
 	r_cWord1 = 0;
-	flashc_memcpy(&r_cWord1, AVR32_FLASHC_USER_PAGE + 0x01fc, 4, false);
+	flashc_memcpy(&r_cWord1, (void *)(AVR32_FLASHC_USER_PAGE + 0x01fc), 4, false);
 	
 	if (r_cWord1 != cWord1)
 	{

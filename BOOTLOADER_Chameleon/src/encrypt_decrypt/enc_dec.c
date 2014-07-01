@@ -12,7 +12,7 @@
 #include <string.h>
 #include "enc_dec.h"
 
-#define KEY_STRING		(char*)("kXFffujmYN7HoyXhfi6I4gr5yzMFxkcEoCGRSmjIMudPrOaLXM5D4kIt")
+#define KEY_STRING		(char*)("yLDRI7DgXH5pjTNp6iCltQ44564RFiD05b9UEng0wcyx2RvRn0dR5tPZ")
 
 unsigned char key[MAXKEYBYTES] = {0};
 unsigned int key_length = 0;

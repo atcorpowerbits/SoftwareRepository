@@ -132,9 +132,7 @@ bool ReadCbxHeader (void)
 transition_t CheckDownloadedImage (void)
 {
 	uint8_t recalculatedChecksum;
-	uint8_t pageBuffer[DF_PAGE_SIZE];
 	uint8_t signature[CBX_ESIGNATURE_LEN + 1];
-	df_error_code_t df_status;
 	int32_t cbp_image_size = 0;
 
 	print_dbg("Check X\r\n"); // Checking downloaded image in DataFlash
@@ -146,7 +144,7 @@ transition_t CheckDownloadedImage (void)
 	}
 	
 	// Check the Header_2 checksum
-	recalculatedChecksum = calculate_crc(&cbxHeader, sizeof(cbxHeader) - 1);
+	recalculatedChecksum = calculate_crc((uint8_t *)&cbxHeader, sizeof(cbxHeader) - 1);
 	if (recalculatedChecksum != cbxHeader.crc8)
 	{
 		print_dbg("Invalid X"); // Failed to verify CBX header checksum. Download a valid CBX image in DataFlash
@@ -189,7 +187,7 @@ transition_t CheckDownloadedImage (void)
 	print_dbg("; ");
 	print_dbg_hex(cbxHeader.eCRC32.u32);
 	print_dbg("h; ");
-	print_dbg(signature);
+	print_dbg((char *)signature);
 	print_dbg("\r\n");
 	
 	return CheckEncyptedPayloadCRC();
@@ -381,14 +379,15 @@ bool CheckCbpBinaryImage(void)
 			bin_header.bSize.u32 = swap32(bin_header.bSize.u32);
 			bin_header.bCRC32.u32 = swap32(bin_header.bCRC32.u32);
 			cbp_image_start_address = bin_header.Start_Offset.u32;
-			
+
+#if 0 // Sensitive information - use only during development to help with debugging 
 			print_dbg_hex(bin_header.Start_Offset.u32);
 			print_dbg("h; ");
 			print_dbg_ulong(bin_header.bSize.u32);
 			print_dbg("; ");
 			print_dbg_hex(bin_header.bCRC32.u32);
 			print_dbg("h\r\n");
-
+#endif
 			mcu_max_rw_count = bin_header.bSize.u32 % MCU_READ_WRITE_SIZE;
 			paddingSize = bin_header.bSize.u32 % ENC_DEC_BLOCK_SIZE;
 			if (mcu_max_rw_count > 0 || paddingSize > 0)
@@ -693,7 +692,7 @@ bool CheckMcuFlash(void)
 	{
 		memset(buffer, 0, MCU_READ_WRITE_SIZE);
 		flashc_ptr = (uint32_t *)(cbp_image_start_address + mcuPos);
-		memcpy(buffer, flashc_ptr, MCU_READ_WRITE_SIZE);
+		memcpy(buffer, (void *)flashc_ptr, MCU_READ_WRITE_SIZE);
 		recalculatedCRC32 = crc32(recalculatedCRC32, buffer, MCU_READ_WRITE_SIZE);
 		mcuPos += MCU_READ_WRITE_SIZE;
 	}

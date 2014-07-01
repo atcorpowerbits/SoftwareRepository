@@ -198,7 +198,7 @@ void run_WriteToMcuFlash_test(const struct test_case *test)
 	{
 		WriteToMcuFlash(data, MCU_READ_WRITE_SIZE, i);
 	}
-	memcpy(buf, offset, MCU_READ_WRITE_SIZE);
+	memcpy(buf, (void *)offset, MCU_READ_WRITE_SIZE);
 	actual = (memcmp(buf, data, MCU_READ_WRITE_SIZE) == 0);
 	test_assert_true(test, actual, "Failed to write data to MCU flash.\r\n");
 }
@@ -217,7 +217,6 @@ void run_WriteToMcuFlash_PartialLastPage_test(const struct test_case *test)
 	df_error_code_t df_status;
 	transition_t expectedTransition;
 	bool actual = false;
-	cbxHeader_t *cbxHeader;
 	bin_image_header_t *binHeader;
 	
 	// Write the entire CBX contents, including Header_2 to DataFlash

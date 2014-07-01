@@ -20653,7 +20653,6 @@ void run_write_image_to_df (const struct test_case *test)
 	uint16_t pageNumber;
 	uint16_t sizeToWrite;
 	df_error_code_t df_status;
-	bool expected;
 	transition_t expectedTransition;
 
 
@@ -20663,7 +20662,7 @@ void run_write_image_to_df (const struct test_case *test)
 	theHeader.eCRC32.u32 = swap32(theHeader.eCRC32.u32);
 	
 	// Check the Header_2 checksum
-	recalculatedChecksum = calculate_crc(&theHeader, sizeof(theHeader) - 1);
+	recalculatedChecksum = calculate_crc((uint8_t *)&theHeader, sizeof(theHeader) - 1);
 	test_assert_true(test, recalculatedChecksum == theHeader.crc8, "Failed to verify Header_2 checksum\r\n");
 
 	// Read and print the header
