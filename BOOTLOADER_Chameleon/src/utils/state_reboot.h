@@ -16,8 +16,8 @@
 #include "states.h"
 
 #define CONFIG_WORD1_ADDR					0x01fc
-#define CONFIG_WORD1_VAL_JUMPTO_BOOTLOADER	0xe11effd7
-#define CONFIG_WORD1_VAL_JUMPTO_OP_FW		0xe11efdd9
+#define CONFIG_WORD1_VAL_JUMPTO_BOOTLOADER	0xe11effd7 // Enable ISP_FORCE without testing ISP_IO_COND_EN
+#define CONFIG_WORD1_VAL_JUMPTO_OP_FW		0xe11efcde // Disable ISP_FORCE without ISP_IO_COND_EN flag to eliminate any remote chance of starting ISP due to spurious GPIO pin
 
 // Prepare for normal reboot
 transition_t PrepareNormalReboot (void);

@@ -43,8 +43,8 @@
 #define _MAIN_H_
 
 // Define major and minor version numbers of the Bootloader
-#define BOOTLOADER_VER_MAJOR 0
-#define BOOTLOADER_VER_MINOR 3
+#define BOOTLOADER_VER_MAJOR 1
+#define BOOTLOADER_VER_MINOR 0
 
 /*! \brief Called when Vbus line state change
  */
