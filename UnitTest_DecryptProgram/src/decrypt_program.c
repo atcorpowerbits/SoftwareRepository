@@ -19,7 +19,8 @@
 
 // The demo cbp image size used in this unit test is slightly higher than AVR32_FLASHC_PAGE_SIZE(512bytes) to
 // make the last page is partial in MCU Flash block.
-// It is designed to work with a specific MCU Flash block size.
+// This image can be obtained by running Test_GeneratePartialCbxDemo unit test from iConvert project.
+// Test_GeneratePartialCbxDemo unit test generates a 'ABPM_EncryptedPartial_Image.txt' file under '...\iConvert\UnitTestProject\' directory.
 const unsigned char cbxDemoContents[] =
 {
 	0x00, 0x00, 0x01, 0x00, 0x20, 0x02, 0x00, 0x00,
@@ -299,6 +300,10 @@ void run_CheckMcuFlash_test(const struct test_case *test)
 void run_Decrypt_test(const struct test_case *test)
 {
 	bool actual = false;
+	
+	// The image for dummy_enc_buffer is the first 8 bytes encrypted header of ABPM binary image by iConvert.
+	// This image can be obtained by running Test_GenerateEncryptedFirst8bytes unit test from iConvert project.
+	// Test_GenerateEncryptedFirst8bytes unit test generates a 'ABPM_EncryptedFirst8bytes_Image.txt' file under '...\iConvert\UnitTestProject\' directory.
 	uint8_t dummy_enc_buffer[ENC_DEC_BLOCK_SIZE] = {0x73, 0xf6, 0x1c, 0x7a, 0x0e, 0xe4, 0x70, 0x22};
 	uint8_t dummy_dec_buffer[ENC_DEC_BLOCK_SIZE] = {0};
 	uint8_t dummy_exp_dec_buffer[ENC_DEC_BLOCK_SIZE] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x80};
