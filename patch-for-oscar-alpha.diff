@@ -1,6 +1,6 @@
 Index: BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj
 ===================================================================
---- BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj	(revision 1392)
+--- BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj	(revision 1432)
 +++ BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj	(working copy)
 @@ -5,7 +5,7 @@
      <ProjectVersion>6.1</ProjectVersion>
@@ -85,7 +85,7 @@ Index: BOOTLOADER_Chameleon/BOOTLOADER_Chameleon.cproj
        <Value>../src/asf/common/services/usb/class/dfu_flip/device/bootloader/avr32</Value>
 Index: UnitTest_CheckDownloadedImage/UnitTest_CheckDownloadedImage.cproj
 ===================================================================
---- UnitTest_CheckDownloadedImage/UnitTest_CheckDownloadedImage.cproj	(revision 1392)
+--- UnitTest_CheckDownloadedImage/UnitTest_CheckDownloadedImage.cproj	(revision 1432)
 +++ UnitTest_CheckDownloadedImage/UnitTest_CheckDownloadedImage.cproj	(working copy)
 @@ -67,7 +67,7 @@
          <board id="board.uc3c_ek" value="Add" config="" content-id="Atmel.ASF" />
@@ -137,7 +137,7 @@ Index: UnitTest_CheckDownloadedImage/UnitTest_CheckDownloadedImage.cproj
        <Value>../src</Value>
 Index: UnitTest_DecryptProgram/UnitTest_DecryptProgram.cproj
 ===================================================================
---- UnitTest_DecryptProgram/UnitTest_DecryptProgram.cproj	(revision 1392)
+--- UnitTest_DecryptProgram/UnitTest_DecryptProgram.cproj	(revision 1432)
 +++ UnitTest_DecryptProgram/UnitTest_DecryptProgram.cproj	(working copy)
 @@ -128,9 +128,10 @@
          <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
@@ -180,7 +180,7 @@ Index: UnitTest_DecryptProgram/UnitTest_DecryptProgram.cproj
        <Value>../src</Value>
 Index: UnitTest_Image_to_DataFlash/UnitTest_Image_to_DataFlash.cproj
 ===================================================================
---- UnitTest_Image_to_DataFlash/UnitTest_Image_to_DataFlash.cproj	(revision 1392)
+--- UnitTest_Image_to_DataFlash/UnitTest_Image_to_DataFlash.cproj	(revision 1432)
 +++ UnitTest_Image_to_DataFlash/UnitTest_Image_to_DataFlash.cproj	(working copy)
 @@ -67,7 +67,7 @@
          <board id="board.uc3c_ek" value="Add" config="" content-id="Atmel.ASF" />
@@ -232,7 +232,7 @@ Index: UnitTest_Image_to_DataFlash/UnitTest_Image_to_DataFlash.cproj
        <Value>../src</Value>
 Index: UnitTest_Image_to_DataFlash_ErrorState/UnitTest_Image_to_DataFlash_ErrorState.cproj
 ===================================================================
---- UnitTest_Image_to_DataFlash_ErrorState/UnitTest_Image_to_DataFlash_ErrorState.cproj	(revision 1392)
+--- UnitTest_Image_to_DataFlash_ErrorState/UnitTest_Image_to_DataFlash_ErrorState.cproj	(revision 1432)
 +++ UnitTest_Image_to_DataFlash_ErrorState/UnitTest_Image_to_DataFlash_ErrorState.cproj	(working copy)
 @@ -67,7 +67,7 @@
          <board id="board.uc3c_ek" value="Add" config="" content-id="Atmel.ASF" />
@@ -282,9 +282,67 @@ Index: UnitTest_Image_to_DataFlash_ErrorState/UnitTest_Image_to_DataFlash_ErrorS
          <avr32gcc.preprocessingassembler.general.IncludePaths>
            <ListValues>
              <Value>../src</Value>
+Index: UnitTest_Image_to_DataFlash_Invalid_CBP_Signature/UnitTest_Image_to_DataFlash_Invalid_CBP_Signature.cproj
+===================================================================
+--- UnitTest_Image_to_DataFlash_Invalid_CBP_Signature/UnitTest_Image_to_DataFlash_Invalid_CBP_Signature.cproj	(revision 1432)
++++ UnitTest_Image_to_DataFlash_Invalid_CBP_Signature/UnitTest_Image_to_DataFlash_Invalid_CBP_Signature.cproj	(working copy)
+@@ -47,7 +47,7 @@
+           <file path="src/ASF/avr32/utils/startup/trampoline_uc3.S" framework="" version="" source="avr32/utils/startup/trampoline_uc3.S" changed="False" content-id="Atmel.ASF" />
+           <file path="src/ASF/avr32/utils/startup/trampoline_uc3.h" framework="" version="" source="avr32/utils/startup/trampoline_uc3.h" changed="False" content-id="Atmel.ASF" />
+           <file path="src/ASF/avr32/utils/status_codes.h" framework="" version="" source="avr32/utils/status_codes.h" changed="False" content-id="Atmel.ASF" />
+-          <file path="src/config/conf_board.h" framework="" version="" source="common/applications/user_application/at32uc3c0512c_uc3c_ek/config/conf_board.h" changed="False" content-id="Atmel.ASF" />
++          <file path="src/config/conf_board.h" framework="" version="" source="common/applications/user_application/at32uc3c2512c_uc3c_ek/config/conf_board.h" changed="False" content-id="Atmel.ASF" />
+           <file path="src/main.c" framework="" version="" source="common/applications/user_application/main.c" changed="False" content-id="Atmel.ASF" />
+           <file path="src/ASF/common/boards/board.h" framework="" version="" source="common/boards/board.h" changed="False" content-id="Atmel.ASF" />
+           <file path="src/ASF/common/utils/interrupt.h" framework="" version="" source="common/utils/interrupt.h" changed="False" content-id="Atmel.ASF" />
+@@ -67,7 +67,7 @@
+         <board id="board.uc3c_ek" value="Add" config="" content-id="Atmel.ASF" />
+       </framework-data>
+     </AsfFrameworkConfig>
+-    <avrdevice>AT32UC3C0512C</avrdevice>
++    <avrdevice>AT32UC3C2512C</avrdevice>
+     <avrdeviceseries>uc3c</avrdeviceseries>
+     <Language>C</Language>
+     <ToolchainName>com.Atmel.AVRGCC32.C</ToolchainName>
+@@ -127,7 +127,7 @@
+         <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
+         <avr32gcc.compiler.symbols.DefSymbols>
+           <ListValues>
+-            <Value>BOARD=NUTMEG_BOARD</Value>
++            <Value>BOARD=OSCAR_ALPHA</Value>
+             <Value>TEST_SUITE_DEFINE_ASSERT_MACRO</Value>
+             <Value>_ASSERT_ENABLE_</Value>
+           </ListValues>
+@@ -178,7 +178,7 @@
+             <Value>../src/ASF/common/utils</Value>
+           </ListValues>
+         </avr32gcc.assembler.general.IncludePaths>
+-        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=NUTMEG_BOARD -DTEST_SUITE_DEFINE_ASSERT_MACRO -D_ASSERT_ENABLE_</avr32gcc.preprocessingassembler.general.AssemblerFlags>
++        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=OSCAR_ALPHA -DTEST_SUITE_DEFINE_ASSERT_MACRO -D_ASSERT_ENABLE_</avr32gcc.preprocessingassembler.general.AssemblerFlags>
+         <avr32gcc.preprocessingassembler.general.IncludePaths>
+           <ListValues>
+             <Value>../src</Value>
+@@ -211,7 +211,7 @@
+   <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
+   <avr32gcc.compiler.symbols.DefSymbols>
+     <ListValues>
+-      <Value>BOARD=NUTMEG_BOARD</Value>
++      <Value>BOARD=OSCAR_ALPHA</Value>
+       <Value>TEST_SUITE_DEFINE_ASSERT_MACRO</Value>
+       <Value>_ASSERT_ENABLE_</Value>
+       <Value>_NEW_DATAFLASH</Value>
+@@ -295,7 +295,7 @@
+       <Value>../src/ASF/common/utils</Value>
+     </ListValues>
+   </avr32gcc.assembler.general.IncludePaths>
+-  <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=NUTMEG_BOARD -DTEST_SUITE_DEFINE_ASSERT_MACRO -D_ASSERT_ENABLE_</avr32gcc.preprocessingassembler.general.AssemblerFlags>
++  <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax -DBOARD=OSCAR_ALPHA -DTEST_SUITE_DEFINE_ASSERT_MACRO -D_ASSERT_ENABLE_</avr32gcc.preprocessingassembler.general.AssemblerFlags>
+   <avr32gcc.preprocessingassembler.general.IncludePaths>
+     <ListValues>
+       <Value>../src</Value>
 Index: UnitTest_Image_to_DataFlash_InvalidImage/UnitTest_Image_to_DataFlash_InvalidImage.cproj
 ===================================================================
---- UnitTest_Image_to_DataFlash_InvalidImage/UnitTest_Image_to_DataFlash_InvalidImage.cproj	(revision 1392)
+--- UnitTest_Image_to_DataFlash_InvalidImage/UnitTest_Image_to_DataFlash_InvalidImage.cproj	(revision 1432)
 +++ UnitTest_Image_to_DataFlash_InvalidImage/UnitTest_Image_to_DataFlash_InvalidImage.cproj	(working copy)
 @@ -67,7 +67,7 @@
          <board id="board.uc3c_ek" value="Add" config="" content-id="Atmel.ASF" />
