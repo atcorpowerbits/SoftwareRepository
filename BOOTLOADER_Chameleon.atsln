@@ -25,6 +25,11 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UnitTest_Image_to_DataFlash
 		{908AD029-5D8F-4ABD-BD2B-E01D3FA422A2} = {908AD029-5D8F-4ABD-BD2B-E01D3FA422A2}
 	EndProjectSection
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UnitTest_Image_to_DataFlash_Invalid_CBP_Signature", "UnitTest_Image_to_DataFlash_Invalid_CBP_Signature\UnitTest_Image_to_DataFlash_Invalid_CBP_Signature.cproj", "{7AB4D6DA-7747-4321-8F02-BC409541BBEF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{908AD029-5D8F-4ABD-BD2B-E01D3FA422A2} = {908AD029-5D8F-4ABD-BD2B-E01D3FA422A2}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -53,6 +58,10 @@ Global
 		{A554D9DB-80E4-46A5-839A-84EB9BCFF722}.Debug|AVR.Build.0 = Debug|AVR
 		{A554D9DB-80E4-46A5-839A-84EB9BCFF722}.Release|AVR.ActiveCfg = Release|AVR
 		{A554D9DB-80E4-46A5-839A-84EB9BCFF722}.Release|AVR.Build.0 = Release|AVR
+		{7AB4D6DA-7747-4321-8F02-BC409541BBEF}.Debug|AVR.ActiveCfg = Debug|AVR
+		{7AB4D6DA-7747-4321-8F02-BC409541BBEF}.Debug|AVR.Build.0 = Debug|AVR
+		{7AB4D6DA-7747-4321-8F02-BC409541BBEF}.Release|AVR.ActiveCfg = Release|AVR
+		{7AB4D6DA-7747-4321-8F02-BC409541BBEF}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
