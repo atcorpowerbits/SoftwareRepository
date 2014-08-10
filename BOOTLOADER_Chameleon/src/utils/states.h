@@ -60,7 +60,7 @@ typedef struct
 typedef struct
 {
 	Union32 Spare1;
-	Union32 Start_Offset;
+	Union32 Start_Address;
 	Union32 bSize;
 	Union32 bCRC32;
 	uint8_t bSignature[SIGNATURE_LEN_CBP_IMAGE];

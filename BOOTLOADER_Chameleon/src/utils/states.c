@@ -353,15 +353,15 @@ bool CheckCbpBinaryImage(void)
 			// Skip CBX header.
 			pageIndex = sizeof(cbxHeader_t);
 			
-			// Decrypt Spare1, Start_Offset in header.
+			// Decrypt Spare1, Start_Address in header.
 			memcpy(enc_buffer, &pageBuffer[pageIndex], ENC_DEC_BLOCK_SIZE);
 			if (!decrypt(enc_buffer, dec_buffer, true))
 			{
-				print_dbg("Failed to ? Offset\r\n"); // Failed to decrypt CBP binary image header for Spare1, Start_Offset.
+				print_dbg("Failed to ? Offset\r\n"); // Failed to decrypt CBP binary image header for Spare1, Start_Address.
 				return false;
 			}
 			memcpy(&bin_header.Spare1.u32, &dec_buffer[0], sizeof(bin_header.Spare1.u32));
-			memcpy(&bin_header.Start_Offset.u32, &dec_buffer[sizeof(bin_header.Spare1.u32)], sizeof(bin_header.Start_Offset.u32));
+			memcpy(&bin_header.Start_Address.u32, &dec_buffer[sizeof(bin_header.Spare1.u32)], sizeof(bin_header.Start_Address.u32));
 
 			// Decrypt bSize, bCRC32 in header.
 			pageIndex += ENC_DEC_BLOCK_SIZE;
@@ -375,19 +375,29 @@ bool CheckCbpBinaryImage(void)
 			memcpy(&bin_header.bCRC32.u32, &dec_buffer[sizeof(bin_header.bSize.u32)], sizeof(bin_header.bCRC32.u32));
 			
 			bin_header.Spare1.u32 = swap32(bin_header.Spare1.u32);
-			bin_header.Start_Offset.u32 = swap32(bin_header.Start_Offset.u32);
+			bin_header.Start_Address.u32 = swap32(bin_header.Start_Address.u32);
 			bin_header.bSize.u32 = swap32(bin_header.bSize.u32);
 			bin_header.bCRC32.u32 = swap32(bin_header.bCRC32.u32);
-			cbp_image_start_address = bin_header.Start_Offset.u32;
+			cbp_image_start_address = bin_header.Start_Address.u32;
 
-#if 0 // Sensitive information - use only during development to help with debugging 
-			print_dbg_hex(bin_header.Start_Offset.u32);
+#ifdef _DEBUG
+			// Sensitive information - use only during development to help with debugging 
+			print_dbg_hex(bin_header.Start_Address.u32);
 			print_dbg("h; ");
 			print_dbg_ulong(bin_header.bSize.u32);
 			print_dbg("; ");
 			print_dbg_hex(bin_header.bCRC32.u32);
 			print_dbg("h\r\n");
 #endif
+			// Check the start address of the CBP binary image given in the CBP binary image header
+			if (cbp_image_start_address != PROGRAM_START_ADDRESS)
+			{
+				print_dbg("Failed to verify B SA "); // Failed to verify the start address of the CBP binary image.
+				print_dbg_hex(cbp_image_start_address);
+				print_dbg("h\r\n");
+				return false;
+			}
+			
 			mcu_max_rw_count = bin_header.bSize.u32 % MCU_READ_WRITE_SIZE;
 			paddingSize = bin_header.bSize.u32 % ENC_DEC_BLOCK_SIZE;
 			if (mcu_max_rw_count > 0 || paddingSize > 0)

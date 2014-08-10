@@ -51,12 +51,12 @@ int main (void)
 	DEFINE_TEST_ARRAY(DecryptProgram) =
 	{
 		&WriteToMcuFlash_PartialLastPage_test,
-		&CheckCbpBinaryImage_test,
 		&EraseMcuFlash_test,
 		&WriteToMcuFlash_test,
 		&ProgramAndVerifyMCU_test,
 		&CheckMcuFlash_test,
 		&Decrypt_test,
+		&CheckCbpBinaryImage_test, // run it last; negative unit tests changes the CBX header in the DataFlash
 	};
 
 	// Define the test suite.

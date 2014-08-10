@@ -44,7 +44,7 @@
 
 // Define major and minor version numbers of the Bootloader
 #define BOOTLOADER_VER_MAJOR 1
-#define BOOTLOADER_VER_MINOR 0
+#define BOOTLOADER_VER_MINOR 1
 
 /*! \brief Called when Vbus line state change
  */
