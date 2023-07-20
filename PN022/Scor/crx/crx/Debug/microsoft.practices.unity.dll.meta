@@ -1,0 +1,1218 @@
+  Microsoft.Practices.Unity.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.Unity.DependencyResolutionAttribute: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :System.Attribute
+  Methods:
+    CreateResolver(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.InjectionConstructorAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InjectionMethodAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.DependencyAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.Unity.DependencyResolutionAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    CreateResolver(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.OptionalDependencyAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Practices.Unity.DependencyResolutionAttribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    CreateResolver(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.ResolverOverride: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Methods:
+    GetResolver(IBuilderContext, Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnType(): PrivateScope, Public, HideBySig
+    OnType(Type): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.CompositeResolverOverride: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.ResolverOverride
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.ResolverOverride]
+    System.Collections.IEnumerable
+  Methods:
+    Add(ResolverOverride): PrivateScope, Public, HideBySig
+    AddRange(IEnumerable`1): PrivateScope, Public, HideBySig
+    GetEnumerator(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetResolver(IBuilderContext, Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.ContainerRegistration: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    System.Type RegisteredType 'get ' : 
+    System.Type MappedToType 'get set' : 
+    System.String Name 'get ' : 
+    System.Type LifetimeManagerType 'get set' : 
+    Microsoft.Practices.Unity.LifetimeManager LifetimeManager 'get set' : 
+  Methods:
+    get_RegisteredType(): PrivateScope, Public, HideBySig, SpecialName
+    get_MappedToType(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_LifetimeManagerType(): PrivateScope, Public, HideBySig, SpecialName
+    get_LifetimeManager(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.DependencyOverride: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.ResolverOverride
+    Void .ctor(System.Type, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetResolver(IBuilderContext, Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.DependencyOverride`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.Unity.DependencyOverride
+    Void .ctor(System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.OverrideCollection`3[TOverride,TKey,TValue]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: TOverride, Microsoft.Practices.Unity.ResolverOverride
+  Type parameter: TKey
+  Type parameter: TValue
+  :Microsoft.Practices.Unity.ResolverOverride
+  Interfaces:
+    System.Collections.Generic.IEnumerable`1[TOverride]
+    System.Collections.IEnumerable
+  Methods:
+    Add(TKey, TValue): PrivateScope, Public, HideBySig
+    GetResolver(IBuilderContext, Type): PrivateScope, Public, Virtual, HideBySig
+    GetEnumerator(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.DependencyOverrides: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.OverrideCollection`3[Microsoft.Practices.Unity.DependencyOverride,System.Type,System.Object]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.ChildContainerCreatedEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(Microsoft.Practices.Unity.ExtensionContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.Unity.IUnityContainer ChildContainer 'get ' : 
+    Microsoft.Practices.Unity.ExtensionContext ChildContext 'get set' : 
+  Methods:
+    get_ChildContainer(): PrivateScope, Public, HideBySig, SpecialName
+    get_ChildContext(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.InjectionParameterValue: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    System.String ParameterTypeName 'get ' : 
+  Methods:
+    get_ParameterTypeName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    MatchesType(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetResolverPolicy(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ToParameters(Object[]): PrivateScope, Public, Static, HideBySig
+    ToParameter(Object): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.GenericParameterBase: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionParameterValue
+  Properties:
+    System.String ParameterTypeName 'get ' : 
+  Methods:
+    get_ParameterTypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    MatchesType(Type): PrivateScope, Public, Virtual, HideBySig
+    GetResolverPolicy(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.OptionalGenericParameter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.GenericParameterBase
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InjectionMember: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Methods:
+    AddPolicies(Type, IPolicyList): PrivateScope, Public, HideBySig
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.InjectionFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionMember
+    Void .ctor(System.Func`2[Microsoft.Practices.Unity.IUnityContainer,System.Object]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Func`4[Microsoft.Practices.Unity.IUnityContainer,System.Type,System.String,System.Object]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.TypedInjectionValue: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionParameterValue
+  Properties:
+    System.Type ParameterType 'get ' : 
+    System.String ParameterTypeName 'get ' : 
+  Methods:
+    get_ParameterType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_ParameterTypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    MatchesType(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.OptionalParameter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.TypedInjectionValue
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetResolverPolicy(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.OptionalParameter`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.Unity.OptionalParameter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.ObjectBuilder2.IBuilderPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+Interface Microsoft.Practices.ObjectBuilder2.ILifetimePolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    GetValue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SetValue(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    RemoveValue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.LifetimeManager: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.ILifetimePolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    GetValue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SetValue(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    RemoveValue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.ObjectBuilder2.IRequiresRecovery: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    Recover(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.SynchronizedLifetimeManager: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.LifetimeManager
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IRequiresRecovery
+  Methods:
+    GetValue(): PrivateScope, Public, Virtual, HideBySig
+    SetValue(Object): PrivateScope, Public, Virtual, HideBySig
+    RemoveValue(): PrivateScope, Public, Virtual, HideBySig
+    Recover(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.ContainerControlledLifetimeManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.SynchronizedLifetimeManager
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Methods:
+    RemoveValue(): PrivateScope, Public, Virtual, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.HierarchicalLifetimeManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.ContainerControlledLifetimeManager
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.PerResolveLifetimeManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.LifetimeManager
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetValue(): PrivateScope, Public, Virtual, HideBySig
+    SetValue(Object): PrivateScope, Public, Virtual, HideBySig
+    RemoveValue(): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.ObjectBuilder2.IBuilderStrategy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    PostBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    PreTearDown(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    PostTearDown(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.BuilderStrategy: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderStrategy
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    PostBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    PreTearDown(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    PostTearDown(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.HierarchicalLifetimeStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    Resolve(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.OptionalDependencyResolverPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Type DependencyType 'get ' : 
+    System.String Name 'get ' : 
+  Methods:
+    get_DependencyType(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    Resolve(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.PolicyListExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Clear(IPolicyList, Object): PrivateScope, Public, Static, HideBySig
+    ClearDefault(IPolicyList): PrivateScope, Public, Static, HideBySig
+    Get(IPolicyList, Object): PrivateScope, Public, Static, HideBySig
+    Get(IPolicyList, Object, IPolicyList&(Out)): PrivateScope, Public, Static, HideBySig
+    Get(IPolicyList, Type, Object): PrivateScope, Public, Static, HideBySig
+    Get(IPolicyList, Type, Object, IPolicyList&(Out)): PrivateScope, Public, Static, HideBySig
+    Get(IPolicyList, Object, Boolean): PrivateScope, Public, Static, HideBySig
+    Get(IPolicyList, Object, Boolean, IPolicyList&(Out)): PrivateScope, Public, Static, HideBySig
+    Get(IPolicyList, Type, Object, Boolean): PrivateScope, Public, Static, HideBySig
+    GetNoDefault(IPolicyList, Object, Boolean): PrivateScope, Public, Static, HideBySig
+    GetNoDefault(IPolicyList, Object, Boolean, IPolicyList&(Out)): PrivateScope, Public, Static, HideBySig
+    GetNoDefault(IPolicyList, Type, Object, Boolean): PrivateScope, Public, Static, HideBySig
+    Set(IPolicyList, TPolicyInterface, Object): PrivateScope, Public, Static, HideBySig
+    SetDefault(IPolicyList, TPolicyInterface): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.BuildOperation: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    System.Type TypeBeingConstructed 'get set' : 
+  Methods:
+    get_TypeBeingConstructed(): PrivateScope, Public, HideBySig, SpecialName
+Interface Microsoft.Practices.ObjectBuilder2.IBuildPlanPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    BuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.EnumerableExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ForEach(IEnumerable`1, Action`1): PrivateScope, Public, Static, HideBySig
+    JoinStrings(IEnumerable`1, String, Func`2): PrivateScope, Public, Static, HideBySig
+    JoinStrings(IEnumerable`1, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.ParameterOverride: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.ResolverOverride
+    Void .ctor(System.String, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetResolver(IBuilderContext, Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.ParameterOverrides: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.OverrideCollection`3[Microsoft.Practices.Unity.ParameterOverride,System.String,System.Object]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.PropertyOverride: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.ResolverOverride
+    Void .ctor(System.String, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetResolver(IBuilderContext, Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.PropertyOverrides: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.OverrideCollection`3[Microsoft.Practices.Unity.PropertyOverride,System.String,System.Object]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.Unity.IUnityContainerExtensionConfigurator: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Microsoft.Practices.Unity.IUnityContainer Container 'get ' : 
+  Methods:
+    get_Container(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Microsoft.Practices.Unity.StaticFactory.IStaticFactoryConfiguration: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.Unity.IUnityContainerExtensionConfigurator
+  Methods:
+    RegisterFactory(Func`2): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    RegisterFactory(String, Func`2): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.ObjectBuilder2.IBuilderContext: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Microsoft.Practices.ObjectBuilder2.IStrategyChain Strategies 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.ILifetimeContainer Lifetime 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey OriginalBuildKey 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey BuildKey 'get set' : 
+    Microsoft.Practices.ObjectBuilder2.IPolicyList PersistentPolicies 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.IPolicyList Policies 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.IRecoveryStack RecoveryStack 'get ' : 
+    System.Object Existing 'get set' : 
+    Boolean BuildComplete 'get set' : 
+    System.Object CurrentOperation 'get set' : 
+    Microsoft.Practices.ObjectBuilder2.IBuilderContext ChildContext 'get ' : 
+  Methods:
+    get_Strategies(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Lifetime(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_OriginalBuildKey(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_BuildKey(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_BuildKey(NamedTypeBuildKey): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_PersistentPolicies(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Policies(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_RecoveryStack(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Existing(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Existing(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_BuildComplete(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_BuildComplete(Boolean): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_CurrentOperation(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_CurrentOperation(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_ChildContext(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    AddResolverOverrides(IEnumerable`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetOverriddenResolver(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    NewBuildUp(NamedTypeBuildKey): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    NewBuildUp(NamedTypeBuildKey, Action`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.BuilderContext: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.ObjectBuilder2.IStrategyChain, Microsoft.Practices.ObjectBuilder2.ILifetimeContainer, Microsoft.Practices.ObjectBuilder2.IPolicyList, Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.ObjectBuilder2.IStrategyChain, Microsoft.Practices.ObjectBuilder2.ILifetimeContainer, Microsoft.Practices.ObjectBuilder2.IPolicyList, Microsoft.Practices.ObjectBuilder2.IPolicyList, Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderContext
+  Properties:
+    Microsoft.Practices.ObjectBuilder2.IStrategyChain Strategies 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey BuildKey 'get set' : 
+    System.Object Existing 'get set' : 
+    Microsoft.Practices.ObjectBuilder2.ILifetimeContainer Lifetime 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey OriginalBuildKey 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.IPolicyList PersistentPolicies 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.IPolicyList Policies 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.IRecoveryStack RecoveryStack 'get ' : 
+    Boolean BuildComplete 'get set' : 
+    System.Object CurrentOperation 'get set' : 
+    Microsoft.Practices.ObjectBuilder2.IBuilderContext ChildContext 'get set' : 
+  Methods:
+    get_Strategies(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_BuildKey(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_BuildKey(NamedTypeBuildKey): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Existing(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Existing(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Lifetime(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_OriginalBuildKey(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_PersistentPolicies(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Policies(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_RecoveryStack(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_BuildComplete(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_BuildComplete(Boolean): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_CurrentOperation(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_CurrentOperation(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_ChildContext(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    AddResolverOverrides(IEnumerable`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetOverriddenResolver(Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    NewBuildUp(NamedTypeBuildKey): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    NewBuildUp(NamedTypeBuildKey, Action`1): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.DependencyMissingException: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.ObjectBuilder2.IllegalInjectionMethodException: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.ObjectBuilder2.BuilderContextExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    NewBuildUp(IBuilderContext): PrivateScope, Public, Static, HideBySig
+    NewBuildUp(IBuilderContext, String): PrivateScope, Public, Static, HideBySig
+    AddResolverOverrides(IBuilderContext, ResolverOverride[]): PrivateScope, Public, Static, HideBySig
+Interface Microsoft.Practices.ObjectBuilder2.IRecoveryStack: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Count 'get ' : 
+  Methods:
+    Add(IRequiresRecovery): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_Count(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    ExecuteRecovery(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.ObjectBuilder2.ILifetimeContainer: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.Collections.Generic.IEnumerable`1[System.Object]
+    System.Collections.IEnumerable
+    System.IDisposable
+  Properties:
+    Int32 Count 'get ' : 
+  Methods:
+    get_Count(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Add(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Contains(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Remove(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.LifetimeContainer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.ILifetimeContainer
+    System.Collections.Generic.IEnumerable`1[System.Object]
+    System.Collections.IEnumerable
+    System.IDisposable
+  Properties:
+    Int32 Count 'get ' : 
+  Methods:
+    get_Count(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Add(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Contains(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetEnumerator(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Remove(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.ObjectBuilder2.IPolicyList: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    Clear(Type, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ClearAll(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ClearDefault(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Get(Type, Object, Boolean, IPolicyList&(Out)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetNoDefault(Type, Object, Boolean, IPolicyList&(Out)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Set(Type, IBuilderPolicy, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SetDefault(Type, IBuilderPolicy): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.PolicyList: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.ObjectBuilder2.IPolicyList): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IPolicyList
+  Properties:
+    Int32 Count 'get ' : 
+  Methods:
+    get_Count(): PrivateScope, Public, HideBySig, SpecialName
+    Clear(Type, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ClearAll(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ClearDefault(Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Get(Type, Object, Boolean, IPolicyList&(Out)): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetNoDefault(Type, Object, Boolean, IPolicyList&(Out)): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Set(Type, IBuilderPolicy, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    SetDefault(Type, IBuilderPolicy): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.RecoveryStack: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IRecoveryStack
+  Properties:
+    Int32 Count 'get ' : 
+  Methods:
+    Add(IRequiresRecovery): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_Count(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    ExecuteRecovery(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.BuilderAwareStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+    PreTearDown(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.ObjectBuilder2.IBuilderAware: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    OnBuiltUp(NamedTypeBuildKey): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    OnTearingDown(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Struct Microsoft.Practices.ObjectBuilder2.BuilderStage: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.ObjectBuilder2.BuilderStage PreCreation = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.ObjectBuilder2.BuilderStage Creation = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.ObjectBuilder2.BuilderStage Initialization = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.ObjectBuilder2.BuilderStage PostInitialization = 3 : Public, Static, Literal, HasDefault
+Interface Microsoft.Practices.ObjectBuilder2.IBuildKeyMappingPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    Map(NamedTypeBuildKey, IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.BuildKeyMappingPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuildKeyMappingPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    Map(NamedTypeBuildKey, IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.BuildKeyMappingStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.GenericTypeBuildKeyMappingPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuildKeyMappingPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    Map(NamedTypeBuildKey, IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.ObjectBuilder2.IConstructorSelectorPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    SelectConstructor(IBuilderContext, IPolicyList): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.ConstructorSelectorPolicyBase`1[TInjectionConstructorMarkerAttribute]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: TInjectionConstructorMarkerAttribute, System.Attribute
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IConstructorSelectorPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    SelectConstructor(IBuilderContext, IPolicyList): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.ConstructorSelectorPolicy`1[TInjectionConstructorMarkerAttribute]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TInjectionConstructorMarkerAttribute, System.Attribute
+  :Microsoft.Practices.ObjectBuilder2.ConstructorSelectorPolicyBase`1[TInjectionConstructorMarkerAttribute]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.ObjectBuilder2.SelectedMemberWithParameters: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AddParameterKey(String): PrivateScope, Public, HideBySig
+    GetParameterKeys(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.SelectedMemberWithParameters`1[TMemberInfoType]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TMemberInfoType
+  :Microsoft.Practices.ObjectBuilder2.SelectedMemberWithParameters
+Class Microsoft.Practices.ObjectBuilder2.SelectedConstructor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.SelectedMemberWithParameters`1[System.Reflection.ConstructorInfo]
+    Void .ctor(System.Reflection.ConstructorInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Reflection.ConstructorInfo Constructor 'get ' : 
+  Methods:
+    get_Constructor(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.ObjectBuilder2.ConstructorArgumentResolveOperation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuildOperation
+    Void .ctor(System.Type, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String ConstructorSignature 'get ' : 
+    System.String ParameterName 'get ' : 
+  Methods:
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    get_ConstructorSignature(): PrivateScope, Public, HideBySig, SpecialName
+    get_ParameterName(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+    ThrowForNullExistingObject(IBuilderContext): PrivateScope, Public, Static, HideBySig
+    ThrowForNullExistingObjectWithInvalidConstructor(IBuilderContext, String): PrivateScope, Public, Static, HideBySig
+    ThrowForAttemptingToConstructInterface(IBuilderContext): PrivateScope, Public, Static, HideBySig
+    SetCurrentOperationToResolvingParameter(String, String, IBuilderContext): PrivateScope, Public, Static, HideBySig
+    SetCurrentOperationToInvokingConstructor(String, IBuilderContext): PrivateScope, Public, Static, HideBySig
+    SetPerBuildSingleton(IBuilderContext): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.InvokingConstructorOperation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuildOperation
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String ConstructorSignature 'get ' : 
+  Methods:
+    get_ConstructorSignature(): PrivateScope, Public, HideBySig, SpecialName
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.ObjectBuilder2.IDynamicBuilderMethodCreatorPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    CreateBuilderMethod(Type, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.DefaultDynamicBuilderMethodCreatorPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IDynamicBuilderMethodCreatorPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    CreateBuilderMethod(Type, String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Type, Microsoft.Practices.ObjectBuilder2.IDynamicBuilderMethodCreatorPolicy): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Reflection.Emit.ILGenerator IL 'get ' : 
+    System.Type TypeToBuild 'get ' : 
+  Methods:
+    get_IL(): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeToBuild(): PrivateScope, Public, HideBySig, SpecialName
+    EmitLoadContext(): PrivateScope, Public, HideBySig
+    EmitLoadBuildKey(): PrivateScope, Public, HideBySig
+    EmitLoadExisting(): PrivateScope, Public, HideBySig
+    EmitStoreExisting(): PrivateScope, Public, HideBySig
+    EmitLoadTypeOnStack(Type): PrivateScope, Public, HideBySig
+    EmitResolveDependency(Type, String): PrivateScope, Public, HideBySig
+    EmitClearCurrentOperation(): PrivateScope, Public, HideBySig
+    EmitCastOrUnbox(Type): PrivateScope, Public, HideBySig
+    DoClearCurrentOperation(IBuilderContext): PrivateScope, Public, Static, HideBySig
+    GetResolver(IBuilderContext, Type, String): PrivateScope, Public, Static, HideBySig
+    GetPropertyGetter(String): PrivateScope, Public, HideBySig
+    GetMethodInfo(String, Type[]): PrivateScope, Public, HideBySig
+Interface Microsoft.Practices.ObjectBuilder2.IBuildPlanCreatorPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    CreatePlan(IBuilderContext, NamedTypeBuildKey): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlanCreatorPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.ObjectBuilder2.IStagedStrategyChain): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuildPlanCreatorPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    CreatePlan(IBuilderContext, NamedTypeBuildKey): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.InvokingMethodOperation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuildOperation
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String MethodSignature 'get ' : 
+  Methods:
+    get_MethodSignature(): PrivateScope, Public, HideBySig, SpecialName
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.MethodArgumentResolveOperation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuildOperation
+    Void .ctor(System.Type, System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String MethodSignature 'get ' : 
+    System.String ParameterName 'get ' : 
+  Methods:
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    get_MethodSignature(): PrivateScope, Public, HideBySig, SpecialName
+    get_ParameterName(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.ObjectBuilder2.DynamicMethodCallStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+    SetCurrentOperationToResolvingParameter(String, String, IBuilderContext): PrivateScope, Public, Static, HideBySig
+    SetCurrentOperationToInvokingMethod(String, IBuilderContext): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.PropertyOperation: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuildOperation
+  Properties:
+    System.String PropertyName 'get ' : 
+  Methods:
+    get_PropertyName(): PrivateScope, Public, HideBySig, SpecialName
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.ResolvingPropertyValueOperation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.PropertyOperation
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.ObjectBuilder2.DynamicMethodPropertySetterStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+    SetCurrentOperationToResolvingPropertyValue(String, IBuilderContext): PrivateScope, Public, Static, HideBySig
+    SetCurrentOperationToSettingProperty(String, IBuilderContext): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.SettingPropertyOperation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.PropertyOperation
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.ObjectBuilder2.IMethodSelectorPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    SelectMethods(IBuilderContext, IPolicyList): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.MethodSelectorPolicyBase`1[TMarkerAttribute]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: TMarkerAttribute, System.Attribute
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IMethodSelectorPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    SelectMethods(IBuilderContext, IPolicyList): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.MethodSelectorPolicy`1[TMarkerAttribute]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TMarkerAttribute, System.Attribute
+  :Microsoft.Practices.ObjectBuilder2.MethodSelectorPolicyBase`1[TMarkerAttribute]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.ObjectBuilder2.SelectedMethod: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.SelectedMemberWithParameters`1[System.Reflection.MethodInfo]
+    Void .ctor(System.Reflection.MethodInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Reflection.MethodInfo Method 'get ' : 
+  Methods:
+    get_Method(): PrivateScope, Public, HideBySig, SpecialName
+Interface Microsoft.Practices.ObjectBuilder2.IPropertySelectorPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    SelectProperties(IBuilderContext, IPolicyList): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.PropertySelectorBase`1[TResolutionAttribute]: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Type parameter: TResolutionAttribute, System.Attribute
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IPropertySelectorPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    SelectProperties(IBuilderContext, IPolicyList): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.PropertySelectorPolicy`1[TResolutionAttribute]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TResolutionAttribute, System.Attribute
+  :Microsoft.Practices.ObjectBuilder2.PropertySelectorBase`1[TResolutionAttribute]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.ObjectBuilder2.SelectedProperty: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Reflection.PropertyInfo, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Reflection.PropertyInfo Property 'get ' : 
+    System.String Key 'get ' : 
+  Methods:
+    get_Property(): PrivateScope, Public, HideBySig, SpecialName
+    get_Key(): PrivateScope, Public, HideBySig, SpecialName
+Interface Microsoft.Practices.ObjectBuilder2.IDependencyResolverTrackerPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    AddResolverKey(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    RemoveResolvers(IPolicyList): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.ObjectBuilder2.DependencyResolverTrackerPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IDependencyResolverTrackerPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    AddResolverKey(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RemoveResolvers(IPolicyList): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetTracker(IPolicyList, Object): PrivateScope, Public, Static, HideBySig
+    TrackKey(IPolicyList, Object, Object): PrivateScope, Public, Static, HideBySig
+    RemoveResolvers(IPolicyList, Object): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.FixedTypeResolverPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    Resolve(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.ObjectBuilder2.IStagedStrategyChain: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    MakeStrategyChain(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.ObjectBuilder2.IStrategyChain: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.ObjectBuilder2.IBuilderStrategy]
+    System.Collections.IEnumerable
+  Methods:
+    Reverse(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExecuteBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ExecuteTearDown(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.ObjectBuilder2.ILifetimeFactoryPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Type LifetimeType 'get ' : 
+  Methods:
+    CreateLifetimePolicy(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_LifetimeType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.ObjectBuilder2.LifetimeStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+    PostBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.StagedStrategyChain`1[TStageEnum]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TStageEnum
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.ObjectBuilder2.StagedStrategyChain`1[TStageEnum]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IStagedStrategyChain
+  Methods:
+    Add(IBuilderStrategy, TStageEnum): PrivateScope, Public, HideBySig
+    AddNew(TStageEnum): PrivateScope, Public, HideBySig
+    Clear(): PrivateScope, Public, HideBySig
+    MakeStrategyChain(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.StrategyChain: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.IEnumerable): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IStrategyChain
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.ObjectBuilder2.IBuilderStrategy]
+    System.Collections.IEnumerable
+  Methods:
+    Add(IBuilderStrategy): PrivateScope, Public, HideBySig
+    AddRange(IEnumerable): PrivateScope, Public, HideBySig
+    Reverse(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ExecuteBuildUp(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ExecuteTearDown(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetEnumerator(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type Type 'get ' : 
+    System.String Name 'get ' : 
+  Methods:
+    Make(): PrivateScope, Public, Static, HideBySig
+    Make(String): PrivateScope, Public, Static, HideBySig
+    get_Type(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    op_Equality(NamedTypeBuildKey, NamedTypeBuildKey): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Inequality(NamedTypeBuildKey, NamedTypeBuildKey): PrivateScope, Public, Static, HideBySig, SpecialName
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.ObjectBuilder2.Sequence: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Collect(T[]): PrivateScope, Public, Static, HideBySig
+    Zip(IEnumerable`1, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.ResolutionFailedException: AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+  :System.Exception
+    Void .ctor(System.Type, System.String, System.Exception, Microsoft.Practices.ObjectBuilder2.IBuilderContext): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String TypeRequested 'get ' : 
+    System.String NameRequested 'get ' : 
+  Methods:
+    GetObjectData(SerializationInfo, StreamingContext): PrivateScope, Public, Virtual, HideBySig, HasSecurity
+    get_TypeRequested(): PrivateScope, Public, HideBySig, SpecialName
+    get_NameRequested(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.UnityContainerExtension: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Interfaces:
+    Microsoft.Practices.Unity.IUnityContainerExtensionConfigurator
+  Properties:
+    Microsoft.Practices.Unity.IUnityContainer Container 'get ' : 
+  Methods:
+    InitializeExtension(ExtensionContext): PrivateScope, Public, HideBySig
+    get_Container(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Remove(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.StaticFactory.StaticFactoryExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit (Obsolete)
+  :Microsoft.Practices.Unity.UnityContainerExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.StaticFactory.IStaticFactoryConfiguration
+  Methods:
+    RegisterFactory(String, Func`2): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RegisterFactory(Func`2): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.TypeBasedOverride: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.ResolverOverride
+    Void .ctor(System.Type, Microsoft.Practices.Unity.ResolverOverride): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetResolver(IBuilderContext, Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.TypeBasedOverride`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T
+  :Microsoft.Practices.Unity.TypeBasedOverride
+    Void .ctor(Microsoft.Practices.Unity.ResolverOverride): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.UnityContainerExtensions: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    RegisterType(IUnityContainer, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, LifetimeManager, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, String, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, String, LifetimeManager, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, LifetimeManager, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, String, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, String, LifetimeManager, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, Type, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, Type, Type, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, Type, Type, String, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, Type, Type, LifetimeManager, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, Type, LifetimeManager, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, Type, String, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(IUnityContainer, Type, String, LifetimeManager, InjectionMember[]): PrivateScope, Public, Static, HideBySig
+    RegisterInstance(IUnityContainer, TInterface): PrivateScope, Public, Static, HideBySig
+    RegisterInstance(IUnityContainer, TInterface, LifetimeManager): PrivateScope, Public, Static, HideBySig
+    RegisterInstance(IUnityContainer, String, TInterface): PrivateScope, Public, Static, HideBySig
+    RegisterInstance(IUnityContainer, String, TInterface, LifetimeManager): PrivateScope, Public, Static, HideBySig
+    RegisterInstance(IUnityContainer, Type, Object): PrivateScope, Public, Static, HideBySig
+    RegisterInstance(IUnityContainer, Type, Object, LifetimeManager): PrivateScope, Public, Static, HideBySig
+    RegisterInstance(IUnityContainer, Type, String, Object): PrivateScope, Public, Static, HideBySig
+    Resolve(IUnityContainer, ResolverOverride[]): PrivateScope, Public, Static, HideBySig
+    Resolve(IUnityContainer, String, ResolverOverride[]): PrivateScope, Public, Static, HideBySig
+    Resolve(IUnityContainer, Type, ResolverOverride[]): PrivateScope, Public, Static, HideBySig
+    ResolveAll(IUnityContainer, ResolverOverride[]): PrivateScope, Public, Static, HideBySig
+    BuildUp(IUnityContainer, T, ResolverOverride[]): PrivateScope, Public, Static, HideBySig
+    BuildUp(IUnityContainer, T, String, ResolverOverride[]): PrivateScope, Public, Static, HideBySig
+    BuildUp(IUnityContainer, Type, Object, ResolverOverride[]): PrivateScope, Public, Static, HideBySig
+    AddNewExtension(IUnityContainer): PrivateScope, Public, Static, HideBySig
+    Configure(IUnityContainer): PrivateScope, Public, Static, HideBySig
+    IsRegistered(IUnityContainer, Type): PrivateScope, Public, Static, HideBySig
+    IsRegistered(IUnityContainer, Type, String): PrivateScope, Public, Static, HideBySig
+    IsRegistered(IUnityContainer): PrivateScope, Public, Static, HideBySig
+    IsRegistered(IUnityContainer, String): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.UnityDefaultStrategiesExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.UnityContainerExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.ExtensionContext: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    Microsoft.Practices.Unity.IUnityContainer Container 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.StagedStrategyChain`1[Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage] Strategies 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.StagedStrategyChain`1[Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage] BuildPlanStrategies 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.IPolicyList Policies 'get ' : 
+    Microsoft.Practices.ObjectBuilder2.ILifetimeContainer Lifetime 'get ' : 
+  Events:
+    System.EventHandler`1[Microsoft.Practices.Unity.RegisterEventArgs] Registering: 
+    System.EventHandler`1[Microsoft.Practices.Unity.RegisterInstanceEventArgs] RegisteringInstance: 
+    System.EventHandler`1[Microsoft.Practices.Unity.ChildContainerCreatedEventArgs] ChildContainerCreated: 
+  Methods:
+    get_Container(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Strategies(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_BuildPlanStrategies(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Policies(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Lifetime(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    RegisterNamedType(Type, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    add_Registering(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_Registering(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    add_RegisteringInstance(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_RegisteringInstance(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    add_ChildContainerCreated(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    remove_ChildContainerCreated(EventHandler`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.Unity.NamedEventArgs: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :System.EventArgs
+  Properties:
+    System.String Name 'get set' : 
+  Methods:
+    get_Name(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Name(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.Unity.RegisterEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.NamedEventArgs
+    Void .ctor(System.Type, System.Type, System.String, Microsoft.Practices.Unity.LifetimeManager): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type TypeFrom 'get set' : 
+    System.Type TypeTo 'get set' : 
+    Microsoft.Practices.Unity.LifetimeManager LifetimeManager 'get set' : 
+  Methods:
+    get_TypeFrom(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeFrom(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeTo(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeTo(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_LifetimeManager(): PrivateScope, Public, HideBySig, SpecialName
+    set_LifetimeManager(LifetimeManager): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.RegisterInstanceEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.NamedEventArgs
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.Object, System.String, Microsoft.Practices.Unity.LifetimeManager): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type RegisteredType 'get set' : 
+    System.Object Instance 'get set' : 
+    Microsoft.Practices.Unity.LifetimeManager LifetimeManager 'get set' : 
+  Methods:
+    get_RegisteredType(): PrivateScope, Public, HideBySig, SpecialName
+    set_RegisteredType(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_Instance(): PrivateScope, Public, HideBySig, SpecialName
+    set_Instance(Object): PrivateScope, Public, HideBySig, SpecialName
+    get_LifetimeManager(): PrivateScope, Public, HideBySig, SpecialName
+    set_LifetimeManager(LifetimeManager): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.GenericParameter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.GenericParameterBase
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.GenericResolvedArrayParameter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionParameterValue
+    Void .ctor(System.String, System.Object[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String ParameterTypeName 'get ' : 
+  Methods:
+    get_ParameterTypeName(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    MatchesType(Type): PrivateScope, Public, Virtual, HideBySig
+    GetResolverPolicy(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.InjectedMembers: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit (Obsolete)
+  :Microsoft.Practices.Unity.UnityContainerExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    ConfigureInjectionFor(InjectionMember[]): PrivateScope, Public, HideBySig
+    ConfigureInjectionFor(String, InjectionMember[]): PrivateScope, Public, HideBySig
+    ConfigureInjectionFor(Type, InjectionMember[]): PrivateScope, Public, HideBySig
+    ConfigureInjectionFor(Type, String, InjectionMember[]): PrivateScope, Public, HideBySig
+    ConfigureInjectionFor(Type, Type, String, InjectionMember[]): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.InjectionConstructor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionMember
+    Void .ctor(System.Object[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.InjectionMethod: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionMember
+    Void .ctor(System.String, System.Object[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.InjectionParameter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.TypedInjectionValue
+    Void .ctor(System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetResolverPolicy(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.InjectionParameter`1[TParameter]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TParameter
+  :Microsoft.Practices.Unity.InjectionParameter
+    Void .ctor(TParameter): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InjectionProperty: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionMember
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.ResolvedArrayParameter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.TypedInjectionValue
+    Void .ctor(System.Type, System.Object[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetResolverPolicy(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.ResolvedArrayParameter`1[TElement]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TElement
+  :Microsoft.Practices.Unity.ResolvedArrayParameter
+    Void .ctor(System.Object[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.Unity.IUnityContainer: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Properties:
+    Microsoft.Practices.Unity.IUnityContainer Parent 'get ' : 
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.ContainerRegistration] Registrations 'get ' : 
+  Methods:
+    RegisterType(Type, Type, String, LifetimeManager, InjectionMember[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    RegisterInstance(Type, String, Object, LifetimeManager): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Resolve(Type, String, ResolverOverride[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ResolveAll(Type, ResolverOverride[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    BuildUp(Type, Object, String, ResolverOverride[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Teardown(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    AddExtension(UnityContainerExtension): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Configure(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    RemoveAllExtensions(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_Parent(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    CreateChildContainer(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_Registrations(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.Unity.ExternallyControlledLifetimeManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.LifetimeManager
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetValue(): PrivateScope, Public, Virtual, HideBySig
+    SetValue(Object): PrivateScope, Public, Virtual, HideBySig
+    RemoveValue(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.LifetimeManagerFactory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.Unity.ExtensionContext, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.ILifetimeFactoryPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Type LifetimeType 'get set' : 
+  Methods:
+    CreateLifetimePolicy(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_LifetimeType(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.Unity.PerThreadLifetimeManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.LifetimeManager
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetValue(): PrivateScope, Public, Virtual, HideBySig
+    SetValue(Object): PrivateScope, Public, Virtual, HideBySig
+    RemoveValue(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.TransientLifetimeManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.LifetimeManager
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetValue(): PrivateScope, Public, Virtual, HideBySig
+    SetValue(Object): PrivateScope, Public, Virtual, HideBySig
+    RemoveValue(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.ArrayResolutionStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.ObjectBuilder.DefaultUnityConstructorSelectorPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.ConstructorSelectorPolicyBase`1[Microsoft.Practices.Unity.InjectionConstructorAttribute]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.ObjectBuilder.DefaultUnityMethodSelectorPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.MethodSelectorPolicyBase`1[Microsoft.Practices.Unity.InjectionMethodAttribute]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.ObjectBuilder.DefaultUnityPropertySelectorPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.PropertySelectorBase`1[Microsoft.Practices.Unity.DependencyResolutionAttribute]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.ObjectBuilder.LiteralValueDependencyResolverPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    Resolve(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Type Type 'get ' : 
+    System.String Name 'get ' : 
+  Methods:
+    Resolve(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_Type(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.ResolvedArrayWithElementsResolverPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Type, Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IDependencyResolverPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    Resolve(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.ObjectBuilder.SpecifiedConstructorSelectorPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Reflection.ConstructorInfo, Microsoft.Practices.Unity.InjectionParameterValue[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IConstructorSelectorPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    SelectConstructor(IBuilderContext, IPolicyList): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.ObjectBuilder.SpecifiedMemberSelectorHelper: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    AddParameterResolvers(Type, IPolicyList, IEnumerable`1, SelectedMemberWithParameters): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.ObjectBuilder.SpecifiedMethodsSelectorPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IMethodSelectorPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    AddMethodAndParameters(MethodInfo, IEnumerable`1): PrivateScope, Public, HideBySig
+    SelectMethods(IBuilderContext, IPolicyList): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.ObjectBuilder.SpecifiedPropertiesSelectorPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IPropertySelectorPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    AddPropertyAndValue(PropertyInfo, InjectionParameterValue): PrivateScope, Public, HideBySig
+    SelectProperties(IBuilderContext, IPolicyList): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.ResolvedParameter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.TypedInjectionValue
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetResolverPolicy(Type): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.ResolvedParameter`1[TParameter]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TParameter
+  :Microsoft.Practices.Unity.ResolvedParameter
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.UnityServiceLocator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ServiceLocation.ServiceLocatorImplBase
+    Void .ctor(Microsoft.Practices.Unity.IUnityContainer): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Methods:
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.Utility.Guard: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ArgumentNotNull(Object, String): PrivateScope, Public, Static, HideBySig
+    ArgumentNotNullOrEmpty(String, String): PrivateScope, Public, Static, HideBySig
+    TypeIsAssignable(Type, Type, String): PrivateScope, Public, Static, HideBySig
+    InstanceIsAssignable(Type, Object, String): PrivateScope, Public, Static, HideBySig
+Struct Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage Setup = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage TypeMapping = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage Lifetime = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage PreCreation = 3 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage Creation = 4 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage Initialization = 5 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.ObjectBuilder.UnityBuildStage PostInitialization = 6 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.Unity.UnityContainer: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.IUnityContainer
+    System.IDisposable
+  Properties:
+    Microsoft.Practices.Unity.IUnityContainer Parent 'get ' : 
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.ContainerRegistration] Registrations 'get ' : 
+  Methods:
+    RegisterType(Type, Type, String, LifetimeManager, InjectionMember[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RegisterInstance(Type, String, Object, LifetimeManager): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Resolve(Type, String, ResolverOverride[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ResolveAll(Type, ResolverOverride[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    BuildUp(Type, Object, String, ResolverOverride[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Teardown(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    AddExtension(UnityContainerExtension): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Configure(Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RemoveAllExtensions(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    CreateChildContainer(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_Parent(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_Registrations(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.Unity.UnityDefaultBehaviorExtension: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.UnityContainerExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Remove(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.Utility.MethodReflectionHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Reflection.MethodBase): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean MethodHasOpenGenericParameters 'get ' : 
+    System.Collections.Generic.IEnumerable`1[System.Type] ParameterTypes 'get ' : 
+  Methods:
+    get_MethodHasOpenGenericParameters(): PrivateScope, Public, HideBySig, SpecialName
+    get_ParameterTypes(): PrivateScope, Public, HideBySig, SpecialName
+    GetClosedParameterTypes(Type[]): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.Utility.Pair`2[TFirst,TSecond]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TFirst
+  Type parameter: TSecond
+    Void .ctor(TFirst, TSecond): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    TFirst First 'get ' : 
+    TSecond Second 'get ' : 
+  Methods:
+    get_First(): PrivateScope, Public, HideBySig, SpecialName
+    get_Second(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.Utility.Pair: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Make(TFirstParameter, TSecondParameter): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.Utility.ParameterMatcher: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.InjectionParameterValue]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Matches(IEnumerable`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    Matches(IEnumerable`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.Utility.ReflectionHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Type Type 'get ' : 
+    Boolean IsGenericType 'get ' : 
+    Boolean IsOpenGeneric 'get ' : 
+    Boolean IsArray 'get ' : 
+    Boolean IsGenericArray 'get ' : 
+    System.Type ArrayElementType 'get ' : 
+  Methods:
+    get_Type(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsGenericType(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsOpenGeneric(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsArray(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsGenericArray(): PrivateScope, Public, HideBySig, SpecialName
+    get_ArrayElementType(): PrivateScope, Public, HideBySig, SpecialName
+    MethodHasOpenGenericParameters(MethodBase): PrivateScope, Public, Static, HideBySig
+    GetClosedParameterType(Type[]): PrivateScope, Public, HideBySig
+    GetNamedGenericParameter(String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.Utility.ParameterReflectionHelper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.Utility.ReflectionHelper
+    Void .ctor(System.Reflection.ParameterInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.Utility.StaticReflection: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GetMethodInfo(Expression`1): PrivateScope, Public, Static, HideBySig
+    GetMethodInfo(Expression`1): PrivateScope, Public, Static, HideBySig
+    GetPropertyGetMethodInfo(Expression`1): PrivateScope, Public, Static, HideBySig
+    GetPropertySetMethodInfo(Expression`1): PrivateScope, Public, Static, HideBySig
+    GetConstructorInfo(Expression`1): PrivateScope, Public, Static, HideBySig

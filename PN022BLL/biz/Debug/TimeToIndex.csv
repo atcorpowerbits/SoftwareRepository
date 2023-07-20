@@ -1,0 +1,10 @@
+Expected,Time,ExpandRate,SampleRate,Index
+true,300,1,256,77
+true,300,1,128,38
+true,300,4,256,307
+false,-3.4E38,1,256,0
+false,3.4E38,1,256,0
+false,300,0,128,0
+false,300,65535,128,0
+false,300,1,0,0
+false,300,1,65535,0

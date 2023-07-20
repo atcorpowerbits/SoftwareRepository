@@ -1,0 +1,9 @@
+Expected,CalculatedDistanceExpected,Method,Cuff,Carotid,DirectDistance,FemoralToCuff
+true,500,true,800,100,0,200
+true,500,false,0,0,700,200
+false,9999,true,2200,2200,0,700
+false,9999,true,2200,2000,0,200
+false,9999,true,32767,0,0,0
+false,9999,false,0,0,10,200
+false,9999,false,0,0,32767,0
+false,9999,false,0,0,700,700

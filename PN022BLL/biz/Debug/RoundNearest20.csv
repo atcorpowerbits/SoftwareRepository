@@ -1,0 +1,8 @@
+Expected,Input,Output
+true,0,0
+true,29,20
+true,30,40
+true,-30,-20
+true,-31,-40
+false,32767,0
+false,-32768,0

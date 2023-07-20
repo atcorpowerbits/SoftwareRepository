@@ -1,0 +1,11 @@
+Expected,Abscissa,SplineIndex,Size,NewSplineIndex
+true,0,0,200,0
+true,0.25,0,200,0
+true,2.25,0,200,1
+true,2.5,1,200,1
+true,196,128,200,196
+false,-1,0,200,0
+false,3.4E38,0,200,0
+false,0,65535,200,0
+false,0,0,0,0
+false,0,0,65535,0

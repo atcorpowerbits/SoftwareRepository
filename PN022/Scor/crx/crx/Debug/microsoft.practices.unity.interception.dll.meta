@@ -1,0 +1,740 @@
+  Microsoft.Practices.Unity.InterceptionExtension.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+Assembly Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=PublicKey
+Assembly Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35: 
+	hash=SHA1, flags=None
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Class Microsoft.Practices.Unity.InterceptionExtension.InterceptionMember: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionMember
+Class Microsoft.Practices.Unity.InterceptionExtension.AdditionalInterface: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.InterceptionMember
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.AdditionalInterface`1[T]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: T,  ReferenceType
+  :Microsoft.Practices.Unity.InterceptionExtension.AdditionalInterface
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.InterceptionBehaviorBase: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.InterceptionMember
+  Methods:
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.DefaultInterceptionBehavior: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.InterceptionBehaviorBase
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IInterceptionBehavior): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.DefaultInterceptionBehavior`1[TBehavior]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TBehavior, Microsoft.Practices.Unity.InterceptionExtension.IInterceptionBehavior
+  :Microsoft.Practices.Unity.InterceptionExtension.DefaultInterceptionBehavior
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.DefaultInterceptor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InjectionMember
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IInterceptor): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.DefaultInterceptor`1[TInterceptor]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TInterceptor, Microsoft.Practices.Unity.InterceptionExtension.ITypeInterceptor
+  :Microsoft.Practices.Unity.InterceptionExtension.DefaultInterceptor
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.Practices.Unity.InterceptionExtension.IAdditionalInterfacesPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Collections.Generic.IEnumerable`1[System.Type] AdditionalInterfaces 'get ' : 
+  Methods:
+    get_AdditionalInterfaces(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.AdditionalInterfacesPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IAdditionalInterfacesPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Collections.Generic.IEnumerable`1[System.Type] AdditionalInterfaces 'get ' : 
+  Methods:
+    get_AdditionalInterfaces(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Interface Microsoft.Practices.Unity.InterceptionExtension.IInstanceInterceptionPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    GetInterceptor(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.InterceptionExtension.ResolvedInstanceInterceptionPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IInstanceInterceptionPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    GetInterceptor(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.Unity.InterceptionExtension.ITypeInterceptionPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Type ProxyType 'get set' : 
+  Methods:
+    GetInterceptor(IBuilderContext): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_ProxyType(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_ProxyType(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.ResolvedTypeInterceptionPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.ITypeInterceptionPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Type ProxyType 'get set' : 
+  Methods:
+    GetInterceptor(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_ProxyType(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_ProxyType(Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.Intercept: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    ThroughProxyWithAdditionalInterfaces(T, IInstanceInterceptor, IEnumerable`1, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+    ThroughProxy(T, IInstanceInterceptor, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+    ThroughProxyWithAdditionalInterfaces(Type, Object, IInstanceInterceptor, IEnumerable`1, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+    ThroughProxy(Type, Object, IInstanceInterceptor, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+    NewInstanceWithAdditionalInterfaces(ITypeInterceptor, IEnumerable`1, IEnumerable`1, Object[]): PrivateScope, Public, Static, HideBySig
+    NewInstance(ITypeInterceptor, IEnumerable`1, Object[]): PrivateScope, Public, Static, HideBySig
+    NewInstanceWithAdditionalInterfaces(Type, ITypeInterceptor, IEnumerable`1, IEnumerable`1, Object[]): PrivateScope, Public, Static, HideBySig
+    NewInstance(Type, ITypeInterceptor, IEnumerable`1, Object[]): PrivateScope, Public, Static, HideBySig
+    GetAllAdditionalInterfaces(IEnumerable`1, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.Interceptor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.InterceptionMember
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IInterceptor): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AddPolicies(Type, Type, String, IPolicyList): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.Interceptor`1[TInterceptor]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TInterceptor, Microsoft.Practices.Unity.InterceptionExtension.IInterceptor
+  :Microsoft.Practices.Unity.InterceptionExtension.Interceptor
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.CurrentInterceptionRequest: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IInterceptor, System.Type, System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.IInterceptor Interceptor 'get set' : 
+    System.Type TypeToIntercept 'get set' : 
+    System.Type ImplementationType 'get set' : 
+  Methods:
+    get_Interceptor(): PrivateScope, Public, HideBySig, SpecialName
+    set_Interceptor(IInterceptor): PrivateScope, Public, HideBySig, SpecialName
+    get_TypeToIntercept(): PrivateScope, Public, HideBySig, SpecialName
+    set_TypeToIntercept(Type): PrivateScope, Public, HideBySig, SpecialName
+    get_ImplementationType(): PrivateScope, Public, HideBySig, SpecialName
+    set_ImplementationType(Type): PrivateScope, Public, HideBySig, SpecialName
+Interface Microsoft.Practices.Unity.InterceptionExtension.IInterceptingProxy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    AddInterceptionBehavior(IInterceptionBehavior): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.Unity.InterceptionExtension.IInterceptor: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    CanIntercept(Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetInterceptableMethods(Type, Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.Unity.InterceptionExtension.IInstanceInterceptor: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IInterceptor
+  Methods:
+    CreateProxy(Type, Object, Type[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.InterceptionExtension.FixedInstanceInterceptionPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IInstanceInterceptor): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IInstanceInterceptionPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    GetInterceptor(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.InstanceInterceptionStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PostBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.InterfaceInterceptor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IInstanceInterceptor
+    Microsoft.Practices.Unity.InterceptionExtension.IInterceptor
+  Methods:
+    CanIntercept(Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetInterceptableMethods(Type, Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    CreateProxy(Type, Object, Type[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.InterfaceInterceptorClassGenerator: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(System.Type, System.Collections.Generic.IEnumerable`1[System.Type]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    CreateProxyType(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.InterfaceMethodOverride: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Methods:
+    BuildAdditionalInterfaceNonImplementedException(): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.InterceptingRealProxy: AutoLayout, AnsiClass, Class, Public, HasSecurity, BeforeFieldInit
+  :System.Runtime.Remoting.Proxies.RealProxy
+    Void .ctor(System.Object, System.Type, System.Type[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.Runtime.Remoting.IRemotingTypeInfo
+    Microsoft.Practices.Unity.InterceptionExtension.IInterceptingProxy
+  Properties:
+    System.Object Target 'get ' : 
+    System.String TypeName 'get set' : 
+  Methods:
+    get_Target(): PrivateScope, Public, HideBySig, SpecialName
+    AddInterceptionBehavior(IInterceptionBehavior): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    CanCastTo(Type, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, HasSecurity
+    get_TypeName(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName, HasSecurity
+    set_TypeName(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName, HasSecurity
+    Invoke(IMessage): PrivateScope, Public, Virtual, HideBySig, HasSecurity
+Class Microsoft.Practices.Unity.InterceptionExtension.TransparentProxyInterceptor: AutoLayout, AnsiClass, Class, Public, HasSecurity, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IInstanceInterceptor
+    Microsoft.Practices.Unity.InterceptionExtension.IInterceptor
+  Methods:
+    CanIntercept(Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetInterceptableMethods(Type, Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    CreateProxy(Type, Object, Type[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.MethodImplementationInfo: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Reflection.MethodInfo, System.Reflection.MethodInfo): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Reflection.MethodInfo InterfaceMethodInfo 'get ' : 
+    System.Reflection.MethodInfo ImplementationMethodInfo 'get ' : 
+  Methods:
+    get_InterfaceMethodInfo(): PrivateScope, Public, HideBySig, SpecialName
+    get_ImplementationMethodInfo(): PrivateScope, Public, HideBySig, SpecialName
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    op_Equality(MethodImplementationInfo, MethodImplementationInfo): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Inequality(MethodImplementationInfo, MethodImplementationInfo): PrivateScope, Public, Static, HideBySig, SpecialName
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Interface Microsoft.Practices.Unity.InterceptionExtension.ITypeInterceptor: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IInterceptor
+  Methods:
+    CreateProxyType(Type, Type[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.InterceptionExtension.FixedTypeInterceptionPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.ITypeInterceptor): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.ITypeInterceptionPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Type ProxyType 'get set' : 
+  Methods:
+    GetInterceptor(IBuilderContext): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_ProxyType(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_ProxyType(Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.TypeInterceptionStrategy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.ObjectBuilder2.BuilderStrategy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    PreBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+    PostBuildUp(IBuilderContext): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.VirtualMethodInterceptor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.ITypeInterceptor
+    Microsoft.Practices.Unity.InterceptionExtension.IInterceptor
+  Methods:
+    CanIntercept(Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetInterceptableMethods(Type, Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    CreateProxyType(Type, Type[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.Unity.InterceptionExtension.IInterceptionBehaviorsPolicy: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey] BehaviorKeys 'get ' : 
+  Methods:
+    get_BehaviorKeys(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    GetEffectiveBehaviors(IBuilderContext, IInterceptor, Type, Type): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Struct Microsoft.Practices.Unity.InterceptionExtension.HandlerPipelineKey: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Interfaces:
+    System.IEquatable`1[Microsoft.Practices.Unity.InterceptionExtension.HandlerPipelineKey]
+  Methods:
+    ForMethod(MethodBase): PrivateScope, Public, Static, HideBySig
+    Equals(Object): PrivateScope, Public, Virtual, HideBySig
+    GetHashCode(): PrivateScope, Public, Virtual, HideBySig
+    op_Equality(HandlerPipelineKey, HandlerPipelineKey): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Inequality(HandlerPipelineKey, HandlerPipelineKey): PrivateScope, Public, Static, HideBySig, SpecialName
+    Equals(HandlerPipelineKey): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.PipelineManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetPipeline(MethodBase): PrivateScope, Public, HideBySig
+    SetPipeline(MethodBase, HandlerPipeline): PrivateScope, Public, HideBySig
+    InitializePipeline(MethodImplementationInfo, IEnumerable`1): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.ApplyNoPoliciesAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.InjectionPolicy: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  Properties:
+    System.String Name 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    Matches(MethodImplementationInfo): PrivateScope, Public, HideBySig
+    GetHandlersFor(MethodImplementationInfo, IUnityContainer): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.AttributeDrivenPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.InjectionPolicy
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.HandlerAttribute: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+  :System.Attribute
+  Properties:
+    Int32 Order 'get set' : 
+  Methods:
+    CreateHandler(IUnityContainer): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_Order(): PrivateScope, Public, HideBySig, SpecialName
+    set_Order(Int32): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.HandlerPipeline: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.InterceptionExtension.ICallHandler]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 Count 'get ' : 
+  Methods:
+    get_Count(): PrivateScope, Public, HideBySig, SpecialName
+    Invoke(IMethodInvocation, InvokeHandlerDelegate): PrivateScope, Public, HideBySig
+Interface Microsoft.Practices.Unity.InterceptionExtension.ICallHandler: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Order 'get set' : 
+  Methods:
+    Invoke(IMethodInvocation, GetNextHandlerDelegate): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_Order(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Order(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.InvokeHandlerDelegate: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(IMethodInvocation, GetNextHandlerDelegate): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(IMethodInvocation, GetNextHandlerDelegate, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.GetNextHandlerDelegate: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Interface Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.Unity.InterceptionExtension.IMethodInvocation: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.IParameterCollection Inputs 'get ' : 
+    Microsoft.Practices.Unity.InterceptionExtension.IParameterCollection Arguments 'get ' : 
+    System.Collections.IDictionary InvocationContext 'get ' : 
+    System.Object Target 'get ' : 
+    System.Reflection.MethodBase MethodBase 'get ' : 
+  Methods:
+    get_Inputs(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Arguments(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_InvocationContext(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Target(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_MethodBase(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    CreateMethodReturn(Object, Object[]): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    CreateExceptionMethodReturn(Exception): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.Practices.Unity.InterceptionExtension.IMethodReturn: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.IParameterCollection Outputs 'get ' : 
+    System.Object ReturnValue 'get set' : 
+    System.Exception Exception 'get set' : 
+    System.Collections.IDictionary InvocationContext 'get ' : 
+  Methods:
+    get_Outputs(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_ReturnValue(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_ReturnValue(Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Exception(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Exception(Exception): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_InvocationContext(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.Interception: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.UnityContainerExtension
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    SetInterceptorFor(Type, String, ITypeInterceptor): PrivateScope, Public, HideBySig
+    SetInterceptorFor(Type, ITypeInterceptor): PrivateScope, Public, HideBySig
+    SetInterceptorFor(String, ITypeInterceptor): PrivateScope, Public, HideBySig
+    SetInterceptorFor(ITypeInterceptor): PrivateScope, Public, HideBySig
+    SetInterceptorFor(Type, String, IInstanceInterceptor): PrivateScope, Public, HideBySig
+    SetDefaultInterceptorFor(Type, ITypeInterceptor): PrivateScope, Public, HideBySig
+    SetDefaultInterceptorFor(ITypeInterceptor): PrivateScope, Public, HideBySig
+    SetInterceptorFor(Type, IInstanceInterceptor): PrivateScope, Public, HideBySig
+    SetInterceptorFor(String, IInstanceInterceptor): PrivateScope, Public, HideBySig
+    SetInterceptorFor(IInstanceInterceptor): PrivateScope, Public, HideBySig
+    SetDefaultInterceptorFor(Type, IInstanceInterceptor): PrivateScope, Public, HideBySig
+    SetDefaultInterceptorFor(IInstanceInterceptor): PrivateScope, Public, HideBySig
+    AddPolicy(String): PrivateScope, Public, HideBySig
+Interface Microsoft.Practices.Unity.InterceptionExtension.IParameterCollection: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.Collections.IList
+    System.Collections.ICollection
+    System.Collections.IEnumerable
+  Properties:
+    System.Object Item [System.String] 'get set' : 
+  Methods:
+    get_Item(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Item(String, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    ParameterName(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetParameterInfo(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetParameterInfo(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Microsoft.Practices.Unity.InterceptionExtension.MatchingRuleSet: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Collections.Generic.List`1[Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule]
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.AssemblyMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Reflection.Assembly): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.AttributeDrivenPolicyMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.CustomAttributeMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Type, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.MatchingInfo: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Match 'get set' : 
+    Boolean IgnoreCase 'get set' : 
+  Methods:
+    get_Match(): PrivateScope, Public, HideBySig, SpecialName
+    set_Match(String): PrivateScope, Public, HideBySig, SpecialName
+    get_IgnoreCase(): PrivateScope, Public, HideBySig, SpecialName
+    set_IgnoreCase(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.MemberNameMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[System.String]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[System.String], Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.InterceptionExtension.MatchingInfo]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.MethodSignatureMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[System.String], Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, System.Collections.Generic.IEnumerable`1[System.String]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[System.String]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[System.String], Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.NamespaceMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.InterceptionExtension.MatchingInfo]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.ParameterTypeMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.InterceptionExtension.ParameterTypeMatchingInfo]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Properties:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.InterceptionExtension.ParameterTypeMatchingInfo] ParameterMatches 'get ' : 
+  Methods:
+    get_ParameterMatches(): PrivateScope, Public, HideBySig, SpecialName
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Struct Microsoft.Practices.Unity.InterceptionExtension.ParameterKind: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.Unity.InterceptionExtension.ParameterKind Input = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.InterceptionExtension.ParameterKind Output = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.InterceptionExtension.ParameterKind InputOrOutput = 2 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.InterceptionExtension.ParameterKind ReturnValue = 3 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.Unity.InterceptionExtension.ParameterTypeMatchingInfo: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.MatchingInfo
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.ParameterKind): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.Unity.InterceptionExtension.ParameterKind): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean, Microsoft.Practices.Unity.InterceptionExtension.ParameterKind): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.ParameterKind Kind 'get set' : 
+  Methods:
+    get_Kind(): PrivateScope, Public, HideBySig, SpecialName
+    set_Kind(ParameterKind): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingInfo]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Struct Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption Get = 0 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption Set = 1 : Public, Static, Literal, HasDefault
+    Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption GetOrSet = 2 : Public, Static, Literal, HasDefault
+Class Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingInfo: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.MatchingInfo
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.PropertyMatchingOption Option 'get set' : 
+  Methods:
+    get_Option(): PrivateScope, Public, HideBySig, SpecialName
+    set_Option(PropertyMatchingOption): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.ReturnTypeMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.TagAttributeMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.TypeMatchingRule: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.InterceptionExtension.MatchingInfo]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule
+  Methods:
+    Matches(MethodBase): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Matches(Type): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.ParameterCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Object[], System.Reflection.ParameterInfo[], System.Predicate`1[System.Reflection.ParameterInfo]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IParameterCollection
+    System.Collections.IList
+    System.Collections.ICollection
+    System.Collections.IEnumerable
+  Properties:
+    System.Object Item [System.String] 'get set' : 
+    System.Object Item [Int32] 'get set' : 
+    Boolean IsReadOnly 'get ' : 
+    Boolean IsFixedSize 'get ' : 
+    Int32 Count 'get ' : 
+    System.Object SyncRoot 'get ' : 
+    Boolean IsSynchronized 'get ' : 
+  Methods:
+    get_Item(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Item(String, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Item(Int32): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Item(Int32, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetParameterInfo(Int32): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetParameterInfo(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    ParameterName(Int32): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Add(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Contains(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Clear(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    IndexOf(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Insert(Int32, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Remove(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    RemoveAt(Int32): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_IsReadOnly(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_IsFixedSize(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    CopyTo(Array, Int32): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_Count(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_SyncRoot(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_IsSynchronized(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetEnumerator(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.PolicyDefinition: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    Microsoft.Practices.Unity.IUnityContainer Container 'get ' : 
+    Microsoft.Practices.Unity.InterceptionExtension.Interception Interception 'get ' : 
+  Methods:
+    get_Container(): PrivateScope, Public, HideBySig, SpecialName
+    get_Interception(): PrivateScope, Public, HideBySig, SpecialName
+    AddMatchingRule(String): PrivateScope, Public, HideBySig
+    AddMatchingRule(IMatchingRule): PrivateScope, Public, HideBySig
+    AddMatchingRule(Type, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddMatchingRule(Type, LifetimeManager, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddMatchingRule(Type, String, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddMatchingRule(Type, String, LifetimeManager, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddMatchingRule(InjectionMember[]): PrivateScope, Public, HideBySig
+    AddMatchingRule(LifetimeManager, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddMatchingRule(String, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddMatchingRule(String, LifetimeManager, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddCallHandler(String): PrivateScope, Public, HideBySig
+    AddCallHandler(ICallHandler): PrivateScope, Public, HideBySig
+    AddCallHandler(Type, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddCallHandler(Type, LifetimeManager, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddCallHandler(Type, String, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddCallHandler(Type, String, LifetimeManager, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddCallHandler(InjectionMember[]): PrivateScope, Public, HideBySig
+    AddCallHandler(LifetimeManager, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddCallHandler(String, InjectionMember[]): PrivateScope, Public, HideBySig
+    AddCallHandler(String, LifetimeManager, InjectionMember[]): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.PolicySet: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Collections.Generic.List`1[Microsoft.Practices.Unity.InterceptionExtension.InjectionPolicy]
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.InjectionPolicy[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetPoliciesFor(MethodImplementationInfo): PrivateScope, Public, HideBySig
+    GetPoliciesNotFor(MethodImplementationInfo): PrivateScope, Public, HideBySig
+    GetHandlersFor(MethodImplementationInfo, IUnityContainer): PrivateScope, Public, HideBySig
+Interface Microsoft.Practices.Unity.InterceptionExtension.IInterceptionBehavior: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Boolean WillExecute 'get ' : 
+  Methods:
+    Invoke(IMethodInvocation, GetNextInterceptionBehaviorDelegate): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    GetRequiredInterfaces(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_WillExecute(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.PolicyInjectionBehavior: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.PipelineManager): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.CurrentInterceptionRequest, Microsoft.Practices.Unity.InterceptionExtension.InjectionPolicy[], Microsoft.Practices.Unity.IUnityContainer): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IInterceptionBehavior
+  Properties:
+    Boolean WillExecute 'get ' : 
+  Methods:
+    Invoke(IMethodInvocation, GetNextInterceptionBehaviorDelegate): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    GetRequiredInterfaces(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_WillExecute(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.TransparentProxyMethodInvocation: AutoLayout, AnsiClass, Class, Public, Sealed, HasSecurity, BeforeFieldInit
+    Void .ctor(System.Runtime.Remoting.Messaging.IMethodCallMessage, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMethodInvocation
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.IParameterCollection Inputs 'get ' : 
+    System.Collections.IDictionary InvocationContext 'get ' : 
+    System.Object Target 'get ' : 
+    System.Reflection.MethodBase MethodBase 'get ' : 
+  Methods:
+    get_Inputs(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_InvocationContext(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Target(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_MethodBase(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    CreateMethodReturn(Object, Object[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    CreateExceptionMethodReturn(Exception): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.RuleDrivenPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.InjectionPolicy
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule[], System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.Practices.Unity.InterceptionExtension.IMatchingRule[], System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.TagAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Tag 'get ' : 
+  Methods:
+    get_Tag(): PrivateScope, Public, HideBySig, SpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.InterceptionBehavior: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.Practices.Unity.InterceptionExtension.InterceptionBehaviorBase
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IInterceptionBehavior): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Type): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.InterceptionBehavior`1[TBehavior]: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Type parameter: TBehavior, Microsoft.Practices.Unity.InterceptionExtension.IInterceptionBehavior
+  :Microsoft.Practices.Unity.InterceptionExtension.InterceptionBehavior
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Microsoft.Practices.Unity.InterceptionExtension.InterceptionBehaviorsPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IInterceptionBehaviorsPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Properties:
+    System.Collections.Generic.IEnumerable`1[Microsoft.Practices.ObjectBuilder2.NamedTypeBuildKey] BehaviorKeys 'get ' : 
+  Methods:
+    get_BehaviorKeys(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    GetEffectiveBehaviors(IBuilderContext, IInterceptor, Type, Type): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.InterceptionBehaviorPipeline: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[Microsoft.Practices.Unity.InterceptionExtension.IInterceptionBehavior]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 Count 'get ' : 
+  Methods:
+    get_Count(): PrivateScope, Public, HideBySig, SpecialName
+    Invoke(IMethodInvocation, InvokeInterceptionBehaviorDelegate): PrivateScope, Public, HideBySig
+    Add(IInterceptionBehavior): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.InvokeInterceptionBehaviorDelegate: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(IMethodInvocation, GetNextInterceptionBehaviorDelegate): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(IMethodInvocation, GetNextInterceptionBehaviorDelegate, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.GetNextInterceptionBehaviorDelegate: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.Glob: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    IsMatch(String): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.ReflectionHelper: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GetPropertyFromMethod(MethodBase): PrivateScope, Public, Static, HideBySig
+    GetPropertyFromMethod(MethodInfo): PrivateScope, Public, Static, HideBySig
+    GetAttributes(MemberInfo, Boolean): PrivateScope, Public, Static, HideBySig
+    GetAllAttributes(MemberInfo, Boolean): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.ConstructorWithResolverKeysSelectorPolicy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.ObjectBuilder2.SelectedConstructor): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.ObjectBuilder2.IConstructorSelectorPolicy
+    Microsoft.Practices.ObjectBuilder2.IBuilderPolicy
+  Methods:
+    SelectConstructor(IBuilderContext, IPolicyList): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.InterceptingClassGenerator: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(System.Type, System.Type[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GenerateType(): PrivateScope, Public, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.MethodOverride: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Methods:
+    BuildAbstractMethodInvokedException(): PrivateScope, Public, Static, HideBySig
+Class Microsoft.Practices.Unity.InterceptionExtension.VirtualMethodInvocation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Object, System.Reflection.MethodBase, System.Object[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMethodInvocation
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.IParameterCollection Inputs 'get ' : 
+    Microsoft.Practices.Unity.InterceptionExtension.IParameterCollection Arguments 'get ' : 
+    System.Collections.IDictionary InvocationContext 'get ' : 
+    System.Object Target 'get ' : 
+    System.Reflection.MethodBase MethodBase 'get ' : 
+  Methods:
+    get_Inputs(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Arguments(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_InvocationContext(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Target(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_MethodBase(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    CreateMethodReturn(Object, Object[]): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    CreateExceptionMethodReturn(Exception): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.Practices.Unity.InterceptionExtension.VirtualMethodReturn: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IMethodInvocation, System.Object, System.Object[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.Practices.Unity.InterceptionExtension.IMethodInvocation, System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.Practices.Unity.InterceptionExtension.IMethodReturn
+  Properties:
+    Microsoft.Practices.Unity.InterceptionExtension.IParameterCollection Outputs 'get ' : 
+    System.Object ReturnValue 'get set' : 
+    System.Exception Exception 'get set' : 
+    System.Collections.IDictionary InvocationContext 'get ' : 
+  Methods:
+    get_Outputs(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_ReturnValue(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_ReturnValue(Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Exception(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Exception(Exception): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_InvocationContext(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
